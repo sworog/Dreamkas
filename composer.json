@@ -44,6 +44,14 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7"
-    }
+        "phpunit/phpunit": "3.7",
+        "phpmd/phpmd": "1.4",
+	"pear-pear.phpunit.de/phpcpd": "*"
+    },
+    "repositories": [
+    	{
+	    	"type": "pear",
+		"url" : "http://pear.phpunit.de"
+	}
+	]
 }
