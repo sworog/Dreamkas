@@ -46,10 +46,7 @@
         <log type="metrics-xml" target="../build/metrics/metrics.xml"/>
         <log type="test-xml" target="../build/testResults/logfile.xml" logIncompleteSkipped="false"/>
 	<log type="json" target="../build/logs/phpunit.json"/>
-	<log type="tap" target="../build/logs/phpunit.tap"/>
 	<log type="junit" target="../build/logs/phpunit.xml" logIncompleteSkipped="true"/>
-	<log type="testdox-html" target="../build/logs/testdox.html"/>
-	<log type="testdox-text" target="../build/logs/testdox.txt"/>
     </logging>
 
 </phpunit>
