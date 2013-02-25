@@ -1,7 +1,10 @@
 set :application, "LightHouse"
 set :domain,      "cs-watchman"
 set :deploy_to,   "/var/www/lighthouse"
+set :deploy_via, :copy_subdir
+set :deploy_subdir, "backend"
 set :app_path,    "app"
+set :web_path,    "web"
 set :user,        "watchman"
 
 set :repository,  "git@cs-watchman:lighthouse.git"
@@ -9,7 +12,7 @@ set :scm,         :git
 
 ssh_options[:forward_agent] = true
 
-set :deploy_via, :remote_cache
+#set :deploy_via, :remote_cache
 set :use_sudo, false
 default_run_options[:pty] = true
 
@@ -27,4 +30,4 @@ role :db,         domain, :primary => true       # This is where Symfony2 migrat
 
 set  :keep_releases,  5
 
-logger.level = Logger::DEBUG
+logger.level = Logger::TRACE
