@@ -1,0 +1,11 @@
+parameters:
+  db.mongo.server: mongodb://localhost:27017
+  db.mongo.dbname: lighthouse
+
+services:
+  light_house_core.db.mongo.client:
+        class: MongoClient
+        arguments: [%db.mongo.server%]
+  light_house_core.db.mongo.db:
+        class: MongoDB
+        arguments: [@light_house_core.db.mongo.client, %db.mongo.dbname%]
