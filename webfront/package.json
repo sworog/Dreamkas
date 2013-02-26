@@ -1,0 +1,11 @@
+{
+    "name": "mayak",
+    "version": "1.0.0",
+    "description": "SET:Lighthouse WebFront",
+    "homepage": "https://github.com/nin-jin/pms",
+    "dependencies": {
+        "pms": "*"
+    },
+    "engine": "node >= 0.4.1",
+    "readme": "no readme"
+}

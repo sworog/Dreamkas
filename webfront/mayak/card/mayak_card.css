@@ -1,0 +1,15 @@
+mayak_card {
+    border: 1px solid #ddd;
+    background: #eee;
+    display: inline-block;
+    text-align: left;
+    max-width: 40em;
+    margin: 2%;
+    padding: 2%;
+    box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.3 ) inset;
+    border-radius: 2px;
+}
+
+mayak_card_title {
+    font: bold 17pt "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+}

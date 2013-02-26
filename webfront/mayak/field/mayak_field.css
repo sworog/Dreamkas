@@ -1,0 +1,58 @@
+[ mayak_field ] {
+    margin: .2em;
+    padding: .4em;
+    font: 11pt 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+    
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+[ mayak_field = 'short' ] {
+    width: 7em;
+    
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1 1 7em;
+    -ms-flex: 1 1 7em;
+    flex: 1 1 7em;
+}
+
+[ mayak_field = 'normal' ] {
+    width: 10em;
+    
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1 1 15em;
+    -ms-flex: 1 1 15em;
+    flex: 1 1 15em;
+}
+
+[ mayak_field = 'long' ] {
+    min-width: 10em;
+    
+    -webkit-box-flex: 2;
+    -moz-box-flex: 2;
+    -webkit-flex: 2 2 auto;
+    -ms-flex: 2 2 auto;
+    flex: 2 2 auto;
+}
+
+[ mayak_field ]:required:invalid {
+    border-color: #d99;
+}
+
+select[ mayak_field ]:invalid {
+    color: #aaa;
+}
+
+select[ mayak_field ] > option {
+    color: black;
+}
+
+select[ mayak_field ] > option[ value = '' ] {
+    color: #aaa;
+}
+
