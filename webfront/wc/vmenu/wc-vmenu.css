@@ -1,0 +1,25 @@
+wc_vmenu_root {
+    display: block;
+    font-size: 10pt;
+    font-family: 'Arial', sans-serif;
+}
+
+wc_vmenu_branch {
+    display: block;
+    margin: .5em 0;
+}
+
+wc_vmenu_leaf {
+    display: block;
+    padding: 0 .25em;
+    white-space: nowrap;
+    text-align: left;
+}
+
+a:hover wc_vmenu_leaf {
+    background: white;
+}
+
+a[wc_link_target="true"] wc_vmenu_leaf {
+    color: red;
+}

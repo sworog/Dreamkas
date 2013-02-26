@@ -1,0 +1,51 @@
+<?xml-stylesheet href="../../doc/-mix/index.stage=dev.xsl" type="text/xsl"?>
+<doc_root
+    xmlns="http://www.w3.org/1999/xhtml"
+    >
+
+    <h1>wc_js-bench</h1>
+    
+    <p>Виджет для сравнения скорости работы различных алгоритмов. Автоматически подбирает число итераций, чтобы с одной стороны была достаточная точность, а с другой - измерение не занимало слишком много времени. Возвращает результат в микросекундах. В коде вы можете использовать специальные конструкции <code>_bench.begin()</code> и <code>_bench.end()</code>, чтобы разделить его на два: внутренний и внешний. В этом случае убет отдельно измерена скорость работы внешнего кода и отдельно внутреннего. При наведении на результат показывается время компиляции. Код можно редактировать. Чтобы запустить егё пересчёт достаточно нажать <code>ctrl+enter</code>.</p>
+
+    <p>
+        <wc_demo>
+        <![CDATA[
+            <wc_spacer>
+                <wc_js-bench_list>
+                    <wc_js-bench>
+                        new function( ){ }
+                    </wc_js-bench>
+                    <wc_js-bench>
+                        { }
+                    </wc_js-bench>
+                </wc_js-bench_list>
+            </wc_spacer>
+        ]]>
+        </wc_demo>
+    </p>
+
+    <p>
+        <wc_demo>
+        <![CDATA[
+            <wc_spacer>
+                <wc_js-bench_list>
+                    <wc_js-bench>
+                        with({ a: 1 }){
+                            _bench.begin()
+                                a= 2
+                            _bench.end()
+                        }
+                    </wc_js-bench>
+                    <wc_js-bench>
+                        var obj= { a: 1 }
+                        _bench.begin()
+                            obj.a= 2
+                        _bench.end()
+                    </wc_js-bench>
+                </wc_js-bench_list>
+            </wc_spacer>
+        ]]>
+        </wc_demo>
+    </p>
+
+</doc_root>

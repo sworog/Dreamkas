@@ -1,0 +1,30 @@
+<?xml-stylesheet href="../../doc/-mix/index.stage=dev.xsl" type="text/xsl"?>
+<doc_root
+    xmlns="http://www.w3.org/1999/xhtml"
+    >
+
+    <h1>wc_demo</h1>
+
+    <p>Демонстрирует html-код и позволяет тут же посмотреть его результат.</p>
+    
+    <wc_demo>
+    <![CDATA[
+        <wc_spacer>
+            <wc_demo>
+                &lt;a
+                    id="_wc-demo_test_1_"
+                    href="http://ya.ru/"
+                    onclick=" alert( 'Спасибо!' ) "
+                    style=" color: red "
+                    >
+                    Нажми меня
+                &lt;/a&gt;
+                &lt;script&gt;
+                    document.getElementById( '_wc-demo_test_1_' ).innerHTML+= '!'
+                &lt;/script&gt;
+            </wc_demo>
+        </wc_spacer>
+    ]]>
+    </wc_demo>
+
+</doc_root>

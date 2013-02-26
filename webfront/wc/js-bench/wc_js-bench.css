@@ -1,0 +1,68 @@
+wc_js-bench_list {
+    font-size: 10pt;
+    line-height: 1.2;
+    display: inline-table;
+    vertical-align: top;
+    border-collapse: collapse;
+    margin: 2pt 0;
+}
+
+wc_js-bench_header {
+    display: table-row;
+    cursor: pointer;
+}
+
+wc_js-bench {
+    display: table-row;
+}
+
+wc_js-bench_column {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #666;
+    display: table-cell;
+    padding: 0 4pt;
+}
+
+wc_js-bench_runner {
+    text-align: right;
+    display: table-cell;
+    color: #060;
+}
+wc_js-bench_header:hover wc_js-bench_runner {
+    color: #090;
+}
+wc_js-bench_header:active wc_js-bench_runner {
+    color: #000;
+}
+
+wc_js-bench_source {
+    display: table-cell;
+    background-color: #eee;
+    border: 1px solid #999;
+    text-align: left;
+}
+
+wc_js-bench_result {
+    border: 1px solid #999;
+    padding: 2pt 4pt;
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    display: table-cell;
+    vertical-align: top;
+}
+
+wc_js-bench_result.source\=inner {
+    background-color: #dfd;
+    font-weight: bold;
+}
+
+wc_js-bench_result.source\=outer {
+    background-color: #edf;
+}
+
+wc_js-bench.wait\=true wc_js-bench_result {
+    background-color: #eee;
+}
+
