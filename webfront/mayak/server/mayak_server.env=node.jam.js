@@ -1,4 +1,4 @@
-this.$mayak_docServer= function( ){
+this.$mayak_server= function( ){
     
     $node.express()
     .use( $jin_middle4static() )

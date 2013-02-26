@@ -1,4 +1,4 @@
-[wc_reset="true"] {
+[jin_reset="true"] {
     color: inherit;
     font: inherit;
     text-align: inherit;
@@ -16,7 +16,7 @@
     outline: none;
 }
 
-html[wc_reset="true"] {
+html[jin_reset="true"] {
     width: 100%;
     height: 100%;
     background: white;
@@ -26,18 +26,18 @@ html[wc_reset="true"] {
     overflow-y: scroll;
 }
 
-body[wc_reset="true"] {
+body[jin_reset="true"] {
     width: 100%;
     height: 100%;
 }
 
-a[wc_reset="true"],
-button[wc_reset="true"] {
+a[jin_reset="true"],
+button[jin_reset="true"] {
     cursor: pointer;
 }
 
-iframe[wc_reset="true"],
-object[wc_reset="true"] {
+iframe[jin_reset="true"],
+object[jin_reset="true"] {
     width: 100%;
     height: 100%;
     overflow-x: hidden;

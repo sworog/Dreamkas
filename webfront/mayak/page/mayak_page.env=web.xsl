@@ -20,7 +20,7 @@
     <xsl:template
         match=" mayak_page "
         >
-        <html wc_reset="true">
+        <html jin_reset="true">
             <head>
                 <meta charset="utf-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
@@ -28,7 +28,7 @@
                 <link href="../-mix/index.stage={$mayak_page_stage}.css" rel="stylesheet" />
                 <script src="../-mix/index.env=web.stage={$mayak_page_stage}.js">//</script>
             </head>
-            <body wc_reset="true">
+            <body jin_reset="true">
                 <mayak_desktop>
                     <xsl:apply-templates />
                 </mayak_desktop>
