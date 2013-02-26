@@ -1,4 +1,4 @@
-set :stages, %w(staging autotest production)
+set :stages, %w(staging autotests production)
 set :default_stage, "staging"
 set :stage_dir, "app/config/deploy"
 
