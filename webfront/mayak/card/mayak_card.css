@@ -1,4 +1,4 @@
-mayak_card {
+[ mayak_card ] {
     border: 1px solid #ddd;
     background: #eee;
     display: inline-block;
@@ -10,6 +10,6 @@ mayak_card {
     border-radius: 2px;
 }
 
-mayak_card_title {
+[ mayak_card_title ] {
     font: bold 17pt "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
 }
