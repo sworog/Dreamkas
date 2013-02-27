@@ -1,3 +1,4 @@
+source :rubygems
 gem "capifony"
 gem "capistrano", "<=2.14.1"
 gem "capistrano-ext"
