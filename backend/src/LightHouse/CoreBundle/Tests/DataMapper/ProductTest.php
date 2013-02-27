@@ -2,8 +2,6 @@
 
 namespace LightHouse\CoreBundle\Tests\DataMapper;
 
-use JMS\DiExtraBundle\Annotation as DI;
-
 use LightHouse\CoreBundle\DataMapper\ProductMapper;
 use LightHouse\CoreBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

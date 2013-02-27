@@ -1,6 +1,12 @@
-mayak_desktop {
+[ mayak_desktop ] {
     text-align: center;
     width: 100%;
     height: 100%;
     display: block;
+}
+
+@media( max-width: 250px ){
+    [ mayak_desktop ] {
+        zoom: .75;
+    }
 }
