@@ -1,50 +1,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     
-    <xsl:template
-        match=" mayak_product "
-        >
-        <div mayak_card="true">
-            <div mayak_card_title="true">Создание товара</div>
-            <form mayak_product_editor="maker">
-                <xsl:apply-templates select=" . " mode="mayak_product_fields" />
-                <div mayak_block="true">
-                    <button
-                        mayak_button="success"
-                        type="submit"
-                        >
-                        Создать товар
-                    </button>
-                </div>
-            </form>
-        </div>
-    </xsl:template>
-    
-    <xsl:template
-        match=" mayak_product[ @id ] "
-        >
-        <div mayak_card="true">
-            <div mayak_card_title="true">Редактирование товара</div>
-            <form mayak_product_editor="maker">
-                <xsl:apply-templates select=" . " mode="mayak_product_fields" />
-                <div mayak_block="true">
-                    <button
-                        mayak_button="success"
-                        type="submit"
-                        >
-                        Сохранить данные
-                    </button>
-                    <button
-                        mayak_button="reset"
-                        type="reset"
-                        >
-                        Отменить изменения
-                    </button>
-                </div>
-            </form>
-        </div>
-    </xsl:template>
-    
-    <xsl:template match="mayak_product" mode="mayak_product_fields" >
+    <xsl:template match="*" mode="mayak_product_fields" >
         <div mayak_block="true">
             <xsl:apply-templates select=" . " mode="mayak_product_name" />
             <xsl:apply-templates select=" . " mode="mayak_product_vendor" />
@@ -62,7 +18,7 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="mayak_product" mode="mayak_product_sku" >
+    <xsl:template match="*" mode="mayak_product_sku" >
         <input
             mayak_field="short"
             placeholder="Артикул"
@@ -73,7 +29,7 @@
         />
     </xsl:template>
     
-    <xsl:template match="mayak_product" mode="mayak_product_name" >
+    <xsl:template match="*" mode="mayak_product_name" >
         <input
             mayak_field="normal"
             placeholder="Наименование"
@@ -85,7 +41,7 @@
         />
     </xsl:template>
     
-    <xsl:template match="mayak_product" mode="mayak_product_unit" >
+    <xsl:template match="*" mode="mayak_product_unit" >
         <select
             mayak_field="short"
             required="required"
@@ -99,7 +55,7 @@
         </select>
     </xsl:template>
     
-    <xsl:template match="mayak_product" mode="mayak_product_vat" >
+    <xsl:template match="*" mode="mayak_product_vat" >
         <select
             mayak_field="short"
             required="required"
@@ -113,7 +69,7 @@
         </select>
     </xsl:template>
     
-    <xsl:template match="mayak_product" mode="mayak_product_purchasePrice" >
+    <xsl:template match="*" mode="mayak_product_purchasePrice" >
         <input
             mayak_field="short"
             type="number"
@@ -126,7 +82,7 @@
         />
     </xsl:template>
     
-    <xsl:template match="mayak_product" mode="mayak_product_barcode" >
+    <xsl:template match="*" mode="mayak_product_barcode" >
         <input
             mayak_field="short"
             type="number"
@@ -138,7 +94,7 @@
         />
     </xsl:template>
     
-    <xsl:template match="mayak_product" mode="mayak_product_vendor" >
+    <xsl:template match="*" mode="mayak_product_vendor" >
         <input
             mayak_field="normal"
             placeholder="Производитель"
@@ -150,7 +106,7 @@
         />
     </xsl:template>
 
-    <xsl:template match="mayak_product" mode="mayak_product_vendorCountry" >
+    <xsl:template match="*" mode="mayak_product_vendorCountry" >
         <input
             mayak_field="normal"
             placeholder="Страна"
@@ -162,7 +118,7 @@
         />
     </xsl:template>
     
-    <xsl:template match="mayak_product" mode="mayak_product_info" >
+    <xsl:template match="*" mode="mayak_product_info" >
         <input
             mayak_field="long"
             placeholder="Дополнительная информация"

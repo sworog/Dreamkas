@@ -7,6 +7,8 @@
     border: 1px solid gray;
     box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.5 ) inset;
     color: white;
+    text-decoration: none;
+    background: gray;
 }
 
 [ mayak_button ]:active {
@@ -16,7 +18,6 @@
 [ mayak_button = 'success' ] {
     background: #5DA423;
 }
-
 [ mayak_button = 'success' ]:hover {
     background: #396516;
 }
@@ -24,7 +25,13 @@
 [ mayak_button = 'reset' ] {
     background: #A45D23;
 }
-
 [ mayak_button = 'reset' ]:hover {
     background: #653916;
+}
+
+[ mayak_button = 'modify' ] {
+    background: #2ba6cb;
+}
+[ mayak_button = 'modify' ]:hover {
+    background: #2284a1;
 }

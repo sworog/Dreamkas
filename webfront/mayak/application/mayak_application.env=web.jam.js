@@ -7,6 +7,36 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         return application
     }
     
+    application.view_product_edit= function( application, params ){
+        $jq.get
+        (   'mayak/product/product.sample.xml'
+        ,   function( product, status, xhr ){
+                application.render( '<mayak_product_editor>' + xhr.responseText + '</mayak_product_editor>' )
+            }
+        )
+    }
+        
+    application.view_product_create= function( application, params ){
+        application.render( '<mayak_product_creator/>' )
+    }
+        
+    application.view_product= function( application, params ){
+        $jq.get
+        (   'mayak/product/product.sample.xml'
+        ,   function( product, status, xhr ){
+                application.render( '<mayak_product_view>' + xhr.responseText + '</mayak_product_view>' )
+            }
+        )
+    }
+        
+    application.view_product_list= function( application, params ){
+        application.render( '<mayak_productList/>' )
+    }
+    
+    application.view_default= function( application, params ){
+        document.location= '?product;create'
+    }
+    
     var init= application.init
     application.init= function( application, node ){
         init.apply( this, arguments )
@@ -15,17 +45,21 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         (   'mayak/-mix/index.stage=release.xsl'
         ,   function( xsl, status, xhr ){
                 application.templates= $jin_domx( xsl )
-                switch( document.location.search ){
-                    case '?product;create':
-                        application.render( '<mayak_product id="1"/>' )
-                        break
-                    case '?product;list':
-                        application.render( '<mayak_productList/>' )
-                        break
-                    default:
-                        document.location= '?product;create'
-                        break
-                }
+                
+                var params= {}
+                document.location.search
+                .replace( /^\?/, '' )
+                .split( ';' )
+                .forEach( function( chunk ){
+                    var pair= chunk.split( '=' )
+                    params[ pair[ 0 ] ]= pair[ 1 ]
+                })
+                
+                var action= 'view_' + Object.keys( params ).join( '_' )
+                
+                var view= application[ action ] || application.view_default
+                
+                view.call( application, params )
             }
         )
         
