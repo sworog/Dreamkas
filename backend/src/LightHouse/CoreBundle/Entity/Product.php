@@ -67,4 +67,19 @@ class Product
     {
         return $this->properties;
     }
+
+    /**
+     * @param array $data
+     * @return Product $this
+     */
+    public function populate(array $data)
+    {
+        foreach ($this->properties as $key => $value) {
+            if (isset($data[$key])) {
+                $this->properties[$key] = $data[$key];
+            }
+        }
+
+        return $this;
+    }
 }
