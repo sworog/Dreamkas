@@ -1,5 +1,8 @@
 load 'deploy' if respond_to?(:namespace)
 
+# add local recipes to load path
+$:.unshift(File.expand_path('app/config/deploy'))
+
 require 'capifony_symfony2'
-require 'capistrano-copy-subdir'
+
 load 'app/config/deploy'

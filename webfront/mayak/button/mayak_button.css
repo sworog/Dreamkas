@@ -1,23 +1,30 @@
 button[ mayak_button ] {
     padding: .5em 1.25em;
     cursor: pointer;
-    margin: 0;
+    margin: .2em;
     font: 11pt 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
     font-weight: bold;
     border: 1px solid gray;
+    box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.5 ) inset;
+    color: white;
+}
+
+button[ mayak_button ]:active {
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2) inset;
 }
 
 button[ mayak_button = 'success' ] {
     background: #5DA423;
-    color: white;
-    box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.5 ) inset;
 }
 
 button[ mayak_button = 'success' ]:hover {
     background: #396516;
 }
 
-button[ mayak_button = 'success' ]:active {
-    box-shadow: 0 1px 0 rgba(0,0,0,0.2) inset;
+button[ mayak_button = 'reset' ] {
+    background: #A45D23;
 }
 
+button[ mayak_button = 'reset' ]:hover {
+    background: #653916;
+}

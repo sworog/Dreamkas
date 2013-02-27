@@ -2,6 +2,19 @@
 
 namespace LightHouse\CoreBundle\Entity;
 
+/**
+ *
+ * @property string $id
+ * @property string $name
+ * @property string $units kg,gr,l
+ * @property int    $vat in %
+ * @property int    $purchasePrice
+ * @property string $barcode
+ * @property string $sku
+ * @property string $vendorCountry
+ * @property string $vendor
+ * @property string $info
+ */
 class Product
 {
     /**
@@ -45,5 +58,13 @@ class Product
             return;
         }
         throw new \Exception("Property '$name' does not exist");
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->properties;
     }
 }

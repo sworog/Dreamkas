@@ -1,7 +1,13 @@
-set :application, "LightHouse"
+set :stages, %w(staging autotests production)
+set :default_stage, "staging"
+set :stage_dir, "app/config/deploy"
+
+require 'capistrano/ext/multistage'
+
+set :application, "lighthouse"
 set :domain,      "cs-watchman"
 set :deploy_to,   "/var/www/lighthouse"
-set :deploy_via, :copy_subdir
+set :deploy_via,  :remote_cache_subfolder
 set :deploy_subdir, "backend"
 set :app_path,    "app"
 set :web_path,    "web"
@@ -12,7 +18,6 @@ set :scm,         :git
 
 ssh_options[:forward_agent] = true
 
-#set :deploy_via, :remote_cache
 set :use_sudo, false
 default_run_options[:pty] = true
 

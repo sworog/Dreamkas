@@ -23,15 +23,15 @@
         <html jin_reset="true">
             <head>
                 <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+                <!--<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>-->
                 
                 <link href="../-mix/index.stage={$mayak_page_stage}.css" rel="stylesheet" />
-                <script src="../-mix/index.env=web.stage={$mayak_page_stage}.js">//</script>
             </head>
             <body jin_reset="true">
-                <mayak_desktop>
+                <div mayak_desktop="true">
                     <xsl:apply-templates />
-                </mayak_desktop>
+                </div>
+                <script src="../-mix/index.env=web.stage={$mayak_page_stage}.js">//</script>
             </body>
         </html>
     </xsl:template>
