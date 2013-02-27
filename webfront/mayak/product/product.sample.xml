@@ -1,0 +1,13 @@
+<?xml-stylesheet href="../-mix/index.stage=dev.xsl" type="text/xsl"?>
+<product
+    id="1"
+    sku="GVOZDI007"
+    name="Гвозди 47 колибра"
+    vendor="Рога и копыта"
+    vendorCountry="Россия"
+    purchasePrice="100500"
+    barcode="0123456789"
+    unit="unit"
+    vat="5"
+    info="У нас их дофига!"
+/>
