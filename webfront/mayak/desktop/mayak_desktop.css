@@ -4,3 +4,9 @@
     height: 100%;
     display: block;
 }
+
+@media( max-width: 250px ){
+    [ mayak_desktop ] {
+        zoom: .75;
+    }
+}

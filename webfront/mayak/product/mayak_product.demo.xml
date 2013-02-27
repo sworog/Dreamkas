@@ -1,48 +1,19 @@
 <?xml-stylesheet href="../-mix/index.stage=dev.xsl" type="text/xsl"?>
 <mayak_page>
     
-    <mayak_product>
-        <mayak_product_article />
-        <mayak_product_name />
-        <mayak_product_manufacturer />
-        <mayak_product_country />
-        <mayak_product_price />
-        <mayak_product_barcode />
-        <mayak_product_dimension>
-            <mayak_option value="unit">Штуки</mayak_option>
-            <mayak_option value="liter">Литры</mayak_option>
-            <mayak_option value="kg">Килограммы</mayak_option>
-        </mayak_product_dimension>
-        <mayak_product_nds>
-            <mayak_option>1</mayak_option>
-            <mayak_option>5</mayak_option>
-            <mayak_option>10</mayak_option>
-        </mayak_product_nds>
-        <mayak_product_description />
-    </mayak_product>
+    <mayak_product/>
     
     <mayak_product
         id="1"
-        article="GVOZDI007"
+        sku="GVOZDI007"
         name="Гвозди 47 колибра"
-        manufacturer="Рога и копыта"
-        country="Россия"
-        price="100500"
+        vendor="Рога и копыта"
+        vendorCountry="Россия"
+        purchasePrice="100500"
         barcode="0123456789"
-        dimension="unit"
-        nds="5"
-        description="У нас их дофига!"
-        >
-        <mayak_product_dimension>
-            <mayak_option value="unit">Штуки</mayak_option>
-            <mayak_option value="liter">Литры</mayak_option>
-            <mayak_option value="kg">Килограммы</mayak_option>
-        </mayak_product_dimension>
-        <mayak_product_nds>
-            <mayak_option value="1">1%</mayak_option>
-            <mayak_option value="5">5%</mayak_option>
-            <mayak_option value="10">10%</mayak_option>
-        </mayak_product_nds>
-    </mayak_product>
+        unit="unit"
+        vat="5"
+        info="У нас их дофига!"
+    />
     
 </mayak_page>

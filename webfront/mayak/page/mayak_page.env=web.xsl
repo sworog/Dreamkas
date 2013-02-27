@@ -8,8 +8,13 @@
     />
     
     <xsl:variable
-        name="mayak_page_stylesheet"
+        name="mayak_page_stylesheetDecl"
         select="/processing-instruction()[ name() = 'xml-stylesheet' ]"
+    />
+    
+    <xsl:variable
+        name="mayak_page_stylesheet"
+        select=" substring-before( substring-after( $mayak_page_stylesheetDecl, 'href=&#34;' ), '&#34;' ) "
     />
     
     <xsl:variable
@@ -25,13 +30,13 @@
                 <meta charset="utf-8" />
                 <!--<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>-->
                 
-                <link href="../-mix/index.stage={$mayak_page_stage}.css" rel="stylesheet" />
+                <link href="{$mayak_page_stylesheet}/../index.stage={$mayak_page_stage}.css" rel="stylesheet" />
             </head>
             <body jin_reset="true">
-                <div mayak_desktop="true">
+                <div mayak_desktop="true" mayak_application="true">
                     <xsl:apply-templates />
                 </div>
-                <script src="../-mix/index.env=web.stage={$mayak_page_stage}.js">//</script>
+                <script src="{$mayak_page_stylesheet}/../index.env=web.stage={$mayak_page_stage}.js">//</script>
             </body>
         </html>
     </xsl:template>

@@ -11,13 +11,13 @@
 }
 
 [ mayak_field = 'short' ] {
-    width: 7em;
+    width: 10em;
     
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
-    -webkit-flex: 1 1 7em;
-    -ms-flex: 1 1 7em;
-    flex: 1 1 7em;
+    -webkit-flex: 1 1 10em;
+    -ms-flex: 1 1 10em;
+    flex: 1 1 10em;
 }
 
 [ mayak_field = 'normal' ] {
@@ -25,13 +25,13 @@
     
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
-    -webkit-flex: 1 1 15em;
-    -ms-flex: 1 1 15em;
-    flex: 1 1 15em;
+    -webkit-flex: 1 1 10em;
+    -ms-flex: 1 1 10em;
+    flex: 1 1 10em;
 }
 
 [ mayak_field = 'long' ] {
-    min-width: 10em;
+    width: 10em;
     
     -webkit-box-flex: 2;
     -moz-box-flex: 2;
