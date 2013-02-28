@@ -33,9 +33,7 @@
                 <link href="{$mayak_page_stylesheet}/../index.stage={$mayak_page_stage}.css" rel="stylesheet" />
             </head>
             <body jin_reset="true">
-                <div mayak_desktop="true" mayak_application="true">
-                    <xsl:apply-templates />
-                </div>
+                <xsl:apply-templates />
                 <script src="{$mayak_page_stylesheet}/../index.env=web.stage={$mayak_page_stage}.js">//</script>
             </body>
         </html>

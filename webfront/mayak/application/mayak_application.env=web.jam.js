@@ -9,7 +9,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
     
     application.view_product_edit= function( application, params ){
         $jq.get
-        (   'mayak/product/product.sample.xml'
+        (   application.api() + 'product/' + params.product
         ,   function( product, status, xhr ){
                 product= $jin_domx.parse( xhr.responseText )
                 product.$.documentElement.setAttribute( 'mayak_product_editor', 'true' )
@@ -23,12 +23,19 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
     }
         
     application.view_product= function( application, params ){
-        $jq.get
-        (   'mayak/product/product.sample.xml'
-        ,   function( product, status, xhr ){
-                product= $jin_domx.parse( xhr.responseText )
-                product.$.documentElement.setAttribute( 'mayak_product_view', 'true' )
-                application.render( product )
+        $jq.ajax
+        (   application.api() + 'product/' + params.product
+        ,   {   success: function( product, status, xhr ){
+                    product= $jin_domx.parse( xhr.responseText )
+                    product.$.documentElement.setAttribute( 'mayak_product_view', 'true' )
+                    application.render( product )
+                }
+            ,   error: function( data, type, message ){
+                    message= message
+                    ? 'Ошибка получения данных товара: ' + message
+                    : 'Неизвестная ошибка получения данных товара'
+                    $mayak_notify( message )
+                }
             }
         )
     }
@@ -37,8 +44,16 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         application.render( '<mayak_productList/>' )
     }
     
-    application.view_default= function( application, params ){
+    application.view_= function( application, params ){
         document.location= '?product;create'
+    }
+    
+    application.view_default= function( application, params ){
+        $mayak_notify( 'No handler for ' + JSON.stringify( params )  )
+    }
+    
+    application.api= function( application ){
+        return application.$.getAttribute( 'mayak_application_api' )
     }
     
     var init= application.init
@@ -56,7 +71,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
                 .split( ';' )
                 .forEach( function( chunk ){
                     var pair= chunk.split( '=' )
-                    params[ pair[ 0 ] ]= pair[ 1 ]
+                    params[ pair[ 0 ] ]= pair[ 1 ] || ''
                 })
                 
                 var action= 'view_' + Object.keys( params ).join( '_' )
@@ -69,14 +84,17 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         
         $mayak_product_onSave.listen( document.body, function( event ){
             $jq.ajax
-            (   'http://lighthouse/api/1/product'
+            (   application.api() + 'product'
             ,   {   type: 'post'
                 ,   data: $jq( event.target() ).serialize()
                 ,   success: function( data ){
-                        document.location= '?productList'
+                        $mayak_notify( 'Продукт успешно создан' )
+                        document.location= '?product;create'
                     }
                 ,   error: function( data, type, message ){
-                        message= message ? 'Ошибка при сохранении: ' + message : 'Неизвестная ошибка сохранения'
+                        message= message
+                        ? 'Ошибка при сохранении данных товара: ' + message
+                        : 'Неизвестная ошибка сохранения данных товара'
                         $mayak_notify( message )
                     }
                 }
