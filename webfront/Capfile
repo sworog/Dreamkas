@@ -3,6 +3,4 @@ load 'deploy' if respond_to?(:namespace)
 # add local recipes to load path
 $:.unshift(File.expand_path('../deploy/plugins'))
 
-require 'capifony_symfony2'
-
-load 'app/config/deploy'
+load 'config/deploy'
