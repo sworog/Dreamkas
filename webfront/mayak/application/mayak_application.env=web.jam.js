@@ -69,7 +69,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         
         $mayak_product_onSave.listen( document.body, function( event ){
             $jq.ajax
-            (   '/api/1/product/create/'
+            (   'http://lighthouse/api/1/product'
             ,   {   type: 'post'
                 ,   data: $jq( event.target() ).serialize()
                 ,   success: function( data ){
