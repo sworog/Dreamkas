@@ -15,7 +15,7 @@ set :scm,         :git
 
 ssh_options[:forward_agent] = true
 
-set :use_sudo, true
+set :use_sudo, false
 default_run_options[:pty] = true
 
 role :web,        domain                         # Your HTTP server, Apache/etc
