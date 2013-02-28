@@ -48,7 +48,7 @@ public class OrderCreatePage extends PageObject{
 	@FindBy(name="info")
 	private WebElement infoField;
 	
-	@FindBy(name="create")
+	@FindBy(xpath="//button[@mayak_button='success']")
 	private WebElement createButton;
 	
 	public OrderCreatePage(WebDriver driver){

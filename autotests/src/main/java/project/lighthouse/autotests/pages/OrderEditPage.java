@@ -9,10 +9,10 @@ import org.openqa.selenium.support.FindBy;
 @DefaultUrl("http://localhost:8008/index.xml?product;edit")
 public class OrderEditPage extends OrderCreatePage{
 
-	@FindBy(name="success")
+	@FindBy(xpath="//button[@mayak_button='success']")
 	private WebElement editButton;
 	
-	@FindBy(name="reset")
+	@FindBy(xpath="//a[@mayak_button='reset']")
 	private WebElement resetButton;
 	
 	public OrderEditPage(WebDriver driver) {
