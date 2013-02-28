@@ -1,3 +1,0 @@
-<story path="project/lighthouse/autotests/stories/consult_dictionary/LookupADefinition.story" title="">
-<scenario keyword="Scenario:" title="Looking up the definition of &apos;apple&apos;">
-<step outcome="successful">Given the user is on the Wikionary home page</step>

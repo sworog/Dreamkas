@@ -3,7 +3,6 @@ package project.lighthouse.autotests.steps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
-import java.util.List;
 import static org.fest.assertions.Assertions.assertThat;
 
 import project.lighthouse.autotests.pages.DictionaryPage;
