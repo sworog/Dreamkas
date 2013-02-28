@@ -1,0 +1,36 @@
+wc_hontrol {
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -10pt;
+    font-size: 8pt;
+    line-height: 1;
+    z-index: 1;
+}
+
+wc_hontrol_clone {
+    margin-right: -1px;
+    border: 1px solid #bbb;
+    background: #ffe;
+    padding: 1pt 2pt;
+    cursor: pointer;
+}
+
+wc_hontrol_clone:hover {
+    background: #ccf;
+    border: 1px solid #99c;
+}
+
+wc_hontrol_delete {
+    margin-right: -1px;
+    border: 1px solid #bbb;
+    background: #ffe;
+    padding: 1pt 2pt;
+    cursor: pointer;
+}
+
+wc_hontrol_delete:hover {
+    background: #fcc;
+    border: 1px solid #c99;
+}
+

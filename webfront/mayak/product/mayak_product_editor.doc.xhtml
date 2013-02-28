@@ -1,0 +1,57 @@
+<?xml-stylesheet href="../-mix/doc.stage=dev.xsl" type="text/xsl"?>
+<doc_root
+    doc_title="$mayak_product_editor"
+    >
+    
+    <div id="mayak_product_creator_test">
+        <product
+            mayak_product_creator="true"
+        />
+    </div>
+    
+    <div id="mayak_product_editor_test">
+        <product
+            mayak_product_editor="true"
+            id="1"
+            sku="GVOZDI007"
+            name="Гвозди 47 колибра"
+            vendor="Рога и копыта"
+            vendorCountry="Россия"
+            purchasePrice="100500"
+            barcode="0123456789"
+            unit="unit"
+            vat="5"
+            info="У нас их дофига!"
+        />
+    </div>
+    
+    <p>Форма отсылается только, если заполнены все необходимые поля.</p>
+    <p>
+        <script type="wc_test">
+            var editor= $jq( '#mayak_product_creator_test' )
+            
+            var result= true
+            $mayak_product_onSave.listen( editor[0], function( event ){
+                event.catched( true )
+                result= false
+            })
+            
+            editor.find( '[mayak_button="success"]' ).click()
+            
+            test.ok( result )
+        </script>
+        <script type="wc_test">
+            var editor= $jq( '#mayak_product_editor_test' )
+            
+            var result= false
+            $mayak_product_onSave.listen( editor[0], function( event ){
+                event.catched( true )
+                result= true
+            })
+            
+            editor.find( '[mayak_button="success"]' ).click()
+            
+            test.ok( result )
+        </script>
+    </p>
+</doc_root>

@@ -1,0 +1,44 @@
+wc_editor {
+    visibility: hidden;
+    display: block;
+}
+
+wc_editor[wc_editor_hlight] {
+    text-align: left;
+}
+
+[wc_editor_inited="true"] {
+    visibility: visible;
+}
+
+div[wc_editor_content] {
+    padding: 2px 4px;
+    display: block;
+    min-height: 1em;
+    white-space: pre-line;
+}
+
+div[wc_editor_content]:empty:before {
+    content: attr( wc_editor_content );
+    position: absolute;
+    color: gray;
+    font-style: italic;
+    line-height: 1;
+}
+
+div[wc_editor_content] p {
+    margin: 0;
+    padding: 0;
+}
+
+div[wc_editor_content]:focus {
+    outline: none;
+}
+
+wc_editor:hover {
+    outline: 1px dotted #ddd;
+}
+
+wc_editor[wc_editor_active="true"] {
+    outline: 1px dotted #bbb;
+}

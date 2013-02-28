@@ -1,0 +1,17 @@
+wc_paper {
+    display: block;
+    position: relative;
+    font-color: black;
+    text-align: center;
+    overflow: auto;
+    max-width: 50em;
+    min-width: 10em;
+    
+    margin: 0 auto;
+
+    border-radius: 2px;
+    border: 1px solid #aaa;
+    background: white;
+
+    box-shadow: 4px 4px 5px rgba( 0, 0, 0, .5 );
+}

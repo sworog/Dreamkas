@@ -1,0 +1,49 @@
+wc_button {
+    display: inline-block;
+    position: relative;
+}
+
+wc_button button {
+    white-space: normal;
+    cursor: pointer;
+    overflow: visible;
+    z-index: 0;
+    text-align: center;
+    display: block;
+
+    position: relative;
+    top: -1px;
+
+    padding: .2em .4em;
+
+    font-size: 14px;
+    line-height: 1.2;
+
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    border: 1px solid #aaa;
+
+    border-radius: 3px;
+
+    background: -o-linear-gradient( -90deg, #eee, #ccc );
+    background: -moz-linear-gradient( -90deg, #eee, #ccc );
+    background: -webkit-gradient( linear, left top, left bottom, from( #eee ), to( #ccc ) );
+    
+    -webkit-background-clip: padding-box;
+    box-shadow: 1px 1px 1px #000;
+    box-shadow: 2px 2px 3px rgba( 0, 0, 0, .75 );
+}
+
+wc_button button:hover {
+    background: -o-linear-gradient( -90deg, #fff, #ccc );
+    background: -moz-linear-gradient( -90deg, #fff, #ccc );
+    background: -webkit-gradient( linear, left top, left bottom, from( #fff ), to( #ccc ) );
+
+    box-shadow: 2px 2px 2px #000;
+    box-shadow: 4px 4px 5px rgba( 0, 0, 0, .5 );
+}
+
+wc_button button:active {
+    box-shadow: 1px 1px 1px #000;
+}
