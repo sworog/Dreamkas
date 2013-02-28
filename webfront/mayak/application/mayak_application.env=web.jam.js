@@ -23,12 +23,19 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
     }
         
     application.view_product= function( application, params ){
-        $jq.get
+        $jq.ajax
         (   application.api() + 'product/' + params.product
-        ,   function( product, status, xhr ){
-                product= $jin_domx.parse( xhr.responseText )
-                product.$.documentElement.setAttribute( 'mayak_product_view', 'true' )
-                application.render( product )
+        ,   {   success: function( product, status, xhr ){
+                    product= $jin_domx.parse( xhr.responseText )
+                    product.$.documentElement.setAttribute( 'mayak_product_view', 'true' )
+                    application.render( product )
+                }
+            ,   error: function( data, type, message ){
+                    message= message
+                    ? 'Ошибка получения данных товара: ' + message
+                    : 'Неизвестная ошибка получения данных товара'
+                    $mayak_notify( message )
+                }
             }
         )
     }
@@ -85,7 +92,9 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
                         document.location= '?product;create'
                     }
                 ,   error: function( data, type, message ){
-                        message= message ? 'Ошибка при сохранении: ' + message : 'Неизвестная ошибка сохранения'
+                        message= message
+                        ? 'Ошибка при сохранении данных товара: ' + message
+                        : 'Неизвестная ошибка сохранения данных товара'
                         $mayak_notify( message )
                     }
                 }
