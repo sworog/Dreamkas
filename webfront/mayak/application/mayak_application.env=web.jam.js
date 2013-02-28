@@ -37,8 +37,12 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         application.render( '<mayak_productList/>' )
     }
     
+    application.view_= function( application, params ){
+        document.location= '?product;create'
+    }
+    
     application.view_default= function( application, params ){
-        //document.location= '?product;create'
+        $mayak_notify( 'No handler for ' + JSON.stringify( params )  )
     }
     
     application.api= function( application ){
@@ -60,7 +64,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
                 .split( ';' )
                 .forEach( function( chunk ){
                     var pair= chunk.split( '=' )
-                    params[ pair[ 0 ] ]= pair[ 1 ]
+                    params[ pair[ 0 ] ]= pair[ 1 ] || ''
                 })
                 
                 var action= 'view_' + Object.keys( params ).join( '_' )
@@ -77,7 +81,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
             ,   {   type: 'post'
                 ,   data: $jq( event.target() ).serialize()
                 ,   success: function( data ){
-                        alert( 'Продукт успешно создан' )
+                        $mayak_notify( 'Продукт успешно создан' )
                         document.location= '?product;create'
                     }
                 ,   error: function( data, type, message ){
