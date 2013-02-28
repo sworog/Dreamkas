@@ -4,7 +4,8 @@
     "description": "SET:Lighthouse WebFront",
     "homepage": "https://github.com/nin-jin/pms",
     "dependencies": {
-        "pms": "*"
+        "pms": "*",
+        "node-gyp": "*"
     },
     "engine": "node >= 0.4.1",
     "readme": "no readme"
