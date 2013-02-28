@@ -19,7 +19,7 @@ void function(){
 
     var node= document.createElement( 'html:div' )
     
-    $jin_support.xmlModel= Support( true ? 'w3c' : 'ms' )
+    $jin_support.xmlModel= Support( ( window.DOMParser && window.XMLSerializer && window.XSLTProcessor ) ? 'w3c' : 'ms' )
     $jin_support.htmlModel= Support( node.namespaceURI !== void 0 ? 'w3c' : 'ms' )
     $jin_support.eventModel= Support( 'addEventListener' in node ? 'w3c' : 'ms' )
     $jin_support.selectionModel= Support( 'createRange' in document ? 'w3c' : 'ms' )

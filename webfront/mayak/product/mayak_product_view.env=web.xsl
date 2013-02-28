@@ -1,14 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    
+
     <xsl:template
-        match=" mayak_product_view "
-        >
-        <xsl:apply-templates select=" product " mode="mayak_product_view" />
-    </xsl:template>
-    
-    <xsl:template
-        match=" * "
-        mode="mayak_product_view"
+        match=" *[ @mayak_product_view ] "
         >
         <div mayak_card="true">
             <div mayak_card_title="true">

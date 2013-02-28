@@ -2,8 +2,8 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
     
     application.templates= null
     
-    application.render= function( application, xml ){
-        application.$.innerHTML= $jin_domx.parse( xml ).transform( application.templates )
+    application.render= function( application, data ){
+        application.$.innerHTML= data.transform( application.templates )
         return application
     }
     
@@ -11,20 +11,24 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         $jq.get
         (   'mayak/product/product.sample.xml'
         ,   function( product, status, xhr ){
-                application.render( '<mayak_product_editor>' + xhr.responseText + '</mayak_product_editor>' )
+                product= $jin_domx.parse( xhr.responseText )
+                product.$.documentElement.setAttribute( 'mayak_product_editor', 'true' )
+                application.render( product )
             }
         )
     }
         
     application.view_product_create= function( application, params ){
-        application.render( '<mayak_product_creator/>' )
+        application.render( $jin_domx.parse( '<product mayak_product_creator="true" />' ) )
     }
         
     application.view_product= function( application, params ){
         $jq.get
         (   'mayak/product/product.sample.xml'
         ,   function( product, status, xhr ){
-                application.render( '<mayak_product_view>' + xhr.responseText + '</mayak_product_view>' )
+                product= $jin_domx.parse( xhr.responseText )
+                product.$.documentElement.setAttribute( 'mayak_product_view', 'true' )
+                application.render( product )
             }
         )
     }
@@ -44,7 +48,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         $jq.get
         (   'mayak/-mix/index.stage=release.xsl'
         ,   function( xsl, status, xhr ){
-                application.templates= $jin_domx( xsl )
+                application.templates= $jin_domx.parse( xhr.responseText )
                 
                 var params= {}
                 document.location.search

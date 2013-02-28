@@ -7,7 +7,7 @@ $jin_wrapper( function( $jin_domx, domx ){
     }
     
     domx.toString= function( domx ){
-        if( window.XMLSerializer ){
+        if( $jin_support.xmlModel() === 'w3c' ){
             var serializer= new XMLSerializer
             return serializer.serializeToString( domx.$ )
         } else {
@@ -16,7 +16,7 @@ $jin_wrapper( function( $jin_domx, domx ){
     }
     
     domx.transform= function( domx, stylesheet ){
-        if( window.XSLTProcessor ){
+        if( $jin_support.xmlModel() === 'w3c' ){
             var proc= new XSLTProcessor
             proc.importStylesheet( $jin_unwrap( stylesheet ) )
             var doc= proc.transformToDocument( domx.$ )
@@ -28,7 +28,7 @@ $jin_wrapper( function( $jin_domx, domx ){
     }
     
     $jin_domx.parse= function( str ){
-        if( window.DOMParser ){
+        if( $jin_support.xmlModel() === 'w3c' ){
             var parser= new DOMParser
             var doc= parser.parseFromString( str, 'text/xml' )
             return $jin_domx( doc )

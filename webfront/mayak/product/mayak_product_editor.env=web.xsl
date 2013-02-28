@@ -1,14 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     
     <xsl:template
-        match=" mayak_product_editor "
-        >
-        <xsl:apply-templates select=" product " mode="mayak_product_editor" />
-    </xsl:template>
-    
-    <xsl:template
-        match=" * "
-        mode="mayak_product_editor"
+        match=" *[ @mayak_product_editor ] "
         >
         <div mayak_card="true">
             <div mayak_card_title="true">Редактирование товара</div>
