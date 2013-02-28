@@ -1,2 +1,4 @@
 <?xml-stylesheet href="mayak/-mix/index.stage=dev.xsl" type="text/xsl"?>
-<mayak_page />
+<mayak_page>
+    <mayak_application mayak_application_api="//lighthouse.cs-watchman.domain.local/api/1/" />
+</mayak_page>
