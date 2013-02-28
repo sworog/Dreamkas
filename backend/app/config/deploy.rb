@@ -1,4 +1,3 @@
-set :stages, %w(staging autotests production)
 set :default_stage, "staging"
 set :stage_dir, "app/config/stages"
 
@@ -18,14 +17,14 @@ set :scm,         :git
 
 ssh_options[:forward_agent] = true
 
-set :use_sudo, false
+set :use_sudo, true
 default_run_options[:pty] = true
 
 set :use_composer, true
 set :update_vendors, true
 
 set :use_set_permissions,   true
-set :permission_method,   :acl
+set :permission_method,   :chown
 
 set :model_manager, "doctrine"
 
