@@ -83,6 +83,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         )
         
         $mayak_product_onSave.listen( document.body, function( event ){
+            if( event.catched() ) return
             $jq.ajax
             (   application.api() + 'product'
             ,   {   type: 'post'

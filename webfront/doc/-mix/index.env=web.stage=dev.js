@@ -1,0 +1,116 @@
+void function( modules ){                                               
+    var scripts= document.getElementsByTagName( 'script' )              
+    var script= document.currentScript || scripts[ scripts.length - 1 ] 
+    var dir= script.src.replace( /[^/]+$/, '' )                        
+    var next= function( ){                                              
+        var module= modules.shift()                                     
+        if( !module ) return                                            
+        try {                                                           
+            document.write( '<script src="'+dir+module+'"></script>' )
+            next()                                                      
+        } catch( error ){                                               
+            var loader= document.createElement( 'script' )              
+            loader.parentScript= script                                 
+            loader.src= dir + module                                    
+            loader.onload= next                                         
+            script.parentNode.insertBefore( loader, script )            
+        }                                                               
+    }                                                                   
+    next()                                                              
+}.call( this, [                                                         
+    
+"../../jam/jam/jam.jam.js",
+"../../jam/body/jam+body.jam.js",
+"../../jam/Class/jam+Class.jam.js",
+"../../jam/Poly/jam+Poly.jam.js",
+"../../jam/Hash/jam+Hash.jam.js",
+"../../jam/Cached/jam+Cached.jam.js",
+"../../jam/classOf/jam+classOf.jam.js",
+"../../jam/schedule/jam+schedule.jam.js",
+"../../jam/Obj/jam+Obj.jam.js",
+"../../jam/Clock/jam+Clock.jam.js",
+"../../jam/Value/jam+Value.jam.js",
+"../../jam/domReady/jam+domReady.jam.js",
+"../../jam/select/jam+select.jam.js",
+"../../jam/support/jam+support.jam.js",
+"../../jam/Component/jam+Component.jam.js",
+"../../jam/Concater/jam+Concater.jam.js",
+"../../jam/currentScript/jam+currentScript.jam.js",
+"../../jam/define/jam+define.jam.js",
+"../../jam/selection/jam+selection.jam.js",
+"../../jam/htmlEntities/jam+htmlEntities.jam.js",
+"../../jam/htmlDecode/jam+htmlDecode.jam.js",
+"../../jam/html2text/jam+html2text.jam.js",
+"../../jam/htmlEscape/jam+htmlEscape.jam.js",
+"../../jam/Hiqus/jam+Hiqus.jam.js",
+"../../jam/NodeList/jam+NodeList.jam.js",
+"../../jam/raw/jam+raw.jam.js",
+"../../jam/keyCode/jam+keyCode.jam.js",
+"../../jam/Event/jam+Event.jam.js",
+"../../jam/Observer/jam+Observer.jam.js",
+"../../jam/Node/jam+Node.jam.js",
+"../../jam/DomRange/jam+DomRange.jam.js",
+"../../jam/String/jam+String.jam.js",
+"../../jam/domx/jam+domx.jam.js",
+"../../jin/makeId/jin_makeId.jam.js",
+"../../jin/thread/jin_thread.env=web.jam.js",
+"../../jam/eval/jam+eval.jam.js",
+"../../jam/eventClone/jam+eventClone.jam.js",
+"../../jam/eventCommit/jam+eventCommit.jam.js",
+"../../jam/eventDelete/jam+eventDelete.jam.js",
+"../../jam/Throttler/jam+Throttler.jam.js",
+"../../jam/eventEdit/jam+eventEdit.jam.js",
+"../../jam/eventScroll/jam+eventScroll.jam.js",
+"../../jam/eventURIChanged/jam+eventURIChanged.jam.js",
+"../../jam/http/jam+http.jam.js",
+"../../jam/Lazy/jam+Lazy.jam.js",
+"../../jam/RegExp/jam+RegExp.jam.js",
+"../../jam/Lexer/jam+Lexer.jam.js",
+"../../jam/log/jam+log.jam.js",
+"../../jam/Number/jam+Number.jam.js",
+"../../jam/Pipe/jam+Pipe.jam.js",
+"../../jam/Parser/jam+Parser.jam.js",
+"../../jam/TaskQueue/jam+TaskQueue.jam.js",
+"../../jam/TemplateFactory/jam+TemplateFactory.jam.js",
+"../../jam/Transformer/jam+Transformer.jam.js",
+"../../jam/Tree/jam+Tree.jam.js",
+"../../jam/uriEscape/jam+uriEscape.jam.js",
+"../../wc/aspect/wc+aspect.jam.js",
+"../../wc/demo/wc-demo.jam.js",
+"../../lang/lang/lang.jam.js",
+"../../lang/Wrapper/lang_Wrapper.jam.js",
+"../../lang/Parser/lang_Parser.jam.js",
+"../../lang/css/lang_css.jam.js",
+"../../lang/pcre/lang_pcre.jam.js",
+"../../lang/js/lang_js.jam.js",
+"../../lang/sgml/lang_sgml.jam.js",
+"../../lang/html/lang_html.jam.js",
+"../../lang/htm/lang_htm.jam.js",
+"../../lang/jsm/lang_jsm.jam.js",
+"../../lang/php/lang_php.jam.js",
+"../../lang/tags/lang_tags.jam.js",
+"../../lang/xml/lang_xml.jam.js",
+"../../lang/xbl/lang_xbl.jam.js",
+"../../lang/xsl/lang_xsl.jam.js",
+"../../lang/xs/lang_xs.jam.js",
+"../../lang/xul/lang_xul.jam.js",
+"../../lang/md/lang_md.jam.js",
+"../../wc/disqus/disqus.jam.js",
+"../../wc/editor/wc_editor.jam.js",
+"../../wc/field/wc_field.jam.js",
+"../../wc/form/wc_form.jam.js",
+"../../wc/hlight/wc-hlight.jam.js",
+"../../wc/js-bench/wc_js-bench.jam.js",
+"../../wc/js-test/wc_js-test.jam.js",
+"../../wc/net-bridge/wc_net-bridge.jam.js",
+"../../wc/preview/wc_preview.jam.js",
+"../../lib/io/lib_io.js",
+"../../lib/io/lib_io_.jam.js",
+"../../testo/slave/testo_slave.jam.js",
+"../../jin/factory/jin_factory.jam.js",
+"../../jin/method/jin_method.jam.js",
+"../../jin/class/jin_class.jam.js",
+"../../jin/test/jin_test.jam.js",
+"../../wc/test/wc_test.jam.js",
+"../../wc/yasearchresult/wc_yasearchresult.jam.js",
+ null ])

@@ -49,9 +49,18 @@
             name="unit"
             >
             <option value="">Мерность</option>
-            <option value="unit">Штуки</option>
-            <option value="liter">Литры</option>
-            <option value="kg">Килограммы</option>
+            <option value="unit">
+                <xsl:if test=" @unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
+                Штуки
+            </option>
+            <option value="liter">
+                <xsl:if test=" @unit = 'liter' "><xsl:attribute name="selected"/></xsl:if>
+                Литры
+            </option>
+            <option value="kg">
+                <xsl:if test=" @unit = 'kg' "><xsl:attribute name="selected"/></xsl:if>
+                Килограммы
+            </option>
         </select>
     </xsl:template>
     
@@ -63,9 +72,18 @@
             name="vat"
             >
             <option value="">НДС</option>
-            <option value="1">1%</option>
-            <option value="5">5%</option>
-            <option value="10">10%</option>
+            <option value="1">
+                <xsl:if test=" @vat = '1' "><xsl:attribute name="selected"/></xsl:if>
+                1%
+            </option>
+            <option value="5">
+                <xsl:if test=" @vat = '5' "><xsl:attribute name="selected"/></xsl:if>
+                5%
+            </option>
+            <option value="10">
+                <xsl:if test=" @vat = '10' "><xsl:attribute name="selected"/></xsl:if>
+                10%
+            </option>
         </select>
     </xsl:template>
     

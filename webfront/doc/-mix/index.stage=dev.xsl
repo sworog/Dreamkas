@@ -1,0 +1,1 @@
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"><xsl:include href="../../wc/demo/wc-demo.xsl"/><xsl:include href="../../doc/root/doc_root.xsl"/><xsl:include href="../../doc/list/doc_list.xsl"/></xsl:stylesheet>

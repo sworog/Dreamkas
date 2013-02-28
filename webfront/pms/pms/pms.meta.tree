@@ -1,0 +1,5 @@
+include module =jin_pms
+include module =jin_build4node
+include module =jin_build4web
+include module =jin_application
+include module =jin_persistent

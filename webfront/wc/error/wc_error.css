@@ -1,0 +1,19 @@
+wc_error {
+    display: inline-block;
+    text-align: left;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    padding: 4px;
+    font-size: 12px;
+    line-height: 1.15;
+    vertical-align: bottom;
+    font-family: monospace;
+    background: pink;
+    margin: 3pt;
+    
+    border-radius: 2px;
+    border: 1px solid #aaa;
+
+    box-shadow: 4px 4px 5px rgba( 0, 0, 0, .5 );
+}
