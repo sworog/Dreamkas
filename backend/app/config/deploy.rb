@@ -17,14 +17,14 @@ set :scm,         :git
 
 ssh_options[:forward_agent] = true
 
-set :use_sudo, true
+set :use_sudo, false
 default_run_options[:pty] = true
 
 set :use_composer, true
 set :update_vendors, true
 
-set :use_set_permissions,   true
-set :permission_method,   :chown
+set :use_set_permissions,   false
+#set :permission_method,   :acl
 
 set :model_manager, "doctrine"
 
