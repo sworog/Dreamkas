@@ -42,6 +42,21 @@
             test.ok( editor.find( 'input[name="sku"]' ).length, 1 )
             test.ok( editor.find( 'input[name="info"]' ).length, 1 )
         </script>
+        <script type="wc_test">
+            var editor= $jq( '#mayak_product_editor_test' )
+            
+            test.ok( editor.find( 'input[name="name"]' ).val(), 'Гвозди 47 колибра' )
+            test.ok( editor.find( 'input[name="vendor"]' ).val(), 'Рога и копыта' )
+            test.ok( editor.find( 'input[name="vendorCountry"]' ).val(), 'Россия' )
+            test.ok( editor.find( 'input[name="purchasePrice"]' ).val(), '100500' )
+            test.ok( editor.find( 'input[name="barcode"]' ).val(), '0123456789' )
+            test.ok( editor.find( 'select[name="unit"]' ).val(), 'unit' )
+            test.ok( editor.find( 'select[name="unit"] > option' ).length > 1 )
+            test.ok( editor.find( 'select[name="vat"]' ).val(), '5' )
+            test.ok( editor.find( 'select[name="vat"] > option' ).length > 1 )
+            test.ok( editor.find( 'input[name="sku"]' ).val(), 'GVOZDI007' )
+            test.ok( editor.find( 'input[name="info"]' ).val(), 'У нас их дофига!' )
+        </script>
     </p>
     
     <p>Форма отсылается только, если заполнены все необходимые поля.</p>
