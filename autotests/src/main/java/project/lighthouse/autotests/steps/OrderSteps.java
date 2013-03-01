@@ -66,5 +66,4 @@ public class OrderSteps extends ScenarioSteps{
 	public void CheckValue(String elementName, String expectedValue){
 		orderCardView.CheckValue(elementName, expectedValue);
 	}
-
 }

@@ -1,12 +1,18 @@
 package project.lighthouse.autotests.pages;
 
+import java.util.NoSuchElementException;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.android.library.AlertManager;
 import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
+import net.thucydides.core.pages.AnyPage;
 import net.thucydides.core.pages.PageObject;
+import net.thucydides.core.webdriver.stubs.AlertStub;
 
-@DefaultUrl("http://localhost:8008/index.xml?product;create")
+@DefaultUrl("http://webfront-staging.lighthouse.cs/?product;create")
 public class OrderCreatePage extends PageObject{
 	
 	@FindBy(name="sku")
@@ -67,6 +73,7 @@ public class OrderCreatePage extends PageObject{
 	
 	public void CreateButtonClick(){
 		$(createButton).click();
+		AlertOnSuccess();
 	}
 	
 	public WebElement getWebElement(String name){		
@@ -92,7 +99,7 @@ public class OrderCreatePage extends PageObject{
 		case "productCode":
 			return productCodeField;
 		case "vendor":
-			return vendorCountryField;
+			return vendorField;
 		case "vendorCountry":
 			return vendorCountryField;
 		case "info":
@@ -100,6 +107,15 @@ public class OrderCreatePage extends PageObject{
 		default:
 			return (WebElement) new NoSuchFieldException();
 		}
+	}
+	
+	public void AlertOnSuccess(){		
+		if(!getAlert().getText().equals("Продукт успешно создан")){
+			throw new NoSuchElementException("Fail!");
+		}
+		else{
+			getAlert().accept();
+		}		
 	}
 	
 

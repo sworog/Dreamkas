@@ -64,8 +64,8 @@ public class UserOrderSteps {
     @Then("the user checks is all good")
     public void ThenTheUserChecksIsAllGood(){
     	//checks
-    }
-
+    }    
+    
     /*@Then("they should see the definition '$definition'")
     public void thenTheyShouldSeeADefinitionContainingTheWords(String definition) {
     }*/	
