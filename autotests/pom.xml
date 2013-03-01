@@ -13,7 +13,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <thucydides.version>0.9.98</thucydides.version>
         <thucydides.jbehave.version>0.9.98</thucydides.jbehave.version>
+        <thucydides.browser.width>1280</thucydides.browser.width>
+        <thucydides.browser.height>1024</thucydides.browser.height>
         <webdriver.driver>firefox</webdriver.driver>
+        <webdriver.timeouts.implicitlywait>10000</webdriver.timeouts.implicitlywait>
     </properties>
 
     <dependencies>
@@ -117,6 +120,32 @@
 
     <profiles>
         <profile>
+            <id>personal</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>sonatype-oss-releases</id>
+                    <url>https://oss.sonatype.org/content/repositories/releases</url>
+                </repository>
+                <repository>
+                    <id>sonatype-oss-snapshots</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>sonatype-oss-releases</id>
+                    <url>https://oss.sonatype.org/content/repositories/releases</url>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>sonatype-oss-snapshots</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+        <profile>
             <id>maven2</id>
             <activation>
                 <file>
@@ -157,6 +186,30 @@
                         </configuration>
                     </plugin>
                 </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>firefox</id>
+            <activation>
+                <property>
+                    <name>webdriver.driver</name>
+                    <value>firefox</value>
+                </property>
+            </activation>
+            <build>
+                <directory>target-firefox</directory>
+            </build>
+        </profile>
+        <profile>
+            <id>chrome</id>
+            <activation>
+                <property>
+                    <name>webdriver.driver</name>
+                    <value>chrome</value>
+                </property>
+            </activation>
+            <build>
+                <directory>target-chrome</directory>
             </build>
         </profile>
     </profiles>
