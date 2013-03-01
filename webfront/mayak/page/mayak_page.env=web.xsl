@@ -28,7 +28,7 @@
         <html jin_reset="true">
             <head>
                 <meta charset="utf-8" />
-                <!--<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>-->
+                <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
                 
                 <link href="{$mayak_page_stylesheet}/../index.stage={$mayak_page_stage}.css" rel="stylesheet" />
             </head>

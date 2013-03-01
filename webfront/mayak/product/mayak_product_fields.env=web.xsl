@@ -2,7 +2,10 @@
     
     <xsl:template match="*" mode="mayak_product_fields" >
         <div mayak_block="true">
+            <xsl:apply-templates select=" . " mode="mayak_product_sku" />
             <xsl:apply-templates select=" . " mode="mayak_product_name" />
+        </div>
+        <div mayak_block="true">
             <xsl:apply-templates select=" . " mode="mayak_product_vendor" />
             <xsl:apply-templates select=" . " mode="mayak_product_vendorCountry" />
         </div>
@@ -13,136 +16,139 @@
             <xsl:apply-templates select=" . " mode="mayak_product_vat" />
         </div>
         <div mayak_block="true">
-            <xsl:apply-templates select=" . " mode="mayak_product_sku" />
             <xsl:apply-templates select=" . " mode="mayak_product_info" />
         </div>
     </xsl:template>
     
     <xsl:template match="*" mode="mayak_product_sku" >
-        <input
-            mayak_field="short"
-            placeholder="Артикул"
-            title="Артикул"
-            type="text"
-            name="sku"
-            value="{@sku}"
-        />
+        <label mayak_field="short">
+            Артикул
+            <input
+                required="required"
+                type="text"
+                name="sku"
+                value="{@sku}"
+            />
+        </label>
     </xsl:template>
     
     <xsl:template match="*" mode="mayak_product_name" >
-        <input
-            mayak_field="normal"
-            placeholder="Наименование"
-            title="Наименование"
-            required="required"
-            type="text"
-            name="name"
-            value="{@name}"
-        />
+        <label mayak_field="normal">
+            Наименование
+            <input
+                required="required"
+                type="text"
+                name="name"
+                value="{@name}"
+            />
+        </label>
     </xsl:template>
     
     <xsl:template match="*" mode="mayak_product_unit" >
-        <select
-            mayak_field="short"
-            required="required"
-            title="Мерность"
-            name="unit"
-            >
-            <option value="">Мерность</option>
-            <option value="unit">
-                <xsl:if test=" @unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
-                Штуки
-            </option>
-            <option value="liter">
-                <xsl:if test=" @unit = 'liter' "><xsl:attribute name="selected"/></xsl:if>
-                Литры
-            </option>
-            <option value="kg">
-                <xsl:if test=" @unit = 'kg' "><xsl:attribute name="selected"/></xsl:if>
-                Килограммы
-            </option>
-        </select>
+        <label mayak_field="short">
+            Мерность
+            <select
+                required="required"
+                title="Мерность"
+                name="unit"
+                >
+                <option value=""></option>
+                <option value="unit">
+                    <xsl:if test=" @unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
+                    Штуки
+                </option>
+                <option value="liter">
+                    <xsl:if test=" @unit = 'liter' "><xsl:attribute name="selected"/></xsl:if>
+                    Литры
+                </option>
+                <option value="kg">
+                    <xsl:if test=" @unit = 'kg' "><xsl:attribute name="selected"/></xsl:if>
+                    Килограммы
+                </option>
+            </select>
+        </label>
     </xsl:template>
     
     <xsl:template match="*" mode="mayak_product_vat" >
-        <select
-            mayak_field="short"
-            required="required"
-            title="НДС"
-            name="vat"
-            >
-            <option value="">НДС</option>
-            <option value="1">
-                <xsl:if test=" @vat = '0' "><xsl:attribute name="selected"/></xsl:if>
-                0%
-            </option>
-            <option value="5">
-                <xsl:if test=" @vat = '10' "><xsl:attribute name="selected"/></xsl:if>
-                10%
-            </option>
-            <option value="10">
-                <xsl:if test=" @vat = '18' "><xsl:attribute name="selected"/></xsl:if>
-                18%
-            </option>
-        </select>
+        <div mayak_field="short">
+            НДС
+            <select
+                required="required"
+                name="vat"
+                >
+                <option value=""></option>
+                <option value="1">
+                    <xsl:if test=" @vat = '0' "><xsl:attribute name="selected"/></xsl:if>
+                    0%
+                </option>
+                <option value="5">
+                    <xsl:if test=" @vat = '10' "><xsl:attribute name="selected"/></xsl:if>
+                    10%
+                </option>
+                <option value="10">
+                    <xsl:if test=" @vat = '18' "><xsl:attribute name="selected"/></xsl:if>
+                    18%
+                </option>
+            </select>
+        </div>
     </xsl:template>
     
     <xsl:template match="*" mode="mayak_product_purchasePrice" >
-        <input
-            mayak_field="short"
-            step="any"
-            required="required"
-            placeholder="Цена закупки"
-            title="Цена закупки"
-            name="purchasePrice"
-            value="{ @purchasePrice }"
-        />
+        <div mayak_field="short">
+            Цена закупки
+            <input
+                step="any"
+                required="required"
+                name="purchasePrice"
+                value="{ @purchasePrice }"
+            />
+        </div>
     </xsl:template>
     
     <xsl:template match="*" mode="mayak_product_barcode" >
-        <input
-            mayak_field="short"
-            required="required"
-            placeholder="Штрих код"
-            title="Штрих код"
-            name="barcode"
-            value="{ @barcode }"
-        />
+        <div mayak_field="short">
+            Штрих код
+            <input
+                required="required"
+                name="barcode"
+                value="{ @barcode }"
+            />
+        </div>
     </xsl:template>
     
     <xsl:template match="*" mode="mayak_product_vendor" >
-        <input
-            mayak_field="normal"
-            placeholder="Производитель"
-            title="Производитель"
-            required="required"
-            type="text"
-            name="vendor"
-            value="{ @vendor }"
-        />
+        <div mayak_field="normal">
+            Производитель
+            <input
+                required="required"
+                type="text"
+                name="vendor"
+                value="{ @vendor }"
+            />
+        </div>
     </xsl:template>
 
     <xsl:template match="*" mode="mayak_product_vendorCountry" >
-        <input
-            mayak_field="normal"
-            placeholder="Страна"
-            title="Страна"
-            required="required"
-            type="text"
-            name="vendorCountry"
-            value="{ @vendorCountry }"
-        />
+        <div mayak_field="normal">
+            Страна
+            <input
+                required="required"
+                type="text"
+                name="vendorCountry"
+                value="{ @vendorCountry }"
+            />
+        </div>
     </xsl:template>
     
     <xsl:template match="*" mode="mayak_product_info" >
-        <input
-            mayak_field="long"
-            placeholder="Дополнительная информация"
-            title="Дополнительная информация"
-            type="text"
-            name="info"
-            value="{ @info }"
-        />
+        <div mayak_field="long">
+            Дополнительная информация
+            <input
+                type="text"
+                name="info"
+                value="{ @info }"
+            />
+        </div>
     </xsl:template>
     
 </xsl:stylesheet>

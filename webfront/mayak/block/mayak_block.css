@@ -1,5 +1,6 @@
 [ mayak_block ] {
-    margin: .2em 0;
+    width: 96%;
+    margin: 0 2% 2%;
     padding: 0;
     border: none;
 
@@ -19,6 +20,4 @@
     -ms-flex-line-pack: stretch;
     -moz-align-content: stretch;
     align-content: stretch;
-
-    width: 100%;
 }
