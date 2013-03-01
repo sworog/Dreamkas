@@ -90,7 +90,6 @@
     <xsl:template match="*" mode="mayak_product_purchasePrice" >
         <input
             mayak_field="short"
-            type="number"
             step="any"
             required="required"
             placeholder="Цена закупки"
@@ -103,7 +102,6 @@
     <xsl:template match="*" mode="mayak_product_barcode" >
         <input
             mayak_field="short"
-            type="number"
             required="required"
             placeholder="Штрих код"
             title="Штрих код"
