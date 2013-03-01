@@ -3,7 +3,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
     application.templates= null
     
     application.render= function( application, data ){
-        application.$.innerHTML= data.transform( application.templates )
+        application.templates.render( data , application.$ )
         return application
     }
     

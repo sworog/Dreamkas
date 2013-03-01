@@ -20,7 +20,7 @@
             purchasePrice="100500"
             barcode="0123456789"
             unit="unit"
-            vat="5"
+            vat="10"
             info="У нас их дофига!"
         />
     </div>
