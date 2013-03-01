@@ -42,6 +42,11 @@ public class OrderCardView extends PageObject{
 		$(element).containsText(expectedValue);
 	}
 	
+	public void CheckValue(String expectedValue){
+		WebElement valueToVerify = (WebElement) findBy("//xpathToEachValue");
+		$(valueToVerify).shouldContainText(expectedValue);
+	}
+	
 	public WebElement getWebElement(String elementName){
 		switch (elementName) {
 		case "maker":
