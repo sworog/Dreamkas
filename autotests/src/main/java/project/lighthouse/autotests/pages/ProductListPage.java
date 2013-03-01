@@ -8,24 +8,24 @@ import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
 
 @DefaultUrl("http://localhost:8008/index.xml?product-list")
-public class OrdersListPage extends PageObject{
+public class ProductListPage extends PageObject{
 	
 	@FindBy()
-	private WebElement orderListItem;
+	private WebElement productListItem;
 	
 	@FindBy()
 	private WebElement searchInputField;
 
-	public OrdersListPage(WebDriver driver) {
+	public ProductListPage(WebDriver driver) {
 		super(driver);
 	}
 	
 	public void ListItemClick(){
-		$(orderListItem).click();
+		$(productListItem).click();
 	}
 	
 	public void ListItemChecks(){
-		$(orderListItem).isPresent();		
+		$(productListItem).isPresent();		
 	}
 	
 	/*Example checks method by xpath selector*/
@@ -35,13 +35,11 @@ public class OrdersListPage extends PageObject{
 	    builder.append("' and @price='");
 	    builder.append(priceValue);
 	    builder.append("']");
-		$(orderListItem).findBy(builder.toString()).shouldBePresent();
+		$(productListItem).findBy(builder.toString()).shouldBePresent();
 		
 	}
 	
 	public void Search(String searchInput){
 		$(searchInputField).typeAndEnter(searchInput);
-	}
-	
-
+	}	
 }

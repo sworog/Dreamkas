@@ -10,7 +10,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
 
 @DefaultUrl("http://localhost:8008/index.xml?product-1")
-public class OrderCardView extends PageObject{	
+public class ProductCardView extends PageObject{	
 	
 	@FindBy(xpath="//")
 	private WebElement nameValue;
@@ -33,7 +33,7 @@ public class OrderCardView extends PageObject{
 	@FindBy()
 	private WebElement infoValue;
 	
-	public OrderCardView(WebDriver driver) {
+	public ProductCardView(WebDriver driver) {
 		super(driver);
 	}
 	
