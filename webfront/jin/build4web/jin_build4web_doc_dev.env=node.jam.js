@@ -11,16 +11,16 @@ this.$jin_build4web_doc_dev= function( pack, vary ){
     pack.mods().forEach( function( mod ){
         mod.srcs()
         .filter( function( src ){
-            return /\.doc\.xhtml$/.test( src.file.name() )
+            return /\.doc\.xml$/.test( src.file.name() )
         } )
         .forEach( function( src ){
             var link= index.createElement( 'doc_root' )
             link.setAttribute( 'doc_link', '../../' + src.file.relate('').replace( /\\/g, '/' ) )
-            link.setAttribute( 'doc_title', src.file.name().replace( /\.doc\.xhtml$/, '') )
+            link.setAttribute( 'doc_title', src.file.name().replace( /\.doc\.xml$/, '') )
             index.documentElement.appendChild( link )
         } )
     })
     
-    return pack.file.child( '-mix' ).child( $jin_vary2string( 'index', vary ) + '.doc.xhtml' )
+    return pack.file.child( '-mix' ).child( $jin_vary2string( 'index', vary ) + '.doc.xml' )
     .content( ( new $node.xmldom.XMLSerializer ).serializeToString( index ) )
 }

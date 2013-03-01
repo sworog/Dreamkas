@@ -11,7 +11,7 @@ this.$jin_build4web_doc_release= function( pack, vary ){
     pack.mods().forEach( function( mod ){
         mod.srcs()
         .filter( function( src ){
-            return /\.doc\.xhtml$/.test( src.file.name() )
+            return /\.doc\.xml$/.test( src.file.name() )
         } )
         .forEach( function( src ){
             var comment= index.createComment( '../../' + src.file.relate('').replace( /\\/g, '/' ) )
@@ -21,6 +21,6 @@ this.$jin_build4web_doc_release= function( pack, vary ){
         } )
     })
     
-    return pack.file.child( '-mix' ).child( $jin_vary2string( 'index', vary ) + '.doc.xhtml' )
+    return pack.file.child( '-mix' ).child( $jin_vary2string( 'index', vary ) + '.doc.xml' )
     .content( ( new $node.xmldom.XMLSerializer ).serializeToString( index ) )
 }

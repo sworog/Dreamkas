@@ -30,7 +30,7 @@
         <body wc_reset="true">
             <wc_desktop>
                 
-                <xsl:apply-templates select=" document( '../-mix/index.stage=dev.doc.xhtml', . ) / doc_list " mode="doc_list_links"/>
+                <xsl:apply-templates select=" document( '../-mix/index.stage=dev.doc.xml', . ) / doc_list " mode="doc_list_links"/>
                 
                 <wc_spacer>
                     <wc_paper>
@@ -143,7 +143,7 @@
     <wc_sidebar>
         <wc_sidebar_panel wc_sidebar_edge="left">
             <wc_vmenu_root>
-                <a wc_reset="true" href="../-mix/index.stage=dev.doc.xhtml">
+                <a wc_reset="true" href="../-mix/index.stage=dev.doc.xml">
                     <wc_vmenu_leaf>
                         <xsl:value-of select=" 'MIX' "/>
                     </wc_vmenu_leaf>

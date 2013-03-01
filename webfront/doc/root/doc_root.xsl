@@ -25,7 +25,7 @@
         <body wc_reset="true">
             <wc_desktop>
                 
-                <xsl:apply-templates select=" document( '../-mix/index.stage=dev.doc.xhtml', . ) / doc_list " mode="doc_list_links" />
+                <xsl:apply-templates select=" document( '../-mix/index.stage=dev.doc.xml', . ) / doc_list " mode="doc_list_links" />
                 
                 <wc_spacer>
                     <wc_paper>
