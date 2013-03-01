@@ -13,7 +13,7 @@ import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.webdriver.stubs.AlertStub;
 
 @DefaultUrl("http://webfront-staging.lighthouse.cs/?product;create")
-public class OrderCreatePage extends PageObject{
+public class ProductCreatePage extends PageObject{
 	
 	@FindBy(name="sku")
 	private WebElement skuField;
@@ -57,7 +57,7 @@ public class OrderCreatePage extends PageObject{
 	@FindBy(xpath="//button[@mayak_button='success']")
 	private WebElement createButton;
 	
-	public OrderCreatePage(WebDriver driver){
+	public ProductCreatePage(WebDriver driver){
 		super(driver);
 	}
 	

@@ -1,13 +1,11 @@
-View order cards story
+View product cards story
 
 Narrative:
-In order to view order cards in stock
+In order to view product cards in stock
 As a sales manager
-I want to view order card
+I want to view product card
 
-Scenario: Viewing Order Card after Creation
-Meta:
-@skip
+Scenario: Viewing product Card after Creation
 Given the user is on the order edit page
 When the user inputs 'Наименование' in 'name' field
 And the user inputs 'Yfbvtyjdfy' in 'vendor' field
@@ -34,9 +32,7 @@ And the user checks 'elementName' value is 'expectedValue'
 And the user checks 'elementName' value is 'expectedValue'
 And the user checks 'elementName' value is 'expectedValue'
 
-Scenario: Viewing Order Card after Edition OK
-Meta:
-@skip
+Scenario: Viewing product Card after Edition OK
 Given the user is on the order edit page
 When the user edits 'Наименование23' in 'name' field
 And the user edits 'Кефиромания' in 'vendor' field
@@ -63,9 +59,7 @@ And the user checks 'elementName' value is 'expectedValue'
 And the user checks 'elementName' value is 'expectedValue'
 And the user checks 'elementName' value is 'expectedValue'
 
-Scenario: Viewing Order Card after Edition Cancel
-Meta:
-@skip
+Scenario: Viewing product Card after Edition Cancel
 Given the user is on the order edit page
 When the user edits 'Наименование23' in 'name' field
 And the user edits 'Кефиромания' in 'vendor' field

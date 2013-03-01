@@ -1,69 +1,69 @@
 package project.lighthouse.autotests.steps;
 
-import project.lighthouse.autotests.pages.OrderCardView;
-import project.lighthouse.autotests.pages.OrderCreatePage;
-import project.lighthouse.autotests.pages.OrderEditPage;
+import project.lighthouse.autotests.pages.ProductCardView;
+import project.lighthouse.autotests.pages.ProductCreatePage;
+import project.lighthouse.autotests.pages.ProductEditPage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 
-public class OrderSteps extends ScenarioSteps{
+public class ProductSteps extends ScenarioSteps{
 	
-	OrderCreatePage orderCreatePage;
-	OrderEditPage orderEditPage;
-	OrderCardView orderCardView;
+	ProductCreatePage productCreatePage;
+	ProductEditPage productEditPage;
+	ProductCardView productCardView;
 
-	public OrderSteps(Pages pages) {
+	public ProductSteps(Pages pages) {
 		super(pages);
 	}
 	
 	@Step
 	public void IstheOrderCreatePage(){
-		orderCreatePage.open();
+		productCreatePage.open();
 	}
 	
 	@Step
 	public void IsTheOrderEditPage(){
-		orderEditPage.open();
+		productEditPage.open();
 	}
 	
 	@Step
 	public void IsTheOrderCardViewPage(){
-		orderCardView.open();
+		productCardView.open();
 	}
 	
 	@Step
 	public void FieldInput(String elementName, String inputText){
-		orderCreatePage.input(elementName, inputText);
+		productCreatePage.input(elementName, inputText);
 	}
 	
 	@Step
 	public void SelectDropdown(String elementName, String value){
-		orderCreatePage.Select(elementName, value);
+		productCreatePage.Select(elementName, value);
 	}
 	
 	@Step
 	public void CreateButtonClick(){
-		orderCreatePage.CreateButtonClick();
+		productCreatePage.CreateButtonClick();
 	}
 	
 	@Step
 	public void FieldEdit(String elementName, String inputText){
-		orderEditPage.FieldEdit(elementName, inputText);
+		productEditPage.FieldEdit(elementName, inputText);
 	}
 	
 	@Step
 	public void EditButtonClick(){
-		orderEditPage.EditbuttonClick();
+		productEditPage.EditbuttonClick();
 	}
 	
 	@Step
 	public void CancelButtonClick(){
-		orderEditPage.CancelButtonClick();
+		productEditPage.CancelButtonClick();
 	}
 	
 	@Step
 	public void CheckValue(String elementName, String expectedValue){
-		orderCardView.CheckValue(elementName, expectedValue);
+		productCardView.CheckValue(elementName, expectedValue);
 	}
 }

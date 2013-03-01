@@ -1,13 +1,11 @@
-Edit order story
+Edit product story
 
 Narrative:
-In order to edit orders to stocks
+In order to edit products to stocks
 As a sales manager
-I want to edit new orders
+I want to edit new products
 
-Scenario: Editing Order Ok
-Meta:
-@skip
+Scenario: Editing product Ok
 Given the user is on the order edit page
 When the user edits 'Наименование23' in 'name' field
 And the user edits 'Кефиромания' in 'vendor' field
@@ -25,9 +23,7 @@ And the user edits 'апапапап' in 'info' field
 And the user clicks the cancel button
 Then the user checks is all good
 
-Scenario: Editing Order Cancel
-Meta:
-@skip
+Scenario: Editing product Cancel
 Given the user is on the order edit page
 When the user edits 'Наименование23' in 'name' field
 And the user edits 'Кефиромания' in 'vendor' field
