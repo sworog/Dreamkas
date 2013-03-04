@@ -35,3 +35,9 @@
 [ mayak_button = 'modify' ]:hover {
     background: #2284a1;
 }
+
+[ mayak_button ]:disabled {
+    background: gray;
+    box-shadow: none;
+    cursor: default;
+}

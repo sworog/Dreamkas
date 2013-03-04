@@ -19,6 +19,7 @@
                     <button
                         mayak_button="success"
                         type="submit"
+                        disabled="disabled"
                         >
                         Сохранить данные
                     </button>

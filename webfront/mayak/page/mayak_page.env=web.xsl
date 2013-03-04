@@ -31,10 +31,10 @@
                 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
                 
                 <link href="{$mayak_page_stylesheet}/../index.stage={$mayak_page_stage}.css" rel="stylesheet" />
+                <script src="{$mayak_page_stylesheet}/../index.env=web.stage={$mayak_page_stage}.js">//</script>
             </head>
             <body jin_reset="true">
                 <xsl:apply-templates />
-                <script src="{$mayak_page_stylesheet}/../index.env=web.stage={$mayak_page_stage}.js">//</script>
             </body>
         </html>
     </xsl:template>

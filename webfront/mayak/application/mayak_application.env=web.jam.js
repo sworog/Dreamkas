@@ -62,25 +62,27 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         
         $jq.get
         (   'mayak/-mix/index.stage=release.xsl'
-        ,   function( xsl, status, xhr ){
-                application.templates= $jin_domx.parse( xhr.responseText )
-                
-                var params= {}
-                document.location.search
-                .replace( /^\?/, '' )
-                .split( ';' )
-                .forEach( function( chunk ){
-                    var pair= chunk.split( '=' )
-                    params[ pair[ 0 ] ]= pair[ 1 ] || ''
-                })
-                
-                var action= 'view_' + Object.keys( params ).join( '_' )
-                
-                var view= application[ action ] || application.view_default
-                
-                view.call( application, params )
-            }
+        ,   initView
         )
+        
+        function initView( xsl, status, xhr ){
+            application.templates= $jin_domx.parse( xhr.responseText )
+            
+            var params= {}
+            document.location.search
+            .replace( /^\?/, '' )
+            .split( ';' )
+            .forEach( function( chunk ){
+                var pair= chunk.split( '=' )
+                params[ pair[ 0 ] ]= pair[ 1 ] || ''
+            })
+            
+            var action= 'view_' + Object.keys( params ).join( '_' )
+            
+            var view= application[ action ] || application.view_default
+            
+            view.call( application, params )
+        }
         
         $mayak_product_onSave.listen( document.body, function( event ){
             if( event.catched() ) return

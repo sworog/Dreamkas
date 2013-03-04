@@ -11,6 +11,7 @@
                     <button
                         mayak_button="success"
                         type="submit"
+                        disabled="disabled"
                         >
                         Создать товар
                     </button>
