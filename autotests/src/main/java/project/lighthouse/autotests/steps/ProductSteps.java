@@ -6,31 +6,38 @@ import project.lighthouse.autotests.pages.ProductEditPage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
+import project.lighthouse.autotests.pages.ProductListPage;
 
 public class ProductSteps extends ScenarioSteps{
 	
 	ProductCreatePage productCreatePage;
 	ProductEditPage productEditPage;
 	ProductCardView productCardView;
+    ProductListPage productListPage;
 
 	public ProductSteps(Pages pages) {
 		super(pages);
 	}
 	
 	@Step
-	public void IstheOrderCreatePage(){
+	public void IsTheProductCreatePage(){
 		productCreatePage.open();
 	}
 	
 	@Step
-	public void IsTheOrderEditPage(){
+	public void IsTheProductEditPage(){
 		productEditPage.open();
 	}
 	
 	@Step
-	public void IsTheOrderCardViewPage(){
+	public void IsTheProductCardViewPage(){
 		productCardView.open();
 	}
+
+    @Step
+    public void IsTheProductListPageOpen(){
+        productListPage.open();
+    }
 	
 	@Step
 	public void FieldInput(String elementName, String inputText){
@@ -61,4 +68,19 @@ public class ProductSteps extends ScenarioSteps{
 	public void CheckValue(String elementName, String expectedValue){
 		productCardView.CheckValue(elementName, expectedValue);
 	}
+
+    @Step
+    public void CreateNewProductButtonClick(){
+        productListPage.CreateNewProductButtonClick();
+    }
+
+    @Step
+    public void ListItemClick(String skuValue){
+        productListPage.ListItemClick(skuValue);
+    }
+
+    @Step
+    public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
+        productListPage.CheckProductWithSkuHasExpectedValue(skuValue, expectedValue);
+    }
 }

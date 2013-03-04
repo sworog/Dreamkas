@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.pages;
 
+import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,39 +8,43 @@ import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
 
-@DefaultUrl("http://localhost:8008/index.xml?product-list")
+@DefaultUrl("?product;list")
 public class ProductListPage extends PageObject{
 	
-	@FindBy()
+	@FindBy(xpath = "//a[contains(@id,'product')]")
 	private WebElement productListItem;
 	
-	@FindBy()
-	private WebElement searchInputField;
+	@FindBy(xpath = "//[@mayak_button='create']")
+	private WebElement createNewProductButton;
 
 	public ProductListPage(WebDriver driver) {
 		super(driver);
 	}
+
+    public void CreateNewProductButtonClick(){
+        $(createNewProductButton).click();
+    }
+
+    public WebElementFacade GetItemProductElement(String skuValue){
+        StringBuilder builder = new StringBuilder("/../a[span[text()='");
+        builder.append(skuValue);
+        builder.append("']]");
+            return $(productListItem).findBy(builder.toString());
+    }
 	
-	public void ListItemClick(){
-		$(productListItem).click();
+	public void ListItemClick(String skuValue){
+        WebElementFacade productItem = GetItemProductElement(skuValue);
+        productItem.click();
 	}
 	
-	public void ListItemChecks(){
-		$(productListItem).isPresent();		
+	public void ListItemChecks(String skuValue){
+        WebElementFacade productItem = GetItemProductElement(skuValue);
+        productItem.shouldBePresent();
 	}
-	
-	/*Example checks method by xpath selector*/
-	public void ListItemChecksByXpath(String nameValue, String priceValue){
-		StringBuilder builder = new StringBuilder("//*[@name = '");
-	    builder.append(nameValue);
-	    builder.append("' and @price='");
-	    builder.append(priceValue);
-	    builder.append("']");
-		$(productListItem).findBy(builder.toString()).shouldBePresent();
-		
-	}
-	
-	public void Search(String searchInput){
-		$(searchInputField).typeAndEnter(searchInput);
-	}	
+
+    public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
+        ListItemChecks(skuValue);
+        WebElementFacade productItem = GetItemProductElement(skuValue);
+        productItem.shouldContainText(expectedValue);
+    }
 }
