@@ -12,17 +12,22 @@ public class ProductUserSteps {
 	
 	@Given("the user is on the order create page")
     public void GivenTheUserIsOnTheOrderCreatePage() {
-        productSteps.IstheOrderCreatePage();
+        productSteps.IsTheProductCreatePage();
     }
 	
 	@Given("the user is on the order edit page")
 	public void GivenTheUserIsOnTheOrderEditPage(){
-		productSteps.IsTheOrderEditPage();
+		productSteps.IsTheProductEditPage();
 	}
 	@Given("the user is on the order card view")
 	public void GivenTheUserIsOnTheOrderCardView(){
-		productSteps.IsTheOrderCardViewPage();
+		productSteps.IsTheProductCardViewPage();
 	}
+
+    @Given("the user is on the product list page")
+    public void GivenTheUserIsOnTheProductListPage(){
+        productSteps.IsTheProductListPageOpen();
+    }
 
     @When("the user inputs '$inputText' in '$elementName' field")
     public void WhenTheUserInputsTextInTheField(String inputText, String elementName) {
@@ -53,6 +58,11 @@ public class ProductUserSteps {
     public void WhenTheUserClickCancelEditButton(){
     	productSteps.CancelButtonClick();
     }
+
+    @When("the user creates new product from product list page")
+    public void WhenTheUSerCreatesNewProduct(){
+        productSteps.CreateNewProductButtonClick();
+    }
     
     @Then("the user checks '$elementName' value is '$expectedValue'")
     public void ThenTheUserChecksValue(String elementName, String expectedValue){
@@ -62,7 +72,12 @@ public class ProductUserSteps {
     @Then("the user checks is all good")
     public void ThenTheUserChecksIsAllGood(){
     	//checks
-    }    
+    }
+
+    @Then("the user checks the product with '$skuValue' sku has 'name' equal to '$expectedValue'")
+    public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
+        productSteps.CheckProductWithSkuHasExpectedValue(skuValue, expectedValue);
+    }
     
     /*@Then("they should see the definition '$definition'")
     public void thenTheyShouldSeeADefinitionContainingTheWords(String definition) {

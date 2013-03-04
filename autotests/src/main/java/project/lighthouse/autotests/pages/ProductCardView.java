@@ -9,8 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
 
-@DefaultUrl("http://localhost:8008/index.xml?product-1")
-public class ProductCardView extends PageObject{	
+@DefaultUrl("/index.xml?product-1")
+public class ProductCardView extends ProductCreatePage{
 	
 	@FindBy(xpath="//")
 	private WebElement nameValue;

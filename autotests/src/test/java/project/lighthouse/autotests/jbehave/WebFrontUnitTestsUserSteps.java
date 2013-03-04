@@ -10,12 +10,12 @@ public class WebFrontUnitTestsUserSteps {
     @Steps
     WebFrontUnitTestSteps webFrontUnitTestSteps;
 
-    @When("The user opens the UT page")
+    @When("the user opens the UT page")
     public void WhenTheUserOpensTheUTPage(){
         webFrontUnitTestSteps.OpenUnitTestPage();
     }
 
-    @Then("The user checks the unit tests passed")
+    @Then("the user checks the unit tests passed")
     public void ThenTheUserChecksTheUnitTestsPassed(){
         webFrontUnitTestSteps.CheckUTIsPassed();
     }

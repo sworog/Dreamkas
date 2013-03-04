@@ -52,6 +52,9 @@ public class ProductCreatePage extends PageObject{
 	
 	@FindBy(xpath="//button[@mayak_button='success']")
 	private WebElement createButton;
+
+    @FindBy(xpath = "//a[@mayak_card_back]")
+    private WebElement productItemListLink;
 	
 	public ProductCreatePage(WebDriver driver){
 		super(driver);
@@ -71,6 +74,10 @@ public class ProductCreatePage extends PageObject{
 		$(createButton).click();
 		AlertOnSuccess();
 	}
+
+    public void GoToProductItemList(){
+        $(productItemListLink).click();
+    }
 	
 	public WebElement getWebElement(String name){		
 		switch (name) {
@@ -113,6 +120,4 @@ public class ProductCreatePage extends PageObject{
 			getAlert().accept();
 		}		
 	}
-	
-
 }

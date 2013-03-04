@@ -12,6 +12,7 @@ public class WebFrontUnitTest extends PageObject{
 
     private String UTPage = "http://localhost:8008/mayak/-mix/index.stage=release.doc.xml";
 
+
     public WebFrontUnitTest(WebDriver driver) {
         super(driver);
     }
