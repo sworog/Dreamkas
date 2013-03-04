@@ -7,7 +7,7 @@ import org.jbehave.core.annotations.When;
 import net.thucydides.core.annotations.Steps;
 import project.lighthouse.autotests.steps.ProductSteps;
 
-public class ProfuctOrderSteps {
+public class ProductUserSteps {
 	
 	@Steps
 	ProductSteps productSteps;
@@ -48,7 +48,7 @@ public class ProfuctOrderSteps {
     
     @When("the user clicks the edit button")
     public void WhenTheUserClicksOnEditButton(){
-    	productSteps.EditButtonClick();
+    	productSteps.CreateButtonClick();
     }
     
     @When("the user clicks the cancel button")

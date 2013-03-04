@@ -2,15 +2,11 @@ package project.lighthouse.autotests.pages;
 
 import java.util.NoSuchElementException;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.android.library.AlertManager;
 import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
-import net.thucydides.core.pages.AnyPage;
 import net.thucydides.core.pages.PageObject;
-import net.thucydides.core.webdriver.stubs.AlertStub;
 
 @DefaultUrl("http://webfront-staging.lighthouse.cs/?product;create")
 public class ProductCreatePage extends PageObject{
