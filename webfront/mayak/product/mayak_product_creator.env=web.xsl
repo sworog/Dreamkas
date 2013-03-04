@@ -15,6 +15,12 @@
                         >
                         Создать товар
                     </button>
+                    <a
+                        mayak_button="reset"
+                        href="?product;list"
+                        >
+                        Отменить
+                    </a>
                 </div>
             </form>
         </div>

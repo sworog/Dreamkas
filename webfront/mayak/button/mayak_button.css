@@ -8,7 +8,13 @@
     box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.5 ) inset;
     color: white;
     text-decoration: none;
-    background: gray;
+    background: #999;
+    position: relative;
+    display: inline-block;
+}
+
+[ mayak_button ]:hover {
+    background: #888;
 }
 
 [ mayak_button ]:active {
@@ -34,6 +40,16 @@
 }
 [ mayak_button = 'modify' ]:hover {
     background: #2284a1;
+}
+
+[ mayak_button = 'create' ] {
+    background: #3892E3;
+}
+[ mayak_button = 'create' ]:before {
+    content: '+ ';
+}
+[ mayak_button = 'create' ]:hover {
+    background: #1D79CB;
 }
 
 [ mayak_button ]:disabled {

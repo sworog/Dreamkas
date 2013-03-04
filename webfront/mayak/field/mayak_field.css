@@ -11,9 +11,9 @@
 [ mayak_field = 'short' ] {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
-    -webkit-flex: 1 1 10em;
-    -ms-flex: 1 1 10em;
-    flex: 1 1 10em;
+    -webkit-flex: 1 1 8em;
+    -ms-flex: 1 1 8em;
+    flex: 1 1 8em;
 }
 
 [ mayak_field = 'normal' ] {
