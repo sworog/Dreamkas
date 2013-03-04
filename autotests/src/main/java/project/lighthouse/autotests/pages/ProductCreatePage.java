@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
 
-@DefaultUrl("?product;create")
+@DefaultUrl("/?product;create")
 public class ProductCreatePage extends PageObject{
 	
 	@FindBy(name="sku")

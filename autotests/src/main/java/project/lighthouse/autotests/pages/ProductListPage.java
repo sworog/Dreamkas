@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
 
-@DefaultUrl("?product;list")
+@DefaultUrl("/?product;list")
 public class ProductListPage extends PageObject{
 	
 	@FindBy(xpath = "//a[contains(@id,'product')]")
