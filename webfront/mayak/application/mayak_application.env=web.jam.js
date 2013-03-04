@@ -9,7 +9,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
     
     application.view_product_edit= function( application, params ){
         $jq.get
-        (   application.api() + 'product/' + params.product
+        (   'mayak/product/mayak_product.sample.xml'
         ,   function( product, status, xhr ){
                 product= $jin_domx.parse( xhr.responseText )
                 product.$.documentElement.setAttribute( 'mayak_product_editor', 'true' )
@@ -17,14 +17,32 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
             }
         )
     }
-        
+    
     application.view_product_create= function( application, params ){
         application.render( $jin_domx.parse( '<product mayak_product_creator="true" />' ) )
     }
-        
+    
+    application.view_product_list= function( application, params ){
+        $jq.ajax
+        (   'mayak/product/mayak_product_list.sample.xml'
+        ,   {   success: function( products, status, xhr ){
+                    products= $jin_domx.parse( xhr.responseText )
+                    products.$.documentElement.setAttribute( 'mayak_product_list', 'true' )
+                    application.render( products )
+                }
+            ,   error: function( data, type, message ){
+                    message= message
+                    ? 'Ошибка получения списка товаров: ' + message
+                    : 'Неизвестная ошибка получения списка товаров'
+                    $mayak_notify( message )
+                }
+            }
+        )
+    }
+    
     application.view_product= function( application, params ){
         $jq.ajax
-        (   application.api() + 'product/' + params.product
+        (   'mayak/product/mayak_product.sample.xml'
         ,   {   success: function( product, status, xhr ){
                     product= $jin_domx.parse( xhr.responseText )
                     product.$.documentElement.setAttribute( 'mayak_product_view', 'true' )
@@ -40,10 +58,6 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
         )
     }
         
-    application.view_product_list= function( application, params ){
-        application.render( '<mayak_productList/>' )
-    }
-    
     application.view_= function( application, params ){
         document.location= '?product;create'
     }
@@ -91,8 +105,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
             ,   {   type: 'post'
                 ,   data: $jq( event.target() ).serialize()
                 ,   success: function( data ){
-                        $mayak_notify( 'Продукт успешно создан' )
-                        document.location= '?product;create'
+                        document.location= '?product;list#product=3'
                     }
                 ,   error: function( data, type, message ){
                         message= message

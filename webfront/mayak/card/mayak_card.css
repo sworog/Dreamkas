@@ -3,14 +3,23 @@
     background: #eee;
     display: inline-block;
     text-align: left;
-    max-width: 40em;
+    width: 96%;
+    max-width: 42em;
     margin: 2%;
+    padding: 2%;
     box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.3 ) inset;
     border-radius: 2px;
     box-sizing: border-box;
 }
 
+[ mayak_card_header ] {
+}
+
+[ mayak_card_headerButtons ] {
+    float: right;
+    margin: -.3em -.3em 0 0;
+}
+
 [ mayak_card_title ] {
     font: bold 17pt "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
-    margin: 2%;
 }

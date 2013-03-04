@@ -1,8 +1,6 @@
 package project.lighthouse.autotests.jbehave;
 
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.*;
 
 import net.thucydides.core.annotations.Steps;
 import project.lighthouse.autotests.steps.ProductSteps;

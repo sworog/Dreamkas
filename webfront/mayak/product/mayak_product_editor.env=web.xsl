@@ -25,7 +25,6 @@
                     </button>
                     <a
                         mayak_button="reset"
-                        type="submit"
                         href="?product={ @id }"
                         >
                         Отменить изменения
