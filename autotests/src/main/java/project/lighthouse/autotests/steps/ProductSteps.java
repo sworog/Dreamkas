@@ -50,12 +50,7 @@ public class ProductSteps extends ScenarioSteps{
 	@Step
 	public void FieldEdit(String elementName, String inputText){
 		productEditPage.FieldEdit(elementName, inputText);
-	}
-	
-	@Step
-	public void EditButtonClick(){
-		productEditPage.EditbuttonClick();
-	}
+	}	
 	
 	@Step
 	public void CancelButtonClick(){
