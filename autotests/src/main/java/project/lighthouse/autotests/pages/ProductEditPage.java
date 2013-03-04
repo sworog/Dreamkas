@@ -8,9 +8,6 @@ import org.openqa.selenium.support.FindBy;
 
 @DefaultUrl("http://localhost:8008/index.xml?product;edit")
 public class ProductEditPage extends ProductCreatePage{
-
-	@FindBy(xpath="//button[@mayak_button='success']")
-	private WebElement editButton;
 	
 	@FindBy(xpath="//a[@mayak_button='reset']")
 	private WebElement resetButton;
@@ -23,16 +20,9 @@ public class ProductEditPage extends ProductCreatePage{
 		WebElement element = getWebElement(ElementName);
 		$(element).clear();
 		$(element).type(inputText);
-	}
-	
-	public void EditbuttonClick(){
-		$(editButton).click();
-	}
+	}	
 	
 	public void CancelButtonClick(){
 		$(resetButton).click();
 	}
-	
-	
-
 }
