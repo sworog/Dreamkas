@@ -7,7 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Sample Thucydides project</name>
+    <name>Lighthouse autotests</name>
 
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -17,8 +17,9 @@
         <thucydides.maven.version>0.9.98</thucydides.maven.version>
         <thucydides.browser.width>1280</thucydides.browser.width>
         <thucydides.browser.height>1024</thucydides.browser.height>
-        <thucydides.outputDirectory>target/site/thucydides</thucydides.outputDirectory>
-        <webdriver.base.url>http://webfront-autotests.lighthouse.cs/</webdriver.base.url>
+        <thucydides.outputDirectory>${reporting.outputDirectory}/thucydides</thucydides.outputDirectory>
+        <thucydides.sourceDirectory>${thucydides.outputDirectory}</thucydides.sourceDirectory>
+        <webdriver.base.url>http://webfront-autotests.lighthouse.cs</webdriver.base.url>
         <webdriver.driver>firefox</webdriver.driver>
         <webdriver.timeouts.implicitlywait>10000</webdriver.timeouts.implicitlywait>
     </properties>
@@ -185,9 +186,6 @@
             <build>
                 <directory>target-firefox</directory>
             </build>
-            <properties>
-                <thucydides.outputDirectory>target-firefox/site/thucydides</thucydides.outputDirectory>
-            </properties>
         </profile>
         <profile>
             <id>chrome</id>
@@ -200,9 +198,6 @@
             <build>
                 <directory>target-chrome</directory>
             </build>
-            <properties>
-                <thucydides.outputDirectory>target-chrome/site/thucydides</thucydides.outputDirectory>
-            </properties>
         </profile>
     </profiles>
 </project>
