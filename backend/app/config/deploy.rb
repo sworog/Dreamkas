@@ -12,7 +12,7 @@ set :app_path,    "app"
 set :web_path,    "web"
 set :user,        "watchman"
 
-set :repository,  "git@cs-watchman:lighthouse.git"
+set :repository,  "git@git.lighthouse.cs:lighthouse.git"
 set :scm,         :git
 
 ssh_options[:forward_agent] = true
