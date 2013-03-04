@@ -4,11 +4,7 @@ $jin_eventProof( function( $mayak_product_onSave, event ){
     $mayak_product_onSave.bubbles= true
 })
 
-this.$mayak_product_editor= $jin_class( function( $mayak_product_editor, editor ){
-    
-    $mayak_product_editor.id= 'mayak_product_editor'
-    
-    $jin_widget( $mayak_product_editor, editor )
+this.$mayak_product_editor= $jin_wrapper( function( $mayak_product_editor, editor ){
     
     editor.buttons= $jin_subElement( 'mayak_button' )
     
@@ -26,3 +22,5 @@ this.$mayak_product_editor= $jin_class( function( $mayak_product_editor, editor 
     }
     
 })
+
+$jin_component( 'mayak_product_editor', $mayak_product_editor )

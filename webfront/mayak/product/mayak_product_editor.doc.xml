@@ -64,15 +64,15 @@
         <script type="wc_test">
             var editor= $jq( '#mayak_product_creator_test' )
             
-            var result= true
+            var result= false
             $mayak_product_onSave.listen( editor[0], function( event ){
                 event.catched( true )
-                result= false
+                result= true
             })
             
             editor.find( '[mayak_button="success"]' ).click()
             
-            test.ok( result )
+            test.not( result )
         </script>
         <script type="wc_test">
             var editor= $jq( '#mayak_product_editor_test' )
