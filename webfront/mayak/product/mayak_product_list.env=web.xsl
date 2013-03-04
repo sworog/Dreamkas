@@ -5,9 +5,6 @@
         >
         <div mayak_card="true">
             <div mayak_card_header="true">
-                <span mayak_card_title="true">
-                    Список товаров
-                </span>
                 <div mayak_card_headerButtons="true">
                     <a
                         href="?product;create"
@@ -16,13 +13,16 @@
                         Новый товар
                     </a>
                 </div>
+                <span mayak_card_title="true">
+                    Список товаров
+                </span>
             </div>
             
             <div mayak_table="true">
                 
                 <div mayak_table_row="true">
                     <span
-                        mayak_table_cell="common"
+                        mayak_table_cell="id"
                         mayak_table_header="true"
                         >
                         Артикул
@@ -68,7 +68,7 @@
             id="product={ @id }"
             href="?product={ @id }"
             >
-            <span mayak_table_cell="common">
+            <span mayak_table_cell="id">
                 <xsl:value-of select=" @sku " />
             </span>
             <span mayak_table_cell="common">

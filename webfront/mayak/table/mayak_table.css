@@ -6,7 +6,7 @@
     border-radius: 3px;
     border: 1px solid #ddd;
     background: white;
-    font: 11pt/1.5 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
 }
 
 [ mayak_table_row ] {
@@ -38,7 +38,13 @@
     border: 1px solid white;
 }
 
+[ mayak_table_cell = 'id' ] {
+    white-space: nowrap;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
 [ mayak_table_cell = 'money' ] {
     text-align: right;
     white-space: nowrap;
+    font-family: "Lucida Console", Monaco, monospace;
 }

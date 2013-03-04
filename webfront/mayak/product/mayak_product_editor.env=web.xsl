@@ -3,6 +3,17 @@
     <xsl:template
         match=" *[ @mayak_product_editor ] "
         >
+        <a
+            mayak_card_back="true"
+            href="?product={ @id }"
+            >
+            <span mayak_card_titlePrefix="true">
+                <xsl:value-of select=" @sku " />
+            </span>
+            <span>
+                <xsl:value-of select=" @name " />
+            </span>
+        </a>
         <div mayak_card="true">
             <div mayak_card_title="true">Редактирование товара</div>
             <form mayak_product_editor="maker">

@@ -1,1 +1,0 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"><xsl:include href="../../doc/-mix/index.stage=release.xsl"/><xsl:include href="index.stage=release.xsl"/></xsl:stylesheet>

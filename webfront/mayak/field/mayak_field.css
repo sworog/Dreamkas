@@ -1,6 +1,7 @@
 [ mayak_field ] {
     margin: .2em;
-    font: 11pt/1.5 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
     box-sizing: border-box;
     display: inline-block;
     
@@ -49,7 +50,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     vertical-align: middle;
-    font: 11pt/1.5 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+    font: inherit;
 }
 
 [ mayak_field ] > select:invalid {

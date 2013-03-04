@@ -1,15 +1,39 @@
+[ mayak_card_back ] {
+    border: 1px solid #ddd;
+    background: #eee;
+    display: inline-block;
+    text-align: left;
+    width: 96%;
+    max-width: 600pt;
+    margin: 2% 2% -3%;
+    padding: 2%;
+    border-radius: 4px;
+    box-sizing: border-box;
+    opacity: .6;
+    font-weight: bold;
+    font-size: 17pt;
+    text-decoration: inherit;
+    color: inherit;
+}
+
+[ mayak_card_back ]:hover {
+    opacity: 1;
+}
+
 [ mayak_card ] {
     border: 1px solid #ddd;
     background: #eee;
     display: inline-block;
     text-align: left;
     width: 96%;
-    max-width: 42em;
+    max-width: 600pt;
     margin: 2%;
     padding: 2%;
     box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.3 ) inset;
-    border-radius: 2px;
+    border-radius: 4px;
     box-sizing: border-box;
+    position: relative;
+    opacity: 1;
 }
 
 [ mayak_card_header ] {
@@ -17,9 +41,25 @@
 
 [ mayak_card_headerButtons ] {
     float: right;
-    margin: -.3em -.3em 0 0;
+    margin: -.5em -.5em 0 0;
+}
+
+[ mayak_card_titlePrefix ] {
+    color: #666;
+    margin-right: .5em;
 }
 
 [ mayak_card_title ] {
-    font: bold 17pt "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    font-size: 17pt;
+    text-decoration: inherit;
+    color: inherit;
+}
+
+[ mayak_card_title ][ href ] {
+    color: steelblue;
+}
+
+[ mayak_card_title ][ href ]:hover {
+    color: red;
 }

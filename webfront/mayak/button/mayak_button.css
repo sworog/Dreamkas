@@ -1,16 +1,19 @@
 [ mayak_button ] {
-    padding: .5em 1.25em;
+    padding: .6em 1.2em;
     cursor: pointer;
-    margin: .2em;
-    font: 11pt 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+    margin: .3em;
+    font-size: 11pt;
+    line-height: 1;
     font-weight: bold;
     border: 1px solid gray;
+    border-radius: 2px;
     box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.5 ) inset;
     color: white;
     text-decoration: none;
     background: #999;
     position: relative;
     display: inline-block;
+    vertical-align: middle;
 }
 
 [ mayak_button ]:hover {
@@ -19,6 +22,8 @@
 
 [ mayak_button ]:active {
     box-shadow: 0 1px 0 rgba(0,0,0,0.2) inset;
+    padding-top: .7em;
+    padding-bottom: .5em;
 }
 
 [ mayak_button = 'success' ] {
@@ -44,6 +49,7 @@
 
 [ mayak_button = 'create' ] {
     background: #3892E3;
+    padding-left: .75em;
 }
 [ mayak_button = 'create' ]:before {
     content: '+ ';
