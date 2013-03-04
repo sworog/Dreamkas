@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 @DefaultUrl("http://localhost:8008/index.xml?product;edit")
-public class OrderEditPage extends OrderCreatePage{
+public class ProductEditPage extends ProductCreatePage{
 
 	@FindBy(xpath="//button[@mayak_button='success']")
 	private WebElement editButton;
@@ -15,7 +15,7 @@ public class OrderEditPage extends OrderCreatePage{
 	@FindBy(xpath="//a[@mayak_button='reset']")
 	private WebElement resetButton;
 	
-	public OrderEditPage(WebDriver driver) {
+	public ProductEditPage(WebDriver driver) {
 		super(driver);
 	}
 	

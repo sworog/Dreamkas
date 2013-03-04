@@ -1,11 +1,11 @@
-Create new order story
+Create new product story
 
 Narrative:
-In order to add new order to stock
+In order to add new product to stock
 As a sales manager
-I want to create new orders
+I want to create new products
 
-Scenario: Creating new order
+Scenario: Creating new product
 Given the user is on the order create page
 When the user inputs 'name1' in 'name' field
 And the user inputs 'Country' in 'vendor' field
