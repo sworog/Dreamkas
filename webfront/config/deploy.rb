@@ -4,7 +4,7 @@ set :stage_dir, "config/stages"
 require 'capistrano/ext/multistage'
 
 set :application, "webfront"
-set :domain,      "cs-watchman"
+set :domain,      "alexandria.lighthouse.cs"
 set :user,        "watchman"
 set :deploy_to,   "/var/www/#{application}"
 set :deploy_via,  :remote_cache_subfolder
