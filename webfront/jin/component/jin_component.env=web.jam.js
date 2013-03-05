@@ -3,6 +3,13 @@ $jin_class( function( $jin_component, component ){
     
     $jin_component.map= {}
     
+    $jin_component.checkTree= function( node ){
+        var nodes= node.getElementsByTagName( '*' )
+        for( var i= 0; i < nodes.length; ++i ){
+            checkNode( nodes[ i ] )
+        }
+    }
+    
     component.id= null
     component.widget= null
     
@@ -15,10 +22,7 @@ $jin_class( function( $jin_component, component ){
         
         $jin_component.map[ component.id ]= component
         
-        var nodes= document.getElementsByTagName( '*' )
-        for( var i= 0; i < nodes.length; ++i ){
-            checkNode( nodes[ i ] )
-        }
+        $jin_component.checkTree( document )
     }
     
     var destroy= component.destroy
@@ -48,15 +52,14 @@ $jin_class( function( $jin_component, component ){
     })
     
     $jin_onDomReady.listen( document, function( event ){
-        var node= event.target()
-        var nodes= node.getElementsByTagName( '*' )
-        for( var i= 0; i < nodes.length; ++i ){
-            checkNode( nodes[ i ] )
-        }
+        $jin_component.checkTree( document )
     })
     
     function checkNode( node ){
+        if( node.nodeType != 1 ) return
+        
         var names= [ node.localName ]
+        
         for( var i= 0; i < node.attributes.length; ++i ){
             names.push( node.attributes[ i ].nodeName )
         }

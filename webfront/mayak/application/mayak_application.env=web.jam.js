@@ -4,6 +4,7 @@ this.$mayak_application= $jin_wrapper( function( $mayak_application, application
     
     application.render= function( application, data ){
         application.templates.render( data , application.$ )
+        $jin_component.checkTree( application.$ )
         return application
     }
     
