@@ -10,7 +10,7 @@ set :deploy_to,   "/var/www/#{application}"
 set :deploy_via,  :remote_cache_subfolder
 set :deploy_subdir, "webfront"
 
-set :repository,  "git@cs-watchman:lighthouse.git"
+set :repository,  "git@git.lighthouse.cs:lighthouse.git"
 set :scm,         :git
 
 ssh_options[:forward_agent] = true
