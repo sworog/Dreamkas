@@ -80,6 +80,11 @@ public class ProductSteps extends ScenarioSteps{
     }
 
     @Step
+    public void ListItemCheck(String skuValue){
+        productListPage.ListItemChecks(skuValue);
+    }
+
+    @Step
     public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
         productListPage.CheckProductWithSkuHasExpectedValue(skuValue, expectedValue);
     }
