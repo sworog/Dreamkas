@@ -52,9 +52,8 @@
                 title="Мерность"
                 name="unit"
                 >
-                <option value=""></option>
                 <option value="unit">
-                    <xsl:if test=" @unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" not( @vat ) or @unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
                     Штуки
                 </option>
                 <option value="liter">
@@ -76,16 +75,15 @@
                 required="required"
                 name="vat"
                 >
-                <option value=""></option>
-                <option value="1">
+                <option value="0">
                     <xsl:if test=" @vat = '0' "><xsl:attribute name="selected"/></xsl:if>
                     0%
                 </option>
-                <option value="5">
-                    <xsl:if test=" @vat = '10' "><xsl:attribute name="selected"/></xsl:if>
+                <option value="10">
+                    <xsl:if test=" not( @vat ) or @vat = '10' "><xsl:attribute name="selected"/></xsl:if>
                     10%
                 </option>
-                <option value="10">
+                <option value="18">
                     <xsl:if test=" @vat = '18' "><xsl:attribute name="selected"/></xsl:if>
                     18%
                 </option>
