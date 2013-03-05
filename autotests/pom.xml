@@ -17,7 +17,7 @@
         <thucydides.maven.version>0.9.98</thucydides.maven.version>
         <thucydides.browser.width>1280</thucydides.browser.width>
         <thucydides.browser.height>1024</thucydides.browser.height>
-        <thucydides.outputDirectory>${reporting.outputDirectory}/thucydides</thucydides.outputDirectory>
+        <thucydides.outputDirectory>${project.reporting.outputDirectory}/thucydides</thucydides.outputDirectory>
         <thucydides.sourceDirectory>${thucydides.outputDirectory}</thucydides.sourceDirectory>
         <webdriver.base.url>http://webfront-autotests.lighthouse.cs</webdriver.base.url>
         <webdriver.driver>firefox</webdriver.driver>
@@ -86,6 +86,7 @@
                         <thucydides.browser.width>${thucydides.browser.width}</thucydides.browser.width>
                         <thucydides.browser.height>${thucydides.browser.height}</thucydides.browser.height>
                         <thucydides.outputDirectory>${thucydides.outputDirectory}</thucydides.outputDirectory>
+                        <thucydides.sourceDirectory>${thucydides.sourceDirectory}</thucydides.sourceDirectory>
                         <webdriver.driver>${webdriver.driver}</webdriver.driver>
                         <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}</webdriver.timeouts.implicitlywait>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
