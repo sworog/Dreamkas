@@ -53,6 +53,9 @@ public class ProductCreatePage extends PageObject{
 	@FindBy(xpath="//button[@mayak_button='success']")
 	private WebElement createButton;
 
+    @FindBy(xpath = "//a[@mayak_button='reset']")
+    private WebElement cancelButton;
+
     @FindBy(xpath = "//a[@mayak_card_back]")
     private WebElement productItemListLink;
 	
@@ -72,8 +75,11 @@ public class ProductCreatePage extends PageObject{
 	
 	public void CreateButtonClick(){
 		$(createButton).click();
-		AlertOnSuccess();
 	}
+
+    public void CancelButtonClick(){
+        $(cancelButton).click();
+    }
 
     public void GoToProductItemList(){
         $(productItemListLink).click();
@@ -111,13 +117,12 @@ public class ProductCreatePage extends PageObject{
 			return (WebElement) new NoSuchFieldException();
 		}
 	}
-	
-	public void AlertOnSuccess(){		
-		if(!getAlert().getText().equals("Продукт успешно создан")){
-			throw new NoSuchElementException("Fail!");
-		}
-		else{
-			getAlert().accept();
-		}		
-	}
+
+    public void CheckDropDownDefaultValue(String dropdownType, String expectedValue){
+        WebElement element = getWebElement(dropdownType);
+            if (!$(element).getSelectedValue().equals(expectedValue)) {
+                String errorMessage = String.format("The default value for '%s' dropdawn is not '%s'", dropdownType, expectedValue);
+                throw new AssertionError(errorMessage);
+            }
+    }
 }

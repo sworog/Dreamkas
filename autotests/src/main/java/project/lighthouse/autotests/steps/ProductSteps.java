@@ -83,4 +83,9 @@ public class ProductSteps extends ScenarioSteps{
     public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
         productListPage.CheckProductWithSkuHasExpectedValue(skuValue, expectedValue);
     }
+
+    @Step
+    public void CheckDropDownDefaultValue(String dropdownType, String expectedValue){
+        productCreatePage.CheckDropDownDefaultValue(dropdownType, expectedValue);
+    }
 }

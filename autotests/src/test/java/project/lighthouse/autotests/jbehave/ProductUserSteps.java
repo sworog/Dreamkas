@@ -78,6 +78,11 @@ public class ProductUserSteps {
     public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
         productSteps.CheckProductWithSkuHasExpectedValue(skuValue, expectedValue);
     }
+
+    @Then("the user checks default value for '$dropdownType' dropdown equal to '$expectedValue'")
+    public void ThenTheUSerChecksDefaultValueForDropDown(String dropdownType, String expectedValue){
+        productSteps.CheckDropDownDefaultValue(dropdownType, expectedValue);
+    }
     
     /*@Then("they should see the definition '$definition'")
     public void thenTheyShouldSeeADefinitionContainingTheWords(String definition) {

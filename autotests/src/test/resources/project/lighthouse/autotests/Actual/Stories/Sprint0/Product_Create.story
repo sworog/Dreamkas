@@ -26,7 +26,7 @@ And the user inputs 'Россия2' in 'vendorCountry' field
 And the user inputs '123' in 'purchasePrice' field
 And the user inputs '123' in 'barcode' field
 And the user selects 'liter' in 'unit' dropdown
-And the user selects '5' in 'vat' dropdown
+And the user selects '0' in 'vat' dropdown
 And the user inputs '123456' in 'sku' field
 And the user inputs 'Info2' in 'info' field
 And the user clicks the create button
@@ -39,7 +39,7 @@ And the user inputs 'Россия' in 'vendorCountry' field
 And the user inputs '123' in 'purchasePrice' field
 And the user inputs '123' in 'barcode' field
 And the user selects 'kg' in 'unit' dropdown
-And the user selects '1' in 'vat' dropdown
+And the user selects '18' in 'vat' dropdown
 And the user inputs '123456' in 'sku' field
 And the user inputs 'Info3' in 'info' field
 And the user clicks the create button

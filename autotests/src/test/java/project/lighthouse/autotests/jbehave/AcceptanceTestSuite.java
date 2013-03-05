@@ -7,7 +7,6 @@ import java.nio.charset.Charset;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 	public AcceptanceTestSuite() {
-        LoggerFactory.getLogger(AcceptanceTestSuite.class).info(Charset.defaultCharset().toString());
         findStoriesIn("**/Actual/");
 	}
 }

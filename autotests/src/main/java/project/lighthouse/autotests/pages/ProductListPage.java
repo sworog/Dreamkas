@@ -26,10 +26,8 @@ public class ProductListPage extends PageObject{
     }
 
     public WebElementFacade GetItemProductElement(String skuValue){
-        StringBuilder builder = new StringBuilder("/../a[span[text()='");
-        builder.append(skuValue);
-        builder.append("']]");
-            return $(productListItem).findBy(builder.toString());
+        String xpath = String.format("/../a[span[text()='%s']]", skuValue);
+        return $(productListItem).findBy(xpath);
     }
 	
 	public void ListItemClick(String skuValue){
