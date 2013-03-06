@@ -1,4 +1,4 @@
-lighthouse_core:
+lighthouse.core:
     resource: "@LighthouseCoreBundle/Controller/"
     type:     annotation
     prefix:   /

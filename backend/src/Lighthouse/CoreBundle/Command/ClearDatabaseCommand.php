@@ -6,16 +6,27 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use JMS\DiExtraBundle\Annotation as DI;
 
+/**
+ * @DI\Service("lighthouse.core.command.create_database")
+ */
 class ClearDatabaseCommand extends ContainerAwareCommand
 {
     /**
-     * @return \MongoDB
+     * @var \MongoDB
      */
-    protected function getMongoDb()
+    protected $mongoDb;
+
+    /**
+     * @DI\InjectParams({"mongoDb" = @DI\Inject("lighthouse.core.db.mongo.db")})
+     * @param MongoDb $mongoDB
+     */
+    public function setMongoDb(\MongoDB $mongoDb)
     {
-        return $this->getContainer()->get('lighthouse_core.db.mongo.db');
+        $this->mongoDb = $mongoDb;
     }
+
     /**
      *
      */
@@ -32,7 +43,7 @@ class ClearDatabaseCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $mongoDb = $this->getMongoDb();
+        $mongoDb = $this->mongoDb;
 
         $output->writeln(sprintf("<info>Clearing mongo database: <comment>%s</comment></info>", $mongoDb));
 

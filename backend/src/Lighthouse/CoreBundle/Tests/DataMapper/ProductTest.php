@@ -33,7 +33,7 @@ class ProductTest extends WebTestCase
     protected function clearMongoDb()
     {
         /* @var \MongoDB $mongoDB */
-        $mongoDB = $this->getContainer()->get('lighthouse_core.db.mongo.db');
+        $mongoDB = $this->getContainer()->get('lighthouse.core.db.mongo.db');
         $mongoDB->drop();
     }
 
@@ -42,7 +42,7 @@ class ProductTest extends WebTestCase
      */
     protected function getProductMapper()
     {
-        return $this->getContainer()->get('lighthouse_core.mapper.product');
+        return $this->getContainer()->get('lighthouse.core.mapper.product');
     }
 
     public function testCreate()
