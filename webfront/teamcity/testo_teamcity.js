@@ -18,32 +18,36 @@ function run(){
 
     var socket = require( 'socket.io-client' ).connect( '//' + config.host + ':' + config.port )
     
-    socket.on( 'connect', function( ){
+    socket.on( 'connect', onConnect )
+    
+    function onConnect( ){
         console.log( "##teamcity[testSuiteStarted name='browser.unittest']" )
         
-        socket.on( 'test:done', function( states ){
-            console.log( "##teamcity[message text='count: " + Object.keys( states ).length + "']" )
-            
-            for( var agent in states ){
-                agent= agent.replace( /'/g, "|'" ).replace( /\n/g, "|n" ).replace( /\r/g, "|r" ).replace( /\|/g, "||" ).replace( /\]/g, "|]" )
-                console.log( "##teamcity[testStarted name='" + agent + "']" )
-                
-                if( !states[ agent ] ) console.log( "##teamcity[testFailed  name='" + agent + "']" )
-                
-                console.log( "##teamcity[testFinished name='" + agent + "']" )
-            }
-            
-            console.log( "##teamcity[testSuiteFinished name='browser.unittest']" )
-            
-            setTimeout( function(){
-                socket.disconnect()
-                process.exit(0)
-            },1000)
-            
-        } )
+        socket.on( 'test:done', onDone )
         
         socket.emit( 'test:run' )
+    }
+    
+    function onDone( states ){
+        console.log( "##teamcity[message text='count: " + Object.keys( states ).length + "']" )
         
-    })
-
+        for( var agent in states ){
+            agent= agent.replace( /'/g, "|'" ).replace( /\n/g, "|n" ).replace( /\r/g, "|r" ).replace( /\|/g, "||" ).replace( /\]/g, "|]" )
+            console.log( "##teamcity[testStarted name='" + agent + "']" )
+            
+            if( !states[ agent ] ) console.log( "##teamcity[testFailed  name='" + agent + "']" )
+            
+            console.log( "##teamcity[testFinished name='" + agent + "']" )
+        }
+        
+        console.log( "##teamcity[testSuiteFinished name='browser.unittest']" )
+        
+        setTimeout( onComplete, 1000 )
+    }
+    
+    function onComplete(){
+        socket.disconnect()
+        process.exit(0)
+    }
+    
 }
