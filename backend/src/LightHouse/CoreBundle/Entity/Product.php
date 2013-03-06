@@ -17,21 +17,16 @@ namespace LightHouse\CoreBundle\Entity;
  */
 class Product
 {
-    /**
-     * @var array
-     */
-    protected $properties = array(
-        'id' => null,
-        'name' => null,
-        'units' => null,
-        'vat' => null,
-        'purchasePrice' => null,
-        'barcode' => null,
-        'sku' => null,
-        'vendorCountry' => null,
-        'vendor' => null,
-        'info' => null,
-    );
+    protected $id;
+    protected $name = null;
+    protected $units;
+    protected $vat = null;
+    protected $purchasePrice = null;
+    protected $barcode = null;
+    protected $sku = null;
+    protected $vendorCountry = null;
+    protected $vendor = null;
+    protected $info = null;
 
     /**
      * @param string $name
@@ -40,8 +35,8 @@ class Product
      */
     public function __get($name)
     {
-        if (array_key_exists($name, $this->properties)) {
-            return $this->properties[$name];
+        if (property_exists($this, $name)) {
+            return $this->$name;
         }
         throw new \Exception("Property '$name' does not exist");
     }
@@ -53,8 +48,8 @@ class Product
      */
     public function __set($name, $value)
     {
-        if (array_key_exists($name, $this->properties)) {
-            $this->properties[$name] = $value;
+        if (property_exists($this, $name)) {
+            $this->$name = $value;
             return;
         }
         throw new \Exception("Property '$name' does not exist");
@@ -65,7 +60,18 @@ class Product
      */
     public function toArray()
     {
-        return $this->properties;
+        return array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'units' => $this->units,
+            'vat' => $this->vat,
+            'purchasePrice' => $this->purchasePrice,
+            'barcode' => $this->barcode,
+            'sku' => $this->sku,
+            'vendorCountry' => $this->vendorCountry,
+            'vendor' => $this->vendor,
+            'info' => $this->info,
+        );
     }
 
     /**
@@ -74,9 +80,9 @@ class Product
      */
     public function populate(array $data)
     {
-        foreach ($this->properties as $key => $value) {
-            if (isset($data[$key])) {
-                $this->properties[$key] = $data[$key];
+        foreach ($data as $name => $value) {
+            if (property_exists($this, $name)) {
+                $this->$name = $value;
             }
         }
 

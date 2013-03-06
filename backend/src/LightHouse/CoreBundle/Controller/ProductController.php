@@ -34,4 +34,15 @@ class ProductController extends Controller
 
         return new Response('', 400);
     }
+
+    /**
+     * @Route("/api/1/product", name="product_index", requirements={"_method"="GET"})
+     * @Rest\View
+     */
+    public function indexAction()
+    {
+        $product = new Product();
+        $product->name = "Кефир";
+        return $product;
+    }
 }
