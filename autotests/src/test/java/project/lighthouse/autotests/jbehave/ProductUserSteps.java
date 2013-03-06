@@ -74,7 +74,12 @@ public class ProductUserSteps {
     	//checks
     }
 
-    @Then("the user checks the product with '$skuValue' sku has 'name' equal to '$expectedValue'")
+    @Then("the user checks the product with '$skuValue' sku is present")
+    public void ThenTheUSerChecksTheProductWithSkuIsPresent(String skuValue){
+        productSteps.ListItemCheck(skuValue);
+    }
+
+    @Then("the user checks the product with '$skuValue' sku has '$name' equal to '$expectedValue'")
     public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
         productSteps.CheckProductWithSkuHasExpectedValue(skuValue, expectedValue);
     }
