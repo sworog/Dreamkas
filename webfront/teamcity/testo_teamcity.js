@@ -49,6 +49,10 @@ function run(){
         
         socket.emit( 'test:run' )
         
+        socket.on( 'disconnect', function( ){
+            console.log( "##teamcity[message text='WTF?!?']" )
+        })
+        
     })
 
 }
