@@ -1,22 +1,38 @@
 var config= require( './testo_config.js' )
-var socket = require( 'socket.io-client' ).connect( '//' + config.host + ':' + config.port )
 
-console.log( "##teamcity[testSuiteStarted name='browser.unittest']" )
+var server= require( 'child_process' ).spawn
+(   'testo_server.cmd'
+,   [ ]
+,   { detached: true }
+)
 
-socket.emit( 'test:run' )
+setTimeout( run, config.timeout )
 
-socket.on( 'test:done', function( states ){
+function run(){
+
+    var socket = require( 'socket.io-client' ).connect( '//' + config.host + ':' + config.port )
     
-    for( var agent in states ){
-        agent= agent.replace( /'/g, "|'" ).replace( /\n/g, "|n" ).replace( /\r/g, "|r" ).replace( /\|/g, "||" ).replace( /\]/g, "|]" )
-        console.log( "##teamcity[testStarted name='" + agent + "']" )
+    socket.on( 'connect', function( ){
+        console.log( "##teamcity[testSuiteStarted name='browser.unittest']" )
         
-        if( !states[ agent ] ) console.log( "##teamcity[testFailed  name='" + agent + "']" )
+        socket.emit( 'test:run' )
         
-        console.log( "##teamcity[testFinished name='" + agent + "']" )
-    }
-    
-    console.log( "##teamcity[testSuiteFinished name='browser.unittest']" )
-    
-    socket.disconnect()
-} )
+        socket.on( 'test:done', function( states ){
+            
+            for( var agent in states ){
+                agent= agent.replace( /'/g, "|'" ).replace( /\n/g, "|n" ).replace( /\r/g, "|r" ).replace( /\|/g, "||" ).replace( /\]/g, "|]" )
+                console.log( "##teamcity[testStarted name='" + agent + "']" )
+                
+                if( !states[ agent ] ) console.log( "##teamcity[testFailed  name='" + agent + "']" )
+                
+                console.log( "##teamcity[testFinished name='" + agent + "']" )
+            }
+            
+            console.log( "##teamcity[testSuiteFinished name='browser.unittest']" )
+            
+            socket.disconnect()
+            process.exit(0)
+        } )
+    })
+
+}
