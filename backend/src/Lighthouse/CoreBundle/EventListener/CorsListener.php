@@ -1,6 +1,6 @@
 <?php
 
-namespace LightHouse\CoreBundle\EventListener;
+namespace Lighthouse\CoreBundle\EventListener;
 
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use JMS\DiExtraBundle\Annotation as DI;

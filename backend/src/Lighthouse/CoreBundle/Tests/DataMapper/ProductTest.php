@@ -1,9 +1,9 @@
 <?php
 
-namespace LightHouse\CoreBundle\Tests\DataMapper;
+namespace Lighthouse\CoreBundle\Tests\DataMapper;
 
-use LightHouse\CoreBundle\DataMapper\ProductMapper;
-use LightHouse\CoreBundle\Entity\Product;
+use Lighthouse\CoreBundle\DataMapper\ProductMapper;
+use Lighthouse\CoreBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -32,7 +32,7 @@ class ProductTest extends WebTestCase
     protected function clearMongoDb()
     {
         /* @var \MongoDB $mongoDB */
-        $mongoDB = $this->getContainer()->get('light_house_core.db.mongo.db');
+        $mongoDB = $this->getContainer()->get('lighthouse_core.db.mongo.db');
         $mongoDB->drop();
     }
 
@@ -41,7 +41,7 @@ class ProductTest extends WebTestCase
      */
     protected function getProductMapper()
     {
-        return $this->getContainer()->get('light_house_core.mapper.product');
+        return $this->getContainer()->get('lighthouse_core.mapper.product');
     }
 
     public function testCreate()

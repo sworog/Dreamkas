@@ -1,5 +1,5 @@
 {
-    "name": "LightHouse",
+    "name": "Lighthouse",
     "autoload": {
         "psr-0": { "": "src/" }
     },
