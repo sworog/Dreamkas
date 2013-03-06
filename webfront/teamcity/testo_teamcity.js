@@ -36,12 +36,12 @@ function run(){
             
             for( var agent in states ){
                 agent= agent.replace( /'/g, "|'" ).replace( /\n/g, "|n" ).replace( /\r/g, "|r" ).replace( /\|/g, "||" ).replace( /\]/g, "|]" )
-                console.log( "##teamcity[testStarted name='" + agent + "']" )
+                console.log( "##teamcity[testStarted name='" + agent[0] + "']" )
                 
-                if( !states[ agent ] ) console.log( "##teamcity[testFailed  name='" + agent + "']" )
+                if( !states[ agent ] ) console.log( "##teamcity[testFailed  name='" + agent[0] + "']" )
                 
-                console.log( "##teamcity[testFinished name='" + agent + "']" )
-                log( "##teamcity[testFinished name='" + agent + "']" )
+                console.log( "##teamcity[testFinished name='" + agent[0] + "']" )
+                log( "##teamcity[testFinished name='" + agent[0] + "']" )
             }
             
             console.log( "##teamcity[testSuiteFinished name='browser.unittest']" )
