@@ -27,6 +27,7 @@ function run(){
         socket.emit( 'test:run' )
         
         socket.on( 'test:done', function( states ){
+            console.log( "##teamcity[message text='count: " + Object.keys( states ).length + "']" )
             
             for( var agent in states ){
                 agent= agent.replace( /'/g, "|'" ).replace( /\n/g, "|n" ).replace( /\r/g, "|r" ).replace( /\|/g, "||" ).replace( /\]/g, "|]" )
