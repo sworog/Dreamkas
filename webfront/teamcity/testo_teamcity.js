@@ -31,8 +31,8 @@ function run(){
         }, 30000 )
         
         socket.on( 'test:done', function( states ){
-            console.log( "##teamcity[testSuiteStarted name='browser.unittest']" )
-            console.log( "##teamcity[message text='count: " + Object.keys( states ).length + "']" )
+            console.log( "\n##teamcity[testSuiteStarted name='browser.unittest']\n" )
+            console.log( "\n##teamcity[message text='count: " + Object.keys( states ).length + "']\n" )
             
             for( var agent in states ){
                 agent= agent.replace( /'/g, "|'" ).replace( /\n/g, "|n" ).replace( /\r/g, "|r" ).replace( /\|/g, "||" ).replace( /\]/g, "|]" )
@@ -44,7 +44,7 @@ function run(){
                 log( "##teamcity[testFinished name='" + agent[0] + "']" )
             }
             
-            console.log( "##teamcity[testSuiteFinished name='browser.unittest']" )
+            console.log( "\n##teamcity[testSuiteFinished name='browser.unittest']\n" )
             
             socket.disconnect()
             process.exit(1)
