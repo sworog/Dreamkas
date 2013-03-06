@@ -1,7 +1,7 @@
 var programFiles= process.env['ProgramFiles(x86)'] || process.env.ProgramFiles
 
 module.exports= {
-    uri: 'http://webfront-autotests.lighthouse.cs/lh/-mix/index.stage=release.doc.xml?testo_session={testo_session}',
+    uri: 'http://localhost:8008/lh/-mix/index.stage=release.doc.xml?testo_session={testo_session}',
     timeout: 10000,
     browsers: [
         programFiles + '/Mozilla Firefox/firefox.exe',
