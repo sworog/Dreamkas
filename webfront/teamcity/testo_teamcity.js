@@ -23,6 +23,7 @@ function run(){
         
         console.log( "##teamcity[testStarted name='empty']" )
         console.log( "##teamcity[testFinished name='empty']" )
+        console.log( "##teamcity[message text='test']" )
         
         socket.emit( 'test:run' )
         
