@@ -1,7 +1,3 @@
-parameters:
-  db.mongo.server: mongodb://localhost:27017
-  db.mongo.dbname: lighthouse
-
 services:
   lighthouse_core.db.mongo.client:
         class: MongoClient
