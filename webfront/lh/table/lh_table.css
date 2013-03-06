@@ -15,8 +15,8 @@
     text-decoration: inherit;
 }
 
-[ lh_table_row ]:nth-child( even ) {
-    background: #f9f9f9;
+[ lh_table_row ]:nth-child( odd ) {
+    background: #f6f6f6;
 }
 
 [ lh_table_row ]:target {
@@ -40,13 +40,19 @@
 
 [ lh_table_cell = 'id' ] {
     white-space: nowrap;
-    font-size: .9em;
-    font-family: "Lucida Console", Monaco, monospace;
+    color: #333;
+    font: bold .9em/1.8 "Lucida Console", Monaco, monospace;
 }
 
 [ lh_table_cell = 'money' ] {
     text-align: right;
     white-space: nowrap;
-    font-size: .9em;
-    font-family: "Lucida Console", Monaco, monospace;
+    font: .9em/1.8 "Lucida Console", Monaco, monospace;
+}
+
+@media( max-width: 600px ){
+    [ lh_table_cell ] {
+        display: block;
+        text-align: left;
+    }
 }
