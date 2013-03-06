@@ -1,6 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Entity;
+namespace Lighthouse\CoreBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  *
@@ -14,18 +17,31 @@ namespace Lighthouse\CoreBundle\Entity;
  * @property string $vendorCountry
  * @property string $vendor
  * @property string $info
+ *
+ * @MongoDB\Document
+ * @Serializer\XmlRoot("product")
  */
 class Product
 {
+    /** @MongoDB\Id */
     protected $id;
+    /** @MongoDB\String */
     protected $name = null;
+    /** @MongoDB\String */
     protected $units;
+    /** @MongoDB\String */
     protected $vat = null;
+    /** @MongoDB\String */
     protected $purchasePrice = null;
+    /** @MongoDB\String */
     protected $barcode = null;
+    /** @MongoDB\String */
     protected $sku = null;
+    /** @MongoDB\String */
     protected $vendorCountry = null;
+    /** @MongoDB\String */
     protected $vendor = null;
+    /** @MongoDB\String */
     protected $info = null;
 
     /**

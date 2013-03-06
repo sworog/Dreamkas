@@ -21,7 +21,15 @@ class ProductControllerTest extends WebTestCase
             'vendorCountry' => 'Россия',
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
         );
-        $crawler = $client->request('POST', 'api/1/product', $postArray);
+        $crawler = $client->request(
+            'POST',
+            'api/1/product',
+            $postArray,
+            array(),
+            array(
+                'HTTP_ACCEPT' => 'application/xml',
+            )
+        );
 
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }

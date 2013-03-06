@@ -6,6 +6,16 @@ parameters:
     db.mongo.server: mongodb://localhost:27017
     db.mongo.dbname: lighthouse_%kernel.environment%
 
+doctrine_mongodb:
+    connections:
+        default:
+            server: mongodb://localhost:27017
+            options: {}
+    default_database: lighthouse_%kernel.environment%
+    document_managers:
+        default:
+            auto_mapping: true
+
 framework:
     #esi:             ~
     #translator:      { fallback: %locale% }

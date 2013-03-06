@@ -2,25 +2,35 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\FOSRestController;
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\DataMapper\ProductMapper;
-use Lighthouse\CoreBundle\Entity\Product;
+use Lighthouse\CoreBundle\Document\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProductController extends Controller
+class ProductController extends FOSRestController
 {
     /**
-     * @DI\Inject("lighthouse_core.mapper.product")
-     * @var ProductMapper
+     * @DI\Inject("doctrine_mongodb")
+     * @var ManagerRegistry
      */
-    protected $productMapper;
+    protected $odm;
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectRepository
+     */
+    public function getProductRepository()
+    {
+        return $this->odm->getRepository("LighthouseCoreBundle:Product");
+    }
 
     /**
      * @Route("/api/1/product", name="product_create", requirements={"_method"="POST"})
+     * @Rest\View(statusCode=201)
      */
     public function createAction()
     {
@@ -28,11 +38,10 @@ class ProductController extends Controller
         $product = new Product();
         $product->populate($data);
 
-        if ($this->productMapper->create($product)) {
-            return new Response('', 201);
-        }
+        $this->odm->getManager()->persist($product);
+        $this->odm->getManager()->flush();
 
-        return new Response('', 400);
+        return $product;
     }
 
     /**

@@ -11,6 +11,7 @@ class ProductTest extends WebTestCase
 {
     protected function setUp()
     {
+        $this->markTestSkipped("Old test not needed now");
         $this->initKernel();
         $this->clearMongoDb();
     }
