@@ -34,7 +34,7 @@ set  :keep_releases,  5
 logger.level = Logger::TRACE
 
 namespace :symfony do
-    desc "Clears database"
+
     namespace :lighthouse do
         namespace :database do
             desc "Clear database"

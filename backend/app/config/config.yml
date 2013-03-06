@@ -87,8 +87,16 @@ fos_rest:
     param_fetcher_listener: true
     body_listener: true
     format_listener: true
+    routing_loader:
+        default_format: xml
     view:
         view_response_listener: force
+        formats:
+          html: false
+          xml: true
+          json: true
+        templating_formats:
+            html: false
 
 sensio_framework_extra:
     view:    { annotations: false }

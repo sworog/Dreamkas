@@ -1,5 +1,3 @@
 lighthouse.core:
-    resource: "@LighthouseCoreBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    resource: "@LighthouseCoreBundle/Resources/config/routing.yml"
 

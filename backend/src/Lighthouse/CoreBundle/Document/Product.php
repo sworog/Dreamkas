@@ -24,25 +24,25 @@ use JMS\Serializer\Annotation as Serializer;
 class Product
 {
     /** @MongoDB\Id */
-    protected $id;
+    public $id;
     /** @MongoDB\String */
-    protected $name = null;
+    public $name;
     /** @MongoDB\String */
-    protected $units;
+    public $units;
     /** @MongoDB\String */
-    protected $vat = null;
+    public $vat;
     /** @MongoDB\String */
-    protected $purchasePrice = null;
+    public $purchasePrice;
     /** @MongoDB\String */
-    protected $barcode = null;
+    public $barcode;
     /** @MongoDB\String */
-    protected $sku = null;
+    public $sku;
     /** @MongoDB\String */
-    protected $vendorCountry = null;
+    public $vendorCountry;
     /** @MongoDB\String */
-    protected $vendor = null;
+    public $vendor;
     /** @MongoDB\String */
-    protected $info = null;
+    public $info;
 
     /**
      * @param string $name
@@ -103,5 +103,213 @@ class Product
         }
 
         return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return \Product
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string $name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set units
+     *
+     * @param string $units
+     * @return \Product
+     */
+    public function setUnits($units)
+    {
+        $this->units = $units;
+        return $this;
+    }
+
+    /**
+     * Get units
+     *
+     * @return string $units
+     */
+    public function getUnits()
+    {
+        return $this->units;
+    }
+
+    /**
+     * Set vat
+     *
+     * @param string $vat
+     * @return \Product
+     */
+    public function setVat($vat)
+    {
+        $this->vat = $vat;
+        return $this;
+    }
+
+    /**
+     * Get vat
+     *
+     * @return string $vat
+     */
+    public function getVat()
+    {
+        return $this->vat;
+    }
+
+    /**
+     * Set purchasePrice
+     *
+     * @param string $purchasePrice
+     * @return \Product
+     */
+    public function setPurchasePrice($purchasePrice)
+    {
+        $this->purchasePrice = $purchasePrice;
+        return $this;
+    }
+
+    /**
+     * Get purchasePrice
+     *
+     * @return string $purchasePrice
+     */
+    public function getPurchasePrice()
+    {
+        return $this->purchasePrice;
+    }
+
+    /**
+     * Set barcode
+     *
+     * @param string $barcode
+     * @return \Product
+     */
+    public function setBarcode($barcode)
+    {
+        $this->barcode = $barcode;
+        return $this;
+    }
+
+    /**
+     * Get barcode
+     *
+     * @return string $barcode
+     */
+    public function getBarcode()
+    {
+        return $this->barcode;
+    }
+
+    /**
+     * Set sku
+     *
+     * @param string $sku
+     * @return \Product
+     */
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
+        return $this;
+    }
+
+    /**
+     * Get sku
+     *
+     * @return string $sku
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * Set vendorCountry
+     *
+     * @param string $vendorCountry
+     * @return \Product
+     */
+    public function setVendorCountry($vendorCountry)
+    {
+        $this->vendorCountry = $vendorCountry;
+        return $this;
+    }
+
+    /**
+     * Get vendorCountry
+     *
+     * @return string $vendorCountry
+     */
+    public function getVendorCountry()
+    {
+        return $this->vendorCountry;
+    }
+
+    /**
+     * Set vendor
+     *
+     * @param string $vendor
+     * @return \Product
+     */
+    public function setVendor($vendor)
+    {
+        $this->vendor = $vendor;
+        return $this;
+    }
+
+    /**
+     * Get vendor
+     *
+     * @return string $vendor
+     */
+    public function getVendor()
+    {
+        return $this->vendor;
+    }
+
+    /**
+     * Set info
+     *
+     * @param string $info
+     * @return \Product
+     */
+    public function setInfo($info)
+    {
+        $this->info = $info;
+        return $this;
+    }
+
+    /**
+     * Get info
+     *
+     * @return string $info
+     */
+    public function getInfo()
+    {
+        return $this->info;
     }
 }

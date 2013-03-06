@@ -7,9 +7,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Lighthouse\CoreBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends FOSRestController
@@ -28,30 +26,34 @@ class ProductController extends FOSRestController
         return $this->odm->getRepository("LighthouseCoreBundle:Product");
     }
 
-    /**
-     * @Route("/api/1/product", name="product_create", requirements={"_method"="POST"})
-     * @Rest\View(statusCode=201)
-     */
-    public function createAction()
+    public function postProductAction()
     {
-        $data = $this->getRequest()->request->getIterator()->getArrayCopy();
         $product = new Product();
-        $product->populate($data);
+        $productType = new ProductType($this->odm);
 
-        $this->odm->getManager()->persist($product);
-        $this->odm->getManager()->flush();
+        $form = $this->createForm($productType, $product);
+        $form->bind($this->getRequest());
+
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $this->odm->getManager()->persist($product);
+            $this->odm->getManager()->flush();
+        }
+
+        $errors = $form->getErrorsAsString();
 
         return $product;
     }
 
-    /**
-     * @Route("/api/1/product", name="product_index", requirements={"_method"="GET"})
-     * @Rest\View
-     */
-    public function indexAction()
+    public function getProductAction($id)
     {
-        $product = new Product();
-        $product->name = "Кефир";
+        $product = $this->getProductRepository()->find($id);
         return $product;
+    }
+
+    public function getProductsAction()
+    {
+        $products = $this->getProductRepository()->findAll();
+        return $products;
     }
 }
