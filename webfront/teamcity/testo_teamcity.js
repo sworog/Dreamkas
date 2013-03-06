@@ -42,7 +42,7 @@ function run(){
             console.log( "##teamcity[testSuiteFinished name='browser.unittest']" )
             
             socket.disconnect()
-            process.exit(0)
+            process.exit(1)
         } )
         
         socket.on( 'disconnect', function( ){
