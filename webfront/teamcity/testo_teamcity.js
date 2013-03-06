@@ -1,9 +1,5 @@
 var config= require( './testo_config.js' )
 
-var log= function( message ){
-    require( 'fs' ).appendFileSync( 'testo_server.log', message + '\n' )
-}
-
 require( 'child_process' ).spawn
 (   'lh_server.cmd'
 ,   [ ]
@@ -23,15 +19,9 @@ function run(){
     var socket = require( 'socket.io-client' ).connect( '//' + config.host + ':' + config.port )
     
     socket.on( 'connect', function( ){
-        
-        console.log( "##teamcity[message text='gogogo!']" )
-        
-        setTimeout( function(){
-            console.log( "##teamcity[message text='timeout']" )
-        }, 30000 )
+        console.log( "##teamcity[testSuiteStarted name='browser.unittest']" )
         
         socket.on( 'test:done', function( states ){
-            console.log( "\n##teamcity[testSuiteStarted name='browser.unittest']\n" )
             console.log( "\n##teamcity[message text='count: " + Object.keys( states ).length + "']\n" )
             
             for( var agent in states ){
@@ -41,23 +31,18 @@ function run(){
                 if( !states[ agent ] ) console.log( "##teamcity[testFailed  name='" + agent + "']" )
                 
                 console.log( "##teamcity[testFinished name='" + agent + "']" )
-                log( "##teamcity[testFinished name='" + agent + "']" )
             }
             
             console.log( "\n##teamcity[testSuiteFinished name='browser.unittest']\n" )
+            
             setTimeout( function(){
                 socket.disconnect()
-                process.exit(1)
+                process.exit(0)
             },1000)
+            
         } )
         
-        socket.on( 'disconnect', function( ){
-            console.log( "##teamcity[message text='WTF?!?']" )
-        })
-        
         socket.emit( 'test:run' )
-        
-        console.log( "##teamcity[message text='emited!']" )
         
     })
 
