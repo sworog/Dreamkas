@@ -45,13 +45,13 @@ function run(){
             process.exit(0)
         } )
         
-        console.log( "##teamcity[message text='emit!']" )
-        
-        socket.emit( 'test:run' )
-        
         socket.on( 'disconnect', function( ){
             console.log( "##teamcity[message text='WTF?!?']" )
         })
+        
+        socket.emit( 'test:run' )
+        
+        console.log( "##teamcity[message text='emited!']" )
         
     })
 
