@@ -21,6 +21,9 @@ function run(){
     socket.on( 'connect', function( ){
         console.log( "##teamcity[testSuiteStarted name='browser.unittest']" )
         
+        console.log( "##teamcity[testStarted name='empty']" )
+        console.log( "##teamcity[testFinished name='empty']" )
+        
         socket.emit( 'test:run' )
         
         socket.on( 'test:done', function( states ){
