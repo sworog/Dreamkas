@@ -21,7 +21,11 @@ function run(){
     socket.on( 'connect', function( ){
         console.log( "##teamcity[testSuiteStarted name='browser.unittest']" )
         
-        socket.emit( 'test:run' )
+        console.log( "##teamcity[message text='gogogo!']" )
+        
+        setTimeout( function(){
+            console.log( "##teamcity[message text='timeout']" )
+        }, 30000 )
         
         socket.on( 'test:done', function( states ){
             console.log( "##teamcity[message text='count: " + Object.keys( states ).length + "']" )
@@ -40,6 +44,11 @@ function run(){
             socket.disconnect()
             process.exit(0)
         } )
+        
+        console.log( "##teamcity[message text='emit!']" )
+        
+        socket.emit( 'test:run' )
+        
     })
 
 }

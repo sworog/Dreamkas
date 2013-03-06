@@ -18,6 +18,10 @@ var server= connect.createServer( connect.static( __dirname ) )
         
         io.sockets.on( 'connection', function( socket ){
             log( 'connection' )
+            
+            socket.on( 'disconnect', function( param ){
+                log( 'disconnected' )
+            })
         
             socket.on( 'agent:ready', function( param ){
                 log( 'agent: ' + param.id )
