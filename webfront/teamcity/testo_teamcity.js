@@ -36,6 +36,7 @@ function run(){
         
         socket.on( 'test:done', function( states ){
             clearInterval( interval )
+            console.log( "teamcity[testSuiteStarted name='browser.unittest']" )
             console.log( "\n##teamcity[testSuiteStarted name='browser.unittest']\n" )
             console.log( "\n##teamcity[message text='count: " + Object.keys( states ).length + "']\n" )
             
