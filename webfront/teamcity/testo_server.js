@@ -20,7 +20,7 @@ var server= connect.createServer( connect.static( __dirname ) )
             
             socket.on( 'test:run', function( param ){
                 states= {}
-                socket.broadcast.emit( 'agent:run', { uri: config.uri })
+                socket.broadcast.emit( 'agent:run', { uri: config.uri.replace( '{testo_session}', param.id ) })
                 setTimeout( terminate, 30000 )
             } )
             

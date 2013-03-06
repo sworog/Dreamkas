@@ -25,7 +25,7 @@ function run(){
         
         socket.on( 'test:done', onDone )
         
-        socket.emit( 'test:run' )
+        socket.emit( 'test:run', { id: Math.random() } )
     }
     
     function onDone( states ){
