@@ -40,11 +40,13 @@
 
 [ lh_table_cell = 'id' ] {
     white-space: nowrap;
+    font-size: .9em;
     font-family: "Lucida Console", Monaco, monospace;
 }
 
 [ lh_table_cell = 'money' ] {
     text-align: right;
     white-space: nowrap;
+    font-size: .9em;
     font-family: "Lucida Console", Monaco, monospace;
 }
