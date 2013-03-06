@@ -6,14 +6,14 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product;
 
 /**
- * @DI\Service("lighthouse_core.mapper.product", public=true)
+ * @DI\Service("lighthouse.core.mapper.product", public=true)
  */
 class ProductMapper
 {
     protected $collectionName = 'products';
 
     /**
-     * @DI\Inject("lighthouse_core.db.mongo.db")
+     * @DI\Inject("lighthouse.core.db.mongo.db")
      * @var \MongoDB
      */
     public $mongoDb;
