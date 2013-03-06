@@ -22,7 +22,7 @@ function run(){
         console.log( "##teamcity[testSuiteStarted name='browser.unittest']" )
         
         socket.on( 'test:done', function( states ){
-            console.log( "\n##teamcity[message text='count: " + Object.keys( states ).length + "']\n" )
+            console.log( "##teamcity[message text='count: " + Object.keys( states ).length + "']" )
             
             for( var agent in states ){
                 agent= agent.replace( /'/g, "|'" ).replace( /\n/g, "|n" ).replace( /\r/g, "|r" ).replace( /\|/g, "||" ).replace( /\]/g, "|]" )
@@ -33,7 +33,7 @@ function run(){
                 console.log( "##teamcity[testFinished name='" + agent + "']" )
             }
             
-            console.log( "\n##teamcity[testSuiteFinished name='browser.unittest']\n" )
+            console.log( "##teamcity[testSuiteFinished name='browser.unittest']" )
             
             setTimeout( function(){
                 socket.disconnect()
