@@ -1,0 +1,50 @@
+[ lh_table ] {
+    display: table;
+    width: 100%;
+    margin: 2% 0 0;
+    padding: 1px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    background: white;
+    line-height: 1.5;
+}
+
+[ lh_table_row ] {
+    display: table-row;
+    color: inherit;
+    text-decoration: inherit;
+}
+
+[ lh_table_row ]:nth-child( even ) {
+    background: #f9f9f9;
+}
+
+[ lh_table_row ]:target {
+    background: #ffc;
+}
+
+[ lh_table_row ]:hover {
+    background: #ddf;
+}
+
+[ lh_table_header ]{
+    font-weight: bold;
+    background: #eee;
+}
+
+[ lh_table_cell ] {
+    display: table-cell;
+    padding: .3em .6em;
+    border: 1px solid white;
+}
+
+[ lh_table_cell = 'id' ] {
+    white-space: nowrap;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+[ lh_table_cell = 'money' ] {
+    text-align: right;
+    white-space: nowrap;
+    font-family: "Lucida Console", Monaco, monospace;
+}

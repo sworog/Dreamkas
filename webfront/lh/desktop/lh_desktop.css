@@ -1,0 +1,13 @@
+[ lh_desktop ] {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: block;
+    font: 12pt/1 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+}
+
+@media( max-width: 250px ){
+    [ lh_desktop ] {
+        zoom: .75;
+    }
+}

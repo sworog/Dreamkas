@@ -1,0 +1,23 @@
+[ lh_block ] {
+    width: 100%;
+    margin: .5em 0 0;
+    padding: 0;
+    border: none;
+
+    display: block;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    flex-wrap: wrap;
+    
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    -moz-align-content: stretch;
+    align-content: stretch;
+}

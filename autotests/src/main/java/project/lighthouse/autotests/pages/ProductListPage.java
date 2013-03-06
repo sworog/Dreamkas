@@ -15,7 +15,7 @@ public class ProductListPage extends PageObject{
 	@FindBy(xpath = "//a[contains(@id,'product')]")
 	private WebElement productListItem;
 	
-	@FindBy(xpath = "//a[@mayak_button='create']")
+	@FindBy(xpath = "//a[@lh_button='create']")
 	private WebElement createNewProductButton;
 
 	public ProductListPage(WebDriver driver) {
