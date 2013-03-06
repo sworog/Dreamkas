@@ -1,25 +1,25 @@
 <?php
 
-namespace LightHouse\CoreBundle\DataMapper;
+namespace Lighthouse\CoreBundle\DataMapper;
 
 use JMS\DiExtraBundle\Annotation as DI;
-use LightHouse\CoreBundle\Entity\Product;
+use Lighthouse\CoreBundle\Entity\Product;
 
 /**
- * @DI\Service("light_house_core.mapper.product", public=true)
+ * @DI\Service("lighthouse_core.mapper.product", public=true)
  */
 class ProductMapper
 {
     protected $collectionName = 'products';
 
     /**
-     * @DI\Inject("light_house_core.db.mongo.db")
+     * @DI\Inject("lighthouse_core.db.mongo.db")
      * @var \MongoDB
      */
     public $mongoDb;
 
     /**
-     * @param \LightHouse\CoreBundle\Entity\Product $product
+     * @param \Lighthouse\CoreBundle\Entity\Product $product
      * @return bool
      */
     public function create(Product $product)

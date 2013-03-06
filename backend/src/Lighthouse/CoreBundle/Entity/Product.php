@@ -1,6 +1,6 @@
 <?php
 
-namespace LightHouse\CoreBundle\Entity;
+namespace Lighthouse\CoreBundle\Entity;
 
 /**
  *

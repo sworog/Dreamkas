@@ -1,11 +1,11 @@
 <?php
 
-namespace LightHouse\CoreBundle\Controller;
+namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
-use LightHouse\CoreBundle\DataMapper\ProductMapper;
-use LightHouse\CoreBundle\Entity\Product;
+use Lighthouse\CoreBundle\DataMapper\ProductMapper;
+use Lighthouse\CoreBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ProductController extends Controller
 {
     /**
-     * @DI\Inject("light_house_core.mapper.product")
+     * @DI\Inject("lighthouse_core.mapper.product")
      * @var ProductMapper
      */
     protected $productMapper;

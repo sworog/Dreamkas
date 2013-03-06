@@ -1,5 +1,5 @@
-light_house_core:
-    resource: "@LightHouseCoreBundle/Controller/"
+lighthouse_core:
+    resource: "@LighthouseCoreBundle/Controller/"
     type:     annotation
     prefix:   /
 

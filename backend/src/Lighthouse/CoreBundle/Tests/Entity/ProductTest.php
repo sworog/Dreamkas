@@ -1,15 +1,15 @@
 <?php
 
-namespace LightHouse\CoreBundle\Tests\Entity;
+namespace Lighthouse\CoreBundle\Tests\Entity;
 
-use LightHouse\CoreBundle\Entity\Product;
+use Lighthouse\CoreBundle\Entity\Product;
 
 class ProductTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {
         $product = new Product();
-        $this->assertInstanceOf('LightHouse\\CoreBundle\\Entity\\Product', $product);
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Entity\\Product', $product);
     }
 
     public function testGetSetProperties()
