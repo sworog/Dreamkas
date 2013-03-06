@@ -30,8 +30,10 @@ function run(){
             console.log( "##teamcity[message text='timeout']" )
         }, 30000 )
         
+        var i= 0
         var interval= setInterval( function(){
-            console.log('.')
+            console.log(i++)
+            log(i)
         },100)
         
         socket.on( 'test:done', function( states ){
