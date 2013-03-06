@@ -23,7 +23,6 @@ function run(){
     var socket = require( 'socket.io-client' ).connect( '//' + config.host + ':' + config.port )
     
     socket.on( 'connect', function( ){
-        console.log( "##teamcity[testSuiteStarted name='browser.unittest']" )
         
         console.log( "##teamcity[message text='gogogo!']" )
         
@@ -32,6 +31,7 @@ function run(){
         }, 30000 )
         
         socket.on( 'test:done', function( states ){
+            console.log( "##teamcity[testSuiteStarted name='browser.unittest']" )
             console.log( "##teamcity[message text='count: " + Object.keys( states ).length + "']" )
             
             for( var agent in states ){
