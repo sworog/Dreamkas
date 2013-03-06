@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\DataMapper;
 
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Entity\Product;
+use Lighthouse\CoreBundle\Document\Product;
 
 /**
  * @DI\Service("lighthouse_core.mapper.product", public=true)
@@ -19,7 +19,7 @@ class ProductMapper
     public $mongoDb;
 
     /**
-     * @param \Lighthouse\CoreBundle\Entity\Product $product
+     * @param \Lighthouse\CoreBundle\Document\Product $product
      * @return bool
      */
     public function create(Product $product)
