@@ -33,30 +33,54 @@
                         </span>
                     </span>
                 </div>
-                <div lh_block="true">
-                    Производитель:
-                    <xsl:value-of select=" @vendor " />,
-                    <xsl:value-of select=" @vendorCountry " />
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        Производитель:
+                    </span>
+                    <span lh_prop_value="true">
+                        <xsl:value-of select=" @vendor " />,
+                        <xsl:value-of select=" @vendorCountry " />
+                    </span>
                 </div>
-                <div lh_block="true">
-                    Закупочная цена:
-                    <xsl:value-of select=" @purchasePrice " /> руб.
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        Закупочная цена:
+                    </span>
+                    <span lh_prop_value="true">
+                        <xsl:value-of select=" @purchasePrice " /> руб.
+                    </span>
                 </div>
-                <div lh_block="true">
-                    Штрих-код:
-                    <xsl:value-of select=" @barcode " />
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        Штрих-код:
+                    </span>
+                    <span lh_prop_value="true">
+                        <xsl:value-of select=" @barcode " />
+                    </span>
                 </div>
-                <div lh_block="true">
-                    Единица измерения:
-                    <xsl:value-of select=" @unit " />
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        Единица измерения:
+                    </span>
+                    <span lh_prop_value="true">
+                        <xsl:value-of select=" @unit " />
+                    </span>
                 </div>
-                <div lh_block="true">
-                    НДС:
-                    <xsl:value-of select=" @vat " />%
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        НДС:
+                    </span>
+                    <span lh_prop_value="true">
+                        <xsl:value-of select=" @vat " />%
+                    </span>
                 </div>
-                <div lh_block="true">
-                    Дополнительная информация:
-                    <xsl:value-of select=" @info " />
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        Дополнительная информация:
+                    </span>
+                    <span lh_prop_value="true">
+                        <xsl:value-of select=" @info " />
+                    </span>
                 </div>
             </div>
         </div>
