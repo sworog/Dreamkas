@@ -1,5 +1,9 @@
 var config= require( './testo_config.js' )
 
+var log= function( message ){
+    require( 'fs' ).appendFileSync( 'testo_server.log', message + '\n' )
+}
+
 require( 'child_process' ).spawn
 (   'lh_server.cmd'
 ,   [ ]
@@ -28,7 +32,7 @@ function run(){
         }, 30000 )
         
         socket.on( 'test:done', function( states ){
-            console.log( "##teamcity[message text='count']" )
+            console.log( "##teamcity[message text='count: " + Object.keys( states ).length + "']" )
             
             for( var agent in states ){
                 agent= agent.replace( /'/g, "|'" ).replace( /\n/g, "|n" ).replace( /\r/g, "|r" ).replace( /\|/g, "||" ).replace( /\]/g, "|]" )
@@ -37,6 +41,7 @@ function run(){
                 if( !states[ agent ] ) console.log( "##teamcity[testFailed  name='" + agent + "']" )
                 
                 console.log( "##teamcity[testFinished name='" + agent + "']" )
+                log( "##teamcity[testFinished name='" + agent + "']" )
             }
             
             console.log( "##teamcity[testSuiteFinished name='browser.unittest']" )
