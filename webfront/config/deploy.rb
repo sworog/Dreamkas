@@ -36,7 +36,7 @@ namespace :lighthouse do
 
   desc "Build webfront app"
   task :build, :roles => :app, :except => { :no_release => true } do
-    run "cd #{latest_release} && ./mayak_build.cmd"
+    run "cd #{latest_release} && ./lh_build.cmd"
   end
 
   desc "Copy index_%env%.xml"

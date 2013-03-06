@@ -1,0 +1,69 @@
+[ lh_card_stack ] {
+    display: inline-block;
+    text-align: left;
+    width: 96%;
+    max-width: 600pt;
+    margin: 2%;
+    box-sizing: border-box;
+}
+
+[ lh_card_back ] {
+    border: 1px solid #ddd;
+    background: #eee;
+    display: block;
+    text-align: left;
+    margin-bottom: -3px;
+    padding: 2%;
+    border-radius: 4px;
+    box-sizing: border-box;
+    opacity: .6;
+    font-weight: bold;
+    font-size: 17pt;
+    text-decoration: inherit;
+    color: inherit;
+}
+
+[ lh_card_back ]:hover {
+    opacity: 1;
+}
+
+[ lh_card ] {
+    border: 1px solid #ddd;
+    background: #eee;
+    display: block;
+    text-align: left;
+    padding: 2%;
+    box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.3 ) inset;
+    border-radius: 4px;
+    box-sizing: border-box;
+    position: relative;
+    opacity: 1;
+}
+
+[ lh_card_header ] {
+}
+
+[ lh_card_headerButtons ] {
+    float: right;
+    margin: -.5em -.5em 0 0;
+}
+
+[ lh_card_titlePrefix ] {
+    color: #666;
+    margin-right: .5em;
+}
+
+[ lh_card_title ] {
+    font-weight: bold;
+    font-size: 17pt;
+    text-decoration: inherit;
+    color: inherit;
+}
+
+[ lh_card_title ][ href ] {
+    color: steelblue;
+}
+
+[ lh_card_title ][ href ]:hover {
+    color: red;
+}

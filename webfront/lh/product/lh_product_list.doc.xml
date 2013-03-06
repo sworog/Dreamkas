@@ -1,0 +1,47 @@
+<?xml-stylesheet href="../-mix/doc.stage=dev.xsl" type="text/xsl"?>
+<doc_root
+    doc_title="$lh_product_list"
+    >
+    
+    <div id="lh_product_list_test">
+        <products lh_product_list="true">
+            <product
+                id="1"
+                sku="GVOZDI007"
+                name="Гвозди 47 колибра"
+                vendor="Рога и копыта"
+                vendorCountry="Россия"
+                purchasePrice="100500"
+                barcode="0123456789"
+                unit="unit"
+                vat="10"
+                info="У нас их дофига!"
+            />
+            <product
+                id="2"
+                sku="MOLO666"
+                name="Аццкое молочко"
+                vendor="Хвост и грива"
+                vendorCountry="Великобритания"
+                purchasePrice="666"
+                barcode="qwertyйцукенг"
+                unit="liter"
+                vat="10"
+                info="Пейте дети молоко, будете здоровы! }:-]"
+            />
+            <product
+                id="3"
+                sku="SIZE5"
+                name="Сине-зелёные водоросли"
+                vendor="Байкал Анлимитед Инкорпорэйшен"
+                vendorCountry="Российская Федерация"
+                purchasePrice="1.5"
+                barcode="123 321 CHTOTOTAM"
+                unit="kg"
+                vat="5"
+                info="Кто купит 10 кило - получит от нас большое весло!"
+            />
+        </products>
+    </div>
+    
+</doc_root>

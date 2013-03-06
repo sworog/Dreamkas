@@ -50,13 +50,13 @@ public class ProductCreatePage extends PageObject{
 	@FindBy(name="info")
 	private WebElement infoField;
 	
-	@FindBy(xpath="//button[@mayak_button='success']")
+	@FindBy(xpath="//button[@lh_button='success']")
 	private WebElement createButton;
 
-    @FindBy(xpath = "//a[@mayak_button='reset']")
+    @FindBy(xpath = "//a[@lh_button='reset']")
     private WebElement cancelButton;
 
-    @FindBy(xpath = "//a[@mayak_card_back]")
+    @FindBy(xpath = "//a[@lh_card_back]")
     private WebElement productItemListLink;
 	
 	public ProductCreatePage(WebDriver driver){

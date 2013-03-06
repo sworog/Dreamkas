@@ -1,0 +1,65 @@
+[ lh_button ] {
+    padding: .6em 1.2em;
+    cursor: pointer;
+    margin: .3em;
+    font-size: 11pt;
+    line-height: 1;
+    font-weight: bold;
+    border: 1px solid gray;
+    border-radius: 2px;
+    box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.5 ) inset;
+    color: white;
+    text-decoration: none;
+    background: #999;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+[ lh_button ]:hover {
+    background: #888;
+}
+
+[ lh_button ]:active {
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2) inset;
+    padding-top: .7em;
+    padding-bottom: .5em;
+}
+
+[ lh_button = 'success' ] {
+    background: #5DA423;
+}
+[ lh_button = 'success' ]:hover {
+    background: #396516;
+}
+
+[ lh_button = 'reset' ] {
+    background: #A45D23;
+}
+[ lh_button = 'reset' ]:hover {
+    background: #653916;
+}
+
+[ lh_button = 'modify' ] {
+    background: #2ba6cb;
+}
+[ lh_button = 'modify' ]:hover {
+    background: #2284a1;
+}
+
+[ lh_button = 'create' ] {
+    background: #3892E3;
+    padding-left: .75em;
+}
+[ lh_button = 'create' ]:before {
+    content: '+ ';
+}
+[ lh_button = 'create' ]:hover {
+    background: #1D79CB;
+}
+
+[ lh_button ]:disabled {
+    background: gray;
+    box-shadow: none;
+    cursor: default;
+}

@@ -1,4 +1,4 @@
-<?xml-stylesheet href="mayak/-mix/index.stage=release.xsl" type="text/xsl"?>
-<mayak_page>
-    <mayak_application mayak_application_api="//api-production.cs-watchman.domain.local/api/1/" />
-</mayak_page>
+<?xml-stylesheet href="lh/-mix/index.stage=release.xsl" type="text/xsl"?>
+<lh_page>
+    <lh_application lh_application_api="//api-production.cs-watchman.domain.local/api/1/" />
+</lh_page>
