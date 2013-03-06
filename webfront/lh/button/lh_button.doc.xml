@@ -1,0 +1,25 @@
+<?xml-stylesheet href="../-mix/doc.stage=dev.xsl" type="text/xsl"?>
+<doc_root
+    doc_title="lh_button"
+    >
+    
+    <p>Кнопки на основе тэга button:</p>
+    <p>
+        <button lh_button="modify" disabled="disabled">Не активная кнопка</button>
+        <button lh_button="true">Нажми меня</button>
+        <button lh_button="create">Создать</button>
+        <button lh_button="success">Сохранить</button>
+        <button lh_button="reset">Отмена</button>
+        <button lh_button="modify">Изменить</button>
+    </p>
+    
+    <p>Кнопки-ссылки:</p>
+    <p>
+        <a lh_button="true" href="javascript://">Нажми меня</a>
+        <a lh_button="create" href="javascript://">Создать</a>
+        <a lh_button="success" href="javascript://">Сохранить</a>
+        <a lh_button="reset" href="javascript://">Отмена</a>
+        <a lh_button="modify" href="javascript://">Изменить</a>
+    </p>
+    
+</doc_root>

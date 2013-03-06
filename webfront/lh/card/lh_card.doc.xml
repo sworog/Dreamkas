@@ -1,0 +1,31 @@
+<?xml-stylesheet href="../-mix/doc.stage=dev.xsl" type="text/xsl"?>
+<doc_root
+    doc_title="lh_card"
+    >
+    
+    <div lh_card_stack="true">
+        <div lh_card="true">
+            <div lh_card_header="true">
+                <div lh_card_headerButtons="true">
+                    <button
+                        lh_button="true"
+                        >
+                        Кнопочка
+                    </button>
+                    <button
+                        lh_button="true"
+                        >
+                        Ещё одна
+                    </button>
+                </div>
+                <span lh_card_title="true">
+                    Заголовок карточки
+                </span>
+            </div>
+            
+            Карточки предназанчены для вывода содержимого страницы в опрятном виде без расползания на всю ширину окна браузера.
+            
+        </div>
+    </div>
+    
+</doc_root>
