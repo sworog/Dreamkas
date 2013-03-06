@@ -53,9 +53,10 @@ function run(){
             }
             
             console.log( "\n##teamcity[testSuiteFinished name='browser.unittest']\n" )
-            
-            socket.disconnect()
-            process.exit(1)
+            setTimeout( function(){
+                socket.disconnect()
+                process.exit(1)
+            },1000)
         } )
         
         socket.on( 'disconnect', function( ){
