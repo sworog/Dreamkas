@@ -21,6 +21,7 @@ var server= connect.createServer( connect.static( __dirname ) )
             socket.on( 'test:run', function( param ){
                 states= {}
                 socket.broadcast.emit( 'agent:run', { uri: config.uri })
+                setTimeout( terminate, 30000 )
             } )
             
             socket.on( 'agent:done', function( param ){
@@ -32,7 +33,14 @@ var server= connect.createServer( connect.static( __dirname ) )
                 
                 socket.broadcast.emit( 'test:done', states )
             } )
-          
+            
+            function terminate( ){
+                for( var id in agents ){
+                    states[ id ]= states[ id ]
+                }
+                socket.broadcast.emit( 'test:done', states )
+            }
+            
         } )
         
         void ( config.browsers || [] ).forEach( persistBrowser )
