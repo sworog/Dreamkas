@@ -37,15 +37,17 @@ namespace :symfony do
     desc "Clears database"
     namespace :lighthouse do
         namespace :database do
+            desc "Clear database"
             task :clear, :roles => :app, :except => { :no_release => true } do
                 run "cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:database:clear --env=#{symfony_env_prod}"
             end
         end
+
+        desc "Run custom command. Add '-s command=<command goes here>' option"
+        task :run do
+            prompt_with_default(:command, "list") unless exists?(:command)
+            stream "sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} #{command} --env=#{symfony_env_prod}'"
+        end
     end
 
-    desc "Run custom command. Add '-s command=<command goes here>' option"
-    task :run do
-        prompt_with_default(:command, "list") unless exists?(:command)
-        stream "sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} #{command} --env=#{symfony_env_prod}'"
-    end
 end
