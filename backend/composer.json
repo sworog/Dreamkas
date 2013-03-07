@@ -20,6 +20,7 @@
         "jms/serializer-bundle": "0.11.*",
 	    "friendsofsymfony/rest": "dev-master",
 	    "friendsofsymfony/rest-bundle": "dev-master",
+        "nelmio/cors-bundle": "1.0.*",
         "doctrine/mongodb-odm-bundle": "dev-master"
     },
     "scripts": {
