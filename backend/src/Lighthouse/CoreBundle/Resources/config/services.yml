@@ -1,0 +1,5 @@
+services:
+    jms_serializer.serialized_name_annotation_strategy:
+        class: %jms_serializer.serialized_name_annotation_strategy.class%
+        public: false
+        arguments: ["@lighthouse.core.naming.as_is"]
