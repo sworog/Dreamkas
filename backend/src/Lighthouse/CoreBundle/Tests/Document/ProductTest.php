@@ -65,4 +65,27 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
         $product->invalid = 'invalid';
     }
+
+    public function testPopoutaleAndToArray()
+    {
+        $array = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => 3048,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+
+        $product = new Product();
+        $product->populate($array);
+
+        $productArray = $product->toArray();
+        foreach ($array as $key => $value) {
+            $this->assertEquals($value, $productArray[$key]);
+        }
+    }
 }
