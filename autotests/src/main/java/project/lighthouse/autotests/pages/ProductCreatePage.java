@@ -114,7 +114,7 @@ public class ProductCreatePage extends PageObject{
 		case "info":
 			return infoField;
 		default:
-			return (WebElement) new NoSuchFieldException();
+			return (WebElement) new AssertionError("No such value for getWebElement method!");
 		}
 	}
 

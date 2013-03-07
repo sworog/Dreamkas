@@ -29,6 +29,11 @@ public class ProductUserSteps {
         productSteps.IsTheProductListPageOpen();
     }
 
+    @Given("the user is on the product card")
+    public void GivenTheUserIsOnTheProductCard(){
+        productSteps.IsTheProductCardOpen();
+    }
+
     @When("the user inputs '$inputText' in '$elementName' field")
     public void WhenTheUserInputsTextInTheField(String inputText, String elementName) {
         productSteps.FieldInput(elementName, inputText);
@@ -63,8 +68,14 @@ public class ProductUserSteps {
     public void WhenTheUSerCreatesNewProduct(){
         productSteps.CreateNewProductButtonClick();
     }
+
+    @When("the user open the product card with '$skuValue' sku")
+    public void WhenTheUserOpenTheProductCard(String skuValue){
+        productSteps.ListItemClick(skuValue);
+    }
+
     
-    @Then("the user checks '$elementName' value is '$expectedValue'")
+    @Then("the user checks the '$elementName' value is '$expectedValue'")
     public void ThenTheUserChecksValue(String elementName, String expectedValue){
     	productSteps.CheckValue(elementName, expectedValue);
     }
@@ -88,9 +99,9 @@ public class ProductUserSteps {
     public void ThenTheUSerChecksDefaultValueForDropDown(String dropdownType, String expectedValue){
         productSteps.CheckDropDownDefaultValue(dropdownType, expectedValue);
     }
-    
-    /*@Then("they should see the definition '$definition'")
-    public void thenTheyShouldSeeADefinitionContainingTheWords(String definition) {
-    }*/	
 
+    @Then("the user checks that he is on the product list page")
+    public void TheTheUserChecksThatHeIsOnTheProductListPage(){
+        productSteps.CheckTheRequiredPageIsProductListPage();
+    }
 }

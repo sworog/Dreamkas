@@ -38,6 +38,16 @@ public class ProductSteps extends ScenarioSteps{
     public void IsTheProductListPageOpen(){
         productListPage.open();
     }
+
+    @Step
+    public void IsTheProductCardOpen(){
+        productCardView.open();
+    }
+
+    @Step
+    public void CheckTheRequiredPageIsProductListPage(){
+        productListPage.isRequiredPageOpen();
+    }
 	
 	@Step
 	public void FieldInput(String elementName, String inputText){

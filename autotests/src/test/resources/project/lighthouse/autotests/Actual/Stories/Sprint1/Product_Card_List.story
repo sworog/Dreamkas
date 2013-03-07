@@ -1,3 +1,5 @@
+Product story list
+
 Scenario: Creating new product from product list
 Given the user is on the product list page
 When the user creates new product from product list page
@@ -11,7 +13,6 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs '1234567' in 'sku' field
 And the user inputs 'Info1' in 'info' field
 And the user clicks the create button
-Given the user is on the product list page
 Then the user checks the product with '1234567' sku is present
 Then the user checks the product with '1234567' sku has 'name' equal to 'Наименование56'
 Then the user checks the product with '1234567' sku has 'vendor' equal to 'Производитель56'
@@ -22,8 +23,10 @@ Scenario: Canceling creating new product page
 Given the user is on the product list page
 When the user creates new product from product list page
 And the user clicks the cancel button
-Given the user is on the product list page
+Then the user checks that he is on the product list page
 
-Scenario: Card view from product list page
+
+
+
 
 
