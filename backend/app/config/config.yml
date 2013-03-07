@@ -2,10 +2,6 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
 
-parameters:
-    db.mongo.server: mongodb://localhost:27017
-    db.mongo.dbname: lighthouse_%kernel.environment%
-
 doctrine_mongodb:
     connections:
         default:

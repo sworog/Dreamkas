@@ -1,7 +1,0 @@
-services:
-  lighthouse.core.db.mongo.client:
-        class: MongoClient
-        arguments: [%db.mongo.server%]
-  lighthouse.core.db.mongo.db:
-        class: MongoDB
-        arguments: [@lighthouse.core.db.mongo.client, %db.mongo.dbname%]

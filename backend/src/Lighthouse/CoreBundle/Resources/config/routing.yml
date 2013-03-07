@@ -1,8 +1,3 @@
-#lighthouse.core:
-#    resource: "@LighthouseCoreBundle/Controller"
-#    type:     annotation
-#    prefix:   /ap1/%lighthouse.core.api.version%/
-
 lighthouse.core.article:
     resource: "@LighthouseCoreBundle/Controller/ProductController.php"
     type:     rest
