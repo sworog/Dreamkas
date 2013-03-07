@@ -3,6 +3,8 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
+use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseTestCase;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -29,8 +31,8 @@ class WebTestCase extends BaseTestCase
 
     protected function clearMongoDb()
     {
-        /* @var \MongoDB $mongoDb */
-        $mongoDb = $this->getContainer()->get('lighthouse.core.db.mongo.db');
-        $mongoDb->drop();
+        /* @var DocumentManager $mongoDb */
+        $mongoDb = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
+        $mongoDb->getSchemaManager()->dropDatabases();
     }
 }
