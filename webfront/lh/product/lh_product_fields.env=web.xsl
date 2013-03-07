@@ -2,6 +2,7 @@
     
     <xsl:template match="*" mode="lh_product_fields" >
         <div lh_block="true">
+            <xsl:apply-templates select=" . " mode="lh_product_id" />
             <xsl:apply-templates select=" . " mode="lh_product_sku" />
             <xsl:apply-templates select=" . " mode="lh_product_name" />
         </div>
@@ -18,6 +19,15 @@
         <div lh_block="true">
             <xsl:apply-templates select=" . " mode="lh_product_info" />
         </div>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="lh_product_id" />
+    <xsl:template match="*[ @id ]" mode="lh_product_id" >
+        <input
+            type="hidden"
+            name="id"
+            value="{ @id }"
+        />
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_sku" >

@@ -4,7 +4,15 @@ $jin_eventProof( function( $lh_product_onSave, event ){
     $lh_product_onSave.bubbles= true
 })
 
-this.$lh_product_editor= $jin_wrapper( function( $lh_product_editor, editor ){
+this.$lh_product_editor= $jin_class( function( $lh_product_editor, editor ){
+
+    var make= $lh_product_editor.make
+    $lh_product_editor.make= function( node ){
+        var widgets= $jin_component.widgetsOf( node )
+        return widgets[ 'lh_product_editor' ] || make.apply( this, arguments )
+    }
+    
+    $jin_wrapper.scheme.apply( this, arguments )
     
     editor.buttons= $jin_subElement( 'lh_button' )
     
@@ -18,7 +26,22 @@ this.$lh_product_editor= $jin_wrapper( function( $lh_product_editor, editor ){
         } )
         
         editor.buttons(0).removeAttribute( 'disabled' )
+    }
+    
+    editor.data= function( editor ){
+        var data= $jin_domx.parse( '<product/>' )
         
+        var fields= editor.$.elements
+        for( var i= 0; i < fields.length; ++i ){
+            var field= fields[ i ]
+            if( !field.name ) continue
+            
+            var elem= data.$.createElement( field.name )
+            elem.textContent= field.value
+            data.$.documentElement.appendChild( elem )
+        }
+        
+        return data
     }
     
 })

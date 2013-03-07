@@ -43,7 +43,7 @@ this.$lh_application= $jin_wrapper( function( $lh_application, application ){
     
     application.view_product= function( application, params ){
         $jq.ajax
-        (   'lh/product/lh_product.sample.xml'
+        (   application.api() + 'products/' + params.product
         ,   {   success: function( product, status, xhr ){
                     product= $jin_domx.parse( xhr.responseText )
                     product.$.documentElement.setAttribute( 'lh_product_view', 'true' )
@@ -101,10 +101,12 @@ this.$lh_application= $jin_wrapper( function( $lh_application, application ){
         
         $lh_product_onSave.listen( document.body, function( event ){
             if( event.catched() ) return
+            
             $jq.ajax
             (   application.api() + 'products'
             ,   {   type: 'post'
-                ,   data: $jq( event.target() ).serialize()
+                ,   contentType: 'application/xml; charset=utf-8'
+                ,   data: $lh_product_editor( event.target() ).data() + ''
                 ,   success: function( data ){
                         document.location= '?product;list#product=3'
                     }

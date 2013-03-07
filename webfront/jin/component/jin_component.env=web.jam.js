@@ -10,6 +10,10 @@ $jin_class( function( $jin_component, component ){
         }
     }
     
+    $jin_component.widgetsOf= function( node ){
+        return node.jin_component_widgets || {}
+    }
+    
     component.id= null
     component.widget= null
     
@@ -71,7 +75,7 @@ $jin_class( function( $jin_component, component ){
     }
     
     function checkNodeComponent( node, component ){
-        var widgets= node.jin_component_widgets || {}
+        var widgets= $jin_component.widgetsOf( node )
         if( component.id in widgets ) return
         
         widgets[ component.id ]= component.widget.make( node )

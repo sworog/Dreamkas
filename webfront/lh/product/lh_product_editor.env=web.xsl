@@ -19,12 +19,6 @@
                 <div lh_card_title="true">Редактирование товара</div>
                 <form lh_product_editor="maker">
                     
-                    <input
-                        type="hidden"
-                        name="id"
-                        value="{ @id }"
-                    />
-                    
                     <xsl:apply-templates select=" . " mode="lh_product_fields" />
                     
                     <div lh_block="true">

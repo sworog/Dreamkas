@@ -1,0 +1,22 @@
+<?xml-stylesheet href="../-mix/doc.stage=dev.xsl" type="text/xsl"?>
+<doc_root
+    doc_title="$lh_product_view"
+    >
+    
+    <div id="lh_product_view_test">
+        <product
+            lh_product_view="true"
+            id="1"
+            sku="GVOZDI007"
+            name="Гвозди 47 колибра"
+            vendor="Рога и копыта"
+            vendorCountry="Россия"
+            purchasePrice="100500"
+            barcode="0123456789"
+            unit="unit"
+            vat="10"
+            info="У нас их дофига!"
+        />
+    </div>
+    
+</doc_root>
