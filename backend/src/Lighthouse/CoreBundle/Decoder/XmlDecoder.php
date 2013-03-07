@@ -1,7 +1,7 @@
 <?php
 
-
 namespace Lighthouse\CoreBundle\Decoder;
+
 use FOS\Rest\Decoder\XmlDecoder as BaseDecoder;
 use JMS\DiExtraBundle\Annotation as DI;
 

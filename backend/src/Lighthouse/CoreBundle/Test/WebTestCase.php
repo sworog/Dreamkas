@@ -1,9 +1,7 @@
 <?php
 
-
 namespace Lighthouse\CoreBundle\Test;
 
-use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseTestCase;
 use Symfony\Component\DependencyInjection\Container;
@@ -15,7 +13,7 @@ class WebTestCase extends BaseTestCase
         static::initKernel();
     }
 
-    static protected function initKernel()
+    protected static function initKernel()
     {
         static::$kernel = static::createKernel();
         static::$kernel->boot();

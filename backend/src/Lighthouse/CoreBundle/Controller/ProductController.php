@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\LoggableCursor;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
