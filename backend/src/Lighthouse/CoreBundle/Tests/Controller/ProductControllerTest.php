@@ -60,7 +60,25 @@ EOF;
         );
 
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
-        $content = $client->getResponse()->getContent();
+    }
+
+    public function testPostProductActionInvalidXmlPost()
+    {
+        $client = static::createClient();
+
+        $xml = <<<EOF
+not an xml
+EOF;
+        $client->request(
+            'POST',
+            'api/1/products',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/xml'),
+            $xml
+        );
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
 
     public function testPostProductActionEmptyPost()
