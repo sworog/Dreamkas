@@ -1,12 +1,12 @@
-<product
-    id="1"
-    sku="GVOZDI007"
-    name="Гвозди 47 колибра"
-    vendor="Рога и копыта"
-    vendorCountry="Россия"
-    purchasePrice="100500"
-    barcode="0123456789"
-    unit="unit"
-    vat="10"
-    info="У нас их дофига!"
-/>
+<product>
+    <id>1</id>
+    <sku>GVOZDI007</sku>
+    <name>Гвозди 47 колибра</name>
+    <vendor>Рога и копыта</vendor>
+    <vendorCountry>Россия</vendorCountry>
+    <purchasePrice>100500</purchasePrice>
+    <barcode>0123456789</barcode>
+    <units>unit</units>
+    <val>10</val>
+    <info>У нас их дофига!</info>
+</product>

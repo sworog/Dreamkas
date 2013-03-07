@@ -1,38 +1,38 @@
 <products>
-    <product
-        id="1"
-        sku="GVOZDI007"
-        name="Гвозди 47 колибра"
-        vendor="Рога и копыта"
-        vendorCountry="Россия"
-        purchasePrice="100500"
-        barcode="0123456789"
-        unit="unit"
-        vat="10"
-        info="У нас их дофига!"
-    />
-    <product
-        id="2"
-        sku="MOLO666"
-        name="Аццкое молочко"
-        vendor="Хвост и грива"
-        vendorCountry="Великобритания"
-        purchasePrice="666"
-        barcode="qwertyйцукенг"
-        unit="liter"
-        vat="10"
-        info="Пейте дети молоко, будете здоровы! }:-]"
-    />
-    <product
-        id="3"
-        sku="SIZE5"
-        name="Сине-зелёные водоросли"
-        vendor="Байкал Анлимитед Инкорпорэйшен"
-        vendorCountry="Российская Федерация"
-        purchasePrice="1.5"
-        barcode="123 321 CHTOTOTAM"
-        unit="kg"
-        vat="5"
-        info="Кто купит 10 кило - получит от нас большое весло!"
-    />
+    <product>
+        <id>1</id>
+        <sku>GVOZDI007</sku>
+        <name>Гвозди 47 колибра</name>
+        <vendor>Рога и копыта</vendor>
+        <vendorCountry>Россия</vendorCountry>
+        <purchasePrice>100500</purchasePrice>
+        <barcode>0123456789</barcode>
+        <units>unit</units>
+        <val>10</val>
+        <info>У нас их дофига!</info>
+    </product>
+    <product>
+        <id>2</id>
+        <sku>MOLO666</sku>
+        <name>Аццкое молочко</name>
+        <vendor>Хвост и грива</vendor>
+        <vendorCountry>Великобритания</vendorCountry>
+        <purchasePrice>666</purchasePrice>
+        <barcode>qwertyйцукенг</barcode>
+        <units>liter</units>
+        <val>10</val>
+        <info>Пейте дети молоко, будете здоровы! }:-]</info>
+    </product>
+    <product>
+        <id>3</id>
+        <sku>SIZE5</sku>
+        <name>Сине-зелёные водоросли</name>
+        <vendor>Байкал Анлимитед Инкорпорэйшен</vendor>
+        <vendorCountry>Российская Федерация</vendorCountry>
+        <purchasePrice>1.5</purchasePrice>
+        <barcode>123 321 CHTOTOTAM</barcode>
+        <units>kg</units>
+        <val>5</val>
+        <info>Кто купит 10 кило - получит от нас большое весло!</info>
+    </product>
 </products>
