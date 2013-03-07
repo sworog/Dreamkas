@@ -6,13 +6,13 @@
         <div lh_card_stack="true">
             <a
                 lh_card_back="true"
-                href="?product={ @id }"
+                href="?product={ id }"
                 >
                 <span lh_card_titlePrefix="true">
-                    <xsl:value-of select=" @sku " />
+                    <xsl:value-of select=" sku " />
                 </span>
                 <span>
-                    <xsl:value-of select=" @name " />
+                    <xsl:value-of select=" name " />
                 </span>
             </a>
             <div lh_card="true">
@@ -31,7 +31,7 @@
                         </button>
                         <a
                             lh_button="reset"
-                            href="?product={ @id }"
+                            href="?product={ id }"
                             >
                             Отменить изменения
                         </a>
