@@ -23,7 +23,7 @@ Scenario: Canceling creating new product page
 Given the user is on the product list page
 When the user creates new product from product list page
 And the user clicks the cancel button
-Then the user checks that he is on the product list page
+Then the user checks that he is on the 'ProductListPage'
 
 
 

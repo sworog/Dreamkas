@@ -1,12 +1,9 @@
 package project.lighthouse.autotests.steps;
 
-import project.lighthouse.autotests.pages.ProductCardView;
-import project.lighthouse.autotests.pages.ProductCreatePage;
-import project.lighthouse.autotests.pages.ProductEditPage;
+import project.lighthouse.autotests.pages.*;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
-import project.lighthouse.autotests.pages.ProductListPage;
 
 public class ProductSteps extends ScenarioSteps{
 	
@@ -43,19 +40,14 @@ public class ProductSteps extends ScenarioSteps{
     public void IsTheProductCardOpen(){
         productCardView.open();
     }
-
-    @Step
-    public void CheckTheRequiredPageIsProductListPage(){
-        productListPage.isRequiredPageOpen();
-    }
 	
 	@Step
 	public void FieldInput(String elementName, String inputText){
-		productCreatePage.input(elementName, inputText);
+		productCreatePage.Input(elementName, inputText);
 	}
 	
 	@Step
-	public void SelectDropdown(String elementName, String value){
+	public void SelectDropDown(String elementName, String value){
 		productCreatePage.Select(elementName, value);
 	}
 	
@@ -100,7 +92,7 @@ public class ProductSteps extends ScenarioSteps{
     }
 
     @Step
-    public void CheckDropDownDefaultValue(String dropdownType, String expectedValue){
-        productCreatePage.CheckDropDownDefaultValue(dropdownType, expectedValue);
+    public void CheckDropDownDefaultValue(String dropDownType, String expectedValue){
+        productCreatePage.CheckDropDownDefaultValue(dropDownType, expectedValue);
     }
 }

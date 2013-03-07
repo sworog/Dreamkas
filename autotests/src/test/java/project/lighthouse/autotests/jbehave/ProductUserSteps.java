@@ -41,7 +41,7 @@ public class ProductUserSteps {
     
     @When("the user selects '$value' in '$elementName' dropdown")
     public void WhenTheUserSelectsValueInDropDown(String value, String elementName){
-    	productSteps.SelectDropdown(elementName, value);
+    	productSteps.SelectDropDown(elementName, value);
     }
     
     @When("the user edits '$inputText' in '$elementName' field")
@@ -79,11 +79,6 @@ public class ProductUserSteps {
     public void ThenTheUserChecksValue(String elementName, String expectedValue){
     	productSteps.CheckValue(elementName, expectedValue);
     }
-    
-    @Then("the user checks is all good")
-    public void ThenTheUserChecksIsAllGood(){
-    	//checks
-    }
 
     @Then("the user checks the product with '$skuValue' sku is present")
     public void ThenTheUSerChecksTheProductWithSkuIsPresent(String skuValue){
@@ -95,13 +90,8 @@ public class ProductUserSteps {
         productSteps.CheckProductWithSkuHasExpectedValue(skuValue, expectedValue);
     }
 
-    @Then("the user checks default value for '$dropdownType' dropdown equal to '$expectedValue'")
-    public void ThenTheUSerChecksDefaultValueForDropDown(String dropdownType, String expectedValue){
-        productSteps.CheckDropDownDefaultValue(dropdownType, expectedValue);
-    }
-
-    @Then("the user checks that he is on the product list page")
-    public void TheTheUserChecksThatHeIsOnTheProductListPage(){
-        productSteps.CheckTheRequiredPageIsProductListPage();
+    @Then("the user checks default value for '$dropDownType' dropdown equal to '$expectedValue'")
+    public void ThenTheUSerChecksDefaultValueForDropDown(String dropDownType, String expectedValue){
+        productSteps.CheckDropDownDefaultValue(dropDownType, expectedValue);
     }
 }

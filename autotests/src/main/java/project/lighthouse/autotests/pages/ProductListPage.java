@@ -47,13 +47,4 @@ public class ProductListPage extends PageObject{
         WebElementFacade productItem = GetItemProductElement(skuValue);
         productItem.shouldContainText(expectedValue);
     }
-
-    public void isRequiredPageOpen(){
-        String defaultUrl = ProductListPage.class.getAnnotations()[0].toString().substring(50, 64);
-        String actualUrl = getDriver().getCurrentUrl();
-        if(!actualUrl.contains(defaultUrl)){
-            String errorMessage = String.format("The product list page is not open!\nActual url: %s\nExpected url: %s", actualUrl, defaultUrl);
-            throw new AssertionError(errorMessage);
-        }
-    }
 }

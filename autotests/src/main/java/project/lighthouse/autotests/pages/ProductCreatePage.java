@@ -20,8 +20,8 @@ public class ProductCreatePage extends PageObject{
 	@FindBy(name="group")
 	private WebElement groupField;
 	
-	@FindBy(name="undergroup")
-	private WebElement undergroupField;
+	@FindBy(name="underGroup")
+	private WebElement underGroupField;
 	
 	@FindBy(name="name")
 	private WebElement nameField;
@@ -63,7 +63,7 @@ public class ProductCreatePage extends PageObject{
 		super(driver);
 	}
 	
-	public void input(String elementName, String inputText){
+	public void Input(String elementName, String inputText){
 		WebElement element = getWebElement(elementName);
 		$(element).type(inputText);
 	}
@@ -93,8 +93,8 @@ public class ProductCreatePage extends PageObject{
 			return categoryField;
 		case "group":
 			return groupField;
-		case "undergroupField":
-			return undergroupField;
+		case "underGroupField":
+			return underGroupField;
 		case "name":
 			return nameField;
 		case "unit":
@@ -118,10 +118,10 @@ public class ProductCreatePage extends PageObject{
 		}
 	}
 
-    public void CheckDropDownDefaultValue(String dropdownType, String expectedValue){
-        WebElement element = getWebElement(dropdownType);
+    public void CheckDropDownDefaultValue(String dropDownType, String expectedValue){
+        WebElement element = getWebElement(dropDownType);
             if (!$(element).getSelectedValue().equals(expectedValue)) {
-                String errorMessage = String.format("The default value for '%s' dropdawn is not '%s'", dropdownType, expectedValue);
+                String errorMessage = String.format("The default value for '%s' dropDawn is not '%s'", dropDownType, expectedValue);
                 throw new AssertionError(errorMessage);
             }
     }

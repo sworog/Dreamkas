@@ -21,7 +21,6 @@ And the user selects '10' in 'vat' dropdown
 And the user edits '454545' in 'sku' field
 And the user edits 'апапапап' in 'info' field
 And the user clicks the cancel button
-Then the user checks is all good
 
 Scenario: Editing product Cancel
 Given the user is on the order edit page
@@ -39,4 +38,3 @@ And the user selects '10' in 'vat' dropdown
 And the user edits '454545' in 'sku' field
 And the user edits 'апапапап' in 'info' field
 And the user clicks the edit button
-Then the user checks is all good
