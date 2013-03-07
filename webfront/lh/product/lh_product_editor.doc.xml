@@ -36,9 +36,9 @@
             test.ok( editor.find( 'input[name="purchasePrice"]' ).length, 1 )
             test.ok( editor.find( 'input[name="barcode"]' ).length, 1 )
             
-            test.ok( editor.find( 'select[name="unit"]' ).length, 1 )
-            test.ok( editor.find( 'select[name="unit"] > option' ).length > 1 )
-            test.ok( editor.find( 'select[name="unit"] > option[selected]' ).val(), 'unit' )
+            test.ok( editor.find( 'select[name="units"]' ).length, 1 )
+            test.ok( editor.find( 'select[name="units"] > option' ).length > 1 )
+            test.ok( editor.find( 'select[name="units"] > option[selected]' ).val(), 'unit' )
             
             test.ok( editor.find( 'select[name="vat"]' ).length, 1 )
             test.ok( editor.find( 'select[name="vat"] > option' ).length > 1 )
@@ -55,8 +55,8 @@
             test.ok( editor.find( 'input[name="vendorCountry"]' ).val(), 'Россия' )
             test.ok( editor.find( 'input[name="purchasePrice"]' ).val(), '100500' )
             test.ok( editor.find( 'input[name="barcode"]' ).val(), '0123456789' )
-            test.ok( editor.find( 'select[name="unit"]' ).val(), 'unit' )
-            test.ok( editor.find( 'select[name="unit"] > option' ).length > 1 )
+            test.ok( editor.find( 'select[name="units"]' ).val(), 'unit' )
+            test.ok( editor.find( 'select[name="units"] > option' ).length > 1 )
             test.ok( editor.find( 'select[name="vat"]' ).val(), '10' )
             test.ok( editor.find( 'select[name="vat"] > option' ).length > 1 )
             test.ok( editor.find( 'input[name="sku"]' ).val(), 'GVOZDI007' )

@@ -62,7 +62,7 @@
                 title="Мерность"
                 name="units"
                 >
-                <option value="units">
+                <option value="unit">
                     <xsl:if test=" not( @vat ) or @unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
                     Штуки
                 </option>
