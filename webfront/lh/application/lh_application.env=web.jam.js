@@ -102,7 +102,7 @@ this.$lh_application= $jin_wrapper( function( $lh_application, application ){
         $lh_product_onSave.listen( document.body, function( event ){
             if( event.catched() ) return
             $jq.ajax
-            (   application.api() + 'product'
+            (   application.api() + 'products'
             ,   {   type: 'post'
                 ,   data: $jq( event.target() ).serialize()
                 ,   success: function( data ){
