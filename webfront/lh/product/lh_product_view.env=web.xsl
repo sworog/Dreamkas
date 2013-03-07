@@ -16,7 +16,7 @@
                         <a
                             lh_button="modify"
                             type="submit"
-                            href="?product={ @id };edit"
+                            href="?product={ id };edit"
                             >
                             Изменить
                         </a>
@@ -26,10 +26,10 @@
                             lh_card_titlePrefix="true"
                             title="Артикул"
                             >
-                            <xsl:value-of select=" @sku " />
+                            <xsl:value-of select=" sku " />
                         </span>
                         <span title="Название">
-                            <xsl:value-of select=" @name " />
+                            <xsl:value-of select=" name " />
                         </span>
                     </span>
                 </div>
@@ -38,8 +38,8 @@
                         Производитель:
                     </span>
                     <span lh_prop_value="true">
-                        <xsl:value-of select=" @vendor " />,
-                        <xsl:value-of select=" @vendorCountry " />
+                        <xsl:value-of select=" vendor " />,
+                        <xsl:value-of select=" vendorCountry " />
                     </span>
                 </div>
                 <div lh_prop="true">
@@ -47,7 +47,7 @@
                         Закупочная цена:
                     </span>
                     <span lh_prop_value="true">
-                        <xsl:value-of select=" @purchasePrice " /> руб.
+                        <xsl:value-of select=" purchasePrice " /> руб.
                     </span>
                 </div>
                 <div lh_prop="true">
@@ -55,7 +55,7 @@
                         Штрих-код:
                     </span>
                     <span lh_prop_value="true">
-                        <xsl:value-of select=" @barcode " />
+                        <xsl:value-of select=" barcode " />
                     </span>
                 </div>
                 <div lh_prop="true">
@@ -63,7 +63,7 @@
                         Единица измерения:
                     </span>
                     <span lh_prop_value="true">
-                        <xsl:value-of select=" @unit " />
+                        <xsl:apply-templates select=" units " mode="lh_product_view_units" />
                     </span>
                 </div>
                 <div lh_prop="true">
@@ -71,7 +71,7 @@
                         НДС:
                     </span>
                     <span lh_prop_value="true">
-                        <xsl:value-of select=" @vat " />%
+                        <xsl:value-of select=" vat " />%
                     </span>
                 </div>
                 <div lh_prop="true">
@@ -79,11 +79,27 @@
                         Дополнительная информация:
                     </span>
                     <span lh_prop_value="true">
-                        <xsl:value-of select=" @info " />
+                        <xsl:value-of select=" info " />
                     </span>
                 </div>
             </div>
         </div>
+    </xsl:template>
+    
+    <xsl:template match=" node() " mode="lh_product_view_units">
+        <xsl:value-of select="." />
+    </xsl:template>
+    
+    <xsl:template match=" node()[ . = 'unit' ] " mode="lh_product_view_units">
+        штука
+    </xsl:template>
+    
+    <xsl:template match=" node()[ . = 'kg' ] " mode="lh_product_view_units">
+        килограмм
+    </xsl:template>
+    
+    <xsl:template match=" node()[ . = 'liter' ] " mode="lh_product_view_units">
+        литр
     </xsl:template>
     
 </xsl:stylesheet>

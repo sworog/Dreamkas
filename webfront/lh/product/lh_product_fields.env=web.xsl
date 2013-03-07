@@ -22,11 +22,11 @@
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_id" />
-    <xsl:template match="*[ @id ]" mode="lh_product_id" >
+    <xsl:template match="*[ id ]" mode="lh_product_id" >
         <input
             type="hidden"
             name="id"
-            value="{ @id }"
+            value="{ id }"
         />
     </xsl:template>
     
@@ -37,7 +37,7 @@
                 required="required"
                 type="text"
                 name="sku"
-                value="{@sku}"
+                value="{sku}"
             />
         </label>
     </xsl:template>
@@ -49,7 +49,7 @@
                 required="required"
                 type="text"
                 name="name"
-                value="{@name}"
+                value="{name}"
             />
         </label>
     </xsl:template>
@@ -63,15 +63,15 @@
                 name="units"
                 >
                 <option value="unit">
-                    <xsl:if test=" not( @vat ) or @unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" not( vat ) or unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
                     Штуки
                 </option>
                 <option value="liter">
-                    <xsl:if test=" @units = 'liter' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" units = 'liter' "><xsl:attribute name="selected"/></xsl:if>
                     Литры
                 </option>
                 <option value="kg">
-                    <xsl:if test=" @units = 'kg' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" units = 'kg' "><xsl:attribute name="selected"/></xsl:if>
                     Килограммы
                 </option>
             </select>
@@ -86,15 +86,15 @@
                 name="vat"
                 >
                 <option value="0">
-                    <xsl:if test=" @vat = '0' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" vat = '0' "><xsl:attribute name="selected"/></xsl:if>
                     0%
                 </option>
                 <option value="10">
-                    <xsl:if test=" not( @vat ) or @vat = '10' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" not( vat ) or vat = '10' "><xsl:attribute name="selected"/></xsl:if>
                     10%
                 </option>
                 <option value="18">
-                    <xsl:if test=" @vat = '18' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" vat = '18' "><xsl:attribute name="selected"/></xsl:if>
                     18%
                 </option>
             </select>
@@ -108,7 +108,7 @@
                 step="any"
                 required="required"
                 name="purchasePrice"
-                value="{ @purchasePrice }"
+                value="{ purchasePrice }"
             />
         </div>
     </xsl:template>
@@ -119,7 +119,7 @@
             <input
                 required="required"
                 name="barcode"
-                value="{ @barcode }"
+                value="{ barcode }"
             />
         </div>
     </xsl:template>
@@ -131,7 +131,7 @@
                 required="required"
                 type="text"
                 name="vendor"
-                value="{ @vendor }"
+                value="{ vendor }"
             />
         </div>
     </xsl:template>
@@ -143,7 +143,7 @@
                 required="required"
                 type="text"
                 name="vendorCountry"
-                value="{ @vendorCountry }"
+                value="{ vendorCountry }"
             />
         </div>
     </xsl:template>
@@ -154,7 +154,7 @@
             <input
                 type="text"
                 name="info"
-                value="{ @info }"
+                value="{ info }"
             />
         </div>
     </xsl:template>

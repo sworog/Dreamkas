@@ -80,23 +80,23 @@
         >
         <a
             lh_table_row="true"
-            id="product={ @id }"
-            href="?product={ @id }"
+            id="product={ id }"
+            href="?product={ id }"
             >
             <span lh_table_cell="id">
-                <xsl:value-of select=" @sku " />
+                <xsl:value-of select=" sku " />
             </span>
             <span lh_table_cell="common">
-                <xsl:value-of select=" @name " />
+                <xsl:value-of select=" name " />
             </span>
             <span lh_table_cell="common">
-                <xsl:value-of select=" @vendor " />
+                <xsl:value-of select=" vendor " />
             </span>
             <span lh_table_cell="common">
-                <xsl:value-of select=" @vendorCountry " />
+                <xsl:value-of select=" vendorCountry " />
             </span>
             <span lh_table_cell="money">
-                <xsl:value-of select=" @purchasePrice " /> р.
+                <xsl:value-of select=" purchasePrice " /> р.
             </span>
         </a>
     </xsl:template>
