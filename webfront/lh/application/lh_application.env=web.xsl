@@ -5,13 +5,9 @@
         >
         <div
             lh_desktop="true"
+            lh_application="true"
+            lh_application_api="{ @lh_application_api }"
             >
-            <div
-                lh_application="true"
-                lh_application_api="{ @lh_application_api }"
-                >
-                <xsl:apply-templates />
-            </div>
         </div>
     </xsl:template>
     
