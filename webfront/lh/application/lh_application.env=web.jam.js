@@ -50,17 +50,13 @@ this.$lh_application= $jin_wrapper( function( $lh_application, application ){
                     application.render( product )
                 }
             ,   error: function( data, type, message ){
-                    message= message
-                    ? 'Ошибка получения данных товара: ' + message
-                    : 'Неизвестная ошибка получения данных товара'
-                    
                     try {
                         var error= $jin_domx.parse( data.responseText )
                     } catch( error ){
                         var error= $jin_domx.parse( '<error />' )
                     }
                     
-                    error.$.documentElement.setAttribute( 'lh_error', message )
+                    error.$.documentElement.setAttribute( 'lh_product_error' )
                     error.$.documentElement.setAttribute( 'lh_product_id', params.product )
                     application.render( error )
                 }
