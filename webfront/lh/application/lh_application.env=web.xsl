@@ -12,12 +12,6 @@
                 >
                 <xsl:apply-templates />
             </div>
-            <a
-                lh_ghostLink="true"
-                href="lh/-mix/index.stage=dev.doc.xml"
-                >
-                modules
-            </a>
         </div>
     </xsl:template>
     

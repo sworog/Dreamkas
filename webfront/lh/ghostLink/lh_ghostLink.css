@@ -1,8 +1,0 @@
-[ lh_ghostLink ] {
-    opacity: .05;
-    text-decoration: none;
-}
-
-[ lh_ghostLink ]:hover {
-    opacity: 1;
-}

@@ -19,43 +19,7 @@
                     </span>
                 </div>
                 
-                <div lh_table="true">
-                    
-                    <div lh_table_row="true">
-                        <span
-                            lh_table_cell="id"
-                            lh_table_header="true"
-                            >
-                            Артикул
-                        </span>
-                        <span
-                            lh_table_cell="common"
-                            lh_table_header="true"
-                            >
-                            Название
-                        </span>
-                        <span
-                            lh_table_cell="common"
-                            lh_table_header="true"
-                            >
-                            Производитель
-                        </span>
-                        <span
-                            lh_table_cell="common"
-                            lh_table_header="true"
-                            >
-                            Страна
-                        </span>
-                        <span
-                            lh_table_cell="money"
-                            lh_table_header="true"
-                            >
-                            Цена
-                        </span>
-                    </div>
-                    
-                    <xsl:apply-templates select=" product " mode="lh_product_list" />
-                </div>
+                <xsl:apply-templates select=" . " mode="lh_product_list" />
                 
             </div>
         </div>
@@ -64,6 +28,55 @@
     <xsl:template
         match=" * "
         mode="lh_product_list"
+        >
+    </xsl:template>
+    
+    <xsl:template
+        match=" *[ product ] "
+        mode="lh_product_list"
+        >
+        <div lh_table="true">
+            
+            <div lh_table_row="true">
+                <span
+                    lh_table_cell="id"
+                    lh_table_header="true"
+                    >
+                    Артикул
+                </span>
+                <span
+                    lh_table_cell="common"
+                    lh_table_header="true"
+                    >
+                    Название
+                </span>
+                <span
+                    lh_table_cell="common"
+                    lh_table_header="true"
+                    >
+                    Производитель
+                </span>
+                <span
+                    lh_table_cell="common"
+                    lh_table_header="true"
+                    >
+                    Страна
+                </span>
+                <span
+                    lh_table_cell="money"
+                    lh_table_header="true"
+                    >
+                    Цена
+                </span>
+            </div>
+            
+            <xsl:apply-templates select=" product " mode="lh_product_list_item" />
+        </div>
+    </xsl:template>
+
+    <xsl:template
+        match=" * "
+        mode="lh_product_list_item"
         >
         <a
             lh_table_row="true"

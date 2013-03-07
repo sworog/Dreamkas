@@ -10,7 +10,7 @@ this.$lh_application= $jin_wrapper( function( $lh_application, application ){
     
     application.view_product_edit= function( application, params ){
         $jq.get
-        (   'lh/product/lh_product.sample.xml'
+        (   application.api() + 'products/' + params.product
         ,   function( product, status, xhr ){
                 product= $jin_domx.parse( xhr.responseText )
                 product.$.documentElement.setAttribute( 'lh_product_editor', 'true' )
@@ -25,7 +25,7 @@ this.$lh_application= $jin_wrapper( function( $lh_application, application ){
     
     application.view_product_list= function( application, params ){
         $jq.ajax
-        (   'lh/product/lh_product_list.sample.xml'
+        (   application.api() + 'products'
         ,   {   success: function( products, status, xhr ){
                     products= $jin_domx.parse( xhr.responseText )
                     products.$.documentElement.setAttribute( 'lh_product_list', 'true' )
@@ -60,7 +60,7 @@ this.$lh_application= $jin_wrapper( function( $lh_application, application ){
     }
         
     application.view_= function( application, params ){
-        document.location= '?product;create'
+        document.location= '?product;list'
     }
     
     application.view_default= function( application, params ){
