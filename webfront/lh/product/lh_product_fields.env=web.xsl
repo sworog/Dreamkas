@@ -13,7 +13,7 @@
         <div lh_block="true">
             <xsl:apply-templates select=" . " mode="lh_product_purchasePrice" />
             <xsl:apply-templates select=" . " mode="lh_product_barcode" />
-            <xsl:apply-templates select=" . " mode="lh_product_unit" />
+            <xsl:apply-templates select=" . " mode="lh_product_units" />
             <xsl:apply-templates select=" . " mode="lh_product_vat" />
         </div>
         <div lh_block="true">
@@ -54,24 +54,24 @@
         </label>
     </xsl:template>
     
-    <xsl:template match="*" mode="lh_product_unit" >
+    <xsl:template match="*" mode="lh_product_units" >
         <label lh_field="short">
             Мерность
             <select
                 required="required"
                 title="Мерность"
-                name="unit"
+                name="units"
                 >
-                <option value="unit">
+                <option value="units">
                     <xsl:if test=" not( @vat ) or @unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
                     Штуки
                 </option>
                 <option value="liter">
-                    <xsl:if test=" @unit = 'liter' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" @units = 'liter' "><xsl:attribute name="selected"/></xsl:if>
                     Литры
                 </option>
                 <option value="kg">
-                    <xsl:if test=" @unit = 'kg' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" @units = 'kg' "><xsl:attribute name="selected"/></xsl:if>
                     Килограммы
                 </option>
             </select>
