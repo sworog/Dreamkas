@@ -43,12 +43,12 @@ public class ProductSteps extends ScenarioSteps{
 	
 	@Step
 	public void FieldInput(String elementName, String inputText){
-		productCreatePage.Input(elementName, inputText);
+		productCreatePage.FieldType(elementName, inputText);
 	}
 	
 	@Step
 	public void SelectDropDown(String elementName, String value){
-		productCreatePage.Select(elementName, value);
+		productCreatePage.SelectByValue(elementName, value);
 	}
 	
 	@Step
@@ -67,8 +67,8 @@ public class ProductSteps extends ScenarioSteps{
 	}
 	
 	@Step
-	public void CheckValue(String elementName, String expectedValue){
-		productCardView.CheckValue(elementName, expectedValue);
+	public void CheckCardValue(String elementName, String expectedValue){
+		productCardView.CheckCardValue(elementName, expectedValue);
 	}
 
     @Step
@@ -83,7 +83,7 @@ public class ProductSteps extends ScenarioSteps{
 
     @Step
     public void ListItemCheck(String skuValue){
-        productListPage.ListItemChecks(skuValue);
+        productListPage.ListItemCheck(skuValue);
     }
 
     @Step

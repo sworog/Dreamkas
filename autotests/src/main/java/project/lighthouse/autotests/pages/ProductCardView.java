@@ -26,7 +26,7 @@ public class ProductCardView extends ProductCreatePage{
 		super(driver);
 	}
 	
-	public void CheckValue(String elementName, String expectedValue){
+	public void CheckCardValue(String elementName, String expectedValue){
         switch (elementName){
             case "sku":
             case "name":

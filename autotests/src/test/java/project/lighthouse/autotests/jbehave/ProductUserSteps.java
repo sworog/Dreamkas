@@ -77,7 +77,7 @@ public class ProductUserSteps {
     
     @Then("the user checks the '$elementName' value is '$expectedValue'")
     public void ThenTheUserChecksValue(String elementName, String expectedValue){
-    	productSteps.CheckValue(elementName, expectedValue);
+    	productSteps.CheckCardValue(elementName, expectedValue);
     }
 
     @Then("the user checks the product with '$skuValue' sku is present")

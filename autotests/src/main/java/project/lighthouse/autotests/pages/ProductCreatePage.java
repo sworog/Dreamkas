@@ -1,12 +1,14 @@
 package project.lighthouse.autotests.pages;
 
-import java.util.NoSuchElementException;
-
+import net.thucydides.core.webdriver.WebdriverAssertionError;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 @DefaultUrl("/?product;create")
 public class ProductCreatePage extends PageObject{
@@ -26,7 +28,7 @@ public class ProductCreatePage extends PageObject{
 	@FindBy(name="name")
 	private WebElement nameField;
 	
-	@FindBy(name="unit")
+	@FindBy(name="units")
 	private WebElement unitField;
 	
 	@FindBy(name="vat")
@@ -63,19 +65,40 @@ public class ProductCreatePage extends PageObject{
 		super(driver);
 	}
 	
-	public void Input(String elementName, String inputText){
+	public void FieldType(String elementName, String inputText){
 		WebElement element = getWebElement(elementName);
 		$(element).type(inputText);
 	}
 	
-	public void Select(String elementName, String value){
+	public void SelectByValue(String elementName, String value){
 		WebElement element = getWebElement(elementName);
 		$(element).selectByValue(value);
 	}
 	
 	public void CreateButtonClick(){
 		$(createButton).click();
+        CreateButtonNotSuccessAlertCheck();
 	}
+
+    public void CreateButtonNotSuccessAlertCheck(){
+        boolean isAlertPresent = false;
+        Alert alert = null;
+        try {
+            alert = getAlert();
+            isAlertPresent = true;
+        }
+        catch (Exception e){
+            isAlertPresent = false;
+        }
+        if(isAlertPresent){
+            String errorAlertMessage = "Ошибка";
+            String alertText = alert.getText();
+            if(alertText.contains(errorAlertMessage)){
+                String errorMessage = String.format("Can't create new product. Error alert is present. Alert text: %s", alertText);
+                throw new AssertionError(errorMessage);
+            }
+        }
+    }
 
     public void CancelButtonClick(){
         $(cancelButton).click();

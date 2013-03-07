@@ -1,8 +1,6 @@
 package project.lighthouse.autotests.pages;
 
-import net.thucydides.core.pages.AnyPage;
 import net.thucydides.core.pages.WebElementFacade;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,13 +35,13 @@ public class ProductListPage extends PageObject{
         productItem.click();
 	}
 	
-	public void ListItemChecks(String skuValue){
+	public void ListItemCheck(String skuValue){
         WebElementFacade productItem = GetItemProductElement(skuValue);
         productItem.shouldBePresent();
 	}
 
     public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
-        ListItemChecks(skuValue);
+        ListItemCheck(skuValue);
         WebElementFacade productItem = GetItemProductElement(skuValue);
         productItem.shouldContainText(expectedValue);
     }
