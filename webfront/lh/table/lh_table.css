@@ -38,13 +38,16 @@
     border: 1px solid white;
 }
 
-[ lh_table_cell = 'id' ] {
+[ lh_table_cell = 'id' ]:not( [ lh_table_header ] ) {
     white-space: nowrap;
     color: #333;
     font: bold .9em/1.8 "Lucida Console", Monaco, monospace;
 }
 
 [ lh_table_cell = 'money' ] {
+    text-align: right;
+}
+[ lh_table_cell = 'money' ]:not( [ lh_table_header ] ) {
     text-align: right;
     white-space: nowrap;
     font: .9em/1.8 "Lucida Console", Monaco, monospace;
