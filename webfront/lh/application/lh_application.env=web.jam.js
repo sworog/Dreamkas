@@ -113,7 +113,8 @@ this.$lh_application= $jin_wrapper( function( $lh_application, application ){
                 ,   contentType: 'application/xml; charset=utf-8'
                 ,   data: $lh_product_editor( event.target() ).data() + ''
                 ,   success: function( data ){
-                        document.location= '?product;list#product=3'
+                        var id= data.getElementsByTagName('id')[0].firstChild.nodeValue
+                        document.location= '?product;list#product=' + id
                     }
                 ,   error: function( data, type, message ){
                         message= message
