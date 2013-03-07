@@ -15,12 +15,12 @@ And the user inputs '5698' in 'purchasePrice' field
 And the user inputs '8954' in 'barcode' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
-And the user inputs '89745D' in 'sku' field
+And the user inputs '89745D1' in 'sku' field
 And the user inputs 'Доп инфо: Текст двадцать пять' in 'info' field
 And the user clicks the create button
 Then the user checks the product with '89745D' sku is present
-When the user open the product card with '89745D' sku
-Then the user checks the 'sku' value is '89745D'
+When the user open the product card with '89745D1' sku
+Then the user checks the 'sku' value is '89745D1'
 And the user checks the 'name' value is 'Веселый'
 And the user checks the 'vendor' value is 'Рамзон, Раша матушка'
 And the user checks the 'purchasePrice' value is '5698'
@@ -64,12 +64,12 @@ And the user inputs '567' in 'purchasePrice' field
 And the user inputs '0000000' in 'barcode' field
 And the user selects 'kg' in 'unit' dropdown
 And the user selects '18' in 'vat' dropdown
-And the user inputs '89745D' in 'sku' field
+And the user inputs '89745D23' in 'sku' field
 And the user inputs 'Доп инфо: Тестовые сущности 3434' in 'info' field
 And the user clicks the create button
 Then the user checks the product with '89745D' sku is present
-When the user open the product card with '89745D' sku
-Then the user checks the 'sku' value is '89745D'
+When the user open the product card with '89745D23' sku
+Then the user checks the 'sku' value is '89745D23'
 And the user checks the 'name' value is 'ООО ИМЯ'
 And the user checks the 'vendor' value is 'Фирма 1, Германия'
 And the user checks the 'purchasePrice' value is '567'
