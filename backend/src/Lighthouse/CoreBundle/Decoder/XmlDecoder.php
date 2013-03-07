@@ -19,7 +19,7 @@ class XmlDecoder extends BaseDecoder
         $parsed = parent::decode($data);
 
         if (null !== $parsed) {
-            $xml = @simplexml_load_string($data);
+            $xml = simplexml_load_string($data);
             $root = $xml->getName();
             return array($root => $parsed);
         } else {

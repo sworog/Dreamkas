@@ -32,6 +32,37 @@ class ProductControllerTest extends WebTestCase
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
 
+    public function testPostProductActionXmlPost()
+    {
+        $client = static::createClient();
+
+        $xml = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<product>
+    <name>Кефир "Веселый Молочник" 1% 950гр</name>
+    <units>gr</units>
+    <barcode>4607025392408</barcode>
+    <purchasePrice>3048</purchasePrice>
+    <sku>КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР</sku>
+    <vat>10</vat>
+    <vendor>Вимм-Билль-Данн</vendor>
+    <vendorCountry>Россия</vendorCountry>
+    <info>Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса</info>
+</product>
+EOF;
+        $client->request(
+            'POST',
+            'api/1/products',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/xml'),
+            $xml
+        );
+
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        $content = $client->getResponse()->getContent();
+    }
+
     public function testPostProductActionEmptyPost()
     {
         $client = static::createClient();
@@ -60,7 +91,6 @@ class ProductControllerTest extends WebTestCase
         /* @var $response Response */
         $response = $client->getResponse();
         $this->assertTrue($response->headers->has('Access-Control-Allow-Origin'));
-        $this->assertEquals("www.a.com", $response->headers->get('Access-Control-Allow-Origin'));
 
         $client->request('POST', 'api/1/product', $postArray);
         /* @var $response Response */
