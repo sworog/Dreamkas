@@ -1,0 +1,7 @@
+[ lh_error ] {
+    display: inline-block;
+    margin: 2%;
+    border: 1px solid #ddd;
+    background: #fee;
+    padding: 1em;
+}
