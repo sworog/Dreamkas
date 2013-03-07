@@ -1,0 +1,1 @@
+npm install && node --harmony lh_server_test.js

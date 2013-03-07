@@ -1,1 +1,1 @@
-npm install && node --harmony build.js
+npm install && node --harmony lh_build.js
