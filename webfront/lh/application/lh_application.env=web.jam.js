@@ -112,6 +112,7 @@ this.$lh_application= $jin_wrapper( function( $lh_application, application ){
             ,   {   type: 'post'
                 ,   contentType: 'application/xml; charset=utf-8'
                 ,   data: $lh_product_editor( event.target() ).data() + ''
+		        ,   dataType: "xml"
                 ,   success: function( data ){
                         var id= data.getElementsByTagName('id')[0].firstChild.nodeValue
                         document.location= '?product;list#product=' + id
