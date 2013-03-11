@@ -1,5 +1,6 @@
 this.$lh_product_onSave=
-$jin_eventProof( function( $lh_product_onSave, event ){
+$jin_class( function( $lh_product_onSave, event ){
+    $jin_eventProof.scheme( $lh_product_onSave )
     $lh_product_onSave.type= 'lh_product_onSave'
     $lh_product_onSave.bubbles= true
 })
@@ -12,7 +13,7 @@ this.$lh_product_editor= $jin_class( function( $lh_product_editor, editor ){
         return widgets[ 'lh_product_editor' ] || make.apply( this, arguments )
     }
     
-    $jin_wrapper.scheme.apply( this, arguments )
+    $jin_wrapper.scheme( $lh_product_editor )
     
     editor.buttons= $jin_subElement( 'lh_button' )
     

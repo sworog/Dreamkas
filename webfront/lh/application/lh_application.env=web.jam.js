@@ -1,4 +1,6 @@
-this.$lh_application= $jin_wrapper( function( $lh_application, application ){
+this.$lh_application= $jin_class( function( $lh_application, application ){
+    
+    $jin_wrapper.scheme( $lh_application )
     
     application.templates= null
     
