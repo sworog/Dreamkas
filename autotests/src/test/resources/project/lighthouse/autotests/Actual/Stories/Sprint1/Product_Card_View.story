@@ -18,7 +18,7 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs '89745D1' in 'sku' field
 And the user inputs 'Доп инфо: Текст двадцать пять' in 'info' field
 And the user clicks the create button
-Then the user checks the product with '89745D' sku is present
+Then the user checks the product with '89745D1' sku is present
 When the user open the product card with '89745D1' sku
 Then the user checks the 'sku' value is '89745D1'
 And the user checks the 'name' value is 'Веселый'
