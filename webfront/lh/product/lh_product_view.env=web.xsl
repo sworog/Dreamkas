@@ -6,7 +6,7 @@
         <div lh_card_stack="true">
             <a
                 lh_card_back="true"
-                href="?product;list"
+                href="?product/list"
                 >
                 Список товаров
             </a>

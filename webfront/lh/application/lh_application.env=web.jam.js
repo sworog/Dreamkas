@@ -67,7 +67,7 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
     }
         
     application.view_= function( application, params ){
-        document.location= '?product;list'
+        document.location= '?product/list'
     }
     
     application.view_default= function( application, params ){
@@ -93,7 +93,7 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             var params= {}
             document.location.search
             .replace( /^\?/, '' )
-            .split( ';' )
+            .split( '/' )
             .forEach( function( chunk ){
                 var pair= chunk.split( '=' )
                 params[ pair[ 0 ] ]= pair[ 1 ] || ''
@@ -117,7 +117,7 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
 		        ,   dataType: "xml"
                 ,   success: function( data ){
                         var id= data.getElementsByTagName('id')[0].firstChild.nodeValue
-                        document.location= '?product;list#product=' + id
+                        document.location= '?product/list#product=' + id
                     }
                 ,   error: function( data, type, message ){
                         message= message

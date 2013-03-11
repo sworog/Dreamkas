@@ -8,7 +8,7 @@
                 <div lh_card_header="true">
                     <div lh_card_headerButtons="true">
                         <a
-                            href="?product;create"
+                            href="?product/create"
                             lh_button="create"
                             >
                             Новый товар
