@@ -1,7 +1,7 @@
 var config= require( './testo_config.js' )
 
 require( 'child_process' ).spawn
-(   'lh_server.cmd'
+(   'lh_server_test.cmd'
 ,   [ ]
 ,   { detached: true, cwd: '..' }
 )
