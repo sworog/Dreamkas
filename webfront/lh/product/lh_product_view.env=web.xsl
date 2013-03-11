@@ -14,10 +14,9 @@
                 <div lh_card_header="true">
                     <div lh_card_headerButtons="true">
                         <a
-                            style=" display: none "
                             lh_button="modify"
                             type="submit"
-                            href="?product={ id };edit"
+                            href="?product={ id }/edit"
                             >
                             Изменить
                         </a>
