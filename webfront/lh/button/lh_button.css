@@ -1,7 +1,7 @@
 [ lh_button ] {
     padding: .6em 1.2em;
     cursor: pointer;
-    margin: .3em;
+    margin: 0;
     border: 1px solid gray;
     border-radius: 2px;
     box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.5 ) inset;

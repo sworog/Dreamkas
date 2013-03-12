@@ -33,7 +33,7 @@
                         </span>
                     </span>
                 </div>
-                <div lh_prop="true">
+                <div lh_prop_set="true">
                     <span lh_prop_name="true">
                         Производитель:
                     </span>
@@ -42,7 +42,7 @@
                         <xsl:value-of select=" vendorCountry " />
                     </span>
                 </div>
-                <div lh_prop="true">
+                <div lh_prop_set="true">
                     <span lh_prop_name="true">
                         Закупочная цена:
                     </span>
@@ -50,7 +50,7 @@
                         <xsl:value-of select=" purchasePrice " /> руб.
                     </span>
                 </div>
-                <div lh_prop="true">
+                <div lh_prop_set="true">
                     <span lh_prop_name="true">
                         Штрих-код:
                     </span>
@@ -58,7 +58,7 @@
                         <xsl:value-of select=" barcode " />
                     </span>
                 </div>
-                <div lh_prop="true">
+                <div lh_prop_set="true">
                     <span lh_prop_name="true">
                         Единица измерения:
                     </span>
@@ -66,7 +66,7 @@
                         <xsl:apply-templates select=" units " mode="lh_product_view_units" />
                     </span>
                 </div>
-                <div lh_prop="true">
+                <div lh_prop_set="true">
                     <span lh_prop_name="true">
                         НДС:
                     </span>
@@ -74,7 +74,7 @@
                         <xsl:value-of select=" vat " />%
                     </span>
                 </div>
-                <div lh_prop="true">
+                <div lh_prop_set="true">
                     <span lh_prop_name="true">
                         Дополнительная информация:
                     </span>

@@ -6,35 +6,39 @@
         <div lh_card_stack="true">
             <a
                 lh_card_back="true"
-                href="?product={ id }"
+                href="?product/list"
                 >
-                <span lh_card_titlePrefix="true">
-                    <xsl:value-of select=" sku " />
-                </span>
-                <span>
-                    <xsl:value-of select=" name " />
-                </span>
+                Список товаров
             </a>
             <div lh_card="true">
-                <div lh_card_title="true">Редактирование товара</div>
+                <div lh_card_header="true">
+                    <div lh_card_headerButtons="true">
+                        <a
+                            lh_button="reset"
+                            href="?product={ id }"
+                            >
+                            закрыть
+                        </a>
+                    </div>
+                    <div lh_card_title="true">
+                        Редактирование товара
+                        «<xsl:value-of select=" name " />»
+                    </div>
+                </div>
+                
                 <form lh_product_editor="maker">
                     
                     <xsl:apply-templates select=" . " mode="lh_product_fields" />
                     
-                    <div lh_block="true">
+                    <div lh_prop_set="true">
+                        <span lh_prop_name="true"></span>
                         <button
                             lh_button="success"
                             type="submit"
                             disabled="disabled"
                             >
-                            Сохранить данные
+                            Сохранить изменения
                         </button>
-                        <a
-                            lh_button="reset"
-                            href="?product={ id }"
-                            >
-                            Отменить изменения
-                        </a>
                     </div>
                     
                 </form>

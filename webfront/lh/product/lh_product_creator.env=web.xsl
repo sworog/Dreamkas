@@ -11,23 +11,32 @@
                 Список товаров
             </a>
             <div lh_card="true">
-                <div lh_card_title="true">Новый товар</div>
+                <div lh_card_header="true">
+                    <div lh_card_headerButtons="true">
+                        <a
+                            lh_button="reset"
+                            href="?product/list"
+                            >
+                            закрыть
+                        </a>
+                    </div>
+                    <div lh_card_title="true">
+                        Добавление нового товара
+                    </div>
+                </div>
+                
                 <form lh_product_editor="maker">
                     <xsl:apply-templates select=" . " mode="lh_product_fields" />
-                    <div lh_block="true">
+                    
+                    <div lh_prop_set="true">
+                        <span lh_prop_name="true"></span>
                         <button
                             lh_button="success"
                             type="submit"
                             disabled="disabled"
                             >
-                            Создать товар
+                            Добавить товар
                         </button>
-                        <a
-                            lh_button="reset"
-                            href="?product/list"
-                            >
-                            Отменить
-                        </a>
                     </div>
                 </form>
             </div>

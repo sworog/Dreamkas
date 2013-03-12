@@ -1,11 +1,45 @@
-[ lh_prop ] {
-    display: block;
+[ lh_prop_set ] {
+    width: 100%;
     margin: 1em 0 0;
+    padding: 0;
+
+    display: block;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    flex-wrap: wrap;
+    
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    -moz-align-content: stretch;
+    align-content: stretch;
 }
 
 [ lh_prop_name ] {
-    font-weight: bold;
+    display: inline-block;
+    -webkit-box-flex: 0;
+    -moz-box-flex: 0;
+    -webkit-flex: 0 0 10em;
+    -ms-flex: 0 0 10em;
+    flex: 0 0 10em;
+    
+    line-height: 1.5;
+    width: 10em;
 }
 
 [ lh_prop_value ] {
+    max-width: 30em;
+    line-height: 1.5;
+    
+    -webkit-box-flex: 0;
+    -moz-box-flex: 0;
+    -webkit-flex: 0 0 20em;
+    -ms-flex: 0 0 20em;
+    flex: 0 0 20em;
 }

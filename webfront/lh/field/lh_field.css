@@ -1,12 +1,8 @@
 [ lh_field ] {
-    margin: .2em;
     font-size: 11pt;
     line-height: 1.5;
     box-sizing: border-box;
     display: inline-block;
-    
-    -webkit-flex: 1;
-    flex: 1;
 }
 
 [ lh_field = 'short' ] {
@@ -53,6 +49,11 @@
     box-sizing: border-box;
     vertical-align: middle;
     font: inherit;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+
+[ lh_field ] > select {
+    padding: .2em;
 }
 
 [ lh_field ] > textarea {
