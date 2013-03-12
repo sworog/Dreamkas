@@ -111,12 +111,15 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
         $lh_product_onSave.listen( document.body, function( event ){
             if( event.catched() ) return
             
+            var data= $lh_product_editor( event.target() ).data()
+            var id= $jq( data.$ ).find( 'id' ).text()
+            
             $jq.ajax
             (   application.api() + 'products'
-            ,   {   type: 'post'
+            ,   {   type: id ? 'put' : 'post'
                 ,   contentType: 'application/xml; charset=utf-8'
-                ,   data: $lh_product_editor( event.target() ).data() + ''
-		        ,   dataType: "xml"
+                ,   data: String( data )
+		,   dataType: "xml"
                 ,   success: function( data ){
                         var id= data.getElementsByTagName('id')[0].firstChild.nodeValue
                         document.location= '?product/list#product=' + id
