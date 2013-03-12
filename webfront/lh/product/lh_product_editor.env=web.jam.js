@@ -33,7 +33,7 @@ this.$lh_product_editor= $jin_class( function( $lh_product_editor, editor ){
             if( !field.name ) continue
             
             var elem= data.$.createElement( field.name )
-            elem.textContent= field.value
+            elem.appendChild( data.$.createTextNode( field.value ) )
             data.$.documentElement.appendChild( elem )
         }
         
