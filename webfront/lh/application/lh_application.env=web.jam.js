@@ -113,16 +113,24 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             
             var data= $lh_product_editor( event.target() ).data()
             var id= $jq( data.$ ).find( 'id' ).text()
+            $jq( data.$ ).find( 'id' ).remove()
+            
+            var url=  application.api() + 'products'
+            if( id ) url+= '/' + id
             
             $jq.ajax
-            (   application.api() + 'products'
+            (   url
             ,   {   type: id ? 'put' : 'post'
                 ,   contentType: 'application/xml; charset=utf-8'
                 ,   data: String( data )
-		,   dataType: "xml"
+                ,   dataType: "xml"
                 ,   success: function( data ){
-                        var id= data.getElementsByTagName('id')[0].firstChild.nodeValue
-                        document.location= '?product/list#product=' + id
+                        if( id ){
+                            document.location= '?product=' + id
+                        } else {
+                            id= data.getElementsByTagName('id')[0].firstChild.nodeValue
+                            document.location= '?product/list#product=' + id
+                        }
                     }
                 ,   error: function( data, type, message ){
                         message= message
