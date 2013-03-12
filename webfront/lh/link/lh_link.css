@@ -1,0 +1,19 @@
+[ lh_link ]{
+    text-decoration: none;
+    color: #219ada;
+    cursor: pointer;
+    font-weight: bold;
+    color: #2286e0;
+    opacity: .85;
+    font-size: .9;
+}
+
+[ lh_link ]:hover {
+    opacity: 1;
+}
+
+[ lh_link = 'close' ]:before {
+    content: url( '../../lh/link/lh_link_close.svg' );
+    vertical-align: middle;
+    display: inline-block;
+}
