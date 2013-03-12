@@ -32,7 +32,37 @@ class ProductControllerTest extends WebTestCase
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
 
-    public function testPostProductActionXmlPost()
+    /**
+     * @dataProvider validateProvider
+     */
+    public function testPostProductActionXmlPost($expectedCode, array $data)
+    {
+        $client = static::createClient();
+
+        $postArray = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => 3048,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+
+        $postArray = array_merge($postArray, $data);
+
+        $client->request(
+            'POST',
+            'api/1/products',
+            array('product' => $postArray)
+        );
+
+        $this->assertEquals($expectedCode, $client->getResponse()->getStatusCode());
+    }
+
+    public function testPostProductInvalidData()
     {
         $client = static::createClient();
 
@@ -403,5 +433,98 @@ EOF;
             'api/1/products/1111'
         );
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+
+    public function validateProvider()
+    {
+        return array(
+            'valid name' => array(
+                201,
+                array('name' => 'test'),
+            ),
+            'empty name' => array(
+                400,
+                array('name' => ''),
+            ),
+            'valid price dot' => array(
+                201,
+                array('purchasePrice' => 10.89),
+            ),
+            'valid price coma' => array(
+                201,
+                array('purchasePrice' => '10,89'),
+            ),
+            'not valid price very float' => array(
+                400,
+                array('purchasePrice' => '10,898'),
+            ),
+            'not valid price not a number' => array(
+                400,
+                array('purchasePrice' => 'not a number'),
+            ),
+            'not valid price zero' => array(
+                400,
+                array('purchasePrice' => 0),
+            ),
+            'not valid price negative' => array(
+                400,
+                array('purchasePrice' => -10),
+            ),
+            'valid vat' => array(
+                201,
+                array('vat' => 18),
+            ),
+            'valid vat zero' => array(
+                201,
+                array('vat' => 0),
+            ),
+            'not valid vat not a number' => array(
+                400,
+                array('vat' => 'not a number'),
+            ),
+            'not valid vat negative' => array(
+                400,
+                array('vat' => -30),
+            ),
+            'valid barcode' => array(
+                201,
+                array('barcode' => 'ijashglkalgh2378rt8237t4rjhdg '),
+            ),
+            'valid barcode empty' => array(
+                201,
+                array('barcode' => ''),
+            ),
+            'valid vendor' => array(
+                201,
+                array('vendor' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
+            ),
+            'valid vendor empty' => array(
+                201,
+                array('vendor' => ''),
+            ),
+            'valid vendorCountry' => array(
+                201,
+                array('vendorCountry' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
+            ),
+            'valid vendorCountry empty' => array(
+                201,
+                array('vendorCountry' => ''),
+            ),
+            'not valid vendorCountry too long' => array(
+                400,
+                array('vendorCountry' => '
+                ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssz
+                '),
+            ),
+            'valid info' => array(
+                201,
+                array('info' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
+            ),
+            'valid info empty' => array(
+                201,
+                array('info' => ''),
+            ),
+        );
     }
 }

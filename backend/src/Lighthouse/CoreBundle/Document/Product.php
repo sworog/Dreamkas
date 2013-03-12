@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
+use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 
 /**
  *
@@ -30,25 +31,54 @@ class Product
     /**
      * @MongoDB\String
      * @Assert\NotBlank
+     * @Assert\Length(max = "300")
      * @var string
+     *
      */
     protected $name;
 
-    /** @MongoDB\String */
+    /**
+     * @MongoDB\String
+     * @Assert\NotBlank
+     */
     protected $units;
-    /** @MongoDB\String */
+    /**
+     * @MongoDB\String
+     * @Assert\Range(min="0")
+     * @Assert\NotBlank
+     */
     protected $vat;
-    /** @MongoDB\String */
+    /**
+     * @MongoDB\String
+     * @LighthouseAssert\Price
+     * @Assert\NotBlank
+     */
     protected $purchasePrice;
-    /** @MongoDB\String */
+    /**
+     * @MongoDB\String
+     * @Assert\Length(max="200")
+     */
     protected $barcode;
-    /** @MongoDB\String */
+    /**
+     * @MongoDB\String
+     * @Assert\NotBlank
+     * @Assert\Length(max="200")
+     */
     protected $sku;
-    /** @MongoDB\String */
+    /**
+     * @MongoDB\String
+     * @Assert\Length(max="100")
+     */
     protected $vendorCountry;
-    /** @MongoDB\String */
+    /**
+     * @MongoDB\String
+     * @Assert\Length(max="300")
+     */
     protected $vendor;
-    /** @MongoDB\String */
+    /**
+     * @MongoDB\String
+     * @Assert\Length(max="2000")
+     */
     protected $info;
 
     /**
