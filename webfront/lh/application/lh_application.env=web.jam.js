@@ -1,6 +1,8 @@
 this.$lh_application= $jin_class( function( $lh_application, application ){
     
-    $jin_wrapper.scheme( $lh_application )
+    $jin_widget( $lh_application )
+    
+    $lh_application.id= 'lh_application'
     
     application.templates= null
     
@@ -133,5 +135,3 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
     }
     
 })
-
-$jin_component( 'lh_application', $lh_application )
