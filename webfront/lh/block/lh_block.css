@@ -1,6 +1,6 @@
 [ lh_block ] {
     width: 100%;
-    margin: .5em 0 0;
+    margin: 1em 0 0;
     padding: 0;
     border: none;
 
@@ -20,4 +20,10 @@
     -ms-flex-line-pack: stretch;
     -moz-align-content: stretch;
     align-content: stretch;
+    
+    -webkit-box-align: baseline;
+    -moz-box-align: baseline;
+    -webkit-align-items: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
 }

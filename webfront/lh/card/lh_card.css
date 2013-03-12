@@ -42,7 +42,6 @@
 
 [ lh_card_headerButtons ] {
     float: right;
-    margin: -.5em -.5em 0 0;
 }
 
 [ lh_card_titlePrefix ] {
