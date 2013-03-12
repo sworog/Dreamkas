@@ -34,11 +34,13 @@
 }
 
 [ lh_field ] > input:required:invalid,
+[ lh_field ] > textarea:required:invalid,
 [ lh_field ] > select:required:invalid {
     border-color: #d99;
 }
 
 [ lh_field ] > input,
+[ lh_field ] > textarea,
 [ lh_field ] > select {
     border: 1px solid #ccc;
     border-radius: 2px;
@@ -51,6 +53,11 @@
     box-sizing: border-box;
     vertical-align: middle;
     font: inherit;
+}
+
+[ lh_field ] > textarea {
+    height: auto;
+    min-height: 5em;
 }
 
 [ lh_field ] > select:invalid {

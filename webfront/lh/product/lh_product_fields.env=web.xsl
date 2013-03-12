@@ -7,14 +7,14 @@
             <xsl:apply-templates select=" . " mode="lh_product_name" />
         </div>
         <div lh_block="true">
-            <xsl:apply-templates select=" . " mode="lh_product_vendor" />
-            <xsl:apply-templates select=" . " mode="lh_product_vendorCountry" />
+            <xsl:apply-templates select=" . " mode="lh_product_units" />
+            <xsl:apply-templates select=" . " mode="lh_product_purchasePrice" />
+            <xsl:apply-templates select=" . " mode="lh_product_vat" />
         </div>
         <div lh_block="true">
-            <xsl:apply-templates select=" . " mode="lh_product_purchasePrice" />
             <xsl:apply-templates select=" . " mode="lh_product_barcode" />
-            <xsl:apply-templates select=" . " mode="lh_product_units" />
-            <xsl:apply-templates select=" . " mode="lh_product_vat" />
+            <xsl:apply-templates select=" . " mode="lh_product_vendorCountry" />
+            <xsl:apply-templates select=" . " mode="lh_product_vendor" />
         </div>
         <div lh_block="true">
             <xsl:apply-templates select=" . " mode="lh_product_info" />
@@ -38,6 +38,7 @@
                 type="text"
                 name="sku"
                 value="{sku}"
+                maxlength="200"
             />
         </label>
     </xsl:template>
@@ -50,6 +51,7 @@
                 type="text"
                 name="name"
                 value="{name}"
+                maxlength="300"
             />
         </label>
     </xsl:template>
@@ -62,8 +64,9 @@
                 title="Мерность"
                 name="units"
                 >
+                <option value=""></option>
                 <option value="unit">
-                    <xsl:if test=" not( vat ) or unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" unit = 'unit' "><xsl:attribute name="selected"/></xsl:if>
                     Штуки
                 </option>
                 <option value="liter">
@@ -85,12 +88,13 @@
                 required="required"
                 name="vat"
                 >
+                <option value=""></option>
                 <option value="0">
                     <xsl:if test=" vat = '0' "><xsl:attribute name="selected"/></xsl:if>
                     0%
                 </option>
                 <option value="10">
-                    <xsl:if test=" not( vat ) or vat = '10' "><xsl:attribute name="selected"/></xsl:if>
+                    <xsl:if test=" vat = '10' "><xsl:attribute name="selected"/></xsl:if>
                     10%
                 </option>
                 <option value="18">
@@ -117,9 +121,9 @@
         <div lh_field="short">
             Штрих код
             <input
-                required="required"
                 name="barcode"
                 value="{ barcode }"
+                maxlength="200"
             />
         </div>
     </xsl:template>
@@ -128,10 +132,10 @@
         <div lh_field="normal">
             Производитель
             <input
-                required="required"
                 type="text"
                 name="vendor"
                 value="{ vendor }"
+                maxlength="300"
             />
         </div>
     </xsl:template>
@@ -140,10 +144,10 @@
         <div lh_field="normal">
             Страна
             <input
-                required="required"
                 type="text"
                 name="vendorCountry"
                 value="{ vendorCountry }"
+                maxlength="100"
             />
         </div>
     </xsl:template>
@@ -151,11 +155,12 @@
     <xsl:template match="*" mode="lh_product_info" >
         <div lh_field="long">
             Дополнительная информация
-            <input
+            <textarea
                 type="text"
                 name="info"
                 value="{ info }"
-            />
+                maxlength="2000"
+            ></textarea>
         </div>
     </xsl:template>
     
