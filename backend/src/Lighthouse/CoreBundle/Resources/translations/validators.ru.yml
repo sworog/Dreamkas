@@ -1,0 +1,2 @@
+Price should not have more than {{ digits }} digits after dot.: Цена не должна содержать больше {{ digits }} цифр после запятой.
+Price should not be negative.: Цена не должна быть меньше или равна нулю.
