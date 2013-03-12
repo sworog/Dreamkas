@@ -13,7 +13,7 @@
             <purchasePrice>100500</purchasePrice>
             <barcode>0123456789</barcode>
             <units>unit</units>
-            <val>10</val>
+            <vat>10</vat>
             <info>У нас их дофига!</info>
         </product>
     </div>
