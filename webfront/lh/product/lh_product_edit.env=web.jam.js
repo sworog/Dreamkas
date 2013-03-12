@@ -26,9 +26,9 @@ this.$lh_product_edit= $jin_class( function( $lh_product_edit, editor ){
             var field= fields[ i ]
             if( !field.name ) continue
             
-            var elem= data.toDOMDoc().createElement( field.name )
-            elem.appendChild( data.toDOMDoc().createTextNode( field.value ) )
-            data.toDOMNode().appendChild( elem )
+            data.Element( field.name )
+            .text( field.value )
+            .parent( data )
         }
         
         return data

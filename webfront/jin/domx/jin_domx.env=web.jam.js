@@ -52,12 +52,62 @@ $jin_class( function( $jin_domx, domx ){
     }
     
     domx.attr= function( domx, name, value ){
-        var node= domx.toDOMNode()
         if( arguments.length > 2 ){
-            if( value == null ) node.removeAttribute( name )
-            else node.setAttribute( name, value )
+            if( value == null ) domx.$.removeAttribute( name )
+            else domx.$.setAttribute( name, value )
+            return domx
         } else {
-            return node.getAttribute( name )
+            return domx.$.getAttribute( name )
+        }
+    }
+    
+    domx.text= function( domx, value ){
+        if( arguments.length > 1 ){
+            domx.clear()
+            if( value != '' ) domx.Text( value ).parent( domx )
+            return domx
+        } else {
+            return domx.$.textContent
+        }
+    }
+    
+    domx.clear= function( domx ){
+        var child
+        while( child= domx.$.firstChild ){
+            domx.$.removeChild( child )
+        }
+        return domx
+    }
+    
+    domx.parent= function( domx, parent ){
+        if( arguments.length > 1 ){
+            if( parent == null ){
+                parent= node.$.parentNode
+                if( parent ) parent.removeChild( domx.$ )
+            } else {
+                $jin_unwrap( parent ).appendChild( domx.$ )
+            }
+            return domx
+        } else {
+            parent= node.$.parentNode
+            return parent ? $jin_domx( parent ) : parent
+        }
+    }
+
+    domx.Text= function( domx, value ){
+        return $jin_domx( domx.toDOMDoc().createTextNode( value ) )
+    }
+    
+    domx.Fragment= function( domx ){
+        return $jin_domx( domx.toDOMDoc().createDocumentFragment() )
+    }
+    
+    domx.Element= function( domx, name, ns ){
+        var doc= domx.toDOMDoc()
+        if( arguments.length > 2 ){
+            return $jin_domx( doc.createElementNS( ns, name ) )
+        } else {
+            return $jin_domx( doc.createElement( name ) )
         }
     }
     
