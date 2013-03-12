@@ -3,6 +3,7 @@ package project.lighthouse.autotests.jbehave;
 import org.jbehave.core.annotations.*;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.ProductSteps;
 
 public class ProductUserSteps {
@@ -10,7 +11,7 @@ public class ProductUserSteps {
 	@Steps
 	ProductSteps productSteps;
 	
-	@Given("the user is on the order create page")
+	@Given("the user is on the product create page")
     public void GivenTheUserIsOnTheOrderCreatePage() {
         productSteps.IsTheProductCreatePage();
     }
@@ -38,6 +39,11 @@ public class ProductUserSteps {
     public void WhenTheUserInputsTextInTheField(String inputText, String elementName) {
         productSteps.FieldInput(elementName, inputText);
     }
+
+    @When("the user inputs values in element fields $fieldInputTable")
+    public void WhenTheUserInputsInElementFields(ExamplesTable fieldInputTable){
+        productSteps.FieldType(fieldInputTable);
+    }
     
     @When("the user selects '$value' in '$elementName' dropdown")
     public void WhenTheUserSelectsValueInDropDown(String value, String elementName){
@@ -48,6 +54,12 @@ public class ProductUserSteps {
     public void WhenTheUserEditsTextInTheField(String inputText, String elementName) {
         productSteps.FieldEdit(elementName, inputText);
     }
+
+    @When("the user edits values in element fields $fieldInputTable")
+    public void WhenTheUserEditsValuesInElementFields(ExamplesTable fieldInputTable){
+        productSteps.FieldEdit(fieldInputTable);
+    }
+
     
     @When("the user clicks the create button")
     public void WhenTheUserClicksOnCreateButton(){
@@ -73,11 +85,15 @@ public class ProductUserSteps {
     public void WhenTheUserOpenTheProductCard(String skuValue){
         productSteps.ListItemClick(skuValue);
     }
-
     
     @Then("the user checks the '$elementName' value is '$expectedValue'")
     public void ThenTheUserChecksValue(String elementName, String expectedValue){
     	productSteps.CheckCardValue(elementName, expectedValue);
+    }
+
+    @Then("the user checks the elements values $checkValuesTable")
+    public void ThenTheUserChecksTheElementValues(ExamplesTable checkValuesTable){
+        productSteps.CheckCardValue(checkValuesTable);
     }
 
     @Then("the user checks the product with '$skuValue' sku is present")
@@ -93,5 +109,10 @@ public class ProductUserSteps {
     @Then("the user checks default value for '$dropDownType' dropdown equal to '$expectedValue'")
     public void ThenTheUSerChecksDefaultValueForDropDown(String dropDownType, String expectedValue){
         productSteps.CheckDropDownDefaultValue(dropDownType, expectedValue);
+    }
+
+    @When("the user clicks the edit button on product card view page")
+    public void WhenTheUserClicksTheEditButtonOnProductCardViewPage(){
+        productSteps.EditButtonClick();
     }
 }

@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.steps;
 
+import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.pages.*;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
@@ -72,6 +73,11 @@ public class ProductSteps extends ScenarioSteps{
 	}
 
     @Step
+    public void CheckCardValue(ExamplesTable checkValuesTable){
+        productCardView.CheckCardValue(checkValuesTable);
+    }
+
+    @Step
     public void CreateNewProductButtonClick(){
         productListPage.CreateNewProductButtonClick();
     }
@@ -94,5 +100,20 @@ public class ProductSteps extends ScenarioSteps{
     @Step
     public void CheckDropDownDefaultValue(String dropDownType, String expectedValue){
         productCreatePage.CheckDropDownDefaultValue(dropDownType, expectedValue);
+    }
+
+    @Step
+    public void EditButtonClick(){
+        productCardView.EditButtonClick();
+    }
+
+    @Step
+    public void FieldType(ExamplesTable fieldInputTable){
+        productCreatePage.FieldType(fieldInputTable);
+    }
+
+    @Step
+    public void FieldEdit(ExamplesTable fieldInputTable){
+        productEditPage.FieldEdit(fieldInputTable);
     }
 }

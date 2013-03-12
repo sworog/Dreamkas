@@ -1,8 +1,10 @@
 package project.lighthouse.autotests.pages;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
+import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,6 +23,9 @@ public class ProductCardView extends ProductCreatePage{
 	
 	@FindBy(xpath="//div[@lh_prop]")
 	private List<WebElement> lh_block_Values;
+
+    @FindBy(xpath = "//a[@lh_button='modify']")
+    private WebElement editButton;
 	
 	public ProductCardView(WebDriver driver) {
 		super(driver);
@@ -47,6 +52,14 @@ public class ProductCardView extends ProductCreatePage{
                 break;
         }
 	}
+
+    public void CheckCardValue(ExamplesTable checkValuesTable){
+        for (Map<String, String> row : checkValuesTable.getRows()){
+            String elementName = row.get("elementName");
+            String expectedValue = row.get("expectedValue");
+            CheckCardValue(elementName, expectedValue);
+        }
+    }
 	
 	public WebElement getWebElement(String elementName){
 		switch (elementName) {
@@ -58,4 +71,8 @@ public class ProductCardView extends ProductCreatePage{
             return (WebElement)new AssertionError("No such value!");
 		}		
 	}
+
+    public void EditButtonClick(){
+        $(editButton).click();
+    }
 }

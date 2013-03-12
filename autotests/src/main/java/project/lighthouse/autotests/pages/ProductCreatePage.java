@@ -1,16 +1,16 @@
 package project.lighthouse.autotests.pages;
 
-import net.thucydides.core.webdriver.WebdriverAssertionError;
+import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-@DefaultUrl("/?product;create")
+import java.util.Map;
+
+@DefaultUrl("/?product/create")
 public class ProductCreatePage extends PageObject{
 	
 	@FindBy(name="sku")
@@ -66,9 +66,46 @@ public class ProductCreatePage extends PageObject{
 	}
 	
 	public void FieldType(String elementName, String inputText){
-		WebElement element = getWebElement(elementName);
-		$(element).type(inputText);
+		FieldAction(elementName, inputText, "create");
 	}
+
+    public void FieldEdit(String elementName, String inputText){
+        FieldAction(elementName, inputText, "edit");
+    }
+
+    public void FieldAction(String elementName, String inputText, String action){
+        WebElement element = getWebElement(elementName);
+            if (action.equals("edit")){
+            $(element).clear();
+            }
+        $(element).type(inputText);
+    }
+
+    public void FieldType(ExamplesTable fieldInputTable){
+        FieldTypeAction(fieldInputTable, "input");
+    }
+
+    public void FieldEdit(ExamplesTable fieldInputTable){
+        FieldTypeAction(fieldInputTable, "edit");
+    }
+
+    public void FieldTypeAction(ExamplesTable fieldInputTable, String action){
+        for (Map<String, String> row : fieldInputTable.getRows()){
+            String elementName = row.get("elementName");
+            String inputText = row.get("inputText");
+            switch (action){
+                case "edit":
+                    FieldType(elementName, inputText);
+                    break;
+                case "input":
+                    FieldEdit(elementName, inputText);
+                    break;
+                default:
+                    String errorMessage = "No such value!";
+                    throw new AssertionError(errorMessage);
+            }
+        }
+    }
 	
 	public void SelectByValue(String elementName, String value){
 		WebElement element = getWebElement(elementName);
@@ -143,8 +180,9 @@ public class ProductCreatePage extends PageObject{
 
     public void CheckDropDownDefaultValue(String dropDownType, String expectedValue){
         WebElement element = getWebElement(dropDownType);
-            if (!$(element).getSelectedValue().equals(expectedValue)) {
-                String errorMessage = String.format("The default value for '%s' dropDawn is not '%s'", dropDownType, expectedValue);
+        String selectedValue = $(element).getSelectedValue();
+            if (!selectedValue.equals(expectedValue)) {
+                String errorMessage = String.format("The default value for '%s' dropDawn is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue);
                 throw new AssertionError(errorMessage);
             }
     }

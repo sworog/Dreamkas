@@ -7,6 +7,6 @@ import java.nio.charset.Charset;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 	public AcceptanceTestSuite() {
-        findStoriesIn("**/Actual/");
+        //findStoriesIn("**/Actual/");
 	}
 }
