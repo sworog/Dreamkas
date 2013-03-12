@@ -33,28 +33,55 @@ class ProductController extends FOSRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Lighthouse\CoreBundle\Document\Product
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product
      *
      * @Rest\View(statusCode=201)
      */
     public function postProductsAction(Request $request)
     {
-        $product = new Product();
-        $productType = new ProductType($this->odm);
-
-        $form = $this->createForm($productType, $product);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $this->odm->getManager()->persist($product);
-            $this->odm->getManager()->flush();
-            return $product;
-        }
-
-        return View::create($form, 400);
+        return $this->processForm($request, new Product());
     }
 
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $id
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product
+     *
+     * @Rest\View(statusCode=204)
+     */
+    public function putProductsAction(Request $request, $id)
+    {
+        $product = $this->findProduct($id);
+
+        return $this->processForm($request, $product);
+    }
+
+    /**
+     * @param string $id
+     * @return \Lighthouse\CoreBundle\Document\Product
+     */
     public function getProductAction($id)
+    {
+        return $this->findProduct($id);
+    }
+
+    /**
+     * @return \Lighthouse\CoreBundle\Document\ProductCollection
+     */
+    public function getProductsAction()
+    {
+        /* @var LoggableCursor $cursor */
+        $cursor = $this->getProductRepository()->findAll();
+        $collection = new ProductCollection($cursor);
+        return $collection;
+    }
+
+    /**
+     * @param string $id
+     * @return \Lighthouse\CoreBundle\Document\Product
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    protected function findProduct($id)
     {
         $product = $this->getProductRepository()->find($id);
         if (!$product instanceof Product) {
@@ -63,11 +90,24 @@ class ProductController extends FOSRestController
         return $product;
     }
 
-    public function getProductsAction()
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Lighthouse\CoreBundle\Document\Product $product
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product
+     */
+    protected function processForm(Request $request, Product $product)
     {
-        /* @var LoggableCursor $cursor */
-        $cursor = $this->getProductRepository()->findAll();
-        $collection = new ProductCollection($cursor);
-        return $collection;
+        $productType = new ProductType();
+
+        $form = $this->createForm($productType, $product);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $this->odm->getManager()->persist($product);
+            $this->odm->getManager()->flush();
+            return $product;
+        } else {
+            return View::create($form, 400);
+        }
     }
 }

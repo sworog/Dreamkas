@@ -92,6 +92,145 @@ EOF;
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
 
+    public function testPutProductAction()
+    {
+        $this->clearMongoDb();
+
+        $client = static::createClient();
+
+        $postArray = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => 3048,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+
+        $crawler = $client->request(
+            'POST',
+            'api/1/products',
+            array('product' => $postArray)
+        );
+
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+
+        $this->assertEquals($postArray['barcode'], $crawler->filter('product barcode')->first()->text());
+        $this->assertEquals($postArray['vat'], $crawler->filter('product vat')->first()->text());
+
+        $id = $crawler->filter('product id')->first()->text();
+        $this->assertNotEmpty($id);
+
+        $client->restart();
+
+        $putArray = $postArray;
+        $putArray['barcode'] = '65346456456';
+        $putArray['vat'] = 18;
+
+        $client->request(
+            'PUT',
+            'api/1/products/' . $id,
+            array('product' => $putArray)
+        );
+
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
+
+        $client->restart();
+
+        $crawler = $client->request(
+            'GET',
+            'api/1/products/' . $id
+        );
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $this->assertEquals($putArray['barcode'], $crawler->filter('product barcode')->first()->text());
+        $this->assertEquals($putArray['vat'], $crawler->filter('product vat')->first()->text());
+    }
+
+    public function testPutProductActionNotFound()
+    {
+        $this->clearMongoDb();
+
+        $client = static::createClient();
+
+        $id = '1234534312';
+
+        $putArray = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => 3048,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+
+        $client->request(
+            'PUT',
+            'api/1/products/' . $id,
+            array('product' => $putArray)
+        );
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+    public function testPutProductActionInvalidData()
+    {
+        $this->clearMongoDb();
+
+        $client = static::createClient();
+
+        $postArray = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => 3048,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+
+        $crawler = $client->request(
+            'POST',
+            'api/1/products',
+            array('product' => $postArray)
+        );
+
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+
+        $this->assertEquals($postArray['barcode'], $crawler->filter('product barcode')->first()->text());
+        $this->assertEquals($postArray['vat'], $crawler->filter('product vat')->first()->text());
+
+        $id = $crawler->filter('product id')->first()->text();
+        $this->assertNotEmpty($id);
+
+        $client->restart();
+
+        $putArray = $postArray;
+        unset($putArray['name']);
+
+        $crawler = $client->request(
+            'PUT',
+            'api/1/products/' . $id,
+            array('product' => $putArray)
+        );
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+
+        $this->assertContains(
+            'should not be blank',
+            $crawler->filter('form[name="product"] form[name="name"] errors entry')->first()->text()
+        );
+    }
+
     public function testCorsHeader()
     {
         $client = static::createClient();
