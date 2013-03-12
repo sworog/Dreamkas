@@ -12,8 +12,7 @@
     opacity: 1;
 }
 
-[ lh_link = 'close' ]:before {
-    content: url( '../../lh/link/lh_link_close.svg' );
+[ lh_link_close ] {
     vertical-align: middle;
     display: inline-block;
 }

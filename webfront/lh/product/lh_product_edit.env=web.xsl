@@ -17,6 +17,7 @@
                             lh_link="close"
                             href="?product={ id }"
                             >
+                            <xsl:apply-templates select="." mode="lh_link_close" />
                             закрыть
                         </a>
                     </div>

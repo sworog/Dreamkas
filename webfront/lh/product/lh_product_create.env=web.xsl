@@ -14,9 +14,10 @@
                 <div lh_card_header="true">
                     <div lh_card_headerButtons="true">
                         <a
-                            lh_button="reset"
+                            lh_link="close"
                             href="?product/list"
                             >
+                            <xsl:apply-templates select="." mode="lh_link_close" />
                             закрыть
                         </a>
                     </div>
