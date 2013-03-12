@@ -256,7 +256,7 @@ EOF;
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
 
         $this->assertContains(
-            'should not be blank',
+            'Значение не должно быть пустым.',
             $crawler->filter('form[name="product"] form[name="name"] errors entry')->first()->text()
         );
     }
@@ -304,7 +304,7 @@ EOF;
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains(
-            'This form should not contain extra fields',
+            'Эта форма не должна содержать дополнительных полей.',
             $crawler->filter('form[name="product"] > errors entry')->first()->text()
         );
 
