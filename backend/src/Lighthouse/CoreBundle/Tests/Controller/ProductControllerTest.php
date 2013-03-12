@@ -231,6 +231,72 @@ EOF;
         );
     }
 
+    public function testPutProductActionChangeId()
+    {
+        $this->clearMongoDb();
+
+        $client = static::createClient();
+
+        $postArray = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => 3048,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+
+        $crawler = $client->request(
+            'POST',
+            'api/1/products',
+            array('product' => $postArray)
+        );
+
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+
+        $id = $crawler->filter('product id')->first()->text();
+        $this->assertNotEmpty($id);
+
+        $client->restart();
+
+        $newId = 123;
+        $putArray = $postArray;
+        $putArray['id'] = $newId;
+
+        $crawler = $client->request(
+            'PUT',
+            'api/1/products/' . $id,
+            array('product' => $putArray)
+        );
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        $this->assertContains(
+            'This form should not contain extra fields',
+            $crawler->filter('form[name="product"] > errors entry')->first()->text()
+        );
+
+        $client->restart();
+
+        $client->request(
+            'GET',
+            'api/1/products/' . $newId
+        );
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+
+        $client->restart();
+
+        $client->request(
+            'GET',
+            'api/1/products/' . $id
+        );
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
     public function testCorsHeader()
     {
         $client = static::createClient();
