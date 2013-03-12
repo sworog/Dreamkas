@@ -29,7 +29,7 @@ Then the user checks the elements values
 | purchasePrice | 1231688 |
 | barcode | 1231688 |
 | unit | штука |
-| vat | 10 |
+| vat | 10% |
 | info | Info1688 |
 When the user clicks the edit button on product card view page
 And the user edits values in element fields
@@ -44,16 +44,15 @@ And the user edits values in element fields
 And the user selects 'liter' in 'unit' dropdown
 And the user selects '0' in 'vat' dropdown
 And the user clicks the create button
-And the user open the product card with '89489545DGF1' sku
 Then the user checks the elements values
 | elementName | expectedValue  |
 | sku | 89489545DGF1 |
 | name | Имя23 56 |
 | vendor | Вендор45, Вендоркантри56 |
 | purchasePrice | 8922174 |
-| barcode | литр |
-| unit | штука |
-| vat | 0 |
+| barcode | 102454 |
+| unit | литр |
+| vat | 0% |
 | info | Info1688 |
 
 Scenario: Product edit check all dropdawn values
@@ -76,27 +75,26 @@ When the user clicks the edit button on product card view page
 And the user selects 'kg' in 'unit' dropdown
 And the user selects '18' in 'vat' dropdown
 And the user clicks the create button
-And the user open the product card with '16888' sku
 Then the user checks the elements values
 | elementName | expectedValue  |
 | unit | килограмм |
-| vat | 18 |
+| vat | 18% |
 When the user clicks the edit button on product card view page
 And the user selects 'liter' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
-And the user open the product card with '16888' sku
 Then the user checks the elements values
+| elementName | expectedValue  |
 | unit | литр |
-| vat | 10 |
+| vat | 10% |
 When the user clicks the edit button on product card view page
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '0' in 'vat' dropdown
 And the user clicks the create button
-And the user open the product card with '16888' sku
 Then the user checks the elements values
+| elementName | expectedValue  |
 | unit | штука |
-| vat | 0 |
+| vat | 0% |
 
 Scenario: product edit cancel
 Given the user is on the product list page
@@ -116,4 +114,7 @@ And the user clicks the create button
 And the user open the product card with '169001' sku
 And the user clicks the edit button on product card view page
 And the user clicks the cancel button
-Then the user checks that he is on the 'ProductListPage'
+Then the user checks the elements values
+| elementName | expectedValue  |
+| sku | 169001 |
+| name | Наименование9001 |

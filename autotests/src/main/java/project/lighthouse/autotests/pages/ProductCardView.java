@@ -21,7 +21,7 @@ public class ProductCardView extends ProductCreatePage{
     @FindBy(xpath = "//span[@title='Артикул']")
     private WebElement skuValue;
 	
-	@FindBy(xpath="//div[@lh_prop]")
+	@FindBy(xpath="//div[@lh_prop_set]")
 	private List<WebElement> lh_block_Values;
 
     @FindBy(xpath = "//a[@lh_button='modify']")
