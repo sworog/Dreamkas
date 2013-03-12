@@ -17,14 +17,14 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
         (   application.api() + 'products/' + params.product
         ,   function( product, status, xhr ){
                 product= $jin_domx.parse( xhr.responseText )
-                product.$.documentElement.setAttribute( 'lh_product_editor', 'true' )
+                product.attr( 'lh_product_edit', 'true' )
                 application.render( product )
             }
         )
     }
     
     application.view_product_create= function( application, params ){
-        application.render( $jin_domx.parse( '<product lh_product_creator="true" />' ) )
+        application.render( $jin_domx.parse( '<product lh_product_create="true" />' ) )
     }
     
     application.view_product_list= function( application, params ){
@@ -32,7 +32,7 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
         (   application.api() + 'products'
         ,   {   success: function( products, status, xhr ){
                     products= $jin_domx.parse( xhr.responseText )
-                    products.$.documentElement.setAttribute( 'lh_product_list', 'true' )
+                    products.attr( 'lh_product_list', 'true' )
                     application.render( products )
                 }
             ,   error: function( data, type, message ){
@@ -50,7 +50,7 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
         (   application.api() + 'products/' + params.product
         ,   {   success: function( product, status, xhr ){
                     product= $jin_domx.parse( xhr.responseText )
-                    product.$.documentElement.setAttribute( 'lh_product_view', 'true' )
+                    product.attr( 'lh_product_view', 'true' )
                     application.render( product )
                 }
             ,   error: function( data, type, message ){
@@ -60,8 +60,8 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
                         var error= $jin_domx.parse( '<error />' )
                     }
                     
-                    error.$.documentElement.setAttribute( 'lh_product_error' )
-                    error.$.documentElement.setAttribute( 'lh_product_id', params.product )
+                    error.attr( 'lh_product_error' )
+                    error.attr( 'lh_product_id', params.product )
                     application.render( error )
                 }
             }
@@ -111,7 +111,7 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
         $lh_product_onSave.listen( document.body, function( event ){
             if( event.catched() ) return
             
-            var data= $lh_product_editor( event.target() ).data()
+            var data= $lh_product_edit( event.target() ).data()
             var id= $jq( data.$ ).find( 'id' ).text()
             $jq( data.$ ).find( 'id' ).remove()
             

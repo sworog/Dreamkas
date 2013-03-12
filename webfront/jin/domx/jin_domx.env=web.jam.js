@@ -3,7 +3,12 @@ $jin_class( function( $jin_domx, domx ){
     
     $jin_wrapper.scheme( $jin_domx )
     
-    domx.toDOMDocument=
+    domx.toDOMDoc=
+    function( domx ){
+        return domx.$.ownerDocument || domx.$
+    }
+    
+    domx.toDOMNode=
     function( domx ){
         return domx.$
     }
@@ -35,26 +40,37 @@ $jin_class( function( $jin_domx, domx ){
         
         if( $jin_support.xmlModel() === 'w3c' ){
             var proc= new XSLTProcessor
-            proc.importStylesheet( domx.$ )
-            var doc= proc.transformToDocument( from )
-            to.innerHTML= $jin_domx( doc )
+            proc.importStylesheet( domx.toDOMDoc() )
+            var res= proc.transformToFragment( from, to.ownerDocument )
+            to.innerHTML= ''
+            to.appendChild( res )
         } else {
-            to.innerHTML= from.transformNode( domx.$ )
+            to.innerHTML= from.transformNode( domx.toDOMDoc() )
         }
         
         return domx
+    }
+    
+    domx.attr= function( domx, name, value ){
+        var node= domx.toDOMNode()
+        if( arguments.length > 2 ){
+            if( value == null ) node.removeAttribute( name )
+            else node.setAttribute( name, value )
+        } else {
+            return node.getAttribute( name )
+        }
     }
     
     $jin_domx.parse= function( str ){
         if( $jin_support.xmlModel() === 'w3c' ){
             var parser= new DOMParser
             var doc= parser.parseFromString( str, 'text/xml' )
-            return $jin_domx( doc )
+            return $jin_domx( doc.documentElement )
         } else {
             var doc= new ActiveXObject( 'MSXML2.DOMDocument' )
             doc.async= false
             doc.loadXML( str )
-            return $jin_domx( doc )
+            return $jin_domx( doc.documentElement )
         }
     }
 

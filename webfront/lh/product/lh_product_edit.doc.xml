@@ -1,0 +1,56 @@
+<?xml-stylesheet href="../-mix/doc.stage=dev.xsl" type="text/xsl"?>
+<doc_root
+    doc_title="lh_product_edit"
+    >
+    
+    <div id="lh_product_edit_test">
+        <product lh_product_edit="true">
+            <id>1</id>
+            <sku>GVOZDI007</sku>
+            <name>Гвозди 47 колибра</name>
+            <vendor>Рога и копыта</vendor>
+            <vendorCountry>Россия</vendorCountry>
+            <purchasePrice>100500</purchasePrice>
+            <barcode>0123456789</barcode>
+            <units>unit</units>
+            <val>10</val>
+            <info>У нас их дофига!</info>
+        </product>
+    </div>
+    
+    <p>Подхватываются ли текущие значения</p>
+    <p>
+        <script type="wc_test">
+            var editor= $jq( '#lh_product_edit_test' )
+            
+            test.ok( editor.find( 'input[name="name"]' ).val(), 'Гвозди 47 колибра' )
+            test.ok( editor.find( 'input[name="vendor"]' ).val(), 'Рога и копыта' )
+            test.ok( editor.find( 'input[name="vendorCountry"]' ).val(), 'Россия' )
+            test.ok( editor.find( 'input[name="purchasePrice"]' ).val(), '100500' )
+            test.ok( editor.find( 'input[name="barcode"]' ).val(), '0123456789' )
+            test.ok( editor.find( 'select[name="units"]' ).val(), 'unit' )
+            test.ok( editor.find( 'select[name="units"] > option' ).length > 1 )
+            test.ok( editor.find( 'select[name="vat"]' ).val(), '10' )
+            test.ok( editor.find( 'select[name="vat"] > option' ).length > 1 )
+            test.ok( editor.find( 'input[name="sku"]' ).val(), 'GVOZDI007' )
+            test.ok( editor.find( 'textarea[name="info"]' ).val(), 'У нас их дофига!' )
+        </script>
+    </p>
+    
+    <p>Отсылается ли форма.</p>
+    <p>
+        <script type="wc_test">
+            var editor= $jq( '#lh_product_edit_test' )
+            
+            var result= false
+            $lh_product_onSave.listen( editor[0], function( event ){
+                event.catched( true )
+                result= true
+            })
+            
+            editor.find( '[lh_button="success"]' ).click()
+            
+            test.ok( result )
+        </script>
+    </p>
+</doc_root>

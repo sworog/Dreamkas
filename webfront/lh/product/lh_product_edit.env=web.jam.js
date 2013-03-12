@@ -1,14 +1,8 @@
-this.$lh_product_editor= $jin_class( function( $lh_product_editor, editor ){
+this.$lh_product_edit= $jin_class( function( $lh_product_edit, editor ){
 
-    var make= $lh_product_editor.make
-    $lh_product_editor.make= function( node ){
-        var widgets= $jin_component.widgetsOf( node )
-        return widgets[ 'lh_product_editor' ] || make.apply( this, arguments )
-    }
+    $jin_widget( $lh_product_edit )
     
-    $jin_widget( $lh_product_editor )
-    
-    $lh_product_editor.id= 'lh_product_editor'
+    $lh_product_edit.id= 'lh_product_edit'
 
     editor.buttons= $jin_subElement( 'lh_button' )
     
@@ -32,9 +26,9 @@ this.$lh_product_editor= $jin_class( function( $lh_product_editor, editor ){
             var field= fields[ i ]
             if( !field.name ) continue
             
-            var elem= data.$.createElement( field.name )
-            elem.appendChild( data.$.createTextNode( field.value ) )
-            data.$.documentElement.appendChild( elem )
+            var elem= data.toDOMDoc().createElement( field.name )
+            elem.appendChild( data.toDOMDoc().createTextNode( field.value ) )
+            data.toDOMNode().appendChild( elem )
         }
         
         return data

@@ -1,7 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     
     <xsl:template
-        match=" *[ @lh_product_editor ] "
+        match=" *[ @lh_product_edit ] "
         >
         <div lh_card_stack="true">
             <a
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 
-                <form lh_product_editor="maker">
+                <form lh_product_edit="maker">
                     
                     <xsl:apply-templates select=" . " mode="lh_product_fields" />
                     
