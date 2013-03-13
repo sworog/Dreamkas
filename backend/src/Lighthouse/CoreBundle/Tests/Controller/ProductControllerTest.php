@@ -7,6 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductControllerTest extends WebTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->clearMongoDb();
+    }
+
     public function testPostProductAction()
     {
         $client = static::createClient();
@@ -35,7 +41,7 @@ class ProductControllerTest extends WebTestCase
     /**
      * @dataProvider validateProvider
      */
-    public function testPostProductActionXmlPost($expectedCode, array $data)
+    public function testPostProductInvalidData($expectedCode, array $data)
     {
         $client = static::createClient();
 
@@ -62,7 +68,7 @@ class ProductControllerTest extends WebTestCase
         $this->assertEquals($expectedCode, $client->getResponse()->getStatusCode());
     }
 
-    public function testPostProductInvalidData()
+    public function testPostProductActionXmlPost()
     {
         $client = static::createClient();
 
@@ -122,10 +128,48 @@ EOF;
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
 
+    public function testPostProductActionUniqueSku()
+    {
+        $client = static::createClient();
+
+        $postArray = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => 3048,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+
+        $client->request(
+            'POST',
+            'api/1/products',
+            array('product' => $postArray)
+        );
+
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+
+        $client->restart();
+
+        $crawler = $client->request(
+            'POST',
+            'api/1/products',
+            array('product' => $postArray)
+        );
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        ;
+        $this->assertContains(
+            'уже используется',
+            $crawler->filter('form[name="product"] form[name="sku"] errors entry')->first()->text()
+        );
+    }
+
     public function testPutProductAction()
     {
-        $this->clearMongoDb();
-
         $client = static::createClient();
 
         $postArray = array(
@@ -183,8 +227,6 @@ EOF;
 
     public function testPutProductActionNotFound()
     {
-        $this->clearMongoDb();
-
         $client = static::createClient();
 
         $id = '1234534312';
@@ -212,8 +254,6 @@ EOF;
 
     public function testPutProductActionInvalidData()
     {
-        $this->clearMongoDb();
-
         $client = static::createClient();
 
         $postArray = array(
@@ -263,8 +303,6 @@ EOF;
 
     public function testPutProductActionChangeId()
     {
-        $this->clearMongoDb();
-
         $client = static::createClient();
 
         $postArray = array(
@@ -353,8 +391,6 @@ EOF;
 
     public function testGetProductsAction()
     {
-        $this->clearMongoDb();
-
         $client = static::createClient();
 
         $postArray = array(
@@ -370,6 +406,7 @@ EOF;
         );
         for ($i = 0; $i < 5; $i++) {
             $postArray['name'] = 'Кефир' . $i;
+            $postArray['sku'] = 'sku' . $i;
             $client->request(
                 'POST',
                 '/api/1/products',
@@ -390,8 +427,6 @@ EOF;
 
     public function testGetProduct()
     {
-        $this->clearMongoDb();
-
         $client = static::createClient();
 
         $postArray = array(

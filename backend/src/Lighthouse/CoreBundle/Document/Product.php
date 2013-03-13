@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
  *
@@ -22,10 +23,14 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  *
  * @MongoDB\Document
  * @Serializer\XmlRoot("product")
+ * @Unique("sku")
  */
 class Product
 {
-    /** @MongoDB\Id */
+    /**
+     * @MongoDB\Id
+     * @var string
+     */
     protected $id;
 
     /**
@@ -42,39 +47,46 @@ class Product
      * @Assert\NotBlank
      */
     protected $units;
+
     /**
-     * @MongoDB\String
+     * @MongoDB\Int
      * @Assert\Range(min="0")
      * @Assert\NotBlank
      */
     protected $vat;
+
     /**
-     * @MongoDB\String
+     * @MongoDB\Float
      * @LighthouseAssert\Price
      * @Assert\NotBlank
      */
     protected $purchasePrice;
+
     /**
      * @MongoDB\String
      * @Assert\Length(max="200")
      */
     protected $barcode;
+
     /**
      * @MongoDB\String
      * @Assert\NotBlank
      * @Assert\Length(max="200")
      */
     protected $sku;
+
     /**
      * @MongoDB\String
      * @Assert\Length(max="100")
      */
     protected $vendorCountry;
+
     /**
      * @MongoDB\String
      * @Assert\Length(max="300")
      */
     protected $vendor;
+
     /**
      * @MongoDB\String
      * @Assert\Length(max="2000")
