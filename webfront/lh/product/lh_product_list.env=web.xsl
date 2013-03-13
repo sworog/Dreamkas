@@ -35,7 +35,7 @@
         match=" *[ product ] "
         mode="lh_product_list"
         >
-        <div lh_table="true">
+        <div lh_table="true" name="product_list">
             
             <div lh_table_row="true">
                 <span
@@ -80,23 +80,27 @@
         >
         <a
             lh_table_row="true"
+            name="product"
             id="product={ id }"
             href="?product={ id }"
             >
-            <span lh_table_cell="id">
+            <span lh_table_cell="id" name="sku">
                 <xsl:value-of select=" sku " />
             </span>
-            <span lh_table_cell="common">
+            <span lh_table_cell="common" name="name">
                 <xsl:value-of select=" name " />
             </span>
-            <span lh_table_cell="common">
+            <span lh_table_cell="common" name="vendor">
                 <xsl:value-of select=" vendor " />
             </span>
-            <span lh_table_cell="common">
+            <span lh_table_cell="common" name="vendorCountry">
                 <xsl:value-of select=" vendorCountry " />
             </span>
             <span lh_table_cell="money">
-                <xsl:value-of select=" purchasePrice " /> р.
+                <span name="purchasePrice">
+                    <xsl:value-of select=" purchasePrice " />
+                </span>
+                р.
             </span>
         </a>
     </xsl:template>
