@@ -25,11 +25,12 @@ Then the user checks the elements values
 | elementName | expectedValue  |
 | sku | 1688 |
 | name | Наименование1688 |
-| vendor | Производитель1688, Россия1688 |
+| vendor | Производитель1688 |
+| vendorCountry | Россия1688 |
 | purchasePrice | 1231688 |
 | barcode | 1231688 |
 | unit | штука |
-| vat | 10% |
+| vat | 10 |
 | info | Info1688 |
 When the user clicks the edit button on product card view page
 And the user edits values in element fields
@@ -48,11 +49,13 @@ Then the user checks the elements values
 | elementName | expectedValue  |
 | sku | 89489545DGF1 |
 | name | Имя23 56 |
-| vendor | Вендор45, Вендоркантри56 |
+| vendor | Вендор45 |
+| vendorCountry | Вендоркантри56 |
+| vendorCountry |  |
 | purchasePrice | 8922174 |
 | barcode | 102454 |
 | unit | литр |
-| vat | 0% |
+| vat | 0 |
 | info | Info1688 |
 
 Scenario: Product edit check all dropdawn values
@@ -78,7 +81,7 @@ And the user clicks the create button
 Then the user checks the elements values
 | elementName | expectedValue  |
 | unit | килограмм |
-| vat | 18% |
+| vat | 18 |
 When the user clicks the edit button on product card view page
 And the user selects 'liter' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
@@ -86,7 +89,7 @@ And the user clicks the create button
 Then the user checks the elements values
 | elementName | expectedValue  |
 | unit | литр |
-| vat | 10% |
+| vat | 10 |
 When the user clicks the edit button on product card view page
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '0' in 'vat' dropdown
@@ -94,7 +97,7 @@ And the user clicks the create button
 Then the user checks the elements values
 | elementName | expectedValue  |
 | unit | штука |
-| vat | 0% |
+| vat | 0 |
 
 Scenario: product edit cancel
 Given the user is on the product list page

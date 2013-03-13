@@ -22,7 +22,8 @@ Then the user checks the product with '89745D1' sku is present
 When the user open the product card with '89745D1' sku
 Then the user checks the 'sku' value is '89745D1'
 And the user checks the 'name' value is 'Веселый'
-And the user checks the 'vendor' value is 'Рамзон, Раша матушка'
+And the user checks the 'vendor' value is 'Рамзон'
+And the user checks the 'vendorCountry' value is 'Раша матушка'
 And the user checks the 'purchasePrice' value is '5698'
 And the user checks the 'barcode' value is '8954'
 And the user checks the 'unit' value is 'штука'
@@ -47,7 +48,8 @@ Then the user checks the product with '89745D' sku is present
 When the user open the product card with '89745D' sku
 Then the user checks the 'sku' value is '89745D'
 And the user checks the 'name' value is 'Веселый фермер'
-And the user checks the 'vendor' value is 'Рамзон зона, Раша матушка зе бест'
+And the user checks the 'vendor' value is 'Рамзон зона'
+And the user checks the 'vendorCountry' value is 'Раша матушка зе бест'
 And the user checks the 'purchasePrice' value is '589554'
 And the user checks the 'barcode' value is '8988854'
 And the user checks the 'unit' value is 'литр'
@@ -71,7 +73,8 @@ Then the user checks the product with '89745D' sku is present
 When the user open the product card with '89745D23' sku
 Then the user checks the 'sku' value is '89745D23'
 And the user checks the 'name' value is 'ООО ИМЯ'
-And the user checks the 'vendor' value is 'Фирма 1, Германия'
+And the user checks the 'vendor' value is 'Фирма 1'
+And the user checks the 'vendorCountry' value is 'Германия'
 And the user checks the 'purchasePrice' value is '567'
 And the user checks the 'barcode' value is '0000000'
 And the user checks the 'unit' value is 'килограмм'

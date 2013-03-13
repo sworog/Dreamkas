@@ -14,43 +14,43 @@ import java.util.Map;
 public class ProductCreatePage extends PageObject{
 	
 	@FindBy(name="sku")
-	private WebElement skuField;
+    public WebElement skuField;
 	
 	@FindBy(name="category")
-	private WebElement categoryField;
+    private WebElement categoryField;
 	
 	@FindBy(name="group")
-	private WebElement groupField;
+    private WebElement groupField;
 	
 	@FindBy(name="underGroup")
-	private WebElement underGroupField;
+    private WebElement underGroupField;
 	
 	@FindBy(name="name")
-	private WebElement nameField;
+    public WebElement nameField;
 	
 	@FindBy(name="units")
-	private WebElement unitField;
+    public WebElement unitField;
 	
 	@FindBy(name="vat")
-	private WebElement vatField;
+    public WebElement vatField;
 	
 	@FindBy(name="barcode")
-	private WebElement barCodeField;
+    public WebElement barCodeField;
 	
 	@FindBy(name="purchasePrice")
-	private WebElement purchasePrice;
+    public WebElement purchasePrice;
 	
 	@FindBy(name="productCode")
-	private WebElement productCodeField;
+    public WebElement productCodeField;
 	
 	@FindBy(name="vendor")
-	private WebElement vendorField;
+    public WebElement vendorField;
 	
 	@FindBy(name="vendorCountry")
-	private WebElement vendorCountryField;
+    public WebElement vendorCountryField;
 	
 	@FindBy(name="info")
-	private WebElement infoField;
+    public WebElement infoField;
 	
 	@FindBy(xpath="//button[@lh_button='success']")
 	private WebElement createButton;
@@ -60,12 +60,12 @@ public class ProductCreatePage extends PageObject{
 
     @FindBy(xpath = "//a[@lh_card_back]")
     private WebElement productItemListLink;
-	
-	public ProductCreatePage(WebDriver driver){
-		super(driver);
-	}
-	
-	public void FieldType(String elementName, String inputText){
+
+    public ProductCreatePage(WebDriver driver) {
+        super(driver);
+    }
+
+    public void FieldType(String elementName, String inputText){
 		FieldAction(elementName, inputText, "create");
 	}
 
@@ -74,7 +74,7 @@ public class ProductCreatePage extends PageObject{
     }
 
     public void FieldAction(String elementName, String inputText, String action){
-        WebElement element = getWebElement(elementName);
+        WebElement element = GetWebElement(elementName);
             if (action.equals("edit")){
             $(element).clear();
             }
@@ -108,7 +108,7 @@ public class ProductCreatePage extends PageObject{
     }
 	
 	public void SelectByValue(String elementName, String value){
-		WebElement element = getWebElement(elementName);
+		WebElement element = GetWebElement(elementName);
 		$(element).selectByValue(value);
 	}
 	
@@ -118,7 +118,7 @@ public class ProductCreatePage extends PageObject{
 	}
 
     public void CreateButtonNotSuccessAlertCheck(){
-        boolean isAlertPresent = false;
+        boolean isAlertPresent;
         Alert alert = null;
         try {
             alert = getAlert();
@@ -141,11 +141,7 @@ public class ProductCreatePage extends PageObject{
         $(cancelButton).click();
     }
 
-    public void GoToProductItemList(){
-        $(productItemListLink).click();
-    }
-	
-	public WebElement getWebElement(String name){		
+    public WebElement GetWebElement(String name){
 		switch (name) {
 		case "sku":
 			return skuField;
@@ -174,12 +170,12 @@ public class ProductCreatePage extends PageObject{
 		case "info":
 			return infoField;
 		default:
-			return (WebElement) new AssertionError("No such value for getWebElement method!");
+			return (WebElement) new AssertionError("No such value for GetWebElement method!");
 		}
 	}
 
     public void CheckDropDownDefaultValue(String dropDownType, String expectedValue){
-        WebElement element = getWebElement(dropDownType);
+        WebElement element = GetWebElement(dropDownType);
         String selectedValue = $(element).getSelectedValue();
             if (!selectedValue.equals(expectedValue)) {
                 String errorMessage = String.format("The default value for '%s' dropDawn is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue);

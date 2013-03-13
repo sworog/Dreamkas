@@ -6,15 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import net.thucydides.core.annotations.DefaultUrl;
-import net.thucydides.core.pages.PageObject;
 
 @DefaultUrl("/?product/list")
-public class ProductListPage extends PageObject{
+public class ProductListPage extends ProductCreatePage{
 	
-	@FindBy(xpath = "//a[contains(@id,'product')]")
+	@FindBy(xpath = "//*[@name='product']")
 	private WebElement productListItem;
 	
-	@FindBy(xpath = "//a[@lh_button='create']")
+	@FindBy(xpath = "//*[@lh_button='create']")
 	private WebElement createNewProductButton;
 
 	public ProductListPage(WebDriver driver) {
@@ -26,7 +25,7 @@ public class ProductListPage extends PageObject{
     }
 
     public WebElementFacade GetItemProductElement(String skuValue){
-        String xpath = String.format("//../a[span[text()='%s']]", skuValue);
+        String xpath = String.format("//../*[span[@name='sku' and text()='%s']]", skuValue);
         return $(productListItem).findBy(xpath);
     }
 	
@@ -44,5 +43,11 @@ public class ProductListPage extends PageObject{
         ListItemCheck(skuValue);
         WebElementFacade productItem = GetItemProductElement(skuValue);
         productItem.shouldContainText(expectedValue);
+    }
+
+    public void CheckProductWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
+        /*
+        Need to implement method
+         */
     }
 }
