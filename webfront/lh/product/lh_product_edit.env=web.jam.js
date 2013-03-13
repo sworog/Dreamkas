@@ -1,10 +1,8 @@
 this.$lh_product_edit= $jin_class( function( $lh_product_edit, editor ){
 
-    $jin_widget( $lh_product_edit )
+    $lh_widget( $lh_product_edit )
     
     $lh_product_edit.id= 'lh_product_edit'
-
-    editor.buttons= $jin_subElement( 'lh_button' )
     
     var init= editor.init
     editor.init= function( editor, node ){
@@ -15,16 +13,15 @@ this.$lh_product_edit= $jin_class( function( $lh_product_edit, editor ){
             $lh_product_onSave().scream( editor.$ )
         } )
         
-        editor.buttons(0).removeAttribute( 'disabled' )
+        editor.buttonSubmit().removeAttribute( 'disabled' )
     }
     
     editor.data= function( editor ){
         var data= $jin_domx.parse( '<product/>' )
         
-        var fields= editor.$.elements
+        var fields= editor.$.querySelectorAll( '*[name]' )
         for( var i= 0; i < fields.length; ++i ){
             var field= fields[ i ]
-            if( !field.name ) continue
             
             data.Element( field.name )
             .text( field.value )

@@ -1,6 +1,6 @@
 this.$lh_application= $jin_class( function( $lh_application, application ){
     
-    $jin_widget( $lh_application )
+    $lh_widget( $lh_application )
     
     $lh_application.id= 'lh_application'
     
@@ -111,9 +111,10 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
         $lh_product_onSave.listen( document.body, function( event ){
             if( event.catched() ) return
             
-            var data= $lh_product_edit( event.target() ).data()
-            var id= $jq( data.$ ).find( 'id' ).text()
-            $jq( data.$ ).find( 'id' ).remove()
+            var editor= $lh_product_edit( event.target() )
+            var data= editor.data()
+            var id= data.select( 'id' )[ 0 ]
+            if( id ) id= id.parent( null ).text()
             
             var url=  application.api() + 'products'
             if( id ) url+= '/' + id
@@ -123,20 +124,24 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             ,   {   type: id ? 'put' : 'post'
                 ,   contentType: 'application/xml; charset=utf-8'
                 ,   data: String( data )
-                ,   dataType: "xml"
+                ,   dataType: "text"
                 ,   success: function( data ){
+                        data= $jin_domx.parse( data )
                         if( id ){
                             document.location= '?product=' + id
                         } else {
-                            id= data.getElementsByTagName('id')[0].firstChild.nodeValue
+                            id= data.select('id')[0].text()
                             document.location= '?product/list#product=' + id
                         }
                     }
                 ,   error: function( data, type, message ){
-                        message= message
-                        ? 'Ошибка при сохранении данных товара: ' + message
-                        : 'Неизвестная ошибка сохранения данных товара'
-                        $lh_notify( message )
+                        data= $jin_domx.parse( data.responseText )
+                        
+                        if( data.name() === 'form' ){
+                            editor.errors( data )
+                        } else {
+                            $lh_notify( 'Ошибка при сохранении данных товара. ' + message )
+                        }
                     }
                 }
             )

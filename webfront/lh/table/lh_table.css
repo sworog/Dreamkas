@@ -39,7 +39,6 @@
 }
 
 [ lh_table_cell = 'id' ]:not( [ lh_table_header ] ) {
-    white-space: nowrap;
     color: #333;
     font: bold .9em/1.8 "Lucida Console", Monaco, monospace;
 }

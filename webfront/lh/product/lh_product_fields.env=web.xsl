@@ -46,6 +46,7 @@
             </span>
             <span lh_prop_value="true" lh_field="normal">
                 <input
+                    lh_field_native="true"
                     required="required"
                     type="text"
                     name="name"
@@ -64,7 +65,6 @@
             <span lh_prop_value="true" lh_field="short">
                 <select
                     required="required"
-                    title="Мерность"
                     name="units"
                     >
                     <option></option>
@@ -120,7 +120,8 @@
             </span>
             <span lh_prop_value="true" lh_field="short">
                 <input
-                    step="any"
+                    pattern="^\s*\d+([,.]\d{{1,2}})?\s*$"
+                    placeholder="0,00"
                     required="required"
                     name="purchasePrice"
                     value="{ purchasePrice }"
@@ -191,9 +192,6 @@
                 </textarea>
             </span>
         </label>
-        <div lh_field="long">
-            
-        </div>
     </xsl:template>
     
 </xsl:stylesheet>

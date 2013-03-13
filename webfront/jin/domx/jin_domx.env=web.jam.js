@@ -51,6 +51,10 @@ $jin_class( function( $jin_domx, domx ){
         return domx
     }
     
+    domx.name= function( domx ){
+        return domx.$.nodeName
+    }
+    
     domx.attr= function( domx, name, value ){
         if( arguments.length > 2 ){
             if( value == null ) domx.$.removeAttribute( name )
@@ -67,7 +71,11 @@ $jin_class( function( $jin_domx, domx ){
             if( value != '' ) domx.Text( value ).parent( domx )
             return domx
         } else {
-            return domx.$.textContent
+            if( $jin_support.xmlModel() === 'w3c' ){
+                return domx.$.textContent
+            } else {
+                return domx.$.text
+            }
         }
     }
     
@@ -82,16 +90,40 @@ $jin_class( function( $jin_domx, domx ){
     domx.parent= function( domx, parent ){
         if( arguments.length > 1 ){
             if( parent == null ){
-                parent= node.$.parentNode
+                parent= domx.$.parentNode
                 if( parent ) parent.removeChild( domx.$ )
             } else {
                 $jin_unwrap( parent ).appendChild( domx.$ )
             }
             return domx
         } else {
-            parent= node.$.parentNode
+            parent= domx.$.parentNode
             return parent ? $jin_domx( parent ) : parent
         }
+    }
+    
+    domx.childList= function( domx ){
+        var nodes= domx.$.childNodes
+        var list= []
+        for( var i= 0; i < nodes.length; ++i ){
+            lst.push( $jin_domx( nodes[ i ] ) )
+        }
+        return list
+    }
+    
+    domx.select= function( domx, xpath ){
+        var list= []
+        
+        if( $jin_support.xmlModel() === 'w3c' ){
+            var found= domx.toDOMDoc().evaluate( xpath, domx.$, null, null, null )
+            for( var node; node= found.iterateNext(); ) list.push( $jin_domx( node ) )
+        } else {
+            var found= domx.$.selectNodes( xpath )
+            console.log( found.length )
+            for( var i= 0; i < found.length; ++i ) list.push( $jin_domx( found[ i ] ) )
+        }
+        
+        return list
     }
 
     domx.Text= function( domx, value ){
