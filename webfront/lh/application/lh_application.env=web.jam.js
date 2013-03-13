@@ -126,11 +126,10 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
                 ,   data: String( data )
                 ,   dataType: "text"
                 ,   success: function( data ){
-                        data= $jin_domx.parse( data )
                         if( id ){
                             document.location= '?product=' + id
                         } else {
-                            id= data.select('id')[0].text()
+                            id= $jin_domx.parse( data ).select('id')[0].text()
                             document.location= '?product/list#product=' + id
                         }
                     }
