@@ -35,7 +35,7 @@
         match=" *[ product ] "
         mode="lh_product_list"
         >
-        <div lh_table="true" name="product_list">
+        <div lh_table="true" name="lh_product_list">
             
             <div lh_table_row="true">
                 <span
