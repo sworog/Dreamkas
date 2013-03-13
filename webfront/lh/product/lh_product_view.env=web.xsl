@@ -10,7 +10,7 @@
                 >
                 Список товаров
             </a>
-            <div lh_card="true">
+            <div lh_card="true" name="product">
                 <div lh_card_header="true">
                     <xsl:apply-templates select=" . " mode="lh_product_view_buttons" />
                     <xsl:apply-templates select=" . " mode="lh_product_view_name" />
@@ -41,7 +41,7 @@
     
     <xsl:template match=" * " mode="lh_product_view_name">
         <div lh_card_title="true">
-            <span title="Название">
+            <span title="Название" name="name">
                 <xsl:value-of select=" name " />
             </span>
         </div>
@@ -51,6 +51,7 @@
         <div
             lh_sku="true"
             title="Артикул"
+            name="sku"
             >
             <xsl:value-of select=" sku " />
         </div>
@@ -59,40 +60,52 @@
     <xsl:template match=" * " mode="lh_product_view_purchasePrice">
         <div lh_block="true">
             Закупочная цена:
-            <xsl:value-of select=" purchasePrice " /> руб.
+            <span name="purchasePrice">
+                <xsl:value-of select=" purchasePrice " />
+            </span>
+            руб.
         </div>
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_vat">
         <div lh_block="true">
             НДС:
-            <xsl:value-of select=" vat " />%
+            <span name="vat">
+                <xsl:value-of select=" vat " />
+            </span>
+            %
         </div>
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_vendor">
         <div lh_block="true">
             Производитель:
-            <xsl:value-of select=" vendor " />
+            <span name="vendor">
+                <xsl:value-of select=" vendor " />
+            </span>
         </div>
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_vendorCountry">
         <div lh_block="true">
             Страна производства:
-            <xsl:value-of select=" vendorCountry " />
+            <span name="vendorCountry">
+                <xsl:value-of select=" vendorCountry " />
+            </span>
         </div>
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_barcode">
         <div lh_block="true">
             Штрих-код:
-            <xsl:value-of select=" barcode " />
+            <span name="barcode">
+                <xsl:value-of select=" barcode " />
+            </span>
         </div>
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_info">
-        <div lh_block="true">
+        <div lh_block="true" name="info">
             <xsl:value-of select=" info " />
         </div>
     </xsl:template>
@@ -100,7 +113,9 @@
     <xsl:template match=" * " mode="lh_product_view_units">
         <div lh_block="true">
             Единица измерения:
-            <xsl:apply-templates select="." mode="lh_product_view_units_value" />
+            <span name="units" value="{units}">
+                <xsl:apply-templates select="." mode="lh_product_view_units_value" />
+            </span>
         </div>
     </xsl:template>
     
