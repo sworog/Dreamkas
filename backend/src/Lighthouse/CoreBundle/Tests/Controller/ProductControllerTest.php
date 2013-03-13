@@ -21,7 +21,7 @@ class ProductControllerTest extends WebTestCase
             'name' => 'Кефир "Веселый Молочник" 1% 950гр',
             'units' => 'gr',
             'barcode' => '4607025392408',
-            'purchasePrice' => 3048,
+            'purchasePrice' => 30.48,
             'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
             'vat' => 10,
             'vendor' => 'Вимм-Билль-Данн',
@@ -29,13 +29,15 @@ class ProductControllerTest extends WebTestCase
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
         );
 
-        $client->request(
+        $crawler = $client->request(
             'POST',
             'api/1/products',
             array('product' => $postArray)
         );
 
+        $content = $client->getResponse()->getContent();
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        $this->assertEquals(30.48, $crawler->filter('product purchasePrice')->first()->text());
     }
 
     /**

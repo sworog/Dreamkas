@@ -56,9 +56,10 @@ class Product
     protected $vat;
 
     /**
-     * @MongoDB\Float
+     * @MongoDB\Int
      * @LighthouseAssert\Price
      * @Assert\NotBlank
+     * @Serializer\Type("Money")
      */
     protected $purchasePrice;
 
