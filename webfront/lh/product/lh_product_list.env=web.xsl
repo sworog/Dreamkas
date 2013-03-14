@@ -8,7 +8,6 @@
                 <div lh_card_header="true">
                     <div lh_card_headerButtons="true">
                         <a
-                            name="lh_product_create"
                             href="?product/create"
                             lh_button="create"
                             >
