@@ -71,7 +71,7 @@ class Product
     /**
      * @MongoDB\String
      * @Assert\NotBlank
-     * @Assert\Length(max="200", maxMessage="lighthouse.validation.errors.length")
+     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      */
     protected $sku;
 

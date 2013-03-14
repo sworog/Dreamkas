@@ -624,7 +624,7 @@ EOF;
             ),
             'not valid sku too long' => array(
                 400,
-                array('sku' => str_repeat("z", 201)),
+                array('sku' => str_repeat("z", 101)),
             ),
         );
     }
