@@ -84,6 +84,8 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
     application.init= function( application, node ){
         init.apply( this, arguments )
         
+        document.title= document.location.search
+        
         $jq.get
         (   'lh/-mix/index.stage=release.xsl'
         ,   initView
