@@ -6,7 +6,8 @@ use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\VisitorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\DataTransformer\PriceModelTransformer;
+use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
+use Lighthouse\CoreBundle\DataTransformer\MoneyViewTransformer;
 use Lighthouse\CoreBundle\Types\Money;
 
 /**
@@ -16,10 +17,16 @@ use Lighthouse\CoreBundle\Types\Money;
 class MoneyHandler implements SubscribingHandlerInterface
 {
     /**
-     * @DI\Inject("lighthouse.core.data_transformer.money")
-     * @var PriceModelTransformer
+     * @DI\Inject("lighthouse.core.data_transformer.money_model")
+     * @var MoneyModelTransformer
      */
     public $moneyTransformer;
+
+    /**
+     * @DI\Inject("lighthouse.core.data_transformer.money_view")
+     * @var MoneyViewTransformer
+     */
+    public $viewTransformer;
 
     /**
      * @return array
@@ -51,22 +58,24 @@ class MoneyHandler implements SubscribingHandlerInterface
      * @param array $type
      * @return string
      */
-    public function serializeMoney(VisitorInterface $visitor, $value, array $type)
+    public function serializeMoney(VisitorInterface $visitor, Money $value, array $type)
     {
-        $money = $this->moneyTransformer->transform($value);
-        return $visitor->visitString($money, $type);
+        $normData = $this->moneyTransformer->transform($value);
+        $viewData = $this->viewTransformer->transform($normData);
+        return $visitor->visitString($viewData, $type);
     }
 
     /**
      * @param \JMS\Serializer\VisitorInterface $visitor
-     * @param $value
+     * @param string $value
      * @param array $type
      * @return int
      */
     public function deserializeMoney(VisitorInterface $visitor, $value, array $type)
     {
         $value = $visitor->visitString($value, $type);
-        $money = $this->moneyTransformer->reverseTransform($value);
-        return $money;
+        $normData = $this->viewTransformer->reverseTransform($value);
+        $modelData = $this->moneyTransformer->reverseTransform($normData);
+        return $modelData;
     }
 }

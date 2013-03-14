@@ -3,8 +3,6 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
-use Lighthouse\CoreBundle\DataTransformer\PriceModelTransformer;
-use Lighthouse\CoreBundle\DataTransformer\PriceViewTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -13,15 +11,11 @@ class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $purchasePrice = $builder
-            ->create('purchasePrice', 'text')
-            ->addViewTransformer(new PriceViewTransformer());
-
         $builder
             ->add('name', 'text')
             ->add('units', 'text')
             ->add('vat', 'text')
-            ->add($purchasePrice)
+            ->add('purchasePrice', 'money')
             ->add('barcode', 'text')
             ->add('sku', 'text')
             ->add('vendorCountry', 'text')

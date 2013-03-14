@@ -51,15 +51,15 @@ class Product
 
     /**
      * @MongoDB\Int
-     * @Assert\Range(min="0")
      * @Assert\NotBlank
+     * @Assert\Range(min="0")
      */
     protected $vat;
 
     /**
      * @MongoDB\Field(type="money")
-     * @LighthouseAssert\Money
      * @Assert\NotBlank
+     * @LighthouseAssert\Money
      * @Serializer\Type("Money")
      * @var Money
      */

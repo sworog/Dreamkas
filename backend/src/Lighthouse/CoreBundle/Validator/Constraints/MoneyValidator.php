@@ -16,27 +16,26 @@ class MoneyValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if (!$value instanceof MoneyType) {
-            throw new UnexpectedTypeException($value, 'Lighthouse\CoreBundle\Types\Money');
+        if ($value instanceof MoneyType) {
+            $value = $value->getCount();
         }
 
         $digits = (int) $constraint->digits;
 
-        if ($value->getCount() <= 0) {
+        if ($value <= 0) {
             $this->context->addViolation(
                 $constraint->messageNegative,
                 array(
-                    '{{ value }}' => $value->getCount()
+                    '{{ value }}' => $value
                 )
             );
         }
 
-        $compare = $value->getCount();
-        if ($compare - (int) $compare > 0) {
+        if ($value - (int) $value > 0) {
             $this->context->addViolation(
                 $constraint->messageDigits,
                 array(
-                    '{{ value }}' => $value->getCount(),
+                    '{{ value }}' => $value,
                     '{{ digits }}' => $digits
                 )
             );

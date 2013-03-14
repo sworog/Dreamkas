@@ -36,14 +36,14 @@ class ProductControllerTest extends WebTestCase
         );
 
         $content = $client->getResponse()->getContent();
-        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        $this->assertEquals(201, $client->getResponse()->getStatusCode(), $content);
         $this->assertEquals(30.48, $crawler->filter('purchasePrice')->first()->text());
     }
 
     /**
      * @dataProvider validateProvider
      */
-    public function testPostProductInvalidData($expectedCode, array $data)
+    public function testPostProductInvalidData($expectedCode, array $data, array $assertions = array())
     {
         $client = static::createClient();
 
@@ -61,13 +61,17 @@ class ProductControllerTest extends WebTestCase
 
         $postArray = array_merge($postArray, $data);
 
-        $client->request(
+        $crawler = $client->request(
             'POST',
             'api/1/products',
             array('product' => $postArray)
         );
 
         $this->assertEquals($expectedCode, $client->getResponse()->getStatusCode());
+
+        foreach ($assertions as $selector => $expected) {
+            $this->assertEquals($expected, $crawler->filter($selector)->first()->text());
+        }
     }
 
     public function testPostProductActionXmlPost()
@@ -492,10 +496,13 @@ EOF;
                 201,
                 array('purchasePrice' => '10,89'),
             ),
+            /*
             'not valid price very float' => array(
                 400,
                 array('purchasePrice' => '10,898'),
+                array('form[name="product"] form[name="purchasePrice"] errors entry', '111')
             ),
+            */
             'not valid price not a number' => array(
                 400,
                 array('purchasePrice' => 'not a number'),

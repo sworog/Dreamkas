@@ -105,7 +105,6 @@ class ProductController extends FOSRestController
         if ($form->isValid()) {
             $this->odm->getManager()->persist($product);
             $this->odm->getManager()->flush();
-            $product->purchasePrice;
             return $product;
         } else {
             return View::create($form, 400);
