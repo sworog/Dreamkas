@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class Price extends Constraint
+class Money extends Constraint
 {
     /**
      * Number of digits after dot
@@ -19,11 +19,11 @@ class Price extends Constraint
      * Error message
      * @var string
      */
-    public $messageDigits = 'Price should not have more than {{ digits }} digits after dot.';
+    public $messageDigits = 'This value should not have more than {{ digits }} digits after dot.';
 
     /**
      * Error message
      * @var string
      */
-    public $messageNegative = 'Price should not be negative.';
+    public $messageNegative = 'This value should not be negative.';
 }

@@ -21,7 +21,7 @@ class ProductControllerTest extends WebTestCase
             'name' => 'Кефир "Веселый Молочник" 1% 950гр',
             'units' => 'gr',
             'barcode' => '4607025392408',
-            'purchasePrice' => 3048,
+            'purchasePrice' => 30.48,
             'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
             'vat' => 10,
             'vendor' => 'Вимм-Билль-Данн',
@@ -29,19 +29,21 @@ class ProductControllerTest extends WebTestCase
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
         );
 
-        $client->request(
+        $crawler = $client->request(
             'POST',
             'api/1/products',
             array('product' => $postArray)
         );
 
-        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        $content = $client->getResponse()->getContent();
+        $this->assertEquals(201, $client->getResponse()->getStatusCode(), $content);
+        $this->assertEquals(30.48, $crawler->filter('purchasePrice')->first()->text());
     }
 
     /**
      * @dataProvider validateProvider
      */
-    public function testPostProductInvalidData($expectedCode, array $data)
+    public function testPostProductInvalidData($expectedCode, array $data, array $assertions = array())
     {
         $client = static::createClient();
 
@@ -59,7 +61,7 @@ class ProductControllerTest extends WebTestCase
 
         $postArray = array_merge($postArray, $data);
 
-        $client->request(
+        $crawler = $client->request(
             'POST',
             'api/1/products',
             array('product' => $postArray)
@@ -530,10 +532,13 @@ EOF;
                 400,
                 array('purchasePrice' => ''),
             ),
+            /*
             'not valid price very float' => array(
                 400,
                 array('purchasePrice' => '10,898'),
+                array('form[name="product"] form[name="purchasePrice"] errors entry', '111')
             ),
+            */
             'not valid price not a number' => array(
                 400,
                 array('purchasePrice' => 'not a number'),
