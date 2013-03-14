@@ -23,7 +23,7 @@ class MoneyModelTransformer implements DataTransformerInterface
     protected $digits = 2;
 
     /**
-     * @param int $divider
+     * @param int $digits
      */
     public function __construct($digits = null)
     {
@@ -36,15 +36,18 @@ class MoneyModelTransformer implements DataTransformerInterface
     /**
      * @param Money $value
      * @return int
+     * @throws TransformationFailedException
      */
     public function transform($value)
     {
         if (null === $value) {
             $value = 0;
-        } else if ($value instanceof Money) {
+        } elseif ($value instanceof Money) {
             $value = $value->getCount();
         } else {
-            throw new TransformationFailedException('Value should be Money type object or null. ' . gettype($value) . ' given');
+            throw new TransformationFailedException(
+                'Value should be Money type object or null. ' . gettype($value) . ' given'
+            );
         }
         $value /= $this->divider;
         return $value;

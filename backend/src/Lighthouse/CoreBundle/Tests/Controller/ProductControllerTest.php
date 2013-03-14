@@ -43,7 +43,7 @@ class ProductControllerTest extends WebTestCase
     /**
      * @dataProvider validateProvider
      */
-    public function testPostProductInvalidData($expectedCode, array $data, array $assertions = array())
+    public function testPostProductInvalidData($expectedCode, array $data)
     {
         $client = static::createClient();
 
@@ -61,13 +61,17 @@ class ProductControllerTest extends WebTestCase
 
         $postArray = array_merge($postArray, $data);
 
-        $crawler = $client->request(
+        $client->request(
             'POST',
             'api/1/products',
             array('product' => $postArray)
         );
 
-        $this->assertEquals($expectedCode, $client->getResponse()->getStatusCode(), $client->getResponse()->getContent());
+        $this->assertEquals(
+            $expectedCode,
+            $client->getResponse()->getStatusCode(),
+            $client->getResponse()->getContent()
+        );
     }
 
     public function testPostProductActionOnlyOneErrorMessageOnNotBlank()
@@ -98,8 +102,14 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
 
-        $this->assertEquals(1, $crawler->filter('form[name="product"] form[name="purchasePrice"] errors entry')->count());
-        $this->assertEquals(1, $crawler->filter('form[name="product"] form[name="units"] errors entry')->count());
+        $this->assertEquals(
+            1,
+            $crawler->filter('form[name="product"] form[name="purchasePrice"] errors entry')->count()
+        );
+        $this->assertEquals(
+            1,
+            $crawler->filter('form[name="product"] form[name="units"] errors entry')->count()
+        );
     }
 
     public function testPostProductActionXmlPost()

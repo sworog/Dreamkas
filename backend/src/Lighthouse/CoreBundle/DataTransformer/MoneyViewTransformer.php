@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\DataTransformer;
 
-use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Form\DataTransformerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -17,7 +16,7 @@ class MoneyViewTransformer implements DataTransformerInterface
     protected $digits = 2;
 
     /**
-     * @param int $divider
+     * @param int $digits
      */
     public function __construct($digits = null)
     {
