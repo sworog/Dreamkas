@@ -10,7 +10,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 @DefaultUrl("/?product/list")
 public class ProductListPage extends ProductCreatePage{
 	
-	@FindBy(xpath = "//*[@name='product']")
+	@FindBy(xpath = "//*[@name='lh_product']")
 	private WebElement productListItem;
 	
 	@FindBy(xpath = "//*[@lh_button='create']")

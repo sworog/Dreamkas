@@ -12,6 +12,7 @@ public class ProductSteps extends ScenarioSteps{
 	ProductEditPage productEditPage;
 	ProductCardView productCardView;
     ProductListPage productListPage;
+    CommonPage commonPage;
 
 	public ProductSteps(Pages pages) {
 		super(pages);
@@ -116,4 +117,28 @@ public class ProductSteps extends ScenarioSteps{
     public void FieldEdit(ExamplesTable fieldInputTable){
         productEditPage.FieldEdit(fieldInputTable);
     }
+
+    @Step
+    public void CheckFieldLength(String elementName, int fieldLength){
+        productCreatePage.CheckFieldLength(elementName, fieldLength);
+    }
+
+    @Step
+    public void CheckErrorMessages(ExamplesTable errorMessageTable){
+        productCreatePage.CheckErrorMessages(errorMessageTable);
+    }
+
+    @Step
+    public void GenerateTestCharData(String elementName, int charNumber){
+        String generatedData = commonPage.GenerateTestData(charNumber);
+        FieldInput(elementName, generatedData);
+    }
+
+    @Step
+    public void CheckNoErrorMessages(){
+        productCreatePage.CheckNoErrorMessages();
+    }
+
+
+
 }

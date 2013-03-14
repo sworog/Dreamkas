@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.pages;
 
+import net.thucydides.core.pages.WebElementFacade;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
@@ -52,13 +53,10 @@ public class ProductCreatePage extends PageObject{
 	@FindBy(name="info")
     public WebElement infoField;
 	
-	@FindBy(xpath="//button[@lh_button='success']")
+	@FindBy(xpath="//*[@lh_button='commit']")
 	private WebElement createButton;
 
-    @FindBy(xpath = "//a[@lh_button='reset']")
-    private WebElement cancelButton;
-
-    @FindBy(xpath = "//a[@lh_card_back]")
+    @FindBy(xpath = "//*[@lh_card_back]")
     private WebElement productItemListLink;
 
     public ProductCreatePage(WebDriver driver) {
@@ -137,10 +135,6 @@ public class ProductCreatePage extends PageObject{
         }
     }
 
-    public void CancelButtonClick(){
-        $(cancelButton).click();
-    }
-
     public WebElement GetWebElement(String name){
 		switch (name) {
 		case "sku":
@@ -181,5 +175,47 @@ public class ProductCreatePage extends PageObject{
                 String errorMessage = String.format("The default value for '%s' dropDawn is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue);
                 throw new AssertionError(errorMessage);
             }
+    }
+
+    public void CheckFieldLength(String elementName, int fieldLength){
+        WebElement element = GetWebElement(elementName);
+        int length = $(element).getTextValue().length();
+        if(length != fieldLength){
+            String errorMessage = String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.", elementName, fieldLength, length);
+            throw new AssertionError(errorMessage);
+        }
+    }
+
+    public void CheckErrorMessages(ExamplesTable errorMessageTable){
+        CheckErrorMessagesLogic(errorMessageTable);
+    }
+
+    public void CheckNoErrorMessages(){
+        String xpath = "//*[@lh_field_error]";
+        if(isPresent(xpath)){
+            String errorMessage = "There are error field validation messages on the page!";
+            throw new AssertionError(errorMessage);
+        }
+    }
+
+    public boolean isPresent(String xpath){
+        try {
+            WebElementFacade errorMessageWebElement = findBy(xpath);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
+    public void CheckErrorMessagesLogic(ExamplesTable errorMessageTable){
+        for (Map<String, String> row : errorMessageTable.getRows()){
+            String expectedErrorMessage = row.get("error message");
+            String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
+            if(!isPresent(xpath)){
+                String errorMessage = "There are error field validation messages on the page!";
+                throw new AssertionError(errorMessage);
+            }
+        }
     }
 }

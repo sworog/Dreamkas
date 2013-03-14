@@ -6,6 +6,8 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.ProductSteps;
 
+import javax.persistence.Table;
+
 public class ProductUserSteps {
 	
 	@Steps
@@ -85,6 +87,16 @@ public class ProductUserSteps {
     public void WhenTheUserOpenTheProductCard(String skuValue){
         productSteps.ListItemClick(skuValue);
     }
+
+    @When("the user clicks the edit button on product card view page")
+    public void WhenTheUserClicksTheEditButtonOnProductCardViewPage(){
+        productSteps.EditButtonClick();
+    }
+
+    @When("the user generates charData with '$charNumber' number in the '$elementName' field")
+    public void WhenTheUserGeneratesCharData(String elementName, int charNumber){
+        productSteps.GenerateTestCharData(elementName, charNumber);
+    }
     
     @Then("the user checks the '$elementName' value is '$expectedValue'")
     public void ThenTheUserChecksValue(String elementName, String expectedValue){
@@ -111,8 +123,18 @@ public class ProductUserSteps {
         productSteps.CheckDropDownDefaultValue(dropDownType, expectedValue);
     }
 
-    @When("the user clicks the edit button on product card view page")
-    public void WhenTheUserClicksTheEditButtonOnProductCardViewPage(){
-        productSteps.EditButtonClick();
+    @Then("the user checks '$elementName' field contains only '$fieldLength' symbols")
+    public void ThenTheUserChecksNameFieldContainsOnlyExactSymbols(String elementName, int fieldLength){
+        productSteps.CheckFieldLength(elementName, fieldLength);
+    }
+
+    @Then("the user sees error messages $errorMessageTable")
+    public void ThenTheUserSeesErrorMessages(ExamplesTable errorMessageTable){
+        productSteps.CheckErrorMessages(errorMessageTable);
+    }
+
+    @Then("the user sees no error messages")
+    public void ThenTheUserSeesNoErrorMessages(){
+        productSteps.CheckNoErrorMessages();
     }
 }
