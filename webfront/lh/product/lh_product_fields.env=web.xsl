@@ -62,7 +62,9 @@
                     lh_field_native="true"
                     name="units"
                     >
-                    <option></option>
+                    <xsl:if test=" not( units ) ">
+                        <option></option>
+                    </xsl:if>
                     <option value="unit">
                         <xsl:if test=" units = 'unit' "><xsl:attribute name="selected"/></xsl:if>
                         Штуки
@@ -90,7 +92,9 @@
                     lh_field_native="true"
                     name="vat"
                     >
-                    <option></option>
+                    <xsl:if test=" not( vat ) ">
+                        <option></option>
+                    </xsl:if>
                     <option value="0">
                         <xsl:if test=" vat = '0' "><xsl:attribute name="selected"/></xsl:if>
                         0%

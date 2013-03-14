@@ -6,7 +6,7 @@
     font: 12pt/1 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
 }
 
-@media( max-width: 250px ){
+@media( max-width: 200px ){
     [ lh_desktop ] {
         zoom: .75;
     }
