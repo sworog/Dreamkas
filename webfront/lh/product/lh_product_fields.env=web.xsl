@@ -7,9 +7,15 @@
         <xsl:apply-templates select=" . " mode="lh_product_units" />
         <xsl:apply-templates select=" . " mode="lh_product_purchasePrice" />
         <xsl:apply-templates select=" . " mode="lh_product_vat" />
+        
+        <br/>
+        <div lh_remark="true">
+            Необязательно к заполнению
+        </div>
+        
         <xsl:apply-templates select=" . " mode="lh_product_barcode" />
-        <xsl:apply-templates select=" . " mode="lh_product_vendorCountry" />
         <xsl:apply-templates select=" . " mode="lh_product_vendor" />
+        <xsl:apply-templates select=" . " mode="lh_product_vendorCountry" />
         <xsl:apply-templates select=" . " mode="lh_product_info" />
     </xsl:template>
     

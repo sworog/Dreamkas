@@ -28,19 +28,28 @@
                     </div>
                 </div>
                 
-                <form lh_product_edit="maker" name="product">
+                <form
+                    lh_product_edit="maker"
+                    name="product"
+                    >
                     
                     <xsl:apply-templates select=" . " mode="lh_product_fields" />
                     
-                    <div lh_prop="true">
-                        <span lh_prop_name="true"></span>
-                        <button
-                            lh_button="commit"
-                            type="submit"
-                            disabled="disabled"
+                    <div
+                        lh_card_foot="true"
+                        >
+                        <div
+                            lh_prop="true"
                             >
-                            Сохранить изменения
-                        </button>
+                            <span lh_prop_name="true"></span>
+                            <button
+                                lh_button="commit"
+                                type="submit"
+                                disabled="disabled"
+                                >
+                                Сохранить изменения
+                            </button>
+                        </div>
                     </div>
                     
                 </form>

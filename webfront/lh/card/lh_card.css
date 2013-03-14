@@ -64,3 +64,11 @@
 [ lh_card_title ][ href ]:hover {
     color: red;
 }
+
+[ lh_card_foot ] {
+    background: #fefef2;
+    margin: 1em -1em -1em;
+    padding: 1px 1em 1em;
+    width: 100%;
+    border-radius: 0 0 4px 4px;
+}
