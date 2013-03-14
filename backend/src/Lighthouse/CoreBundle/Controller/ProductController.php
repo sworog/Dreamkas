@@ -84,7 +84,6 @@ class ProductController extends FOSRestController
     protected function findProduct($id)
     {
         $product = $this->getProductRepository()->find($id);
-        $product->purchasePrice;
         if (!$product instanceof Product) {
             throw new NotFoundHttpException('Product not found');
         }

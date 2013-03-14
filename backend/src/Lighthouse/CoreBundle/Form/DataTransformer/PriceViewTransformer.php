@@ -17,7 +17,7 @@ class PriceViewTransformer implements DataTransformerInterface
      */
     public function transform($value)
     {
-        if (is_object($value)) {
+        if ($value instanceof Money) {
             return $value->getCount() / 100;
         }
 
