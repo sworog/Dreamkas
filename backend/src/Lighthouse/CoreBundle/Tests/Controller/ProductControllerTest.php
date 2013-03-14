@@ -195,7 +195,7 @@ EOF;
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
         ;
         $this->assertContains(
-            'уже используется',
+            'уже есть',
             $crawler->filter('form[name="product"] form[name="sku"] errors entry')->first()->text()
         );
     }
@@ -514,6 +514,10 @@ EOF;
                 400,
                 array('name' => ''),
             ),
+            'not valid name too long' => array(
+                400,
+                array('name' => str_repeat("z", 305)),
+            ),
             'valid price dot' => array(
                 201,
                 array('purchasePrice' => 10.89),
@@ -558,6 +562,10 @@ EOF;
                 400,
                 array('vat' => -30),
             ),
+            'not valid vat empty' => array(
+                400,
+                array('vat' => ''),
+            ),
             'valid barcode' => array(
                 201,
                 array('barcode' => 'ijashglkalgh2378rt8237t4rjhdg '),
@@ -566,6 +574,10 @@ EOF;
                 201,
                 array('barcode' => ''),
             ),
+            'not valid barcode too long' => array(
+                400,
+                array('barcode' => str_repeat("z", 201)),
+            ),
             'valid vendor' => array(
                 201,
                 array('vendor' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
@@ -573,6 +585,10 @@ EOF;
             'valid vendor empty' => array(
                 201,
                 array('vendor' => ''),
+            ),
+            'not valid vendor too long' => array(
+                400,
+                array('vendor' => str_repeat("z", 301)),
             ),
             'valid vendorCountry' => array(
                 201,
@@ -584,9 +600,7 @@ EOF;
             ),
             'not valid vendorCountry too long' => array(
                 400,
-                array('vendorCountry' => '
-                ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssz
-                '),
+                array('vendorCountry' => str_repeat("z", 301)),
             ),
             'valid info' => array(
                 201,
@@ -595,6 +609,22 @@ EOF;
             'valid info empty' => array(
                 201,
                 array('info' => ''),
+            ),
+            'not valid info too long' => array(
+                400,
+                array('info' => str_repeat("z", 2001)),
+            ),
+            'valid sku' => array(
+                201,
+                array('sku' => 'qwe223sdw'),
+            ),
+            'not valid sku empty' => array(
+                400,
+                array('sku' => ''),
+            ),
+            'not valid sku too long' => array(
+                400,
+                array('sku' => str_repeat("z", 201)),
             ),
         );
     }

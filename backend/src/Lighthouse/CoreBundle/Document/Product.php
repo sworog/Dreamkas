@@ -23,7 +23,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  *
  * @MongoDB\Document
  * @Serializer\XmlRoot("product")
- * @Unique("sku")
+ * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
  */
 class Product
 {
@@ -36,21 +36,20 @@ class Product
     /**
      * @MongoDB\String
      * @Assert\NotBlank
-     * @Assert\Length(max="300")
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
-     *
      */
     protected $name;
 
     /**
      * @MongoDB\String
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="lighthouse.validation.errors.product.units.blank")
      */
     protected $units;
 
     /**
      * @MongoDB\Int
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="lighthouse.validation.errors.product.vat.blank")
      * @Assert\Range(min="0")
      */
     protected $vat;
@@ -65,32 +64,32 @@ class Product
 
     /**
      * @MongoDB\String
-     * @Assert\Length(max="200")
+     * @Assert\Length(max="200", maxMessage="lighthouse.validation.errors.length")
      */
     protected $barcode;
 
     /**
      * @MongoDB\String
      * @Assert\NotBlank
-     * @Assert\Length(max="200")
+     * @Assert\Length(max="200", maxMessage="lighthouse.validation.errors.length")
      */
     protected $sku;
 
     /**
      * @MongoDB\String
-     * @Assert\Length(max="100")
+     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      */
     protected $vendorCountry;
 
     /**
      * @MongoDB\String
-     * @Assert\Length(max="300")
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      */
     protected $vendor;
 
     /**
      * @MongoDB\String
-     * @Assert\Length(max="2000")
+     * @Assert\Length(max="2000", maxMessage="lighthouse.validation.errors.length")
      */
     protected $info;
 

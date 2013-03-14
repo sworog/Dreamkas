@@ -1,2 +1,8 @@
 Price should not have more than {{ digits }} digits after dot.: Цена не должна содержать больше {{ digits }} цифр после запятой.
 Price should not be negative.: Цена не должна быть меньше или равна нулю.
+This value should not be blank.: Заполните это поле
+This value should be {{ limit }} or less.: Не более {{ limit }} символов
+lighthouse.validation.errors.product.sku.unique: Такой артикул уже есть
+lighthouse.validation.errors.product.units.blank: Выберите единицу измерения
+lighthouse.validation.errors.product.vat.blank: Выберите ставку НДС
+lighthouse.validation.errors.length: Не более {{ limit }} символа|Не более {{ limit }} символов|Не более {{ limit }} символов
