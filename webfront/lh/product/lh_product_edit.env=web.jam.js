@@ -16,19 +16,4 @@ this.$lh_product_edit= $jin_class( function( $lh_product_edit, editor ){
         editor.buttonSubmit().removeAttribute( 'disabled' )
     }
     
-    editor.data= function( editor ){
-        var data= $jin_domx.parse( '<product/>' )
-        
-        var fields= editor.$.querySelectorAll( '*[name]' )
-        for( var i= 0; i < fields.length; ++i ){
-            var field= fields[ i ]
-            
-            data.Element( field.name )
-            .text( field.value )
-            .parent( data )
-        }
-        
-        return data
-    }
-    
 })
