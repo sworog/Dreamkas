@@ -9,6 +9,10 @@ class PriceValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
+        if (null === $value || '' === $value) {
+            return;
+        }
+
         $digits = (int) $constraint->digits;
         if ($value <= 0) {
             $this->context->addViolation(

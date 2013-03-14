@@ -65,7 +65,39 @@ class ProductControllerTest extends WebTestCase
             array('product' => $postArray)
         );
 
-        $this->assertEquals($expectedCode, $client->getResponse()->getStatusCode());
+        $this->assertEquals($expectedCode, $client->getResponse()->getStatusCode(), $client->getResponse()->getContent());
+    }
+
+    public function testPostProductActionOnlyOneErrorMessageOnNotBlank()
+    {
+        $client = static::createClient();
+
+        $postArray = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => 3048,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+
+        $invalidData = $postArray;
+        $invalidData['purchasePrice'] = '';
+        $invalidData['units'] = '';
+
+        $crawler = $client->request(
+            'POST',
+            'api/1/products',
+            array('product' => $invalidData)
+        );
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+
+        $this->assertEquals(1, $crawler->filter('form[name="product"] form[name="purchasePrice"] errors entry')->count());
+        $this->assertEquals(1, $crawler->filter('form[name="product"] form[name="units"] errors entry')->count());
     }
 
     public function testPostProductActionXmlPost()
@@ -489,6 +521,10 @@ EOF;
             'valid price coma' => array(
                 201,
                 array('purchasePrice' => '10,89'),
+            ),
+            'empty price' => array(
+                400,
+                array('purchasePrice' => ''),
             ),
             'not valid price very float' => array(
                 400,

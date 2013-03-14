@@ -36,7 +36,7 @@ class Product
     /**
      * @MongoDB\String
      * @Assert\NotBlank
-     * @Assert\Length(max = "300")
+     * @Assert\Length(max="300")
      * @var string
      *
      */
@@ -50,15 +50,16 @@ class Product
 
     /**
      * @MongoDB\Int
-     * @Assert\Range(min="0")
      * @Assert\NotBlank
+     * @Assert\Range(min="0")
      */
     protected $vat;
 
     /**
      * @MongoDB\Float
-     * @LighthouseAssert\Price
+     *
      * @Assert\NotBlank
+     * @LighthouseAssert\Price
      */
     protected $purchasePrice;
 
