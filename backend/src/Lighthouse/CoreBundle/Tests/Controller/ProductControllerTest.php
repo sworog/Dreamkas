@@ -37,7 +37,7 @@ class ProductControllerTest extends WebTestCase
 
         $content = $client->getResponse()->getContent();
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
-        $this->assertEquals(30.48, $crawler->filter('product purchasePrice')->first()->text());
+        $this->assertEquals(30.48, $crawler->filter('purchasePrice')->first()->text());
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
@@ -14,7 +15,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $name
  * @property string $units kg,gr,l
  * @property int    $vat in %
- * @property int    $purchasePrice
+ * @property Money  $purchasePrice
  * @property string $barcode
  * @property string $sku
  * @property string $vendorCountry
@@ -56,7 +57,7 @@ class Product
     protected $vat;
 
     /**
-     * @MongoDB\Int
+     * @MongoDB\Field(type="money")
      * @LighthouseAssert\Price
      * @Assert\NotBlank
      * @Serializer\Type("Money")

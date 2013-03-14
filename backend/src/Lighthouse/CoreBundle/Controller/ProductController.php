@@ -84,6 +84,7 @@ class ProductController extends FOSRestController
     protected function findProduct($id)
     {
         $product = $this->getProductRepository()->find($id);
+        $product->purchasePrice;
         if (!$product instanceof Product) {
             throw new NotFoundHttpException('Product not found');
         }
@@ -105,6 +106,7 @@ class ProductController extends FOSRestController
         if ($form->isValid()) {
             $this->odm->getManager()->persist($product);
             $this->odm->getManager()->flush();
+            $product->purchasePrice;
             return $product;
         } else {
             return View::create($form, 400);

@@ -15,8 +15,7 @@ class ProductType extends AbstractType
     {
         $purchasePrice = $builder
             ->create('purchasePrice', 'text')
-            ->addViewTransformer(new PriceViewTransformer())
-            ->addModelTransformer(new PriceModelTransformer());
+            ->addViewTransformer(new PriceViewTransformer());
 
         $builder
             ->add('name', 'text')

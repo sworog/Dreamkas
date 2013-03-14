@@ -2,12 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Form\DataTransformer;
 
+use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Form\DataTransformerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
-/**
- * @DI\Service("lighthouse.core.data_transformer.money")
- */
 class PriceModelTransformer implements DataTransformerInterface
 {
     /**
@@ -25,6 +23,6 @@ class PriceModelTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        return floor($value * 100);
+        return new Money($value);
     }
 }

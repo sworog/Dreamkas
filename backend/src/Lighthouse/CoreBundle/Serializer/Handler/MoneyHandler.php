@@ -7,6 +7,7 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\VisitorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Form\DataTransformer\PriceModelTransformer;
+use Lighthouse\CoreBundle\Types\Money;
 
 /**
  * @DI\Service("lighthouse.core.serializer.handler.money")
@@ -46,7 +47,7 @@ class MoneyHandler implements SubscribingHandlerInterface
 
     /**
      * @param \JMS\Serializer\VisitorInterface $visitor
-     * @param $value
+     * @param Money $value
      * @param array $type
      * @return string
      */
