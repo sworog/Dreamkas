@@ -3,8 +3,8 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
-use Lighthouse\CoreBundle\Form\DataTransformer\PriceModelTransformer;
-use Lighthouse\CoreBundle\Form\DataTransformer\PriceViewTransformer;
+use Lighthouse\CoreBundle\DataTransformer\PriceModelTransformer;
+use Lighthouse\CoreBundle\DataTransformer\PriceViewTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

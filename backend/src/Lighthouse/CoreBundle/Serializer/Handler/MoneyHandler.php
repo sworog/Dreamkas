@@ -6,7 +6,7 @@ use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\VisitorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Form\DataTransformer\PriceModelTransformer;
+use Lighthouse\CoreBundle\DataTransformer\PriceModelTransformer;
 use Lighthouse\CoreBundle\Types\Money;
 
 /**

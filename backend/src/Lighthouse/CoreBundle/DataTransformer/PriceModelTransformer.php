@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form\DataTransformer;
+namespace Lighthouse\CoreBundle\DataTransformer;
 
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Form\DataTransformerInterface;
