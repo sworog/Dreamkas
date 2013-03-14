@@ -23,48 +23,43 @@
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_sku" >
-        <label lh_prop_set="true">
+        <label lh_prop="true">
             <span lh_prop_name="true">
                 Артикул
             </span>
             <span lh_prop_value="true" lh_field="normal">
                 <input
-                    required="required"
-                    type="text"
+                    lh_field_native="true"
                     name="sku"
                     value="{sku}"
-                    maxlength="200"
                 />
             </span>
         </label>
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_name" >
-        <label lh_prop_set="true">
+        <label lh_prop="true">
             <span lh_prop_name="true">
                 Наименование
             </span>
             <span lh_prop_value="true" lh_field="normal">
                 <input
                     lh_field_native="true"
-                    required="required"
-                    type="text"
                     name="name"
                     value="{name}"
-                    maxlength="300"
                 />
             </span>
         </label>
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_units" >
-        <label lh_prop_set="true">
+        <label lh_prop="true">
             <span lh_prop_name="true">
                 Мерность
             </span>
             <span lh_prop_value="true" lh_field="short">
                 <select
-                    required="required"
+                    lh_field_native="true"
                     name="units"
                     >
                     <option></option>
@@ -86,13 +81,13 @@
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_vat" >
-        <label lh_prop_set="true">
+        <label lh_prop="true">
             <span lh_prop_name="true">
                 НДС
             </span>
             <span lh_prop_value="true" lh_field="short">
                 <select
-                    required="required"
+                    lh_field_native="true"
                     name="vat"
                     >
                     <option></option>
@@ -114,15 +109,14 @@
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_purchasePrice" >
-        <label lh_prop_set="true">
+        <label lh_prop="true">
             <span lh_prop_name="true">
                 Цена закупки
             </span>
             <span lh_prop_value="true" lh_field="short">
                 <input
-                    pattern="^\s*\d+([,.]\d{{1,2}})?\s*$"
+                    lh_field_native="true"
                     placeholder="0,00"
-                    required="required"
                     name="purchasePrice"
                     value="{ purchasePrice }"
                 />
@@ -131,62 +125,59 @@
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_barcode" >
-        <label lh_prop_set="true">
+        <label lh_prop="true">
             <span lh_prop_name="true">
                 Штрих код
             </span>
             <span lh_prop_value="true" lh_field="short">
                 <input
+                    lh_field_native="true"
                     name="barcode"
                     value="{ barcode }"
-                    maxlength="200"
                 />
             </span>
         </label>
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_vendor" >
-        <label lh_prop_set="true">
+        <label lh_prop="true">
             <span lh_prop_name="true">
                 Производитель
             </span>
             <span lh_prop_value="true" lh_field="normal">
                 <input
-                    type="text"
+                    lh_field_native="true"
                     name="vendor"
                     value="{ vendor }"
-                    maxlength="300"
                 />
             </span>
         </label>
     </xsl:template>
 
     <xsl:template match="*" mode="lh_product_vendorCountry" >
-        <label lh_prop_set="true">
+        <label lh_prop="true">
             <span lh_prop_name="true">
                 Страна
             </span>
             <span lh_prop_value="true" lh_field="normal">
                 <input
-                    type="text"
+                    lh_field_native="true"
                     name="vendorCountry"
                     value="{ vendorCountry }"
-                    maxlength="100"
                 />
             </span>
         </label>
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_info" >
-        <label lh_prop_set="true">
+        <label lh_prop="true">
             <span lh_prop_name="true">
                 Дополнительная информация
             </span>
             <span lh_prop_value="true" lh_field="long">
                 <textarea
-                    type="text"
+                    lh_field_native="true"
                     name="info"
-                    maxlength="2000"
                     >
                     <xsl:value-of select=" info " />
                 </textarea>

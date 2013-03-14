@@ -29,7 +29,7 @@
                 <form lh_product_edit="maker">
                     <xsl:apply-templates select=" . " mode="lh_product_fields" />
                     
-                    <div lh_prop_set="true">
+                    <div lh_prop="true">
                         <span lh_prop_name="true"></span>
                         <button
                             lh_button="success"
