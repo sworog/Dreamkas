@@ -58,9 +58,10 @@ class Product
 
     /**
      * @MongoDB\Field(type="money")
-     * @LighthouseAssert\Price
+     * @LighthouseAssert\Money
      * @Assert\NotBlank
      * @Serializer\Type("Money")
+     * @var Money
      */
     protected $purchasePrice;
 
