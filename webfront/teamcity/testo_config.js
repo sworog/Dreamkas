@@ -5,8 +5,8 @@ module.exports= {
     timeout: 10000,
     browsers: [
         programFiles + '/Mozilla Firefox/firefox.exe',
-        //programFiles + '/Opera/opera.exe',
-        programFiles + '/Internet Explorer/iexplore.exe',
+        programFiles + '/Opera/opera.exe',
+        //programFiles + '/Internet Explorer/iexplore.exe',
         programFiles + '/Google/Chrome/Application/chrome.exe',
     ],
     host: 'localhost',
