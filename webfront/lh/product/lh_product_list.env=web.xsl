@@ -98,7 +98,7 @@
             </span>
             <span lh_table_cell="money">
                 <span name="purchasePrice">
-                    <xsl:value-of select=" purchasePrice " />
+                    <xsl:apply-templates select=" purchasePrice " mode="lh_money_view" />
                 </span>
                 р.
             </span>

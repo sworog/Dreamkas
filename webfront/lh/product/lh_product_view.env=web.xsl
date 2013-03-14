@@ -63,7 +63,7 @@
             </span>
             <span lh_prop_value="true">
                 <span name="purchasePrice">
-                    <xsl:value-of select=" purchasePrice " />
+                    <xsl:apply-templates select=" purchasePrice " mode="lh_money_view" />
                 </span>
                 руб.
             </span>

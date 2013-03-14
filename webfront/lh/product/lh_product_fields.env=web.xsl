@@ -128,8 +128,11 @@
                     lh_field_native="true"
                     placeholder="0,00"
                     name="purchasePrice"
-                    value="{ purchasePrice }"
-                />
+                    >
+                    <xsl:attribute name="value">
+                        <xsl:apply-templates select=" purchasePrice " mode="lh_money_view" />
+                    </xsl:attribute>
+                </input>
             </span>
         </label>
     </xsl:template>
