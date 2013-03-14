@@ -8,10 +8,8 @@ use Doctrine\ODM\MongoDB\Mapping\Types\Type;
 
 class LighthouseCoreBundle extends Bundle
 {
-    public function boot()
+    public function __construct()
     {
-        if (! Type::hasType('money')) {
-            Type::addType('money', 'Lighthouse\CoreBundle\Types\MongoDB\MoneyType');
-        }
+        Type::registerType('money', 'Lighthouse\CoreBundle\Types\MongoDB\MoneyType');
     }
 }

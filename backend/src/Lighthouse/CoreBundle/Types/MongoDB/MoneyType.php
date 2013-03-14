@@ -25,8 +25,19 @@ class MoneyType extends Type
         return new Money($value);
     }
 
+    /**
+     * @return string
+     */
     public function closureToPHP()
     {
-        return '$return = new Money($value);';
+        return '$return = new \Lighthouse\CoreBundle\Types\Money($value);';
+    }
+
+    /**
+     * @return string
+     */
+    public function closureToMongo()
+    {
+        return '$return = (int) $value;';
     }
 }
