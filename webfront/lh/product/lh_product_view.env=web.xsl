@@ -30,11 +30,10 @@
     <xsl:template match=" * " mode="lh_product_view_buttons">
         <div lh_card_headerButtons="true">
             <a
-                lh_button="modify"
-                type="submit"
+                lh_link="modify"
                 href="?product={ id }/edit"
                 >
-                Изменить
+                Редактировать
             </a>
         </div>
     </xsl:template>
@@ -58,48 +57,68 @@
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_purchasePrice">
-        <div lh_block="true">
-            Закупочная цена:
-            <span name="purchasePrice">
-                <xsl:value-of select=" purchasePrice " />
+        <div lh_prop="true">
+            <span lh_prop_name="true">
+                Закупочная цена:
             </span>
-            руб.
+            <span lh_prop_value="true">
+                <span name="purchasePrice">
+                    <xsl:value-of select=" purchasePrice " />
+                </span>
+                руб.
+            </span>
         </div>
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_vat">
-        <div lh_block="true">
-            НДС:
-            <span name="vat">
-                <xsl:value-of select=" vat " />
+        <div lh_prop="true">
+            <span lh_prop_name="true">
+                НДС:
             </span>
-            %
+            <span lh_prop_value="true">
+                <span name="vat">
+                    <xsl:value-of select=" vat " />
+                </span>
+                %
+            </span>
         </div>
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_vendor">
-        <div lh_block="true">
-            Производитель:
-            <span name="vendor">
-                <xsl:value-of select=" vendor " />
+        <div lh_prop="true">
+            <span lh_prop_name="true">
+                Производитель:
+            </span>
+            <span lh_prop_value="true">
+                <span name="vendor">
+                    <xsl:value-of select=" vendor " />
+                </span>
             </span>
         </div>
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_vendorCountry">
-        <div lh_block="true">
-            Страна производства:
-            <span name="vendorCountry">
-                <xsl:value-of select=" vendorCountry " />
+        <div lh_prop="true">
+            <span lh_prop_name="true">
+                Страна:
+            </span>
+            <span lh_prop_value="true">
+                <span name="vendorCountry">
+                    <xsl:value-of select=" vendorCountry " />
+                </span>
             </span>
         </div>
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_barcode">
-        <div lh_block="true">
-            Штрих-код:
-            <span name="barcode">
-                <xsl:value-of select=" barcode " />
+        <div lh_prop="true">
+            <span lh_prop_name="true">
+                Штрих-код:
+            </span>
+            <span lh_prop_value="true">
+                <span name="barcode">
+                    <xsl:value-of select=" barcode " />
+                </span>
             </span>
         </div>
     </xsl:template>
@@ -111,10 +130,14 @@
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_units">
-        <div lh_block="true">
-            Единица измерения:
-            <span name="units" value="{units}">
-                <xsl:apply-templates select="." mode="lh_product_view_units_value" />
+        <div lh_prop="true">
+            <span lh_prop_name="true">
+                Единица измерения:
+            </span>
+            <span lh_prop_value="true">
+                <span name="units" value="{units}">
+                    <xsl:apply-templates select="." mode="lh_product_view_units_value" />
+                </span>
             </span>
         </div>
     </xsl:template>
