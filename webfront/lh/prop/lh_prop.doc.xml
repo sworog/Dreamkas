@@ -3,31 +3,35 @@
     doc_title="lh_prop"
     >
     
-    <div lh_prop="true">
-        <span lh_prop_name="true">
-            Первое свойство:
-        </span>
-        <span lh_prop_value="true">
-            его значение
-        </span>
-    </div>
+    <div lh_desktop="true">
     
-    <div lh_prop="true">
-        <span lh_prop_name="true">
-            Цена:
-        </span>
-        <span lh_prop_value="true">
-            150 р.
-        </span>
-    </div>
-    
-    <div lh_prop="true">
-        <span lh_prop_name="true">
-            Цвет:
-        </span>
-        <span lh_prop_value="true">
-            зелёный
-        </span>
+        <div lh_prop="true">
+            <span lh_prop_name="true">
+                Первое свойство:
+            </span>
+            <span lh_prop_value="true">
+                его значение
+            </span>
+        </div>
+        
+        <div lh_prop="true">
+            <span lh_prop_name="true">
+                Цена:
+            </span>
+            <span lh_prop_value="true">
+                150 р.
+            </span>
+        </div>
+        
+        <div lh_prop="true">
+            <span lh_prop_name="true">
+                Цвет:
+            </span>
+            <span lh_prop_value="true">
+                зелёный
+            </span>
+        </div>
+        
     </div>
     
 </doc_root>

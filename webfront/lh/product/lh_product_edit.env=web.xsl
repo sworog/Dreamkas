@@ -14,6 +14,7 @@
                 <div lh_card_header="true">
                     <div lh_card_headerButtons="true">
                         <a
+                            lh_card_close="true"
                             lh_link="close"
                             href="?product={ id }"
                             >
@@ -34,7 +35,7 @@
                     <div lh_prop="true">
                         <span lh_prop_name="true"></span>
                         <button
-                            lh_button="success"
+                            lh_button="commit"
                             type="submit"
                             disabled="disabled"
                             >

@@ -3,7 +3,7 @@
     doc_title="$lh_product_view"
     >
     
-    <div id="lh_product_view_test">
+    <div id="lh_product_view_test" lh_desktop="true">
         <product lh_product_view="true">
             <id>1</id>
             <sku>GVOZDI007</sku>
@@ -13,7 +13,7 @@
             <purchasePrice>100500</purchasePrice>
             <barcode>0123456789</barcode>
             <units>unit</units>
-            <val>10</val>
+            <vat>10</vat>
             <info>У нас их дофига!</info>
         </product>
     </div>

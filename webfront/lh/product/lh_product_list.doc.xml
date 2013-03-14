@@ -3,7 +3,7 @@
     doc_title="$lh_product_list"
     >
     
-    <div id="lh_product_list_test">
+    <div id="lh_product_list_test" lh_desktop="true">
         <products lh_product_list="true">
             <product>
                 <id>1</id>

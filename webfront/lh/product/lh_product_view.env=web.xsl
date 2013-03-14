@@ -30,7 +30,7 @@
     <xsl:template match=" * " mode="lh_product_view_buttons">
         <div lh_card_headerButtons="true">
             <a
-                lh_link="modify"
+                lh_link="edit"
                 href="?product={ id }/edit"
                 >
                 Редактировать

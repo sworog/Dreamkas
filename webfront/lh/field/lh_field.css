@@ -3,6 +3,7 @@
     line-height: 1.5;
     box-sizing: border-box;
     display: inline-block;
+    text-align: left;
 }
 
 [ lh_field = 'short' ] {

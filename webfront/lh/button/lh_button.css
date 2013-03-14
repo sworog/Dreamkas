@@ -24,10 +24,10 @@
     padding-bottom: .5em;
 }
 
-[ lh_button = 'success' ] {
+[ lh_button = 'commit' ] {
     background: #5DA423;
 }
-[ lh_button = 'success' ]:hover {
+[ lh_button = 'commit' ]:hover {
     background: #396516;
 }
 
@@ -38,10 +38,10 @@
     background: #653916;
 }
 
-[ lh_button = 'modify' ] {
+[ lh_button = 'edit' ] {
     background: #2ba6cb;
 }
-[ lh_button = 'modify' ]:hover {
+[ lh_button = 'edit' ]:hover {
     background: #2284a1;
 }
 

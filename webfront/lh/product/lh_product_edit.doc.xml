@@ -3,7 +3,7 @@
     doc_title="lh_product_edit"
     >
     
-    <div id="lh_product_edit_test">
+    <div id="lh_product_edit_test" lh_desktop="true">
         <product lh_product_edit="true">
             <id>1</id>
             <sku>GVOZDI007</sku>
@@ -48,7 +48,7 @@
                 result= true
             })
             
-            editor.find( '[lh_button="success"]' ).click()
+            editor.find( '[lh_button="commit"]' ).click()
             
             test.ok( result )
         </script>

@@ -3,7 +3,7 @@
     doc_title="lh_product_create"
     >
     
-    <div id="lh_product_create_test">
+    <div id="lh_product_create_test" lh_desktop="true">
         <product
             lh_product_create="true"
         />
@@ -42,7 +42,7 @@
                 result= true
             })
             
-            editor.find( '[lh_button="success"]' ).click()
+            editor.find( '[lh_button="commit"]' ).click()
             
             test.not( result )
         </script>
