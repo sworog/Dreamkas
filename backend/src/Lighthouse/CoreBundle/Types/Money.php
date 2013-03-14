@@ -23,7 +23,7 @@ class Money
      */
     public function setCount($count)
     {
-        $this->count = (int) $count;
+        $this->count = $count;
         return $this;
     }
 

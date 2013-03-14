@@ -21,7 +21,7 @@ class MoneyViewTransformer implements DataTransformerInterface
     public function __construct($digits = null)
     {
         if (null !== $digits) {
-            $this->digits = (int) $digits;
+            $this->digits = $digits;
         }
     }
 

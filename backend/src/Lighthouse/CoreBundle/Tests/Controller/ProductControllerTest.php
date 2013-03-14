@@ -542,13 +542,11 @@ EOF;
                 400,
                 array('purchasePrice' => ''),
             ),
-            /*
             'not valid price very float' => array(
                 400,
                 array('purchasePrice' => '10,898'),
                 array('form[name="product"] form[name="purchasePrice"] errors entry', '111')
             ),
-            */
             'not valid price not a number' => array(
                 400,
                 array('purchasePrice' => 'not a number'),
