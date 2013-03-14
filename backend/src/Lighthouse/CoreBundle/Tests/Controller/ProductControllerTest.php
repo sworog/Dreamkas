@@ -328,7 +328,7 @@ EOF;
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
 
         $this->assertContains(
-            'Значение не должно быть пустым.',
+            'Заполните это поле',
             $crawler->filter('form[name="product"] form[name="name"] errors entry')->first()->text()
         );
     }
