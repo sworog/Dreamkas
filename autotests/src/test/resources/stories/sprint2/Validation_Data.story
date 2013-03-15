@@ -473,7 +473,7 @@ And the user clicks the create button
 Then the user checks that he is on the 'ProductListPage'
 And the user checks the product with 'PPV-090' sku has 'purchasePrice' equal to '10000000'
 
-Scenario: Purchase price validation length good
+Scenario: Purchase price validation length negative
 Given the user is on the product list page
 When the user creates new product from product list page
 And the user inputs 'PPV-0941' in 'name' field
