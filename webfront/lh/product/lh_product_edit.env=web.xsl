@@ -30,7 +30,6 @@
                 
                 <form
                     lh_product_edit="maker"
-                    name="product"
                     >
                     
                     <xsl:apply-templates select=" . " mode="lh_product_fields" />

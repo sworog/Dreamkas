@@ -7,19 +7,33 @@ this.$lh_widget= $jin_class_scheme( function( $lh_widget, widget ){
     }
     
     widget.data= function( widget ){
-        var data= $jin_domx.parse( '<' + widget.$.getAttribute( 'name' ) + '/>' )
+        var data= $jin_domx.parse( '<data/>' )
         
-        var fields= widget.$.querySelectorAll( '*[name]' )
-        for( var i= 0; i < fields.length; ++i ){
-            var field= fields[ i ]
-            
-            var name= field.name
-            var value= field.value
-            
-            data.Element( name ).text( value ).parent( data )
+        var stack= [ data ]
+        var field= widget.$.firstChild
+        
+        traverse: while( true ){
+            var name= field.getAttribute && field.getAttribute( 'name' )
+            if( name ){
+                var value= field.value || ''
+                var last= stack[ stack.length - 1 ]
+                var node= data.Element( name ).text( value ).parent( last )
+                stack.push( node )
+            }
+            if( field.firstChild ){
+                field= field.firstChild
+            } else {
+                if( field.name ) stack.pop()
+                while( !field.nextSibling ){
+                    field= field.parentNode
+                    if( field.name ) stack.pop()
+                    if( field === widget.$ ) break traverse
+                }
+                field= field.nextSibling
+            }
         }
         
-        return data
+        return data.select( '*' )[ 0 ]
     }
     
     widget.errors= function( widget, errors ){

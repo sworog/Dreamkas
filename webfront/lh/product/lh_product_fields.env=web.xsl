@@ -1,22 +1,24 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     
     <xsl:template match="*" mode="lh_product_fields" >
-        <xsl:apply-templates select=" . " mode="lh_product_id" />
-        <xsl:apply-templates select=" . " mode="lh_product_sku" />
-        <xsl:apply-templates select=" . " mode="lh_product_name" />
-        <xsl:apply-templates select=" . " mode="lh_product_units" />
-        <xsl:apply-templates select=" . " mode="lh_product_purchasePrice" />
-        <xsl:apply-templates select=" . " mode="lh_product_vat" />
-        
-        <br/>
-        <div lh_remark="true">
-            Необязательно к заполнению
+        <div name="product">
+            <xsl:apply-templates select=" . " mode="lh_product_id" />
+            <xsl:apply-templates select=" . " mode="lh_product_sku" />
+            <xsl:apply-templates select=" . " mode="lh_product_name" />
+            <xsl:apply-templates select=" . " mode="lh_product_units" />
+            <xsl:apply-templates select=" . " mode="lh_product_purchasePrice" />
+            <xsl:apply-templates select=" . " mode="lh_product_vat" />
+            
+            <br/>
+            <div lh_remark="true">
+                Необязательно к заполнению
+            </div>
+            
+            <xsl:apply-templates select=" . " mode="lh_product_barcode" />
+            <xsl:apply-templates select=" . " mode="lh_product_vendor" />
+            <xsl:apply-templates select=" . " mode="lh_product_vendorCountry" />
+            <xsl:apply-templates select=" . " mode="lh_product_info" />
         </div>
-        
-        <xsl:apply-templates select=" . " mode="lh_product_barcode" />
-        <xsl:apply-templates select=" . " mode="lh_product_vendor" />
-        <xsl:apply-templates select=" . " mode="lh_product_vendorCountry" />
-        <xsl:apply-templates select=" . " mode="lh_product_info" />
     </xsl:template>
     
     <xsl:template match="*" mode="lh_product_id" />

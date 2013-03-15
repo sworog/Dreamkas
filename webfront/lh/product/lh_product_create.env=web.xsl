@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 
-                <form lh_product_edit="maker" name="product">
+                <form lh_product_edit="maker">
                     <xsl:apply-templates select=" . " mode="lh_product_fields" />
                     
                     <div

@@ -21,19 +21,21 @@
     <p>Подхватываются ли текущие значения</p>
     <p>
         <script type="wc_test">
-            var editor= $jq( '#lh_product_edit_test' )
+            var node= document.querySelector( '#lh_product_edit_test [lh_product_edit]' )
+            var data= $lh_product_edit( node ).data()
             
-            test.ok( editor.find( 'input[name="name"]' ).val(), 'Гвозди 47 колибра' )
-            test.ok( editor.find( 'input[name="vendor"]' ).val(), 'Рога и копыта' )
-            test.ok( editor.find( 'input[name="vendorCountry"]' ).val(), 'Россия' )
-            test.ok( editor.find( 'input[name="purchasePrice"]' ).val(), '100500' )
-            test.ok( editor.find( 'input[name="barcode"]' ).val(), '0123456789' )
-            test.ok( editor.find( 'select[name="units"]' ).val(), 'unit' )
-            test.ok( editor.find( 'select[name="units"] > option' ).length > 1 )
-            test.ok( editor.find( 'select[name="vat"]' ).val(), '10' )
-            test.ok( editor.find( 'select[name="vat"] > option' ).length > 1 )
-            test.ok( editor.find( 'input[name="sku"]' ).val(), 'GVOZDI007' )
-            test.ok( editor.find( 'textarea[name="info"]' ).val(), 'У нас их дофига!' )
+            test.ok( data.name(), 'product' )
+            
+            test.ok( data.select( 'id' )[0].text(), '1' )
+            test.ok( data.select( 'sku' )[0].text(), 'GVOZDI007' )
+            test.ok( data.select( 'name' )[0].text(), 'Гвозди 47 колибра' )
+            test.ok( data.select( 'vendor' )[0].text(), 'Рога и копыта' )
+            test.ok( data.select( 'vendorCountry' )[0].text(), 'Россия' )
+            test.ok( data.select( 'purchasePrice' )[0].text(), '100500' )
+            test.ok( data.select( 'barcode' )[0].text(), '0123456789' )
+            test.ok( data.select( 'units' )[0].text(), 'unit' )
+            test.ok( data.select( 'vat' )[0].text(), '10' )
+            test.ok( data.select( 'info' )[0].text(), 'У нас их дофига!' )
         </script>
     </p>
     
