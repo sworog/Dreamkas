@@ -21,6 +21,11 @@ class MoneyValidator extends ConstraintValidator
         }
 
         if (null === $value || '' === $value) {
+            if ($constraint->notBlank) {
+                $this->context->addViolation(
+                    $constraint->messageNotBlank
+                );
+            }
             return;
         }
 

@@ -12,7 +12,7 @@ class Money
     /**
      * @param int $count
      */
-    public function __construct($count = 0)
+    public function __construct($count = null)
     {
         $this->setCount($count);
     }

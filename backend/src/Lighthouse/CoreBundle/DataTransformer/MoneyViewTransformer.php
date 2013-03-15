@@ -41,7 +41,9 @@ class MoneyViewTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        $money = str_replace(',', '.', (string) $value);
-        return $money;
+        if (null !== $value) {
+            $value = str_replace(',', '.', (string) $value);
+        }
+        return $value;
     }
 }

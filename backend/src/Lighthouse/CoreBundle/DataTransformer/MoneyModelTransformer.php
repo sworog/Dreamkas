@@ -41,15 +41,14 @@ class MoneyModelTransformer implements DataTransformerInterface
     public function transform($value)
     {
         if (null === $value) {
-            $value = 0;
+            $value = null;
         } elseif ($value instanceof Money) {
-            $value = $value->getCount();
+            $value = $value->getCount() / $this->divider;
         } else {
             throw new TransformationFailedException(
                 'Value should be Money type object or null. ' . gettype($value) . ' given'
             );
         }
-        $value /= $this->divider;
         return $value;
     }
 
@@ -59,7 +58,9 @@ class MoneyModelTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        $value *= $this->divider;
+        if (null !== $value && '' !== $value) {
+            $value *= $this->divider;
+        }
         return new Money($value);
     }
 }

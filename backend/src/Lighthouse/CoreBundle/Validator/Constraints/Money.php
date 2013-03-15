@@ -21,6 +21,11 @@ class Money extends Constraint
     public $max;
 
     /**
+     * @var bool
+     */
+    public $notBlank = false;
+
+    /**
      * Error message
      * @var string
      */
@@ -36,4 +41,9 @@ class Money extends Constraint
      * @var string
      */
     public $messageMax = 'lighthouse.validation.errors.money.max';
+
+    /**
+     * @var string
+     */
+    public $messageNotBlank = 'lighthouse.validation.errors.money.not_blank';
 }
