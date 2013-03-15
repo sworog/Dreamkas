@@ -42,12 +42,14 @@ class MoneyHandler implements SubscribingHandlerInterface
                 'type' => 'Money',
                 'method' => 'serializeMoney',
             );
+            /*
             $methods[] = array(
                 'direction' => GraphNavigator::DIRECTION_DESERIALIZATION,
                 'format' => $format,
                 'type' => 'Money',
                 'method' => 'deserializeMoney',
             );
+            */
         }
         return $methods;
     }
@@ -66,11 +68,13 @@ class MoneyHandler implements SubscribingHandlerInterface
     }
 
     /**
+     * Пока не нужен
      * @param \JMS\Serializer\VisitorInterface $visitor
      * @param string $value
      * @param array $type
      * @return int
      */
+    /*
     public function deserializeMoney(VisitorInterface $visitor, $value, array $type)
     {
         $value = $visitor->visitString($value, $type);
@@ -78,4 +82,5 @@ class MoneyHandler implements SubscribingHandlerInterface
         $modelData = $this->moneyTransformer->reverseTransform($normData);
         return $modelData;
     }
+    */
 }

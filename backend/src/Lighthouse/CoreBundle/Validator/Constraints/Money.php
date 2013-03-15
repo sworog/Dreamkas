@@ -24,13 +24,13 @@ class Money extends Constraint
      * Error message
      * @var string
      */
-    public $messageDigits = 'This value should not have more than {{ digits }} digits after dot.';
+    public $messageDigits = 'lighthouse.validation.errors.money.digits';
 
     /**
      * Error message
      * @var string
      */
-    public $messageNegative = 'This value should not be negative.';
+    public $messageNegative = 'lighthouse.validation.errors.money.negative';
 
     /**
      * @var string

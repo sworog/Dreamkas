@@ -43,7 +43,7 @@ class ProductControllerTest extends WebTestCase
     /**
      * @dataProvider validateProvider
      */
-    public function testPostProductInvalidData($expectedCode, array $data)
+    public function testPostProductInvalidData($expectedCode, array $data, array $assertions = array())
     {
         $client = static::createClient();
 
@@ -61,7 +61,7 @@ class ProductControllerTest extends WebTestCase
 
         $postArray = array_merge($postArray, $data);
 
-        $client->request(
+        $crawler = $client->request(
             'POST',
             'api/1/products',
             array('product' => $postArray)
@@ -72,6 +72,10 @@ class ProductControllerTest extends WebTestCase
             $client->getResponse()->getStatusCode(),
             $client->getResponse()->getContent()
         );
+
+        foreach ($assertions as $selector => $expected) {
+            $this->assertContains($expected, $crawler->filter($selector)->first()->text());
+        }
     }
 
     public function testPostProductActionOnlyOneErrorMessageOnNotBlank()
@@ -545,7 +549,7 @@ EOF;
             'not valid price very float' => array(
                 400,
                 array('purchasePrice' => '10,898'),
-                array('form[name="product"] form[name="purchasePrice"] errors entry', '111')
+                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна содержать больше 2 цифр после запятой')
             ),
             'not valid price not a number' => array(
                 400,
@@ -562,6 +566,7 @@ EOF;
             'not valid price too big' => array(
                 400,
                 array('purchasePrice' => 2000000001),
+                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть больше 2000000001'),
             ),
             'valid vat' => array(
                 201,
