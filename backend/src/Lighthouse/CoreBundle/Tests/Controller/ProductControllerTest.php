@@ -552,7 +552,7 @@ EOF;
                 array('purchasePrice' => '10,898'),
                 array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна содержать больше 2 цифр после запятой')
             ),
-            'not valid price very float with dot' => array(
+            'valid price very float with dot' => array(
                 201,
                 array('purchasePrice' => '10.12')
             ),

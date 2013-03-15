@@ -60,7 +60,7 @@ class MoneyModelTransformer implements DataTransformerInterface
     {
         if (null !== $value && '' !== $value) {
             $value = $value * $this->divider;
-            $value = (int) (string) $value;
+            $value = (float) (string) $value;
         }
         return new Money($value);
     }
