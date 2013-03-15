@@ -522,7 +522,6 @@ EOF;
     public function validateProvider()
     {
         return array(
-            /*
             'valid name' => array(
                 201,
                 array('name' => 'test'),
@@ -543,7 +542,6 @@ EOF;
                 201,
                 array('purchasePrice' => '10,89'),
             ),
-            */
             'empty price' => array(
                 400,
                 array('purchasePrice' => ''),
@@ -568,9 +566,23 @@ EOF;
                 array('purchasePrice' => -10),
                 array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть меньше или равна нулю')
             ),
-            'not valid price too big' => array(
+            'not valid price too big 2 000 000 001' => array(
                 400,
                 array('purchasePrice' => 2000000001),
+                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть больше 10000000'),
+            ),
+            'not valid price too big 100 000 000' => array(
+                400,
+                array('purchasePrice' => '100000000'),
+                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть больше 10000000'),
+            ),
+            'valid price too big 10 000 000' => array(
+                201,
+                array('purchasePrice' => '10000000'),
+            ),
+            'not valid price too big 10 000 001' => array(
+                400,
+                array('purchasePrice' => '10000001'),
                 array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть больше 10000000'),
             ),
             'valid vat' => array(

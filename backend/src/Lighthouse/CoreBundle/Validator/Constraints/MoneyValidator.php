@@ -51,8 +51,6 @@ class MoneyValidator extends ConstraintValidator
                     '{{ limit }}' => $constraint->max / $divider,
                 )
             );
-
-            return;
         }
 
         if ($value - (int) $value > 0) {

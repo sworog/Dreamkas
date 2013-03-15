@@ -59,7 +59,7 @@ class Product
     /**
      * @MongoDB\Field(type="money")
      * @Assert\NotBlank
-     * @LighthouseAssert\Money(max=10000000000, notBlank=true)
+     * @LighthouseAssert\Money(max=1000000000, notBlank=true)
      * @Serializer\Type("Money")
      * @var Money
      */
