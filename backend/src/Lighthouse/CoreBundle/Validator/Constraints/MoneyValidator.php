@@ -53,7 +53,7 @@ class MoneyValidator extends ConstraintValidator
             );
         }
 
-        if ($value - (int) $value > 0) {
+        if ($value - floor($value) > 0) {
             $this->context->addViolation(
                 $constraint->messageDigits,
                 array(

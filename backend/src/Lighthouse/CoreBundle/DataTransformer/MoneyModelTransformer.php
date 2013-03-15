@@ -59,7 +59,8 @@ class MoneyModelTransformer implements DataTransformerInterface
     public function reverseTransform($value)
     {
         if (null !== $value && '' !== $value) {
-            $value *= $this->divider;
+            $value = $value * $this->divider;
+            $value = (int) (string) $value;
         }
         return new Money($value);
     }
