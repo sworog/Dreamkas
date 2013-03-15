@@ -16,6 +16,11 @@ class Money extends Constraint
     public $digits = 2;
 
     /**
+     * @var int
+     */
+    public $max;
+
+    /**
      * Error message
      * @var string
      */
@@ -26,4 +31,9 @@ class Money extends Constraint
      * @var string
      */
     public $messageNegative = 'This value should not be negative.';
+
+    /**
+     * @var string
+     */
+    public $messageMax = 'lighthouse.validation.errors.money.max';
 }

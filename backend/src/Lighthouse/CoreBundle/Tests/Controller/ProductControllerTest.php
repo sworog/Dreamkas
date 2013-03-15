@@ -559,6 +559,10 @@ EOF;
                 400,
                 array('purchasePrice' => -10),
             ),
+            'not valid price too big' => array(
+                400,
+                array('purchasePrice' => 2000000001),
+            ),
             'valid vat' => array(
                 201,
                 array('vat' => 18),

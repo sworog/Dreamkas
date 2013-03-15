@@ -6,3 +6,4 @@ lighthouse.validation.errors.product.sku.unique: Такой артикул уж�
 lighthouse.validation.errors.product.units.blank: Выберите единицу измерения
 lighthouse.validation.errors.product.vat.blank: Выберите ставку НДС
 lighthouse.validation.errors.length: Не более {{ limit }} символа|Не более {{ limit }} символов|Не более {{ limit }} символов
+lighthouse.validation.errors.money.max: Цена не должна быть больше {{ value }}
