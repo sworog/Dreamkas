@@ -16,12 +16,12 @@ class MoneyValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if (null === $value || '' === $value) {
-            return;
-        }
-
         if ($value instanceof MoneyType) {
             $value = $value->getCount();
+        }
+
+        if (null === $value || '' === $value) {
+            return;
         }
 
         $digits = (int) $constraint->digits;

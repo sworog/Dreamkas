@@ -544,7 +544,7 @@ EOF;
             ),
             'empty price' => array(
                 400,
-                array('purchasePrice' => ''),
+                array('purchasePrice' => '')
             ),
             'not valid price very float' => array(
                 400,
@@ -558,10 +558,12 @@ EOF;
             'not valid price zero' => array(
                 400,
                 array('purchasePrice' => 0),
+                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть меньше или равна нулю')
             ),
             'not valid price negative' => array(
                 400,
                 array('purchasePrice' => -10),
+                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть меньше или равна нулю')
             ),
             'not valid price too big' => array(
                 400,
