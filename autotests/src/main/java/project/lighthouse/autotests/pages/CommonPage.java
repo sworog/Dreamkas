@@ -32,7 +32,7 @@ public class CommonPage extends PageObject {
         String testData = new String(new char[n]).replace("\0", str);
         StringBuilder formattedData = new StringBuilder(testData);
         for(int i = 0; i < formattedData.length(); i++){
-            if (i%39 == 0){
+            if (i%38 == 1){
                 formattedData.setCharAt(i, ' ');
             }
         }
