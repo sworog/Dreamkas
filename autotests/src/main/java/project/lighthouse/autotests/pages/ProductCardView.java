@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ProductCardView extends ProductCreatePage{
 
-    @FindBy(xpath = "//*[@lh_link='edit'']")
+    @FindBy(xpath = "//*[@lh_link='edit']")
     private WebElement editButton;
 
     public ProductCardView(WebDriver driver) {

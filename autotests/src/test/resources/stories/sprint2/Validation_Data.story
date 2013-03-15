@@ -274,6 +274,7 @@ When the user creates new product from product list page
 And the user inputs 'Mixing 2' in 'name' field
 And the user inputs 'JDSID45' in 'sku' field
 And the user inputs '-145' in 'purchasePrice' field
+And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Выберите единицу измерения |
