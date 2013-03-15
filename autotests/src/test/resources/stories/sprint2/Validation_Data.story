@@ -460,3 +460,28 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
+
+Scenario: Purchase price validation length good
+Given the user is on the product list page
+When the user creates new product from product list page
+And the user inputs 'PPV-090' in 'name' field
+And the user inputs 'PPV-090' in 'sku' field
+And the user selects 'unit' in 'unit' dropdown
+And the user selects '10' in 'vat' dropdown
+And the user inputs '10000000' in 'purchasePrice' field
+And the user clicks the create button
+Then the user checks that he is on the 'ProductListPage'
+And the user checks the product with 'PPV-090' sku has 'purchasePrice' equal to '10000000'
+
+Scenario: Purchase price validation length good
+Given the user is on the product list page
+When the user creates new product from product list page
+And the user inputs 'PPV-0941' in 'name' field
+And the user inputs 'PPV-0941' in 'sku' field
+And the user selects 'unit' in 'unit' dropdown
+And the user selects '10' in 'vat' dropdown
+And the user inputs '10000001' in 'purchasePrice' field
+And the user clicks the create button
+Then the user sees error messages
+| error message |
+| Цена не должна быть больше 10000000 |
