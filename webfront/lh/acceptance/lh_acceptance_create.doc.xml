@@ -1,0 +1,46 @@
+<?xml-stylesheet href="../-mix/doc.stage=dev.xsl" type="text/xsl"?>
+<doc_root
+    doc_title="lh_acceptance_create"
+    >
+    
+    <div id="lh_acceptance_create_test" lh_desktop="true">
+        <product
+            lh_acceptance_create="true"
+        />
+    </div>
+    
+    <p>Все ли поля присутствуют</p>
+    <p>
+        <script type="wc_test">
+            var node= document.querySelector( '#lh_acceptance_create_test [lh_acceptance_edit]' )
+            var data= $lh_acceptance_edit( node ).data()
+            
+            test.ok( data.name(), 'acceptance' )
+            
+            test.ok( data.select( 'sku' )[0].text(), '' )
+            test.ok( data.select( 'date' )[0].text(), '' )
+            test.ok( data.select( 'supplier' )[0].text(), '' )
+            test.ok( data.select( 'acceptor' )[0].text(), '' )
+            test.ok( data.select( 'supplierSku' )[0].text(), '' )
+            test.ok( data.select( 'supplierDate' )[0].text(), '' )
+        </script>
+    </p>
+    
+    <p>Отсылается ли форма.</p>
+    <p>
+        <script type="wc_test">
+            var editor= document.getElementById( 'lh_acceptance_create_test' )
+            
+            var result= false
+            $lh_acceptance_onSave.listen( editor, function( event ){
+                event.catched( true )
+                result= true
+            })
+            
+            editor.querySelector( '[lh_button="commit"]' ).click()
+            
+            test.ok( result )
+        </script>
+    </p>
+    
+</doc_root>

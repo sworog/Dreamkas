@@ -26,9 +26,10 @@
     display: inline-block;
     -webkit-box-flex: 0;
     -moz-box-flex: 0;
-    -webkit-flex: 0 0 10em;
-    -ms-flex: 0 0 10em;
-    flex: 0 0 10em;
+    -webkit-flex: 0 0 120pt;
+    -ms-flex: 0 0 120pt;
+    flex: 0 0 120pt;
+    width: 120pt;
     
     -webkit-align-self: center;
     -ms-flex-item-align: center;
@@ -36,7 +37,6 @@
     
     font-size: .9em;
     line-height: 1.5;
-    width: 10em;
 }
 
 [ lh_prop_value ] {

@@ -20,7 +20,10 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
                 product.attr( 'lh_product_edit', 'true' )
                 application.render( product )
             } else {
-                $lh_notify( 'Ошибка получения данных товара. ' + resource.message() )
+                var error= resource.xml()
+                error.attr( 'lh_product_error', 'true' )
+                error.attr( 'lh_product_id', params.product )
+                application.render( error )
             }
         } )
     }
@@ -61,13 +64,20 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             }
         } )
     }
-        
+    
+    application.view_acceptance_create= function( application, params ){
+        application.render( $jin_domx.parse( '<product lh_acceptance_create="true" />' ) )
+    }
+    
     application.view_= function( application, params ){
         document.location= '?product/list'
     }
     
     application.view_default= function( application, params ){
-        $lh_notify( 'No handler for ' + JSON.stringify( params )  )
+        var error= $jin_domx.parse( '<error/>' )
+        error.attr( 'lh_error', 'true' )
+        error.attr( 'message', 'No handler for ' + document.location.search )
+        application.render( error )
     }
     
     application.api= function( application ){
@@ -121,11 +131,43 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
                         document.location= '?product=' + id
                         break
                     case resource.isWrongData():
-                        data= $jin_domx.parse( resource.xml() )
+                        data= resource.xml()
                         editor.errors( data )
                         break;
                     default:
                         $lh_notify( 'Ошибка при сохранении данных товара. ' + resource.message() )
+                }
+            } )
+            
+            event.catched( true )
+        })
+        
+        $lh_acceptance_onSave.listen( document.body, function( event ){
+            if( event.catched() ) return
+            
+            var editor= $lh_acceptance_edit( event.target() )
+            var data= editor.data()
+            var id= data.select( 'id' )[ 0 ]
+            if( id ) id= id.parent( null ).text()
+            
+            var url=  application.api() + 'acceptances'
+            if( id ) url+= '/' + id
+            
+            $lh_resource( url ).request( id ? 'put' : 'post', data, function( resource ){
+                switch( true ){
+                    case resource.isCreated():
+                        id= resource.xml().select('id')[0].text()
+                        document.location= '?acceptance/list#acceptance=' + id
+                        break
+                    case resource.isSaved():
+                        document.location= '?acceptance=' + id
+                        break
+                    case resource.isWrongData():
+                        data= resource.xml()
+                        editor.errors( data )
+                        break;
+                    default:
+                        $lh_notify( 'Ошибка при сохранении данных накладной. ' + resource.message() )
                 }
             } )
             

@@ -6,6 +6,17 @@
     text-align: left;
 }
 
+[ lh_field = 'inline' ] {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1 1 8em;
+    -ms-flex: 1 1 8em;
+    flex: 1 1 8em;
+    
+    white-space: nowrap;
+    margin: 0 1.4em;
+}
+
 [ lh_field = 'short' ] {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
