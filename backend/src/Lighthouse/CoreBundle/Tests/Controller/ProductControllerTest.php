@@ -529,7 +529,7 @@ EOF;
                 201,
                 array('name' => 'test'),
             ),
-            'valid name' => array(
+            'valid name 300 chars' => array(
                 201,
                 array('name' => str_repeat('z', 300)),
             ),

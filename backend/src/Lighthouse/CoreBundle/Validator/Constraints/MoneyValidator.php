@@ -5,14 +5,12 @@ namespace Lighthouse\CoreBundle\Validator\Constraints;
 use Lighthouse\CoreBundle\Types\Money as MoneyType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class MoneyValidator extends ConstraintValidator
 {
     /**
      * @param \Lighthouse\CoreBundle\Types\Money $value
-     * @param Money $constraint
-     * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @param \Lighthouse\CoreBundle\Validator\Constraints\Money
      */
     public function validate($value, Constraint $constraint)
     {

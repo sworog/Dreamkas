@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Lighthouse\CoreBundle\Document\Invoice;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\FOSRestController;
