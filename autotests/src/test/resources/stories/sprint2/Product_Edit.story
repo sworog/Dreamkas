@@ -66,7 +66,8 @@ And the user inputs values in element fields
 | name | Наименование16888 |
 | vendor | Производитель16888 |
 | vendorCountry | Россия16888 |
-| purchasePrice | 12316888 |
+| purchasePrice | 1231 |
+| purchasePrice | 1231 |
 | barcode | 12316888 |
 | sku | 16888 |
 | info | Info16888 |
@@ -107,7 +108,7 @@ And the user inputs values in element fields
 | name | Наименование9001 |
 | vendor | Производитель9001 |
 | vendorCountry | Россия9001 |
-| purchasePrice | 12319001 |
+| purchasePrice | 1231 |
 | barcode | 1231689001 |
 | sku | 169001 |
 | info | Info169001 |

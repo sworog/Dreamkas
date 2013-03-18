@@ -179,7 +179,18 @@ public class ProductCreatePage extends PageObject{
 
     public void CheckFieldLength(String elementName, int fieldLength){
         WebElement element = GetWebElement(elementName);
-        int length = $(element).getTextValue().length();
+        int length = 0;
+        switch (element.getTagName()){
+            case "input":
+                length = $(element).getTextValue().length();
+                break;
+            case "textarea":
+                length = $(element).getValue().length();
+                break;
+            default:
+                length = $(element).getText().length();
+                break;
+        }
         if(length != fieldLength){
             String errorMessage = String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.", elementName, fieldLength, length);
             throw new AssertionError(errorMessage);

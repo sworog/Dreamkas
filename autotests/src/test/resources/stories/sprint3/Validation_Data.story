@@ -486,3 +486,15 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть больше 10000000 |
+
+Scenario: Bugs fixing checking about price 10.12
+Given the user is on the product list page
+When the user creates new product from product list page
+And the user inputs 'PPV-0903456' in 'name' field
+And the user inputs 'PPV-0903456' in 'sku' field
+And the user selects 'unit' in 'unit' dropdown
+And the user selects '10' in 'vat' dropdown
+And the user inputs '10.12' in 'purchasePrice' field
+And the user clicks the create button
+Then the user checks that he is on the 'ProductListPage'
+And the user checks the product with '3456' sku has 'purchasePrice' equal to '10,12'
