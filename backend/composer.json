@@ -20,8 +20,8 @@
         "jms/security-extra-bundle": "1.4.*",
         "jms/di-extra-bundle": "1.3.*",
         "jms/serializer-bundle": "0.11.*",
-	    "friendsofsymfony/rest": "dev-master",
-	    "friendsofsymfony/rest-bundle": "dev-master",
+	    "friendsofsymfony/rest": "0.8.*",
+	    "friendsofsymfony/rest-bundle": "0.11.*",
         "nelmio/cors-bundle": "1.0.*",
         "doctrine/mongodb-odm-bundle": "dev-master"
     },
