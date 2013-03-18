@@ -19,16 +19,6 @@
                 <div name="invoice">
                     
                     <div lh_card_header="true">
-                        <div lh_card_headerButtons="true">
-                            <a
-                                lh_card_close="true"
-                                lh_link="close"
-                                href="?invoice/list"
-                                >
-                                <xsl:apply-templates select="." mode="lh_link_close" />
-                                закрыть
-                            </a>
-                        </div>
                         <div lh_prop="true">
                             <span lh_prop_name="true">
                                 <span lh_card_title="true">
@@ -52,6 +42,16 @@
                                     />
                                 </span>
                             </span>
+                            <div lh_card_headerButtons="true">
+                                <a
+                                    lh_card_close="true"
+                                    lh_link="close"
+                                    href="?invoice/list"
+                                    >
+                                    <xsl:apply-templates select="." mode="lh_link_close" />
+                                    закрыть
+                                </a>
+                            </div>
                         </div>
                     </div>
                     

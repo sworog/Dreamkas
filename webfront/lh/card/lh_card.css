@@ -38,15 +38,11 @@
 }
 
 [ lh_card_header ] {
+    margin: 0 0 1em;
 }
 
 [ lh_card_headerButtons ] {
     float: right;
-}
-
-[ lh_card_titlePrefix ] {
-    color: #666;
-    margin-right: .5em;
 }
 
 [ lh_card_title ] {
@@ -68,7 +64,7 @@
 [ lh_card_foot ] {
     background: #fefef2;
     margin: 1em -1em -1em;
-    padding: 1px 1em 1em;
+    padding: 1em 1em 1px;
     width: 100%;
     border-radius: 0 0 4px 4px;
 }
