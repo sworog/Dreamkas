@@ -70,8 +70,46 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
         } )
     }
     
-    application.view_acceptance_create= function( application, params ){
-        application.render( $jin_domx.parse( '<product lh_acceptance_create="true" />' ) )
+    application.view_invoice_create= function( application, params ){
+        application.render( $jin_domx.parse( '<invoice lh_invoice_create="true" />' ) )
+    }
+    
+    application.view_invoice= function( application, params ){
+        if( !params.invoice ){
+            document.location= '?invoice/list'
+            return
+        }
+        
+        $lh_resource( application.api() + 'invoices/' + params.invoice )
+        .get( function( resource ){
+            if( resource.isOk() ){
+                    invoice= resource.xml()
+                    invoice.attr( 'lh_invoice_view', 'true' )
+                    application.render( invoice )
+            } else {
+                var error= resource.xml()
+                
+                error.attr( 'lh_invoice_error', 'true' )
+                error.attr( 'lh_invoice_id', params.invoice )
+                
+                application.render( error )
+            }
+        } )
+    }
+    
+    application.view_invoice_list= function( application, params ){
+        $lh_resource( application.api() + 'invoices' )
+        .get( function( resource ){
+            if( resource.isOk() ){
+                invoices= resource.xml()
+                invoices.attr( 'lh_invoice_list', 'true' )
+                application.render( invoices )
+            } else {
+                var error= resource.xml()
+                error.attr( 'lh_invoice_error', 'true' )
+                application.render( error )
+            }
+        } )
     }
     
     application.view_= function( application, params ){
@@ -147,25 +185,25 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             event.catched( true )
         })
         
-        $lh_acceptance_onSave.listen( document.body, function( event ){
+        $lh_invoice_onSave.listen( document.body, function( event ){
             if( event.catched() ) return
             
-            var editor= $lh_acceptance_edit( event.target() )
+            var editor= $lh_invoice_edit( event.target() )
             var data= editor.data()
             var id= data.select( 'id' )[ 0 ]
             if( id ) id= id.parent( null ).text()
             
-            var url=  application.api() + 'acceptances'
+            var url=  application.api() + 'invoices'
             if( id ) url+= '/' + id
             
             $lh_resource( url ).request( id ? 'put' : 'post', data, function( resource ){
                 switch( true ){
                     case resource.isCreated():
                         id= resource.xml().select('id')[0].text()
-                        document.location= '?acceptance/list#acceptance=' + id
+                        document.location= '?invoice/list#invoice=' + id
                         break
                     case resource.isSaved():
-                        document.location= '?acceptance=' + id
+                        document.location= '?invoice=' + id
                         break
                     case resource.isWrongData():
                         data= resource.xml()

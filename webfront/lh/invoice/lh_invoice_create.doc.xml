@@ -1,21 +1,21 @@
 <?xml-stylesheet href="../-mix/doc.stage=dev.xsl" type="text/xsl"?>
 <doc_root
-    doc_title="lh_acceptance_create"
+    doc_title="lh_invoice_create"
     >
     
-    <div id="lh_acceptance_create_test" lh_desktop="true">
+    <div id="lh_invoice_create_test" lh_desktop="true">
         <product
-            lh_acceptance_create="true"
+            lh_invoice_create="true"
         />
     </div>
     
     <p>Все ли поля присутствуют</p>
     <p>
         <script type="wc_test">
-            var node= document.querySelector( '#lh_acceptance_create_test [lh_acceptance_edit]' )
-            var data= $lh_acceptance_edit( node ).data()
+            var node= document.querySelector( '#lh_invoice_create_test [lh_invoice_edit]' )
+            var data= $lh_invoice_edit( node ).data()
             
-            test.ok( data.name(), 'acceptance' )
+            test.ok( data.name(), 'invoice' )
             
             test.ok( data.select( 'sku' )[0].text(), '' )
             test.ok( data.select( 'date' )[0].text(), '' )
@@ -29,10 +29,10 @@
     <p>Отсылается ли форма.</p>
     <p>
         <script type="wc_test">
-            var editor= document.getElementById( 'lh_acceptance_create_test' )
+            var editor= document.getElementById( 'lh_invoice_create_test' )
             
             var result= false
-            $lh_acceptance_onSave.listen( editor, function( event ){
+            $lh_invoice_onSave.listen( editor, function( event ){
                 event.catched( true )
                 result= true
             })

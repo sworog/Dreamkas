@@ -1,29 +1,29 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     
     <xsl:template
-        match=" *[ @lh_acceptance_create ] "
+        match=" *[ @lh_invoice_create ] "
         >
         <div lh_card_stack="true">
             <a
                 lh_card_back="true"
-                href="?acceptance/list"
+                href="?invoice/list"
                 >
                 Накладные
             </a>
             
             <form
                 lh_card="true"
-                lh_acceptance_edit="create"
+                lh_invoice_edit="create"
                 >
                 
-                <div name="acceptance">
+                <div name="invoice">
                     
                     <div lh_card_header="true">
                         <div lh_card_headerButtons="true">
                             <a
                                 lh_card_close="true"
                                 lh_link="close"
-                                href="?acceptance/list"
+                                href="?invoice/list"
                                 >
                                 <xsl:apply-templates select="." mode="lh_link_close" />
                                 закрыть
@@ -47,8 +47,8 @@
                                     от
                                     <input
                                         lh_field_native="true"
-                                        name="date"
-                                        value="{ date }"
+                                        name="acceptanceDate"
+                                        value="{ acceptanceDate }"
                                     />
                                 </span>
                             </span>
@@ -75,8 +75,8 @@
                         <span lh_prop_value="true" lh_field="normal">
                             <input
                                 lh_field_native="true"
-                                name="acceptor"
-                                value="{ acceptor }"
+                                name="accepter"
+                                value="{ accepter }"
                             />
                         </span>
                     </label>

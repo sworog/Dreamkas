@@ -1,8 +1,8 @@
-this.$lh_acceptance_edit= $jin_class( function( $lh_acceptance_edit, editor ){
+this.$lh_invoice_edit= $jin_class( function( $lh_invoice_edit, editor ){
 
-    $lh_widget( $lh_acceptance_edit )
+    $lh_widget( $lh_invoice_edit )
     
-    $lh_acceptance_edit.id= 'lh_acceptance_edit'
+    $lh_invoice_edit.id= 'lh_invoice_edit'
     
     var init= editor.init
     editor.init= function( editor, node ){
@@ -10,7 +10,7 @@ this.$lh_acceptance_edit= $jin_class( function( $lh_acceptance_edit, editor ){
         
         $jin_onSubmit.listen( editor.$, function( event ){
             event.catched( true )
-            $lh_acceptance_onSave().scream( editor.$ )
+            $lh_invoice_onSave().scream( editor.$ )
         } )
         
         editor.buttonSubmit().removeAttribute( 'disabled' )
