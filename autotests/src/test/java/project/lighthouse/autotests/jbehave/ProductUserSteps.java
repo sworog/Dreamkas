@@ -37,6 +37,18 @@ public class ProductUserSteps {
         productSteps.IsTheProductCardOpen();
     }
 
+    @Given("there is created product with sku '$sku'")
+    public void GivenThereIsCreatedProductWithSku(String sku){
+        GivenTheUserIsOnTheProductListPage();
+        WhenTheUSerCreatesNewProduct();
+        WhenTheUserInputsTextInTheField(sku, "sku");
+        WhenTheUserInputsTextInTheField(sku, "name");
+        WhenTheUserInputsTextInTheField("123", "purchasePrice");
+        WhenTheUserSelectsValueInDropDown("unit", "unit");
+        WhenTheUserSelectsValueInDropDown("10", "vat");
+        WhenTheUserClicksOnCreateButton();
+    }
+
     @When("the user inputs '$inputText' in '$elementName' field")
     public void WhenTheUserInputsTextInTheField(String inputText, String elementName) {
         productSteps.FieldInput(elementName, inputText);
@@ -51,17 +63,6 @@ public class ProductUserSteps {
     public void WhenTheUserSelectsValueInDropDown(String value, String elementName){
     	productSteps.SelectDropDown(elementName, value);
     }
-    
-    @When("the user edits '$inputText' in '$elementName' field")
-    public void WhenTheUserEditsTextInTheField(String inputText, String elementName) {
-        productSteps.FieldEdit(elementName, inputText);
-    }
-
-    @When("the user edits values in element fields $fieldInputTable")
-    public void WhenTheUserEditsValuesInElementFields(ExamplesTable fieldInputTable){
-        productSteps.FieldEdit(fieldInputTable);
-    }
-
     
     @When("the user clicks the create button")
     public void WhenTheUserClicksOnCreateButton(){

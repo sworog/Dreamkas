@@ -63,45 +63,16 @@ public class ProductCreatePage extends PageObject{
         super(driver);
     }
 
-    public void FieldType(String elementName, String inputText){
-		FieldAction(elementName, inputText, "create");
+    public void FieldInput(String elementName, String inputText){
+        WebElement element = GetWebElement(elementName);
+        $(element).type(inputText);
 	}
 
-    public void FieldEdit(String elementName, String inputText){
-        FieldAction(elementName, inputText, "edit");
-    }
-
-    public void FieldAction(String elementName, String inputText, String action){
-        WebElement element = GetWebElement(elementName);
-            if (action.equals("edit")){
-            $(element).clear();
-            }
-        $(element).type(inputText);
-    }
-
-    public void FieldType(ExamplesTable fieldInputTable){
-        FieldTypeAction(fieldInputTable, "input");
-    }
-
-    public void FieldEdit(ExamplesTable fieldInputTable){
-        FieldTypeAction(fieldInputTable, "edit");
-    }
-
-    public void FieldTypeAction(ExamplesTable fieldInputTable, String action){
+    public void FieldInput(ExamplesTable fieldInputTable){
         for (Map<String, String> row : fieldInputTable.getRows()){
             String elementName = row.get("elementName");
             String inputText = row.get("inputText");
-            switch (action){
-                case "edit":
-                    FieldType(elementName, inputText);
-                    break;
-                case "input":
-                    FieldEdit(elementName, inputText);
-                    break;
-                default:
-                    String errorMessage = "No such value!";
-                    throw new AssertionError(errorMessage);
-            }
+            FieldInput(elementName, inputText);
         }
     }
 	
@@ -224,7 +195,7 @@ public class ProductCreatePage extends PageObject{
             String expectedErrorMessage = row.get("error message");
             String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
             if(!isPresent(xpath)){
-                String errorMessage = "There are error field validation messages on the page!";
+                String errorMessage = "There are no error field validation messages on the page!";
                 throw new AssertionError(errorMessage);
             }
         }

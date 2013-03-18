@@ -33,7 +33,7 @@ Then the user checks the elements values
 | vat | 10 |
 | info | Info1688 |
 When the user clicks the edit button on product card view page
-And the user edits values in element fields
+And the user inputs values in element fields
 | elementName | inputText |
 | name | Имя23 56 |
 | vendor | Вендор45 |

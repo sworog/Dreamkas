@@ -45,7 +45,7 @@ public class ProductSteps extends ScenarioSteps{
 	
 	@Step
 	public void FieldInput(String elementName, String inputText){
-		productCreatePage.FieldType(elementName, inputText);
+		productCreatePage.FieldInput(elementName, inputText);
 	}
 	
 	@Step
@@ -57,11 +57,6 @@ public class ProductSteps extends ScenarioSteps{
 	public void CreateButtonClick(){
 		productCreatePage.CreateButtonClick();
 	}
-	
-	@Step
-	public void FieldEdit(String elementName, String inputText){
-		productEditPage.FieldEdit(elementName, inputText);
-	}	
 	
 	@Step
 	public void CancelButtonClick(){
@@ -110,12 +105,7 @@ public class ProductSteps extends ScenarioSteps{
 
     @Step
     public void FieldType(ExamplesTable fieldInputTable){
-        productCreatePage.FieldType(fieldInputTable);
-    }
-
-    @Step
-    public void FieldEdit(ExamplesTable fieldInputTable){
-        productEditPage.FieldEdit(fieldInputTable);
+        productCreatePage.FieldInput(fieldInputTable);
     }
 
     @Step
