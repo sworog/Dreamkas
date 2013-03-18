@@ -497,4 +497,4 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs '10.12' in 'purchasePrice' field
 And the user clicks the create button
 Then the user checks that he is on the 'ProductListPage'
-And the user checks the product with '3456' sku has 'purchasePrice' equal to '10,12'
+And the user checks the product with 'PPV-0903456' sku has 'purchasePrice' equal to '10,12'
