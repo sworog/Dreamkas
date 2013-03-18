@@ -522,18 +522,38 @@ EOF;
     public function validateProvider()
     {
         return array(
+            /***********************************************************************************************
+             * 'name'
+             ***********************************************************************************************/
             'valid name' => array(
                 201,
                 array('name' => 'test'),
             ),
+            'valid name' => array(
+                201,
+                array('name' => str_repeat('z', 300)),
+            ),
             'empty name' => array(
                 400,
                 array('name' => ''),
+                array(
+                    'form[name="product"] form[name="name"] errors entry'
+                    =>
+                    'Заполните это поле',
+                ),
             ),
             'not valid name too long' => array(
                 400,
                 array('name' => str_repeat("z", 305)),
+                array(
+                    'form[name="product"] form[name="name"] errors entry'
+                    =>
+                    'Не более 300 символов',
+                ),
             ),
+            /***********************************************************************************************
+             * 'purchasePrice'
+             ***********************************************************************************************/
             'valid price dot' => array(
                 201,
                 array('purchasePrice' => 10.89),
@@ -545,12 +565,20 @@ EOF;
             'empty price' => array(
                 400,
                 array('purchasePrice' => ''),
-                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Заполните это поле')
+                array(
+                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    =>
+                    'Заполните это поле'
+                )
             ),
             'not valid price very float' => array(
                 400,
                 array('purchasePrice' => '10,898'),
-                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна содержать больше 2 цифр после запятой')
+                array(
+                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    =>
+                    'Цена не должна содержать больше 2 цифр после запятой'
+                ),
             ),
             'valid price very float with dot' => array(
                 201,
@@ -559,26 +587,47 @@ EOF;
             'not valid price not a number' => array(
                 400,
                 array('purchasePrice' => 'not a number'),
+                array(
+                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    =>
+                    'Цена не должна быть меньше или равна нулю',
+                ),
             ),
             'not valid price zero' => array(
                 400,
                 array('purchasePrice' => 0),
-                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть меньше или равна нулю')
+                array(
+                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    =>
+                    'Цена не должна быть меньше или равна нулю'
+                ),
             ),
             'not valid price negative' => array(
                 400,
                 array('purchasePrice' => -10),
-                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть меньше или равна нулю')
+                array(
+                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    =>
+                    'Цена не должна быть меньше или равна нулю'
+                )
             ),
             'not valid price too big 2 000 000 001' => array(
                 400,
                 array('purchasePrice' => 2000000001),
-                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть больше 10000000'),
+                array(
+                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    =>
+                    'Цена не должна быть больше 10000000'
+                ),
             ),
             'not valid price too big 100 000 000' => array(
                 400,
                 array('purchasePrice' => '100000000'),
-                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть больше 10000000'),
+                array(
+                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    =>
+                    'Цена не должна быть больше 10000000'
+                ),
             ),
             'valid price too big 10 000 000' => array(
                 201,
@@ -587,8 +636,15 @@ EOF;
             'not valid price too big 10 000 001' => array(
                 400,
                 array('purchasePrice' => '10000001'),
-                array('form[name="product"] form[name="purchasePrice"] errors entry' => 'Цена не должна быть больше 10000000'),
+                array(
+                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    =>
+                    'Цена не должна быть больше 10000000'
+                ),
             ),
+            /***********************************************************************************************
+             * 'vat'
+             ***********************************************************************************************/
             'valid vat' => array(
                 201,
                 array('vat' => 18),
@@ -600,15 +656,33 @@ EOF;
             'not valid vat not a number' => array(
                 400,
                 array('vat' => 'not a number'),
+                array(
+                    'form[name="product"] form[name="vat"] errors entry'
+                    =>
+                    'Значение должно быть числом.',
+                ),
             ),
             'not valid vat negative' => array(
                 400,
                 array('vat' => -30),
+                array(
+                    'form[name="product"] form[name="vat"] errors entry'
+                    =>
+                    'Значение должно быть 0 или больше.',
+                ),
             ),
             'not valid vat empty' => array(
                 400,
                 array('vat' => ''),
+                array(
+                    'form[name="product"] form[name="vat"] errors entry'
+                    =>
+                    'Выберите ставку НДС',
+                ),
             ),
+            /***********************************************************************************************
+             * 'barcode'
+             ***********************************************************************************************/
             'valid barcode' => array(
                 201,
                 array('barcode' => 'ijashglkalgh2378rt8237t4rjhdg '),
@@ -617,10 +691,22 @@ EOF;
                 201,
                 array('barcode' => ''),
             ),
+            'valid barcode 200 length' => array(
+                201,
+                array('barcode' => str_repeat('z', 200)),
+            ),
             'not valid barcode too long' => array(
                 400,
                 array('barcode' => str_repeat("z", 201)),
+                array(
+                    'form[name="product"] form[name="barcode"] errors entry'
+                    =>
+                    'Не более 200 символов',
+                ),
             ),
+            /***********************************************************************************************
+             * 'vendor'
+             ***********************************************************************************************/
             'valid vendor' => array(
                 201,
                 array('vendor' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
@@ -629,10 +715,22 @@ EOF;
                 201,
                 array('vendor' => ''),
             ),
+            'valid vendor 300 length' => array(
+                201,
+                array('vendor' => str_repeat('z', 300)),
+            ),
             'not valid vendor too long' => array(
                 400,
                 array('vendor' => str_repeat("z", 301)),
+                array(
+                    'form[name="product"] form[name="vendor"] errors entry'
+                    =>
+                    'Не более 300 символов',
+                ),
             ),
+            /***********************************************************************************************
+             * 'vendorCountry'
+             ***********************************************************************************************/
             'valid vendorCountry' => array(
                 201,
                 array('vendorCountry' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
@@ -641,10 +739,22 @@ EOF;
                 201,
                 array('vendorCountry' => ''),
             ),
+            'valid vendorCountry 300 length' => array(
+                201,
+                array('vendorCountry' => str_repeat('z', 100)),
+            ),
             'not valid vendorCountry too long' => array(
                 400,
-                array('vendorCountry' => str_repeat("z", 301)),
+                array('vendorCountry' => str_repeat("z", 101)),
+                array(
+                    'form[name="product"] form[name="vendorCountry"] errors entry'
+                    =>
+                    'Не более 100 символов',
+                ),
             ),
+            /***********************************************************************************************
+             * 'info'
+             ***********************************************************************************************/
             'valid info' => array(
                 201,
                 array('info' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
@@ -653,21 +763,47 @@ EOF;
                 201,
                 array('info' => ''),
             ),
+            'valid info 2000 length' => array(
+                201,
+                array('info' => str_repeat('z', 2000)),
+            ),
             'not valid info too long' => array(
                 400,
                 array('info' => str_repeat("z", 2001)),
+                array(
+                    'form[name="product"] form[name="info"] errors entry'
+                    =>
+                    'Не более 2000 символов',
+                ),
             ),
+            /***********************************************************************************************
+             * 'sku'
+             ***********************************************************************************************/
             'valid sku' => array(
                 201,
                 array('sku' => 'qwe223sdw'),
             ),
+            'valid sku 100 length' => array(
+                201,
+                array('sku' => str_repeat('z', 100)),
+            ),
             'not valid sku empty' => array(
                 400,
                 array('sku' => ''),
+                array(
+                    'form[name="product"] form[name="sku"] errors entry'
+                    =>
+                    'Заполните это поле',
+                ),
             ),
             'not valid sku too long' => array(
                 400,
                 array('sku' => str_repeat("z", 101)),
+                array(
+                    'form[name="product"] form[name="sku"] errors entry'
+                    =>
+                    'Не более 100 символов',
+                ),
             ),
         );
     }
