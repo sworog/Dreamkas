@@ -39,11 +39,13 @@ class InvoiceControllerTest extends WebTestCase
         return array(
             'invoice data' => array(
                 array(
+                    'sku' => 'sdfwfsf232',
                     'supplier' => 'ООО "Поставщик"',
                     'acceptanceDate' => '18.03.2013',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
-                    'supplierReferenceNumber' => '1248373',
+                    'supplierInvoiceSku' => '1248373',
+                    'supplierInvoiceDate' => '17.05.2013',
                     'createdDate' => '19.03.2013',
                     'sumTotal' => 1000,
                 )

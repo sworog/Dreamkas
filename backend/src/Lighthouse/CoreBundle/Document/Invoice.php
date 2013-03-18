@@ -20,6 +20,13 @@ class Invoice extends AbstractDocument
     protected $id;
 
     /**
+     * Артикул
+     * @MongoDB\String
+     * @var string
+     */
+    protected $sku;
+
+    /**
      * Поставщик
      * @MongoDB\String
      * @var string
@@ -52,7 +59,14 @@ class Invoice extends AbstractDocument
      * @MongoDB\String
      * @var string
      */
-    protected $supplierReferenceNumber;
+    protected $supplierInvoiceSku;
+
+    /**
+     * Дата входящей накладной
+     * @MongoDB\String
+     * @var string
+     */
+    protected $supplierInvoiceDate;
 
     /**
      * Дата составления накладной
@@ -74,11 +88,13 @@ class Invoice extends AbstractDocument
     {
         return array(
             'id' => $this->id,
+            'sku' => $this->sku,
             'supplier' => $this->supplier,
             'acceptanceDate' => $this->acceptanceDate,
             'accepter' => $this->accepter,
             'legalEntity' => $this->legalEntity,
-            'supplierReferenceNumber' => $this->supplierReferenceNumber,
+            'supplierInvoiceSku' => $this->supplierInvoiceSku,
+            'supplierInvoiceDate' => $this->supplierInvoiceDate,
             'createdDate' => $this->createdDate,
             'sumTotal' => $this->sumTotal,
         );

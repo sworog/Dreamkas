@@ -15,11 +15,13 @@ class InvoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('sku', 'text')
             ->add('supplier', 'text')
             ->add('acceptanceDate', 'text')
             ->add('accepter', 'text')
             ->add('legalEntity', 'text')
-            ->add('supplierReferenceNumber', 'text')
+            ->add('supplierInvoiceSku', 'text')
+            ->add('supplierInvoiceDate', 'text')
             ->add('createdDate', 'text')
             ->add('sumTotal', 'text');
     }
