@@ -18,7 +18,7 @@ $jin_class( function( $jin_domx, domx ){
             var serializer= new XMLSerializer
             return serializer.serializeToString( domx.$ )
         } else {
-            return String( domx.$.xml ).replace( /^\s+|\s+$/g, '' )
+            return String( domx.$.xml )
         }
     }
     

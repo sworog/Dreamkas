@@ -30,6 +30,11 @@
     -ms-flex: 0 0 10em;
     flex: 0 0 10em;
     
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    
+    font-size: .9em;
     line-height: 1.5;
     width: 10em;
 }

@@ -13,14 +13,16 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
     }
     
     application.view_product_edit= function( application, params ){
-        $jq.get
-        (   application.api() + 'products/' + params.product
-        ,   function( product, status, xhr ){
-                product= $jin_domx.parse( xhr.responseText )
+        $lh_resource( application.api() + 'products/' + params.product )
+        .get( function( resource ){
+            if( resource.isOk() ){
+                product= resource.xml()
                 product.attr( 'lh_product_edit', 'true' )
                 application.render( product )
+            } else {
+                $lh_notify( 'Ошибка получения данных товара. ' + resource.message() )
             }
-        )
+        } )
     }
     
     application.view_product_create= function( application, params ){
@@ -28,44 +30,36 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
     }
     
     application.view_product_list= function( application, params ){
-        $jq.ajax
-        (   application.api() + 'products'
-        ,   {   success: function( products, status, xhr ){
-                    products= $jin_domx.parse( xhr.responseText )
-                    products.attr( 'lh_product_list', 'true' )
-                    application.render( products )
-                }
-            ,   error: function( data, type, message ){
-                    message= message
-                    ? 'Ошибка получения списка товаров: ' + message
-                    : 'Неизвестная ошибка получения списка товаров'
-                    $lh_notify( message )
-                }
+        $lh_resource( application.api() + 'products' )
+        .get( function( resource ){
+            if( resource.isOk() ){
+                products= resource.xml()
+                products.attr( 'lh_product_list', 'true' )
+                application.render( products )
+            } else {
+                var error= resource.xml()
+                error.attr( 'lh_product_error', 'true' )
+                application.render( error )
             }
-        )
+        } )
     }
     
     application.view_product= function( application, params ){
-        $jq.ajax
-        (   application.api() + 'products/' + params.product
-        ,   {   success: function( product, status, xhr ){
-                    product= $jin_domx.parse( xhr.responseText )
+        $lh_resource( application.api() + 'products/' + params.product )
+        .get( function( resource ){
+            if( resource.isOk() ){
+                    product= resource.xml()
                     product.attr( 'lh_product_view', 'true' )
                     application.render( product )
-                }
-            ,   error: function( data, type, message ){
-                    try {
-                        var error= $jin_domx.parse( data.responseText )
-                    } catch( error ){
-                        var error= $jin_domx.parse( '<error />' )
-                    }
-                    
-                    error.attr( 'lh_product_error' )
-                    error.attr( 'lh_product_id', params.product )
-                    application.render( error )
-                }
+            } else {
+                var error= resource.xml()
+                
+                error.attr( 'lh_product_error', 'true' )
+                error.attr( 'lh_product_id', params.product )
+                
+                application.render( error )
             }
-        )
+        } )
     }
         
     application.view_= function( application, params ){
@@ -86,13 +80,9 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
         
         document.title= document.location.search
         
-        $jq.get
-        (   'lh/-mix/index.stage=release.xsl'
-        ,   initView
-        )
-        
-        function initView( xsl, status, xhr ){
-            application.templates= $jin_domx.parse( xhr.responseText )
+        $lh_resource( 'lh/-mix/index.stage=release.xsl' )
+        .get( function initView( resource ){
+            application.templates= resource.xml()
             
             var params= {}
             document.location.search
@@ -108,7 +98,7 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             var view= application[ action ] || application.view_default
             
             view.call( application, params )
-        }
+        } )
         
         $lh_product_onSave.listen( document.body, function( event ){
             if( event.catched() ) return
@@ -121,31 +111,24 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             var url=  application.api() + 'products'
             if( id ) url+= '/' + id
             
-            $jq.ajax
-            (   url
-            ,   {   type: id ? 'put' : 'post'
-                ,   contentType: 'application/xml; charset=utf-8'
-                ,   data: String( data )
-                ,   dataType: "text"
-                ,   success: function( data ){
-                        if( id ){
-                            document.location= '?product=' + id
-                        } else {
-                            id= $jin_domx.parse( data ).select('id')[0].text()
-                            document.location= '?product/list#product=' + id
-                        }
-                    }
-                ,   error: function( data, type, message ){
-                        data= $jin_domx.parse( data.responseText )
-                        
-                        if( data.name() === 'form' ){
-                            editor.errors( data )
-                        } else {
-                            $lh_notify( 'Ошибка при сохранении данных товара. ' + message )
-                        }
-                    }
+            $lh_resource( url ).request( id ? 'put' : 'post', data, function( resource ){
+                switch( true ){
+                    case resource.isCreated():
+                        id= resource.xml().select('id')[0].text()
+                        document.location= '?product/list#product=' + id
+                        break
+                    case resource.isSaved():
+                        document.location= '?product=' + id
+                        break
+                    case resource.isWrongData():
+                        data= $jin_domx.parse( resource.xml() )
+                        editor.errors( data )
+                        break;
+                    default:
+                        $lh_notify( 'Ошибка при сохранении данных товара. ' + resource.message() )
                 }
-            )
+            } )
+            
             event.catched( true )
         })
         

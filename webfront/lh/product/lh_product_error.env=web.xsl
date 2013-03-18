@@ -22,7 +22,7 @@
         match=" * "
         mode="lh_product_errorMessage"
         >
-        <xsl:value-of select=" exception / @message " />
+        <xsl:value-of select=" exception / @message | @message " />
     </xsl:template>
     
     <xsl:template
