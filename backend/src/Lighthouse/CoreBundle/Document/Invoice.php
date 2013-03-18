@@ -79,7 +79,8 @@ class Invoice extends AbstractDocument
             'accepter' => $this->accepter,
             'legalEntity' => $this->legalEntity,
             'supplierReferenceNumber' => $this->supplierReferenceNumber,
-            'dateCreated' => $this->createdDate,
+            'createdDate' => $this->createdDate,
+            'sumTotal' => $this->sumTotal,
         );
     }
 }

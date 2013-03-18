@@ -1,4 +1,9 @@
-lighthouse.core.article:
-    resource: "@LighthouseCoreBundle/Controller/ProductController.php"
+lighthouse.core.product:
+    resource: Lighthouse\CoreBundle\Controller\ProductController
+    type:     rest
+    prefix: /api/1
+
+lighthouse.core.invoice:
+    resource: Lighthouse\CoreBundle\Controller\InvoiceController
     type:     rest
     prefix: /api/1

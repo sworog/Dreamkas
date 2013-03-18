@@ -51,7 +51,7 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
                     'supplierReferenceNumber' => '1248373',
-                    'dateCreated' => '19.03.2013',
+                    'createdDate' => '19.03.2013',
                     'sumTotal' => 1000,
                 )
             )
