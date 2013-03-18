@@ -46,27 +46,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($product->id);
     }
 
-    /**
-     * @expectedException Exception
-     */
-    public function testInvalidPropertyGet()
-    {
-        $product = new Product();
-
-        $product->invalid;
-    }
-
-    /**
-     * @expectedException Exception
-     */
-    public function testInvalidPropertySet()
-    {
-        $product = new Product();
-
-        $product->invalid = 'invalid';
-    }
-
-    public function testPopoutaleAndToArray()
+    public function testPopulateAndToArray()
     {
         $array = array(
             'name' => 'Кефир "Веселый Молочник" 1% 950гр',
