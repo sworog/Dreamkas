@@ -16,7 +16,7 @@
         match=" * "
         mode="lh_error_message"
         >
-        <xsl:value-of select=" exception / @message | @message " />
+        <xsl:value-of select=" exception / @message | @message | head / title " />
     </xsl:template>
     
 </xsl:stylesheet>

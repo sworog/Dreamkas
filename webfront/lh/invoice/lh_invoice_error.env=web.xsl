@@ -12,7 +12,7 @@
             </a>
             <div lh_card="true">
                 <div lh_error="true">
-                    <xsl:apply-templates select="." mode="lh_invoice_errorMessage" />
+                    <xsl:apply-templates select="." mode="lh_invoice_error_message" />
                 </div>
             </div>
         </div>
@@ -20,14 +20,14 @@
     
     <xsl:template
         match=" * "
-        mode="lh_invoice_errorMessage"
+        mode="lh_invoice_error_message"
         >
-        <xsl:value-of select=" exception / @message | @message " />
+        <xsl:apply-templates select=" . " mode="lh_error_message" />
     </xsl:template>
     
     <xsl:template
         match=" *[ @code = 404 ] "
-        mode="lh_invoice_errorMessage"
+        mode="lh_invoice_error_message"
         >
         Накладная с идентификатором <xsl:value-of select=" @lh_invoice_id " /> не найдена.
     </xsl:template>
