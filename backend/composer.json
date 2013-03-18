@@ -23,7 +23,7 @@
 	    "friendsofsymfony/rest": "0.8.*",
 	    "friendsofsymfony/rest-bundle": "0.11.*",
         "nelmio/cors-bundle": "1.0.*",
-        "doctrine/mongodb-odm-bundle": "dev-master"
+        "doctrine/mongodb-odm-bundle": "3.0.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
