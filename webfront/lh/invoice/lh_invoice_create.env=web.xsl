@@ -103,16 +103,16 @@
                             <span lh_field="short">
                                 <input
                                     lh_field_native="true"
-                                    name="supplierSku"
-                                    value="{ supplierSku }"
+                                    name="supplierInvoiceSku"
+                                    value="{ supplierInvoiceSku }"
                                 />
                             </span>
                             <span lh_field="inline">
                                 от
                                 <input
                                     lh_field_native="true"
-                                    name="supplierDate"
-                                    value="{ supplierDate }"
+                                    name="supplierInvoiceDate"
+                                    value="{ supplierInvoiceDate }"
                                 />
                             </span>
                         </span>

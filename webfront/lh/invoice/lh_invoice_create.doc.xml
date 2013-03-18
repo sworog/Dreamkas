@@ -18,11 +18,11 @@
             test.ok( data.name(), 'invoice' )
             
             test.ok( data.select( 'sku' )[0].text(), '' )
-            test.ok( data.select( 'date' )[0].text(), '' )
+            test.ok( data.select( 'acceptanceDate' )[0].text(), '' )
             test.ok( data.select( 'supplier' )[0].text(), '' )
-            test.ok( data.select( 'acceptor' )[0].text(), '' )
-            test.ok( data.select( 'supplierSku' )[0].text(), '' )
-            test.ok( data.select( 'supplierDate' )[0].text(), '' )
+            test.ok( data.select( 'accepter' )[0].text(), '' )
+            test.ok( data.select( 'supplierInvoiceSku' )[0].text(), '' )
+            test.ok( data.select( 'supplierInvoiceDate' )[0].text(), '' )
         </script>
     </p>
     
