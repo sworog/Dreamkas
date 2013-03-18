@@ -1,2 +1,0 @@
-include module =lib_es5shim
-include module =jq_xdr

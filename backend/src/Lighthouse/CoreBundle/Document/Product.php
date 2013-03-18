@@ -26,7 +26,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @Serializer\XmlRoot("product")
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
  */
-class Product
+class Product extends AbstractDocument
 {
     /**
      * @MongoDB\Id
@@ -97,33 +97,6 @@ class Product
     protected $info;
 
     /**
-     * @param string $name
-     * @return mixed
-     * @throws \Exception
-     */
-    public function __get($name)
-    {
-        if (property_exists($this, $name)) {
-            return $this->$name;
-        }
-        throw new \Exception("Property '$name' does not exist");
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $value
-     * @throws \Exception
-     */
-    public function __set($name, $value)
-    {
-        if (property_exists($this, $name)) {
-            $this->$name = $value;
-            return;
-        }
-        throw new \Exception("Property '$name' does not exist");
-    }
-
-    /**
      * @return array
      */
     public function toArray()
@@ -140,20 +113,5 @@ class Product
             'vendor' => $this->vendor,
             'info' => $this->info,
         );
-    }
-
-    /**
-     * @param array $data
-     * @return Product $this
-     */
-    public function populate(array $data)
-    {
-        foreach ($data as $name => $value) {
-            if (property_exists($this, $name)) {
-                $this->$name = $value;
-            }
-        }
-
-        return $this;
     }
 }
