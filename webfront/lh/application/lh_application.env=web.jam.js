@@ -48,6 +48,11 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
     }
     
     application.view_product= function( application, params ){
+        if( !params.product ){
+            document.location= '?product/list'
+            return
+        }
+        
         $lh_resource( application.api() + 'products/' + params.product )
         .get( function( resource ){
             if( resource.isOk() ){
@@ -97,7 +102,7 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             var params= {}
             document.location.search
             .replace( /^\?/, '' )
-            .split( '/' )
+            .split( /[\/&;]/ )
             .forEach( function( chunk ){
                 var pair= chunk.split( '=' )
                 params[ pair[ 0 ] ]= pair[ 1 ] || ''
