@@ -29,20 +29,21 @@
         </script>
     </p>
     
-    <p>Форма отсылается только, если заполнены все необходимые поля.</p>
+    <p>Отсылается ли форма.</p>
     <p>
-        <script type="wc_test_skip">
-            var editor= $jq( '#lh_product_create_test' )
+        <script type="wc_test">
+            var editor= document.getElementById( 'lh_product_create_test' )
             
             var result= false
-            $lh_product_onSave.listen( editor[0], function( event ){
+            $lh_product_onSave.listen( editor, function( event ){
                 event.catched( true )
                 result= true
             })
             
-            editor.find( '[lh_button="commit"]' ).click()
+            editor.querySelector( '[lh_button="commit"]' ).click()
             
-            test.not( result )
+            test.ok( result )
         </script>
     </p>
+    
 </doc_root>
