@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Fixtures\Document;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use JMS\Serializer\Annotation as Serializer;
 
 class Test extends AbstractDocument
 {

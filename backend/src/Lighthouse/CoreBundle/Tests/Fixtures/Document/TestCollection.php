@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Fixtures\Document;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Lighthouse\CoreBundle\Document\AbstractCollection;
 
-class TestCollection extends ArrayCollection
+class TestCollection extends AbstractCollection
 {
 }
