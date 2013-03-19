@@ -7,24 +7,29 @@
         <div lh_card_stack="true">
             <div lh_card="true">
                 <div lh_card_header="true">
-                    <div lh_card_headerButtons="true">
-                        <button
-                            lh_button="true"
+                    <div lh_card_tools="true">
+                        <a
+                            lh_card_close="true"
+                            lh_link="close"
+                            href="javascript://"
                             >
-                            Кнопочка
-                        </button>
-                        <button
-                            lh_button="true"
-                            >
-                            Ещё одна
-                        </button>
+                            закрыть
+                        </a>
                     </div>
                     <span lh_card_title="true">
                         Заголовок карточки
                     </span>
+                    <a
+                        href="?invoice/create"
+                        lh_button="create"
+                        >
+                        Кнопочка
+                    </a>
                 </div>
                 
-                Карточки предназанчены для вывода содержимого страницы в опрятном виде без расползания на всю ширину окна браузера.
+                <p lh_block="true">
+                    Карточки предназанчены для вывода содержимого страницы в опрятном виде без расползания на всю ширину окна браузера.
+                </p>
                 
             </div>
         </div>

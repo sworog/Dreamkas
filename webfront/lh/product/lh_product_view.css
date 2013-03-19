@@ -1,4 +1,5 @@
-[ lh_sku ] {
+[ lh_product_view_sku ]{
     white-space: nowrap;
     font: 1em/1.5 "Lucida Console", Monaco, monospace;
+    margin: 0 .5%;
 }

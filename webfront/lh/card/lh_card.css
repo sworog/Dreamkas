@@ -28,7 +28,7 @@
     background: white;
     display: block;
     text-align: left;
-    padding: 1em;
+    padding: 1%;
     box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.3 ) inset;
     border-radius: 5px;
     box-sizing: border-box;
@@ -38,10 +38,10 @@
 }
 
 [ lh_card_header ] {
-    margin: 0 0 1em;
+    margin: .5% .5% 1%;
 }
 
-[ lh_card_headerButtons ] {
+[ lh_card_tools ] {
     float: right;
 }
 
@@ -51,6 +51,8 @@
     font-size: 17pt;
     text-decoration: inherit;
     color: inherit;
+    display: inline;
+    margin: .5% .15em;
 }
 
 [ lh_card_title ][ href ] {
@@ -63,8 +65,8 @@
 
 [ lh_card_foot ] {
     background: #fefef2;
-    margin: 1em -1em -1em;
-    padding: 1em 1em 1px;
+    margin: 0 -1% -1%;
+    padding: 2% 1% 1px;
     width: 100%;
     border-radius: 0 0 4px 4px;
 }

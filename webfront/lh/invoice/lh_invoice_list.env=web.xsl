@@ -6,17 +6,15 @@
         <div lh_card_stack="true">
             <div lh_card="true">
                 <div lh_card_header="true">
-                    <div lh_card_headerButtons="true">
-                        <a
-                            href="?invoice/create"
-                            lh_button="create"
-                            >
-                            Новая накладная
-                        </a>
-                    </div>
                     <span lh_card_title="true">
                         Список товаров
                     </span>
+                    <a
+                        href="?invoice/create"
+                        lh_button="create"
+                        >
+                        Новая накладная
+                    </a>
                 </div>
                 
                 <xsl:apply-templates select=" . " mode="lh_invoice_list" />

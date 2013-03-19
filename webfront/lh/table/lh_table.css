@@ -1,7 +1,6 @@
 [ lh_table ] {
     display: table;
     width: 100%;
-    margin: 2% 0 0;
     padding: 1px;
     background: white;
     line-height: 1.5;
@@ -28,7 +27,7 @@
 
 [ lh_table_cell ] {
     display: table-cell;
-    padding: .3em .6em;
+    padding: .5% 1%;
 }
 
 [ lh_table_cell = 'id' ]:not( [ lh_table_header ] ) {

@@ -28,12 +28,12 @@
     </xsl:template>
     
     <xsl:template match=" * " mode="lh_product_view_buttons">
-        <div lh_card_headerButtons="true">
+        <div lh_card_tools="true">
             <a
                 lh_link="edit"
                 href="?product={ id }/edit"
                 >
-                Редактировать
+                редактировать
             </a>
         </div>
     </xsl:template>
@@ -48,7 +48,7 @@
     
     <xsl:template match=" * " mode="lh_product_view_sku">
         <div
-            lh_sku="true"
+            lh_product_view_sku="true"
             title="Артикул"
             name="sku"
             >

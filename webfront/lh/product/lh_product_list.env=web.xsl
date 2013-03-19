@@ -6,17 +6,15 @@
         <div lh_card_stack="true">
             <div lh_card="true">
                 <div lh_card_header="true">
-                    <div lh_card_headerButtons="true">
-                        <a
-                            href="?product/create"
-                            lh_button="create"
-                            >
-                            Новый товар
-                        </a>
-                    </div>
                     <span lh_card_title="true">
                         Список товаров
                     </span>
+                    <a
+                        href="?product/create"
+                        lh_button="create"
+                        >
+                        Новый товар
+                    </a>
                 </div>
                 
                 <xsl:apply-templates select=" . " mode="lh_product_list" />

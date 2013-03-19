@@ -19,7 +19,7 @@
                 <div name="{ name() }">
                     
                     <div lh_card_header="true">
-                        <div lh_card_headerButtons="true">
+                        <div lh_card_tools="true">
                             <a
                                 lh_card_close="true"
                                 lh_link="close"
