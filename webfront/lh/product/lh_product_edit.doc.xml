@@ -18,9 +18,8 @@
         </product>
     </div>
     
-    <p>Подхватываются ли текущие значения</p>
     <p>
-        <script type="wc_test">
+        <script type="wc_test" wc_test_title="lh_product_edit: подхватываются ли текущие значения?">
             var node= document.querySelector( '#lh_product_edit_test [lh_product_edit]' )
             var data= $lh_product_edit( node ).data()
             
@@ -39,9 +38,8 @@
         </script>
     </p>
     
-    <p>Отсылается ли форма.</p>
     <p>
-        <script type="wc_test">
+        <script type="wc_test" wc_test_title="lh_product_create: отсылается ли форма?">
             var editor= document.getElementById( 'lh_product_edit_test' )
             
             var result= false

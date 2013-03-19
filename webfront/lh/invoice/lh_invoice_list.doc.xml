@@ -29,7 +29,7 @@
         </invoices>
     </div>
     
-    <script type="wc_test" title="все ли данные выводятся">
+    <script type="wc_test" wc_test_title="lh_invoice_list: все ли данные выводятся?">
         var list= document.getElementById( 'lh_invoice_list_test' )
         var data= $lh_form( list ).data()
         

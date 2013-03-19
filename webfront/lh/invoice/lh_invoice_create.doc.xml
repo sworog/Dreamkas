@@ -9,9 +9,8 @@
         />
     </div>
     
-    <p>Все ли поля присутствуют</p>
     <p>
-        <script type="wc_test">
+        <script type="wc_test" wc_test_title="lh_invoice_create: все ли поля присутствуют?">
             var node= document.querySelector( '#lh_invoice_create_test [lh_invoice_edit]' )
             var data= $lh_invoice_edit( node ).data()
             
@@ -26,9 +25,8 @@
         </script>
     </p>
     
-    <p>Отсылается ли форма.</p>
     <p>
-        <script type="wc_test">
+        <script type="wc_test" wc_test_title="lh_invoice_create: отсылается ли форма?">
             var editor= document.getElementById( 'lh_invoice_create_test' )
             
             var result= false
