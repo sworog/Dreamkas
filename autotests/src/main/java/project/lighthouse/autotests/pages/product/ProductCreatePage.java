@@ -8,11 +8,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
+import project.lighthouse.autotests.CommonPageInterface;
+import project.lighthouse.autotests.pages.common.CommonPage;
 
 import java.util.Map;
 
 @DefaultUrl("/?product/create")
 public class ProductCreatePage extends PageObject{
+
+    public CommonPageInterface commonPageInterface = new CommonPage(getDriver());
 	
 	@FindBy(name="sku")
     public WebElement skuField;
@@ -174,19 +178,9 @@ public class ProductCreatePage extends PageObject{
 
     public void CheckNoErrorMessages(){
         String xpath = "//*[@lh_field_error]";
-        if(isPresent(xpath)){
+        if(commonPageInterface.isPresent(xpath)){
             String errorMessage = "There are error field validation messages on the page!";
             throw new AssertionError(errorMessage);
-        }
-    }
-
-    public boolean isPresent(String xpath){
-        try {
-            WebElementFacade errorMessageWebElement = findBy(xpath);
-            return true;
-        }
-        catch (Exception e){
-            return false;
         }
     }
 
@@ -194,7 +188,7 @@ public class ProductCreatePage extends PageObject{
         for (Map<String, String> row : errorMessageTable.getRows()){
             String expectedErrorMessage = row.get("error message");
             String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
-            if(!isPresent(xpath)){
+            if(!commonPageInterface.isPresent(xpath)){
                 String errorMessage = "There are no error field validation messages on the page!";
                 throw new AssertionError(errorMessage);
             }

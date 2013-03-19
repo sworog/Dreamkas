@@ -15,3 +15,8 @@ When the user inputs '123' in the invoice 'supplierInvoiceSku' field
 When the user inputs '25.25.2009' in the invoice 'supplierInvoiceDate' field
 And the user clicks the invoice create button
 Then the user checks that he is on the 'InvoiceListPage'
+
+Scenario: Invoice Create Cancel
+Given the user is on the invoice create page
+When the user clicks close button in the invoice create page
+Then the user checks that he is on the 'InvoiceListPage'
