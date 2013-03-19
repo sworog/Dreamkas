@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 class InvoiceControllerTest extends WebTestCase
 {
@@ -63,13 +65,7 @@ class InvoiceControllerTest extends WebTestCase
         $invoiceData;
         for ($i = 0; $i < 5; $i++) {
             $invoiceData['sku'] = '12122004' . $i;
-            $client->request(
-                'POST',
-                '/api/1/invoices',
-                array('invoice' => $invoiceData)
-            );
-            $this->assertEquals(201, $client->getResponse()->getStatusCode());
-            $client->restart();
+            $this->createInvoice($invoiceData, $client);
         }
 
         $client->request(
@@ -79,5 +75,44 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectCount('invoices invoice', 5, $client->getResponse()->getContent());
+    }
+
+    /**
+     * @dataProvider invoiceDataProvider
+     */
+    public function testGetInvoice(array $invoiceData)
+    {
+        $client = static::createClient();
+
+        $id = $this->createInvoice($invoiceData, $client);
+
+        $crawler = $client->request(
+            'GET',
+            '/api/1/invoices/' . $id
+        );
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        foreach ($invoiceData as $property => $expected) {
+            $actual = $crawler->filterXPath("//invoice/$property")->text();
+            $this->assertEquals($expected, $actual);
+        }
+    }
+
+    /**
+     * @param array $invoiceData
+     * @param Client $client
+     */
+    protected function createInvoice(array $invoiceData, $client)
+    {
+        /** @var Crawler $crawler  */
+        $crawler = $client->request(
+            'POST',
+            '/api/1/invoices',
+            array('invoice' => $invoiceData)
+        );
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        $client->restart();
+
+        return $crawler->filterXPath("//invoice/id")->text();
     }
 }

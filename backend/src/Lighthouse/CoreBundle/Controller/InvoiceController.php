@@ -71,4 +71,18 @@ class InvoiceController extends FOSRestController
         $collection = new InvoiceCollection($cursor);
         return $collection;
     }
+
+    public function getInvoiceAction($id)
+    {
+        return  $this->findInvoice($id);
+    }
+
+    protected function findInvoice($id)
+    {
+        $invoice = $this->getInvoiceRepository()->find($id);
+        if (!$invoice instanceof Invoice) {
+            throw new NotFoundHttpException('Product not found');
+        }
+        return $invoice;
+    }
 }
