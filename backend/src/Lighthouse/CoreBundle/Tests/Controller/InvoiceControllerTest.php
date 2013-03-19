@@ -53,27 +53,20 @@ class InvoiceControllerTest extends WebTestCase
         );
     }
 
-    public function testGetInvoicesAction()
+    /**
+     * @dataProvider invoiceDataProvider
+     */
+    public function testGetInvoicesAction(array $invoiceData)
     {
         $client = static::createClient();
 
-        $postArray = array(
-            'sku' => 'sdfwfsf232',
-            'supplier' => 'ООО "Поставщик"',
-            'acceptanceDate' => '18.03.2013',
-            'accepter' => 'Приемных Н.П.',
-            'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '17.05.2013',
-            'createdDate' => '19.03.2013',
-            'sumTotal' => 1000,
-        );
+        $invoiceData;
         for ($i = 0; $i < 5; $i++) {
-            $postArray['sku'] = '12122004' . $i;
+            $invoiceData['sku'] = '12122004' . $i;
             $client->request(
                 'POST',
                 '/api/1/invoices',
-                array('invoice' => $postArray)
+                array('invoice' => $invoiceData)
             );
             $this->assertEquals(201, $client->getResponse()->getStatusCode());
             $client->restart();

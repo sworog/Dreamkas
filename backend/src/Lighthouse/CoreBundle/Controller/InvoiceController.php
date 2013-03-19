@@ -3,7 +3,9 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ODM\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Invoice;
+use Lighthouse\CoreBundle\Document\InvoiceCollection;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -57,5 +59,16 @@ class InvoiceController extends FOSRestController
         } else {
             return View::create($form, 400);
         }
+    }
+
+    /**
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\InvoiceCollection
+     */
+    public function getInvoicesAction()
+    {
+        /* @var LoggableCursor $cursor */
+        $cursor = $this->getInvoiceRepository()->findAll();
+        $collection = new InvoiceCollection($cursor);
+        return $collection;
     }
 }
