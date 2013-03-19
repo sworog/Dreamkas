@@ -114,7 +114,7 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
     }
     
     application.view_= function( application, params ){
-        document.location= '?product/list'
+        application.render( $jin_domx.parse( '<dashboard lh_dashboard="true" />' ) )
     }
     
     application.view_default= function( application, params ){
