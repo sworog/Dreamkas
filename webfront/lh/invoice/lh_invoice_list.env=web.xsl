@@ -7,7 +7,7 @@
             <div lh_card="true">
                 <div lh_card_header="true">
                     <span lh_card_title="true">
-                        Товары
+                        Накладные
                     </span>
                     <a
                         href="?invoice/create"

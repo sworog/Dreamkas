@@ -17,6 +17,17 @@
                         от <xsl:apply-templates select="acceptanceDate" mode="lh_date_view" />
                     </span>
                 </div>
+                <div lh_stream="true">
+                    <span lh_stream_node="true">
+                        <xsl:value-of select="supplier" />
+                    </span>
+                    <span lh_stream_node="true">
+                        <xsl:value-of select="accepter" />
+                    </span>
+                    <span lh_stream_node="true">
+                        ООО «Рога и копыта»
+                    </span>
+                </div>
             </div>
         </div>
     </xsl:template>
