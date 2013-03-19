@@ -9,12 +9,12 @@
 [ lh_field = 'inline' ] {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
-    -webkit-flex: 1 1 8em;
-    -ms-flex: 1 1 8em;
-    flex: 1 1 8em;
+    -webkit-flex: 1 1 7em;
+    -ms-flex: 1 1 7em;
+    flex: 1 1 7em;
     
     white-space: nowrap;
-    margin: 0 1.4em;
+    margin: 0 .3em;
 }
 
 [ lh_field = 'short' ] {
@@ -44,8 +44,8 @@
 [ lh_field ] > input,
 [ lh_field ] > textarea,
 [ lh_field ] > select {
-    border: 1px solid #ccc;
-    border-radius: 2px;
+    border: 2px solid #BDC3C7;
+    border-radius: 5px;
     width: 100%;
     max-width: 30em;
     height: 2.5em;
@@ -56,7 +56,13 @@
     box-sizing: border-box;
     vertical-align: middle;
     font: inherit;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+
+[ lh_field ] > input:focus,
+[ lh_field ] > textarea:focus,
+[ lh_field ] > select:focus {
+    border-color: #b3b3b3;
+    outline: none;
 }
 
 [ lh_field_error ]:after {

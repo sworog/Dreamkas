@@ -4,6 +4,7 @@
     min-height: 100%;
     display: block;
     font: 12pt/1 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+    background: rgb(236, 240, 241);
 }
 
 @media( max-width: 200px ){

@@ -25,16 +25,16 @@
 }
 
 [ lh_card ] {
-    border: 1px solid #ddd;
-    background: #eee;
+    background: white;
     display: block;
     text-align: left;
     padding: 1em;
     box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.3 ) inset;
-    border-radius: 4px;
+    border-radius: 5px;
     box-sizing: border-box;
     position: relative;
     opacity: 1;
+    border-bottom: 2px solid #BDC3C7;
 }
 
 [ lh_card_header ] {

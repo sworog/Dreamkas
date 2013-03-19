@@ -19,40 +19,34 @@
                 <div name="{ name() }">
                     
                     <div lh_card_header="true">
-                        <div lh_prop="true">
-                            <span lh_prop_name="true">
-                                <span lh_card_title="true">
-                                    Приёмка № 
-                                </span>
-                            </span>
-                            <span lh_prop_value="true">
-                                <span lh_field="short">
-                                    <input
-                                        lh_field_native="true"
-                                        name="sku"
-                                        value="{ sku }"
-                                    />
-                                </span>
-                                <span lh_field="inline">
-                                    от
-                                    <input
-                                        lh_field_native="true"
-                                        name="acceptanceDate"
-                                        value="{ acceptanceDate }"
-                                    />
-                                </span>
-                            </span>
-                            <div lh_card_headerButtons="true">
-                                <a
-                                    lh_card_close="true"
-                                    lh_link="close"
-                                    href="?invoice/list"
-                                    >
-                                    <xsl:apply-templates select="." mode="lh_link_close" />
-                                    закрыть
-                                </a>
-                            </div>
+                        <div lh_card_headerButtons="true">
+                            <a
+                                lh_card_close="true"
+                                lh_link="close"
+                                href="?invoice/list"
+                                >
+                                <xsl:apply-templates select="." mode="lh_link_close" />
+                                закрыть
+                            </a>
                         </div>
+                        <span lh_card_title="true">
+                            Приёмка № 
+                        </span>
+                        <span lh_field="short">
+                            <input
+                                lh_field_native="true"
+                                name="sku"
+                                value="{ sku }"
+                            />
+                        </span>
+                        <span lh_field="inline">
+                            от
+                            <input
+                                lh_field_native="true"
+                                name="acceptanceDate"
+                                value="{ acceptanceDate }"
+                            />
+                        </span>
                     </div>
                     
                     <label lh_prop="true">

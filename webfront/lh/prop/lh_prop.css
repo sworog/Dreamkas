@@ -10,6 +10,7 @@
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
+    display: -moz-flex;
     
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
