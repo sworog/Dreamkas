@@ -7,7 +7,7 @@
             <div lh_card="true">
                 <div lh_card_header="true">
                     <span lh_card_title="true">
-                        Список товаров
+                        Товары
                     </span>
                     <a
                         href="?invoice/create"
@@ -36,6 +36,12 @@
         <div lh_table="true" name="invoices">
             
             <div lh_table_row="true">
+                <span
+                    lh_table_cell="date"
+                    lh_table_header="true"
+                    >
+                    Дата
+                </span>
                 <span
                     lh_table_cell="id"
                     lh_table_header="true"
@@ -76,6 +82,9 @@
             id="invoice={ id }"
             href="?invoice={ id }"
             >
+            <span lh_table_cell="date" name="acceptanceDate">
+                <xsl:apply-templates select=" acceptanceDate " mode="lh_date_view" />
+            </span>
             <span lh_table_cell="id" name="sku">
                 <xsl:value-of select=" sku " />
             </span>

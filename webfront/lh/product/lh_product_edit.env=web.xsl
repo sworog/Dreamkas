@@ -8,7 +8,7 @@
                 lh_card_back="true"
                 href="?product/list"
                 >
-                Список товаров
+                Товары
             </a>
             <div lh_card="true">
                 <div lh_card_header="true">

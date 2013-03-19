@@ -1,0 +1,8 @@
+<invoice>
+    <id>1</id>
+    <sku>SEGODNYA</sku>
+    <supplier>Рога и копыта</supplier>
+    <sumTotal>10</sumTotal>
+    <accepter>Пушкин ВА</accepter>
+    <acceptanceDate>2012-11-12T13:00</acceptanceDate>
+</invoice>

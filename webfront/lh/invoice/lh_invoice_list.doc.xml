@@ -11,6 +11,7 @@
                 <supplier>Рога и копыта</supplier>
                 <sumTotal>10</sumTotal>
                 <accepter>Пушкин ВА</accepter>
+                <acceptanceDate>2012-11-12T13:00</acceptanceDate>
             </invoice>
             <invoice>
                 <id>2</id>
@@ -18,6 +19,7 @@
                 <supplier>Руки-ножницы</supplier>
                 <sumTotal>100</sumTotal>
                 <accepter>Владимир Владимирович Пупкин</accepter>
+                <acceptanceDate>2012-11-02T13:00</acceptanceDate>
             </invoice>
             <invoice>
                 <id>3</id>
@@ -25,6 +27,7 @@
                 <supplier>ООО "Пупкин лес"</supplier>
                 <sumTotal>1.10</sumTotal>
                 <accepter>Тот кого нельзя называть</accepter>
+                <acceptanceDate>2012-11-12T00:00:00</acceptanceDate>
             </invoice>
         </invoices>
     </div>
@@ -35,6 +38,7 @@
         
         test.ok( data.name(), 'invoices' )
         test.ok( data.select( '//invoice' ).length, 3 )
+        test.ok( data.select( '//invoice[1]/acceptanceDate/text()' ) + '', '12.11.2012' )
         test.ok( data.select( '//invoice[1]/sku/text()' ) + '', 'SEGODNYA' )
         test.ok( data.select( '//invoice[1]/supplier/text()' ) + '', 'Рога и копыта' )
         test.ok( data.select( '//invoice[1]/sumTotal/text()' ) + '', '10' )
