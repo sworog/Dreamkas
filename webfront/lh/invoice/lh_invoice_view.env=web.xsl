@@ -20,14 +20,21 @@
                 <div lh_stream="true">
                     <span lh_stream_node="true">
                         <xsl:value-of select="supplier" />
+                        <span lh_stream_title="true">поставщик</span>
                     </span>
                     <span lh_stream_node="true">
                         <xsl:value-of select="accepter" />
+                        <span lh_stream_title="true">приёмщик</span>
                     </span>
                     <span lh_stream_node="true">
                         ООО «Рога и копыта»
+                        <span lh_stream_title="true">получатель</span>
                     </span>
                 </div>
+                <p lh_block="true">
+                    Входящая накладная №<xsl:value-of select="supplierInvoiceSku" />
+                    от <xsl:apply-templates select="supplierInvoiceDate" mode="lh_date_view" />
+                </p>
             </div>
         </div>
     </xsl:template>

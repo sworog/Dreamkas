@@ -9,9 +9,10 @@
 
 [ lh_stream_node ]{
     position: relative;
-    padding: 1em 2em;
+    padding: .5em 2em;
     margin: 0 1%;
     display: inline-block;
+    line-height: 1.2;
 }
 
 [ lh_stream_node ]:first-child {
@@ -25,4 +26,9 @@
     left: -.65em;
     top: 0;
     color: #BDC3C7;
+}
+
+[ lh_stream_title ] {
+    display: block;
+    font-size: .9em;
 }
