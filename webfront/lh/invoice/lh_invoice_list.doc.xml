@@ -1,0 +1,44 @@
+<?xml-stylesheet href="../-mix/doc.stage=dev.xsl" type="text/xsl"?>
+<doc_root
+    doc_title="lh_invoice_list"
+    >
+    
+    <div id="lh_invoice_list_test" lh_desktop="true">
+        <invoices lh_invoice_list="true">
+            <invoice>
+                <id>1</id>
+                <sku>SEGODNYA</sku>
+                <supplier>Рога и копыта</supplier>
+                <sumTotal>10</sumTotal>
+                <accepter>Пушкин ВА</accepter>
+            </invoice>
+            <invoice>
+                <id>2</id>
+                <sku>VCHERA</sku>
+                <supplier>Руки-ножницы</supplier>
+                <sumTotal>100</sumTotal>
+                <accepter>Владимир Владимирович Пупкин</accepter>
+            </invoice>
+            <invoice>
+                <id>3</id>
+                <sku>KOGDATO</sku>
+                <supplier>ООО "Пупкин лес"</supplier>
+                <sumTotal>1.10</sumTotal>
+                <accepter>Тот кого нельзя называть</accepter>
+            </invoice>
+        </invoices>
+    </div>
+    
+    <script type="wc_test" title="все ли данные выводятся">
+        var list= document.getElementById( 'lh_invoice_list_test' )
+        var data= $lh_form( list ).data()
+        
+        test.ok( data.name(), 'invoices' )
+        test.ok( data.select( '//invoice' ).length, 3 )
+        test.ok( data.select( '//invoice[1]/sku/text()' ) + '', 'SEGODNYA' )
+        test.ok( data.select( '//invoice[1]/supplier/text()' ) + '', 'Рога и копыта' )
+        test.ok( data.select( '//invoice[1]/sumTotal/text()' ) + '', '10' )
+        test.ok( data.select( '//invoice[1]/accepter/text()' ) + '', 'Пушкин ВА' )
+    </script>
+
+</doc_root>

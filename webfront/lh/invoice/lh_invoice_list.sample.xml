@@ -1,0 +1,23 @@
+<invoices>
+    <invoice>
+        <id>1</id>
+        <sku>SEGODNYA</sku>
+        <supplier>Рога и копыта</supplier>
+        <sumTotal>10</sumTotal>
+        <accepter>Пушкин ВА</accepter>
+    </invoice>
+    <invoice>
+        <id>2</id>
+        <sku>VCHERA</sku>
+        <supplier>Руки-ножницы</supplier>
+        <sumTotal>100</sumTotal>
+        <accepter>Владимир Владимирович Пупкин</accepter>
+    </invoice>
+    <invoice>
+        <id>3</id>
+        <sku>KOGDATO</sku>
+        <supplier>ООО "Пупкин лес"</supplier>
+        <sumTotal>1.10</sumTotal>
+        <accepter>Тот кого нельзя называть</accepter>
+    </invoice>
+</invoices>

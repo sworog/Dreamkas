@@ -98,7 +98,8 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
     }
     
     application.view_invoice_list= function( application, params ){
-        $lh_resource( application.api() + 'invoices' )
+        //$lh_resource( application.api() + 'invoices' )
+        $lh_resource( 'lh/invoice/lh_invoice_list.sample.xml' )
         .get( function( resource ){
             if( resource.isOk() ){
                 invoices= resource.xml()

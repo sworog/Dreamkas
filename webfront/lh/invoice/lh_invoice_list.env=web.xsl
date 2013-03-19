@@ -35,7 +35,7 @@
         match=" *[ invoice ] "
         mode="lh_invoice_list"
         >
-        <div lh_table="true" name="lh_invoice_list">
+        <div lh_table="true" name="invoices">
             
             <div lh_table_row="true">
                 <span
@@ -74,7 +74,7 @@
         >
         <a
             lh_table_row="true"
-            name="lh_invoice"
+            name="invoice"
             id="invoice={ id }"
             href="?invoice={ id }"
             >
