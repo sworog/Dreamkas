@@ -2,6 +2,8 @@ package project.lighthouse.autotests.pages;
 
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
+import project.lighthouse.autotests.pages.product.ProductListPage;
 
 public class CommonPage extends PageObject {
 
@@ -22,6 +24,9 @@ public class CommonPage extends PageObject {
         switch (pageObjectName){
             case "ProductListPage":
                 return ProductListPage.class.getAnnotations()[0].toString();
+            case "InvoiceListPage":
+                return InvoiceListPage.class.getAnnotations()[0].toString();
+
             default:
                 return String.valueOf(new AssertionError("No such value!"));
         }

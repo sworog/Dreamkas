@@ -5,6 +5,10 @@ import project.lighthouse.autotests.pages.*;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
+import project.lighthouse.autotests.pages.product.ProductCardView;
+import project.lighthouse.autotests.pages.product.ProductCreatePage;
+import project.lighthouse.autotests.pages.product.ProductEditPage;
+import project.lighthouse.autotests.pages.product.ProductListPage;
 
 public class ProductSteps extends ScenarioSteps{
 	
