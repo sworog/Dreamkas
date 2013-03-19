@@ -16,7 +16,7 @@
                 lh_invoice_edit="create"
                 >
                 
-                <div name="invoice">
+                <div name="{ name() }">
                     
                     <div lh_card_header="true">
                         <div lh_prop="true">

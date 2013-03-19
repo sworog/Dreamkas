@@ -4,7 +4,7 @@
     >
     
     <div id="lh_invoice_create_test" lh_desktop="true">
-        <product
+        <invoice
             lh_invoice_create="true"
         />
     </div>
