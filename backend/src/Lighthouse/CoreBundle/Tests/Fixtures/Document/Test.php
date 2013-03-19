@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Fixtures\Document;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 
-class TestDocument extends AbstractDocument
+class Test extends AbstractDocument
 {
     /**
      * @var string
@@ -22,6 +22,11 @@ class TestDocument extends AbstractDocument
     protected $desc;
 
     /**
+     * @var string
+     */
+    protected $orderDate;
+
+    /**
      * @return array
      */
     public function toArray()
@@ -30,6 +35,7 @@ class TestDocument extends AbstractDocument
             'id' => $this->id,
             'name' => $this->name,
             'desc' => $this->desc,
+            'orderDate' => $this->orderDate,
         );
     }
 }

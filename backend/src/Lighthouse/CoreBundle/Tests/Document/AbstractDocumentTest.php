@@ -1,14 +1,14 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Entity;
+namespace Lighthouse\CoreBundle\Tests\Document;
 
-use Lighthouse\CoreBundle\Tests\Fixtures\Document\TestDocument;
+use Lighthouse\CoreBundle\Tests\Fixtures\Document\Test;
 
 class AbstractDocumentTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetSetProperties()
     {
-        $document = new TestDocument();
+        $document = new Test();
 
         $document->name = 'name';
         $this->assertEquals('name', $document->name);
@@ -24,7 +24,7 @@ class AbstractDocumentTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidPropertyGet()
     {
-        $product = new TestDocument();
+        $product = new Test();
 
         $product->invalid;
     }
@@ -34,7 +34,7 @@ class AbstractDocumentTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidPropertySet()
     {
-        $document = new TestDocument();
+        $document = new Test();
 
         $document->invalid = 'invalid';
     }
@@ -47,7 +47,7 @@ class AbstractDocumentTest extends \PHPUnit_Framework_TestCase
             'desc' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
         );
 
-        $document = new TestDocument();
+        $document = new Test();
         $document->populate($array);
 
         $productArray = $document->toArray();

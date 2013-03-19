@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Entity;
+namespace Lighthouse\CoreBundle\Tests\Document;
 
 use Lighthouse\CoreBundle\Document\Invoice;
 
