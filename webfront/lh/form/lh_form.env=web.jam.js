@@ -15,7 +15,7 @@ this.$lh_form= $jin_class( function( $lh_form, form ){
         traverse: while( true ){
             var name= field.getAttribute && field.getAttribute( 'name' )
             if( name ){
-                var value= field.value || field.innerText || ''
+                var value= ( field.value !== void 0 ) ? field.value : ( field.textContent || '' )
                 var last= stack[ stack.length - 1 ]
                 var node= data.Element( name ).text( value ).parent( last )
             }
