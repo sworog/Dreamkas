@@ -13,7 +13,7 @@ set :deploy_subdir, "webfront"
 set :repository,  "git@git.lighthouse.cs:lighthouse.git"
 set :scm,         :git
 
-ssh_options[:forward_agent] = true
+#ssh_options[:forward_agent] = true
 
 set :use_sudo, false
 default_run_options[:pty] = true
