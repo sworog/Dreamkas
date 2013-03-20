@@ -13,26 +13,26 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
         return application
     }
     
-    application.load_product_list= function( application, params, done ){
-        return $lh_resource( application.api() + 'products' )
+    application.api= function( application, suffix ){
+        return $lh_resource( application.$.getAttribute( 'lh_application_api' ) + suffix )
     }
     
-    application.load_product=
-    application.load_product_edit=
+    application.resource_product_list= function( application, params ){
+        return application.api( 'products' )
+    }
+    
+    application.resource_product=
+    application.resource_product_edit=
     function( application, params ){
-        return $lh_resource( application.api() + 'products/' + params.product )
+        return application.api( 'products/' + params.product )
     }
     
-    application.load_invoice= function( application, params, done ){
-        return $lh_resource( application.api() + 'invoices/' + params.invoice )
+    application.resource_invoice= function( application, params ){
+        return application.api( 'invoices/' + params.invoice )
     }
     
-    application.load_invoice_list= function( application, params, done ){
-        return $lh_resource( application.api() + 'invoices' )
-    }
-    
-    application.api= function( application ){
-        return application.$.getAttribute( 'lh_application_api' )
+    application.resource_invoice_list= function( application, params ){
+        return application.api( 'invoices' )
     }
     
     var init= application.init
@@ -61,7 +61,7 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             
             application.$.setAttribute( 'lh_loading', 'true' )
             
-            var loaderName= 'load_' + Object.keys( params ).join( '_' )
+            var loaderName= 'resource_' + Object.keys( params ).join( '_' )
             var loader= application[ loaderName ]
             
             if( loader ){
@@ -84,10 +84,11 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             var id= data.select( 'id' )[ 0 ]
             if( id ) id= id.parent( null ).text()
             
-            var url=  application.api() + 'products'
+            var url=  'products'
             if( id ) url+= '/' + id
             
-            $lh_resource( url ).request( id ? 'put' : 'post', data, function( resource ){
+            application.api( url )
+            .request( id ? 'put' : 'post', data, function( resource ){
                 switch( true ){
                     case resource.isCreated():
                         id= resource.xml().select('id')[0].text()
@@ -116,10 +117,11 @@ this.$lh_application= $jin_class( function( $lh_application, application ){
             var id= data.select( 'id' )[ 0 ]
             if( id ) id= id.parent( null ).text()
             
-            var url=  application.api() + 'invoices'
+            var url=  'invoices'
             if( id ) url+= '/' + id
             
-            $lh_resource( url ).request( id ? 'put' : 'post', data, function( resource ){
+            application.api( url )
+            .request( id ? 'put' : 'post', data, function( resource ){
                 switch( true ){
                     case resource.isCreated():
                         id= resource.xml().select('id')[0].text()
