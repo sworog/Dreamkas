@@ -79,8 +79,12 @@
                         <span lh_prop_name="true">
                             Получатель
                         </span>
-                        <span lh_prop_value="true">
-                            ООО «Рога и копыта»
+                        <span lh_prop_value="true" lh_field="normal">
+                            <input
+                                lh_field_native="true"
+                                name="legalEntity"
+                                value="{ legalEntity }"
+                            />
                         </span>
                     </div>
                     

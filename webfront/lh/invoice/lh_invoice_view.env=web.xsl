@@ -13,7 +13,7 @@
             <div lh_card="true" name="{ name() }">
                 <div lh_card_header="true">
                     <span lh_card_title="true">
-                        Отложенная накладная №<xsl:value-of select="sku" />
+                        Отложенная накладная № <xsl:value-of select="sku" />
                         от <xsl:apply-templates select="acceptanceDate" mode="lh_date_view" />
                     </span>
                 </div>
@@ -27,12 +27,12 @@
                         <span lh_stream_title="true">приёмщик</span>
                     </span>
                     <span lh_stream_node="true">
-                        ООО «Рога и копыта»
+                        <xsl:value-of select="legalEntity" />
                         <span lh_stream_title="true">получатель</span>
                     </span>
                 </div>
                 <p lh_block="true">
-                    Входящая накладная №<xsl:value-of select="supplierInvoiceSku" />
+                    Входящая накладная № <xsl:value-of select="supplierInvoiceSku" />
                     от <xsl:apply-templates select="supplierInvoiceDate" mode="lh_date_view" />
                 </p>
             </div>

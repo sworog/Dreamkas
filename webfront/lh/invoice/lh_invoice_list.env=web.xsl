@@ -93,7 +93,7 @@
             </span>
             <span lh_table_cell="money">
                 <span name="sumTotal">
-                    <xsl:apply-templates select=" sumTotal " mode="lh_money_view" />
+                    0<xsl:apply-templates select=" sumTotal " mode="lh_money_view" />
                 </span>
                 р.
             </span>
