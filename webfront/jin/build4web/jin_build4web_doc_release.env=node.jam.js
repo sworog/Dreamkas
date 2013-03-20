@@ -13,9 +13,11 @@ this.$jin_build4web_doc_release= function( pack, vary ){
         return /\.doc\.xml$/.test( src.file.name() )
     } )
     .forEach( function( src ){
-        var comment= index.createComment( '../../' + src.file.relate('').replace( /\\/g, '/' ) )
+        var link= '../../' + src.file.relate('').replace( /\\/g, '/' )
+        var comment= index.createComment( link )
         index.documentElement.appendChild( index.importNode( comment, true ) )
         var doc= ( new $node.xmldom.DOMParser ).parseFromString( src.file.content() + '' ).documentElement
+        doc.setAttribute( 'doc_link', link )
         index.documentElement.appendChild( doc )
     } )
     

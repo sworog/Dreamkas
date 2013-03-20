@@ -15,11 +15,11 @@
             <meta charset="utf-8" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
             
-            <link href="index.stage={$doc_page_mode}.css" rel="stylesheet" />
-            <script src="index.env=web.stage={$doc_page_mode}.js">//</script>
+            <link href="{$doc_page_stylesheet}/../index.stage={$doc_page_stage}.css" rel="stylesheet" />
+            <script src="{$doc_page_stylesheet}/../index.env=web.stage={$doc_page_stage}.js">//</script>
 
-            <link href="../../doc/-mix/index.stage={$doc_page_mode}.css" rel="stylesheet" />
-            <script src="../../doc/-mix/index.env=web.stage={$doc_page_mode}.js">//</script>
+            <link href="../../doc/-mix/index.stage=release.css" rel="stylesheet" />
+            <script src="../../doc/-mix/index.env=web.stage=release.js">//</script>
             
         </head>
         <body wc_reset="true">
