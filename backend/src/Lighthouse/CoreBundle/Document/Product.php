@@ -23,7 +23,6 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $info
  *
  * @MongoDB\Document
- * @Serializer\XmlRoot("product")
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
  */
 class Product extends AbstractDocument

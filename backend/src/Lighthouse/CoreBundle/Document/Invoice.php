@@ -9,7 +9,6 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 
 /**
  * @MongoDB\Document
- * @Serializer\XmlRoot("invoice")
  */
 class Invoice extends AbstractDocument
 {
