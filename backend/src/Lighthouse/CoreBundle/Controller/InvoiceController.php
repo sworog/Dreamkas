@@ -12,6 +12,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class InvoiceController extends FOSRestController
 {

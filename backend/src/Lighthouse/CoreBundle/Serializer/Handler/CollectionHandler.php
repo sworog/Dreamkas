@@ -2,11 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Serializer\Handler;
 
-use FOS\RestBundle\Util\Pluralization;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Metadata\ClassMetadata;
-use JMS\Serializer\VisitorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\Serializer\XmlSerializationVisitor;
 use Lighthouse\CoreBundle\Document\AbstractCollection;
@@ -43,13 +41,15 @@ class CollectionHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param \JMS\Serializer\VisitorInterface $visitor
-     * @param AbstractCollection $value
+     * @param XmlSerializationVisitor $visitor
+     * @param \Lighthouse\CoreBundle\Document\AbstractCollection $collection
      * @param array $type
-     * @return string
      */
-    public function serializeCollectionToXml(XmlSerializationVisitor $visitor, AbstractCollection $collection, array $type)
-    {
+    public function serializeCollectionToXml(
+        XmlSerializationVisitor $visitor,
+        AbstractCollection $collection,
+        array $type
+    ) {
         /* @var ClassMetadata $collectionMetadata  */
         $collectionMetadata = $this->metadataFactory->getMetadataForClass(get_class($collection));
 

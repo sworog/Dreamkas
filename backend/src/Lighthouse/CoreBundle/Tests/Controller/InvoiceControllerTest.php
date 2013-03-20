@@ -62,7 +62,6 @@ class InvoiceControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $invoiceData;
         for ($i = 0; $i < 5; $i++) {
             $invoiceData['sku'] = '12122004' . $i;
             $this->createInvoice($invoiceData, $client);
@@ -101,6 +100,7 @@ class InvoiceControllerTest extends WebTestCase
     /**
      * @param array $invoiceData
      * @param Client $client
+     * @return string
      */
     protected function createInvoice(array $invoiceData, $client)
     {

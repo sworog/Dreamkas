@@ -29,7 +29,7 @@ class DocumentDriver implements DriverInterface
     }
 
     /**
-     * @param ReflectionClass $class
+     * @param \ReflectionClass $class
      * @return \Metadata\ClassMetadata
      */
     public function loadMetadataForClass(\ReflectionClass $class)
