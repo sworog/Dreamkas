@@ -1,7 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:template
-        match=" *[ @lh_product_list ] "
+        match=" *[ @lh_application_view = 'lh_product_list' ] "
         >
         <div lh_card_stack="true">
             <div lh_card="true">
@@ -17,7 +17,8 @@
                     </a>
                 </div>
                 
-                <xsl:apply-templates select=" . " mode="lh_product_list" />
+                <xsl:apply-templates select=" html | error " mode="lh_error" />
+                <xsl:apply-templates select=" products " mode="lh_product_list" />
                 
             </div>
         </div>
@@ -33,7 +34,7 @@
         match=" *[ product ] "
         mode="lh_product_list"
         >
-        <div lh_table="true" name="lh_product_list">
+        <div lh_table="true" name="products">
             
             <div lh_table_row="true">
                 <span
@@ -78,7 +79,7 @@
         >
         <a
             lh_table_row="true"
-            name="lh_product"
+            name="product"
             id="product={ id }"
             href="?product={ id }"
             >

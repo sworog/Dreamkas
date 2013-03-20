@@ -1,7 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     
     <xsl:template
-        match=" *[ @lh_product_create ] "
+        match=" *[ @lh_application_view = 'lh_product_create' ] "
         >
         <div lh_card_stack="true">
             <a

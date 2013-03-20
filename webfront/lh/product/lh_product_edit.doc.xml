@@ -4,18 +4,20 @@
     >
     
     <div id="lh_product_edit_test" lh_desktop="true">
-        <product lh_product_edit="true">
-            <id>1</id>
-            <sku>GVOZDI007</sku>
-            <name>Гвозди 47 колибра</name>
-            <vendor>Рога и копыта</vendor>
-            <vendorCountry>Россия</vendorCountry>
-            <purchasePrice>100500</purchasePrice>
-            <barcode>0123456789</barcode>
-            <units>unit</units>
-            <vat>10</vat>
-            <info>У нас их дофига!</info>
-        </product>
+        <data lh_application_view="lh_product_edit">
+            <product>
+                <id>1</id>
+                <sku>GVOZDI007</sku>
+                <name>Гвозди 47 колибра</name>
+                <vendor>Рога и копыта</vendor>
+                <vendorCountry>Россия</vendorCountry>
+                <purchasePrice>100500</purchasePrice>
+                <barcode>0123456789</barcode>
+                <units>unit</units>
+                <vat>10</vat>
+                <info>У нас их дофига!</info>
+            </product>
+        </data>
     </div>
     
     <p>

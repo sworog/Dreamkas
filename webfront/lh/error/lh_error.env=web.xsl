@@ -5,10 +5,17 @@
         >
         <div lh_card_stack="true">
             <div lh_card="true">
-                <div lh_error="true">
-                    <xsl:apply-templates select="." mode="lh_error_message" />
-                </div>
+                <xsl:apply-templates select="." mode="lh_error_view" />
             </div>
+        </div>
+    </xsl:template>
+    
+    <xsl:template
+        match=" * "
+        mode="lh_error"
+        >
+        <div lh_error="true">
+            <xsl:value-of select=" exception / @message | @message | head / title " />
         </div>
     </xsl:template>
     

@@ -4,9 +4,7 @@
     >
     
     <div id="lh_product_create_test" lh_desktop="true">
-        <product
-            lh_product_create="true"
-        />
+        <data lh_application_view="lh_product_create" />
     </div>
     
     <p>

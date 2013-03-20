@@ -1,7 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:template
-        match=" *[ @lh_product_view ] "
+        match=" *[ @lh_application_view = 'lh_product' ] "
         >
         <div lh_card_stack="true">
             <a
@@ -10,20 +10,27 @@
                 >
                 Товары
             </a>
-            <div lh_card="true" name="product">
-                <div lh_card_header="true">
-                    <xsl:apply-templates select=" . " mode="lh_product_view_buttons" />
-                    <xsl:apply-templates select=" . " mode="lh_product_view_name" />
-                    <xsl:apply-templates select=" . " mode="lh_product_view_sku" />
-                </div>
-                <xsl:apply-templates select=" . " mode="lh_product_view_purchasePrice" />
-                <xsl:apply-templates select=" . " mode="lh_product_view_vat" />
-                <xsl:apply-templates select=" . " mode="lh_product_view_barcode" />
-                <xsl:apply-templates select=" . " mode="lh_product_view_units" />
-                <xsl:apply-templates select=" . " mode="lh_product_view_vendor" />
-                <xsl:apply-templates select=" . " mode="lh_product_view_vendorCountry" />
-                <xsl:apply-templates select=" . " mode="lh_product_view_info" />
+            <div lh_card="true">
+                <xsl:apply-templates select=" html | error " mode="lh_error" />
+                <xsl:apply-templates select=" product " mode="lh_product" />
             </div>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match=" * " mode="lh_product">
+        <div name="{ name() }">
+            <div lh_card_header="true">
+                <xsl:apply-templates select=" . " mode="lh_product_view_buttons" />
+                <xsl:apply-templates select=" . " mode="lh_product_view_name" />
+                <xsl:apply-templates select=" . " mode="lh_product_view_sku" />
+            </div>
+            <xsl:apply-templates select=" . " mode="lh_product_view_purchasePrice" />
+            <xsl:apply-templates select=" . " mode="lh_product_view_vat" />
+            <xsl:apply-templates select=" . " mode="lh_product_view_barcode" />
+            <xsl:apply-templates select=" . " mode="lh_product_view_units" />
+            <xsl:apply-templates select=" . " mode="lh_product_view_vendor" />
+            <xsl:apply-templates select=" . " mode="lh_product_view_vendorCountry" />
+            <xsl:apply-templates select=" . " mode="lh_product_view_info" />
         </div>
     </xsl:template>
     
