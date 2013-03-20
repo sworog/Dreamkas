@@ -18,6 +18,8 @@
                 
                 <div name="{ name() }">
                     
+                    <input type="hidden" name="sumTotal" value="0" />
+                    
                     <div lh_card_header="true">
                         <div lh_card_tools="true">
                             <a
