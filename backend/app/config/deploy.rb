@@ -40,7 +40,7 @@ role :db,         domain, :primary => true       # This is where Symfony2 migrat
 
 set  :keep_releases,  5
 
-logger.level = Logger::TRACE
+logger.level = Logger::IMPORTANT
 
 namespace :symfony do
 
@@ -62,6 +62,19 @@ namespace :symfony do
         end
     end
 
+    namespace :logs do
+        task :default, :roles => :app, :except => { :no_release => true } do
+            set :lines, '50' unless exists?(:lines)
+            log = "#{stage}.log"
+            run "#{try_sudo} tail -n #{lines} -f #{shared_path}/#{log_path}/#{log}" do |channel, stream, data|
+              trap("INT") { puts 'Interupted'; exit 0; }
+              puts
+              puts "#{channel[:host]}: #{data}"
+              break if stream == :err
+            end
+        end
+    end
+
 end
 
 namespace :deploy do
@@ -77,7 +90,8 @@ namespace :deploy do
 
     task :restart, :roles => :app, :except => { :no_release => true } do
         run "sudo service php5-fpm reload"
-        puts "--> PHP-FPM was successfully reloaded".green
+        capifony_pretty_print "--> Reloading PHP-FPM"
+        capifony_puts_ok
     end
 end
 
@@ -85,6 +99,8 @@ after "multistage:ensure" do
     set :application, "#{host}.api.#{stage}"
     set :deploy_to,   "/var/www/#{application}"
     set :symfony_env_prod, stage
+    set :application_url, "http://#{application}.lighthouse.cs"
+    puts "--> Application will be deployed to ".yellow + application_url.red
 end
 
 after "deploy:restart" do
