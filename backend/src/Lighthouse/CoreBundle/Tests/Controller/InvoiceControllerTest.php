@@ -97,6 +97,19 @@ class InvoiceControllerTest extends WebTestCase
         }
     }
 
+    public function testGetInvoiceNotFound()
+    {
+        $client = static::createClient();
+
+        $id = 'not_exists_id';
+        $crawler = $client->request(
+            'GET',
+            '/api/1/invoices/' . $id
+        );
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
     /**
      * @param array $invoiceData
      * @param Client $client
