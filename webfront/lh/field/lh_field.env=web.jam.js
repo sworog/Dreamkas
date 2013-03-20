@@ -27,7 +27,7 @@ this.$lh_field= $jin_class( function( $lh_field, field ){
         
         field.onChange=
         $jin_onChange.listen( native, function( event ){
-            field.$.removeAttribute( 'lh_field_error' )
+            //field.$.removeAttribute( 'lh_field_error' )
             field.native().setCustomValidity( '' )
             field.native().checkValidity()
         })
