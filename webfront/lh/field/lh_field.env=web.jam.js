@@ -32,6 +32,19 @@ this.$lh_field= $jin_class( function( $lh_field, field ){
             field.native().checkValidity()
         })
         
+        if( ~[ 'INPUT', 'SELECT' ].indexOf( native.nodeName ) ){
+            field.onPress=
+            $jin_onPress.listen( native, function( event ){
+                if( event.keyCode() === $jin_keyCode.enter ){
+                    var next= $jin_domx( field.$ ).select( 'following::*[@lh_field_native]' )[0]
+                    if( next ){
+                        next.$.focus()
+                        event.catched( true )
+                    }
+                }
+            })
+        }
+        
     }
     
 })
