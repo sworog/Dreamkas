@@ -9,8 +9,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 class MoneyValidator extends ConstraintValidator
 {
     /**
-     * @param \Lighthouse\CoreBundle\Types\Money $value
-     * @param \Lighthouse\CoreBundle\Validator\Constraints\Money
+     * @param mixed $value
+     * @param \Symfony\Component\Validator\Constraint $constraint
      */
     public function validate($value, Constraint $constraint)
     {
