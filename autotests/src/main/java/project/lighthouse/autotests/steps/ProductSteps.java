@@ -132,7 +132,4 @@ public class ProductSteps extends ScenarioSteps{
     public void CheckNoErrorMessages(){
         productCreatePage.CheckNoErrorMessages();
     }
-
-
-
 }

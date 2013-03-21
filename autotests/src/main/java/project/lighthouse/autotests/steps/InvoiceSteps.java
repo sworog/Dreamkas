@@ -3,6 +3,8 @@ package project.lighthouse.autotests.steps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.jbehave.core.model.ExamplesTable;
+import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 
@@ -10,6 +12,7 @@ public class InvoiceSteps extends ScenarioSteps{
 
     InvoiceCreatePage invoiceCreatePage;
     InvoiceListPage invoiceListPage;
+    InvoiceBrowsing invoiceBrowsing;
 
     public InvoiceSteps(Pages pages) {
         super(pages);
@@ -55,5 +58,22 @@ public class InvoiceSteps extends ScenarioSteps{
         invoiceListPage.CheckInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 
+    @Step
+    public void CheckCardValue(String elementName, String expectedValue){
+        invoiceBrowsing.CheckCardValue(elementName, expectedValue);
+    }
 
+    @Step
+    public void CheckCardValue(ExamplesTable checkValuesTable){
+        invoiceBrowsing.CheckCardValue(checkValuesTable);
+    }
+
+    @Step
+    public void EditButtonClick(){
+        invoiceBrowsing.EditButtonClick();
+    }
+
+    public void ListItemClick(String skuValue){
+        invoiceListPage.ListItemClick(skuValue);
+    }
 }

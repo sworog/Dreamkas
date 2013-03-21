@@ -11,25 +11,25 @@ import project.lighthouse.autotests.pages.product.ProductCreatePage;
 public class InvoiceCreatePage extends ProductCreatePage{
 
     @FindBy(name = "sku")
-    private WebElement invoiceSkuField;
+    public WebElement invoiceSkuField;
 
     @FindBy(name = "acceptanceDate")
-    private WebElement invoiceAcceptanceDateField;
+    public WebElement invoiceAcceptanceDateField;
 
     @FindBy(name = "supplier")
-    private WebElement invoiceSupplierField;
+    public WebElement invoiceSupplierField;
 
     @FindBy(name = "accepter")
-    private WebElement invoiceAccepterField;
+    public WebElement invoiceAccepterField;
 
     @FindBy(name = "recipient")
-    private WebElement invoiceRecipientField;
+    public WebElement invoiceRecipientField;
 
     @FindBy(name = "supplierInvoiceSku")
-    private WebElement invoiceSupplierInvoiceSkuField;
+    public WebElement invoiceSupplierInvoiceSkuField;
 
     @FindBy(name = "supplierInvoiceDate")
-    private WebElement invoiceSupplierInvoiceDate;
+    public WebElement invoiceSupplierInvoiceDate;
 
     @FindBy(xpath = "//*[@lh_button='commit']")
     private WebElement invoiceCreateAndSaveButton;

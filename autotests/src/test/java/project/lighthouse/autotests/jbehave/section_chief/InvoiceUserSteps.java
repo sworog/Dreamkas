@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.InvoiceSteps;
 
 public class InvoiceUserSteps {
@@ -41,6 +42,16 @@ public class InvoiceUserSteps {
         invoiceSteps.InvoiceListItemCreate();
     }
 
+    @When("the user clicks the edit button on the invoice browsing page")
+    public void WhenTheUserClicksTheEditButtonOnProductCardViewPage(){
+        invoiceSteps.EditButtonClick();
+    }
+
+    @When("the user open the invoice card with '$skuValue' sku")
+    public void WhenTheUserOpenTheProductCard(String skuValue){
+        invoiceSteps.ListItemClick(skuValue);
+    }
+
     @Then("the user checks the invoice with '$skuValue' sku has '$name' equal to '$expectedValue'")
     public void WhenTheUSerChecksTheInvoiceWithSkuHasNameValueEqualToExpectedValue(String skuValue, String name, String expectedValue){
         invoiceSteps.CheckInvoiceListItemWithSkuHasExpectedValue(skuValue, name, expectedValue);
@@ -49,5 +60,15 @@ public class InvoiceUserSteps {
     @Then("the user checks the invoice with '$skuValue' sku is present")
     public void WhenTheUserChecksTheInvoiceWithSkuIsPresent(String skuValue){
         invoiceSteps.ListItemCheck(skuValue);
+    }
+
+    @Then("the user checks the invoice '$elementName' value is '$expectedValue'")
+    public void ThenTheUserChecksValue(String elementName, String expectedValue){
+        invoiceSteps.CheckCardValue(elementName, expectedValue);
+    }
+
+    @Then("the user checks invoice elements values $checkValuesTable")
+    public void ThenTheUserChecksTheElementValues(ExamplesTable checkValuesTable){
+        invoiceSteps.CheckCardValue(checkValuesTable);
     }
 }
