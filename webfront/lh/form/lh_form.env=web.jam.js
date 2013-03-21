@@ -46,6 +46,12 @@ this.$lh_form= $jin_class( function( $lh_form, form ){
     
     form.errors= function( form, errors ){
         
+        var fields= form.$.querySelectorAll( '[lh_field_error]' )
+        console.log( fields.length )
+        for( var i= 0; i < fields.length; ++i ){
+            fields[ i ].removeAttribute( 'lh_field_error' )
+        }
+        
         errors.select( 'form[ errors/entry ]' )
         .forEach( function( error ){
             form.$.elements[ error.attr( 'name' ) ]
