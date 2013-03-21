@@ -9,10 +9,6 @@ namespace :deploy do
         end
     end
 
-    task :restart do
-        reload_php
-    end
-
     desc "Reload PHP-FPM"
     task :reload_php, :roles => :app, :except => { :no_release => true } do
         run "#{sudo} service php5-fpm reload"
@@ -20,4 +16,22 @@ namespace :deploy do
         capifony_puts_ok
     end
 
+    task :init do
+
+        current_branch = `git rev-parse --abbrev-ref HEAD`.delete("\n")
+
+        set :app_end, 'api' unless exists?(:app_end)
+        set :branch, current_branch || "master" unless exists?(:branch)
+        set :host, branch unless exists?(:host)
+
+        set :application, "#{host}.#{stage}.#{app_end}"
+        set :deploy_to,   "/var/www/#{application}"
+        set :symfony_env_prod, stage
+        set :application_url, "http://#{application}.lighthouse.cs"
+
+        puts "--> Branch ".yellow + "#{branch}".red + " will be used for deploy".yellow
+        puts "--> Application will be deployed to ".yellow + application_url.red
+    end
 end
+
+after "multistage:ensure", "deploy:init"

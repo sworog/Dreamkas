@@ -3,14 +3,8 @@ set :stage_dir, "app/config/stages"
 
 require 'capistrano/ext/multistage'
 
-def current_branch
-    `git branch`.match(/\* (\S+)\s/m)[1]\
-end
-
-set :branch, current_branch || "master" unless exists?(:branch)
-
-set :host, branch unless exists?(:host)
-set :application, "#{host}.api"
+set :app_end, "api"
+set :application, "api"
 set :domain,      "alexandria.lighthouse.cs"
 set :deploy_to,   "/var/www/#{application}"
 set :deploy_via,  :remote_cache_subfolder
@@ -41,6 +35,13 @@ set  :keep_releases,  5
 logger.level = Logger::IMPORTANT
 
 after "multistage:ensure" do
+    def current_branch
+        `git branch`.match(/\* (\S+)\s/m)[1]\
+    end
+
+    set :branch, current_branch || "master" unless exists?(:branch)
+    set :host, branch unless exists?(:host)
+
     set :application, "#{host}.#{stage}.api"
     set :deploy_to,   "/var/www/#{application}"
     set :symfony_env_prod, stage
@@ -48,6 +49,8 @@ after "multistage:ensure" do
     puts "--> Branch ".yellow + "#{branch}".red + " will be used for deploy".yellow
     puts "--> Application will be deployed to ".yellow + application_url.red
 end
+
+before deploy:restart, deploy:reload_php
 
 after "deploy:restart" do
     puts "--> API was successfully deployed to ".green + "#{application_url}".yellow
