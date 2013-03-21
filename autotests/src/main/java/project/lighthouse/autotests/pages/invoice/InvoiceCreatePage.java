@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.pages.invoice;
 
 import net.thucydides.core.annotations.DefaultUrl;
-import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,7 +28,10 @@ public class InvoiceCreatePage extends ProductCreatePage{
     public WebElement invoiceSupplierInvoiceSkuField;
 
     @FindBy(name = "supplierInvoiceDate")
-    public WebElement invoiceSupplierInvoiceDate;
+    public WebElement invoiceSupplierInvoiceDateField;
+
+    @FindBy(name = "legalEntity")
+    public WebElement legalEntityField;
 
     @FindBy(xpath = "//*[@lh_button='commit']")
     private WebElement invoiceCreateAndSaveButton;
@@ -70,7 +72,9 @@ public class InvoiceCreatePage extends ProductCreatePage{
             case "supplierInvoiceSku":
                 return invoiceSupplierInvoiceSkuField;
             case "supplierInvoiceDate":
-                return invoiceSupplierInvoiceDate;
+                return invoiceSupplierInvoiceDateField;
+            case "legalEntity":
+                return legalEntityField;
             default:
                 String errorMessage = "No such element";
                 return (WebElement) new AssertionError(errorMessage);

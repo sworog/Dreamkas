@@ -16,9 +16,9 @@ And the user inputs 'ООО Компания' in the invoice 'legalEntity' field
 And the user inputs '8659' in the invoice 'supplierInvoiceSku' field
 And the user inputs '25.10.2012' in the invoice 'supplierInvoiceDate' field
 And the user clicks the invoice create button
-Then the user checks the invoice with '654321' sku is present
-When the user open the invoice card with '$skuValue' sku
-Then the user checks invoice elements values $checkValuesTable
+Then the user checks the invoice with '89698' sku is present
+When the user open the invoice card with '89698' sku
+Then the user checks invoice elements values
 | elementName | expectedValue |
 | sku | 89698 |
 | supplier | ОАЭ Поставщик в квадрате |
