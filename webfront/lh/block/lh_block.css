@@ -3,8 +3,9 @@
     margin: 1%;
     padding: 0;
     border: none;
-
     display: block;
+
+    /*
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -25,5 +26,5 @@
     -moz-box-align: baseline;
     -webkit-align-items: baseline;
     -ms-flex-align: baseline;
-    align-items: baseline;
+    align-items: baseline;*/
 }

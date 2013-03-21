@@ -34,7 +34,13 @@
             <script src="{$doc_page_stylesheet}/../index.env=web.stage={$doc_page_stage}.js">//</script>
 
             <link href="../../doc/-mix/index.stage=release.css" rel="stylesheet" />
-            <script src="../../doc/-mix/index.env=web.stage=release.js">//</script>
+            <script>
+                setTimeout( function( ){
+                    var script= document.createElement( 'script' )
+                    script.src= '../../doc/-mix/index.env=web.stage=release.js'
+                    document.head.appendChild( script )
+                }, 500 )
+            </script>
 
         </head>
         <body wc_reset="true">

@@ -55,8 +55,14 @@
                 </span>
             </div>
             <p lh_block="true">
-                Входящая накладная № <xsl:value-of select="supplierInvoiceSku" />
-                от <xsl:apply-templates select="supplierInvoiceDate" mode="lh_date_view" />
+                Входящая накладная №
+                <span name="supplierInvoiceSku">
+                    <xsl:value-of select="supplierInvoiceSku" />
+                </span>
+                от 
+                <span name="supplierInvoiceDate">
+                    <xsl:apply-templates select="supplierInvoiceDate" mode="lh_date_view" />
+                </span>
             </p>
         </div>
     </xsl:template>

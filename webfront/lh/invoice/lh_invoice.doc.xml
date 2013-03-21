@@ -13,6 +13,8 @@
                 <accepter>Пушкин ВА</accepter>
                 <acceptanceDate>2012-11-12T13:00</acceptanceDate>
                 <legalEntity>Шерсть и знамя</legalEntity>
+                <supplierInvoiceSku>INVOICE001</supplierInvoiceSku>
+                <supplierInvoiceDate>2012-11-11T13:00</supplierInvoiceDate>
             </invoice>
         </data>
     </div>
@@ -27,6 +29,8 @@
         test.ok( data.select( '//accepter/text()' ) + '', 'Пушкин ВА' )
         test.ok( data.select( '//acceptanceDate/text()' ) + '', '2012-11-12T13:00' )
         test.ok( data.select( '//legalEntity/text()' ) + '', 'Шерсть и знамя' )
+        test.ok( data.select( '//supplierInvoiceSku/text()' ) + '', 'INVOICE001' )
+        test.ok( data.select( '//supplierInvoiceDate/text()' ) + '', '2012-11-11T13:00' )
     </script>
 
 </doc_root>
