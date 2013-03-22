@@ -34,23 +34,11 @@ set  :keep_releases,  5
 
 logger.level = Logger::IMPORTANT
 
-after "multistage:ensure" do
-    def current_branch
-        `git branch`.match(/\* (\S+)\s/m)[1]\
-    end
-
-    set :branch, current_branch || "master" unless exists?(:branch)
-    set :host, branch unless exists?(:host)
-
-    set :application, "#{host}.#{stage}.api"
-    set :deploy_to,   "/var/www/#{application}"
+after "deploy:init" do
     set :symfony_env_prod, stage
-    set :application_url, "http://#{application}.lighthouse.cs"
-    puts "--> Branch ".yellow + "#{branch}".red + " will be used for deploy".yellow
-    puts "--> Application will be deployed to ".yellow + application_url.red
 end
 
-before deploy:restart, deploy:reload_php
+before "deploy:restart", "deploy:reload_php"
 
 after "deploy:restart" do
     puts "--> API was successfully deployed to ".green + "#{application_url}".yellow
