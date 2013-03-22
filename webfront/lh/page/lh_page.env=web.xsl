@@ -25,14 +25,14 @@
     <xsl:template
         match=" lh_page "
         >
-        <html jin_reset="true">
+        <html lh_desktop="true">
             <head>
                 <meta charset="utf-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
                 
                 <link href="{$lh_page_stylesheet}/../index.stage={$lh_page_stage}.css" rel="stylesheet" />
             </head>
-            <body jin_reset="true">
+            <body jin_reset="true" >
                 <xsl:apply-templates />
                 <script src="{$lh_page_stylesheet}/../index.env=web.stage={$lh_page_stage}.js">//</script>
             </body>

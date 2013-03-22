@@ -97,10 +97,13 @@
                     </span>
                 </div>
                 
-                <br/>
-                <div lh_remark="true">
-                    Необязательно к заполнению
-                </div>
+                <label lh_prop="true">
+                    <span lh_prop_name="true">
+                    </span>
+                    <div lh_remark="true">
+                        Необязательно к заполнению
+                    </div>
+                </label>
                 
                 <div lh_prop="true">
                     <span lh_prop_name="true">

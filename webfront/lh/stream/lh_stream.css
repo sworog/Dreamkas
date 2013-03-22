@@ -1,7 +1,6 @@
 [ lh_stream ]{
     width: 100%;
-    padding: 0 1% 1%;
-    padding: 0;
+    padding: 0 0 4pt;
     text-align: left;
     overflow: hidden;
     display: block;
@@ -10,7 +9,7 @@
 [ lh_stream_node ]{
     position: relative;
     padding: .5em 2em;
-    margin: 0 1%;
+    margin: 0 4pt;
     display: inline-block;
     line-height: 1.2;
 }

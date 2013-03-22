@@ -9,10 +9,13 @@
             <xsl:apply-templates select=" . " mode="lh_product_purchasePrice" />
             <xsl:apply-templates select=" . " mode="lh_product_vat" />
             
-            <br/>
-            <div lh_remark="true">
-                Необязательно к заполнению
-            </div>
+            <label lh_prop="true">
+                <span lh_prop_name="true">
+                </span>
+                <div lh_remark="true">
+                    Необязательно к заполнению
+                </div>
+            </label>
             
             <xsl:apply-templates select=" . " mode="lh_product_barcode" />
             <xsl:apply-templates select=" . " mode="lh_product_vendor" />

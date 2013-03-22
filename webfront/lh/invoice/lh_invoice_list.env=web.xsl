@@ -48,7 +48,7 @@
                     lh_table_cell="id"
                     lh_table_header="true"
                     >
-                    Артикул
+                    Номер
                 </span>
                 <span
                     lh_table_cell="common"

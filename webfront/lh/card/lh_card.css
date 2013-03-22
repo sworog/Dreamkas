@@ -1,10 +1,9 @@
 [ lh_card_stack ] {
-    display: inline-block;
+    display: inline-table;
     text-align: left;
-    width: 96%;
-    max-width: 700pt;
+    width: 700pt;
+    max-width: 96%;
     margin: 2%;
-    box-sizing: border-box;
     vertical-align: top;
 }
 
@@ -12,7 +11,8 @@
     display: block;
     text-align: left;
     margin-bottom: -3px;
-    padding: .7em;
+    padding: 0 4pt;
+    margin: 8pt 1.5%;
     border-radius: 4px;
     box-sizing: border-box;
     font-weight: bold;
@@ -29,7 +29,7 @@
     background: white;
     display: block;
     text-align: left;
-    padding: 1%;
+    padding: 12pt;
     box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.3 ) inset;
     border-radius: 5px;
     box-sizing: border-box;
@@ -39,21 +39,23 @@
 }
 
 [ lh_card_header ] {
-    margin: .5% .5% 1%;
+    margin: 4pt 4pt 8pt;
 }
 
 [ lh_card_tools ] {
     float: right;
+    margin: 0 4pt;
 }
 
 [ lh_card_title ] {
-    line-height: 1.3;
+    line-height: 1.5;
     font-weight: bold;
     font-size: 17pt;
     text-decoration: inherit;
     color: inherit;
     display: inline;
-    margin: .5% .15em;
+    vertical-align: bottom;
+    margin: 0 4pt 0 0;
 }
 
 [ lh_card_title ][ href ] {
@@ -66,8 +68,8 @@
 
 [ lh_card_foot ] {
     background: #fefef2;
-    margin: 0 -1% -1%;
-    padding: 2% 1% 1px;
+    margin: 0 -12pt -12pt;
+    padding: 2% 12pt 4pt;
     width: 100%;
     border-radius: 0 0 4px 4px;
 }

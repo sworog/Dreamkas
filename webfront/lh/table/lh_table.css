@@ -1,10 +1,9 @@
 [ lh_table ] {
     display: table;
     width: 100%;
-    padding: 1px;
-    background: white;
     line-height: 1.5;
     text-align: left;
+    box-sizing: border-box;
 }
 
 [ lh_table_row ] {
@@ -27,7 +26,7 @@
 
 [ lh_table_cell ] {
     display: table-cell;
-    padding: .5% 1%;
+    padding: 4pt;
 }
 
 [ lh_table_cell = 'id' ]:not( [ lh_table_header ] ) {
