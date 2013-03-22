@@ -1,13 +1,18 @@
 package project.lighthouse.autotests.pages.invoice;
 
 import net.thucydides.core.annotations.DefaultUrl;
+import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import project.lighthouse.autotests.pages.product.ProductCreatePage;
+import project.lighthouse.autotests.ICommonPageInterface;
+import project.lighthouse.autotests.pages.common.ICommonPage;
 
 @DefaultUrl("/?invoice/create")
-public class InvoiceCreatePage extends ProductCreatePage{
+public class InvoiceCreatePage extends PageObject{
+
+    public ICommonPageInterface ICommonPageInterface = new ICommonPage(getDriver());
+    private static final String INVOICE_NAME = "invoice";
 
     @FindBy(name = "sku")
     public WebElement invoiceSkuField;
@@ -49,7 +54,7 @@ public class InvoiceCreatePage extends ProductCreatePage{
 
     public void InvoiceCreateButtonClick(){
         $(invoiceCreateAndSaveButton).click();
-        CreateButtonNotSuccessAlertCheck("invoice");
+        ICommonPageInterface.CheckCreateAlertSuccess(INVOICE_NAME);
     }
 
     public void Input(String elementName, String inputText){

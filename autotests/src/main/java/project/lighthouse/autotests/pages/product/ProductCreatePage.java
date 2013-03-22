@@ -1,22 +1,21 @@
 package project.lighthouse.autotests.pages.product;
 
-import net.thucydides.core.pages.WebElementFacade;
 import org.jbehave.core.model.ExamplesTable;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
-import project.lighthouse.autotests.CommonPageInterface;
-import project.lighthouse.autotests.pages.common.CommonPage;
+import project.lighthouse.autotests.ICommonPageInterface;
+import project.lighthouse.autotests.pages.common.ICommonPage;
 
 import java.util.Map;
 
 @DefaultUrl("/?product/create")
 public class ProductCreatePage extends PageObject{
 
-    public CommonPageInterface commonPageInterface = new CommonPage(getDriver());
+    public ICommonPageInterface ICommonPageInterface = new ICommonPage(getDriver());
+    private static final String PRODUCT_NAME = "product";
 	
 	@FindBy(name="sku")
     public WebElement skuField;
@@ -87,28 +86,8 @@ public class ProductCreatePage extends PageObject{
 	
 	public void CreateButtonClick(){
 		$(createButton).click();
-        CreateButtonNotSuccessAlertCheck("product");
+        ICommonPageInterface.CheckCreateAlertSuccess(PRODUCT_NAME);
 	}
-
-    public void CreateButtonNotSuccessAlertCheck(String name){
-        boolean isAlertPresent;
-        Alert alert = null;
-        try {
-            alert = getAlert();
-            isAlertPresent = true;
-        }
-        catch (Exception e){
-            isAlertPresent = false;
-        }
-        if(isAlertPresent){
-            String errorAlertMessage = "Ошибка";
-            String alertText = alert.getText();
-            if(alertText.contains(errorAlertMessage)){
-                String errorMessage = String.format("Can't create new '%s'. Error alert is present. Alert text: %s", name, alertText);
-                throw new AssertionError(errorMessage);
-            }
-        }
-    }
 
     public WebElement GetWebElement(String name){
 		switch (name) {
@@ -154,44 +133,25 @@ public class ProductCreatePage extends PageObject{
 
     public void CheckFieldLength(String elementName, int fieldLength){
         WebElement element = GetWebElement(elementName);
-        int length = 0;
-        switch (element.getTagName()){
-            case "input":
-                length = $(element).getTextValue().length();
-                break;
-            case "textarea":
-                length = $(element).getValue().length();
-                break;
-            default:
-                length = $(element).getText().length();
-                break;
-        }
-        if(length != fieldLength){
-            String errorMessage = String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.", elementName, fieldLength, length);
-            throw new AssertionError(errorMessage);
-        }
+        ICommonPageInterface.CheckFieldLength(elementName, fieldLength, element);
     }
 
     public void CheckErrorMessages(ExamplesTable errorMessageTable){
-        CheckErrorMessagesLogic(errorMessageTable);
+        for (Map<String, String> row : errorMessageTable.getRows()){
+            String expectedErrorMessage = row.get("error message");
+            String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
+            if(!ICommonPageInterface.IsPresent(xpath)){
+                String errorMessage = "There are no error field validation messages on the page!";
+                throw new AssertionError(errorMessage);
+            }
+        }
     }
 
     public void CheckNoErrorMessages(){
         String xpath = "//*[@lh_field_error]";
-        if(commonPageInterface.isPresent(xpath)){
+        if(ICommonPageInterface.IsPresent(xpath)){
             String errorMessage = "There are error field validation messages on the page!";
             throw new AssertionError(errorMessage);
-        }
-    }
-
-    public void CheckErrorMessagesLogic(ExamplesTable errorMessageTable){
-        for (Map<String, String> row : errorMessageTable.getRows()){
-            String expectedErrorMessage = row.get("error message");
-            String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
-            if(!commonPageInterface.isPresent(xpath)){
-                String errorMessage = "There are no error field validation messages on the page!";
-                throw new AssertionError(errorMessage);
-            }
         }
     }
 }

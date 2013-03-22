@@ -32,6 +32,4 @@ public class InvoiceBrowsing extends InvoiceCreatePage{
     public void EditButtonClick(){
         $(editButton).click();
     }
-
-
 }

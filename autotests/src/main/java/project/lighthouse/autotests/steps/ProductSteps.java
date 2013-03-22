@@ -4,7 +4,7 @@ import org.jbehave.core.model.ExamplesTable;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
-import project.lighthouse.autotests.pages.common.CommonPage;
+import project.lighthouse.autotests.pages.common.ICommonPage;
 import project.lighthouse.autotests.pages.product.ProductCardView;
 import project.lighthouse.autotests.pages.product.ProductCreatePage;
 import project.lighthouse.autotests.pages.product.ProductEditPage;
@@ -16,7 +16,7 @@ public class ProductSteps extends ScenarioSteps{
 	ProductEditPage productEditPage;
 	ProductCardView productCardView;
     ProductListPage productListPage;
-    CommonPage commonPage;
+    ICommonPage commonPage;
 
 	public ProductSteps(Pages pages) {
 		super(pages);
