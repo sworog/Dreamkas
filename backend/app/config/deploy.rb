@@ -39,6 +39,8 @@ after "deploy:init" do
     set :symfony_env_prod, stage
 end
 
+after "deploy:setup", "symfony:parameters:setup"
+
 before "deploy:restart", "deploy:reload_php"
 
 after "deploy:restart" do
