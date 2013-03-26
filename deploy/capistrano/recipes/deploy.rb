@@ -41,7 +41,7 @@ namespace :deploy do
         top.upload(origin_file, destination_file)
 
         database_name = application
-        run "sed -r -i 's/(database_name:\s+)\S+/\1#{database_name}/g' #{destination_file}"
+        run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{destination_file}"
     end
 
 end
