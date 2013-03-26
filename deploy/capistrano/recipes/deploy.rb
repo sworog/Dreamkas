@@ -40,7 +40,8 @@ namespace :deploy do
         try_sudo "mkdir -p #{File.dirname(destination_file)}"
         top.upload(origin_file, destination_file)
 
-        database_name = application
+        database_name = application.gsub(/\./, '_')
+        puts "--> Database name in ".yellow + "parameters.yml".bold.yellow + " will be set to ".yellow + database_name.red
         run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{destination_file}"
     end
 
