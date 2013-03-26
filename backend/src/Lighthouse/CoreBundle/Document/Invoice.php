@@ -21,6 +21,8 @@ class Invoice extends AbstractDocument
     /**
      * Артикул
      * @MongoDB\String
+     * @Assert\NotBlank
+     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $sku;
@@ -28,6 +30,8 @@ class Invoice extends AbstractDocument
     /**
      * Поставщик
      * @MongoDB\String
+     * @Assert\NotBlank
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $supplier;
@@ -42,6 +46,8 @@ class Invoice extends AbstractDocument
     /**
      * Кто принял
      * @MongoDB\String
+     * @Assert\NotBlank
+     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $accepter;
@@ -49,6 +55,8 @@ class Invoice extends AbstractDocument
     /**
      * Получатель (юр. лицо)
      * @MongoDB\String
+     * @Assert\NotBlank
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $legalEntity;
@@ -56,6 +64,7 @@ class Invoice extends AbstractDocument
     /**
      * Входящий номер накладной
      * @MongoDB\String
+     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $supplierInvoiceSku;
