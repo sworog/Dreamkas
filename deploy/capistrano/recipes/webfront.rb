@@ -8,7 +8,7 @@ namespace :webfront do
 
     desc "Build webfront app"
     task :build, :roles => :app, :except => { :no_release => true } do
-        run "cd #{latest_release} && bash lh_build.cmd"
+        run "cd #{latest_release} && sh lh_build.cmd"
     end
 
     desc "Create index.xml"
@@ -17,8 +17,8 @@ namespace :webfront do
     end
 
     task :rename_api, :roles => :app, :except => { :no_release => true } do
-        set :api_url, application_url.gsub(/^http:\/\//, '') unless exists?(:api_url)
-        puts "--> API url name in ".yellow + "index.xml".bold.yellow + " will be set to ".yellow + "#{database_name}".red
-        run "cd #{latest_release} && sed 's/%api_url%/#{api_url.gsub('/', '\\/')}/g' index.xml"
+        set :api_url, "#{host}.#{stage}.api.lighthouse.cs" unless exists?(:api_url)
+        puts "--> API url name in ".yellow + "index.xml".bold.yellow + " will be set to ".yellow + "#{api_url}".red
+        run "sed -i 's/%api_url%/#{api_url.gsub('/', '\\/')}/g' #{latest_release}/index.xml"
     end
 end
