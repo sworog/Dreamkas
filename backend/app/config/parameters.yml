@@ -2,7 +2,7 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
+    database_name:     lighthouse
     database_user:     root
     database_password: ~
 
@@ -12,4 +12,4 @@ parameters:
     mailer_password:   ~
 
     locale:            ru
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            kjhf843f34nbfi34fed23efedf34

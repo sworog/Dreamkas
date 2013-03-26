@@ -32,6 +32,19 @@ namespace :deploy do
         puts "--> Branch ".yellow + "#{branch}".red + " will be used for deploy".yellow
         puts "--> Application will be deployed to ".yellow + application_url.red
     end
+
+    task :setup_parameters, :roles => :app, :except => { :no_release => true } do
+        origin_file = "app/config/parameters.yml"
+        destination_file = shared_path + "/app/config/parameters.yml" # Notice the shared_path
+
+        try_sudo "mkdir -p #{File.dirname(destination_file)}"
+        top.upload(origin_file, destination_file)
+
+        database_name = application
+        run "sed -r -i 's/(database_name:\s+)\S+/\1#{database_name}/g' #{destination_file}"
+    end
+
 end
 
 after "multistage:ensure", "deploy:init"
+after "deploy:setup", "deploy:setup_parameters"
