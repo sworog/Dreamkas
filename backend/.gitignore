@@ -7,5 +7,4 @@
 /bin/
 /composer.phar
 /composer.lock
-/Gemfile.lock
 /.idea
