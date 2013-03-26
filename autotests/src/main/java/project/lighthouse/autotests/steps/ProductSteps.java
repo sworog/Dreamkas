@@ -118,18 +118,8 @@ public class ProductSteps extends ScenarioSteps{
     }
 
     @Step
-    public void CheckErrorMessages(ExamplesTable errorMessageTable){
-        productCreatePage.CheckErrorMessages(errorMessageTable);
-    }
-
-    @Step
     public void GenerateTestCharData(String elementName, int charNumber){
         String generatedData = commonPage.GenerateTestData(charNumber);
         FieldInput(elementName, generatedData);
-    }
-
-    @Step
-    public void CheckNoErrorMessages(){
-        productCreatePage.CheckNoErrorMessages();
     }
 }

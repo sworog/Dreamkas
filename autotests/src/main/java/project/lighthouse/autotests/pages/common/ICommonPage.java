@@ -1,12 +1,17 @@
 package project.lighthouse.autotests.pages.common;
 
 import net.thucydides.core.pages.PageObject;
+import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.ICommonPageInterface;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 public class ICommonPage extends PageObject implements ICommonPageInterface {
 
@@ -92,5 +97,62 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
             String errorMessage = String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.", elementName, fieldLength, length);
             throw new AssertionError(errorMessage);
         }
+    }
+
+    public String getTodayDate(){
+        String pattern = "dd.MM.yyyy HH:mm";
+        return new SimpleDateFormat(pattern).format(new Date());
+    }
+
+    public String getInputedText(String inputText){
+        switch (inputText){
+            case "todayDate":
+                return getTodayDate();
+            default:
+                return inputText;
+        }
+    }
+
+    public void CheckErrorMessages(ExamplesTable errorMessageTable){
+        for (Map<String, String> row : errorMessageTable.getRows()){
+            String expectedErrorMessage = row.get("error message");
+            String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
+            if(!IsPresent(xpath)){
+                String errorMessage = "There are no error field validation messages on the page!";
+                throw new AssertionError(errorMessage);
+            }
+        }
+    }
+
+    public void CheckNoErrorMessages(){
+        String xpath = "//*[@lh_field_error]";
+        if(IsPresent(xpath)){
+            String errorMessage = "There are error field validation messages on the page!";
+            throw new AssertionError(errorMessage);
+        }
+    }
+
+    public void SetValue(CommonItem item, String value){
+        switch (item.GetType()) {
+            case date:
+            case input:
+            case textarea:
+                Input(item.GetWebElement(), value);
+                break;
+            case checkbox:
+                SelectByValue(item.GetWebElement(), value);
+                break;
+            default:
+                throw new AssertionError("Error!");
+        }
+    }
+
+    public void Input(WebElement element, String value){
+        String inputText = getInputedText(value);
+        $(element).type(inputText);
+    }
+
+    public void SelectByValue(WebElement element, String value){
+        $(element).selectByValue(value);
     }
 }

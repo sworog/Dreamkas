@@ -7,8 +7,10 @@ import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
 import project.lighthouse.autotests.ICommonPageInterface;
+import project.lighthouse.autotests.pages.common.CommonItem;
 import project.lighthouse.autotests.pages.common.ICommonPage;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @DefaultUrl("/?product/create")
@@ -62,13 +64,27 @@ public class ProductCreatePage extends PageObject{
     @FindBy(xpath = "//*[@lh_card_back]")
     private WebElement productItemListLink;
 
+    public Map<String, CommonItem> items = new HashMap<String, CommonItem>(){
+        {
+            put("sku", new CommonItem(skuField, CommonItem.types.input));
+            put("name", new CommonItem(nameField, CommonItem.types.input));
+            put("unit", new CommonItem(unitField, CommonItem.types.checkbox));
+            put("purchasePrice", new CommonItem(purchasePrice, CommonItem.types.input));
+            put("vat", new CommonItem(vatField, CommonItem.types.checkbox));
+            put("barcode", new CommonItem(barCodeField, CommonItem.types.input));
+            put("vendor", new CommonItem(vendorField, CommonItem.types.input));
+            put("vendorCountry", new CommonItem(vendorCountryField, CommonItem.types.input));
+            put("info", new CommonItem(infoField, CommonItem.types.textarea));
+        }
+    };
+
     public ProductCreatePage(WebDriver driver) {
         super(driver);
     }
 
     public void FieldInput(String elementName, String inputText){
-        WebElement element = GetWebElement(elementName);
-        $(element).type(inputText);
+        CommonItem item = items.get(elementName);
+        ICommonPageInterface.SetValue(item, inputText);
 	}
 
     public void FieldInput(ExamplesTable fieldInputTable){
@@ -80,8 +96,8 @@ public class ProductCreatePage extends PageObject{
     }
 	
 	public void SelectByValue(String elementName, String value){
-		WebElement element = GetWebElement(elementName);
-		$(element).selectByValue(value);
+        CommonItem item = items.get(elementName);
+        ICommonPageInterface.SetValue(item, value);
 	}
 	
 	public void CreateButtonClick(){
@@ -89,41 +105,8 @@ public class ProductCreatePage extends PageObject{
         ICommonPageInterface.CheckCreateAlertSuccess(PRODUCT_NAME);
 	}
 
-    public WebElement GetWebElement(String name){
-		switch (name) {
-		case "sku":
-			return skuField;
-		case "category": 
-			return categoryField;
-		case "group":
-			return groupField;
-		case "underGroupField":
-			return underGroupField;
-		case "name":
-			return nameField;
-		case "unit":
-			return unitField;
-		case "vat":
-			return vatField;
-		case "barcode":
-			return barCodeField;
-		case "purchasePrice":
-			return purchasePrice;
-		case "productCode":
-			return productCodeField;
-		case "vendor":
-			return vendorField;
-		case "vendorCountry":
-			return vendorCountryField;
-		case "info":
-			return infoField;
-		default:
-			return (WebElement) new AssertionError("No such value for GetWebElement method!");
-		}
-	}
-
     public void CheckDropDownDefaultValue(String dropDownType, String expectedValue){
-        WebElement element = GetWebElement(dropDownType);
+        WebElement element = items.get(dropDownType).GetWebElement();
         String selectedValue = $(element).getSelectedValue();
             if (!selectedValue.equals(expectedValue)) {
                 String errorMessage = String.format("The default value for '%s' dropDawn is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue);
@@ -132,26 +115,7 @@ public class ProductCreatePage extends PageObject{
     }
 
     public void CheckFieldLength(String elementName, int fieldLength){
-        WebElement element = GetWebElement(elementName);
+        WebElement element = items.get(elementName).GetWebElement();
         ICommonPageInterface.CheckFieldLength(elementName, fieldLength, element);
-    }
-
-    public void CheckErrorMessages(ExamplesTable errorMessageTable){
-        for (Map<String, String> row : errorMessageTable.getRows()){
-            String expectedErrorMessage = row.get("error message");
-            String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
-            if(!ICommonPageInterface.IsPresent(xpath)){
-                String errorMessage = "There are no error field validation messages on the page!";
-                throw new AssertionError(errorMessage);
-            }
-        }
-    }
-
-    public void CheckNoErrorMessages(){
-        String xpath = "//*[@lh_field_error]";
-        if(ICommonPageInterface.IsPresent(xpath)){
-            String errorMessage = "There are error field validation messages on the page!";
-            throw new AssertionError(errorMessage);
-        }
     }
 }

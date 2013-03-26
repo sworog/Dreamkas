@@ -1,12 +1,11 @@
 package project.lighthouse.autotests.jbehave.sales_manager;
 
-import org.jbehave.core.annotations.*;
-
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Given;
+import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.ProductSteps;
-
-import javax.persistence.Table;
 
 public class ProductUserSteps {
 	
@@ -127,15 +126,5 @@ public class ProductUserSteps {
     @Then("the user checks '$elementName' field contains only '$fieldLength' symbols")
     public void ThenTheUserChecksNameFieldContainsOnlyExactSymbols(String elementName, int fieldLength){
         productSteps.CheckFieldLength(elementName, fieldLength);
-    }
-
-    @Then("the user sees error messages $errorMessageTable")
-    public void ThenTheUserSeesErrorMessages(ExamplesTable errorMessageTable){
-        productSteps.CheckErrorMessages(errorMessageTable);
-    }
-
-    @Then("the user sees no error messages")
-    public void ThenTheUserSeesNoErrorMessages(){
-        productSteps.CheckNoErrorMessages();
     }
 }

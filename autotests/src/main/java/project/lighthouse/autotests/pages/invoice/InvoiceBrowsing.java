@@ -17,7 +17,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage{
     }
 
     public void CheckCardValue(String elementName, String expectedValue){
-        WebElement element = getInvoiceWebElement(elementName);
+        WebElement element = items.get(elementName).GetWebElement();
         $(element).shouldContainText(expectedValue);
     }
 
