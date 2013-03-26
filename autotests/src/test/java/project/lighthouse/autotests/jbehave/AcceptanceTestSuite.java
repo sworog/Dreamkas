@@ -13,7 +13,7 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
         String branch = environmentVariables.getProperty(CURRENT_BRANCH, null);
         if(branch != null){
             if(branch.startsWith("us-")){
-                findStoriesCalled(branch.substring(3));
+                findStoriesCalled(branch.substring(3) + "*");
             }
             if(branch.startsWith("sprint-")){
                 findStoriesIn("**/" + branch);
