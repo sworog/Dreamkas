@@ -19,10 +19,8 @@ namespace :deploy do
     desc "Init deploy configuration using current git branch"
     task :init do
 
-        current_branch = `git rev-parse --abbrev-ref HEAD`.delete("\n")
-
         set :app_end, 'api' unless exists?(:app_end)
-        set :branch, current_branch || "master" unless exists?(:branch)
+        set :branch, `git rev-parse --abbrev-ref HEAD`.delete("\n") || "master" unless exists?(:branch)
         set :host, branch unless exists?(:host)
 
         set :application, "#{host}.#{stage}.#{app_end}"
