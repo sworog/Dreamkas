@@ -1,4 +1,5 @@
 -*
 index.xml
 node_modules
-Gemfile.lock
+/.bundle
+/vendor

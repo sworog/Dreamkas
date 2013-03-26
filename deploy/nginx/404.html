@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Ошибка 404</h1>
+<h2>Не найдено приложения для выполнения.</h2>
+<h3>Судя по всему, приложение не было задеплоино на этот хост.</h3>
+
+<!--#if expr="$apihost" -->
+<!--#set var="target_host" value="$apihost" -->
+<!--#set var="deploy_folder" value="/backend" -->
+<!--#elif expr="$webfronthost" -->
+<!--#set var="target_host" value="$webfronthost" -->
+<!--#set var="deploy_folder" value="/webfront" -->
+<!--#endif -->
+<!--#if expr="$target_host" -->
+<p>Войдите в папку <b><!--#echo var="deploy_folder" --></b> и выполните соответствующую команду деплоя.</p>
+<ol>
+    <li>
+        Если вы сейчас работаете с веткой <b><!--#echo var="target_host" --></b>, то выполните команду:<br/>
+        <code>cap <!--#echo var="env" --> deploy:setup_if_needed deploy</code>
+    </li>
+    <li>
+        Если вы сейчас работаете с другой веткой, но хотите чтобы она была доступна адресу <b><!--#echo var="host" --></b>, то выполните команду:<br/>
+        <code>cap <!--#echo var="env" --> deploy:setup_if_needed deploy -S host=<!--#echo var="target_host" --></code>
+    </li>
+</ol>
+<!--#endif -->
+</body>
+</html>
