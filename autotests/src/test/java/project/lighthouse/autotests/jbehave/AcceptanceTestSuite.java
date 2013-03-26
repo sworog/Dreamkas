@@ -5,20 +5,19 @@ import net.thucydides.jbehave.ThucydidesJUnitStories;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
-    public static final String CURRENT_SPRINT = "lighthouse.autotests.sprint";
-    public static final String CURRENT_STORY = "lighthouse.autotests.story.name";
+    public static final String CURRENT_BRANCH = "lighthouse.autotests.branch";
 
-	public AcceptanceTestSuite() {
+    public AcceptanceTestSuite() {
 
         EnvironmentVariables environmentVariables = getEnvironmentVariables();
-        String sprint = environmentVariables.getProperty(CURRENT_SPRINT, null);
-        String story = environmentVariables.getProperty(CURRENT_STORY, null);
-        if(sprint != null) {
-            String storiesPath = "**/sprint".concat(sprint);
-            findStoriesIn(storiesPath);
+        String branch = environmentVariables.getProperty(CURRENT_BRANCH, null);
+        if(branch != null){
+            if(branch.startsWith("us-")){
+                findStoriesCalled(branch.substring(3) + "*");
+            }
+            if(branch.startsWith("sprint-")){
+                findStoriesIn("**/" + branch);
+            }
         }
-        if (story != null){
-            findStoriesCalled(story);
-        }
-	}
+    }
 }
