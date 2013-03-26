@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.CommonSteps;
 
 public class CommonUserSteps {
@@ -15,10 +15,13 @@ public class CommonUserSteps {
         commonSteps.CheckTheRequiredPageIsOpen(pageObjectName);
     }
 
-    @When("The user generates test123 data with chars number equals ''")
-    public void WhenTheUserGeneratesTestDataWithCharsNumber(int charNumber){
-
+    @Then("the user sees error messages $errorMessageTable")
+    public void ThenTheUserSeesErrorMessages(ExamplesTable errorMessageTable){
+        commonSteps.CheckErrorMessages(errorMessageTable);
     }
 
-
+    @Then("the user sees no error messages")
+    public void ThenTheUserSeesNoErrorMessages(){
+        commonSteps.CheckNoErrorMessages();
+    }
 }

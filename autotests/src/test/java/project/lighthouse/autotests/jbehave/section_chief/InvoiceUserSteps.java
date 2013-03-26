@@ -52,6 +52,11 @@ public class InvoiceUserSteps {
         invoiceSteps.ListItemClick(skuValue);
     }
 
+    @When("the user generates charData with '$charNumber' number in the '$elementName' invoice field")
+    public void WhenTheUserGeneratesCharData(String elementName, int charNumber){
+        invoiceSteps.GenerateTestCharData(elementName, charNumber);
+    }
+
     @Then("the user checks the invoice with '$skuValue' sku has '$name' equal to '$expectedValue'")
     public void WhenTheUSerChecksTheInvoiceWithSkuHasNameValueEqualToExpectedValue(String skuValue, String name, String expectedValue){
         invoiceSteps.CheckInvoiceListItemWithSkuHasExpectedValue(skuValue, name, expectedValue);
@@ -70,5 +75,10 @@ public class InvoiceUserSteps {
     @Then("the user checks invoice elements values $checkValuesTable")
     public void ThenTheUserChecksTheElementValues(ExamplesTable checkValuesTable){
         invoiceSteps.CheckCardValue(checkValuesTable);
+    }
+
+    @Then("the user checks '$elementName' invoice field contains only '$fieldLength' symbols")
+    public void ThenTheUserChecksNameFieldContainsOnlyExactSymbols(String elementName, int fieldLength){
+        invoiceSteps.CheckFieldLength(elementName, fieldLength);
     }
 }

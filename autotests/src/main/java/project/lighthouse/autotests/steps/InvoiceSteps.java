@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import project.lighthouse.autotests.pages.common.ICommonPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
@@ -13,6 +14,7 @@ public class InvoiceSteps extends ScenarioSteps{
     InvoiceCreatePage invoiceCreatePage;
     InvoiceListPage invoiceListPage;
     InvoiceBrowsing invoiceBrowsing;
+    ICommonPage commonPage;
 
     public InvoiceSteps(Pages pages) {
         super(pages);
@@ -73,7 +75,18 @@ public class InvoiceSteps extends ScenarioSteps{
         invoiceBrowsing.EditButtonClick();
     }
 
+    @Step
     public void ListItemClick(String skuValue){
         invoiceListPage.ListItemClick(skuValue);
+    }
+
+    @Step
+    public void GenerateTestCharData(String elementName, int charNumber){
+        String generatedData = commonPage.GenerateTestData(charNumber);
+        Input(elementName, generatedData);
+    }
+    @Step
+    public void CheckFieldLength(String elementName, int fieldLength){
+        invoiceCreatePage.CheckFieldLength(elementName, fieldLength);
     }
 }

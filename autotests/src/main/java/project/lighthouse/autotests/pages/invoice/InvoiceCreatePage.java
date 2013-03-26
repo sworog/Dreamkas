@@ -6,7 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.ICommonPageInterface;
+import project.lighthouse.autotests.pages.common.CommonItem;
 import project.lighthouse.autotests.pages.common.ICommonPage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @DefaultUrl("/?invoice/create")
 public class InvoiceCreatePage extends PageObject{
@@ -44,6 +48,19 @@ public class InvoiceCreatePage extends PageObject{
     @FindBy(xpath = "//*[@lh_link='close']")
     private WebElement invoiceCloseButton;
 
+    public Map<String, CommonItem> items = new HashMap<String, CommonItem>(){
+        {
+            put("sku", new CommonItem(invoiceSkuField, CommonItem.types.input));
+            put("acceptanceDate", new CommonItem(invoiceAcceptanceDateField, CommonItem.types.input));
+            put("supplier", new CommonItem(invoiceSupplierField, CommonItem.types.input));
+            put("accepter", new CommonItem(invoiceAccepterField, CommonItem.types.input));
+            put("recipient", new CommonItem(invoiceRecipientField, CommonItem.types.input));
+            put("supplierInvoiceSku", new CommonItem(invoiceSupplierInvoiceSkuField, CommonItem.types.input));
+            put("supplierInvoiceDate", new CommonItem(invoiceSupplierInvoiceDateField, CommonItem.types.input));
+            put("legalEntity", new CommonItem(legalEntityField, CommonItem.types.input));
+        }
+    };
+
     public InvoiceCreatePage(WebDriver driver) {
         super(driver);
     }
@@ -58,31 +75,12 @@ public class InvoiceCreatePage extends PageObject{
     }
 
     public void Input(String elementName, String inputText){
-        WebElement invoiceElement = getInvoiceWebElement(elementName);
-        $(invoiceElement).type(inputText);
+        CommonItem item = items.get(elementName);
+        ICommonPageInterface.SetValue(item, inputText);
     }
 
-    public WebElement getInvoiceWebElement(String elementName){
-        switch (elementName){
-            case "sku":
-                return invoiceSkuField;
-            case "acceptanceDate":
-                return invoiceAcceptanceDateField;
-            case "supplier":
-                return invoiceSupplierField;
-            case "accepter":
-                return invoiceAccepterField;
-            case "recipient":
-                return invoiceRecipientField;
-            case "supplierInvoiceSku":
-                return invoiceSupplierInvoiceSkuField;
-            case "supplierInvoiceDate":
-                return invoiceSupplierInvoiceDateField;
-            case "legalEntity":
-                return legalEntityField;
-            default:
-                String errorMessage = "No such element";
-                return (WebElement) new AssertionError(errorMessage);
-        }
+    public void CheckFieldLength(String elementName, int fieldLength){
+        WebElement element = items.get(elementName).GetWebElement();
+        ICommonPageInterface.CheckFieldLength(elementName, fieldLength, element);
     }
 }
