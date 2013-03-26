@@ -7,7 +7,7 @@ doctrine_mongodb:
         default:
             server: mongodb://localhost:27017
             options: {}
-    default_database: %database%_%kernel.environment%
+    default_database: %database_name%_%kernel.environment%
     document_managers:
         default:
             auto_mapping: true
