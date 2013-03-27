@@ -38,7 +38,7 @@ class InvoiceControllerTest extends WebTestCase
     /**
      * @dataProvider invoiceDataProvider
      */
-    public function testGetInvoicesAction(array $invoiceData, array $assertions)
+    public function testGetInvoicesAction(array $invoiceData)
     {
         $client = static::createClient();
 
@@ -145,22 +145,22 @@ class InvoiceControllerTest extends WebTestCase
                 'data' => array(
                     'sku' => 'sdfwfsf232',
                     'supplier' => 'ООО "Поставщик"',
-                    'acceptanceDate' => '2013-03-18T00:00:00+0400',
+                    'acceptanceDate' => '2013-03-18 12:56',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
                     'supplierInvoiceSku' => '1248373',
-                    'supplierInvoiceDate' => '17.05.2013',
+                    'supplierInvoiceDate' => '17.03.2013',
                     'sumTotal' => 1000,
                 ),
                 // Assertions xpath
                 'assertions' => array(
                     '//invoice/sku' => 'sdfwfsf232',
                     '//invoice/supplier' => 'ООО "Поставщик"',
-                    '//invoice/acceptanceDate' => '2013-03-18T00:00:00+0400',
+                    '//invoice/acceptanceDate' => '2013-03-18T12:56:00+0400',
                     '//invoice/accepter' => 'Приемных Н.П.',
                     '//invoice/legalEntity' => 'ООО "Магазин"',
                     '//invoice/supplierInvoiceSku' => '1248373',
-                    '//invoice/supplierInvoiceDate' => '2013-05-17T00:00:00+0400',
+                    '//invoice/supplierInvoiceDate' => '2013-03-17T00:00:00+0400',
                     '//invoice/createdDate' => $now->format('Y-m-d\TH:'),
                 )
             )
@@ -366,25 +366,25 @@ class InvoiceControllerTest extends WebTestCase
             /***********************************************************************************************
              * 'supplierInvoiceDate'
              ***********************************************************************************************/
-            'valid supplierInvoiceDate 2013-03-26T12:34:56' => array(
+            'valid supplierInvoiceDate 2013-03-16T12:34:56' => array(
                 201,
-                array('supplierInvoiceDate' => '2013-03-26T12:34:56'),
-                array("supplierInvoiceDate" => '2013-03-26T12:34:56+0400')
+                array('supplierInvoiceDate' => '2013-03-16T12:34:56'),
+                array("supplierInvoiceDate" => '2013-03-16T12:34:56+0400')
             ),
-            'valid supplierInvoiceDate 2013-03-26' => array(
+            'valid supplierInvoiceDate 2013-03-16' => array(
                 201,
-                array('supplierInvoiceDate' => '2013-03-26'),
-                array("supplierInvoiceDate" => '2013-03-26T00:00:00+0400')
+                array('supplierInvoiceDate' => '2013-03-16'),
+                array("supplierInvoiceDate" => '2013-03-16T00:00:00+0400')
             ),
-            'valid supplierInvoiceDate 2013-03-26 12:34' => array(
+            'valid supplierInvoiceDate 2013-03-16 12:34' => array(
                 201,
-                array('supplierInvoiceDate' => '2013-03-26 12:34'),
-                array("supplierInvoiceDate" => '2013-03-26T12:34:00+0400')
+                array('supplierInvoiceDate' => '2013-03-16 12:34'),
+                array("supplierInvoiceDate" => '2013-03-16T12:34:00+0400')
             ),
-            'valid supplierInvoiceDate 2013-03-26 12:34:45' => array(
+            'valid supplierInvoiceDate 2013-03-16 12:34:45' => array(
                 201,
-                array('supplierInvoiceDate' => '2013-03-26 12:34:45'),
-                array("supplierInvoiceDate" => '2013-03-26T12:34:45+0400')
+                array('supplierInvoiceDate' => '2013-03-16 12:34:45'),
+                array("supplierInvoiceDate" => '2013-03-16T12:34:45+0400')
             ),
             'empty supplierInvoiceDate' => array(
                 201,

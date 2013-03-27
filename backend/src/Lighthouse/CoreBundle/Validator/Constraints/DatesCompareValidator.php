@@ -12,6 +12,7 @@ class DatesCompareValidator extends ConstraintValidator
     /**
      * @param mixed $value
      * @param \Symfony\Component\Validator\Constraint|DatesCompare $constraint
+     * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
      */
     public function validate($value, Constraint $constraint)
     {
@@ -22,7 +23,7 @@ class DatesCompareValidator extends ConstraintValidator
         $firstValue = $value->{$constraint->firstField};
         $secondValue = $value->{$constraint->secondField};
 
-        if (null === $secondValue) {
+        if (null === $secondValue || null === $firstValue) {
             return;
         }
 
@@ -46,4 +47,3 @@ class DatesCompareValidator extends ConstraintValidator
         }
     }
 }
-
