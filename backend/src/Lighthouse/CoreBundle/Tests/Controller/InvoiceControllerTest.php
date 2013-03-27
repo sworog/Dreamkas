@@ -408,6 +408,25 @@ class InvoiceControllerTest extends WebTestCase
                     'Вы ввели неверную дату',
                 ),
             ),
+            'valid supplierInvoiceDate is less than acceptanceDate' => array(
+                201,
+                array(
+                    'supplierInvoiceDate' => '2013-03-14',
+                    'acceptanceDate' => '2013-03-15'
+                )
+            ),
+            'not valid supplierInvoiceDate is more than acceptanceDate' => array(
+                400,
+                array(
+                    'supplierInvoiceDate' => '2013-03-15',
+                    'acceptanceDate' => '2013-03-14'
+                ),
+                array(
+                    'form[name="invoice"] form[name="supplierInvoiceDate"] errors entry'
+                    =>
+                    'Дата накладной не должна быть старше даты приемки',
+                ),
+            ),
             /***********************************************************************************************
              * 'createdDate'
              ***********************************************************************************************/

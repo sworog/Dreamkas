@@ -5,10 +5,15 @@ namespace Lighthouse\CoreBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
-use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
+use Lighthouse\CoreBundle\Validator\Constraints\DatesCompare;
 
 /**
  * @MongoDB\Document
+ * @DatesCompare(
+ *     firstField="acceptanceDate",
+ *     secondField="supplierInvoiceDate",
+ *     message="lighthouse.validation.errors.invoice.dates_compare"
+ * )
  */
 class Invoice extends AbstractDocument
 {
