@@ -81,4 +81,9 @@ public class InvoiceUserSteps {
     public void ThenTheUserChecksNameFieldContainsOnlyExactSymbols(String elementName, int fieldLength){
         invoiceSteps.CheckFieldLength(elementName, fieldLength);
     }
+
+    @Then("the user checks the '$elementName' is prefilled and equals NowDate")
+    public void TheTheUserChecksTheDateIsPrefilledAndEquals(String elementName){
+        invoiceSteps.CheckTheDateisNowDate(elementName);
+    }
 }

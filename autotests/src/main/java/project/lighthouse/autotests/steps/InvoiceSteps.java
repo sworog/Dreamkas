@@ -89,4 +89,10 @@ public class InvoiceSteps extends ScenarioSteps{
     public void CheckFieldLength(String elementName, int fieldLength){
         invoiceCreatePage.CheckFieldLength(elementName, fieldLength);
     }
+
+    @Step
+    public void CheckTheDateisNowDate(String elementName){
+        String NowDate = ICommonPage.GetTodayDate();
+        CheckCardValue(elementName, NowDate);
+    }
 }

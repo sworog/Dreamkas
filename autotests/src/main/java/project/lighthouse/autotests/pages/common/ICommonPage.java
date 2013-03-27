@@ -105,7 +105,7 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
         }
     }
 
-    public String getTodayDate(){
+    public static String GetTodayDate(){
         String pattern = "dd.MM.yyyy HH:mm";
         return new SimpleDateFormat(pattern).format(new Date());
     }
@@ -113,7 +113,7 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
     public String getInputedText(String inputText){
         switch (inputText){
             case "todayDate":
-                return getTodayDate();
+                return GetTodayDate();
             default:
                 return inputText;
         }
@@ -153,6 +153,8 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
     public void SetValue(CommonItem item, String value){
         switch (item.GetType()) {
             case date:
+                InputDate(item.GetWebElement(), value);
+                break;
             case input:
             case textarea:
                 Input(item.GetWebElement(), value);
@@ -176,6 +178,25 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
 
     public void SelectByValue(WebElement element, String value){
         $(element).selectByValue(value);
+    }
+
+    public void InputDate(WebElement element, String value){
+        if(value.startsWith("!")){
+            Input(element, value.substring(1));
+        }
+        else{
+            if(value.equals("todayDate")){
+                String todayDate = GetTodayDate();
+                DatePickerInput(todayDate);
+            }
+            else{
+                DatePickerInput(value);
+            }
+        }
+    }
+
+    public void DatePickerInput(String datePattern){
+        throw new NotImplementedException();
     }
 
     public void AutoComplete(WebElement element, String value){

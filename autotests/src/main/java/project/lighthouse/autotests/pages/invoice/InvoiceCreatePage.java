@@ -51,12 +51,12 @@ public class InvoiceCreatePage extends PageObject{
     public Map<String, CommonItem> items = new HashMap<String, CommonItem>(){
         {
             put("sku", new CommonItem(invoiceSkuField, CommonItem.types.input));
-            put("acceptanceDate", new CommonItem(invoiceAcceptanceDateField, CommonItem.types.input));
+            put("acceptanceDate", new CommonItem(invoiceAcceptanceDateField, CommonItem.types.date));
             put("supplier", new CommonItem(invoiceSupplierField, CommonItem.types.input));
             put("accepter", new CommonItem(invoiceAccepterField, CommonItem.types.input));
             put("recipient", new CommonItem(invoiceRecipientField, CommonItem.types.input));
             put("supplierInvoiceSku", new CommonItem(invoiceSupplierInvoiceSkuField, CommonItem.types.input));
-            put("supplierInvoiceDate", new CommonItem(invoiceSupplierInvoiceDateField, CommonItem.types.input));
+            put("supplierInvoiceDate", new CommonItem(invoiceSupplierInvoiceDateField, CommonItem.types.date));
             put("legalEntity", new CommonItem(legalEntityField, CommonItem.types.input));
 
             /*
