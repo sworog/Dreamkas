@@ -58,6 +58,16 @@ public class InvoiceCreatePage extends PageObject{
             put("supplierInvoiceSku", new CommonItem(invoiceSupplierInvoiceSkuField, CommonItem.types.input));
             put("supplierInvoiceDate", new CommonItem(invoiceSupplierInvoiceDateField, CommonItem.types.input));
             put("legalEntity", new CommonItem(legalEntityField, CommonItem.types.input));
+
+            /*
+            us 8.3 code
+             */
+            put("productName", new CommonItem(productName, CommonItem.types.autocomplete));
+            put("productSku", new CommonItem(productSku, CommonItem.types.autocomplete));
+            put("productBarCode", new CommonItem(productBarCode, CommonItem.types.autocomplete));
+            put("productAmount", new CommonItem(productAmount, CommonItem.types.input));
+            put("invoiceCost", new CommonItem(invoiceCost, CommonItem.types.input));
+
         }
     };
 
@@ -83,4 +93,23 @@ public class InvoiceCreatePage extends PageObject{
         WebElement element = items.get(elementName).GetWebElement();
         ICommonPageInterface.CheckFieldLength(elementName, fieldLength, element);
     }
+
+     /*
+    8.3 story code
+     */
+
+    @FindBy(name = "name")
+    private WebElement productName;
+
+    @FindBy(name = "sku")
+    private WebElement productSku;
+
+    @FindBy(name = "barcode")
+    private WebElement productBarCode;
+
+    @FindBy(name = "amount")
+    private WebElement productAmount;
+
+    @FindBy(name = "cost")
+    private WebElement invoiceCost;
 }

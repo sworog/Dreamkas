@@ -19,7 +19,7 @@
         <thucydides.browser.height>1024</thucydides.browser.height>
         <thucydides.outputDirectory>${project.reporting.outputDirectory}/thucydides</thucydides.outputDirectory>
         <thucydides.sourceDirectory>${thucydides.outputDirectory}</thucydides.sourceDirectory>
-        <webdriver.base.url>http://webfront-autotests.lighthouse.cs</webdriver.base.url>
+        <webdriver.base.url>http://test.autotests.webfront.lighthouse.cs</webdriver.base.url>
         <webdriver.driver>firefox</webdriver.driver>
         <webdriver.timeouts.implicitlywait>10000</webdriver.timeouts.implicitlywait>
         <thucydides.take.screenshots>FOR_FAILURES</thucydides.take.screenshots>

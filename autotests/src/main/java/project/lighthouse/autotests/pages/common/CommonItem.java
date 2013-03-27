@@ -12,7 +12,7 @@ public class CommonItem {
         this.element = element;
     }
 
-    public static enum types {input, textarea, checkbox, date}
+    public static enum types {input, textarea, checkbox, date, autocomplete}
 
     public types GetType(){
         return type;

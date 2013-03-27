@@ -130,8 +130,8 @@ Scenario: Invoice accepter validation negative
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVN-01' in the invoice 'sku' field
-And the user generates charData with '301' number in the 'supplier' invoice field
-Then the user checks 'supplier' invoice field contains only '301' symbols
+And the user generates charData with '101' number in the 'accepter' invoice field
+Then the user checks 'accepter' invoice field contains only '101' symbols
 When the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'todayDate' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
@@ -170,8 +170,8 @@ Scenario: Invoice legalEntity validation negative
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs 'ILEVN-01' in the invoice 'sku' field
-And the user generates charData with '301' number in the 'supplier' invoice field
-Then the user checks 'supplier' invoice field contains only '301' symbols
+And the user generates charData with '301' number in the 'legalEntity' invoice field
+Then the user checks 'legalEntity' invoice field contains only '301' symbols
 When the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'todayDate' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field

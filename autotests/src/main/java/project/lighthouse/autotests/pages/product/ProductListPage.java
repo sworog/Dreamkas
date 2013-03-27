@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import net.thucydides.core.annotations.DefaultUrl;
+import project.lighthouse.autotests.ICommonViewInterface;
+import project.lighthouse.autotests.pages.common.ICommonView;
 
 @DefaultUrl("/?product/list")
 public class ProductListPage extends ProductCreatePage{
@@ -16,6 +18,9 @@ public class ProductListPage extends ProductCreatePage{
 	@FindBy(xpath = "//*[@lh_button='create']")
 	private WebElement createNewProductButton;
 
+    private static final String XPATH = "//../*[span[@name='sku' and text()='%s']]";
+    ICommonViewInterface iCommonViewInterface = new ICommonView(getDriver(), XPATH, productListItem);
+
 	public ProductListPage(WebDriver driver) {
 		super(driver);
 	}
@@ -23,31 +28,16 @@ public class ProductListPage extends ProductCreatePage{
     public void CreateNewProductButtonClick(){
         $(createNewProductButton).click();
     }
-
-    public WebElementFacade GetItemProductElement(String skuValue){
-        String xpath = String.format("//../*[span[@name='sku' and text()='%s']]", skuValue);
-        return $(productListItem).findBy(xpath);
-    }
 	
 	public void ListItemClick(String skuValue){
-        WebElementFacade productItem = GetItemProductElement(skuValue);
-        productItem.click();
+        iCommonViewInterface.ItemClick(skuValue);
 	}
 	
 	public void ListItemCheck(String skuValue){
-        WebElementFacade productItem = GetItemProductElement(skuValue);
-        productItem.shouldBePresent();
+        iCommonViewInterface.ItemCheck(skuValue);
 	}
 
-    public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
-        ListItemCheck(skuValue);
-        WebElementFacade productItem = GetItemProductElement(skuValue);
-        productItem.shouldContainText(expectedValue);
-    }
-
     public void CheckProductWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
-        /*
-        Need to implement method
-         */
+        iCommonViewInterface.CheckInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 }

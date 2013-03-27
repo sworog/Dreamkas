@@ -11,6 +11,7 @@ When the user inputs '123456' in the invoice 'sku' field
 When the user inputs '24.11.2006' in the invoice 'acceptanceDate' field
 When the user inputs 'ООО Поставщик' in the invoice 'supplier' field
 When the user inputs 'Иван Петров' in the invoice 'accepter' field
+And the user inputs 'ООО234' in the invoice 'legalEntity' field
 When the user inputs '123' in the invoice 'supplierInvoiceSku' field
 When the user inputs '25.25.2009' in the invoice 'supplierInvoiceDate' field
 And the user clicks the invoice create button

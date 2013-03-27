@@ -114,8 +114,8 @@ public class ProductUserSteps {
     }
 
     @Then("the user checks the product with '$skuValue' sku has '$name' equal to '$expectedValue'")
-    public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
-        productSteps.CheckProductWithSkuHasExpectedValue(skuValue, expectedValue);
+    public void CheckProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue){
+        productSteps.CheckProductWithSkuHasExpectedValue(skuValue, name, expectedValue);
     }
 
     @Then("the user checks default value for '$dropDownType' dropdown equal to '$expectedValue'")

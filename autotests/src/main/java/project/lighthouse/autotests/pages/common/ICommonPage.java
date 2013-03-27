@@ -1,19 +1,25 @@
 package project.lighthouse.autotests.pages.common;
 
 import net.thucydides.core.pages.PageObject;
+import net.thucydides.core.pages.WebElementFacade;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.ICommonPageInterface;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class ICommonPage extends PageObject implements ICommonPageInterface {
+
+    public static final String ERROR_MESSAGE = "No such option for '%s'";
 
     public ICommonPage(WebDriver driver) {
         super(driver);
@@ -118,7 +124,19 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
             String expectedErrorMessage = row.get("error message");
             String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
             if(!IsPresent(xpath)){
-                String errorMessage = "There are no error field validation messages on the page!";
+                String errorXpath = "//*[@lh_field_error]";
+                String errorMessage;
+                if(IsPresent(errorXpath)){
+                    List<WebElementFacade> webElementList = findAll(By.xpath(errorXpath));
+                    StringBuilder builder = new StringBuilder("Another validation errors are present:");
+                    for (WebElementFacade element : webElementList){
+                        builder.append(element.getAttribute("lh_field_error"));
+                    }
+                    errorMessage = builder.toString();
+                }
+                else{
+                    errorMessage = "There are no error field validation messages on the page!";
+                }
                 throw new AssertionError(errorMessage);
             }
         }
@@ -142,8 +160,12 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
             case checkbox:
                 SelectByValue(item.GetWebElement(), value);
                 break;
+            case autocomplete:
+                AutoComplete(item.GetWebElement(), value);
+                break;
             default:
-                throw new AssertionError("Error!");
+                String errorMessage = String.format(ERROR_MESSAGE, item.GetType());
+                throw new AssertionError(errorMessage);
         }
     }
 
@@ -154,5 +176,9 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
 
     public void SelectByValue(WebElement element, String value){
         $(element).selectByValue(value);
+    }
+
+    public void AutoComplete(WebElement element, String value){
+        throw new NotImplementedException();
     }
 }
