@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Form\Types;
 
-use Lighthouse\CoreBundle\DataTransformer\DateTimeToRfc3339Transformer;
-use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToRfc3339Transformer as OriginalDateTimeToRfc3339Transformer;
+use Lighthouse\CoreBundle\DataTransformer\DateTimeToRfc3339Transformer as LighthouseDateTimeToRfc3339Transformer;
+use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToRfc3339Transformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType as BaseDateTimeType;
@@ -34,8 +34,8 @@ class DateTimeType extends BaseDateTimeType
         $transformers = $builder->getViewTransformers();
         $builder->resetViewTransformers();
         foreach ($transformers as $transformer) {
-            if ($transformer instanceof OriginalDateTimeToRfc3339Transformer) {
-                $transformer = new DateTimeToRfc3339Transformer(
+            if ($transformer instanceof DateTimeToRfc3339Transformer) {
+                $transformer = new LighthouseDateTimeToRfc3339Transformer(
                     $options['model_timezone'],
                     $options['view_timezone']
                 );
@@ -52,6 +52,8 @@ class DateTimeType extends BaseDateTimeType
         parent::setDefaultOptions($resolver);
         $resolver->setDefaults(
             array(
+                'date_format' => self::HTML5_FORMAT,
+                'widget' => 'single_text',
                 'invalid_message' => 'lighthouse.validation.errors.datetime.invalid_value',
             )
         );

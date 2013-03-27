@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
-use Lighthouse\CoreBundle\Form\Listener\ViewValidationListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,19 +18,11 @@ class InvoiceType extends AbstractType
         $builder
             ->add('sku', 'text')
             ->add('supplier', 'text')
-            ->add(
-                'acceptanceDate',
-                'datetime',
-                array(
-                    'date_format' => DateTimeType::HTML5_FORMAT,
-                    'widget' => 'single_text'
-                )
-            )
+            ->add('acceptanceDate', 'datetime')
             ->add('accepter', 'text')
             ->add('legalEntity', 'text')
             ->add('supplierInvoiceSku', 'text')
-            ->add('supplierInvoiceDate', 'text')
-            ->add('createdDate', 'text')
+            ->add('supplierInvoiceDate', 'datetime')
             ->add('sumTotal', 'text');
     }
 

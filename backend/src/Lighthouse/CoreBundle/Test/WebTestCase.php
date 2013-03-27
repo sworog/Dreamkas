@@ -8,6 +8,9 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use AppKernel;
 
+/**
+ * @codeCoverageIgnore
+ */
 class WebTestCase extends BaseTestCase
 {
     /**

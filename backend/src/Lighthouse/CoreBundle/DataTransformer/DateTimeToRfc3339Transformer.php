@@ -23,8 +23,8 @@ class DateTimeToRfc3339Transformer extends BaseTransformer
             throw $e;
         } catch (TransformationFailedException $e) {
             throw $e;
-        // Catch invalid DateTime construct message
         } catch (\Exception $e) {
+            // Catch invalid DateTime construct message
             throw new TransformationFailedException($e->getMessage());
         }
         return $dateTime;

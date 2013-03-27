@@ -73,15 +73,16 @@ class Invoice extends AbstractDocument
 
     /**
      * Дата входящей накладной
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Date
+     * @Assert\DateTime
+     * @var \DateTime
      */
     protected $supplierInvoiceDate;
 
     /**
      * Дата составления накладной
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Date
+     * @var \DateTime
      */
     protected $createdDate;
 
@@ -97,8 +98,7 @@ class Invoice extends AbstractDocument
     public function __construct()
     {
         $this->acceptanceDate = new \DateTime();
-        //$this->supplierInvoiceDate = new \DateTime();
-        //$this->createdDate = new \DateTime();
+        $this->createdDate = new \DateTime();
     }
 
     /**

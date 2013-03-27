@@ -17,7 +17,7 @@ class InvoiceControllerTest extends WebTestCase
     /**
      * @dataProvider invoiceDataProvider
      */
-    public function testPostInvoiceAction(array $invoiceData)
+    public function testPostInvoiceAction(array $invoiceData, array $assertions = array())
     {
         $client = static::createClient();
 
@@ -30,35 +30,15 @@ class InvoiceControllerTest extends WebTestCase
         $content = $client->getResponse()->getContent();
         $this->assertEquals(201, $client->getResponse()->getStatusCode(), $content);
 
-        foreach ($invoiceData as $property => $expected) {
-            $actual = $crawler->filterXPath("//invoice/$property")->text();
-            $this->assertEquals($expected, $actual);
+        foreach ($assertions as $xpath => $expected) {
+            $this->assertContains($expected, $crawler->filterXPath($xpath)->first()->text());
         }
-    }
-
-    public function invoiceDataProvider()
-    {
-        return array(
-            'invoice data' => array(
-                array(
-                    'sku' => 'sdfwfsf232',
-                    'supplier' => 'ООО "Поставщик"',
-                    'acceptanceDate' => '2013-03-18T00:00:00+0400',
-                    'accepter' => 'Приемных Н.П.',
-                    'legalEntity' => 'ООО "Магазин"',
-                    'supplierInvoiceSku' => '1248373',
-                    'supplierInvoiceDate' => '17.05.2013',
-                    'createdDate' => '19.03.2013',
-                    'sumTotal' => 1000,
-                )
-            )
-        );
     }
 
     /**
      * @dataProvider invoiceDataProvider
      */
-    public function testGetInvoicesAction(array $invoiceData)
+    public function testGetInvoicesAction(array $invoiceData, array $assertions)
     {
         $client = static::createClient();
 
@@ -79,7 +59,7 @@ class InvoiceControllerTest extends WebTestCase
     /**
      * @dataProvider invoiceDataProvider
      */
-    public function testGetInvoice(array $invoiceData)
+    public function testGetInvoice(array $invoiceData, array $assertions)
     {
         $client = static::createClient();
 
@@ -91,9 +71,9 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        foreach ($invoiceData as $property => $expected) {
-            $actual = $crawler->filterXPath("//invoice/$property")->text();
-            $this->assertEquals($expected, $actual);
+
+        foreach ($assertions as $xpath => $expected) {
+            $this->assertContains($expected, $crawler->filterXPath($xpath)->first()->text());
         }
     }
 
@@ -102,12 +82,40 @@ class InvoiceControllerTest extends WebTestCase
         $client = static::createClient();
 
         $id = 'not_exists_id';
-        $crawler = $client->request(
+        $client->request(
             'GET',
             '/api/1/invoices/' . $id
         );
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @dataProvider validateProvider
+     */
+    public function testPostInvoiceValidation($expectedCode, array $data, array $assertions = array())
+    {
+        $client = static::createClient();
+
+        $invoiceData = $this->invoiceDataProvider();
+
+        $postData = array_merge($invoiceData['invoice']['data'], $data);
+
+        $crawler = $client->request(
+            'POST',
+            'api/1/invoices',
+            array('invoice' => $postData)
+        );
+
+        $this->assertEquals(
+            $expectedCode,
+            $client->getResponse()->getStatusCode(),
+            $client->getResponse()->getContent()
+        );
+
+        foreach ($assertions as $selector => $expected) {
+            $this->assertContains($expected, $crawler->filter($selector)->first()->text());
+        }
     }
 
     /**
@@ -129,32 +137,34 @@ class InvoiceControllerTest extends WebTestCase
         return $crawler->filterXPath("//invoice/id")->text();
     }
 
-    /**
-     * @dataProvider validateProvider
-     */
-    public function testPostInvoiceValidation($expectedCode, array $data, array $assertions = array())
+    public function invoiceDataProvider()
     {
-        $client = static::createClient();
-
-        $invoiceData = $this->invoiceDataProvider();
-
-        $postData = array_merge($invoiceData['invoice data'][0], $data);
-
-        $crawler = $client->request(
-            'POST',
-            'api/1/invoices',
-            array('invoice' => $postData)
+        $now = new \DateTime();
+        return array(
+            'invoice' => array(
+                'data' => array(
+                    'sku' => 'sdfwfsf232',
+                    'supplier' => 'ООО "Поставщик"',
+                    'acceptanceDate' => '2013-03-18T00:00:00+0400',
+                    'accepter' => 'Приемных Н.П.',
+                    'legalEntity' => 'ООО "Магазин"',
+                    'supplierInvoiceSku' => '1248373',
+                    'supplierInvoiceDate' => '17.05.2013',
+                    'sumTotal' => 1000,
+                ),
+                // Assertions xpath
+                'assertions' => array(
+                    '//invoice/sku' => 'sdfwfsf232',
+                    '//invoice/supplier' => 'ООО "Поставщик"',
+                    '//invoice/acceptanceDate' => '2013-03-18T00:00:00+0400',
+                    '//invoice/accepter' => 'Приемных Н.П.',
+                    '//invoice/legalEntity' => 'ООО "Магазин"',
+                    '//invoice/supplierInvoiceSku' => '1248373',
+                    '//invoice/supplierInvoiceDate' => '2013-05-17T00:00:00+0400',
+                    '//invoice/createdDate' => $now->format('Y-m-d\TH:'),
+                )
+            )
         );
-
-        $this->assertEquals(
-            $expectedCode,
-            $client->getResponse()->getStatusCode(),
-            $client->getResponse()->getContent()
-        );
-
-        foreach ($assertions as $selector => $expected) {
-            $this->assertContains($expected, $crawler->filter($selector)->first()->text());
-        }
     }
 
     /**
@@ -304,7 +314,7 @@ class InvoiceControllerTest extends WebTestCase
                 ),
             ),
             /***********************************************************************************************
-             * 'supplierInvoiceSku'
+             * 'acceptanceDate'
              ***********************************************************************************************/
             'valid acceptanceDate 2013-03-26T12:34:56' => array(
                 201,
@@ -351,6 +361,63 @@ class InvoiceControllerTest extends WebTestCase
                     'form[name="invoice"] form[name="acceptanceDate"] errors entry'
                     =>
                     'Вы ввели неверную дату',
+                ),
+            ),
+            /***********************************************************************************************
+             * 'supplierInvoiceDate'
+             ***********************************************************************************************/
+            'valid supplierInvoiceDate 2013-03-26T12:34:56' => array(
+                201,
+                array('supplierInvoiceDate' => '2013-03-26T12:34:56'),
+                array("supplierInvoiceDate" => '2013-03-26T12:34:56+0400')
+            ),
+            'valid supplierInvoiceDate 2013-03-26' => array(
+                201,
+                array('supplierInvoiceDate' => '2013-03-26'),
+                array("supplierInvoiceDate" => '2013-03-26T00:00:00+0400')
+            ),
+            'valid supplierInvoiceDate 2013-03-26 12:34' => array(
+                201,
+                array('supplierInvoiceDate' => '2013-03-26 12:34'),
+                array("supplierInvoiceDate" => '2013-03-26T12:34:00+0400')
+            ),
+            'valid supplierInvoiceDate 2013-03-26 12:34:45' => array(
+                201,
+                array('supplierInvoiceDate' => '2013-03-26 12:34:45'),
+                array("supplierInvoiceDate" => '2013-03-26T12:34:45+0400')
+            ),
+            'empty supplierInvoiceDate' => array(
+                201,
+                array('supplierInvoiceDate' => ''),
+            ),
+            'not valid supplierInvoiceDate 2013-02-31' => array(
+                400,
+                array('supplierInvoiceDate' => '2013-02-31'),
+                array(
+                    'form[name="invoice"] form[name="supplierInvoiceDate"] errors entry'
+                    =>
+                    'Вы ввели неверную дату',
+                ),
+            ),
+            'not valid supplierInvoiceDate aaa' => array(
+                400,
+                array('supplierInvoiceDate' => 'aaa'),
+                array(
+                    'form[name="invoice"] form[name="supplierInvoiceDate"] errors entry'
+                    =>
+                    'Вы ввели неверную дату',
+                ),
+            ),
+            /***********************************************************************************************
+             * 'createdDate'
+             ***********************************************************************************************/
+            'not valid createdDate' => array(
+                400,
+                array('createdDate' => '2013-03-26T12:34:56'),
+                array(
+                    'form[name="invoice"] > errors entry'
+                    =>
+                    'Эта форма не должна содержать дополнительных полей',
                 ),
             ),
         );
