@@ -138,7 +138,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user clicks the invoice create button
 Then the user sees error messages
 | error message |
-| Не более 300 символов |
+| Не более 100 символов |
 
 Scenario: Invoice legalEntity validation is required
 Given the user is on the invoice list page
