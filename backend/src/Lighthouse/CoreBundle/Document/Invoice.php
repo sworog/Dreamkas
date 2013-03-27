@@ -38,8 +38,10 @@ class Invoice extends AbstractDocument
 
     /**
      * Дата приемки
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Date
+     * @Assert\NotBlank
+     * @Assert\DateTime
+     * @var \DateTime
      */
     protected $acceptanceDate;
 
@@ -88,6 +90,16 @@ class Invoice extends AbstractDocument
      * @var string
      */
     protected $sumTotal;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->acceptanceDate = new \DateTime();
+        //$this->supplierInvoiceDate = new \DateTime();
+        //$this->createdDate = new \DateTime();
+    }
 
     /**
      * @return array

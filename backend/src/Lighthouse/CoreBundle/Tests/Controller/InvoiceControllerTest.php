@@ -43,7 +43,7 @@ class InvoiceControllerTest extends WebTestCase
                 array(
                     'sku' => 'sdfwfsf232',
                     'supplier' => 'ООО "Поставщик"',
-                    'acceptanceDate' => '18.03.2013',
+                    'acceptanceDate' => '2013-03-18T00:00:00+0400',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
                     'supplierInvoiceSku' => '1248373',
@@ -301,6 +301,56 @@ class InvoiceControllerTest extends WebTestCase
                     'form[name="invoice"] form[name="supplierInvoiceSku"] errors entry'
                     =>
                     'Не более 100 символов',
+                ),
+            ),
+            /***********************************************************************************************
+             * 'supplierInvoiceSku'
+             ***********************************************************************************************/
+            'valid acceptanceDate 2013-03-26T12:34:56' => array(
+                201,
+                array('acceptanceDate' => '2013-03-26T12:34:56'),
+                array("acceptanceDate" => '2013-03-26T12:34:56+0400')
+            ),
+            'valid acceptanceDate 2013-03-26' => array(
+                201,
+                array('acceptanceDate' => '2013-03-26'),
+                array("acceptanceDate" => '2013-03-26T00:00:00+0400')
+            ),
+            'valid acceptanceDate 2013-03-26 12:34' => array(
+                201,
+                array('acceptanceDate' => '2013-03-26 12:34'),
+                array("acceptanceDate" => '2013-03-26T12:34:00+0400')
+            ),
+            'valid acceptanceDate 2013-03-26 12:34:45' => array(
+                201,
+                array('acceptanceDate' => '2013-03-26 12:34:45'),
+                array("acceptanceDate" => '2013-03-26T12:34:45+0400')
+            ),
+            'empty acceptanceDate' => array(
+                400,
+                array('acceptanceDate' => ''),
+                array(
+                    'form[name="invoice"] form[name="acceptanceDate"] errors entry'
+                    =>
+                    'Заполните это поле',
+                ),
+            ),
+            'not valid acceptanceDate 2013-02-31' => array(
+                400,
+                array('acceptanceDate' => '2013-02-31'),
+                array(
+                    'form[name="invoice"] form[name="acceptanceDate"] errors entry'
+                    =>
+                    'Вы ввели неверную дату',
+                ),
+            ),
+            'not valid acceptanceDate aaa' => array(
+                400,
+                array('acceptanceDate' => 'aaa'),
+                array(
+                    'form[name="invoice"] form[name="acceptanceDate"] errors entry'
+                    =>
+                    'Вы ввели неверную дату',
                 ),
             ),
         );

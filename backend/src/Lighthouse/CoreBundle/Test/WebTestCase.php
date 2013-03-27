@@ -10,6 +10,15 @@ use AppKernel;
 
 class WebTestCase extends BaseTestCase
 {
+    /**
+     * Init app with debug
+     * @var bool
+     */
+    static protected $appDebug = true;
+
+    /**
+     *
+     */
     protected function setUp()
     {
     }
@@ -30,7 +39,7 @@ class WebTestCase extends BaseTestCase
      */
     protected static function createKernel(array $options = array())
     {
-        $options['debug'] = isset($options['debug']) ? $options['debug'] : false;
+        $options['debug'] = isset($options['debug']) ? $options['debug'] : static::$appDebug;
         return parent::createKernel($options);
     }
 
