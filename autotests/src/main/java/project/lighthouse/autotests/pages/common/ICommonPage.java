@@ -12,10 +12,10 @@ import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ICommonPage extends PageObject implements ICommonPageInterface {
 
@@ -185,6 +185,7 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
             Input(element, value.substring(1));
         }
         else{
+            $(element).type("");
             if(value.equals("todayDate")){
                 String todayDate = GetTodayDate();
                 DatePickerInput(todayDate);
@@ -196,7 +197,123 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
     }
 
     public void DatePickerInput(String datePattern){
-        throw new NotImplementedException();
+
+        String [] dateArray = datePattern.split(" ");
+        String [] date = dateArray[0].split("\\.");
+
+        String time = dateArray[1];
+        String dayString = date[0];
+        int monthInt = Integer.parseInt(date[1]);
+        String monthString = GetMonthName(monthInt);
+        int yearString = Integer.parseInt(date[2]);
+
+        String actualDatePickerMonth = GetActualDatePickerMonth();
+        int actualDatePickerYear = GetActualDatePickerYear();
+
+        if(yearString == actualDatePickerYear && monthString.equals(actualDatePickerMonth)){
+            SetDay(dayString);
+            SetTime(time);
+        }
+        else{
+            if(yearString == actualDatePickerYear){
+                if(monthString.equals(actualDatePickerMonth)){
+                    SetDay(dayString);
+                    SetTime(time);
+                }
+                else {
+                    SetMonth(monthInt);
+                    SetDay(dayString);
+                    SetTime(time);
+                }
+            }
+            else{
+                SetYear(yearString);
+                if(monthString.equals(actualDatePickerMonth)){
+                    SetDay(dayString);
+                    SetTime(time);
+                }
+                else {
+                    SetMonth(monthInt);
+                    SetDay(dayString);
+                    SetTime(time);
+                }
+            }
+        }
+        findBy("//button[text()='Done']").click();
+    }
+
+    public String GetActualDatePickerMonth(){
+        String actualDatePickerMonthXpath = "//div[@class='ui-datepicker-title']/span[@class='ui-datepicker-month']";
+        return findBy(actualDatePickerMonthXpath).getText();
+    }
+
+    public int GetActualDatePickerYear(){
+        String actualDatePickerYearXpath = "//div[@class='ui-datepicker-title']/span[@class='ui-datepicker-year']";
+        return Integer.parseInt(findBy(actualDatePickerYearXpath).getText());
+    }
+
+    public void SetTime(String timeString){
+        String [] time = timeString.split(":");
+        String timePickerHourXpath = "//div[@class='ui_tpicker_hour_slider']//input";
+        String timePickerMinuteXpath = "//div[@class='ui_tpicker_minute_slider']//input";
+        findBy(timePickerHourXpath).type(time[0]);
+        findBy(timePickerMinuteXpath).type(time[1]);
+    }
+
+    public void SetDay(String dayString){
+        String timePickerDayXpath = String.format("//td[@data-handler='selectDay']/a[text()='%s']",dayString);
+        findBy(timePickerDayXpath).click();
+    }
+
+    public void SetMonth(int monthValue){
+        int getActualMonth = GetMonthNumber(GetActualDatePickerMonth());
+        int actualMonthValue = 0;
+        if(monthValue < getActualMonth){
+            actualMonthValue = 0;
+            while(!(monthValue == actualMonthValue)){
+                findBy("//a[@data-handler='prev']").click();
+                actualMonthValue = GetMonthNumber(GetActualDatePickerMonth());
+            }
+        }
+        else if(monthValue > actualMonthValue){
+            actualMonthValue = 0;
+            while(!(monthValue == actualMonthValue)){
+                findBy("//a[@data-handler='next']").click();
+                actualMonthValue = GetMonthNumber(GetActualDatePickerMonth());
+            }
+        }
+    }
+
+    public void SetYear(int yearValue){
+        if(yearValue < GetActualDatePickerYear()){
+            int actualYearValue = 0;
+            while(!(yearValue == actualYearValue)){
+                findBy("//a[@data-handler='prev']").click();
+                actualYearValue = GetActualDatePickerYear();
+            }
+        }
+        else if(yearValue > GetActualDatePickerYear()){
+            String errorMessage = String.format("Year '%s' cantbe more than current year '%s'", yearValue, GetActualDatePickerYear());
+            throw new AssertionError(errorMessage);
+        }
+    }
+
+    public String GetMonthName(int month) {
+        Locale id = new Locale("en");
+        return new DateFormatSymbols(id).getMonths()[month-1];
+    }
+
+    public int GetMonthNumber(String monthName){
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(monthName);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int month = cal.get(Calendar.MONTH);
+        return month + 1;
     }
 
     public void AutoComplete(WebElement element, String value){

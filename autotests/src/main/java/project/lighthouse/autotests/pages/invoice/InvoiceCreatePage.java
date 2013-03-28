@@ -2,6 +2,7 @@ package project.lighthouse.autotests.pages.invoice;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -67,7 +68,6 @@ public class InvoiceCreatePage extends PageObject{
             put("productBarCode", new CommonItem(productBarCode, CommonItem.types.autocomplete));
             put("productAmount", new CommonItem(productAmount, CommonItem.types.input));
             put("invoiceCost", new CommonItem(invoiceCost, CommonItem.types.input));
-
         }
     };
 
@@ -112,4 +112,7 @@ public class InvoiceCreatePage extends PageObject{
 
     @FindBy(name = "cost")
     private WebElement invoiceCost;
+
+    @FindBy(name = "slider_example_5")
+    private WebElement test;
 }

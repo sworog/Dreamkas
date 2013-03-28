@@ -85,8 +85,5 @@ public class InvoiceBrowsing extends InvoiceCreatePage{
 
     public void CheckListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue){
         iCommonViewInterface.CheckInvoiceListItemWithSkuHasExpectedValue(value, elementName, expectedValue);
-
-
-
     }
 }
