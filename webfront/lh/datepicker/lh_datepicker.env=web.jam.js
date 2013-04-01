@@ -1,5 +1,6 @@
 this.$lh_datepicker= function(obj) {
-    jQuery(obj).datetimepicker({
+    //$lh_datepicker_ui;
+    $jq(obj).datetimepicker({
         controlType: $lh_datepicker_control
-    })
+    });
 };
