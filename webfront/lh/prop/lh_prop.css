@@ -23,6 +23,10 @@
     align-content: stretch;
 }
 
+[ lh_prop ] span {
+    vertical-align: top;
+}
+
 [ lh_prop_name ] {
     display: inline-block;
     -webkit-box-flex: 0;
