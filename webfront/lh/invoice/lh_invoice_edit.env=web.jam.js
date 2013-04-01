@@ -8,8 +8,8 @@ this.$lh_invoice_edit= $jin_class( function( $lh_invoice_edit, editor ){
     editor.init= function( editor, node ){
         init.apply( this, arguments )
 
-        $lh_datepicker(editor.$.querySelector('[name="acceptanceDate"]'), true)
-        $jq(editor.$.querySelector('[name="supplierInvoiceDate"]')).datepicker();
+        $lh_datetimepicker(editor.$.querySelector('[name="acceptanceDate"]'), true)
+        $lh_datepicker(editor.$.querySelector('[name="supplierInvoiceDate"]'))
         
         $jin_onSubmit.listen( editor.$, function( event ) {
             event.catched( true )
