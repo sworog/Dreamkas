@@ -5,7 +5,7 @@
     "homepage": "https://github.com/nin-jin/pms",
     "dependencies": {
         "pms": "*",
-        "node-gyp": "*"
+        "node-gyp": "0.8.5"
     },
     "engine": "node >= 0.4.1",
     "readme": "no readme"
