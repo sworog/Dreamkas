@@ -16,7 +16,7 @@ public class ProductEditPage extends ProductCreatePage{
         super(driver);
     }
 
-    public void CancelButtonClick(){
+    public void cancelButtonClick(){
 		$(resetButton).click();
 	}
 }

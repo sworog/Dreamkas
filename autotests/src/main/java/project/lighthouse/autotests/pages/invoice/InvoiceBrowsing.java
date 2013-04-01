@@ -4,8 +4,8 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import project.lighthouse.autotests.ICommonViewInterface;
-import project.lighthouse.autotests.pages.common.ICommonView;
+import project.lighthouse.autotests.CommonViewInterface;
+import project.lighthouse.autotests.pages.common.CommonView;
 
 import java.util.Map;
 
@@ -18,20 +18,20 @@ public class InvoiceBrowsing extends InvoiceCreatePage{
         super(driver);
     }
 
-    public void CheckCardValue(String elementName, String expectedValue){
-        WebElement element = items.get(elementName).GetWebElement();
+    public void checkCardValue(String elementName, String expectedValue){
+        WebElement element = items.get(elementName).getWebElement();
         $(element).shouldContainText(expectedValue);
     }
 
-    public void CheckCardValue(ExamplesTable checkValuesTable){
+    public void checkCardValue(ExamplesTable checkValuesTable){
         for (Map<String, String> row : checkValuesTable.getRows()){
             String elementName = row.get("elementName");
             String expectedValue = row.get("expectedValue");
-            CheckCardValue(elementName, expectedValue);
+            checkCardValue(elementName, expectedValue);
         }
     }
 
-    public void EditButtonClick(){
+    public void editButtonClick(){
         $(editButton).click();
     }
      /*
@@ -54,7 +54,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage{
     private WebElement totalInfo;
 
     private static final String XPATH = "";
-    ICommonViewInterface iCommonViewInterface = new ICommonView(getDriver(), XPATH, invoiceProductListItem);
+    CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, invoiceProductListItem);
 
     public void goToTheaAdditionOfProductsLinkClick(){
         $(goToTheaAdditionOfProductsLink).click();
@@ -68,22 +68,22 @@ public class InvoiceBrowsing extends InvoiceCreatePage{
         $(invoiceFinish).click();
     }
 
-    public void TotalCalculation(){
+    public void totalCalculation(){
         /*
         ???????????? Count all sum by itself?
          */
     }
 
-    public void ListItemClick(String value){
-        iCommonViewInterface.ItemClick(value);
+    public void listItemClick(String value){
+        commonViewInterface.itemClick(value);
 
     }
 
-    public void ListItemCheck(String value){
-        iCommonViewInterface.ItemCheck(value);
+    public void listItemCheck(String value){
+        commonViewInterface.itemCheck(value);
     }
 
-    public void CheckListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue){
-        iCommonViewInterface.CheckInvoiceListItemWithSkuHasExpectedValue(value, elementName, expectedValue);
+    public void checkListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue){
+        commonViewInterface.checkInvoiceListItemWithSkuHasExpectedValue(value, elementName, expectedValue);
     }
 }

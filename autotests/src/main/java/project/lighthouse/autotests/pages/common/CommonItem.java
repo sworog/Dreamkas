@@ -14,11 +14,11 @@ public class CommonItem {
 
     public static enum types {input, textarea, checkbox, date, autocomplete}
 
-    public types GetType(){
+    public types getType(){
         return type;
     }
 
-    public WebElement GetWebElement(){
+    public WebElement getWebElement(){
         return element;
     }
 }

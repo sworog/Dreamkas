@@ -1,13 +1,12 @@
 package project.lighthouse.autotests.pages.product;
 
-import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import net.thucydides.core.annotations.DefaultUrl;
-import project.lighthouse.autotests.ICommonViewInterface;
-import project.lighthouse.autotests.pages.common.ICommonView;
+import project.lighthouse.autotests.CommonViewInterface;
+import project.lighthouse.autotests.pages.common.CommonView;
 
 @DefaultUrl("/?product/list")
 public class ProductListPage extends ProductCreatePage{
@@ -19,25 +18,25 @@ public class ProductListPage extends ProductCreatePage{
 	private WebElement createNewProductButton;
 
     private static final String XPATH = "//../*[span[@name='sku' and text()='%s']]";
-    ICommonViewInterface iCommonViewInterface = new ICommonView(getDriver(), XPATH, productListItem);
+    CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, productListItem);
 
 	public ProductListPage(WebDriver driver) {
 		super(driver);
 	}
 
-    public void CreateNewProductButtonClick(){
+    public void createNewProductButtonClick(){
         $(createNewProductButton).click();
     }
 	
-	public void ListItemClick(String skuValue){
-        iCommonViewInterface.ItemClick(skuValue);
+	public void listItemClick(String skuValue){
+        commonViewInterface.itemClick(skuValue);
 	}
 	
-	public void ListItemCheck(String skuValue){
-        iCommonViewInterface.ItemCheck(skuValue);
+	public void listItemCheck(String skuValue){
+        commonViewInterface.itemCheck(skuValue);
 	}
 
-    public void CheckProductWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
-        iCommonViewInterface.CheckInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
+    public void checkProductWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
+        commonViewInterface.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 }

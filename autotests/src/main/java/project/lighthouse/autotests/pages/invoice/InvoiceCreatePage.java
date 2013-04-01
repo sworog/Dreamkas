@@ -2,13 +2,12 @@ package project.lighthouse.autotests.pages.invoice;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import project.lighthouse.autotests.ICommonPageInterface;
+import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.pages.common.CommonItem;
-import project.lighthouse.autotests.pages.common.ICommonPage;
+import project.lighthouse.autotests.pages.common.CommonPage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.Map;
 @DefaultUrl("/?invoice/create")
 public class InvoiceCreatePage extends PageObject{
 
-    public ICommonPageInterface ICommonPageInterface = new ICommonPage(getDriver());
+    public CommonPageInterface CommonPageInterface = new CommonPage(getDriver());
     private static final String INVOICE_NAME = "invoice";
 
     @FindBy(name = "sku")
@@ -75,23 +74,23 @@ public class InvoiceCreatePage extends PageObject{
         super(driver);
     }
 
-    public void InvoiceCloseButtonClick(){
+    public void invoiceCloseButtonClick(){
         $(invoiceCloseButton).click();
     }
 
-    public void InvoiceCreateButtonClick(){
+    public void invoiceCreateButtonClick(){
         $(invoiceCreateAndSaveButton).click();
-        ICommonPageInterface.CheckCreateAlertSuccess(INVOICE_NAME);
+        CommonPageInterface.checkCreateAlertSuccess(INVOICE_NAME);
     }
 
-    public void Input(String elementName, String inputText){
+    public void input(String elementName, String inputText){
         CommonItem item = items.get(elementName);
-        ICommonPageInterface.SetValue(item, inputText);
+        CommonPageInterface.setValue(item, inputText);
     }
 
-    public void CheckFieldLength(String elementName, int fieldLength){
-        WebElement element = items.get(elementName).GetWebElement();
-        ICommonPageInterface.CheckFieldLength(elementName, fieldLength, element);
+    public void checkFieldLength(String elementName, int fieldLength){
+        WebElement element = items.get(elementName).getWebElement();
+        CommonPageInterface.checkFieldLength(elementName, fieldLength, element);
     }
 
      /*

@@ -4,28 +4,28 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.pages.common.ICommonPage;
+import project.lighthouse.autotests.pages.common.CommonPage;
 
 public class CommonSteps extends ScenarioSteps{
 
-    ICommonPage commonPage;
+    CommonPage commonPage;
 
     public CommonSteps(Pages pages) {
         super(pages);
     }
 
     @Step
-    public void CheckTheRequiredPageIsOpen(String pageObjectName){
+    public void checkTheRequiredPageIsOpen(String pageObjectName){
         commonPage.isRequiredPageOpen(pageObjectName);
     }
 
     @Step
-    public void CheckErrorMessages(ExamplesTable errorMessageTable){
-        commonPage.CheckErrorMessages(errorMessageTable);
+    public void checkErrorMessages(ExamplesTable errorMessageTable){
+        commonPage.checkErrorMessages(errorMessageTable);
     }
 
     @Step
-    public void CheckNoErrorMessages(){
-        commonPage.CheckNoErrorMessages();
+    public void checkNoErrorMessages(){
+        commonPage.checkNoErrorMessages();
     }
 }

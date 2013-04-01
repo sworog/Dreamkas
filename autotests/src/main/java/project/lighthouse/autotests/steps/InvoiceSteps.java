@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.pages.common.ICommonPage;
+import project.lighthouse.autotests.pages.common.CommonPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
@@ -14,85 +14,85 @@ public class InvoiceSteps extends ScenarioSteps{
     InvoiceCreatePage invoiceCreatePage;
     InvoiceListPage invoiceListPage;
     InvoiceBrowsing invoiceBrowsing;
-    ICommonPage commonPage;
+    CommonPage commonPage;
 
     public InvoiceSteps(Pages pages) {
         super(pages);
     }
 
     @Step
-    public void OpenInvoiceCreatePage(){
+    public void openInvoiceCreatePage(){
         invoiceCreatePage.open();
     }
 
     @Step
-    public void OpenInvoiceListPage(){
+    public void openInvoiceListPage(){
         invoiceListPage.open();
     }
 
     @Step
-    public void InvoiceListItemCreate(){
-        invoiceListPage.InvoiceListItemCreate();
+    public void invoiceListItemCreate(){
+        invoiceListPage.invoiceListItemCreate();
     }
 
     @Step
-    public void Input(String elementName, String inputText){
-        invoiceCreatePage.Input(elementName, inputText);
+    public void input(String elementName, String inputText){
+        invoiceCreatePage.input(elementName, inputText);
     }
 
     @Step
-    public void InvoiceCreateButtonClick(){
-        invoiceCreatePage.InvoiceCreateButtonClick();
+    public void invoiceCreateButtonClick(){
+        invoiceCreatePage.invoiceCreateButtonClick();
     }
 
     @Step
-    public void InvoiceCloseButtonClick(){
-        invoiceCreatePage.InvoiceCloseButtonClick();
+    public void invoiceCloseButtonClick(){
+        invoiceCreatePage.invoiceCloseButtonClick();
     }
 
     @Step
-    public void ListItemCheck(String skuValue){
-        invoiceListPage.ListItemCheck(skuValue);
+    public void listItemCheck(String skuValue){
+        invoiceListPage.listItemCheck(skuValue);
     }
 
     @Step
-    public void CheckInvoiceListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
-        invoiceListPage.CheckInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
+    public void checkInvoiceListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
+        invoiceListPage.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 
     @Step
-    public void CheckCardValue(String elementName, String expectedValue){
-        invoiceBrowsing.CheckCardValue(elementName, expectedValue);
+    public void checkCardValue(String elementName, String expectedValue){
+        invoiceBrowsing.checkCardValue(elementName, expectedValue);
     }
 
     @Step
-    public void CheckCardValue(ExamplesTable checkValuesTable){
-        invoiceBrowsing.CheckCardValue(checkValuesTable);
+    public void checkCardValue(ExamplesTable checkValuesTable){
+        invoiceBrowsing.checkCardValue(checkValuesTable);
     }
 
     @Step
-    public void EditButtonClick(){
-        invoiceBrowsing.EditButtonClick();
+    public void editButtonClick(){
+        invoiceBrowsing.editButtonClick();
     }
 
     @Step
-    public void ListItemClick(String skuValue){
-        invoiceListPage.ListItemClick(skuValue);
+    public void listItemClick(String skuValue){
+        invoiceListPage.listItemClick(skuValue);
     }
 
     @Step
-    public void GenerateTestCharData(String elementName, int charNumber){
-        String generatedData = commonPage.GenerateTestData(charNumber);
-        Input(elementName, generatedData);
+    public void generateTestCharData(String elementName, int charNumber){
+        String generatedData = commonPage.generateTestData(charNumber);
+        input(elementName, generatedData);
     }
     @Step
-    public void CheckFieldLength(String elementName, int fieldLength){
-        invoiceCreatePage.CheckFieldLength(elementName, fieldLength);
+    public void checkFieldLength(String elementName, int fieldLength){
+        invoiceCreatePage.checkFieldLength(elementName, fieldLength);
     }
 
     @Step
-    public void CheckTheDateisNowDate(String elementName){
-        String NowDate = ICommonPage.GetTodayDate();
-        CheckCardValue(elementName, NowDate);
+    public void checkTheDateisNowDate(String elementName){
+        String NowDate = CommonPage.getTodayDate();
+        checkCardValue(elementName, NowDate);
     }
 }

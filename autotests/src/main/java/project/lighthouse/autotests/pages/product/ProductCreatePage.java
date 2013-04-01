@@ -6,9 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
-import project.lighthouse.autotests.ICommonPageInterface;
+import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.pages.common.CommonItem;
-import project.lighthouse.autotests.pages.common.ICommonPage;
+import project.lighthouse.autotests.pages.common.CommonPage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ import java.util.Map;
 @DefaultUrl("/?product/create")
 public class ProductCreatePage extends PageObject{
 
-    public ICommonPageInterface ICommonPageInterface = new ICommonPage(getDriver());
+    public CommonPageInterface CommonPageInterface = new CommonPage(getDriver());
     private static final String PRODUCT_NAME = "product";
 	
 	@FindBy(name="sku")
@@ -82,31 +82,31 @@ public class ProductCreatePage extends PageObject{
         super(driver);
     }
 
-    public void FieldInput(String elementName, String inputText){
+    public void fieldInput(String elementName, String inputText){
         CommonItem item = items.get(elementName);
-        ICommonPageInterface.SetValue(item, inputText);
+        CommonPageInterface.setValue(item, inputText);
 	}
 
-    public void FieldInput(ExamplesTable fieldInputTable){
+    public void fieldInput(ExamplesTable fieldInputTable){
         for (Map<String, String> row : fieldInputTable.getRows()){
             String elementName = row.get("elementName");
             String inputText = row.get("inputText");
-            FieldInput(elementName, inputText);
+            fieldInput(elementName, inputText);
         }
     }
 	
-	public void SelectByValue(String elementName, String value){
+	public void selectByValue(String elementName, String value){
         CommonItem item = items.get(elementName);
-        ICommonPageInterface.SetValue(item, value);
+        CommonPageInterface.setValue(item, value);
 	}
 	
-	public void CreateButtonClick(){
+	public void createButtonClick(){
 		$(createButton).click();
-        ICommonPageInterface.CheckCreateAlertSuccess(PRODUCT_NAME);
+        CommonPageInterface.checkCreateAlertSuccess(PRODUCT_NAME);
 	}
 
-    public void CheckDropDownDefaultValue(String dropDownType, String expectedValue){
-        WebElement element = items.get(dropDownType).GetWebElement();
+    public void checkDropDownDefaultValue(String dropDownType, String expectedValue){
+        WebElement element = items.get(dropDownType).getWebElement();
         String selectedValue = $(element).getSelectedValue();
             if (!selectedValue.equals(expectedValue)) {
                 String errorMessage = String.format("The default value for '%s' dropDawn is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue);
@@ -114,8 +114,8 @@ public class ProductCreatePage extends PageObject{
             }
     }
 
-    public void CheckFieldLength(String elementName, int fieldLength){
-        WebElement element = items.get(elementName).GetWebElement();
-        ICommonPageInterface.CheckFieldLength(elementName, fieldLength, element);
+    public void checkFieldLength(String elementName, int fieldLength){
+        WebElement element = items.get(elementName).getWebElement();
+        CommonPageInterface.checkFieldLength(elementName, fieldLength, element);
     }
 }
