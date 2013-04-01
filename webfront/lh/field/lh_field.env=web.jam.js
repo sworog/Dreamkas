@@ -31,6 +31,13 @@ this.$lh_field= $jin_class( function( $lh_field, field ){
             field.native().setCustomValidity( '' )
             field.native().checkValidity()
         })
+        field.onValid=
+        $lh_onValid.listen( native, function( event ){
+            if (field.$.hasAttribute('lh_field_error')) {
+                field.$.removeAttribute( 'lh_field_error' )
+            }
+            event.catched( true )
+        })
         
         if( ~[ 'INPUT', 'SELECT' ].indexOf( native.nodeName ) ){
             field.onPress=

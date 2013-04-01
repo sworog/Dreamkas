@@ -10,15 +10,21 @@ this.$lh_datetimepicker= function(obj, currentTime) {
             return ((i < 10) ? '0' : '') + i;
         }
 
+        var formatDate = function(date) {
+            var formattedDate = $jq.datepicker.formatDate('dd.mm.yy', date);
+            formattedDate += ' '
+            formattedDate += addZero(date.getHours()) + ':' + addZero(date.getMinutes());
+            return formattedDate;
+        }
+
         var date = $(this).datetimepicker('getDate')
-        var formatedDate = '';
-        formatedDate += $jq.datepicker.formatDate('dd.mm.yy', date);
-        formatedDate += ' '
-        formatedDate += addZero(date.getHours()) + ':' + addZero(date.getMinutes());
-        if (formatedDate != dateText) {
+        var formattedDate = formatDate(date);
+
+        if (formattedDate != dateText) {
             this.setCustomValidity('Вы ввели неверную дату')
             $jin_onInvalid().scream(this)
         } else {
+            $lh_onValid().scream(this)
             $jin_onChange().scream(this)
         }
     }
