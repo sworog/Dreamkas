@@ -207,38 +207,15 @@ public class ICommonPage extends PageObject implements ICommonPageInterface {
         String monthString = GetMonthName(monthInt);
         int yearString = Integer.parseInt(date[2]);
 
-        String actualDatePickerMonth = GetActualDatePickerMonth();
-        int actualDatePickerYear = GetActualDatePickerYear();
+        if(!(yearString == GetActualDatePickerYear())){
+            SetYear(yearString);
+        }
+        if(!monthString.equals(GetActualDatePickerMonth())){
+            SetMonth(monthInt);
+        }
 
-        if(yearString == actualDatePickerYear && monthString.equals(actualDatePickerMonth)){
-            SetDay(dayString);
-            SetTime(time);
-        }
-        else{
-            if(yearString == actualDatePickerYear){
-                if(monthString.equals(actualDatePickerMonth)){
-                    SetDay(dayString);
-                    SetTime(time);
-                }
-                else {
-                    SetMonth(monthInt);
-                    SetDay(dayString);
-                    SetTime(time);
-                }
-            }
-            else{
-                SetYear(yearString);
-                if(monthString.equals(actualDatePickerMonth)){
-                    SetDay(dayString);
-                    SetTime(time);
-                }
-                else {
-                    SetMonth(monthInt);
-                    SetDay(dayString);
-                    SetTime(time);
-                }
-            }
-        }
+        SetDay(dayString);
+        SetTime(time);
         findBy("//button[text()='Done']").click();
     }
 
