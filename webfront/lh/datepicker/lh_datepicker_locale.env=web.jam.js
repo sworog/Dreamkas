@@ -21,3 +21,4 @@ $jq.timepicker.regional['ru'] = {
 };
 
 $jq.timepicker.setDefaults(jQuery.timepicker.regional['ru']);
+$jq.datepicker.setDefaults(jQuery.timepicker.regional['ru']);
