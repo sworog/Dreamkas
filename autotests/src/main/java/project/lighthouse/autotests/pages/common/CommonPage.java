@@ -20,6 +20,10 @@ import java.util.*;
 public class CommonPage extends PageObject implements CommonPageInterface {
 
     public static final String ERROR_MESSAGE = "No such option for '%s'";
+    public static final String STRING_EMPTY = "";
+    public static final String DATE_PATTERN = "dd.MM.yyyy";
+    public static final String DATE_TIME_PATTERN = "dd.MM.yyyy HH:mm";
+    public final Locale locale = new Locale("ru");
 
     public CommonPage(WebDriver driver) {
         super(driver);
@@ -41,7 +45,8 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             case "InvoiceListPage":
                 return InvoiceListPage.class.getAnnotations()[0].toString();
             default:
-                return String.valueOf(new AssertionError("No such value!"));
+                String errorMessage = String.format(ERROR_MESSAGE, pageObjectName);
+                throw new AssertionError(errorMessage);
         }
     }
 
@@ -105,15 +110,16 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         }
     }
 
-    public static String getTodayDate(){
-        String pattern = "dd.MM.yyyy HH:mm";
+    public static String getTodayDate(String pattern){
         return new SimpleDateFormat(pattern).format(new Date());
     }
 
     public String getInputedText(String inputText){
         switch (inputText){
+            case "todayDateAndTime":
+                return getTodayDate(DATE_TIME_PATTERN);
             case "todayDate":
-                return getTodayDate();
+                return getTodayDate(DATE_PATTERN);
             default:
                 return inputText;
         }
@@ -152,8 +158,11 @@ public class CommonPage extends PageObject implements CommonPageInterface {
 
     public void setValue(CommonItem item, String value){
         switch (item.getType()) {
+            case dateTime:
+                inputDateTime(item.getWebElement(), value);
+                break;
             case date:
-                inputDate(item.getWebElement(), value);
+                inputDate(item.getWebElement(), value) ;
                 break;
             case input:
             case textarea:
@@ -180,44 +189,64 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         $(element).selectByValue(value);
     }
 
-    public void inputDate(WebElement element, String value){
+    public void dateAction(WebElement element, String value, String action){
         if(value.startsWith("!")){
             input(element, value.substring(1));
         }
         else{
-            $(element).type("");
-            if(value.equals("todayDate")){
-                String todayDate = getTodayDate();
-                datePickerInput(todayDate);
-            }
-            else{
-                datePickerInput(value);
+            $(element).type(STRING_EMPTY);
+            switch (action){
+                case "dayTime":
+                    if(value.equals("todayDateAndTime")){
+                        String todayDate = getTodayDate(DATE_TIME_PATTERN);
+                        dateTimePickerInput(todayDate);
+                    }
+                    else{
+                        dateTimePickerInput(value);
+                    }
+                    break;
+                case "date":
+                    if(value.equals("todayDate")){
+                        String todayDate = getTodayDate(DATE_PATTERN);
+                        dateTimePickerInput(todayDate);
+                    }
+                    else {
+                        dateTimePickerInput(value);
+                    }
+                    break;
             }
         }
     }
 
-    public void datePickerInput(String datePattern){
+    public void inputDateTime(WebElement element, String value){
+        dateAction(element, value, "dayTime");
+    }
 
+    public void inputDate(WebElement element, String value){
+        dateAction(element, value, "date");
+    }
+
+    public void dateTimePickerInput(String datePattern){
         String [] dateArray = datePattern.split(" ");
         String [] date = dateArray[0].split("\\.");
-
-        String time = dateArray[1];
         String dayString = date[0];
         int monthInt = Integer.parseInt(date[1]);
         String monthString = getMonthName(monthInt);
         int yearString = Integer.parseInt(date[2]);
-
         if(!(yearString == getActualDatePickerYear())){
             setYear(yearString);
         }
         if(!monthString.equals(getActualDatePickerMonth())){
             setMonth(monthInt);
         }
-
         setDay(dayString);
-        setTime(time);
-        findBy("//button[text()='Done']").click();
+        if(dateArray.length == 2){
+        setTime(dateArray[1]);
+        findBy("//button[text()='Закрыть']").click();
+        }
     }
+
+
 
     public String getActualDatePickerMonth(){
         String actualDatePickerMonthXpath = "//div[@class='ui-datepicker-title']/span[@class='ui-datepicker-month']";
@@ -238,6 +267,9 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void setDay(String dayString){
+        if(dayString.startsWith("0")){
+            dayString = dayString.substring(1);
+        }
         String timePickerDayXpath = String.format("//td[@data-handler='selectDay']/a[text()='%s']",dayString);
         findBy(timePickerDayXpath).click();
     }
@@ -276,14 +308,14 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public String getMonthName(int month) {
-        Locale id = new Locale("en");
-        return new DateFormatSymbols(id).getMonths()[month-1];
+        return new DateFormatSymbols(locale).getMonths()[month-1];
     }
 
     public int getMonthNumber(String monthName){
         Date date = null;
         try {
-            date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(monthName);
+            date = new SimpleDateFormat("MMM", locale).parse(monthName);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
