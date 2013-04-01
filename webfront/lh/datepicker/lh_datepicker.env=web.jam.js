@@ -2,6 +2,8 @@ this.$lh_datepicker= function(obj, currentTime) {
 
     var jqObj = $jq(obj);
 
+    jqObj.mask('99.99.9999');
+
     var options = {
         onClose: $lh_datepicker_onClose
     }
@@ -11,6 +13,6 @@ this.$lh_datepicker= function(obj, currentTime) {
     var currentTime = currentTime || false;
 
     if (currentTime) {
-        jqObj.datetimepicker('setDate', new Date())
+        jqObj.datepicker('setDate', new Date())
     }
 }
