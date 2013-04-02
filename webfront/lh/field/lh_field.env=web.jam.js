@@ -33,9 +33,13 @@ this.$lh_field= $jin_class( function( $lh_field, field ){
         })
         field.onValid=
         $lh_onValid.listen( native, function( event ){
+            /*
             if (field.$.hasAttribute('lh_field_error')) {
                 field.$.removeAttribute( 'lh_field_error' )
             }
+            */
+            field.native().setCustomValidity( '' );
+            field.native().checkValidity()
             event.catched( true )
         })
         

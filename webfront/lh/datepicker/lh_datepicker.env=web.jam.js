@@ -11,7 +11,7 @@ this.$lh_datepicker= function(obj, currentTime) {
     }
 
     var options = {
-        dateFormat: 'dd.mm.yy',
+        dateFormat: $lh_datepicker_settings.dateFormat,
         onClose: onClose
     }
 
