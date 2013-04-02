@@ -388,7 +388,6 @@ And the user inputs 'Валидация поставщик' in the invoice 'supp
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user clicks the invoice create button
-And the user clicks the invoice create button
 Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation manual negative3 rus symbols
@@ -400,7 +399,6 @@ And the user inputs '!Русский набор' in the invoice 'supplierInvoice
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
 And the user clicks the invoice create button
 Then the user sees no error messages
 
@@ -425,7 +423,6 @@ And the user inputs '!"56gfЛВ' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
 And the user clicks the invoice create button
 Then the user sees no error messages
 
