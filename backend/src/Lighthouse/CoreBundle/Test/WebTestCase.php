@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Test;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseTestCase;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use AppKernel;
 
@@ -59,5 +60,21 @@ class WebTestCase extends BaseTestCase
         /* @var DocumentManager $mongoDb */
         $mongoDb = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
         $mongoDb->getSchemaManager()->dropDatabases();
+    }
+
+    /**
+     * @param Crawler $crawler
+     * @param array $assertions
+     */
+    protected function runCrawlerAssertions(Crawler $crawler, array $assertions, $xpath = false)
+    {
+        foreach ($assertions as $selector => $expected) {
+            if ($expected instanceof \Closure) {
+                $expected($crawler, $this);
+            } else {
+                $filtered = ($xpath) ? $crawler->filterXPath($selector) : $crawler->filter($selector);
+                $this->assertContains($expected, $filtered->first()->text());
+            }
+        }
     }
 }

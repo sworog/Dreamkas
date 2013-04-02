@@ -73,9 +73,7 @@ class ProductControllerTest extends WebTestCase
             $client->getResponse()->getContent()
         );
 
-        foreach ($assertions as $selector => $expected) {
-            $this->assertContains($expected, $crawler->filter($selector)->first()->text());
-        }
+        $this->runCrawlerAssertions($crawler, $assertions);
     }
 
     public function testPostProductActionOnlyOneErrorMessageOnNotBlank()

@@ -102,7 +102,7 @@ class Invoice extends AbstractDocument
      */
     public function __construct()
     {
-        $this->acceptanceDate = new \DateTime();
+        //$this->acceptanceDate = new \DateTime();
         $this->createdDate = new \DateTime();
     }
 
