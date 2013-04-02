@@ -42,6 +42,10 @@
     margin: 4pt 4pt 8pt;
 }
 
+[ lh_card_header ] span {
+    vertical-align: top;
+}
+
 [ lh_card_tools ] {
     float: right;
     margin: 0 4pt;
@@ -54,7 +58,7 @@
     text-decoration: inherit;
     color: inherit;
     display: inline;
-    vertical-align: bottom;
+    vertical-align: top;
     margin: 0 4pt 0 0;
 }
 

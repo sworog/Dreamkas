@@ -75,6 +75,11 @@
     line-height: 1.1;
 }
 
+[ lh_field="inline" ][ lh_field_error ]:after,
+[ lh_field="short" ][ lh_field_error ]:after {
+    display: block;
+}
+
 [ lh_field_error ] > input,
 [ lh_field_error ] > textarea,
 [ lh_field_error ] > select {

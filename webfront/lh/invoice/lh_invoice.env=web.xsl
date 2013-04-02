@@ -30,7 +30,7 @@
                     </span>
                     от
                     <span name="acceptanceDate">
-                        <xsl:apply-templates select="acceptanceDate" mode="lh_date_view" />
+                        <xsl:apply-templates select="acceptanceDate" mode="lh_date_time_view" />
                     </span>
                 </span>
             </div>

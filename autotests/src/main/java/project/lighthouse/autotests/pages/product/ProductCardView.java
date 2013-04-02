@@ -16,20 +16,20 @@ public class ProductCardView extends ProductCreatePage{
         super(driver);
     }
 
-    public void CheckCardValue(String elementName, String expectedValue){
-        WebElement element = items.get(elementName).GetWebElement();
+    public void checkCardValue(String elementName, String expectedValue){
+        WebElement element = items.get(elementName).getWebElement();
         $(element).shouldContainText(expectedValue);
 	}
 
-    public void CheckCardValue(ExamplesTable checkValuesTable){
+    public void checkCardValue(ExamplesTable checkValuesTable){
         for (Map<String, String> row : checkValuesTable.getRows()){
             String elementName = row.get("elementName");
             String expectedValue = row.get("expectedValue");
-            CheckCardValue(elementName, expectedValue);
+            checkCardValue(elementName, expectedValue);
         }
     }
 
-    public void EditButtonClick(){
+    public void editButtonClick(){
         $(editButton).click();
     }
 }

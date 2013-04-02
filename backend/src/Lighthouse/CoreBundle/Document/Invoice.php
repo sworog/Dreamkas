@@ -5,10 +5,15 @@ namespace Lighthouse\CoreBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
-use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
+use Lighthouse\CoreBundle\Validator\Constraints\DatesCompare;
 
 /**
  * @MongoDB\Document
+ * @DatesCompare(
+ *     firstField="acceptanceDate",
+ *     secondField="supplierInvoiceDate",
+ *     message="lighthouse.validation.errors.invoice.dates_compare"
+ * )
  */
 class Invoice extends AbstractDocument
 {
@@ -21,6 +26,8 @@ class Invoice extends AbstractDocument
     /**
      * Артикул
      * @MongoDB\String
+     * @Assert\NotBlank
+     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $sku;
@@ -28,20 +35,26 @@ class Invoice extends AbstractDocument
     /**
      * Поставщик
      * @MongoDB\String
+     * @Assert\NotBlank
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $supplier;
 
     /**
      * Дата приемки
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Date
+     * @Assert\NotBlank
+     * @Assert\DateTime
+     * @var \DateTime
      */
     protected $acceptanceDate;
 
     /**
      * Кто принял
      * @MongoDB\String
+     * @Assert\NotBlank
+     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $accepter;
@@ -49,6 +62,8 @@ class Invoice extends AbstractDocument
     /**
      * Получатель (юр. лицо)
      * @MongoDB\String
+     * @Assert\NotBlank
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $legalEntity;
@@ -56,21 +71,23 @@ class Invoice extends AbstractDocument
     /**
      * Входящий номер накладной
      * @MongoDB\String
+     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $supplierInvoiceSku;
 
     /**
      * Дата входящей накладной
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Date
+     * @Assert\DateTime
+     * @var \DateTime
      */
     protected $supplierInvoiceDate;
 
     /**
      * Дата составления накладной
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Date
+     * @var \DateTime
      */
     protected $createdDate;
 
@@ -79,6 +96,15 @@ class Invoice extends AbstractDocument
      * @var string
      */
     protected $sumTotal;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        //$this->acceptanceDate = new \DateTime();
+        $this->createdDate = new \DateTime();
+    }
 
     /**
      * @return array

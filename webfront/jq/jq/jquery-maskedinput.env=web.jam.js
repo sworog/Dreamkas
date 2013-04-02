@@ -1,0 +1,1 @@
+this.$jq_jq_maskedinput = $jq.mask

@@ -12,16 +12,21 @@ public class CommonUserSteps {
 
     @Then("the user checks that he is on the '$pageObjectName'")
     public void TheTheUserChecksThatHeIsOnTheProductListPage(String pageObjectName){
-        commonSteps.CheckTheRequiredPageIsOpen(pageObjectName);
+        commonSteps.checkTheRequiredPageIsOpen(pageObjectName);
     }
 
     @Then("the user sees error messages $errorMessageTable")
     public void ThenTheUserSeesErrorMessages(ExamplesTable errorMessageTable){
-        commonSteps.CheckErrorMessages(errorMessageTable);
+        commonSteps.checkErrorMessages(errorMessageTable);
     }
 
     @Then("the user sees no error messages")
     public void ThenTheUserSeesNoErrorMessages(){
-        commonSteps.CheckNoErrorMessages();
+        commonSteps.checkNoErrorMessages();
+    }
+
+    @Then("the user sees no error messages $errorMessageTable")
+    public void ThenTheUserSeesNoErrorMessages(ExamplesTable errorMessageTable){
+        commonSteps.checkNoErrorMessages(errorMessageTable);
     }
 }

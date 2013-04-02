@@ -19,5 +19,5 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
                 findStoriesIn("**/" + branch);
             }
         }
-    }
+	}
 }

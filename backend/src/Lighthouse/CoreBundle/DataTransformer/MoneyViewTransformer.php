@@ -31,7 +31,6 @@ class MoneyViewTransformer implements DataTransformerInterface
      */
     public function transform($value)
     {
-        //$value = sprintf("%01.{$this->digits}f", $value);
         return $value;
     }
 

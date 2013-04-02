@@ -4,14 +4,13 @@
         match=" node() "
         mode="lh_date_view"
         >
-        <xsl:value-of select="." />
-<!--
+
         <xsl:value-of select=" substring( ., 9, 2 ) " />
         <xsl:text>.</xsl:text>
         <xsl:value-of select=" substring( ., 6, 2 ) " />
         <xsl:text>.</xsl:text>
         <xsl:value-of select=" substring( ., 1, 4 ) " />
--->        
+
     </xsl:template>
     
 </xsl:stylesheet>

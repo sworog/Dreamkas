@@ -73,11 +73,20 @@ class InvoiceController extends FOSRestController
         return $collection;
     }
 
+    /**
+     * @param int $id
+     * @return Invoice
+     */
     public function getInvoiceAction($id)
     {
-        return  $this->findInvoice($id);
+        return $this->findInvoice($id);
     }
 
+    /**
+     * @param string $id
+     * @return Invoice
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     protected function findInvoice($id)
     {
         $invoice = $this->getInvoiceRepository()->find($id);

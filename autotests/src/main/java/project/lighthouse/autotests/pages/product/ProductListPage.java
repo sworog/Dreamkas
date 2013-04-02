@@ -1,11 +1,12 @@
 package project.lighthouse.autotests.pages.product;
 
-import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import net.thucydides.core.annotations.DefaultUrl;
+import project.lighthouse.autotests.CommonViewInterface;
+import project.lighthouse.autotests.pages.common.CommonView;
 
 @DefaultUrl("/?product/list")
 public class ProductListPage extends ProductCreatePage{
@@ -16,38 +17,26 @@ public class ProductListPage extends ProductCreatePage{
 	@FindBy(xpath = "//*[@lh_button='create']")
 	private WebElement createNewProductButton;
 
+    private static final String XPATH = "//../*[span[@name='sku' and text()='%s']]";
+    CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, productListItem);
+
 	public ProductListPage(WebDriver driver) {
 		super(driver);
 	}
 
-    public void CreateNewProductButtonClick(){
+    public void createNewProductButtonClick(){
         $(createNewProductButton).click();
     }
-
-    public WebElementFacade GetItemProductElement(String skuValue){
-        String xpath = String.format("//../*[span[@name='sku' and text()='%s']]", skuValue);
-        return $(productListItem).findBy(xpath);
-    }
 	
-	public void ListItemClick(String skuValue){
-        WebElementFacade productItem = GetItemProductElement(skuValue);
-        productItem.click();
+	public void listItemClick(String skuValue){
+        commonViewInterface.itemClick(skuValue);
 	}
 	
-	public void ListItemCheck(String skuValue){
-        WebElementFacade productItem = GetItemProductElement(skuValue);
-        productItem.shouldBePresent();
+	public void listItemCheck(String skuValue){
+        commonViewInterface.itemCheck(skuValue);
 	}
 
-    public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
-        ListItemCheck(skuValue);
-        WebElementFacade productItem = GetItemProductElement(skuValue);
-        productItem.shouldContainText(expectedValue);
-    }
-
-    public void CheckProductWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
-        /*
-        Need to implement method
-         */
+    public void checkProductWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
+        commonViewInterface.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 }

@@ -4,7 +4,7 @@ import org.jbehave.core.model.ExamplesTable;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
-import project.lighthouse.autotests.pages.common.ICommonPage;
+import project.lighthouse.autotests.pages.common.CommonPage;
 import project.lighthouse.autotests.pages.product.ProductCardView;
 import project.lighthouse.autotests.pages.product.ProductCreatePage;
 import project.lighthouse.autotests.pages.product.ProductEditPage;
@@ -16,110 +16,110 @@ public class ProductSteps extends ScenarioSteps{
 	ProductEditPage productEditPage;
 	ProductCardView productCardView;
     ProductListPage productListPage;
-    ICommonPage commonPage;
+    CommonPage commonPage;
 
 	public ProductSteps(Pages pages) {
 		super(pages);
 	}
 	
 	@Step
-	public void IsTheProductCreatePage(){
+	public void isTheProductCreatePage(){
 		productCreatePage.open();
 	}
 	
 	@Step
-	public void IsTheProductEditPage(){
+	public void isTheProductEditPage(){
 		productEditPage.open();
 	}
 	
 	@Step
-	public void IsTheProductCardViewPage(){
+	public void isTheProductCardViewPage(){
 		productCardView.open();
 	}
 
     @Step
-    public void IsTheProductListPageOpen(){
+    public void isTheProductListPageOpen(){
         productListPage.open();
     }
 
     @Step
-    public void IsTheProductCardOpen(){
+    public void isTheProductCardOpen(){
         productCardView.open();
     }
 	
 	@Step
-	public void FieldInput(String elementName, String inputText){
-		productCreatePage.FieldInput(elementName, inputText);
+	public void fieldInput(String elementName, String inputText){
+		productCreatePage.fieldInput(elementName, inputText);
 	}
 	
 	@Step
-	public void SelectDropDown(String elementName, String value){
-		productCreatePage.SelectByValue(elementName, value);
+	public void selectDropDown(String elementName, String value){
+		productCreatePage.selectByValue(elementName, value);
 	}
 	
 	@Step
-	public void CreateButtonClick(){
-		productCreatePage.CreateButtonClick();
+	public void createButtonClick(){
+		productCreatePage.createButtonClick();
 	}
 	
 	@Step
-	public void CancelButtonClick(){
-		productEditPage.CancelButtonClick();
+	public void cancelButtonClick(){
+		productEditPage.cancelButtonClick();
 	}
 	
 	@Step
-	public void CheckCardValue(String elementName, String expectedValue){
-		productCardView.CheckCardValue(elementName, expectedValue);
+	public void checkCardValue(String elementName, String expectedValue){
+		productCardView.checkCardValue(elementName, expectedValue);
 	}
 
     @Step
-    public void CheckCardValue(ExamplesTable checkValuesTable){
-        productCardView.CheckCardValue(checkValuesTable);
+    public void checkCardValue(ExamplesTable checkValuesTable){
+        productCardView.checkCardValue(checkValuesTable);
     }
 
     @Step
-    public void CreateNewProductButtonClick(){
-        productListPage.CreateNewProductButtonClick();
+    public void createNewProductButtonClick(){
+        productListPage.createNewProductButtonClick();
     }
 
     @Step
-    public void ListItemClick(String skuValue){
-        productListPage.ListItemClick(skuValue);
+    public void listItemClick(String skuValue){
+        productListPage.listItemClick(skuValue);
     }
 
     @Step
-    public void ListItemCheck(String skuValue){
-        productListPage.ListItemCheck(skuValue);
+    public void listItemCheck(String skuValue){
+        productListPage.listItemCheck(skuValue);
     }
 
     @Step
-    public void CheckProductWithSkuHasExpectedValue(String skuValue, String expectedValue){
-        productListPage.CheckProductWithSkuHasExpectedValue(skuValue, expectedValue);
+    public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue){
+        productListPage.checkProductWithSkuHasExpectedValue(skuValue, name, expectedValue);
     }
 
     @Step
-    public void CheckDropDownDefaultValue(String dropDownType, String expectedValue){
-        productCreatePage.CheckDropDownDefaultValue(dropDownType, expectedValue);
+    public void checkDropDownDefaultValue(String dropDownType, String expectedValue){
+        productCreatePage.checkDropDownDefaultValue(dropDownType, expectedValue);
     }
 
     @Step
-    public void EditButtonClick(){
-        productCardView.EditButtonClick();
+    public void editButtonClick(){
+        productCardView.editButtonClick();
     }
 
     @Step
-    public void FieldType(ExamplesTable fieldInputTable){
-        productCreatePage.FieldInput(fieldInputTable);
+    public void fieldType(ExamplesTable fieldInputTable){
+        productCreatePage.fieldInput(fieldInputTable);
     }
 
     @Step
-    public void CheckFieldLength(String elementName, int fieldLength){
-        productCreatePage.CheckFieldLength(elementName, fieldLength);
+    public void checkFieldLength(String elementName, int fieldLength){
+        productCreatePage.checkFieldLength(elementName, fieldLength);
     }
 
     @Step
-    public void GenerateTestCharData(String elementName, int charNumber){
-        String generatedData = commonPage.GenerateTestData(charNumber);
-        FieldInput(elementName, generatedData);
+    public void generateTestCharData(String elementName, int charNumber){
+        String generatedData = commonPage.generateTestData(charNumber);
+        fieldInput(elementName, generatedData);
     }
 }
