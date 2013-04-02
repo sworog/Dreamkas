@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Serializer\Handler;
 
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
+use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\Serializer\XmlSerializationVisitor;
@@ -28,7 +29,7 @@ class CollectionHandler implements SubscribingHandlerInterface
     public static function getSubscribingMethods()
     {
         $methods = array();
-        $formats = array('xml' => 'Xml');
+        $formats = array('xml' => 'Xml', 'json' => 'Json');
         foreach ($formats as $format => $methodSuffix) {
             $methods[] = array(
                 'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
@@ -66,5 +67,13 @@ class CollectionHandler implements SubscribingHandlerInterface
 
             $visitor->revertCurrentNode();
         }
+    }
+
+    public function serializeCollectionToJson(
+        JsonSerializationVisitor $visitor,
+        AbstractCollection $collection,
+        array $type
+    ) {
+        $visitor->visitArray($collection->toArray(), $type);
     }
 }
