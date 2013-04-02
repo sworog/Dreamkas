@@ -148,6 +148,17 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         }
     }
 
+    public void checkNoErrorMessages(ExamplesTable errorMessageTable){
+        for (Map<String, String> row : errorMessageTable.getRows()){
+            String expectedErrorMessage = row.get("error message");
+            String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
+            if(isPresent(xpath)){
+                String errorMessage = ("The error message is present!");
+                throw new AssertionError(errorMessage);
+            }
+        }
+    }
+
     public void checkNoErrorMessages(){
         String xpath = "//*[@lh_field_error]";
         if(isPresent(xpath)){
@@ -159,10 +170,10 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     public void setValue(CommonItem item, String value){
         switch (item.getType()) {
             case dateTime:
-                inputDateTime(item.getWebElement(), value);
+                dateInputAction(item.getWebElement(), value);
                 break;
             case date:
-                inputDate(item.getWebElement(), value) ;
+                dateInputAction(item.getWebElement(), value) ;
                 break;
             case input:
             case textarea:
@@ -189,41 +200,22 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         $(element).selectByValue(value);
     }
 
-    public void dateAction(WebElement element, String value, String action){
+    public void dateInputAction(WebElement element, String value){
         if(value.startsWith("!")){
             input(element, value.substring(1));
         }
         else{
             $(element).type(STRING_EMPTY);
-            switch (action){
-                case "dayTime":
-                    if(value.equals("todayDateAndTime")){
-                        String todayDate = getTodayDate(DATE_TIME_PATTERN);
-                        dateTimePickerInput(todayDate);
-                    }
-                    else{
-                        dateTimePickerInput(value);
-                    }
+            switch (value){
+                case "todayDateAndTime":
+                    value = getTodayDate(DATE_TIME_PATTERN);
                     break;
-                case "date":
-                    if(value.equals("todayDate")){
-                        String todayDate = getTodayDate(DATE_PATTERN);
-                        dateTimePickerInput(todayDate);
-                    }
-                    else {
-                        dateTimePickerInput(value);
-                    }
+                case "todayDate":
+                    value = getTodayDate(DATE_PATTERN);
                     break;
             }
+            dateTimePickerInput(value);
         }
-    }
-
-    public void inputDateTime(WebElement element, String value){
-        dateAction(element, value, "dayTime");
-    }
-
-    public void inputDate(WebElement element, String value){
-        dateAction(element, value, "date");
     }
 
     public void dateTimePickerInput(String datePattern){
@@ -245,8 +237,6 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         findBy("//button[text()='Закрыть']").click();
         }
     }
-
-
 
     public String getActualDatePickerMonth(){
         String actualDatePickerMonthXpath = "//div[@class='ui-datepicker-title']/span[@class='ui-datepicker-month']";
@@ -327,5 +317,13 @@ public class CommonPage extends PageObject implements CommonPageInterface {
 
     public void autoComplete(WebElement element, String value){
         throw new NotImplementedException();
+    }
+
+    public void shouldContainsText(WebElement element, String expectedValue){
+        String actualValue = $(element).getTextValue();
+        if(!actualValue.contains(expectedValue)){
+            String errorMessage = String.format("Element doesnt contains '%s'. It contains '%s'", expectedValue, actualValue);
+            throw new AssertionError(errorMessage);
+        }
     }
 }

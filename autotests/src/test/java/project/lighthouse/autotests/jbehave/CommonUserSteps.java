@@ -24,4 +24,9 @@ public class CommonUserSteps {
     public void ThenTheUserSeesNoErrorMessages(){
         commonSteps.checkNoErrorMessages();
     }
+
+    @Then("the user sees no error messages $errorMessageTable")
+    public void ThenTheUserSeesNoErrorMessages(ExamplesTable errorMessageTable){
+        commonSteps.checkNoErrorMessages(errorMessageTable);
+    }
 }

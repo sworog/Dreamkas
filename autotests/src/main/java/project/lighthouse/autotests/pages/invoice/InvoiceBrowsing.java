@@ -23,6 +23,11 @@ public class InvoiceBrowsing extends InvoiceCreatePage{
         $(element).shouldContainText(expectedValue);
     }
 
+    public void shouldContainsText(String elementName, String expectedValue){
+        WebElement element = items.get(elementName).getWebElement();
+        CommonPageInterface.shouldContainsText(element, expectedValue);
+    }
+
     public void checkCardValue(ExamplesTable checkValuesTable){
         for (Map<String, String> row : checkValuesTable.getRows()){
             String elementName = row.get("elementName");

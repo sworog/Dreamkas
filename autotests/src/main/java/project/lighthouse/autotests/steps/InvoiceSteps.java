@@ -93,6 +93,6 @@ public class InvoiceSteps extends ScenarioSteps{
     @Step
     public void checkTheDateisNowDate(String elementName){
         String NowDate = CommonPage.getTodayDate(CommonPage.DATE_TIME_PATTERN);
-        checkCardValue(elementName, NowDate);
+        invoiceBrowsing.shouldContainsText(elementName, NowDate);
     }
 }

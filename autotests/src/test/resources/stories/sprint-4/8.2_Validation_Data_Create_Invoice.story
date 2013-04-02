@@ -92,7 +92,7 @@ Scenario: Invoice acceptanceDate validation is required
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs '89654464645' in the invoice 'sku' field
-And the user inputs '' in the invoice 'acceptanceDate' field
+And the user inputs '!' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
@@ -110,7 +110,7 @@ Scenario: Invoice acceptanceDate validation good manual
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs '89654464645' in the invoice 'sku' field
-And the user inputs '!03.22.2012 10:45' in the invoice 'acceptanceDate' field
+And the user inputs '!03.12.2012 10:45' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
@@ -121,6 +121,19 @@ Scenario: Invoice acceptanceDate validation manual negative1 numbers
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVMN1' in the invoice 'sku' field
+And the user inputs '!123454567890' in the invoice 'acceptanceDate' field
+And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
+And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
+And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
+And the user clicks the invoice create button
+Then the user sees error messages
+| error message |
+| Вы ввели неверную дату 12.34.5456 78:90, формат должен быть следующий дд.мм.гггг чч:мм |
+
+Scenario: Invoice acceptanceDate validation manual negative1 numbers 2
+Given the user is on the invoice list page
+When the user clicks the create button on the invoice list page
+And the user inputs 'IAVMN1' in the invoice 'sku' field
 And the user inputs '!12345456789' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
@@ -128,7 +141,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user clicks the invoice create button
 Then the user sees error messages
 | error message |
-| Вы ввели неверную дату |
+| Заполните это поле |
 
 Scenario: Invoice acceptanceDate validation manual negative2 eng symbols
 Given the user is on the invoice list page
@@ -141,7 +154,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user clicks the invoice create button
 Then the user sees error messages
 | error message |
-| Вы ввели неверную дату |
+| Заполните это поле |
 
 Scenario: Invoice acceptanceDate validation manual negative3 rus symbols
 Given the user is on the invoice list page
@@ -154,7 +167,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user clicks the invoice create button
 Then the user sees error messages
 | error message |
-| Вы ввели неверную дату |
+| Заполните это поле |
 
 Scenario: Invoice acceptanceDate validation manual negative symbols
 Given the user is on the invoice list page
@@ -167,7 +180,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user clicks the invoice create button
 Then the user sees error messages
 | error message |
-| Вы ввели неверную дату |
+| Заполните это поле |
 
 Scenario: Invoice acceptanceDate validation manual negative symbols mix
 Given the user is on the invoice list page
@@ -180,7 +193,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user clicks the invoice create button
 Then the user sees error messages
 | error message |
-| Вы ввели неверную дату |
+| Заполните это поле |
 
 Scenario: Invoice acceptanceDate validation through datepicker good
 Given the user is on the invoice list page
@@ -206,18 +219,20 @@ Then the user sees error messages
 | error message |
 | Вы ввели неверную дату |
 
+
 Scenario: Invoice acceptanceDate validation through datepicker negative2
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVMN1' in the invoice 'sku' field
-And the user inputs '27.03.2013 1111:222222' in the invoice 'acceptanceDate' field
+And the user inputs '27.03.2013 1155:222255' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user clicks the invoice create button
 Then the user sees error messages
 | error message |
-| Вы ввели неверную дату |
+| Вы ввели неверную дату 27.03.2013 55:55, формат должен быть следующий дд.мм.гггг чч:мм |
+
 
 Scenario: Invoice accepter validation is required
 Given the user is on the invoice list page
@@ -342,7 +357,7 @@ Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs '6765934' in the invoice 'sku' field
-And the user inputs '!03.22.2012' in the invoice 'supplierInvoiceDate' field
+And the user inputs '!03.12.2012' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
@@ -373,9 +388,8 @@ And the user inputs 'Валидация поставщик' in the invoice 'supp
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user clicks the invoice create button
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
+And the user clicks the invoice create button
+Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation manual negative3 rus symbols
 Given the user is on the invoice list page
@@ -387,9 +401,8 @@ And the user inputs 'Валидация поставщик' in the invoice 'supp
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user clicks the invoice create button
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
+And the user clicks the invoice create button
+Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation manual negative symbols
 Given the user is on the invoice list page
@@ -401,9 +414,7 @@ And the user inputs 'Валидация поставщик' in the invoice 'supp
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user clicks the invoice create button
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
+Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation manual negative symbols mix
 Given the user is on the invoice list page
@@ -415,9 +426,8 @@ And the user inputs 'Валидация поставщик' in the invoice 'supp
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user clicks the invoice create button
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
+And the user clicks the invoice create button
+Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation through datepicker good
 Given the user is on the invoice list page
@@ -431,46 +441,34 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user clicks the invoice create button
 Then the user sees no error messages
 
-Scenario: Invoice supplierInvoiceDate validation through datepicker negative1
-Given the user is on the invoice list page
-When the user clicks the create button on the invoice list page
-And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
-And the user inputs 'ISAVMN1' in the invoice 'sku' field
-And the user inputs '27.03.2013 9999:9999' in the invoice 'supplierInvoiceDate' field
-And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
-And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
-And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
-
-Scenario: Invoice supplierInvoiceDate validation through datepicker negative2
-Given the user is on the invoice list page
-When the user clicks the create button on the invoice list page
-And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
-And the user inputs 'ISAVMN1' in the invoice 'sku' field
-And the user inputs '27.03.2013 1111:222222' in the invoice 'supplierInvoiceDate' field
-And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
-And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
-And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
-
 Scenario: Invoice supplier date cantbe older then acceptance date 1
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs '!27.03.2013 10:11' in the invoice 'acceptanceDate' field
 And the user inputs 'ISAVMN1' in the invoice 'sku' field
-And the user inputs '!27.03.2013' in the invoice 'supplierInvoiceDate' field
+And the user inputs '!28.03.2013' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user clicks the invoice create button
 Then the user sees error messages
 | error message |
-| Вы ввели неверную дату |
+| Дата накладной не должна быть старше даты приемки |
 
+Scenario: regression bug 1
+Given the user is on the invoice list page
+When the user clicks the create button on the invoice list page
+And the user inputs '!77.77.7777 77:77' in the invoice 'acceptanceDate' field
+And the user inputs 'I56SAVMN1' in the invoice 'sku' field
+And the user inputs '!todayDate' in the invoice 'supplierInvoiceDate' field
+And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
+And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
+And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
+And the user clicks the invoice create button
+Then the user sees no error messages
+| error message |
+| Дата накладной не должна быть старше даты приемки |
+And the user sees error messages
+| error message |
+| Вы ввели неверную дату 77.77.7777 77:77, формат должен быть следующий дд.мм.гггг чч:мм |
 

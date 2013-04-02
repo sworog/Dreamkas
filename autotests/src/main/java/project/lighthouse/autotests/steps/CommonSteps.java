@@ -28,4 +28,9 @@ public class CommonSteps extends ScenarioSteps{
     public void checkNoErrorMessages(){
         commonPage.checkNoErrorMessages();
     }
+
+    @Step
+    public void checkNoErrorMessages(ExamplesTable errorMessageTable){
+        checkNoErrorMessages(errorMessageTable);
+    }
 }
