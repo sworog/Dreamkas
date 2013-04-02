@@ -85,7 +85,7 @@
             href="?invoice={ id }"
             >
             <span lh_table_cell="date" name="acceptanceDate">
-                <xsl:apply-templates select=" acceptanceDate " mode="lh_date_view" />
+                <xsl:apply-templates select=" acceptanceDate " mode="lh_date_time_view" />
             </span>
             <span lh_table_cell="id" name="sku">
                 <xsl:value-of select=" sku " />
