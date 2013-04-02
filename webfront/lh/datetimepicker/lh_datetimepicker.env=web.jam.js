@@ -31,7 +31,9 @@ this.$lh_datetimepicker= function(obj, currentTime) {
 
     var options = {
         controlType: $lh_datetimepicker_control,
-        onClose: onClose
+        onClose: onClose,
+        dateFormat: 'dd.mm.yy',
+        timeFormat: 'HH:mm'
     }
 
     jqObj.datetimepicker(options);

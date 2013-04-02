@@ -5,6 +5,7 @@ this.$lh_datepicker= function(obj, currentTime) {
     jqObj.mask('99.99.9999');
 
     var options = {
+        dateFormat: 'dd.mm.yy',
         onClose: $lh_datepicker_onClose
     }
 
