@@ -22,7 +22,11 @@ class InvoiceType extends AbstractType
             ->add('accepter', 'text')
             ->add('legalEntity', 'text')
             ->add('supplierInvoiceSku', 'text')
-            ->add('supplierInvoiceDate', 'datetime')
+            ->add(
+                'supplierInvoiceDate',
+                'datetime',
+                array('invalid_message' => 'lighthouse.validation.errors.date.invalid_value')
+            )
             ->add('sumTotal', 'text');
     }
 

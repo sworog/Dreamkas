@@ -15,6 +15,8 @@ lighthouse:
       length: Не более {{ limit }} символа|Не более {{ limit }} символов|Не более {{ limit }} символов
       datetime:
         invalid_value: Вы ввели неверную дату {{ value }}, формат должен быть следующий дд.мм.гггг чч:мм
+      date:
+        invalid_value: Вы ввели неверную дату {{ value }}, формат должен быть следующий дд.мм.гггг
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов
