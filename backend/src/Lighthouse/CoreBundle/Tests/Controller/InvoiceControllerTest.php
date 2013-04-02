@@ -113,6 +113,59 @@ class InvoiceControllerTest extends WebTestCase
     }
 
     /**
+      * @dataProvider providerSupplierInvoiceDateIsValidAndAcceptanceDateIsInvalid
+     */
+    public function testPostInvoiceSupplierInvoiceDateIsValidAndAcceptanceDateIsInvalid(array $data)
+    {
+        $client = static::createClient();
+
+        $invoiceData = $this->invoiceDataProvider();
+
+        $postData = $data + $invoiceData['invoice']['data'];
+
+        $crawler = $client->request(
+            'POST',
+            'api/1/invoices',
+            array('invoice' => $postData)
+        );
+
+        $this->assertEquals(
+            400,
+            $client->getResponse()->getStatusCode(),
+            $client->getResponse()->getContent()
+        );
+
+        $this->assertContains(
+            'Вы ввели неверную дату',
+            $crawler->filter('form[name="invoice"] form[name="acceptanceDate"] errors entry')->first()->text()
+        );
+        $this->assertEmpty(
+            $crawler->filter('form[name="invoice"] form[name="supplierInvoiceDate"] errors entry')->count()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function providerSupplierInvoiceDateIsValidAndAcceptanceDateIsInvalid()
+    {
+        return array(
+            'supplierInvoiceDate in past' => array(
+                array(
+                    'acceptanceDate' => 'aaa',
+                    'supplierInvoiceDate' => '2012-03-14'
+                ),
+            ),
+            'supplierInvoiceDate in future' => array(
+                array(
+                    'acceptanceDate' => 'aaa',
+                    'supplierInvoiceDate' => '2015-03-14'
+                ),
+            )
+        );
+    }
+
+    /**
      * @param array $invoiceData
      * @param Client $client
      * @return string
@@ -419,44 +472,6 @@ class InvoiceControllerTest extends WebTestCase
                     'form[name="invoice"] form[name="supplierInvoiceDate"] errors entry'
                     =>
                     'Дата накладной не должна быть старше даты приемки',
-                ),
-            ),
-            'not valid supplierInvoiceDate is valid and more than now and acceptanceDate is invalid' => array(
-                400,
-                array(
-                    'acceptanceDate' => 'aaa',
-                    'supplierInvoiceDate' => '2014-03-14'
-                ),
-                array(
-                    'form[name="invoice"] form[name="acceptanceDate"] errors entry'
-                    =>
-                    'Вы ввели неверную дату',
-                    function (Crawler $crawler, InvoiceControllerTest $test) {
-                        $test->assertEmpty(
-                            $crawler
-                                ->filter('form[name="invoice"] form[name="supplierInvoiceDate"] errors entry')
-                                ->count()
-                        );
-                    }
-                ),
-            ),
-            'not valid supplierInvoiceDate is valid and less than now and acceptanceDate is invalid' => array(
-                400,
-                array(
-                    'acceptanceDate' => 'aaa',
-                    'supplierInvoiceDate' => '2012-03-14'
-                ),
-                array(
-                    'form[name="invoice"] form[name="acceptanceDate"] errors entry'
-                    =>
-                    'Вы ввели неверную дату',
-                    function (Crawler $crawler, InvoiceControllerTest $test) {
-                        $test->assertEmpty(
-                            $crawler
-                                ->filter('form[name="invoice"] form[name="supplierInvoiceDate"] errors entry')
-                                ->count()
-                        );
-                    }
                 ),
             ),
             /***********************************************************************************************
