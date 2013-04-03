@@ -308,7 +308,8 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             date = new SimpleDateFormat("MMM", locale).parse(monthName);
 
         } catch (ParseException e) {
-            e.printStackTrace();
+            String errorMessage = String.format("SimpleDateFormat parse error! Error message: '%s'", e.getMessage());
+            throw new AssertionError(errorMessage);
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
