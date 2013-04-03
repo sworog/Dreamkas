@@ -10,7 +10,7 @@ import project.lighthouse.autotests.steps.ProductSteps;
 public class ProductUserSteps {
 
     public static final String MOCK_UNITS = "unit";
-    public static final String MOCK_VAT = "vat";
+    public static final String MOCK_VAT = "10";
     public static final String MOCK_PRICE = "123";
 	
 	@Steps
