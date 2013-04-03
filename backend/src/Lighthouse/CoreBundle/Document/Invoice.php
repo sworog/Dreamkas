@@ -92,8 +92,8 @@ class Invoice extends AbstractDocument
     protected $createdDate;
 
     /**
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Int
+     * @var int
      */
     protected $sumTotal;
 
