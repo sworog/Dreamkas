@@ -205,7 +205,8 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             input(element, value.substring(1));
         }
         else{
-            $(element).type(STRING_EMPTY);
+            /*$(element).type(STRING_EMPTY);*/
+            $(element).click();
             switch (value){
                 case "todayDateAndTime":
                     value = getTodayDate(DATE_TIME_PATTERN);
