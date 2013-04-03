@@ -179,7 +179,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             case textarea:
                 input(item.getWebElement(), value);
                 break;
-            case checkbox:
+            case select:
                 selectByValue(item.getWebElement(), value);
                 break;
             case autocomplete:
