@@ -8,6 +8,10 @@ import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.ProductSteps;
 
 public class ProductUserSteps {
+
+    public static final String MOCK_UNITS = "unit";
+    public static final String MOCK_VAT = "vat";
+    public static final String MOCK_PRICE = "123";
 	
 	@Steps
 	ProductSteps productSteps;
@@ -42,10 +46,24 @@ public class ProductUserSteps {
         whenTheUSerCreatesNewProduct();
         whenTheUserInputsTextInTheField(sku, "sku");
         whenTheUserInputsTextInTheField(sku, "name");
-        whenTheUserInputsTextInTheField("123", "purchasePrice");
-        whenTheUserSelectsValueInDropDown("unit", "unit");
-        whenTheUserSelectsValueInDropDown("10", "vat");
+        whenTheUserInputsTextInTheField(MOCK_PRICE, "purchasePrice");
+        whenTheUserSelectsValueInDropDown(MOCK_UNITS, "unit");
+        whenTheUserSelectsValueInDropDown(MOCK_VAT, "vat");
         whenTheUserClicksOnCreateButton();
+    }
+
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode")
+    public void givenThereIsTheProductWithNameSkuBarcode(String name, String sku, String barcode){
+        givenTheUserIsOnTheProductListPage();
+        whenTheUSerCreatesNewProduct();
+        whenTheUserInputsTextInTheField(sku, "sku");
+        whenTheUserInputsTextInTheField(name, "name");
+        whenTheUserInputsTextInTheField(barcode, "purchasePrice");
+        whenTheUserInputsTextInTheField(MOCK_PRICE, "purchasePrice");
+        whenTheUserSelectsValueInDropDown(MOCK_UNITS, "unit");
+        whenTheUserSelectsValueInDropDown(MOCK_VAT, "vat");
+        whenTheUserClicksOnCreateButton();
+
     }
 
     @When("the user inputs '$inputText' in '$elementName' field")
