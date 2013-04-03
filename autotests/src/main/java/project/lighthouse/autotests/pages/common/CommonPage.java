@@ -30,7 +30,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void isRequiredPageOpen(String pageObjectName){
-        String defaultUrl = getPageObjectDefaultUrl(pageObjectName).substring(50, 64);
+        String defaultUrl = getPageObjectDefaultUrl(pageObjectName).replaceFirst(".*\\(value=(.*)\\)", "$1");
         String actualUrl = getDriver().getCurrentUrl();
         if(!actualUrl.contains(defaultUrl)){
             String errorMessage = String.format("The %s is not open!\nActual url: %s\nExpected url: %s", pageObjectName, actualUrl, defaultUrl);
