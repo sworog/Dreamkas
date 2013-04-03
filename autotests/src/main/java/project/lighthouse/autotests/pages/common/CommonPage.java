@@ -235,7 +235,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         setDay(dayString);
         if(dateArray.length == 2){
         setTime(dateArray[1]);
-        findBy("//button[text()='Закрыть']").click();
+        findBy("//button[normalize-space(text())='Закрыть']").click();
         }
     }
 
@@ -261,7 +261,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         if(dayString.startsWith("0")){
             dayString = dayString.substring(1);
         }
-        String timePickerDayXpath = String.format("//td[@data-handler='selectDay']/a[text()='%s']",dayString);
+        String timePickerDayXpath = String.format("//td[@data-handler='selectDay']/a[normalize-space(text())='%s']",dayString);
         findBy(timePickerDayXpath).click();
     }
 
