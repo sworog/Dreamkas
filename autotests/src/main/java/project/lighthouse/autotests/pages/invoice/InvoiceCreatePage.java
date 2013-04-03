@@ -111,7 +111,4 @@ public class InvoiceCreatePage extends PageObject{
 
     @FindBy(name = "cost")
     private WebElement invoiceCost;
-
-    @FindBy(name = "slider_example_5")
-    private WebElement test;
 }
