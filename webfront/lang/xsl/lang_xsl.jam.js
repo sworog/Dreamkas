@@ -1,1 +1,0 @@
-$lang_xsl= $lang_xml

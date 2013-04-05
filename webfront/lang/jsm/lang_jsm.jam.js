@@ -1,1 +1,0 @@
-$lang_jsm= $lang_js

@@ -1,1 +1,0 @@
-this.$jq_ui = jQuery.ui;

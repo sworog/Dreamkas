@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lh_desktop="true">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <script src="/js/jquery.js" type="text/javascript"></script>
+    <script src="/js/libs/jquery-ui.js" type="text/javascript"></script>
+    <script src="/js/libs/jquery-maskedinput.js" type="text/javascript"></script>
+    <script src="/js/libs/jquery-ui-timepicker.js" type="text/javascript"></script>
+    <script src="/js/libs/daetpickertim.translate.js" type="text/javascript"></script>
+    <script src="/js/libs/jquery-barcode.js" type="text/javascript"></script>
+    <script src="/js/libs/date.format.js" type="text/javascript"></script>
+    <script src="/js/underscore.js" type="text/javascript"></script>
+    <script src="/js/backbone.js" type="text/javascript"></script>
+    <script src="/js/backbone.syphon.js" type="text/javascript"></script>
+    <script src="/js/mustache.js" type="text/javascript"></script>
+    <script src="/js/helpers.js" type="text/javascript"></script>
+    <link href="/css/main.css" rel="stylesheet" media="all" />
+</head>
+<body jin_reset="true">
+
+    <div lh_application="true" lh_application_api="//lighthouse/api/1/">
+
+    </div>
+
+    <script type="text/template" id="productItem">
+        <span name="sku" lh_table_cell="id">{{ sku }}</span>
+        <span name="name" lh_table_cell="common">{{ name }}</span>
+        <span name="vendor" lh_table_cell="common">{{ vendor }}</span>
+        <span name="vendorCountry" lh_table_cell="common">{{ vendorCountry }}</span>
+        <span lh_table_cell="money">
+            <span name="purchasePrice">{{ purchasePrice }}</span>
+            р.
+        </span>
+    </script>
+
+    <script type="text/template" id="productsList">
+        <div lh_card="true">
+            <div lh_card_header="true">
+                <span lh_card_title="true">
+                    Товары
+                </span>
+                <a href="/product/create" lh_button="create">
+                    Новый товар
+                </a>
+            </div>
+            <div lh_table="true" name="products">
+                <div lh_table_row="true">
+                    <span lh_table_cell="id" lh_table_header="true">
+                        Артикул
+                    </span>
+                    <span lh_table_cell="common" lh_table_header="true">
+                        Название
+                    </span>
+                    <span lh_table_cell="common" lh_table_header="true">
+                        Производитель
+                    </span>
+                    <span lh_table_cell="common" lh_table_header="true">
+                        Страна
+                    </span>
+                    <span lh_table_cell="money" lh_table_header="true">
+                        Цена
+                    </span>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="productView">
+        <a href="/products" lh_card_back="true">
+            Товары
+        </a>
+        <div lh_card="true">
+            <div name="product">
+                <div lh_card_header="true">
+                    <div lh_card_tools="true">
+                        <a href="/product_edit/{{ id }}" lh_link="edit">
+                            редактировать
+                        </a>
+                    </div>
+                    <div lh_card_title="true">
+                        <span name="name" title="Название">
+                            {{ name }}
+                        </span>
+                    </div>
+                    <div name="sku" title="Артикул" lh_product_view_sku="true">
+                        {{ sku }}
+                    </div>
+                </div>
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        Закупочная цена:
+                    </span>
+                    <span lh_prop_value="true">
+                        <span name="purchasePrice">
+                            {{ purchasePrice }}
+                        </span>
+                        руб.
+                    </span>
+                </div>
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        НДС:
+                    </span>
+                    <span lh_prop_value="true">
+                        <span name="vat">
+                            {{ vat }}
+                        </span>
+                        %
+                    </span>
+                </div>
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        Штрих-код:
+                    </span>
+                    <span lh_prop_value="true">
+                        <span name="barcode">
+                            {{ barcode }}
+                        </span>
+                    </span>
+                </div>
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        Единица измерения:
+                    </span>
+                    <span lh_prop_value="true">
+                        <span value="{{units.value}}" name="units">
+                        {{ units.textView }}
+                        </span>
+                    </span>
+                </div>
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        Производитель:
+                    </span>
+                    <span lh_prop_value="true">
+                        <span name="vendor">
+                            {{ vendor }}
+                        </span>
+                    </span>
+                </div>
+                <div lh_prop="true">
+                    <span lh_prop_name="true">
+                        Страна:
+                    </span>
+                    <span lh_prop_value="true">
+                        <span name="vendorCountry">
+                            {{ vendorCountry }}
+                        </span>
+                    </span>
+                </div>
+                <div name="info" lh_block="true">
+                    {{ info }}
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="productEdit">
+        <a href="/products" lh_card_back="true">
+            Товары
+        </a>
+
+        <div lh_card="true">
+            <div lh_card_header="true">
+                <div lh_card_tools="true">
+                    <a href="{{#id}}/product_view/{{ id }}{{/id}}{{^id}}/products{{/id}}"
+                       lh_link="close" lh_card_close="true">
+                        <svg lh_link_close="true" height="16" width="16" viewBox="0 0 17 17" version="1.1"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <circle fill="#2286e0" r="8" cy="8" cx="8"></circle>
+                            <line stroke-width="2" stroke="white" y2="11" x2="11" y1="5" x1="5"></line>
+                            <line stroke-width="2" stroke="white" y2="5" x2="11" y1="11" x1="5"></line>
+                        </svg>
+                        закрыть
+                    </a>
+                </div>
+                <div lh_card_title="true">
+                    {{#id}}
+                    Редактирование товара
+                    «{{ name }}»
+                    {{/id}}
+                    {{^id}}
+                    Добавление нового товара
+                    {{/id}}
+                </div>
+            </div>
+            <form lh_product_edit="maker">
+                <div name="product">
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            Артикул
+                        </span>
+                        <span lh_field="normal" lh_prop_value="true"
+                            {{#errors.sku}}
+                            lh_field_error="{{.}}"
+                            {{/errors.sku}}
+                        >
+                            <input value="{{ sku }}" name="sku" lh_field_native="true">
+                        </span>
+                    </label>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            Наименование
+                        </span>
+                        <span lh_field="normal" lh_prop_value="true"
+                            {{#errors.name}}
+                                lh_field_error="{{.}}"
+                            {{/errors.name}}
+                        >
+                            <input value="{{ name }}" name="name" lh_field_native="true">
+                        </span>
+                    </label>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            Мерность
+                        </span>
+                        <span lh_field="short" lh_prop_value="true"
+                            {{#errors.units}}
+                                lh_field_error="{{.}}"
+                            {{/errors.units}}
+                        >
+                            <select name="units" lh_field_native="true">
+                                <option></option>
+                                {{#unitsSelect}}
+                                    <option value="{{value}}" {{#selected}}selected=""{{/selected}}>
+                                        {{textEdit}}
+                                    </option>
+                                {{/unitsSelect}}
+                            </select>
+                        </span>
+                    </label>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            Цена закупки
+                        </span>
+                        <span lh_field="normal" lh_prop_value="true"
+                            {{#errors.purchasePrice}}
+                                lh_field_error="{{.}}"
+                            {{/errors.purchasePrice}}
+                        >
+                            <input value="{{ purchasePrice }}" name="purchasePrice" placeholder="0,00"
+                                                                      lh_field_native="true">
+                        </span>
+                    </label>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            НДС
+                        </span>
+                        <span lh_field="short" lh_prop_value="true"
+                            {{#errors.vat}}
+                                lh_field_error="{{.}}"
+                            {{/errors.vat}}
+                        >
+                            <select name="vat" lh_field_native="true">
+                                <option></option>
+                                {{#vatSelect}}
+                                    <option value="{{value}}" {{#selected}}selected=""{{/selected}}>
+                                        {{value}}%
+                                    </option>
+                                {{/vatSelect}}
+                            </select>
+                        </span>
+                    </label>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true"></span>
+
+                        <div lh_remark="true">
+                            Необязательно к заполнению
+                        </div>
+                    </label>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            Штрих код
+                        </span>
+                        <span lh_field="normal" lh_prop_value="true"
+                            {{#errors.barcode}}
+                                lh_field_error="{{.}}"
+                            {{/errors.barcode}}
+                        >
+                            <input value="{{ barcode }}" name="barcode" lh_field_native="true">
+                        </span>
+                    </label>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            Производитель
+                        </span>
+                        <span lh_field="normal" lh_prop_value="true"
+                            {{#errors.vendor}}
+                                lh_field_error="{{.}}"
+                            {{/errors.vendor}}
+                        >
+                            <input value="{{ vendor }}" name="vendor" lh_field_native="true"></span>
+                    </label>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            Страна
+                        </span>
+                        <span lh_field="normal" lh_prop_value="true"
+                            {{#errors.vendorCountry}}
+                                lh_field_error="{{.}}"
+                            {{/errors.vendorCountry}}
+                        >
+                            <input value="{{ vendorCountry }}" name="vendorCountry" lh_field_native="true">
+                        </span>
+                    </label>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            Дополнительная информация
+                        </span>
+                        <span lh_field="long" lh_prop_value="true"
+                            {{#errors.info}}
+                                lh_field_error="{{.}}"
+                            {{/errors.info}}
+                        >
+                            <textarea name="info" lh_field_native="true">{{ info }}</textarea>
+                        </span>
+                    </label>
+                </div>
+                <div lh_card_foot="true">
+                    <div lh_prop="true">
+                        <span lh_prop_name="true"></span>
+                        <button type="submit" lh_button="commit">
+                            {{#id}}
+                                Сохранить изменения
+                            {{/id}}
+                            {{^id}}
+                                Добавить товар
+                            {{/id}}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+
+    <script type="text/template" id="dashboard">
+        <div lh_card_stack="true">
+            <div lh_card="true">
+                <div lh_card_header="true">
+                    <span lh_card_title="true">
+                        Пульт управления коммерческого директора
+                    </span>
+                </div>
+                <div lh_block="true">
+                    <a lh_button="true" href="/products">Товары</a>
+                </div>
+            </div>
+        </div>
+        <div lh_card_stack="true">
+            <div lh_card="true">
+                <div lh_card_header="true">
+                    <span lh_card_title="true">
+                        Консоль товароведа
+                    </span>
+                </div>
+                <div lh_block="true">
+                    <a lh_button="true" href="/invoices">Накладные</a>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="invoiceItem">
+        <span name="acceptanceDate" lh_table_cell="date">{{ acceptanceDate }}</span>
+        <span name="sku" lh_table_cell="id">{{ sku }}</span>
+        <span name="supplier" lh_table_cell="common">{{ supplier }}</span>
+        <span lh_table_cell="money">
+            <span name="sumTotal">{{ sumTotal }}</span>
+            р.
+        </span>
+        <span name="accepter" lh_table_cell="common">{{ accepter }}</span>
+    </script>
+
+    <script type="text/template" id="invoicesList">
+        <div lh_card="true">
+            <div lh_card_header="true">
+                <span lh_card_title="true">
+                    Накладные
+                </span>
+                <a href="/invoice/create" lh_button="create">
+                    Новая накладная
+                </a>
+            </div>
+            <div lh_table="true" name="products">
+                <div lh_table_row="true">
+                    <span lh_table_header="true" lh_table_cell="date">
+                        Дата
+                    </span>
+                    <span lh_table_header="true" lh_table_cell="id">
+                        Номер
+                    </span>
+                    <span lh_table_header="true" lh_table_cell="common">
+                        Поставщик
+                    </span>
+                    <span lh_table_header="true" lh_table_cell="money">
+                        Сумма
+                    </span>
+                    <span lh_table_header="true" lh_table_cell="common">
+                        Принял
+                    </span>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="invoiceView">
+        <a href="/invoices" lh_card_back="true">
+            Накладные
+        </a>
+
+        <div lh_card="true">
+            <div name="invoice">
+                <div lh_card_header="true">
+                    <span lh_card_title="true">
+                        Накладная №
+                        <span name="sku">
+                            {{sku}}
+                        </span>
+                        от
+                        <span name="acceptanceDate">
+                            {{acceptanceDate}}
+                        </span>
+                    </span>
+                </div>
+                <div lh_stream="true">
+                    <span lh_stream_node="true">
+                        <span name="supplier">
+                            {{supplier}}
+                        </span>
+                        <span lh_stream_title="true">
+                            поставщик
+                        </span>
+                    </span>
+                    <span lh_stream_node="true">
+                        <span name="accepter">
+                            {{accepter}}
+                        </span>
+                        <span lh_stream_title="true">приёмщик</span>
+                    </span>
+                    <span lh_stream_node="true">
+                        <span name="legalEntity">
+                            {{legalEntity}}
+                        </span>
+                        <span lh_stream_title="true">
+                            получатель
+                        </span>
+                    </span>
+                </div>
+                <p lh_block="true">
+                    Входящая накладная №
+                    <span name="supplierInvoiceSku">
+                        {{supplierInvoiceSku}}
+                    </span>
+                    от
+                    <span name="supplierInvoiceDate">
+                        {{supplierInvoiceDate}}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/mustache" id="invoiceEdit">
+        <a href="/invoices" lh_card_back="true">
+            Накладные
+        </a>
+
+        <div lh_card="true">
+            <form lh_invoice_edit="create">
+                <div name="invoice">
+                    <input value="0" name="sumTotal" type="hidden">
+                    <div lh_card_header="true">
+                        <div lh_card_tools="true">
+                            <a href="/invoices" lh_link="close" lh_card_close="true">
+                                <svg lh_link_close="true" height="16" width="16" viewBox="0 0 17 17" version="1.1"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <circle fill="#2286e0" r="8" cy="8" cx="8"></circle>
+                                    <line stroke-width="2" stroke="white" y2="11" x2="11" y1="5" x1="5"></line>
+                                    <line stroke-width="2" stroke="white" y2="5" x2="11" y1="11" x1="5"></line>
+                                </svg>
+                                закрыть
+                            </a>
+                        </div>
+                        <span lh_card_title="true">
+                            Приёмка №
+                        </span>
+                        <span lh_field="short"
+                            {{#errors.sku}}
+                            lh_field_error="{{.}}"
+                            {{/errors.sku}}
+                        >
+                            <input value="{{sku}}" name="sku" lh_field_native="true">
+                        </span>
+                        <span lh_field="inline"
+                            {{#errors.acceptanceDate}}
+                            lh_field_error="{{.}}"
+                            {{/errors.acceptanceDate}}
+                        >
+                            от
+                            <input value="{{acceptanceDate}}" name="acceptanceDate" lh_field_native="true">
+                        </span>
+                    </div>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            Поставщик
+                        </span>
+                        <span lh_field="normal" lh_prop_value="true"
+                            {{#errors.supplier}}
+                            lh_field_error="{{.}}"
+                            {{/errors.supplier}}
+                        >
+                            <input value="{{supplier}}" name="supplier" lh_field_native="true">
+                        </span>
+                    </label>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+                            Кто принял
+                        </span>
+                        <span lh_field="normal" lh_prop_value="true"
+                            {{#errors.accepter}}
+                            lh_field_error="{{.}}"
+                            {{/errors.accepter}}
+                        >
+                            <input value="{{accepter}}" name="accepter" lh_field_native="true">
+                        </span>
+                    </label>
+                    <div lh_prop="true">
+                        <span lh_prop_name="true">
+                            Получатель
+                        </span>
+                        <span lh_field="normal" lh_prop_value="true"
+                            {{#errors.legalEntity}}
+                            lh_field_error="{{.}}"
+                            {{/errors.legalEntity}}
+                        >
+                            <input value="{{legalEntity}}" name="legalEntity" lh_field_native="true">
+                        </span>
+                    </div>
+                    <label lh_prop="true">
+                        <span lh_prop_name="true">
+
+                        </span>
+
+                        <div lh_remark="true">
+                            Необязательно к заполнению
+                        </div>
+                    </label>
+                    <div lh_prop="true">
+                        <span lh_prop_name="true">
+                            Входящий номер
+                        </span>
+                        <span lh_prop_value="true">
+                            <span lh_field="short"
+                                {{#errors.supplierInvoiceSku}}
+                                lh_field_error="{{.}}"
+                                {{/errors.supplierInvoiceSku}}
+                            >
+                                <input value="{{supplierInvoiceSku}}" name="supplierInvoiceSku"lh_field_native="true">
+                            </span>
+                            <span lh_field="inline"
+                                {{#errors.supplierInvoiceDate}}
+                                lh_field_error="{{.}}"
+                                {{/errors.supplierInvoiceDate}}
+                            >
+                                от
+                                <input value="{{supplierInvoiceDate}}" name="supplierInvoiceDate" lh_field_native="true">
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div lh_card_foot="true">
+                    <div lh_prop="true">
+                        <span lh_prop_name="true"></span>
+                        <button type="submit" lh_button="commit">
+                            Сохранить и закрыть
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+
+    <script type="text/mustache" id="invoiceAddProduct">
+        <a href="/invoices" lh_card_back="true">
+            Накладные
+        </a>
+
+        <div lh_card="true">
+            <div name="invoice">
+
+            </div>
+            <hr style="border-style: dashed;"/>
+            <div name="invoiceProductsList">
+
+            </div>
+            <div name="invoiceAddProductsForm">
+
+            </div>
+        </div>
+    </script>
+
+    <script type="text/mustache" id="invoiceAddProductInfo">
+        <div lh_card_header="true">
+            <div lh_card_tools="true">
+                <a lh_card_close="true" lh_link="close" href="/invoices">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 17 17" width="16" height="16" lh_link_close="true">
+                        <circle cx="8" cy="8" r="8" fill="#2286e0"/>
+                        <line x1="5" y1="5" x2="11" y2="11" stroke="white" stroke-width="2"/>
+                        <line x1="5" y1="11" x2="11" y2="5" stroke="white" stroke-width="2"/>
+                    </svg>
+                    закрыть
+                </a>
+            </div>
+            <span lh_card_title="true">
+                Накладная №
+                <span name="sku">
+                    {{sku}}
+                </span>
+                от
+                <span name="acceptanceDate">
+                    {{acceptanceDate}}
+                </span>
+            </span>
+        </div>
+        <div lh_stream="true">
+            <span lh_stream_node="true">
+                <span name="supplier">
+                    {{supplier}}
+                </span>
+                <span lh_stream_title="true">
+                    поставщик
+                </span>
+            </span>
+            <span lh_stream_node="true">
+                <span name="accepter">
+                    {{accepter}}
+                </span>
+                <span lh_stream_title="true">приёмщик</span>
+            </span>
+            <span lh_stream_node="true">
+                <span name="legalEntity">
+                    {{legalEntity}}
+                </span>
+                <span lh_stream_title="true">
+                    получатель
+                </span>
+            </span>
+        </div>
+        <p lh_block="true">
+            Входящая накладная №
+            <span name="supplierInvoiceSku">
+                {{supplierInvoiceSku}}
+            </span>
+            от
+            <span name="supplierInvoiceDate">
+                {{supplierInvoiceDate}}
+            </span>
+        </p>
+    </script>
+
+    <script type="text/mustache" id="invoiceAddProductForm">
+        <div lh_card_header="true">
+            <div lh_card_sub_title="true">
+                Добавление товаров в накладную
+            </div>
+        </div>
+        <div name="product">
+            <label lh_prop="true">
+                <span lh_prop_name="true">
+                    Наименование
+                </span>
+                <span lh_prop_value="true" lh_field="short">
+                    <input lh_field_native="true" lh_product_autocomplete="name"/>
+                        </span>
+            </label>
+            <label lh_prop="true">
+                <span lh_prop_name="true">
+                    Артикул
+                </span>
+                <span lh_prop_value="true" lh_field="short">
+                    <input lh_field_native="true" lh_product_autocomplete="sku"/>
+                </span>
+            </label>
+            <label lh_prop="true">
+                <span lh_prop_name="true">
+                    Штрихкод
+                </span>
+                <span lh_prop_value="true" lh_field="short">
+                    <input lh_field_native="true" lh_product_autocomplete="barcode"/>
+                </span>
+            </label>
+            <label lh_prop="true">
+                <span lh_prop_name="true">
+                    Количество
+                </span>
+                <span lh_prop_value="true" lh_field="mini">
+                    <input lh_field_native="true" name="amount"/>
+                </span>
+            </label>
+            <label lh_prop="true">
+                <span lh_prop_name="true">
+                    Цена приёмки
+                </span>
+                <span lh_prop_value="true" lh_field="mini">
+                    <input lh_field_native="true" name="price"/>
+                </span>
+            </label>
+            <div>
+                <span lh_prop_name="true"></span>
+                <span lh_field="normal">
+                    <a href="#" class="addMoreProduct">
+                        Добавить ещё один товар
+                    </a>
+                </span>
+            </div>
+            <div lh_card_foot="true">
+                <div lh_prop="true">
+                    <span lh_prop_name="true"></span>
+                    <button lh_button="commit" type="submit">
+                        Завершить приёмку
+                    </button>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/mustache" id="invoiceProductListTable">
+        <div lh_table="true">
+
+        </div>
+        <hr />
+        <div>
+            <div lh_card_header="true">
+                <div lh_card_sub_title="true" class="invoiceAddProductListInfo">
+
+                </div>
+            </div>
+        </div>
+        <br />
+    </script>
+
+    <script type="text/mustache" id="invoiceAddProductListInfo">
+        Итого: <span name="totalProducts">{{totalProducts}}</span> позиций на сумму <span name="totalSum">{{totalSum}}</span> рублей
+    </script>
+
+    <script type="text/mustache" id="invoiceProductListRowTable">
+        <div lh_table_row="true" name="product">
+            <span lh_table_cell="common">
+                <a href="#" class="invoiceProductLinkEdit">
+                    <span name="productName" class="bold">
+                        {{productModel.name}}
+                    </span>
+                </a>
+                <br />
+                <span name="productSku">
+                    {{productModel.sku}}
+                </span>
+            </span>
+            <span lh_table_cell="barcode" name="productBarcode">
+                {{productModel.barcode}}
+            </span>
+            <span lh_table_cell="common">
+                <span name="productAmount">
+                    {{amount}}
+                </span>
+                <span name="productUnits">
+                    {{productModel.units}}
+                </span>
+            </span>
+            <span lh_table_cell="common">
+                по
+                <span name="productPrice">
+                    {{price}}
+                </span>
+                р.
+            </span>
+            <span lh_table_cell="common">
+                =
+                <span name="productSum">
+                    {{sum}}
+                </span>
+                p.
+            </span>
+        </div>
+    </script>
+
+    <script src="/js/models/basic.js" type="text/javascript"></script>
+    <script src="/js/models/product.js" type="text/javascript"></script>
+    <script src="/js/models/invoice.js" type="text/javascript"></script>
+    <script src="/js/models/shopProduct.js" type="text/javascript"></script>
+    <script src="/js/models/invoiceProduct.js" type="text/javascript"></script>
+    <script src="/js/collections/products.js" type="text/javascript"></script>
+    <script src="/js/collections/invoices.js" type="text/javascript"></script>
+    <script src="/js/collections/shopProducts.js" type="text/javascript"></script>
+    <script src="/js/collections/invoiceProducts.js" type="text/javascript"></script>
+    <script src="/js/views/productList.js" type="text/javascript"></script>
+    <script src="/js/views/productView.js" type="text/javascript"></script>
+    <script src="/js/views/productCreate.js" type="text/javascript"></script>
+    <script src="/js/views/productEdit.js" type="text/javascript"></script>
+    <script src="/js/views/invoicesList.js" type="text/javascript"></script>
+    <script src="/js/views/invoiceView.js" type="text/javascript"></script>
+    <script src="/js/views/invoiceCreateView.js" type="text/javascript"></script>
+    <script src="/js/views/invoiceAddProductView.js" type="text/javascript"></script>
+    <script src="/js/views/invoiceAddProductListRowTable.js" type="text/javascript"></script>
+    <script src="/js/views/invoiceAddProductListTable.js" type="text/javascript"></script>
+    <script src="/js/routers/products.js" type="text/javascript"></script>
+    <script src="/js/routers/invoices.js" type="text/javascript"></script>
+    <script src="/js/routers/lighthouse.js" type="text/javascript"></script>
+    <script src="/js/lighthouse.js" type="text/javascript"></script>
+</body>
+</html>
