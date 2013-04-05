@@ -68,7 +68,7 @@
     </script>
 
     <script type="text/template" id="productView">
-        <a href="/products" lh_card_back="true">
+        <a href="/product/list" lh_card_back="true">
             Товары
         </a>
         <div lh_card="true">
@@ -158,14 +158,14 @@
     </script>
 
     <script type="text/template" id="productEdit">
-        <a href="/products" lh_card_back="true">
+        <a href="/product/list" lh_card_back="true">
             Товары
         </a>
 
         <div lh_card="true">
             <div lh_card_header="true">
                 <div lh_card_tools="true">
-                    <a href="{{#id}}/product_view/{{ id }}{{/id}}{{^id}}/products{{/id}}"
+                    <a href="{{#id}}/product_view/{{ id }}{{/id}}{{^id}}/product/list{{/id}}"
                        lh_link="close" lh_card_close="true">
                         <svg lh_link_close="true" height="16" width="16" viewBox="0 0 17 17" version="1.1"
                              xmlns="http://www.w3.org/2000/svg">
@@ -344,7 +344,7 @@
                     </span>
                 </div>
                 <div lh_block="true">
-                    <a lh_button="true" href="/products">Товары</a>
+                    <a lh_button="true" href="/product/list">Товары</a>
                 </div>
             </div>
         </div>
@@ -356,7 +356,7 @@
                     </span>
                 </div>
                 <div lh_block="true">
-                    <a lh_button="true" href="/invoices">Накладные</a>
+                    <a lh_button="true" href="/invoice/list">Накладные</a>
                 </div>
             </div>
         </div>
@@ -406,7 +406,7 @@
     </script>
 
     <script type="text/template" id="invoiceView">
-        <a href="/invoices" lh_card_back="true">
+        <a href="/invoice/list" lh_card_back="true">
             Накладные
         </a>
 
@@ -463,7 +463,7 @@
     </script>
 
     <script type="text/mustache" id="invoiceEdit">
-        <a href="/invoices" lh_card_back="true">
+        <a href="/invoice/list" lh_card_back="true">
             Накладные
         </a>
 
@@ -473,7 +473,7 @@
                     <input value="0" name="sumTotal" type="hidden">
                     <div lh_card_header="true">
                         <div lh_card_tools="true">
-                            <a href="/invoices" lh_link="close" lh_card_close="true">
+                            <a href="/invoice/list" lh_link="close" lh_card_close="true">
                                 <svg lh_link_close="true" height="16" width="16" viewBox="0 0 17 17" version="1.1"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <circle fill="#2286e0" r="8" cy="8" cx="8"></circle>
@@ -583,7 +583,7 @@
     </script>
 
     <script type="text/mustache" id="invoiceAddProduct">
-        <a href="/invoices" lh_card_back="true">
+        <a href="/invoice/list" lh_card_back="true">
             Накладные
         </a>
 
@@ -604,7 +604,7 @@
     <script type="text/mustache" id="invoiceAddProductInfo">
         <div lh_card_header="true">
             <div lh_card_tools="true">
-                <a lh_card_close="true" lh_link="close" href="/invoices">
+                <a lh_card_close="true" lh_link="close" href="/invoice/list">
                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 17 17" width="16" height="16" lh_link_close="true">
                         <circle cx="8" cy="8" r="8" fill="#2286e0"/>
                         <line x1="5" y1="5" x2="11" y2="11" stroke="white" stroke-width="2"/>
