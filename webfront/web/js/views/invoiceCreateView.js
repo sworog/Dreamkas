@@ -44,7 +44,7 @@ var InvoiceCreateView = Backbone.View.extend({
                 model.parseErrors($.parseJSON(response.responseText));
             },
             success: function(model, response) {
-                app.navigate('invoices', {trigger: true});
+                app.navigate('invoice/list', {trigger: true});
             }
         });
     },
