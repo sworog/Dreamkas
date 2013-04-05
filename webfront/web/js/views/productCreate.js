@@ -62,9 +62,9 @@ var ProductCreate = Backbone.View.extend({
             },
             success: function(model, response) {
                 if(isNew) {
-                    app.navigate('products', {trigger: true});
+                    app.navigate('product/list', {trigger: true});
                 } else {
-                    app.navigate('product_view/' + model.get('id'), {trigger: true});
+                    app.navigate('product/view/' + model.get('id'), {trigger: true});
                 }
             }
         });
