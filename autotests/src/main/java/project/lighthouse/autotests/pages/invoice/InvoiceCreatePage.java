@@ -12,7 +12,7 @@ import project.lighthouse.autotests.pages.common.CommonPage;
 import java.util.HashMap;
 import java.util.Map;
 
-@DefaultUrl("/?invoice/create")
+@DefaultUrl("/invoice/create")
 public class InvoiceCreatePage extends PageObject{
 
     public CommonPageInterface CommonPageInterface = new CommonPage(getDriver());

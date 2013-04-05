@@ -8,7 +8,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.pages.common.CommonView;
 
-@DefaultUrl("/?product/list")
+@DefaultUrl("/product/list")
 public class ProductListPage extends ProductCreatePage{
 	
 	@FindBy(name="product")
