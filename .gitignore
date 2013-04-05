@@ -1,3 +1,4 @@
 /.idea
+*.iml
 /autotests/.idea
 /autotests/autotests.iml
