@@ -1,6 +1,6 @@
 var Invoice = BasicModel.extend({
     modelName: 'invoice',
-    urlRoot: "http://lighthouse/api/1/invoices",
+    urlRoot: baseApiUrl + "/api/1/invoices",
 
     dateFormat: 'dd.mm.yy',
     datePrintFormat: "dd.mm.yyyy",
