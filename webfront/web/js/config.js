@@ -1,1 +1,0 @@
-window.baseApiUrl = "http://lighthouse";
