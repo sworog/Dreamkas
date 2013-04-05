@@ -3,6 +3,7 @@ var ProductsRouter = Backbone.Router.extend({
         "products":             "products_list",
         "product/list":         "products_list",
         "product_view/:id":     "product_view",
+        "product/view/:id":     "product_view",
         "product_edit/:id":     "product_edit",
         "product/edit/:id":     "product_edit",
         "product/create":       "product_create",
