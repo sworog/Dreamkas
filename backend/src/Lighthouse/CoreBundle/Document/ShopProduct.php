@@ -6,7 +6,12 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(
+ *     repositoryClass="Lighthouse\CoreBundle\Document\ShopProductRepository",
+ *     indexes={
+ *         @MongoDB\Index(keys={"product"="desc"}, options={"unique"=true})
+ *     }
+ * )
  */
 class ShopProduct extends AbstractDocument
 {
@@ -29,7 +34,7 @@ class ShopProduct extends AbstractDocument
     protected $product;
 
     /**
-     * @return array|void
+     * @return array
      */
     public function toArray()
     {

@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
-use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -13,38 +12,62 @@ use JMS\DiExtraBundle\Annotation as DI;
  */
 class InvoiceProductListener
 {
+    /**
+     * @var ShopProductRepository
+     */
+    protected $shopProductRepository;
+
+    /**
+     * @DI\InjectParams({
+     *     "shopProductRepository"=@DI\Inject("lighthouse.core.document.repository.shop_product")
+     * })
+     *
+     * @param ShopProductRepository $shopProductRepository
+     */
+    public function __construct(ShopProductRepository $shopProductRepository)
+    {
+        $this->shopProductRepository = $shopProductRepository;
+    }
+
+    /**
+     * @param LifecycleEventArgs $event
+     */
     public function postPersist(LifecycleEventArgs $event)
     {
         if ($event->getDocument() instanceof InvoiceProduct) {
             $diff = $this->getPropertyDiff($event, 'quantity');
             $this->updateProductAmount(
-                $event->getDocumentManager(),
                 $event->getDocument()->product,
                 $diff
             );
         }
     }
 
+    /**
+     * @param LifecycleEventArgs $event
+     */
     public function postUpdate(LifecycleEventArgs $event)
     {
         if ($event->getDocument() instanceof InvoiceProduct) {
             $diff = $this->getPropertyDiff($event, 'quantity');
             $this->updateProductAmount(
-                $event->getDocumentManager(),
                 $event->getDocument()->product,
                 $diff
             );
         }
     }
 
+    /**
+     * @param LifecycleEventArgs $event
+     */
     public function postRemove(LifecycleEventArgs $event)
     {
         if ($event->getDocument() instanceof InvoiceProduct) {
             $invoiceProduct = $event->getDocument();
+            $diff = $this->getPropertyDiff($event, 'quantity');
             $this->updateProductAmount(
-                $event->getDocumentManager(),
-                $event->getDocument()->product,
-                $invoiceProduct->quantity * -1
+                $invoiceProduct->product,
+                $diff - $invoiceProduct->quantity
             );
         }
     }
@@ -69,21 +92,12 @@ class InvoiceProductListener
     /**
      * @param DocumentManager $manager
      * @param Product $product
-     * @param int $quantityDiff
+     * @param int $amountDiff
      */
-    protected function updateProductAmount(DocumentManager $manager, Product $product, $quantityDiff)
+    protected function updateProductAmount(Product $product, $amountDiff)
     {
-        if ($quantityDiff <> 0) {
-            /* @var ShopProduct $shopProduct */
-            $query = $manager
-                ->createQueryBuilder('LighthouseCoreBundle:ShopProduct')
-                ->findAndUpdate()
-                ->field('product')->equals($product->id)
-                ->field('amount')->inc($quantityDiff)
-                ->returnNew() // is needed for ShopProduct to be updated in IdentityMap
-                ->upsert()
-                ->getQuery();
-            $query->execute();
+        if ($amountDiff <> 0) {
+            $this->shopProductRepository->updateAmount($product, $amountDiff);
         }
     }
 }
