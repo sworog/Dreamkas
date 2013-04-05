@@ -9,7 +9,7 @@ set :domain,      "alexandria.lighthouse.cs"
 set :user,        "watchman"
 set :deploy_to,   "/var/www/#{application}"
 set :deploy_via,  :remote_cache_subfolder
-set :deploy_subdir, "webfront"
+set :deploy_subdir, "webfront/web"
 
 set :repository,  "git@git.lighthouse.cs:lighthouse.git"
 set :scm,         :git
@@ -32,4 +32,4 @@ after "deploy:restart" do
     puts "--> Webfront was successfully deployed to ".green + "#{application_url}".yellow
 end
 
-after "deploy:finalize_update", "webfront"
+#after "deploy:finalize_update", "webfront"

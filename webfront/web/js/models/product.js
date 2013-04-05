@@ -1,6 +1,6 @@
 var Product = BasicModel.extend({
     modelName: 'product',
-    urlRoot: "http://lighthouse/api/1/products",
+    urlRoot: baseApiUrl + "/api/1/products",
 
     defaults: {
         id: null,
