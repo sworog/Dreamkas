@@ -59,10 +59,10 @@ public class ProductCreatePage extends PageObject{
     public WebElement infoField;
 	
 	@FindBy(xpath="//*[@lh_button='commit']")
-	private WebElement createButton;
+	public WebElement createButton;
 
     @FindBy(xpath = "//*[@lh_card_back]")
-    private WebElement productItemListLink;
+    public WebElement productItemListLink;
 
     public Map<String, CommonItem> items = new HashMap<String, CommonItem>(){
         {

@@ -43,10 +43,10 @@ public class InvoiceCreatePage extends PageObject{
     public WebElement legalEntityField;
 
     @FindBy(xpath = "//*[@lh_button='commit']")
-    private WebElement invoiceCreateAndSaveButton;
+    public WebElement invoiceCreateAndSaveButton;
 
     @FindBy(xpath = "//*[@lh_link='close']")
-    private WebElement invoiceCloseButton;
+    public WebElement invoiceCloseButton;
 
     public Map<String, CommonItem> items = new HashMap<String, CommonItem>(){
         {
