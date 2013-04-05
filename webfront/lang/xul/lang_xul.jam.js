@@ -1,1 +1,0 @@
-$lang_xul= $lang_sgml

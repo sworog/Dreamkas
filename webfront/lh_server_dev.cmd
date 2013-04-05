@@ -1,1 +1,0 @@
-npm install && node --harmony lh_server_dev.js
