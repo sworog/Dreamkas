@@ -30,7 +30,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void isRequiredPageOpen(String pageObjectName){
-        String defaultUrl = getPageObjectDefaultUrl(pageObjectName).substring(50, 64);
+        String defaultUrl = getPageObjectDefaultUrl(pageObjectName).replaceFirst(".*\\(value=(.*)\\)", "$1");
         String actualUrl = getDriver().getCurrentUrl();
         if(!actualUrl.contains(defaultUrl)){
             String errorMessage = String.format("The %s is not open!\nActual url: %s\nExpected url: %s", pageObjectName, actualUrl, defaultUrl);
@@ -179,7 +179,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             case textarea:
                 input(item.getWebElement(), value);
                 break;
-            case checkbox:
+            case select:
                 selectByValue(item.getWebElement(), value);
                 break;
             case autocomplete:
@@ -205,7 +205,8 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             input(element, value.substring(1));
         }
         else{
-            $(element).type(STRING_EMPTY);
+            /*$(element).type(STRING_EMPTY);*/
+            $(element).click();
             switch (value){
                 case "todayDateAndTime":
                     value = getTodayDate(DATE_TIME_PATTERN);
@@ -234,7 +235,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         setDay(dayString);
         if(dateArray.length == 2){
         setTime(dateArray[1]);
-        findBy("//button[text()='Закрыть']").click();
+        findBy("//button[normalize-space(text())='Закрыть']").click();
         }
     }
 
@@ -260,7 +261,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         if(dayString.startsWith("0")){
             dayString = dayString.substring(1);
         }
-        String timePickerDayXpath = String.format("//td[@data-handler='selectDay']/a[text()='%s']",dayString);
+        String timePickerDayXpath = String.format("//td[@data-handler='selectDay']/a[normalize-space(text())='%s']",dayString);
         findBy(timePickerDayXpath).click();
     }
 
@@ -307,7 +308,8 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             date = new SimpleDateFormat("MMM", locale).parse(monthName);
 
         } catch (ParseException e) {
-            e.printStackTrace();
+            String errorMessage = String.format("SimpleDateFormat parse error! Error message: '%s'", e.getMessage());
+            throw new AssertionError(errorMessage);
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);

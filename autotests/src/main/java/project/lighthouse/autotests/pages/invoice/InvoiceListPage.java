@@ -16,7 +16,7 @@ public class InvoiceListPage extends InvoiceCreatePage{
     @FindBy(xpath = "//*[@lh_button='create']")
     private WebElement invoiceListItemCreate;
 
-    private static final String XPATH = "//*[@name='invoice']/*[@name='sku' and text()='%s']/..";
+    private static final String XPATH = "//*[@name='invoice']/*[@name='sku' and normalize-space(text())='%s']/..";
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, invoiceListItem);
 
     public InvoiceListPage(WebDriver driver) {

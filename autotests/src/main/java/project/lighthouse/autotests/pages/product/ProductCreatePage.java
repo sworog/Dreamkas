@@ -68,9 +68,9 @@ public class ProductCreatePage extends PageObject{
         {
             put("sku", new CommonItem(skuField, CommonItem.types.input));
             put("name", new CommonItem(nameField, CommonItem.types.input));
-            put("unit", new CommonItem(unitField, CommonItem.types.checkbox));
+            put("unit", new CommonItem(unitField, CommonItem.types.select));
             put("purchasePrice", new CommonItem(purchasePrice, CommonItem.types.input));
-            put("vat", new CommonItem(vatField, CommonItem.types.checkbox));
+            put("vat", new CommonItem(vatField, CommonItem.types.select));
             put("barcode", new CommonItem(barCodeField, CommonItem.types.input));
             put("vendor", new CommonItem(vendorField, CommonItem.types.input));
             put("vendorCountry", new CommonItem(vendorCountryField, CommonItem.types.input));
