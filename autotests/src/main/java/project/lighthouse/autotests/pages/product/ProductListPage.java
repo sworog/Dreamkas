@@ -15,7 +15,7 @@ public class ProductListPage extends ProductCreatePage{
 	private WebElement productListItem;
 	
 	@FindBy(xpath = "//*[@lh_button='create']")
-	private WebElement createNewProductButton;
+	public WebElement createNewProductButton;
 
     private static final String XPATH = "//../*[span[@name='sku' and normalize-space(text())='%s']]";
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, productListItem);
