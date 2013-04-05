@@ -13,9 +13,6 @@ public class InvoiceListPage extends InvoiceCreatePage{
     @FindBy(name = "invoice")
     private WebElement invoiceListItem;
 
-    @FindBy(xpath = "//*[@lh_button='create']")
-    private WebElement invoiceListItemCreate;
-
     private static final String XPATH = "//*[@name='invoice']/*[@name='sku' and normalize-space(text())='%s']/..";
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, invoiceListItem);
 
@@ -24,7 +21,7 @@ public class InvoiceListPage extends InvoiceCreatePage{
     }
 
     public void invoiceListItemCreate(){
-        $(invoiceListItemCreate).click();
+        findBy("//*[@lh_button='create']").click();
     }
 
     public void listItemClick(String skuValue){

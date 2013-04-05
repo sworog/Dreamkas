@@ -57,9 +57,6 @@ public class ProductCreatePage extends PageObject{
 	
 	@FindBy(name="info")
     public WebElement infoField;
-	
-	@FindBy(xpath="//*[@lh_button='commit']")
-	public WebElement createButton;
 
     @FindBy(xpath = "//*[@lh_card_back]")
     public WebElement productItemListLink;
@@ -101,7 +98,7 @@ public class ProductCreatePage extends PageObject{
 	}
 	
 	public void createButtonClick(){
-		$(createButton).click();
+        findBy("//*[@lh_button='commit']").click();
         CommonPageInterface.checkCreateAlertSuccess(PRODUCT_NAME);
 	}
 
