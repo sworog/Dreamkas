@@ -32,4 +32,4 @@ after "deploy:restart" do
     puts "--> Webfront was successfully deployed to ".green + "#{application_url}".yellow
 end
 
-#after "deploy:finalize_update", "webfront"
+after "deploy:finalize_update", "webfront"
