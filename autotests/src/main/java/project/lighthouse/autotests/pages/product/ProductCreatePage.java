@@ -13,7 +13,7 @@ import project.lighthouse.autotests.pages.common.CommonPage;
 import java.util.HashMap;
 import java.util.Map;
 
-@DefaultUrl("/?product/create")
+@DefaultUrl("/product/create")
 public class ProductCreatePage extends PageObject{
 
     public CommonPageInterface CommonPageInterface = new CommonPage(getDriver());

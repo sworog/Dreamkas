@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.pages.common.CommonView;
 
-@DefaultUrl("/?invoice/list")
+@DefaultUrl("/invoice/list")
 public class InvoiceListPage extends InvoiceCreatePage{
 
     @FindBy(name = "invoice")
