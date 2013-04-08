@@ -4,8 +4,6 @@ namespace Lighthouse\CoreBundle\Form\Types;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\DataTransformer\DocumentToIdTransformer;
-use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
-use Lighthouse\CoreBundle\DataTransformer\MoneyViewTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use JMS\DiExtraBundle\Annotation as DI;

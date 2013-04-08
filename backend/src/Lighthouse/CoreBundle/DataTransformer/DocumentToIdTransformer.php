@@ -49,6 +49,7 @@ class DocumentToIdTransformer implements DataTransformerInterface
 
     /**
      * @param string $value
+     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      * @return AbstractDocument
      */
     public function reverseTransform($value)

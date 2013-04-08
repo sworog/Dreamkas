@@ -45,8 +45,8 @@ class InvoiceProductController extends FOSRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Lighthouse\CoreBundle\Document\Invoice $invoice
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice
+     * @param \Lighthouse\CoreBundle\Document\InvoiceProduct $invoiceProduct
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\InvoiceProduct
      */
     protected function processForm(Request $request, InvoiceProduct $invoiceProduct)
     {
