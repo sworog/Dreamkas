@@ -5,15 +5,6 @@
             "": "src/"
         }
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://satis.local"
-        },
-        {
-            "packagist": false
-        }
-    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.2.*",
