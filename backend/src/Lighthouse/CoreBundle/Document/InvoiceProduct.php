@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product;
 use Lighthouse\CoreBundle\Document\Invoice;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @MongoDB\Document(
@@ -27,12 +28,14 @@ class InvoiceProduct extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="Invoice", simple=true)
+     * @Assert\NotBlank
      * @var Invoice
      */
     protected $invoice;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="Product", simple=true)
+     * @Assert\NotBlank
      * @var Product
      */
     protected $product;
