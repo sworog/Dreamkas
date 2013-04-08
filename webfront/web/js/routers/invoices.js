@@ -3,10 +3,11 @@ var InvoicesRouter = Backbone.Router.extend({
         "invoices":             "invoices_list",
         "invoice/list":         "invoices_list",
         "invoice_view/:id":     "invoice_view",
+        "invoice/view/:id":     "invoice_view",
         "invoice_edit/:id":     "invoice_edit",
         "invoice/create":       "invoice_create",
         "invoice_create":       "invoice_create",
-        "invoice_test/:id":     "invoice_test"
+        "invoice/test/:id":     "invoice_test"
     },
 
     collections: {

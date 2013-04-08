@@ -16,7 +16,7 @@ var InvoicesListItemView = Backbone.View.extend({
         data.acceptanceDate = data.acceptanceDate.replace(/(\d+)\-(\d+)\-(\d+)T(\d+):(\d+).*/, "$3.$2.$1 $4:$5");
 
         this.$el.html(this.template(data));
-        this.$el.attr('href', "/invoice_view/" + this.model.id);
+        this.$el.attr('href', "/invoice/view/" + this.model.id);
 
         return this;
     }
