@@ -12,7 +12,6 @@ class DocumentRepositoryPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $container;
+        //$container;
     }
-
 }

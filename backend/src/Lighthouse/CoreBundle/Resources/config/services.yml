@@ -8,15 +8,22 @@ services:
         alias: lighthouse.core.serializer.metadata.driver.document
 
     doctrine_mongodb.odm.repository:
+        abstract: true
         class: Doctrine\ODM\MongoDB\DocumentRepository
         factory_service: doctrine_mongodb.odm.document_manager
         factory_method: getRepository
 
-    lighthouse.core.document.repository.shop_product:
+    lighthouse.core.document.repository.product:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\ShopProductRepository
         arguments:
-            - LighthouseCoreBundle:ShopProduct
+            - LighthouseCoreBundle:Product
+
+    lighthouse.core.document.repository.invoice:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\InvoiceRepository
+        arguments:
+            - LighthouseCoreBundle:Invoice
 
     lighthouse.core.document.repository.invoice_product:
         parent: doctrine_mongodb.odm.repository

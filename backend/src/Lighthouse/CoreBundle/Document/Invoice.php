@@ -8,7 +8,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\DatesCompare;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(
+ *     repositoryClass="Lighthouse\CoreBundle\Document\InvoiceRepository"
+ * )
  * @DatesCompare(
  *     firstField="acceptanceDate",
  *     secondField="supplierInvoiceDate",

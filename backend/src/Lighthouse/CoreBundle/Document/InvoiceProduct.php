@@ -7,7 +7,9 @@ use Lighthouse\CoreBundle\Document\Product;
 use Lighthouse\CoreBundle\Document\Invoice;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(
+ *     repositoryClass="Lighthouse\CoreBundle\Document\InvoiceProductRepository"
+ * )
  */
 class InvoiceProduct extends AbstractDocument
 {

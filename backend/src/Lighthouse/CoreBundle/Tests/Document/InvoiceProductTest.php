@@ -69,33 +69,29 @@ class InvoiceProductTest extends WebTestCase
         $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\Invoice', $invoiceProduct->invoice);
         $this->assertEquals($invoiceProduct->invoice->id, $invoice->id);
 
-        $shopProductRepo = $manager->getRepository('LighthouseCoreBundle:ShopProduct');
+        /*
+        $productRepo = $manager->getRepository('LighthouseCoreBundle:Product');
 
-        $shopProduct = $shopProductRepo->findOneBy(array('product' => $product->id));
-        $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\ShopProduct', $shopProduct);
-        $this->assertEquals(10, $shopProduct->amount);
+        $product = $productRepo->find($product->id);
+        $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\Product', $product);
+        */
+        $this->assertEquals(10, $product->amount);
 
         $invoiceProduct->quantity = 3;
         $manager->persist($invoiceProduct);
         $manager->flush();
 
-        $shopProduct = $shopProductRepo->findOneByProduct($product->id);
-        $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\ShopProduct', $shopProduct);
-        $this->assertEquals(3, $shopProduct->amount);
+        $this->assertEquals(3, $product->amount);
 
         $invoiceProduct->quantity = 4;
         $manager->persist($invoiceProduct);
         $manager->flush();
 
-        $shopProduct = $shopProductRepo->findOneByProduct($product->id);
-        $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\ShopProduct', $shopProduct);
-        $this->assertEquals(4, $shopProduct->amount);
+        $this->assertEquals(4, $product->amount);
 
         $manager->remove($invoiceProduct);
         $manager->flush();
 
-        $shopProduct = $shopProductRepo->findOneByProduct($product->id);
-        $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\ShopProduct', $shopProduct);
-        $this->assertEquals(0, $shopProduct->amount);
+        $this->assertEquals(0, $product->amount);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\ODM\MongoDB\LoggableCursor;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -10,6 +9,7 @@ use FOS\RestBundle\View\View;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product;
 use Lighthouse\CoreBundle\Document\ProductCollection;
+use Lighthouse\CoreBundle\Document\ProductRepository;
 use Lighthouse\CoreBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,18 +18,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ProductController extends FOSRestController
 {
     /**
-     * @DI\Inject("doctrine_mongodb")
-     * @var ManagerRegistry
+     * @DI\Inject("lighthouse.core.document.repository.product")
+     * @var ProductRepository
      */
-    protected $odm;
-
-    /**
-     * @return \Doctrine\Common\Persistence\ObjectRepository
-     */
-    protected function getProductRepository()
-    {
-        return $this->odm->getRepository("LighthouseCoreBundle:Product");
-    }
+    protected $productRepository;
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -71,7 +63,7 @@ class ProductController extends FOSRestController
     public function getProductsAction()
     {
         /* @var LoggableCursor $cursor */
-        $cursor = $this->getProductRepository()->findAll();
+        $cursor = $this->productRepository->findAll();
         $collection = new ProductCollection($cursor);
         return $collection;
     }
@@ -83,7 +75,7 @@ class ProductController extends FOSRestController
      */
     protected function findProduct($id)
     {
-        $product = $this->getProductRepository()->find($id);
+        $product = $this->productRepository->find($id);
         if (!$product instanceof Product) {
             throw new NotFoundHttpException('Product not found');
         }
@@ -103,8 +95,8 @@ class ProductController extends FOSRestController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $this->odm->getManager()->persist($product);
-            $this->odm->getManager()->flush();
+            $this->productRepository->getDocumentManager()->persist($product);
+            $this->productRepository->getDocumentManager()->flush();
             return $product;
         } else {
             return View::create($form, 400);

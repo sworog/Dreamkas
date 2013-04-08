@@ -4,23 +4,23 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
-class ShopProductRepository extends DocumentRepository
+class ProductRepository extends DocumentRepository
 {
     /**
      * @param Product $product
      * @param int $amountDiff
+     * @return Product
      */
     public function updateAmount(Product $product, $amountDiff)
     {
         $query = $this
             ->createQueryBuilder()
             ->findAndUpdate()
-            ->field('product')->equals($product->id)
+            ->field('id')->equals($product->id)
             ->field('amount')->inc($amountDiff)
-            ->returnNew() // is needed for ShopProduct to be updated in IdentityMap
-            ->upsert()
+            ->returnNew()
             ->getQuery();
-        $shopProduct = $query->execute();
-        return $shopProduct;
+        $updatedProduct = $query->execute();
+        return $updatedProduct;
     }
 }

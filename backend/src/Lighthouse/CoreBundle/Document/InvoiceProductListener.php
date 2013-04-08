@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -13,20 +12,20 @@ use JMS\DiExtraBundle\Annotation as DI;
 class InvoiceProductListener
 {
     /**
-     * @var ShopProductRepository
+     * @var ProductRepository
      */
-    protected $shopProductRepository;
+    protected $productRepository;
 
     /**
      * @DI\InjectParams({
-     *     "shopProductRepository"=@DI\Inject("lighthouse.core.document.repository.shop_product")
+     *     "productRepository"=@DI\Inject("lighthouse.core.document.repository.product")
      * })
      *
-     * @param ShopProductRepository $shopProductRepository
+     * @param ProductRepository $productRepository
      */
-    public function __construct(ShopProductRepository $shopProductRepository)
+    public function __construct(ProductRepository $productRepository)
     {
-        $this->shopProductRepository = $shopProductRepository;
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -90,14 +89,13 @@ class InvoiceProductListener
     }
 
     /**
-     * @param DocumentManager $manager
      * @param Product $product
      * @param int $amountDiff
      */
     protected function updateProductAmount(Product $product, $amountDiff)
     {
         if ($amountDiff <> 0) {
-            $this->shopProductRepository->updateAmount($product, $amountDiff);
+            $this->productRepository->updateAmount($product, $amountDiff);
         }
     }
 }
