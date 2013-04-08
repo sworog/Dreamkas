@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Test;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseTestCase;
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -73,5 +74,50 @@ class WebTestCase extends BaseTestCase
             $filtered = ($xpath) ? $crawler->filterXPath($selector) : $crawler->filter($selector);
             $this->assertContains($expected, $filtered->first()->text());
         }
+    }
+
+    /**
+     * @param Client $client
+     * @param string $method
+     * @param string $uri
+     * @param mixed  $data
+     * @param array $parameters
+     * @param array $server
+     * @param bool $changeHistory
+     * @return mixed
+     * @throws \UnexpectedValueException
+     */
+    protected function clientJsonRequest(
+        Client $client,
+        $method,
+        $uri,
+        $data,
+        array $parameters = array(),
+        array $server = array(),
+        $changeHistory = true
+    ) {
+        $json = json_encode($data);
+        if (!isset($server['CONTENT_TYPE'])) {
+            $server['CONTENT_TYPE'] = 'application/json';
+        }
+
+        $client->request(
+            $method,
+            $uri,
+            $parameters.
+            array(),
+            $server,
+            $json,
+            $changeHistory
+        );
+
+        $content = $client->getResponse()->getContent();
+        $json = json_decode($content);
+
+        if (0 != json_last_error()) {
+            throw new \UnexpectedValueException('Failed to parse json: ' . $content);
+        }
+
+        return $json;
     }
 }

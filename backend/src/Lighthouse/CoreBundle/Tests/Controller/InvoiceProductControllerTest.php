@@ -19,6 +19,8 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testPostAction()
     {
+        $this->clearMongoDb();
+
         $invoiceId = $this->createInvoice();
         $productId = $this->createProduct();
 
@@ -27,14 +29,14 @@ class InvoiceProductControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
-        $crawler = $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            'api/1/invoices/' . $invoiceId . '/invoice-products',
+            'api/1/invoices/' . $invoiceId . '/products',
             array('invoiceProduct' => $invoiceProductData)
         );
 
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode(), $this->client->getResponse());
-        $this->assertNotEmpty($crawler->filterXPath('//invoiceProduct/id')->text());
     }
 
     /**

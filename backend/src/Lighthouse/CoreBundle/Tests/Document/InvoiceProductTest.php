@@ -69,12 +69,6 @@ class InvoiceProductTest extends WebTestCase
         $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\Invoice', $invoiceProduct->invoice);
         $this->assertEquals($invoiceProduct->invoice->id, $invoice->id);
 
-        /*
-        $productRepo = $manager->getRepository('LighthouseCoreBundle:Product');
-
-        $product = $productRepo->find($product->id);
-        $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\Product', $product);
-        */
         $this->assertEquals(10, $product->amount);
 
         $invoiceProduct->quantity = 3;
