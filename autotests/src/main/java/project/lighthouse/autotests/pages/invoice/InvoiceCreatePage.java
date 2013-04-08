@@ -42,9 +42,6 @@ public class InvoiceCreatePage extends PageObject{
     @FindBy(name = "legalEntity")
     public WebElement legalEntityField;
 
-    @FindBy(xpath = "//*[@lh_button='commit']")
-    public WebElement invoiceCreateAndSaveButton;
-
     @FindBy(xpath = "//*[@lh_link='close']")
     public WebElement invoiceCloseButton;
 
@@ -79,7 +76,7 @@ public class InvoiceCreatePage extends PageObject{
     }
 
     public void invoiceCreateButtonClick(){
-        $(invoiceCreateAndSaveButton).click();
+        findBy("//*[@lh_button='commit']").click();
         CommonPageInterface.checkCreateAlertSuccess(INVOICE_NAME);
     }
 
