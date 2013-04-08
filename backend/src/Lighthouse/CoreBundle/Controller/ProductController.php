@@ -14,6 +14,7 @@ use Lighthouse\CoreBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends FOSRestController
 {
@@ -49,6 +50,29 @@ class ProductController extends FOSRestController
     }
 
     /**
+     * @Route("/products/search")
+     * @return ProductCollection
+     */
+    public function getProductsSearchAction($property)
+    {
+        /* @var LoggableCursor $cursor */
+
+        switch ($property) {
+            case 'name':
+            case 'sku':
+            case 'barcode':
+                $query = $this->getRequest()->get('query');
+                $cursor = $this->productRepository
+                    ->searchEntry($property, $query);
+                break;
+            default:
+                $cursor = array();
+        }
+
+        return new ProductCollection($cursor);
+    }
+
+    /**
      * @param string $id
      * @return \Lighthouse\CoreBundle\Document\Product
      */
@@ -68,7 +92,7 @@ class ProductController extends FOSRestController
         return $collection;
     }
 
-    /**
+/**
      * @param string $id
      * @return \Lighthouse\CoreBundle\Document\Product
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException

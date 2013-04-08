@@ -23,4 +23,15 @@ class ProductRepository extends DocumentRepository
         $updatedProduct = $query->execute();
         return $updatedProduct;
     }
+
+    /**
+     * @param string $property
+     * @param string $entry
+     * @return LoggableCursor
+     */
+    public function searchEntry($property, $entry)
+    {
+        return $this->findBy(array($property => new \MongoRegex("/".$entry."/i")));
+    }
+
 }
