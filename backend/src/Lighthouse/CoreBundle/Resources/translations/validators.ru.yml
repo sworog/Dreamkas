@@ -17,6 +17,8 @@ lighthouse:
         invalid_value: Вы ввели неверную дату {{ value }}, формат должен быть следующий дд.мм.гггг чч:мм
       date:
         invalid_value: Вы ввели неверную дату {{ value }}, формат должен быть следующий дд.мм.гггг
+      product:
+        does_not_exists: Продукт с id '{{ value }}' не существует
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов

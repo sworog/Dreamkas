@@ -32,11 +32,64 @@ class InvoiceProductControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $this->client,
             'POST',
-            'api/1/invoices/' . $invoiceId . '/products',
+            'api/1/invoices/' . $invoiceId . '/products.json',
             array('invoiceProduct' => $invoiceProductData)
         );
 
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode(), $this->client->getResponse());
+        $this->assertArrayHasKey('id', $response);
+        $this->assertNotEmpty($response['id']);
+        $this->assertArrayHasKey('quantity', $response);
+        $this->assertEquals(10, $response['quantity']);
+        $this->assertArrayHasKey('invoice', $response);
+        $this->assertArrayHasKey('product', $response);
+    }
+
+    public function testPostActionNotExistingInvoice()
+    {
+        $this->clearMongoDb();
+
+        $invoiceId = 'dwedwdwdwwd';
+        $productId = 'dewdewdwedw';
+
+        $invoiceProductData = array(
+            'quantity' => 10,
+            'product'  => $productId,
+        );
+
+        $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            'api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $invoiceProductData)
+        );
+
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testPostActionNotExistingProduct()
+    {
+        $this->clearMongoDb();
+
+        $invoiceId = $this->createInvoice();
+        $productId = 'dewdewdwedw';
+
+        $invoiceProductData = array(
+            'quantity' => 10,
+            'product'  => $productId,
+        );
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            'api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $invoiceProductData)
+        );
+
+        $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
+        $this->assertTrue(isset($response['children']['product']['errors'][0]));
+        $this->assertContains('Продукт с id', $response['children']['product']['errors'][0]);
+        $this->assertContains('не существует', $response['children']['product']['errors'][0]);
     }
 
     /**

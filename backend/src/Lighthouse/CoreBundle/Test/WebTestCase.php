@@ -105,6 +105,9 @@ class WebTestCase extends BaseTestCase
         if (!isset($server['CONTENT_TYPE'])) {
             $server['CONTENT_TYPE'] = 'application/json';
         }
+        if (!isset($server['HTTP_ACCEPT'])) {
+            $server['HTTP_ACCEPT'] = 'application/json, text/javascript, */*; q=0.01';
+        }
 
         $client->request(
             $method,
@@ -117,7 +120,7 @@ class WebTestCase extends BaseTestCase
         );
 
         $content = $client->getResponse()->getContent();
-        $json = json_decode($content);
+        $json = json_decode($content, true);
 
         if (0 != json_last_error()) {
             throw new \UnexpectedValueException('Failed to parse json: ' . $content);

@@ -16,7 +16,14 @@ class InvoiceProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('product', 'reference', array('class' => 'Lighthouse\\CoreBundle\\Document\\Product'))
+            ->add(
+                'product',
+                'reference',
+                array(
+                    'class' => 'Lighthouse\\CoreBundle\\Document\\Product',
+                    'invalid_message' => 'lighthouse.validation.errors.product.does_not_exists'
+                )
+            )
             ->add('quantity');
     }
 

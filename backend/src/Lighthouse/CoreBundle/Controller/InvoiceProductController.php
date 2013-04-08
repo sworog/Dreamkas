@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Invoice;
 use Lighthouse\CoreBundle\Document\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\InvoiceProductRepository;
