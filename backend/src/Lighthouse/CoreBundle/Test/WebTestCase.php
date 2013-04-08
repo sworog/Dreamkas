@@ -91,12 +91,17 @@ class WebTestCase extends BaseTestCase
         Client $client,
         $method,
         $uri,
-        $data,
+        $data = null,
         array $parameters = array(),
         array $server = array(),
         $changeHistory = true
     ) {
-        $json = json_encode($data);
+        if (null !== $data) {
+            $json = json_encode($data);
+        } else {
+            $json = null;
+        }
+
         if (!isset($server['CONTENT_TYPE'])) {
             $server['CONTENT_TYPE'] = 'application/json';
         }
@@ -104,7 +109,7 @@ class WebTestCase extends BaseTestCase
         $client->request(
             $method,
             $uri,
-            $parameters.
+            $parameters,
             array(),
             $server,
             $json,
