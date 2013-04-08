@@ -1,12 +1,10 @@
 lighthouse.core.product:
     resource: Lighthouse\CoreBundle\Controller\ProductController
     type:     rest
-    prefix: /api/1
 
 lighthouse.core.invoice:
     resource: Lighthouse\CoreBundle\Controller\InvoiceController
     type:     rest
-    prefix: /api/1
 
 lighthouse.core.invoice_product:
     resource: Lighthouse\CoreBundle\Controller\InvoiceProductController
