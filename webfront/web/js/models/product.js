@@ -18,15 +18,18 @@ var Product = BasicModel.extend({
     unitsEnum: {
         kg: {
             textEdit: "Килограммы",
-            textView: "килограмм"
+            textView: "килограмм",
+            textViewShort: "кг"
         },
         unit: {
             textEdit: "Штуки",
-            textView: "штука"
+            textView: "штука",
+            textViewShort: "шт"
         },
         liter: {
             textEdit: "Литры",
-            textView: "литр"
+            textView: "литр",
+            textViewShort: "л"
         }
     },
 

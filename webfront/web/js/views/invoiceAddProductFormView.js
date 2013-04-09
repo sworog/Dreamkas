@@ -32,11 +32,16 @@ var InvoiceAddProductFormView = Backbone.View.extend({
         event.preventDefault();
 
         var data = Backbone.Syphon.serialize(this);
+        this.saveModel(data);
+    },
+
+    saveModel: function(data, successCallback) {
         this.model.set(data);
         this.model.save({}, {
             error: function(model, response) {
                 model.parseErrors($.parseJSON(response.responseText));
-            }
+            },
+            success: successCallback
         });
     },
 
@@ -68,8 +73,26 @@ var InvoiceAddProductFormView = Backbone.View.extend({
         });
     },
 
-    finishAdd: function() {
+    finishAdd: function(event) {
+        event.preventDefault();
+        var data = Backbone.Syphon.serialize(this);
+        var isEmpty = function(data) {
+            for (var item in data) {
+                if ('' != data[item]) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        var successCallback = function(){
+            app.navigate('invoice/list', {trigger: true})
+        }
 
+        if (!isEmpty(data)) {
+            this.saveModel(data, successCallback);
+        } else {
+            successCallback();
+        }
     },
 
     renderErrors: function() {
