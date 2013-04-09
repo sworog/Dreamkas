@@ -155,7 +155,6 @@ var InvoiceAddProductFormView = Backbone.View.extend({
                     break;
                 default:
                     var term = $(this).autocomplete('getTerm');
-                    console.log(term, $(this).val());
                     if (null != term && term != $(this).val()) {
                         var inputs = ['name', 'sku', 'barcode'];
                         for (var i in inputs) {
