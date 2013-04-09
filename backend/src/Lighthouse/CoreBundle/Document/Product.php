@@ -62,7 +62,6 @@ class Product extends AbstractDocument
      * @MongoDB\Field(type="money")
      * @Assert\NotBlank
      * @LighthouseAssert\Money(max=1000000000, notBlank=true)
-     * @Serializer\Type("Money")
      * @var Money
      */
     protected $purchasePrice;

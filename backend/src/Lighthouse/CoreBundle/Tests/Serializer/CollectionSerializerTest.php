@@ -9,7 +9,34 @@ use JMS\Serializer\Serializer;
 
 class CollectionSerializerTest extends WebTestCase
 {
-    public function testCollectionSerialize()
+    public function testCollectionSerializeXml()
+    {
+        $collection = $this->createCollection();
+
+        /* @var Serializer $serializer */
+        $serializer = $this->getContainer()->get('serializer');
+        $result = $serializer->serialize($collection, 'xml');
+
+        $expectedFile = __DIR__ . '/../Fixtures/Document/TestCollection.xml';
+        $this->assertXmlStringEqualsXmlFile($expectedFile, $result);
+    }
+
+    public function testCollectionSerializeJson()
+    {
+        $collection = $this->createCollection();
+
+        /* @var Serializer $serializer */
+        $serializer = $this->getContainer()->get('serializer');
+        $result = $serializer->serialize($collection, 'json');
+
+        $expectedFile = __DIR__ . '/../Fixtures/Document/TestCollection.json';
+        $this->assertJsonStringEqualsJsonFile($expectedFile, $result);
+    }
+
+    /**
+     * @return TestCollection
+     */
+    protected function createCollection()
     {
         $collection = new TestCollection();
         for ($i = 1; $i <= 5; $i++) {
@@ -20,11 +47,6 @@ class CollectionSerializerTest extends WebTestCase
             $document->orderDate = '0' . $i . '.03.2013';
             $collection->add($document);
         }
-        /* @var Serializer $serializer */
-        $serializer = $this->getContainer()->get('serializer');
-        $result = $serializer->serialize($collection, 'xml');
-
-        $expectedFile = __DIR__ . '/../Fixtures/Document/TestCollection.xml';
-        $this->assertXmlStringEqualsXmlFile($expectedFile, $result);
+        return $collection;
     }
 }

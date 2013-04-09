@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Fixtures\Document;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Types\Money;
 
 class Test extends AbstractDocument
 {
@@ -26,6 +27,11 @@ class Test extends AbstractDocument
      * @var string
      */
     protected $orderDate;
+
+    /**
+     * @var Money
+     */
+    protected $money;
 
     /**
      * @return array

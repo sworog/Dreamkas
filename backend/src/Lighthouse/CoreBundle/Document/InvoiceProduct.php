@@ -32,7 +32,6 @@ class InvoiceProduct extends AbstractDocument
     /**
      * Закупочная цена
      * @MongoDB\Field(type="money")
-     * @Serializer\Type("Money")
      * @var Money
      */
     protected $price;
@@ -40,7 +39,6 @@ class InvoiceProduct extends AbstractDocument
     /**
      * Сумма
      * @MongoDB\Field(type="money")
-     * @Serializer\Type("Money")
      * @var Money
      */
     protected $totalPrice;
