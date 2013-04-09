@@ -3,17 +3,17 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <script src="/js/jquery.js" type="text/javascript"></script>
+    <script src="/js/libs/jquery.js" type="text/javascript"></script>
     <script src="/js/libs/jquery-ui.js" type="text/javascript"></script>
     <script src="/js/libs/jquery-maskedinput.js" type="text/javascript"></script>
     <script src="/js/libs/jquery-ui-timepicker.js" type="text/javascript"></script>
     <script src="/js/libs/daetpickertim.translate.js" type="text/javascript"></script>
     <script src="/js/libs/jquery-barcode.js" type="text/javascript"></script>
     <script src="/js/libs/date.format.js" type="text/javascript"></script>
-    <script src="/js/underscore.js" type="text/javascript"></script>
-    <script src="/js/backbone.js" type="text/javascript"></script>
-    <script src="/js/backbone.syphon.js" type="text/javascript"></script>
-    <script src="/js/mustache.js" type="text/javascript"></script>
+    <script src="/js/libs/underscore.js" type="text/javascript"></script>
+    <script src="/js/libs/backbone.js" type="text/javascript"></script>
+    <script src="/js/libs/backbone.syphon.js" type="text/javascript"></script>
+    <script src="/js/libs/mustache.js" type="text/javascript"></script>
     <script src="/js/helpers.js" type="text/javascript"></script>
     <script src="/js/config.js" type="text/javascript"></script>
     <link href="/css/main.css" rel="stylesheet" media="all" />
@@ -666,63 +666,66 @@
                 Добавление товаров в накладную
             </div>
         </div>
-        <div name="product">
-            <label lh_prop="true">
-                <span lh_prop_name="true">
-                    Наименование
-                </span>
-                <span lh_prop_value="true" lh_field="short">
-                    <input lh_field_native="true" lh_product_autocomplete="name"/>
-                        </span>
-            </label>
-            <label lh_prop="true">
-                <span lh_prop_name="true">
-                    Артикул
-                </span>
-                <span lh_prop_value="true" lh_field="short">
-                    <input lh_field_native="true" lh_product_autocomplete="sku"/>
-                </span>
-            </label>
-            <label lh_prop="true">
-                <span lh_prop_name="true">
-                    Штрихкод
-                </span>
-                <span lh_prop_value="true" lh_field="short">
-                    <input lh_field_native="true" lh_product_autocomplete="barcode"/>
-                </span>
-            </label>
-            <label lh_prop="true">
-                <span lh_prop_name="true">
-                    Количество
-                </span>
-                <span lh_prop_value="true" lh_field="mini">
-                    <input lh_field_native="true" name="amount"/>
-                </span>
-            </label>
-            <label lh_prop="true">
-                <span lh_prop_name="true">
-                    Цена приёмки
-                </span>
-                <span lh_prop_value="true" lh_field="mini">
-                    <input lh_field_native="true" name="price"/>
-                </span>
-            </label>
-            <div>
-                <span lh_prop_name="true"></span>
-                <span lh_field="normal">
-                    <a href="#" class="addMoreProduct">
-                        Добавить ещё один товар
-                    </a>
-                </span>
-            </div>
-            <div lh_card_foot="true">
-                <div lh_prop="true">
+        <div name="productForm">
+            <form>
+                <input type="hidden" name="product">
+                <label lh_prop="true">
+                    <span lh_prop_name="true">
+                        Наименование
+                    </span>
+                    <span lh_prop_value="true" lh_field="short">
+                        <input lh_field_native="true" lh_product_autocomplete="name"/>
+                    </span>
+                </label>
+                <label lh_prop="true">
+                    <span lh_prop_name="true">
+                        Артикул
+                    </span>
+                    <span lh_prop_value="true" lh_field="short">
+                        <input lh_field_native="true" lh_product_autocomplete="sku"/>
+                    </span>
+                </label>
+                <label lh_prop="true">
+                    <span lh_prop_name="true">
+                        Штрихкод
+                    </span>
+                    <span lh_prop_value="true" lh_field="short">
+                        <input lh_field_native="true" lh_product_autocomplete="barcode"/>
+                    </span>
+                </label>
+                <label lh_prop="true">
+                    <span lh_prop_name="true">
+                        Количество
+                    </span>
+                    <span lh_prop_value="true" lh_field="mini">
+                        <input lh_field_native="true" name="quantity"/>
+                    </span>
+                </label>
+                <label lh_prop="true">
+                    <span lh_prop_name="true">
+                        Цена приёмки
+                    </span>
+                    <span lh_prop_value="true" lh_field="mini">
+                        <input lh_field_native="true" name="price"/>
+                    </span>
+                </label>
+                <div>
                     <span lh_prop_name="true"></span>
-                    <button lh_button="commit" type="submit">
-                        Завершить приёмку
-                    </button>
+                    <span lh_field="normal">
+                        <a class="addMoreProduct">
+                            Добавить ещё один товар
+                        </a>
+                    </span>
                 </div>
-            </div>
+                <div lh_card_foot="true">
+                    <div lh_prop="true">
+                        <span lh_prop_name="true"></span>
+                        <button lh_button="commit" type="submit">
+                            Завершить приёмку
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </script>
 
@@ -802,6 +805,7 @@
     <script src="/js/views/invoicesList.js" type="text/javascript"></script>
     <script src="/js/views/invoiceView.js" type="text/javascript"></script>
     <script src="/js/views/invoiceCreateView.js" type="text/javascript"></script>
+    <script src="/js/views/invoiceAddProductFormView.js" type="text/javascript"></script>
     <script src="/js/views/invoiceAddProductView.js" type="text/javascript"></script>
     <script src="/js/views/invoiceAddProductListRowTable.js" type="text/javascript"></script>
     <script src="/js/views/invoiceAddProductListTable.js" type="text/javascript"></script>

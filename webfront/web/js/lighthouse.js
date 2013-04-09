@@ -9,6 +9,8 @@ Backbone.history.start({
 window.app = new Backbone.Router;
 
 $("body").on('click', 'a', function(event){
-    app.navigate($(this).attr('href'), {trigger: true});
-    event.preventDefault();
+    if($(this).attr('href')) {
+        app.navigate($(this).attr('href'), {trigger: true});
+        event.preventDefault();
+    }
 });

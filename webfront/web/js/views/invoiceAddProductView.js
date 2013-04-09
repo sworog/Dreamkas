@@ -25,13 +25,23 @@ var InvoiceAddProductView = Backbone.View.extend({
         }
 
         var data = this.model.toJSON();
+        data.acceptanceDate = data.acceptanceDate.replace(/(\d+)\-(\d+)\-(\d+)T(\d+):(\d+).*/, "$3.$2.$1 $4:$5");
+        if(data.supplierInvoiceDate) {
+            data.supplierInvoiceDate = data.supplierInvoiceDate.replace(/(\d+)\-(\d+)\-(\d+)T(\d+):(\d+).*/, "$3.$2.$1");
+        }
 
         this.$el.find("[name='invoice']").html(this.templateDataView(data));
 
         var listView = new InvoiceAddProductListTable({collection: this.collection});
         this.$el.find("[name='invoiceProductsList']").html(listView.render().el);
 
-        var formView = new Invoice
+        var formView = new InvoiceAddProductFormView({
+            model: new InvoiceProduct({
+                invoice: this.model.get('id')
+            }),
+            collection: this.collection
+        });
+        this.$el.find("[name='invoiceAddProductsForm']").html(formView.render().el);
 
 //        this.$el.find("[name='productBarcode']").each(function(item) {
 //            $(this).barcode($(this).text().trim(), 'code128', {
