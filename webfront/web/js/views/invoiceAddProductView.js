@@ -26,9 +26,9 @@ var InvoiceAddProductView = Backbone.View.extend({
         }
 
         var data = this.model.toJSON();
-        data.acceptanceDate = data.acceptanceDate.replace(/(\d+)\-(\d+)\-(\d+)T(\d+):(\d+).*/, "$3.$2.$1 $4:$5");
+        data.acceptanceDate = Helpers.dateTimeFormat(data.acceptanceDate);
         if(data.supplierInvoiceDate) {
-            data.supplierInvoiceDate = data.supplierInvoiceDate.replace(/(\d+)\-(\d+)\-(\d+)T(\d+):(\d+).*/, "$3.$2.$1");
+            data.supplierInvoiceDate = Helpers.dateFormat(data.supplierInvoiceDate);
         }
 
         this.$el.find("[name='invoice']").html(this.templateDataView(data));
