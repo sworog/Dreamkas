@@ -1,5 +1,9 @@
 var InvoiceAddProductListRowTable = Backbone.View.extend({
     template: Mustache.compile($("#invoiceProductListRowTable").html()),
+    attributes: {
+        lh_table_row: "true",
+        name: "product"
+    },
 
     initialize: function() {
         this.product = new Product({id: this.model.get('product')});
@@ -12,6 +16,13 @@ var InvoiceAddProductListRowTable = Backbone.View.extend({
         data.productModel = this.product.toJSON();
 
         this.$el.html(this.template(data));
+
+        this.$el.find("[name='productBarcode']").each(function(item) {
+            $(this).barcode($(this).text().trim(), 'code128', {
+                barWidth: 1,
+                barHeight: 30
+            });
+        });
 
         return this;
     }

@@ -673,7 +673,7 @@
                     <span lh_prop_name="true">
                         Наименование
                     </span>
-                    <span lh_prop_value="true" lh_field="short">
+                    <span lh_prop_value="true" lh_field="short" lh_field_error_inline="true">
                         <input lh_field_native="true" lh_product_autocomplete="name"/>
                     </span>
                 </label>
@@ -749,44 +749,42 @@
     </script>
 
     <script type="text/mustache" id="invoiceProductListRowTable">
-        <div lh_table_row="true" name="product">
-            <span lh_table_cell="common">
-                <a href="#" class="invoiceProductLinkEdit">
-                    <span name="productName" class="bold">
-                        {{productModel.name}}
-                    </span>
-                </a>
-                <br />
-                <span name="productSku">
-                    {{productModel.sku}}
+        <span lh_table_cell="common">
+            <a href="#" class="invoiceProductLinkEdit">
+                <span name="productName" class="bold">
+                    {{productModel.name}}
                 </span>
+            </a>
+            <br />
+            <span name="productSku">
+                {{productModel.sku}}
             </span>
-            <span lh_table_cell="barcode" name="productBarcode">
-                {{productModel.barcode}}
+        </span>
+        <span lh_table_cell="barcode" name="productBarcode">
+            {{productModel.barcode}}
+        </span>
+        <span lh_table_cell="common">
+            <span name="productAmount">
+                {{amount}}
             </span>
-            <span lh_table_cell="common">
-                <span name="productAmount">
-                    {{amount}}
-                </span>
-                <span name="productUnits">
-                    {{productModel.units}}
-                </span>
+            <span name="productUnits">
+                {{productModel.units}}
             </span>
-            <span lh_table_cell="common">
-                по
-                <span name="productPrice">
-                    {{price}}
-                </span>
-                р.
+        </span>
+        <span lh_table_cell="common">
+            по
+            <span name="productPrice">
+                {{price}}
             </span>
-            <span lh_table_cell="common">
-                =
-                <span name="productSum">
-                    {{sum}}
-                </span>
-                p.
+            р.
+        </span>
+        <span lh_table_cell="common">
+            =
+            <span name="productSum">
+                {{totalPrice}}
             </span>
-        </div>
+            p.
+        </span>
     </script>
 
     <script src="/js/models/basic.js" type="text/javascript"></script>

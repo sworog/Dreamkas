@@ -8,6 +8,14 @@ var InvoiceAddProductFormView = Backbone.View.extend({
 
     initialize: function() {
         this.model.bind('error', this.renderErrors, this);
+        this.model.bind('sync', this.addProductAndClearForm, this);
+    },
+
+    reinitialize: function(newModel) {
+        this.model.unbind('error', this.renderErrors, this);
+        this.model.unbind('sync', this.addProductAndClearForm, this);
+        this.model = newModel;
+        this.initialize();
     },
 
     render: function() {
@@ -26,9 +34,36 @@ var InvoiceAddProductFormView = Backbone.View.extend({
         var data = Backbone.Syphon.serialize(this);
         this.model.set(data);
         this.model.save({}, {
-            success: this.addProductAndClearForm,
+//            success: this.addProductAndClearForm,
             error: function(model, response) {
                 model.parseErrors($.parseJSON(response.responseText));
+            }
+        });
+    },
+
+    addProductAndClearForm: function(model, response, options) {
+        this.collection.add(model);
+        this.clearForm();
+        var newModel = new InvoiceProduct({
+            invoice: this.model.get('invoice')
+        });
+        this.reinitialize(newModel);
+    },
+
+    clearForm: function() {
+        this.$el.find("input, textarea, select").parent("span").removeAttr("lh_field_error");
+        this.$el.find('form').find(':input').each(function() {
+            switch(this.type) {
+                case 'password':
+                case 'select-multiple':
+                case 'select-one':
+                case 'text':
+                case 'textarea':
+                    $(this).val('');
+                    break;
+                case 'checkbox':
+                case 'radio':
+                    this.checked = false;
             }
         });
     },
@@ -41,7 +76,12 @@ var InvoiceAddProductFormView = Backbone.View.extend({
         this.$el.find("input, textarea, select").parent("span").removeAttr("lh_field_error");
         for(var field in this.model.errors) {
             var fieldErrors = this.model.errors[field].join(', ');
-            this.$el.find("[name='" + field + "']").parent("span").attr("lh_field_error", fieldErrors);
+
+            if(field == 'product') {
+                this.$el.find("[lh_product_autocomplete='name']").parent("span").attr("lh_field_error", fieldErrors);
+            } else {
+                this.$el.find("[name='" + field + "']").parent("span").attr("lh_field_error", fieldErrors);
+            }
         }
     },
 
@@ -49,7 +89,7 @@ var InvoiceAddProductFormView = Backbone.View.extend({
         this.$el.find("[lh_product_autocomplete='"+ name +"']").autocomplete({
             source: function(request, response) {
                 $.ajax({
-                    url: baseApiUrl + "/api/1/products/name/search.json",
+                    url: baseApiUrl + "/api/1/products/"+ name +"/search.json",
                     dataType: "json",
                     data: {
                         query: request.term
@@ -64,7 +104,7 @@ var InvoiceAddProductFormView = Backbone.View.extend({
                     }
                 })
             },
-            minLength: 2,
+            minLength: 3,
             select: function(event, ui) {
                 $(this).parents("form").find("[lh_product_autocomplete='name']").val(ui.item.product.name);
                 $(this).parents("form").find("[lh_product_autocomplete='sku']").val(ui.item.product.sku);

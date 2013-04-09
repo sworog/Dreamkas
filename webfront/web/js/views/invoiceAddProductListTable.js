@@ -16,14 +16,12 @@ var InvoiceAddProductListTable = Backbone.View.extend({
             this.isRendered = true;
         }
 
-        if(this.collection.length > 0 && this.emptyList) {
+        if(this.collection.length > 0) {
             this.$el.show();
-            this.emptyList = false
             this.$el.find(".invoiceAddProductListInfo[lh_card_sub_title]")
                 .html(this.templateInfo({totalProducts: null, totalSum: null}));
         } else {
             this.$el.hide();
-            this.emptyList = true;
         }
 
         return this;

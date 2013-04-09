@@ -22,6 +22,7 @@ var InvoiceAddProductView = Backbone.View.extend({
     render: function() {
         if( ! this.isRendered) {
             this.$el.html(this.template());
+            this.model.unbind('sync', this.render, this);
         }
 
         var data = this.model.toJSON();
@@ -42,13 +43,6 @@ var InvoiceAddProductView = Backbone.View.extend({
             collection: this.collection
         });
         this.$el.find("[name='invoiceAddProductsForm']").html(formView.render().el);
-
-//        this.$el.find("[name='productBarcode']").each(function(item) {
-//            $(this).barcode($(this).text().trim(), 'code128', {
-//                barWidth: 1,
-//                barHeight: 30
-//            });
-//        });
 
         return this;
     }
