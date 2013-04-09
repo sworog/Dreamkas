@@ -34,7 +34,6 @@ var InvoiceAddProductFormView = Backbone.View.extend({
         var data = Backbone.Syphon.serialize(this);
         this.model.set(data);
         this.model.save({}, {
-//            success: this.addProductAndClearForm,
             error: function(model, response) {
                 model.parseErrors($.parseJSON(response.responseText));
             }
@@ -43,6 +42,7 @@ var InvoiceAddProductFormView = Backbone.View.extend({
 
     addProductAndClearForm: function(model, response, options) {
         this.collection.add(model);
+        this.invoice.fetch();
         this.clearForm();
         var newModel = new InvoiceProduct({
             invoice: this.model.get('invoice')

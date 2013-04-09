@@ -33,7 +33,10 @@ var InvoiceAddProductView = Backbone.View.extend({
 
         this.$el.find("[name='invoice']").html(this.templateDataView(data));
 
-        var listView = new InvoiceAddProductListTable({collection: this.collection});
+        var listView = new InvoiceAddProductListTable({
+            collection: this.collection,
+            model: this.model
+        });
         this.$el.find("[name='invoiceProductsList']").html(listView.render().el);
 
         var formView = new InvoiceAddProductFormView({
@@ -42,6 +45,7 @@ var InvoiceAddProductView = Backbone.View.extend({
             }),
             collection: this.collection
         });
+        formView.invoice = this.model;
         this.$el.find("[name='invoiceAddProductsForm']").html(formView.render().el);
 
         return this;
