@@ -1804,6 +1804,7 @@ hr {
     font-weight: bold;
 }
 
-.addMoreProduct {
+.addMoreProduct,
+.saveInvoiceAndAddProduct {
     cursor: pointer;
 }
