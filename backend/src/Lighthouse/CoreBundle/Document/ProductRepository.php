@@ -31,6 +31,6 @@ class ProductRepository extends DocumentRepository
      */
     public function searchEntry($property, $entry)
     {
-        return $this->findBy(array($property => new \MongoRegex("/".preg_quote($entry)."/i")));
+        return $this->findBy(array($property => new \MongoRegex("/".preg_quote($entry, '/')."/i")));
     }
 }
