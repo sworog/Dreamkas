@@ -13,30 +13,9 @@ var InvoiceAddProductFormView = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
 
-        this.$el.find("[lh_product_autocomplete='name']").autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    url: baseApiUrl + "/api/1/products/name/search.json",
-                    dataType: "json",
-                    data: {
-                        query: request.term
-                    },
-                    success: function(data) {
-                        response($.map(data, function( item ) {
-                            return {
-                                label: item.name,
-                                product: item
-                            }
-                        }));
-                    }
-                })
-            },
-            minLength: 2,
-            select: function(event, ui) {
-                $(this).parents("form").find("[lh_product_autocomplete='sku']").val(ui.item.product.sku);
-                $(this).parents("form").find("[lh_product_autocomplete='barcode']").val(ui.item.product.barcode);
-            }
-        });
+        this.autocompleteToInput('name');
+        this.autocompleteToInput('sku');
+        this.autocompleteToInput('barcode');
 
         return this;
     },
@@ -64,5 +43,34 @@ var InvoiceAddProductFormView = Backbone.View.extend({
             var fieldErrors = this.model.errors[field].join(', ');
             this.$el.find("[name='" + field + "']").parent("span").attr("lh_field_error", fieldErrors);
         }
+    },
+
+    autocompleteToInput: function(name) {
+        this.$el.find("[lh_product_autocomplete='"+ name +"']").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: baseApiUrl + "/api/1/products/name/search.json",
+                    dataType: "json",
+                    data: {
+                        query: request.term
+                    },
+                    success: function(data) {
+                        response($.map(data, function( item ) {
+                            return {
+                                label: item[name],
+                                product: item
+                            }
+                        }));
+                    }
+                })
+            },
+            minLength: 2,
+            select: function(event, ui) {
+                $(this).parents("form").find("[lh_product_autocomplete='name']").val(ui.item.product.name);
+                $(this).parents("form").find("[lh_product_autocomplete='sku']").val(ui.item.product.sku);
+                $(this).parents("form").find("[lh_product_autocomplete='barcode']").val(ui.item.product.barcode);
+                $(this).parents("form").find("[name='product']").val(ui.item.product.id);
+            }
+        });
     }
 });
