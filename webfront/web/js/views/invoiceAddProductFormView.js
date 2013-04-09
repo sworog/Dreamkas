@@ -109,7 +109,8 @@ var InvoiceAddProductFormView = Backbone.View.extend({
     },
 
     autocompleteToInput: function(name) {
-        this.$el.find("[lh_product_autocomplete='"+ name +"']").autocomplete({
+        var input = this.$el.find("[lh_product_autocomplete='"+ name +"']");
+        input.autocomplete({
             source: function(request, response) {
                 $.ajax({
                     url: baseApiUrl + "/api/1/products/"+ name +"/search.json",
@@ -135,6 +136,35 @@ var InvoiceAddProductFormView = Backbone.View.extend({
                 $(this).parents("form").find("[name='product']").val(ui.item.product.id);
 
                 $(this).parents("form").find("[name='quantity']").focus();
+            }
+        });
+        input.keyup(function(event){
+            var keyCode = $.ui.keyCode;
+            switch (event.keyCode) {
+                case keyCode.PAGE_UP:
+                case keyCode.PAGE_DOWN:
+                case keyCode.UP:
+                case keyCode.DOWN:
+                case keyCode.ENTER:
+                case keyCode.NUMPAD_ENTER:
+                case keyCode.TAB:
+                case keyCode.LEFT:
+                case keyCode.RIGHT:
+                case keyCode.ESCAPE:
+                    return;
+                    break;
+                default:
+                    var term = $(this).autocomplete('getTerm');
+                    console.log(term, $(this).val());
+                    if (null != term && term != $(this).val()) {
+                        var inputs = ['name', 'sku', 'barcode'];
+                        for (var i in inputs) {
+                            if (inputs[i] != name) {
+                                $(this).parents("form").find("[lh_product_autocomplete='" + inputs[i] + "']").val('').trigger('input');
+                            }
+                        }
+                        $(this).parents("form").find("[name='product']").val('');
+                    }
             }
         });
     }
