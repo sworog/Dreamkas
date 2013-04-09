@@ -388,7 +388,7 @@ EOF;
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains(
-            'Эта форма не должна содержать дополнительных полей.',
+            'Эта форма не должна содержать дополнительных полей',
             $crawler->filter('form[name="product"] > errors entry')->first()->text()
         );
 
