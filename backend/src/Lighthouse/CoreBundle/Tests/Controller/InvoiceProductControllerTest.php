@@ -25,7 +25,8 @@ class InvoiceProductControllerTest extends WebTestCase
         $productId = $this->createProduct();
 
         $invoiceProductData = array(
-            'quantity' => 10,
+            'quantity' => 11,
+            'price'    => '72.12',
             'product'  => $productId,
         );
 
@@ -40,9 +41,13 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertArrayHasKey('id', $response);
         $this->assertNotEmpty($response['id']);
         $this->assertArrayHasKey('quantity', $response);
-        $this->assertEquals(10, $response['quantity']);
+        $this->assertEquals(11, $response['quantity']);
         $this->assertArrayHasKey('invoice', $response);
         $this->assertArrayHasKey('product', $response);
+        $this->assertArrayHasKey('price', $response);
+        $this->assertEquals('72.12', $response['price']);
+        $this->assertArrayHasKey('totalPrice', $response);
+        $this->assertEquals('793.32', $response['totalPrice']);
     }
 
     public function testPostActionNotExistingInvoice()
