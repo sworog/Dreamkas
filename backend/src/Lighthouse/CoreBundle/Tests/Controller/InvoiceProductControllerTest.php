@@ -139,6 +139,65 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertContains('не существует', $response['children']['product']['errors'][0]);
     }
 
+    public function testInvoiceTotalsAreUpdatedOnInvoiceProductPost()
+    {
+        $this->clearMongoDb();
+
+        $invoiceId = $this->createInvoice();
+
+        $providerData = array(
+            array(
+                'product' => '_1',
+                'quantity' => 10,
+                'price' => 11.12,
+                'itemsCount' => 1,
+                'sumTotal' => 111.2
+            ),
+            array(
+                'product' => '_2',
+                'quantity' => 5,
+                'price' => 12.76,
+                'itemsCount' => 2,
+                'sumTotal' => 175
+            ),
+            array(
+                'product' => '_3',
+                'quantity' => 1,
+                'price' => 5.99,
+                'itemsCount' => 3,
+                'sumTotal' => 180.99
+            ),
+        );
+
+        foreach ($providerData as $row) {
+            $productId = $this->createProduct($row['product']);
+            $invoiceProductData = array(
+                'quantity' => $row['quantity'],
+                'price'    => $row['price'],
+                'product'  => $productId,
+            );
+
+            $response = $this->clientJsonRequest(
+                $this->client,
+                'POST',
+                'api/1/invoices/' . $invoiceId . '/products.json',
+                array('invoiceProduct' => $invoiceProductData)
+            );
+
+            $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
+
+            $this->assertArrayHasKey('id', $response);
+            $this->assertTrue(isset($response['quantity']));
+            $this->assertEquals($row['quantity'], $response['quantity']);
+            $this->assertTrue(isset($response['price']));
+            $this->assertEquals($row['price'], $response['price']);
+            $this->assertTrue(isset($response['invoice']['itemsCount']));
+            $this->assertEquals($row['itemsCount'], $response['invoice']['itemsCount']);
+            $this->assertTrue(isset($response['invoice']['sumTotal']));
+            $this->assertEquals($row['sumTotal'], $response['invoice']['sumTotal']);
+        }
+    }
+
     /**
      * @return string
      */
@@ -172,14 +231,14 @@ class InvoiceProductControllerTest extends WebTestCase
     /**
      * @return string
      */
-    protected function createProduct()
+    protected function createProduct($extra = '')
     {
         $productData = array(
-            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр' . $extra,
             'units' => 'gr',
             'barcode' => '4607025392408',
             'purchasePrice' => 3048,
-            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР' . $extra,
             'vat' => 10,
             'vendor' => 'Вимм-Билль-Данн',
             'vendorCountry' => 'Россия',
@@ -188,7 +247,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $crawler = $this->client->request(
             'POST',
-            'api/1/products',
+            '/api/1/products',
             array('product' => $productData)
         );
 

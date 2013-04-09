@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Types\Money;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"postPersist", "postUpdate", "postRemove"})
@@ -17,15 +18,23 @@ class InvoiceProductListener
     protected $productRepository;
 
     /**
+     * @var InvoiceRepository
+     */
+    protected $invoiceRepository;
+
+    /**
      * @DI\InjectParams({
-     *     "productRepository"=@DI\Inject("lighthouse.core.document.repository.product")
+     *     "productRepository"=@DI\Inject("lighthouse.core.document.repository.product"),
+     *     "invoiceRepository"=@DI\Inject("lighthouse.core.document.repository.invoice")
      * })
      *
      * @param ProductRepository $productRepository
+     * @param InvoiceRepository $invoiceRepository
      */
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepository $productRepository, InvoiceRepository $invoiceRepository)
     {
         $this->productRepository = $productRepository;
+        $this->invoiceRepository = $invoiceRepository;
     }
 
     /**
@@ -34,10 +43,19 @@ class InvoiceProductListener
     public function postPersist(LifecycleEventArgs $event)
     {
         if ($event->getDocument() instanceof InvoiceProduct) {
-            $diff = $this->getPropertyDiff($event, 'quantity');
+            $quantityDiff = $this->getPropertyDiff($event, 'quantity');
+
             $this->updateProductAmount(
                 $event->getDocument()->product,
-                $diff
+                $quantityDiff
+            );
+
+            $totalPriceDiff = $this->getPropertyDiff($event, 'totalPrice');
+
+            $this->updateInvoiceTotals(
+                $event->getDocument()->invoice,
+                1,
+                $totalPriceDiff
             );
         }
     }
@@ -48,10 +66,12 @@ class InvoiceProductListener
     public function postUpdate(LifecycleEventArgs $event)
     {
         if ($event->getDocument() instanceof InvoiceProduct) {
-            $diff = $this->getPropertyDiff($event, 'quantity');
+
+            $quantityDiff = $this->getPropertyDiff($event, 'quantity');
+
             $this->updateProductAmount(
                 $event->getDocument()->product,
-                $diff
+                $quantityDiff
             );
         }
     }
@@ -63,10 +83,12 @@ class InvoiceProductListener
     {
         if ($event->getDocument() instanceof InvoiceProduct) {
             $invoiceProduct = $event->getDocument();
-            $diff = $this->getPropertyDiff($event, 'quantity');
+
+            $quantityDiff = $this->getPropertyDiff($event, 'quantity');
+
             $this->updateProductAmount(
                 $invoiceProduct->product,
-                $diff - $invoiceProduct->quantity
+                $quantityDiff - $invoiceProduct->quantity
             );
         }
     }
@@ -82,9 +104,22 @@ class InvoiceProductListener
         $uow = $event->getDocumentManager()->getUnitOfWork();
         $changeSet = $uow->getDocumentChangeSet($document);
         if (isset($changeSet[$propertyName])) {
-            return $changeSet[$propertyName][1] - $changeSet[$propertyName][0];
+            return $this->propertyToInt($changeSet[$propertyName][1]) - $this->propertyToInt($changeSet[$propertyName][0]);
         } else {
             return 0;
+        }
+    }
+
+    /**
+     * @param Money|integer $value
+     * @return int
+     */
+    protected function propertyToInt($value)
+    {
+        if ($value instanceof Money) {
+            return (int) $value->getCount();
+        } else {
+            return (int) $value;
         }
     }
 
@@ -97,5 +132,15 @@ class InvoiceProductListener
         if ($amountDiff <> 0) {
             $this->productRepository->updateAmount($product, $amountDiff);
         }
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @param int $itemsCountDiff
+     * @param int $totalSumDiff
+     */
+    protected function updateInvoiceTotals(Invoice $invoice, $itemsCountDiff, $totalSumDiff)
+    {
+        $this->invoiceRepository->updateTotals($invoice, $itemsCountDiff, $totalSumDiff);
     }
 }

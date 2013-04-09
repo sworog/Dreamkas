@@ -196,8 +196,7 @@ class InvoiceControllerTest extends WebTestCase
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
                     'supplierInvoiceSku' => '1248373',
-                    'supplierInvoiceDate' => '17.03.2013',
-                    'sumTotal' => 1000,
+                    'supplierInvoiceDate' => '17.03.2013'
                 ),
                 // Assertions xpath
                 'assertions' => array(
