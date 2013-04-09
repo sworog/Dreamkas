@@ -23,16 +23,13 @@ var InvoiceProduct = BasicModel.extend({
             toSave: false
         });
 
+        var data = BasicModel.prototype.toJSON.call(this, options)
+
         if(options.toSave){
-            var data = {};
-            data[this.modelName] = _.clone(this.attributes)
-            data[this.modelName].id = undefined;
             data[this.modelName].invoice = undefined;
-            return data;
         }
-        else {
-            return Backbone.Model.prototype.toJSON.call(this, options);
-        }
+
+        return data;
     },
 
     parse: function(response, options) {
