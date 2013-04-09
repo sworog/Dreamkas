@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\Product;
 use Lighthouse\CoreBundle\Document\Invoice;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Types\Money;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @MongoDB\Document(
@@ -31,6 +32,7 @@ class InvoiceProduct extends AbstractDocument
     /**
      * Закупочная цена
      * @MongoDB\Field(type="money")
+     * @Serializer\Type("Money")
      * @var Money
      */
     protected $price;
@@ -38,6 +40,7 @@ class InvoiceProduct extends AbstractDocument
     /**
      * Сумма
      * @MongoDB\Field(type="money")
+     * @Serializer\Type("Money")
      * @var Money
      */
     protected $totalPrice;
@@ -76,6 +79,6 @@ class InvoiceProduct extends AbstractDocument
         if (null === $this->totalPrice) {
             $this->totalPrice = new Money();
         }
-        $this->totalPrice->setCount($this->price->getCount() * $this->quantity);
+        $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
     }
 }

@@ -17,7 +17,10 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testPostAction()
+    /**
+     * @dataProvider postActionProvider
+     */
+    public function testPostAction($quantity, $price, $totalPrice)
     {
         $this->clearMongoDb();
 
@@ -25,8 +28,8 @@ class InvoiceProductControllerTest extends WebTestCase
         $productId = $this->createProduct();
 
         $invoiceProductData = array(
-            'quantity' => 11,
-            'price'    => '72.12',
+            'quantity' => $quantity,
+            'price'    => $price,
             'product'  => $productId,
         );
 
@@ -41,13 +44,29 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertArrayHasKey('id', $response);
         $this->assertNotEmpty($response['id']);
         $this->assertArrayHasKey('quantity', $response);
-        $this->assertEquals(11, $response['quantity']);
+        $this->assertEquals($quantity, $response['quantity']);
+        $this->assertArrayHasKey('price', $response);
+        $this->assertEquals($price, $response['price']);
+        $this->assertArrayHasKey('totalPrice', $response);
+        $this->assertEquals($totalPrice, $response['totalPrice']);
         $this->assertArrayHasKey('invoice', $response);
         $this->assertArrayHasKey('product', $response);
-        $this->assertArrayHasKey('price', $response);
-        $this->assertEquals('72.12', $response['price']);
-        $this->assertArrayHasKey('totalPrice', $response);
-        $this->assertEquals('793.32', $response['totalPrice']);
+    }
+
+    /**
+     * @return array
+     */
+    public function postActionProvider()
+    {
+        return array(
+            array(11,   '72.12', '793.32'),
+            array(1,    '72.12', '72.12'),
+            array(3,    '72.12', '216.36'),
+            array(9,    '72.12', '649.08'),
+            array(1001, '72.12', '72192.12'),
+            array(1009, '72.11', '72758.99'),
+            array(1,    '72.00', '72.00'),
+        );
     }
 
     public function testPostActionNotExistingInvoice()
