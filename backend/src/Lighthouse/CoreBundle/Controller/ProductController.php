@@ -92,7 +92,7 @@ class ProductController extends FOSRestController
         return $collection;
     }
 
-/**
+    /**
      * @param string $id
      * @return \Lighthouse\CoreBundle\Document\Product
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException

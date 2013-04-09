@@ -33,5 +33,4 @@ class ProductRepository extends DocumentRepository
     {
         return $this->findBy(array($property => new \MongoRegex("/".$entry."/i")));
     }
-
 }

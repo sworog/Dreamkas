@@ -96,11 +96,33 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->clearMongoDb();
 
         $invoiceId = $this->createInvoice();
-        $productId = 'dewdewdwedw';
+        $productId = $this->createProduct();
 
         $invoiceProductData = array(
             'quantity' => 10,
             'product'  => $productId,
+            'dummy' => 'mummy',
+            'foo' => 'bar',
+        );
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            'api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $invoiceProductData)
+        );
+
+        $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
+        $this->assertTrue(isset($response['errors'][0]));
+        $this->assertContains('Эта форма не должна содержать дополнительных полей: "dummy", "foo"', $response['errors'][0]);
+    }
+
+    public function testPostActionNotExistingFields()
+    {
+        $invoiceProductData = array(
+            'quantity' => 10,
+
+            'dummy' => 'dummy',
         );
 
         $response = $this->clientJsonRequest(
