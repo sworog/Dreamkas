@@ -135,8 +135,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
         $this->assertTrue(isset($response['children']['product']['errors'][0]));
-        $this->assertContains('Продукт с id', $response['children']['product']['errors'][0]);
-        $this->assertContains('не существует', $response['children']['product']['errors'][0]);
+        $this->assertContains('Такого товара не существует', $response['children']['product']['errors'][0]);
     }
 
     public function testInvoiceTotalsAreUpdatedOnInvoiceProductPost()
