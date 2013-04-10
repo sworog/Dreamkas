@@ -34,6 +34,7 @@ var InvoiceAddProductListTable = Backbone.View.extend({
 
     renderInfo: function() {
         var data = this.model.toJSON();
+        data.sumTotal = Helpers.pricesFloatToView(data.sumTotal);
         this.$el.find(".invoiceAddProductListInfo[lh_card_sub_title]")
             .html(this.templateInfo(data));
     }

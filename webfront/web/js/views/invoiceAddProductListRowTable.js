@@ -23,7 +23,8 @@ var InvoiceAddProductListRowTable = Backbone.View.extend({
                 }
             }
         }
-        data.productModel.purchasePrice = Helpers.pricesFloatToView(data.productModel.purchasePrice);
+        data.price = Helpers.pricesFloatToView(data.price);
+        data.totalPrice = Helpers.pricesFloatToView(data.totalPrice);
 
         this.$el.html(this.template(data));
 
