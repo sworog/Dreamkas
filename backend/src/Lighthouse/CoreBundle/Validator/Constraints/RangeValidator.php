@@ -7,6 +7,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class RangeValidator extends ConstraintValidator
 {
+    /**
+     * @param mixed $value
+     * @param Range|Constraint $constraint
+     */
     public function validate($value, Constraint $constraint)
     {
         if (null === $value) {

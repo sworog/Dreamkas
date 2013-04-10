@@ -114,7 +114,10 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
         $this->assertTrue(isset($response['errors'][0]));
-        $this->assertContains('Эта форма не должна содержать дополнительных полей: "dummy", "foo"', $response['errors'][0]);
+        $this->assertContains(
+            'Эта форма не должна содержать дополнительных полей: "dummy", "foo"',
+            $response['errors'][0]
+        );
     }
 
     public function testPostActionsNotExistingProduct()
