@@ -2,7 +2,16 @@ package project.lighthouse.autotests.pages.common;
 
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.pages.WebElementFacade;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONObject;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +19,6 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -24,6 +32,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     public static final String DATE_PATTERN = "dd.MM.yyyy";
     public static final String DATE_TIME_PATTERN = "dd.MM.yyyy HH:mm";
     public final Locale locale = new Locale("ru");
+    public static final String AUTOCOMPLETE_XPATH_PATTERN = "//*[@role='presentation']/*[text()='%s']";
 
     public CommonPage(WebDriver driver) {
         super(driver);
@@ -183,7 +192,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
                 selectByValue(item.getWebElement(), value);
                 break;
             case autocomplete:
-                autoComplete(item.getWebElement(), value);
+                autoCompleteSelection(item.getWebElement(), value);
                 break;
             default:
                 String errorMessage = String.format(ERROR_MESSAGE, item.getType());
@@ -205,7 +214,6 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             input(element, value.substring(1));
         }
         else{
-            /*$(element).type(STRING_EMPTY);*/
             $(element).click();
             switch (value){
                 case "todayDateAndTime":
@@ -303,7 +311,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public int getMonthNumber(String monthName){
-        Date date = null;
+        Date date;
         try {
             date = new SimpleDateFormat("MMM", locale).parse(monthName);
 
@@ -317,15 +325,97 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         return month + 1;
     }
 
-    public void autoComplete(WebElement element, String value){
-        throw new NotImplementedException();
+    public void autoCompleteSelection(WebElement element, String value){
+        $(element).type(value);
+        if(!value.startsWith("!")){
+            String xpath = String.format(AUTOCOMPLETE_XPATH_PATTERN, value);
+            findBy(xpath).click();
+        }
     }
 
-    public void shouldContainsText(WebElement element, String expectedValue){
-        String actualValue = $(element).getTextValue();
-        if(!actualValue.contains(expectedValue)){
-            String errorMessage = String.format("Element doesnt contains '%s'. It contains '%s'", expectedValue, actualValue);
+    public void checkAutoCompleteNoResults(){
+        String xpath = "//*[@role='presentation']/*[text()]";
+        if(isPresent(xpath)){
+            String errorMessage = "There are autocomplete results on the page";
             throw new AssertionError(errorMessage);
         }
+    }
+
+    public void checkAutoCompleteResults(ExamplesTable checkValuesTable){
+        for (Map<String, String> row : checkValuesTable.getRows()){
+            String autoCompleteValue = row.get("autocomlete result");
+            String xpathPattern = String.format(AUTOCOMPLETE_XPATH_PATTERN, autoCompleteValue);
+            findBy(xpathPattern).shouldBePresent();
+        }
+    }
+
+    public void shouldContainsText(String elementName, WebElement element, String expectedValue){
+        String actualValue;
+        switch (element.getTagName()){
+            case "input":
+                actualValue = $(element).getTextValue();
+                break;
+            default:
+                actualValue = $(element).getText();
+                break;
+        }
+        if(!actualValue.contains(expectedValue)){
+            String errorMessage = String.format("Element '%s' doesnt contains '%s'. It contains '%s'", elementName, expectedValue, actualValue);
+            throw new AssertionError(errorMessage);
+        }
+    }
+
+    public void сreateProductThroughPost(String name, String sku, String barcode, String units) {
+        String getApiUrl = getApiUrl() + "/api/1/products.json";
+        String jsonDataPattern = "{\"product\":{\"name\":\"%s\",\"units\":\"%s\",\"vat\":\"0\",\"purchasePrice\":\"123\",\"barcode\":\"%s\",\"sku\":\"%s\",\"vendorCountry\":\"\",\"vendor\":\"\",\"info\":\"\"}}";
+        String jsonData = String.format(jsonDataPattern, name, units, barcode, sku);
+        executePost(getApiUrl, jsonData);
+    }
+
+    public void createInvoiceThroughPost(String invoiceName){
+        String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
+        String jsonDataPattern = "{\"invoice\":{\"sku\":\"%s\",\"supplier\":\"supplier\",\"acceptanceDate\":\"%s\",\"accepter\":\"accepter\",\"legalEntity\":\"legalEntity\",\"supplierInvoiceSku\":\"\",\"supplierInvoiceDate\":\"\"}}";
+        String jsonData = String.format(jsonDataPattern, invoiceName, getTodayDate(DATE_TIME_PATTERN));
+        String postResponce = executePost(getApiUrl, jsonData);
+        try {
+            JSONObject object = new JSONObject(postResponce);
+            String invoiceId = (String) object.get("id");
+            getDriver().navigate().to(getApiUrl().replace("api", "webfront") + "/invoice/" + invoiceId + "/products");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new AssertionError(e.getMessage());
+        }
+    }
+
+    public String executePost(String targetURL, String urlParameters){
+        HttpPost request = new HttpPost(targetURL);
+        try {
+            StringEntity entity = new StringEntity(urlParameters, "UTF-8");
+            entity.setContentType("application/json;charset=UTF-8");
+            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,"application/json;charset=UTF-8"));
+            request.setHeader("Accept", "application/json");
+            request.setEntity(entity);
+
+            HttpResponse response =null;
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
+            response = httpClient.execute(request);
+
+            HttpEntity httpEntity = response.getEntity();
+            String responceMessage = EntityUtils.toString(httpEntity, "UTF-8");
+            if(response.getStatusLine().getStatusCode() != 201){
+               throw new AssertionError(responceMessage);
+            }
+            return responceMessage;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            throw new AssertionError(e.getMessage());
+        }
+    }
+
+    public String getApiUrl(){
+        return "http://" + getDriver().getCurrentUrl().replaceFirst(".*//*/(.*)\\.webfront\\.([a-zA-Z\\.]+)/.*", "$1.api.$2");
     }
 }

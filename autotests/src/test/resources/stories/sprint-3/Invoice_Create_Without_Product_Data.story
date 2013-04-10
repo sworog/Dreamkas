@@ -14,7 +14,8 @@ When the user inputs 'Иван Петров' in the invoice 'accepter' field
 And the user inputs 'ООО234' in the invoice 'legalEntity' field
 When the user inputs '123' in the invoice 'supplierInvoiceSku' field
 When the user inputs '!todayDate' in the invoice 'supplierInvoiceDate' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
+Given the user is on the invoice list page
 Then the user checks that he is on the 'InvoiceListPage'
 
 Scenario: Invoice Create Cancel

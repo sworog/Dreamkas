@@ -19,7 +19,7 @@ And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -33,7 +33,7 @@ When the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice sku validation negative
@@ -45,7 +45,7 @@ When the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
@@ -57,7 +57,7 @@ And the user inputs 'ISVIR-01' in the invoice 'sku' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -71,7 +71,7 @@ Then the user checks 'supplier' invoice field contains only '300' symbols
 When the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice Supplier validation negative
@@ -83,7 +83,7 @@ Then the user checks 'supplier' invoice field contains only '301' symbols
 When the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
@@ -96,7 +96,7 @@ And the user inputs '!' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -114,7 +114,7 @@ And the user inputs '!03.12.2012 10:45' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice acceptanceDate validation manual negative1 numbers
@@ -125,7 +125,7 @@ And the user inputs '!123454567890' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Вы ввели неверную дату 12.34.5456 78:90, формат должен быть следующий дд.мм.гггг чч:мм |
@@ -138,7 +138,7 @@ And the user inputs '!12345456789' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -151,7 +151,7 @@ And the user inputs '!HAasdfsfsfsf' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -164,7 +164,7 @@ And the user inputs '!Русский набор' in the invoice 'acceptanceDate'
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -177,7 +177,7 @@ And the user inputs '!"№;%:?*()_+' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -190,7 +190,7 @@ And the user inputs '!"56gfЛВ' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -203,7 +203,7 @@ And the user inputs 'todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice acceptanceDate validation through datepicker negative1
@@ -214,7 +214,7 @@ And the user inputs '27.03.2013 9999:9999' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Вы ввели неверную дату |
@@ -228,7 +228,7 @@ And the user inputs '27.03.2013 1155:222255' in the invoice 'acceptanceDate' fie
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Вы ввели неверную дату 27.03.2013 55:55, формат должен быть следующий дд.мм.гггг чч:мм |
@@ -241,7 +241,7 @@ And the user inputs 'IAVIR-01' in the invoice 'sku' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -256,7 +256,7 @@ Then the user checks 'accepter' invoice field contains only '100' symbols
 When the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice accepter validation negative
@@ -268,7 +268,7 @@ Then the user checks 'accepter' invoice field contains only '101' symbols
 When the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
@@ -280,7 +280,7 @@ And the user inputs 'ILEVIR-01' in the invoice 'sku' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -295,7 +295,7 @@ Then the user checks 'legalEntity' invoice field contains only '300' symbols
 When the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 
@@ -308,7 +308,7 @@ Then the user checks 'legalEntity' invoice field contains only '301' symbols
 When the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
@@ -323,7 +323,7 @@ When the user inputs 'Валидация поставщик' in the invoice 'sup
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceSku validation negative
@@ -336,7 +336,7 @@ When the user inputs 'Валидация поставщик' in the invoice 'sup
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
@@ -349,7 +349,7 @@ And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation good manual
@@ -361,7 +361,7 @@ And the user inputs '!03.12.2012' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation manual negative1 numbers
@@ -373,7 +373,7 @@ And the user inputs '!12345456789' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Вы ввели неверную дату |
@@ -387,7 +387,7 @@ And the user inputs '!HAasdfsfsfsf' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation manual negative3 rus symbols
@@ -399,7 +399,7 @@ And the user inputs '!Русский набор' in the invoice 'supplierInvoice
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation manual negative symbols
@@ -411,7 +411,7 @@ And the user inputs '!"№;%:?*()_+' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation manual negative symbols mix
@@ -423,7 +423,7 @@ And the user inputs '!"56gfЛВ' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice supplierInvoiceDate validation through datepicker good
@@ -435,7 +435,7 @@ And the user inputs 'todayDate' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 
 Scenario: Invoice supplier date cantbe older then acceptance date 1
@@ -447,7 +447,7 @@ And the user inputs '!28.03.2013' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Дата накладной не должна быть старше даты приемки |
@@ -461,7 +461,7 @@ And the user inputs '!todayDate' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user clicks the invoice create button
+And the user navigates to invoice product addition
 Then the user sees no error messages
 | error message |
 | Дата накладной не должна быть старше даты приемки |

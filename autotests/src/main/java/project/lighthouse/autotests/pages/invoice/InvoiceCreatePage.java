@@ -15,7 +15,7 @@ import java.util.Map;
 @DefaultUrl("/invoice/create")
 public class InvoiceCreatePage extends PageObject{
 
-    public CommonPageInterface CommonPageInterface = new CommonPage(getDriver());
+    public CommonPageInterface commonPageInterface = new CommonPage(getDriver());
     private static final String INVOICE_NAME = "invoice";
 
     @FindBy(name = "sku")
@@ -45,6 +45,49 @@ public class InvoiceCreatePage extends PageObject{
     @FindBy(xpath = "//*[@lh_link='close']")
     public WebElement invoiceCloseButton;
 
+    @FindBy(xpath = "//*[@lh_product_autocomplete='name']")
+    public WebElement productName;
+
+    @FindBy(name = "productName")
+    public WebElement productNameInList;
+
+    @FindBy(xpath = "//*[@lh_product_autocomplete='sku']")
+    public WebElement productSku;
+
+    @FindBy(name = "productSku")
+    public WebElement productSkuInList;
+
+    @FindBy(xpath = "//*[@lh_product_autocomplete='barcode']")
+    public WebElement productBarCode;
+
+    @FindBy(name = "productBarcode")
+    public WebElement productBarCodeInList;
+
+    @FindBy(name = "productUnits")
+    public WebElement productUnitsInList;
+
+    @FindBy(name = "productAmount")
+    public WebElement productAmountInList;
+
+    @FindBy(name = "productPrice")
+    public WebElement productPriceInList;
+
+    @FindBy(name = "productSum")
+    public WebElement productSumInList;
+
+
+    @FindBy(name = "quantity")
+    public WebElement productAmount;
+
+    @FindBy(name = "price")
+    public WebElement invoiceCost;
+
+    @FindBy(name = "totalProducts")
+    public WebElement totalProducts;
+
+    @FindBy(name = "totalSum")
+    public WebElement totalSum;
+
     public Map<String, CommonItem> items = new HashMap<String, CommonItem>(){
         {
             put("sku", new CommonItem(invoiceSkuField, CommonItem.types.input));
@@ -55,15 +98,21 @@ public class InvoiceCreatePage extends PageObject{
             put("supplierInvoiceSku", new CommonItem(invoiceSupplierInvoiceSkuField, CommonItem.types.input));
             put("supplierInvoiceDate", new CommonItem(invoiceSupplierInvoiceDateField, CommonItem.types.date));
             put("legalEntity", new CommonItem(legalEntityField, CommonItem.types.input));
-
-            /*
-            us 8.3 code
-             */
             put("productName", new CommonItem(productName, CommonItem.types.autocomplete));
             put("productSku", new CommonItem(productSku, CommonItem.types.autocomplete));
             put("productBarCode", new CommonItem(productBarCode, CommonItem.types.autocomplete));
             put("productAmount", new CommonItem(productAmount, CommonItem.types.input));
             put("invoiceCost", new CommonItem(invoiceCost, CommonItem.types.input));
+            put("totalProducts", new CommonItem(totalProducts, CommonItem.types.input));
+            put("totalSum", new CommonItem(totalSum, CommonItem.types.input));
+
+            put("productNameInList", new CommonItem(productNameInList, CommonItem.types.nonType));
+            put("productSkuInList", new CommonItem(productSkuInList, CommonItem.types.nonType));
+            put("productBarCodeInList", new CommonItem(productBarCodeInList, CommonItem.types.nonType));
+            put("productUnitsInList", new CommonItem(productUnitsInList, CommonItem.types.nonType));
+            put("productAmountInList", new CommonItem(productAmountInList, CommonItem.types.nonType));
+            put("productPriceInList", new CommonItem(productPriceInList, CommonItem.types.nonType));
+            put("productSumInList", new CommonItem(productSumInList, CommonItem.types.nonType));
         }
     };
 
@@ -77,35 +126,25 @@ public class InvoiceCreatePage extends PageObject{
 
     public void invoiceCreateButtonClick(){
         findBy("//*[@lh_button='commit']").click();
-        CommonPageInterface.checkCreateAlertSuccess(INVOICE_NAME);
+        commonPageInterface.checkCreateAlertSuccess(INVOICE_NAME);
     }
 
     public void input(String elementName, String inputText){
         CommonItem item = items.get(elementName);
-        CommonPageInterface.setValue(item, inputText);
+        commonPageInterface.setValue(item, inputText);
     }
 
     public void checkFieldLength(String elementName, int fieldLength){
         WebElement element = items.get(elementName).getWebElement();
-        CommonPageInterface.checkFieldLength(elementName, fieldLength, element);
+        commonPageInterface.checkFieldLength(elementName, fieldLength, element);
     }
 
-     /*
-    8.3 story code
-     */
-
-    @FindBy(name = "name")
-    private WebElement productName;
-
-    @FindBy(name = "sku")
-    private WebElement productSku;
-
-    @FindBy(name = "barcode")
-    private WebElement productBarCode;
-
-    @FindBy(name = "amount")
-    private WebElement productAmount;
-
-    @FindBy(name = "cost")
-    private WebElement invoiceCost;
+    public void checkFormIsChanged(){
+        String alertText = getAlert().getText();
+        String expectedMessage = "";
+        if(!alertText.contains(expectedMessage)){
+            String errorMessage = "";
+            throw new AssertionError(errorMessage);
+        }
+    }
 }

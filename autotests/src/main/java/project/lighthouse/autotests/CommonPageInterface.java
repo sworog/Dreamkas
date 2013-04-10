@@ -11,5 +11,5 @@ public interface CommonPageInterface {
     void checkCreateAlertSuccess(String name);
     void checkFieldLength(String elementName, int fieldLength, WebElement element);
     void setValue(CommonItem item, String value);
-    void shouldContainsText(WebElement element, String expectedValue);
+    void shouldContainsText(String elementName, WebElement element, String expectedValue);
 }

@@ -95,4 +95,29 @@ public class InvoiceSteps extends ScenarioSteps{
         String NowDate = CommonPage.getTodayDate(CommonPage.DATE_TIME_PATTERN);
         invoiceBrowsing.shouldContainsText(elementName, NowDate);
     }
+
+    @Step
+    public void goToTheaAdditionOfProductsLinkClick(){
+        invoiceBrowsing.goToTheaAdditionOfProductsLinkClick();
+    }
+
+    @Step
+    public void addOneMoreProductLinkClick(){
+        invoiceBrowsing.addOneMoreProductLinkClick();
+    }
+
+    @Step
+    public void invoiceProductListItemCheck(String value){
+        invoiceBrowsing.listItemCheck(value);
+    }
+
+    @Step
+    public void invoiceProductListItemClick(String value){
+        invoiceBrowsing.listItemClick(value);
+    }
+
+    @Step
+    public void checkFormIsChanged(){
+        invoiceCreatePage.checkFormIsChanged();
+    }
 }
