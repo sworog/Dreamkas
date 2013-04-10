@@ -414,6 +414,7 @@ Then the user checks invoice elements values
 | productSku |  |
 | productBarCode |  |
 
+
 Scenario: Adding invoice products - 3 products with barcode, name, sku autocomplete
 Given there is the product with 'Тестовый продукт-1' name, 'Тестовый артикул-1' sku, 'Тестовый баркод-1' barcode
 Given there is the product with 'Тестовый продукт-2' name, 'Тестовый артикул-2' sku, 'Тестовый баркод-2' barcode, 'liter' units
@@ -440,8 +441,7 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 10,8 |
-When the user clicks the add more product button
-And the user inputs 'Тестовый артикул-2' in the invoice product 'productSku' field
+When the user inputs 'Тестовый артикул-2' in the invoice product 'productSku' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
 | productName | Тестовый продукт-2 |
@@ -454,9 +454,8 @@ Then the user checks the invoice product with 'Тестовый артикул-2
 And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 2 |
-| totalSum | 21,6 |
-When the user clicks the add more product button
-And the user inputs 'Тестовый артикул-3' in the invoice product 'productSku' field
+| totalSum | 14,40 |
+When the user inputs 'Тестовый артикул-3' in the invoice product 'productSku' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
 | productName | Тестовый продукт-3 |
@@ -469,7 +468,7 @@ Then the user checks the invoice product with 'Тестовый артикул-3
 And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 3 |
-| totalSum | 61,6 |
+| totalSum | 54,40 |
 When the user clicks the invoice create button
 Then the user checks the invoice with 'Invoice-AIP2PWBNA-1' sku is present
 
