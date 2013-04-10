@@ -17,6 +17,11 @@ public class CommonUserSteps {
         commonSteps.createProductPostRequestSend(name, sku, barcode, "kg");
     }
 
+    @Given("there is created product with sku '$sku'")
+    public void givenThereIsCreatedProductWithSkuValue(String sku){
+        givenTheUserCreatesProductWithParams(sku, sku, sku, "kg");
+    }
+
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units")
     public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode, String units){
         commonSteps.createProductPostRequestSend(name, sku, barcode, units);

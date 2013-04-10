@@ -40,18 +40,6 @@ public class ProductUserSteps {
         productSteps.isTheProductCardOpen();
     }
 
-    @Given("there is created product with sku '$sku'")
-    public void givenThereIsCreatedProductWithSku(String sku){
-        givenTheUserIsOnTheProductListPage();
-        whenTheUSerCreatesNewProduct();
-        whenTheUserInputsTextInTheField(sku, "sku");
-        whenTheUserInputsTextInTheField(sku, "name");
-        whenTheUserInputsTextInTheField(MOCK_PRICE, "purchasePrice");
-        whenTheUserSelectsValueInDropDown(MOCK_UNITS, "unit");
-        whenTheUserSelectsValueInDropDown(MOCK_VAT, "vat");
-        whenTheUserClicksOnCreateButton();
-    }
-
     @When("the user inputs '$inputText' in '$elementName' field")
     public void whenTheUserInputsTextInTheField(String inputText, String elementName) {
         productSteps.fieldInput(elementName, inputText);
