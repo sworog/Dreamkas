@@ -64,6 +64,7 @@ var InvoiceAddProductFormView = Backbone.View.extend({
                 case 'select-one':
                 case 'text':
                 case 'textarea':
+                case 'hidden':
                     $(this).val('');
                     break;
                 case 'checkbox':
@@ -76,19 +77,12 @@ var InvoiceAddProductFormView = Backbone.View.extend({
     finishAdd: function(event) {
         event.preventDefault();
         var data = Backbone.Syphon.serialize(this);
-        var isEmpty = function(data) {
-            for (var item in data) {
-                if ('' != data[item]) {
-                    return false;
-                }
-            }
-            return true;
-        };
+
         var successCallback = function(){
             app.navigate('invoice/list', {trigger: true})
         }
 
-        if (!isEmpty(data)) {
+        if (!Helpers.isEmptyJSON(data)) {
             this.saveModel(data, successCallback);
         } else {
             successCallback();

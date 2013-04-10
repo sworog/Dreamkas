@@ -19,5 +19,14 @@ window.Helpers = {
 
     dateFormat: function(date) {
         return date.replace(/(\d+)\-(\d+)\-(\d+)T(\d+):(\d+).*/, "$3.$2.$1");
+    },
+
+    isEmptyJSON: function(data) {
+        for (var item in data) {
+            if ('' != data[item]) {
+                return false;
+            }
+        }
+        return true;
     }
 };
