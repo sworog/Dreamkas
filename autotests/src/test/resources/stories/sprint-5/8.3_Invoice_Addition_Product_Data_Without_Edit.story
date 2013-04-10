@@ -92,7 +92,7 @@ Then the user checks invoice elements values
 When the user inputs '45' in the invoice product 'productAmount' field
 And the user inputs '12,32' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
-Then the user checks the invoice product with 'SKU-AIP1PWNAU' sku is present
+Then the user checks the invoice product with 'SKU-AIP1PWBA' sku is present
 And the user checks invoice elements values
 | elementName | expectedValue |
 | productNameInList | Тестовое имя AIP1PWBA |
@@ -178,7 +178,7 @@ When the user inputs '!BA' in the invoice product 'productBarCode' field
 Then the users checks no autocomplete results
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation 3 symbols
-Given there is the product with 'N-AIP1PWBAV2S' name, 'SKU-AIP1PWBAV2S' sku, 'BARCode-AIP1PWBAV2S' barcode
+Given there is the product with 'N-AIP1PWBAV3S' name, 'SKU-AIP1PWBAV3S' sku, 'BARCode-AIP1PWBAV3S' barcode
 And there is the invoice with 'Invoice-AIP1PWBAV2S' sku
 When the user inputs '!BAR' in the invoice product 'productBarCode' field
 Then the users checks autocomplete results contains
@@ -258,7 +258,7 @@ Then the user checks invoice elements values
 Scenario: Adding invoice products - 1 product with sku autocomplete validation numbers search
 Given there is the product with '123-AIP1PWSAVNS' name, '123-AIP1PWSAVNS' sku, '123-AIP1PWSAVNS' barcode
 And there is the invoice with 'Invoice-AIP1PWSAVNS' sku
-When the user inputs 'Артикул-AIP1PWSAVNS' in the invoice product 'productSku' field
+When the user inputs '123-AIP1PWSAVNS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
 | productName | 123-AIP1PWSAVNS |
@@ -271,7 +271,7 @@ And there is the invoice with 'Invoice-AIP1PWSAVES' sku
 When the user inputs 'SKU-AIP1PWSAVES' in the invoice product 'productSku' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
-| productName | 123-AIP1PWSAVES |
+| productName | NAME-AIP1PWSAVES |
 | productSku | SKU-AIP1PWSAVES |
 | productBarCode | BC-AIP1PWSAVES |
 

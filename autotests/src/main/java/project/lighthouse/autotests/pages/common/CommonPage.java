@@ -329,7 +329,14 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         $(element).type(value);
         if(!value.startsWith("!")){
             String xpath = String.format(AUTOCOMPLETE_XPATH_PATTERN, value);
-            findBy(xpath).click();
+            try{
+                findBy(xpath).click();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                String errorMessage = String.format("Can't find '%s' value in autoComplete results", value);
+                throw new AssertionError(errorMessage);
+            }
         }
     }
 
