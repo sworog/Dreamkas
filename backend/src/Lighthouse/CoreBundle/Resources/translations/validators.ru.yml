@@ -20,6 +20,14 @@ lighthouse:
       invoice_product:
         product:
           does_not_exists: Такого товара не существует
+      range:
+        gt: Значение должно быть больше {{ limit }}
+        gte: Значение должно быть больше или равно {{ limit }}
+        lt: Значение должно быть меньше {{ limit }}
+        lte: Значение должно быть меньше или равно {{ limit }}
+        not_numeric: Значение должно быть числом
+      not_float:
+        invalid: Значение должно быть целым числом
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов
