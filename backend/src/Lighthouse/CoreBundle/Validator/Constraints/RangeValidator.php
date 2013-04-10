@@ -14,12 +14,14 @@ class RangeValidator extends ConstraintValidator
         }
 
         if (!is_numeric($value)) {
+            /*
             $this->context->addViolation(
                 $constraint->notNumericMessage,
                 array(
                     '{{ value }}' => $value,
                 )
             );
+            */
             return;
         }
 
