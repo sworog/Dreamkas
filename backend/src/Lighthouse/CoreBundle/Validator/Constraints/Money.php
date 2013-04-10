@@ -18,7 +18,7 @@ class Money extends Constraint
     /**
      * @var int
      */
-    public $max;
+    public $max = 1000000000;
 
     /**
      * @var bool

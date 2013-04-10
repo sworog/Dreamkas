@@ -52,7 +52,6 @@ class Product extends AbstractDocument
 
     /**
      * @MongoDB\Int
-     * @Assert\Range(min="0")
      * @Assert\NotBlank(message="lighthouse.validation.errors.product.vat.blank")
      * @Assert\Range(min="0")
      */
@@ -61,7 +60,7 @@ class Product extends AbstractDocument
     /**
      * @MongoDB\Field(type="money")
      * @Assert\NotBlank
-     * @LighthouseAssert\Money(max=1000000000, notBlank=true)
+     * @LighthouseAssert\Money(notBlank=true)
      * @var Money
      */
     protected $purchasePrice;
