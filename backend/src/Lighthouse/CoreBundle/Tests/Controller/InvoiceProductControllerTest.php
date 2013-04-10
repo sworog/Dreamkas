@@ -198,6 +198,169 @@ class InvoiceProductControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider validationProvider
+     */
+    public function testPostActionValidation($expectedCode, array $data)
+    {
+        $this->clearMongoDb();
+
+        $invoiceId = $this->createInvoice();
+        $productId = $this->createProduct();
+
+        $invoiceProductData = $data + array(
+            'quantity' => 10,
+            'price'    => 17.68,
+            'product'  => $productId,
+        );
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            'api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $invoiceProductData)
+        );
+
+        $this->assertEquals($expectedCode, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function validationProvider()
+    {
+        return array(
+            /***********************************************************************************************
+             * 'quantity'
+             ***********************************************************************************************/
+            'valid quantity 7' => array(
+                201,
+                array('quantity' => 7),
+            ),
+            'empty quantity' => array(
+                400,
+                array('quantity' => ''),
+            ),
+            'negative quantity -10' => array(
+                400,
+                array('quantity' => -10),
+            ),
+            'negative quantity -1' => array(
+                400,
+                array('quantity' => -1),
+            ),
+            'zero quantity' => array(
+                400,
+                array('quantity' => 0),
+            ),
+            'float quantity' => array(
+                400,
+                array('quantity' => 2.5),
+            ),
+            /***********************************************************************************************
+             * 'price'
+             ***********************************************************************************************/
+            'valid price dot' => array(
+                201,
+                array('price' => 10.89),
+            ),
+            'valid price dot 79.99' => array(
+                201,
+                array('price' => 79.99),
+            ),
+            'valid price coma' => array(
+                201,
+                array('price' => '10,89'),
+            ),
+            'empty price' => array(
+                400,
+                array('price' => ''),
+                array(
+                    'form[name="product"] form[name="price"] errors entry'
+                    =>
+                    'Заполните это поле'
+                )
+            ),
+            'not valid price very float' => array(
+                400,
+                array('price' => '10,898'),
+                array(
+                    'form[name="product"] form[name="price"] errors entry'
+                    =>
+                    'Цена не должна содержать больше 2 цифр после запятой'
+                ),
+            ),
+            'not valid price very float dot' => array(
+                400,
+                array('price' => '10.898'),
+                array(
+                    'form[name="product"] form[name="price"] errors entry'
+                    =>
+                    'Цена не должна содержать больше 2 цифр после запятой'
+                ),
+            ),
+            'valid price very float with dot' => array(
+                201,
+                array('price' => '10.12')
+            ),
+            'not valid price not a number' => array(
+                400,
+                array('price' => 'not a number'),
+                array(
+                    'form[name="product"] form[name="price"] errors entry'
+                    =>
+                    'Цена не должна быть меньше или равна нулю',
+                ),
+            ),
+            'not valid price zero' => array(
+                400,
+                array('price' => 0),
+                array(
+                    'form[name="product"] form[name="price"] errors entry'
+                    =>
+                    'Цена не должна быть меньше или равна нулю'
+                ),
+            ),
+            'not valid price negative' => array(
+                400,
+                array('price' => -10),
+                array(
+                    'form[name="product"] form[name="price"] errors entry'
+                    =>
+                    'Цена не должна быть меньше или равна нулю'
+                )
+            ),
+            'not valid price too big 2 000 000 001' => array(
+                400,
+                array('price' => 2000000001),
+                array(
+                    'form[name="product"] form[name="price"] errors entry'
+                    =>
+                    'Цена не должна быть больше 10000000'
+                ),
+            ),
+            'not valid price too big 100 000 000' => array(
+                400,
+                array('price' => '100000000'),
+                array(
+                    'form[name="product"] form[name="price"] errors entry'
+                    =>
+                    'Цена не должна быть больше 10000000'
+                ),
+            ),
+            'valid price too big 10 000 000' => array(
+                201,
+                array('price' => '10000000'),
+            ),
+            'not valid price too big 10 000 001' => array(
+                400,
+                array('price' => '10000001'),
+                array(
+                    'form[name="product"] form[name="price"] errors entry'
+                    =>
+                    'Цена не должна быть больше 10000000'
+                ),
+            ),
+        );
+    }
+
+    /**
      * @return string
      */
     protected function createInvoice()

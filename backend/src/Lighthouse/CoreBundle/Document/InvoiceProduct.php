@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product;
 use Lighthouse\CoreBundle\Document\Invoice;
 use Symfony\Component\Validator\Constraints as Assert;
+use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Lighthouse\CoreBundle\Types\Money;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -25,6 +26,9 @@ class InvoiceProduct extends AbstractDocument
     /**
      * Количество
      * @MongoDB\Int
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
+     * @LighthouseAssert\Range(gt=0)
      * @var int
      */
     protected $quantity;
@@ -32,6 +36,8 @@ class InvoiceProduct extends AbstractDocument
     /**
      * Закупочная цена
      * @MongoDB\Field(type="money")
+     * @Assert\NotBlank
+     * @LighthouseAssert\Money(notBlank=true)
      * @var Money
      */
     protected $price;
