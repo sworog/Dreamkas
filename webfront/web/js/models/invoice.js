@@ -1,6 +1,6 @@
 var Invoice = BasicModel.extend({
     modelName: 'invoice',
-    urlRoot: baseApiUrl + "/api/1/invoices",
+    urlRoot: baseApiUrl + "/invoices",
 
     dateFormat: 'dd.mm.yy',
     datePrintFormat: "dd.mm.yyyy",

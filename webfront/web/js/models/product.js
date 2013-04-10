@@ -1,6 +1,6 @@
 var Product = BasicModel.extend({
     modelName: 'product',
-    urlRoot: baseApiUrl + "/api/1/products",
+    urlRoot: baseApiUrl + "/products",
 
     defaults: {
         id: null,

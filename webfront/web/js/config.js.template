@@ -1,1 +1,1 @@
-window.baseApiUrl = "http://%api_url%";
+window.baseApiUrl = "http://%api_url%/api/1";
