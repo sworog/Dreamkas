@@ -78,7 +78,7 @@ Given there is the product with 'Тестовое имя AIP1PWBA' name, 'SKU-AI
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs 'Invoice-AIP1PWBA' in the invoice 'sku' field
-And the user inputs '!todayDate' in the invoice 'acceptanceDate' field
+And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
@@ -107,25 +107,25 @@ And the user checks invoice elements values
 When the user clicks the invoice create button
 Then the user checks the invoice with 'Invoice-AIP1PWBA' sku is present
 
-Scenario: Adding invoice products: 1 product with name autocomplete validation 0 symbols
+Scenario: Adding invoice products - 1 product with name autocomplete validation 0 symbols
 Given there is the product with 'N-AIP1PWNAV0S' name, 'SKU-AIP1PWNAV0S' sku, 'BARCode-AIP1PWNAV0S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV0S' sku
 When the user inputs '!' in the invoice product 'productName' field
 Then the users checks no autocomplete results
 
-Scenario: Adding invoice products: 1 product with name autocomplete validation 1 symbols
+Scenario: Adding invoice products - 1 product with name autocomplete validation 1 symbols
 Given there is the product with 'N-AIP1PWNAV1S' name, 'SKU-AIP1PWNAV1S' sku, 'BARCode-AIP1PWNAV1S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV1S' sku
 When the user inputs '!N' in the invoice product 'productName' field
 Then the users checks no autocomplete results
 
-Scenario: Adding invoice products: 1 product with name autocomplete validation 2 symbols
+Scenario: Adding invoice products - 1 product with name autocomplete validation 2 symbols
 Given there is the product with 'N-AIP1PWNAV2S' name, 'SKU-AIP1PWNAV2S' sku, 'BARCode-AIP1PWNAV2S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV2S' sku
 When the user inputs '!N-' in the invoice product 'productName' field
 Then the users checks no autocomplete results
 
-Scenario: Adding invoice products: 1 product with name autocomplete validation 3 symbols
+Scenario: Adding invoice products - 1 product with name autocomplete validation 3 symbols
 Given there is the product with 'N-AIP1PWNAV3S' name, 'SKU-AIP1PWNAV3S' sku, 'BARCode-AIP1PWNAV3S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV3S' sku
 When the user inputs '!N-A' in the invoice product 'productName' field
@@ -159,32 +159,31 @@ Then the users checks autocomplete results contains
 | autocomlete result |
 | SKU-AIP1PWSAV2S |
 
-Scenario: Adding invoice products: 1 product with barcode autocomplete validation 0 symbols
+Scenario: Adding invoice products - 1 product with barcode autocomplete validation 0 symbols
 Given there is the product with 'N-AIP1PWBAV0S' name, 'SKU-AIP1PWBAV0S' sku, 'BARCode-AIP1PWBAV0S' barcode
 And there is the invoice with 'Invoice-AIP1PWBAV0S' sku
 When the user inputs '!' in the invoice product 'productBarCode' field
 Then the users checks no autocomplete results
 
-Scenario: Adding invoice products: 1 product with barcode autocomplete validation 1 symbols
+Scenario: Adding invoice products - 1 product with barcode autocomplete validation 1 symbols
 Given there is the product with 'N-AIP1PWBAV1S' name, 'SKU-AIP1PWBAV1S' sku, 'BARCode-AIP1PWBAV1S' barcode
 And there is the invoice with 'Invoice-AIP1PWBAV1S' sku
 When the user inputs '!B' in the invoice product 'productBarCode' field
 Then the users checks no autocomplete results
 
-Scenario: Adding invoice products: 1 product with barcode autocomplete validation 2 symbols
+Scenario: Adding invoice products - 1 product with barcode autocomplete validation 2 symbols
 Given there is the product with 'N-AIP1PWBAV2S' name, 'SKU-AIP1PWBAV2S' sku, 'BARCode-AIP1PWBAV2S' barcode
 And there is the invoice with 'Invoice-AIP1PWBAV2S' sku
 When the user inputs '!BA' in the invoice product 'productBarCode' field
 Then the users checks no autocomplete results
 
-Scenario: Adding invoice products: 1 product with barcode autocomplete validation 3 symbols
+Scenario: Adding invoice products - 1 product with barcode autocomplete validation 3 symbols
 Given there is the product with 'N-AIP1PWBAV2S' name, 'SKU-AIP1PWBAV2S' sku, 'BARCode-AIP1PWBAV2S' barcode
 And there is the invoice with 'Invoice-AIP1PWBAV2S' sku
 When the user inputs '!BAR' in the invoice product 'productBarCode' field
 Then the users checks autocomplete results contains
 | autocomlete result |
 | BARCode-AIP1PWBAV2S |
-
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation rus search
 Given there is the product with 'Имя-AIP1WNAVRS' name, 'Артикул-AIP1WNAVRS' sku, 'Баркод-AIP1WNAVRS' barcode
@@ -246,8 +245,6 @@ Then the user checks invoice elements values
 | productSku | Sku-AIP1PWBAVBRS |
 | productBarCode | Barcode-AIP1PWBAVBRS |
 
-
-
 Scenario: Adding invoice products - 1 product with sku autocomplete validation rus search
 Given there is the product with 'Имя-AIP1WSAVRS' name, 'Артикул-AIP1WSAVRS' sku, 'Баркод-AIP1WSAVRS' barcode
 And there is the invoice with 'Invoice-AIP1WSAVRS' sku
@@ -261,7 +258,7 @@ Then the user checks invoice elements values
 Scenario: Adding invoice products - 1 product with sku autocomplete validation numbers search
 Given there is the product with '123-AIP1PWSAVNS' name, '123-AIP1PWSAVNS' sku, '123-AIP1PWSAVNS' barcode
 And there is the invoice with 'Invoice-AIP1PWSAVNS' sku
-When the user inputs 'Артикул-AIP1WSAVRS' in the invoice product 'productSku' field
+When the user inputs 'Артикул-AIP1PWSAVNS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
 | productName | 123-AIP1PWSAVNS |
@@ -274,9 +271,9 @@ And there is the invoice with 'Invoice-AIP1PWSAVES' sku
 When the user inputs 'SKU-AIP1PWSAVES' in the invoice product 'productSku' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
-| productName | 123-AIP1PWSAVNS |
-| productSku | SKU-AIP1PWSAVNS |
-| productBarCode | BC-AIP1PWSAVNS |
+| productName | 123-AIP1PWSAVES |
+| productSku | SKU-AIP1PWSAVES |
+| productBarCode | BC-AIP1PWSAVES |
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation symbols search
 Given there is the product with '%^&*-AIP1PWSAVSS' name, '%^&*-AIP1PWSAVSS' sku, '%^&*-AIP1PWSAVSS' barcode
