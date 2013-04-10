@@ -45,7 +45,7 @@ class RangeValidator extends ConstraintValidator
 
         if (null !== $constraint->lt && $value >= $constraint->lt) {
             $this->context->addViolation(
-                $constraint->gtMessage,
+                $constraint->ltMessage,
                 array(
                     '{{ value }}' => $value,
                     '{{ limit }}' => $constraint->lt,
@@ -54,7 +54,7 @@ class RangeValidator extends ConstraintValidator
             return;
         } elseif (null !== $constraint->lte && $value > $constraint->lte) {
             $this->context->addViolation(
-                $constraint->gteMessage,
+                $constraint->lteMessage,
                 array(
                     '{{ value }}' => $value,
                     '{{ limit }}' => $constraint->lte,
