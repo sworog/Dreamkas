@@ -27,8 +27,10 @@ class InvoiceProduct extends AbstractDocument
      * Количество
      * @MongoDB\Int
      * @Assert\NotBlank
-     * @LighthouseAssert\NotFloat
-     * @LighthouseAssert\Range(gt=0)
+     * @LighthouseAssert\Chain({
+     *   @LighthouseAssert\NotFloat,
+     *   @LighthouseAssert\Range(gt=0)
+     * })
      * @var int
      */
     protected $quantity;
