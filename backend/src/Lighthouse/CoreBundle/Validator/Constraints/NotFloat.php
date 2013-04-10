@@ -10,5 +10,5 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
  */
 class NotFloat extends Constraint
 {
-    public $invalidMessage   = 'lighthouse.validation.errors.not_valid.invalid';
+    public $invalidMessage   = 'lighthouse.validation.errors.not_float.invalid';
 }
