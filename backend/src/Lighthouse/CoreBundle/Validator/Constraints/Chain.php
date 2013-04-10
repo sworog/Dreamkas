@@ -23,6 +23,12 @@ class Chain extends Constraint
         if (!is_array($this->constraints)) {
             throw new UnexpectedTypeException($this->constraints, 'array');
         }
+
+        foreach ($this->constraints as $constraint) {
+            if (!$constraint instanceof Constraint) {
+                throw new UnexpectedTypeException($constraint, 'Constraint');
+            }
+        }
     }
 
     /**
