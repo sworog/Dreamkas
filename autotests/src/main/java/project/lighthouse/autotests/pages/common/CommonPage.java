@@ -20,6 +20,7 @@ import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
 
+import javax.print.DocFlavor;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -387,7 +388,8 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         try {
             JSONObject object = new JSONObject(postResponce);
             String invoiceId = (String) object.get("id");
-            getDriver().navigate().to(getApiUrl().replace("api", "webfront") + "/invoice/" + invoiceId + "/products");
+            String invoiceUrl = String.format("%s/invoice/products/%s",getApiUrl().replace("api", "webfront"), invoiceId );
+            getDriver().navigate().to(invoiceUrl);
         }
         catch (Exception e){
             e.printStackTrace();
