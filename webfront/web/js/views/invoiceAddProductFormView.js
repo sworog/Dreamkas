@@ -95,7 +95,16 @@ var InvoiceAddProductFormView = Backbone.View.extend({
             var fieldErrors = this.model.errors[field].join(', ');
 
             if(field == 'product') {
-                this.$el.find("[lh_product_autocomplete='name']").parent("span").attr("lh_field_error", fieldErrors);
+                var productField;
+                if(this.$el.find("[lh_product_autocomplete='barcode']").val()) {
+                    productField = 'barcode';
+                } else if(this.$el.find("[lh_product_autocomplete='sku']").val()) {
+                    productField = 'sku';
+                } else {
+                    productField = 'name';
+                }
+
+                this.$el.find("[lh_product_autocomplete='"+ productField +"']").parent("span").attr("lh_field_error", fieldErrors);
             } else {
                 this.$el.find("[name='" + field + "']").parent("span").attr("lh_field_error", fieldErrors);
             }
