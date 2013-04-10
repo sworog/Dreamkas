@@ -40,7 +40,7 @@ When the user clicks the invoice create button
 Then the user checks the invoice with 'Invoice-AIP1PWNAU' sku is present
 
 Scenario: Adding invoice products - 1 product with sku autocomplete
-Given there is the product with 'Тестовое имя AIP1PWSA' name, 'SKU-AIP1PWSA' sku, 'BARCode-AIP1PWSA' barcode
+Given there is the product with 'Тестовое имя AIP1PWSA' name, 'SKU-AIP1PWSA' sku, 'BARCode-AIP1PWSA' barcode, 'liter' units
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs 'Invoice-AIP1PWSA' in the invoice 'sku' field
@@ -64,7 +64,7 @@ And the user checks invoice elements values
 | productNameInList | Тестовое имя AIP1PWSA |
 | productSkuInList | SKU-AIP1PWSA |
 | productBarCodeInList | BARCode-AIP1PWSA |
-| productUnitsInList | кг |
+| productUnitsInList | л |
 | productAmountInList | 3 |
 | productPriceInList | 4 |
 | productSumInList | 12 |
@@ -74,7 +74,7 @@ When the user clicks the invoice create button
 Then the user checks the invoice with 'Invoice-AIP1PWSA' sku is present
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete
-Given there is the product with 'Тестовое имя AIP1PWBA' name, 'SKU-AIP1PWBA' sku, 'BARCode-AIP1PWBA' barcode
+Given there is the product with 'Тестовое имя AIP1PWBA' name, 'SKU-AIP1PWBA' sku, 'BARCode-AIP1PWBA' barcode, 'unit' units
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
 And the user inputs 'Invoice-AIP1PWBA' in the invoice 'sku' field
@@ -98,7 +98,7 @@ And the user checks invoice elements values
 | productNameInList | Тестовое имя AIP1PWBA |
 | productSkuInList | SKU-AIP1PWBA |
 | productBarCodeInList | BARCode-AIP1PWBA |
-| productUnitsInList | кг |
+| productUnitsInList | шт |
 | productAmountInList | 45 |
 | productPriceInList | 12,32 |
 | productSumInList |  554,4 |
@@ -276,14 +276,14 @@ Then the user checks invoice elements values
 | productBarCode | BC-AIP1PWSAVES |
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation symbols search
-Given there is the product with '%^&*-AIP1PWSAVSS' name, '%^&*-AIP1PWSAVSS' sku, '%^&*-AIP1PWSAVSS' barcode
+Given there is the product with '%^*-AIP1PWSAVSS' name, '%^*-AIP1PWSAVSS' sku, '%^*-AIP1PWSAVSS' barcode
 And there is the invoice with 'Invoice-AIP1PWSAVSS' sku
-When the user inputs '%^&*-AIP1PWSAVSS' in the invoice product 'productSku' field
+When the user inputs '%^*-AIP1PWSAVSS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
-| productName | %^&*-AIP1PWSAVSS |
-| productSku | %^&*-AIP1PWSAVSS |
-| productBarCode | %^&*-AIP1PWSAVSS |
+| productName | %^*-AIP1PWSAVSS |
+| productSku | %^*-AIP1PWSAVSS |
+| productBarCode | %^*-AIP1PWSAVSS |
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation small register search
 Given there is the product with 'name-AIP1PWSAVSS' name, 'sku-AIP1PWSAVSS' sku, 'barcode-AIP1PWSAVSS' barcode
@@ -438,13 +438,6 @@ And the user clicks the add more product button
 Then the user checks the invoice product with 'Тестовый артикул-1' sku is present
 And the user checks invoice elements values
 | elementName | expectedValue |
-| productNameInList | Тестовый продукт-1 |
-| productSkuInList | Тестовый артикул-1 |
-| productBarCodeInList | Тестовый баркод-1 |
-| productUnitsInList | кг |
-| productAmountInList | 2 |
-| productPriceInList | 5,4 |
-| productSumInList | 10,8 |
 | totalProducts | 1 |
 | totalSum | 10,8 |
 When the user clicks the add more product button
@@ -460,13 +453,6 @@ And the user clicks the add more product button
 Then the user checks the invoice product with 'Тестовый артикул-2' sku is present
 And the user checks invoice elements values
 | elementName | expectedValue |
-| productNameInList | Тестовый продукт-2 |
-| productSkuInList | Тестовый артикул-2 |
-| productBarCodeInList | Тестовый баркод-2 |
-| productUnitsInList | л |
-| productAmountInList | 3 |
-| productPriceInList | 3,6 |
-| productSumInList | 10,8 |
 | totalProducts | 2 |
 | totalSum | 21,6 |
 When the user clicks the add more product button
@@ -481,13 +467,7 @@ And the user inputs '20' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user checks the invoice product with 'Тестовый артикул-3' sku is present
 And the user checks invoice elements values
-| productNameInList | Тестовый продукт-3 |
-| productSkuInList | Тестовый артикул-3 |
-| productBarCodeInList | Тестовый баркод-3 |
-| productUnitsInList | шт |
-| productAmountInList | 2 |
-| productPriceInList | 20 |
-| productSumInList | 40 |
+| elementName | expectedValue |
 | totalProducts | 3 |
 | totalSum | 61,6 |
 When the user clicks the invoice create button
