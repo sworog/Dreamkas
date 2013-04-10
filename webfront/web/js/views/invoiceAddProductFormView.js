@@ -113,7 +113,7 @@ var InvoiceAddProductFormView = Backbone.View.extend({
         input.autocomplete({
             source: function(request, response) {
                 $.ajax({
-                    url: baseApiUrl + "/api/1/products/"+ name +"/search.json",
+                    url: baseApiUrl + "/products/"+ name +"/search.json",
                     dataType: "json",
                     data: {
                         query: request.term

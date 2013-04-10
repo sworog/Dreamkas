@@ -14,6 +14,7 @@ var InvoicesListItemView = Backbone.View.extend({
         var data = this.model.toJSON();
 
         data.acceptanceDate = Helpers.dateTimeFormat(data.acceptanceDate);
+        data.sumTotal = Helpers.pricesFloatToView(data.sumTotal);
 
         this.$el.html(this.template(data));
         this.$el.attr('href', "/invoice/view/" + this.model.id);
