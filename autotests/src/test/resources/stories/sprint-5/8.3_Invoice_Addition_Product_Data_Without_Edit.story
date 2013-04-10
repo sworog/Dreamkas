@@ -152,12 +152,12 @@ When the user inputs '!SK' in the invoice product 'productSku' field
 Then the users checks no autocomplete results
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation 3 symbols
-Given there is the product with 'N-AIP1PWSAV2S' name, 'SKU-AIP1PWSAV2S56' sku, 'BARCode-AIP1PWSAV2S' barcode
+Given there is the product with 'N-AIP1PWSAV3S' name, 'SKU-AIP1PWSAV2S56' sku, 'BARCode-AIP1PWSAV2S' barcode
 And there is the invoice with 'Invoice-AIP1PWSAV3S' sku
 When the user inputs '!SKU' in the invoice product 'productSku' field
 Then the users checks autocomplete results contains
 | autocomlete result |
-| SKU-AIP1PWSAV2S |
+| SKU-AIP1PWSAV2S56 |
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation 0 symbols
 Given there is the product with 'N-AIP1PWBAV0S' name, 'SKU-AIP1PWBAV0S' sku, 'BARCode-AIP1PWBAV0S' barcode
@@ -183,7 +183,7 @@ And there is the invoice with 'Invoice-AIP1PWBAV2S' sku
 When the user inputs '!BAR' in the invoice product 'productBarCode' field
 Then the users checks autocomplete results contains
 | autocomlete result |
-| BARCode-AIP1PWBAV2S |
+| BARCode-AIP1PWBAV3S |
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation rus search
 Given there is the product with 'Имя-AIP1WNAVRS' name, 'Артикул-AIP1WNAVRS' sku, 'Баркод-AIP1WNAVRS' barcode

@@ -327,8 +327,12 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void autoCompleteSelection(WebElement element, String value){
-        $(element).type(value);
-        if(!value.startsWith("!")){
+        if(value.startsWith("!")){
+            value = value.substring(1);
+            $(element).type(value);
+        }
+        else {
+            $(element).type(value);
             String xpath = String.format(AUTOCOMPLETE_XPATH_PATTERN, value);
             try{
                 findBy(xpath).click();
