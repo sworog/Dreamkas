@@ -98,6 +98,7 @@ public class InvoiceCreatePage extends PageObject{
             put("supplierInvoiceSku", new CommonItem(invoiceSupplierInvoiceSkuField, CommonItem.types.input));
             put("supplierInvoiceDate", new CommonItem(invoiceSupplierInvoiceDateField, CommonItem.types.date));
             put("legalEntity", new CommonItem(legalEntityField, CommonItem.types.input));
+
             put("productName", new CommonItem(productName, CommonItem.types.autocomplete));
             put("productSku", new CommonItem(productSku, CommonItem.types.autocomplete));
             put("productBarCode", new CommonItem(productBarCode, CommonItem.types.autocomplete));
