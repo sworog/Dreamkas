@@ -7,7 +7,7 @@ var InvoiceAddProductListTable = Backbone.View.extend({
     initialize: function() {
         this.collection.bind('add', this.addLast, this);
         this.collection.bind('all', this.render,this);
-        this.model.bind('sync', this.renderInfo, this);
+        this.model.bind('change', this.renderInfo, this);
     },
 
     render: function() {
@@ -26,10 +26,11 @@ var InvoiceAddProductListTable = Backbone.View.extend({
         return this;
     },
 
-    addLast: function() {
-        var lastModel = this.collection.last();
-        var view = new InvoiceAddProductListRowTable({model: lastModel});
+    addLast: function(addedModel) {
+        var view = new InvoiceAddProductListRowTable({model: addedModel});
         this.$el.find("[lh_table]").append(view.el);
+
+        this.model.set(addedModel.get('invoiceModel').toJSON());
     },
 
     renderInfo: function() {

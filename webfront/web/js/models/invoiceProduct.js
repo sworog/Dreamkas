@@ -28,10 +28,10 @@ var InvoiceProduct = BasicModel.extend({
 
     parse: function(response, options) {
         var data = response;
-        data.invoiceModel = data.invoice;
-        data.invoice = data.invoiceModel.id;
-        data.productModel = data.product;
-        data.product = data.productModel.id;
+        data.invoiceModel = new Invoice(data.invoice);
+        data.invoice = data.invoice.id;
+        data.productModel = new Product(data.product);
+        data.product = data.product.id;
         return data;
     }
 })

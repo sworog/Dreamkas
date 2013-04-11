@@ -47,7 +47,6 @@ var InvoiceAddProductFormView = Backbone.View.extend({
 
     addProductAndClearForm: function(model, response, options) {
         this.collection.add(model);
-        this.invoice.fetch();
         this.clearForm();
         var newModel = new InvoiceProduct({
             invoice: this.model.get('invoice')

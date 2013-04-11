@@ -6,9 +6,14 @@ var InvoiceAddProductListRowTable = Backbone.View.extend({
     },
 
     initialize: function() {
-        this.product = new Product({id: this.model.get('product')});
-        this.product.bind('sync', this.render, this);
-        this.product.fetch();
+        if(this.model.get('productModel') instanceof Product){
+            this.product = this.model.get('productModel');
+            this.render();
+        } else {
+            this.product = new Product({id: this.model.get('product')});
+            this.product.bind('sync', this.render, this);
+            this.product.fetch();
+        }
     },
 
     render: function() {
