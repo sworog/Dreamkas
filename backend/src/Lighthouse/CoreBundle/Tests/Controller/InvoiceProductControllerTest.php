@@ -36,7 +36,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $this->client,
             'POST',
-            'api/1/invoices/' . $invoiceId . '/products.json',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
             array('invoiceProduct' => $invoiceProductData)
         );
 
@@ -84,7 +84,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'POST',
-            'api/1/invoices/' . $invoiceId . '/products.json',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
             array('invoiceProduct' => $invoiceProductData)
         );
 
@@ -108,7 +108,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $this->client,
             'POST',
-            'api/1/invoices/' . $invoiceId . '/products.json',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
             array('invoiceProduct' => $invoiceProductData)
         );
 
@@ -132,7 +132,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $this->client,
             'POST',
-            'api/1/invoices/' . $invoiceId . '/products.json',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
             array('invoiceProduct' => $invoiceProductData)
         );
 
@@ -182,7 +182,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $response = $this->clientJsonRequest(
                 $this->client,
                 'POST',
-                'api/1/invoices/' . $invoiceId . '/products.json',
+                '/api/1/invoices/' . $invoiceId . '/products.json',
                 array('invoiceProduct' => $invoiceProductData)
             );
 
@@ -197,6 +197,61 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->assertEquals($row['itemsCount'], $response['invoice']['itemsCount']);
             $this->assertTrue(isset($response['invoice']['sumTotal']));
             $this->assertEquals($row['sumTotal'], $response['invoice']['sumTotal']);
+        }
+    }
+
+    public function testProductAmountIsUpdatedOnInvoiceProductPost()
+    {
+        $this->clearMongoDb();
+
+        $invoiceId = $this->createInvoice();
+        $productId = $this->createProduct();
+
+        $providerData = array(
+            array(
+                'product' => $productId,
+                'quantity' => 10,
+                'price' => 11.12,
+                'productAmount' => 10,
+            ),
+            array(
+                'product' => $productId,
+                'quantity' => 5,
+                'price' => 12.76,
+                'productAmount' => 15,
+            ),
+            array(
+                'product' => $productId,
+                'quantity' => 1,
+                'price' => 5.99,
+                'productAmount' => 16,
+            ),
+        );
+
+        foreach ($providerData as $row) {
+
+            $invoiceProductData = array(
+                'quantity' => $row['quantity'],
+                'price'    => $row['price'],
+                'product'  => $row['product'],
+            );
+
+            $response = $this->clientJsonRequest(
+                $this->client,
+                'POST',
+                '/api/1/invoices/' . $invoiceId . '/products.json',
+                array('invoiceProduct' => $invoiceProductData)
+            );
+
+            $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
+
+            $this->assertArrayHasKey('id', $response);
+            $this->assertTrue(isset($response['quantity']));
+            $this->assertEquals($row['quantity'], $response['quantity']);
+            $this->assertTrue(isset($response['price']));
+            $this->assertEquals($row['price'], $response['price']);
+            $this->assertTrue(isset($response['product']['amount']));
+            $this->assertEquals($row['productAmount'], $response['product']['amount']);
         }
     }
 
@@ -219,7 +274,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $this->client,
             'POST',
-            'api/1/invoices/' . $invoiceId . '/products.json',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
             array('invoiceProduct' => $invoiceProductData)
         );
 
@@ -380,15 +435,13 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $crawler = $this->client->request(
             'POST',
-            'api/1/invoices',
+            '/api/1/invoices',
             array('invoice' => $invoiceData)
         );
 
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
 
         $invoiceId = $crawler->filterXPath("//invoice/id")->text();
-
-        $this->client->restart();
 
         return $invoiceId;
     }
@@ -419,8 +472,6 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
 
         $productId = $crawler->filterXPath("//product/id")->text();
-
-        $this->client->restart();
 
         return $productId;
     }
