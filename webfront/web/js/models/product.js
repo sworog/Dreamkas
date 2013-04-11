@@ -13,7 +13,7 @@ var Product = BasicModel.extend({
         vendorCountry: null,
         vendor: null,
         info: null,
-        amount: null
+        amount: 0
     },
 
     toJSON: function(options) {
