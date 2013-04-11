@@ -12,7 +12,22 @@ var Product = BasicModel.extend({
         sku: null,
         vendorCountry: null,
         vendor: null,
-        info: null
+        info: null,
+        amount: null
+    },
+
+    toJSON: function(options) {
+        _.defaults(options || (options = {}), {
+            toSave: false
+        });
+
+        var data = BasicModel.prototype.toJSON.call(this, options)
+
+        if(options.toSave){
+            data[this.modelName].amount = undefined;
+        }
+
+        return data;
     },
 
     unitsEnum: {
@@ -24,7 +39,7 @@ var Product = BasicModel.extend({
         unit: {
             textEdit: "Штуки",
             textView: "штука",
-            textViewShort: "шт"
+            textViewShort: "шт."
         },
         liter: {
             textEdit: "Литры",

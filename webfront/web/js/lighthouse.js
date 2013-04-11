@@ -1,5 +1,6 @@
 var productRouterE = new ProductsRouter;
 var invoicesRouteE = new InvoicesRouter;
+var amountsRouteE = new AmountsRouter;
 var lighthouseRouterE = new LighthouseRouter;
 
 Backbone.history.start({
