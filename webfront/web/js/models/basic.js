@@ -22,6 +22,15 @@ var BasicModel = Backbone.Model.extend({
             var data = {};
             data[this.modelName] = _.clone(this.attributes)
             data[this.modelName].id = undefined;
+
+            // Исключаем поля из данных посылаемых на сервер
+            if(this.excludeSaveFields != undefined) {
+                for(var excludeFieldId in this.excludeSaveFields) {
+                    var excludeFieldName = this.excludeSaveFields[excludeFieldId];
+                    data[this.modelName][excludeFieldName] = undefined;
+                }
+            }
+
             return data;
         }
         else {
