@@ -458,9 +458,9 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 
 Scenario: Purchase price validation String rus
-Given there is created product with sku 'ED-PPVSR'
+Given there is created product with sku 'EDD-PPVSR'
 And the user is on the product list page
-When the user open the product card with 'ED-PPVSR' sku
+When the user open the product card with 'EDD-PPVSR' sku
 And the user clicks the edit button on product card view page
 And the user inputs 'EPPPV-04' in 'name' field
 And the user inputs 'EPPPV-04' in 'sku' field
