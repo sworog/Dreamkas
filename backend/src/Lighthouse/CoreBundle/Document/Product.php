@@ -66,6 +66,12 @@ class Product extends AbstractDocument
     protected $purchasePrice;
 
     /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $lastPurchasePrice;
+
+    /**
      * @MongoDB\String
      * @Assert\Length(max="200", maxMessage="lighthouse.validation.errors.length")
      */
@@ -114,6 +120,7 @@ class Product extends AbstractDocument
             'units' => $this->units,
             'vat' => $this->vat,
             'purchasePrice' => $this->purchasePrice,
+            'lastPurchasePrice' => $this->lastPurchasePrice,
             'barcode' => $this->barcode,
             'sku' => $this->sku,
             'vendorCountry' => $this->vendorCountry,
@@ -121,5 +128,13 @@ class Product extends AbstractDocument
             'info' => $this->info,
             'amount' => $this->amount
         );
+    }
+
+    /**
+     * @MongoDB\PrePersist
+     */
+    public function initLastPurchasePrice()
+    {
+        $this->lastPurchasePrice = new Money($this->purchasePrice);
     }
 }

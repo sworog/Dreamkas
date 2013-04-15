@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -38,55 +39,56 @@ class InvoiceProductListener
     }
 
     /**
-     * @param LifecycleEventArgs $event
+     * @param LifecycleEventArgs $eventArgs
      */
-    public function postPersist(LifecycleEventArgs $event)
+    public function postPersist(LifecycleEventArgs $eventArgs)
     {
-        if ($event->getDocument() instanceof InvoiceProduct) {
-            $quantityDiff = $this->getPropertyDiff($event, 'quantity');
+        $document = $eventArgs->getDocument();
 
-            $this->updateProductAmount(
-                $event->getDocument()->product,
-                $quantityDiff
+        if ($document instanceof InvoiceProduct) {
+            $quantityDiff = $this->getPropertyDiff($eventArgs, 'quantity');
+
+            $this->productRepository->updateAmountAndLastPurchasePrice(
+                $document->product,
+                $quantityDiff,
+                $document->price
             );
 
-            $totalPriceDiff = $this->getPropertyDiff($event, 'totalPrice');
+            $totalPriceDiff = $this->getPropertyDiff($eventArgs, 'totalPrice');
+            $this->invoiceRepository->updateTotals($document->invoice, 1, $totalPriceDiff);
+        }
+    }
 
-            $this->updateInvoiceTotals(
-                $event->getDocument()->invoice,
-                1,
-                $totalPriceDiff
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     */
+    public function postUpdate(LifecycleEventArgs $eventArgs)
+    {
+        $document = $eventArgs->getDocument();
+
+        if ($document instanceof InvoiceProduct) {
+
+            $quantityDiff = $this->getPropertyDiff($eventArgs, 'quantity');
+
+            $this->productRepository->updateAmountAndLastPurchasePrice(
+                $document->product,
+                $quantityDiff,
+                $document->price
             );
         }
     }
 
     /**
-     * @param LifecycleEventArgs $event
+     * @param LifecycleEventArgs $eventArgs
      */
-    public function postUpdate(LifecycleEventArgs $event)
+    public function postRemove(LifecycleEventArgs $eventArgs)
     {
-        if ($event->getDocument() instanceof InvoiceProduct) {
+        if ($eventArgs->getDocument() instanceof InvoiceProduct) {
+            $invoiceProduct = $eventArgs->getDocument();
 
-            $quantityDiff = $this->getPropertyDiff($event, 'quantity');
+            $quantityDiff = $this->getPropertyDiff($eventArgs, 'quantity');
 
-            $this->updateProductAmount(
-                $event->getDocument()->product,
-                $quantityDiff
-            );
-        }
-    }
-
-    /**
-     * @param LifecycleEventArgs $event
-     */
-    public function postRemove(LifecycleEventArgs $event)
-    {
-        if ($event->getDocument() instanceof InvoiceProduct) {
-            $invoiceProduct = $event->getDocument();
-
-            $quantityDiff = $this->getPropertyDiff($event, 'quantity');
-
-            $this->updateProductAmount(
+            $this->productRepository->updateAmountAndLastPurchasePrice(
                 $invoiceProduct->product,
                 $quantityDiff - $invoiceProduct->quantity
             );
@@ -94,14 +96,14 @@ class InvoiceProductListener
     }
 
     /**
-     * @param LifecycleEventArgs $event
+     * @param LifecycleEventArgs $eventArgs
      * @param string $propertyName
      * @return int
      */
-    protected function getPropertyDiff(LifecycleEventArgs $event, $propertyName)
+    protected function getPropertyDiff(LifecycleEventArgs $eventArgs, $propertyName)
     {
-        $document = $event->getDocument();
-        $uow = $event->getDocumentManager()->getUnitOfWork();
+        $document = $eventArgs->getDocument();
+        $uow = $eventArgs->getDocumentManager()->getUnitOfWork();
         $changeSet = $uow->getDocumentChangeSet($document);
         if (isset($changeSet[$propertyName])) {
             return $this->propertyToInt($changeSet[$propertyName][1]) - $this->propertyToInt($changeSet[$propertyName][0]);
@@ -121,26 +123,5 @@ class InvoiceProductListener
         } else {
             return (int) $value;
         }
-    }
-
-    /**
-     * @param Product $product
-     * @param int $amountDiff
-     */
-    protected function updateProductAmount(Product $product, $amountDiff)
-    {
-        if ($amountDiff <> 0) {
-            $this->productRepository->updateAmount($product, $amountDiff);
-        }
-    }
-
-    /**
-     * @param Invoice $invoice
-     * @param int $itemsCountDiff
-     * @param int $totalSumDiff
-     */
-    protected function updateInvoiceTotals(Invoice $invoice, $itemsCountDiff, $totalSumDiff)
-    {
-        $this->invoiceRepository->updateTotals($invoice, $itemsCountDiff, $totalSumDiff);
     }
 }
