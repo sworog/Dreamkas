@@ -273,7 +273,7 @@ class InvoiceProductControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',

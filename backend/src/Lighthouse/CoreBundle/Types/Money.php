@@ -52,7 +52,7 @@ class Money
     }
 
     /**
-     * @param int $count
+     * @param int|Money $count
      * @param int $quantity
      * @param bool $round
      * @return $this

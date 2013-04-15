@@ -10,6 +10,7 @@ class ProductRepository extends DocumentRepository
     /**
      * @param Product $product
      * @param int $amountDiff
+     * @param Money $lastPurchasePrice
      * @return Product
      */
     public function updateAmountAndLastPurchasePrice(Product $product, $amountDiff, Money $lastPurchasePrice = null)

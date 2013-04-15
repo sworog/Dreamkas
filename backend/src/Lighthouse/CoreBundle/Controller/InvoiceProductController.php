@@ -45,11 +45,10 @@ class InvoiceProductController extends FOSRestController
     }
 
     /**
-     * @param Request $request
      * @param string $invoiceId
      * @return InvoiceProductCollection
      */
-    public function getProductsAction(Request $request, $invoiceId)
+    public function getProductsAction($invoiceId)
     {
         $invoice = $this->findInvoice($invoiceId);
         $invoiceProducts = $this->invoiceProductRepository->findByInvoice($invoice->id);

@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -98,9 +97,9 @@ class InvoiceProductListener
     {
         $document = $eventArgs->getDocument();
         $uow = $eventArgs->getDocumentManager()->getUnitOfWork();
-        $changeSet = $uow->getDocumentChangeSet($document);
-        if (isset($changeSet[$propertyName])) {
-            return $this->propertyToInt($changeSet[$propertyName][1]) - $this->propertyToInt($changeSet[$propertyName][0]);
+        $change = $uow->getDocumentChangeSet($document);
+        if (isset($change[$propertyName])) {
+            return $this->propertyToInt($change[$propertyName][1]) - $this->propertyToInt($change[$propertyName][0]);
         } else {
             return 0;
         }

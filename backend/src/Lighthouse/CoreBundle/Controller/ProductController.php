@@ -51,6 +51,7 @@ class ProductController extends FOSRestController
 
     /**
      * @Route("/products/search")
+     * @param string $property
      * @return ProductCollection
      */
     public function getProductsSearchAction($property)
