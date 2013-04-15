@@ -11,6 +11,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -20,7 +21,6 @@ import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
 
-import javax.print.DocFlavor;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -213,6 +213,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     public void dateInputAction(WebElement element, String value){
         if(value.startsWith("!")){
             input(element, value.substring(1));
+            dateTimePickerClose();
         }
         else{
             $(element).click();
@@ -243,9 +244,13 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         }
         setDay(dayString);
         if(dateArray.length == 2){
-        setTime(dateArray[1]);
-        findBy("//button[normalize-space(text())='Закрыть']").click();
+            setTime(dateArray[1]);
+            dateTimePickerClose();
         }
+    }
+
+    public void dateTimePickerClose(){
+        findBy("//button[normalize-space(text())='Закрыть']").click();
     }
 
     public String getActualDatePickerMonth(){
@@ -372,14 +377,14 @@ public class CommonPage extends PageObject implements CommonPageInterface {
                 break;
         }
         if(!actualValue.contains(expectedValue)){
-            String errorMessage = String.format("Element '%s' doesnt contains '%s'. It contains '%s'", elementName, expectedValue, actualValue);
+            String errorMessage = String.format("Element '%s' doesnt contain '%s'. It contains '%s'", elementName, expectedValue, actualValue);
             throw new AssertionError(errorMessage);
         }
     }
 
     public void сreateProductThroughPost(String name, String sku, String barcode, String units) {
         String getApiUrl = getApiUrl() + "/api/1/products.json";
-        String jsonDataPattern = "{\"product\":{\"name\":\"%s\",\"units\":\"%s\",\"vat\":\"0\",\"purchasePrice\":\"123\",\"barcode\":\"%s\",\"sku\":\"%s\",\"vendorCountry\":\"\",\"vendor\":\"\",\"info\":\"\"}}";
+        String jsonDataPattern = "{\"product\":{\"name\":\"%s\",\"units\":\"%s\",\"vat\":\"0\",\"purchasePrice\":\"123\",\"barcode\":\"%s\",\"sku\":\"%s\",\"vendorCountry\":\"Тестовая страна\",\"vendor\":\"Тестовый производитель\",\"info\":\"\"}}";
         String jsonData = String.format(jsonDataPattern, name, units, barcode, sku);
         executePost(getApiUrl, jsonData);
     }
@@ -417,8 +422,19 @@ public class CommonPage extends PageObject implements CommonPageInterface {
 
             HttpEntity httpEntity = response.getEntity();
             String responceMessage = EntityUtils.toString(httpEntity, "UTF-8");
+
             if(response.getStatusLine().getStatusCode() != 201){
-               throw new AssertionError(responceMessage);
+                StringBuilder builder = new StringBuilder();
+                JSONObject jsonObject = new JSONObject(responceMessage).getJSONObject("children");
+                Object [] objects = toMap(jsonObject).values().toArray();
+                for (int i = 0; i < objects.length; i++){
+                    if(objects[i] instanceof HashMap){
+                        String errors = new JSONObject(objects[i].toString()).getString("errors");
+                        builder.append(errors);
+                    }
+                }
+                String errorMessage = String.format("Responce json error: '%s'", builder.toString());
+               throw new AssertionError(errorMessage);
             }
             return responceMessage;
         }
@@ -430,5 +446,25 @@ public class CommonPage extends PageObject implements CommonPageInterface {
 
     public String getApiUrl(){
         return "http://" + getDriver().getCurrentUrl().replaceFirst(".*//*/(.*)\\.webfront\\.([a-zA-Z\\.]+)/.*", "$1.api.$2");
+    }
+
+    public static Map<String, Object> toMap(JSONObject object) throws JSONException {
+        Map<String, Object> map = new HashMap();
+        Iterator keys = object.keys();
+        while (keys.hasNext()) {
+            String key = (String) keys.next();
+            map.put(key, fromJson(object.get(key)));
+        }
+        return map;
+    }
+
+    private static Object fromJson(Object json) throws JSONException {
+        if (json == JSONObject.NULL) {
+            return null;
+        } else if (json instanceof JSONObject) {
+            return toMap((JSONObject) json);
+        } else {
+            return json;
+        }
     }
 }

@@ -12,21 +12,18 @@ import java.util.Map;
 
 public class InvoiceBrowsing extends InvoiceCreatePage{
 
+    private static final String ITEM_NAME = "product";
+    private static final String ITEM_SKU_NAME = "productSku";
+    CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
+
     @FindBy(xpath = "//*[@lh_link='edit']")
     private WebElement editButton;
-
-    @FindBy(name = "product")
-    private WebElement invoiceProductListItem;
 
     @FindBy(xpath = "//*[@class='saveInvoiceAndAddProduct']")
     private WebElement goToTheaAdditionOfProductsLink;
 
     @FindBy(xpath = "//*[@class='addMoreProduct']")
     private WebElement addOneMoreProductLink;
-
-    private static final String XPATH = "//../*[span[@name='productSku' and normalize-space(text())='%s']]";
-    CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, invoiceProductListItem);
-    CommonPageInterface commonPageInterface = new CommonPage(getDriver());
 
     public InvoiceBrowsing(WebDriver driver) {
         super(driver);

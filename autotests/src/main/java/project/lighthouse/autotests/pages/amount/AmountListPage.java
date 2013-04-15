@@ -12,14 +12,13 @@ import project.lighthouse.autotests.pages.product.ProductListPage;
 @DefaultUrl("/amount/list")
 public class AmountListPage extends ProductListPage{
 
+    private static final String ITEM_NAME = "amountItem";
+    private static final String ITEM_SKU_NAME = "sku";
+
     @FindBy(name = "amount")
     public WebElement amountWebElement;
 
-    @FindBy(name = "amountItem")
-    private WebElement amountItemWebElement;
-
-    private static final String XPATH = "//*[@name='amountItem']/*[@name='sku' and normalize-space(text())='%s']/..";
-    CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, amountItemWebElement);
+    CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
 
     public AmountListPage(WebDriver driver) {
         super(driver);

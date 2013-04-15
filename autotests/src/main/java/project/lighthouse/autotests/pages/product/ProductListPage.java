@@ -11,12 +11,11 @@ import project.lighthouse.autotests.pages.common.CommonView;
 
 @DefaultUrl("/product/list")
 public class ProductListPage extends ProductCreatePage{
-	
-	@FindBy(name="product")
-	private WebElement productListItem;
 
-    private static final String XPATH = "//../*[span[@name='sku' and normalize-space(text())='%s']]";
-    CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, productListItem);
+    private static final String ITEM_NAME = "product";
+    private static final String ITEM_SKU_NAME = "sku";
+
+    CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
 
 	public ProductListPage(WebDriver driver) {
 		super(driver);
