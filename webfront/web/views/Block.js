@@ -17,7 +17,9 @@ define(
             render: function(){
                 var block = this;
 
-                block.$el.html(block.templates.main(block));
+                block.$el.html(block.tpl.main({
+                    block: block
+                }));
             },
             remove: function() {
                 var block = this;

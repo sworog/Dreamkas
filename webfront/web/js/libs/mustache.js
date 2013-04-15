@@ -229,7 +229,7 @@
 
   /**
    * Low-level function that renders the given `tokens` using the given `writer`
-   * and `context`. The `template` string is only needed for templates that use
+   * and `context`. The `template` string is only needed for tpl that use
    * higher-order sections to extract the portion of the original template that
    * was contained in that section.
    */

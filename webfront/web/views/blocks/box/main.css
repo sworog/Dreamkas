@@ -1,5 +1,12 @@
 .box{
-    background: #f4f4f4;
-    padding: 15px 20px;
-    margin-bottom: 20px;
+    background: white;
+    display: block;
+    text-align: left;
+    padding: 20px;
+    box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.3 ) inset;
+    border-radius: 5px;
+    box-sizing: border-box;
+    position: relative;
+    border-bottom: 2px solid #BDC3C7;
+    margin: 0 0 20px;
 }

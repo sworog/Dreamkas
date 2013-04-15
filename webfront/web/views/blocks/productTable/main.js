@@ -10,7 +10,7 @@ define(
                 var block = this;
                 block.render();
             },
-            templates: {
+            tpl: {
                 main: main,
                 row: row
             },

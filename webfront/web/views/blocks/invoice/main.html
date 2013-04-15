@@ -1,6 +1,6 @@
-<div class="invoice__header">
-
-</div>
+<%= block.tpl.head({
+    block: block
+}) %>
 <table class="table">
     <thead>
     <tr>
@@ -12,8 +12,6 @@
     </tr>
     </thead>
     <tbody>
-    <% _.each(collection.toJSON(), function(invoice){ %>
-        <%= templates.row(invoice) %>
-    <% }) %>
+
     </tbody>
 </table>

@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <% _.each(collection.toJSON(), function(invoice){ %>
-        <%= templates.row(invoice) %>
+        <%= tpl.row({invoice: invoice}) %>
     <% }) %>
     </tbody>
 </table>

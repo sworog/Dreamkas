@@ -10,7 +10,7 @@ define(
 
                 block.render();
             },
-            templates: {
+            tpl: {
                 main: main
             },
             model: Product

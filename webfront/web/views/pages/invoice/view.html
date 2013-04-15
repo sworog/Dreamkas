@@ -1,4 +1,8 @@
+<div class="page__header">
+    <a href="/invoice/list" class="page__backLink">
+        Накладные
+    </a>
+</div>
 <div class="box">
-    <h3>Накладные <a class="button" href="/invoice/create" style="margin-left: 20px;">Новая накладная</a></h3>
-    <table class="table" block="/views/blocks/invoiceTable/main.js"></table>
+    <div block="/views/blocks/invoice/main.js" block-options="{invoiceId: '<%= id %>'}"></div>
 </div>

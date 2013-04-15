@@ -11,7 +11,7 @@ define(
 
                 block.render();
             },
-            templates:{
+            tpl:{
                 main: main,
                 row: row
             },

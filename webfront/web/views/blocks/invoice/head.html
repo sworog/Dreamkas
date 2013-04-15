@@ -1,0 +1,37 @@
+<div class="invoice__title">
+    Накладная №
+    <span name="sku">
+        <%= block.model.get('sku') %>
+    </span>
+    от
+    <span name="acceptanceDate">
+        <%= moment(block.model.get('acceptanceDate')).format('dddd, D MMMM YYYY, hh:mm:ss') %>
+    </span>
+</div>
+
+<div class="invoice__head">
+    <div class="invoice__headItem">
+        <div class="invoice__headItemData" name="supplier">
+            <%= block.model.get('supplier') %>
+        </div>
+        <div class="invoice__headItemHint">
+            поставщик
+        </div>
+    </div>
+    <div class="invoice__headItem">
+        <div class="invoice__headItemData" name="accepter">
+            <%= block.model.get('accepter') %>
+        </div>
+        <div class="invoice__headItemHint">
+            приёмщик
+        </div>
+    </div>
+    <div class="invoice__headItem">
+        <div  class="invoice__headItemData" name="legalEntity">
+            <%= block.model.get('legalEntity') %>
+        </div>
+        <div class="invoice__headItemHint">
+            получатель
+        </div>
+    </div>
+</div>

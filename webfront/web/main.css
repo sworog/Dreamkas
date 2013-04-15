@@ -1,9 +1,11 @@
+@import "/views/blocks/page/main.css";
 @import "/views/blocks/button/main.css";
 @import "/views/blocks/box/main.css";
 @import "/views/blocks/table/main.css";
 @import "/views/blocks/inputText/main.css";
 @import "/views/blocks/checkbox/main.css";
 @import "/views/blocks/form/main.css";
+@import "/views/blocks/invoice/main.css";
 
 html{
     height: 100%;
@@ -17,13 +19,6 @@ body{
     font-family: Tahoma, Arial, "sans serif";
     padding: 0;
     margin: 0;
-}
-
-#page{
-    width: 1000px;
-    margin: 0 auto;
-    padding: 20px 0;
-    text-align: left;
 }
 
 a{

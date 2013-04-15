@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <% _.each(collection.toJSON(), function(product){ %>
-        <%= templates.row(product) %>
+        <%= tpl.row(product) %>
     <% }) %>
     </tbody>
 </table>

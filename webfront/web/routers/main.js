@@ -26,8 +26,10 @@ define(
             invoiceList: function(){
                 page.open('/views/pages/invoice/list.html');
             },
-            invoiceView: function(){
-                page.open('/views/pages/invoice/view.html');
+            invoiceView: function(id){
+                page.open('/views/pages/invoice/view.html', {
+                    id: id
+                });
             },
             invoiceEdit: function(id){
                 page.open('/views/pages/invoice/edit.html', {
