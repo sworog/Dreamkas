@@ -4,29 +4,24 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.CommonViewInterface;
-import project.lighthouse.autotests.pages.common.CommonPage;
 import project.lighthouse.autotests.pages.common.CommonView;
 import java.util.Map;
 
 public class InvoiceBrowsing extends InvoiceCreatePage{
 
+    private static final String ITEM_NAME = "product";
+    private static final String ITEM_SKU_NAME = "productSku";
+    CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
+
     @FindBy(xpath = "//*[@lh_link='edit']")
     private WebElement editButton;
-
-    @FindBy(name = "product")
-    private WebElement invoiceProductListItem;
 
     @FindBy(xpath = "//*[@class='saveInvoiceAndAddProduct']")
     private WebElement goToTheaAdditionOfProductsLink;
 
     @FindBy(xpath = "//*[@class='addMoreProduct']")
     private WebElement addOneMoreProductLink;
-
-    private static final String XPATH = "//../*[span[@name='productSku' and normalize-space(text())='%s']]";
-    CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, invoiceProductListItem);
-    CommonPageInterface commonPageInterface = new CommonPage(getDriver());
 
     public InvoiceBrowsing(WebDriver driver) {
         super(driver);
@@ -71,6 +66,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage{
     }
 
     public void checkListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue){
-        commonViewInterface.checkInvoiceListItemWithSkuHasExpectedValue(value, elementName, expectedValue);
+        commonViewInterface.checkListItemWithSkuHasExpectedValue(value, elementName, expectedValue);
     }
 }

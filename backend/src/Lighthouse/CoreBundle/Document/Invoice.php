@@ -101,6 +101,8 @@ class Invoice extends AbstractDocument
     protected $sumTotal;
 
     /**
+     * Количество позиций
+     *
      * @MongoDB\Int
      * @var int
      */
@@ -111,7 +113,6 @@ class Invoice extends AbstractDocument
      */
     public function __construct()
     {
-        //$this->acceptanceDate = new \DateTime();
         $this->createdDate = new \DateTime();
         $this->sumTotal = new Money(0);
     }

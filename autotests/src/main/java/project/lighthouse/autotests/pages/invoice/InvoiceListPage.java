@@ -1,27 +1,26 @@
 package project.lighthouse.autotests.pages.invoice;
 
 import net.thucydides.core.annotations.DefaultUrl;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.pages.common.CommonView;
 
 @DefaultUrl("/invoice/list")
 public class InvoiceListPage extends InvoiceCreatePage{
 
-    @FindBy(name = "invoice")
-    private WebElement invoiceListItem;
+    private static final String ITEM_NAME = "invoice";
+    private static final String ITEM_SKU_NAME = "sku";
 
-    private static final String XPATH = "//*[@name='invoice']/*[@name='sku' and normalize-space(text())='%s']/..";
-    CommonViewInterface commonViewInterface = new CommonView(getDriver(), XPATH, invoiceListItem);
+    CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
 
     public InvoiceListPage(WebDriver driver) {
         super(driver);
     }
 
     public void invoiceListItemCreate(){
-        findBy("//*[@lh_button='create']").click();
+        String xpath = "//*[@lh_button='create']";
+        getDriver().findElement(By.xpath(xpath)).click();
     }
 
     public void listItemClick(String skuValue){
@@ -33,6 +32,6 @@ public class InvoiceListPage extends InvoiceCreatePage{
     }
 
     public void checkInvoiceListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
-        commonViewInterface.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
+        commonViewInterface.checkListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 }

@@ -59,7 +59,7 @@ class InvoiceProduct extends AbstractDocument
     protected $invoice;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Product", simple=true)
+     * @MongoDB\ReferenceOne(targetDocument="Product", simple=true, cascade={"persist"})
      * @Assert\NotBlank
      * @var Product
      */

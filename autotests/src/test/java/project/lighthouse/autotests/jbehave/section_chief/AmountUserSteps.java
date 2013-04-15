@@ -19,5 +19,4 @@ public class AmountUserSteps {
     public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue){
         amountSteps.checkProductWithSkuHasExpectedValue(skuValue, name, expectedValue);
     }
-
 }

@@ -24,6 +24,9 @@ class Money
      */
     public function setCount($count, $round = false)
     {
+        if ($count instanceof self) {
+            $count = $count->getCount();
+        }
         if ($round) {
             $count = $this->round($count);
         }

@@ -243,7 +243,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 array('invoiceProduct' => $invoiceProductData)
             );
 
-            $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
+            $this->assertEquals(201, $this->client->getResponse()->getStatusCode(), $this->client->getResponse());
 
             $this->assertArrayHasKey('id', $response);
             $this->assertTrue(isset($response['quantity']));
@@ -252,6 +252,8 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->assertEquals($row['price'], $response['price']);
             $this->assertTrue(isset($response['product']['amount']));
             $this->assertEquals($row['productAmount'], $response['product']['amount']);
+            $this->assertTrue(isset($response['product']['lastPurchasePrice']));
+            $this->assertEquals($row['price'], $response['product']['lastPurchasePrice']);
         }
     }
 

@@ -13,11 +13,13 @@ var Product = BasicModel.extend({
         vendorCountry: null,
         vendor: null,
         info: null,
-        amount: 0
+        amount: 0,
+        lastPurchasePrice: null
     },
 
     excludeSaveFields: [
-        'amount'
+        'amount',
+        'lastPurchasePrice'
     ],
 
     unitsEnum: {
