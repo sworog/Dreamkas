@@ -57,6 +57,7 @@ class InvoiceProductTest extends WebTestCase
         $product->info = 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса';
 
         $invoiceProduct = new InvoiceProduct();
+        $invoiceProduct->price = new Money(1010);
         $invoiceProduct->invoice = $invoice;
         $invoiceProduct->product = $product;
         $invoiceProduct->quantity = 10;
@@ -89,11 +90,13 @@ class InvoiceProductTest extends WebTestCase
         $this->assertEquals(0, $product->amount);
 
         $invoiceProduct1 = new InvoiceProduct();
+        $invoiceProduct1->price = new Money(1111);
         $invoiceProduct1->invoice = $invoice;
         $invoiceProduct1->product = $product;
         $invoiceProduct1->quantity = 10;
 
         $invoiceProduct2 = new InvoiceProduct();
+        $invoiceProduct2->price = new Money(2222);
         $invoiceProduct2->invoice = $invoice;
         $invoiceProduct2->product = $product;
         $invoiceProduct2->quantity = 5;
@@ -103,5 +106,6 @@ class InvoiceProductTest extends WebTestCase
         $manager->flush();
 
         $this->assertEquals(15, $product->amount);
+        $this->assertEquals(2222, $product->lastPurchasePrice->getCount());
     }
 }
