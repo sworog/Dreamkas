@@ -2,8 +2,6 @@ package project.lighthouse.autotests.pages.product;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import project.lighthouse.autotests.CommonViewInterface;
@@ -35,6 +33,6 @@ public class ProductListPage extends ProductCreatePage{
 	}
 
     public void checkProductWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
-        commonViewInterface.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
+        commonViewInterface.checkListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 }

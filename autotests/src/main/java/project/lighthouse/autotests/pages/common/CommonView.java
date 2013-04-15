@@ -6,6 +6,7 @@ import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.CommonViewInterface;
 
 public class CommonView extends PageObject implements CommonViewInterface {
@@ -35,7 +36,7 @@ public class CommonView extends PageObject implements CommonViewInterface {
         listItem.click();
     }
 
-    public void checkInvoiceListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue){
+    public void checkListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue){
         itemCheck(value);
         WebElementFacade listItem = getItem(value);
         listItem.findBy(By.name(elementName)).shouldContainText(expectedValue);

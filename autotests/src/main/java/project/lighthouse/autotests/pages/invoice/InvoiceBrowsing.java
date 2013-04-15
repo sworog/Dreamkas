@@ -4,9 +4,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.CommonViewInterface;
-import project.lighthouse.autotests.pages.common.CommonPage;
 import project.lighthouse.autotests.pages.common.CommonView;
 import java.util.Map;
 
@@ -68,6 +66,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage{
     }
 
     public void checkListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue){
-        commonViewInterface.checkInvoiceListItemWithSkuHasExpectedValue(value, elementName, expectedValue);
+        commonViewInterface.checkListItemWithSkuHasExpectedValue(value, elementName, expectedValue);
     }
 }

@@ -3,8 +3,6 @@ package project.lighthouse.autotests.pages.invoice;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.pages.common.CommonView;
 
@@ -34,6 +32,6 @@ public class InvoiceListPage extends InvoiceCreatePage{
     }
 
     public void checkInvoiceListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
-        commonViewInterface.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
+        commonViewInterface.checkListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 }

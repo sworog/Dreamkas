@@ -26,6 +26,6 @@ public class AmountListPage extends ProductListPage{
     }
 
     public void checkAmountItemListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
-        commonViewInterface.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
+        commonViewInterface.checkListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 }
