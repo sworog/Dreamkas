@@ -16,19 +16,9 @@ var Product = BasicModel.extend({
         amount: 0
     },
 
-    toJSON: function(options) {
-        _.defaults(options || (options = {}), {
-            toSave: false
-        });
-
-        var data = BasicModel.prototype.toJSON.call(this, options)
-
-        if(options.toSave){
-            data[this.modelName].amount = undefined;
-        }
-
-        return data;
-    },
+    excludeSaveFields: [
+        'amount'
+    ],
 
     unitsEnum: {
         kg: {

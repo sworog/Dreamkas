@@ -16,6 +16,8 @@ var InvoiceAddProductView = Backbone.View.extend({
 
         if(this.collection == undefined){
             this.collection = new InvoiceProductsCollection;
+            this.collection.invoiceId = this.model.get('id');
+            this.collection.fetch()
         }
     },
 

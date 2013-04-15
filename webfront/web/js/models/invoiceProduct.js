@@ -13,28 +13,24 @@ var InvoiceProduct = BasicModel.extend({
     defaults: {
         id: null,
         product: null,
+        productModel: null,
         invoice: null,
+        invoiceModel: null,
         quantity: null,
         price: null
     },
 
-    toJSON: function(options) {
-        _.defaults(options || (options = {}), {
-            toSave: false
-        });
-
-        var data = BasicModel.prototype.toJSON.call(this, options)
-
-        if(options.toSave){
-            data[this.modelName].invoice = undefined;
-        }
-
-        return data;
-    },
+    excludeSaveFields: [
+        'invoice',
+        'invoiceModel',
+        'productModel'
+    ],
 
     parse: function(response, options) {
         var data = response;
+        data.invoiceModel = new Invoice(data.invoice);
         data.invoice = data.invoice.id;
+        data.productModel = new Product(data.product);
         data.product = data.product.id;
         return data;
     }

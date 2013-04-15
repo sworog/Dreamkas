@@ -7,6 +7,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Invoice;
 use Lighthouse\CoreBundle\Document\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\InvoiceRepository;
 use Lighthouse\CoreBundle\Form\InvoiceProductType;
@@ -41,6 +42,18 @@ class InvoiceProductController extends FOSRestController
         $invoiceProduct = new InvoiceProduct();
         $invoiceProduct->invoice = $invoice;
         return $this->processForm($request, $invoiceProduct);
+    }
+
+    /**
+     * @param Request $request
+     * @param string $invoiceId
+     * @return InvoiceProductCollection
+     */
+    public function getProductsAction(Request $request, $invoiceId)
+    {
+        $invoice = $this->findInvoice($invoiceId);
+        $invoiceProducts = $this->invoiceProductRepository->findByInvoice($invoice->id);
+        return new InvoiceProductCollection($invoiceProducts);
     }
 
     /**

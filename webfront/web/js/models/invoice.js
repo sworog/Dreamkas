@@ -19,17 +19,7 @@ var Invoice = BasicModel.extend({
         sumTotal: null
     },
 
-    toJSON: function(options) {
-        _.defaults(options || (options = {}), {
-            toSave: false
-        });
-
-        var data = BasicModel.prototype.toJSON.call(this, options)
-
-        if(options.toSave){
-            data[this.modelName].sumTotal = undefined;
-        }
-
-        return data;
-    }
+    excludeSaveFields: [
+        'sumTotal'
+    ]
 });
