@@ -420,6 +420,103 @@ class InvoiceProductControllerTest extends WebTestCase
         );
     }
 
+    public function testGetInvoiceProductsAction()
+    {
+        $this->clearMongoDb();
+        $this->client->restart();
+
+        $invoiceId = $this->createInvoice();
+        $productId = $this->createProduct();
+
+        $providerData = array(
+            array(
+                'product' => $productId,
+                'quantity' => 10,
+                'price' => 11.12,
+                'productAmount' => 10,
+            ),
+            array(
+                'product' => $productId,
+                'quantity' => 5,
+                'price' => 12.76,
+                'productAmount' => 15,
+            ),
+            array(
+                'product' => $productId,
+                'quantity' => 1,
+                'price' => 5.99,
+                'productAmount' => 16,
+            ),
+        );
+
+        foreach ($providerData as $i => $row) {
+
+            $invoiceProductData = array(
+                'quantity' => $row['quantity'],
+                'price'    => $row['price'],
+                'product'  => $row['product'],
+            );
+
+            $response = $this->clientJsonRequest(
+                $this->client,
+                'POST',
+                '/api/1/invoices/' . $invoiceId . '/products.json',
+                array('invoiceProduct' => $invoiceProductData)
+            );
+
+            $this->assertEquals(201, $this->client->getResponse()->getStatusCode(), $this->client->getResponse());
+            $providerData[$i]['id'] = $response['id'];
+        }
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '/products.json'
+        );
+
+        $this->assertInternalType('array', $response);
+        $this->assertCount(3, $response);
+        foreach ($providerData as $i => $row) {
+            $this->assertTrue(isset($response[$i]['id']));
+            $this->assertEquals($row['id'], $response[$i]['id']);
+            $this->assertTrue(isset($response[$i]['product']['id']));
+            $this->assertEquals($row['product'], $response[$i]['product']['id']);
+        }
+    }
+
+    public function testGetInvoiceProductsActionNotFound()
+    {
+        $this->clearMongoDb();
+        $this->client->restart();
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/123484923423/products.json'
+        );
+
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testGetInvoiceProductsActionEmptyCollection()
+    {
+        $this->clearMongoDb();
+        $this->client->restart();
+
+        $invoiceId = $this->createInvoice();
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '/products.json'
+        );
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertInternalType('array', $response);
+        $this->assertCount(0, $response);
+    }
+
+
     /**
      * @return string
      */
@@ -449,6 +546,7 @@ class InvoiceProductControllerTest extends WebTestCase
     }
 
     /**
+     * @param string $extra
      * @return string
      */
     protected function createProduct($extra = '')
