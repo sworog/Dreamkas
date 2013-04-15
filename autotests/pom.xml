@@ -200,5 +200,17 @@
                 <directory>target-chrome</directory>
             </build>
         </profile>
+        <profile>
+            <id>iexplorer</id>
+            <activation>
+                <property>
+                    <name>webdriver.driver</name>
+                    <value>iexplorer</value>
+                </property>
+            </activation>
+            <build>
+                <directory>target-iexplorer</directory>
+            </build>
+        </profile>
     </profiles>
 </project>
