@@ -9,7 +9,7 @@ define(
 //                "invoice/list": "invoiceList",
 //                "invoice/create": "invoiceCreate",
 //                "invoice/edit/:id": "invoiceEdit",
-//                "invoice/view/:id": "invoiceView",
+                "invoice/view/:id": "invoiceView",
 //
 //                "products": "productList",
 //                "product/list": "productList",
