@@ -104,7 +104,7 @@ class Product extends AbstractDocument
 
     /**
      * Остаток
-     * @MongoDB\Int
+     * @MongoDB\Increment
      * @var int
      */
     protected $amount;
@@ -128,13 +128,5 @@ class Product extends AbstractDocument
             'info' => $this->info,
             'amount' => $this->amount
         );
-    }
-
-    /**
-     * @MongoDB\PrePersist
-     */
-    public function initLastPurchasePrice()
-    {
-        $this->lastPurchasePrice = new Money($this->purchasePrice);
     }
 }

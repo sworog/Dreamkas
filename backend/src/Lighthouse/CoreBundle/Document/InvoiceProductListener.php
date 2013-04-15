@@ -9,7 +9,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Types\Money;
 
 /**
- * @DI\DoctrineMongoDBListener(events={"postPersist", "postUpdate", "postRemove"})
+ * @DI\DoctrineMongoDBListener(events={"prePersist", "postPersist", "preUpdate", "preRemove"})
  */
 class InvoiceProductListener
 {
@@ -38,6 +38,16 @@ class InvoiceProductListener
         $this->invoiceRepository = $invoiceRepository;
     }
 
+    public function prePersist(LifecycleEventArgs $eventArgs)
+    {
+        $document = $eventArgs->getDocument();
+
+        if ($document instanceof InvoiceProduct) {
+            $document->product->amount = $document->product->amount + $document->quantity;
+            $document->product->lastPurchasePrice = new Money($document->price);
+        }
+    }
+
     /**
      * @param LifecycleEventArgs $eventArgs
      */
@@ -46,14 +56,6 @@ class InvoiceProductListener
         $document = $eventArgs->getDocument();
 
         if ($document instanceof InvoiceProduct) {
-            $quantityDiff = $this->getPropertyDiff($eventArgs, 'quantity');
-
-            $this->productRepository->updateAmountAndLastPurchasePrice(
-                $document->product,
-                $quantityDiff,
-                $document->price
-            );
-
             $totalPriceDiff = $this->getPropertyDiff($eventArgs, 'totalPrice');
             $this->invoiceRepository->updateTotals($document->invoice, 1, $totalPriceDiff);
         }
@@ -62,7 +64,7 @@ class InvoiceProductListener
     /**
      * @param LifecycleEventArgs $eventArgs
      */
-    public function postUpdate(LifecycleEventArgs $eventArgs)
+    public function preUpdate(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
 
@@ -70,28 +72,20 @@ class InvoiceProductListener
 
             $quantityDiff = $this->getPropertyDiff($eventArgs, 'quantity');
 
-            $this->productRepository->updateAmountAndLastPurchasePrice(
-                $document->product,
-                $quantityDiff,
-                $document->price
-            );
+            $document->product->amount = $document->product->amount + $quantityDiff;
+            $document->product->lastPurchasePrice = new Money($document->price);
         }
     }
 
     /**
      * @param LifecycleEventArgs $eventArgs
      */
-    public function postRemove(LifecycleEventArgs $eventArgs)
+    public function preRemove(LifecycleEventArgs $eventArgs)
     {
-        if ($eventArgs->getDocument() instanceof InvoiceProduct) {
-            $invoiceProduct = $eventArgs->getDocument();
+        $document = $eventArgs->getDocument();
 
-            $quantityDiff = $this->getPropertyDiff($eventArgs, 'quantity');
-
-            $this->productRepository->updateAmountAndLastPurchasePrice(
-                $invoiceProduct->product,
-                $quantityDiff - $invoiceProduct->quantity
-            );
+        if ($document instanceof InvoiceProduct) {
+            $document->product->amount = $document->product->amount - $document->quantity;
         }
     }
 
