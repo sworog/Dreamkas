@@ -87,5 +87,21 @@ class InvoiceProductTest extends WebTestCase
         $manager->flush();
 
         $this->assertEquals(0, $product->amount);
+
+        $invoiceProduct1 = new InvoiceProduct();
+        $invoiceProduct1->invoice = $invoice;
+        $invoiceProduct1->product = $product;
+        $invoiceProduct1->quantity = 10;
+
+        $invoiceProduct2 = new InvoiceProduct();
+        $invoiceProduct2->invoice = $invoice;
+        $invoiceProduct2->product = $product;
+        $invoiceProduct2->quantity = 5;
+
+        $manager->persist($invoiceProduct1);
+        $manager->persist($invoiceProduct2);
+        $manager->flush();
+
+        $this->assertEquals(15, $product->amount);
     }
 }
