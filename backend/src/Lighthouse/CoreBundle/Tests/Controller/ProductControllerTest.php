@@ -556,6 +556,21 @@ EOF;
         $this->assertEquals('Кефир3', $crawler->filter('product name')->first()->text());
     }
 
+    public function testSearchProductsActionEmptyRequest()
+    {
+        $client = static::createClient();
+
+        $response = $this->clientJsonRequest(
+            $client,
+            'GET',
+            '/api/1/products/invalid/search.json'
+        );
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertInternalType('array', $response);
+        $this->assertCount(0, $response);
+    }
+
     public function validateProvider()
     {
         return array(
