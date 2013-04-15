@@ -1,0 +1,489 @@
+[
+    {
+        "id": "51629f403b47fbc97b00001d",
+        "name": "a aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaa",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "NFLV-879"
+    },
+    {
+        "id": "51629f7b3b47fbc87b00001c",
+        "name": "Barcode field length validation",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "barcode": "a aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa",
+        "sku": "FTY6456789"
+    },
+    {
+        "id": "51629f953b47fbc97b00001e",
+        "name": "Sku field validation good",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "1001DS"
+    },
+    {
+        "id": "51629fb13b47fbc28000001d",
+        "name": "Vendor,Barcode,VendorCountryInfo fields are not required",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "VBVCF678"
+    },
+    {
+        "id": "51629fc23b47fbc28000001e",
+        "name": "Vendor field validation",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "VFV-01",
+        "vendor": "a aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaa"
+    },
+    {
+        "id": "51629fdf3b47fbc87b00001d",
+        "name": "VendorCountry field validation",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "VCFV-01",
+        "vendorCountry": "a aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+        "id": "5162a0013b47fbc97b00001f",
+        "name": "Info field validation",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "IFV-01",
+        "info": "a aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+        "id": "5162a0323b47fbc28000001f",
+        "name": "PPV-07",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "0.78",
+        "sku": "PPV-07"
+    },
+    {
+        "id": "5162a0413b47fbc280000020",
+        "name": "PPV-08",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "0.78",
+        "sku": "PPV-08"
+    },
+    {
+        "id": "5162a0503b47fbc280000021",
+        "name": "purchase price comma",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123.25",
+        "sku": "JFGE89075"
+    },
+    {
+        "id": "5162a0613b47fbc280000022",
+        "name": "purchase price dot",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "125.26",
+        "sku": "JFGE89078"
+    },
+    {
+        "id": "5162a0723b47fbc280000023",
+        "name": "purchase price one digit",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "789.6",
+        "sku": "FTY64"
+    },
+    {
+        "id": "5162a07b3b47fbc280000024",
+        "name": "purchase price two digits",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "739.67",
+        "sku": "FTY645"
+    },
+    {
+        "id": "5162a0c13b47fbc87b00001e",
+        "name": "PPV-090",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "10000000",
+        "sku": "PPV-090"
+    },
+    {
+        "id": "5162a0d33b47fbc97b000020",
+        "name": "PPV-0903456",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "10.12",
+        "sku": "PPV-0903456"
+    },
+    {
+        "id": "5162a0eb3b47fbc87b00001f",
+        "name": "\u0412\u0435\u0441\u0435\u043b\u044b\u0439",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "5698",
+        "barcode": "8954",
+        "sku": "89745D1",
+        "vendorCountry": "\u0420\u0430\u0448\u0430 \u043c\u0430\u0442\u0443\u0448\u043a\u0430",
+        "vendor": "\u0420\u0430\u043c\u0437\u043e\u043d",
+        "info": "\u0414\u043e\u043f \u0438\u043d\u0444\u043e: \u0422\u0435\u043a\u0441\u0442 \u0434\u0432\u0430\u0434\u0446\u0430\u0442\u044c \u043f\u044f\u0442\u044c"
+    },
+    {
+        "id": "5162a0ff3b47fbc280000025",
+        "name": "\u0412\u0435\u0441\u0435\u043b\u044b\u0439 \u0444\u0435\u0440\u043c\u0435\u0440",
+        "units": "liter",
+        "vat": 0,
+        "purchasePrice": "589554",
+        "barcode": "8988854",
+        "sku": "89745D",
+        "vendorCountry": "\u0420\u0430\u0448\u0430 \u043c\u0430\u0442\u0443\u0448\u043a\u0430 \u0437\u0435 \u0431\u0435\u0441\u0442",
+        "vendor": "\u0420\u0430\u043c\u0437\u043e\u043d \u0437\u043e\u043d\u0430",
+        "info": "\u0414\u043e\u043f \u0438\u043d\u0444\u043e: \u0422\u0435\u0441\u0442\u043e\u0432\u044b\u0435 \u0441\u0443\u0449\u043d\u043e\u0441\u0442\u0438"
+    },
+    {
+        "id": "5162a1133b47fbc97b000021",
+        "name": "\u041e\u041e\u041e \u0418\u041c\u042f",
+        "units": "kg",
+        "vat": 18,
+        "purchasePrice": "567",
+        "barcode": "0000000",
+        "sku": "89745D23",
+        "vendorCountry": "\u0413\u0435\u0440\u043c\u0430\u043d\u0438\u044f",
+        "vendor": "\u0424\u0438\u0440\u043c\u0430 1",
+        "info": "\u0414\u043e\u043f \u0438\u043d\u0444\u043e: \u0422\u0435\u0441\u0442\u043e\u0432\u044b\u0435 \u0441\u0443\u0449\u043d\u043e\u0441\u0442\u0438 3434"
+    },
+    {
+        "id": "5162a1453b47fbc97b000022",
+        "name": "\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u04351",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "barcode": "123",
+        "sku": "1122",
+        "vendorCountry": "\u0420\u043e\u0441\u0441\u0438\u044f1",
+        "vendor": "\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c1",
+        "info": "Info1"
+    },
+    {
+        "id": "5162a1503b47fbc280000027",
+        "name": "\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u04352",
+        "units": "liter",
+        "vat": 0,
+        "purchasePrice": "123",
+        "barcode": "123",
+        "sku": "9856",
+        "vendorCountry": "\u0420\u043e\u0441\u0441\u0438\u044f2",
+        "vendor": "\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c2",
+        "info": "Info2"
+    },
+    {
+        "id": "5162a15e3b47fbc87b000020",
+        "name": "\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u04353",
+        "units": "kg",
+        "vat": 18,
+        "purchasePrice": "123",
+        "barcode": "123",
+        "sku": "798",
+        "vendorCountry": "\u0420\u043e\u0441\u0441\u0438\u044f",
+        "vendor": "\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c3",
+        "info": "Info3"
+    },
+    {
+        "id": "5162a1913b47fbc97b000023",
+        "name": "\u0418\u043c\u044f23 56",
+        "units": "liter",
+        "vat": 0,
+        "purchasePrice": "8922174",
+        "barcode": "102454",
+        "sku": "89489545DGF1",
+        "vendorCountry": "\u0412\u0435\u043d\u0434\u043e\u0440\u043a\u0430\u043d\u0442\u0440\u043856",
+        "vendor": "\u0412\u0435\u043d\u0434\u043e\u044045",
+        "info": "Info1688"
+    },
+    {
+        "id": "5162a1aa3b47fbc280000028",
+        "name": "\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u043516888",
+        "units": "kg",
+        "vat": 18,
+        "purchasePrice": "1231",
+        "barcode": "12316888",
+        "sku": "16888",
+        "vendorCountry": "\u0420\u043e\u0441\u0441\u0438\u044f16888",
+        "vendor": "\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c16888",
+        "info": "Info16888"
+    },
+    {
+        "id": "5162a1ba3b47fbc87b000022",
+        "name": "\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u04359001",
+        "units": "liter",
+        "vat": 0,
+        "purchasePrice": "1231",
+        "barcode": "1231689001",
+        "sku": "169001",
+        "vendorCountry": "\u0420\u043e\u0441\u0441\u0438\u044f9001",
+        "vendor": "\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c9001",
+        "info": "Info169001"
+    },
+    {
+        "id": "5162a1e53b47fbc97b000024",
+        "name": "ED-NMLVN",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-NMLVN"
+    },
+    {
+        "id": "5162a1cb3b47fbc280000029",
+        "name": "a aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaa",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "EPNFLV-879"
+    },
+    {
+        "id": "5162a1f93b47fbc28000002a",
+        "name": "ED-NMLVN2",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-NMLVN2"
+    },
+    {
+        "id": "5162a20c3b47fbc87b000023",
+        "name": "ED-NFIR",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-NFIR"
+    },
+    {
+        "id": "5162a2243b47fbc87b000024",
+        "name": "ED-BFLVN",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-BFLVN"
+    },
+    {
+        "id": "5162a23c3b47fbc97b000025",
+        "name": "Sku field validation good",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "1001DS8"
+    },
+    {
+        "id": "5162a2423b47fbc97b000026",
+        "name": "ED-SKVG",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-SKVG"
+    },
+    {
+        "id": "5162a2523b47fbc28000002b",
+        "name": "ED-SFN",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-SFN"
+    },
+    {
+        "id": "5162a2603b47fbc87b000025",
+        "name": "ED-SFIR",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-SFIR"
+    },
+    {
+        "id": "5162a2713b47fbc97b000027",
+        "name": "Vendor,Barcode,VendorCountryInfo fields are not required",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "EPVBVCF678"
+    },
+    {
+        "id": "5162a28b3b47fbc87b000026",
+        "name": "Vendor field validation",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "EPVFV-01",
+        "vendor": "a aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaa"
+    },
+    {
+        "id": "5162a2aa3b47fbc28000002c",
+        "name": "ED-VFVLN",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-VFVLN"
+    },
+    {
+        "id": "5162a2be3b47fbc87b000027",
+        "name": "VendorCountry field validation",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "EPVCFV-01",
+        "vendorCountry": "a aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+        "id": "5162a2dd3b47fbc28000002d",
+        "name": "ED-VCFVN",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-VCFVN"
+    },
+    {
+        "id": "5162a2f13b47fbc87b000028",
+        "name": "Info field validation",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "58967",
+        "sku": "EPIFV-01",
+        "info": "a aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+        "id": "5162a3163b47fbc28000002e",
+        "name": "ED-IFVN",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-IFVN"
+    },
+    {
+        "id": "5162a3303b47fbc87b000029",
+        "name": "ED-PRVSSN",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-PRVSSN"
+    },
+    {
+        "id": "5162a3433b47fbc97b000028",
+        "name": "EPPPV-07",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "0.78",
+        "sku": "EPPPV-07"
+    },
+    {
+        "id": "5162a3623b47fbc87b00002a",
+        "name": "EPPPV-08",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "0.78",
+        "sku": "EPPPV-08"
+    },
+    {
+        "id": "5162a3813b47fbc28000002f",
+        "name": "purchase price comma",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123.25",
+        "sku": "EPJFGE89075"
+    },
+    {
+        "id": "5162a3a23b47fbc97b000029",
+        "name": "purchase price dot",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "125.26",
+        "sku": "EPJFGE89078"
+    },
+    {
+        "id": "5162a3c13b47fbc87b00002b",
+        "name": "purchase price one digit",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "789.6",
+        "sku": "EPFTY64"
+    },
+    {
+        "id": "5162a3e53b47fbc280000030",
+        "name": "purchase price two digits",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "739.67",
+        "sku": "EPFTY645"
+    },
+    {
+        "id": "5162a4033b47fbc97b00002a",
+        "name": "ED-PPC3D",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-PPC3D"
+    },
+    {
+        "id": "5162a4173b47fbc280000031",
+        "name": "ED-PPFIR",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-PPFIR"
+    },
+    {
+        "id": "5162a42d3b47fbc280000032",
+        "name": "ED-PPVSB",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-PPVSB"
+    },
+    {
+        "id": "5162a4483b47fbc280000033",
+        "name": "ED-PPVSR",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-PPVSR"
+    },
+    {
+        "id": "5162a46f3b47fbc87b00002c",
+        "name": "ED-PPCS",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-PPCS"
+    },
+    {
+        "id": "5162a4823b47fbc97b00002b",
+        "name": "PPV-090",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "10000000",
+        "sku": "EPPPV-090"
+    },
+    {
+        "id": "5162a49f3b47fbc87b00002d",
+        "name": "ED-PPVLN",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "123",
+        "sku": "ED-PPVLN"
+    },
+    {
+        "id": "5162a4c33b47fbc87b00002e",
+        "name": "\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u043556",
+        "units": "unit",
+        "vat": 10,
+        "purchasePrice": "12356",
+        "barcode": "123",
+        "sku": "1234567",
+        "vendorCountry": "\u0420\u043e\u0441\u0441\u0438\u044f56",
+        "vendor": "\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c56",
+        "info": "Info1"
+    }
+]

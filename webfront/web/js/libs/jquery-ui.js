@@ -5314,7 +5314,7 @@ $.widget( "ui.accordion", {
 			.removeClass( "ui-accordion-header ui-accordion-header-active ui-helper-reset ui-state-default ui-corner-all ui-state-active ui-state-disabled ui-corner-top" )
 			.removeAttr( "role" )
 			.removeAttr( "aria-selected" )
-			.removeAttr( "aria-controls" )
+			.removeAttr( "aria-views" )
 			.removeAttr( "tabIndex" )
 			.each(function() {
 				if ( /^ui-accordion/.test( this.id ) ) {
@@ -11574,7 +11574,7 @@ $.widget( "ui.tabs", {
 			// check the fragment identifier in the URL
 			if ( locationHash ) {
 				this.tabs.each(function( i, tab ) {
-					if ( $( tab ).attr( "aria-controls" ) === locationHash ) {
+					if ( $( tab ).attr( "aria-views" ) === locationHash ) {
 						active = i;
 						return false;
 					}
@@ -11760,7 +11760,7 @@ $.widget( "ui.tabs", {
 	},
 
 	_tabId: function( tab ) {
-		return tab.attr( "aria-controls" ) || "ui-tabs-" + getNextTabId();
+		return tab.attr( "aria-views" ) || "ui-tabs-" + getNextTabId();
 	},
 
 	_sanitizeSelector: function( hash ) {
@@ -11866,7 +11866,7 @@ $.widget( "ui.tabs", {
 			var selector, panel, panelId,
 				anchorId = $( anchor ).uniqueId().attr( "id" ),
 				tab = $( anchor ).closest( "li" ),
-				originalAriaControls = tab.attr( "aria-controls" );
+				originalAriaControls = tab.attr( "aria-views" );
 
 			// inline tab
 			if ( isLocal( anchor ) ) {
@@ -11888,7 +11888,7 @@ $.widget( "ui.tabs", {
 				that.panels = that.panels.add( panel );
 			}
 			if ( originalAriaControls ) {
-				tab.data( "ui-tabs-aria-controls", originalAriaControls );
+				tab.data( "ui-tabs-aria-views", originalAriaControls );
 			}
 			tab.attr({
 				"aria-controls": selector.substring( 1 ),
@@ -12177,13 +12177,13 @@ $.widget( "ui.tabs", {
 
 		this.tabs.each(function() {
 			var li = $( this ),
-				prev = li.data( "ui-tabs-aria-controls" );
+				prev = li.data( "ui-tabs-aria-views" );
 			if ( prev ) {
 				li
-					.attr( "aria-controls", prev )
-					.removeData( "ui-tabs-aria-controls" );
+					.attr( "aria-views", prev )
+					.removeData( "ui-tabs-aria-views" );
 			} else {
-				li.removeAttr( "aria-controls" );
+				li.removeAttr( "aria-views" );
 			}
 		});
 
@@ -12304,7 +12304,7 @@ $.widget( "ui.tabs", {
 	},
 
 	_getPanelForTab: function( tab ) {
-		var id = $( tab ).attr( "aria-controls" );
+		var id = $( tab ).attr( "aria-views" );
 		return this.element.find( this._sanitizeSelector( "#" + id ) );
 	}
 });

@@ -3842,7 +3842,7 @@ var cachedruns,
 	}),
 
 	// Check if getElementById returns elements by name
-	// Check if getElementsByName privileges form controls or returns elements by ID
+	// Check if getElementsByName privileges form views or returns elements by ID
 	assertUsableName = assert(function( div ) {
 		// Inject content
 		div.id = expando + 0;

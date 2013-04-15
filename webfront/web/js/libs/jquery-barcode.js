@@ -866,7 +866,7 @@
         var colsRegionCW = this.dataRegionCols[index];
         var rowsLengthMatrice = rowsTotal-2*rowsRegion; // Size of matrice data
         var colsLengthMatrice = colsTotal-2*colsRegion;
-        var blocks = this.interleavedBlocks[index];  // Number of Reed Solomon blocks
+        var blocks = this.interleavedBlocks[index];  // Number of Reed Solomon views
         var errorBlocks = (solomonCWCount / blocks);
         
         this.addPadCW(dataCodeWords, dataCWCount, totalDataCWCount); // Add codewords pads
