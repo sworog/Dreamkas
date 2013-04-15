@@ -18,11 +18,15 @@ class Money
     }
 
     /**
-     * @param int $count
+     * @param int  $count
+     * @param bool $round
      * @return $this
      */
-    public function setCount($count)
+    public function setCount($count, $round = false)
     {
+        if ($round) {
+            $count = $this->round($count);
+        }
         $this->count = $count;
         return $this;
     }
@@ -33,5 +37,29 @@ class Money
     public function getCount()
     {
         return $this->count;
+    }
+
+    /**
+     * @param float $count
+     * @return int
+     */
+    public function round($count)
+    {
+        return (int) round($count);
+    }
+
+    /**
+     * @param int $count
+     * @param int $quantity
+     * @param bool $round
+     * @return $this
+     */
+    public function setCountByQuantity($count, $quantity, $round = false)
+    {
+        if ($count instanceof self) {
+            $count = $count->getCount();
+        }
+        $count *= $quantity;
+        return $this->setCount($count, $round);
     }
 }

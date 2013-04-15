@@ -388,7 +388,7 @@ EOF;
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
         $this->assertContains(
-            'Эта форма не должна содержать дополнительных полей.',
+            'Эта форма не должна содержать дополнительных полей',
             $crawler->filter('form[name="product"] > errors entry')->first()->text()
         );
 
@@ -516,6 +516,44 @@ EOF;
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
+    public function testSearchProductsAction()
+    {
+        $client = static::createClient();
+
+        $postArray = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => 3048,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+        for ($i = 0; $i < 5; $i++) {
+            $postArray['name'] = 'Кефир' . $i;
+            $postArray['sku'] = 'sku' . $i;
+            $client->request(
+                'POST',
+                '/api/1/products',
+                array('product' => $postArray)
+            );
+            $this->assertEquals(201, $client->getResponse()->getStatusCode());
+            $client->restart();
+        }
+
+        $crawler = $client->request(
+            'GET',
+            '/api/1/products/name/search',
+            array(
+                'query' => 'кефир3',
+            )
+        );
+
+        $this->assertEquals(1, $crawler->filter('product name')->count());
+        $this->assertEquals('Кефир3', $crawler->filter('product name')->first()->text());
+    }
 
     public function validateProvider()
     {

@@ -4,11 +4,14 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\DatesCompare;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(
+ *     repositoryClass="Lighthouse\CoreBundle\Document\InvoiceRepository"
+ * )
  * @DatesCompare(
  *     firstField="acceptanceDate",
  *     secondField="supplierInvoiceDate",
@@ -92,10 +95,16 @@ class Invoice extends AbstractDocument
     protected $createdDate;
 
     /**
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Field(type="money")
+     * @var Money
      */
     protected $sumTotal;
+
+    /**
+     * @MongoDB\Int
+     * @var int
+     */
+    protected $itemsCount;
 
     /**
      *
@@ -104,6 +113,7 @@ class Invoice extends AbstractDocument
     {
         //$this->acceptanceDate = new \DateTime();
         $this->createdDate = new \DateTime();
+        $this->sumTotal = new Money(0);
     }
 
     /**
@@ -122,6 +132,7 @@ class Invoice extends AbstractDocument
             'supplierInvoiceDate' => $this->supplierInvoiceDate,
             'createdDate' => $this->createdDate,
             'sumTotal' => $this->sumTotal,
+            'itemsCount' => $this->itemsCount,
         );
     }
 }

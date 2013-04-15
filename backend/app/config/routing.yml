@@ -1,4 +1,5 @@
 lighthouse.core:
     type: rest
     resource: "@LighthouseCoreBundle/Resources/config/routing.yml"
+    prefix: /api/1
 

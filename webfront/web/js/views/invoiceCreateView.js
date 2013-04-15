@@ -7,7 +7,7 @@ var InvoiceCreateView = Backbone.View.extend({
     template: Mustache.compile($("#invoiceEdit").html()),
 
     events: {
-        'submit form': "formSubmitted"
+        'click a.saveInvoiceAndAddProduct': "formSubmitted"
     },
 
     initialize: function() {
@@ -44,7 +44,7 @@ var InvoiceCreateView = Backbone.View.extend({
                 model.parseErrors($.parseJSON(response.responseText));
             },
             success: function(model, response) {
-                app.navigate('invoice/list', {trigger: true});
+                app.navigate('invoice/products/' + model.get('id'), {trigger: true});
             }
         });
     },

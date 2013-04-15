@@ -26,8 +26,7 @@ class InvoiceType extends AbstractType
                 'supplierInvoiceDate',
                 'datetime',
                 array('invalid_message' => 'lighthouse.validation.errors.date.invalid_value')
-            )
-            ->add('sumTotal', 'text');
+            );
     }
 
     /**

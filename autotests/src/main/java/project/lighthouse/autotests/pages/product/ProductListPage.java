@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.pages.product;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,7 +23,8 @@ public class ProductListPage extends ProductCreatePage{
 	}
 
     public void createNewProductButtonClick(){
-        findBy("//*[@lh_button='create']").click();
+        String xpath = "//*[@lh_button='create']";
+        getDriver().findElement(By.xpath(xpath)).click();
     }
 	
 	public void listItemClick(String skuValue){

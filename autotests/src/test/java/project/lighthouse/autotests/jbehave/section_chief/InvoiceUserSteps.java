@@ -57,6 +57,22 @@ public class InvoiceUserSteps {
         invoiceSteps.generateTestCharData(elementName, charNumber);
     }
 
+    @When("the user navigates to invoice product addition")
+    public void whenTheUserNavigatesToInvoiceProductAddition(){
+        invoiceSteps.goToTheaAdditionOfProductsLinkClick();
+    }
+
+    @When("the user inputs '$value' in the invoice product '$elementName' field")
+    public void whenTheUserInputsValueInTheInvoiceProductElementNameField(String value, String elementName){
+        whenTheUserInputsTextInTheInvoiceField(elementName, value);
+    }
+
+
+    @When("the user clicks the add more product button")
+    public void whenTheUserClicksTheAddMoreProductButton(){
+        invoiceSteps.addOneMoreProductLinkClick();
+    }
+
     @Then("the user checks the invoice with '$skuValue' sku has '$name' equal to '$expectedValue'")
     public void whenTheUSerChecksTheInvoiceWithSkuHasNameValueEqualToExpectedValue(String skuValue, String name, String expectedValue){
         invoiceSteps.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, name, expectedValue);
@@ -85,5 +101,15 @@ public class InvoiceUserSteps {
     @Then("the user checks the '$elementName' is prefilled and equals NowDate")
     public void thenTheUserChecksTheDateIsPrefilledAndEquals(String elementName){
         invoiceSteps.checkTheDateisNowDate(elementName);
+    }
+
+    @Then("the user checks the invoice product with '$value' sku is present")
+    public void whenTheUserChecksTheInvoiceProductWithSKuIsPresent(String value){
+        invoiceSteps.invoiceProductListItemCheck(value);
+    }
+
+    @Then("the user checks the warning message about changes is present")
+    public void thenTheUserChecksTheWarningMessageAboutChangesIsPresent(){
+        invoiceSteps.checkFormIsChanged();
     }
 }

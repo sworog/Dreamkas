@@ -16,7 +16,7 @@ var ProductItem = Backbone.View.extend({
         data.purchasePrice = Helpers.pricesFloatToView(data.purchasePrice);
 
         this.$el.html(this.template(data));
-        this.$el.attr('href', "/product_view/" + this.model.id);
+        this.$el.attr('href', "/product/view/" + this.model.id);
 
         return this;
     }

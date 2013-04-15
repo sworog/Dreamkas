@@ -35,21 +35,16 @@ class MoneyHandler implements SubscribingHandlerInterface
     {
         $methods = array();
         $formats = array('json', 'xml', 'yml');
+        $types = array('Lighthouse\\CoreBundle\\Types\\Money', 'Money');
         foreach ($formats as $format) {
-            $methods[] = array(
-                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
-                'format' => $format,
-                'type' => 'Money',
-                'method' => 'serializeMoney',
-            );
-            /*
-            $methods[] = array(
-                'direction' => GraphNavigator::DIRECTION_DESERIALIZATION,
-                'format' => $format,
-                'type' => 'Money',
-                'method' => 'deserializeMoney',
-            );
-            */
+            foreach ($types as $type) {
+                $methods[] = array(
+                    'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+                    'format' => $format,
+                    'type' => $type,
+                    'method' => 'serializeMoney',
+                );
+            }
         }
         return $methods;
     }
@@ -66,21 +61,4 @@ class MoneyHandler implements SubscribingHandlerInterface
         $viewData = $this->viewTransformer->transform($normData);
         return $visitor->visitString($viewData, $type);
     }
-
-    /**
-     * Пока не нужен
-     * @param \JMS\Serializer\VisitorInterface $visitor
-     * @param string $value
-     * @param array $type
-     * @return int
-     */
-    /*
-    public function deserializeMoney(VisitorInterface $visitor, $value, array $type)
-    {
-        $value = $visitor->visitString($value, $type);
-        $normData = $this->viewTransformer->reverseTransform($value);
-        $modelData = $this->moneyTransformer->reverseTransform($normData);
-        return $modelData;
-    }
-    */
 }

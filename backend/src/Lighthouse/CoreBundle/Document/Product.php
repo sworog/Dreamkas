@@ -21,8 +21,11 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $vendorCountry
  * @property string $vendor
  * @property string $info
+ * @property int    $amount
  *
- * @MongoDB\Document
+ * @MongoDB\Document(
+ *     repositoryClass="Lighthouse\CoreBundle\Document\ProductRepository"
+ * )
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
  */
 class Product extends AbstractDocument
@@ -49,7 +52,6 @@ class Product extends AbstractDocument
 
     /**
      * @MongoDB\Int
-     * @Assert\Range(min="0")
      * @Assert\NotBlank(message="lighthouse.validation.errors.product.vat.blank")
      * @Assert\Range(min="0")
      */
@@ -58,8 +60,7 @@ class Product extends AbstractDocument
     /**
      * @MongoDB\Field(type="money")
      * @Assert\NotBlank
-     * @LighthouseAssert\Money(max=1000000000, notBlank=true)
-     * @Serializer\Type("Money")
+     * @LighthouseAssert\Money(notBlank=true)
      * @var Money
      */
     protected $purchasePrice;
@@ -96,6 +97,13 @@ class Product extends AbstractDocument
     protected $info;
 
     /**
+     * Остаток
+     * @MongoDB\Int
+     * @var int
+     */
+    protected $amount;
+
+    /**
      * @return array
      */
     public function toArray()
@@ -111,6 +119,7 @@ class Product extends AbstractDocument
             'vendorCountry' => $this->vendorCountry,
             'vendor' => $this->vendor,
             'info' => $this->info,
+            'amount' => $this->amount
         );
     }
 }

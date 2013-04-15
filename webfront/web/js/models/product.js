@@ -1,6 +1,6 @@
 var Product = BasicModel.extend({
     modelName: 'product',
-    urlRoot: baseApiUrl + "/api/1/products",
+    urlRoot: baseApiUrl + "/products",
 
     defaults: {
         id: null,
@@ -12,21 +12,39 @@ var Product = BasicModel.extend({
         sku: null,
         vendorCountry: null,
         vendor: null,
-        info: null
+        info: null,
+        amount: 0
+    },
+
+    toJSON: function(options) {
+        _.defaults(options || (options = {}), {
+            toSave: false
+        });
+
+        var data = BasicModel.prototype.toJSON.call(this, options)
+
+        if(options.toSave){
+            data[this.modelName].amount = undefined;
+        }
+
+        return data;
     },
 
     unitsEnum: {
         kg: {
             textEdit: "Килограммы",
-            textView: "килограмм"
+            textView: "килограмм",
+            textViewShort: "кг"
         },
         unit: {
             textEdit: "Штуки",
-            textView: "штука"
+            textView: "штука",
+            textViewShort: "шт."
         },
         liter: {
             textEdit: "Литры",
-            textView: "литр"
+            textView: "литр",
+            textViewShort: "л"
         }
     },
 

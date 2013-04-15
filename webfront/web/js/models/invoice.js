@@ -1,6 +1,6 @@
 var Invoice = BasicModel.extend({
     modelName: 'invoice',
-    urlRoot: baseApiUrl + "/api/1/invoices",
+    urlRoot: baseApiUrl + "/invoices",
 
     dateFormat: 'dd.mm.yy',
     datePrintFormat: "dd.mm.yyyy",
@@ -17,5 +17,19 @@ var Invoice = BasicModel.extend({
         supplierInvoiceSku: null,
         supplierInvoiceDate: null,
         sumTotal: null
+    },
+
+    toJSON: function(options) {
+        _.defaults(options || (options = {}), {
+            toSave: false
+        });
+
+        var data = BasicModel.prototype.toJSON.call(this, options)
+
+        if(options.toSave){
+            data[this.modelName].sumTotal = undefined;
+        }
+
+        return data;
     }
 });

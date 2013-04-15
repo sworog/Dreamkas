@@ -30,6 +30,7 @@ var BasicModel = Backbone.Model.extend({
     },
 
     parseErrors: function(json) {
+        this.errors = {};
         var errorIsset = false;
         for(var field in json.children) {
             if(json.children[field].errors != undefined){

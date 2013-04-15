@@ -2,10 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ODM\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Invoice;
 use Lighthouse\CoreBundle\Document\InvoiceCollection;
+use Lighthouse\CoreBundle\Document\InvoiceRepository;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -17,18 +17,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class InvoiceController extends FOSRestController
 {
     /**
-     * @DI\Inject("doctrine_mongodb")
-     * @var ManagerRegistry
+     * @DI\Inject("lighthouse.core.document.repository.invoice")
+     * @var InvoiceRepository
      */
-    protected $odm;
-
-    /**
-     * @return \Doctrine\Common\Persistence\ObjectRepository
-     */
-    protected function getInvoiceRepository()
-    {
-        return $this->odm->getRepository("LighthouseCoreBundle:Invoice");
-    }
+    protected $invoiceRepository;
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -54,8 +46,8 @@ class InvoiceController extends FOSRestController
         $form->bind($request);
 
         if ($form->isValid()) {
-            $this->odm->getManager()->persist($invoice);
-            $this->odm->getManager()->flush();
+            $this->invoiceRepository->getDocumentManager()->persist($invoice);
+            $this->invoiceRepository->getDocumentManager()->flush();
             return $invoice;
         } else {
             return View::create($form, 400);
@@ -68,7 +60,7 @@ class InvoiceController extends FOSRestController
     public function getInvoicesAction()
     {
         /* @var LoggableCursor $cursor */
-        $cursor = $this->getInvoiceRepository()->findAll();
+        $cursor = $this->invoiceRepository->findAll();
         $collection = new InvoiceCollection($cursor);
         return $collection;
     }
@@ -89,7 +81,7 @@ class InvoiceController extends FOSRestController
      */
     protected function findInvoice($id)
     {
-        $invoice = $this->getInvoiceRepository()->find($id);
+        $invoice = $this->invoiceRepository->find($id);
         if (!$invoice instanceof Invoice) {
             throw new NotFoundHttpException('Product not found');
         }

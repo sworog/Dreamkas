@@ -2,12 +2,10 @@ var InvoicesRouter = Backbone.Router.extend({
     routes: {
         "invoices":             "invoices_list",
         "invoice/list":         "invoices_list",
-        "invoice_view/:id":     "invoice_view",
         "invoice/view/:id":     "invoice_view",
-        "invoice_edit/:id":     "invoice_edit",
+        "invoice/edit/:id":     "invoice_edit",
         "invoice/create":       "invoice_create",
-        "invoice_create":       "invoice_create",
-        "invoice/test/:id":     "invoice_test"
+        "invoice/products/:id": "invoice_products"
     },
 
     collections: {
@@ -56,7 +54,7 @@ var InvoicesRouter = Backbone.Router.extend({
         $("[lh_application]").html(view.render().el);
     },
 
-    invoice_test: function(id) {
+    invoice_products: function(id) {
         if( ! this.models.invoice) {
             this.models.invoice = new Invoice({id: id});
         } else {

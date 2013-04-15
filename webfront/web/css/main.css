@@ -360,6 +360,10 @@
     display: block;
 }
 
+[ lh_field="short" ][ lh_field_error ][ lh_field_error_inline ]:after {
+    display: inline-block;
+}
+
 [ lh_field_error ] > input,
 [ lh_field_error ] > textarea,
 [ lh_field_error ] > select {
@@ -1798,4 +1802,9 @@ hr {
 
 .bold {
     font-weight: bold;
+}
+
+.addMoreProduct,
+.saveInvoiceAndAddProduct {
+    cursor: pointer;
 }

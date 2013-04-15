@@ -7,7 +7,7 @@ var InvoiceAddProductListTable = Backbone.View.extend({
     initialize: function() {
         this.collection.bind('add', this.addLast, this);
         this.collection.bind('all', this.render,this);
-//        this.model.bind('sync', this.render, this);
+        this.model.bind('sync', this.renderInfo, this);
     },
 
     render: function() {
@@ -16,14 +16,11 @@ var InvoiceAddProductListTable = Backbone.View.extend({
             this.isRendered = true;
         }
 
-        if(this.collection.length > 0 && this.emptyList) {
+        if(this.collection.length > 0) {
             this.$el.show();
-            this.emptyList = false
-            this.$el.find(".invoiceAddProductListInfo[lh_card_sub_title]")
-                .html(this.templateInfo({totalProducts: null, totalSum: null}));
+            this.renderInfo();
         } else {
             this.$el.hide();
-            this.emptyList = true;
         }
 
         return this;
@@ -33,5 +30,12 @@ var InvoiceAddProductListTable = Backbone.View.extend({
         var lastModel = this.collection.last();
         var view = new InvoiceAddProductListRowTable({model: lastModel});
         this.$el.find("[lh_table]").append(view.el);
+    },
+
+    renderInfo: function() {
+        var data = this.model.toJSON();
+        data.sumTotal = Helpers.pricesFloatToView(data.sumTotal);
+        this.$el.find(".invoiceAddProductListInfo[lh_card_sub_title]")
+            .html(this.templateInfo(data));
     }
 });
