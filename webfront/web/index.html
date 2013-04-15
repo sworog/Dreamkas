@@ -799,7 +799,14 @@
         <span name="vendor" lh_table_cell="common">{{ vendor }}</span>
         <span name="vendorCountry" lh_table_cell="common">{{ vendorCountry }}</span>
         <span lh_table_cell="money">
-            <span name="purchasePrice">{{ purchasePrice }}</span>
+            <span name="purchasePrice">
+                {{#lastPurchasePrice}}
+                    {{lastPurchasePrice}}
+                {{/lastPurchasePrice}}
+                {{^lastPurchasePrice}}
+                    *{{purchasePrice}}
+                {{/lastPurchasePrice}}
+            </span>
             р.
         </span>
         <span lh_table_cell="money">
