@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Артикул</th>
+        <th>Название</th>
+        <th>Производитель</th>
+        <th>Страна</th>
+        <th>Цена</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% _.each(collection.toJSON(), function(product){ %>
+        <%= templates.row(product) %>
+    <% }) %>
+    </tbody>
+</table>
