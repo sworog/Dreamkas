@@ -1,0 +1,41 @@
+<tr name="product" product-sku="<%= invoiceProduct.product.sku %>">
+    <td>
+        <div name="productName"><%= invoiceProduct.product.name %></div>
+        <div name="productSku"><%= invoiceProduct.product.sku %></div>
+    </td>
+    <td>
+        <div name="productBarcode">
+            <%= invoiceProduct.product.barcode %>
+        </div>
+    </td>
+    <td>
+        <span name="productAmount">
+            <%= invoiceProduct.quantity %>
+        </span>
+        <span name="productUnits">
+            <%= block.utils.units(invoiceProduct.product.units, 'smallShort') %>
+        </span>
+    </td>
+    <td>
+        <span>
+            по
+        </span>
+        <span name="productPrice">
+            <%= block.utils.formatPrice(invoiceProduct.price) %>
+        </span>
+        <span>
+            р.
+        </span>
+    </td>
+    <td>
+        <span>
+            =
+        </span>
+        <span name="productSum">
+            <%= block.utils.formatPrice(invoiceProduct.totalPrice) %>
+        </span>
+        <span>
+            р.
+        </span>
+    </td>
+</tr>

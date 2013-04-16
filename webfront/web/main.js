@@ -1,7 +1,9 @@
 require(
     [
         '/routers/main.js',
-        '/views/Block.js'
+        '/views/Block.js',
+        '/collections/base.js',
+        '/models/base.js'
     ],
     function(router) {
         $(function() {

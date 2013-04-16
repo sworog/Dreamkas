@@ -38,3 +38,15 @@
 .invoice__headItemHint{
     font-size: 11px;
 }
+
+.invoice__totalSum {
+    margin: 0 5px;
+}
+
+.invoice__totalProducts {
+    margin: 0 5px;
+}
+
+.invoice__table {
+    margin-bottom: 20px;
+}
