@@ -2,7 +2,7 @@ var InvoiceAddProductListRowTable = Backbone.View.extend({
     template: Mustache.compile($("#invoiceProductListRowTable").html()),
     attributes: {
         lh_table_row: "true",
-        name: "product"
+        name: "invoiceProduct"
     },
 
     initialize: function() {

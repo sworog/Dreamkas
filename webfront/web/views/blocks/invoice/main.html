@@ -20,6 +20,65 @@
     </div>
     <div class="invoice__addForm">
 
+        <form>
+            <input type="hidden" name="product">
+            <label lh_prop="true">
+                    <span lh_prop_name="true">
+                        Наименование
+                    </span>
+                    <span lh_prop_value="true" lh_field="short" lh_field_error_inline="true">
+                        <input lh_field_native="true" lh_product_autocomplete="name" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                    </span>
+            </label>
+            <label lh_prop="true">
+                    <span lh_prop_name="true">
+                        Артикул
+                    </span>
+                    <span lh_prop_value="true" lh_field="short" lh_field_error_inline="true">
+                        <input lh_field_native="true" lh_product_autocomplete="sku" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                    </span>
+            </label>
+            <label lh_prop="true">
+                    <span lh_prop_name="true">
+                        Штрихкод
+                    </span>
+                    <span lh_prop_value="true" lh_field="short" lh_field_error_inline="true">
+                        <input lh_field_native="true" lh_product_autocomplete="barcode" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                    </span>
+            </label>
+            <label lh_prop="true">
+                    <span lh_prop_name="true">
+                        Количество
+                    </span>
+                    <span lh_prop_value="true" lh_field="mini">
+                        <input lh_field_native="true" name="quantity">
+                    </span>
+            </label>
+            <label lh_prop="true">
+                    <span lh_prop_name="true">
+                        Цена приёмки
+                    </span>
+                    <span lh_prop_value="true" lh_field="mini">
+                        <input lh_field_native="true" name="price">
+                    </span>
+            </label>
+            <div>
+                <span lh_prop_name="true"></span>
+                    <span lh_field="normal">
+                        <a class="addMoreProduct">
+                            Добавить ещё один товар
+                        </a>
+                    </span>
+            </div>
+            <div lh_card_foot="true">
+                <div lh_prop="true">
+                    <span lh_prop_name="true"></span>
+                    <button lh_button="commit" type="submit">
+                        Завершить приёмку
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <div class="page__clear"></div>
