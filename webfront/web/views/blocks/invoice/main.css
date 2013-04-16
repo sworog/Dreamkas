@@ -69,3 +69,7 @@
 .invoice__controlItem{
     padding-bottom: 10px;
 }
+
+.invoice__supplier{
+    padding-bottom: 20px;
+}

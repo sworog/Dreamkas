@@ -5,7 +5,7 @@
     </span>
     от
     <span name="acceptanceDate">
-        <%= moment(block.invoiceModel.get('acceptanceDate')).format('dddd, D MMMM YYYY, hh:mm:ss') %>
+        <%= moment(block.invoiceModel.get('acceptanceDate')).format('DD.MM.YYYY hh:mm') %>
     </span>
 </div>
 
@@ -34,4 +34,7 @@
             получатель
         </div>
     </div>
+</div>
+<div class="invoice__supplier">
+    Входящая накладная № <span name="supplierInvoiceSku"><%= block.invoiceModel.get('supplierInvoiceSku') %></span> от <span name="supplierInvoiceDate"><%= block.invoiceModel.get('supplierInvoiceDate') ? moment(block.invoiceModel.get('supplierInvoiceDate')).format('DD.MM.YYYY') : '' %></span>
 </div>
