@@ -5,8 +5,6 @@ import org.openqa.selenium.By;
 
 public class Textarea extends Input {
 
-    types type = types.textarea;
-
     public Textarea(PageObject pageObject, By findBy) {
         super(pageObject, findBy);
     }

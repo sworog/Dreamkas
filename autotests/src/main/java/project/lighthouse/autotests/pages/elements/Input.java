@@ -6,8 +6,6 @@ import project.lighthouse.autotests.pages.common.CommonItem;
 
 public class Input extends CommonItem {
 
-    types type = types.input;
-
     public Input(PageObject pageObject, By findBy) {
         super(pageObject, findBy);
     }

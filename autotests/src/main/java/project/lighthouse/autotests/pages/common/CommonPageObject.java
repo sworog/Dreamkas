@@ -12,10 +12,10 @@ abstract public class CommonPageObject extends PageObject {
 
     public Map<String, CommonItem> items = new HashMap();
 
-    public CommonPageObject(WebDriver driver, int ajaxTimeout) {
-        super(driver, ajaxTimeout);
-        createElements();
-    }
+//    public CommonPageObject(WebDriver driver, int ajaxTimeout) {
+//        super(driver, ajaxTimeout);
+//        createElements();
+//    }
 
     public CommonPageObject(WebDriver driver) {
         super(driver);

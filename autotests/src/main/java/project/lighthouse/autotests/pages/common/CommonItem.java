@@ -8,29 +8,21 @@ import org.openqa.selenium.WebElement;
 
 abstract public class CommonItem {
 
-    protected types type;
-    protected WebElement element;
+    private WebElement element;
     protected By findBy;
     protected PageObject pageObject;
-
-    public static enum types {input, textarea, select, dateTime, autocomplete, date, nonType}
 
     public CommonItem(PageObject pageObject, By findBy) {
         this.pageObject = pageObject;
         this.findBy = findBy;
-        this.element = getWebDriver().findElement(findBy);
     }
 
     public CommonItem(PageObject pageObject, String name) {
         this(pageObject, By.name(name));
     }
 
-    public types getType() {
-        return type;
-    }
-
     public WebElement getWebElement() {
-        return element;
+        return getWebDriver().findElement(findBy);
     }
 
     public WebDriver getWebDriver() {
@@ -44,6 +36,6 @@ abstract public class CommonItem {
     }
 
     public WebElementFacade $() {
-        return pageObject.$(element);
+        return pageObject.$(getWebElement());
     }
 }

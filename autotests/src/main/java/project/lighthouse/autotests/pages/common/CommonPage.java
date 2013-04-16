@@ -30,7 +30,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     public static final String ERROR_MESSAGE = "No such option for '%s'";
     public static final String STRING_EMPTY = "";
 
-    public ArrayList<String> products;
+    public ArrayList<String> products = new ArrayList<>();
 
     public CommonPage(WebDriver driver) {
         super(driver);

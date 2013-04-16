@@ -4,18 +4,9 @@ import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.pages.common.CommonItem;
 
-/**
- * Created with IntelliJ IDEA.
- * User: atolpeev
- * Date: 16.04.13
- * Time: 15:05
- * To change this template use File | Settings | File Templates.
- */
 public class Autocomplete extends CommonItem {
 
     public static final String AUTOCOMPLETE_XPATH_PATTERN = "//*[@role='presentation']/*[text()='%s']";
-
-    types type = types.autocomplete;
 
     public Autocomplete(PageObject pageObject, By findBy) {
         super(pageObject, findBy);

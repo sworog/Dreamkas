@@ -11,20 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created with IntelliJ IDEA.
- * User: atolpeev
- * Date: 16.04.13
- * Time: 15:49
- * To change this template use File | Settings | File Templates.
- */
 public class DateTime extends CommonItem {
 
     public static final String DATE_PATTERN = "dd.MM.yyyy";
     public static final String DATE_TIME_PATTERN = "dd.MM.yyyy HH:mm";
     public final Locale locale = new Locale("ru");
-
-    types type = types.dateTime;
 
     public DateTime(PageObject pageObject, By findBy) {
         super(pageObject, findBy);
@@ -37,19 +28,24 @@ public class DateTime extends CommonItem {
     @Override
     public void setValue(String value) {
         if (value.startsWith("!")) {
-            $().type(value.substring(1));
+            String parsedValue = getDate(value.substring(1));
+            $().type(parsedValue);
             dateTimePickerClose();
         } else {
             $().click();
-            switch (value) {
-                case "todayDateAndTime":
-                    value = getTodayDate(DATE_TIME_PATTERN);
-                    break;
-                case "todayDate":
-                    value = getTodayDate(DATE_PATTERN);
-                    break;
-            }
-            dateTimePickerInput(value);
+            String parsedValue = getDate(value);
+            dateTimePickerInput(parsedValue);
+        }
+    }
+
+    public String getDate(String value){
+        switch (value) {
+            case "todayDateAndTime":
+                return getTodayDate(DATE_TIME_PATTERN);
+            case "todayDate":
+                return getTodayDate(DATE_PATTERN);
+            default:
+                return value;
         }
     }
 
