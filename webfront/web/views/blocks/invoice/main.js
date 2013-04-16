@@ -3,15 +3,14 @@ define(
         '/models/invoice.js',
         '/collections/invoiceProducts.js',
         '/utils/main.js',
-        'tpl!./head.html',
-        'tpl!./footer.html',
-        'tpl!./table.html',
-        'tpl!./row.html'
+        './templates.js'
     ],
-    function(invoiceModel, invoiceProductsCollection, utils, headTpl, footerTpl, tableTpl, rowTpl) {
+    function(invoiceModel, invoiceProductsCollection, utils, templates) {
         return Backbone.Block.extend({
             initialize: function() {
                 var block = this;
+
+                block.render();
 
                 block.$head = block.$el.find('.invoice__head');
                 block.$table = block.$el.find('.invoice__table');
@@ -56,12 +55,7 @@ define(
                 });
             },
             utils: utils,
-            tpl: {
-                head: headTpl,
-                table: tableTpl,
-                footer: footerTpl,
-                row: rowTpl
-            }
+            tpl: templates
         });
     }
 );

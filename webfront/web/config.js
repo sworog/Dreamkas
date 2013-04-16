@@ -1,4 +1,4 @@
-window.baseApiUrl = "http://%api_url%/api/1";
+window.baseApiUrl = "http://borovin.staging.api.lh.cs/api/1";
 
 require.config({
     baseUrl: '/',

@@ -5,7 +5,7 @@ require(
         '/collections/base.js',
         '/models/base.js'
     ],
-    function(router) {
+    function() {
         $(function() {
             Backbone.history.start({
                 pushState: true
@@ -13,9 +13,9 @@ require(
 
             window.app = new Backbone.Router();
 
-            $("body").on('click', 'a', function(e) {
+            $("body").on('click', 'a[href]', function(e) {
                 e.preventDefault();
-                router.navigate($(this).attr('href'), {trigger: true});
+                app.navigate($(this).attr('href'), {trigger: true});
             });
         });
     });

@@ -14,12 +14,14 @@ define(
 
                 Backbone.View.apply(this, arguments);
             },
-            render: function(){
+            render: function() {
                 var block = this;
 
-                block.$el.html(block.tpl.main({
-                    block: block
-                }));
+                block.$el
+                    .html(block.tpl.main({
+                        block: block
+                    }))
+                    .initBlocks();
             },
             remove: function() {
                 var block = this;

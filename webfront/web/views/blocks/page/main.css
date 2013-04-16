@@ -8,3 +8,7 @@
 .page__header{
     padding: 0 0 10px;
 }
+
+.page__clear{
+    clear: both;
+}

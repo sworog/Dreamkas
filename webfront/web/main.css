@@ -5,7 +5,7 @@
 @import "/views/blocks/inputText/main.css";
 @import "/views/blocks/checkbox/main.css";
 @import "/views/blocks/form/main.css";
-@import "/views/blocks/invoiceView/main.css";
+@import "/views/blocks/invoice/main.css";
 
 html{
     height: 100%;
