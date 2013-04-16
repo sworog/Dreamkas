@@ -7,7 +7,7 @@ import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.pages.common.CommonView;
 
 @DefaultUrl("/invoice/list")
-public class InvoiceListPage extends InvoiceCreatePage{
+public class InvoiceListPage extends InvoiceCreatePage {
 
     private static final String ITEM_NAME = "invoice";
     private static final String ITEM_SKU_NAME = "sku";
@@ -18,20 +18,20 @@ public class InvoiceListPage extends InvoiceCreatePage{
         super(driver);
     }
 
-    public void invoiceListItemCreate(){
+    public void invoiceListItemCreate() {
         String xpath = "//*[@lh_button='create']";
         getDriver().findElement(By.xpath(xpath)).click();
     }
 
-    public void listItemClick(String skuValue){
+    public void listItemClick(String skuValue) {
         commonViewInterface.itemClick(skuValue);
     }
 
-    public void listItemCheck(String skuValue){
+    public void listItemCheck(String skuValue) {
         commonViewInterface.itemCheck(skuValue);
     }
 
-    public void checkInvoiceListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
+    public void checkInvoiceListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue) {
         commonViewInterface.checkListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 }

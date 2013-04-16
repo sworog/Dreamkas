@@ -5,11 +5,12 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.pages.common.CommonPage;
+import project.lighthouse.autotests.pages.elements.DateTime;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 
-public class InvoiceSteps extends ScenarioSteps{
+public class InvoiceSteps extends ScenarioSteps {
 
     InvoiceCreatePage invoiceCreatePage;
     InvoiceListPage invoiceListPage;
@@ -21,103 +22,109 @@ public class InvoiceSteps extends ScenarioSteps{
     }
 
     @Step
-    public void openInvoiceCreatePage(){
+    public void openInvoiceCreatePage() {
         invoiceCreatePage.open();
     }
 
     @Step
-    public void openInvoiceListPage(){
+    public void openInvoiceListPage() {
         invoiceListPage.open();
     }
 
     @Step
-    public void invoiceListItemCreate(){
+    public void invoiceListItemCreate() {
         invoiceListPage.invoiceListItemCreate();
     }
 
     @Step
-    public void input(String elementName, String inputText){
+    public void input(String elementName, String inputText) {
         invoiceCreatePage.input(elementName, inputText);
     }
 
     @Step
-    public void invoiceCreateButtonClick(){
+    public void invoiceCreateButtonClick() {
         invoiceCreatePage.invoiceCreateButtonClick();
     }
 
     @Step
-    public void invoiceCloseButtonClick(){
+    public void invoiceCloseButtonClick() {
         invoiceCreatePage.invoiceCloseButtonClick();
     }
 
     @Step
-    public void listItemCheck(String skuValue){
+    public void listItemCheck(String skuValue) {
         invoiceListPage.listItemCheck(skuValue);
     }
 
     @Step
-    public void checkInvoiceListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue){
+    public void checkInvoiceListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue) {
         invoiceListPage.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }
 
     @Step
-    public void checkCardValue(String elementName, String expectedValue){
+    public void checkCardValue(String elementName, String expectedValue) {
         invoiceBrowsing.checkCardValue(elementName, expectedValue);
     }
 
     @Step
-    public void checkCardValue(ExamplesTable checkValuesTable){
+    public void checkCardValue(ExamplesTable checkValuesTable) {
         invoiceBrowsing.checkCardValue(checkValuesTable);
     }
 
     @Step
-    public void editButtonClick(){
+    public void editButtonClick() {
         invoiceBrowsing.editButtonClick();
     }
 
     @Step
-    public void listItemClick(String skuValue){
+    public void listItemClick(String skuValue) {
         invoiceListPage.listItemClick(skuValue);
     }
 
     @Step
-    public void generateTestCharData(String elementName, int charNumber){
+    public void generateTestCharData(String elementName, int charNumber) {
         String generatedData = commonPage.generateTestData(charNumber);
         input(elementName, generatedData);
     }
+
     @Step
-    public void checkFieldLength(String elementName, int fieldLength){
+    public void checkFieldLength(String elementName, int fieldLength) {
         invoiceCreatePage.checkFieldLength(elementName, fieldLength);
     }
 
     @Step
-    public void checkTheDateisNowDate(String elementName){
-        String NowDate = CommonPage.getTodayDate(CommonPage.DATE_TIME_PATTERN);
+    public void checkTheDateisNowDate(String elementName) {
+        String NowDate = DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN);
         invoiceBrowsing.shouldContainsText(elementName, NowDate);
     }
 
     @Step
-    public void goToTheaAdditionOfProductsLinkClick(){
+    public void goToTheaAdditionOfProductsLinkClick() {
         invoiceBrowsing.goToTheaAdditionOfProductsLinkClick();
     }
 
     @Step
-    public void addOneMoreProductLinkClick(){
+    public void addOneMoreProductLinkClick() {
         invoiceBrowsing.addOneMoreProductLinkClick();
     }
 
     @Step
-    public void invoiceProductListItemCheck(String value){
+    public void invoiceProductListItemCheck(String value) {
         invoiceBrowsing.listItemCheck(value);
     }
 
     @Step
-    public void invoiceProductListItemClick(String value){
+    public void invoiceProductListItemClick(String value) {
         invoiceBrowsing.listItemClick(value);
     }
 
     @Step
-    public void checkFormIsChanged(){
+    public void checkFormIsChanged() {
         invoiceCreatePage.checkFormIsChanged();
+    }
+
+    @Step
+    public void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable) {
+        invoiceBrowsing.checkListItemWithSkuHasExpectedValue(value, checkValuesTable);
     }
 }
