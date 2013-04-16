@@ -1,6 +1,6 @@
 define(
     [
-        '/models/Product.js',
+        '/models/product.js',
         'tpl!./main.html'
     ],
     function(Product, main) {

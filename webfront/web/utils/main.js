@@ -1,10 +1,12 @@
 define(
     [
-        './units.js'
+        './units.js',
+        './formatPrice.js'
     ],
-    function(units) {
+    function(units, formatPrice) {
         return {
-            units: units
+            units: units,
+            formatPrice: formatPrice
         }
     }
 );

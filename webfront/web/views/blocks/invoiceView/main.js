@@ -38,9 +38,21 @@ define(
                 });
 
                 block.listenTo(block.invoiceProductsCollection, 'sync', function(){
-                    block.$table.html(block.tpl.table({
-                        block: block
-                    }));
+                    block.renderTable();
+                });
+            },
+            renderTable: function() {
+                var block = this;
+
+                block.$table.html(block.tpl.table({
+                    block: block
+                }));
+
+                block.$table.find("[name='productBarcode']").each(function(item) {
+                    $(this).barcode($(this).text().trim(), 'code128', {
+                        barWidth: 1,
+                        barHeight: 25
+                    });
                 });
             },
             utils: utils,

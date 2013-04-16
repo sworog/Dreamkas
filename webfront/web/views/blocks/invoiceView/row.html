@@ -21,7 +21,7 @@
             по
         </span>
         <span name="productPrice">
-            <%= invoiceProduct.price %>
+            <%= block.utils.formatPrice(invoiceProduct.price) %>
         </span>
         <span>
             р.
@@ -32,7 +32,7 @@
             =
         </span>
         <span name="productSum">
-            <%= invoiceProduct.totalPrice %>
+            <%= block.utils.formatPrice(invoiceProduct.totalPrice) %>
         </span>
         <span>
             р.

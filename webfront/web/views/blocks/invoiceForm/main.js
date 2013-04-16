@@ -1,6 +1,6 @@
 define(
     [
-        '/models/Invoice.js',
+        '/models/invoice.js',
         'tpl!./main.html'
     ],
     function(Invoice, invoiceForm) {
