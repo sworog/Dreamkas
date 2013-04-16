@@ -1,13 +1,11 @@
 define(
     [
-        '/models/Invoice.js',
-        'json!baseApi/invoices.json'
+        '/models/invoice.js'
     ],
-    function(InvoiceModel, invoices) {
-        var Invoices = Backbone.Collection.extend({
-            model: InvoiceModel
+    function(invoiceModel) {
+        return Backbone.Collection.extend({
+            model: invoiceModel,
+            url: baseApiUrl + "/invoices.json"
         });
-
-        return new Invoices(invoices);
     }
 );

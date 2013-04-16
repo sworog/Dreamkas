@@ -1,0 +1,10 @@
+<table class="table">
+    <tbody>
+        <% _.each(block.invoiceProductsCollection.toJSON(), function(invoiceProduct){ %>
+            <%= block.tpl.row({
+                invoiceProduct: invoiceProduct,
+                block: block
+            }) %>
+        <% }) %>
+    </tbody>
+</table>
