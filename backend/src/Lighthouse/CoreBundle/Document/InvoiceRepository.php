@@ -17,10 +17,16 @@ class InvoiceRepository extends DocumentRepository
             ->createQueryBuilder()
             ->findAndUpdate()
             ->field('id')->equals($invoice->id)
-            ->field('itemsCount')->inc($itemsCountDiff)
-            ->field('sumTotal')->inc($sumTotalDiff)
-            ->returnNew()
-            ->getQuery();
-        $query->execute();
+            ->returnNew();
+
+        if ($itemsCountDiff <> 0) {
+            $query->field('itemsCount')->inc($itemsCountDiff);
+        }
+
+        if ($sumTotalDiff <> 0) {
+            $query->field('sumTotal')->inc($sumTotalDiff);
+        }
+
+        $query->getQuery()->execute();
     }
 }

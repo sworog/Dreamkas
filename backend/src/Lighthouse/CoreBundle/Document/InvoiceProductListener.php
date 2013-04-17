@@ -2,13 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Types\Money;
 
 /**
- * @DI\DoctrineMongoDBListener(events={"prePersist", "postPersist", "preUpdate", "preRemove"})
+ * @DI\DoctrineMongoDBListener(events={"prePersist", "postPersist", "postUpdate", "preRemove", "onFlush"})
  */
 class InvoiceProductListener
 {
@@ -63,16 +65,31 @@ class InvoiceProductListener
     /**
      * @param LifecycleEventArgs $eventArgs
      */
-    public function preUpdate(LifecycleEventArgs $eventArgs)
+    public function postUpdate(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
 
         if ($document instanceof InvoiceProduct) {
 
-            $quantityDiff = $this->getPropertyDiff($eventArgs, 'quantity');
+            $totalPriceDiff = $this->getPropertyDiff($eventArgs, 'totalPrice');
+            $this->invoiceRepository->updateTotals($document->invoice, 0, $totalPriceDiff);
+        }
+    }
 
-            $document->product->amount = $document->product->amount + $quantityDiff;
-            $document->product->lastPurchasePrice = new Money($document->price);
+    public function onFlush(OnFlushEventArgs $eventArgs)
+    {
+        /* @var DocumentManager $dm */
+        $dm = $eventArgs->getDocumentManager();
+        $uow = $dm->getUnitOfWork();
+        foreach ($uow->getScheduledDocumentUpdates() as $document) {
+            if ($document instanceof InvoiceProduct) {
+                $changeSet = $uow->getDocumentChangeSet($document);
+                $quantityDiff = $this->computeDiff($changeSet, 'quantity');
+                $document->product->amount = $document->product->amount + $quantityDiff;
+                $document->product->lastPurchasePrice = new Money($document->price);
+                $class = $dm->getClassMetadata(get_class($document->product));
+                $uow->computeChangeSet($class, $document->product);
+            }
         }
     }
 
@@ -98,6 +115,16 @@ class InvoiceProductListener
         $document = $eventArgs->getDocument();
         $uow = $eventArgs->getDocumentManager()->getUnitOfWork();
         $change = $uow->getDocumentChangeSet($document);
+        return $this->computeDiff($change, $propertyName);
+    }
+
+    /**
+     * @param array $change
+     * @param string $propertyName
+     * @return int
+     */
+    protected function computeDiff(array $change, $propertyName)
+    {
         if (isset($change[$propertyName])) {
             return $this->propertyToInt($change[$propertyName][1]) - $this->propertyToInt($change[$propertyName][0]);
         } else {
