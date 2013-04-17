@@ -28,9 +28,19 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         super(driver);
     }
 
-    public void checkCardValue(String elementName, String expectedValue) {
-        WebElement element = items.get(elementName).getWebElement();
+    public void checkCardValue(String checkType, String elementName, String expectedValue) {
+        WebElement element;
+        if (checkType.isEmpty()) {
+            element = items.get(elementName).getWebElement();
+        } else {
+            WebElement parent = items.get(checkType).getWebElement();
+            element = items.get(elementName).getWebElement(parent);
+        }
         commonPage.shouldContainsText(elementName, element, expectedValue);
+    }
+
+    public void checkCardValue(String elementName, String expectedValue) {
+        checkCardValue("", elementName, expectedValue);
     }
 
     public void shouldContainsText(String elementName, String expectedValue) {
@@ -38,12 +48,16 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         commonPage.shouldContainsText(elementName, element, expectedValue);
     }
 
-    public void checkCardValue(ExamplesTable checkValuesTable) {
+    public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
         for (Map<String, String> row : checkValuesTable.getRows()) {
             String elementName = row.get("elementName");
             String expectedValue = row.get("expectedValue");
-            checkCardValue(elementName, expectedValue);
+            checkCardValue(checkType, elementName, expectedValue);
         }
+    }
+
+    public void checkCardValue(ExamplesTable checkValuesTable) {
+        checkCardValue("", checkValuesTable);
     }
 
     public void editButtonClick() {

@@ -10,6 +10,7 @@ import project.lighthouse.autotests.pages.common.CommonPageObject;
 import project.lighthouse.autotests.pages.elements.Autocomplete;
 import project.lighthouse.autotests.pages.elements.DateTime;
 import project.lighthouse.autotests.pages.elements.Input;
+import project.lighthouse.autotests.pages.elements.NonType;
 
 @DefaultUrl("/invoice/create")
 public class InvoiceCreatePage extends CommonPageObject {
@@ -24,6 +25,8 @@ public class InvoiceCreatePage extends CommonPageObject {
     }
 
     public void createElements() {
+        items.put("head", new NonType(this, By.className("invoice__head")));
+
         items.put("sku", new Input(this, "sku"));
         items.put("acceptanceDate", new DateTime(this, "acceptanceDate"));
         items.put("supplier", new Input(this, "supplier"));

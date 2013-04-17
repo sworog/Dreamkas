@@ -25,6 +25,10 @@ abstract public class CommonItem {
         return getWebDriver().findElement(findBy);
     }
 
+    public WebElement getWebElement(WebElement parent) {
+        return parent.findElement(findBy);
+    }
+
     public WebDriver getWebDriver() {
         return pageObject.getDriver();
     }
