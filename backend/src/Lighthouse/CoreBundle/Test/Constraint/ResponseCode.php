@@ -50,5 +50,4 @@ class ResponseCode extends \PHPUnit_Framework_Constraint
     {
         return $this->code . ' response code matches';
     }
-
 }
