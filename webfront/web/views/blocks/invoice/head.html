@@ -14,25 +14,25 @@
 
 <div class="invoice__head">
     <div class="invoice__headItem">
-        <div class="invoice__headItemData invoice__editable" name="supplier">
+        <span class="invoice__headItemData invoice__editable" name="supplier">
             <%= block.invoiceModel.get('supplier') %>
-        </div>
+        </span>
         <div class="invoice__headItemHint">
             поставщик
         </div>
     </div>
     <div class="invoice__headItem">
-        <div class="invoice__headItemData invoice__editable" name="accepter">
+        <span class="invoice__headItemData invoice__editable" name="accepter">
             <%= block.invoiceModel.get('accepter') %>
-        </div>
+        </span>
         <div class="invoice__headItemHint">
             приёмщик
         </div>
     </div>
     <div class="invoice__headItem">
-        <div  class="invoice__headItemData invoice__editable" name="legalEntity">
+        <span class="invoice__headItemData invoice__editable" name="legalEntity">
             <%= block.invoiceModel.get('legalEntity') %>
-        </div>
+        </span>
         <div class="invoice__headItemHint">
             получатель
         </div>
