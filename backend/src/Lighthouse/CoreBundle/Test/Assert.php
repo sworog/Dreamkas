@@ -39,6 +39,22 @@ class Assert
     }
 
     /**
+     * @param string $expected
+     * @param string $path
+     * @param mixed $json
+     * @param string $message
+     */
+    public static function assertJsonPathContains($expected, $path, $json, $message = '')
+    {
+        $jsonPath = new JsonPath($json, $path);
+        $actual = $jsonPath->getValue();
+        if ('' == $message) {
+            $message = sprintf("Failed asserting JSON path '%s' value '%s' contains '%s'", $path, $expected, $actual);
+        }
+        \PHPUnit_Framework_Assert::assertContains($expected, $actual, $message);
+    }
+
+    /**
      * @param string $path
      * @param mixed $json
      * @param string $message

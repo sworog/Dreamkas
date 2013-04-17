@@ -184,17 +184,13 @@ class InvoiceProductControllerTest extends WebTestCase
                 array('invoiceProduct' => $invoiceProductData)
             );
 
-            $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
+            Assert::assertResponseCode(201, $this->client->getResponse());
 
-            $this->assertArrayHasKey('id', $response);
-            $this->assertTrue(isset($response['quantity']));
-            $this->assertEquals($row['quantity'], $response['quantity']);
-            $this->assertTrue(isset($response['price']));
-            $this->assertEquals($row['price'], $response['price']);
-            $this->assertTrue(isset($response['invoice']['itemsCount']));
-            $this->assertEquals($row['itemsCount'], $response['invoice']['itemsCount']);
-            $this->assertTrue(isset($response['invoice']['sumTotal']));
-            $this->assertEquals($row['sumTotal'], $response['invoice']['sumTotal']);
+            Assert::assertJsonHasPath('id', $response);
+            Assert::assertJsonPathEquals($row['quantity'], 'quantity', $response);
+            Assert::assertJsonPathEquals($row['price'], 'price', $response);
+            Assert::assertJsonPathEquals($row['itemsCount'], 'invoice.itemsCount', $response);
+            Assert::assertJsonPathEquals($row['sumTotal'], 'invoice.sumTotal', $response);
         }
     }
 
@@ -241,24 +237,20 @@ class InvoiceProductControllerTest extends WebTestCase
                 array('invoiceProduct' => $invoiceProductData)
             );
 
-            $this->assertEquals(201, $this->client->getResponse()->getStatusCode(), $this->client->getResponse());
+            Assert::assertResponseCode(201, $this->client->getResponse());
 
-            $this->assertArrayHasKey('id', $response);
-            $this->assertTrue(isset($response['quantity']));
-            $this->assertEquals($row['quantity'], $response['quantity']);
-            $this->assertTrue(isset($response['price']));
-            $this->assertEquals($row['price'], $response['price']);
-            $this->assertTrue(isset($response['product']['amount']));
-            $this->assertEquals($row['productAmount'], $response['product']['amount']);
-            $this->assertTrue(isset($response['product']['lastPurchasePrice']));
-            $this->assertEquals($row['price'], $response['product']['lastPurchasePrice']);
+            Assert::assertJsonHasPath('id', $response);
+            Assert::assertJsonPathEquals($row['quantity'], 'quantity', $response);
+            Assert::assertJsonPathEquals($row['price'], 'price', $response);
+            Assert::assertJsonPathEquals($row['productAmount'], 'product.amount', $response);
+            Assert::assertJsonPathEquals($row['price'], 'product.lastPurchasePrice', $response);
         }
     }
 
     /**
      * @dataProvider validationProvider
      */
-    public function testPostActionValidation($expectedCode, array $data)
+    public function testPostActionValidation($expectedCode, array $data, array $assertions = array())
     {
         $this->clearMongoDb();
 
@@ -271,14 +263,18 @@ class InvoiceProductControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
-        $this->clientJsonRequest(
+        $response = $this->clientJsonRequest(
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
             array('invoiceProduct' => $invoiceProductData)
         );
 
-        $this->assertEquals($expectedCode, $this->client->getResponse()->getStatusCode());
+        Assert::assertResponseCode($expectedCode, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathContains($expected, $path, $response);
+        }
     }
 
     public function validationProvider()
@@ -294,22 +290,47 @@ class InvoiceProductControllerTest extends WebTestCase
             'empty quantity' => array(
                 400,
                 array('quantity' => ''),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Заполните это поле'
+                )
             ),
             'negative quantity -10' => array(
                 400,
                 array('quantity' => -10),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть больше 0'
+                )
             ),
             'negative quantity -1' => array(
                 400,
                 array('quantity' => -1),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть больше 0'
+                )
             ),
             'zero quantity' => array(
                 400,
                 array('quantity' => 0),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть больше 0'
+                )
             ),
             'float quantity' => array(
                 400,
                 array('quantity' => 2.5),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть целым числом'
+                )
             ),
             /***********************************************************************************************
              * 'price'
@@ -330,7 +351,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('price' => ''),
                 array(
-                    'form[name="product"] form[name="price"] errors entry'
+                    'children.price.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -339,7 +360,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('price' => '10,898'),
                 array(
-                    'form[name="product"] form[name="price"] errors entry'
+                    'children.price.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -348,7 +369,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('price' => '10.898'),
                 array(
-                    'form[name="product"] form[name="price"] errors entry'
+                    'children.price.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -361,7 +382,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('price' => 'not a number'),
                 array(
-                    'form[name="product"] form[name="price"] errors entry'
+                    'children.price.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю',
                 ),
@@ -370,7 +391,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('price' => 0),
                 array(
-                    'form[name="product"] form[name="price"] errors entry'
+                    'children.price.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю'
                 ),
@@ -379,7 +400,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('price' => -10),
                 array(
-                    'form[name="product"] form[name="price"] errors entry'
+                    'children.price.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю'
                 )
@@ -388,7 +409,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('price' => 2000000001),
                 array(
-                    'form[name="product"] form[name="price"] errors entry'
+                    'children.price.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -397,7 +418,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('price' => '100000000'),
                 array(
-                    'form[name="product"] form[name="price"] errors entry'
+                    'children.price.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -410,7 +431,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('price' => '10000001'),
                 array(
-                    'form[name="product"] form[name="price"] errors entry'
+                    'children.price.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -511,6 +532,74 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertResponseCode(200, $this->client->getResponse());
         $this->assertInternalType('array', $response);
         $this->assertCount(0, $response);
+    }
+
+    public function testGetInvoiceProductNotFound()
+    {
+        $this->clearMongoDb();
+
+        $invoiceId = $this->createInvoice();
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '/products/1.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/2/products/1.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
+
+    public function testGetInvoiceProductNotFoundInvalidInvoiceId()
+    {
+        $this->clearMongoDb();
+
+        $invoiceId = $this->createInvoice();
+        $productId = $this->createProduct();
+
+        $invoiceProductData = array(
+            'quantity' => 10,
+            'price'    => 17.68,
+            'product'  => $productId,
+        );
+
+        $postJson = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $invoiceProductData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postJson);
+        $invoiceProductId = $postJson['id'];
+
+
+        $getJson = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProductId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathEquals($invoiceProductId, 'id', $getJson);
+
+        $this->assertEquals($postJson, $getJson);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/324234234234/products/' . $invoiceProductId . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
     }
 
     /**
