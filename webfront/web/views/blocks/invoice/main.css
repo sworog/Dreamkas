@@ -77,3 +77,10 @@
 .invoice__footer{
     padding-bottom: 20px;
 }
+
+.invoice__addForm .form__controls{
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: -20px;
+    border-radius: 0 0 5px 5px;
+}

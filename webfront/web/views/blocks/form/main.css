@@ -4,5 +4,27 @@
 }
 
 .form__controls{
-    padding: 20px 0 0;
+    padding: 20px;
+    margin-top: 20px;
+    background: #fafafa;
+}
+
+.form__field{
+    padding-bottom: 10px;
+}
+
+.form__field_inline .form__label{
+    display: inline-block;
+    vertical-align: middle;
+    width: 140px;
+    padding-right: 20px;
+    padding-bottom: 0;
+}
+
+.form__field_inline .inputText{
+    width: 300px;
+}
+
+.form__controlLink{
+    vertical-align: middle;
 }

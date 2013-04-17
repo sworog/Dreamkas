@@ -7,6 +7,7 @@ input.inputText, .inputText input, textarea.inputText, .inputText textarea{
     background: #fff;
     width: 100%;
     outline: none;
+    font-size: 14px;
     border-radius: 4px;
     font-family: Tahoma, sans-serif;
     -webkit-box-sizing: border-box;

@@ -1,19 +1,18 @@
 define(function() {
     return Backbone.BaseModel.extend({
+        modelName: 'invoiceProduct',
+        url: function(){
+            return baseApiUrl + '/invoices/' + this.get('invoiceId') + '/products.json'
+        },
         defaults: {
             id: null,
             product: null,
-            productModel: null,
-            invoice: null,
-            invoiceModel: null,
+            invoiceId: null,
             quantity: null,
             price: null
         },
-
         excludeSaveFields: [
-            'invoice',
-            'invoiceModel',
-            'productModel'
+            'invoiceId'
         ]
     });
 });

@@ -23,65 +23,37 @@
 <div class="page__clear"></div>
 
 <h3>Добавить товар в накладную</h3>
-<div class="invoice__addForm">
 
-    <form class="form">
-        <input type="hidden" name="product">
-        <label lh_prop="true">
-                    <span lh_prop_name="true">
-                        Наименование
-                    </span>
-                    <span lh_prop_value="true" lh_field="short" lh_field_error_inline="true">
-                        <input lh_field_native="true" lh_product_autocomplete="name" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-                    </span>
-        </label>
-        <label lh_prop="true">
-                    <span lh_prop_name="true">
-                        Артикул
-                    </span>
-                    <span lh_prop_value="true" lh_field="short" lh_field_error_inline="true">
-                        <input lh_field_native="true" lh_product_autocomplete="sku" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-                    </span>
-        </label>
-        <label lh_prop="true">
-                    <span lh_prop_name="true">
-                        Штрихкод
-                    </span>
-                    <span lh_prop_value="true" lh_field="short" lh_field_error_inline="true">
-                        <input lh_field_native="true" lh_product_autocomplete="barcode" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-                    </span>
-        </label>
-        <label lh_prop="true">
-                    <span lh_prop_name="true">
-                        Количество
-                    </span>
-                    <span lh_prop_value="true" lh_field="mini">
-                        <input lh_field_native="true" name="quantity">
-                    </span>
-        </label>
-        <label lh_prop="true">
-                    <span lh_prop_name="true">
-                        Цена приёмки
-                    </span>
-                    <span lh_prop_value="true" lh_field="mini">
-                        <input lh_field_native="true" name="price">
-                    </span>
-        </label>
-        <div>
-            <span lh_prop_name="true"></span>
-                    <span lh_field="normal">
-                        <a class="addMoreProduct">
-                            Добавить ещё один товар
-                        </a>
-                    </span>
-        </div>
-        <div lh_card_foot="true">
-            <div lh_prop="true">
-                <span lh_prop_name="true"></span>
-                <button lh_button="commit" type="submit">
-                    Завершить приёмку
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
+<form class="form invoice__addForm">
+    <input type="hidden" name="product">
+
+    <div class="form__field form__field_inline">
+        <label class="form__label">Наименование</label>
+        <input class="inputText" type="text" lh_product_autocomplete="name"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Артикул</label>
+        <input class="inputText" type="text" lh_product_autocomplete="sku"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Штрихкод</label>
+        <input class="inputText" type="text" lh_product_autocomplete="barcode"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Количество</label>
+        <input class="inputText" type="text" name="quantity"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Цена приёмки</label>
+        <input class="inputText" type="text" name="price"/>
+    </div>
+    <div class="form__controls">
+        <span class="button button_color_blue invoice__addMoreProduct">
+            Добавить товар
+            <input type="submit"/>
+        </span>
+        <a class="button">
+            Завершить редакитрование
+        </a>
+    </div>
+</form>

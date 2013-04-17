@@ -20,8 +20,8 @@ var BasicModel = Backbone.Model.extend({
 
         if(options.toSave){
             var data = {};
-            data[this.modelName] = _.clone(this.attributes)
-            data[this.modelName].id = undefined;
+            data[this.modelName] = _.clone(this.attributes);
+            delete data[this.modelName].id;
 
             // Исключаем поля из данных посылаемых на сервер
             if(this.excludeSaveFields != undefined) {

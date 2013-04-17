@@ -1,11 +1,12 @@
-@import "/views/blocks/page/main.css";
-@import "/views/blocks/button/main.css";
-@import "/views/blocks/box/main.css";
-@import "/views/blocks/table/main.css";
-@import "/views/blocks/inputText/main.css";
-@import "/views/blocks/checkbox/main.css";
-@import "/views/blocks/form/main.css";
-@import "/views/blocks/invoice/main.css";
+@import "views/blocks/page/main.css";
+@import "views/blocks/button/main.css";
+@import "views/blocks/button/button_color_blue.css";
+@import "views/blocks/box/main.css";
+@import "views/blocks/table/main.css";
+@import "views/blocks/inputText/main.css";
+@import "views/blocks/checkbox/main.css";
+@import "views/blocks/form/main.css";
+@import "views/blocks/invoice/main.css";
 
 html{
     height: 100%;
@@ -23,6 +24,7 @@ body{
 
 a{
     color: #336699;
+    cursor: pointer;
 }
 
 h1{

@@ -1,0 +1,45 @@
+/**
+ * Created by: Andrew Borovin
+ * www.borovin.com
+ */
+
+.button_color_blue {
+	text-shadow: -1px -1px 0 #2a5e8f;
+	color: #fff;
+	border: 1px solid #24517c;
+	background: #477eb3;
+    background-image: -moz-linear-gradient(top, #4392df, #336699);
+    background-image: -ms-linear-gradient(top, #4392df, #336699);
+    background-image: -o-linear-gradient(top, #4392df, #336699);
+    background-image: -webkit-linear-gradient(top, #4392df, #336699);
+    background-image: linear-gradient(top, #4392df, #336699);
+	box-shadow: inset 0 0 1px #fff;
+}
+
+.button_color_blue:hover {
+	background: #477eb3;
+    background-image: -moz-linear-gradient(top, #428ad6, #345c90);
+    background-image: -ms-linear-gradient(top, #428ad6, #345c90);
+    background-image: -o-linear-gradient(top, #428ad6, #345c90);
+    background-image: -webkit-linear-gradient(top, #428ad6, #345c90);
+    background-image: linear-gradient(top, #428ad6, #345c90);
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.5), inset 0 0 1px #fff;
+	border-color: #254c78;
+}
+
+.button_color_blue:active {
+	color: #f4f4f4;
+	border-color: #24517c;
+	background: #3d6791;
+	-moz-box-shadow: inset 0 1px 3px #103150;
+	-ms-box-shadow: inset 0 1px 3px #103150;
+	-o-box-shadow: inset 0 1px 3px #103150;
+	-webkit-box-shadow: inset 0 1px 3px #103150;
+	box-shadow: inset 0 1px 3px #103150;
+	background-image: -moz-linear-gradient(top, #376fa6 0, #336699 100%);
+	background-image: -ms-linear-gradient(top, #376fa6 0, #336699 100%);
+	background-image: -o-linear-gradient(top, #376fa6 0, #336699 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #376fa6), color-stop(100%, #336699));
+	background-image: -webkit-linear-gradient(top, #376fa6 0, #336699 100%);
+	background-image: linear-gradient(to bottom, #376fa6 0, #336699 100%);
+}
