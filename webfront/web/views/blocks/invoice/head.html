@@ -1,4 +1,4 @@
-<div class="invoice__title">
+<div class="invoice__title invoice__dataRow">
     Накладная
     <span class="invoice__editable">
         №
@@ -12,33 +12,35 @@
     </span>
 </div>
 
-<div class="invoice__head">
-    <div class="invoice__headItem">
+<div class="invoice__head invoice__dataRow">
+    <div>
+        <div class="invoice__headItem">
         <span class="invoice__headItemData invoice__editable" name="supplier">
             <%= block.invoiceModel.get('supplier') %>
         </span>
-        <div class="invoice__headItemHint">
-            поставщик
+            <div class="invoice__headItemHint">
+                поставщик
+            </div>
         </div>
-    </div>
-    <div class="invoice__headItem">
+        <div class="invoice__headItem">
         <span class="invoice__headItemData invoice__editable" name="accepter">
             <%= block.invoiceModel.get('accepter') %>
         </span>
-        <div class="invoice__headItemHint">
-            приёмщик
+            <div class="invoice__headItemHint">
+                приёмщик
+            </div>
         </div>
-    </div>
-    <div class="invoice__headItem">
+        <div class="invoice__headItem">
         <span class="invoice__headItemData invoice__editable" name="legalEntity">
             <%= block.invoiceModel.get('legalEntity') %>
         </span>
-        <div class="invoice__headItemHint">
-            получатель
+            <div class="invoice__headItemHint">
+                получатель
+            </div>
         </div>
     </div>
 </div>
-<div class="invoice__supplier
+<div class="invoice__dataRow invoice__supplier
     <%= ( ! block.invoiceModel.get('supplierInvoiceSku') && ! block.invoiceModel.get('supplierInvoiceDate'))?'invoice__hiddenData':'' %>
 ">
     Входящая накладная

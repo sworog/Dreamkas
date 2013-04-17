@@ -52,7 +52,7 @@ define(
                         sync: function() {
                             block.renderTable();
                         },
-                        add: function(model){
+                        add: function(model) {
                             block.renderTable();
                             block.invoiceModel.set(model.toJSON().invoice);
                         }
@@ -66,37 +66,58 @@ define(
 
                     block.addProduct(productData);
                 },
-                'click .invoice__editLink': function(e){
+                'click .invoice__editLink': function(e) {
                     e.preventDefault();
                     var block = this;
 
                     block.set("editMode", true);
                 },
-                'click .invoice__stopEditLink, .invoice__stopEditButton': function(e){
+                'click .invoice__stopEditLink, .invoice__stopEditButton': function(e) {
                     e.preventDefault();
                     var block = this;
 
                     var notEmptyForm = false;
                     block.$el.find("input").each(function() {
-                        if($(this).val()) {
+                        if ($(this).val()) {
                             notEmptyForm = true;
                         }
                     });
 
-                    if(notEmptyForm) {
+                    if (notEmptyForm) {
                         alert("У вас есть не сохранённые данные");
                     } else {
                         block.set("editMode", false);
                     }
+                },
+                'click .invoice__editable': function(e) {
+                    e.preventDefault();
+                    var block = this;
+
+                    if (block.editMode && !block.dataEditing) {
+                        block.showDataInput($(e.target));
+                    }
                 }
             },
-            'set editMode': function(val){
+            editMode: false,
+            dataEditing: false,
+            'set editMode': function(val) {
                 var block = this;
 
-                if(val) {
+                if (val) {
                     block.$el.addClass('invoice_editMode');
                 } else {
                     block.$el.removeClass('invoice_editMode');
+                }
+            },
+            'set dataEditing': function(val) {
+                var block = this;
+
+                block.disableAddForm(val);
+
+                if (val) {
+                    block.$el.addClass('invoice_dataEditing');
+                } else {
+                    block.$el.removeClass('invoice_dataEditing');
                 }
             },
             renderTable: function() {
@@ -105,6 +126,14 @@ define(
                 block.$table.html(block.tpl.table({
                     block: block
                 }));
+            },
+            disableAddForm: function(disabled){
+                var block = this;
+                if (disabled){
+                    block.form.$el.find('[type=submit]').closest('.button').addClass('button_disabled');
+                } else {
+                    block.form.$el.find('[type=submit]').closest('.button').removeClass('button_disabled');
+                }
             },
             autocompleteToInput: function(name) {
                 var input = this.$el.find("[lh_product_autocomplete='" + name + "']");
@@ -209,6 +238,35 @@ define(
                     }
 
                 });
+            },
+            showDataInput: function($el) {
+                var block = this,
+                    $dataElement = $el,
+                    $dataRow = $el.closest('.invoice__dataRow'),
+                    dataInputControls = block.tpl.dataInputControls();
+
+                block.set('dataEditing', true);
+
+                if (!$dataElement.attr('name')) {
+                    $dataElement = $el.find('[name]');
+                }
+
+                if ($dataRow.prop('tagName') === 'TR'){
+                    dataInputControls = '<tr><td class="invoice__dataInputControlsTd" colspan="' + $dataRow.find('td').length + '">' + dataInputControls + '</td></tr>'
+                }
+
+                $dataElement.append(block.tpl.dataInput({
+                    $dataElement: $dataElement
+                }));
+
+                $dataRow.after(dataInputControls);
+
+                $dataElement.find('.inputText')
+                    .css({
+                        width: $dataElement.width(),
+                        'font': $dataElement.css('font')
+                    })
+                    .focus();
             }
         });
     }

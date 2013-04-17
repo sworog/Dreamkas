@@ -19,10 +19,6 @@ input.inputText, .inputText input, textarea.inputText, .inputText textarea{
     border: 1px solid #999;
     line-height: 17px;
     padding: 0 8px;
-    transition: all 0.25s;
-    -moz-transition: all 0.25s; /* Firefox 4 */
-    -webkit-transition: all 0.25s; /* Safari and Chrome */
-    -o-transition: all 0.25s; /* Opera */
 }
 
 .inputText_inline, input.inputText_inline, textarea.inputText_inline {
