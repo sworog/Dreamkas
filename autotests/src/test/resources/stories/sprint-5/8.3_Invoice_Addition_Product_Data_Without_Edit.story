@@ -25,15 +25,17 @@ When the user inputs '5' in the invoice product 'productAmount' field
 And the user inputs '5' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user checks the invoice product with 'SKU-AIP1PWNAU' sku is present
-And the user checks invoice elements values
+And the user checks the product with 'SKU-AIP1PWNAU' sku has values
 | elementName | expectedValue |
-| productNameInList | Тестовое имя 25-3 |
-| productSkuInList | SKU-AIP1PWNAU |
-| productBarCodeInList | BARCode-AIP1PWNAU |
-| productUnitsInList | кг |
-| productAmountInList | 5 |
-| productPriceInList | 5 |
-| productSumInList | 25 |
+| productName | Тестовое имя 25-3 |
+| productSku | SKU-AIP1PWNAU |
+| productBarcode | BARCode-AIP1PWNAU |
+| productUnits | кг |
+| productAmount | 5 |
+| productPrice | 5 |
+| productSum | 25 |
+Then the user checks invoice elements values
+| elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 25 |
 When the user clicks the invoice create button
@@ -59,15 +61,17 @@ When the user inputs '3' in the invoice product 'productAmount' field
 And the user inputs '4' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user checks the invoice product with 'SKU-AIP1PWSA' sku is present
-And the user checks invoice elements values
+And the user checks the product with 'SKU-AIP1PWSA' sku has values
 | elementName | expectedValue |
-| productNameInList | Тестовое имя AIP1PWSA |
-| productSkuInList | SKU-AIP1PWSA |
-| productBarCodeInList | BARCode-AIP1PWSA |
-| productUnitsInList | л |
-| productAmountInList | 3 |
-| productPriceInList | 4 |
-| productSumInList | 12 |
+| productName | Тестовое имя AIP1PWSA |
+| productSku | SKU-AIP1PWSA |
+| productBarcode | BARCode-AIP1PWSA |
+| productUnits | л |
+| productAmount | 3 |
+| productPrice | 4 |
+| productSum | 12 |
+Then the user checks invoice elements values
+| elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 12 |
 When the user clicks the invoice create button
@@ -93,15 +97,17 @@ When the user inputs '45' in the invoice product 'productAmount' field
 And the user inputs '12,32' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user checks the invoice product with 'SKU-AIP1PWBA' sku is present
-And the user checks invoice elements values
+And the user checks the product with 'SKU-AIP1PWBA' sku has values
 | elementName | expectedValue |
-| productNameInList | Тестовое имя AIP1PWBA |
-| productSkuInList | SKU-AIP1PWBA |
-| productBarCodeInList | BARCode-AIP1PWBA |
-| productUnitsInList | шт |
-| productAmountInList | 45 |
-| productPriceInList | 12,32 |
-| productSumInList |  554,4 |
+| productName | Тестовое имя AIP1PWBA |
+| productSku | SKU-AIP1PWBA |
+| productBarcode | BARCode-AIP1PWBA |
+| productUnits | шт |
+| productAmount | 45 |
+| productPrice | 12,32 |
+| productSum |  554,4 |
+Then the user checks invoice elements values
+| elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum |  554,4 |
 When the user clicks the invoice create button

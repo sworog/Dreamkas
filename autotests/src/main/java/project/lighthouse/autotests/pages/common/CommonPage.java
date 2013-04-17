@@ -123,17 +123,6 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         checkFieldLength(elementName, fieldLength, length);
     }
 
-//    public String getInputedText(String inputText){
-//        switch (inputText){
-//            case "todayDateAndTime":
-//                return getTodayDate(DATE_TIME_PATTERN);
-//            case "todayDate":
-//                return getTodayDate(DATE_PATTERN);
-//            default:
-//                return inputText;
-//        }
-//    }
-
     public void checkErrorMessages(ExamplesTable errorMessageTable) {
         for (Map<String, String> row : errorMessageTable.getRows()) {
             String expectedErrorMessage = row.get("error message");
@@ -178,11 +167,6 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     public void setValue(CommonItem item, String value) {
         item.setValue(value);
     }
-
-//    public void input(WebElement element, String value){
-//        String inputText = getInputedText(value);
-//        $(element).type(inputText);
-//    }
 
     public void checkAutoCompleteNoResults() {
         String xpath = "//*[@role='presentation']/*[text()]";

@@ -10,7 +10,6 @@ import project.lighthouse.autotests.pages.common.CommonPageObject;
 import project.lighthouse.autotests.pages.elements.Autocomplete;
 import project.lighthouse.autotests.pages.elements.DateTime;
 import project.lighthouse.autotests.pages.elements.Input;
-import project.lighthouse.autotests.pages.elements.NonType;
 
 @DefaultUrl("/invoice/create")
 public class InvoiceCreatePage extends CommonPageObject {
@@ -41,14 +40,6 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("invoiceCost", new Input(this, "price"));
         items.put("totalProducts", new Input(this, "totalProducts"));
         items.put("totalSum", new Input(this, "totalSum"));
-
-        items.put("productNameInList", new NonType(this, "productName"));
-        items.put("productSkuInList", new NonType(this, "productSku"));
-        items.put("productBarCodeInList", new NonType(this, "productBarcode"));
-        items.put("productUnitsInList", new NonType(this, "productUnits"));
-        items.put("productAmountInList", new NonType(this, "productAmount"));
-        items.put("productPriceInList", new NonType(this, "productPrice"));
-        items.put("productSumInList", new NonType(this, "productSum"));
     }
 
     public void invoiceCloseButtonClick() {
