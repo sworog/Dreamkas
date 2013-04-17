@@ -88,7 +88,7 @@ public class InvoiceUserSteps {
         invoiceSteps.checkCardValue(elementName, expectedValue);
     }
 
-    @Then("the user checks invoice elements values in '$checkType' $checkValuesTable")
+    @Then("the user checks invoice '$checkType' elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(String checkType, ExamplesTable checkValuesTable) {
         invoiceSteps.checkCardValue(checkType, checkValuesTable);
     }
