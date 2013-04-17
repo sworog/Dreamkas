@@ -84,3 +84,33 @@
     margin-bottom: -20px;
     border-radius: 0 0 5px 5px;
 }
+
+.invoice__addForm,
+.invoice__stopEditLink {
+    display: none;
+}
+
+.invoice_editMode .invoice__addForm {
+    display: block;
+}
+
+.invoice_editMode .invoice__stopEditLink {
+    display: inline;
+}
+
+.invoice_editMode .invoice__editLink {
+    display: none;
+}
+
+.invoice_editMode .invoice__editable {
+    border-bottom: dashed 1px;
+    cursor: pointer;
+}
+
+.invoice__hiddenData {
+    display: none;
+}
+
+.invoice_editMode .invoice__hiddenData {
+    display: inline;
+}

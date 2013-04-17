@@ -1,12 +1,14 @@
 define(
     [
         './units.js',
-        './formatPrice.js'
+        './formatPrice.js',
+        './isEmptyJSON.js'
     ],
-    function(units, formatPrice) {
+    function(units, formatPrice, isEmptyJSON) {
         return {
             units: units,
-            formatPrice: formatPrice
+            formatPrice: formatPrice,
+            isEmptyJSON: isEmptyJSON
         }
     }
 );

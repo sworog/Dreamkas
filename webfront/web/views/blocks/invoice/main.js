@@ -70,7 +70,33 @@ define(
                     e.preventDefault();
                     var block = this;
 
-                    
+                    block.set("editMode", true);
+                },
+                'click .invoice__stopEditLink, .invoice__stopEditButton': function(e){
+                    e.preventDefault();
+                    var block = this;
+
+                    var notEmptyForm = false;
+                    block.$el.find("input").each(function() {
+                        if($(this).val()) {
+                            notEmptyForm = true;
+                        }
+                    });
+
+                    if(notEmptyForm) {
+                        alert("У вас есть не сохранённые данные");
+                    } else {
+                        block.set("editMode", false);
+                    }
+                }
+            },
+            'set editMode': function(val){
+                var block = this;
+
+                if(val) {
+                    block.$el.addClass('invoice_editMode');
+                } else {
+                    block.$el.removeClass('invoice_editMode');
                 }
             },
             renderTable: function() {
@@ -79,13 +105,6 @@ define(
                 block.$table.html(block.tpl.table({
                     block: block
                 }));
-
-                block.$table.find("[name='productBarcode']").each(function(item) {
-                    $(this).barcode($(this).text().trim(), 'code128', {
-                        barWidth: 1,
-                        barHeight: 25
-                    });
-                });
             },
             autocompleteToInput: function(name) {
                 var input = this.$el.find("[lh_product_autocomplete='" + name + "']");
