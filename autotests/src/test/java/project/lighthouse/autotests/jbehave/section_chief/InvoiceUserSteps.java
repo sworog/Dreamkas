@@ -88,9 +88,14 @@ public class InvoiceUserSteps {
         invoiceSteps.checkCardValue(elementName, expectedValue);
     }
 
+    @Then("the user checks invoice elements values in '$checkType' $checkValuesTable")
+    public void thenTheUserChecksTheElementValues(String checkType, ExamplesTable checkValuesTable) {
+        invoiceSteps.checkCardValue(checkType, checkValuesTable);
+    }
+
     @Then("the user checks invoice elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
-        invoiceSteps.checkCardValue(checkValuesTable);
+        invoiceSteps.checkCardValue("", checkValuesTable);
     }
 
     @Then("the user checks '$elementName' invoice field contains only '$fieldLength' symbols")

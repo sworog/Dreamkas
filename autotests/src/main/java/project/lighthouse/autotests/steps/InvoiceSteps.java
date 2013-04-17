@@ -67,8 +67,8 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkCardValue(ExamplesTable checkValuesTable) {
-        invoiceBrowsing.checkCardValue(checkValuesTable);
+    public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
+        invoiceBrowsing.checkCardValue(checkType, checkValuesTable);
     }
 
     @Step
