@@ -23,7 +23,7 @@ And the user inputs '1' in the invoice product 'invoiceCost' field
 And the user clicks the invoice create button
 Then the user checks the invoice with 'Invoice-IFBKG-11' sku is present
 When the user open the invoice card with 'Invoice-IFBKG-11' sku
-Then the user checks invoice 'invoice head' elements  values
+Then the user checks invoice 'head' elements  values
 | elementName | expectedValue |
 | sku | Invoice-IFBKG-11 |
 | supplier | Поставщик |
@@ -64,7 +64,7 @@ And the user inputs '1' in the invoice product 'invoiceCost' field
 And the user clicks the invoice create button
 Then the user checks the invoice with 'Invoice-IFBUNITS-11' sku is present
 When the user open the invoice card with 'Invoice-IFBUNITS-11' sku
-Then the user checks invoice 'invoice head' elements  values
+Then the user checks invoice 'head' elements  values
 | elementName | expectedValue |
 | sku | Invoice-IFBUNITS-11 |
 | supplier | Поставщик |
@@ -105,7 +105,7 @@ And the user inputs '1' in the invoice product 'invoiceCost' field
 And the user clicks the invoice create button
 Then the user checks the invoice with 'Invoice-IFBLITER-11' sku is present
 When the user open the invoice card with 'Invoice-IFBLITER-11' sku
-Then the user checks invoice 'invoice head' elements  values
+Then the user checks invoice 'head' elements  values
 | elementName | expectedValue |
 | sku | Invoice-IFBLITER-11 |
 | supplier | Поставщик |

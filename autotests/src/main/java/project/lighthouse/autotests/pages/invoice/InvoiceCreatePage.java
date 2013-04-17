@@ -25,7 +25,7 @@ public class InvoiceCreatePage extends CommonPageObject {
     }
 
     public void createElements() {
-        items.put("invoice head", new NonType(this, By.className("invoice__head")));
+        items.put("head", new NonType(this, By.className("invoice__head")));
 
         items.put("sku", new Input(this, "sku"));
         items.put("acceptanceDate", new DateTime(this, "acceptanceDate"));
