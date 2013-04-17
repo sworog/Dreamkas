@@ -58,6 +58,21 @@ define(
                         }
                     });
             },
+            events: {
+                'submit .invoice__addForm': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        productData = Backbone.Syphon.serialize(block);
+
+                    block.addProduct(productData);
+                },
+                'click .invoice__editLink': function(e){
+                    e.preventDefault();
+                    var block = this;
+
+                    
+                }
+            },
             renderTable: function() {
                 var block = this;
 
@@ -133,15 +148,6 @@ define(
             },
             utils: utils,
             tpl: templates,
-            events: {
-                'submit .invoice__addForm': function(e) {
-                    e.preventDefault();
-                    var block = this,
-                        productData = Backbone.Syphon.serialize(block);
-
-                    block.addProduct(productData);
-                }
-            },
             addProduct: function(productData) {
                 var block = this,
                     newProduct = new invoiceProduct({
