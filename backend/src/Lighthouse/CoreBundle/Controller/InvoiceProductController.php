@@ -45,6 +45,30 @@ class InvoiceProductController extends FOSRestController
     }
 
     /**
+     * @param Request $request
+     * @param string $invoiceId
+     * @param string $invoiceProductId
+     *
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\InvoiceProduct
+     *
+     * @Rest\View(statusCode=200)
+     */
+    public function putProductsAction(Request $request, $invoiceId, $invoiceProductId)
+    {
+        $invoiceProduct = $this->findInvoiceProduct($invoiceProductId, $invoiceId);
+        return $this->processForm($request, $invoiceProduct);
+    }
+
+    /**
+     * @param string $invoiceId
+     * @return InvoiceProductCollection
+     */
+    public function getProductAction($invoiceId, $invoiceProductId)
+    {
+        return $this->findInvoiceProduct($invoiceProductId, $invoiceId);
+    }
+
+    /**
      * @param string $invoiceId
      * @return InvoiceProductCollection
      */
@@ -88,5 +112,22 @@ class InvoiceProductController extends FOSRestController
             throw new NotFoundHttpException("Invoice not found");
         }
         return $invoice;
+    }
+
+    /**
+     * @param string $invoiceProductId
+     * @param string $invoiceId
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return InvoiceProduct
+     */
+    protected function findInvoiceProduct($invoiceProductId, $invoiceId)
+    {
+        $invoiceProduct = $this->invoiceProductRepository->find($invoiceProductId);
+        if (null === $invoiceProduct) {
+            throw new NotFoundHttpException("InvoiceProduct not found");
+        } elseif ($invoiceProduct->invoice->id != $invoiceId) {
+            throw new NotFoundHttpException("InvoiceProduct not found");
+        }
+        return $invoiceProduct;
     }
 }

@@ -557,7 +557,7 @@ class InvoiceProductControllerTest extends WebTestCase
             array('invoiceProduct' => $modifiedInvoiceProductData)
         );
 
-        Assert::assertResponseCode(204, $this->client->getResponse());
+        Assert::assertResponseCode(200, $this->client->getResponse());
 
         $responseJson = $this->clientJsonRequest(
             $this->client,

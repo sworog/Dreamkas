@@ -82,9 +82,7 @@ class InvoiceProduct extends AbstractDocument
      */
     public function updateTotalPrice()
     {
-        if (null === $this->totalPrice) {
-            $this->totalPrice = new Money();
-        }
+        $this->totalPrice = new Money();
         $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
     }
 }
