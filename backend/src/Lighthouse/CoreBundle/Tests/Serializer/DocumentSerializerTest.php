@@ -11,12 +11,7 @@ class DocumentSerializerTest extends WebTestCase
 {
     public function testDocumentSerializeXml()
     {
-        $document = new Test();
-        $document->id = 1;
-        $document->name = 'name_1';
-        $document->desc = 'description_1';
-        $document->orderDate = '01.03.2013';
-        $document->money = new Money(1112);
+        $document = $this->createDocument();
 
         /* @var Serializer $serializer */
         $serializer = $this->getContainer()->get('serializer');
@@ -28,12 +23,7 @@ class DocumentSerializerTest extends WebTestCase
 
     public function testDocumentSerializeJson()
     {
-        $document = new Test();
-        $document->id = 1;
-        $document->name = 'name_1';
-        $document->desc = 'description_1';
-        $document->orderDate = '01.03.2013';
-        $document->money = new Money(1112);
+        $document = $this->createDocument();
 
         /* @var Serializer $serializer */
         $serializer = $this->getContainer()->get('serializer');
@@ -41,5 +31,21 @@ class DocumentSerializerTest extends WebTestCase
 
         $expectedFile = __DIR__ . '/../Fixtures/Document/Test.json';
         $this->assertJsonStringEqualsJsonFile($expectedFile, $result);
+    }
+
+    /**
+     * @return Test
+     */
+    public function createDocument()
+    {
+        $document = new Test();
+        $document->id = 1;
+        $document->name = 'name_1';
+        $document->desc = 'description_1';
+        $document->orderDate = new \DateTime('2013-03-01');
+        $document->createdDate = new \DateTime('2013-02-28 15:40');
+        $document->money = new Money(1112);
+
+        return $document;
     }
 }

@@ -24,9 +24,14 @@ class Test extends AbstractDocument
     protected $desc;
 
     /**
-     * @var string
+     * @var \DateTime
      */
     protected $orderDate;
+
+    /**
+     * @var \DateTime
+     */
+    protected $createdDate;
 
     /**
      * @var Money
@@ -43,6 +48,8 @@ class Test extends AbstractDocument
             'name' => $this->name,
             'desc' => $this->desc,
             'orderDate' => $this->orderDate,
+            'createdDate' => $this->createdDate,
+            'money' => $this->money,
         );
     }
 }

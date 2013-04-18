@@ -3,6 +3,7 @@
     <id>1</id>
     <name><![CDATA[name_1]]></name>
     <desc><![CDATA[description_1]]></desc>
-    <orderDate><![CDATA[01.03.2013]]></orderDate>
+    <orderDate><![CDATA[2013-03-01T00:00:00+0400]]></orderDate>
+    <createdDate><![CDATA[2013-02-28T15:40:00+0400]]></createdDate>
     <money><![CDATA[11.12]]></money>
 </test>
