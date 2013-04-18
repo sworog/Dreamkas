@@ -25,11 +25,24 @@ class ChainValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->context = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $this->context = $this->getMock(
+            'Symfony\Component\Validator\ExecutionContext',
+            array(),
+            array(),
+            '',
+            false
+        );
+
         $this->validator = new ChainValidator();
         $this->validator->initialize($this->context);
 
-        $this->violations = $this->getMock('Symfony\Component\Validator\ConstraintViolationList', array(), array(), '', false);
+        $this->violations = $this->getMock(
+            'Symfony\Component\Validator\ConstraintViolationList',
+            array(),
+            array(),
+            '',
+            false
+        );
     }
 
     public function tearDown()
