@@ -43,3 +43,12 @@ textarea.inputText, .inputText textarea {
 .inputText[disabled], .inputText input[disabled], .inputText textarea[disabled] {
     opacity: 0.8;
 }
+
+input.inputText_error, .inputText_error input, textarea.inputText_error, .inputText_error textarea{
+    border-color: #d40000;
+}
+
+.inputText_error:focus, .inputText_error input:focus, .inputText_error textarea:focus {
+    border-color: #d40000 !important;
+    box-shadow: 0 0 3px #d40000 !important;
+}

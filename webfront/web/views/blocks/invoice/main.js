@@ -99,24 +99,45 @@ define(
                         block.showDataInput($(e.currentTarget));
                     }
                 },
-                'submit .invoice__dataInput': function(e) {
+                'submit .invoice__table .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
                         data = Backbone.Syphon.serialize(e.target),
                         invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
                         invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId);
 
+                    block.removeInlineErrors();
+
                     invoiceProduct.save(data, {
                         success: function(){
                             block.set('dataEditing', false);
+                        },
+                        error: function(data, res){
+                            block.showInlineErrors(JSON.parse(res.responseText));
                         }
+                    });
+                },
+                'submit .invoice__head .invoice__dataInput': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        data = Backbone.Syphon.serialize(e.target);
+
+                    block.removeInlineErrors();
+
+                    block.invoiceModel.save(data, {
+                        success: function(){
+                            block.set('dataEditing', false);
+                        },
+                        error: function(data, res){
+                            block.showInlineErrors(JSON.parse(res.responseText));
+                        },
+                        wait: true
                     });
                 },
                 'click .invoice__dataInputSave': function(e){
                     e.preventDefault();
                     var block = this,
-                        inputId = $(e.target).closest('.invoice__dataInputControls').attr('rel'),
-                        $dataInputForm = block.$el.find('.invoice__dataInput[data-input-id="' + inputId + '"]');
+                        $dataInputForm = block.$el.find('.invoice__dataInput');
 
                     $dataInputForm.submit();
                 },
@@ -154,6 +175,31 @@ define(
                 block.$table.html(block.tpl.table({
                     block: block
                 }));
+            },
+            showInlineErrors: function(data){
+                var block = this,
+                    $input = block.$el.find('.invoice__dataInput .inputText'),
+                    $inputControls = block.$el.find('.invoice__dataInputControls');
+
+                $input.addClass('inputText_error');
+
+                _.each(data.children, function(data) {
+                    var fieldErrors;
+
+                    if (data.errors){
+                        fieldErrors = data.errors.join(', ');
+                    }
+
+                    $inputControls.attr("lh_field_error", fieldErrors);
+                });
+            },
+            removeInlineErrors: function(){
+                var block = this,
+                    $input = block.$el.find('.invoice__dataInput .inputText'),
+                    $inputControls = block.$el.find('.invoice__dataInputControls');
+
+                $input.removeClass('.inputText_error');
+                $inputControls.removeAttr('lh_field_error');
             },
             removeDataInput: function(){
                 var block = this;
@@ -279,10 +325,7 @@ define(
                 var block = this,
                     $dataElement = $el,
                     $dataRow = $el.closest('.invoice__dataRow'),
-                    inputId = _.uniqueId('dataInput'),
-                    dataInputControls = block.tpl.dataInputControls({
-                        inputId: inputId
-                    });
+                    dataInputControls = block.tpl.dataInputControls();
 
                 block.set('dataEditing', true);
 
@@ -295,8 +338,7 @@ define(
                 }
 
                 $dataElement.append(block.tpl.dataInput({
-                    $dataElement: $dataElement,
-                    inputId: inputId
+                    $dataElement: $dataElement
                 }));
 
                 $dataRow.after(dataInputControls);

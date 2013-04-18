@@ -1,5 +1,6 @@
 define(function() {
-    return Backbone.Model.extend({
+    return Backbone.BaseModel.extend({
+        modelName: 'invoice',
         url: function(){
             return baseApiUrl + '/invoices/' + this.id + '.json'
         },
@@ -18,11 +19,14 @@ define(function() {
             legalEntity: null,
             supplierInvoiceSku: null,
             supplierInvoiceDate: null,
-            sumTotal: null
+            sumTotal: null,
+            itemsCount: null
         },
 
         excludeSaveFields: [
-            'sumTotal'
+            'sumTotal',
+            'itemsCount',
+            'createdDate'
         ]
     });
 });

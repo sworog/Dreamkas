@@ -160,3 +160,14 @@
 .invoice__dataInputControlsTd .invoice__dataInputControls{
     margin: 0;
 }
+
+.invoice__dataInputControls[lh_field_error]:before{
+    content: attr(lh_field_error);
+    display: block;
+    color: #c60f13;
+    padding: 0 0 10px;
+}
+
+.invoice__dataInputControls[lh_field_error]:after{
+    display: none;
+}
