@@ -76,6 +76,9 @@ class InvoiceProductListener
         }
     }
 
+    /**
+     * @param OnFlushEventArgs $eventArgs
+     */
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
         /* @var DocumentManager $dm */
@@ -83,13 +86,69 @@ class InvoiceProductListener
         $uow = $dm->getUnitOfWork();
         foreach ($uow->getScheduledDocumentUpdates() as $document) {
             if ($document instanceof InvoiceProduct) {
-                $changeSet = $uow->getDocumentChangeSet($document);
-                $quantityDiff = $this->computeDiff($changeSet, 'quantity');
-                $document->product->amount = $document->product->amount + $quantityDiff;
-                $document->product->lastPurchasePrice = new Money($document->price);
-                $class = $dm->getClassMetadata(get_class($document->product));
-                $uow->computeChangeSet($class, $document->product);
+                $this->updateProductOnFlush($dm, $document);
             }
+        }
+    }
+
+    /**
+     * @param DocumentManager $dm
+     * @param InvoiceProduct $invoiceProduct
+     */
+    public function updateProductOnFlush(DocumentManager $dm, InvoiceProduct $invoiceProduct)
+    {
+        $uow = $dm->getUnitOfWork();
+
+        $changeSet = $uow->getDocumentChangeSet($invoiceProduct);
+
+        if ($this->isProductChanged($changeSet)) {
+            $oldProduct = $changeSet['product'][0];
+            $newProduct = $changeSet['product'][1];
+
+            $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $invoiceProduct->quantity;
+            $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $invoiceProduct->quantity;
+
+            $oldProduct->amount = $oldProduct->amount - $oldQuantity;
+            $this->computeChangeSet($dm, $oldProduct);
+
+            $newProduct->amount = $newProduct->amount + $newQuantity;
+            $newProduct->lastPurchasePrice = new Money($invoiceProduct->price);
+            $this->computeChangeSet($dm, $newProduct);
+        } else {
+
+            $quantityDiff = $this->computeDiff($changeSet, 'quantity');
+
+            $invoiceProduct->product->amount = $invoiceProduct->product->amount + $quantityDiff;
+            $invoiceProduct->product->lastPurchasePrice = new Money($invoiceProduct->price);
+            $this->computeChangeSet($dm, $invoiceProduct->product);
+        }
+    }
+
+    /**
+     * Helper method for computing changes set
+     *
+     * @param DocumentManager $dm
+     * @param $document
+     */
+    protected function computeChangeSet(DocumentManager $dm, $document)
+    {
+        $uow = $dm->getUnitOfWork();
+        $class = $dm->getClassMetadata(get_class($document));
+        $uow->computeChangeSet($class, $document);
+    }
+
+    /**
+     * Check if product reference was changed
+     *
+     * @param array $changeSet
+     * @return bool
+     */
+    protected function isProductChanged(array $changeSet)
+    {
+        if (isset($changeSet['product'])) {
+            return $changeSet['product'][1]->id != $changeSet['product'][0]->id;
+        } else {
+            return false;
         }
     }
 

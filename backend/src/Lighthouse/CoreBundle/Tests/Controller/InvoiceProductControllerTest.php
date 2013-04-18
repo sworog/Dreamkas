@@ -698,7 +698,10 @@ class InvoiceProductControllerTest extends WebTestCase
         );
     }
 
-    public function testPutInvoiceProductActionChangeProductId($quantity1 = 10, $price1 = 9.99, $quantity2 = 5, $price2 = 5.99)
+    /**
+     * @dataProvider putInvoiceProductActionChangeProductIdProvider
+     */
+    public function testPutInvoiceProductActionChangeProductId($quantity1, $price1, $invoiceSumTotal1, $quantity2, $price2, $invoiceSumTotal2)
     {
         $this->clearMongoDb();
 
@@ -728,9 +731,12 @@ class InvoiceProductControllerTest extends WebTestCase
         $invoiceProductId = $postJson['id'];
         Assert::assertJsonPathEquals($quantity1, 'product.amount', $postJson);
         Assert::assertJsonPathEquals($price1, 'product.lastPurchasePrice', $postJson);
+        Assert::assertJsonPathEquals($invoiceSumTotal1, 'invoice.sumTotal', $postJson);
+        Assert::assertJsonPathEquals(1, 'invoice.itemsCount', $postJson);
 
         $this->assertProductTotals($product1Id, $quantity1, $price1);
         $this->assertProductTotals($product2Id, null, null);
+        $this->assertInvoiceTotals($invoiceId, $invoiceSumTotal1, 1);
 
         // PUT invoice product with another product id
         $putData = array(
@@ -749,9 +755,12 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertResponseCode(200, $this->client);
         Assert::assertJsonPathEquals($quantity2, 'product.amount', $putJson);
         Assert::assertJsonPathEquals($price2, 'product.lastPurchasePrice', $putJson);
+        Assert::assertJsonPathEquals($invoiceSumTotal2, 'invoice.sumTotal', $putJson);
+        Assert::assertJsonPathEquals(1, 'invoice.itemsCount', $putJson);
 
         $this->assertProductTotals($product1Id, 0, $price1);
         $this->assertProductTotals($product2Id, $quantity2, $price2);
+        $this->assertInvoiceTotals($invoiceId, $invoiceSumTotal2, 1);
     }
 
     /**
@@ -769,17 +778,91 @@ class InvoiceProductControllerTest extends WebTestCase
 
         Assert::assertResponseCode(200, $this->client);
 
-        if (null === $amount) {
-            Assert::assertNotJsonHasPath('amount', $productJson);
-        } else {
-            Assert::assertJsonPathEquals($amount, 'amount', $productJson);
-        }
+        $assertions = array(
+            'amount' => $amount,
+            'lastPurchasePrice' => $lastPurchasePrice,
+        );
 
-        if (null === $lastPurchasePrice) {
-            Assert::assertNotJsonHasPath('lastPurchasePrice', $productJson);
-        } else {
-            Assert::assertJsonPathEquals($lastPurchasePrice, 'lastPurchasePrice', $productJson);
+        $this->performJsonAssertions($productJson, $assertions);
+    }
+
+    /**
+     * @param string $invoiceId
+     * @param string $sumTotal
+     * @param int $itemsCount
+     */
+    protected function assertInvoiceTotals($invoiceId, $sumTotal, $itemsCount)
+    {
+        $invoiceJson = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $assertions = array(
+            'sumTotal' => $sumTotal,
+            'itemsCount' => $itemsCount,
+        );
+
+        $this->performJsonAssertions($invoiceJson, $assertions);
+    }
+
+    /**
+     * @param mixed $json
+     * @param array $assertions
+     */
+    protected function performJsonAssertions($json, array $assertions)
+    {
+        foreach ($assertions as $path => $expected) {
+            if (null === $expected) {
+                Assert::assertNotJsonHasPath($path, $json);
+            } else {
+                Assert::assertJsonPathEquals($expected, $path, $json);
+            }
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function putInvoiceProductActionChangeProductIdProvider()
+    {
+        return array(
+            'quantity and price changed' => array(
+                10, // quantity of first product
+                9.99, // price of first product
+                99.9, // invoice sum total
+                5, // quantity of second product
+                5.99, // price of second product
+                29.95, // invoice sum total
+            ),
+            'quantity and price are not changed' => array(
+                10, // quantity of first product
+                9.99, // price of first product
+                99.9, // invoice sum total
+                10, // quantity of second product
+                9.99, // price of second product
+                99.9, // invoice sum total
+            ),
+            'quantity changed' => array(
+                10, // quantity of first product
+                9.99, // price of first product
+                99.9, // invoice sum total
+                5, // quantity of second product
+                9.99, // price of second product
+                49.95, // invoice sum total
+            ),
+            'price changed' => array(
+                10, // quantity of first product
+                9.99, // price of first product
+                99.9, // invoice sum total
+                10, // quantity of second product
+                5.99, // price of second product
+                59.9, // invoice sum total
+            ),
+        );
     }
 
     /**
