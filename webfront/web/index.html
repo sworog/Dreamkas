@@ -636,14 +636,21 @@
             </span>
         </div>
         <p lh_block="true">
-            Входящая накладная №
-            <span name="supplierInvoiceSku">
-                {{supplierInvoiceSku}}
-            </span>
-            от
-            <span name="supplierInvoiceDate">
-                {{supplierInvoiceDate}}
-            </span>
+            {{^supplierHideInfo}}
+                Входящая накладная
+                {{#supplierInvoiceSku}}
+                    №
+                    <span name="supplierInvoiceSku">
+                        {{supplierInvoiceSku}}
+                    </span>
+                {{/supplierInvoiceSku}}
+                {{#supplierInvoiceDate}}
+                    от
+                    <span name="supplierInvoiceDate">
+                        {{supplierInvoiceDate}}
+                    </span>
+                {{/supplierInvoiceDate}}
+            {{/supplierHideInfo}}
         </p>
     </script>
 

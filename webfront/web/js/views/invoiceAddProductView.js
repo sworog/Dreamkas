@@ -33,6 +33,10 @@ var InvoiceAddProductView = Backbone.View.extend({
             data.supplierInvoiceDate = Helpers.dateFormat(data.supplierInvoiceDate);
         }
 
+        if( ! data.supplierInvoiceDate && ! data.supplierInvoiceSku) {
+            data.supplierHideInfo = true;
+        }
+
         this.$el.find("[name='invoice']").html(this.templateDataView(data));
 
         var listView = new InvoiceAddProductListTable({
