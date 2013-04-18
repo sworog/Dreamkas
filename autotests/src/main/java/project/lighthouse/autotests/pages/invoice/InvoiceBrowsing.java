@@ -30,10 +30,10 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     @FindBy(xpath = "//*[@class='button invoice__stopEditButton']")
     public WebElement invoiceStopEditButtonLink;
 
-    @FindBy(xpath = "//*[@class='button button_color_blue invoice__addMoreProduct']")
-    public WebElement invoiceProductAddButton;
+//    @FindBy(xpath = "//span[@class='button button_color_blue invoice__addMoreProduct']/input")
+//    public WebElement invoiceProductAddButton;
 
-    @FindBy(xpath = "//*[@class='button invoice__dataInputSave']")
+    @FindBy(xpath = "//a[@class='button invoice__dataInputSave']")
     public WebElement acceptChangesButton;
 
     @FindBy(xpath = "//*[@class='invoice__dataInputCancel']")
@@ -105,6 +105,11 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void acceptChangesButtonClick() {
         $(acceptChangesButton).click();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     public void discardChangesButtonClick() {
@@ -112,11 +117,11 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void invoiceStopEditButtonClick() {
-        $(invoiceStopEditButtonLink).click();
+        invoiceStopEditButtonLink.click();
     }
 
     public void invoiceStopEditlinkClick() {
-        $(invoiceStopEditLink).click();
+        invoiceStopEditLink.click();
     }
 
     public void checkEditMode() {
@@ -130,6 +135,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void addNewInvoiceProductButtonClick() {
-        $(invoiceProductAddButton).click();
+        findBy("//span[@class='button button_color_blue invoice__addMoreProduct']/input").click();
+//        $(invoiceProductAddButton).click();
     }
 }
