@@ -35,6 +35,19 @@ class InvoiceController extends FOSRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $id
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice
+     *
+     * @Rest\View(statusCode=200)
+     */
+    public function putInvoicesAction(Request $request, $id)
+    {
+        $invoice = $this->findInvoice($id);
+        return $this->processForm($request, $invoice);
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Lighthouse\CoreBundle\Document\Invoice $invoice
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice
      */

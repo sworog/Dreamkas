@@ -2,88 +2,116 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DomCrawler\Crawler;
 
 class InvoiceControllerTest extends WebTestCase
 {
+    /**
+     * @var Client
+     */
+    protected $client;
+
     protected function setUp()
     {
         parent::setUp();
+        $this->client = static::createClient();
         $this->clearMongoDb();
     }
 
     /**
-     * @dataProvider invoiceDataProvider
+     * @dataProvider postInvoiceDataProvider
      */
     public function testPostInvoiceAction(array $invoiceData, array $assertions = array())
     {
-        $client = static::createClient();
-
-        $crawler = $client->request(
+        $crawler = $this->client->request(
             'POST',
-            'api/1/invoices',
+            '/api/1/invoices',
             array('invoice' => $invoiceData)
         );
 
-        $content = $client->getResponse()->getContent();
-        $this->assertEquals(201, $client->getResponse()->getStatusCode(), $content);
+        Assert::assertResponseCode(201, $this->client);
 
         $this->runCrawlerAssertions($crawler, $assertions, true);
     }
 
     /**
-     * @dataProvider invoiceDataProvider
+     * @dataProvider postInvoiceDataProvider
      */
     public function testGetInvoicesAction(array $invoiceData)
     {
-        $client = static::createClient();
-
         for ($i = 0; $i < 5; $i++) {
             $invoiceData['sku'] = '12122004' . $i;
-            $this->createInvoice($invoiceData, $client);
+            $this->createInvoice($invoiceData, $this->client);
         }
 
-        $crawler = $client->request(
+        $crawler = $this->client->request(
             'GET',
-            'api/1/invoices'
+            '/api/1/invoices'
         );
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        Assert::assertResponseCode(200, $this->client);
+
         $this->assertEquals(5, $crawler->filterXPath('//invoices/invoice')->count());
     }
 
     /**
-     * @dataProvider invoiceDataProvider
+     * @dataProvider postInvoiceDataProvider
      */
     public function testGetInvoice(array $invoiceData, array $assertions)
     {
-        $client = static::createClient();
+        $id = $this->createInvoice($invoiceData, $this->client);
 
-        $id = $this->createInvoice($invoiceData, $client);
-
-        $crawler = $client->request(
+        $crawler = $this->client->request(
             'GET',
             '/api/1/invoices/' . $id
         );
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        Assert::assertResponseCode(200, $this->client);
 
         $this->runCrawlerAssertions($crawler, $assertions, true);
     }
 
+    public function postInvoiceDataProvider()
+    {
+        $now = new \DateTime();
+        return array(
+            'invoice' => array(
+                'data' => array(
+                    'sku' => 'sdfwfsf232',
+                    'supplier' => 'ООО "Поставщик"',
+                    'acceptanceDate' => '2013-03-18 12:56',
+                    'accepter' => 'Приемных Н.П.',
+                    'legalEntity' => 'ООО "Магазин"',
+                    'supplierInvoiceSku' => '1248373',
+                    'supplierInvoiceDate' => '17.03.2013'
+                ),
+                // Assertions xpath
+                'assertions' => array(
+                    '//invoice/sku' => 'sdfwfsf232',
+                    '//invoice/supplier' => 'ООО "Поставщик"',
+                    '//invoice/acceptanceDate' => '2013-03-18T12:56:00+0400',
+                    '//invoice/accepter' => 'Приемных Н.П.',
+                    '//invoice/legalEntity' => 'ООО "Магазин"',
+                    '//invoice/supplierInvoiceSku' => '1248373',
+                    '//invoice/supplierInvoiceDate' => '2013-03-17T00:00:00+0400',
+                    '//invoice/createdDate' => $now->format('Y-m-d\TH:'),
+                )
+            )
+        );
+    }
+
     public function testGetInvoiceNotFound()
     {
-        $client = static::createClient();
-
         $id = 'not_exists_id';
-        $client->request(
+        $this->client->request(
             'GET',
             '/api/1/invoices/' . $id
         );
 
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        Assert::assertResponseCode(404, $this->client);
     }
 
     /**
@@ -91,23 +119,17 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testPostInvoiceValidation($expectedCode, array $data, array $assertions = array())
     {
-        $client = static::createClient();
+        $invoiceData = $this->postInvoiceDataProvider();
 
-        $invoiceData = $this->invoiceDataProvider();
+        $postData = $data + $invoiceData['invoice']['data'];
 
-        $postData = array_merge($invoiceData['invoice']['data'], $data);
-
-        $crawler = $client->request(
+        $crawler = $this->client->request(
             'POST',
-            'api/1/invoices',
+            '/api/1/invoices',
             array('invoice' => $postData)
         );
 
-        $this->assertEquals(
-            $expectedCode,
-            $client->getResponse()->getStatusCode(),
-            $client->getResponse()->getContent()
-        );
+        Assert::assertResponseCode($expectedCode, $this->client);
 
         $this->runCrawlerAssertions($crawler, $assertions);
     }
@@ -117,23 +139,17 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testPostInvoiceSupplierInvoiceDateIsValidAndAcceptanceDateIsInvalid(array $data)
     {
-        $client = static::createClient();
-
-        $invoiceData = $this->invoiceDataProvider();
+        $invoiceData = $this->postInvoiceDataProvider();
 
         $postData = $data + $invoiceData['invoice']['data'];
 
-        $crawler = $client->request(
+        $crawler = $this->client->request(
             'POST',
-            'api/1/invoices',
+            '/api/1/invoices',
             array('invoice' => $postData)
         );
 
-        $this->assertEquals(
-            400,
-            $client->getResponse()->getStatusCode(),
-            $client->getResponse()->getContent()
-        );
+        Assert::assertResponseCode(400, $this->client);
 
         $this->assertContains(
             'Вы ввели неверную дату',
@@ -166,50 +182,101 @@ class InvoiceControllerTest extends WebTestCase
     }
 
     /**
-     * @param array $invoiceData
-     * @param Client $client
-     * @return string
+     * @dataProvider putInvoiceDataProvider
      */
-    protected function createInvoice(array $invoiceData, $client)
-    {
-        /** @var Crawler $crawler  */
-        $crawler = $client->request(
+    public function testPutInvoiceAction(
+        array $postData,
+        array $postAssertions,
+        array $putData,
+        $expectedCode,
+        array $putAssertions
+    ) {
+        $postJson = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/invoices',
-            array('invoice' => $invoiceData)
+            '/api/1/invoices.json',
+            array('invoice' => $postData)
         );
-        $this->assertEquals(201, $client->getResponse()->getStatusCode());
-        $client->restart();
 
-        return $crawler->filterXPath("//invoice/id")->text();
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postJson);
+        $invoiceId = $postJson['id'];
+        foreach ($postAssertions as $jsonPath => $expected) {
+            Assert::assertJsonPathContains($expected, $jsonPath, $postJson);
+        }
+
+        $putData += $postData;
+        $putJson = $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/invoices/' . $invoiceId . '.json',
+            array('invoice' => $putData)
+        );
+
+        Assert::assertResponseCode($expectedCode, $this->client);
+        Assert::assertJsonPathEquals($invoiceId, 'id', $postJson);
+        foreach ($putAssertions as $jsonPath => $expected) {
+            Assert::assertJsonPathContains($expected, $jsonPath, $putJson);
+        }
     }
 
-    public function invoiceDataProvider()
+    public function putInvoiceDataProvider()
     {
         $now = new \DateTime();
+        $data = array(
+            'sku' => 'sdfwfsf232',
+            'supplier' => 'ООО "Поставщик"',
+            'acceptanceDate' => '2013-03-18 12:56',
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceDate' => '17.03.2013'
+        );
+        $assertions = array(
+            'sku' => 'sdfwfsf232',
+            'supplier' => 'ООО "Поставщик"',
+            'acceptanceDate' => '2013-03-18T12:56:00+0400',
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceDate' => '2013-03-17T00:00:00+0400',
+            'createdDate' => $now->format('Y-m-d\TH:'),
+        );
+
         return array(
-            'invoice' => array(
-                'data' => array(
-                    'sku' => 'sdfwfsf232',
-                    'supplier' => 'ООО "Поставщик"',
-                    'acceptanceDate' => '2013-03-18 12:56',
-                    'accepter' => 'Приемных Н.П.',
-                    'legalEntity' => 'ООО "Магазин"',
-                    'supplierInvoiceSku' => '1248373',
-                    'supplierInvoiceDate' => '17.03.2013'
+            array(
+                'postData' => $data,
+                'postAssertions' => $assertions,
+                'putData' => array(
+                    'supplier' => 'ООО "Подставщик"',
                 ),
-                // Assertions xpath
-                'assertions' => array(
-                    '//invoice/sku' => 'sdfwfsf232',
-                    '//invoice/supplier' => 'ООО "Поставщик"',
-                    '//invoice/acceptanceDate' => '2013-03-18T12:56:00+0400',
-                    '//invoice/accepter' => 'Приемных Н.П.',
-                    '//invoice/legalEntity' => 'ООО "Магазин"',
-                    '//invoice/supplierInvoiceSku' => '1248373',
-                    '//invoice/supplierInvoiceDate' => '2013-03-17T00:00:00+0400',
-                    '//invoice/createdDate' => $now->format('Y-m-d\TH:'),
-                )
-            )
+                'expectedCode' => 200,
+                'putAssertions' => array(
+                    'supplier' => 'ООО "Подставщик"',
+                ) + $assertions,
+            ),
+            array(
+                'postData' => $data,
+                'postAssertions' => $assertions,
+                'putData' => array(
+                    'supplierInvoiceDate' => '16.03.2013',
+                ),
+                'expectedCode' => 200,
+                'putAssertions' => array(
+                    'supplierInvoiceDate' => '2013-03-16T00:00:00+0400',
+                ),
+            ),
+            array(
+                'postData' => $data,
+                'postAssertions' => $assertions,
+                'putData' => array(
+                    'supplierInvoiceDate' => '19.03.2013',
+                ),
+                'expectedCode' => 400,
+                'putAssertions' => array(
+                    'children.supplierInvoiceDate.errors.0' => 'Дата накладной не должна быть старше даты приемки',
+                ),
+            ),
         );
     }
 
@@ -486,5 +553,24 @@ class InvoiceControllerTest extends WebTestCase
                 ),
             ),
         );
+    }
+
+    /**
+     * @param array $invoiceData
+     * @param Client $client
+     * @return string
+     */
+    protected function createInvoice(array $invoiceData, $client)
+    {
+        /** @var Crawler $crawler  */
+        $crawler = $client->request(
+            'POST',
+            '/api/1/invoices',
+            array('invoice' => $invoiceData)
+        );
+
+        Assert::assertResponseCode(201, $client);
+
+        return $crawler->filterXPath("//invoice/id")->text();
     }
 }
