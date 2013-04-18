@@ -16,6 +16,8 @@ import project.lighthouse.autotests.pages.elements.NonType;
 public class InvoiceCreatePage extends CommonPageObject {
 
     private static final String INVOICE_NAME = "invoice";
+    private static final String XPATH_PATTERN = "//*[@class='invoice__dataInput']/*[@name='%s']";
+    private static final String XPATH_AC_PATTERN = "//*[@class='invoice__dataInput']/*[@lh_product_autocomplete='%s']";
 
     @FindBy(xpath = "//*[@lh_link='close']")
     public WebElement invoiceCloseButton;
@@ -43,6 +45,25 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("invoiceCost", new Input(this, "price"));
         items.put("totalProducts", new Input(this, "totalProducts"));
         items.put("totalSum", new Input(this, "totalSum"));
+
+        /*Edit mode*/
+        items.put("inline sku", new Input(this, By.xpath(String.format(XPATH_PATTERN, "sku"))));
+        items.put("inline acceptanceDate", new DateTime(this, By.xpath(String.format(XPATH_PATTERN, "acceptanceDate"))));
+        items.put("inline supplier", new Input(this, By.xpath(String.format(XPATH_PATTERN, "supplier"))));
+        items.put("inline accepter", new Input(this, By.xpath(String.format(XPATH_PATTERN, "accepter"))));
+        items.put("inline recipient", new Input(this, By.xpath(String.format(XPATH_PATTERN, "recipient"))));
+        items.put("inline supplierInvoiceSku", new Input(this, By.xpath(String.format(XPATH_PATTERN, "supplierInvoiceSku"))));
+        items.put("inline supplierInvoiceDate", new DateTime(this, By.xpath(String.format(XPATH_PATTERN, "supplierInvoiceDate"))));
+        items.put("inline legalEntity", new Input(this, By.xpath(String.format(XPATH_PATTERN, "legalEntity"))));
+
+        items.put("inline productName", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "name"))));
+        items.put("inline productSku", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "sku"))));
+        items.put("inline productBarCode", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "barcode"))));
+        items.put("inline quantity", new Input(this, By.xpath(String.format(XPATH_PATTERN, "quantity"))));
+        items.put("inline price", new Input(this, By.xpath(String.format(XPATH_PATTERN, "price"))));
+        items.put("inline totalProducts", new Input(this, By.xpath(String.format(XPATH_PATTERN, "totalProducts"))));
+        items.put("inline totalSum", new Input(this, By.xpath(String.format(XPATH_PATTERN, "totalSum"))));
+
     }
 
     public void invoiceCloseButtonClick() {

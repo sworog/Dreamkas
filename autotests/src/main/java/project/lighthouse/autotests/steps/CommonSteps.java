@@ -8,7 +8,7 @@ import project.lighthouse.autotests.pages.common.CommonPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
 
-public class CommonSteps extends ScenarioSteps{
+public class CommonSteps extends ScenarioSteps {
 
     CommonPage commonPage;
     ProductListPage productListPage;
@@ -19,44 +19,52 @@ public class CommonSteps extends ScenarioSteps{
     }
 
     @Step
-    public void checkTheRequiredPageIsOpen(String pageObjectName){
+    public void checkTheRequiredPageIsOpen(String pageObjectName) {
         commonPage.isRequiredPageOpen(pageObjectName);
     }
 
     @Step
-    public void checkErrorMessages(ExamplesTable errorMessageTable){
+    public void checkErrorMessages(ExamplesTable errorMessageTable) {
         commonPage.checkErrorMessages(errorMessageTable);
     }
 
     @Step
-    public void checkNoErrorMessages(){
+    public void checkNoErrorMessages() {
         commonPage.checkNoErrorMessages();
     }
 
     @Step
-    public void checkNoErrorMessages(ExamplesTable errorMessageTable){
+    public void checkNoErrorMessages(ExamplesTable errorMessageTable) {
         commonPage.checkNoErrorMessages(errorMessageTable);
     }
 
     @Step
-    public void checkAutoCompleteNoResults(){
+    public void checkAutoCompleteNoResults() {
         commonPage.checkAutoCompleteNoResults();
     }
 
     @Step
-    public void checkAutoCompleteResults(ExamplesTable checkValuesTable){
+    public void checkAutoCompleteResults(ExamplesTable checkValuesTable) {
         commonPage.checkAutoCompleteResults(checkValuesTable);
     }
 
     @Step
-    public void createProductPostRequestSend(String name, String sku, String barcode, String units){
+    public void createProductPostRequestSend(String name, String sku, String barcode, String units) {
         productListPage.open();
         commonPage.сreateProductThroughPost(name, sku, barcode, units);
     }
 
     @Step
-    public void createInvoiceThroughPost(String invoiceName){
+    public void createInvoiceThroughPost(String invoiceName) {
         invoiceListPage.open();
         commonPage.createInvoiceThroughPost(invoiceName);
+    }
+
+    public void checkAlertText(String expectedText) {
+        commonPage.checkAlertText(expectedText);
+    }
+
+    public void NoAlertIsPresent() {
+        commonPage.NoAlertIsPresent();
     }
 }

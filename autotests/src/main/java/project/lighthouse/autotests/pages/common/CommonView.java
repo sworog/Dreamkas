@@ -59,6 +59,10 @@ public class CommonView extends PageObject implements CommonViewInterface {
         listItem.click();
     }
 
+    public void childrenItemClick(String elementName, String elementClassName) {
+        getWebElementItem(elementName).findElement(By.name(elementClassName)).click();
+    }
+
     public void checkListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue) {
         itemCheck(value);
         WebElement listItem = getWebElementItem(value).findElement(By.name(elementName));

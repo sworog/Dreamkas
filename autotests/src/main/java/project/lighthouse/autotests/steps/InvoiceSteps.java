@@ -67,6 +67,11 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
+    public void checkCardValue(String checkType, String elementName, String expectedValue) {
+        invoiceBrowsing.checkCardValue(checkType, elementName, expectedValue);
+    }
+
+    @Step
     public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
         invoiceBrowsing.checkCardValue(checkType, checkValuesTable);
     }
@@ -126,5 +131,40 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable) {
         invoiceBrowsing.checkListItemWithSkuHasExpectedValue(value, checkValuesTable);
+    }
+
+    @Step
+    public void elementClick(String elementName) {
+        invoiceBrowsing.elementClick(elementName);
+    }
+
+    @Step
+    public void acceptChangesButtonClick() {
+        invoiceBrowsing.acceptChangesButtonClick();
+    }
+
+    @Step
+    public void discardChangesButtonClick() {
+        invoiceBrowsing.discardChangesButtonClick();
+    }
+
+    @Step
+    public void invoiceStopEditButtonClick() {
+        invoiceBrowsing.invoiceStopEditButtonClick();
+    }
+
+    @Step
+    public void invoiceStopEditlinkClick() {
+        invoiceBrowsing.invoiceStopEditlinkClick();
+    }
+
+    @Step
+    public void childrenElementClick(String elementName, String elementClassName) {
+        invoiceBrowsing.childrenElementClick(elementName, elementClassName);
+    }
+
+    @Step
+    public void addNewInvoiceProductButtonClick() {
+        invoiceBrowsing.addNewInvoiceProductButtonClick();
     }
 }

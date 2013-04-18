@@ -42,7 +42,7 @@ public class InvoiceUserSteps {
         invoiceSteps.invoiceListItemCreate();
     }
 
-    @When("the user clicks the edit button on the invoice browsing page")
+    @When("the user clicks edit button and starts invoice edition")
     public void whenTheUserClicksTheEditButtonOnProductCardViewPage() {
         invoiceSteps.editButtonClick();
     }
@@ -73,6 +73,50 @@ public class InvoiceUserSteps {
         invoiceSteps.addOneMoreProductLinkClick();
     }
 
+    @When("the user clicks on '$elementName' element to edit it")
+    public void whenTheUserClicksOnElementtoEditIt(String elementName) {
+        invoiceSteps.elementClick(elementName);
+    }
+
+    @When("the user clicks OK and accepts changes")
+    public void whenTheUSerClicksOkAndAcceptsChanges() {
+        invoiceSteps.acceptChangesButtonClick();
+    }
+
+    @When("the user clicks Cancel and discard changes")
+    public void whenTheUserClicksCancelAndDiscardTheChanges() {
+        invoiceSteps.discardChangesButtonClick();
+    }
+
+    @When("the user clicks finish edit button and ends the invoice edition")
+    public void whenTheUserClicksFinishEDitButtonAndEndsEdition() {
+        invoiceSteps.invoiceStopEditButtonClick();
+    }
+
+    @When("the user clicks finish edit link and ends the invoice edition")
+    public void whenTheUserClicksFinishEditLinkAndEndsEdition() {
+        invoiceSteps.invoiceStopEditlinkClick();
+    }
+
+    @When("the user edits '$elementName' element with new value '$newValue' and verify the '$checkType' changes")
+    public void whenTheUserEditElementWithNewValueAndVerify(String elementName, String newValue, String checkType) {
+        String newElementName = "inline " + elementName;
+        whenTheUserClicksOnElementtoEditIt(elementName);
+        whenTheUserInputsTextInTheInvoiceField(newElementName, newValue);
+        whenTheUSerClicksOkAndAcceptsChanges();
+        thenTheUserChecksTheElementValue(checkType, elementName, newValue);
+    }
+
+    @When("the user clicks on '$elementClassName' element of invoice product with '$elementName' sku")
+    public void whenTheUserClicksOnElementOfInvoiceProductWithSku(String elementClassName, String elementName) {
+        invoiceSteps.childrenElementClick(elementName, elementClassName);
+    }
+
+    @When("the user clicks the add invoice product button and adds the invoice product")
+    public void whenTheUserClicksTheAddInvoiceProductButtonAndAddsTheInvoiceProduct() {
+        invoiceSteps.addNewInvoiceProductButtonClick();
+    }
+
     @Then("the user checks the invoice with '$skuValue' sku has '$name' equal to '$expectedValue'")
     public void whenTheUSerChecksTheInvoiceWithSkuHasNameValueEqualToExpectedValue(String skuValue, String name, String expectedValue) {
         invoiceSteps.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, name, expectedValue);
@@ -91,6 +135,11 @@ public class InvoiceUserSteps {
     @Then("the user checks invoice '$checkType' elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(String checkType, ExamplesTable checkValuesTable) {
         invoiceSteps.checkCardValue(checkType, checkValuesTable);
+    }
+
+    @Then("the user checks invoice '$checkType' element '$elementName' equal to '$expectedValue'")
+    public void thenTheUserChecksTheElementValue(String checkType, String elementName, String expectedValue) {
+        invoiceSteps.checkCardValue(checkType, elementName, expectedValue);
     }
 
     @Then("the user checks invoice elements values $checkValuesTable")

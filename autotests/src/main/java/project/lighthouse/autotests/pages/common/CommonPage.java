@@ -31,6 +31,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     public static final String STRING_EMPTY = "";
 
     public ArrayList<String> products = new ArrayList<>();
+    public ArrayList<String> invoices = new ArrayList<>();
 
     public CommonPage(WebDriver driver) {
         super(driver);
@@ -211,18 +212,21 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void createInvoiceThroughPost(String invoiceName) {
-        String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
-        String jsonDataPattern = "{\"invoice\":{\"sku\":\"%s\",\"supplier\":\"supplier\",\"acceptanceDate\":\"%s\",\"accepter\":\"accepter\",\"legalEntity\":\"legalEntity\",\"supplierInvoiceSku\":\"\",\"supplierInvoiceDate\":\"\"}}";
-        String jsonData = String.format(jsonDataPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
-        String postResponse = executePost(getApiUrl, jsonData);
-        try {
-            JSONObject object = new JSONObject(postResponse);
-            String invoiceId = (String) object.get("id");
-            String invoiceUrl = String.format("%s/invoice/products/%s", getApiUrl().replace("api", "webfront"), invoiceId);
-            getDriver().navigate().to(invoiceUrl);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new AssertionError(e.getMessage());
+        if (!invoices.contains(invoiceName)) {
+            String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
+            String jsonDataPattern = "{\"invoice\":{\"sku\":\"%s\",\"supplier\":\"supplier\",\"acceptanceDate\":\"%s\",\"accepter\":\"accepter\",\"legalEntity\":\"legalEntity\",\"supplierInvoiceSku\":\"\",\"supplierInvoiceDate\":\"\"}}";
+            String jsonData = String.format(jsonDataPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
+            String postResponse = executePost(getApiUrl, jsonData);
+            invoices.add(invoiceName);
+            try {
+                JSONObject object = new JSONObject(postResponse);
+                String invoiceId = (String) object.get("id");
+                String invoiceUrl = String.format("%s/invoice/products/%s", getApiUrl().replace("api", "webfront"), invoiceId);
+                getDriver().navigate().to(invoiceUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new AssertionError(e.getMessage());
+            }
         }
     }
 
@@ -284,6 +288,35 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             return toMap((JSONObject) json);
         } else {
             return json;
+        }
+    }
+
+    public void checkAlertText(String expectedText) {
+        boolean isAlertPresent;
+        Alert alert;
+        try {
+            alert = getAlert();
+            isAlertPresent = true;
+        } catch (Exception e) {
+            String errorMessage = "No alert is present";
+            throw new AssertionError(errorMessage);
+        }
+        if (isAlertPresent) {
+            String alertText = alert.getText();
+            if (alertText.contains(expectedText)) {
+                String errorMessage = String.format("Alert text is '%s'. Should be '%s'.", alert, expectedText);
+                throw new AssertionError(errorMessage);
+            }
+        }
+        alert.accept();
+    }
+
+    public void NoAlertIsPresent() {
+        try {
+            String alertText = getAlert().getText();
+            throw new AssertionError(String.format("Alert is present! Alert text: '%s'", alertText));
+        } catch (Exception e) {
+//            e.printStackTrace();
         }
     }
 }

@@ -15,14 +15,29 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     private static final String ITEM_SKU_NAME = "productSku";
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
 
-    @FindBy(xpath = "//*[@lh_link='edit']")
-    private WebElement editButton;
-
     @FindBy(xpath = "//*[@class='saveInvoiceAndAddProduct']")
     private WebElement goToTheaAdditionOfProductsLink;
 
     @FindBy(xpath = "//*[@class='addMoreProduct']")
     private WebElement addOneMoreProductLink;
+
+    @FindBy(xpath = "//*[@class='invoice__controlLink invoice__editLink']")
+    public WebElement editButtonLink;
+
+    @FindBy(xpath = "//*[@class='invoice__controlLink invoice__stopEditLink']")
+    public WebElement invoiceStopEditLink;
+
+    @FindBy(xpath = "//*[@class='button invoice__stopEditButton']")
+    public WebElement invoiceStopEditButtonLink;
+
+    @FindBy(xpath = "//*[@class='button button_color_blue invoice__addMoreProduct']")
+    public WebElement invoiceProductAddButton;
+
+    @FindBy(xpath = "//*[@class='button invoice__dataInputSave']")
+    public WebElement acceptChangesButton;
+
+    @FindBy(xpath = "//*[@class='invoice__dataInputCancel']")
+    public WebElement discardChangesButton;
 
     public InvoiceBrowsing(WebDriver driver) {
         super(driver);
@@ -61,7 +76,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void editButtonClick() {
-        $(editButton).click();
+        $(editButtonLink).click();
     }
 
     public void goToTheaAdditionOfProductsLinkClick() {
@@ -82,5 +97,39 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable) {
         commonViewInterface.checkListItemWithSkuHasExpectedValue(value, checkValuesTable);
+    }
+
+    public void elementClick(String elementName) {
+        items.get(elementName).getWebElement().click();
+    }
+
+    public void acceptChangesButtonClick() {
+        $(acceptChangesButton).click();
+    }
+
+    public void discardChangesButtonClick() {
+        $(discardChangesButton).click();
+    }
+
+    public void invoiceStopEditButtonClick() {
+        $(invoiceStopEditButtonLink).click();
+    }
+
+    public void invoiceStopEditlinkClick() {
+        $(invoiceStopEditLink).click();
+    }
+
+    public void checkEditMode() {
+        if (!(invoiceStopEditLink.isDisplayed() && invoiceStopEditButtonLink.isDisplayed())) {
+            throw new AssertionError("user is still in edit mode");
+        }
+    }
+
+    public void childrenElementClick(String elementName, String elementClassName) {
+        commonViewInterface.childrenItemClick(elementName, elementClassName);
+    }
+
+    public void addNewInvoiceProductButtonClick() {
+        $(invoiceProductAddButton).click();
     }
 }
