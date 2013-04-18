@@ -276,6 +276,63 @@ define(
                     }
                 });
             },
+            dateTimePickerToInput: function($input, currentTime) {
+                var block = this;
+                $input.mask('99.99.9999 99:99');
+
+                var onClose= function(dateText, datepicker) {
+                    $input.val(dateText);
+                }
+
+                var dateTimePickerControl = {
+                    create: function(tp_inst, obj, unit, val, min, max, step){
+                        var input = jQuery('<input class="ui-timepicker-input" value="'+val+'" style="width:50%">');
+                        input.change(function(e){
+                            if (e.originalEvent !== undefined) {
+                                tp_inst._onTimeChange();
+                            }
+                            tp_inst._onSelectHandler();
+                        })
+                        input.appendTo(obj);
+                        return obj;
+                    },
+                    options: function(tp_inst, obj, unit, opts, val){
+                    },
+                    value: function(tp_inst, obj, unit, val){
+                        if (val !== undefined) {
+                            return obj.find('.ui-timepicker-input').val(val);
+                        } else {
+                            return obj.find('.ui-timepicker-input').val();
+                        }
+                    }
+                };
+
+                var options = {
+                    controlType: dateTimePickerControl,
+                    onClose: onClose,
+                    dateFormat: block.invoiceModel.dateFormat,
+                    timeFormat: block.invoiceModel.timeFormat
+                }
+
+                $input.datetimepicker(options);
+
+                var currentTime = currentTime || false;
+
+                if (currentTime) {
+                    $input.datetimepicker('setDate', new Date())
+                }
+            },
+            datePickerToInput: function($input) {
+                var block = this;
+
+                $input.mask('99.99.9999');
+
+                var options = {
+                    dateFormat: block.invoiceModel.dateFormat
+                }
+
+                $input.datepicker(options);
+            },
             utils: utils,
             tpl: templates,
             addProduct: function(productData) {
@@ -344,6 +401,20 @@ define(
                         }));
                         this.autocompleteToInput($dataElement.find("[lh_product_autocomplete]"));
                         break;
+
+                    case 'acceptanceDate':
+                        $dataElement.append(block.tpl.dataInput({
+                            $dataElement: $dataElement
+                        }));
+                        block.dateTimePickerToInput($dataElement.find("form [name]"), false);
+                        break;
+
+                    case 'supplierInvoiceDate':
+                        $dataElement.append(block.tpl.dataInput({
+                            $dataElement: $dataElement
+                        }));
+                        block.datePickerToInput($dataElement.find("form [name]"));
+                        break
 
                     default:
                         $dataElement.append(block.tpl.dataInput({
