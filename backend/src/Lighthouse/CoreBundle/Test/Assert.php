@@ -59,7 +59,6 @@ class Assert
      * @param string $path
      * @param mixed $json
      * @param string $message
-     * @return bool
      */
     public static function assertJsonHasPath($path, $json, $message = '')
     {
@@ -69,5 +68,20 @@ class Assert
         $jsonPath = new JsonPath($json, $path);
         $found = $jsonPath->isFound();
         \PHPUnit_Framework_Assert::assertTrue($found, $message);
+    }
+
+    /**
+     * @param string $path
+     * @param mixed $json
+     * @param string $message
+     */
+    public static function assertNotJsonHasPath($path, $json, $message = '')
+    {
+        if ('' == $message) {
+            $message = sprintf("JSON path '%s' should not be found", $path);
+        }
+        $jsonPath = new JsonPath($json, $path);
+        $found = $jsonPath->isFound();
+        \PHPUnit_Framework_Assert::assertFalse($found, $message);
     }
 }

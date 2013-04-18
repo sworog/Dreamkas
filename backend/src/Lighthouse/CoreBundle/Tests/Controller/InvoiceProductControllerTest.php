@@ -698,6 +698,90 @@ class InvoiceProductControllerTest extends WebTestCase
         );
     }
 
+    public function testPutInvoiceProductActionChangeProductId($quantity1 = 10, $price1 = 9.99, $quantity2 = 5, $price2 = 5.99)
+    {
+        $this->clearMongoDb();
+
+        $invoiceId = $this->createInvoice();
+        $product1Id = $this->createProduct('_1');
+        $product2Id = $this->createProduct('_2');
+
+        $this->assertProductTotals($product1Id, null, null);
+        $this->assertProductTotals($product2Id, null, null);
+
+        // POST invoice product
+        $postData = array(
+            'quantity' => $quantity1,
+            'price'    => $price1,
+            'product'  => $product1Id,
+        );
+
+        $postJson = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $postData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postJson);
+        $invoiceProductId = $postJson['id'];
+        Assert::assertJsonPathEquals($quantity1, 'product.amount', $postJson);
+        Assert::assertJsonPathEquals($price1, 'product.lastPurchasePrice', $postJson);
+
+        $this->assertProductTotals($product1Id, $quantity1, $price1);
+        $this->assertProductTotals($product2Id, null, null);
+
+        // PUT invoice product with another product id
+        $putData = array(
+            'quantity' => $quantity2,
+            'price' => $price2,
+            'product'  => $product2Id,
+        );
+
+        $putJson = $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProductId . '.json',
+            array('invoiceProduct' => $putData)
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathEquals($quantity2, 'product.amount', $putJson);
+        Assert::assertJsonPathEquals($price2, 'product.lastPurchasePrice', $putJson);
+
+        $this->assertProductTotals($product1Id, 0, $price1);
+        $this->assertProductTotals($product2Id, $quantity2, $price2);
+    }
+
+    /**
+     * @param string $productId
+     * @param int $amount
+     * @param float $lastPurchasePrice
+     */
+    protected function assertProductTotals($productId, $amount, $lastPurchasePrice)
+    {
+        $productJson = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/products/' . $productId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        if (null === $amount) {
+            Assert::assertNotJsonHasPath('amount', $productJson);
+        } else {
+            Assert::assertJsonPathEquals($amount, 'amount', $productJson);
+        }
+
+        if (null === $lastPurchasePrice) {
+            Assert::assertNotJsonHasPath('lastPurchasePrice', $productJson);
+        } else {
+            Assert::assertJsonPathEquals($lastPurchasePrice, 'lastPurchasePrice', $productJson);
+        }
+    }
+
     /**
      * @return string
      */
