@@ -2,12 +2,12 @@
     Накладная
     <span class="invoice__editable">
         №
-        <span name="sku">
+        <span name="sku" model-attr="sku">
             <%= block.invoiceModel.get('sku') %>
         </span>
     </span>
     от
-    <span name="acceptanceDate" class="invoice__editable">
+    <span name="acceptanceDate" class="invoice__editable" model-attr="acceptanceDate">
         <%= moment(block.invoiceModel.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
     </span>
 </div>
@@ -15,7 +15,7 @@
 <div class="invoice__head invoice__dataRow">
     <div>
         <div class="invoice__headItem">
-        <span class="invoice__headItemData invoice__editable" name="supplier">
+        <span class="invoice__headItemData invoice__editable" name="supplier" model-attr="supplier">
             <%= block.invoiceModel.get('supplier') %>
         </span>
             <div class="invoice__headItemHint">
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="invoice__headItem">
-        <span class="invoice__headItemData invoice__editable" name="accepter">
+        <span class="invoice__headItemData invoice__editable" name="accepter" model-attr="accepter">
             <%= block.invoiceModel.get('accepter') %>
         </span>
             <div class="invoice__headItemHint">
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="invoice__headItem">
-        <span class="invoice__headItemData invoice__editable" name="legalEntity">
+        <span class="invoice__headItemData invoice__editable" name="legalEntity" model-attr="legalEntity">
             <%= block.invoiceModel.get('legalEntity') %>
         </span>
             <div class="invoice__headItemHint">
@@ -48,12 +48,12 @@
         <%= ( ! block.invoiceModel.get('supplierInvoiceSku'))?'invoice__hiddenData':'' %>
     ">
         №
-        <span name="supplierInvoiceSku"><%= block.invoiceModel.get('supplierInvoiceSku') ? block.invoiceModel.get('supplierInvoiceSku') : 'XXXXXX' %></span>
+        <span name="supplierInvoiceSku" model-attr="supplierInvoiceSku"><%= block.invoiceModel.get('supplierInvoiceSku') ? block.invoiceModel.get('supplierInvoiceSku') : 'XXXXXX' %></span>
     </span>
     <span class="
         <%= ( ! block.invoiceModel.get('supplierInvoiceDate'))?'invoice__hiddenData':'' %>
     ">
-        от <span name="supplierInvoiceDate" class="invoice__editable">
+        от <span name="supplierInvoiceDate" class="invoice__editable" model-attr="supplierInvoiceDate">
             <%= block.invoiceModel.get('supplierInvoiceDate') ? moment(block.invoiceModel.get('supplierInvoiceDate')).format('DD.MM.YYYY') : 'DD.MM.YYYY' %>
         </span>
     </span>

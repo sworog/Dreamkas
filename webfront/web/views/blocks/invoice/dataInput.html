@@ -1,7 +1,7 @@
-<form class="invoice__dataInput">
+<form class="invoice__dataInput" data-input-id="<%= inputId %>">
     <input class="inputText"
            type="text"
-           name="<%= $dataElement.attr('name') %>"
+           name="<%= $dataElement.attr('model-attr') %>"
            value="<%= $.trim($dataElement.text()) %>"/>
     <input type="submit" />
 </form>

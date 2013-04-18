@@ -1,17 +1,17 @@
-<tr name="invoiceProduct" class="invoice__dataRow" product-sku="<%= invoiceProduct.product.sku %>">
+<tr invoice-product-id="<%= invoiceProduct.id %>" name="invoiceProduct" class="invoice__dataRow" product-sku="<%= invoiceProduct.product.sku %>">
     <td>
-        <span name="productName" class="invoice__editable"><%= invoiceProduct.product.name %></span>
+        <span name="productName" class="invoice__editable" model-attr="product"><%= invoiceProduct.product.name %></span>
         <br />
-        <span name="productSku" class="invoice__editable"><%= invoiceProduct.product.sku %></span>
+        <span name="productSku" class="invoice__editable" model-attr="product"><%= invoiceProduct.product.sku %></span>
     </td>
     <td>
-        <span name="productBarcode" class="invoice__editable">
-            <%= invoiceProduct.product.barcode %>
+        <span name="productBarcode" class="invoice__editable <%= invoiceProduct.product.barcode ? '' : 'invoice__hiddenData' %>" model-attr="product">
+            <%= invoiceProduct.product.barcode ? invoiceProduct.product.barcode : 'XXXXXXX' %>
         </span>
     </td>
     <td>
         <span class="invoice__editable">
-            <span name="productAmount">
+            <span name="productAmount" model-attr="quantity">
                 <%= invoiceProduct.quantity %>
             </span>
             <span name="productUnits">
@@ -24,7 +24,7 @@
             <span>
                 по
             </span>
-            <span name="productPrice">
+            <span name="productPrice" model-attr="price">
                 <%= block.utils.formatPrice(invoiceProduct.price) %>
             </span>
             <span>
@@ -36,13 +36,11 @@
         <span>
             =
         </span>
-        <span class="invoice__editable">
-            <span name="productSum">
-                <%= block.utils.formatPrice(invoiceProduct.totalPrice) %>
-            </span>
-            <span>
-                р.
-            </span>
+        <span name="productSum">
+            <%= block.utils.formatPrice(invoiceProduct.totalPrice) %>
+        </span>
+        <span>
+            р.
         </span>
     </td>
 </tr>

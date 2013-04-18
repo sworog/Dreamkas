@@ -25,7 +25,6 @@ define(
                 block.autocompleteToInput('sku');
                 block.autocompleteToInput('barcode');
 
-
                 block.invoiceProductsCollection = new invoiceProductsCollection({
                     invoiceId: block.invoiceId
                 });
@@ -54,6 +53,9 @@ define(
                         },
                         add: function(model) {
                             block.renderTable();
+                            block.invoiceModel.set(model.toJSON().invoice);
+                        },
+                        change: function(model){
                             block.invoiceModel.set(model.toJSON().invoice);
                         }
                     });
@@ -94,8 +96,34 @@ define(
                     var block = this;
 
                     if (block.editMode && !block.dataEditing) {
-                        block.showDataInput($(e.target));
+                        block.showDataInput($(e.currentTarget));
                     }
+                },
+                'submit .invoice__dataInput': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        data = Backbone.Syphon.serialize(e.target),
+                        invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
+                        invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId);
+
+                    invoiceProduct.save(data, {
+                        success: function(){
+                            block.set('dataEditing', false);
+                        }
+                    });
+                },
+                'click .invoice__dataInputSave': function(e){
+                    e.preventDefault();
+                    var block = this,
+                        inputId = $(e.target).closest('.invoice__dataInputControls').attr('rel'),
+                        $dataInputForm = block.$el.find('.invoice__dataInput[data-input-id="' + inputId + '"]');
+
+                    $dataInputForm.submit();
+                },
+                'click .invoice__dataInputCancel': function(e){
+                    var block = this;
+                    e.preventDefault();
+                    block.removeDataInput();
                 }
             },
             editMode: false,
@@ -127,9 +155,17 @@ define(
                     block: block
                 }));
             },
-            disableAddForm: function(disabled){
+            removeDataInput: function(){
                 var block = this;
-                if (disabled){
+
+                block.$el.find('.invoice__dataInput').remove();
+                block.$el.find('.invoice__dataInputControls').remove();
+
+                block.set('dataEditing', false);
+            },
+            disableAddForm: function(disabled) {
+                var block = this;
+                if (disabled) {
                     block.form.$el.find('[type=submit]').closest('.button').addClass('button_disabled');
                 } else {
                     block.form.$el.find('[type=submit]').closest('.button').removeClass('button_disabled');
@@ -243,7 +279,10 @@ define(
                 var block = this,
                     $dataElement = $el,
                     $dataRow = $el.closest('.invoice__dataRow'),
-                    dataInputControls = block.tpl.dataInputControls();
+                    inputId = _.uniqueId('dataInput'),
+                    dataInputControls = block.tpl.dataInputControls({
+                        inputId: inputId
+                    });
 
                 block.set('dataEditing', true);
 
@@ -251,12 +290,13 @@ define(
                     $dataElement = $el.find('[name]');
                 }
 
-                if ($dataRow.prop('tagName') === 'TR'){
+                if ($dataRow.prop('tagName') === 'TR') {
                     dataInputControls = '<tr><td class="invoice__dataInputControlsTd" colspan="' + $dataRow.find('td').length + '">' + dataInputControls + '</td></tr>'
                 }
 
                 $dataElement.append(block.tpl.dataInput({
-                    $dataElement: $dataElement
+                    $dataElement: $dataElement,
+                    inputId: inputId
                 }));
 
                 $dataRow.after(dataInputControls);

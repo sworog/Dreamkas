@@ -2,7 +2,13 @@ define(function() {
     return Backbone.BaseModel.extend({
         modelName: 'invoiceProduct',
         url: function(){
-            return baseApiUrl + '/invoices/' + this.get('invoiceId') + '/products.json'
+            var url;
+            if (this.id){
+                url = baseApiUrl + '/invoices/' + this.get('invoiceId') + '/products/' + this.id + '.json';
+            } else {
+                url = baseApiUrl + '/invoices/' + this.get('invoiceId') + '/products.json';
+            }
+            return url;
         },
         defaults: {
             id: null,
@@ -11,8 +17,15 @@ define(function() {
             quantity: null,
             price: null
         },
+        parse: function(data){
+            data.invoiceId = data.invoice.id;
+            return data;
+        },
         excludeSaveFields: [
-            'invoiceId'
+            'invoiceId',
+            'totalPrice',
+            'invoice',
+            'productPrice'
         ]
     });
 });
