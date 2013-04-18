@@ -4,13 +4,12 @@ namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
 use Lighthouse\CoreBundle\Validator\Constraints\Chain;
 use Lighthouse\CoreBundle\Validator\Constraints\ChainValidator;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 class ChainValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ExecutionContext
+     * @var ExecutionContextInterface
      */
     protected $context;
 

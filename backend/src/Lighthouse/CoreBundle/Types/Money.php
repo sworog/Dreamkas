@@ -10,7 +10,7 @@ class Money
     protected $count;
 
     /**
-     * @param int $count
+     * @param int|Money $count
      */
     public function __construct($count = null)
     {

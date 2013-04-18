@@ -61,6 +61,7 @@ class InvoiceProductController extends FOSRestController
 
     /**
      * @param string $invoiceId
+     * @param string $invoiceProductId
      * @return InvoiceProductCollection
      */
     public function getProductAction($invoiceId, $invoiceProductId)

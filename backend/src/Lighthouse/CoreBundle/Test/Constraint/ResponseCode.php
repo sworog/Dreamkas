@@ -26,7 +26,7 @@ class ResponseCode extends \PHPUnit_Framework_Constraint
     }
 
     /**
-     * @param Response $response
+     * @param int $other expected response code
      * @return bool
      */
     public function matches($other)

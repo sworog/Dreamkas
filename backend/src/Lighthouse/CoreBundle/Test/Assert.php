@@ -4,13 +4,14 @@ namespace Lighthouse\CoreBundle\Test;
 
 use Lighthouse\CoreBundle\Test\Constraint\ResponseCode;
 use Lighthouse\CoreBundle\Util\JsonPath;
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Response;
 
 class Assert
 {
     /**
      * @param int $expectedCode
-     * @param Response $response
+     * @param Response|Client|int $actual
      * @param string $message
      */
     public static function assertResponseCode($expectedCode, $actual, $message = '')
