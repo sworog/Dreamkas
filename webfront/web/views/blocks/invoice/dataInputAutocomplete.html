@@ -1,0 +1,10 @@
+<form class="invoice__dataInput">
+    <input class="inputText"
+           type="text"
+           lh_product_autocomplete="<%= $dataElement.attr('autocomplete-name') %>"
+           value="<%= _.escape($.trim($dataElement.html())) %>"/>
+    <input type="submit" />
+    <input type="hidden"
+           name="<%= $dataElement.attr('model-attr') %>"
+           value="<%= $dataElement.attr('product-id') %>" />
+</form>

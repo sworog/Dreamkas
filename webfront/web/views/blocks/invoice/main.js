@@ -21,9 +21,9 @@ define(
                     el: block.el.getElementsByClassName('invoice__addForm')
                 });
 
-                block.autocompleteToInput('name');
-                block.autocompleteToInput('sku');
-                block.autocompleteToInput('barcode');
+                block.autocompleteToInput(block.form.$el.find("[lh_product_autocomplete='name']"));
+                block.autocompleteToInput(block.form.$el.find("[lh_product_autocomplete='sku']"));
+                block.autocompleteToInput(block.form.$el.find("[lh_product_autocomplete='barcode']"));
 
                 block.invoiceProductsCollection = new invoiceProductsCollection({
                     invoiceId: block.invoiceId
@@ -217,9 +217,9 @@ define(
                     block.form.$el.find('[type=submit]').closest('.button').removeClass('button_disabled');
                 }
             },
-            autocompleteToInput: function(name) {
-                var input = this.$el.find("[lh_product_autocomplete='" + name + "']");
-                input.autocomplete({
+            autocompleteToInput: function($input) {
+                var name = $input.attr('lh_product_autocomplete');
+                $input.autocomplete({
                     source: function(request, response) {
                         $.ajax({
                             url: baseApiUrl + "/products/" + name + "/search.json",
@@ -247,7 +247,7 @@ define(
                         $(this).parents("form").find("[name='quantity']").focus();
                     }
                 });
-                input.keyup(function(event) {
+                $input.keyup(function(event) {
                     var keyCode = $.ui.keyCode;
                     switch (event.keyCode) {
                         case keyCode.PAGE_UP:
@@ -264,7 +264,7 @@ define(
                             break;
                         default:
                             var term = $(this).autocomplete('getTerm');
-                            if (null != term && term != $(this).val()) {
+                            if (term != $(this).val()) {
                                 var inputs = ['name', 'sku', 'barcode'];
                                 for (var i in inputs) {
                                     if (inputs[i] != name) {
@@ -329,17 +329,28 @@ define(
 
                 block.set('dataEditing', true);
 
-                if (!$dataElement.attr('name')) {
-                    $dataElement = $el.find('[name]');
+                if (!$dataElement.attr('model-attr')) {
+                    $dataElement = $el.find('[model-attr]');
                 }
 
                 if ($dataRow.prop('tagName') === 'TR') {
                     dataInputControls = '<tr><td class="invoice__dataInputControlsTd" colspan="' + $dataRow.find('td').length + '">' + dataInputControls + '</td></tr>'
                 }
 
-                $dataElement.append(block.tpl.dataInput({
-                    $dataElement: $dataElement
-                }));
+                switch ($dataElement.attr('model-attr')) {
+                    case 'product':
+                        $dataElement.append(block.tpl.dataInputAutocomplete({
+                            $dataElement: $dataElement
+                        }));
+                        this.autocompleteToInput($dataElement.find("[lh_product_autocomplete]"));
+                        break;
+
+                    default:
+                        $dataElement.append(block.tpl.dataInput({
+                            $dataElement: $dataElement
+                        }));
+                        break;
+                }
 
                 $dataRow.after(dataInputControls);
 

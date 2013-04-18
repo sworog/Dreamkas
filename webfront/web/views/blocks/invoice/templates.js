@@ -6,9 +6,10 @@ define(
         'tpl!./row.html',
         'tpl!./footer.html',
         'tpl!./dataInput.html',
-        'tpl!./dataInputControls.html'
+        'tpl!./dataInputControls.html',
+        'tpl!./dataInputAutocomplete.html'
     ],
-    function(main, head, table, row, footer, dataInput, dataInputControls) {
+    function(main, head, table, row, footer, dataInput, dataInputControls, dataInputAutocomplete) {
         return {
             main: main,
             head: head,
@@ -16,7 +17,8 @@ define(
             row: row,
             footer: footer,
             dataInput: dataInput,
-            dataInputControls: dataInputControls
+            dataInputControls: dataInputControls,
+            dataInputAutocomplete: dataInputAutocomplete
         }
     }
 );
