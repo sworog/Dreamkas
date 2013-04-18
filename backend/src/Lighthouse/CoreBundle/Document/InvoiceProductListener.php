@@ -109,6 +109,7 @@ class InvoiceProductListener
             $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $invoiceProduct->quantity;
 
             $oldProduct->amount = $oldProduct->amount - $oldQuantity;
+            $oldProduct->lastPurchasePrice = null;
             $this->computeChangeSet($dm, $oldProduct);
 
             $newProduct->amount = $newProduct->amount + $newQuantity;

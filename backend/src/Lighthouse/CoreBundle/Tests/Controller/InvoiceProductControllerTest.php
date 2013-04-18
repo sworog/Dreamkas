@@ -758,7 +758,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($invoiceSumTotal2, 'invoice.sumTotal', $putJson);
         Assert::assertJsonPathEquals(1, 'invoice.itemsCount', $putJson);
 
-        $this->assertProductTotals($product1Id, 0, $price1);
+        $this->assertProductTotals($product1Id, 0, null);
         $this->assertProductTotals($product2Id, $quantity2, $price2);
         $this->assertInvoiceTotals($invoiceId, $invoiceSumTotal2, 1);
     }
