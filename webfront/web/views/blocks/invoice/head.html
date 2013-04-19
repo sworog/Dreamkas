@@ -48,13 +48,13 @@
         <%= ( ! block.invoiceModel.get('supplierInvoiceSku'))?'invoice__hiddenData':'' %>
     ">
         №
-        <span name="supplierInvoiceSku" model-attr="supplierInvoiceSku"><%= block.invoiceModel.get('supplierInvoiceSku') ? block.invoiceModel.get('supplierInvoiceSku') : 'XXXXXX' %></span>
+        <span name="supplierInvoiceSku" model-attr="supplierInvoiceSku"><%= block.invoiceModel.get('supplierInvoiceSku') ? block.invoiceModel.get('supplierInvoiceSku') : 'Ввести номер' %></span>
     </span>
     <span class="
         <%= ( ! block.invoiceModel.get('supplierInvoiceDate'))?'invoice__hiddenData':'' %>
     ">
         от <span name="supplierInvoiceDate" class="invoice__editable" model-attr="supplierInvoiceDate">
-            <%= block.invoiceModel.get('supplierInvoiceDate') ? moment(block.invoiceModel.get('supplierInvoiceDate')).format('DD.MM.YYYY') : 'DD.MM.YYYY' %>
+            <%= block.invoiceModel.get('supplierInvoiceDate') ? moment(block.invoiceModel.get('supplierInvoiceDate')).format('DD.MM.YYYY') : 'Ввести дату' %>
         </span>
     </span>
 </div>

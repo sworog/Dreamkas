@@ -114,6 +114,7 @@
 
 .invoice__hiddenData {
     display: none;
+    color: #999;
 }
 
 .invoice_editMode .invoice__hiddenData {
