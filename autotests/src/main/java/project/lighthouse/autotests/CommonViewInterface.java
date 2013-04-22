@@ -1,6 +1,7 @@
 package project.lighthouse.autotests;
 
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.By;
 
 public interface CommonViewInterface {
 
@@ -12,5 +13,7 @@ public interface CommonViewInterface {
 
     void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable);
 
-    void childrenItemClick(String elementName, String elementClassName);
+    void childrenItemClickByClassName(String elementName, String elementClassName);
+
+    void childrentItemClickByFindByLocator(String elementName, By by);
 }

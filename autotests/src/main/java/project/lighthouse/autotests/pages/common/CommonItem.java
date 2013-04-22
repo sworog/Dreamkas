@@ -29,6 +29,10 @@ abstract public class CommonItem {
         return parent.findElement(findBy);
     }
 
+    public By getFindBy() {
+        return findBy;
+    }
+
     public WebDriver getWebDriver() {
         return pageObject.getDriver();
     }

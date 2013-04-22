@@ -11,7 +11,6 @@ public class CommonUserSteps {
     @Steps
     CommonSteps commonSteps;
 
-
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode")
     public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode) {
         commonSteps.createProductPostRequestSend(name, sku, barcode, "kg");
@@ -30,6 +29,12 @@ public class CommonUserSteps {
     @Given("there is the invoice with '$sku' sku")
     public void givenThereIsTheInvoiceWithSku(String sku) {
         commonSteps.createInvoiceThroughPost(sku);
+    }
+
+    @Given("there is the invoice '$invoiceSku' with product '$productName' name, '$productSku' sku, '$productBarCode' barcode, '$productUnits' units")
+    public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) {
+        givenTheUserCreatesProductWithParams(productName, productSku, productBarCode, productUnits);
+        commonSteps.createInvoiceThroughPostWithData(invoiceSku, productName);
     }
 
     @Then("the user checks that he is on the '$pageObjectName'")

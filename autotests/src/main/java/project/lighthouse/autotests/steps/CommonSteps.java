@@ -5,12 +5,14 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.pages.common.CommonPage;
+import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
 
 public class CommonSteps extends ScenarioSteps {
 
     CommonPage commonPage;
+    InvoiceCreatePage invoiceCreatePage;
     ProductListPage productListPage;
     InvoiceListPage invoiceListPage;
 
@@ -60,11 +62,26 @@ public class CommonSteps extends ScenarioSteps {
         commonPage.createInvoiceThroughPost(invoiceName);
     }
 
+    @Step
+    public void createInvoiceThroughPostWithData(String invoiceName, String productName) {
+        if (!CommonPage.invoices.contains(invoiceName)) {
+            createInvoiceThroughPost(invoiceName);
+            continueCreatingInvoiceProduct(productName);
+        }
+    }
+
     public void checkAlertText(String expectedText) {
         commonPage.checkAlertText(expectedText);
     }
 
     public void NoAlertIsPresent() {
         commonPage.NoAlertIsPresent();
+    }
+
+    public void continueCreatingInvoiceProduct(String productName) {
+        invoiceCreatePage.input("productName", productName);
+        invoiceCreatePage.input("productAmount", "1");
+        invoiceCreatePage.input("invoiceCost", "1");
+        invoiceCreatePage.invoiceCreateButtonClick();
     }
 }

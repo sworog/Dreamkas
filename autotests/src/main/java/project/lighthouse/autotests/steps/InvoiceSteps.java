@@ -164,6 +164,11 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
+    public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
+        invoiceBrowsing.childrentItemClickByFindByLocator(parentElementName, elementName);
+    }
+
+    @Step
     public void addNewInvoiceProductButtonClick() {
         invoiceBrowsing.addNewInvoiceProductButtonClick();
     }
