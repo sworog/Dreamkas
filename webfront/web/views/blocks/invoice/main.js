@@ -1,6 +1,6 @@
 define(
     [
-        'blocks',
+        '/views/blocks/main.js',
         '/models/invoice.js',
         '/models/invoiceProduct.js',
         '/collections/invoiceProducts.js',
