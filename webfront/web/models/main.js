@@ -1,5 +1,5 @@
 define(function() {
-    return Backbone.BaseModel = Backbone.Model.extend({
+    return Backbone.Model.extend({
         sync: function() {
             arguments[2].toSave = true;
             return Backbone.sync.apply(this, arguments);

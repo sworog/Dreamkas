@@ -1,5 +1,9 @@
-define(function() {
-    return Backbone.Model.extend({
+define(
+    [
+        './main.js'
+    ],
+    function(BaseModel) {
+    return BaseModel.extend({
         urlRoot: baseApiUrl + "/products",
 
         defaults: {

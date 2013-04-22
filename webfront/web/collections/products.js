@@ -1,9 +1,10 @@
 define(
     [
+        './main.js',
         '/models/product.js'
     ],
-    function(ProductModel) {
-        return Backbone.Collection.extend({
+    function(BaseCollection, ProductModel) {
+        return BaseCollection.extend({
             model: ProductModel,
             url: baseApiUrl + "/products.json"
         });

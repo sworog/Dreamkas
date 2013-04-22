@@ -1,12 +1,64 @@
-<form class="form" action="#">
-    <div class="form__field">
-        <label class="form__label">Название</label>
-        <input type="text" class="inputText" name="name"/>
+<h3>Добавление нового товара в матрицу</h3>
+
+<fieldset class="form__fieldset">
+    <div class="form__field form__field_inline">
+        <label class="form__label">Артикул</label>
+        <input class="inputText" type="text" name="sku"/>
     </div>
-    <div class="form__controls">
-    <span class="button">
-        Сохранить
+    <div class="form__field form__field_inline">
+        <label class="form__label">Наименование</label>
+        <input class="inputText" type="text" name="name"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Измеряется в</label>
+        <select class="select" name="units" block="/views/kit/select/select_units.js"></select>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">НДС</label>
+        <select class="select" name="vat" block="/views/kit/select/select_vat.js"></select>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Цена закупки</label>
+        <input class="inputText" type="text" name="purchasePrice"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Наценка</label>
+        <input class="inputText productForm__linkedInput" type="text" name="retailMarkup"/>
+        <a class="productForm__inputLink">
+            <span class="productForm__inputLinkText">введите значение</span>
+        </a>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Цена продажи</label>
+        <input class="inputText productForm__hiddenInput productForm__linkedInput" type="text" name="retailPrice"/>
+        <a class="productForm__inputLink">
+            <span class="productForm__inputLinkText">введите значение</span>
+        </a>
+    </div>
+    <input type="hidden" name="retailPricePreference" />
+</fieldset>
+<fieldset class="form__fieldset">
+    <legend class="form__legend">Необязательно к заполнению</legend>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Штрихкод</label>
+        <input class="inputText" type="text" name="barcode"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Страна производства</label>
+        <input class="inputText" type="text" name="vendorCountry"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Производитель</label>
+        <input class="inputText" type="text" name="vendor"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Дополнительная информация</label>
+        <textarea class="inputText" name="info"></textarea>
+    </div>
+</fieldset>
+<div class="form__controls">
+    <span class="button button_color_blue">
+        Добавить товар
         <input type="submit"/>
     </span>
-    </div>
-</form>
+</div>

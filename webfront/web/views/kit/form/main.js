@@ -1,14 +1,14 @@
-define(function() {
-    return Backbone.Block.extend({
+define(
+    [
+        '/views/kit/main.js'
+    ],
+    function(Block) {
+    return Block.extend({
         initialize: function(){
             var block = this;
-
-            console.log('init form');
         },
         showErrors: function(errors){
             var block = this;
-
-
         },
         removeErrors: function(){
             var block = this;

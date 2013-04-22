@@ -1,9 +1,10 @@
 define(
     [
+        './main.js',
         '/models/invoiceProduct.js'
     ],
-    function(invoiceProduct) {
-        return Backbone.BaseCollection.extend({
+    function(BaseCollection, invoiceProduct) {
+        return BaseCollection.extend({
             initialize: function(opt){
                 this.invoiceId = opt.invoiceId;
             },

@@ -1,14 +1,20 @@
 define(
     [
+        'blocks',
         '/models/invoice.js',
         '/models/invoiceProduct.js',
         '/collections/invoiceProducts.js',
         '/utils/main.js',
-        '/views/blocks/form/main.js',
+        '/views/kit/form/main.js',
         './templates.js'
     ],
-    function(invoiceModel, invoiceProduct, invoiceProductsCollection, utils, form, templates) {
-        return Backbone.Block.extend({
+    function(Block, invoiceModel, invoiceProduct, invoiceProductsCollection, utils, form, templates) {
+        return Block.extend({
+            utils: utils,
+            tpl: templates,
+            editMode: false,
+            dataEditing: false,
+
             initialize: function() {
                 var block = this;
 
@@ -150,8 +156,6 @@ define(
                     block.removeDataInput();
                 }
             },
-            editMode: false,
-            dataEditing: false,
             'set editMode': function(val) {
                 var block = this;
 
@@ -336,8 +340,6 @@ define(
 
                 $input.datepicker(options);
             },
-            utils: utils,
-            tpl: templates,
             addProduct: function(productData) {
                 var block = this,
                     newProduct = new invoiceProduct({
