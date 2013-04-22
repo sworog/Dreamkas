@@ -79,13 +79,15 @@ define(
                     var block = this;
 
                     var notEmptyForm = false;
-                    block.$el.find("input").each(function() {
+
+                    block.form.$el.find("input").each(function() {
                         if ($(this).val()) {
                             notEmptyForm = true;
                         }
                     });
 
-                    if (notEmptyForm) {
+
+                    if (notEmptyForm || block.dataEditing) {
                         alert("У вас есть не сохранённые данные");
                     } else {
                         block.set("editMode", false);
