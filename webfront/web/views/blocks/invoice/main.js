@@ -114,7 +114,8 @@ define(
                         },
                         error: function(data, res){
                             block.showInlineErrors(JSON.parse(res.responseText));
-                        }
+                        },
+                        wait: true
                     });
                 },
                 'submit .invoice__head .invoice__dataInput': function(e) {
