@@ -701,8 +701,14 @@ class InvoiceProductControllerTest extends WebTestCase
     /**
      * @dataProvider putInvoiceProductActionChangeProductIdProvider
      */
-    public function testPutInvoiceProductActionChangeProductId($quantity1, $price1, $invoiceSumTotal1, $quantity2, $price2, $invoiceSumTotal2)
-    {
+    public function testPutInvoiceProductActionChangeProductId(
+        $quantity1,
+        $price1,
+        $invoiceSumTotal1,
+        $quantity2,
+        $price2,
+        $invoiceSumTotal2
+    ) {
         $this->clearMongoDb();
 
         $invoiceId = $this->createInvoice();

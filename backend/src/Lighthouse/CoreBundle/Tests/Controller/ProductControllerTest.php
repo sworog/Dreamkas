@@ -725,6 +725,84 @@ EOF;
     }
 
     /**
+     * @dataProvider retailPriceProvider
+     */
+    public function testPostProductActionSetRetailsPrice(array $postData, array $assertions = array(), array $emptyAssertions = array())
+    {
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/products.json',
+            array('product' => $postData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathEquals($expected, $path, $response);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function retailPriceProvider()
+    {
+        $postData = $this->getProductData();
+
+        return array(
+            'prefer price, markup invalid' => array(
+                array(
+                    'retailPrice' => 33.53,
+                    'retailMarkup' => 12,
+                    'retailPricePreference' => 'price',
+                ) + $postData,
+                array(
+                    'retailPrice' => '33.53',
+                    'retailMarkup' => '10.01',
+                    'retailPricePreference' => 'price',
+                )
+            ),
+            'prefer markup, price invalid' => array(
+                array(
+                    'retailPrice' => 34.00,
+                    'retailMarkup' => 10.01,
+                    'retailPricePreference' => 'markup',
+                ) + $postData,
+                array(
+                    'retailPrice' => '33.53',
+                    'retailMarkup' => '10.01',
+                    'retailPricePreference' => 'markup',
+                )
+            ),
+            'prefer price, markup valid' => array(
+                array(
+                    'retailPrice' => 33.53,
+                    'retailMarkup' => 10.01,
+                    'retailPricePreference' => 'price',
+                ) + $postData,
+                array(
+                    'retailPrice' => '33.53',
+                    'retailMarkup' => '10.01',
+                    'retailPricePreference' => 'price',
+                )
+            ),
+            'prefer markup, price valid' => array(
+                array(
+                    'retailPrice' => 33.53,
+                    'retailMarkup' => 10.01,
+                    'retailPricePreference' => 'markup',
+                ) + $postData,
+                array(
+                    'retailPrice' => '33.53',
+                    'retailMarkup' => '10.01',
+                    'retailPricePreference' => 'markup',
+                )
+            ),
+        );
+    }
+
+    /**
      * @return array
      */
     public function productProvider()

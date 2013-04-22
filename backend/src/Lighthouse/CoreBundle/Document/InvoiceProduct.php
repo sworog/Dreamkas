@@ -73,6 +73,8 @@ class InvoiceProduct extends AbstractDocument
         return array(
             'id' => $this->id,
             'quantity' => $this->quantity,
+            'price' => $this->price,
+            'totalPrice' => $this->totalPrice,
         );
     }
 

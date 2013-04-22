@@ -30,6 +30,17 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  */
 class Product extends AbstractDocument
 {
+    const RETAIL_PRICE_PREFERENCE_PRICE = 'price';
+    const RETAIL_PRICE_PREFERENCE_MARKUP = 'markup';
+
+    /**
+     * @var array
+     */
+    public static $retailPricePreferences = array(
+        self::RETAIL_PRICE_PREFERENCE_PRICE => 'lighthouse.document.product.retailPrice',
+        self::RETAIL_PRICE_PREFERENCE_MARKUP => 'lighthouse.document.product.retailMarkup',
+    );
+
     /**
      * @MongoDB\Id
      * @var string
@@ -110,6 +121,24 @@ class Product extends AbstractDocument
     protected $amount;
 
     /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $retailPrice;
+
+    /**
+     * @MongoDB\Float
+     * @var float
+     */
+    protected $retailMarkup;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_PRICE;
+
+    /**
      * @return array
      */
     public function toArray()
@@ -126,7 +155,34 @@ class Product extends AbstractDocument
             'vendorCountry' => $this->vendorCountry,
             'vendor' => $this->vendor,
             'info' => $this->info,
-            'amount' => $this->amount
+            'amount' => $this->amount,
+            'retailPrice' => $this->retailPrice,
+            'retailMarkup' => $this->retailMarkup,
+            'retailPricePreference' => $this->retailPricePreference,
         );
+    }
+
+    /**
+     * @MongoDB\PrePersist
+     * @MongoDB\PreUpdate
+     */
+    public function updateRetails()
+    {
+        switch ($this->retailPricePreference) {
+            case self::RETAIL_PRICE_PREFERENCE_PRICE:
+                if (null !== $this->retailPrice) {
+                    $this->retailMarkup = round(($this->retailPrice->getCount() / $this->purchasePrice->getCount()) * 100 - 100, 2);
+                }
+                break;
+            case self::RETAIL_PRICE_PREFERENCE_MARKUP:
+                if (null !== $this->retailMarkup) {
+                    $percent = 1 + ($this->retailMarkup / 100);
+                    $this->retailPrice = new Money();
+                    $this->retailPrice->setCountByQuantity($this->purchasePrice, $percent, true);
+                }
+                break;
+            default;
+                // :TODO: throw right exception
+        }
     }
 }

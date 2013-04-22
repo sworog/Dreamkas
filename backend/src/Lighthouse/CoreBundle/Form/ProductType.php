@@ -3,6 +3,7 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -20,7 +21,10 @@ class ProductType extends AbstractType
             ->add('sku', 'text')
             ->add('vendorCountry', 'text')
             ->add('vendor', 'text')
-            ->add('info', 'text');
+            ->add('info', 'text')
+            ->add('retailPrice', 'money')
+            ->add('retailMarkup', 'text')
+            ->add('retailPricePreference', 'choice', array('choices' => Product::$retailPricePreferences));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
