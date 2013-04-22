@@ -170,7 +170,7 @@ class Product extends AbstractDocument
     {
         switch ($this->retailPricePreference) {
             case self::RETAIL_PRICE_PREFERENCE_PRICE:
-                if (null !== $this->retailPrice) {
+                if (null !== $this->retailPrice && !$this->retailPrice->isEmpty()) {
                     $this->retailMarkup = round(($this->retailPrice->getCount() / $this->purchasePrice->getCount()) * 100 - 100, 2);
                 }
                 break;

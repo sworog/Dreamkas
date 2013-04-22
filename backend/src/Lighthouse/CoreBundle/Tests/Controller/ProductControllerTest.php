@@ -741,6 +741,55 @@ EOF;
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathEquals($expected, $path, $response);
         }
+
+        foreach ($emptyAssertions as $path) {
+            Assert::assertNotJsonHasPath($path, $response);
+        }
+    }
+
+    /**
+     * @dataProvider retailPriceProvider
+     */
+    public function testPutProductActionSetRetailPrice(array $putData, array $assertions = array(), array $emptyAssertions = array())
+    {
+        $postData = $this->getProductData();
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/products.json',
+            array('product' => $postData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        $id = $postResponse['id'];
+
+        $putResponse = $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/products/' . $id . '.json',
+            array('product' => $putData)
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/products/' . $id . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathEquals($expected, $path, $getResponse);
+        }
+
+        foreach ($emptyAssertions as $path) {
+            Assert::assertNotJsonHasPath($path, $getResponse);
+        }
     }
 
     /**
@@ -797,6 +846,52 @@ EOF;
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
                     'retailPricePreference' => 'markup',
+                )
+            ),
+            'prefer markup, price not entered' => array(
+                array(
+                    'retailMarkup' => 10.01,
+                    'retailPricePreference' => 'markup',
+                ) + $postData,
+                array(
+                    'retailPrice' => '33.53',
+                    'retailMarkup' => '10.01',
+                    'retailPricePreference' => 'markup',
+                )
+            ),
+            'prefer price, markup not entered' => array(
+                array(
+                    'retailPrice' => 33.53,
+                    'retailPricePreference' => 'price',
+                ) + $postData,
+                array(
+                    'retailPrice' => '33.53',
+                    'retailMarkup' => '10.01',
+                    'retailPricePreference' => 'price',
+                )
+            ),
+            'prefer price, no price and markup entered' => array(
+                array(
+                    'retailPricePreference' => 'price',
+                ) + $postData,
+                array(
+                    'retailPricePreference' => 'price',
+                ),
+                array(
+                    'retailPrice',
+                    'retailMarkup',
+                )
+            ),
+            'prefer markup, no price and markup entered' => array(
+                array(
+                    'retailPricePreference' => 'markup',
+                ) + $postData,
+                array(
+                    'retailPricePreference' => 'markup',
+                ),
+                array(
+                    'retailPrice',
+                    'retailMarkup',
                 )
             ),
         );
