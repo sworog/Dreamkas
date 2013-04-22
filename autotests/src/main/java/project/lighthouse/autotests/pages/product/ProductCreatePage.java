@@ -69,6 +69,6 @@ public class ProductCreatePage extends CommonPageObject {
 
     public void checkFieldLength(String elementName, int fieldLength) {
         CommonItem item = items.get(elementName);
-        commonPage.checkFieldLength(elementName, fieldLength, item);
+        commonPage.checkFieldLength(elementName, fieldLength, item.getWebElement());
     }
 }
