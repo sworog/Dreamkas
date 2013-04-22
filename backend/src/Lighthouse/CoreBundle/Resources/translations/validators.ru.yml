@@ -10,6 +10,7 @@ lighthouse:
         sku.unique: Такой артикул уже есть
         units.blank: Выберите единицу измерения
         vat.blank: Выберите ставку НДС
+        retailMarkup.range: Наценка должна быть больше -100%
       invoice:
         dates_compare: Дата накладной не должна быть старше даты приемки
       length: Не более {{ limit }} символа|Не более {{ limit }} символов|Не более {{ limit }} символов

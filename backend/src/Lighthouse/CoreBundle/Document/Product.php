@@ -122,12 +122,14 @@ class Product extends AbstractDocument
 
     /**
      * @MongoDB\Field(type="money")
+     * @LighthouseAssert\Money
      * @var Money
      */
     protected $retailPrice;
 
     /**
      * @MongoDB\Float
+     * @LighthouseAssert\Range(gt="-100", gtMessage="lighthouse.validation.errors.product.retailMarkup.range")
      * @var float
      */
     protected $retailMarkup;
@@ -171,7 +173,8 @@ class Product extends AbstractDocument
         switch ($this->retailPricePreference) {
             case self::RETAIL_PRICE_PREFERENCE_PRICE:
                 if (null !== $this->retailPrice && !$this->retailPrice->isEmpty()) {
-                    $this->retailMarkup = round(($this->retailPrice->getCount() / $this->purchasePrice->getCount()) * 100 - 100, 2);
+                    $markup = (($this->retailPrice->getCount() / $this->purchasePrice->getCount()) * 100) - 100;
+                    $this->retailMarkup = round($markup, 2);
                 }
                 break;
             case self::RETAIL_PRICE_PREFERENCE_MARKUP:
