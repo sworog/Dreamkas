@@ -208,14 +208,6 @@ define(
                 $input.removeClass('.inputText_error');
                 $inputControls.removeAttr('lh_field_error');
             },
-            removeDataInput: function(){
-                var block = this;
-
-                block.$el.find('.invoice__dataInput').remove();
-                block.$el.find('.invoice__dataInputControls').remove();
-
-                block.set('dataEditing', false);
-            },
             disableAddForm: function(disabled) {
                 var block = this;
                 if (disabled) {
@@ -396,7 +388,7 @@ define(
                 }
 
                 if ($dataRow.prop('tagName') === 'TR') {
-                    dataInputControls = '<tr><td class="invoice__dataInputControlsTd" colspan="' + $dataRow.find('td').length + '">' + dataInputControls + '</td></tr>'
+                    dataInputControls = '<tr class="invoice__dataInputControlsTr"><td class="invoice__dataInputControlsTd" colspan="' + $dataRow.find('td').length + '">' + dataInputControls + '</td></tr>'
                 }
 
                 switch ($dataElement.attr('model-attr')) {
@@ -436,6 +428,15 @@ define(
                         'font': $dataElement.css('font')
                     })
                     .focus();
+            },
+            removeDataInput: function(){
+                var block = this;
+
+                block.$el.find('.invoice__dataInput').remove();
+                block.$el.find('.invoice__dataInputControls').remove();
+                block.$el.find('.invoice__dataInputControlsTr').remove();
+
+                block.set('dataEditing', false);
             }
         });
     }
