@@ -49,15 +49,13 @@
 
 .invoice__table {
     margin-bottom: 20px;
+    table-layout: fixed;
 }
 
 .invoice__controls{
     float: right;
-    width: 25%;
-}
-
-.invoice__content{
-    width: 75%;
+    text-align: right;
+    padding-left: 20px;
 }
 
 .invoice__controlsList{
