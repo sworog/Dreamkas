@@ -38,13 +38,13 @@ class JsonPath
                 if (array_key_exists($section, $node)) {
                     $node = $node[$section];
                 } else {
-                    throw new \DomainException(sprintf('Path \'%s\' not found in JSON', $path));
+                    throw new \DomainException(sprintf("Path '%s' not found in JSON", $path));
                 }
             } elseif ($node instanceof \stdClass) {
                 if (property_exists($node, $section)) {
                     $node = $node->$section;
                 } else {
-                    throw new \DomainException(sprintf('Path \'%s\' not found in JSON', $path));
+                    throw new \DomainException(sprintf("Path '%s' not found in JSON", $path));
                 }
             }
         }

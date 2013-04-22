@@ -727,8 +727,11 @@ EOF;
     /**
      * @dataProvider retailPriceProvider
      */
-    public function testPostProductActionSetRetailsPrice(array $postData, array $assertions = array(), array $emptyAssertions = array())
-    {
+    public function testPostProductActionSetRetailsPrice(
+        array $postData,
+        array $assertions = array(),
+        array $emptyAssertions = array()
+    ) {
         $response = $this->clientJsonRequest(
             $this->client,
             'POST',

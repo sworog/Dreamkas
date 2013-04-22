@@ -181,7 +181,7 @@ class Product extends AbstractDocument
                     $this->retailPrice->setCountByQuantity($this->purchasePrice, $percent, true);
                 }
                 break;
-            default;
+            default:
                 // :TODO: throw right exception
         }
     }

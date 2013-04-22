@@ -60,7 +60,7 @@ class WebTestCase extends BaseTestCase
     {
         /* @var DocumentManager $mongoDb */
         $mongoDb = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
-        $mongoDb->getSchemaManager()->dropDatabases();
+        $mongoDb->getSchemaManager()->dropCollections();
     }
 
     /**
