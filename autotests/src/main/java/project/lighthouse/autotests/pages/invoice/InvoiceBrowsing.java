@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.pages.invoice;
 
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -131,7 +132,13 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void childrenElementClick(String elementName, String elementClassName) {
-        commonViewInterface.childrenItemClick(elementName, elementClassName);
+        commonViewInterface.childrenItemClickByClassName(elementName, elementClassName);
+    }
+
+    public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
+        By findBy = items.get(parentElementName).getFindBy();
+        commonViewInterface.childrentItemClickByFindByLocator(elementName, findBy);
+
     }
 
     public void addNewInvoiceProductButtonClick() {

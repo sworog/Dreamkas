@@ -44,6 +44,13 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("totalProducts", new Input(this, "totalProducts"));
         items.put("totalSum", new Input(this, "totalSum"));
 
+        /*View*/
+        items.put("productNameView", new NonType(this, "productName"));
+        items.put("productSkuView", new NonType(this, "productSku"));
+        items.put("productBarcodeView", new NonType(this, "productBarcode"));
+        items.put("productAmountView", new NonType(this, "productAmount"));
+        items.put("productPriceView", new NonType(this, "productPrice"));
+
         /*Edit mode*/
         items.put("inline sku", new Input(this, By.xpath(String.format(XPATH_PATTERN, "sku"))));
         items.put("inline acceptanceDate", new DateTime(this, By.xpath(String.format(XPATH_PATTERN, "acceptanceDate"))));

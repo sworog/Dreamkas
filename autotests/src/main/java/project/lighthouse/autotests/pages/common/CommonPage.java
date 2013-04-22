@@ -31,7 +31,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     public static final String STRING_EMPTY = "";
 
     public ArrayList<String> products = new ArrayList<>();
-    public ArrayList<String> invoices = new ArrayList<>();
+    public static ArrayList<String> invoices = new ArrayList<>();
 
     public CommonPage(WebDriver driver) {
         super(driver);

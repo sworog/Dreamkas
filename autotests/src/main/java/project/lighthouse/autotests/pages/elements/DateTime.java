@@ -38,7 +38,7 @@ public class DateTime extends CommonItem {
         }
     }
 
-    public String getDate(String value){
+    public String getDate(String value) {
         switch (value) {
             case "todayDateAndTime":
                 return getTodayDate(DATE_TIME_PATTERN);
@@ -122,14 +122,15 @@ public class DateTime extends CommonItem {
     }
 
     public void setYear(int yearValue) {
+        int actualYear = Calendar.getInstance().get(Calendar.YEAR);
         if (yearValue < getActualDatePickerYear()) {
             int actualYearValue = 0;
             while (!(yearValue == actualYearValue)) {
                 pageObject.findBy("//a[@data-handler='prev']").click();
                 actualYearValue = getActualDatePickerYear();
             }
-        } else if (yearValue > getActualDatePickerYear()) {
-            String errorMessage = String.format("Year '%s' cantbe more than current year '%s'", yearValue, getActualDatePickerYear());
+        } else if (yearValue > actualYear) {
+            String errorMessage = String.format("Year '%s' cantbe older than current year '%s'", yearValue, actualYear);
             throw new AssertionError(errorMessage);
         }
     }

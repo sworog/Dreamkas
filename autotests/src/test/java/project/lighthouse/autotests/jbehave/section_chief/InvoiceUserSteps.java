@@ -112,6 +112,12 @@ public class InvoiceUserSteps {
         invoiceSteps.childrenElementClick(elementName, elementClassName);
     }
 
+    @When("the user clicks on '$parentElementName' element of invoice product with '$invoiceSku' sku to edit")
+    public void whenTheUserClicksOnElementOfInvoiceProductWithSkuToEdit(String parentElementName, String invoiceSku) {
+        invoiceSteps.childrentItemClickByFindByLocator(parentElementName, invoiceSku);
+    }
+
+
     @When("the user clicks the add invoice product button and adds the invoice product")
     public void whenTheUserClicksTheAddInvoiceProductButtonAndAddsTheInvoiceProduct() {
         invoiceSteps.addNewInvoiceProductButtonClick();
