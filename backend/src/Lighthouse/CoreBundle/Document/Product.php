@@ -30,8 +30,8 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  */
 class Product extends AbstractDocument
 {
-    const RETAIL_PRICE_PREFERENCE_PRICE = 'price';
-    const RETAIL_PRICE_PREFERENCE_MARKUP = 'markup';
+    const RETAIL_PRICE_PREFERENCE_PRICE = 'retailPrice';
+    const RETAIL_PRICE_PREFERENCE_MARKUP = 'retailMarkup';
 
     /**
      * @var array

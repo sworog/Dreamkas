@@ -753,8 +753,11 @@ EOF;
     /**
      * @dataProvider retailPriceProvider
      */
-    public function testPutProductActionSetRetailPrice(array $putData, array $assertions = array(), array $emptyAssertions = array())
-    {
+    public function testPutProductActionSetRetailPrice(
+        array $putData,
+        array $assertions = array(),
+        array $emptyAssertions = array()
+    ) {
         $postData = $this->getProductData();
 
         $postResponse = $this->clientJsonRequest(
@@ -807,78 +810,78 @@ EOF;
                 array(
                     'retailPrice' => 33.53,
                     'retailMarkup' => 12,
-                    'retailPricePreference' => 'price',
+                    'retailPricePreference' => 'retailPrice',
                 ) + $postData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
-                    'retailPricePreference' => 'price',
+                    'retailPricePreference' => 'retailPrice',
                 )
             ),
             'prefer markup, price invalid' => array(
                 array(
                     'retailPrice' => 34.00,
                     'retailMarkup' => 10.01,
-                    'retailPricePreference' => 'markup',
+                    'retailPricePreference' => 'retailMarkup',
                 ) + $postData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
-                    'retailPricePreference' => 'markup',
+                    'retailPricePreference' => 'retailMarkup',
                 )
             ),
             'prefer price, markup valid' => array(
                 array(
                     'retailPrice' => 33.53,
                     'retailMarkup' => 10.01,
-                    'retailPricePreference' => 'price',
+                    'retailPricePreference' => 'retailPrice',
                 ) + $postData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
-                    'retailPricePreference' => 'price',
+                    'retailPricePreference' => 'retailPrice',
                 )
             ),
             'prefer markup, price valid' => array(
                 array(
                     'retailPrice' => 33.53,
                     'retailMarkup' => 10.01,
-                    'retailPricePreference' => 'markup',
+                    'retailPricePreference' => 'retailMarkup',
                 ) + $postData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
-                    'retailPricePreference' => 'markup',
+                    'retailPricePreference' => 'retailMarkup',
                 )
             ),
             'prefer markup, price not entered' => array(
                 array(
                     'retailMarkup' => 10.01,
-                    'retailPricePreference' => 'markup',
+                    'retailPricePreference' => 'retailMarkup',
                 ) + $postData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
-                    'retailPricePreference' => 'markup',
+                    'retailPricePreference' => 'retailMarkup',
                 )
             ),
             'prefer price, markup not entered' => array(
                 array(
                     'retailPrice' => 33.53,
-                    'retailPricePreference' => 'price',
+                    'retailPricePreference' => 'retailPrice',
                 ) + $postData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
-                    'retailPricePreference' => 'price',
+                    'retailPricePreference' => 'retailPrice',
                 )
             ),
             'prefer price, no price and markup entered' => array(
                 array(
-                    'retailPricePreference' => 'price',
+                    'retailPricePreference' => 'retailPrice',
                 ) + $postData,
                 array(
-                    'retailPricePreference' => 'price',
+                    'retailPricePreference' => 'retailPrice',
                 ),
                 array(
                     'retailPrice',
@@ -887,10 +890,10 @@ EOF;
             ),
             'prefer markup, no price and markup entered' => array(
                 array(
-                    'retailPricePreference' => 'markup',
+                    'retailPricePreference' => 'retailMarkup',
                 ) + $postData,
                 array(
-                    'retailPricePreference' => 'markup',
+                    'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
                     'retailPrice',
