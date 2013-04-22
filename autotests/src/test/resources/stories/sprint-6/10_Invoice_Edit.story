@@ -382,3 +382,54 @@ And the user checks invoice elements values
 | totalProducts | 1 |
 | totalSum | 6 |
 
+Scenario: issue 9 regresssion
+Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
+And the user is on the invoice list page
+When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
+And the user clicks edit button and starts invoice edition
+And the user clicks on 'productNameView' element of invoice product with 'IE-IPE' sku to edit
+And the user inputs '!1234567' in the invoice 'inline productName' field
+And the user clicks OK and accepts changes
+Then the user sees error messages
+| error message |
+| Такого товара не существует |
+When the user clicks Cancel and discard changes
+And the user clicks on 'productAmountView' element of invoice product with 'IE-IPE' sku to edit
+And the user inputs '1234567' in the invoice 'inline quantity' field
+And the user clicks OK and accepts changes
+Then the user sees error messages
+| error message |
+| Значение должно быть больше 0 |
+When the user clicks Cancel and discard changes
+And the user clicks finish edit link and ends the invoice edition
+
+Scenario: issue 8 regresssion
+Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
+And there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
+And the user is on the invoice list page
+When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
+And the user clicks edit button and starts invoice edition
+And the user clicks on 'productNameView' element of invoice product with 'IE-IPE' sku to edit
+And the user inputs '!1234567' in the invoice 'inline productName' field
+And the user clicks OK and accepts changes
+Then the user sees error messages
+| error message |
+| Такого товара не существует |
+When the user inputs 'IE-IPE-1' in the invoice product 'productName' field
+And the user inputs '1' in the invoice product 'productAmount' field
+And the user inputs '3' in the invoice product 'invoiceCost' field
+And the user clicks Cancel and discard changes
+And the user clicks the add invoice product button and adds the invoice product
+Then the user checks invoice elements values
+| elementName | expectedValue |
+| productName |  |
+| productSku |  |
+| productBarCode |  |
+Then the user checks the product with 'IE-IPA' sku has values
+| elementName | expectedValue |
+| productName | IE-IPE-1 |
+| productSku | IE-IPE-1 |
+| productBarcode | IE-IPE-1 |
+When the user clicks finish edit link and ends the invoice edition
+
+
