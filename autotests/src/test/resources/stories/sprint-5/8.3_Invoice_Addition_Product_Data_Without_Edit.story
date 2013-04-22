@@ -185,7 +185,7 @@ Then the users checks no autocomplete results
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation 3 symbols
 Given there is the product with 'N-AIP1PWBAV3S' name, 'SKU-AIP1PWBAV3S' sku, 'BARCode-AIP1PWBAV3S' barcode
-And there is the invoice with 'Invoice-AIP1PWBAV2S' sku
+And there is the invoice with 'Invoice-AIP1PWBAV3S' sku
 When the user inputs '!BAR' in the invoice product 'productBarCode' field
 Then the users checks autocomplete results contains
 | autocomlete result |
@@ -293,7 +293,7 @@ Then the user checks invoice elements values
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation small register search
 Given there is the product with 'name-AIP1PWSAVSS' name, 'sku-AIP1PWSAVSS' sku, 'barcode-AIP1PWSAVSS' barcode
-And there is the invoice with 'Invoice-AIP1PWSAVSS' sku
+And there is the invoice with 'Invoice-AIP-1PWSAVSRS' sku
 When the user inputs 'sku-AIP1PWSAVSS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
@@ -303,7 +303,7 @@ Then the user checks invoice elements values
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation big register search
 Given there is the product with 'Name-AIP1PWSAVSS' name, 'Sku-AIP1PWSAVSS' sku, 'Barcode-AIP1PWSAVSS' barcode
-And there is the invoice with 'Invoice-AIP1PWSAVSS' sku
+And there is the invoice with 'Invoice-AIP-1PWSAVBRS' sku
 When the user inputs 'Sku-AIP1PWSAVSS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
@@ -343,7 +343,7 @@ Then the user checks invoice elements values
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation symbols search
 Given there is the product with '()_+-AIP1PWBAVES' name, '()_+-AIP1PWBAVES' sku, '()_+-AIP1PWBAVES' barcode
-And there is the invoice with 'Invoice-AIP1PWBAVES' sku
+And there is the invoice with 'Invoice-AIP-1PWBAVSS' sku
 When the user inputs '()_+-AIP1PWBAVES' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
@@ -353,7 +353,7 @@ Then the user checks invoice elements values
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation small register search
 Given there is the product with 'name-AIP1PWBAVES' name, 'sku-AIP1PWBAVES' sku, 'barcode-AIP1PWBAVES' barcode
-And there is the invoice with 'Invoice-AIP1PWBAVES' sku
+And there is the invoice with 'Invoice-AIP-1PWBAVSRS' sku
 When the user inputs 'barcode-AIP1PWBAVES' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
 | elementName | expectedValue |
@@ -363,7 +363,7 @@ Then the user checks invoice elements values
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation big register search
 Given there is the product with 'Name-AIP1PWBAVES' name, 'Sku-AIP1PWBAVES' sku, 'Barcode-AIP1PWBAVES' barcode
-And there is the invoice with 'Invoice-AIP1PWBAVES' sku
+And there is the invoice with 'Invoice-AIP-1PWBAVBRS' sku
 When the user inputs 'Barcode-AIP1PWBAVES' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
 | elementName | expectedValue |

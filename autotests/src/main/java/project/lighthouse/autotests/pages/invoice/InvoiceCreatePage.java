@@ -7,10 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.pages.common.CommonItem;
 import project.lighthouse.autotests.pages.common.CommonPageObject;
-import project.lighthouse.autotests.pages.elements.Autocomplete;
-import project.lighthouse.autotests.pages.elements.DateTime;
-import project.lighthouse.autotests.pages.elements.Input;
-import project.lighthouse.autotests.pages.elements.NonType;
+import project.lighthouse.autotests.pages.elements.*;
 
 @DefaultUrl("/invoice/create")
 public class InvoiceCreatePage extends CommonPageObject {
@@ -29,13 +26,14 @@ public class InvoiceCreatePage extends CommonPageObject {
     public void createElements() {
         items.put("head", new NonType(this, By.className("invoice__head")));
 
+        /*Inputs*/
         items.put("sku", new Input(this, "sku"));
         items.put("acceptanceDate", new DateTime(this, "acceptanceDate"));
         items.put("supplier", new Input(this, "supplier"));
         items.put("accepter", new Input(this, "accepter"));
         items.put("recipient", new Input(this, "recipient"));
         items.put("supplierInvoiceSku", new Input(this, "supplierInvoiceSku"));
-        items.put("supplierInvoiceDate", new DateTime(this, "supplierInvoiceDate"));
+        items.put("supplierInvoiceDate", new Date(this, "supplierInvoiceDate"));
         items.put("legalEntity", new Input(this, "legalEntity"));
 
         items.put("productName", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='name']")));
@@ -53,7 +51,7 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("inline accepter", new Input(this, By.xpath(String.format(XPATH_PATTERN, "accepter"))));
         items.put("inline recipient", new Input(this, By.xpath(String.format(XPATH_PATTERN, "recipient"))));
         items.put("inline supplierInvoiceSku", new Input(this, By.xpath(String.format(XPATH_PATTERN, "supplierInvoiceSku"))));
-        items.put("inline supplierInvoiceDate", new DateTime(this, By.xpath(String.format(XPATH_PATTERN, "supplierInvoiceDate"))));
+        items.put("inline supplierInvoiceDate", new Date(this, By.xpath(String.format(XPATH_PATTERN, "supplierInvoiceDate"))));
         items.put("inline legalEntity", new Input(this, By.xpath(String.format(XPATH_PATTERN, "legalEntity"))));
 
         items.put("inline productName", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "name"))));
@@ -77,7 +75,7 @@ public class InvoiceCreatePage extends CommonPageObject {
 
     public void checkFieldLength(String elementName, int fieldLength) {
         CommonItem item = items.get(elementName);
-        commonPage.checkFieldLength(elementName, fieldLength, item);
+        commonPage.checkFieldLength(elementName, fieldLength, item.getWebElement());
     }
 
     public void checkFormIsChanged() {

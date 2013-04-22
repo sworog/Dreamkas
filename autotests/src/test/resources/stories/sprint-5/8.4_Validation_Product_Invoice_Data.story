@@ -53,7 +53,7 @@ Then the user sees error messages
 | Такого товара не существует |
 
 Scenario: Invoice no product sku validation
-Given there is the invoice with 'InvoiceProduct-INPNV-2' sku
+Given there is the invoice with 'InvoiceProduct-INPNV-INPSV' sku
 When the user inputs '!Лвражрварврадв-45-345' in the invoice product 'productSku' field
 And the user clicks the add more product button
 Then the user sees error messages
