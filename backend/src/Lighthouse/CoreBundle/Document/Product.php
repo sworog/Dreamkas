@@ -28,7 +28,16 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  *     repositoryClass="Lighthouse\CoreBundle\Document\ProductRepository"
  * )
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
- * @Assert\Callback(methods={"validateRetails"})
+ * @LighthouseAssert\Callback(
+ *     method="updateRetails",
+ *     constraints={
+ *         "retailPrice"  = @LighthouseAssert\Money,
+ *         "retailMarkup" = @LighthouseAssert\Range(
+ *              gt="-100",
+ *              gtMessage="lighthouse.validation.errors.product.retailMarkup.range"
+ *         )
+ *     }
+ * )
  */
 class Product extends AbstractDocument
 {
@@ -181,24 +190,5 @@ class Product extends AbstractDocument
                 }
                 break;
         }
-    }
-
-    /**
-     * @param ExecutionContextInterface $context
-     */
-    public function validateRetails(ExecutionContextInterface $context)
-    {
-        $this->updateRetails();
-
-        $retailPriceConstraint = new LighthouseAssert\Money();
-        $context->validateValue($this->retailPrice, $retailPriceConstraint, 'retailPrice');
-
-        $retailMarkupConstraint = new LighthouseAssert\Range(
-            array(
-                'gt' => -100,
-                'gtMessage' => 'lighthouse.validation.errors.product.retailMarkup.range',
-            )
-        );
-        $context->validateValue($this->retailMarkup, $retailMarkupConstraint, 'retailMarkup');
     }
 }
