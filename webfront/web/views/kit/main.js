@@ -33,6 +33,26 @@ define(
                 var block = this;
                 page.removeBlocks({cid: block.cid});
             },
+            'get': function(key, params) {
+                var block = this,
+                    value;
+
+                if (typeof this['get ' + key] == 'function') {
+                    value = block['get ' + key](params);
+                }
+
+                if (typeof value == 'undefined') {
+                    value = block;
+                    _.each(key.split('.'), function(keyPart) {
+                        value = value[keyPart];
+                        if (typeof value == 'undefined') {
+                            return false;
+                        }
+                    });
+                }
+
+                return value;
+            },
             'set': function(path, value, extra) {
                 var block = this,
                     keyPath = this,
