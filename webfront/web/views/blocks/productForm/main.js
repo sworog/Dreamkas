@@ -92,7 +92,7 @@ define(
             },
             calculateRetailPrice: function(){
                 var block = this,
-                    calculatedVal = utils.formatPrice(utils.normalizePrice(block.$purchasePriceInput.val()) + block.$retailMarkupInput.val()/100 * utils.normalizePrice(block.$purchasePriceInput.val()));
+                    calculatedVal = utils.formatPrice(utils.normalizePrice(block.$purchasePriceInput.val()) + utils.normalizePrice(block.$retailMarkupInput.val())/100 * utils.normalizePrice(block.$purchasePriceInput.val()));
 
                 block.$retailPriceInput
                     .val(calculatedVal)
