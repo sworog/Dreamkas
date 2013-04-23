@@ -950,10 +950,12 @@ EOF;
                 array(
                     'retailPricePreference' => 'retailPrice',
                 ),
+                /*
                 array(
                     'retailPrice',
                     'retailMarkup',
                 )
+                */
             ),
             'prefer markup, no price and markup entered' => array(
                 array(
@@ -962,10 +964,12 @@ EOF;
                 array(
                     'retailPricePreference' => 'retailMarkup',
                 ),
+                /*
                 array(
                     'retailPrice',
                     'retailMarkup',
                 )
+                */
             ),
             'prefer markup, price valid, valid markup: -10' => array(
                 array(
@@ -977,6 +981,32 @@ EOF;
                 array(
                     'retailPrice' => '27.43',
                     'retailMarkup' => '-10',
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
+            'prefer markup, price valid, valid markup with comma: -10,11' => array(
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailPrice' => 27.40,
+                    'retailMarkup' => "-10,11",
+                    'retailPricePreference' => 'retailMarkup',
+                ) + $productData,
+                array(
+                    'retailPrice' => '27.40',
+                    'retailMarkup' => '-10.11',
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
+            'prefer price, valid price with comma: 27,40' => array(
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailPrice' => "27,40",
+                    'retailMarkup' => "-10,11",
+                    'retailPricePreference' => 'retailMarkup',
+                ) + $productData,
+                array(
+                    'retailPrice' => '27.40',
+                    'retailMarkup' => '-10.11',
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
@@ -1107,6 +1137,19 @@ EOF;
                 ) + $postData,
                 array(
                     'children.retailPrice.errors.0' => 'Цена не должна быть меньше или равна нулю.',
+                ),
+                array(
+                    'retailPrice', 'retailMarkup', 'retailPricePreference'
+                ),
+            ),
+            'prefer markup, invalid markup: 3 digits after coma' => array(
+                array(
+                    'retailPrice' => 33.53,
+                    'retailMarkup' => 10.001,
+                    'retailPricePreference' => 'retailMarkup',
+                ) + $postData,
+                array(
+                    'children.retailMarkup.errors.0' => 'Значение не должно содержать больше 2 цифр после запятой',
                 ),
                 array(
                     'retailPrice', 'retailMarkup', 'retailPricePreference'

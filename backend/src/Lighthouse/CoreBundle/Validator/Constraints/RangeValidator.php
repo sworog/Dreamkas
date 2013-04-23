@@ -13,7 +13,7 @@ class RangeValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if (null === $value) {
+        if (null === $value || "" === $value) {
             return;
         }
 

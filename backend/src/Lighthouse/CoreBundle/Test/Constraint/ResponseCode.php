@@ -48,6 +48,6 @@ class ResponseCode extends \PHPUnit_Framework_Constraint
      */
     public function toString()
     {
-        return $this->code . ' response code matches';
+        return $this->code . ' response code matches expected';
     }
 }

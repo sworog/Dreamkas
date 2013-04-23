@@ -8,7 +8,6 @@ use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
-use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  *
@@ -32,10 +31,13 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  *     method="updateRetails",
  *     constraints={
  *         "retailPrice"  = @LighthouseAssert\Money,
- *         "retailMarkup" = @LighthouseAssert\Range(
- *              gt="-100",
- *              gtMessage="lighthouse.validation.errors.product.retailMarkup.range"
- *         )
+ *         "retailMarkup" = {
+ *              @LighthouseAssert\Precision,
+ *              @LighthouseAssert\Range(
+ *                  gt="-100",
+ *                  gtMessage="lighthouse.validation.errors.product.retailMarkup.range"
+ *              )
+ *         }
  *     }
  * )
  */

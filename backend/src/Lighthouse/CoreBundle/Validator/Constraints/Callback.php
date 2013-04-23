@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * @Annotation
@@ -32,9 +33,15 @@ class Callback extends Constraint
             throw new UnexpectedTypeException($this->constraints, 'array');
         }
 
-        foreach ($this->constraints as $constraint) {
-            if (!$constraint instanceof Constraint) {
-                throw new UnexpectedTypeException($constraint, 'Constraint');
+        foreach ($this->constraints as $constraints) {
+            if (is_array($constraints)) {
+                foreach ($constraints as $constraint) {
+                    if (!$constraint instanceof Constraint) {
+                        throw new UnexpectedTypeException($constraints, 'Constraint');
+                    }
+                }
+            } elseif (!$constraints instanceof Constraint) {
+                throw new UnexpectedTypeException($constraints, 'Constraint');
             }
         }
     }

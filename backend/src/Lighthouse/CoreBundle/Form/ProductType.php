@@ -23,7 +23,7 @@ class ProductType extends AbstractType
             ->add('vendor', 'text')
             ->add('info', 'text')
             ->add('retailPrice', 'money')
-            ->add('retailMarkup', 'text')
+            ->add('retailMarkup', 'markup')
             ->add('retailPricePreference', 'choice', array('choices' => Product::$retailPricePreferences));
     }
 
