@@ -18,20 +18,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonPageInterface;
+import project.lighthouse.autotests.StaticDataCollections;
 import project.lighthouse.autotests.pages.elements.Autocomplete;
 import project.lighthouse.autotests.pages.elements.DateTime;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class CommonPage extends PageObject implements CommonPageInterface {
 
     public static final String ERROR_MESSAGE = "No such option for '%s'";
     public static final String STRING_EMPTY = "";
-
-    public ArrayList<String> products = new ArrayList<>();
-    public static ArrayList<String> invoices = new ArrayList<>();
 
     public CommonPage(WebDriver driver) {
         super(driver);
@@ -202,22 +203,22 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void сreateProductThroughPost(String name, String sku, String barcode, String units) {
-        if (!products.contains(sku)) {
+        if (!StaticDataCollections.products.contains(sku)) {
             String getApiUrl = getApiUrl() + "/api/1/products.json";
             String jsonDataPattern = "{\"product\":{\"name\":\"%s\",\"units\":\"%s\",\"vat\":\"0\",\"purchasePrice\":\"123\",\"barcode\":\"%s\",\"sku\":\"%s\",\"vendorCountry\":\"Тестовая страна\",\"vendor\":\"Тестовый производитель\",\"info\":\"\"}}";
             String jsonData = String.format(jsonDataPattern, name, units, barcode, sku);
             executePost(getApiUrl, jsonData);
-            products.add(sku);
+            StaticDataCollections.products.add(sku);
         }
     }
 
     public void createInvoiceThroughPost(String invoiceName) {
-        if (!invoices.contains(invoiceName)) {
+        if (!StaticDataCollections.invoices.contains(invoiceName)) {
             String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
             String jsonDataPattern = "{\"invoice\":{\"sku\":\"%s\",\"supplier\":\"supplier\",\"acceptanceDate\":\"%s\",\"accepter\":\"accepter\",\"legalEntity\":\"legalEntity\",\"supplierInvoiceSku\":\"\",\"supplierInvoiceDate\":\"\"}}";
             String jsonData = String.format(jsonDataPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
             String postResponse = executePost(getApiUrl, jsonData);
-            invoices.add(invoiceName);
+            StaticDataCollections.invoices.add(invoiceName);
             try {
                 JSONObject object = new JSONObject(postResponse);
                 String invoiceId = (String) object.get("id");

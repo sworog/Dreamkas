@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import project.lighthouse.autotests.StaticDataCollections;
 import project.lighthouse.autotests.pages.common.CommonPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
@@ -64,9 +65,10 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void createInvoiceThroughPostWithData(String invoiceName, String productName) {
-        if (!CommonPage.invoices.contains(invoiceName)) {
+        if (!StaticDataCollections.invoices.contains(invoiceName)) {
             createInvoiceThroughPost(invoiceName);
             continueCreatingInvoiceProduct(productName);
+            StaticDataCollections.invoices.add(invoiceName);
         }
     }
 
