@@ -5,8 +5,6 @@ var ProductItem = Backbone.View.extend({
         name: "product"
     },
 
-    template: Mustache.compile($("#productItem").html()),
-
     initialize: function() {
     },
 
@@ -29,13 +27,14 @@ var ProductsList = Backbone.View.extend({
     },
 
     template: Mustache.compile($("#productsList").html()),
+    templateRow: Mustache.compile($("#productItem").html()),
 
     initialize: function() {
-        _.bindAll(this, 'addOne', 'addAll', 'render');
+//        _.bindAll(this, 'addOne', 'addAll', 'render');
 
-//        this.collection.bind('add', this.addOne);
+        this.collection.bind('add', this.addOne, this);
 //        this.collection.bind('sync', this.addAll);
-        this.collection.bind('all', this.render, this);
+//        this.collection.bind('all', this.render, this);
 
         this.collection.fetch();
     },
@@ -50,6 +49,7 @@ var ProductsList = Backbone.View.extend({
 
     addOne: function(product) {
         var view = new ProductItem({model: product});
+        view.template = this.templateRow;
         this.$el.find("[lh_table]").append(view.render().el);
     },
 
