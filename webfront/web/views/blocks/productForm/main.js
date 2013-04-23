@@ -11,6 +11,7 @@ define(
                 main: mainTpl
             },
             model: Product,
+            defaultInputLinkText: 'Введите значение',
 
             initialize: function() {
                 var block = this;
@@ -25,6 +26,8 @@ define(
                 block.$retailPriceLink = block.$retailPriceInput.next('.productForm__inputLink');
                 block.$retailMarkupLink = block.$retailMarkupInput.next('.productForm__inputLink');
 
+                block.renderRetailMarkupLink();
+                block.renderRetailPriceLink();
             },
             events: {
                 'click .productForm__inputLink': function(e) {
@@ -33,7 +36,7 @@ define(
                         $link = $(e.currentTarget),
                         $linkedInput = $link.prev('.productForm__linkedInput');
 
-                    switch ($linkedInput.attr('name')){
+                    switch ($linkedInput.attr('name')) {
                         case 'retailMarkup':
                             block.showRetailMarkupInput();
                             break;
@@ -45,11 +48,11 @@ define(
                 'keyup [name="purchasePrice"]': function(e) {
                     var block = this;
 
-                    if (block.$retailPriceInput.is(':hidden')){
+                    if (block.$retailPriceInput.is(':hidden')) {
                         block.calculateRetailPrice();
                     }
 
-                    if (block.$retailMarkupInput.is(':hidden')){
+                    if (block.$retailMarkupInput.is(':hidden')) {
                         block.calculateRetailMarkup();
                     }
                 },
@@ -70,7 +73,7 @@ define(
                     block.renderRetailPriceLink();
                 }
             },
-            showRetailMarkupInput: function(){
+            showRetailMarkupInput: function() {
                 var block = this;
 
                 block.$retailPriceInput.addClass('productForm__hiddenInput');
@@ -80,7 +83,7 @@ define(
 
                 block.$retailPricePreferenceInput.val('retailMarkup');
             },
-            showRetailPriceInput: function(){
+            showRetailPriceInput: function() {
                 var block = this;
 
                 block.$retailMarkupInput.addClass('productForm__hiddenInput');
@@ -90,29 +93,45 @@ define(
 
                 block.$retailPricePreferenceInput.val('retailPrice');
             },
-            calculateRetailPrice: function(){
+            calculateRetailPrice: function() {
                 var block = this,
-                    calculatedVal = utils.formatPrice(utils.normalizePrice(block.$purchasePriceInput.val()) + utils.normalizePrice(block.$retailMarkupInput.val())/100 * utils.normalizePrice(block.$purchasePriceInput.val()));
+                    calculatedVal,
+                    purchasePrice = utils.normalizePrice(block.$purchasePriceInput.val()),
+                    retailMarkup = utils.normalizePrice(block.$retailMarkupInput.val());
+
+                if (_.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
+                    calculatedVal = '';
+                } else {
+                    calculatedVal = utils.formatPrice(purchasePrice + retailMarkup / 100 * purchasePrice);
+                }
 
                 block.$retailPriceInput
                     .val(calculatedVal)
                     .change();
             },
-            calculateRetailMarkup: function(){
+            calculateRetailMarkup: function() {
                 var block = this,
-                    calculatedVal = utils.formatPrice(utils.normalizePrice(block.$retailPriceInput.val()) * 100 / utils.normalizePrice(block.$purchasePriceInput.val()) - 100);
+                    calculatedVal,
+                    retailPrice = utils.normalizePrice(block.$retailPriceInput.val()),
+                    purchasePrice = utils.normalizePrice(block.$purchasePriceInput.val());
+
+                if (_.isNaN(purchasePrice) || _.isNaN(retailPrice)){
+                    calculatedVal = '';
+                } else {
+                    calculatedVal = utils.formatPrice(retailPrice * 100 / purchasePrice - 100);
+                }
 
                 block.$retailMarkupInput
                     .val(calculatedVal)
                     .change();
             },
-            renderRetailPriceLink: function(){
+            renderRetailPriceLink: function() {
                 var block = this;
-                block.$retailPriceLink.find('.productForm__inputLinkText').html($.trim(block.$retailPriceInput.val()));
+                block.$retailPriceLink.find('.productForm__inputLinkText').html($.trim(block.$retailPriceInput.val()) || block.defaultInputLinkText);
             },
-            renderRetailMarkupLink: function(){
+            renderRetailMarkupLink: function() {
                 var block = this;
-                block.$retailMarkupLink.find('.productForm__inputLinkText').html($.trim(block.$retailMarkupInput.val()));
+                block.$retailMarkupLink.find('.productForm__inputLinkText').html($.trim(block.$retailMarkupInput.val()) || block.defaultInputLinkText);
             }
         });
     }
