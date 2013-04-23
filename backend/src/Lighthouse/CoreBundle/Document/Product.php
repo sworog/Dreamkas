@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  *
@@ -27,6 +28,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  *     repositoryClass="Lighthouse\CoreBundle\Document\ProductRepository"
  * )
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
+ * @Assert\Callback(methods={"validateRetails"})
  */
 class Product extends AbstractDocument
 {
@@ -122,14 +124,12 @@ class Product extends AbstractDocument
 
     /**
      * @MongoDB\Field(type="money")
-     * @LighthouseAssert\Money
      * @var Money
      */
     protected $retailPrice;
 
     /**
      * @MongoDB\Float
-     * @LighthouseAssert\Range(gt="-100", gtMessage="lighthouse.validation.errors.product.retailMarkup.range")
      * @var float
      */
     protected $retailMarkup;
@@ -164,10 +164,6 @@ class Product extends AbstractDocument
         );
     }
 
-    /**
-     * @MongoDB\PrePersist
-     * @MongoDB\PreUpdate
-     */
     public function updateRetails()
     {
         switch ($this->retailPricePreference) {
@@ -184,8 +180,25 @@ class Product extends AbstractDocument
                     $this->retailPrice->setCountByQuantity($this->purchasePrice, $percent, true);
                 }
                 break;
-            default:
-                // :TODO: throw right exception
         }
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     */
+    public function validateRetails(ExecutionContextInterface $context)
+    {
+        $this->updateRetails();
+
+        $retailPriceConstraint = new LighthouseAssert\Money();
+        $context->validateValue($this->retailPrice, $retailPriceConstraint, 'retailPrice');
+
+        $retailMarkupConstraint = new LighthouseAssert\Range(
+            array(
+                'gt' => -100,
+                'gtMessage' => 'lighthouse.validation.errors.product.retailMarkup.range',
+            )
+        );
+        $context->validateValue($this->retailMarkup, $retailMarkupConstraint, 'retailMarkup');
     }
 }

@@ -725,9 +725,9 @@ EOF;
     }
 
     /**
-     * @dataProvider retailPriceProvider
+     * @dataProvider validRetailPriceProvider
      */
-    public function testPostProductActionSetRetailsPrice(
+    public function testPostProductActionSetRetailsPriceValid(
         array $postData,
         array $assertions = array(),
         array $emptyAssertions = array()
@@ -751,13 +751,38 @@ EOF;
     }
 
     /**
-     * @dataProvider retailPriceProvider
+     * @dataProvider invalidRetailPriceProvider
      */
-    public function testPutProductActionSetRetailPrice(
+    public function testPostProductActionSetRetailsPriceInvalid(
+        array $postData,
+        array $assertions = array(),
+        array $emptyAssertions = array()
+    ) {
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/products.json',
+            array('product' => $postData)
+        );
+
+        Assert::assertResponseCode(400, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathEquals($expected, $path, $response);
+        }
+
+        foreach ($emptyAssertions as $path) {
+            Assert::assertNotJsonHasPath($path, $response);
+        }
+    }
+
+    /**
+     * @dataProvider validRetailPriceProvider
+     */
+    public function testPutProductActionSetRetailPriceValid(
         array $putData,
         array $assertions = array(),
-        array $emptyAssertions = array(),
-        $expectedError = false
+        array $emptyAssertions = array()
     ) {
         $postData = $this->getProductData();
 
@@ -773,41 +798,77 @@ EOF;
 
         $id = $postResponse['id'];
 
-        $response = $this->clientJsonRequest(
+        $putResponse = $this->clientJsonRequest(
             $this->client,
             'PUT',
             '/api/1/products/' . $id . '.json',
             array('product' => $putData)
         );
 
-        if ($expectedError) {
-            Assert::assertResponseCode(400, $this->client);
-        } else {
-            Assert::assertResponseCode(204, $this->client);
-            $response = $this->clientJsonRequest(
-                $this->client,
-                'GET',
-                '/api/1/products/' . $id . '.json'
-            );
+        Assert::assertResponseCode(204, $this->client);
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/products/' . $id . '.json'
+        );
 
-            Assert::assertResponseCode(200, $this->client);
-        }
+        Assert::assertResponseCode(200, $this->client);
 
         foreach ($assertions as $path => $expected) {
-            Assert::assertJsonPathEquals($expected, $path, $response);
+            Assert::assertJsonPathEquals($expected, $path, $getResponse);
         }
 
         foreach ($emptyAssertions as $path) {
-            Assert::assertNotJsonHasPath($path, $response);
+            Assert::assertNotJsonHasPath($path, $getResponse);
+        }
+    }
+
+    /**
+     * @dataProvider invalidRetailPriceProvider
+     */
+    public function testPutProductActionSetRetailPriceInvalid(
+        array $putData,
+        array $assertions = array(),
+        array $emptyAssertions = array()
+    ) {
+        $postData = $this->getProductData();
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/products.json',
+            array('product' => $postData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        $id = $postResponse['id'];
+
+        $putResponse = $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/products/' . $id . '.json',
+            array('product' => $putData)
+        );
+
+        Assert::assertResponseCode(400, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathEquals($expected, $path, $putResponse);
+        }
+
+        foreach ($emptyAssertions as $path) {
+            Assert::assertNotJsonHasPath($path, $putResponse);
         }
     }
 
     /**
      * @return array
      */
-    public function retailPriceProvider()
+    public function validRetailPriceProvider()
     {
-        $postData = $this->getProductData();
+        $productData = $this->getProductData();
 
         return array(
             'prefer price, markup invalid' => array(
@@ -815,7 +876,7 @@ EOF;
                     'retailPrice' => 33.53,
                     'retailMarkup' => 12,
                     'retailPricePreference' => 'retailPrice',
-                ) + $postData,
+                ) + $productData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
@@ -827,7 +888,7 @@ EOF;
                     'retailPrice' => 34.00,
                     'retailMarkup' => 10.01,
                     'retailPricePreference' => 'retailMarkup',
-                ) + $postData,
+                ) + $productData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
@@ -839,7 +900,7 @@ EOF;
                     'retailPrice' => 33.53,
                     'retailMarkup' => 10.01,
                     'retailPricePreference' => 'retailPrice',
-                ) + $postData,
+                ) + $productData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
@@ -851,7 +912,7 @@ EOF;
                     'retailPrice' => 33.53,
                     'retailMarkup' => 10.01,
                     'retailPricePreference' => 'retailMarkup',
-                ) + $postData,
+                ) + $productData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
@@ -860,9 +921,10 @@ EOF;
             ),
             'prefer markup, price not entered' => array(
                 array(
+                    'retailPrice' => '',
                     'retailMarkup' => 10.01,
                     'retailPricePreference' => 'retailMarkup',
-                ) + $postData,
+                ) + $productData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
@@ -872,8 +934,9 @@ EOF;
             'prefer price, markup not entered' => array(
                 array(
                     'retailPrice' => 33.53,
+                    'retailMarkup' => '',
                     'retailPricePreference' => 'retailPrice',
-                ) + $postData,
+                ) + $productData,
                 array(
                     'retailPrice' => '33.53',
                     'retailMarkup' => '10.01',
@@ -883,7 +946,7 @@ EOF;
             'prefer price, no price and markup entered' => array(
                 array(
                     'retailPricePreference' => 'retailPrice',
-                ) + $postData,
+                ) + $productData,
                 array(
                     'retailPricePreference' => 'retailPrice',
                 ),
@@ -895,7 +958,7 @@ EOF;
             'prefer markup, no price and markup entered' => array(
                 array(
                     'retailPricePreference' => 'retailMarkup',
-                ) + $postData,
+                ) + $productData,
                 array(
                     'retailPricePreference' => 'retailMarkup',
                 ),
@@ -904,6 +967,57 @@ EOF;
                     'retailMarkup',
                 )
             ),
+            'prefer markup, price valid, valid markup: -10' => array(
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailPrice' => 27.42,
+                    'retailMarkup' => -10,
+                    'retailPricePreference' => 'retailMarkup',
+                ) + $productData,
+                array(
+                    'retailPrice' => '27.43',
+                    'retailMarkup' => '-10',
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
+            'prefer markup, price valid, valid markup: 0' => array(
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailPrice' => 30.48,
+                    'retailMarkup' => 0,
+                    'retailPricePreference' => 'retailMarkup',
+                ) + $productData,
+                array(
+                    'retailPrice' => '30.48',
+                    'retailMarkup' => '0',
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
+            'prefer markup, valid markup: 0, price: 0' => array(
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailPrice' => 0,
+                    'retailMarkup' => 0,
+                    'retailPricePreference' => 'retailMarkup',
+                ) + $productData,
+                array(
+                    'retailPrice' => '30.48',
+                    'retailMarkup' => '0',
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
+        );
+    }
+
+
+    /**
+     * @return array
+     */
+    public function invalidRetailPriceProvider()
+    {
+        $postData = $this->getProductData();
+
+        return array(
             // Валидация цены закупки
             'prefer price, markup valid, invalid price: 3 digits after coma' => array(
                 array(
@@ -917,7 +1031,6 @@ EOF;
                 array(
                     'retailPrice', 'retailMarkup', 'retailPricePreference'
                 ),
-                true
             ),
             'prefer price, markup valid, invalid price: 0' => array(
                 array(
@@ -931,7 +1044,6 @@ EOF;
                 array(
                     'retailPrice', 'retailMarkup', 'retailPricePreference'
                 ),
-                true
             ),
             'prefer price, markup valid, invalid price: -10.12' => array(
                 array(
@@ -945,7 +1057,6 @@ EOF;
                 array(
                     'retailPrice', 'retailMarkup', 'retailPricePreference'
                 ),
-                true
             ),
             // Валидация наценки
             'prefer markup, price valid, invalid markup: -105' => array(
@@ -960,7 +1071,6 @@ EOF;
                 array(
                     'retailPrice', 'retailMarkup', 'retailPricePreference'
                 ),
-                true
             ),
             'prefer markup, price valid, invalid markup: -100' => array(
                 array(
@@ -974,7 +1084,6 @@ EOF;
                 array(
                     'retailPrice', 'retailMarkup', 'retailPricePreference'
                 ),
-                true
             ),
             'prefer markup, price valid, invalid markup: aaaa' => array(
                 array(
@@ -988,46 +1097,20 @@ EOF;
                 array(
                     'retailPrice', 'retailMarkup', 'retailPricePreference'
                 ),
-                true
             ),
-            'prefer markup, price valid, valid markup: -99.99' => array(
+            'prefer markup, valid markup -99.99, but price became 0' => array(
                 array(
                     'purchasePrice' => 30.48,
-                    'retailPrice' => 0.01,
+                    'retailPrice' => 0.00,
                     'retailMarkup' => -99.99,
                     'retailPricePreference' => 'retailMarkup',
                 ) + $postData,
                 array(
-                    'retailPrice' => '0',
-                    'retailMarkup' => '-99.99',
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            'prefer markup, price valid, valid markup: -10' => array(
+                    'children.retailPrice.errors.0' => 'Цена не должна быть меньше или равна нулю.',
+                ),
                 array(
-                    'purchasePrice' => 30.48,
-                    'retailPrice' => 27.42,
-                    'retailMarkup' => -10,
-                    'retailPricePreference' => 'retailMarkup',
-                ) + $postData,
-                array(
-                    'retailPrice' => '27.43',
-                    'retailMarkup' => '-10',
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            'prefer markup, price valid, valid markup: 0' => array(
-                array(
-                    'purchasePrice' => 30.48,
-                    'retailPrice' => 30.48,
-                    'retailMarkup' => 0,
-                    'retailPricePreference' => 'retailMarkup',
-                ) + $postData,
-                array(
-                    'retailPrice' => '30.48',
-                    'retailMarkup' => '0',
-                    'retailPricePreference' => 'retailMarkup',
-                )
+                    'retailPrice', 'retailMarkup', 'retailPricePreference'
+                ),
             ),
         );
     }
