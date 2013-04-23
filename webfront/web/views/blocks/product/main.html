@@ -1,5 +1,9 @@
 <div class="page__controls">
-    <a class="page__controlsList product_editLink">Редактировать</a>
+    <a class="page__controlsList product_editLink"
+       lh_link="edit"
+       href="/product/edit/<%= block.productModel.get('id') %>">
+        Редактировать
+    </a>
 </div>
 <div class="product__content">
     <div class="product__head">
@@ -37,7 +41,7 @@
             <tr>
                 <th>Единица измерения</th>
                 <td>
-                    <span name="units"><%= block.productModel.get('units') %></span>
+                    <span name="units"><%= block.utils.units(block.productModel.get('units'), 'smallFull') %></span>
                 </td>
             </tr>
             <tr>
@@ -74,4 +78,3 @@
         </table>
     </div>
 </div>
-        
