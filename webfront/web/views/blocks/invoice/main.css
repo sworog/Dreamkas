@@ -52,18 +52,6 @@
     table-layout: fixed;
 }
 
-.invoice__controls{
-    float: right;
-    text-align: right;
-    padding-left: 20px;
-}
-
-.invoice__controlsList{
-    list-style: none;
-    padding: 0 0 0 30px;
-    margin: 0;
-}
-
 .invoice__controlItem{
     padding-bottom: 10px;
 }

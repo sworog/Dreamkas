@@ -4,7 +4,11 @@ define(
     ],
     function(BaseModel) {
     return BaseModel.extend({
-        urlRoot: baseApiUrl + "/products",
+        modelName: "product",
+
+        url: function(){
+            return baseApiUrl + '/products/' + this.id + '.json'
+        },
 
         defaults: {
             id: null,
