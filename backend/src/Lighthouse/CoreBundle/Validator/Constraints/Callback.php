@@ -20,7 +20,6 @@ class Callback extends Constraint
      */
     public $constraints;
 
-
     /**
      * @param mixed $options
      * @throws UnexpectedTypeException
