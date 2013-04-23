@@ -1,35 +1,3 @@
-var AmountItem = Backbone.View.extend({
-    tagName: "a",
-    attributes: {
-        lh_table_row: "true",
-        name: "amountItem"
-    },
-
-    template: Mustache.compile($("#amountItem").html()),
-
-    initialize: function() {
-    },
-
-    render: function() {
-        var data = this.model.toJSON();
-
-        data.purchasePrice = Helpers.pricesFloatToView(data.purchasePrice);
-
-        if(data.units) {
-            for(var unitId in this.model.unitsEnum) {
-                if(unitId == data.units) {
-                    data.units = this.model.unitsEnum[unitId];
-                    data.units.value = unitId;
-                }
-            }
-        }
-
-        this.$el.html(this.template(data));
-
-        return this;
-    }
-});
-
 var AmountsList = Backbone.View.extend({
     tagName: "div",
     attributes: {
@@ -37,13 +5,12 @@ var AmountsList = Backbone.View.extend({
     },
 
     template: Mustache.compile($("#amountsList").html()),
+    templateRow: Mustache.compile($("#amountItem").html()),
 
     initialize: function() {
-        _.bindAll(this, 'addOne', 'addAll', 'render');
+        this.collection.bind('add', this.addOne, this);
 
-//        this.collection.bind('add', this.addOne);
-//        this.collection.bind('sync', this.addAll);
-        this.collection.bind('all', this.render, this);
+        this.render();
 
         this.collection.fetch();
     },
@@ -51,14 +18,16 @@ var AmountsList = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
 
-        this.addAll();
-
         return this;
     },
 
     addOne: function(product) {
-        var view = new AmountItem({model: product});
-        this.$el.find("[lh_table]").append(view.render().el);
+
+        var data = product.toJSON();
+        data.purchasePrice = Helpers.pricesFloatToView(data.purchasePrice);
+        data.units = product.unitsEnum[data.units].textViewShort;
+
+        this.$el.find("[lh_table]").append(this.templateRow(data));
     },
 
     addAll: function() {
