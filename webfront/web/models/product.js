@@ -23,7 +23,7 @@ define(
                 purchasePrice: null,
                 retailPrice: null,
                 retailMarkup: null,
-                retailPricePreference: null,
+                retailPricePreference: 'retailMarkup',
                 barcode: null,
                 sku: null,
                 vendorCountry: null,
