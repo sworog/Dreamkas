@@ -353,22 +353,25 @@ EOF;
      */
     public function testGetProduct(array $postData)
     {
-        $crawler = $this->client->request(
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/products',
+            '/api/1/products.json',
             array('product' => $postData)
         );
-        $id = $crawler->filter('product id')->first()->text();
-        $this->assertNotEmpty($id);
-        Assert::assertResponseCode(201, $this->client);
 
-        $this->client->request(
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postResponse);
+        $id = $postResponse['id'];
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
             'GET',
-            '/api/1/products/' . $id
+            '/api/1/products/' . $id . '.json'
         );
         Assert::assertResponseCode(200, $this->client);
-
-        $this->assertEquals('Кефир "Веселый Молочник" 1% 950гр', $crawler->filter('product name')->first()->text());
+        Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', 'name', $getResponse);
+        Assert::assertNotJsonHasPath('retailPricePreferences', $getResponse);
     }
 
     public function testGetProductNotFound()

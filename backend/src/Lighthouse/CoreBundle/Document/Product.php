@@ -47,6 +47,7 @@ class Product extends AbstractDocument
     const RETAIL_PRICE_PREFERENCE_MARKUP = 'retailMarkup';
 
     /**
+     * @Serializer\Exclude
      * @var array
      */
     public static $retailPricePreferences = array(
