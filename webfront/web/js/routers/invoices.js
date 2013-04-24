@@ -17,9 +17,10 @@ var InvoicesRouter = Backbone.Router.extend({
     },
 
     invoices_list: function() {
-        if( ! this.collections.invoices) {
-            this.collections.invoices = new InvoicesCollection
+        if(this.collections.invoices) {
+            delete this.collections.invoices;
         }
+        this.collections.invoices = new InvoicesCollection
 
         var view = new InvoicesListView({collection: this.collections.invoices});
         $("[lh_application]").html(view.render().el);
