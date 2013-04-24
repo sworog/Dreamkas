@@ -14,7 +14,7 @@ define(
 //                "products": "productList",
 //                "product/list": "productList",
 //                "product/edit": "productEdit",
-//                "product/edit/:id": "productEdit",
+                "product/edit/:id": "productEdit",
                 "product/create": "productCreate",
                 "product/view/:id": "productView",
 
@@ -46,7 +46,7 @@ define(
             },
             productEdit: function(id){
                 page.open('/views/pages/product/edit.html', {
-                    id: id
+                    productId: id
                 });
             },
             productCreate: function(){

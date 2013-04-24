@@ -17,11 +17,15 @@ define(
             },
 
             initialize: function() {
-                this.productModel = new productModel(this.productId);
+                var block = this;
 
-                if (!this.productId){
-                    this.render();
-                }
+                this.productModel = new productModel({
+                    id: this.productId
+                });
+
+                this.productModel.fetch();
+
+                this.render();
 
                 this.$retailPricePreferenceInput = this.$el.find('[name="retailPricePreference"]');
                 this.$retailPriceInput = this.$el.find('[name="retailPrice"]');
@@ -36,7 +40,6 @@ define(
 
                 this.listenTo(this.productModel, {
                     sync: function(){
-                        this.render();
                     }
                 });
             },
