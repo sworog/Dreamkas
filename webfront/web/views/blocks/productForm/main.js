@@ -153,7 +153,7 @@ define(
                     text;
 
                 if (price){
-                    text = price + ' руб.'
+                    text = utils.formatPrice(price) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -167,7 +167,7 @@ define(
                     text;
 
                 if (markup){
-                    text = markup + '%'
+                    text = utils.formatPrice(markup) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }
