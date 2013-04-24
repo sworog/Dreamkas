@@ -1,0 +1,20 @@
+.product__name {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.product__sku {
+    font-size: 16px;
+}
+
+.product__head {
+    margin-bottom: 20px;
+}
+
+.product__propertiesTable td,
+.product__propertiesTable th
+{
+    padding: 6px 8px;
+    vertical-align: middle;
+    font-weight: normal;
+}

@@ -53,12 +53,17 @@ class MoneyHandler implements SubscribingHandlerInterface
      * @param \JMS\Serializer\VisitorInterface $visitor
      * @param Money $value
      * @param array $type
-     * @return string
+     * @return string|null
      */
     public function serializeMoney(VisitorInterface $visitor, Money $value, array $type)
     {
         $normData = $this->moneyTransformer->transform($value);
         $viewData = $this->viewTransformer->transform($normData);
-        return $visitor->visitString($viewData, $type);
+        if (null === $viewData) {
+            $serialized = $visitor->visitNull($viewData, $type);
+        } else {
+            $serialized = $visitor->visitString($viewData, $type);
+        }
+        return $serialized;
     }
 }

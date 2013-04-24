@@ -36,7 +36,7 @@ class MoneyViewTransformer implements DataTransformerInterface
 
     /**
      * @param float $value
-     * @return int
+     * @return string
      */
     public function reverseTransform($value)
     {

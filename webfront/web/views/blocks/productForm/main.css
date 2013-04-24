@@ -1,0 +1,30 @@
+.productForm{
+
+}
+
+.productForm__inputLink{
+    vertical-align: middle;
+    display: none;
+    color: #336699;
+    cursor: pointer;
+    height: 32px;
+    line-height: 32px;
+    white-space: nowrap;
+}
+
+.productForm__inputLinkText{
+    border-bottom: 1px dashed;
+    line-height: normal;
+}
+
+.productForm__hiddenInput{
+    display: none;
+}
+
+.productForm__hiddenInput + .productForm__inputLink{
+    display: inline-block;
+}
+
+.productForm__hiddenInput ~ .inputText__postfix{
+    display: none;
+}

@@ -1,9 +1,10 @@
 define(
     [
-        '/views/page.js'
+        '/views/pages/main.js'
     ],
     function(page) {
-        return Backbone.Block = Backbone.View.extend({
+        return Backbone.View.extend({
+            page: page,
             constructor: function(opt) {
                 var block = this;
 
@@ -13,6 +14,11 @@ define(
                 page.addBlocks([block]);
 
                 Backbone.View.apply(this, arguments);
+            },
+            initialize: function() {
+                var block = this;
+
+                block.render();
             },
             render: function() {
                 var block = this;

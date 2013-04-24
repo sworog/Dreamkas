@@ -43,6 +43,14 @@ class Money
     }
 
     /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return '' === $this->count || null === $this->count;
+    }
+
+    /**
      * @param float $count
      * @return int
      */

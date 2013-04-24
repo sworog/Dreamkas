@@ -1,14 +1,20 @@
 define(
     [
+        '/views/blocks/main.js',
         '/models/invoice.js',
         '/models/invoiceProduct.js',
         '/collections/invoiceProducts.js',
         '/utils/main.js',
-        '/views/blocks/form/main.js',
+        '/views/kit/form/main.js',
         './templates.js'
     ],
-    function(invoiceModel, invoiceProduct, invoiceProductsCollection, utils, form, templates) {
-        return Backbone.Block.extend({
+    function(Block, invoiceModel, invoiceProduct, invoiceProductsCollection, utils, form, templates) {
+        return Block.extend({
+            utils: utils,
+            tpl: templates,
+            editMode: false,
+            dataEditing: false,
+
             initialize: function() {
                 var block = this;
 
@@ -150,8 +156,6 @@ define(
                     block.removeDataInput();
                 }
             },
-            editMode: false,
-            dataEditing: false,
             'set editMode': function(val) {
                 var block = this;
 
@@ -203,14 +207,6 @@ define(
 
                 $input.removeClass('.inputText_error');
                 $inputControls.removeAttr('lh_field_error');
-            },
-            removeDataInput: function(){
-                var block = this;
-
-                block.$el.find('.invoice__dataInput').remove();
-                block.$el.find('.invoice__dataInputControls').remove();
-
-                block.set('dataEditing', false);
             },
             disableAddForm: function(disabled) {
                 var block = this;
@@ -336,8 +332,6 @@ define(
 
                 $input.datepicker(options);
             },
-            utils: utils,
-            tpl: templates,
             addProduct: function(productData) {
                 var block = this,
                     newProduct = new invoiceProduct({
@@ -394,7 +388,7 @@ define(
                 }
 
                 if ($dataRow.prop('tagName') === 'TR') {
-                    dataInputControls = '<tr><td class="invoice__dataInputControlsTd" colspan="' + $dataRow.find('td').length + '">' + dataInputControls + '</td></tr>'
+                    dataInputControls = '<tr class="invoice__dataInputControlsTr"><td class="invoice__dataInputControlsTd" colspan="' + $dataRow.find('td').length + '">' + dataInputControls + '</td></tr>'
                 }
 
                 switch ($dataElement.attr('model-attr')) {
@@ -434,6 +428,15 @@ define(
                         'font': $dataElement.css('font')
                     })
                     .focus();
+            },
+            removeDataInput: function(){
+                var block = this;
+
+                block.$el.find('.invoice__dataInput').remove();
+                block.$el.find('.invoice__dataInputControls').remove();
+                block.$el.find('.invoice__dataInputControlsTr').remove();
+
+                block.set('dataEditing', false);
             }
         });
     }

@@ -3,7 +3,7 @@
     <span class="invoice__editable">
         №
         <span name="sku" model-attr="sku">
-            <%= block.invoiceModel.get('sku') %>
+            <%= _.escape(block.invoiceModel.get('sku')) %>
         </span>
     </span>
     от

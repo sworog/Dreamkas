@@ -27,9 +27,34 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  *     repositoryClass="Lighthouse\CoreBundle\Document\ProductRepository"
  * )
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
+ * @LighthouseAssert\Callback(
+ *     method="updateRetails",
+ *     constraints={
+ *         "retailPrice"  = @LighthouseAssert\Money,
+ *         "retailMarkup" = {
+ *              @LighthouseAssert\Precision,
+ *              @LighthouseAssert\Range(
+ *                  gt="-100",
+ *                  gtMessage="lighthouse.validation.errors.product.retailMarkup.range"
+ *              )
+ *         }
+ *     }
+ * )
  */
 class Product extends AbstractDocument
 {
+    const RETAIL_PRICE_PREFERENCE_PRICE = 'retailPrice';
+    const RETAIL_PRICE_PREFERENCE_MARKUP = 'retailMarkup';
+
+    /**
+     * @Serializer\Exclude
+     * @var array
+     */
+    public static $retailPricePreferences = array(
+        self::RETAIL_PRICE_PREFERENCE_PRICE => 'lighthouse.document.product.retailPrice',
+        self::RETAIL_PRICE_PREFERENCE_MARKUP => 'lighthouse.document.product.retailMarkup',
+    );
+
     /**
      * @MongoDB\Id
      * @var string
@@ -110,6 +135,24 @@ class Product extends AbstractDocument
     protected $amount;
 
     /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $retailPrice;
+
+    /**
+     * @MongoDB\Float
+     * @var float
+     */
+    protected $retailMarkup;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_PRICE;
+
+    /**
      * @return array
      */
     public function toArray()
@@ -126,7 +169,29 @@ class Product extends AbstractDocument
             'vendorCountry' => $this->vendorCountry,
             'vendor' => $this->vendor,
             'info' => $this->info,
-            'amount' => $this->amount
+            'amount' => $this->amount,
+            'retailPrice' => $this->retailPrice,
+            'retailMarkup' => $this->retailMarkup,
+            'retailPricePreference' => $this->retailPricePreference,
         );
+    }
+
+    public function updateRetails()
+    {
+        switch ($this->retailPricePreference) {
+            case self::RETAIL_PRICE_PREFERENCE_PRICE:
+                if (null !== $this->retailPrice && !$this->retailPrice->isEmpty()) {
+                    $markup = (($this->retailPrice->getCount() / $this->purchasePrice->getCount()) * 100) - 100;
+                    $this->retailMarkup = round($markup, 2);
+                }
+                break;
+            case self::RETAIL_PRICE_PREFERENCE_MARKUP:
+                if (null !== $this->retailMarkup) {
+                    $percent = 1 + ($this->retailMarkup / 100);
+                    $this->retailPrice = new Money();
+                    $this->retailPrice->setCountByQuantity($this->purchasePrice, $percent, true);
+                }
+                break;
+        }
     }
 }

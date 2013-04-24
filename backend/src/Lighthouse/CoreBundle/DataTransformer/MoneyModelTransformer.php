@@ -43,7 +43,11 @@ class MoneyModelTransformer implements DataTransformerInterface
         if (null === $value) {
             $value = null;
         } elseif ($value instanceof Money) {
-            $value = $value->getCount() / $this->divider;
+            if ($value->isEmpty()) {
+                return null;
+            } else {
+                $value = $value->getCount() / $this->divider;
+            }
         } else {
             throw new TransformationFailedException(
                 'Value should be Money type object or null. ' . gettype($value) . ' given'

@@ -1,6 +1,6 @@
 define(
     [
-        '/views/page.js'
+        '/views/pages/main.js'
     ],
     function(page) {
         var Router = Backbone.Router.extend({
@@ -14,7 +14,9 @@ define(
 //                "products": "productList",
 //                "product/list": "productList",
 //                "product/edit": "productEdit",
-//                "product/edit/:id": "productEdit",
+                "product/edit/:id": "productEdit",
+                "product/create": "productCreate",
+                "product/view/:id": "productView",
 
                 "": "dashboard",
                 "/": "dashboard",
@@ -44,6 +46,14 @@ define(
             },
             productEdit: function(id){
                 page.open('/views/pages/product/edit.html', {
+                    productId: id
+                });
+            },
+            productCreate: function(){
+                page.open('/views/pages/product/create.html');
+            },
+            productView: function(id){
+                page.open('/views/pages/product/view.html', {
                     id: id
                 });
             }

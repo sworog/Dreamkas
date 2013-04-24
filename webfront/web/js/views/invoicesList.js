@@ -5,8 +5,6 @@ var InvoicesListItemView = Backbone.View.extend({
         name: "invoice"
     },
 
-    template: Mustache.compile($("#invoiceItem").html()),
-
     initialize: function() {
     },
 
@@ -30,13 +28,13 @@ var InvoicesListView = Backbone.View.extend({
     },
 
     template: Mustache.compile($("#invoicesList").html()),
+    templateRow: Mustache.compile($("#invoiceItem").html()),
 
     initialize: function() {
-        _.bindAll(this, 'addOne', 'addAll', 'render');
 
-//        this.collection.bind('add', this.addOne);
+        this.collection.bind('add', this.addOne, this);
 //        this.collection.bind('sync', this.addAll);
-        this.collection.bind('all', this.render);
+//        this.collection.bind('all', this.render, this);
 
         this.collection.fetch();
     },
@@ -51,6 +49,7 @@ var InvoicesListView = Backbone.View.extend({
 
     addOne: function(model) {
         var view = new InvoicesListItemView({model: model});
+        view.template = this.templateRow;
         this.$el.find("[lh_table]").append(view.render().el);
     },
 

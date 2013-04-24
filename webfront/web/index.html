@@ -782,29 +782,31 @@
     </script>
 
     <script type="text/template" id="amountItem">
-        <span name="sku" lh_table_cell="id">{{ sku }}</span>
-        <span name="name" lh_table_cell="common">{{ name }}</span>
-        <span name="vendor" lh_table_cell="common">{{ vendor }}</span>
-        <span name="vendorCountry" lh_table_cell="common">{{ vendorCountry }}</span>
-        <span lh_table_cell="money">
-            <span name="purchasePrice">
-                {{#lastPurchasePrice}}
-                    {{lastPurchasePrice}}
-                {{/lastPurchasePrice}}
-                {{^lastPurchasePrice}}
-                    {{purchasePrice}}
-                {{/lastPurchasePrice}}
+        <a lh_table_row="true" name="amountItem">
+            <span name="sku" lh_table_cell="id">{{ sku }}</span>
+            <span name="name" lh_table_cell="common">{{ name }}</span>
+            <span name="vendor" lh_table_cell="common">{{ vendor }}</span>
+            <span name="vendorCountry" lh_table_cell="common">{{ vendorCountry }}</span>
+            <span lh_table_cell="money">
+                <span name="purchasePrice">
+                    {{#lastPurchasePrice}}
+                        {{lastPurchasePrice}}
+                    {{/lastPurchasePrice}}
+                    {{^lastPurchasePrice}}
+                        {{purchasePrice}}
+                    {{/lastPurchasePrice}}
+                </span>
+                р.
             </span>
-            р.
-        </span>
-        <span lh_table_cell="money">
-            <span name="amount">
-                {{ amount }}
+            <span lh_table_cell="money">
+                <span name="amount">
+                    {{ amount }}
+                </span>
             </span>
-        </span>
-        <span name="units" lh_table_cell="common">
-            {{units.textViewShort}}
-        </span>
+            <span name="units" lh_table_cell="common">
+                {{units}}
+            </span>
+        </a>
     </script>
 
     <script type="text/template" id="amountsList">

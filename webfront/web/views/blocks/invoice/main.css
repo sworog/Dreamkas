@@ -49,40 +49,15 @@
 
 .invoice__table {
     margin-bottom: 20px;
-}
-
-.invoice__controls{
-    float: right;
-    width: 25%;
-}
-
-.invoice__content{
-    width: 75%;
-}
-
-.invoice__controlsList{
-    list-style: none;
-    padding: 0 0 0 30px;
-    margin: 0;
+    table-layout: fixed;
 }
 
 .invoice__controlItem{
     padding-bottom: 10px;
 }
 
-.invoice__supplier{
-    padding-bottom: 20px;
-}
-
 .invoice__footer{
     padding-bottom: 20px;
-}
-
-.invoice__addForm .form__controls{
-    margin-left: -20px;
-    margin-right: -20px;
-    margin-bottom: -20px;
-    border-radius: 0 0 5px 5px;
 }
 
 .invoice__addForm,

@@ -1,17 +1,19 @@
 require(
     [
         '/routers/main.js',
-        '/views/Block.js',
-        '/collections/base.js',
-        '/models/base.js'
+        '/utils/main.js'
     ],
-    function() {
+    function(router, helpers) {
         $(function() {
             Backbone.history.start({
                 pushState: true
             });
 
-            window.app = new Backbone.Router();
+            window.app = router;
+
+            window.LH = {
+                helpers: helpers   
+            };
 
             $("body").on('click', 'a[href]', function(e) {
                 e.preventDefault();

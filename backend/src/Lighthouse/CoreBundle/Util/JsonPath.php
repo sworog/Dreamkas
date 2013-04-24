@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Util;
 class JsonPath
 {
     const DELIMITER = '.';
-    
+
     /**
      * @var mixed|array
      */

@@ -1,12 +1,67 @@
-<form class="form" action="#">
-    <div class="form__field">
-        <label class="form__label">Название</label>
-        <input type="text" class="inputText" name="name"/>
+<h3>Добавление нового товара в матрицу</h3>
+
+<fieldset class="form__fieldset">
+    <div class="form__field form__field_inline">
+        <label class="form__label">Артикул</label>
+        <input value="<%= block.productModel.get('sku') %>" class="inputText" type="text" name="sku"/>
     </div>
-    <div class="form__controls">
-    <span class="button">
-        Сохранить
+    <div class="form__field form__field_inline">
+        <label class="form__label">Наименование</label>
+        <input value="<%= block.productModel.get('name') %>" class="inputText" type="text" name="name"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Измеряется в</label>
+        <select value="<%= block.productModel.get('units') %>" class="select" name="units" block="/views/kit/select/select_units.js"></select>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">НДС</label>
+        <select value="<%= block.productModel.get('vat') %>" class="select" name="vat" block="/views/kit/select/select_vat.js"></select>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Цена закупки</label>
+        <input style="width: 150px;" value="<%= block.productModel.get('purchasePrice') %>" class="inputText" type="text" name="purchasePrice"/>
+        <span class="inputText__postfix">руб.</span>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Наценка</label>
+        <input style="width: 150px;" value="<%= block.productModel.get('retailMarkup') %>" class="inputText productForm__linkedInput" type="text" name="retailMarkup"/>
+        <a class="productForm__inputLink">
+            <span class="productForm__inputLinkText" name="retailMarkupHint"></span>
+        </a>
+        <span class="inputText__postfix">%</span>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Цена продажи</label>
+        <input style="width: 150px;" value="<%= block.productModel.get('retailPrice') %>" class="inputText productForm__hiddenInput productForm__linkedInput" type="text" name="retailPrice"/>
+        <a class="productForm__inputLink">
+            <span class="productForm__inputLinkText" name="retailPriceHint"></span>
+        </a>
+        <span class="inputText__postfix">руб.</span>
+    </div>
+    <input type="hidden" value="retailMarkup" name="retailPricePreference" />
+</fieldset>
+<fieldset class="form__fieldset">
+    <legend class="form__legend">Необязательно к заполнению</legend>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Штрихкод</label>
+        <input value="<%= block.productModel.get('barcode') %>" class="inputText" type="text" name="barcode"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Страна производства</label>
+        <input value="<%= block.productModel.get('vendorCountry') %>" class="inputText" type="text" name="vendorCountry"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Производитель</label>
+        <input value="<%= block.productModel.get('vendor') %>" class="inputText" type="text" name="vendor"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Дополнительная информация</label>
+        <textarea class="inputText" name="info"><%= block.productModel.get('info') %></textarea>
+    </div>
+</fieldset>
+<div class="form__controls">
+    <span class="button button_color_blue">
+        <%= block.productId ? 'Сохранить товар' : 'Добавить товар' %>
         <input type="submit"/>
     </span>
-    </div>
-</form>
+</div>

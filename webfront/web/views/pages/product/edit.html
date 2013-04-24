@@ -1,3 +1,8 @@
+<div class="page__header">
+    <a href="/product/list" class="page__backLink">
+        Список товаров
+    </a>
+</div>
 <div class="box">
-    <div block="/views/blocks/productForm/main.js"></div>
+    <form class="form productForm" block="/views/blocks/productForm/main.js" block-options="{productId: '<%= productId %>'}"></form>
 </div>

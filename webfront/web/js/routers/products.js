@@ -2,9 +2,9 @@ var ProductsRouter = Backbone.Router.extend({
     routes: {
         "products":             "products_list",
         "product/list":         "products_list",
-        "product/view/:id":     "product_view",
-        "product/edit/:id":     "product_edit",
-        "product/create":       "product_create"
+        "product/view/:id":     "product_view"
+//        "product/edit/:id":     "product_edit"
+//        "product/create":       "product_create"
     },
 
     collections: {
@@ -16,9 +16,10 @@ var ProductsRouter = Backbone.Router.extend({
     },
 
     products_list: function() {
-        if( ! this.collections.products) {
-            this.collections.products = new ProductsCollection;
+        if(this.collections.products) {
+            delete this.collections.products;
         }
+        this.collections.products = new ProductsCollection;
 
         var view = new ProductsList({collection: this.collections.products});
         $("[lh_application]").html(view.render().el);

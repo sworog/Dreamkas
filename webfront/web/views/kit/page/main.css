@@ -1,0 +1,26 @@
+.page{
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+    text-align: left;
+}
+
+.page__header{
+    padding: 0 0 10px;
+}
+
+.page__clear{
+    clear: both;
+}
+
+.page__controls{
+    float: right;
+    text-align: right;
+    padding-left: 20px;
+}
+
+.page__controlsList{
+    list-style: none;
+    padding: 0 0 0 30px;
+    margin: 0;
+}

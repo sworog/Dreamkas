@@ -2,7 +2,6 @@
     width: 100%;
     border-spacing: 0;
     border-collapse: collapse;
-    border: 1px solid #ddd;
 }
 
 .table thead{
@@ -19,29 +18,17 @@
 
 .table td, .table th{
     padding: 8px 10px;
-    border-left: 1px solid #ddd;
+}
+
+.table td{
     vertical-align: middle;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
 }
 
 .table th{
     border-bottom: 1px solid #ddd;
     text-align: center;
-}
-
-.table tr td:first-child, .table tr th:first-child{
-    border-left: none;
-}
-
-.table tbody tr:nth-child(odd) td {
-    background-color: #F9F9F9;
-}
-
-.table__item_sorted{
-    background-color: #f2f9fe;
-}
-
-.table tbody tr:nth-child(odd) .table__item_sorted {
-    background-color: #e8f4fe;
 }
 
 .table tbody tr:hover td{

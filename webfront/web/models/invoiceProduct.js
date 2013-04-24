@@ -1,5 +1,9 @@
-define(function() {
-    return Backbone.BaseModel.extend({
+define(
+    [
+        './main.js'
+    ],
+    function(BaseModel) {
+    return BaseModel.extend({
         modelName: 'invoiceProduct',
         url: function(){
             var url;

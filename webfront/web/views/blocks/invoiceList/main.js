@@ -1,11 +1,12 @@
 define(
     [
+        '/views/kit/block.js',
         '/collections/invoices.js',
         'tpl!./main.html',
         'tpl!./row.html'
     ],
-    function(invoices, main, row) {
-        return Backbone.Block.extend({
+    function(Block, invoices, main, row) {
+        return Block.extend({
             initialize: function(){
                 var block = this;
 
