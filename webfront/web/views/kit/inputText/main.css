@@ -52,3 +52,7 @@ input.inputText_error, .inputText_error input, textarea.inputText_error, .inputT
     border-color: #d40000 !important;
     box-shadow: 0 0 3px #d40000 !important;
 }
+
+.inputText__postfix{
+    vertical-align: middle;
+}
