@@ -186,7 +186,7 @@ class Product extends AbstractDocument
                 }
                 break;
             case self::RETAIL_PRICE_PREFERENCE_MARKUP:
-                if (null !== $this->retailMarkup) {
+                if (null !== $this->retailMarkup && '' !== $this->retailMarkup) {
                     $percent = 1 + ($this->retailMarkup / 100);
                     $this->retailPrice = new Money();
                     $this->retailPrice->setCountByQuantity($this->purchasePrice, $percent, true);

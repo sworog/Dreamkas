@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Client;
 
 class ProductControllerTest extends WebTestCase
 {
@@ -35,6 +36,39 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(30.48, $crawler->filter('purchasePrice')->first()->text());
         $this->assertEquals(0, $crawler->filterXPath('//product/lastPurchasePrice')->count());
+    }
+
+    /**
+     * Тест на проблему сохраниения пустой наценки и цены продажи
+     */
+    public function testPostRetailPriceEmpty()
+    {
+        $productData = $this->getProductData();
+        $productData['retailMarkup'] = '';
+        $productData['retailPrice'] = '';
+        $productData['retailPricePreference'] = 'retailMarkup';
+
+        $responseJson = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            'api/1/products.json',
+            array('product' => $productData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertNotJsonHasPath('retailMarkup', $responseJson);
+        Assert::assertNotJsonHasPath('retailPrice', $responseJson);
+
+        $this->client->restart();
+        $responseJson = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            'api/1/products/' .$responseJson['id']. '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertNotJsonHasPath('retailMarkup', $responseJson);
+        Assert::assertNotJsonHasPath('retailPrice', $responseJson);
     }
 
     /**
