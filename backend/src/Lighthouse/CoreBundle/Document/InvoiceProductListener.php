@@ -10,7 +10,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Types\Money;
 
 /**
- * @DI\DoctrineMongoDBListener(events={"prePersist", "postPersist", "postUpdate", "preRemove", "onFlush"})
+ * @DI\DoctrineMongoDBListener(events={"prePersist", "postPersist", "postUpdate", "preRemove", "postRemove", "onFlush"})
  */
 class InvoiceProductListener
 {
@@ -162,6 +162,19 @@ class InvoiceProductListener
 
         if ($document instanceof InvoiceProduct) {
             $document->product->amount = $document->product->amount - $document->quantity;
+            $document->product->lastPurchasePrice = null;
+        }
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     */
+    public function postRemove(LifecycleEventArgs $eventArgs)
+    {
+        $document = $eventArgs->getDocument();
+
+        if ($document instanceof InvoiceProduct) {
+            $this->invoiceRepository->updateTotals($document->invoice, -1, $document->totalPrice->getCount() * -1);
         }
     }
 

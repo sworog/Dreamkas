@@ -872,59 +872,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice();
 
-        $productsData = array(
-            array(
-                'product' => $productId,
-                'quantity' => 10,
-                'price' => 11.12,
-                'productAmount' => 10,
-            ),
-            array(
-                'product' => $productId,
-                'quantity' => 5,
-                'price' => 12.76,
-                'productAmount' => 15,
-            ),
-            array(
-                'product' => $productId,
-                'quantity' => 1,
-                'price' => 5.99,
-                'productAmount' => 16,
-            ),
-        );
-
-        foreach ($productsData as $i => $row) {
-
-            $invoiceProductData = array(
-                'quantity' => $row['quantity'],
-                'price'    => $row['price'],
-                'product'  => $row['product'],
-            );
-
-            $response = $this->clientJsonRequest(
-                $this->client,
-                'POST',
-                '/api/1/invoices/' . $invoiceId . '/products.json',
-                array('invoiceProduct' => $invoiceProductData)
-            );
-
-            Assert::assertResponseCode(201, $this->client);
-            $productsData[$i]['id'] = $response['id'];
-        }
-
-        $getResponse = $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/invoices/' . $invoiceId . '/products.json'
-        );
-
-        Assert::assertResponseCode(200, $this->client);
-
-        $this->assertCount(3, $getResponse);
-        Assert::assertJsonPathCount(3, "*.id", $getResponse);
-        Assert::assertJsonPathEquals($productsData[0]['id'], '*.id', $getResponse);
-        Assert::assertJsonPathEquals($productsData[1]['id'], '*.id', $getResponse);
-        Assert::assertJsonPathEquals($productsData[2]['id'], '*.id', $getResponse);
+        $productsData = $this->createProducts($productId, $invoiceId);
 
         $this->clientJsonRequest(
             $this->client,
@@ -942,10 +890,87 @@ class InvoiceProductControllerTest extends WebTestCase
 
         Assert::assertResponseCode(200, $this->client);
 
-        $this->assertCount(2, $getResponse);
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+
         Assert::assertJsonPathEquals($productsData[0]['id'], '*.id', $getResponse);
         Assert::assertJsonPathEquals($productsData[2]['id'], '*.id', $getResponse);
+
         Assert::assertJsonPathEquals($productsData[1]['id'], '*.id', $getResponse, false);
+    }
+
+    public function testDeleteProductsActionUpdateAmountAndInvoiceTotals()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+        $invoiceId = $this->createInvoice();
+
+        $productsData = $this->createProducts($productId, $invoiceId);
+
+        $productResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/products/' . $productId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathEquals(16, 'amount', $productResponse);
+        Assert::assertJsonPathEquals(5.99, 'lastPurchasePrice', $productResponse);
+
+        $invoiceResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathEquals(180.99, 'sumTotal', $invoiceResponse);
+        Assert::assertJsonPathEquals(3, 'itemsCount', $invoiceResponse);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $productsData[1]['id'] . '.json'
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '/products.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+
+        Assert::assertJsonPathEquals($productsData[0]['id'], '*.id', $getResponse);
+        Assert::assertJsonPathEquals($productsData[2]['id'], '*.id', $getResponse);
+
+        Assert::assertJsonPathEquals($productsData[1]['id'], '*.id', $getResponse, false);
+
+        Assert::assertJsonPathEquals(11, '*.product.amount', $getResponse, 2);
+
+        $productResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/products/' . $productId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathEquals(11, 'amount', $productResponse);
+        Assert::assertNotJsonHasPath('lastPurchasePrice', $productResponse);
+
+        $invoiceResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathEquals(2, 'itemsCount', $invoiceResponse);
+        Assert::assertJsonPathEquals(117.19, 'sumTotal', $invoiceResponse);
     }
 
     /**
@@ -1005,5 +1030,68 @@ class InvoiceProductControllerTest extends WebTestCase
         $productId = $crawler->filterXPath("//product/id")->text();
 
         return $productId;
+    }
+
+    /**
+     * @param $productId
+     * @param $invoiceId
+     * @return array
+     */
+    protected function createProducts($productId, $invoiceId)
+    {
+        $productsData = array(
+            array(
+                'product' => $productId,
+                'quantity' => 10,
+                'price' => 11.12,
+                'productAmount' => 10,
+            ),
+            array(
+                'product' => $productId,
+                'quantity' => 5,
+                'price' => 12.76,
+                'productAmount' => 15,
+            ),
+            array(
+                'product' => $productId,
+                'quantity' => 1,
+                'price' => 5.99,
+                'productAmount' => 16,
+            ),
+        );
+
+        foreach ($productsData as $i => $row) {
+
+            $invoiceProductData = array(
+                'quantity' => $row['quantity'],
+                'price' => $row['price'],
+                'product' => $row['product'],
+            );
+
+            $response = $this->clientJsonRequest(
+                $this->client,
+                'POST',
+                '/api/1/invoices/' . $invoiceId . '/products.json',
+                array('invoiceProduct' => $invoiceProductData)
+            );
+
+            Assert::assertResponseCode(201, $this->client);
+            $productsData[$i]['id'] = $response['id'];
+        }
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '/products.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(3, "*.id", $getResponse);
+        foreach ($productsData as $productData) {
+            Assert::assertJsonPathEquals($productData['id'], '*.id', $getResponse);
+        }
+
+        return $productsData;
     }
 }
