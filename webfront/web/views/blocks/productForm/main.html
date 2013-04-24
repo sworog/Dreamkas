@@ -24,7 +24,7 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Наценка</label>
-        <input style="width: 150px;" value="<%= block.productModel.get('retailMarkup') %>" class="inputText productForm__linkedInput" type="text" name="retailMarkup"/>
+        <input style="width: 150px;" value="<%= block.productModel.get('retailMarkup') %>" class="inputText productForm__linkedInput <%= block.productModel.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>" type="text" name="retailMarkup"/>
         <a class="productForm__inputLink">
             <span class="productForm__inputLinkText" name="retailMarkupHint"></span>
         </a>
@@ -32,13 +32,13 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена продажи</label>
-        <input style="width: 150px;" value="<%= LH.helpers.formatPrice(block.productModel.get('retailPrice')) %>" class="inputText productForm__hiddenInput productForm__linkedInput" type="text" name="retailPrice"/>
+        <input style="width: 150px;" value="<%= LH.helpers.formatPrice(block.productModel.get('retailPrice')) %>" class="inputText productForm__linkedInput <%= block.productModel.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>" type="text" name="retailPrice"/>
         <a class="productForm__inputLink">
             <span class="productForm__inputLinkText" name="retailPriceHint"></span>
         </a>
         <span class="inputText__postfix">руб.</span>
     </div>
-    <input type="hidden" value="retailMarkup" name="retailPricePreference" />
+    <input type="hidden" value="block.productModel.get('retailPricePreference')" name="retailPricePreference" />
 </fieldset>
 <fieldset class="form__fieldset">
     <legend class="form__legend">Необязательно к заполнению</legend>
