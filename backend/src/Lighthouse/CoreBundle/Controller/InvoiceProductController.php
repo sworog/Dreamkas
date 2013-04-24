@@ -53,7 +53,7 @@ class InvoiceProductController extends FOSRestController
      *
      * @Rest\View(statusCode=200)
      */
-    public function putProductsAction(Request $request, $invoiceId, $invoiceProductId)
+    public function putProductAction(Request $request, $invoiceId, $invoiceProductId)
     {
         $invoiceProduct = $this->findInvoiceProduct($invoiceProductId, $invoiceId);
         return $this->processForm($request, $invoiceProduct);
@@ -78,6 +78,18 @@ class InvoiceProductController extends FOSRestController
         $invoice = $this->findInvoice($invoiceId);
         $invoiceProducts = $this->invoiceProductRepository->findByInvoice($invoice->id);
         return new InvoiceProductCollection($invoiceProducts);
+    }
+
+    /**
+     * @param string $invoiceId
+     * @param string $invoiceProductId
+     * @Rest\View(statusCode=204)
+     */
+    public function deleteProductAction($invoiceId, $invoiceProductId)
+    {
+        $invoiceProduct = $this->findInvoiceProduct($invoiceProductId, $invoiceId);
+        $this->invoiceProductRepository->getDocumentManager()->remove($invoiceProduct);
+        $this->invoiceProductRepository->getDocumentManager()->flush();
     }
 
     /**

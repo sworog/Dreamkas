@@ -29,14 +29,32 @@ class Assert
      * @param mixed $json
      * @param string $message
      */
-    public static function assertJsonPathEquals($expected, $path, $json, $message = '')
+    public static function assertJsonPathEquals($expected, $path, $json, $count = true, $message = '')
     {
         $jsonPath = new JsonPath($json, $path);
-        $actual = $jsonPath->getValue();
+        $values = $jsonPath->getValues();
         if ('' == $message) {
-            $message = sprintf("Failed asserting JSON path '%s' value '%s' equals '%s'", $path, $expected, $actual);
+            $message = sprintf("Failed asserting JSON path '%s' value equals '%s'", $path, $expected);
         }
-        \PHPUnit_Framework_Assert::assertEquals($expected, $actual, $message);
+        $found = 0;
+        foreach ($values as $value) {
+            try {
+                \PHPUnit_Framework_Assert::assertEquals($expected, $value, $message);
+                $found++;
+            } catch (\PHPUnit_Framework_ExpectationFailedException $e) {
+
+            }
+        }
+
+        if (true === $count) {
+            $result = $found > 0;
+        } elseif (false === $count) {
+            $result = $found == 0;
+        } else {
+            $result = $found == $count;
+        }
+
+        \PHPUnit_Framework_Assert::assertTrue($result, $message);
     }
 
     /**
@@ -45,14 +63,32 @@ class Assert
      * @param mixed $json
      * @param string $message
      */
-    public static function assertJsonPathContains($expected, $path, $json, $message = '')
+    public static function assertJsonPathContains($expected, $path, $json, $count = true, $message = '')
     {
         $jsonPath = new JsonPath($json, $path);
-        $actual = $jsonPath->getValue();
+        $values = $jsonPath->getValues();
         if ('' == $message) {
-            $message = sprintf("Failed asserting JSON path '%s' value '%s' contains '%s'", $path, $expected, $actual);
+            $message = sprintf("Failed asserting JSON path '%s' value contains '%s'", $path, $expected);
         }
-        \PHPUnit_Framework_Assert::assertContains($expected, $actual, $message);
+        $found = 0;
+        foreach ($values as $value) {
+            try {
+                \PHPUnit_Framework_Assert::assertContains($expected, $value, $message);
+                $found++;
+            } catch (\PHPUnit_Framework_ExpectationFailedException $e) {
+
+            }
+        }
+
+        if (true === $count) {
+            $result = $found > 0;
+        } elseif (false === $count) {
+            $result = $found == 0;
+        } else {
+            $result = $found == $count;
+        }
+
+        \PHPUnit_Framework_Assert::assertTrue($result, $message);
     }
 
     /**
@@ -83,5 +119,23 @@ class Assert
         $jsonPath = new JsonPath($json, $path);
         $found = $jsonPath->isFound();
         \PHPUnit_Framework_Assert::assertFalse($found, $message);
+    }
+
+    /**
+     * @param int $expected
+     * @param string $path
+     * @param array $json
+     * @param string $message
+     */
+    public static function assertJsonPathCount($expected, $path, $json, $message = '')
+    {
+        $jsonPath = new JsonPath($json, $path);
+        $actual = $jsonPath->count();
+
+        if ('' == $message) {
+            $message = sprintf("JSON path '%s' actual size %d matches expected size %d", $path, $actual, $expected);
+        }
+
+        \PHPUnit_Framework_Assert::assertEquals($expected, $actual, $message);
     }
 }

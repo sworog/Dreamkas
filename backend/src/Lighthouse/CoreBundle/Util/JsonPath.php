@@ -4,6 +4,8 @@ namespace Lighthouse\CoreBundle\Util;
 
 class JsonPath
 {
+    const DELIMITER = '.';
+    
     /**
      * @var mixed|array
      */
@@ -26,29 +28,87 @@ class JsonPath
 
     /**
      * @return array|mixed
-     * @throws \DomainException
+     */
+    public function getValues()
+    {
+        return $this->path($this->json, $this->path, true);
+    }
+
+    /**
+     * @return mixed
      */
     public function getValue()
     {
-        $path = trim($this->path, '.');
-        $sections = explode('.', $path);
-        $node = $this->json;
-        foreach ($sections as $section) {
-            if (is_array($node)) {
-                if (array_key_exists($section, $node)) {
-                    $node = $node[$section];
-                } else {
-                    throw new \DomainException(sprintf('Path \'%s\' not found in JSON', $path));
-                }
-            } elseif ($node instanceof \stdClass) {
-                if (property_exists($node, $section)) {
-                    $node = $node->$section;
-                } else {
-                    throw new \DomainException(sprintf('Path \'%s\' not found in JSON', $path));
-                }
+        $values = $this->getValues();
+        $value = reset($values);
+        return $value;
+    }
+
+    /**
+     * @return array|mixed
+     * @throws \DomainException
+     */
+    protected function path(array $array, $path, $first = false)
+    {
+        $delimiter = self::DELIMITER;
+        // Remove starting delimiters and spaces
+        $path = ltrim($path, "{$delimiter} ");
+
+        // Remove ending delimiters, spaces, and wildcards
+        $path = rtrim($path, "{$delimiter} *");
+
+        // Split the keys by delimiter
+        $keys = explode($delimiter, $path);
+
+        do {
+            $key = array_shift($keys);
+
+            if (ctype_digit($key)) {
+                // Make the key an integer
+                $key = (int)$key;
             }
-        }
-        return $node;
+
+            if (isset($array[$key])) {
+                if ($keys) {
+                    if (is_array($array[$key])) {
+                        // Dig down into the next part of the path
+                        $array = $array[$key];
+                    } else {
+                        // Unable to dig deeper
+                        break;
+                    }
+                } else {
+                    // Found the path requested
+                    if ($first) {
+                        return array($array[$key]);
+                    } else {
+                        return $array[$key];
+                    }
+                }
+            } elseif ($key === '*') {
+                // Handle wildcards
+
+                $values = array();
+                foreach ($array as $arr) {
+                    if ($value = $this->path($arr, implode($delimiter, $keys))) {
+                        $values[] = $value;
+                    }
+                }
+
+                if ($values) {
+                    // Found the values requested
+                    return $values;
+                } else {
+                    // Unable to dig deeper
+                    break;
+                }
+            } else {
+                // Unable to dig deeper
+                break;
+            }
+        } while ($keys);
+
+        throw new \DomainException("Json path " .$this->path. " not found");
     }
 
     /**
@@ -57,10 +117,29 @@ class JsonPath
     public function isFound()
     {
         try {
-            $this->getValue();
+            $this->getValues();
             return true;
         } catch (\DomainException $e) {
             return false;
         }
+    }
+
+    /**
+     * return int
+     */
+    public function count()
+    {
+        try {
+            $value = $this->getValues();
+            if (is_array($value)) {
+                $count = count($value);
+            } else {
+                $count = 1;
+            }
+        } catch (\DomainException $e) {
+            $count = 0;
+        }
+
+        return $count;
     }
 }

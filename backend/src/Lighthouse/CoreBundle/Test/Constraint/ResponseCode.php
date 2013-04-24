@@ -13,13 +13,20 @@ class ResponseCode extends \PHPUnit_Framework_Constraint
     protected $code;
 
     /**
+     * @var string
+     */
+    protected $responseBody;
+
+    /**
      * @param integer $code
      */
     public function __construct($code)
     {
         if ($code instanceof Response) {
+            $this->responseBody = $code->getContent();
             $code = $code->getStatusCode();
         } elseif ($code instanceof Client) {
+            $this->responseBody = $code->getResponse()->getContent();
             $code = $code->getResponse()->getStatusCode();
         }
         $this->code = $code;
@@ -40,7 +47,13 @@ class ResponseCode extends \PHPUnit_Framework_Constraint
      */
     protected function failureDescription($other)
     {
-        return $this->toString() . ' ' . $other;
+        $description =  $this->toString() . ' ' . $other;
+
+        if (!empty($this->responseBody)) {
+            $description.= "\nResponse body: ". $this->responseBody;
+        }
+
+        return $description;
     }
 
     /**
