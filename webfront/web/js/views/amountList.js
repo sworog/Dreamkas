@@ -25,6 +25,8 @@ var AmountsList = Backbone.View.extend({
 
         var data = product.toJSON();
         data.purchasePrice = Helpers.pricesFloatToView(data.purchasePrice);
+        if(data.lastPurchasePrice)
+            data.lastPurchasePrice = Helpers.pricesFloatToView(data.lastPurchasePrice);
         data.units = product.unitsEnum[data.units].textViewShort;
 
         this.$el.find("[lh_table]").append(this.templateRow(data));
