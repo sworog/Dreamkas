@@ -1,10 +1,10 @@
 define(
     [
-        '/views/kit/main.js',
+        './select.js',
         'tpl!./select_vat.html'
     ],
-    function(Block, mainTpl) {
-        return Block.extend({
+    function(Select, mainTpl) {
+        return Select.extend({
             tpl: {
                 main: mainTpl
             }

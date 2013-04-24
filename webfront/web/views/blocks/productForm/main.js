@@ -23,9 +23,20 @@ define(
                     id: this.productId
                 });
 
-                this.productModel.fetch();
+                if (this.productId){
+                    this.productModel.fetch();
+                } else {
+                    this.render();
+                }
 
-                this.render();
+                this.listenTo(this.productModel, {
+                    sync: function(){
+                        block.render();
+                    }
+                });
+            },
+            render: function(){
+                Form.prototype.render.apply(this, arguments);
 
                 this.$retailPricePreferenceInput = this.$el.find('[name="retailPricePreference"]');
                 this.$retailPriceInput = this.$el.find('[name="retailPrice"]');
@@ -37,11 +48,6 @@ define(
 
                 this.renderRetailMarkupLink();
                 this.renderRetailPriceLink();
-
-                this.listenTo(this.productModel, {
-                    sync: function(){
-                    }
-                });
             },
             events: {
                 'click .productForm__inputLink': function(e) {
@@ -117,7 +123,7 @@ define(
                     retailMarkup = utils.normalizePrice(this.$retailMarkupInput.val()),
                     calculatedVal;
 
-                if (_.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
+                if (purchasePrice || retailMarkup || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
                     calculatedVal = '';
                 } else {
                     calculatedVal = utils.formatPrice(purchasePrice + retailMarkup / 100 * purchasePrice);
@@ -132,7 +138,7 @@ define(
                     purchasePrice = utils.normalizePrice(this.$purchasePriceInput.val()),
                     calculatedVal;
 
-                if (_.isNaN(purchasePrice) || _.isNaN(retailPrice)){
+                if (purchasePrice || retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
                     calculatedVal = '';
                 } else {
                     calculatedVal = utils.formatPrice(retailPrice * 100 / purchasePrice - 100);

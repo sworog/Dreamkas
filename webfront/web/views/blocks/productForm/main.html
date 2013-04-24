@@ -35,7 +35,7 @@
             <span class="productForm__inputLinkText" name="retailPriceHint"></span>
         </a>
     </div>
-    <input type="hidden" name="retailPricePreference" />
+    <input type="hidden" value="retailMarkup" name="retailPricePreference" />
 </fieldset>
 <fieldset class="form__fieldset">
     <legend class="form__legend">Необязательно к заполнению</legend>
@@ -58,7 +58,7 @@
 </fieldset>
 <div class="form__controls">
     <span class="button button_color_blue">
-        Добавить товар
+        <%= block.productId ? 'Сохранить товар' : 'Добавить товар' %>
         <input type="submit"/>
     </span>
 </div>
