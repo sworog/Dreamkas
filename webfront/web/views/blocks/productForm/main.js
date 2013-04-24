@@ -149,10 +149,32 @@ define(
                     .change();
             },
             renderRetailPriceLink: function() {
-                this.$retailPriceLink.find('.productForm__inputLinkText').html($.trim(this.$retailPriceInput.val()) || this.defaultInputLinkText);
+                var price = $.trim(this.$retailPriceInput.val()),
+                    text;
+
+                if (price){
+                    text = price + ' руб.'
+                } else {
+                    text = this.defaultInputLinkText;
+                }
+
+                this.$retailPriceLink
+                    .find('.productForm__inputLinkText')
+                    .html(text);
             },
             renderRetailMarkupLink: function() {
-                this.$retailMarkupLink.find('.productForm__inputLinkText').html($.trim(this.$retailMarkupInput.val()) || this.defaultInputLinkText);
+                var markup = $.trim(this.$retailMarkupInput.val()),
+                    text;
+
+                if (markup){
+                    text = markup + '%'
+                } else {
+                    text = this.defaultInputLinkText;
+                }
+
+                this.$retailMarkupLink
+                    .find('.productForm__inputLinkText')
+                    .html(text);
             }
         });
     }

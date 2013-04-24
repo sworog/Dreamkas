@@ -24,3 +24,7 @@
 .productForm__hiddenInput + .productForm__inputLink{
     display: inline-block;
 }
+
+.productForm__hiddenInput ~ .inputText__postfix{
+    display: none;
+}
