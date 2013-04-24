@@ -126,7 +126,7 @@ define(
                 if (!purchasePrice || !retailMarkup || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
                     calculatedVal = '';
                 } else {
-                    calculatedVal = utils.formatPrice(purchasePrice + retailMarkup / 100 * purchasePrice);
+                    calculatedVal = utils.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 this.$retailPriceInput
@@ -141,7 +141,7 @@ define(
                 if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
                     calculatedVal = '';
                 } else {
-                    calculatedVal = utils.formatPrice(retailPrice * 100 / purchasePrice - 100);
+                    calculatedVal = utils.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 this.$retailMarkupInput
