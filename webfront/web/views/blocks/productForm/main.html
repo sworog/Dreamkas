@@ -3,34 +3,34 @@
 <fieldset class="form__fieldset">
     <div class="form__field form__field_inline">
         <label class="form__label">Артикул</label>
-        <input class="inputText" type="text" name="sku"/>
+        <input value="<%= block.productModel.get('sku') %>" class="inputText" type="text" name="sku"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Наименование</label>
-        <input class="inputText" type="text" name="name"/>
+        <input value="<%= block.productModel.get('name') %>" class="inputText" type="text" name="name"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Измеряется в</label>
-        <select class="select" name="units" block="/views/kit/select/select_units.js"></select>
+        <select value="<%= block.productModel.get('units') %>" class="select" name="units" block="/views/kit/select/select_units.js"></select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">НДС</label>
-        <select class="select" name="vat" block="/views/kit/select/select_vat.js"></select>
+        <select value="<%= block.productModel.get('vat') %>" class="select" name="vat" block="/views/kit/select/select_vat.js"></select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена закупки</label>
-        <input class="inputText" type="text" name="purchasePrice"/>
+        <input value="<%= block.productModel.get('purchasePrice') %>" class="inputText" type="text" name="purchasePrice"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Наценка</label>
-        <input class="inputText productForm__linkedInput" type="text" name="retailMarkup"/>
+        <input value="<%= block.productModel.get('retailMarkup') %>" class="inputText productForm__linkedInput" type="text" name="retailMarkup"/>
         <a class="productForm__inputLink">
             <span class="productForm__inputLinkText"></span>
         </a>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена продажи</label>
-        <input class="inputText productForm__hiddenInput productForm__linkedInput" type="text" name="retailPrice"/>
+        <input value="<%= block.productModel.get('retailPrice') %>" class="inputText productForm__hiddenInput productForm__linkedInput" type="text" name="retailPrice"/>
         <a class="productForm__inputLink">
             <span class="productForm__inputLinkText"></span>
         </a>
@@ -41,19 +41,19 @@
     <legend class="form__legend">Необязательно к заполнению</legend>
     <div class="form__field form__field_inline">
         <label class="form__label">Штрихкод</label>
-        <input class="inputText" type="text" name="barcode"/>
+        <input value="<%= block.productModel.get('barcode') %>" class="inputText" type="text" name="barcode"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Страна производства</label>
-        <input class="inputText" type="text" name="vendorCountry"/>
+        <input value="<%= block.productModel.get('vendorCountry') %>" class="inputText" type="text" name="vendorCountry"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Производитель</label>
-        <input class="inputText" type="text" name="vendor"/>
+        <input value="<%= block.productModel.get('vendor') %>" class="inputText" type="text" name="vendor"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Дополнительная информация</label>
-        <textarea class="inputText" name="info"></textarea>
+        <textarea class="inputText" name="info"><%= block.productModel.get('info') %></textarea>
     </div>
 </fieldset>
 <div class="form__controls">

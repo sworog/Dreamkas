@@ -1,53 +1,34 @@
 define(
     [
-        './main.js'
+        './baseModel.js'
     ],
     function(BaseModel) {
-    return BaseModel.extend({
-        modelName: "product",
+        return BaseModel.extend({
+            modelName: "product",
 
-        url: function(){
-            return baseApiUrl + '/products/' + this.id + '.json'
-        },
-
-        defaults: {
-            id: null,
-            name: null,
-            units: null,
-            vat: null,
-            purchasePrice: null,
-            barcode: null,
-            sku: null,
-            vendorCountry: null,
-            vendor: null,
-            info: null,
-            amount: 0,
-            lastPurchasePrice: null
-        },
-
-        excludeSaveFields: [
-            'amount',
-            'lastPurchasePrice'
-        ],
-
-        unitsEnum: {
-            kg: {
-                textEdit: "Килограммы",
-                textView: "килограмм",
-                textViewShort: "кг"
+            url: function() {
+                var url;
+                if (this.id){
+                    url = baseApiUrl + '/products/' + this.id + '.json';
+                } else {
+                    url = baseApiUrl + '/products.json'
+                }
+                return url;
             },
-            unit: {
-                textEdit: "Штуки",
-                textView: "штука",
-                textViewShort: "шт."
-            },
-            liter: {
-                textEdit: "Литры",
-                textView: "литр",
-                textViewShort: "л"
+
+            defaults: {
+                name: null,
+                units: null,
+                vat: null,
+                purchasePrice: null,
+                retailPrice: null,
+                retailMarkup: null,
+                retailPricePreference: null,
+                barcode: null,
+                sku: null,
+                vendorCountry: null,
+                vendor: null,
+                info: null
             }
-        },
-
-        vatEnum: [0, 10, 18]
+        });
     });
-});
