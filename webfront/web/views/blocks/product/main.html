@@ -59,13 +59,31 @@
             <tr>
                 <th>Наценка</th>
                 <td>
-                    <span name="retailMarkup"><%= block.productModel.get('retailMarkup') %></span>
+                    <% if(block.productModel.get('retailMarkup')) { %>
+                        <span name="retailMarkup">
+                            <%= block.productModel.get('retailMarkup') %>
+                        </span>
+                        %
+                    <% } else { %>
+                        <span name="retailMarkup">
+                            <i>отсутствует</i>
+                        </span>
+                    <% } %>
                 </td>
             </tr>
             <tr>
                 <th>Цена продажи</th>
                 <td>
-                    <span name="retailPrice"><%= block.productModel.get('retailPrice') %></span>
+                    <% if(block.productModel.get('retailPrice')){ %>
+                        <span name="retailPrice">
+                            <%= block.utils.formatPrice(block.productModel.get('retailPrice')) %>
+                        </span>
+                        руб.
+                    <% } else { %>
+                        <span name="retailPrice">
+                            <i>отсутствует</i>
+                        </span>
+                    <% } %>
                 </td>
             </tr>
             <tr>
