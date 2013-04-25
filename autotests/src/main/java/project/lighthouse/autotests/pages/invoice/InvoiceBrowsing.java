@@ -156,7 +156,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
             childrenItemNavigateAndClickByFindByLocator(elementName);
             String errorMessage = String.format("the user can delete the product with sku '%s' in not edit mode", elementName);
             throw new AssertionError(errorMessage);
-        } catch (org.openqa.selenium.TimeoutException e) {
+        } catch (Exception e) {
         }
     }
 

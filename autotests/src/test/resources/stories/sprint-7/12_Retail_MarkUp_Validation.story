@@ -11,7 +11,7 @@ And the user inputs '-105' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Наценка должна быть больше -100% |
 
 Scenario: Retail Markup validation sub zero -100
 Given the user is on the product list page
@@ -25,7 +25,7 @@ And the user inputs '-100' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Наценка должна быть больше -100% |
 
 Scenario: Retail Markup validation sub zero -99
 Given the user is on the product list page
@@ -49,7 +49,9 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs '1' in 'purchasePrice' field
 And the user inputs '-99.99' in 'retailMarkup' field
 And the user clicks the create button
-Then the user sees no error messages
+Then the user sees error messages
+| error message |
+| Цена не должна быть меньше или равна нулю. |
 
 Scenario: Retail Markup validation zero
 Given the user is on the product list page

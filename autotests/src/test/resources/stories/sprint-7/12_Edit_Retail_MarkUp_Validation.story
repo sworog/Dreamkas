@@ -9,7 +9,7 @@ And the user inputs '-105' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Наценка должна быть больше -100% |
 
 Scenario: Edit Retail Markup validation sub zero -100
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
@@ -20,7 +20,7 @@ And the user inputs '-100' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Наценка должна быть больше -100% |
 
 Scenario: Edit Retail Markup validation sub zero -99
 Given there is created product with sku 'ED-MVC-99' and '1' purchasePrice
@@ -38,7 +38,9 @@ When the user open the product card with 'ED-MVC-99' sku
 And the user clicks the edit button on product card view page
 And the user inputs '-99.99' in 'retailMarkup' field
 And the user clicks the create button
-Then the user sees no error messages
+Then the user sees error messages
+| error message |
+| Цена не должна быть меньше или равна нулю. |
 
 Scenario: Edit Retail Markup validation zero
 Given there is created product with sku 'ED-MVC-0' and '1' purchasePrice
