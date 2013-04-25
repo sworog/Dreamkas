@@ -1073,6 +1073,18 @@ EOF;
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
+            'prefer empty, valid markup: 10, price: empty' => array(
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailPrice' => '',
+                    'retailMarkup' => 10,
+                ) + $productData,
+                array(
+                    'retailPrice' => '33.53',
+                    'retailMarkup' => '10',
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
         );
     }
 
@@ -1230,6 +1242,35 @@ EOF;
                 ) + $postData,
                 array(
                     'children.retailMarkup.errors.0' => 'Значение должно быть числом',
+                ),
+                array(
+                    'children.retailPrice.errors', 'children.purchasePrice.errors'
+                ),
+            ),
+            'prefer markup, price 0,00, invalid markup -100' => array(
+                array(
+                    'purchasePrice' => '34.33',
+                    'retailPrice' => '0,00',
+                    'retailMarkup' => '-100',
+                    'retailPricePreference' => 'retailMarkup',
+                ) + $postData,
+                array(
+                    'children.retailMarkup.errors.0' => 'Наценка должна быть больше -100%',
+                ),
+                array(
+                    'children.retailPrice.errors', 'children.purchasePrice.errors'
+                ),
+            ),
+            'prefer markup, price 0,00, invalid markup -100.999' => array(
+                array(
+                    'purchasePrice' => '34.33',
+                    'retailPrice' => '0,00',
+                    'retailMarkup' => '-100.999',
+                    'retailPricePreference' => 'retailMarkup',
+                ) + $postData,
+                array(
+                    'children.retailMarkup.errors.*' => 'Наценка должна быть больше -100%',
+                    'children.retailMarkup.errors.*' => 'Значение не должно содержать больше 2 цифр после запятой',
                 ),
                 array(
                     'children.retailPrice.errors', 'children.purchasePrice.errors'
