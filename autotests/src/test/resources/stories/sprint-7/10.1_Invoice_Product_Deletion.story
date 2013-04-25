@@ -71,3 +71,10 @@ And the user clicks OK and accepts deletion
 When the user clicks finish edit button and ends the invoice edition
 Given the user opens amount list page
 Then the user checks the product with 'IE-IPD-AM' sku has 'amount' equal to '0' on amounts page
+
+Scenario: Checks users cant delete product invoice in not edit mode - regress
+Given there is the invoice 'InvoiceProductdeletion-6' with product 'IE-IPD' name, 'IE-IPD' sku, 'IE-IPD' barcode, 'liter' units
+And the user is on the invoice list page
+When the user open the invoice card with 'InvoiceProductdeletion-6' sku
+And the user try to delete the invoice product with 'IE-IPD' sku
+

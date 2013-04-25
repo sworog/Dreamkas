@@ -21,7 +21,7 @@ public class Waiter {
                 // Waiting 10 seconds for an element to be present on the page, checking
                 // for its presence once every 1 seconds.
                 .withTimeout(10, TimeUnit.SECONDS)
-                .pollingEvery(2, TimeUnit.SECONDS)
+                .pollingEvery(1, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
     }
 

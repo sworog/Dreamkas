@@ -147,8 +147,17 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void childrenItemNavigateAndClickByFindByLocator(String elementName) {
-        String deleteButtonXpath = "//*[@class='invoice__removeButtonText']";
+        String deleteButtonXpath = "//*[@class='invoice__removeLink']";
         commonViewInterface.childrenItemNavigateAndClickByFindByLocator(elementName, By.xpath(deleteButtonXpath));
+    }
+
+    public void tryTochildrenItemNavigateAndClickByFindByLocator(String elementName) {
+        try {
+            childrenItemNavigateAndClickByFindByLocator(elementName);
+            String errorMessage = String.format("the user can delete the product with sku '%s' in not edit mode", elementName);
+            throw new AssertionError(errorMessage);
+        } catch (org.openqa.selenium.TimeoutException e) {
+        }
     }
 
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
