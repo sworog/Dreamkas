@@ -31,7 +31,7 @@
     text-align: center;
 }
 
-.table tbody tr:hover td{
+.table tbody tr:hover{
     background: #fffee2 !important;
 }
 

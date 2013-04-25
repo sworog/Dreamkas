@@ -49,7 +49,6 @@
 
 .invoice__table {
     margin-bottom: 20px;
-    table-layout: fixed;
 }
 
 .invoice__controlItem{
@@ -92,8 +91,14 @@
     color: #999;
 }
 
+.invoice__table .invoice__hiddenData {
+    visibility: hidden;
+    display: inline;
+}
+
 .invoice_editMode .invoice__hiddenData {
     display: inline;
+    visibility: visible;
 }
 
 .invoice [name] {
@@ -146,4 +151,23 @@
 
 .invoice__dataInputControls[lh_field_error]:after{
     display: none;
+}
+
+.invoice__removeButton{
+    width: 1px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.invoice__removeButton:hover{
+    background: #eee !important;
+}
+
+.invoice__removeButtonText{
+    color: #336699;
+    border-bottom: 1px dotted;
+}
+
+.invoice__table tr:hover .invoice__removeButton{
+    opacity: 1;
 }
