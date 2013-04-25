@@ -19,7 +19,7 @@ public class Waiter {
         this.driver = driver;
         wait = new FluentWait<>(driver)
                 // Waiting 10 seconds for an element to be present on the page, checking
-                // for its presence once every 2 seconds.
+                // for its presence once every 1 seconds.
                 .withTimeout(10, TimeUnit.SECONDS)
                 .pollingEvery(2, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
