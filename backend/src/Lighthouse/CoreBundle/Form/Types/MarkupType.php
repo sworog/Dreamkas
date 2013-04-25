@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Form\Types;
 
-use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
-use Lighthouse\CoreBundle\DataTransformer\MoneyViewTransformer;
+use Lighthouse\CoreBundle\DataTransformer\FloatModelTransformer;
+use Lighthouse\CoreBundle\DataTransformer\FloatViewTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -17,21 +17,28 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class MarkupType extends AbstractType
 {
     /**
-     * @var MoneyViewTransformer
+     * @var FloatViewTransformer
      */
-    protected $viewTransformer;
+    protected $floatViewTransformer;
+
+    /**
+     * @var FloatModelTransformer
+     */
+    protected $floatModelTransformer;
 
     /**
      * @DI\InjectParams({
-     *      "viewTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_view"),
+     *      "floatViewTransformer" = @DI\Inject("lighthouse.core.data_transformer.float_view"),
+     *      "floatModelTransformer" = @DI\Inject("lighthouse.core.data_transformer.float_model"),
      * })
      *
-     * @param MoneyViewTransformer $viewTransformer
+     * @param FloatViewTransformer $floatViewTransformer
+     * @param FloatModelTransformer $floatModelTransformer
      */
-    public function __construct(MoneyViewTransformer $viewTransformer)
+    public function __construct(FloatViewTransformer $floatViewTransformer, FloatModelTransformer $floatModelTransformer)
     {
-        $this->viewTransformer = $viewTransformer;
-
+        $this->floatViewTransformer = $floatViewTransformer;
+        $this->floatModelTransformer = $floatModelTransformer;
     }
 
     /**
@@ -40,7 +47,8 @@ class MarkupType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addViewTransformer($this->viewTransformer);
+        $builder->addViewTransformer($this->floatViewTransformer);
+        $builder->addModelTransformer($this->floatModelTransformer);
     }
 
     /**
@@ -51,6 +59,7 @@ class MarkupType extends AbstractType
         $resolver->setDefaults(
             array(
                 'compound' => false,
+                'invalid_message' => 'lighthouse.validation.errors.float.invalid_message'
             )
         );
     }

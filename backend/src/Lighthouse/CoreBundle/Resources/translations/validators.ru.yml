@@ -6,6 +6,8 @@ lighthouse:
         negative: Цена не должна быть меньше или равна нулю.
         max: Цена не должна быть больше {{ limit }}
         not_blank: Заполните это поле
+      float:
+        invalid_message: Значение должно быть числом
       product:
         sku.unique: Такой артикул уже есть
         units.blank: Выберите единицу измерения
