@@ -171,3 +171,11 @@
 .invoice__table tr:hover .invoice__removeButton{
     opacity: 1;
 }
+
+.invoice__removeConfirmRow td{
+    background: #eee;
+}
+
+.invoice__removeCancel{
+    vertical-align: middle;
+}

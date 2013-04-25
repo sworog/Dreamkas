@@ -61,12 +61,36 @@ define(
                             block.renderTable();
                             block.invoiceModel.set(model.toJSON().invoice);
                         },
-                        change: function(model){
+                        change: function(model) {
                             block.invoiceModel.set(model.toJSON().invoice);
+                        },
+                        destroy: function(model){
+                            block.renderTable();
                         }
                     });
             },
             events: {
+                'click .invoice__removeButton': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        invoiceProductId = $(e.target).closest('.invoice__dataRow').attr('invoice-product-id');
+
+                    block.showRemoveConfirm(invoiceProductId);
+                },
+                'click .invoice__removeCancel': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        invoiceProductId = $(e.target).closest('.invoice__removeConfirmRow').attr('invoice-product-id');
+
+                    block.hideRemoveConfirm(invoiceProductId);
+                },
+                'click .invoice__removeConfirmButton': function(e){
+                    e.preventDefault();
+                    var block = this,
+                        invoiceProductId = $(e.target).closest('.invoice__removeConfirmRow').attr('invoice-product-id');
+
+                    block.removeInvoiceProduct(invoiceProductId);
+                },
                 'submit .invoice__addForm': function(e) {
                     e.preventDefault();
                     var block = this,
@@ -117,10 +141,10 @@ define(
                     block.removeInlineErrors();
 
                     invoiceProduct.save(data, {
-                        success: function(){
+                        success: function() {
                             block.set('dataEditing', false);
                         },
-                        error: function(data, res){
+                        error: function(data, res) {
                             block.showInlineErrors(JSON.parse(res.responseText));
                         },
                         wait: true
@@ -134,23 +158,23 @@ define(
                     block.removeInlineErrors();
 
                     block.invoiceModel.save(data, {
-                        success: function(){
+                        success: function() {
                             block.set('dataEditing', false);
                         },
-                        error: function(data, res){
+                        error: function(data, res) {
                             block.showInlineErrors(JSON.parse(res.responseText));
                         },
                         wait: true
                     });
                 },
-                'click .invoice__dataInputSave': function(e){
+                'click .invoice__dataInputSave': function(e) {
                     e.preventDefault();
                     var block = this,
                         $dataInputForm = block.$el.find('.invoice__dataInput');
 
                     $dataInputForm.submit();
                 },
-                'click .invoice__dataInputCancel': function(e){
+                'click .invoice__dataInputCancel': function(e) {
                     var block = this;
                     e.preventDefault();
                     block.removeDataInput();
@@ -176,6 +200,32 @@ define(
                     block.$el.removeClass('invoice_dataEditing');
                 }
             },
+            showRemoveConfirm: function(invoiceProductId) {
+                var block = this,
+                    $invoiceProductRow = block.$table.find('.invoice__dataRow[invoice-product-id="' + invoiceProductId + '"]');
+
+                $invoiceProductRow
+                    .after(block.tpl.removeConfirm({
+                        invoiceProductId: invoiceProductId
+                    }))
+                    .hide();
+            },
+            hideRemoveConfirm: function(invoiceProductId) {
+                var block = this,
+                    $invoiceProductRow = block.$table.find('.invoice__dataRow[invoice-product-id="' + invoiceProductId + '"]'),
+                    $removeConfirmRow = block.$table.find('.invoice__removeConfirmRow[invoice-product-id="' + invoiceProductId + '"]');
+
+                $removeConfirmRow.remove();
+                $invoiceProductRow.show();
+            },
+            removeInvoiceProduct: function(invoiceProductId){
+                var block = this,
+                    invoiceProductModel = block.invoiceProductsCollection.get(invoiceProductId);
+
+                invoiceProductModel.destroy({
+                    wait: true
+                });
+            },
             renderTable: function() {
                 var block = this;
 
@@ -183,7 +233,7 @@ define(
                     block: block
                 }));
             },
-            showInlineErrors: function(data){
+            showInlineErrors: function(data) {
                 var block = this,
                     $input = block.$el.find('.invoice__dataInput .inputText'),
                     $inputControls = block.$el.find('.invoice__dataInputControls');
@@ -193,14 +243,14 @@ define(
                 _.each(data.children, function(data) {
                     var fieldErrors;
 
-                    if (data.errors){
+                    if (data.errors) {
                         fieldErrors = data.errors.join(', ');
                     }
 
                     $inputControls.attr("lh_field_error", fieldErrors);
                 });
             },
-            removeInlineErrors: function(){
+            removeInlineErrors: function() {
                 var block = this,
                     $input = block.$el.find('.invoice__dataInput .inputText'),
                     $inputControls = block.$el.find('.invoice__dataInputControls');
@@ -279,14 +329,14 @@ define(
                 var block = this;
                 $input.mask('99.99.9999 99:99');
 
-                var onClose= function(dateText, datepicker) {
+                var onClose = function(dateText, datepicker) {
                     $input.val(dateText);
                 }
 
                 var dateTimePickerControl = {
-                    create: function(tp_inst, obj, unit, val, min, max, step){
-                        var input = jQuery('<input class="ui-timepicker-input" value="'+val+'" style="width:50%">');
-                        input.change(function(e){
+                    create: function(tp_inst, obj, unit, val, min, max, step) {
+                        var input = jQuery('<input class="ui-timepicker-input" value="' + val + '" style="width:50%">');
+                        input.change(function(e) {
                             if (e.originalEvent !== undefined) {
                                 tp_inst._onTimeChange();
                             }
@@ -295,9 +345,9 @@ define(
                         input.appendTo(obj);
                         return obj;
                     },
-                    options: function(tp_inst, obj, unit, opts, val){
+                    options: function(tp_inst, obj, unit, opts, val) {
                     },
-                    value: function(tp_inst, obj, unit, val){
+                    value: function(tp_inst, obj, unit, val) {
                         if (val !== undefined) {
                             return obj.find('.ui-timepicker-input').val(val);
                         } else {

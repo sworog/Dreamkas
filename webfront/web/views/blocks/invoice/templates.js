@@ -1,6 +1,7 @@
 define(
     [
         'tpl!./main.html',
+        'tpl!./removeConfirm.html',
         'tpl!./head.html',
         'tpl!./table.html',
         'tpl!./row.html',
@@ -9,9 +10,10 @@ define(
         'tpl!./dataInputControls.html',
         'tpl!./dataInputAutocomplete.html'
     ],
-    function(main, head, table, row, footer, dataInput, dataInputControls, dataInputAutocomplete) {
+    function(main, removeConfirm, head, table, row, footer, dataInput, dataInputControls, dataInputAutocomplete) {
         return {
             main: main,
+            removeConfirm: removeConfirm,
             head: head,
             table: table,
             row: row,
