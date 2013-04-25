@@ -71,7 +71,7 @@ define(
                     });
             },
             events: {
-                'click .invoice__removeButton': function(e) {
+                'click .invoice__removeLink': function(e) {
                     e.preventDefault();
                     var block = this,
                         invoiceProductId = $(e.target).closest('.invoice__dataRow').attr('invoice-product-id');
@@ -205,6 +205,8 @@ define(
                 var block = this,
                     $invoiceProductRow = block.$table.find('.invoice__dataRow[invoice-product-id="' + invoiceProductId + '"]');
 
+                block.hideRemoveConfirms();
+
                 $invoiceProductRow
                     .after(block.tpl.removeConfirm({
                         invoiceProductId: invoiceProductId
@@ -218,6 +220,14 @@ define(
 
                 $removeConfirmRow.remove();
                 $invoiceProductRow.show();
+            },
+            hideRemoveConfirms: function(){
+                var block = this,
+                    $invoiceProductRow = block.$table.find('.invoice__dataRow:hidden'),
+                    $removeConfirmRows = block.$table.find('.invoice__removeConfirmRow');
+
+                $invoiceProductRow.show();
+                $removeConfirmRows.remove();
             },
             removeInvoiceProduct: function(invoiceProductId){
                 var block = this,
