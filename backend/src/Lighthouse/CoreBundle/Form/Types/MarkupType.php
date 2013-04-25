@@ -35,8 +35,10 @@ class MarkupType extends AbstractType
      * @param FloatViewTransformer $floatViewTransformer
      * @param FloatModelTransformer $floatModelTransformer
      */
-    public function __construct(FloatViewTransformer $floatViewTransformer, FloatModelTransformer $floatModelTransformer)
-    {
+    public function __construct(
+        FloatViewTransformer $floatViewTransformer,
+        FloatModelTransformer $floatModelTransformer
+    ) {
         $this->floatViewTransformer = $floatViewTransformer;
         $this->floatModelTransformer = $floatModelTransformer;
     }
