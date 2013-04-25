@@ -2,11 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Form\Types;
 
+use Lighthouse\CoreBundle\DataTransformer\FloatViewTransformer;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
-use Lighthouse\CoreBundle\DataTransformer\MoneyViewTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType as BaseMoneyType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * @DI\Service("form.type.money")
@@ -15,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType as BaseMoneyType;
 class MoneyType extends BaseMoneyType
 {
     /**
-     * @var MoneyViewTransformer
+     * @var FloatViewTransformer
      */
     protected $viewTransformer;
 
@@ -26,14 +27,14 @@ class MoneyType extends BaseMoneyType
 
     /**
      * @DI\InjectParams({
-     *      "viewTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_view"),
+     *      "viewTransformer" = @DI\Inject("lighthouse.core.data_transformer.float_view"),
      *      "modelTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model")
      * })
      *
-     * @param MoneyViewTransformer $viewTransformer
+     * @param FloatViewTransformer $viewTransformer
      * @param MoneyModelTransformer $modelTransformer
      */
-    public function __construct(MoneyViewTransformer $viewTransformer, MoneyModelTransformer $modelTransformer)
+    public function __construct(FloatViewTransformer $viewTransformer, MoneyModelTransformer $modelTransformer)
     {
         $this->viewTransformer = $viewTransformer;
         $this->modelTransformer = $modelTransformer;
@@ -48,5 +49,18 @@ class MoneyType extends BaseMoneyType
         $builder
             ->addViewTransformer($this->viewTransformer)
             ->addModelTransformer($this->modelTransformer);
+    }
+
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        parent::setDefaultOptions($resolver);
+        $resolver->setDefaults(
+            array(
+                'invalid_message' => 'lighthouse.validation.errors.money.negative'
+            )
+        );
     }
 }

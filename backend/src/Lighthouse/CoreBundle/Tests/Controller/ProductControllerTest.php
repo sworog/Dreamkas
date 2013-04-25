@@ -1192,6 +1192,49 @@ EOF;
                     'retailPrice', 'retailMarkup', 'retailPricePreference'
                 ),
             ),
+            'prefer price, empty markup, invalid price' => array(
+                array(
+                    'purchasePrice' => '30,48',
+                    'retailPrice' => 'not valid',
+                    'retailMarkup' => '',
+                    'retailPricePreference' => 'retailPrice',
+                ) + $postData,
+                array(
+                    'children.retailPrice.errors.0' => 'Цена не должна быть меньше или равна нулю.',
+                ),
+                array(
+                    'retailPrice', 'retailMarkup', 'retailPricePreference', 'children.retailMarkup.errors'
+                ),
+            ),
+            'prefer price, empty markup, invalid price, empty purchasePrice' => array(
+                array(
+                    'purchasePrice' => '',
+                    'retailPrice' => 'not valid',
+                    'retailMarkup' => '',
+                    'retailPricePreference' => 'retailPrice',
+                ) + $postData,
+                array(
+                    'children.retailPrice.errors.0' => 'Цена не должна быть меньше или равна нулю.',
+                    'children.purchasePrice.errors.0' => 'Заполните это поле',
+                ),
+                array(
+                    'retailPrice', 'retailMarkup', 'retailPricePreference', 'children.retailMarkup.errors'
+                ),
+            ),
+            'prefer markup, empty price, invalid markup' => array(
+                array(
+                    'purchasePrice' => '34.33',
+                    'retailPrice' => '',
+                    'retailMarkup' => 'not valid',
+                    'retailPricePreference' => 'retailMarkup',
+                ) + $postData,
+                array(
+                    'children.retailMarkup.errors.0' => 'Значение должно быть числом',
+                ),
+                array(
+                    'children.retailPrice.errors', 'children.purchasePrice.errors'
+                ),
+            ),
         );
     }
 

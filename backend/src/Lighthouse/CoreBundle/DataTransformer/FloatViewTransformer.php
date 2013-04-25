@@ -32,7 +32,7 @@ class FloatViewTransformer implements DataTransformerInterface
         }
 
         if ('' !== $value && null !== $value) {
-            if ((string) (float) $value !== $value) {
+            if (!is_numeric($value)) {
                 throw new TransformationFailedException('', 0, new UnexpectedTypeException($value, 'float'));
             }
         }
