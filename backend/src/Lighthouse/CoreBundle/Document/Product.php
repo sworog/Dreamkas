@@ -150,7 +150,7 @@ class Product extends AbstractDocument
      * @MongoDB\String
      * @var string
      */
-    protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_PRICE;
+    protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
 
     /**
      * @return array
