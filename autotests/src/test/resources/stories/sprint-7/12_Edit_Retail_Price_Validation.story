@@ -1,6 +1,6 @@
 
 
-Scenario: Retail price validation String+Symbols+Num
+Scenario: Edit Retail price validation String+Symbols+Num
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -12,7 +12,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
 
-Scenario: Retail price validation commma
+Scenario: Edit Retail price validation commma
 Given there is created product with sku 'ED-MVC-VCC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-VCC' sku
@@ -23,7 +23,7 @@ And the user inputs ',78' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail price validation dott
+Scenario: Edit Retail price validation dott
 Given there is created product with sku 'ED-MVC-VDT' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-VDT' sku
@@ -34,7 +34,7 @@ And the user inputs ',78' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail price validation comma
+Scenario: Edit Retail price validation comma
 Given there is created product with sku 'ED-MVC-VC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-VC' sku
@@ -43,7 +43,7 @@ And the user clicks 'retailPriceHint' to make it avalaible
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail price validation dot
+Scenario: Edit Retail price validation dot
 Given there is created product with sku 'ED-MVC-VD' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-VD' sku
@@ -53,7 +53,7 @@ And the user inputs '125,26' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail price validation one digit
+Scenario: Edit Retail price validation one digit
 Given there is created product with sku 'ED-MVC-RPOD' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-RPOD' sku
@@ -63,7 +63,7 @@ And the user inputs '789,6' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail price validation two digits
+Scenario: Edit Retail price validation two digits
 Given there is created product with sku 'ED-MVC-RPTW' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-RPTW' sku
@@ -73,7 +73,7 @@ And the user inputs '739,67' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail price validation three digits
+Scenario: Edit Retail price validation three digits
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -85,7 +85,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна содержать больше 2 цифр после запятой. |
 
-Scenario: Retail price validation sub zero
+Scenario: Edit Retail price validation sub zero
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -97,7 +97,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
 
-Scenario: Purhase prise validation zero
+Scenario: Edit Purhase prise validation zero
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -109,7 +109,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
 
-Scenario: Retail price validation String en small register
+Scenario: Edit Retail price validation String en small register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -121,7 +121,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
 
-Scenario: Retail price validation String en big register
+Scenario: Edit Retail price validation String en big register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -133,7 +133,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
 
-Scenario: Retail price validation String rus small register
+Scenario: Edit Retail price validation String rus small register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -145,7 +145,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
 
-Scenario: Retail price validation String rus big register
+Scenario: Edit Retail price validation String rus big register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -157,7 +157,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
 
-Scenario: Retail price validation symbols
+Scenario: Edit Retail price validation symbols
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -169,7 +169,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
 
-Scenario: Retail price validation length good
+Scenario: Edit Retail price validation length good
 Given there is created product with sku 'ED-MVC-RPVLG' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-RPVLG' sku
@@ -179,7 +179,7 @@ And the user inputs '10000000' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail price validation length negative
+Scenario: Edit Retail price validation length negative
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -191,7 +191,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть больше 10000000 |
 
-Scenario: Retail Price regress
+Scenario: Edit Retail Price regress
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku

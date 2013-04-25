@@ -1,6 +1,6 @@
 
 
-Scenario: Retail Markup validation sub zero -105
+Scenario: Edit Retail Markup validation sub zero -105
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -11,7 +11,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
 
-Scenario: Retail Markup validation sub zero -100
+Scenario: Edit Retail Markup validation sub zero -100
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -22,7 +22,7 @@ Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
 
-Scenario: Retail Markup validation sub zero -99
+Scenario: Edit Retail Markup validation sub zero -99
 Given there is created product with sku 'ED-MVC-99' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-99' sku
@@ -31,7 +31,7 @@ And the user inputs '-99' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail Markup validation sub zero -99.99
+Scenario: Edit Retail Markup validation sub zero -99.99
 Given there is created product with sku 'ED-MVC-99' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-99' sku
@@ -40,7 +40,7 @@ And the user inputs '-99.99' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail Markup validation zero
+Scenario: Edit Retail Markup validation zero
 Given there is created product with sku 'ED-MVC-0' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-0' sku
@@ -49,7 +49,7 @@ And the user inputs '0' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail Markup validation one digit
+Scenario: Edit Retail Markup validation one digit
 Given there is created product with sku 'ED-MVC-OD' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-OD' sku
@@ -58,7 +58,7 @@ And the user inputs '10,6' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail Markup validation two digits
+Scenario: Edit Retail Markup validation two digits
 Given there is created product with sku 'ED-MVC-TD' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC-TD' sku
@@ -67,7 +67,7 @@ And the user inputs '12,67' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees no error messages
 
-Scenario: Retail Markup validation three digits
+Scenario: Edit Retail Markup validation three digits
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -78,7 +78,7 @@ Then the user sees error messages
 | error message |
 | Значение не должно содержать больше 2 цифр после запятой |
 
-Scenario: Retail Markup validation String en small register
+Scenario: Edit Retail Markup validation String en small register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -89,7 +89,7 @@ Then the user sees error messages
 | error message |
 | Значение должно быть числом |
 
-Scenario: Retail Markup validation String en big register
+Scenario: Edit Retail Markup validation String en big register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -100,7 +100,7 @@ Then the user sees error messages
 | error message |
 | Значение должно быть числом |
 
-Scenario: Retail Markup validation String rus small register
+Scenario: Edit Retail Markup validation String rus small register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -111,7 +111,7 @@ Then the user sees error messages
 | error message |
 | Значение должно быть числом |
 
-Scenario: Retail Markup validation String rus big register
+Scenario: Edit Retail Markup validation String rus big register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -122,7 +122,7 @@ Then the user sees error messages
 | error message |
 | Значение должно быть числом |
 
-Scenario: Retail Markup validation symbols
+Scenario: Edit Retail Markup validation symbols
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
@@ -133,7 +133,7 @@ Then the user sees error messages
 | error message |
 | Значение должно быть числом |
 
-Scenario: Retail Markup regress
+Scenario: Edit Retail Markup regress
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 When the user open the product card with 'ED-MVC' sku
