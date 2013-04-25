@@ -1,15 +1,15 @@
 package project.lighthouse.autotests.pages.elements;
 
-import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
+import project.lighthouse.autotests.pages.common.CommonPageObject;
 
 public class Date extends DateTime {
 
-    public Date(PageObject pageObject, String name) {
+    public Date(CommonPageObject pageObject, String name) {
         super(pageObject, name);
     }
 
-    public Date(PageObject pageObject, By findBy) {
+    public Date(CommonPageObject pageObject, By findBy) {
         super(pageObject, findBy);
     }
 

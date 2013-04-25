@@ -1,18 +1,18 @@
 package project.lighthouse.autotests.pages.elements;
 
-import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.pages.common.CommonItem;
+import project.lighthouse.autotests.pages.common.CommonPageObject;
 
 public class Autocomplete extends CommonItem {
 
     public static final String AUTOCOMPLETE_XPATH_PATTERN = "//*[@role='presentation']/*[text()='%s']";
 
-    public Autocomplete(PageObject pageObject, By findBy) {
+    public Autocomplete(CommonPageObject pageObject, By findBy) {
         super(pageObject, findBy);
     }
 
-    public Autocomplete(PageObject pageObject, String name) {
+    public Autocomplete(CommonPageObject pageObject, String name) {
         super(pageObject, name);
     }
 

@@ -202,11 +202,11 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         }
     }
 
-    public void сreateProductThroughPost(String name, String sku, String barcode, String units) {
+    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) {
         if (!StaticDataCollections.products.contains(sku)) {
             String getApiUrl = getApiUrl() + "/api/1/products.json";
-            String jsonDataPattern = "{\"product\":{\"name\":\"%s\",\"units\":\"%s\",\"vat\":\"0\",\"purchasePrice\":\"123\",\"barcode\":\"%s\",\"sku\":\"%s\",\"vendorCountry\":\"Тестовая страна\",\"vendor\":\"Тестовый производитель\",\"info\":\"\"}}";
-            String jsonData = String.format(jsonDataPattern, name, units, barcode, sku);
+            String jsonDataPattern = "{\"product\":{\"name\":\"%s\",\"units\":\"%s\",\"vat\":\"0\",\"purchasePrice\":\"%s\",\"barcode\":\"%s\",\"sku\":\"%s\",\"vendorCountry\":\"Тестовая страна\",\"vendor\":\"Тестовый производитель\",\"info\":\"\"}}";
+            String jsonData = String.format(jsonDataPattern, name, units, purchasePrice, barcode, sku);
             executePost(getApiUrl, jsonData);
             StaticDataCollections.products.add(sku);
         }
