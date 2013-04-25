@@ -64,8 +64,9 @@ define(
                         change: function(model) {
                             block.invoiceModel.set(model.toJSON().invoice);
                         },
-                        destroy: function(model){
+                        destroy: function(){
                             block.renderTable();
+                            block.invoiceModel.fetch();
                         }
                     });
             },
