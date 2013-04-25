@@ -2,3 +2,5 @@
 *.iml
 /autotests/.idea
 /autotests/autotests.iml
+/jasmine-1.1.0.js
+/JasmineAdapter-1.1.2.js
