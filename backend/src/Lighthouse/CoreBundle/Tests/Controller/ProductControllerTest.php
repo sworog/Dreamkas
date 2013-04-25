@@ -1085,6 +1085,19 @@ EOF;
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
+            'prefer retailMarkup, valid markup: 9.3, price: 11.54' => array(
+                array(
+                    'purchasePrice' => '10.56',
+                    'retailPrice' => '11.54',
+                    'retailMarkup' => '9.3',
+                    'retailPricePreference' => 'retailMarkup',
+                ) + $productData,
+                array(
+                    'retailPrice' => '11.54',
+                    'retailMarkup' => '9.3',
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
         );
     }
 

@@ -18,6 +18,7 @@ class PrecisionValidator extends ConstraintValidator
         }
 
         $rounded = $value * pow(10, $constraint->decimals);
+        $rounded = (float) (string) $rounded;
 
         if ($rounded - floor($rounded) > 0) {
             $this->context->addViolation(

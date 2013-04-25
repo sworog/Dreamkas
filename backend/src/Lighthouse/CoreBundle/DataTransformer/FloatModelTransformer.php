@@ -26,7 +26,7 @@ class FloatModelTransformer implements DataTransformerInterface
     public function reverseTransform($value)
     {
         if (null !== $value && '' !== $value) {
-            $value = (float) $value;
+            $value = (float) (string) $value;
         } else {
             $value = null;
         }

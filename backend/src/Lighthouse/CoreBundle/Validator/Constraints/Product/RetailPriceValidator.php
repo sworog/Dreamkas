@@ -30,13 +30,6 @@ class RetailPriceValidator extends ConstraintValidator
         $countViolations = count($this->context->getViolations());
 
         switch ($value->retailPricePreference) {
-            case $value::RETAIL_PRICE_PREFERENCE_MARKUP:
-                $this->context->validateValue($value->retailMarkup, $retailMarkupPrecision, 'retailMarkup');
-                $this->context->validateValue($value->retailMarkup, $retailMarkupRange, 'retailMarkup');
-                if (count($this->context->getViolations()) == $countViolations) {
-                    $this->context->validateValue($value->retailPrice, $retailPriceConstraint, 'retailPrice');
-                }
-                break;
             case $value::RETAIL_PRICE_PREFERENCE_PRICE:
                 $this->context->validateValue($value->retailPrice, $retailPriceConstraint, 'retailPrice');
                 if (count($this->context->getViolations()) == $countViolations) {
