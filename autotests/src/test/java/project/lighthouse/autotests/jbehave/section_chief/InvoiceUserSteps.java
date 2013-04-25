@@ -88,6 +88,16 @@ public class InvoiceUserSteps {
         invoiceSteps.discardChangesButtonClick();
     }
 
+    @When("the user clicks OK and accepts deletion")
+    public void whenTheUSerClicksOkAndAcceptsDeletion() {
+        invoiceSteps.acceptDeleteButtonClick();
+    }
+
+    @When("the user clicks Cancel and discard deletion")
+    public void whenTheUserClicksCancelAndDiscardTheDeletion() {
+        invoiceSteps.discardDeleteButtonClick();
+    }
+
     @When("the user clicks finish edit button and ends the invoice edition")
     public void whenTheUserClicksFinishEDitButtonAndEndsEdition() {
         invoiceSteps.invoiceStopEditButtonClick();
@@ -121,6 +131,11 @@ public class InvoiceUserSteps {
     @When("the user clicks the add invoice product button and adds the invoice product")
     public void whenTheUserClicksTheAddInvoiceProductButtonAndAddsTheInvoiceProduct() {
         invoiceSteps.addNewInvoiceProductButtonClick();
+    }
+
+    @When("the user deletes the invoice product with '$elementName' sku")
+    public void whenTheUserDeletesTheInvoiceProducWithSku(String elementName) {
+        invoiceSteps.childrenItemNavigateAndClickByFindByLocator(elementName);
     }
 
     @Then("the user checks the invoice with '$skuValue' sku has '$name' equal to '$expectedValue'")
@@ -168,14 +183,14 @@ public class InvoiceUserSteps {
         invoiceSteps.invoiceProductListItemCheck(value);
     }
 
-    @Then("the user checks the warning message about changes is present")
-    public void thenTheUserChecksTheWarningMessageAboutChangesIsPresent() {
-        invoiceSteps.checkFormIsChanged();
-    }
-
     @Then("the user checks the product with '$value' sku has values $checkValuesTable")
     public void thenTheUserChecksTheProductWithSkuHasValues(String value, ExamplesTable checkValuesTable) {
         invoiceSteps.checkListItemWithSkuHasExpectedValue(value, checkValuesTable);
+    }
+
+    @Then("the user checks the invoice product with '$elementName' sku is not present")
+    public void thenTheUserChecksTheInvoiceProductWithSkuIsNotPresent(String elementName) {
+        invoiceSteps.checkItemIsNotPresent(elementName);
     }
 
 }

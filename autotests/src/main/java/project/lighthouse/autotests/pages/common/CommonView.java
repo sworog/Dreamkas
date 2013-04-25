@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.pages.common;
 
 
-import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.pages.WebElementFacade;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
@@ -13,7 +12,7 @@ import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 
 import java.util.Map;
 
-public class CommonView extends PageObject implements CommonViewInterface {
+public class CommonView extends CommonPageObject implements CommonViewInterface {
 
     String listPageName;
     String listPageSkuName;
@@ -54,6 +53,14 @@ public class CommonView extends PageObject implements CommonViewInterface {
         listItem.shouldBePresent();
     }
 
+    public void itemCheckIsNotPresent(String value) {
+        try {
+            WebElementFacade listItem = getWebElementFacadeItem(value);
+            listItem.shouldNotBePresent();
+        } catch (Exception e) {
+        }
+    }
+
     public void itemClick(String value) {
         WebElementFacade listItem = getWebElementFacadeItem(value);
         listItem.click();
@@ -65,6 +72,10 @@ public class CommonView extends PageObject implements CommonViewInterface {
 
     public void childrentItemClickByFindByLocator(String elementName, By by) {
         getWebElementItem(elementName).findElement(by).click();
+    }
+
+    public void childrenItemNavigateAndClickByFindByLocator(String elementName, By by) {
+        withAction().moveToElement(getWebElementItem(elementName)).click(findElement(by)).build().perform();
     }
 
     public void checkListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue) {
@@ -79,5 +90,10 @@ public class CommonView extends PageObject implements CommonViewInterface {
             String expectedValue = row.get("expectedValue");
             checkListItemWithSkuHasExpectedValue(value, elementName, expectedValue);
         }
+    }
+
+    @Override
+    public void createElements() {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

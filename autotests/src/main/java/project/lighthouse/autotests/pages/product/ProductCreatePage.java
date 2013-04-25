@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.pages.common.CommonItem;
+import project.lighthouse.autotests.pages.common.CommonPage;
 import project.lighthouse.autotests.pages.common.CommonPageObject;
 import project.lighthouse.autotests.pages.elements.Input;
 import project.lighthouse.autotests.pages.elements.Select;
@@ -17,6 +18,8 @@ import java.util.Map;
 public class ProductCreatePage extends CommonPageObject {
 
     private static final String PRODUCT_NAME = "product";
+    private static final String INPUT_XPATH_PATTERN = "//*[@class='form productForm']//*[@name='%s']";
+    private static final String CARD_VIEW_XPATH_PATTERN = "//*[@name='product']//*[@name='%s']";
 
     @FindBy(xpath = "//*[@lh_card_back]")
     public WebElement productItemListLink;
@@ -35,6 +38,35 @@ public class ProductCreatePage extends CommonPageObject {
         items.put("vendor", new Input(this, "vendor"));
         items.put("vendorCountry", new Input(this, "vendorCountry"));
         items.put("info", new Textarea(this, "info"));
+        items.put("retailMarkup", new Input(this, "retailMarkup"));
+        items.put("retailPrice", new Input(this, "retailPrice"));
+        items.put("retailMarkupHint", new Input(this, "retailMarkupHint"));
+        items.put("retailPriceHint", new Input(this, "retailPriceHint"));
+
+        /*items.put("sku", new Input(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "sku"))));
+        items.put("name", new Input(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "name"))));
+        items.put("unit", new Select(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "units"))));
+        items.put("purchasePrice", new Input(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "purchasePrice"))));
+        items.put("vat", new Select(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "vat"))));
+        items.put("barcode", new Input(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "barcode"))));
+        items.put("vendor", new Input(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "vendor"))));
+        items.put("vendorCountry", new Input(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "vendorCountry"))));
+        items.put("info", new Textarea(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "info"))));
+        items.put("retailMarkup", new Input(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "retailMarkup"))));
+        items.put("retailPrice", new Input(this, By.xpath(String.format(INPUT_XPATH_PATTERN, "retailPrice"))));
+
+        *//*Card view*//*
+        items.put("cardViewSku", new Input(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "sku"))));
+        items.put("cardViewName", new Input(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "name"))));
+        items.put("cardViewUnit", new Select(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "units"))));
+        items.put("cardViewPurchasePrice", new Input(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "purchasePrice"))));
+        items.put("cardViewVat", new Select(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "vat"))));
+        items.put("cardViewBarcode", new Input(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "barcode"))));
+        items.put("cardViewVendor", new Input(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "vendor"))));
+        items.put("cardViewVendorCountry", new Input(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "vendorCountry"))));
+        items.put("cardViewInfo", new Textarea(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "info"))));
+        items.put("cardViewRetailMarkup", new Input(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "retailMarkup"))));
+        items.put("cardViewRetailPrice", new Input(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "retailPrice"))));*/
     }
 
     public void fieldInput(String elementName, String inputText) {
@@ -54,7 +86,7 @@ public class ProductCreatePage extends CommonPageObject {
     }
 
     public void createButtonClick() {
-        findBy("//*[@lh_button='commit']").click();
+        findBy("//*[@class='button button_color_blue']/input").click();
         commonPage.checkCreateAlertSuccess(PRODUCT_NAME);
     }
 
@@ -70,5 +102,22 @@ public class ProductCreatePage extends CommonPageObject {
     public void checkFieldLength(String elementName, int fieldLength) {
         CommonItem item = items.get(elementName);
         commonPage.checkFieldLength(elementName, fieldLength, item.getWebElement());
+    }
+
+    public void elementClick(String elementName) {
+        items.get(elementName).getWebElement().click();
+    }
+
+    public void checkElementPresence(String elementName, String action) {
+        switch (action) {
+            case "is":
+                $(items.get(elementName).getWebElement()).shouldBeVisible();
+                break;
+            case "is not":
+                $(items.get(elementName).getWebElement()).shouldNotBeVisible();
+                break;
+            default:
+                throw new AssertionError(CommonPage.ERROR_MESSAGE);
+        }
     }
 }
