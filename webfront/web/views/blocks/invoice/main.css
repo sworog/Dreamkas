@@ -176,3 +176,7 @@
 .invoice__removeCancel{
     vertical-align: middle;
 }
+
+.invoice_dataEditing .invoice__removeLink{
+    visibility: hidden;
+}

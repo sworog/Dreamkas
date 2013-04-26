@@ -206,6 +206,7 @@ define(
                     $invoiceProductRow = block.$table.find('.invoice__dataRow[invoice-product-id="' + invoiceProductId + '"]');
 
                 block.hideRemoveConfirms();
+                block.set('dataEditing', true);
 
                 $invoiceProductRow
                     .after(block.tpl.removeConfirm({
@@ -220,6 +221,7 @@ define(
 
                 $removeConfirmRow.remove();
                 $invoiceProductRow.show();
+                block.set('dataEditing', false);
             },
             hideRemoveConfirms: function(){
                 var block = this,
