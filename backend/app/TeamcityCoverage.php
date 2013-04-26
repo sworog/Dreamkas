@@ -22,14 +22,14 @@ $sxml = simplexml_load_file($file);
 $metricsNode = reset($sxml->xpath('/coverage/project/metrics'));
 
 $metrics = array(
-    'codeCoverageMethodsTotal'      => (string) $metricsNode['methods'],
-    'codeCoverageMethodsCovered'    => (string) $metricsNode['coveredmethods'],
-    'codeCoverageMethodsPercent'    => percent((string) $metricsNode['coveredmethods'], (string) $metricsNode['methods']),
-    'codeCoverageLinesTotal'        => (string) $metricsNode['statements'],
-    'codeCoverageLinesCovered'      => (string) $metricsNode['coveredstatements'],
-    'codeCoverageLinesPercent'      => percent((string) $metricsNode['coveredstatements'], (string) $metricsNode['statements']),
-    'codeCoverageLinesLOC'          => (string) $metricsNode['loc'],
-    'codeCoverageLinesNCLOC'        => (string) $metricsNode['ncloc'],
+    'CodeCoverageAbsMTotal'     => (string) $metricsNode['methods'],
+    'CodeCoverageAbsMCovered'   => (string) $metricsNode['coveredmethods'],
+    'CodeCoverageM'             => percent((string) $metricsNode['coveredmethods'], (string) $metricsNode['methods']),
+    'CodeCoverageAbsLTotal'     => (string) $metricsNode['statements'],
+    'CodeCoverageAbsLCovered'   => (string) $metricsNode['coveredstatements'],
+    'CodeCoverageL'             => percent((string) $metricsNode['coveredstatements'], (string) $metricsNode['statements']),
+    'LOC'                       => (string) $metricsNode['loc'],
+    'NCLOC'                     => (string) $metricsNode['ncloc'],
 );
 
 // Workaround to calculate covered classes
@@ -42,9 +42,9 @@ foreach ($sxml->xpath('//class') as $class) {
     }
 }
 
-$metrics['codeCoverageClassesCovered'] = $classesCovered;
-$metrics['codeCoverageClassesTotal']   = (string) $metricsNode['classes'];
-$metrics['codeCoverageClassesPercent'] = percent($classesCovered, (string) $metricsNode['classes']);
+$metrics['CodeCoverageAbsCCovered'] = $classesCovered;
+$metrics['CodeCoverageAbsCTotal']   = (string) $metricsNode['classes'];
+$metrics['CodeCoverageC'] = percent($classesCovered, (string) $metricsNode['classes']);
 
 // print all messages for custom graphs
 foreach ($metrics as $key => $value) {
