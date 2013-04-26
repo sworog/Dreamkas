@@ -12,19 +12,13 @@ files = [
     JASMINE_ADAPTER,
     REQUIRE,
     REQUIRE_ADAPTER,
+    'libs/underscore.min.js',
+    'libs/backbone.min.js',
+    'tests.js',
     {
-        pattern: 'tests/**/*.spec.js',
+        pattern: '**/*.js',
         included: false
-    },
-    {
-        pattern: 'models/**/*.js',
-        included: false
-    },
-    {
-        pattern: 'collections/**/*.js',
-        included: false
-    },
-    'tests/main.js'
+    }
 ];
 
 
@@ -36,7 +30,7 @@ exclude = [
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['progress'];
+reporters = ['dots'];
 
 
 // web server port
@@ -68,7 +62,7 @@ autoWatch = true;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome', 'Firefox'];
+browsers = ['Chrome'];
 
 
 // If browser does not capture in given timeout [ms], kill it
