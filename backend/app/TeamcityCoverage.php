@@ -34,11 +34,9 @@ $metrics = array(
 
 // Workaround to calculate covered classes
 $classesCovered = 0;
-foreach ($sxml->xpath('//class') as $class) {
-    foreach ($class->xpath('metrics') as $classMetrics) {
-        if ((string) $classMetrics['statements'] == (string) $classMetrics['coveredstatements']) {
-            $classesCovered++;
-        }
+foreach ($sxml->xpath('//class/metrics') as $classMetrics) {
+    if ((string) $classMetrics['statements'] == (string) $classMetrics['coveredstatements']) {
+        $classesCovered++;
     }
 }
 
