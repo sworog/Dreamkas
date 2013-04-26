@@ -1,7 +1,7 @@
 require(
     [
-        '/routers/main.js',
-        '/utils/main.js'
+        '/routers/mainRouter.js',
+        '/helpers/helpers.js'
     ],
     function(router, helpers) {
         $(function() {

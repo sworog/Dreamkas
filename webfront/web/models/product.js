@@ -5,7 +5,6 @@ define(
     function(BaseModel) {
         return BaseModel.extend({
             modelName: "product",
-
             url: function() {
                 var url;
                 if (this.id){
@@ -15,20 +14,22 @@ define(
                 }
                 return url;
             },
-
             defaults: {
-                name: null,
-                units: null,
-                vat: null,
-                purchasePrice: null,
-                retailPrice: null,
-                retailMarkup: null,
-                retailPricePreference: 'retailMarkup',
-                barcode: null,
-                sku: null,
-                vendorCountry: null,
-                vendor: null,
-                info: null
-            }
+                retailPricePreference: 'retailMarkup'
+            },
+            saveFields: [
+                'name',
+                'units',
+                'vat',
+                'purchasePrice',
+                'retailPrice',
+                'retailMarkup',
+                'retailPricePreference',
+                'barcode',
+                'sku',
+                'vendorCountry',
+                'vendor',
+                'info'
+            ]
         });
     });

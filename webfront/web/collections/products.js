@@ -1,10 +1,10 @@
 define(
     [
-        './main.js',
+        './baseCollection.js',
         '/models/product.js'
     ],
-    function(BaseCollection, ProductModel) {
-        return BaseCollection.extend({
+    function(baseCollection, ProductModel) {
+        return baseCollection.extend({
             model: ProductModel,
             url: baseApiUrl + "/products.json"
         });

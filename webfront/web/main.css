@@ -1,5 +1,10 @@
-@import "/views/kit/main.css";
-@import "/views/blocks/main.css";
+@import "/kit/kit.css";
+
+/* blocks */
+@import "/blocks/invoice/invoice.css";
+@import "/blocks/productForm/productForm.css";
+@import "/blocks/product/product.css";
+/* /blocks */
 
 html{
     height: 100%;
