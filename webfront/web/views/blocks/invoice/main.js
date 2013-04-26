@@ -91,6 +91,7 @@ define(
                         invoiceProductId = $(e.target).closest('.invoice__removeConfirmRow').attr('invoice-product-id');
 
                     block.removeInvoiceProduct(invoiceProductId);
+                    block.set('dataEditing', false);
                 },
                 'submit .invoice__addForm': function(e) {
                     e.preventDefault();
