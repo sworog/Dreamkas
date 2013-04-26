@@ -64,14 +64,14 @@ define(
                         change: function(model) {
                             block.invoiceModel.set(model.toJSON().invoice);
                         },
-                        destroy: function(){
+                        destroy: function() {
                             block.renderTable();
                             block.invoiceModel.fetch();
                         }
                     });
             },
             events: {
-                'click .invoice__removeButton': function(e) {
+                'click .invoice__removeLink': function(e) {
                     e.preventDefault();
                     var block = this,
                         invoiceProductId = $(e.target).closest('.invoice__dataRow').attr('invoice-product-id');
@@ -85,12 +85,13 @@ define(
 
                     block.hideRemoveConfirm(invoiceProductId);
                 },
-                'click .invoice__removeConfirmButton': function(e){
+                'click .invoice__removeConfirmButton': function(e) {
                     e.preventDefault();
                     var block = this,
                         invoiceProductId = $(e.target).closest('.invoice__removeConfirmRow').attr('invoice-product-id');
 
                     block.removeInvoiceProduct(invoiceProductId);
+                    block.set('dataEditing', false);
                 },
                 'submit .invoice__addForm': function(e) {
                     e.preventDefault();
@@ -205,6 +206,9 @@ define(
                 var block = this,
                     $invoiceProductRow = block.$table.find('.invoice__dataRow[invoice-product-id="' + invoiceProductId + '"]');
 
+                block.hideRemoveConfirms();
+                block.set('dataEditing', true);
+
                 $invoiceProductRow
                     .after(block.tpl.removeConfirm({
                         invoiceProductId: invoiceProductId
@@ -218,8 +222,17 @@ define(
 
                 $removeConfirmRow.remove();
                 $invoiceProductRow.show();
+                block.set('dataEditing', false);
             },
-            removeInvoiceProduct: function(invoiceProductId){
+            hideRemoveConfirms: function() {
+                var block = this,
+                    $invoiceProductRow = block.$table.find('.invoice__dataRow:hidden'),
+                    $removeConfirmRows = block.$table.find('.invoice__removeConfirmRow');
+
+                $invoiceProductRow.show();
+                $removeConfirmRows.remove();
+            },
+            removeInvoiceProduct: function(invoiceProductId) {
                 var block = this,
                     invoiceProductModel = block.invoiceProductsCollection.get(invoiceProductId);
 
@@ -407,23 +420,25 @@ define(
                 block.form.removeErrors();
 
                 _.each(data.children, function(data, field) {
-                    var fieldErrors = data.errors.join(', ');
+                    var fieldErrors;
 
-                    if (field == 'product') {
-                        var productField;
-                        if (block.$el.find("[lh_product_autocomplete='barcode']").val()) {
-                            productField = 'barcode';
-                        } else if (block.$el.find("[lh_product_autocomplete='sku']").val()) {
-                            productField = 'sku';
+                    if (data.errors) {
+                        fieldErrors = data.errors.join(', ');
+                        if (field == 'product') {
+                            var productField;
+                            if (block.$el.find("[lh_product_autocomplete='barcode']").val()) {
+                                productField = 'barcode';
+                            } else if (block.$el.find("[lh_product_autocomplete='sku']").val()) {
+                                productField = 'sku';
+                            } else {
+                                productField = 'name';
+                            }
+
+                            block.$el.find("[lh_product_autocomplete='" + productField + "']").closest(".form__field").attr("lh_field_error", fieldErrors);
                         } else {
-                            productField = 'name';
+                            block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", fieldErrors);
                         }
-
-                        block.$el.find("[lh_product_autocomplete='" + productField + "']").closest(".form__field").attr("lh_field_error", fieldErrors);
-                    } else {
-                        block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", fieldErrors);
                     }
-
                 });
             },
             showDataInput: function($el) {
@@ -480,7 +495,7 @@ define(
                     })
                     .focus();
             },
-            removeDataInput: function(){
+            removeDataInput: function() {
                 var block = this;
 
                 block.$el.find('.invoice__dataInput').remove();

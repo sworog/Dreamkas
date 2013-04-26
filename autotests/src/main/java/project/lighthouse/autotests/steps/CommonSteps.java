@@ -52,9 +52,9 @@ public class CommonSteps extends ScenarioSteps {
     }
 
     @Step
-    public void createProductPostRequestSend(String name, String sku, String barcode, String units) {
+    public void createProductPostRequestSend(String name, String sku, String barcode, String units, String purchasePrice) {
         productListPage.open();
-        commonPage.сreateProductThroughPost(name, sku, barcode, units);
+        commonPage.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
     }
 
     @Step

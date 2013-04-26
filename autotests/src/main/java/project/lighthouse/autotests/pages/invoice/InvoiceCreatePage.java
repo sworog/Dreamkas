@@ -84,13 +84,4 @@ public class InvoiceCreatePage extends CommonPageObject {
         CommonItem item = items.get(elementName);
         commonPage.checkFieldLength(elementName, fieldLength, item.getWebElement());
     }
-
-    public void checkFormIsChanged() {
-        String alertText = getAlert().getText();
-        String expectedMessage = "";
-        if (!alertText.contains(expectedMessage)) {
-            String errorMessage = "";
-            throw new AssertionError(errorMessage);
-        }
-    }
 }

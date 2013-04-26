@@ -1,8 +1,8 @@
 package project.lighthouse.autotests.pages.elements;
 
-import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.pages.common.CommonItem;
+import project.lighthouse.autotests.pages.common.CommonPageObject;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -17,11 +17,11 @@ public class DateTime extends CommonItem {
     public static final String DATE_TIME_PATTERN = "dd.MM.yyyy HH:mm";
     public final Locale locale = new Locale("ru");
 
-    public DateTime(PageObject pageObject, By findBy) {
+    public DateTime(CommonPageObject pageObject, By findBy) {
         super(pageObject, findBy);
     }
 
-    public DateTime(PageObject pageObject, String name) {
+    public DateTime(CommonPageObject pageObject, String name) {
         super(pageObject, name);
     }
 

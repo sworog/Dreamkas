@@ -1,15 +1,15 @@
 package project.lighthouse.autotests.pages.elements;
 
-import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
+import project.lighthouse.autotests.pages.common.CommonPageObject;
 
 public class Textarea extends Input {
 
-    public Textarea(PageObject pageObject, By findBy) {
+    public Textarea(CommonPageObject pageObject, By findBy) {
         super(pageObject, findBy);
     }
 
-    public Textarea(PageObject pageObject, String name) {
+    public Textarea(CommonPageObject pageObject, String name) {
         super(pageObject, name);
     }
 

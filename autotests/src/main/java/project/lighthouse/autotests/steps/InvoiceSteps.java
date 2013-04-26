@@ -124,11 +124,6 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkFormIsChanged() {
-        invoiceCreatePage.checkFormIsChanged();
-    }
-
-    @Step
     public void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable) {
         invoiceBrowsing.checkListItemWithSkuHasExpectedValue(value, checkValuesTable);
     }
@@ -146,6 +141,16 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void discardChangesButtonClick() {
         invoiceBrowsing.discardChangesButtonClick();
+    }
+
+    @Step
+    public void acceptDeleteButtonClick() {
+        invoiceBrowsing.acceptDeleteButtonClick();
+    }
+
+    @Step
+    public void discardDeleteButtonClick() {
+        invoiceBrowsing.discardDeleteButtonClick();
     }
 
     @Step
@@ -171,5 +176,19 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void addNewInvoiceProductButtonClick() {
         invoiceBrowsing.addNewInvoiceProductButtonClick();
+    }
+
+    @Step
+    public void childrenItemNavigateAndClickByFindByLocator(String elementName) {
+        invoiceBrowsing.childrenItemNavigateAndClickByFindByLocator(elementName);
+    }
+
+    public void tryTochildrenItemNavigateAndClickByFindByLocator(String elementName) {
+        invoiceBrowsing.tryTochildrenItemNavigateAndClickByFindByLocator(elementName);
+    }
+
+    @Step
+    public void checkItemIsNotPresent(String elementName) {
+        invoiceBrowsing.checkItemIsNotPresent(elementName);
     }
 }

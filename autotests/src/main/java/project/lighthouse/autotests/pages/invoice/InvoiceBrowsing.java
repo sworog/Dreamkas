@@ -22,23 +22,27 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     @FindBy(xpath = "//*[@class='addMoreProduct']")
     private WebElement addOneMoreProductLink;
 
-    @FindBy(xpath = "//*[@class='invoice__controlLink invoice__editLink']")
+    @FindBy(xpath = "//*[@class='page__controlsLink invoice__editLink']")
     public WebElement editButtonLink;
 
-    @FindBy(xpath = "//*[@class='invoice__controlLink invoice__stopEditLink']")
+    @FindBy(xpath = "//*[@class='page__controlsLink invoice__stopEditLink']")
     public WebElement invoiceStopEditLink;
 
     @FindBy(xpath = "//*[@class='button invoice__stopEditButton']")
     public WebElement invoiceStopEditButtonLink;
-
-//    @FindBy(xpath = "//span[@class='button button_color_blue invoice__addMoreProduct']/input")
-//    public WebElement invoiceProductAddButton;
 
     @FindBy(xpath = "//a[@class='button invoice__dataInputSave']")
     public WebElement acceptChangesButton;
 
     @FindBy(xpath = "//*[@class='invoice__dataInputCancel']")
     public WebElement discardChangesButton;
+
+    @FindBy(xpath = "//a[@class='button invoice__removeConfirmButton']")
+    public WebElement acceptDeleteButton;
+
+    @FindBy(xpath = "//*[@class='invoice__removeCancel']")
+    public WebElement discardDeleteButton;
+
 
     public InvoiceBrowsing(WebDriver driver) {
         super(driver);
@@ -117,6 +121,19 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         $(discardChangesButton).click();
     }
 
+    public void acceptDeleteButtonClick() {
+        $(acceptDeleteButton).click();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
+    public void discardDeleteButtonClick() {
+        $(discardDeleteButton).click();
+    }
+
     public void invoiceStopEditButtonClick() {
         invoiceStopEditButtonLink.click();
     }
@@ -125,24 +142,34 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         invoiceStopEditLink.click();
     }
 
-    public void checkEditMode() {
-        if (!(invoiceStopEditLink.isDisplayed() && invoiceStopEditButtonLink.isDisplayed())) {
-            throw new AssertionError("user is still in edit mode");
-        }
-    }
-
     public void childrenElementClick(String elementName, String elementClassName) {
         commonViewInterface.childrenItemClickByClassName(elementName, elementClassName);
+    }
+
+    public void childrenItemNavigateAndClickByFindByLocator(String elementName) {
+        String deleteButtonXpath = "//*[@class='invoice__removeLink']";
+        commonViewInterface.childrenItemNavigateAndClickByFindByLocator(elementName, By.xpath(deleteButtonXpath));
+    }
+
+    public void tryTochildrenItemNavigateAndClickByFindByLocator(String elementName) {
+        try {
+            childrenItemNavigateAndClickByFindByLocator(elementName);
+            String errorMessage = String.format("the user can delete the product with sku '%s' in not edit mode", elementName);
+            throw new AssertionError(errorMessage);
+        } catch (Exception e) {
+        }
     }
 
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         By findBy = items.get(parentElementName).getFindBy();
         commonViewInterface.childrentItemClickByFindByLocator(elementName, findBy);
-
     }
 
     public void addNewInvoiceProductButtonClick() {
         findBy("//span[@class='button button_color_blue invoice__addMoreProduct']/input").click();
-//        $(invoiceProductAddButton).click();
+    }
+
+    public void checkItemIsNotPresent(String elementName) {
+        commonViewInterface.itemCheckIsNotPresent(elementName);
     }
 }

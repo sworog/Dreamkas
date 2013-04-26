@@ -31,7 +31,11 @@ class JsonPath
      */
     public function getValues()
     {
-        return $this->path($this->json, $this->path, true);
+        $result = $this->path($this->json, $this->path);
+        if (false === strpos($this->path, '*')) {
+            $result = array($result);
+        }
+        return $result;
     }
 
     /**
@@ -48,7 +52,7 @@ class JsonPath
      * @return array|mixed
      * @throws \DomainException
      */
-    protected function path(array $array, $path, $first = false)
+    protected function path(array $array, $path)
     {
         $delimiter = self::DELIMITER;
         // Remove starting delimiters and spaces
@@ -79,11 +83,7 @@ class JsonPath
                     }
                 } else {
                     // Found the path requested
-                    if ($first) {
-                        return array($array[$key]);
-                    } else {
-                        return $array[$key];
-                    }
+                    return $array[$key];
                 }
             } elseif ($key === '*') {
                 // Handle wildcards

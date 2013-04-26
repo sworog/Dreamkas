@@ -14,7 +14,7 @@
 .product__propertiesTable td,
 .product__propertiesTable th
 {
-    padding: 6px 8px;
+    padding: 10px 20px 10px 0;
     vertical-align: middle;
     font-weight: normal;
 }

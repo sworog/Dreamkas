@@ -18,7 +18,7 @@ public class ProductCardView extends ProductCreatePage {
 
     public void checkCardValue(String elementName, String expectedValue) {
         WebElement element = items.get(elementName).getWebElement();
-        $(element).shouldContainText(expectedValue);
+        commonPage.shouldContainsText(elementName, element, expectedValue);
     }
 
     public void checkCardValue(ExamplesTable checkValuesTable) {

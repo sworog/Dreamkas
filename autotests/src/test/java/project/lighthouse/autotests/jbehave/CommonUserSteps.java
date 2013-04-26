@@ -13,7 +13,7 @@ public class CommonUserSteps {
 
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode")
     public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode) {
-        commonSteps.createProductPostRequestSend(name, sku, barcode, "kg");
+        commonSteps.createProductPostRequestSend(name, sku, barcode, "kg", "123");
     }
 
     @Given("there is created product with sku '$sku'")
@@ -21,9 +21,19 @@ public class CommonUserSteps {
         givenTheUserCreatesProductWithParams(sku, sku, sku, "kg");
     }
 
+    @Given("there is created product with sku '$sku' and '$purchasePrice' purchasePrice")
+    public void givenThereIsCreatedProductWithSkuValue(String sku, String purchasePrice) {
+        givenTheUserCreatesProductWithParamsPrice(sku, sku, sku, "kg", purchasePrice);
+    }
+
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units")
     public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode, String units) {
-        commonSteps.createProductPostRequestSend(name, sku, barcode, units);
+        commonSteps.createProductPostRequestSend(name, sku, barcode, units, "123");
+    }
+
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice")
+    public void givenTheUserCreatesProductWithParamsPrice(String name, String sku, String barcode, String units, String purchasePrice) {
+        commonSteps.createProductPostRequestSend(name, sku, barcode, units, purchasePrice);
     }
 
     @Given("there is the invoice with '$sku' sku")

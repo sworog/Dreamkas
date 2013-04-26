@@ -22,23 +22,15 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $vendor
  * @property string $info
  * @property int    $amount
+ * @property Money  $retailPrice
+ * @property float  $retailMarkup
+ * @property string $retailPricePreference
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\ProductRepository"
  * )
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
- * @LighthouseAssert\Callback(
- *     method="updateRetails",
- *     constraints={
- *         "retailPrice"  = @LighthouseAssert\Money,
- *         "retailMarkup" = {
- *              @LighthouseAssert\Precision,
- *              @LighthouseAssert\Range(
- *                  gt="-100",
- *                  gtMessage="lighthouse.validation.errors.product.retailMarkup.range"
- *              )
- *         }
- *     }
+ * @LighthouseAssert\Product\RetailPrice
  * )
  */
 class Product extends AbstractDocument
@@ -150,7 +142,7 @@ class Product extends AbstractDocument
      * @MongoDB\String
      * @var string
      */
-    protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_PRICE;
+    protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
 
     /**
      * @return array
@@ -186,11 +178,13 @@ class Product extends AbstractDocument
                 }
                 break;
             case self::RETAIL_PRICE_PREFERENCE_MARKUP:
+            default:
                 if (null !== $this->retailMarkup && '' !== $this->retailMarkup) {
                     $percent = 1 + ($this->retailMarkup / 100);
                     $this->retailPrice = new Money();
                     $this->retailPrice->setCountByQuantity($this->purchasePrice, $percent, true);
                 }
+                $this->retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
                 break;
         }
     }

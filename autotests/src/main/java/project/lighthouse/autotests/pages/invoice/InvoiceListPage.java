@@ -20,7 +20,7 @@ public class InvoiceListPage extends InvoiceCreatePage {
 
     public void invoiceListItemCreate() {
         String xpath = "//*[@lh_button='create']";
-        getDriver().findElement(By.xpath(xpath)).click();
+        findElement(By.xpath(xpath)).click();
     }
 
     public void listItemClick(String skuValue) {

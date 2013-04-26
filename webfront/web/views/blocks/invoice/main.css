@@ -153,22 +153,19 @@
     display: none;
 }
 
-.invoice__removeButton{
-    width: 1px;
+.invoice__removeLink {
     cursor: pointer;
+    visibility: hidden;
+    color: #336699;
+    border-bottom: 1px dotted;
     opacity: 0;
 }
 
-.invoice__removeButton:hover{
-    background: #eee !important;
+.invoice_editMode .invoice__removeLink {
+    visibility: visible;
 }
 
-.invoice__removeButtonText{
-    color: #336699;
-    border-bottom: 1px dotted;
-}
-
-.invoice__table tr:hover .invoice__removeButton{
+.invoice__table tr:hover .invoice__removeLink {
     opacity: 1;
 }
 
@@ -178,4 +175,8 @@
 
 .invoice__removeCancel{
     vertical-align: middle;
+}
+
+.invoice_dataEditing .invoice__removeLink{
+    visibility: hidden;
 }
