@@ -11,6 +11,13 @@ use Lighthouse\CoreBundle\Types\Money;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
+ * @property string $id
+ * @property int    $quantity
+ * @property Money  $price
+ * @property Money  $totalPrice
+ * @property Invoice $invoice
+ * @property Product $product
+ *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\InvoiceProductRepository"
  * )

@@ -61,37 +61,24 @@ class TrialBalance extends AbstractDocument
     protected $endingBalanceMoney;
 
     /**
-     * Приход
-     * @MongoDB\Float
+     * Количество
+     * @MongoDB\Int
      * @var float
      */
-    protected $receipts;
+    protected $quantity;
 
     /**
      * @MongoDB\Field(type="money")
      * @var Money
      */
-    protected $receiptsMoney;
-
-    /**
-     * Расход
-     * @MongoDB\Float
-     * @var float
-     */
-    protected $expenditure;
-
-    /**
-     * @MongoDB\Field(type="money")
-     * @var Money
-     */
-    protected $expenditureMoney;
+    protected $totalPrice;
 
     /**
      * Стоимость единицы товара
      * @MongoDB\Field(type="money")
      * @var Money
      */
-    protected $unitValue;
+    protected $price;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="Product", simple=true, cascade={"persist"})
@@ -102,10 +89,9 @@ class TrialBalance extends AbstractDocument
     /**
      * Основание
      * @MongoDB\ReferenceOne(
-     *      targetDocument="Invoice",
      *      discriminatorField="reasonType",
      *      discriminatorMap={
-     *          "invoice"="Lighthouse\CoreBundle\Document\Invoice"
+     *          "invoiceProduct"="Lighthouse\CoreBundle\Document\InvoiceProduct"
      *      }
      * )
      * @var Invoice
@@ -123,11 +109,9 @@ class TrialBalance extends AbstractDocument
             'beginningBalanceMoney' => $this->beginningBalanceMoney,
             'endingBalance' => $this->endingBalance,
             'endingBalanceMoney' => $this->endingBalanceMoney,
-            'receipts' => $this->receipts,
-            'receiptsMoney' => $this->receiptsMoney,
-            'expenditure' => $this->expenditure,
-            'expenditureMoney' => $this->expenditureMoney,
-            'unitValue' => $this->unitValue,
+            'quantity' => $this->receipts,
+            'totalPrice' => $this->receiptsMoney,
+            'price' => $this->unitValue,
             'product' => $this->product,
             'reason' => $this->reason,
         );
