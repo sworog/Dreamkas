@@ -29,6 +29,6 @@ abstract public class CommonPageObject extends PageObject {
     }
 
     public WebElement findElement(By by) {
-        return waiter.getFluenWaitWebElement(by);
+        return waiter.getWebElement(by);
     }
 }

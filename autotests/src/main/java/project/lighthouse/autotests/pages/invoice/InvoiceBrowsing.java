@@ -110,11 +110,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void acceptChangesButtonClick() {
         $(acceptChangesButton).click();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        waiter.checkElementIsNotVisible(By.xpath("//*[@class='invoice__dataInput']"));
     }
 
     public void discardChangesButtonClick() {
@@ -123,11 +119,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void acceptDeleteButtonClick() {
         $(acceptDeleteButton).click();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        waiter.checkElementIsNotVisible(By.xpath("//*[@class='invoice__dataInput']"));
     }
 
     public void discardDeleteButtonClick() {
