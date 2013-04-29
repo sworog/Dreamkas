@@ -14,11 +14,9 @@ use Lighthouse\CoreBundle\Types\Money;
  * @property Money  $beginningBalanceMoney
  * @property float  $endingBalance
  * @property Money  $endingBalanceMoney
- * @property float  $receipts
- * @property Money  $receiptsMoney
- * @property float  $expenditure
- * @property Money  $expenditureMoney
- * @property Money  $unitValue
+ * @property float  $quantity
+ * @property Money  $totalPrice
+ * @property Money  $price
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\TrialBalanceRepository"
@@ -116,6 +114,16 @@ class TrialBalance extends AbstractDocument
             'reason' => $this->reason,
         );
 
+    }
+
+    /**
+     * @MongoDB\PrePersist
+     * @MongoDB\PreUpdate
+     */
+    public function updateTotalPrice()
+    {
+        $this->totalPrice = new Money();
+        $this->totalPrice->setCountByQuantity($this->price, $this->quantity);
     }
 
 }

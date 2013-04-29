@@ -141,7 +141,7 @@ class TrialBalanceTest extends WebTestCase
         /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
         /** @var TrialBalanceCollection $startTrialBalance */
-        $startTrialBalanceCursor = $trialBalanceRepository->findByProduct($product);
+        $startTrialBalanceCursor = $trialBalanceRepository->findByProduct($product->id);
         $startTrialBalance = new TrialBalanceCollection($startTrialBalanceCursor);
 
         $this->assertCount(0, $startTrialBalance);
@@ -158,7 +158,7 @@ class TrialBalanceTest extends WebTestCase
 
 
         /** @var TrialBalanceCollection $endTrialBalance */
-        $endTrialBalanceCursor = $trialBalanceRepository->findByProduct($product);
+        $endTrialBalanceCursor = $trialBalanceRepository->findByProduct($product->id);
         $endTrialBalance = new TrialBalanceCollection($endTrialBalanceCursor);
 
         $this->assertCount(1, $endTrialBalance);
@@ -166,12 +166,7 @@ class TrialBalanceTest extends WebTestCase
         /** @var TrialBalance $endTrialBalance */
         $endTrialBalance = $endTrialBalance->current();
         $this->assertEquals(9, $endTrialBalance->quantity);
-        $this->assertEquals(899.91, $endTrialBalance->totalPrice);
-        $this->assertEquals(0, $endTrialBalance->beginningBalance);
-        $this->assertEquals(0, $endTrialBalance->beginningBalanceMoney);
-        $this->assertEquals(9, $endTrialBalance->endingBalance);
-        $this->assertEquals(899.91, $endTrialBalance->endingBalanceMoney);
-        $this->assertEquals(99.99, $endTrialBalance->price);
-
+        $this->assertEquals(899.91, $endTrialBalance->totalPrice->getCount());
+        $this->assertEquals(99.99, $endTrialBalance->price->getCount());
     }
 }
