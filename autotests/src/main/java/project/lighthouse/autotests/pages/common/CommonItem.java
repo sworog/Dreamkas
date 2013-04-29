@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 
 abstract public class CommonItem {
 
-    private WebElement element;
     protected By findBy;
     protected CommonPageObject pageObject;
 

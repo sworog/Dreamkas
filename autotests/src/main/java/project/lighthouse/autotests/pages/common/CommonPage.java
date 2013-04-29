@@ -2,30 +2,16 @@ package project.lighthouse.autotests.pages.common;
 
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.pages.WebElementFacade;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.jbehave.core.model.ExamplesTable;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonPageInterface;
-import project.lighthouse.autotests.StaticDataCollections;
 import project.lighthouse.autotests.pages.elements.Autocomplete;
-import project.lighthouse.autotests.pages.elements.DateTime;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +19,8 @@ public class CommonPage extends PageObject implements CommonPageInterface {
 
     public static final String ERROR_MESSAGE = "No such option for '%s'";
     public static final String STRING_EMPTY = "";
+
+    protected ApiConnect apiConnect = new ApiConnect(getDriver());
 
     public CommonPage(WebDriver driver) {
         super(driver);
@@ -203,93 +191,11 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) {
-        if (!StaticDataCollections.products.contains(sku)) {
-            String getApiUrl = getApiUrl() + "/api/1/products.json";
-            String jsonDataPattern = "{\"product\":{\"name\":\"%s\",\"units\":\"%s\",\"vat\":\"0\",\"purchasePrice\":\"%s\",\"barcode\":\"%s\",\"sku\":\"%s\",\"vendorCountry\":\"Тестовая страна\",\"vendor\":\"Тестовый производитель\",\"info\":\"\"}}";
-            String jsonData = String.format(jsonDataPattern, name, units, purchasePrice, barcode, sku);
-            executePost(getApiUrl, jsonData);
-            StaticDataCollections.products.add(sku);
-        }
+        apiConnect.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
     }
 
     public void createInvoiceThroughPost(String invoiceName) {
-        if (!StaticDataCollections.invoices.contains(invoiceName)) {
-            String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
-            String jsonDataPattern = "{\"invoice\":{\"sku\":\"%s\",\"supplier\":\"supplier\",\"acceptanceDate\":\"%s\",\"accepter\":\"accepter\",\"legalEntity\":\"legalEntity\",\"supplierInvoiceSku\":\"\",\"supplierInvoiceDate\":\"\"}}";
-            String jsonData = String.format(jsonDataPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
-            String postResponse = executePost(getApiUrl, jsonData);
-            StaticDataCollections.invoices.add(invoiceName);
-            try {
-                JSONObject object = new JSONObject(postResponse);
-                String invoiceId = (String) object.get("id");
-                String invoiceUrl = String.format("%s/invoice/products/%s", getApiUrl().replace("api", "webfront"), invoiceId);
-                getDriver().navigate().to(invoiceUrl);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new AssertionError(e.getMessage());
-            }
-        }
-    }
-
-    public String executePost(String targetURL, String urlParameters) {
-        HttpPost request = new HttpPost(targetURL);
-        try {
-            StringEntity entity = new StringEntity(urlParameters, "UTF-8");
-            entity.setContentType("application/json;charset=UTF-8");
-            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-            request.setHeader("Accept", "application/json");
-            request.setEntity(entity);
-
-            HttpResponse response = null;
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
-            response = httpClient.execute(request);
-
-            HttpEntity httpEntity = response.getEntity();
-            String responceMessage = EntityUtils.toString(httpEntity, "UTF-8");
-
-            if (response.getStatusLine().getStatusCode() != 201) {
-                StringBuilder builder = new StringBuilder();
-                JSONObject jsonObject = new JSONObject(responceMessage).getJSONObject("children");
-                Object[] objects = toMap(jsonObject).values().toArray();
-                for (int i = 0; i < objects.length; i++) {
-                    if (objects[i] instanceof HashMap) {
-                        String errors = new JSONObject(objects[i].toString()).getString("errors");
-                        builder.append(errors);
-                    }
-                }
-                String errorMessage = String.format("Responce json error: '%s'", builder.toString());
-                throw new AssertionError(errorMessage);
-            }
-            return responceMessage;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new AssertionError(e.getMessage());
-        }
-    }
-
-    public String getApiUrl() {
-        return "http://" + getDriver().getCurrentUrl().replaceFirst(".*//*/(.*)\\.webfront\\.([a-zA-Z\\.]+)/.*", "$1.api.$2");
-    }
-
-    public static Map<String, Object> toMap(JSONObject object) throws JSONException {
-        Map<String, Object> map = new HashMap();
-        Iterator keys = object.keys();
-        while (keys.hasNext()) {
-            String key = (String) keys.next();
-            map.put(key, fromJson(object.get(key)));
-        }
-        return map;
-    }
-
-    private static Object fromJson(Object json) throws JSONException {
-        if (json == JSONObject.NULL) {
-            return null;
-        } else if (json instanceof JSONObject) {
-            return toMap((JSONObject) json);
-        } else {
-            return json;
-        }
+        apiConnect.createInvoiceThroughPost(invoiceName);
     }
 
     public void checkAlertText(String expectedText) {
@@ -317,7 +223,6 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             String alertText = getAlert().getText();
             throw new AssertionError(String.format("Alert is present! Alert text: '%s'", alertText));
         } catch (Exception e) {
-//            e.printStackTrace();
         }
     }
 }

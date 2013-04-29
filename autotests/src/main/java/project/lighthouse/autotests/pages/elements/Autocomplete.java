@@ -12,10 +12,6 @@ public class Autocomplete extends CommonItem {
         super(pageObject, findBy);
     }
 
-    public Autocomplete(CommonPageObject pageObject, String name) {
-        super(pageObject, name);
-    }
-
     @Override
     public void setValue(String value) {
         if (value.startsWith("!")) {
