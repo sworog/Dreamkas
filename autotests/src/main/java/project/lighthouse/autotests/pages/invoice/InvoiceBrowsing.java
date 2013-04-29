@@ -110,7 +110,10 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void acceptChangesButtonClick() {
         $(acceptChangesButton).click();
-        waiter.checkElementIsNotVisible(By.xpath("//*[@class='invoice__dataInput']"));
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
     }
 
     public void discardChangesButtonClick() {
@@ -119,7 +122,10 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void acceptDeleteButtonClick() {
         $(acceptDeleteButton).click();
-        waiter.checkElementIsNotVisible(By.xpath("//*[@class='invoice__dataInput']"));
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
     }
 
     public void discardDeleteButtonClick() {
