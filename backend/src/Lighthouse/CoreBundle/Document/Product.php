@@ -145,6 +145,12 @@ class Product extends AbstractDocument
     protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
 
     /**
+     * @MongoDB\ReferenceMany(targetDocument="TrialBalance", mappedBy="product")
+     * @var
+     */
+    protected $trialBalances;
+
+    /**
      * @return array
      */
     public function toArray()

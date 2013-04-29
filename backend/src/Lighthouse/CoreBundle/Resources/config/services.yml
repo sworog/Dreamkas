@@ -30,3 +30,9 @@ services:
         class: Lighthouse\CoreBundle\Document\InvoiceProductRepository
         arguments:
             - LighthouseCoreBundle:InvoiceProduct
+
+    lighthouse.core.document.repository.trial_balance:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\TrialBalanceRepository
+        arguments:
+            - LighthouseCoreBundle:TrialBalance
