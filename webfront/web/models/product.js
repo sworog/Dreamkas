@@ -5,16 +5,9 @@ define(
     function(BaseModel) {
         return BaseModel.extend({
             modelName: "product",
-            url: function() {
-                var url;
-                if (this.id){
-                    url = baseApiUrl + '/products/' + this.id + '.json';
-                } else {
-                    url = baseApiUrl + '/products.json'
-                }
-                return url;
-            },
+            urlRoot: baseApiUrl + '/products',
             defaults: {
+                amount: 0,
                 retailPricePreference: 'retailMarkup'
             },
             saveFields: [

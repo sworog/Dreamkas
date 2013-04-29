@@ -92,7 +92,7 @@ define(
 
                     this.productModel.save(formData, {
                         success: function(){
-                            router.navigate('/product/list', {
+                            router.navigate(block.productId ? '/product/' + block.productId : '/products', {
                                 trigger: true
                             });
                         },

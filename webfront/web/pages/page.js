@@ -1,20 +1,27 @@
 define(function() {
     
-    var pageBlocks = [];
-    
-    var Page = Backbone.View.extend({
+    var pageBlocks = [],
+        $page = $('#page');
+
+    return {
         open: function(pageTpl, data) {
             var page = this;
+            $page.addClass('page_reloading');
             page.clear();
             require(['tpl!' + pageTpl], function(pageTpl) {
-                page.$el
+                $page
                     .html(pageTpl(data))
-                    .initBlocks();
+                    .initBlocks()
+                    .removeClass('page_reloading');
             })
         },
         clear: function() {
-            var page = this;
-            page.removeBlocks();
+            _.each(pageBlocks, function(block) {
+                block.stopListening();
+                block.$el.remove();
+            });
+
+            pageBlocks = [];
         },
         addBlocks: function(blocks) {
             pageBlocks = pageBlocks.concat(blocks);
@@ -33,9 +40,5 @@ define(function() {
         findBlocks: function(selector) {
             return selector ? _.where(pageBlocks, selector) : pageBlocks;
         }
-    });
-
-    return new Page({
-        el: '#page'
-    })
+    }
 });

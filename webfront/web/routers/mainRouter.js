@@ -1,19 +1,18 @@
 define(
     [
         '/pages/page.js',
-        './invoiceRoutes.js',
-        './productRoutes.js'
+        './invoice.js',
+        './balance.js',
+        './product.js'
     ],
-    function(page, invoiceRoutes, productRoutes) {
-
-        var routes = _.extend({
-            "": "dashboard",
-            "/": "dashboard",
-            "dashboard": "dashboard"
-        }, invoiceRoutes, productRoutes);
+    function(page) {
 
         var Router = Backbone.Router.extend({
-            routes: routes,
+            routes: {
+                "": "dashboard",
+                "/": "dashboard",
+                "dashboard": "dashboard"
+            },
             dashboard: function() {
                 page.open('/pages/dashboard.html');
             }

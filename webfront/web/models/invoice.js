@@ -5,9 +5,7 @@ define(
     function(baseModel) {
     return baseModel.extend({
         modelName: 'invoice',
-        url: function(){
-            return baseApiUrl + '/invoices/' + this.id + '.json'
-        },
+        urlRoot: baseApiUrl + '/invoices',
 
         dateFormat: 'dd.mm.yy',
         datePrintFormat: "dd.mm.yyyy",

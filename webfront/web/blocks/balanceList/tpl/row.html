@@ -1,0 +1,21 @@
+<tr>
+    <td>
+        <span name="sku"><%= product.sku %></span>
+    </td>
+    <td>
+        <span name="name"><%= product.name %></span>
+    </td>
+    <td>
+        <span name="vendor"><%= product.vendor %></span>
+    </td>
+    <td>
+        <span name="vendorCountry"><%= product.vendorCountry %></span>
+    </td>
+    <td>
+        <span name="purchasePrice"><%= LH.helpers.formatPrice(product.purchasePrice) %></span>
+    </td>
+    <td>
+        <span name="amount"><%= product.amount %></span>
+        <span name="units"><%= LH.helpers.units(product.units, 'smallShort') %></span>
+    </td>
+</tr>

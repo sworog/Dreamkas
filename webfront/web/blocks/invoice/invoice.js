@@ -8,7 +8,7 @@ define(
         './addForm.js',
         './tpl/tpl.js'
     ],
-    function(block, invoiceModel, invoiceProduct, invoiceProductsCollection, utils, addForm, templates) {
+    function(block, invoiceModel, invoiceProduct, invoiceProductCollection, utils, addForm, templates) {
         return block.extend({
             utils: utils,
             tpl: templates,
@@ -28,7 +28,7 @@ define(
                     el: block.el.getElementsByClassName('invoice__addForm')
                 });
 
-                block.invoiceProductsCollection = new invoiceProductsCollection({
+                block.invoiceProductCollection = new invoiceProductCollection({
                     invoiceId: block.invoiceId
                 });
 
@@ -37,7 +37,7 @@ define(
                 });
 
                 block.invoiceModel.fetch();
-                block.invoiceProductsCollection.fetch();
+                block.invoiceProductCollection.fetch();
 
                 block
                     .listenTo(block.invoiceModel, 'sync change', function() {
@@ -50,7 +50,7 @@ define(
                     });
 
                 block
-                    .listenTo(block.invoiceProductsCollection, {
+                    .listenTo(block.invoiceProductCollection, {
                         sync: function() {
                             block.renderTable();
                         },
@@ -135,7 +135,7 @@ define(
                     var block = this,
                         data = Backbone.Syphon.serialize(e.target),
                         invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
-                        invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId);
+                        invoiceProduct = block.invoiceProductCollection.get(invoiceProductId);
 
                     block.removeInlineErrors();
 
@@ -230,7 +230,7 @@ define(
             },
             removeInvoiceProduct: function(invoiceProductId) {
                 var block = this,
-                    invoiceProductModel = block.invoiceProductsCollection.get(invoiceProductId);
+                    invoiceProductModel = block.invoiceProductCollection.get(invoiceProductId);
 
                 invoiceProductModel.destroy({
                     wait: true
@@ -338,7 +338,7 @@ define(
                         block.addForm.showErrors(JSON.parse(res.responseText));
                     },
                     success: function(model) {
-                        block.invoiceProductsCollection.push(model);
+                        block.invoiceProductCollection.push(model);
                         block.addForm.clear();
                     }
                 });

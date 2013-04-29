@@ -4,10 +4,6 @@
     border-collapse: collapse;
 }
 
-.table thead{
-    background: #f4f4f4;
-}
-
 .table tbody{
     border: none !important;
 }
@@ -17,7 +13,7 @@
 }
 
 .table td, .table th{
-    padding: 8px 10px;
+    padding: 12px;
 }
 
 .table td{
@@ -28,60 +24,18 @@
 
 .table th{
     border-bottom: 1px solid #ddd;
-    text-align: center;
+    text-align: left;
 }
 
 .table tbody tr:hover{
     background: #fffee2 !important;
 }
 
-.table__row_added{
-    background-color: #e3f7e3 !important;
+.table_loading tbody{
+    visibility: hidden;
 }
 
-.table__row_updated{
-    background-color: #ddefff !important;
-}
-
-.table__header_sortable{
-    cursor: pointer !important;
-    white-space: nowrap;
-}
-
-.table .dataGrid__sorted{
-    background-color: #f2f9fe;
-}
-
-.table tbody tr:nth-child(even) .dataGrid__sorted {
-    background-color: #e8f4fe;
-}
-
-.table__header_sortable:after{
-    content: '';
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    position: relative;
-    top: 2px;
-    margin-left: 5px;
-    margin-right: -5px;
-    background-position: center center;
-    background-image: url("./br_upDown.png");
-    background-repeat: no-repeat;
-}
-
-.table__header_sorted{
-    background: #ddd;
-}
-
-.table__header_sortOrder_asc:after{
-    background-image: url("./br_up.png");
-}
-
-.table__header_sortOrder_desc:after{
-    background-image: url("./br_down.png");
-}
-
-.table__row_selected{
-    background: #f9e5e0 !important;
+.table_loading thead tr{
+    background: url("/img/preloader1.gif") fixed;
+    color: #fff;
 }

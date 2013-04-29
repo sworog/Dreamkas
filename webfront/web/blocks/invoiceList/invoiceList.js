@@ -2,21 +2,38 @@ define(
     [
         '/kit/block.js',
         '/collections/invoices.js',
-        'tpl!./invoiceList.html',
-        'tpl!./row.html'
+        './tpl/tpl.js'
     ],
-    function(block, invoices, main, row) {
+    function(block, invoiceCollection, tpl) {
         return block.extend({
-            initialize: function(){
+            tpl: tpl,
+            invoiceCollection: new invoiceCollection(),
+            initialize: function() {
                 var block = this;
 
+                block.listenTo(block.invoiceCollection, {
+                    reset: function(){
+                        block.renderTable();
+                        block.$table.removeClass('table_loading');
+                    },
+                    request: function(){
+                        block.$table.addClass('table_loading');
+                    }
+                });
+
                 block.render();
+
+                block.$table = block.$el.find('.invoiceList__table');
+
+                block.invoiceCollection.fetch();
             },
-            tpl:{
-                main: main,
-                row: row
-            },
-            collection: invoices
+            renderTable: function() {
+                var block = this;
+
+                block.$table.html(block.tpl.table({
+                    block: block
+                }));
+            }
         });
     }
 );

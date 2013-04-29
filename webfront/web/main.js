@@ -15,7 +15,7 @@ require(
                 helpers: helpers   
             };
 
-            $("body").on('click', 'a[href]', function(e) {
+            $("body").on('click', '[href]', function(e) {
                 e.preventDefault();
                 app.navigate($(this).attr('href'), {trigger: true});
             });
