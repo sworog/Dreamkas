@@ -101,10 +101,16 @@ class TrialBalance extends AbstractDocument
 
     /**
      * Основание
-     * @MongoDB\ReferenceOne(targetDocument="Invoice", simple=true)
+     * @MongoDB\ReferenceOne(
+     *      targetDocument="Invoice",
+     *      discriminatorField="reasonType",
+     *      discriminatorMap={
+     *          "invoice"="Lighthouse\CoreBundle\Document\Invoice"
+     *      }
+     * )
      * @var Invoice
      */
-    protected $invoice;
+    protected $reason;
 
     /**
      * @return array
@@ -123,7 +129,7 @@ class TrialBalance extends AbstractDocument
             'expenditureMoney' => $this->expenditureMoney,
             'unitValue' => $this->unitValue,
             'product' => $this->product,
-            'invoice' => $this->invoice,
+            'reason' => $this->reason,
         );
 
     }
