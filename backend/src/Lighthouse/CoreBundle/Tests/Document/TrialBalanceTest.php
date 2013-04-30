@@ -75,26 +75,22 @@ class TrialBalanceTest extends WebTestCase
                 array(
                     'beginningBalance' => 35,
                     'endingBalance' => 43,
-                    'receipts' => 8,
-                    'expenditure' => 0,
+                    'quantity' => 8,
                     'beginningBalanceMoney' => 3500,
                     'endingBalanceMoney' => 4300,
-                    'receiptsMoney' => 800,
-                    'expenditureMoney' => 0,
-                    'unitValue' => 100
+                    'totalPrice' => 800,
+                    'price' => 100
                 )
             ),
             'trialBalance data expenditure' => array(
                 array(
                     'beginningBalance' => 55,
                     'endingBalance' => 52,
-                    'receipts' => 0,
-                    'expenditure' => 3,
+                    'quantity' => -3,
                     'beginningBalanceMoney' => 3500,
                     'endingBalanceMoney' => 4300,
-                    'receiptsMoney' => 800,
-                    'expenditureMoney' => 0,
-                    'unitValue' => 100
+                    'totalPrice' => 800,
+                    'price' => 100
                 )
             )
         );
