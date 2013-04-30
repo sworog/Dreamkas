@@ -168,5 +168,15 @@ class TrialBalanceTest extends WebTestCase
         $this->assertEquals(9, $endTrialBalance->quantity);
         $this->assertEquals(899.91, $endTrialBalance->totalPrice->getCount());
         $this->assertEquals(99.99, $endTrialBalance->price->getCount());
+
+        $invoiceProduct->quantity = 10;
+        $manager->persist($invoiceProduct);
+        $manager->flush();
+
+        $trialBalance = $trialBalanceRepository->findOneByProduct($product);
+
+        $this->assertEquals(10, $trialBalance->quantity);
+        $this->assertEquals(999.9, $trialBalance->totalPrice->getCount());
+        $this->assertEquals(99.99, $trialBalance->price->getCount());
     }
 }
