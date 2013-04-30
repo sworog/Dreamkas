@@ -100,7 +100,7 @@ class TrialBalanceTest extends WebTestCase
         );
     }
 
-    public function testCreateTrialBalanceByInvoiceProductCreate()
+    public function testCreateTrialBalanceByInvoiceProductCRUD()
     {
         $this->clearMongoDb();
 
@@ -178,5 +178,11 @@ class TrialBalanceTest extends WebTestCase
         $this->assertEquals(10, $trialBalance->quantity);
         $this->assertEquals(999.9, $trialBalance->totalPrice->getCount());
         $this->assertEquals(99.99, $trialBalance->price->getCount());
+
+        $manager->remove($invoiceProduct);
+        $manager->flush();
+
+        $trialBalance = $trialBalanceRepository->findOneByProduct($product);
+        $this->assertTrue(null === $trialBalance);
     }
 }
