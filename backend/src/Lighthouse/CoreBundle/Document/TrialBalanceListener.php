@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
+use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\InvoiceProduct;
 
@@ -28,6 +29,7 @@ class TrialBalanceListener
         /* @var DocumentManager $dm */
         $dm = $eventArgs->getDocumentManager();
         $uow = $dm->getUnitOfWork();
+
         foreach ($uow->getScheduledDocumentInsertions() as $document) {
             if ($document instanceof InvoiceProduct) {
                 $trialBalance = new TrialBalance();
@@ -39,8 +41,7 @@ class TrialBalanceListener
 
                 $dm->persist($trialBalance);
 
-                $metadata = $dm->getClassMetadata(get_class($trialBalance));
-                $uow->computeChangeSet($metadata, $trialBalance);
+                $this->computeChangeSet($dm, $uow, $trialBalance);
             }
         }
 
@@ -54,8 +55,7 @@ class TrialBalanceListener
 
                 $dm->persist($trialBalance);
 
-                $metadata = $dm->getClassMetadata(get_class($trialBalance));
-                $uow->computeChangeSet($metadata, $trialBalance);
+                $this->computeChangeSet($dm, $uow, $trialBalance);
             }
         }
 
@@ -64,9 +64,19 @@ class TrialBalanceListener
                 $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
                 $dm->remove($trialBalance);
 
-                $metadata = $dm->getClassMetadata(get_class($trialBalance));
-                $uow->computeChangeSet($metadata, $trialBalance);
+                $this->computeChangeSet($dm, $uow, $trialBalance);
             }
         }
+    }
+
+    /**
+     * @param DocumentManager $dm
+     * @param UnitOfWork $uow
+     * @param AbstractDocument $document
+     */
+    protected function computeChangeSet(DocumentManager $dm, UnitOfWork $uow, AbstractDocument $document)
+    {
+        $metadata = $dm->getClassMetadata(get_class($document));
+        $uow->computeChangeSet($metadata, $document);
     }
 }
