@@ -4,20 +4,20 @@ define(
         '/collections/products.js',
         './tpl/tpl.js'
     ],
-    function(block, productCollection, tpl) {
-        return block.extend({
+    function(Block, ProductCollection, tpl) {
+        return Block.extend({
             tpl: tpl,
-            productCollection: new productCollection(),
+            productCollection: new ProductCollection(),
             initialize: function() {
                 var block = this;
 
                 block.listenTo(block.productCollection, {
                     reset: function(){
                         block.renderTable();
-                        block.$table.removeClass('table_loading');
+                        block.$table.find('thead').removeClass('preloader');
                     },
                     request: function(){
-                        block.$table.addClass('table_loading');
+                        block.$table.find('thead').addClass('preloader');
                     }
                 });
 

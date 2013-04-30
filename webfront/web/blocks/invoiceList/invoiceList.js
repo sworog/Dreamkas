@@ -4,20 +4,20 @@ define(
         '/collections/invoices.js',
         './tpl/tpl.js'
     ],
-    function(block, invoiceCollection, tpl) {
-        return block.extend({
+    function(Block, InvoiceCollection, tpl) {
+        return Block.extend({
             tpl: tpl,
-            invoiceCollection: new invoiceCollection(),
+            invoiceCollection: new InvoiceCollection(),
             initialize: function() {
                 var block = this;
 
                 block.listenTo(block.invoiceCollection, {
                     reset: function(){
                         block.renderTable();
-                        block.$table.removeClass('table_loading');
+                        block.$table.find('thead').removeClass('preloader');
                     },
                     request: function(){
-                        block.$table.addClass('table_loading');
+                        block.$table.find('thead').addClass('preloader');
                     }
                 });
 

@@ -1,26 +1,13 @@
-define(
-    [
-        'tpl!./invoice.html',
-        'tpl!./removeConfirm.html',
-        'tpl!./head.html',
-        'tpl!./table.html',
-        'tpl!./row.html',
-        'tpl!./footer.html',
-        'tpl!./dataInput.html',
-        'tpl!./dataInputControls.html',
-        'tpl!./dataInputAutocomplete.html'
-    ],
-    function(main, removeConfirm, head, table, row, footer, dataInput, dataInputControls, dataInputAutocomplete) {
-        return {
-            main: main,
-            removeConfirm: removeConfirm,
-            head: head,
-            table: table,
-            row: row,
-            footer: footer,
-            dataInput: dataInput,
-            dataInputControls: dataInputControls,
-            dataInputAutocomplete: dataInputAutocomplete
-        }
+define(function(require) {
+    return {
+        main: require('tpl!./invoice.html'),
+        removeConfirm: require('tpl!./removeConfirm.html'),
+        head: require('tpl!./head.html'),
+        table: require('tpl!./table.html'),
+        row: require('tpl!./row.html'),
+        footer: require('tpl!./footer.html'),
+        dataInput: require('tpl!./dataInput.html'),
+        dataInputControls: require('tpl!./dataInputControls.html'),
+        dataInputAutocomplete: require('tpl!./dataInputAutocomplete.html')
     }
-);
+});

@@ -8,12 +8,14 @@ define(
         './addForm.js',
         './tpl/tpl.js'
     ],
-    function(block, invoiceModel, invoiceProduct, invoiceProductCollection, utils, addForm, templates) {
-        return block.extend({
+    function(Block, InvoiceModel, InvoiceProduct, InvoiceProductCollection, utils, AddForm, tpl) {
+        return Block.extend({
+            defaults: {
+                editMode: false,
+                dataEditing: false,
+            },
             utils: utils,
-            tpl: templates,
-            editMode: false,
-            dataEditing: false,
+            tpl: tpl,
 
             initialize: function() {
                 var block = this;
@@ -24,15 +26,15 @@ define(
                 block.$table = block.$el.find('.invoice__table');
                 block.$footer = block.$el.find('.invoice__footer');
 
-                block.addForm = new addForm({
+                block.addForm = new AddForm({
                     el: block.el.getElementsByClassName('invoice__addForm')
                 });
 
-                block.invoiceProductCollection = new invoiceProductCollection({
+                block.invoiceProductCollection = new InvoiceProductCollection({
                     invoiceId: block.invoiceId
                 });
 
-                block.invoiceModel = new invoiceModel({
+                block.invoiceModel = new InvoiceModel({
                     id: block.invoiceId
                 });
 
@@ -135,32 +137,40 @@ define(
                     var block = this,
                         data = Backbone.Syphon.serialize(e.target),
                         invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
-                        invoiceProduct = block.invoiceProductCollection.get(invoiceProductId);
+                        invoiceProduct = block.invoiceProductCollection.get(invoiceProductId),
+                        $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();
+                    $submitButton.addClass('preloader');
 
                     invoiceProduct.save(data, {
                         success: function() {
                             block.set('dataEditing', false);
+                            $submitButton.removeClass('preloader');
                         },
                         error: function(data, res) {
                             block.showInlineErrors(JSON.parse(res.responseText));
+                            $submitButton.removeClass('preloader');
                         }
                     });
                 },
                 'submit .invoice__head .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = Backbone.Syphon.serialize(e.target);
+                        data = Backbone.Syphon.serialize(e.target),
+                        $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();
+                    $submitButton.addClass('preloader');
 
                     block.invoiceModel.save(data, {
                         success: function() {
                             block.set('dataEditing', false);
+                            $submitButton.removeClass('preloader');
                         },
                         error: function(data, res) {
                             block.showInlineErrors(JSON.parse(res.responseText));
+                            $submitButton.removeClass('preloader');
                         },
                         wait: true
                     });
@@ -327,7 +337,7 @@ define(
             },
             addProduct: function(productData) {
                 var block = this,
-                    newProduct = new invoiceProduct({
+                    newProduct = new InvoiceProduct({
                         invoice: {
                             id: block.invoiceId
                         }

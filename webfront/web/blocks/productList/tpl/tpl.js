@@ -1,14 +1,7 @@
-define(
-    [
-        'tpl!./productList.html',
-        'tpl!./table.html',
-        'tpl!./row.html'
-    ],
-    function(productList, table, row) {
-        return {
-            main: productList,
-            table: table,
-            row: row
-        }
+define(function(require) {
+    return {
+        main: require('tpl!./productList.html'),
+        table: require('tpl!./table.html'),
+        row: require('tpl!./row.html')
     }
-);
+});

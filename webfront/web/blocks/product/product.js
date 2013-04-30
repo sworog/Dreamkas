@@ -3,24 +3,30 @@ define(
         '/kit/block.js',
         '/models/product.js',
         '/helpers/helpers.js',
-        './templates.js'
+        './tpl/tpl.js'
     ],
-    function(block, productModel, utils, templates) {
-        return block.extend({
+    function(Block, ProductModel, utils, tpl) {
+        return Block.extend({
+            defaults: {
+                productId: null
+            },
             utils: utils,
-            tpl: templates,
+            tpl: tpl,
 
             initialize: function() {
                 var block = this;
 
-                block.productModel = new productModel({
+                block.productModel = new ProductModel({
                     id: block.productId
                 });
 
-                block.productModel.fetch();
+                block.listenTo(block.productModel, {
+                    sync: function(){
+                        block.render();
+                    }
+                });
 
-                block
-                    .listenTo(block.productModel, 'sync', this.render);
+                block.productModel.fetch();
             }
         })
     }

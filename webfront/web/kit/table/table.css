@@ -30,12 +30,3 @@
 .table tbody tr:hover{
     background: #fffee2 !important;
 }
-
-.table_loading tbody{
-    visibility: hidden;
-}
-
-.table_loading thead tr{
-    background: url("/img/preloader1.gif") fixed;
-    color: #fff;
-}

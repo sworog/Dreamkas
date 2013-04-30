@@ -2,15 +2,33 @@ define(
     [
         '/kit/block.js'
     ],
-    function(block) {
-    return block.extend({
+    function(Block) {
+    return Block.extend({
         initialize: function(){
+            Block.prototype.initialize.apply(this, arguments);
+
             var block = this;
+            block.$submitButton = block.$el.find('[type="submit"]').closest('.button');
+        },
+        events: {
+            'submit': function(e){
+                var block = this;
+                e.preventDefault();
+                block.$submitButton.addClass('preloader');
+                block.removeErrors();
+            }
+        },
+        render: function(){
+            Block.prototype.render.apply(this, arguments);
+
+            var block = this;
+            block.$submitButton = block.$el.find('[type="submit"]').closest('.button');
         },
         showErrors: function(data) {
             var block = this;
 
-            this.removeErrors();
+            block.removeErrors();
+            block.$submitButton.removeClass('preloader');
 
             _.each(data.children, function(data, field) {
                 var fieldErrors;
@@ -23,12 +41,16 @@ define(
             });
         },
         removeErrors: function(){
-            this.$el.find("input, textarea, select").closest(".form__field").removeAttr("lh_field_error");
+            var block = this;
+            block.$el.find("input, textarea, select").closest(".form__field").removeAttr("lh_field_error");
         },
         clear: function() {
-            this.removeErrors();
+            var block = this;
 
-            this.$el.find(':input').each(function() {
+            block.removeErrors();
+            block.$submitButton.removeClass('preloader');
+
+            block.$el.find(':input').each(function() {
                 switch(this.type) {
                     case 'password':
                     case 'select-multiple':

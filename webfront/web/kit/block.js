@@ -8,7 +8,8 @@ define(
             constructor: function(opt) {
                 var block = this;
 
-                block.set(_.extend({}, block.defaults, opt));
+                _.extend(block, block.defaults, opt);
+
                 block.set('initialized', true);
 
                 page.addBlocks([block]);
@@ -65,7 +66,7 @@ define(
                     value = setValue;
                 }
 
-                if (_.isObject(value) && !_.isElement(value)) {
+                if (_.isObject(value) && !_.isElement(value) && !_.isArray(value)) {
                     _.each(value, function(value, pathPart) {
                         block.set(path + '.' + pathPart, value, extra);
                     });

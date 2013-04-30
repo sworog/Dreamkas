@@ -1,0 +1,5 @@
+.preloader{
+    background-image: url("/img/preloader1.gif") !important;
+    background-attachment: fixed;
+    color: #f4f4f4 !important;
+}

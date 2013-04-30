@@ -4,22 +4,20 @@ define(
         '/models/invoice.js',
         '/helpers/helpers.js',
         '/routers/mainRouter.js',
-        'tpl!./invoiceForm.html'
+        './tpl/tpl.js'
     ],
-    function(Form, invoiceModel, utils, router, mainTpl) {
+    function(Form, InvoiceModel, utils, router, tpl) {
         return Form.extend({
             defaults: {
                 invoiceId: null
             },
-            tpl: {
-                main: mainTpl
-            },
+            tpl: tpl,
 
             initialize: function() {
                 var block = this,
                     currentTime = false;
 
-                block.invoiceModel = new invoiceModel({
+                block.invoiceModel = new InvoiceModel({
                     id: block.invoiceId
                 });
 

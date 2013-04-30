@@ -4,32 +4,30 @@ define(
         '/models/product.js',
         '/helpers/helpers.js',
         '/routers/mainRouter.js',
-        'tpl!./productForm.html'
+        './tpl/tpl.js'
     ],
-    function(Form, productModel, utils, router, mainTpl) {
+    function(Form, ProductModel, utils, router, tpl) {
         return Form.extend({
             defaults: {
                 defaultInputLinkText: 'Введите значение',
                 productId: null
             },
-            tpl: {
-                main: mainTpl
-            },
+            tpl: tpl,
 
             initialize: function() {
                 var block = this;
 
-                this.productModel = new productModel({
-                    id: this.productId
+                block.productModel = new ProductModel({
+                    id: block.productId
                 });
 
-                if (this.productId){
-                    this.productModel.fetch();
+                if (block.productId){
+                    block.productModel.fetch();
                 } else {
-                    this.render();
+                    block.render();
                 }
 
-                this.listenTo(this.productModel, {
+                block.listenTo(block.productModel, {
                     sync: function(){
                         block.render();
                     }
@@ -38,16 +36,18 @@ define(
             render: function(){
                 Form.prototype.render.apply(this, arguments);
 
-                this.$retailPricePreferenceInput = this.$el.find('[name="retailPricePreference"]');
-                this.$retailPriceInput = this.$el.find('[name="retailPrice"]');
-                this.$retailMarkupInput = this.$el.find('[name="retailMarkup"]');
-                this.$purchasePriceInput = this.$el.find('[name="purchasePrice"]');
+                var block = this;
 
-                this.$retailPriceLink = this.$retailPriceInput.next('.productForm__inputLink');
-                this.$retailMarkupLink = this.$retailMarkupInput.next('.productForm__inputLink');
+                block.$retailPricePreferenceInput = block.$el.find('[name="retailPricePreference"]');
+                block.$retailPriceInput = block.$el.find('[name="retailPrice"]');
+                block.$retailMarkupInput = block.$el.find('[name="retailMarkup"]');
+                block.$purchasePriceInput = block.$el.find('[name="purchasePrice"]');
 
-                this.renderRetailMarkupLink();
-                this.renderRetailPriceLink();
+                block.$retailPriceLink = block.$retailPriceInput.next('.productForm__inputLink');
+                block.$retailMarkupLink = block.$retailMarkupInput.next('.productForm__inputLink');
+
+                block.renderRetailMarkupLink();
+                block.renderRetailPriceLink();
             },
             events: {
                 'click .productForm__inputLink': function(e) {
