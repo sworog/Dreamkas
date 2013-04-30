@@ -966,7 +966,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         Assert::assertResponseCode(200, $this->client);
         Assert::assertJsonPathEquals(11, 'amount', $productResponse);
-        Assert::assertNotJsonHasPath('lastPurchasePrice', $productResponse);
+        Assert::assertJsonPathEquals($productsData[2]['price'], 'lastPurchasePrice', $productResponse);
 
         $invoiceResponse = $this->clientJsonRequest(
             $this->client,
@@ -1020,6 +1020,48 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertResponseCode(204, $this->client);
 
         $this->assertProductTotals($productId, 0, null);
+    }
+
+    public function testLastPurchasePriceChangeOnInvoiceProductUpdate()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+
+        $invoiceId = $this->createInvoice();
+
+        $invoiceProducts = $this->createProducts($productId, $invoiceId);
+
+        $this->assertProductTotals($productId, $invoiceProducts[2]['productAmount'], $invoiceProducts[2]['price']);
+        $newInvoiceProductData = $invoiceProducts[1];
+        $newInvoiceProductData['price'] = 13.01;
+        unset($newInvoiceProductData['productAmount'], $newInvoiceProductData['id']);
+        $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[1]['id'] . '.json',
+            array('invoiceProduct' => $newInvoiceProductData)
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->assertProductTotals($productId, 16, $invoiceProducts[2]['price']);
+
+        $newProductId = $this->createProduct('NEW');
+        $newInvoiceProductDataNewProduct = $invoiceProducts[2];
+        $newInvoiceProductDataNewProduct['product'] = $newProductId;
+        unset($newInvoiceProductDataNewProduct['productAmount'], $newInvoiceProductDataNewProduct['id']);
+        $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[2]['id'] . '.json',
+            array('invoiceProduct' => $newInvoiceProductDataNewProduct)
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->assertProductTotals($productId, 15, $newInvoiceProductData['price']);
+        $this->assertProductTotals($newProductId, 1, $newInvoiceProductDataNewProduct['price']);
     }
 
     /**

@@ -56,7 +56,6 @@ class InvoiceProductListener
 
         if ($document instanceof InvoiceProduct) {
             $document->product->amount = $document->product->amount + $document->quantity;
-            $document->product->lastPurchasePrice = new Money($document->price);
         }
     }
 
@@ -120,18 +119,15 @@ class InvoiceProductListener
             $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $invoiceProduct->quantity;
 
             $oldProduct->amount = $oldProduct->amount - $oldQuantity;
-            $oldProduct->lastPurchasePrice = null;
             $this->computeChangeSet($dm, $oldProduct);
 
             $newProduct->amount = $newProduct->amount + $newQuantity;
-            $newProduct->lastPurchasePrice = new Money($invoiceProduct->price);
             $this->computeChangeSet($dm, $newProduct);
         } else {
 
             $quantityDiff = $this->computeDiff($changeSet, 'quantity');
 
             $invoiceProduct->product->amount = $invoiceProduct->product->amount + $quantityDiff;
-            $invoiceProduct->product->lastPurchasePrice = new Money($invoiceProduct->price);
             $this->computeChangeSet($dm, $invoiceProduct->product);
         }
     }
@@ -173,13 +169,6 @@ class InvoiceProductListener
 
         if ($document instanceof InvoiceProduct) {
             $document->product->amount = $document->product->amount - $document->quantity;
-            $previousTrialBalance = $this->trialBalanceRepository->findOneByProduct($document->product, $document);
-            $product = $document->product;
-            if (null !== $previousTrialBalance) {
-                $product->lastPurchasePrice = $previousTrialBalance->price;
-            } else {
-                $product->lastPurchasePrice = null;
-            }
         }
     }
 

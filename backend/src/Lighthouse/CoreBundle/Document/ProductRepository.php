@@ -16,4 +16,21 @@ class ProductRepository extends DocumentRepository
     {
         return $this->findBy(array($property => new \MongoRegex("/".preg_quote($entry, '/')."/i")));
     }
+
+    /**
+     * @param Product $product
+     * @param Money $purchasePrice
+     */
+    public function updateLastPurchasePrice(Product $product, Money $purchasePrice = null)
+    {
+        $lastPurchasePrice = (null !== $purchasePrice) ? $purchasePrice->getCount() : null;
+        $query = $this
+            ->createQueryBuilder()
+            ->findAndUpdate()
+            ->returnNew(true)
+            ->field('id')->equals($product->id)
+            ->field('lastPurchasePrice')->set($lastPurchasePrice, true);
+
+        $query->getQuery()->execute();
+    }
 }
