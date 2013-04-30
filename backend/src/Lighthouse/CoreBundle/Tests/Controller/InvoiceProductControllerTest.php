@@ -979,6 +979,49 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(117.19, 'sumTotal', $invoiceResponse);
     }
 
+    public function testLastPurchasePriceChangeOnInvoiceProductDelete()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+
+        $invoiceId = $this->createInvoice();
+
+        $invoiceProducts = $this->createProducts($productId, $invoiceId);
+
+        $this->assertProductTotals($productId, $invoiceProducts[2]['productAmount'], $invoiceProducts[2]['price']);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[2]['id']
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $this->assertProductTotals($productId, 15, $invoiceProducts[1]['price']);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[0]['id']
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $this->assertProductTotals($productId, 5, $invoiceProducts[1]['price']);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[1]['id']
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $this->assertProductTotals($productId, 0, null);
+    }
+
     /**
      * @return string
      */

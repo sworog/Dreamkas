@@ -31,11 +31,19 @@ class TrialBalanceRepository extends DocumentRepository
      * @param Product $product
      * @return TrialBalance|null
      */
-    public function findOneByProduct(Product $product)
+    public function findOneByProduct(Product $product, InvoiceProduct $invoiceProduct = null)
     {
         $criteria = array('product' => $product->id);
+        if (null !== $invoiceProduct) {
+            $criteria['reason.$id'] = array('$ne' => new \MongoId($invoiceProduct->id));
+            //$criteria['reason.$ref'] = array('$ne' => 'InvoiceProduct');
+        }
         // Ugly hack to force document refresh
         $hints = array(Query::HINT_REFRESH => true);
-        return $this->uow->getDocumentPersister($this->documentName)->load($criteria, null, $hints);
+        $sort = array(
+            'createdDate' => -1,
+            '_id' => -1,
+        );
+        return $this->uow->getDocumentPersister($this->documentName)->load($criteria, null, $hints, 0, $sort);
     }
 }

@@ -25,18 +25,29 @@ class InvoiceProductListener
     protected $invoiceRepository;
 
     /**
+     * @var TrialBalanceRepository
+     */
+    protected $trialBalanceRepository;
+
+    /**
      * @DI\InjectParams({
      *     "productRepository"=@DI\Inject("lighthouse.core.document.repository.product"),
-     *     "invoiceRepository"=@DI\Inject("lighthouse.core.document.repository.invoice")
+     *     "invoiceRepository"=@DI\Inject("lighthouse.core.document.repository.invoice"),
+     *     "trialBalanceRepository"=@DI\Inject("lighthouse.core.document.repository.trial_balance")
      * })
      *
      * @param ProductRepository $productRepository
      * @param InvoiceRepository $invoiceRepository
+     * @param InvoiceRepository $trialBalanceRepository
      */
-    public function __construct(ProductRepository $productRepository, InvoiceRepository $invoiceRepository)
-    {
+    public function __construct(
+        ProductRepository $productRepository,
+        InvoiceRepository $invoiceRepository,
+        TrialBalanceRepository $trialBalanceRepository
+    ) {
         $this->productRepository = $productRepository;
         $this->invoiceRepository = $invoiceRepository;
+        $this->trialBalanceRepository = $trialBalanceRepository;
     }
 
     public function prePersist(LifecycleEventArgs $eventArgs)
@@ -162,7 +173,13 @@ class InvoiceProductListener
 
         if ($document instanceof InvoiceProduct) {
             $document->product->amount = $document->product->amount - $document->quantity;
-            $document->product->lastPurchasePrice = null;
+            $previousTrialBalance = $this->trialBalanceRepository->findOneByProduct($document->product, $document);
+            $product = $document->product;
+            if (null !== $previousTrialBalance) {
+                $product->lastPurchasePrice = $previousTrialBalance->price;
+            } else {
+                $product->lastPurchasePrice = null;
+            }
         }
     }
 

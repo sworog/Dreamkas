@@ -79,6 +79,12 @@ class TrialBalance extends AbstractDocument
     protected $price;
 
     /**
+     * @MongoDB\Date
+     * @var \DateTime
+     */
+    protected $createdDate;
+
+    /**
      * @MongoDB\ReferenceOne(targetDocument="Product", simple=true, cascade={"persist"})
      * @var Product
      */
@@ -110,6 +116,7 @@ class TrialBalance extends AbstractDocument
             'quantity' => $this->receipts,
             'totalPrice' => $this->receiptsMoney,
             'price' => $this->unitValue,
+            'createdDate' => $this->createdDate,
             'product' => $this->product,
             'reason' => $this->reason,
         );

@@ -38,6 +38,7 @@ class TrialBalanceListener
                 $trialBalance->quantity = $document->quantity;
                 $trialBalance->product = $document->product;
                 $trialBalance->reason = $document;
+                $trialBalance->createdDate = $document->invoice->acceptanceDate;
 
                 $dm->persist($trialBalance);
 
