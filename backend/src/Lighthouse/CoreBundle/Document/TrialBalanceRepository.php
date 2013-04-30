@@ -63,4 +63,58 @@ class TrialBalanceRepository extends DocumentRepository
         );
         return $this->uow->getDocumentPersister($this->documentName)->load($criteria, null, $hints, 0, $sort);
     }
+
+    /**
+     * @return array
+     */
+    public function calculateAveragePurchasePrice()
+    {
+        $now = new \DateTime();
+        $now->sub(new \DateInterval('P30D'));
+        $date = new \MongoDate($now->getTimestamp());
+
+        $query = $this
+            ->createQueryBuilder()
+            ->map(
+                new \MongoCode(
+                    "function() {
+                        emit(
+                            this.product,
+                            {
+                                totalPrice: this.totalPrice,
+                                quantity: this.quantity
+                            }
+                        )
+                    }"
+                )
+            )
+            ->reduce(
+                new \MongoCode(
+                    "function(productId, obj) {
+                        var reducedObj = {totalPrice: 0, quantity: 0}
+                        for (var item in obj) {
+                            reducedObj.totalPrice += obj[item].totalPrice;
+                            reducedObj.quantity += obj[item].quantity;
+                        }
+                        return reducedObj;
+                    }"
+                )
+            )
+            ->finalize(
+                new \MongoCode(
+                    "function(productId, obj) {
+                        if (obj.quantity > 0) {
+                            obj.averagePrice = obj.totalPrice / obj.quantity;
+                        } else {
+                            obj.averagePrice = null;
+                        }
+                        return obj;
+                    }"
+                )
+            )
+            ->field('dateCreated')->gt(new \MongoDate(1))
+            ->out(array('inline' => true));
+
+        return $query->getQuery()->execute();
+    }
 }

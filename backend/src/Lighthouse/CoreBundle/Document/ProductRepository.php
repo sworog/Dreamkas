@@ -33,4 +33,43 @@ class ProductRepository extends DocumentRepository
 
         $query->getQuery()->execute();
     }
+
+    /**
+     * @param string $productId
+     * @param int $averagePurchasePrice
+     */
+    public function updateAveragePurchasePrice($productId, $averagePurchasePrice)
+    {
+        $query = $this
+            ->createQueryBuilder()
+            ->findAndUpdate()
+            //->returnNew(true)
+            ->field('id')->equals($productId)
+            ->field('averagePurchasePrice')->set($averagePurchasePrice, true)
+            ->field('averagePurchasePriceNotCalculate')->unsetField();
+
+        $query->getQuery()->execute();
+    }
+
+    public function setAllAveragePurchasePriceToNotCalculate()
+    {
+        $query = $this->createQueryBuilder()
+            ->update()
+            ->multiple(true)
+            ->field('averagePurchasePriceNotCalculate')->set(true, true);
+
+        $query->getQuery()->execute();
+    }
+
+    public function resetAveragePurchasePriceNotCalculate()
+    {
+        $query = $this->createQueryBuilder()
+            ->update()
+            ->multiple(true)
+            ->field('averagePurchasePriceNotCalculate')->equals(true)
+            ->field('averagePurchasePrice')->set(null, true)
+            ->field('averagePurchasePriceNotCalculate')->unsetField();
+
+        $query->getQuery()->execute();
+    }
 }
