@@ -1170,6 +1170,38 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertProduct($productId, array('averagePurchasePrice' => null, 'lastPurchasePrice' => 23.33));
     }
 
+    public function testAveragePurchasePriceRounded()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+        $productId2 = $this->createProduct('2');
+
+        $invoiceId1 = $this->createInvoice(
+            array(
+                'sku' => '-3 days',
+                'acceptanceDate' => date('c', strtotime('-3 days'))
+            )
+        );
+
+        $invoiceIdOld = $this->createInvoice(
+            array(
+                'sku' => '-15 days',
+                'acceptanceDate' => date('c', strtotime('-15 days'))
+            )
+        );
+        $invoiceProductIdOld = $this->createInvoiceProduct($invoiceIdOld, $productId, 10, 23.33);
+
+        $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
+        $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67);
+
+        /* @var $averagePriceService AveragePriceService */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        $averagePriceService->recalculateAveragePrice();
+
+        $this->assertProduct($productId, array('averagePurchasePrice' => 24.67));
+    }
+
     public function testAveragePurchasePriceChangeOnInvoiceDateChange()
     {
         $this->clearMongoDb();
