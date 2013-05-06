@@ -18,6 +18,8 @@ use Lighthouse\CoreBundle\Types\Money;
  * @property Money  $totalPrice
  * @property Money  $price
  * @property DateTime $createdDate
+ * @property Product $product
+ * @property Reasonable $reason
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\TrialBalanceRepository"

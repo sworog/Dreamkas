@@ -89,7 +89,7 @@ class LastPurchasePriceListener
     }
 
     /**
-     * @param TrialBalance $trialBalance
+     * @param Product $product
      */
     public function addProductToUpdate(Product $product)
     {

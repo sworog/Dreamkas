@@ -1,6 +1,7 @@
 <?php
 
 namespace Lighthouse\CoreBundle\Controller;
+
 use FOS\RestBundle\Controller\FOSRestController;
 use Lighthouse\CoreBundle\Service\AveragePriceService;
 use Symfony\Component\Routing\Annotation\Route;
