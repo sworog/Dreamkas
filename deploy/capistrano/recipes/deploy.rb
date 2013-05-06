@@ -41,8 +41,7 @@ namespace :deploy do
             host_current_path = File.join(deploy_to_base, host, current_dir)
             host_releases_path = File.join(deploy_to_base, host, version_dir)
             releases = capture("ls -x #{host_releases_path}", :except => { :no_release => true }).split.sort
-            last_release = releases.length > 0 ? Time.parse(releases.last.sub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '\1-\2-\3 \4:\5:\6')) : nil;
-
+            last_release = releases.length > 0 ? Time.parse(releases.last.sub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '\1-\2-\3 \4:\5:\6 UTC')).getlocal : nil;
             {
                 :host => host,
                 :last_release => last_release,
@@ -115,3 +114,9 @@ namespace :deploy do
 end
 
 after "multistage:ensure", "deploy:init"
+
+after "deploy:update" do
+    capifony_pretty_print "--> Cleaning up old releases"
+    deploy:cleanup
+    capifony_puts_ok
+end
