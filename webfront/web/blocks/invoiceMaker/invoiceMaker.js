@@ -1,13 +1,14 @@
 define(
     [
+        '/kit/block.js',
         '/kit/form/form.js',
         '/models/invoice.js',
         '/helpers/helpers.js',
         '/routers/mainRouter.js',
         './tpl/tpl.js'
     ],
-    function(Form, InvoiceModel, utils, router, tpl) {
-        return Form.extend({
+    function(Block, Form, InvoiceModel, utils, router, tpl) {
+        return Block.extend({
             defaults: {
                 invoiceId: null
             },
@@ -53,10 +54,18 @@ define(
                             });
                         },
                         error: function(model, response){
-                            block.showErrors(JSON.parse(response.responseText));
+                            block.form.showErrors(JSON.parse(response.responseText));
                         }
                     });
                 }
+            },
+            render: function(){
+                Block.prototype.render.apply(this, arguments);
+                var block = this;
+
+                block.form = Form({
+                    el: block.el
+                });
             },
             datepicker: function(selector) {
                 var jqObj = this.$el.find(selector);
