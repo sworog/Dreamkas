@@ -56,6 +56,7 @@ class ProductRepository extends DocumentRepository
         $query = $this->createQueryBuilder()
             ->update()
             ->multiple(true)
+            ->field('averagePurchasePrice')->notEqual(null)
             ->field('averagePurchasePriceNotCalculate')->set(true, true);
 
         $query->getQuery()->execute();

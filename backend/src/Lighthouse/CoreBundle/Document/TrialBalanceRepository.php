@@ -69,12 +69,13 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function calculateAveragePurchasePrice()
     {
-        $now = new \DateTime();
-        $now->sub(new \DateInterval('P30D'));
-        $date = new \MongoDate($now->getTimestamp());
+        $dateStart = new \MongoDate(strtotime("-30 day 00:00"));
+        $dateEnd = new \MongoDate(strtotime("00:00"));
 
         $query = $this
             ->createQueryBuilder()
+            ->field('createdDate')->gt($dateStart)
+            ->field('createdDate')->lt($dateEnd)
             ->map(
                 new \MongoCode(
                     "function() {
@@ -112,7 +113,6 @@ class TrialBalanceRepository extends DocumentRepository
                     }"
                 )
             )
-            ->field('dateCreated')->gt(new \MongoDate(1))
             ->out(array('inline' => true));
 
         return $query->getQuery()->execute();

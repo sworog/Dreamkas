@@ -1093,7 +1093,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $invoiceIdOld = $this->createInvoice(
             array(
                 'sku' => '-31 days',
-                'acceptanceDate' => date('c', strtotime('-2 days'))
+                'acceptanceDate' => date('c', strtotime('-31 days'))
             )
         );
         $invoiceProductIdOld = $this->createInvoiceProduct($invoiceIdOld, $productId, 10, 23.33);
