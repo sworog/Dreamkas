@@ -3,8 +3,8 @@
 namespace Lighthouse\CoreBundle\Command;
 
 use Lighthouse\CoreBundle\Service\AveragePriceService;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -12,8 +12,16 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @DI\Service("lighthouse.core.command.recalculate_average_purchase_price")
  * @DI\Tag("console.command")
  */
-class RecalculateAveragePurchasePriceCommand extends ContainerAwareCommand
+class RecalculateAveragePurchasePriceCommand extends Command
 {
+    /**
+     * @var AveragePriceService
+     */
+    protected $averagePriceService;
+
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -40,8 +48,19 @@ class RecalculateAveragePurchasePriceCommand extends ContainerAwareCommand
     /**
      * @return AveragePriceService
      */
-    protected function getAveragePriceService()
+    public function getAveragePriceService()
     {
-        return $this->getContainer()->get('lighthouse.core.service.average_price');
+        return $this->averagePriceService;
+    }
+
+    /**
+     * @DI\InjectParams({
+     *      "averagePriceService"=@DI\Inject("lighthouse.core.service.average_price")
+     * })
+     * @param AveragePriceService $averagePriceService
+     */
+    public function setAveragePriceService(AveragePriceService $averagePriceService)
+    {
+        $this->averagePriceService = $averagePriceService;
     }
 }

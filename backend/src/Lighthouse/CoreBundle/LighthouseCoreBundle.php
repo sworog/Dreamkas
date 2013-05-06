@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle;
 
+use Lighthouse\CoreBundle\Command\CommandManager;
+use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddCommandAsServicePass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\DocumentRepositoryPass;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -24,15 +26,16 @@ class LighthouseCoreBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new DocumentRepositoryPass());
+        $container->addCompilerPass(new AddCommandAsServicePass());
     }
 
-    /*
+    /**
+     * @param Application $application
+     */
     public function registerCommands(Application $application)
     {
-        $container = new ContainerBuilder();
-        $container->get('lighthouse.core.command.recalculate_average_purchase_price');
-        var_dump($container->get('lighthouse.core.command.recalculate_average_purchase_price'));
+        /* @var CommandManager $commandManager */
+        $commandManager = $this->container->get('lighthouse.core.command.manager');
+        $application->addCommands($commandManager->getAll());
     }
-    */
 }
