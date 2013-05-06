@@ -2,29 +2,52 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\DocumentRepository;
+use Doctrine\ODM\MongoDB\Query\Expr;
 use Doctrine\ODM\MongoDB\Query\Query;
 
 class TrialBalanceRepository extends DocumentRepository
 {
     /**
-     * @param InvoiceProduct $reason
+     * @param Reasonable $reason
      * @return TrialBalance
      */
-    public function findOneByReason($reason)
+    public function findOneByReason(Reasonable $reason)
     {
-        if ($reason instanceof InvoiceProduct) {
-            $criteria = array(
-                'reason.$id' => new \MongoId($reason->id),
-                'reason.$ref' => 'InvoiceProduct',
-            );
+        $criteria = array(
+            'reason.$id' => new \MongoId($reason->getReasonId()),
+            'reason.$ref' => $reason->getReasonType(),
+        );
+        return $this->findOneBy($criteria);
+    }
+
+    /**
+     * @param Reasonable[] $reasons
+     * @return TrialBalance[]|Cursor
+     */
+    public function findByReasons($reasons)
+    {
+        $reasonTypes = array();
+        foreach ($reasons as $reason) {
+            $reasonTypes[$reason->getReasonType()][] = new \MongoId($reason->getReasonId());
         }
-        if (isset($criteria)) {
-            $result = $this->findOneBy($criteria);
-        } else {
-            $result = null;
+
+        $query = $this->createQueryBuilder()->find();
+
+        foreach ($reasonTypes as $reasonType => $reasonIds) {
+            /* @var Expr $reasonQuery */
+            $reasonQuery = $query->expr();
+            $reasonQuery->field('reason.$id')->in($reasonIds);
+            $reasonQuery->field('reason.$ref')->equals($reasonType);
+
+            $query->addOr($reasonQuery->getQuery());
         }
-        return $result;
+
+        /* @var Cursor $result */
+        $cursor = $query->getQuery()->execute();
+
+        return $cursor;
     }
 
     /**

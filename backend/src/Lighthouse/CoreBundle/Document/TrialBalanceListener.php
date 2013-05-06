@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
@@ -20,6 +21,12 @@ class TrialBalanceListener
      * @var TrialBalanceRepository
      */
     public $trialBalanceRepository;
+
+    /**
+     * @DI\Inject("lighthouse.core.document.repository.invoice_product")
+     * @var InvoiceProductRepository
+     */
+    public $invoiceProductRepository;
 
     /**
      * @param OnFlushEventArgs $eventArgs
@@ -58,6 +65,10 @@ class TrialBalanceListener
 
                 $this->computeChangeSet($dm, $uow, $trialBalance);
             }
+
+            if ($document instanceof Invoice) {
+                $this->processInvoiceOnUpdate($document, $dm, $uow);
+            }
         }
 
         foreach ($uow->getScheduledDocumentDeletions() as $document) {
@@ -67,6 +78,29 @@ class TrialBalanceListener
 
                 $this->computeChangeSet($dm, $uow, $trialBalance);
             }
+        }
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @param DocumentManager $dm
+     * @param UnitOfWork $uow
+     */
+    protected function processInvoiceOnUpdate(Invoice $invoice, DocumentManager $dm, UnitOfWork $uow)
+    {
+        $changeSet = $uow->getDocumentChangeSet($invoice);
+        if (!isset($changeSet['acceptanceDate'])) {
+            return;
+        }
+        $newAcceptanceDate = $changeSet['acceptanceDate'][1];
+
+        /* @var Cursor $invoiceProducts */
+        $invoiceProducts = $this->invoiceProductRepository->findByInvoice($invoice->id);
+        $trailBalances = $this->trialBalanceRepository->findByReasons($invoiceProducts);
+
+        foreach ($trailBalances as $trailBalance) {
+            $trailBalance->createdDate = $newAcceptanceDate;
+            $this->computeChangeSet($dm, $uow, $trailBalance);
         }
     }
 

@@ -22,7 +22,7 @@ use JMS\Serializer\Annotation as Serializer;
  *     repositoryClass="Lighthouse\CoreBundle\Document\InvoiceProductRepository"
  * )
  */
-class InvoiceProduct extends AbstractDocument
+class InvoiceProduct extends AbstractDocument implements Reasonable
 {
     /**
      * @MongoDB\Id
@@ -93,5 +93,21 @@ class InvoiceProduct extends AbstractDocument
     {
         $this->totalPrice = new Money();
         $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
+    }
+
+    /**
+     * @return string
+     */
+    public function getReasonId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReasonType()
+    {
+        return 'InvoiceProduct';
     }
 }

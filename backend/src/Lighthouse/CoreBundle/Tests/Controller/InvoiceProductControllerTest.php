@@ -1170,7 +1170,52 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertProduct($productId, array('averagePurchasePrice' => null, 'lastPurchasePrice' => 23.33));
     }
 
+    public function testAveragePurchasePriceChangeOnInvoiceDateChange()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+
+        $invoiceData = array(
+            'sku' => 'now',
+            'supplier' => 'ООО "Поставщик"',
+            'acceptanceDate' => date('c', strtotime('now')),
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceDate' => '17.03.2013',
+        );
+
+        $invoiceId = $this->createInvoice($invoiceData);
+
+        $invoiceProductId = $this->createInvoiceProduct($invoiceId, $productId, 10, 26);
+
+        /* @var $averagePriceService AveragePriceService */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        $averagePriceService->recalculateAveragePrice();
+
+        $this->assertProduct($productId, array('averagePurchasePrice' => null, 'lastPurchasePrice' => 26));
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/invoices/' . $invoiceId . '.json',
+            array(
+                'invoice' => array(
+                    'acceptanceDate' => date('c', strtotime('-2 days 13:00'))
+                ) + $invoiceData
+            )
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $averagePriceService->recalculateAveragePrice();
+
+        $this->assertProduct($productId, array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26));
+    }
+
     /**
+     * @param array $modifiedData
      * @return string
      */
     protected function createInvoice(array $modifiedData = array())

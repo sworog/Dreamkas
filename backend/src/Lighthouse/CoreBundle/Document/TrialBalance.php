@@ -17,6 +17,7 @@ use Lighthouse\CoreBundle\Types\Money;
  * @property float  $quantity
  * @property Money  $totalPrice
  * @property Money  $price
+ * @property DateTime $createdDate
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\TrialBalanceRepository"
