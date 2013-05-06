@@ -25,7 +25,17 @@ abstract public class CommonPageObject extends PageObject {
     abstract public void createElements();
 
     public void input(String elementName, String inputText) {
-        items.get(elementName).setValue(inputText);
+        try {
+            items.get(elementName).setValue(inputText);
+        } catch (Exception e) {
+            String errorMessage1 = "Element not found in the cache - perhaps the page has changed since it was looked up";
+            String getCauseMessage = e.getCause().getMessage();
+            if (getCauseMessage.contains(errorMessage1)) {
+                input(elementName, inputText);
+            } else {
+                throw e;
+            }
+        }
     }
 
     public WebElement findElement(By by) {

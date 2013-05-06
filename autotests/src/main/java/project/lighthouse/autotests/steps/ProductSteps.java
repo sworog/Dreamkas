@@ -49,7 +49,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void fieldInput(String elementName, String inputText) {
-        productCreatePage.fieldInput(elementName, inputText);
+        productCreatePage.input(elementName, inputText);
     }
 
     @Step
