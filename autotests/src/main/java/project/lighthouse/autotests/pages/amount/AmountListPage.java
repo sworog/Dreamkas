@@ -29,7 +29,7 @@ public class AmountListPage extends ProductListPage {
         items.put("amounts vendor", new NonType(this, "vendor"));
         items.put("amounts vendorCountry", new NonType(this, "vendorCountry"));
         items.put("amounts purchasePrice", new NonType(this, "purchasePrice"));
-        items.put("amounts средняя цена", new NonType(this, "средняя цена"));
+        items.put("amounts averagePrice", new NonType(this, "средняя цена"));
         items.put("amounts amount", new NonType(this, "amount"));
     }
 

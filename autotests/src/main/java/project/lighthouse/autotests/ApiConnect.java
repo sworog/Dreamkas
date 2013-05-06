@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.common;
+package project.lighthouse.autotests;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -11,7 +11,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.StaticDataCollections;
 import project.lighthouse.autotests.pages.elements.DateTime;
 
 import java.util.HashMap;

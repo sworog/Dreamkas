@@ -7,6 +7,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.ApiConnect;
 import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.pages.elements.Autocomplete;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
@@ -196,6 +197,9 @@ public class CommonPage extends PageObject implements CommonPageInterface {
 
     public void createInvoiceThroughPost(String invoiceName) {
         apiConnect.createInvoiceThroughPost(invoiceName);
+    }
+
+    public void averagePriceCalculation() {
     }
 
     public void checkAlertText(String expectedText) {
