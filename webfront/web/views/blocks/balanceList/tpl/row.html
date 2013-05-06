@@ -12,10 +12,10 @@
         <span name="vendorCountry"><%= product.vendorCountry %></span>
     </td>
     <td>
-        <span name="averagePurchasePrice"><%= LH.helpers.formatPrice(product.averagePurchasePrice) %> р.</span>
+        <span name="averagePurchasePrice"><%= product.averagePurchasePrice ? LH.helpers.formatPrice(product.averagePurchasePrice) + 'р.' : '&mdash;' %></span>
     </td>
     <td>
-        <span name="lastPurchasePrice"><%= LH.helpers.formatPrice(product.lastPurchasePrice) %> р.</span>
+        <span name="lastPurchasePrice"><%= product.lastPurchasePrice ? LH.helpers.formatPrice(product.lastPurchasePrice) : LH.helpers.formatPrice(product.purchasePrice) %> р.</span>
     </td>
     <td>
         <span name="amount"><%= product.amount || 0 %></span>
