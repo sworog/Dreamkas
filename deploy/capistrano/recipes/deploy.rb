@@ -115,8 +115,4 @@ end
 
 after "multistage:ensure", "deploy:init"
 
-after "deploy:update" do
-    capifony_pretty_print "--> Cleaning up old releases"
-    deploy:cleanup
-    capifony_puts_ok
-end
+after "deploy:update", "deploy:cleanup"
