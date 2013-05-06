@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
-use Doctrine\ODM\MongoDB\DocumentRepository;
 use Lighthouse\CoreBundle\Types\Money;
 
 class ProductRepository extends DocumentRepository
