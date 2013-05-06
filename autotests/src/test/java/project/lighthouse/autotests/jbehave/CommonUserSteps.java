@@ -47,6 +47,11 @@ public class CommonUserSteps {
         commonSteps.createInvoiceThroughPostWithData(invoiceSku, productName);
     }
 
+    @Given("starting average price calculation")
+    public void givenStartingAveragePriceCalculation() {
+        commonSteps.averagePriceCalculation();
+    }
+
     @Then("the user checks that he is on the '$pageObjectName'")
     public void TheTheUserChecksThatHeIsOnTheProductListPage(String pageObjectName) {
         commonSteps.checkTheRequiredPageIsOpen(pageObjectName);

@@ -24,11 +24,6 @@ Then the user checks the product with '1234567' sku has 'vendor' equal to 'Пр�
 Then the user checks the product with '1234567' sku has 'vendorCountry' equal to 'Россия56'
 Then the user checks the product with '1234567' sku has 'purchasePrice' equal to '12356'
 
-Scenario: Canceling creating new product page
-Given the user is on the product list page
-When the user creates new product from product list page
-And the user clicks the cancel button
-Then the user checks that he is on the 'ProductListPage'
 
 
 

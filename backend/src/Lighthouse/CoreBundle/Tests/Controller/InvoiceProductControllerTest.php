@@ -2,6 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\ProductRepository;
+use Lighthouse\CoreBundle\Document\TrialBalanceRepository;
+use Lighthouse\CoreBundle\Service\AveragePriceService;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -776,6 +779,20 @@ class InvoiceProductControllerTest extends WebTestCase
      */
     protected function assertProductTotals($productId, $amount, $lastPurchasePrice)
     {
+        $assertions = array(
+            'amount' => $amount,
+            'lastPurchasePrice' => $lastPurchasePrice,
+        );
+
+        $this->assertProduct($productId, $assertions);
+    }
+
+    /**
+     * @param string $productId
+     * @param array $assertions
+     */
+    protected function assertProduct($productId, array $assertions)
+    {
         $productJson = $this->clientJsonRequest(
             $this->client,
             'GET',
@@ -783,11 +800,6 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(200, $this->client);
-
-        $assertions = array(
-            'amount' => $amount,
-            'lastPurchasePrice' => $lastPurchasePrice,
-        );
 
         $this->performJsonAssertions($productJson, $assertions);
     }
@@ -966,7 +978,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         Assert::assertResponseCode(200, $this->client);
         Assert::assertJsonPathEquals(11, 'amount', $productResponse);
-        Assert::assertNotJsonHasPath('lastPurchasePrice', $productResponse);
+        Assert::assertJsonPathEquals($productsData[2]['price'], 'lastPurchasePrice', $productResponse);
 
         $invoiceResponse = $this->clientJsonRequest(
             $this->client,
@@ -979,12 +991,191 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(117.19, 'sumTotal', $invoiceResponse);
     }
 
+    public function testLastPurchasePriceChangeOnInvoiceProductDelete()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+
+        $invoiceId = $this->createInvoice();
+
+        $invoiceProducts = $this->createProducts($productId, $invoiceId);
+
+        $this->assertProductTotals($productId, $invoiceProducts[2]['productAmount'], $invoiceProducts[2]['price']);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[2]['id']
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $this->assertProductTotals($productId, 15, $invoiceProducts[1]['price']);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[0]['id']
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $this->assertProductTotals($productId, 5, $invoiceProducts[1]['price']);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[1]['id']
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $this->assertProductTotals($productId, 0, null);
+    }
+
+    public function testLastPurchasePriceChangeOnInvoiceProductUpdate()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+
+        $invoiceId = $this->createInvoice();
+
+        $invoiceProducts = $this->createProducts($productId, $invoiceId);
+
+        $this->assertProductTotals($productId, $invoiceProducts[2]['productAmount'], $invoiceProducts[2]['price']);
+        $newInvoiceProductData = $invoiceProducts[1];
+        $newInvoiceProductData['price'] = 13.01;
+        unset($newInvoiceProductData['productAmount'], $newInvoiceProductData['id']);
+        $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[1]['id'] . '.json',
+            array('invoiceProduct' => $newInvoiceProductData)
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->assertProductTotals($productId, 16, $invoiceProducts[2]['price']);
+
+        $newProductId = $this->createProduct('NEW');
+        $newInvoiceProductDataNewProduct = $invoiceProducts[2];
+        $newInvoiceProductDataNewProduct['product'] = $newProductId;
+        unset($newInvoiceProductDataNewProduct['productAmount'], $newInvoiceProductDataNewProduct['id']);
+        $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[2]['id'] . '.json',
+            array('invoiceProduct' => $newInvoiceProductDataNewProduct)
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->assertProductTotals($productId, 15, $newInvoiceProductData['price']);
+        $this->assertProductTotals($newProductId, 1, $newInvoiceProductDataNewProduct['price']);
+    }
+
+    public function testAveragePurchasePrice()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+        $productId2 = $this->createProduct('2');
+
+        $invoiceId1 = $this->createInvoice(
+            array(
+                'sku' => '-3 days',
+                'acceptanceDate' => date('c', strtotime('-3 days'))
+            )
+        );
+
+        $invoiceIdOld = $this->createInvoice(
+            array(
+                'sku' => '-31 days',
+                'acceptanceDate' => date('c', strtotime('-31 days'))
+            )
+        );
+        $invoiceProductIdOld = $this->createInvoiceProduct($invoiceIdOld, $productId, 10, 23.33);
+
+        $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
+        $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67);
+
+        /* @var $averagePriceService AveragePriceService */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        $averagePriceService->recalculateAveragePrice();
+
+        $this->assertProduct($productId, array('averagePurchasePrice' => 26));
+
+        $invoiceId2 = $this->createInvoice(
+            array(
+                'sku' => '-2 days',
+                'acceptanceDate' => date('c', strtotime('-2 days'))
+            )
+        );
+
+        $invoiceProductId2 = $this->createInvoiceProduct($invoiceId2, $productId, 5, 29);
+
+        $averagePriceService->recalculateAveragePrice();
+
+        $this->assertProduct($productId, array('averagePurchasePrice' => 27));
+
+        $invoiceId3 = $this->createInvoice(
+            array(
+                'sku' => '-1 days',
+                'acceptanceDate' => date('c', strtotime('-1 days'))
+            )
+        );
+
+        $invoiceProductId3 = $this->createInvoiceProduct($invoiceId3, $productId, 10, 31);
+
+        $averagePriceService->recalculateAveragePrice();
+
+        $this->assertProduct($productId, array('averagePurchasePrice' => 28.6));
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/invoices/' . $invoiceId3 . '/products/' . $invoiceProductId3 . '.json'
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $averagePriceService->recalculateAveragePrice();
+
+        $this->assertProduct($productId, array('averagePurchasePrice' => 27, 'lastPurchasePrice' => 29));
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/invoices/' . $invoiceId2 . '/products/' . $invoiceProductId2 . '.json'
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $averagePriceService->recalculateAveragePrice();
+
+        $this->assertProduct($productId, array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26));
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/invoices/' . $invoiceId1. '/products/' . $invoiceProductId1 . '.json'
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $averagePriceService->recalculateAveragePrice();
+
+        $this->assertProduct($productId, array('averagePurchasePrice' => null, 'lastPurchasePrice' => 23.33));
+    }
+
     /**
      * @return string
      */
-    protected function createInvoice()
+    protected function createInvoice(array $modifiedData = array())
     {
-        $invoiceData = array(
+        $invoiceData = $modifiedData + array(
             'sku' => 'sdfwfsf232',
             'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => '2013-03-18 12:56',
@@ -1094,10 +1285,38 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertResponseCode(200, $this->client);
 
         Assert::assertJsonPathCount(3, "*.id", $getResponse);
+
         foreach ($productsData as $productData) {
             Assert::assertJsonPathEquals($productData['id'], '*.id', $getResponse);
         }
 
         return $productsData;
+    }
+
+    /**
+     * @param $invoiceId
+     * @param $productId
+     * @param $quantity
+     * @param $price
+     * @return mixed
+     */
+    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
+    {
+        $invoiceProductData = array(
+            'product' => $productId,
+            'quantity' => $quantity,
+            'price' => $price
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $invoiceProductData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        return $postResponse['id'];
     }
 }

@@ -45,12 +45,21 @@ public class DateTime extends CommonItem {
             case "todayDate":
                 return getTodayDate(DATE_PATTERN);
             default:
+                if (value.contains("-")) {
+                    String replacedValue = value.replaceFirst("\".+-(\\\\d)\"\n", "$1");
+                    int numberOfDay = Integer.parseInt(replacedValue);
+                    return getTodayDate(DATE_TIME_PATTERN, numberOfDay);
+                }
                 return value;
         }
     }
 
     public static String getTodayDate(String pattern) {
         return new SimpleDateFormat(pattern).format(new Date());
+    }
+
+    public static String getTodayDate(String pattern, int day) {
+        return new SimpleDateFormat(pattern).format(new org.joda.time.DateTime().minusDays(day).toDate());
     }
 
     public void dateTimePickerInput(String datePattern) {

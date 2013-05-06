@@ -15,6 +15,8 @@ public interface CommonViewInterface {
 
     void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable);
 
+    void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, By findBy, String expectedValue);
+
     void childrenItemClickByClassName(String elementName, String elementClassName);
 
     void childrentItemClickByFindByLocator(String elementName, By by);

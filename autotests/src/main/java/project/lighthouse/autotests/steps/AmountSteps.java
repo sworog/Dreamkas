@@ -5,7 +5,7 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.pages.amount.AmountListPage;
 
-public class AmountSteps extends ScenarioSteps{
+public class AmountSteps extends ScenarioSteps {
 
     AmountListPage amountListPage;
 
@@ -14,12 +14,17 @@ public class AmountSteps extends ScenarioSteps{
     }
 
     @Step
-    public void AmountListPageOpen(){
+    public void AmountListPageOpen() {
         amountListPage.open();
     }
 
     @Step
-    public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue){
+    public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue) {
         amountListPage.checkAmountItemListItemWithSkuHasExpectedValue(skuValue, name, expectedValue);
+    }
+
+    @Step
+    public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
+        amountListPage.checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
     }
 }

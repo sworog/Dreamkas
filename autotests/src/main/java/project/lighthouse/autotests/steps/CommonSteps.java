@@ -86,4 +86,8 @@ public class CommonSteps extends ScenarioSteps {
         invoiceCreatePage.input("invoiceCost", "1");
         invoiceCreatePage.invoiceCreateButtonClick();
     }
+
+    public void averagePriceCalculation() {
+        commonPage.averagePriceCalculation();
+    }
 }

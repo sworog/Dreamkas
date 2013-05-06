@@ -100,25 +100,3 @@ Then the user checks the elements values
 | unit | штука |
 | vat | 0 |
 
-Scenario: product edit cancel
-Given the user is on the product list page
-When the user creates new product from product list page
-And the user inputs values in element fields
-| elementName | inputText |
-| name | Наименование9001 |
-| vendor | Производитель9001 |
-| vendorCountry | Россия9001 |
-| purchasePrice | 1231 |
-| barcode | 1231689001 |
-| sku | 169001 |
-| info | Info169001 |
-And the user selects 'liter' in 'unit' dropdown
-And the user selects '0' in 'vat' dropdown
-And the user clicks the create button
-And the user open the product card with '169001' sku
-And the user clicks the edit button on product card view page
-And the user clicks the cancel button
-Then the user checks the elements values
-| elementName | expectedValue  |
-| sku | 169001 |
-| name | Наименование9001 |

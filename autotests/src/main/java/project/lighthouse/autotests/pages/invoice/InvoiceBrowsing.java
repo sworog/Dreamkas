@@ -111,9 +111,8 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     public void acceptChangesButtonClick() {
         $(acceptChangesButton).click();
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
 
@@ -124,9 +123,8 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     public void acceptDeleteButtonClick() {
         $(acceptDeleteButton).click();
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
 
