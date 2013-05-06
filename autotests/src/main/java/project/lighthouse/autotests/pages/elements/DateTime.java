@@ -46,7 +46,7 @@ public class DateTime extends CommonItem {
                 return getTodayDate(DATE_PATTERN);
             default:
                 if (value.contains("-")) {
-                    String replacedValue = value.replaceFirst("\".+-(\\\\d)\"\n", "$1");
+                    String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
                     int numberOfDay = Integer.parseInt(replacedValue);
                     return getTodayDate(DATE_TIME_PATTERN, numberOfDay);
                 }

@@ -200,6 +200,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void averagePriceCalculation() {
+        apiConnect.averagePriceRecalculation();
     }
 
     public void checkAlertText(String expectedText) {

@@ -30,7 +30,7 @@ public class ApiConnect {
             String getApiUrl = getApiUrl() + "/api/1/products.json";
             String jsonDataPattern = "{\"product\":{\"name\":\"%s\",\"units\":\"%s\",\"vat\":\"0\",\"purchasePrice\":\"%s\",\"barcode\":\"%s\",\"sku\":\"%s\",\"vendorCountry\":\"Тестовая страна\",\"vendor\":\"Тестовый производитель\",\"info\":\"\"}}";
             String jsonData = String.format(jsonDataPattern, name, units, purchasePrice, barcode, sku);
-            executePost(getApiUrl, jsonData);
+            executePostRequest(getApiUrl, jsonData);
             StaticDataCollections.products.add(sku);
         }
     }
@@ -40,7 +40,7 @@ public class ApiConnect {
             String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
             String jsonDataPattern = "{\"invoice\":{\"sku\":\"%s\",\"supplier\":\"supplier\",\"acceptanceDate\":\"%s\",\"accepter\":\"accepter\",\"legalEntity\":\"legalEntity\",\"supplierInvoiceSku\":\"\",\"supplierInvoiceDate\":\"\"}}";
             String jsonData = String.format(jsonDataPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
-            String postResponse = executePost(getApiUrl, jsonData);
+            String postResponse = executePostRequest(getApiUrl, jsonData);
             StaticDataCollections.invoices.add(invoiceName);
             try {
                 JSONObject object = new JSONObject(postResponse);
@@ -54,7 +54,15 @@ public class ApiConnect {
         }
     }
 
-    private String executePost(String targetURL, String urlParameters) {
+    public void averagePriceRecalculation() {
+        String url = getApiUrl() + "/api/1/service/recalculate-average-purchase-price";
+        String response = executePost(url, "");
+        if (!response.contains("{\"ok\":true}")) {
+            throw new AssertionError("Average price recalculation failed!");
+        }
+    }
+
+    private String executePostRequest(String targetURL, String urlParameters) {
         HttpPost request = new HttpPost(targetURL);
         try {
             StringEntity entity = new StringEntity(urlParameters, "UTF-8");
@@ -69,11 +77,10 @@ public class ApiConnect {
             response = httpClient.execute(request);
 
             HttpEntity httpEntity = response.getEntity();
-            String responceMessage = EntityUtils.toString(httpEntity, "UTF-8");
-
+            String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
             if (response.getStatusLine().getStatusCode() != 201) {
                 StringBuilder builder = new StringBuilder();
-                JSONObject jsonObject = new JSONObject(responceMessage).getJSONObject("children");
+                JSONObject jsonObject = new JSONObject(responseMessage).getJSONObject("children");
                 Object[] objects = toMap(jsonObject).values().toArray();
                 for (int i = 0; i < objects.length; i++) {
                     if (objects[i] instanceof HashMap) {
@@ -84,9 +91,30 @@ public class ApiConnect {
                 String errorMessage = String.format("Responce json error: '%s'", builder.toString());
                 throw new AssertionError(errorMessage);
             }
-            return responceMessage;
+            return responseMessage;
         } catch (Exception e) {
             e.printStackTrace();
+            throw new AssertionError(e.getMessage());
+        }
+    }
+
+    private String executePost(String targetUrl, String urlParameters) {
+        try {
+            HttpPost request = new HttpPost(targetUrl);
+            StringEntity entity = new StringEntity(urlParameters, "UTF-8");
+            entity.setContentType("application/json;charset=UTF-8");
+            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+            request.setHeader("Accept", "application/json");
+            request.setEntity(entity);
+
+            HttpResponse response = null;
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
+            response = httpClient.execute(request);
+
+            HttpEntity httpEntity = response.getEntity();
+            return EntityUtils.toString(httpEntity, "UTF-8");
+        } catch (Exception e) {
             throw new AssertionError(e.getMessage());
         }
     }

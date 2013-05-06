@@ -80,6 +80,7 @@ public class CommonSteps extends ScenarioSteps {
         commonPage.NoAlertIsPresent();
     }
 
+    @Step
     public void continueCreatingInvoiceProduct(String productName) {
         invoiceCreatePage.input("productName", productName);
         invoiceCreatePage.input("productAmount", "1");
@@ -87,7 +88,9 @@ public class CommonSteps extends ScenarioSteps {
         invoiceCreatePage.invoiceCreateButtonClick();
     }
 
+    @Step
     public void averagePriceCalculation() {
+        productListPage.open();
         commonPage.averagePriceCalculation();
     }
 }

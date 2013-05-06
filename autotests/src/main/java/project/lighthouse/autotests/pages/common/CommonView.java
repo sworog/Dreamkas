@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonViewInterface;
+import project.lighthouse.autotests.pages.amount.AmountListPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 
 import java.util.Map;
@@ -26,6 +27,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
     public String getCorrectXpathPattern() {
         switch (listPageName) {
             case InvoiceBrowsing.ITEM_NAME:
+            case AmountListPage.ITEM_NAME:
                 return XPATH_PATTERN + "/..";
             default:
                 return XPATH_PATTERN;
