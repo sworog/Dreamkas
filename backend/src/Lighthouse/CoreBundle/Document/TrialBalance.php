@@ -132,5 +132,4 @@ class TrialBalance extends AbstractDocument
         $this->totalPrice = new Money();
         $this->totalPrice->setCountByQuantity($this->price, $this->quantity);
     }
-
 }
