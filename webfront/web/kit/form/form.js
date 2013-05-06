@@ -5,8 +5,6 @@ define(
     function(Block) {
     return Block.extend({
         initialize: function(){
-            Block.prototype.initialize.apply(this, arguments);
-
             var block = this;
             block.$submitButton = block.$el.find('[type="submit"]').closest('.button');
         },

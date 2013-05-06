@@ -24,6 +24,8 @@ define(
                 block.$dateList = block.$el.find('.calendar__dateList');
                 block.$header = block.$el.find('.calendar__header');
 
+                block.set({d: {e: {f: 'test'}}});
+
                 block.listenTo(block, {
                     'set:visibleDate': function() {
                         block
@@ -34,30 +36,42 @@ define(
                 });
             },
             events: {
-                'click .calendar__nextMonthLink': function(e){
+                'click .calendar__nextMonthLink': function(e) {
                     e.preventDefault();
 
                     var block = this;
 
                     block.showNextMonth();
                 },
-                'click .calendar__prevMonthLink': function(e){
+                'click .calendar__prevMonthLink': function(e) {
                     e.preventDefault();
 
                     var block = this;
 
                     block.showPrevMonth();
+                },
+                'click .calendar__nowLink': function(e) {
+                    e.preventDefault();
+
+                    var block = this;
+
+                    block.showNow();
                 }
             },
-            showNextMonth: function(){
+            showNextMonth: function() {
                 var block = this;
 
                 block.set('visibleDate', moment(block.visibleDate).add('months', 1).valueOf());
             },
-            showPrevMonth: function(){
+            showPrevMonth: function() {
                 var block = this;
 
                 block.set('visibleDate', moment(block.visibleDate).subtract('months', 1).valueOf());
+            },
+            showNow: function() {
+                var block = this;
+
+                block.set('visibleDate', moment().valueOf());
             },
             _generateDateList: function() {
                 var block = this,
@@ -74,13 +88,14 @@ define(
 
                     block.dateList.push({
                         moment: itemMoment,
-                        isOtherMonth: !visibleMoment.isSame(itemMoment, 'month')
+                        isOtherMonth: !visibleMoment.isSame(itemMoment, 'month'),
+                        isNow: moment().isSame(itemMoment, 'day')
                     });
                 }
 
                 return block;
             },
-            _renderDateList: function(){
+            _renderDateList: function() {
                 var block = this;
 
                 block.$dateList.html(block.tpl.dateList({
@@ -89,7 +104,7 @@ define(
 
                 return block;
             },
-            _renderHeader: function(){
+            _renderHeader: function() {
                 var block = this;
 
                 block.$header.html(block.tpl.header({

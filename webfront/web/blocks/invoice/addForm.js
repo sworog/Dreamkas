@@ -2,9 +2,11 @@ define(
     [
         '/kit/form/form.js'
     ],
-    function(form) {
-        return form.extend({
+    function(Form) {
+        return Form.extend({
             initialize: function(){
+                Form.prototype.initialize.apply(this, arguments);
+
                 var block = this;
 
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='name']"));

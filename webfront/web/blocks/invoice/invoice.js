@@ -186,26 +186,26 @@ define(
                     var block = this;
                     e.preventDefault();
                     block.removeDataInput();
-                }
-            },
-            'set editMode': function(val) {
-                var block = this;
+                },
+                'set:editMode': function(val) {
+                    var block = this;
 
-                if (val) {
-                    block.$el.addClass('invoice_editMode');
-                } else {
-                    block.$el.removeClass('invoice_editMode');
-                }
-            },
-            'set dataEditing': function(val) {
-                var block = this;
+                    if (val) {
+                        block.$el.addClass('invoice_editMode');
+                    } else {
+                        block.$el.removeClass('invoice_editMode');
+                    }
+                },
+                'set:dataEditing': function(val) {
+                    var block = this;
 
-                block.addForm.disable(val);
+                    block.addForm.disable(val);
 
-                if (val) {
-                    block.$el.addClass('invoice_dataEditing');
-                } else {
-                    block.$el.removeClass('invoice_dataEditing');
+                    if (val) {
+                        block.$el.addClass('invoice_dataEditing');
+                    } else {
+                        block.$el.removeClass('invoice_dataEditing');
+                    }
                 }
             },
             showRemoveConfirm: function(invoiceProductId) {

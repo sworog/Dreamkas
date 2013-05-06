@@ -53,8 +53,8 @@ define(
                     return;
                 }
 
-                if (_.isFunction(block['set ' + path])) {
-                    setValue = block['set ' + path](value, extra);
+                if (block.events && _.isFunction(block.events['set:' + path])) {
+                    setValue = block.events['set:' + path].call(block, value, extra);
                 }
 
                 if (extra.canceled) {
@@ -72,6 +72,8 @@ define(
                     });
                 } else {
                     _.each(path.split('.'), function(pathPart, index, path) {
+                        var oldValue = keyPath[pathPart];
+
                         if (typeof keyPath[pathPart] == 'undefined') {
                             keyPath[pathPart] = {};
                         }
@@ -81,6 +83,11 @@ define(
                         } else {
                             keyPath = keyPath[pathPart];
                         }
+
+                        if (keyPath[pathPart] !== oldValue){
+                            block.trigger('update:' + path, value);
+                        }
+
                     });
                 }
 

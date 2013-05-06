@@ -1,5 +1,5 @@
 <% _.each(block.dateList, function(date){ %>
-    <div data-calendar_date="date.moment.valueOf()" class="calendar__dateItem <%= date.isOtherMonth ? 'calendar__dateItem_otherMonth' : '' %>">
+    <div data-calendar_date="date.moment.valueOf()" class="calendar__dateItem <%= date.isOtherMonth ? 'calendar__dateItem_otherMonth' : '' %> <%= date.isNow ? 'calendar__dateItem_now' : '' %>">
         <%= date.moment.format('DD') %>
     </div>
 <% }) %>
