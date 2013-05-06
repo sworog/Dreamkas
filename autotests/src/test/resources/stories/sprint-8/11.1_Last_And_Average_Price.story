@@ -154,6 +154,43 @@ Given the user opens amount list page
 Then the user checks the product with 'Печенье-Астраханское-Артикул' sku has 'amounts purchasePrice' element equal to '56' on amounts page
 And the user checks the product with 'Печенье-Астраханское-Артикул' sku has 'amounts averagePrice' element equal to '41' on amounts page
 
+Scenario: Average price round checking
+Given there is the product with 'Печенье Киевское' name, 'Печенье-Киевское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+And the user is on the invoice list page
+When the user clicks the create button on the invoice list page
+And the user inputs 'AVPINCICD10' in the invoice 'sku' field
+And the user inputs 'todayDateAndTime-15day' in the invoice 'acceptanceDate' field
+And the user inputs 'поставщик' in the invoice 'supplier' field
+And the user inputs 'кто принял' in the invoice 'accepter' field
+And the user inputs 'получатель' in the invoice 'legalEntity' field
+And the user navigates to invoice product addition
+When the user inputs 'Печенье Киевское' in the invoice product 'productName' field
+When the user inputs '10' in the invoice product 'productAmount' field
+And the user inputs '23,33' in the invoice product 'invoiceCost' field
+When the user clicks the invoice create button
+Then the user checks the invoice with 'AVPINCICD10' sku is present
+Given starting average price calculation
+Given the user opens amount list page
+Then the user checks the product with 'Печенье-Киевское-Артикул' sku has 'amounts purchasePrice' element equal to '23,33' on amounts page
+And the user checks the product with 'Печенье-Киевское-Артикул' sku has 'amounts averagePrice' element equal to '23,33' on amounts page
+Given the user is on the invoice list page
+When the user clicks the create button on the invoice list page
+And the user inputs 'AVPINCICD11' in the invoice 'sku' field
+And the user inputs 'todayDateAndTime-1day' in the invoice 'acceptanceDate' field
+And the user inputs 'поставщик' in the invoice 'supplier' field
+And the user inputs 'кто принял' in the invoice 'accepter' field
+And the user inputs 'получатель' in the invoice 'legalEntity' field
+And the user navigates to invoice product addition
+When the user inputs 'Печенье Киевское' in the invoice product 'productName' field
+When the user inputs '10' in the invoice product 'productAmount' field
+And the user inputs '26' in the invoice product 'invoiceCost' field
+When the user clicks the invoice create button
+Then the user checks the invoice with 'AVPINCICD11' sku is present
+Given starting average price calculation
+Given the user opens amount list page
+Then the user checks the product with 'Печенье-Киевское-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
+And the user checks the product with 'Печенье-Киевское-Артикул' sku has 'amounts averagePrice' element equal to '24,67' on amounts page
+
 Scenario: Average price calculation
 Given there is the product with 'Печенье Юбилейное' name, 'Печенье-Юбилейное-Артикул' sku, '45695514566' barcode, 'liter' units, '25,50' purchasePrice
 And the user is on the invoice list page
