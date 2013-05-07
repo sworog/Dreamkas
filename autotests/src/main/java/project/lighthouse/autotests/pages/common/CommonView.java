@@ -50,7 +50,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
 
     public void itemCheck(String value) {
         WebElementFacade listItem = getWebElementFacadeItem(value);
-        listItem.shouldBePresent();
+        elementShouldBePresent(listItem);
     }
 
     public void itemCheckIsNotPresent(String value) {

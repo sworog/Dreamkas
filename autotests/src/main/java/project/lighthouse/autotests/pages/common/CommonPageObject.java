@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.pages.common;
 
 import net.thucydides.core.pages.PageObject;
+import net.thucydides.core.pages.WebElementFacade;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +20,7 @@ abstract public class CommonPageObject extends PageObject {
     public Map<String, CommonItem> items = new HashMap();
 
     private String errorMessage1 = "Element not found in the cache - perhaps the page has changed since it was looked up";
+    private String errorMessage2 = "Element is no longer attached to the DOM";
 
     public CommonPageObject(WebDriver driver) {
         super(driver);
@@ -32,7 +34,7 @@ abstract public class CommonPageObject extends PageObject {
             items.get(elementName).setValue(inputText);
         } catch (Exception e) {
             String getCauseMessage = e.getCause().getMessage();
-            if (getCauseMessage.contains(errorMessage1)) {
+            if (getCauseMessage.contains(errorMessage1) || getCauseMessage.contains(errorMessage2)) {
                 input(elementName, inputText);
             } else {
                 throw e;
@@ -52,7 +54,7 @@ abstract public class CommonPageObject extends PageObject {
             commonPage.shouldContainsText(elementName, element, expectedValue);
         } catch (Exception e) {
             String getCauseMessage = e.getCause().getMessage();
-            if (getCauseMessage.contains(errorMessage1)) {
+            if (getCauseMessage.contains(errorMessage1) || getCauseMessage.contains(errorMessage2)) {
                 checkElementValue(checkType, elementName, expectedValue);
             } else {
                 throw e;
@@ -66,6 +68,20 @@ abstract public class CommonPageObject extends PageObject {
             String expectedValue = row.get("expectedValue");
             checkElementValue(checkType, elementName, expectedValue);
         }
+    }
+
+    public void elementShouldBePresent(WebElementFacade webElementFacade) {
+        try {
+            webElementFacade.shouldBePresent();
+        } catch (Exception e) {
+            String getCauseMessage = e.getCause().getMessage();
+            if (getCauseMessage.contains(errorMessage1) || getCauseMessage.contains(errorMessage2)) {
+                elementShouldBePresent(webElementFacade);
+            } else {
+                throw e;
+            }
+        }
+
     }
 
     public WebElement findElement(By by) {
