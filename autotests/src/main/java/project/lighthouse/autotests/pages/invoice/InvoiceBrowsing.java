@@ -41,6 +41,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     @FindBy(xpath = "//*[@class='invoice__removeCancel']")
     public WebElement discardDeleteButton;
 
+    private String deleteButtonXpath = "//*[@class='invoice__removeLink']";
 
     public InvoiceBrowsing(WebDriver driver) {
         super(driver);
@@ -132,17 +133,11 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void childrenItemNavigateAndClickByFindByLocator(String elementName) {
-        String deleteButtonXpath = "//*[@class='invoice__removeLink']";
         commonViewInterface.childrenItemNavigateAndClickByFindByLocator(elementName, By.xpath(deleteButtonXpath));
     }
 
     public void tryTochildrenItemNavigateAndClickByFindByLocator(String elementName) {
-        try {
-            childrenItemNavigateAndClickByFindByLocator(elementName);
-            String errorMessage = String.format("the user can delete the product with sku '%s' in not edit mode", elementName);
-            throw new AssertionError(errorMessage);
-        } catch (Exception e) {
-        }
+        shouldNotBeVisible(By.xpath(deleteButtonXpath));
     }
 
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
