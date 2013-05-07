@@ -2,6 +2,7 @@ package project.lighthouse.autotests.pages.common;
 
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.pages.WebElementFacade;
+import net.thucydides.core.webdriver.WebdriverAssertionError;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -74,7 +75,7 @@ abstract public class CommonPageObject extends PageObject {
     public void elementShouldBePresent(WebElementFacade webElementFacade) {
         try {
             webElementFacade.shouldBePresent();
-        } catch (Exception e) {
+        } catch (WebdriverAssertionError e) {
             String exceptionMessage = e.getMessage();
             if (exceptionMessage.contains(errorMessage1) || exceptionMessage.contains(errorMessage2) || exceptionMessage.contains(errorMessage3)) {
                 elementShouldBePresent(webElementFacade);
