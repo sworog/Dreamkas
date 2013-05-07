@@ -2,11 +2,14 @@ require 'time_diff'
 
 namespace :deploy do
 
+    def remote_folder_exists?(path)
+        'true' ==  capture("if [ -d #{path} ]; then echo 'true'; fi").strip
+    end
+
     desc "Check & setup environment if needed"
     task :setup_if_needed, :roles => :app, :except => { :no_release => true } do
-        begin
-            check
-        rescue Exception => error
+        unless remote_folder_exists?(deploy_to)
+            puts "--> Setup host ".yellow + application.to_s.red + " because it does not exist".yellow
             setup
         end
     end
@@ -115,5 +118,7 @@ namespace :deploy do
 end
 
 after "multistage:ensure", "deploy:init"
+
+before "deploy", "deploy:setup_if_needed"
 
 after "deploy:update", "deploy:cleanup"
