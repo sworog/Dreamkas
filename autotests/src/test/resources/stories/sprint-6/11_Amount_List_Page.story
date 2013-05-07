@@ -23,12 +23,12 @@ And the user inputs '111,34' in the invoice product 'invoiceCost' field
 And the user clicks the invoice create button
 Then the user checks the invoice with 'Invoice-ADADAD-112' sku is present
 Given the user opens amount list page
-Then the user checks the product with 'ADADAD-11' sku has 'amount' equal to '4' on amounts page
-And the user checks the product with 'ADADAD-11' sku has 'units' equal to 'кг' on amounts page
-And the user checks the product with 'ADADAD-11' sku has 'name' equal to 'ADADAD-11' on amounts page
-And the user checks the product with 'ADADAD-11' sku has 'vendor' equal to 'Тестовый производитель' on amounts page
-And the user checks the product with 'ADADAD-11' sku has 'vendorCountry' equal to 'Тестовая страна' on amounts page
-And the user checks the product with 'ADADAD-11' sku has 'purchasePrice' equal to '111,34' on amounts page
+Then the user checks the product with 'ADADAD-11' sku has 'amounts amount' element equal to '4' on amounts page
+And the user checks the product with 'ADADAD-11' sku has 'amounts units' element equal to 'кг' on amounts page
+And the user checks the product with 'ADADAD-11' sku has 'amounts name' element equal to 'ADADAD-11' on amounts page
+And the user checks the product with 'ADADAD-11' sku has 'amounts vendor' element equal to 'Тестовый производитель' on amounts page
+And the user checks the product with 'ADADAD-11' sku has 'amounts vendorCountry' element equal to 'Тестовая страна' on amounts page
+And the user checks the product with 'ADADAD-11' sku has 'amounts purchasePrice' element equal to '111,34' on amounts page
 
 Scenario: Amounts increase units
 Given there is the product with 'ADADAD-22' name, 'ADADAD-22' sku, 'BARCode-22' barcode, 'unit' units
@@ -48,12 +48,12 @@ And the user inputs '45.6' in the invoice product 'invoiceCost' field
 And the user clicks the invoice create button
 Then the user checks the invoice with 'Invoice-ADADAD-221' sku is present
 Given the user opens amount list page
-Then the user checks the product with 'ADADAD-22' sku has 'amount' equal to '38' on amounts page
-And the user checks the product with 'ADADAD-22' sku has 'units' equal to 'шт.' on amounts page
-And the user checks the product with 'ADADAD-22' sku has 'name' equal to 'ADADAD-22' on amounts page
-And the user checks the product with 'ADADAD-22' sku has 'vendor' equal to 'Тестовый производитель' on amounts page
-And the user checks the product with 'ADADAD-22' sku has 'vendorCountry' equal to 'Тестовая страна' on amounts page
-And the user checks the product with 'ADADAD-22' sku has 'purchasePrice' equal to '45,6' on amounts page
+Then the user checks the product with 'ADADAD-22' sku has 'amounts amount' element equal to '38' on amounts page
+And the user checks the product with 'ADADAD-22' sku has 'amounts units' element equal to 'шт.' on amounts page
+And the user checks the product with 'ADADAD-22' sku has 'amounts name' element equal to 'ADADAD-22' on amounts page
+And the user checks the product with 'ADADAD-22' sku has 'amounts vendor' element equal to 'Тестовый производитель' on amounts page
+And the user checks the product with 'ADADAD-22' sku has 'amounts vendorCountry' element equal to 'Тестовая страна' on amounts page
+And the user checks the product with 'ADADAD-22' sku has 'amounts purchasePrice' element equal to '45,6' on amounts page
 
 Scenario: Amount increase liter
 Given there is the product with 'ADADAD-33' name, 'ADADAD-33' sku, 'BARCode-33' barcode, 'liter' units
@@ -73,12 +73,12 @@ And the user inputs '34' in the invoice product 'invoiceCost' field
 And the user clicks the invoice create button
 Then the user checks the invoice with 'Invoice-ADADAD-331' sku is present
 Given the user opens amount list page
-Then the user checks the product with 'ADADAD-33' sku has 'amount' equal to '170' on amounts page
-And the user checks the product with 'ADADAD-33' sku has 'units' equal to 'л' on amounts page
-And the user checks the product with 'ADADAD-33' sku has 'name' equal to 'ADADAD-33' on amounts page
-And the user checks the product with 'ADADAD-33' sku has 'vendor' equal to 'Тестовый производитель' on amounts page
-And the user checks the product with 'ADADAD-33' sku has 'vendorCountry' equal to 'Тестовая страна' on amounts page
-And the user checks the product with 'ADADAD-33' sku has 'purchasePrice' equal to '34' on amounts page
+Then the user checks the product with 'ADADAD-33' sku has 'amounts amount' element equal to '170' on amounts page
+And the user checks the product with 'ADADAD-33' sku has 'amounts units' element equal to 'л' on amounts page
+And the user checks the product with 'ADADAD-33' sku has 'amounts name' element equal to 'ADADAD-33' on amounts page
+And the user checks the product with 'ADADAD-33' sku has 'amounts vendor' element equal to 'Тестовый производитель' on amounts page
+And the user checks the product with 'ADADAD-33' sku has 'amounts vendorCountry' element equal to 'Тестовая страна' on amounts page
+And the user checks the product with 'ADADAD-33' sku has 'amounts purchasePrice' element equal to '34' on amounts page
 
 
 

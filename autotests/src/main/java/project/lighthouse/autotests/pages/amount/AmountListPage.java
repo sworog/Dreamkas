@@ -31,6 +31,7 @@ public class AmountListPage extends ProductListPage {
         items.put("amounts purchasePrice", new NonType(this, "lastPurchasePrice"));
         items.put("amounts averagePrice", new NonType(this, "averagePurchasePrice"));
         items.put("amounts amount", new NonType(this, "amount"));
+        items.put("amounts units", new NonType(this, "units"));
     }
 
     public void checkAmountItemListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue) {
