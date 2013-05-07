@@ -1,1 +1,1 @@
-set :symfony_env_prod, "prod"
+set :symfony_env, "prod"
