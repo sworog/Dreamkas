@@ -21,6 +21,7 @@ abstract public class CommonPageObject extends PageObject {
 
     private String errorMessage1 = "Element not found in the cache - perhaps the page has changed since it was looked up";
     private String errorMessage2 = "Element is no longer attached to the DOM";
+    private String errorMessage3 = "Element does not exist in cache";
 
     public CommonPageObject(WebDriver driver) {
         super(driver);
@@ -74,8 +75,8 @@ abstract public class CommonPageObject extends PageObject {
         try {
             webElementFacade.shouldBePresent();
         } catch (Exception e) {
-            String getExceptionMessage = e.getMessage();
-            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2)) {
+            String exceptionMessage = e.getMessage();
+            if (exceptionMessage.contains(errorMessage1) || exceptionMessage.contains(errorMessage2) || exceptionMessage.contains(errorMessage3)) {
                 elementShouldBePresent(webElementFacade);
             } else {
                 throw e;
