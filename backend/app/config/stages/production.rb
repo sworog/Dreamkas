@@ -1,1 +1,0 @@
-set :symfony_env, "prod"
