@@ -29,11 +29,13 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property Money  $averagePurchasePrice
  *
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\ProductRepository"
+ *      repositoryClass="Lighthouse\CoreBundle\Document\ProductRepository",
+ *      indexes={
+ *          @MongoDB\Index(keys={"sku"="desc"}, options={"unique"=true})
+ *      }
  * )
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
  * @LighthouseAssert\Product\RetailPrice
- * )
  */
 class Product extends AbstractDocument
 {
