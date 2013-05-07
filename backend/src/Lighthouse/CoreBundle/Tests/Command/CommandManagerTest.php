@@ -38,4 +38,3 @@ class CommandManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($command, $commands[$commandName]);
     }
 }
-

@@ -34,4 +34,3 @@ class RecalculateAveragePurchasePriceCommandTest extends \PHPUnit_Framework_Test
         $this->assertContains('Recalculate finished', $commandTester->getDisplay());
     }
 }
-
