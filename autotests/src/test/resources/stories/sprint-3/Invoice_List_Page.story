@@ -16,6 +16,7 @@ And the user inputs 'ООО23' in the invoice 'legalEntity' field
 And the user inputs '799' in the invoice 'supplierInvoiceSku' field
 And the user inputs '01.04.2013' in the invoice 'supplierInvoiceDate' field
 And the user navigates to invoice product addition
+And the user clicks the invoice create button
 Given the user is on the invoice list page
 Then the user checks the invoice with '654321' sku is present
 And the user checks the invoice with '654321' sku has 'acceptanceDate' equal to '02.04.2013 16:23'
