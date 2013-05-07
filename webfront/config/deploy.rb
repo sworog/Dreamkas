@@ -7,7 +7,8 @@ set :app_end, "webfront"
 set :application, "webfront"
 set :domain,      "alexandria.lighthouse.cs"
 set :user,        "watchman"
-set :deploy_to,   "/var/www/#{application}"
+set :deploy_to_base,   "/var/www/"
+set :deploy_to,   "{#deploy_to_base}#{application}"
 set :deploy_via,  :remote_cache_subfolder
 set :deploy_subdir, "webfront/web"
 
