@@ -74,7 +74,7 @@ abstract public class CommonPageObject extends PageObject {
         try {
             webElementFacade.shouldBePresent();
         } catch (Exception e) {
-            String getCauseMessage = e.getCause().getMessage();
+            String getCauseMessage = e.getCause().getMessage() != null ? e.getCause().getMessage() : e.getMessage();
             if (getCauseMessage.contains(errorMessage1) || getCauseMessage.contains(errorMessage2)) {
                 elementShouldBePresent(webElementFacade);
             } else {
