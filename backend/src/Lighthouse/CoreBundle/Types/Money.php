@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Types;
 
+use Lighthouse\CoreBundle\Service\RoundService;
+
 class Money
 {
     /**
@@ -56,7 +58,7 @@ class Money
      */
     public function round($count)
     {
-        return (int) round($count);
+        return (int) RoundService::round($count);
     }
 
     /**

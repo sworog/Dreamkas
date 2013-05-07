@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
+use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 
 class ProductRepository extends DocumentRepository
@@ -39,12 +40,14 @@ class ProductRepository extends DocumentRepository
      */
     public function updateAveragePurchasePrice($productId, $averagePurchasePrice)
     {
+        $roundedAveragePurchasePrice = RoundService::round($averagePurchasePrice);
+
         $query = $this
             ->createQueryBuilder()
             ->findAndUpdate()
             //->returnNew(true)
             ->field('id')->equals($productId)
-            ->field('averagePurchasePrice')->set($averagePurchasePrice, true)
+            ->field('averagePurchasePrice')->set($roundedAveragePurchasePrice, true)
             ->field('averagePurchasePriceNotCalculate')->unsetField();
 
         $query->getQuery()->execute();

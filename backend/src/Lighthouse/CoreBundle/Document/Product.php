@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
@@ -182,7 +183,7 @@ class Product extends AbstractDocument
             case self::RETAIL_PRICE_PREFERENCE_PRICE:
                 if (null !== $this->retailPrice && !$this->retailPrice->isEmpty()) {
                     $markup = (($this->retailPrice->getCount() / $this->purchasePrice->getCount()) * 100) - 100;
-                    $this->retailMarkup = round($markup, 2);
+                    $this->retailMarkup = RoundService::round($markup, 2);
                 }
                 break;
             case self::RETAIL_PRICE_PREFERENCE_MARKUP:
