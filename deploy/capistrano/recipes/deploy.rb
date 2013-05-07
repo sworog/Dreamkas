@@ -14,6 +14,15 @@ namespace :deploy do
         end
     end
 
+    task :cleanup_if_needed, :roles => :app, :except => { :no_release => true } do
+        count = fetch(:keep_releases, 5).to_i
+        local_releases = capture("ls -xt #{releases_path}").split.reverse
+        if (local_releases.length > count)
+            deploy.cleanup
+            puts "--> Cleanup old releases"
+        end
+    end
+
     desc "Reload PHP-FPM"
     task :reload_php, :roles => :app, :except => { :no_release => true } do
         run "#{sudo} service php5-fpm reload"
@@ -121,4 +130,4 @@ after "multistage:ensure", "deploy:init"
 
 before "deploy", "deploy:setup_if_needed"
 
-after "deploy:update", "deploy:cleanup"
+after "deploy:update", "deploy:cleanup_if_needed"
