@@ -2,13 +2,18 @@
 
 namespace Lighthouse\CoreBundle;
 
+use Lighthouse\CoreBundle\Command\CommandManager;
+use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddCommandAsServicePass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\DocumentRepositoryPass;
+use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Doctrine\ODM\MongoDB\Mapping\Types\Type;
 
 class LighthouseCoreBundle extends Bundle
 {
+    protected $commands = array();
+
     public function __construct()
     {
         Type::registerType('money', 'Lighthouse\CoreBundle\Types\MongoDB\MoneyType');
@@ -21,6 +26,16 @@ class LighthouseCoreBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new DocumentRepositoryPass());
+        $container->addCompilerPass(new AddCommandAsServicePass());
+    }
+
+    /**
+     * @param Application $application
+     */
+    public function registerCommands(Application $application)
+    {
+        /* @var CommandManager $commandManager */
+        $commandManager = $this->container->get('lighthouse.core.command.manager');
+        $application->addCommands($commandManager->getAll());
     }
 }

@@ -16,6 +16,7 @@ And the user inputs 'Компания' in the invoice 'legalEntity' field
 And the user inputs '123456' in the invoice 'supplierInvoiceSku' field
 And the user inputs '01.04.2013' in the invoice 'supplierInvoiceDate' field
 And the user navigates to invoice product addition
+And the user clicks the invoice create button
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IE-IH' sku is present
 When the user open the invoice card with 'Invoice-IE-IH' sku

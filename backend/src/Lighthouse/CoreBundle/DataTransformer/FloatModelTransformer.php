@@ -33,5 +33,4 @@ class FloatModelTransformer implements DataTransformerInterface
 
         return $value;
     }
-
 }

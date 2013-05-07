@@ -17,6 +17,8 @@ define(
                 "product/edit/:id": "productEdit",
                 "product/create": "productCreate",
                 "product/view/:id": "productView",
+                'balance': 'balance',
+
 
                 "": "dashboard",
                 "/": "dashboard",
@@ -24,6 +26,9 @@ define(
             },
             dashboard: function() {
                 page.open('/views/pages/dashboard.html');
+            },
+            balance: function() {
+                page.open('/views/pages/balance.html');
             },
             invoiceList: function(){
                 page.open('/views/pages/invoice/list.html');

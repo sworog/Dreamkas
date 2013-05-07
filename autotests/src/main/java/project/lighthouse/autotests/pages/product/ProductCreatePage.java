@@ -69,15 +69,11 @@ public class ProductCreatePage extends CommonPageObject {
         items.put("cardViewRetailPrice", new Input(this, By.xpath(String.format(CARD_VIEW_XPATH_PATTERN, "retailPrice"))));*/
     }
 
-    public void fieldInput(String elementName, String inputText) {
-        items.get(elementName).setValue(inputText);
-    }
-
     public void fieldInput(ExamplesTable fieldInputTable) {
         for (Map<String, String> row : fieldInputTable.getRows()) {
             String elementName = row.get("elementName");
             String inputText = row.get("inputText");
-            fieldInput(elementName, inputText);
+            input(elementName, inputText);
         }
     }
 

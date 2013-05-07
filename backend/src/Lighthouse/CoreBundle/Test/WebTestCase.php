@@ -61,6 +61,8 @@ class WebTestCase extends BaseTestCase
         /* @var DocumentManager $mongoDb */
         $mongoDb = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
         $mongoDb->getSchemaManager()->dropCollections();
+        $mongoDb->getSchemaManager()->createCollections();
+        $mongoDb->getSchemaManager()->ensureIndexes();
     }
 
     /**
@@ -106,7 +108,7 @@ class WebTestCase extends BaseTestCase
             $server['CONTENT_TYPE'] = 'application/json';
         }
         if (!isset($server['HTTP_ACCEPT'])) {
-            $server['HTTP_ACCEPT'] = 'application/json, text/javascript, */*; q=0.01';
+            $server['HTTP_ACCEPT'] = 'application/json, */*; q=0.01';
         }
 
         $client->request(

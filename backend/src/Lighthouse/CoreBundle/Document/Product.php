@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
@@ -25,6 +26,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property Money  $retailPrice
  * @property float  $retailMarkup
  * @property string $retailPricePreference
+ * @property Money  $averagePurchasePrice
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\ProductRepository"
@@ -145,6 +147,12 @@ class Product extends AbstractDocument
     protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
 
     /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $averagePurchasePrice;
+
+    /**
      * @return array
      */
     public function toArray()
@@ -165,6 +173,7 @@ class Product extends AbstractDocument
             'retailPrice' => $this->retailPrice,
             'retailMarkup' => $this->retailMarkup,
             'retailPricePreference' => $this->retailPricePreference,
+            'averagePurchasePrice' => $this->averagePurchasePrice,
         );
     }
 
@@ -174,7 +183,7 @@ class Product extends AbstractDocument
             case self::RETAIL_PRICE_PREFERENCE_PRICE:
                 if (null !== $this->retailPrice && !$this->retailPrice->isEmpty()) {
                     $markup = (($this->retailPrice->getCount() / $this->purchasePrice->getCount()) * 100) - 100;
-                    $this->retailMarkup = round($markup, 2);
+                    $this->retailMarkup = RoundService::round($markup, 2);
                 }
                 break;
             case self::RETAIL_PRICE_PREFERENCE_MARKUP:

@@ -1,0 +1,24 @@
+<tr name="amountItem">
+    <td>
+        <span name="sku"><%= product.sku %></span>
+    </td>
+    <td>
+        <span name="name"><%= product.name %></span>
+    </td>
+    <td>
+        <span name="vendor"><%= product.vendor %></span>
+    </td>
+    <td>
+        <span name="vendorCountry"><%= product.vendorCountry %></span>
+    </td>
+    <td>
+        <span name="averagePurchasePrice"><%= product.averagePurchasePrice ? LH.helpers.formatPrice(product.averagePurchasePrice) + 'р.' : '&mdash;' %></span>
+    </td>
+    <td>
+        <span name="lastPurchasePrice"><%= product.lastPurchasePrice ? LH.helpers.formatPrice(product.lastPurchasePrice) : LH.helpers.formatPrice(product.purchasePrice) %> р.</span>
+    </td>
+    <td>
+        <span name="amount"><%= product.amount || 0 %></span>
+        <span name="units"><%= LH.helpers.units(product.units, 'smallShort') %></span>
+    </td>
+</tr>

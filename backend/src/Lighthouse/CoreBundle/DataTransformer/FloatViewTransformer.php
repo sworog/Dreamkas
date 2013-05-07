@@ -39,5 +39,4 @@ class FloatViewTransformer implements DataTransformerInterface
 
         return $value;
     }
-
 }

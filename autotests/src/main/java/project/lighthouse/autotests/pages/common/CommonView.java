@@ -6,8 +6,8 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.CommonViewInterface;
+import project.lighthouse.autotests.pages.amount.AmountListPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 
 import java.util.Map;
@@ -17,7 +17,6 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
     String listPageName;
     String listPageSkuName;
     private static final String XPATH_PATTERN = "//*[@name='%s']//*[@name='%s' and normalize-space(text())='%s']/..";
-    CommonPageInterface commonPageInterface = new CommonPage(getDriver());
 
     public CommonView(WebDriver driver, String listPageName, String listPageSkuName) {
         super(driver);
@@ -28,6 +27,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
     public String getCorrectXpathPattern() {
         switch (listPageName) {
             case InvoiceBrowsing.ITEM_NAME:
+            case AmountListPage.ITEM_NAME:
                 return XPATH_PATTERN + "/..";
             default:
                 return XPATH_PATTERN;
@@ -81,7 +81,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
     public void checkListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue) {
         itemCheck(value);
         WebElement listItem = getWebElementItem(value).findElement(By.name(elementName));
-        commonPageInterface.shouldContainsText(elementName, listItem, expectedValue);
+        commonPage.shouldContainsText(elementName, listItem, expectedValue);
     }
 
     public void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable) {
@@ -90,6 +90,12 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
             String expectedValue = row.get("expectedValue");
             checkListItemWithSkuHasExpectedValue(value, elementName, expectedValue);
         }
+    }
+
+    public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, By findBy, String expectedValue) {
+        itemCheck(value);
+        WebElement listItem = getWebElementItem(value).findElement(findBy);
+        commonPage.shouldContainsText(elementName, listItem, expectedValue);
     }
 
     @Override

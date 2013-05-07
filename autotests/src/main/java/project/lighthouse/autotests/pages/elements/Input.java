@@ -16,7 +16,6 @@ public class Input extends CommonItem {
 
     @Override
     public void setValue(String value) {
-
         $().type(value);
     }
 }

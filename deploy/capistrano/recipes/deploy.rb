@@ -2,12 +2,24 @@ require 'time_diff'
 
 namespace :deploy do
 
+    def remote_folder_exists?(path)
+        'true' ==  capture("if [ -d #{path} ]; then echo 'true'; fi").strip
+    end
+
     desc "Check & setup environment if needed"
     task :setup_if_needed, :roles => :app, :except => { :no_release => true } do
-        begin
-            check
-        rescue Exception => error
+        unless remote_folder_exists?(deploy_to)
+            puts "--> Setup host ".yellow + application.to_s.red + " because it does not exist".yellow
             setup
+        end
+    end
+
+    task :cleanup_if_needed, :roles => :app, :except => { :no_release => true } do
+        count = fetch(:keep_releases, 5).to_i
+        local_releases = capture("ls -xt #{releases_path}").split.reverse
+        if (local_releases.length > count)
+            deploy.cleanup
+            puts "--> Cleanup old releases"
         end
     end
 
@@ -27,20 +39,21 @@ namespace :deploy do
 
         set :application, "#{host}.#{stage}.#{app_end}"
         set :deploy_to,   "/var/www/#{application}"
-        set :symfony_env_prod, stage
+        set :symfony_env_prod, exists?(:symfony_env) ? symfony_env : stage
         set :application_url, "http://#{application}.lighthouse.cs"
 
         puts "--> Branch ".yellow + "#{branch}".red + " will be used for deploy".yellow
         puts "--> Application will be deployed to ".yellow + application_url.red
+        puts "--> Symfony env: ".yellow + symfony_env_prod.to_s.red
     end
 
     desc "List all deployed hosts"
     task :list do
-        hosts = capture("ls -x #{deploy_to_base}", :except => { :no_release => true }).split.select { |v| v =~ /\.api$/ }.sort
+        hosts = capture("ls -x #{deploy_to_base}", :except => { :no_release => true }).split.select { |v| v =~ /\.#{app_end}$/ }.sort
         revisions = hosts.map do |host|
             host_current_path = File.join(deploy_to_base, host, current_dir)
             host_releases_path = File.join(deploy_to_base, host, version_dir)
-            releases = capture("ls -x #{host_releases_path}", :except => { :no_release => true }).split.sort
+            releases = capture("if [ -d #{host_releases_path} ]; then ls -x #{host_releases_path}; fi", :except => { :no_release => true }).split.sort
             last_release = releases.length > 0 ? Time.parse(releases.last.sub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '\1-\2-\3 \4:\5:\6 UTC')).getlocal : nil;
             {
                 :host => host,
@@ -71,15 +84,15 @@ namespace :deploy do
             unless (revision[:last_release].nil?)
                 time_diff = Time.diff(revision[:last_release], Time.new);
                 print " " + revision[:last_release].to_s.yellow + " (" + time_diff[:diff].green + ")"
+                print_shift(30, time_diff[:diff].length)
             else
-                print "Last release: " + "never".red
+                print " never".red
+                print_shift(58, 0)
             end
 
-            print_shift(30, time_diff[:diff].length)
-
-            host = revision[:host].sub(/^(.+)\..+?\.api$/, '\1')
-            stage = revision[:host].sub(/^.+\.(.+)?\.api$/, '\1')
-            puts "Remove command: " + "cap #{stage} deploy:remove -S host=#{host}".red
+            host = revision[:host].sub(/^(.+)\..+?\.#{app_end}$/, '\1')
+            stage = revision[:host].sub(/^.+\.(.+)?\.#{app_end}$/, '\1')
+            puts "Cleanup command: " + "cap #{stage} deploy:cleanup -S host=#{host}".red
 
         end
     end
@@ -115,8 +128,6 @@ end
 
 after "multistage:ensure", "deploy:init"
 
-after "deploy:update" do
-    capifony_pretty_print "--> Cleaning up old releases"
-    deploy:cleanup
-    capifony_puts_ok
-end
+before "deploy", "deploy:setup_if_needed"
+
+after "deploy:update", "deploy:cleanup_if_needed"

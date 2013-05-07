@@ -25,18 +25,29 @@ class InvoiceProductListener
     protected $invoiceRepository;
 
     /**
+     * @var TrialBalanceRepository
+     */
+    protected $trialBalanceRepository;
+
+    /**
      * @DI\InjectParams({
      *     "productRepository"=@DI\Inject("lighthouse.core.document.repository.product"),
-     *     "invoiceRepository"=@DI\Inject("lighthouse.core.document.repository.invoice")
+     *     "invoiceRepository"=@DI\Inject("lighthouse.core.document.repository.invoice"),
+     *     "trialBalanceRepository"=@DI\Inject("lighthouse.core.document.repository.trial_balance")
      * })
      *
      * @param ProductRepository $productRepository
      * @param InvoiceRepository $invoiceRepository
+     * @param InvoiceRepository $trialBalanceRepository
      */
-    public function __construct(ProductRepository $productRepository, InvoiceRepository $invoiceRepository)
-    {
+    public function __construct(
+        ProductRepository $productRepository,
+        InvoiceRepository $invoiceRepository,
+        TrialBalanceRepository $trialBalanceRepository
+    ) {
         $this->productRepository = $productRepository;
         $this->invoiceRepository = $invoiceRepository;
+        $this->trialBalanceRepository = $trialBalanceRepository;
     }
 
     public function prePersist(LifecycleEventArgs $eventArgs)
@@ -45,7 +56,6 @@ class InvoiceProductListener
 
         if ($document instanceof InvoiceProduct) {
             $document->product->amount = $document->product->amount + $document->quantity;
-            $document->product->lastPurchasePrice = new Money($document->price);
         }
     }
 
@@ -109,18 +119,15 @@ class InvoiceProductListener
             $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $invoiceProduct->quantity;
 
             $oldProduct->amount = $oldProduct->amount - $oldQuantity;
-            $oldProduct->lastPurchasePrice = null;
             $this->computeChangeSet($dm, $oldProduct);
 
             $newProduct->amount = $newProduct->amount + $newQuantity;
-            $newProduct->lastPurchasePrice = new Money($invoiceProduct->price);
             $this->computeChangeSet($dm, $newProduct);
         } else {
 
             $quantityDiff = $this->computeDiff($changeSet, 'quantity');
 
             $invoiceProduct->product->amount = $invoiceProduct->product->amount + $quantityDiff;
-            $invoiceProduct->product->lastPurchasePrice = new Money($invoiceProduct->price);
             $this->computeChangeSet($dm, $invoiceProduct->product);
         }
     }
@@ -162,7 +169,6 @@ class InvoiceProductListener
 
         if ($document instanceof InvoiceProduct) {
             $document->product->amount = $document->product->amount - $document->quantity;
-            $document->product->lastPurchasePrice = null;
         }
     }
 
