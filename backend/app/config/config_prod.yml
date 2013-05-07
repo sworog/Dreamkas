@@ -9,11 +9,10 @@ framework:
     router:
         strict_requirements: null
 
-#doctrine:
-#    orm:
-#        metadata_cache_driver: apc
-#        result_cache_driver: apc
-#        query_cache_driver: apc
+doctrine_mongodb:
+    document_managers:
+        default:
+            metadata_cache_driver: apc
 
 monolog:
     handlers:
