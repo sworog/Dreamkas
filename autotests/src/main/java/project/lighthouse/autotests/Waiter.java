@@ -15,18 +15,7 @@ public class Waiter {
     }
 
     public WebElement getFluentWaitWebElement(final By by) {
-        return new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(by));
-       /* return new FluentWait<>(driver)
-                // Waiting StaticDataCollections.TIMEOUT seconds for an element to be present on the page, checking
-                // for its presence once every 1 seconds.
-                .withTimeout(Integer.parseInt(StaticDataCollections.TIMEOUT), TimeUnit.MILLISECONDS)
-                .pollingEvery(100, TimeUnit.MILLISECONDS)
-                .ignoring(Throwable.class)
-                .until(new Function<WebDriver, WebElement>() {
-                    public WebElement apply(WebDriver driver) {
-                        return driver.findElement(by);
-                    }
-                });*/
+        return new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 100).until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public WebElement getWebElement(By findBy) {
