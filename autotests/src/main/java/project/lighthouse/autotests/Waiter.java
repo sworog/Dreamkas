@@ -33,18 +33,7 @@ public class Waiter {
     }
 
     public WebElement getWebElement(By findBy) {
-        try {
-            return getFluentWaitWebElement(findBy);
-        } catch (Exception e) {
-            String errorMessage1 = "Element not found in the cache - perhaps the page has changed since it was looked up";
-            //String errorMessage2 = "isDisplayed execution failed;";
-            String getCauseMessage = e.getCause().getMessage();
-            if (getCauseMessage.contains(errorMessage1)) {
-                return getFluentWaitWebElement(findBy);
-            } else {
-                throw e;
-            }
-        }
+        return getFluentWaitWebElement(findBy);
     }
 
     public void checkElementIsNotVisible(final By findBy) {
