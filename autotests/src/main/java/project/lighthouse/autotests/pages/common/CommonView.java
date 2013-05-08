@@ -46,8 +46,8 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
         WebElement listItem = getWebElementItem(value);
         try {
             shouldBeVisible(listItem);
-        } catch (Exception e) {
-            String errorMessage = String.format("The element with value '%s' is not present\n%s", value, e.getMessage());
+        } catch (AssertionError e) {
+            String errorMessage = String.format("The element with value '%s' is not present\nException message: %s", value, e.getMessage());
             throw new AssertionError(errorMessage);
         }
     }
