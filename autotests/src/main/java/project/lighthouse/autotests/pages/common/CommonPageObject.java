@@ -2,7 +2,6 @@ package project.lighthouse.autotests.pages.common;
 
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.pages.WebElementFacade;
-import net.thucydides.core.webdriver.WebdriverAssertionError;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -35,8 +34,10 @@ abstract public class CommonPageObject extends PageObject {
         try {
             items.get(elementName).setValue(inputText);
         } catch (Exception e) {
-            String getCauseMessage = e.getCause().getMessage();
-            if (getCauseMessage.contains(errorMessage1) || getCauseMessage.contains(errorMessage2)) {
+            String getExceptionMessage = e.getCause() != null
+                    ? e.getCause().getMessage()
+                    : e.getMessage();
+            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2)) {
                 input(elementName, inputText);
             } else {
                 throw e;
@@ -55,8 +56,10 @@ abstract public class CommonPageObject extends PageObject {
             }
             commonPage.shouldContainsText(elementName, element, expectedValue);
         } catch (Exception e) {
-            String getCauseMessage = e.getCause().getMessage();
-            if (getCauseMessage.contains(errorMessage1) || getCauseMessage.contains(errorMessage2)) {
+            String getExceptionMessage = e.getCause() != null
+                    ? e.getCause().getMessage()
+                    : e.getMessage();
+            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2)) {
                 checkElementValue(checkType, elementName, expectedValue);
             } else {
                 throw e;
@@ -75,7 +78,7 @@ abstract public class CommonPageObject extends PageObject {
     public void elementShouldBePresent(WebElementFacade webElementFacade) {
         try {
             webElementFacade.shouldBePresent();
-        } catch (WebdriverAssertionError e) {
+        } catch (Exception e) {
             String exceptionMessage = e.getMessage();
             if (exceptionMessage.contains(errorMessage1) || exceptionMessage.contains(errorMessage2) || exceptionMessage.contains(errorMessage3)) {
                 elementShouldBePresent(webElementFacade);
