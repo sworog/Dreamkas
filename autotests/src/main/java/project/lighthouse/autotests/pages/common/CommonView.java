@@ -45,12 +45,17 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
 
     public WebElement getWebElementItem(String value) {
         String getXpath = getXpath(value);
-        return getDriver().findElement(By.xpath(getXpath));
+        return waiter.getWebElement(By.xpath(getXpath));
     }
 
     public void itemCheck(String value) {
-        WebElementFacade listItem = getWebElementFacadeItem(value);
-        elementShouldBePresent(listItem);
+        WebElement listItem = getWebElementItem(value);
+        try {
+            shouldBeVisible(listItem);
+        } catch (Exception e) {
+            String errorMessage = String.format("The element with value '%s' is not present\n%s", value, e.getMessage());
+            throw new AssertionError(errorMessage);
+        }
     }
 
     public void itemCheckIsNotPresent(String value) {

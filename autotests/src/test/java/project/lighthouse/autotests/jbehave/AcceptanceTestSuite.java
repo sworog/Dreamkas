@@ -9,15 +9,17 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
     public AcceptanceTestSuite() {
 
+        findStoriesCalled("11.1_Last_And_Average_Price.story");
+
         EnvironmentVariables environmentVariables = getEnvironmentVariables();
         String branch = environmentVariables.getProperty(CURRENT_BRANCH, null);
-        if(branch != null){
-            if(branch.startsWith("us-")){
+        if (branch != null) {
+            if (branch.startsWith("us-")) {
                 findStoriesCalled(branch.substring(3) + "*");
             }
-            if(branch.startsWith("sprint-")){
+            if (branch.startsWith("sprint-")) {
                 findStoriesIn("**/" + branch);
             }
         }
-	}
+    }
 }
