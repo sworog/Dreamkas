@@ -2,10 +2,7 @@ package project.lighthouse.autotests;
 
 import com.google.common.base.Function;
 import net.thucydides.core.webdriver.WebdriverAssertionError;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -27,6 +24,9 @@ public class Waiter {
                 .pollingEvery(1, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(WebdriverAssertionError.class)
+                .ignoring(AssertionError.class)
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(ElementNotVisibleException.class)
                 .until(new Function<WebDriver, WebElement>() {
                     public WebElement apply(WebDriver driver) {
                         return driver.findElement(by);
