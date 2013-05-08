@@ -3,8 +3,9 @@ define(
         '/pages/page.js'
     ],
     function(page) {
-        return Backbone.View.extend({
+        return Backbone.Block = Backbone.View.extend({
             page: page,
+            tpl: {},
             constructor: function(opt) {
                 var block = this;
 
@@ -16,14 +17,21 @@ define(
 
                 Backbone.View.apply(this, arguments);
             },
+            initialize: function(){
+                var block = this;
+
+                block.render();
+            },
             render: function() {
                 var block = this;
 
-                block.$el
-                    .html(block.tpl.main({
-                        block: block
-                    }))
-                    .initBlocks();
+                if (block.tpl.main){
+                    block.$el
+                        .html(block.tpl.main({
+                            block: block
+                        }))
+                        .initBlocks();
+                }
             },
             remove: function() {
                 var block = this;
@@ -48,8 +56,8 @@ define(
                     return;
                 }
 
-                if (block.events && _.isFunction(block.events['set:' + path])) {
-                    setValue = block.events['set:' + path].call(block, value, extra);
+                if (_.isFunction(block['set:' + path])) {
+                    setValue = block['set:' + path](value, extra);
                 }
 
                 if (extra.canceled) {
@@ -67,8 +75,6 @@ define(
                     });
                 } else {
                     _.each(path.split('.'), function(pathPart, index, path) {
-                        var oldValue = keyPath[pathPart];
-
                         if (typeof keyPath[pathPart] == 'undefined') {
                             keyPath[pathPart] = {};
                         }
@@ -78,11 +84,6 @@ define(
                         } else {
                             keyPath = keyPath[pathPart];
                         }
-
-                        if (keyPath[pathPart] !== oldValue){
-                            block.trigger('update:' + path, value);
-                        }
-
                     });
                 }
 

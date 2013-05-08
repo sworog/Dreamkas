@@ -1,7 +1,16 @@
-define(function() {
+define(
+    [
+        '/routers/mainRouter.js'
+    ],
+    function(router) {
     
     var pageBlocks = [],
         $page = $('#page');
+
+    $page.on('click', '[href]', function(e) {
+        e.preventDefault();
+        router.navigate($(this).attr('href'), {trigger: true});
+    });
 
     return {
         open: function(pageTpl, data) {

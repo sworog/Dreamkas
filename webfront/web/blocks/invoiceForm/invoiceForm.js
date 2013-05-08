@@ -1,14 +1,13 @@
 define(
     [
-        '/kit/block.js',
         '/kit/form/form.js',
         '/models/invoice.js',
         '/helpers/helpers.js',
         '/routers/mainRouter.js',
         './tpl/tpl.js'
     ],
-    function(Block, Form, InvoiceModel, utils, router, tpl) {
-        return Block.extend({
+    function(Form, InvoiceModel, utils, router, tpl) {
+        return Form.extend({
             defaults: {
                 invoiceId: null
             },
@@ -28,11 +27,7 @@ define(
                     }
                 });
 
-                if (block.invoiceId){
-                    block.invoiceModel.fetch();
-                } else {
-                    block.render();
-                }
+                block.render();
 
                 if(!block.invoiceModel.get('acceptanceDate')) {
                     currentTime = true;
@@ -47,25 +42,20 @@ define(
                     var block = this,
                         formData = Backbone.Syphon.serialize(e.target);
 
+                    block.$submitButton.addClass('preloader');
+                    block.removeErrors();
+
                     block.invoiceModel.save(formData, {
-                        success: function(){
-                            router.navigate(block.invoiceId ? '/invoice/' + block.invoiceId : '/invoices', {
+                        success: function(model){
+                            router.navigate('/invoice/' + model.id + '?editMode=true', {
                                 trigger: true
                             });
                         },
                         error: function(model, response){
-                            block.form.showErrors(JSON.parse(response.responseText));
+                            block.showErrors(JSON.parse(response.responseText));
                         }
                     });
                 }
-            },
-            render: function(){
-                Block.prototype.render.apply(this, arguments);
-                var block = this;
-
-                block.form = Form({
-                    el: block.el
-                });
             },
             datepicker: function(selector) {
                 var jqObj = this.$el.find(selector);

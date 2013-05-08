@@ -1,20 +1,21 @@
 define(
     [
-        '/pages/page.js'
+        '/pages/page.js',
+        './baseRouter.js'
     ],
-    function(page) {
+    function(page, BaseRouter) {
 
-        var Router = Backbone.Router.extend({
+        var Router = BaseRouter.extend({
             routes: {
                 'invoices': 'invoiceList',
                 'invoice/list': 'invoiceList',
                 'invoice/create': 'invoiceCreate',
-                'invoice/view/:invoiceId': 'invoiceView',
                 'invoice/:invoiceId': 'invoiceView'
             },
-            invoiceView: function(invoiceId){
+            invoiceView: function(invoiceId, params){
                 page.open('/pages/invoice/view.html', {
-                    invoiceId: invoiceId
+                    invoiceId: invoiceId,
+                    params: params || {}
                 });
             },
             invoiceCreate: function(){

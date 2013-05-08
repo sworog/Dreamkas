@@ -40,14 +40,6 @@ define(
                     }
                 });
             },
-            disable: function(disabled){
-                var block = this;
-                if (disabled) {
-                    block.$el.find('[type=submit]').closest('.button').addClass('button_disabled');
-                } else {
-                    block.$el.find('[type=submit]').closest('.button').removeClass('button_disabled');
-                }
-            },
             autocompleteToInput: function($input) {
                 var name = $input.attr('lh_product_autocomplete');
                 $input.autocomplete({

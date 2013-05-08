@@ -1,6 +1,6 @@
 <fieldset class="form__fieldset">
     <div class="form__field form__field_inline">
-        <label class="form__label">приемка №</label>
+        <label class="form__label">Приемка №</label>
         <input value="<%= _.escape(block.invoiceModel.get('sku')) %>" class="inputText" type="text" name="sku"/>
         <span style="vertical-align: middle; margin: 0 5px 0 10px;">от</span>
         <input style="width: 200px;" value="<%= _.escape(block.invoiceModel.get('acceptanceDate')) %>" class="inputText" type="text" name="acceptanceDate"/>
@@ -29,7 +29,7 @@
 </fieldset>
 <div class="form__controls">
     <span class="button button_color_blue">
-        <%= block.invoiceId ? 'Сохранить накладную' : 'Добавить накладную' %>
+        <%= 'Добавить накладную' %>
         <input type="submit"/>
     </span>
 </div>

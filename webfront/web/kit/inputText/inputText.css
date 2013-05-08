@@ -5,7 +5,6 @@
 input.inputText, .inputText input, textarea.inputText, .inputText textarea{
     height: 32px;
     background: #fff;
-    width: 100%;
     outline: none;
     font-size: 14px;
     border-radius: 4px;
@@ -19,6 +18,7 @@ input.inputText, .inputText input, textarea.inputText, .inputText textarea{
     border: 1px solid #999;
     line-height: 17px;
     padding: 0 8px;
+    vertical-align: middle;
 }
 
 .inputText_inline, input.inputText_inline, textarea.inputText_inline {
