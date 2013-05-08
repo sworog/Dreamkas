@@ -1,6 +1,7 @@
 package project.lighthouse.autotests;
 
 import com.google.common.base.Function;
+import net.thucydides.core.webdriver.WebdriverAssertionError;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -20,11 +21,12 @@ public class Waiter {
 
     public WebElement getFluentWaitWebElement(final By by) {
         return new FluentWait<>(driver)
-                // Waiting 5 seconds for an element to be present on the page, checking
+                // Waiting StaticDataCollections.TIMEOUT seconds for an element to be present on the page, checking
 //                // for its presence once every 1 seconds.
                 .withTimeout(Integer.parseInt(StaticDataCollections.TIMEOUT), TimeUnit.MILLISECONDS)
                 .pollingEvery(1, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class)
+                .ignoring(WebdriverAssertionError.class)
                 .until(new Function<WebDriver, WebElement>() {
                     public WebElement apply(WebDriver driver) {
                         return driver.findElement(by);
