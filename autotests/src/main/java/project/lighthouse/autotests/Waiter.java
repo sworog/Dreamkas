@@ -22,7 +22,7 @@ public class Waiter {
         return new FluentWait<>(driver)
                 // Waiting 5 seconds for an element to be present on the page, checking
 //                // for its presence once every 1 seconds.
-                .withTimeout(5, TimeUnit.SECONDS)
+                .withTimeout(Integer.parseInt(StaticDataCollections.TIMEOUT), TimeUnit.MILLISECONDS)
                 .pollingEvery(1, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class)
                 .until(new Function<WebDriver, WebElement>() {
