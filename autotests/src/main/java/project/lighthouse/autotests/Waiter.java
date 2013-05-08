@@ -15,7 +15,7 @@ public class Waiter {
     }
 
     public WebElement getFluentWaitWebElement(final By by) {
-        return new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 100).until(ExpectedConditions.visibilityOfElementLocated(by));
+        return new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     public WebElement getWebElement(By findBy) {
