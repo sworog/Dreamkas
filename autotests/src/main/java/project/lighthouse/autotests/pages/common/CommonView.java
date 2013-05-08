@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.pages.common;
 
 
-import net.thucydides.core.pages.WebElementFacade;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -38,11 +37,6 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
         return String.format(getCorrectXpathPattern(), listPageName, listPageSkuName, value);
     }
 
-    public WebElementFacade getWebElementFacadeItem(String value) {
-        String getXpath = getXpath(value);
-        return findBy(getXpath);
-    }
-
     public WebElement getWebElementItem(String value) {
         String getXpath = getXpath(value);
         return waiter.getWebElement(By.xpath(getXpath));
@@ -60,14 +54,14 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
 
     public void itemCheckIsNotPresent(String value) {
         try {
-            WebElementFacade listItem = getWebElementFacadeItem(value);
-            listItem.shouldNotBeVisible();
+            WebElement listItem = getWebElementItem(value);
+            $(listItem).shouldNotBeVisible();
         } catch (Exception e) {
         }
     }
 
     public void itemClick(String value) {
-        WebElementFacade listItem = getWebElementFacadeItem(value);
+        WebElement listItem = getWebElementItem(value);
         listItem.click();
     }
 
@@ -105,6 +99,5 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
 
     @Override
     public void createElements() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 }
