@@ -36,6 +36,14 @@ class Purchase extends AbstractDocument
     protected $products = array();
 
     /**
+     * @param PurchaseProduct $product
+     */
+    public function addProduct(PurchaseProduct $product)
+    {
+        $this->products[] = $product;
+    }
+
+    /**
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */

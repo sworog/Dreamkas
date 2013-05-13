@@ -7,6 +7,8 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Purchase\Purchase;
+use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
@@ -107,5 +109,32 @@ class InvoiceProductTest extends WebTestCase
 
         $this->assertEquals(15, $product->amount);
         $this->assertEquals(2222, $product->lastPurchasePrice->getCount());
+
+        // Purchase
+        $purchaseProduct = new PurchaseProduct();
+        $purchaseProduct->product = $product;
+        $purchaseProduct->quantity = 5;
+        $purchaseProduct->sellingPrice = new Money(1067);
+
+        $purchase = new Purchase();
+        $purchase->addProduct($purchaseProduct);
+
+        $manager->persist($purchase);
+        $manager->flush();
+
+        $this->assertEquals(10, $product->amount);
+
+        $purchaseProduct2 = new PurchaseProduct();
+        $purchaseProduct2->product = $product;
+        $purchaseProduct2->quantity = 12;
+        $purchaseProduct2->sellingPrice = new Money(1067);
+
+        $purchase2 = new Purchase();
+        $purchase2->addProduct($purchaseProduct2);
+
+        $manager->persist($purchase2);
+        $manager->flush();
+
+        $this->assertEquals(-2, $product->amount);
     }
 }
