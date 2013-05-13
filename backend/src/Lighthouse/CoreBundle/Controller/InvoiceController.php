@@ -3,9 +3,9 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\LoggableCursor;
-use Lighthouse\CoreBundle\Document\Invoice;
-use Lighthouse\CoreBundle\Document\InvoiceCollection;
-use Lighthouse\CoreBundle\Document\InvoiceRepository;
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection;
+use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -24,7 +24,7 @@ class InvoiceController extends FOSRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\Invoice
      *
      * @Rest\View(statusCode=201)
      */
@@ -36,7 +36,7 @@ class InvoiceController extends FOSRestController
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\Invoice
      *
      * @Rest\View(statusCode=200)
      */
@@ -48,8 +48,8 @@ class InvoiceController extends FOSRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Lighthouse\CoreBundle\Document\Invoice $invoice
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice
+     * @param \Lighthouse\CoreBundle\Document\Invoice\Invoice $invoice
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\Invoice
      */
     protected function processForm(Request $request, Invoice $invoice)
     {
@@ -68,7 +68,7 @@ class InvoiceController extends FOSRestController
     }
 
     /**
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\InvoiceCollection
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection
      */
     public function getInvoicesAction()
     {
@@ -80,7 +80,7 @@ class InvoiceController extends FOSRestController
 
     /**
      * @param int $id
-     * @return Invoice
+     * @return \Lighthouse\CoreBundle\Document\Invoice\Invoice
      */
     public function getInvoiceAction($id)
     {

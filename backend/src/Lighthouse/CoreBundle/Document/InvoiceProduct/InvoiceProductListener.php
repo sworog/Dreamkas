@@ -1,12 +1,15 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document;
+namespace Lighthouse\CoreBundle\Document\InvoiceProduct;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
+use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Money;
 
 /**
@@ -38,7 +41,7 @@ class InvoiceProductListener
      *
      * @param ProductRepository $productRepository
      * @param InvoiceRepository $invoiceRepository
-     * @param InvoiceRepository $trialBalanceRepository
+     * @param TrialBalanceRepository $trialBalanceRepository
      */
     public function __construct(
         ProductRepository $productRepository,
@@ -50,6 +53,9 @@ class InvoiceProductListener
         $this->trialBalanceRepository = $trialBalanceRepository;
     }
 
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     */
     public function prePersist(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
@@ -80,7 +86,6 @@ class InvoiceProductListener
         $document = $eventArgs->getDocument();
 
         if ($document instanceof InvoiceProduct) {
-
             $totalPriceDiff = $this->getPropertyDiff($eventArgs, 'totalPrice');
             $this->invoiceRepository->updateTotals($document->invoice, 0, $totalPriceDiff);
         }
@@ -94,6 +99,7 @@ class InvoiceProductListener
         /* @var DocumentManager $dm */
         $dm = $eventArgs->getDocumentManager();
         $uow = $dm->getUnitOfWork();
+
         foreach ($uow->getScheduledDocumentUpdates() as $document) {
             if ($document instanceof InvoiceProduct) {
                 $this->updateProductOnFlush($dm, $document);

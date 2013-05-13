@@ -33,7 +33,7 @@ abstract class AbstractDocument
 
     /**
      * @param array $data
-     * @return Product $this
+     * @return AbstractDocument
      */
     public function populate(array $data)
     {

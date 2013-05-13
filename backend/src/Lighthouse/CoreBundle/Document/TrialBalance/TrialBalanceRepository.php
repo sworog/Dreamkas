@@ -1,10 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document;
+namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\Query\Expr;
 use Doctrine\ODM\MongoDB\Query\Query;
+use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Product\Product;
 
 class TrialBalanceRepository extends DocumentRepository
 {

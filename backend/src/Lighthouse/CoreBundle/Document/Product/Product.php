@@ -1,9 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document;
+namespace Lighthouse\CoreBundle\Document\Product;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -29,7 +30,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property Money  $averagePurchasePrice
  *
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\ProductRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\Product\ProductRepository"
  * )
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
  * @LighthouseAssert\Product\RetailPrice

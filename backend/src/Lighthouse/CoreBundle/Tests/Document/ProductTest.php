@@ -2,19 +2,19 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document;
 
-use Lighthouse\CoreBundle\Document\Product;
+use Lighthouse\CoreBundle\Document\Product\Product;
 
 class ProductTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {
-        $product = new Product();
+        $product = new Product\Product();
         $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Product', $product);
     }
 
     public function testGetSetProperties()
     {
-        $product = new Product();
+        $product = new Product\Product();
 
         $product->name = 'name';
         $this->assertEquals('name', $product->name);
@@ -60,7 +60,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
         );
 
-        $product = new Product();
+        $product = new Product\Product();
         $product->populate($array);
 
         $productArray = $product->toArray();

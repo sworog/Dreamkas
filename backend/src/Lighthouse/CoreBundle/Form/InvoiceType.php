@@ -36,7 +36,7 @@ class InvoiceType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Invoice',
+                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Invoice\\Invoice',
                 'csrf_protection' => false
             )
         );

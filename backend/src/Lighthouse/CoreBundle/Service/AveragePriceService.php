@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Service;
 
-use Lighthouse\CoreBundle\Document\ProductRepository;
-use Lighthouse\CoreBundle\Document\TrialBalanceRepository;
+use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -17,7 +17,7 @@ class AveragePriceService
     protected $productRepository;
 
     /**
-     * @var TrialBalanceRepository
+     * @var \Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository
      */
     protected $trialBalanceRepository;
 

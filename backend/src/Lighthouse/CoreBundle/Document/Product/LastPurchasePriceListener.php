@@ -1,11 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document;
+namespace Lighthouse\CoreBundle\Document\Product;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"postPersist", "postUpdate", "postRemove", "postFlush"})

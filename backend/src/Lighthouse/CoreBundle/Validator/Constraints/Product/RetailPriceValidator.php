@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Product;
 
-use Lighthouse\CoreBundle\Document\Product;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Validator\Constraints\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Precision;
 use Lighthouse\CoreBundle\Validator\Constraints\Range;

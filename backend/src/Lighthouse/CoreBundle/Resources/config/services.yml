@@ -15,24 +15,24 @@ services:
 
     lighthouse.core.document.repository.product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\ShopProductRepository
+        class: Lighthouse\CoreBundle\Document\Product\ProductRepository
         arguments:
-            - LighthouseCoreBundle:Product
+            - LighthouseCoreBundle:Product\Product
 
     lighthouse.core.document.repository.invoice:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\InvoiceRepository
+        class: Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository
         arguments:
-            - LighthouseCoreBundle:Invoice
+            - LighthouseCoreBundle:Invoice\Invoice
 
     lighthouse.core.document.repository.invoice_product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\InvoiceProductRepository
+        class: Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository
         arguments:
-            - LighthouseCoreBundle:InvoiceProduct
+            - LighthouseCoreBundle:InvoiceProduct\InvoiceProduct
 
     lighthouse.core.document.repository.trial_balance:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\TrialBalanceRepository
+        class: Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository
         arguments:
-            - LighthouseCoreBundle:TrialBalance
+            - LighthouseCoreBundle:TrialBalance\TrialBalance

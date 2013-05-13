@@ -4,12 +4,12 @@ namespace Lighthouse\CoreBundle\Tests\Document;
 
 use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Lighthouse\CoreBundle\Document\Invoice;
-use Lighthouse\CoreBundle\Document\InvoiceProduct;
-use Lighthouse\CoreBundle\Document\Product;
-use Lighthouse\CoreBundle\Document\TrialBalance;
-use Lighthouse\CoreBundle\Document\TrialBalanceCollection;
-use Lighthouse\CoreBundle\Document\TrialBalanceRepository;
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceCollection;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
@@ -35,7 +35,7 @@ class TrialBalanceTest extends WebTestCase
 
     public function testConstruct()
     {
-        $trialBalance = new TrialBalance();
+        $trialBalance = new TrialBalance\TrialBalance();
         $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\TrialBalance', $trialBalance);
     }
 
@@ -44,7 +44,7 @@ class TrialBalanceTest extends WebTestCase
      */
     public function testGetSetProperties(array $trialBalanceData)
     {
-        $trialBalance = new TrialBalance();
+        $trialBalance = new TrialBalance\TrialBalance();
 
         foreach ($trialBalanceData as $key => $value) {
             $trialBalance->$key = $value;
@@ -124,17 +124,17 @@ class TrialBalanceTest extends WebTestCase
 
         $manager = $this->getManager();
 
-        $product = new Product();
+        $product = new Product\Product();
         $product->populate($productData);
 
-        $invoice = new Invoice();
+        $invoice = new Invoice\Invoice();
         $invoice->populate($invoiceData);
 
         $manager->persist($product);
         $manager->persist($invoice);
         $manager->flush();
 
-        /** @var TrialBalanceRepository $trialBalanceRepository */
+        /** @var \Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
         /** @var TrialBalanceCollection $startTrialBalance */
         $startTrialBalanceCursor = $trialBalanceRepository->findByProduct($product->id);
@@ -143,7 +143,7 @@ class TrialBalanceTest extends WebTestCase
         $this->assertCount(0, $startTrialBalance);
 
 
-        $invoiceProduct = new InvoiceProduct();
+        $invoiceProduct = new InvoiceProduct\InvoiceProduct();
         $invoiceProduct->product = $product;
         $invoiceProduct->invoice = $invoice;
         $invoiceProduct->price = new Money(99.99);
@@ -159,7 +159,7 @@ class TrialBalanceTest extends WebTestCase
 
         $this->assertCount(1, $endTrialBalance);
 
-        /** @var TrialBalance $endTrialBalance */
+        /** @var \Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance $endTrialBalance */
         $endTrialBalance = $endTrialBalance->current();
         $this->assertEquals(9, $endTrialBalance->quantity);
         $this->assertEquals(899.91, $endTrialBalance->totalPrice->getCount());

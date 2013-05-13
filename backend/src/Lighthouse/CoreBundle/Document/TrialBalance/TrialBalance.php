@@ -1,9 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document;
+namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\DateTime;
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Types\Money;
 
 /**
@@ -22,10 +26,8 @@ use Lighthouse\CoreBundle\Types\Money;
  * @property Reasonable $reason
  *
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\TrialBalanceRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository"
  * )
- *
- * @package Lighthouse\CoreBundle\Document
  */
 class TrialBalance extends AbstractDocument
 {
@@ -88,7 +90,7 @@ class TrialBalance extends AbstractDocument
     protected $createdDate;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Product", simple=true, cascade={"persist"})
+     * @MongoDB\ReferenceOne(targetDocument="LighthouseCoreBundle:Product\Product", simple=true, cascade={"persist"})
      * @var Product
      */
     protected $product;
@@ -98,7 +100,7 @@ class TrialBalance extends AbstractDocument
      * @MongoDB\ReferenceOne(
      *      discriminatorField="reasonType",
      *      discriminatorMap={
-     *          "invoiceProduct"="Lighthouse\CoreBundle\Document\InvoiceProduct"
+     *          "invoiceProduct"="Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct"
      *      }
      * )
      * @var Invoice

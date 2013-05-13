@@ -20,7 +20,7 @@ class InvoiceProductType extends AbstractType
                 'product',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Product',
+                    'class' => 'Lighthouse\\CoreBundle\\Document\\Product\\Product',
                     'invalid_message' => 'lighthouse.validation.errors.invoice_product.product.does_not_exists'
                 )
             )
@@ -35,7 +35,7 @@ class InvoiceProductType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\InvoiceProduct',
+                'data_class' => 'Lighthouse\\CoreBundle\\Document\\InvoiceProduct\\InvoiceProduct',
                 'csrf_protection' => false
             )
         );

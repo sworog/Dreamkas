@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document;
+namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
 interface Reasonable
 {

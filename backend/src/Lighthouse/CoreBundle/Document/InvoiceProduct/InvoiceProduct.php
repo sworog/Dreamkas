@@ -1,10 +1,12 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document;
+namespace Lighthouse\CoreBundle\Document\InvoiceProduct;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Lighthouse\CoreBundle\Document\Product;
-use Lighthouse\CoreBundle\Document\Invoice;
+use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Lighthouse\CoreBundle\Types\Money;
@@ -19,7 +21,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property Product $product
  *
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\InvoiceProductRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository"
  * )
  */
 class InvoiceProduct extends AbstractDocument implements Reasonable
@@ -59,14 +61,14 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $totalPrice;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Invoice", simple=true)
+     * @MongoDB\ReferenceOne(targetDocument="LighthouseCoreBundle:Invoice\Invoice", simple=true)
      * @Assert\NotBlank
      * @var Invoice
      */
     protected $invoice;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Product", simple=true, cascade={"persist"})
+     * @MongoDB\ReferenceOne(targetDocument="LighthouseCoreBundle:Product\Product", simple=true, cascade={"persist"})
      * @Assert\NotBlank
      * @var Product
      */

@@ -4,9 +4,9 @@ namespace Lighthouse\CoreBundle\Tests\Document;
 
 use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Lighthouse\CoreBundle\Document\Invoice;
-use Lighthouse\CoreBundle\Document\InvoiceProduct;
-use Lighthouse\CoreBundle\Document\Product;
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
@@ -67,7 +67,7 @@ class InvoiceProductTest extends WebTestCase
         $manager->persist($invoiceProduct);
         $manager->flush();
 
-        $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\Invoice', $invoiceProduct->invoice);
+        $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\Invoice\\Invoice', $invoiceProduct->invoice);
         $this->assertEquals($invoiceProduct->invoice->id, $invoice->id);
 
         $this->assertEquals(10, $product->amount);

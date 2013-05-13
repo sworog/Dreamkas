@@ -7,9 +7,9 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Document\Product;
-use Lighthouse\CoreBundle\Document\ProductCollection;
-use Lighthouse\CoreBundle\Document\ProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\ProductCollection;
+use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +26,7 @@ class ProductController extends FOSRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product\Product
      *
      * @Rest\View(statusCode=201)
      */
@@ -38,7 +38,7 @@ class ProductController extends FOSRestController
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product\Product
      *
      * @Rest\View(statusCode=204)
      */
@@ -51,7 +51,7 @@ class ProductController extends FOSRestController
 
     /**
      * @param string $property
-     * @return ProductCollection
+     * @return \Lighthouse\CoreBundle\Document\Product\ProductCollection
      */
     public function getProductsSearchAction($property)
     {
@@ -74,7 +74,7 @@ class ProductController extends FOSRestController
 
     /**
      * @param string $id
-     * @return \Lighthouse\CoreBundle\Document\Product
+     * @return \Lighthouse\CoreBundle\Document\Product\Product
      */
     public function getProductAction($id)
     {
@@ -82,7 +82,7 @@ class ProductController extends FOSRestController
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Document\ProductCollection
+     * @return \Lighthouse\CoreBundle\Document\Product\ProductCollection
      */
     public function getProductsAction()
     {
@@ -94,7 +94,7 @@ class ProductController extends FOSRestController
 
     /**
      * @param string $id
-     * @return \Lighthouse\CoreBundle\Document\Product
+     * @return \Lighthouse\CoreBundle\Document\Product\Product
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     protected function findProduct($id)
@@ -108,8 +108,8 @@ class ProductController extends FOSRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Lighthouse\CoreBundle\Document\Product $product
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product
+     * @param \Lighthouse\CoreBundle\Document\Product\Product $product
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product\Product
      */
     protected function processForm(Request $request, Product $product)
     {

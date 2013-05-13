@@ -2,13 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document;
 
-use Lighthouse\CoreBundle\Document\Invoice;
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 
 class InvoiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {
-        $invoice = new Invoice();
+        $invoice = new Invoice\Invoice();
         $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Invoice', $invoice);
     }
 
@@ -32,7 +32,7 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPopulateAndToArray(array $data)
     {
-        $invoice = new Invoice();
+        $invoice = new Invoice\Invoice();
         $invoice->populate($data);
 
         $invoiceArray = $invoice->toArray();

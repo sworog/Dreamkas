@@ -5,11 +5,11 @@ namespace Lighthouse\CoreBundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use Lighthouse\CoreBundle\Document\Invoice;
-use Lighthouse\CoreBundle\Document\InvoiceProduct;
-use Lighthouse\CoreBundle\Document\InvoiceProductCollection;
-use Lighthouse\CoreBundle\Document\InvoiceProductRepository;
-use Lighthouse\CoreBundle\Document\InvoiceRepository;
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductCollection;
+use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Form\InvoiceProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -32,7 +32,7 @@ class InvoiceProductController extends FOSRestController
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $invoiceId
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice
+     * @return \FOS\RestBundle\View\View|Invoice
      *
      * @Rest\View(statusCode=201)
      */
@@ -49,7 +49,7 @@ class InvoiceProductController extends FOSRestController
      * @param string $invoiceId
      * @param string $invoiceProductId
      *
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\InvoiceProduct
+     * @return \FOS\RestBundle\View\View|InvoiceProduct
      *
      * @Rest\View(statusCode=200)
      */
@@ -93,9 +93,9 @@ class InvoiceProductController extends FOSRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Lighthouse\CoreBundle\Document\InvoiceProduct $invoiceProduct
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\InvoiceProduct
+     * @param Request $request
+     * @param InvoiceProduct $invoiceProduct
+     * @return \FOS\RestBundle\View\View|InvoiceProduct
      */
     protected function processForm(Request $request, InvoiceProduct $invoiceProduct)
     {
@@ -116,7 +116,7 @@ class InvoiceProductController extends FOSRestController
     /**
      * @param string $invoiceId
      * @return Invoice
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     protected function findInvoice($invoiceId)
     {
@@ -130,7 +130,7 @@ class InvoiceProductController extends FOSRestController
     /**
      * @param string $invoiceProductId
      * @param string $invoiceId
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      * @return InvoiceProduct
      */
     protected function findInvoiceProduct($invoiceProductId, $invoiceId)
