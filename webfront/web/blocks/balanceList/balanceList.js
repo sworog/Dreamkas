@@ -13,12 +13,8 @@ define(
                 var block = this;
 
                 block.listenTo(block.productCollection, {
-                    reset: function(){
+                    sync: function(){
                         block.renderTable();
-                        block.$table.find('thead').removeClass('preloader');
-                    },
-                    request: function(){
-                        block.$table.find('thead').addClass('preloader');
                     }
                 });
 
