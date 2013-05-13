@@ -28,7 +28,7 @@ abstract public class CommonPageObject extends PageObject {
     abstract public void createElements();
 
     public WebElement findElement(By by) {
-        return waiter.getWebElement(by);
+        return waiter.getPresentWebElement(by);
     }
 
     public void input(String elementName, String inputText) {

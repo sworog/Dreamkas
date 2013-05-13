@@ -69,16 +69,21 @@ public class ApiConnect {
             request.setHeader("Accept", "application/json");
             request.setEntity(entity);
 
-            HttpResponse response = null;
             DefaultHttpClient httpClient = new DefaultHttpClient();
             httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
-            response = httpClient.execute(request);
+            HttpResponse response = httpClient.execute(request);
 
             HttpEntity httpEntity = response.getEntity();
             String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
             if (response.getStatusLine().getStatusCode() != 201) {
                 StringBuilder builder = new StringBuilder();
-                JSONObject jsonObject = new JSONObject(responseMessage).getJSONObject("children");
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(responseMessage).getJSONObject("children");
+                } catch (Exception e) {
+                    String errorMessage = String.format("Exception message: %s\nJson: %s", e.getMessage(), jsonObject.toString());
+                    throw new AssertionError(errorMessage);
+                }
                 Object[] objects = toMap(jsonObject).values().toArray();
                 for (int i = 0; i < objects.length; i++) {
                     if (objects[i] instanceof HashMap) {
