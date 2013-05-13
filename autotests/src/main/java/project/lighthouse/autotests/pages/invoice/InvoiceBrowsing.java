@@ -14,9 +14,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     private static final String ITEM_SKU_NAME = "productSku";
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
 
-    @FindBy(xpath = "//span[@class='button button_color_blue']/input")
-    private WebElement goToTheaAdditionOfProductsLink;
-
     @FindBy(xpath = "//*[@class='addMoreProduct']")
     private WebElement addOneMoreProductLink;
 
@@ -73,7 +70,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void goToTheaAdditionOfProductsLinkClick() {
-        $(goToTheaAdditionOfProductsLink).click();
+        findBy("//span[@class='button button_color_blue']/input").click();
     }
 
     public void addOneMoreProductLinkClick() {
