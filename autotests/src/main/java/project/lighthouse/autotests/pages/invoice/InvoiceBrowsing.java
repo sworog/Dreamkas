@@ -95,10 +95,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void acceptChangesButtonClick() {
         $(acceptChangesButton).click();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        }
+        WaitUntilEditFieldBecomeNotVisible();
     }
 
     public void discardChangesButtonClick() {
@@ -107,10 +104,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void acceptDeleteButtonClick() {
         $(acceptDeleteButton).click();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        }
+        WaitUntilEditFieldBecomeNotVisible();
     }
 
     public void discardDeleteButtonClick() {
@@ -144,9 +138,15 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void addNewInvoiceProductButtonClick() {
         findBy("//span[@class='button button_color_blue invoice__addMoreProduct']/input").click();
+        waiter.waitUntilIsNotPresent(By.xpath("//span[@class='button button_color_blue invoice__addMoreProduct preloader']"));
     }
 
     public void checkItemIsNotPresent(String elementName) {
         commonViewInterface.itemCheckIsNotPresent(elementName);
+    }
+
+    public void WaitUntilEditFieldBecomeNotVisible() {
+        String xpath = "//*[@class='invoice__dataInput']";
+        waiter.waitUntilIsNotPresent(By.xpath(xpath));
     }
 }

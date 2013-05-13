@@ -21,4 +21,8 @@ public class Waiter {
     public WebElement getVisibleWebElement(By findBy) {
         return new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000).until(ExpectedConditions.visibilityOfElementLocated(findBy));
     }
+
+    public void waitUntilIsNotPresent(By findBy) {
+        new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000).until(ExpectedConditions.invisibilityOfElementLocated(findBy));
+    }
 }

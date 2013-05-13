@@ -19,7 +19,8 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Московское' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '26' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD2' sku is present
 Given starting average price calculation
 Given the user opens amount list page
@@ -36,7 +37,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Московское' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '56' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD3' sku is present
 Given starting average price calculation
 Given the user opens amount list page
@@ -56,7 +59,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Питерское' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '26' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD' sku is present
 Given starting average price calculation
 Given the user opens amount list page
@@ -73,7 +78,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Питерское' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '56' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD1' sku is present
 Given starting average price calculation
 Given the user opens amount list page
@@ -93,7 +100,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Гламурное' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '26' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD5' sku is present
 Given starting average price calculation
 Given the user opens amount list page
@@ -110,7 +119,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Гламурное' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '56' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD6' sku is present
 Given starting average price calculation
 Given the user opens amount list page
@@ -130,7 +141,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Астраханское' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '26' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD8' sku is present
 Given starting average price calculation
 Given the user opens amount list page
@@ -147,7 +160,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Астраханское' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '56' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD9' sku is present
 Given starting average price calculation
 Given the user opens amount list page
@@ -167,7 +182,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Киевское' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '23,33' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD10' sku is present
 Given starting average price calculation
 Given the user opens amount list page
@@ -184,7 +201,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Киевское' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '26' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD11' sku is present
 Given starting average price calculation
 Given the user opens amount list page
@@ -204,7 +223,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Юбилейное' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '26' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Приемка-1' sku is present
 When the user clicks the create button on the invoice list page
 And the user inputs 'Приемка-2' in the invoice 'sku' field
@@ -216,7 +237,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Юбилейное' in the invoice product 'productName' field
 When the user inputs '5' in the invoice product 'productAmount' field
 And the user inputs '29' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Приемка-2' sku is present
 When the user clicks the create button on the invoice list page
 And the user inputs 'Приемка-3' in the invoice 'sku' field
@@ -228,7 +251,9 @@ And the user navigates to invoice product addition
 When the user inputs 'Печенье Юбилейное' in the invoice product 'productName' field
 When the user inputs '10' in the invoice product 'productAmount' field
 And the user inputs '31' in the invoice product 'invoiceCost' field
-When the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Приемка-1' sku is present
 Given starting average price calculation
 Given the user opens amount list page

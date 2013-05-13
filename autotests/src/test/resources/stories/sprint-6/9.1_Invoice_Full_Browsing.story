@@ -20,7 +20,9 @@ And the user navigates to invoice product addition
 When the user inputs 'IFBKG-11' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '1' in the invoice product 'invoiceCost' field
-And the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IFBKG-11' sku is present
 When the user open the invoice card with 'Invoice-IFBKG-11' sku
 Then the user checks invoice 'head' elements  values
@@ -61,7 +63,9 @@ And the user navigates to invoice product addition
 When the user inputs 'IFBUNITS-11' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '1' in the invoice product 'invoiceCost' field
-And the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IFBUNITS-11' sku is present
 When the user open the invoice card with 'Invoice-IFBUNITS-11' sku
 Then the user checks invoice 'head' elements  values
@@ -102,7 +106,9 @@ And the user navigates to invoice product addition
 When the user inputs 'IFBLITER-11' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '1' in the invoice product 'invoiceCost' field
-And the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IFBLITER-11' sku is present
 When the user open the invoice card with 'Invoice-IFBLITER-11' sku
 Then the user checks invoice 'head' elements  values
@@ -153,7 +159,9 @@ And the user clicks the add more product button
 When the user inputs 'IFBLITER-113' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '1' in the invoice product 'invoiceCost' field
-And the user clicks the invoice create button
+And the user clicks the add more product button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IFBLITER-11' sku is present
 When the user open the invoice card with 'Invoice-IFB3PKLU-11' sku
 Then the user checks invoice elements values

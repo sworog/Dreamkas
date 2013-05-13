@@ -7,6 +7,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticDataCollections;
 import project.lighthouse.autotests.pages.common.CommonPage;
+import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
@@ -17,6 +18,8 @@ public class CommonSteps extends ScenarioSteps {
     InvoiceCreatePage invoiceCreatePage;
     ProductListPage productListPage;
     InvoiceListPage invoiceListPage;
+    InvoiceBrowsing invoiceBrowsing;
+
 
     public CommonSteps(Pages pages) {
         super(pages);
@@ -86,7 +89,7 @@ public class CommonSteps extends ScenarioSteps {
         invoiceCreatePage.input("productName", productName);
         invoiceCreatePage.input("productAmount", "1");
         invoiceCreatePage.input("invoiceCost", "1");
-        invoiceCreatePage.invoiceCreateButtonClick();
+        invoiceBrowsing.addOneMoreProductLinkClick();
     }
 
     @Step
