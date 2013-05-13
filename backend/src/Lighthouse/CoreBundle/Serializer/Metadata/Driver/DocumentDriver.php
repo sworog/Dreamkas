@@ -2,30 +2,29 @@
 
 namespace Lighthouse\CoreBundle\Serializer\Metadata\Driver;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use FOS\RestBundle\Util\Pluralization;
+use JMS\Serializer\Metadata\Driver\DoctrineTypeDriver;
 use Metadata\Driver\DriverInterface;
 use Metadata\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.serializer.metadata.driver.document")
+ * @DI\Service("lighthouse.core.serializer.metadata.driver.document", public=false)
  */
-class DocumentDriver implements DriverInterface
+class DocumentDriver extends DoctrineTypeDriver
 {
     /**
-     * @var DriverInterface
-     */
-    protected $delegate;
-
-    /**
      * @DI\InjectParams({
-     *      "delegate" = @DI\Inject("jms_serializer.metadata.doctrine_type_driver")
+     *      "delegate" = @DI\Inject("jms_serializer.metadata.chain_driver"),
+     *      "registry" = @DI\Inject("doctrine_mongodb")
      * })
      * @param DriverInterface $delegate
+     * @param ManagerRegistry $registry
      */
-    public function __construct(DriverInterface $delegate)
+    public function __construct(DriverInterface $delegate, ManagerRegistry $registry)
     {
-        $this->delegate = $delegate;
+        parent::__construct($delegate, $registry);
     }
 
     /**
@@ -34,7 +33,8 @@ class DocumentDriver implements DriverInterface
      */
     public function loadMetadataForClass(\ReflectionClass $class)
     {
-        $metadata = $this->delegate->loadMetadataForClass($class);
+        $metadata = parent::loadMetadataForClass($class);
+
         if ($class->isSubclassOf('\\Lighthouse\\CoreBundle\\Document\\AbstractDocument')) {
             $this->processDocumentMetadata($metadata);
         } elseif ($class->isSubclassOf('\\Lighthouse\\CoreBundle\\Document\\AbstractCollection')) {

@@ -3,7 +3,7 @@
 use Symfony\Component\ClassLoader\ApcClassLoader;
 use Symfony\Component\HttpFoundation\Request;
 
-$env = getenv('SYMFONY_ENV') ?: 'prod';
+$env = getenv('SYMFONY_ENV') ?: 'production';
 
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 
@@ -11,14 +11,16 @@ $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 // Change 'sf2' to a unique prefix in order to prevent cache key conflicts
 // with other applications also using APC.
 /*
-$loader = new ApcClassLoader('sf2', $loader);
-$loader->register(true);
 */
+if ('production' === $env) {
+    $loader = new ApcClassLoader('sf2', $loader);
+    $loader->register(true);
+}
 
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
 
-$debug = getenv('SYMFONY_DEBUG') !== '0' && $env !== 'prod';
+$debug = getenv('SYMFONY_DEBUG') !== '0' && $env !== 'production';
 
 $kernel = new AppKernel($env, $debug);
 $kernel->loadClassCache();
