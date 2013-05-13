@@ -5,7 +5,7 @@ require 'capistrano/ext/multistage'
 
 set :app_end, "webfront"
 set :application, "webfront"
-set :domain,      "alexandria.lighthouse.cs"
+set :domain,      "coquille.lighthouse.cs"
 set :user,        "watchman"
 set :deploy_to_base,   "/var/www/"
 set :deploy_to,   "{#deploy_to_base}#{application}"
