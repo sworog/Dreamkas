@@ -155,31 +155,6 @@ class Product extends AbstractDocument
      */
     protected $averagePurchasePrice;
 
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return array(
-            'id' => $this->id,
-            'name' => $this->name,
-            'units' => $this->units,
-            'vat' => $this->vat,
-            'purchasePrice' => $this->purchasePrice,
-            'lastPurchasePrice' => $this->lastPurchasePrice,
-            'barcode' => $this->barcode,
-            'sku' => $this->sku,
-            'vendorCountry' => $this->vendorCountry,
-            'vendor' => $this->vendor,
-            'info' => $this->info,
-            'amount' => $this->amount,
-            'retailPrice' => $this->retailPrice,
-            'retailMarkup' => $this->retailMarkup,
-            'retailPricePreference' => $this->retailPricePreference,
-            'averagePurchasePrice' => $this->averagePurchasePrice,
-        );
-    }
-
     public function updateRetails()
     {
         switch ($this->retailPricePreference) {

@@ -35,9 +35,8 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $invoice = new Invoice();
         $invoice->populate($data);
 
-        $invoiceArray = $invoice->toArray();
         foreach ($data as $key => $value) {
-            $this->assertEquals($value, $invoiceArray[$key]);
+            $this->assertEquals($value, $invoice->$key);
         }
     }
 

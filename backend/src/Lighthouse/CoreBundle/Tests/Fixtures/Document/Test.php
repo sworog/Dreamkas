@@ -37,19 +37,4 @@ class Test extends AbstractDocument
      * @var Money
      */
     protected $money;
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return array(
-            'id' => $this->id,
-            'name' => $this->name,
-            'desc' => $this->desc,
-            'orderDate' => $this->orderDate,
-            'createdDate' => $this->createdDate,
-            'money' => $this->money,
-        );
-    }
 }

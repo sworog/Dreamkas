@@ -82,19 +82,6 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $product;
 
     /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return array(
-            'id' => $this->id,
-            'quantity' => $this->quantity,
-            'price' => $this->price,
-            'totalPrice' => $this->totalPrice,
-        );
-    }
-
-    /**
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */

@@ -112,27 +112,6 @@ class TrialBalance extends AbstractDocument
     protected $reason;
 
     /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return array(
-            'id' => $this->id,
-            'beginningBalance' => $this->beginningBalance,
-            'beginningBalanceMoney' => $this->beginningBalanceMoney,
-            'endingBalance' => $this->endingBalance,
-            'endingBalanceMoney' => $this->endingBalanceMoney,
-            'quantity' => $this->quantity,
-            'totalPrice' => $this->totalPrice,
-            'price' => $this->price,
-            'createdDate' => $this->createdDate,
-            'product' => $this->product,
-            'reason' => $this->reason,
-        );
-
-    }
-
-    /**
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */

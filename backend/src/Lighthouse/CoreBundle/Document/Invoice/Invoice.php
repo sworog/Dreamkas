@@ -117,24 +117,4 @@ class Invoice extends AbstractDocument
         $this->createdDate = new \DateTime();
         $this->sumTotal = new Money(0);
     }
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return array(
-            'id' => $this->id,
-            'sku' => $this->sku,
-            'supplier' => $this->supplier,
-            'acceptanceDate' => $this->acceptanceDate,
-            'accepter' => $this->accepter,
-            'legalEntity' => $this->legalEntity,
-            'supplierInvoiceSku' => $this->supplierInvoiceSku,
-            'supplierInvoiceDate' => $this->supplierInvoiceDate,
-            'createdDate' => $this->createdDate,
-            'sumTotal' => $this->sumTotal,
-            'itemsCount' => $this->itemsCount,
-        );
-    }
 }

@@ -62,9 +62,8 @@ class TrialBalanceTest extends WebTestCase
         $trialBalance = new TrialBalance();
         $trialBalance->populate($data);
 
-        $trialBalanceArray = $trialBalance->toArray();
         foreach ($data as $key => $value) {
-            $this->assertEquals($value, $trialBalanceArray[$key]);
+            $this->assertEquals($value, $trialBalance->$key);
         }
     }
 

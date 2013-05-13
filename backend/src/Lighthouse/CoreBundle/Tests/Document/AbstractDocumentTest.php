@@ -39,7 +39,7 @@ class AbstractDocumentTest extends \PHPUnit_Framework_TestCase
         $document->invalid = 'invalid';
     }
 
-    public function testPopulateAndToArray()
+    public function testPopulate()
     {
         $array = array(
             'id' => 1,
@@ -50,9 +50,8 @@ class AbstractDocumentTest extends \PHPUnit_Framework_TestCase
         $document = new Test();
         $document->populate($array);
 
-        $productArray = $document->toArray();
         foreach ($array as $key => $value) {
-            $this->assertEquals($value, $productArray[$key]);
+            $this->assertEquals($value, $document->$key);
         }
     }
 }

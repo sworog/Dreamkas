@@ -45,9 +45,4 @@ abstract class AbstractDocument
 
         return $this;
     }
-
-    /**
-     * @return array
-     */
-    abstract public function toArray();
 }

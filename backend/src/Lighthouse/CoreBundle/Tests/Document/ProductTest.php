@@ -63,9 +63,8 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         $product = new Product();
         $product->populate($array);
 
-        $productArray = $product->toArray();
         foreach ($array as $key => $value) {
-            $this->assertEquals($value, $productArray[$key]);
+            $this->assertEquals($value, $product->$key);
         }
     }
 }
