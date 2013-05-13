@@ -15,11 +15,11 @@ public class ProductCardView extends ProductCreatePage {
     }
 
     public void checkCardValue(String elementName, String expectedValue) {
-        checkElementValue("", elementName, expectedValue);
+        commonActions.checkElementValue("", elementName, expectedValue);
     }
 
     public void checkCardValue(ExamplesTable checkValuesTable) {
-        checkElementValue("", checkValuesTable);
+        commonActions.checkElementValue("", checkValuesTable);
     }
 
     public void editButtonClick() {

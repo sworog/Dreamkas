@@ -48,7 +48,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void checkCardValue(String checkType, String elementName, String expectedValue) {
-        checkElementValue(checkType, elementName, expectedValue);
+        commonActions.checkElementValue(checkType, elementName, expectedValue);
     }
 
     public void checkCardValue(String elementName, String expectedValue) {
@@ -61,7 +61,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
-        checkElementValue(checkType, checkValuesTable);
+        commonActions.checkElementValue(checkType, checkValuesTable);
     }
 
     public void checkCardValue(ExamplesTable checkValuesTable) {
