@@ -74,7 +74,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void addOneMoreProductLinkClick() {
-        $(addOneMoreProductLink).click();
+        addNewInvoiceProductButtonClick();
     }
 
     public void listItemClick(String value) {

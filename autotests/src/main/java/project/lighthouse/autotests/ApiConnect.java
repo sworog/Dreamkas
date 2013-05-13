@@ -47,7 +47,7 @@ public class ApiConnect {
             Invoice invoice = new Invoice(new JSONObject(postResponse));
             StaticDataCollections.invoices.put(invoiceName, invoice);
 
-            String invoiceUrl = String.format("%s/invoice/products/%s", getApiUrl().replace("api", "webfront"), invoice.getInvoiceId());
+            String invoiceUrl = String.format("%s/invoice/%s?editMode=true", getApiUrl().replace("api", "webfront"), invoice.getInvoiceId());
             driver.navigate().to(invoiceUrl);
         }
     }

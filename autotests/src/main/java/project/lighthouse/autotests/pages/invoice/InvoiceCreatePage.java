@@ -71,10 +71,6 @@ public class InvoiceCreatePage extends CommonPageObject {
 
     }
 
-    public void invoiceCloseButtonClick() {
-        $(invoiceCloseButton).click();
-    }
-
     public void invoiceCreateButtonClick() {
         findBy("//*[@lh_button='commit']").click();
         commonPage.checkCreateAlertSuccess(INVOICE_NAME);

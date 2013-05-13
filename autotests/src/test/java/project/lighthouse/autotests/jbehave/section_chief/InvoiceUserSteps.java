@@ -32,11 +32,6 @@ public class InvoiceUserSteps {
         invoiceSteps.invoiceCreateButtonClick();
     }
 
-    @When("the user clicks close button in the invoice create page")
-    public void whenTheUserClicksCloseButtonInTheInvoiceCreatePage() {
-        invoiceSteps.invoiceCloseButtonClick();
-    }
-
     @When("the user clicks the create button on the invoice list page")
     public void whenTheUserClicksTheCreateButtonOnTheInvoiceListPage() {
         invoiceSteps.invoiceListItemCreate();

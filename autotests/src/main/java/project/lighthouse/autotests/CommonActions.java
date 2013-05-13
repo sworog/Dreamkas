@@ -12,10 +12,7 @@ import java.util.Map;
 
 public class CommonActions extends PageObject {
 
-    WebDriver driver;
     Map<String, CommonItem> items;
-
-    protected CommonPage commonPage = new CommonPage(driver);
 
     private String errorMessage1 = "Element not found in the cache - perhaps the page has changed since it was looked up";
     private String errorMessage2 = "Element is no longer attached to the DOM";
@@ -23,9 +20,10 @@ public class CommonActions extends PageObject {
 
     public CommonActions(WebDriver driver, Map<String, CommonItem> items) {
         super(driver);
-        this.driver = driver;
         this.items = items;
     }
+
+    protected CommonPage commonPage = new CommonPage(getDriver());
 
     public void input(String elementName, String inputText) {
         try {

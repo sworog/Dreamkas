@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.pages.amount.AmountListPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
+import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductCreatePage;
 
 import java.util.Map;
@@ -29,6 +30,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
             case InvoiceBrowsing.ITEM_NAME:
             case AmountListPage.ITEM_NAME:
             case ProductCreatePage.PRODUCT_NAME:
+            case InvoiceListPage.ITEM_NAME:
                 return XPATH_PATTERN + "/..";
             default:
                 return XPATH_PATTERN;

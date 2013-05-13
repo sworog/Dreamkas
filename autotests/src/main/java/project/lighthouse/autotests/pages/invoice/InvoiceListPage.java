@@ -9,7 +9,7 @@ import project.lighthouse.autotests.pages.common.CommonView;
 @DefaultUrl("/invoices")
 public class InvoiceListPage extends InvoiceCreatePage {
 
-    private static final String ITEM_NAME = "invoice";
+    public static final String ITEM_NAME = "invoice";
     private static final String ITEM_SKU_NAME = "sku";
 
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
