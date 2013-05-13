@@ -1,16 +1,7 @@
-define(
-    [
-        '/routers/mainRouter.js'
-    ],
-    function(router) {
-    
+define(function() {
+
     var pageBlocks = [],
         $page = $('#page');
-
-    $page.on('click', '[href]', function(e) {
-        e.preventDefault();
-        router.navigate($(this).attr('href'), {trigger: true});
-    });
 
     return {
         open: function(pageTpl, data) {
@@ -47,7 +38,7 @@ define(
             pageBlocks = _.difference(pageBlocks, blocks);
         },
         findBlocks: function(selector) {
-            if (typeof selector === 'string'){
+            if (typeof selector === 'string') {
                 selector = {
                     $el: $(selector)
                 }
