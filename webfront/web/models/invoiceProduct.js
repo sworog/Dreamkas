@@ -4,12 +4,9 @@ define(
     ],
     function(baseModel) {
         return baseModel.extend({
-            initialize: function(opt){
-                this.invoiceId = opt.invoiceId;
-            },
             modelName: 'invoiceProduct',
             urlRoot: function(){
-                return baseApiUrl + '/invoices/'+ this.invoiceId  + '/products';
+                return baseApiUrl + '/invoices/'+ this.get('invoice').id  + '/products';
             },
             saveFields: [
                 'product',

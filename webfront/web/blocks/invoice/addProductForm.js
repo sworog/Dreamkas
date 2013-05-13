@@ -22,7 +22,9 @@ define(
                     deferred = $.Deferred(),
                     productData = Backbone.Syphon.serialize(block),
                     newProduct = new InvoiceProduct({
-                        invoiceId: block.invoiceId
+                        invoice: {
+                            id: block.invoiceId
+                        }
                     });
 
                 newProduct.save(productData, {
