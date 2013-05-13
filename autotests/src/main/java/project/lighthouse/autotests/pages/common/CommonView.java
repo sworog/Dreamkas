@@ -39,7 +39,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
 
     public WebElement getWebElementItem(String value) {
         String getXpath = getXpath(value);
-        return waiter.getWebElement(By.xpath(getXpath));
+        return waiter.getVisibleWebElement(By.xpath(getXpath));
     }
 
     public void itemCheck(String value) {

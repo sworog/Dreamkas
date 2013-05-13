@@ -21,4 +21,8 @@ public class Waiter {
     public WebElement getWebElement(By findBy) {
         return getFluentWaitWebElement(findBy);
     }
+
+    public WebElement getVisibleWebElement(By findBy) {
+        return new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000).until(ExpectedConditions.visibilityOfElementLocated(findBy));
+    }
 }
