@@ -2,9 +2,11 @@ define(
     [
         '/kit/form/form.js'
     ],
-    function(form) {
-        return form.extend({
+    function(Form) {
+        return Form.extend({
             initialize: function(){
+                Form.prototype.initialize.apply(this, arguments);
+
                 var block = this;
 
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='name']"));
@@ -37,14 +39,6 @@ define(
                         }
                     }
                 });
-            },
-            disable: function(disabled){
-                var block = this;
-                if (disabled) {
-                    block.$el.find('[type=submit]').closest('.button').addClass('button_disabled');
-                } else {
-                    block.$el.find('[type=submit]').closest('.button').removeClass('button_disabled');
-                }
             },
             autocompleteToInput: function($input) {
                 var name = $input.attr('lh_product_autocomplete');

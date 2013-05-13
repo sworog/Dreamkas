@@ -5,9 +5,9 @@ define(
     function(Block) {
     return Block.extend({
         initialize: function(){
-            Block.prototype.initialize.apply(this, arguments);
-
             var block = this;
+            Block.prototype.initialize.apply(block, arguments);
+
             block.$submitButton = block.$el.find('[type="submit"]').closest('.button');
         },
         events: {
@@ -19,9 +19,9 @@ define(
             }
         },
         render: function(){
-            Block.prototype.render.apply(this, arguments);
-
             var block = this;
+            Block.prototype.render.apply(block, arguments);
+
             block.$submitButton = block.$el.find('[type="submit"]').closest('.button');
         },
         showErrors: function(data) {
@@ -43,6 +43,14 @@ define(
         removeErrors: function(){
             var block = this;
             block.$el.find("input, textarea, select").closest(".form__field").removeAttr("lh_field_error");
+        },
+        disable: function(disabled){
+            var block = this;
+            if (disabled) {
+                block.$el.find('[type=submit]').closest('.button').addClass('button_disabled');
+            } else {
+                block.$el.find('[type=submit]').closest('.button').removeClass('button_disabled');
+            }
         },
         clear: function() {
             var block = this;

@@ -27,11 +27,7 @@ define(
                     }
                 });
 
-                if (block.invoiceId){
-                    block.invoiceModel.fetch();
-                } else {
-                    block.render();
-                }
+                block.render();
 
                 if(!block.invoiceModel.get('acceptanceDate')) {
                     currentTime = true;
@@ -46,9 +42,12 @@ define(
                     var block = this,
                         formData = Backbone.Syphon.serialize(e.target);
 
+                    block.$submitButton.addClass('preloader');
+                    block.removeErrors();
+
                     block.invoiceModel.save(formData, {
-                        success: function(){
-                            router.navigate(block.invoiceId ? '/invoice/' + block.invoiceId : '/invoices', {
+                        success: function(model){
+                            router.navigate('/invoice/' + model.id + '?editMode=true', {
                                 trigger: true
                             });
                         },

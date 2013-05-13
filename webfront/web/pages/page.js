@@ -1,5 +1,5 @@
 define(function() {
-    
+
     var pageBlocks = [],
         $page = $('#page');
 
@@ -38,6 +38,12 @@ define(function() {
             pageBlocks = _.difference(pageBlocks, blocks);
         },
         findBlocks: function(selector) {
+            if (typeof selector === 'string') {
+                selector = {
+                    $el: $(selector)
+                }
+            }
+
             return selector ? _.where(pageBlocks, selector) : pageBlocks;
         }
     }

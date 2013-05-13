@@ -5,14 +5,14 @@ define(
         '/models/invoiceProduct.js',
         '/collections/invoiceProducts.js',
         '/helpers/helpers.js',
-        './addForm.js',
+        './addProductForm.js',
         './tpl/tpl.js'
     ],
     function(Block, InvoiceModel, InvoiceProduct, InvoiceProductCollection, utils, AddForm, tpl) {
         return Block.extend({
             defaults: {
                 editMode: false,
-                dataEditing: false,
+                dataEditing: false
             },
             utils: utils,
             tpl: tpl,
@@ -21,6 +21,8 @@ define(
                 var block = this;
 
                 block.render();
+
+                block.set('editMode', block.editMode);
 
                 block.$head = block.$el.find('.invoice__head');
                 block.$table = block.$el.find('.invoice__table');
@@ -188,7 +190,7 @@ define(
                     block.removeDataInput();
                 }
             },
-            'set editMode': function(val) {
+            'set:editMode': function(val) {
                 var block = this;
 
                 if (val) {
@@ -197,7 +199,7 @@ define(
                     block.$el.removeClass('invoice_editMode');
                 }
             },
-            'set dataEditing': function(val) {
+            'set:dataEditing': function(val) {
                 var block = this;
 
                 block.addForm.disable(val);

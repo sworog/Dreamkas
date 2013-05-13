@@ -34,9 +34,8 @@ define(
                 });
             },
             render: function(){
-                Form.prototype.render.apply(this, arguments);
-
                 var block = this;
+                Form.prototype.render.apply(block, arguments);
 
                 block.$retailPricePreferenceInput = block.$el.find('[name="retailPricePreference"]');
                 block.$retailPriceInput = block.$el.find('[name="retailPrice"]');
@@ -89,6 +88,9 @@ define(
                     e.preventDefault();
                     var block = this,
                         formData = Backbone.Syphon.serialize(e.target);
+
+                    block.$submitButton.addClass('preloader');
+                    block.removeErrors();
 
                     this.productModel.save(formData, {
                         success: function(){

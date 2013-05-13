@@ -1,23 +1,23 @@
 require(
     [
-        '/routers/mainRouter.js',
-        '/helpers/helpers.js'
+        '/helpers/helpers.js',
+        '/routers/mainRouter.js'
     ],
-    function(router, helpers) {
+    function(helpers, router) {
         $(function() {
             Backbone.history.start({
                 pushState: true
             });
 
-            window.app = router;
+            moment.lang('ru');
 
             window.LH = {
                 helpers: helpers   
             };
 
-            $("body").on('click', '[href]', function(e) {
+            $('body').on('click', '[href]', function(e) {
                 e.preventDefault();
-                app.navigate($(this).attr('href'), {trigger: true});
+                router.navigate($(this).attr('href'), {trigger: true});
             });
         });
     });

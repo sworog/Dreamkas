@@ -1,9 +1,10 @@
 define(
     [
-        '/pages/page.js'
+        '/pages/page.js',
+        './baseRouter.js'
     ],
-    function(page) {
-        var Router = Backbone.Router.extend({
+    function(page, BaseRouter) {
+        var Router = BaseRouter.extend({
             routes: {
                 'balance': 'balance'
             },

@@ -3,8 +3,9 @@ define(
         '/pages/page.js'
     ],
     function(page) {
-        return Backbone.View.extend({
+        return Backbone.Block = Backbone.View.extend({
             page: page,
+            tpl: {},
             constructor: function(opt) {
                 var block = this;
 
@@ -16,7 +17,7 @@ define(
 
                 Backbone.View.apply(this, arguments);
             },
-            initialize: function() {
+            initialize: function(){
                 var block = this;
 
                 block.render();
@@ -24,11 +25,13 @@ define(
             render: function() {
                 var block = this;
 
-                block.$el
-                    .html(block.tpl.main({
-                        block: block
-                    }))
-                    .initBlocks();
+                if (block.tpl.main){
+                    block.$el
+                        .html(block.tpl.main({
+                            block: block
+                        }))
+                        .initBlocks();
+                }
             },
             remove: function() {
                 var block = this;
@@ -53,8 +56,8 @@ define(
                     return;
                 }
 
-                if (_.isFunction(block['set ' + path])) {
-                    setValue = block['set ' + path](value, extra);
+                if (_.isFunction(block['set:' + path])) {
+                    setValue = block['set:' + path](value, extra);
                 }
 
                 if (extra.canceled) {
