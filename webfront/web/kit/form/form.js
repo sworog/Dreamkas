@@ -13,9 +13,18 @@ define(
         events: {
             'submit': function(e){
                 var block = this;
+
                 e.preventDefault();
                 block.$submitButton.addClass('preloader');
                 block.removeErrors();
+
+                block.submit.then(function(data){
+                    block.trigger('successSubmit', data);
+                    block.$submitButton.removeClass('preloader');
+                }, function(data){
+                    block.showErrors(data);
+                    block.$submitButton.removeClass('preloader');
+                });
             }
         },
         render: function(){

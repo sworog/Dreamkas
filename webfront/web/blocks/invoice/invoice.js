@@ -20,18 +20,6 @@ define(
             initialize: function() {
                 var block = this;
 
-                block.render();
-
-                block.set('editMode', block.editMode);
-
-                block.$head = block.$el.find('.invoice__head');
-                block.$table = block.$el.find('.invoice__table');
-                block.$footer = block.$el.find('.invoice__footer');
-
-                block.addForm = new AddForm({
-                    el: block.el.getElementsByClassName('invoice__addForm')
-                });
-
                 block.invoiceProductCollection = new InvoiceProductCollection({
                     invoiceId: block.invoiceId
                 });
@@ -43,8 +31,27 @@ define(
                 block.invoiceModel.fetch();
                 block.invoiceProductCollection.fetch();
 
-                block
-                    .listenTo(block.invoiceModel, 'sync change', function() {
+                block.render();
+
+                block.set('editMode', block.editMode);
+
+                block.$head = block.$el.find('.invoice__head');
+                block.$table = block.$el.find('.invoice__table');
+                block.$footer = block.$el.find('.invoice__footer');
+
+                block.addForm = new AddForm({
+                    invoiceId: block.invoiceId,
+                    el: block.el.getElementsByClassName('invoice__addForm')
+                });
+
+                block.listenTo(block.addForm, {
+                    successSubmit: function(model){
+                        block.invoiceProductCollection.push(model);
+                        block.addForm.clear();
+                    }
+                });
+
+                block.listenTo(block.invoiceModel, 'sync change', function() {
                         block.$head.html(block.tpl.head({
                             block: block
                         }));
@@ -53,8 +60,7 @@ define(
                         }));
                     });
 
-                block
-                    .listenTo(block.invoiceProductCollection, {
+                block.listenTo(block.invoiceProductCollection, {
                         sync: function() {
                             block.renderTable();
                         },

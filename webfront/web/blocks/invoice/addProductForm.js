@@ -1,9 +1,13 @@
 define(
     [
-        '/kit/form/form.js'
+        '/kit/form/form.js',
+        '/models/invoiceProduct.js'
     ],
-    function(Form) {
+    function(Form, InvoiceProduct) {
         return Form.extend({
+            defaults: {
+                invoiceId: null
+            },
             initialize: function(){
                 Form.prototype.initialize.apply(this, arguments);
 
@@ -12,6 +16,24 @@ define(
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='name']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='sku']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='barcode']"));
+            },
+            submit: function(){
+                var block = this,
+                    newProduct = new InvoiceProduct({
+                        invoice: {
+                            id: block.invoiceId
+                        }
+                    });
+
+                newProduct.save(productData, {
+                    error: function(model, res) {
+                        block.addForm.showErrors(JSON.parse(res.responseText));
+                    },
+                    success: function(model) {
+                        block.invoiceProductCollection.push(model);
+                        block.addForm.clear();
+                    }
+                });
             },
             showErrors: function(data) {
                 var block = this;
