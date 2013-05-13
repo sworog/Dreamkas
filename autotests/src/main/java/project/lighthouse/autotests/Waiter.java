@@ -9,20 +9,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Waiter {
 
     WebDriver driver;
+    WebDriverWait waiter = new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000);
 
     public Waiter(WebDriver driver) {
         this.driver = driver;
     }
 
     public WebElement getPresentWebElement(By findBy) {
-        return new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000).until(ExpectedConditions.presenceOfElementLocated(findBy));
+        return waiter.until(ExpectedConditions.presenceOfElementLocated(findBy));
     }
 
     public WebElement getVisibleWebElement(By findBy) {
-        return new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000).until(ExpectedConditions.visibilityOfElementLocated(findBy));
+        return waiter.until(ExpectedConditions.visibilityOfElementLocated(findBy));
     }
 
     public void waitUntilIsNotPresent(By findBy) {
-        new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000).until(ExpectedConditions.invisibilityOfElementLocated(findBy));
+        waiter.until(ExpectedConditions.invisibilityOfElementLocated(findBy));
     }
 }
