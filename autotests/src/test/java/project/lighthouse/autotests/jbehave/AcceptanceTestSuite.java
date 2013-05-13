@@ -11,8 +11,6 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
     public AcceptanceTestSuite() {
 
-        findStoriesCalled("11.1_Last_And_Average_Price.story");
-
         EnvironmentVariables environmentVariables = getEnvironmentVariables();
         String timeout = environmentVariables.getProperty(IMPLICITY_WAIT, null);
         if (timeout != null) {

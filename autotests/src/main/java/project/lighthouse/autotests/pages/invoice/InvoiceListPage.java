@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.pages.common.CommonView;
 
-@DefaultUrl("/invoice/list")
+@DefaultUrl("/invoices")
 public class InvoiceListPage extends InvoiceCreatePage {
 
     private static final String ITEM_NAME = "invoice";

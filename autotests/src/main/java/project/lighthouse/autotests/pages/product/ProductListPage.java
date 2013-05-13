@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.pages.common.CommonView;
 
-@DefaultUrl("/product/list")
+@DefaultUrl("/products")
 public class ProductListPage extends ProductCreatePage {
 
     private static final String ITEM_NAME = "product";
