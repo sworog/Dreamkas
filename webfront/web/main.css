@@ -1,5 +1,11 @@
-@import "/views/kit/main.css";
-@import "/views/blocks/main.css";
+@import "/libs/jquery-ui/jquery-ui.css";
+@import "/kit/kit.css";
+
+/* blocks */
+@import "/blocks/invoice/invoice.css";
+@import "/blocks/productForm/productForm.css";
+@import "/blocks/product/product.css";
+/* /blocks */
 
 html{
     height: 100%;
@@ -8,11 +14,14 @@ html{
 }
 
 body{
-    min-height: 100%;
-    font-size: 13px;
+    height: 100%;
+    font-size: 14px;
     font-family: Tahoma, Arial, "sans serif";
     padding: 0;
     margin: 0;
+    background: #f4f4f4;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 a{

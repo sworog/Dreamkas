@@ -1,0 +1,18 @@
+<thead>
+<tr>
+    <th>Артикул</th>
+    <th>Название</th>
+    <th>Производитель</th>
+    <th>Страна</th>
+    <th>Цена</th>
+    <th>Количество</th>
+</tr>
+</thead>
+<tbody>
+<% _.each(block.productCollection.toJSON(), function(product){ %>
+<%= block.tpl.row({
+product: product,
+block: block
+}) %>
+<% }) %>
+</tbody>

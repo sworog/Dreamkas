@@ -1,36 +1,25 @@
 define(
     [
-        './main.js'
+        './baseModel.js'
     ],
-    function(BaseModel) {
-    return BaseModel.extend({
+    function(baseModel) {
+    return baseModel.extend({
         modelName: 'invoice',
-        url: function(){
-            return baseApiUrl + '/invoices/' + this.id + '.json'
-        },
+        urlRoot: baseApiUrl + '/invoices',
 
         dateFormat: 'dd.mm.yy',
         datePrintFormat: "dd.mm.yyyy",
         timeFormat: 'HH:mm',
         invalidMessage: 'Вы ввели неверную дату',
 
-        defaults: {
-            id: null,
-            sku: null,
-            supplier: null,
-            acceptanceDate: null,
-            accepter: null,
-            legalEntity: null,
-            supplierInvoiceSku: null,
-            supplierInvoiceDate: null,
-            sumTotal: null,
-            itemsCount: null
-        },
-
-        excludeSaveFields: [
-            'sumTotal',
-            'itemsCount',
-            'createdDate'
+        saveFields: [
+            'sku',
+            'supplier',
+            'acceptanceDate',
+            'accepter',
+            'legalEntity',
+            'supplierInvoiceSku',
+            'supplierInvoiceDate'
         ]
     });
 });

@@ -1,0 +1,38 @@
+.calendar{
+    width: 280px;
+}
+
+.calendar__header{
+    text-align: center;
+    padding: 0 0 10px;
+    font-size: 22px;
+}
+
+.calendar__monthName{
+    margin-right: 10px;
+}
+
+.calendar__dateItem{
+    float: left;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 -1px -1px 0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+}
+
+.calendar__dateItem_otherMonth{
+    color: #ccc;
+    border-color: #dedede;
+    z-index: 1;
+}
+
+.calendar__controlLinks{
+    text-align: center;
+    padding: 0 0 10px;
+}

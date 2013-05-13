@@ -1,18 +1,23 @@
 define(function() {
     return Backbone.Model.extend({
+        url: function() {
+            var url = Backbone.Model.prototype.url.call(this).split('.json').join('');
+            return url + ".json";
+        },
         save: function(attributes, options){
             return Backbone.Model.prototype.save.call(this, attributes, _.extend({
-                isSave: true,
-                wait: true
+                wait: true,
+                isSave: true
             }, options));
         },
         toJSON: function(options) {
             options = options || {};
+
             var toJSON = Backbone.Model.prototype.toJSON;
 
             if(options.isSave){
                 var data = {};
-                data[this.modelName] = _.pick(toJSON.apply(this, arguments), _.keys(this.defaults));
+                data[this.modelName] = _.pick(toJSON.apply(this, arguments), this.saveFields);
 
                 return data;
             }
