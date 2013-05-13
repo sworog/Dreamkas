@@ -19,7 +19,7 @@ public class ProductListPage extends ProductCreatePage {
     }
 
     public void createNewProductButtonClick() {
-        String xpath = "//*[@lh_button='create']";
+        String xpath = "//a[@class='button']";
         findElement(By.xpath(xpath)).click();
     }
 

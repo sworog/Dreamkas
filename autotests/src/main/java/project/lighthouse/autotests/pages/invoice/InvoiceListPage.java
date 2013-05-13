@@ -19,7 +19,7 @@ public class InvoiceListPage extends InvoiceCreatePage {
     }
 
     public void invoiceListItemCreate() {
-        String xpath = "//*[@lh_button='create']";
+        String xpath = "//a[@class='button']";
         findElement(By.xpath(xpath)).click();
     }
 

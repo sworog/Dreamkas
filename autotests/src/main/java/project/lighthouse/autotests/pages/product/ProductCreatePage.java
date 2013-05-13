@@ -17,7 +17,7 @@ import java.util.Map;
 @DefaultUrl("/product/create")
 public class ProductCreatePage extends CommonPageObject {
 
-    private static final String PRODUCT_NAME = "product";
+    public static final String PRODUCT_NAME = "product";
     private static final String INPUT_XPATH_PATTERN = "//*[@class='form productForm']//*[@name='%s']";
     private static final String CARD_VIEW_XPATH_PATTERN = "//*[@name='product']//*[@name='%s']";
 
