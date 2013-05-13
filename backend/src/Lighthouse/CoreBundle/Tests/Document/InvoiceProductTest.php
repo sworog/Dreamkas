@@ -117,7 +117,7 @@ class InvoiceProductTest extends WebTestCase
         $purchaseProduct->sellingPrice = new Money(1067);
 
         $purchase = new Purchase();
-        $purchase->addProduct($purchaseProduct);
+        $purchase->products = array($purchaseProduct);
 
         $manager->persist($purchase);
         $manager->flush();
@@ -130,7 +130,7 @@ class InvoiceProductTest extends WebTestCase
         $purchaseProduct2->sellingPrice = new Money(1067);
 
         $purchase2 = new Purchase();
-        $purchase2->addProduct($purchaseProduct2);
+        $purchase2->products = array($purchaseProduct2);
 
         $manager->persist($purchase2);
         $manager->flush();
