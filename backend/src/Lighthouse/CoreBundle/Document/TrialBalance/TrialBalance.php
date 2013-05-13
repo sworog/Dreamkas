@@ -90,7 +90,11 @@ class TrialBalance extends AbstractDocument
     protected $createdDate;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="LighthouseCoreBundle:Product\Product", simple=true, cascade={"persist"})
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
      * @var Product
      */
     protected $product;

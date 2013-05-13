@@ -8,13 +8,13 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {
-        $product = new Product\Product();
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Product', $product);
+        $product = new Product();
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Product\\Product', $product);
     }
 
     public function testGetSetProperties()
     {
-        $product = new Product\Product();
+        $product = new Product();
 
         $product->name = 'name';
         $this->assertEquals('name', $product->name);
@@ -60,7 +60,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
         );
 
-        $product = new Product\Product();
+        $product = new Product();
         $product->populate($array);
 
         $productArray = $product->toArray();

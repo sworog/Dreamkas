@@ -61,14 +61,21 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $totalPrice;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="LighthouseCoreBundle:Invoice\Invoice", simple=true)
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Invoice\Invoice",
+     *     simple=true
+     * )
      * @Assert\NotBlank
      * @var Invoice
      */
     protected $invoice;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="LighthouseCoreBundle:Product\Product", simple=true, cascade={"persist"})
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
      * @Assert\NotBlank
      * @var Product
      */

@@ -8,8 +8,8 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {
-        $invoice = new Invoice\Invoice();
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Invoice', $invoice);
+        $invoice = new Invoice();
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Invoice\\Invoice', $invoice);
     }
 
     /**
@@ -32,7 +32,7 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPopulateAndToArray(array $data)
     {
-        $invoice = new Invoice\Invoice();
+        $invoice = new Invoice();
         $invoice->populate($data);
 
         $invoiceArray = $invoice->toArray();

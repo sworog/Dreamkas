@@ -35,8 +35,8 @@ class TrialBalanceTest extends WebTestCase
 
     public function testConstruct()
     {
-        $trialBalance = new TrialBalance\TrialBalance();
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\TrialBalance', $trialBalance);
+        $trialBalance = new TrialBalance();
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\TrialBalance\\TrialBalance', $trialBalance);
     }
 
     /**
@@ -44,7 +44,7 @@ class TrialBalanceTest extends WebTestCase
      */
     public function testGetSetProperties(array $trialBalanceData)
     {
-        $trialBalance = new TrialBalance\TrialBalance();
+        $trialBalance = new TrialBalance();
 
         foreach ($trialBalanceData as $key => $value) {
             $trialBalance->$key = $value;
@@ -124,10 +124,10 @@ class TrialBalanceTest extends WebTestCase
 
         $manager = $this->getManager();
 
-        $product = new Product\Product();
+        $product = new Product();
         $product->populate($productData);
 
-        $invoice = new Invoice\Invoice();
+        $invoice = new Invoice();
         $invoice->populate($invoiceData);
 
         $manager->persist($product);
@@ -143,7 +143,7 @@ class TrialBalanceTest extends WebTestCase
         $this->assertCount(0, $startTrialBalance);
 
 
-        $invoiceProduct = new InvoiceProduct\InvoiceProduct();
+        $invoiceProduct = new InvoiceProduct();
         $invoiceProduct->product = $product;
         $invoiceProduct->invoice = $invoice;
         $invoiceProduct->price = new Money(99.99);
