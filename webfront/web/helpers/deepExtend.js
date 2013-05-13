@@ -1,4 +1,8 @@
-define(function() {
+define(
+    [
+        '/helpers/typeof.js'
+    ],
+    function(typeOf) {
 
     var deepExtend = function(){
         var options, name, src, copy, clone,
@@ -20,7 +24,7 @@ define(function() {
                     }
 
                     // Recurse if we're merging plain objects or arrays
-                    if (copy && _.isObject(copy)) {
+                    if (copy && (typeOf(copy) == 'object')) {
 
                         clone = src || {};
 
