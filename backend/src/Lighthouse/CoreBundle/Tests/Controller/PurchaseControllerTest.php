@@ -234,7 +234,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('quantity' => ''),
                 array(
-                    'children.quantity.errors.0'
+                    'children.products.children.0.children.quantity.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -243,7 +243,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('quantity' => -10),
                 array(
-                    'children.quantity.errors.0'
+                    'children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -252,7 +252,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('quantity' => -1),
                 array(
-                    'children.quantity.errors.0'
+                    'children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -261,7 +261,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('quantity' => 0),
                 array(
-                    'children.quantity.errors.0'
+                    'children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -270,7 +270,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('quantity' => 2.5),
                 array(
-                    'children.quantity.errors.0'
+                    'children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть целым числом'
                 )
@@ -294,7 +294,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('sellingPrice' => ''),
                 array(
-                    'children.sellingPrice.errors.0'
+                    'children.products.children.0.children.sellingPrice.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -303,7 +303,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('sellingPrice' => '10,898'),
                 array(
-                    'children.sellingPrice.errors.0'
+                    'children.products.children.0.children.sellingPrice.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -312,7 +312,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('sellingPrice' => '10.898'),
                 array(
-                    'children.sellingPrice.errors.0'
+                    'children.products.children.0.children.sellingPrice.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -325,7 +325,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('sellingPrice' => 'not a number'),
                 array(
-                    'children.sellingPrice.errors.0'
+                    'children.products.children.0.children.sellingPrice.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю',
                 ),
@@ -338,7 +338,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('sellingPrice' => -10),
                 array(
-                    'children.sellingPrice.errors.0'
+                    'children.products.children.0.children.sellingPrice.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю'
                 )
@@ -347,7 +347,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('sellingPrice' => 2000000001),
                 array(
-                    'children.sellingPrice.errors.0'
+                    'children.products.children.0.children.sellingPrice.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -356,7 +356,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('sellingPrice' => '100000000'),
                 array(
-                    'children.sellingPrice.errors.0'
+                    'children.products.children.0.children.sellingPrice.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -369,7 +369,7 @@ class PurchaseControllerTest extends WebTestCase
                 400,
                 array('sellingPrice' => '10000001'),
                 array(
-                    'children.sellingPrice.errors.0'
+                    'children.products.children.0.children.sellingPrice.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -378,12 +378,12 @@ class PurchaseControllerTest extends WebTestCase
              * 'price'
              ***********************************************************************************************/
             'not valid product' => array(
-                201,
+                400,
                 array('product' => 'not_valid_product_id'),
                 array(
-                    'children.product.errors.0'
+                    'children.products.children.0.children.product.errors.0'
                     =>
-                    'Не существует такого продукта'
+                    'Такого товара не существует'
                 ),
             ),
         );

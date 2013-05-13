@@ -7,6 +7,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Purchase\Purchase;
 use Lighthouse\CoreBundle\Types\Money;
+use Symfony\Component\Validator\Constraints as Assert;
+use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 
 /**
  * @MongoDB\Document
@@ -20,13 +22,22 @@ class PurchaseProduct extends AbstractDocument
     protected $id;
 
     /**
+     * Цена продажи
      * @MongoDB\Field(type="money")
+     * @Assert\NotBlank
+     * @LighthouseAssert\Money(notBlank=true, zero=true)
      * @var Money
      */
     protected $sellingPrice;
 
     /**
+     * Количество
      * @MongoDB\Int
+     * @Assert\NotBlank
+     * @LighthouseAssert\Chain({
+     *   @LighthouseAssert\NotFloat,
+     *   @LighthouseAssert\Range(gt=0)
+     * })
      * @var int
      */
     protected $quantity;

@@ -26,6 +26,11 @@ class Money extends Constraint
     public $notBlank = false;
 
     /**
+     *
+     */
+    public $zero = false;
+
+    /**
      * Error message
      * @var string
      */

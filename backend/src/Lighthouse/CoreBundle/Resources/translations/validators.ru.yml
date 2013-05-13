@@ -33,6 +33,8 @@ lighthouse:
         invalid: Значение должно быть целым числом
       precision:
         decimals: Значение не должно содержать больше {{ decimals }} цифр после запятой
+      purchase:
+        product_empty: Должен присутствовать хотя бы один товар
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов

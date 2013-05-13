@@ -30,7 +30,7 @@ class MoneyValidator extends ConstraintValidator
         $digits = (int) $constraint->digits;
         $divider = pow(10, $digits);
 
-        if ($value <= 0) {
+        if ($value < 0 || ($value == 0 && $constraint->zero === false)) {
             $this->context->addViolation(
                 $constraint->messageNegative,
                 array(

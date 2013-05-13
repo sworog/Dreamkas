@@ -5,6 +5,8 @@ namespace Lighthouse\CoreBundle\Document\Purchase;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
+use Symfony\Component\Validator\Constraints as Assert;
+use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 
 /**
  * @MongoDB\Document(
@@ -31,6 +33,9 @@ class Purchase extends AbstractDocument
      *      simple=true,
      *      cascade="persist"
      * )
+     *
+     * @Assert\NotBlank(message="lighthouse.validation.errors.purchase.product_empty")
+     * @Assert\Valid(traverse=true)
      * @var PurchaseProduct[]
      */
     protected $products = array();
