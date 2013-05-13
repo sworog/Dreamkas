@@ -14,7 +14,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     private static final String ITEM_SKU_NAME = "productSku";
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
 
-    @FindBy(xpath = "//*[@class='saveInvoiceAndAddProduct']")
+    @FindBy(xpath = "//span[@class='button button_color_blue']/input")
     private WebElement goToTheaAdditionOfProductsLink;
 
     @FindBy(xpath = "//*[@class='addMoreProduct']")
