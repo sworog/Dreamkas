@@ -11,6 +11,10 @@ lighthouse.core.invoice_product:
     parent:   lighthouse.core.invoice
     type:     rest
 
+lighthouse.core.purchase:
+    resource: Lighthouse\CoreBundle\Controller\PurchaseController
+    type:     rest
+
 lighthouse.core.service:
     resource: Lighthouse\CoreBundle\Controller\ServiceController
     type:     annotation

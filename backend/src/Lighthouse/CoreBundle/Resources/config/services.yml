@@ -36,3 +36,10 @@ services:
         class: Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository
         arguments:
             - LighthouseCoreBundle:TrialBalance\TrialBalance
+
+
+    lighthouse.core.document.repository.purchase:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Purchase\PurchaseRepository
+        arguments:
+            - LighthouseCoreBundle:Purchase\Purchase
