@@ -115,4 +115,277 @@ class PurchaseControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($postResponse['createdDate'], 'products.*.createdDate', $postResponse, 3);
     }
+
+    /**
+     * @dataProvider validationPurchaseProvider
+     *
+     * @param $expectedCode
+     * @param array $data
+     * @param array $assertions
+     */
+    public function testPostPurchaseValidation($expectedCode, array $data, array $assertions = array())
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+
+        $purchaseProductData = array(
+            'product' => $productId,
+            'sellingPrice' => 7.99,
+            'quantity' => 2,
+        );
+
+        $purchaseData = $data + array(
+            'products' => array($purchaseProductData)
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/purchases.json',
+            array('purchase' => $purchaseData)
+        );
+
+        Assert::assertResponseCode($expectedCode, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathContains($expected, $path, $postResponse);
+        }
+    }
+
+    public function validationPurchaseProvider()
+    {
+        return array(
+            'valid empty date' => array(
+                201,
+                array(),
+            ),
+            'valid date' => array(
+                201,
+                array('createdDate' => '2013-12-31 12:44')
+            ),
+            'not valid date' => array(
+                400,
+                array('createdDate' => '2013-2sd-31 12:44'),
+                array(
+                    'children.createdDate.errors.0'
+                    =>
+                    'Вы ввели неверную дату 2013-2sd-31 12:44, формат должен быть следующий дд.мм.гггг чч:мм'
+                )
+            ),
+            'not valid empty products' => array(
+                400,
+                array('products' => array()),
+                array(
+                    'errors.0'
+                    =>
+                    'Должен присутствовать хотя бы один товар'
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider validationPurchaseProductProvider
+     * 
+     * @param $expectedCode
+     * @param array $data
+     * @param array $assertions
+     */
+    public function testPostPurchaseProductValidation($expectedCode, array $data, array $assertions = array())
+    {
+        $this->clearMongoDb();
+        
+        $productId = $this->createProduct();
+        
+        $purchaseProductData = $data + array(
+            'product' => $productId,
+            'sellingPrice' => 7.99,
+            'quantity' => 2,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/purchases.json',
+            array('purchase' => array(
+                'products' => array($purchaseProductData)
+            ))
+        );
+
+        Assert::assertResponseCode($expectedCode, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathContains($expected, $path, $postResponse);
+        }
+    }
+    
+    public function validationPurchaseProductProvider()
+    {
+        return array(
+            /***********************************************************************************************
+             * 'quantity'
+             ***********************************************************************************************/
+            'valid quantity 7' => array(
+                201,
+                array('quantity' => 7),
+            ),
+            'empty quantity' => array(
+                400,
+                array('quantity' => ''),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Заполните это поле'
+                )
+            ),
+            'negative quantity -10' => array(
+                400,
+                array('quantity' => -10),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть больше 0'
+                )
+            ),
+            'negative quantity -1' => array(
+                400,
+                array('quantity' => -1),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть больше 0'
+                )
+            ),
+            'zero quantity' => array(
+                400,
+                array('quantity' => 0),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть больше 0'
+                )
+            ),
+            'float quantity' => array(
+                400,
+                array('quantity' => 2.5),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть целым числом'
+                )
+            ),
+            /***********************************************************************************************
+             * 'price'
+             ***********************************************************************************************/
+            'valid price dot' => array(
+                201,
+                array('sellingPrice' => 10.89),
+            ),
+            'valid sellingPrice dot 79.99' => array(
+                201,
+                array('sellingPrice' => 79.99),
+            ),
+            'valid sellingPrice coma' => array(
+                201,
+                array('sellingPrice' => '10,89'),
+            ),
+            'empty sellingPrice' => array(
+                400,
+                array('sellingPrice' => ''),
+                array(
+                    'children.sellingPrice.errors.0'
+                    =>
+                    'Заполните это поле'
+                )
+            ),
+            'not valid sellingPrice very float' => array(
+                400,
+                array('sellingPrice' => '10,898'),
+                array(
+                    'children.sellingPrice.errors.0'
+                    =>
+                    'Цена не должна содержать больше 2 цифр после запятой'
+                ),
+            ),
+            'not valid sellingPrice very float dot' => array(
+                400,
+                array('sellingPrice' => '10.898'),
+                array(
+                    'children.sellingPrice.errors.0'
+                    =>
+                    'Цена не должна содержать больше 2 цифр после запятой'
+                ),
+            ),
+            'valid sellingPrice very float with dot' => array(
+                201,
+                array('sellingPrice' => '10.12')
+            ),
+            'not valid sellingPrice not a number' => array(
+                400,
+                array('sellingPrice' => 'not a number'),
+                array(
+                    'children.sellingPrice.errors.0'
+                    =>
+                    'Цена не должна быть меньше или равна нулю',
+                ),
+            ),
+            'valid sellingPrice zero' => array(
+                201,
+                array('sellingPrice' => 0),
+            ),
+            'not valid sellingPrice negative' => array(
+                400,
+                array('sellingPrice' => -10),
+                array(
+                    'children.sellingPrice.errors.0'
+                    =>
+                    'Цена не должна быть меньше или равна нулю'
+                )
+            ),
+            'not valid sellingPrice too big 2 000 000 001' => array(
+                400,
+                array('sellingPrice' => 2000000001),
+                array(
+                    'children.sellingPrice.errors.0'
+                    =>
+                    'Цена не должна быть больше 10000000'
+                ),
+            ),
+            'not valid sellingPrice too big 100 000 000' => array(
+                400,
+                array('sellingPrice' => '100000000'),
+                array(
+                    'children.sellingPrice.errors.0'
+                    =>
+                    'Цена не должна быть больше 10000000'
+                ),
+            ),
+            'valid sellingPrice too big 10 000 000' => array(
+                201,
+                array('sellingPrice' => '10000000'),
+            ),
+            'not valid sellingPrice too big 10 000 001' => array(
+                400,
+                array('sellingPrice' => '10000001'),
+                array(
+                    'children.sellingPrice.errors.0'
+                    =>
+                    'Цена не должна быть больше 10000000'
+                ),
+            ),
+            /***********************************************************************************************
+             * 'price'
+             ***********************************************************************************************/
+            'not valid product' => array(
+                201,
+                array('product' => 'not_valid_product_id'),
+                array(
+                    'children.product.errors.0'
+                    =>
+                    'Не существует такого продукта'
+                ),
+            ),
+        );
+    }
 }
