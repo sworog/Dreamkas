@@ -74,16 +74,15 @@ class Assert
     {
         $jsonPath = new JsonPath($json, $path);
         $values = $jsonPath->getValues();
-        if ('' == $message) {
-            $message = sprintf("Failed asserting JSON path '%s' value contains '%s'", $path, $expected);
-        }
+
         $found = 0;
+        $notFoundValues = array();
         foreach ($values as $value) {
             try {
                 \PHPUnit_Framework_Assert::assertContains($expected, $value, $message);
                 $found++;
             } catch (\PHPUnit_Framework_ExpectationFailedException $e) {
-
+                $notFoundValues[] = \PHPUnit_Util_Type::export($value);
             }
         }
 
@@ -93,6 +92,15 @@ class Assert
             $result = $found == 0;
         } else {
             $result = $found == $count;
+        }
+
+        if ('' == $message) {
+            $message = sprintf(
+                "Failed asserting JSON path '%s' value contains '%s'.\nFound values: %s",
+                $path,
+                $expected,
+                implode(', ', $notFoundValues)
+            );
         }
 
         \PHPUnit_Framework_Assert::assertTrue($result, $message);

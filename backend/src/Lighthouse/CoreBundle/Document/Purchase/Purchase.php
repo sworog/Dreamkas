@@ -20,8 +20,33 @@ class Purchase extends AbstractDocument
     protected $id;
 
     /**
-     * @MongoDB\EmbedMany(targetDocument="Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct")
+     * @MongoDB\Date
+     * @var \DateTime
+     */
+    protected $createdDate;
+
+    /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct",
+     *      simple=true,
+     *      cascade="persist"
+     * )
      * @var PurchaseProduct[]
      */
     protected $products = array();
+
+    /**
+     * @MongoDB\PrePersist
+     * @MongoDB\PreUpdate
+     */
+    public function prePersist()
+    {
+        if (empty($this->createdDate)) {
+            $this->createdDate = new \DateTime();
+        }
+
+        foreach ($this->products as $product) {
+            $product->purchase = $this;
+        }
+    }
 }

@@ -5,10 +5,11 @@ namespace Lighthouse\CoreBundle\Document\PurchaseProduct;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Purchase\Purchase;
 use Lighthouse\CoreBundle\Types\Money;
 
 /**
- * @MongoDB\EmbeddedDocument
+ * @MongoDB\Document
  */
 class PurchaseProduct extends AbstractDocument
 {
@@ -37,6 +38,12 @@ class PurchaseProduct extends AbstractDocument
     protected $totalSellingPrice;
 
     /**
+     * @MongoDB\Date
+     * @var \DateTime
+     */
+    protected $createdDate;
+
+    /**
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
      *     simple=true,
@@ -47,6 +54,16 @@ class PurchaseProduct extends AbstractDocument
     protected $product;
 
     /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Purchase\Purchase",
+     *     simple=true,
+     *     cascade="persist"
+     * )
+     * @var Purchase
+     */
+    protected $purchase;
+
+    /**
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */
@@ -54,5 +71,7 @@ class PurchaseProduct extends AbstractDocument
     {
         $this->totalSellingPrice = new Money();
         $this->totalSellingPrice->setCountByQuantity($this->sellingPrice, $this->quantity, true);
+
+        $this->createdDate = $this->purchase->createdDate;
     }
 }

@@ -22,7 +22,8 @@ class PurchaseType extends AbstractType
                     'type' => new PurchaseProductType(),
                     'allow_add' => true
                 )
-            );
+            )
+            ->add('createdDate', 'datetime');
     }
 
     /**
