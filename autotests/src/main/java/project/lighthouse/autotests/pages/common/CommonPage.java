@@ -3,6 +3,7 @@ package project.lighthouse.autotests.pages.common;
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.pages.WebElementFacade;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -191,11 +192,11 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         }
     }
 
-    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) {
+    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException {
         apiConnect.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
     }
 
-    public void createInvoiceThroughPost(String invoiceName) {
+    public void createInvoiceThroughPost(String invoiceName) throws JSONException {
         apiConnect.createInvoiceThroughPost(invoiceName);
     }
 

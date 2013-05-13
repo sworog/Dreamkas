@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.StaticDataCollections;
 import project.lighthouse.autotests.pages.common.CommonPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
@@ -52,23 +53,23 @@ public class CommonSteps extends ScenarioSteps {
     }
 
     @Step
-    public void createProductPostRequestSend(String name, String sku, String barcode, String units, String purchasePrice) {
+    public void createProductPostRequestSend(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException {
         productListPage.open();
         commonPage.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
     }
 
     @Step
-    public void createInvoiceThroughPost(String invoiceName) {
+    public void createInvoiceThroughPost(String invoiceName) throws JSONException {
         invoiceListPage.open();
         commonPage.createInvoiceThroughPost(invoiceName);
     }
 
     @Step
-    public void createInvoiceThroughPostWithData(String invoiceName, String productName) {
-        if (!StaticDataCollections.invoices.contains(invoiceName)) {
+    public void createInvoiceThroughPostWithData(String invoiceName, String productName) throws JSONException {
+        if (!StaticDataCollections.invoices.containsKey(invoiceName)) {
             createInvoiceThroughPost(invoiceName);
             continueCreatingInvoiceProduct(productName);
-            StaticDataCollections.invoices.add(invoiceName);
+            StaticDataCollections.invoices.put(invoiceName, null);
         }
     }
 

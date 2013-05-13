@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.pages.common;
 
 import net.thucydides.core.pages.PageObject;
-import net.thucydides.core.pages.WebElementFacade;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -72,19 +71,6 @@ abstract public class CommonPageObject extends PageObject {
             String elementName = row.get("elementName");
             String expectedValue = row.get("expectedValue");
             checkElementValue(checkType, elementName, expectedValue);
-        }
-    }
-
-    public void elementShouldBePresent(WebElementFacade webElementFacade) {
-        try {
-            webElementFacade.shouldBePresent();
-        } catch (Exception e) {
-            String exceptionMessage = e.getMessage();
-            if (exceptionMessage.contains(errorMessage1) || exceptionMessage.contains(errorMessage2) || exceptionMessage.contains(errorMessage3)) {
-                elementShouldBePresent(webElementFacade);
-            } else {
-                throw e;
-            }
         }
     }
 
