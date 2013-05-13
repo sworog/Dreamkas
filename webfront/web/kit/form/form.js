@@ -6,19 +6,17 @@ define(
     return Block.extend({
         initialize: function(){
             var block = this;
-            Block.prototype.initialize.apply(block, arguments);
-
             block.$submitButton = block.$el.find('[type="submit"]').closest('.button');
         },
         events: {
             'submit': function(e){
+                e.preventDefault();
                 var block = this;
 
-                e.preventDefault();
                 block.$submitButton.addClass('preloader');
                 block.removeErrors();
 
-                block.submit.then(function(data){
+                block.submit().then(function(data){
                     block.trigger('successSubmit', data);
                     block.$submitButton.removeClass('preloader');
                 }, function(data){

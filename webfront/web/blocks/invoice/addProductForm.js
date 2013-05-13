@@ -19,21 +19,22 @@ define(
             },
             submit: function(){
                 var block = this,
+                    deferred = $.Deferred(),
+                    productData = Backbone.Syphon.serialize(block),
                     newProduct = new InvoiceProduct({
-                        invoice: {
-                            id: block.invoiceId
-                        }
+                        invoiceId: block.invoiceId
                     });
 
                 newProduct.save(productData, {
                     error: function(model, res) {
-                        block.addForm.showErrors(JSON.parse(res.responseText));
+                        deferred.reject(JSON.parse(res.responseText));
                     },
                     success: function(model) {
-                        block.invoiceProductCollection.push(model);
-                        block.addForm.clear();
+                        deferred.resolve(model);
                     }
                 });
+
+                return deferred.promise();
             },
             showErrors: function(data) {
                 var block = this;

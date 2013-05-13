@@ -2,13 +2,12 @@ define(
     [
         '/kit/block.js',
         '/models/invoice.js',
-        '/models/invoiceProduct.js',
         '/collections/invoiceProducts.js',
         '/helpers/helpers.js',
         './addProductForm.js',
         './tpl/tpl.js'
     ],
-    function(Block, InvoiceModel, InvoiceProduct, InvoiceProductCollection, utils, AddForm, tpl) {
+    function(Block, InvoiceModel, InvoiceProductCollection, utils, AddForm, tpl) {
         return Block.extend({
             defaults: {
                 editMode: false,
@@ -99,13 +98,6 @@ define(
 
                     block.removeInvoiceProduct(invoiceProductId);
                     block.set('dataEditing', false);
-                },
-                'submit .invoice__addForm': function(e) {
-                    e.preventDefault();
-                    var block = this,
-                        productData = Backbone.Syphon.serialize(block);
-
-                    block.addProduct(productData);
                 },
                 'click .invoice__editLink': function(e) {
                     e.preventDefault();
@@ -342,24 +334,6 @@ define(
                 };
 
                 $input.datepicker(options);
-            },
-            addProduct: function(productData) {
-                var block = this,
-                    newProduct = new InvoiceProduct({
-                        invoice: {
-                            id: block.invoiceId
-                        }
-                    });
-
-                newProduct.save(productData, {
-                    error: function(model, res) {
-                        block.addForm.showErrors(JSON.parse(res.responseText));
-                    },
-                    success: function(model) {
-                        block.invoiceProductCollection.push(model);
-                        block.addForm.clear();
-                    }
-                });
             },
             showDataInput: function($el) {
                 var block = this,

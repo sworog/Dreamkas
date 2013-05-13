@@ -86,23 +86,37 @@ define(
                 },
                 'submit': function(e){
                     e.preventDefault();
-                    var block = this,
-                        formData = Backbone.Syphon.serialize(e.target);
+                    var block = this;
 
                     block.$submitButton.addClass('preloader');
                     block.removeErrors();
 
-                    this.productModel.save(formData, {
-                        success: function(){
-                            router.navigate(block.productId ? '/product/' + block.productId : '/products', {
-                                trigger: true
-                            });
-                        },
-                        error: function(model, response){
-                            block.showErrors(JSON.parse(response.responseText));
-                        }
+                    block.submit().then(function(data){
+                        block.trigger('successSubmit', data);
+                        block.$submitButton.removeClass('preloader');
+                    }, function(data){
+                        block.showErrors(data);
+                        block.$submitButton.removeClass('preloader');
                     });
                 }
+            },
+            submit: function(){
+                var block = this,
+                    deferred = $.Deferred(),
+                    formData = Backbone.Syphon.serialize(block);
+
+                block.productModel.save(formData, {
+                    success: function(){
+                        router.navigate(block.productId ? '/product/' + block.productId : '/products', {
+                            trigger: true
+                        });
+                    },
+                    error: function(model, response){
+                        deferred.reject(JSON.parse(response.responseText));
+                    }
+                });
+
+                return deferred.promise();
             },
             showRetailMarkupInput: function() {
                 this.$retailPriceInput.addClass('productForm__hiddenInput');

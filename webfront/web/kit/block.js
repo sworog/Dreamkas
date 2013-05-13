@@ -17,11 +17,6 @@ define(
 
                 Backbone.View.apply(this, arguments);
             },
-            initialize: function(){
-                var block = this;
-
-                block.render();
-            },
             render: function() {
                 var block = this;
 
