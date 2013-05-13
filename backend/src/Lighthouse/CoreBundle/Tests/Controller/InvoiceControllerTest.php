@@ -9,15 +9,9 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class InvoiceControllerTest extends WebTestCase
 {
-    /**
-     * @var Client
-     */
-    protected $client;
-
     protected function setUp()
     {
         parent::setUp();
-        $this->client = static::createClient();
         $this->clearMongoDb();
     }
 

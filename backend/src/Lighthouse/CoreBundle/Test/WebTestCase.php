@@ -22,10 +22,13 @@ class WebTestCase extends BaseTestCase
     static protected $appDebug = true;
 
     /**
-     *
+     * @var Client
      */
+    protected $client;
+
     protected function setUp()
     {
+        $this->client = static::createClient();
     }
 
     /**
@@ -129,5 +132,129 @@ class WebTestCase extends BaseTestCase
         }
 
         return $json;
+    }
+
+    /**
+     * @param array $modifiedData
+     * @return string
+     */
+    protected function createInvoice(array $modifiedData = array())
+    {
+        $invoiceData = $modifiedData + array(
+            'sku' => 'sdfwfsf232',
+            'supplier' => 'ООО "Поставщик"',
+            'acceptanceDate' => '2013-03-18 12:56',
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceDate' => '17.03.2013',
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/invoices.json',
+            array('invoice' => $invoiceData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
+
+    /**
+     * @param string $extra
+     * @return string
+     */
+    protected function createProduct($extra = '')
+    {
+        $productData = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр' . $extra,
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => 3048,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР' . $extra,
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/products.json',
+            array('product' => $productData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
+
+    /**
+     * @param $productId
+     * @param $invoiceId
+     * @return array
+     */
+    protected function createProducts($productId, $invoiceId)
+    {
+        $productsData = array(
+            array(
+                'product' => $productId,
+                'quantity' => 10,
+                'price' => 11.12,
+                'productAmount' => 10,
+            ),
+            array(
+                'product' => $productId,
+                'quantity' => 5,
+                'price' => 12.76,
+                'productAmount' => 15,
+            ),
+            array(
+                'product' => $productId,
+                'quantity' => 1,
+                'price' => 5.99,
+                'productAmount' => 16,
+            ),
+        );
+
+        foreach ($productsData as $i => $row) {
+
+            $invoiceProductData = array(
+                'quantity' => $row['quantity'],
+                'price' => $row['price'],
+                'product' => $row['product'],
+            );
+
+            $response = $this->clientJsonRequest(
+                $this->client,
+                'POST',
+                '/api/1/invoices/' . $invoiceId . '/products.json',
+                array('invoiceProduct' => $invoiceProductData)
+            );
+
+            Assert::assertResponseCode(201, $this->client);
+            $productsData[$i]['id'] = $response['id'];
+        }
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '/products.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(3, "*.id", $getResponse);
+
+        foreach ($productsData as $productData) {
+            Assert::assertJsonPathEquals($productData['id'], '*.id', $getResponse);
+        }
+
+        return $productsData;
     }
 }

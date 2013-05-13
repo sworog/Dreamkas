@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Purchase;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
 
 /**
  * @MongoDB\Document(
@@ -19,8 +20,8 @@ class Purchase extends AbstractDocument
     protected $id;
 
     /**
-     * @MongoDB\EmbedMany(targetDocument="Lighthouse\CoreBundle\Document\PurchasePrice\PurchasePrice")
-     * @var
+     * @MongoDB\EmbedMany(targetDocument="Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct")
+     * @var PurchaseProduct[]
      */
     protected $products = array();
 }

@@ -9,16 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Client;
 
 class ProductControllerTest extends WebTestCase
 {
-    /**
-     * @var Client
-     */
-    protected $client;
-
     protected function setUp()
     {
         parent::setUp();
         $this->clearMongoDb();
-        $this->client = static::createClient();
     }
 
     /**
@@ -51,7 +45,7 @@ class ProductControllerTest extends WebTestCase
         $responseJson = $this->clientJsonRequest(
             $this->client,
             'POST',
-            'api/1/products.json',
+            '/api/1/products.json',
             array('product' => $productData)
         );
 
@@ -59,11 +53,10 @@ class ProductControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('retailMarkup', $responseJson);
         Assert::assertNotJsonHasPath('retailPrice', $responseJson);
 
-        $this->client->restart();
         $responseJson = $this->clientJsonRequest(
             $this->client,
             'GET',
-            'api/1/products/' .$responseJson['id']. '.json'
+            '/api/1/products/' .$responseJson['id']. '.json'
         );
 
         Assert::assertResponseCode(200, $this->client);
