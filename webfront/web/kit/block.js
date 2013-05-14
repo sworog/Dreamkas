@@ -1,9 +1,8 @@
 define(
     [
-        '/pages/page.js',
-        '/helpers/deepExtend.js'
+        '/pages/page.js'
     ],
-    function(page, deepExtend) {
+    function(page) {
         return Backbone.View.extend({
             page: page,
             tpl: {},
