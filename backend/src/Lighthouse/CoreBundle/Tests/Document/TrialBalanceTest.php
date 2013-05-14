@@ -7,9 +7,12 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Purchase\Purchase;
+use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceCollection;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
@@ -179,5 +182,39 @@ class TrialBalanceTest extends WebTestCase
 
         $trialBalance = $trialBalanceRepository->findOneByProduct($product);
         $this->assertTrue(null === $trialBalance);
+    }
+
+    public function testCreateTrialBalanceByPurchase()
+    {
+        $this->clearMongoDb();
+
+        $manager = $this->getManager();
+        /** @var \Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository $trialBalanceRepository */
+        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
+        /** @var \Lighthouse\CoreBundle\Document\Product\ProductRepository $productRepository */
+        $productRepository = $this->getContainer()->get('lighthouse.core.document.repository.product');
+
+        $productId = $this->createProduct();
+        $product = $productRepository->findOneBy(array('id' => $productId));
+
+        $purchase = new Purchase();
+
+        $purchaseProduct = new PurchaseProduct();
+        $purchaseProduct->purchase = $purchase;
+        $purchaseProduct->product = $product;
+        $purchaseProduct->quantity = 3;
+        $purchaseProduct->sellingPrice = new Money(79.99);
+
+        $purchase->products = array($purchaseProduct);
+
+        $manager->persist($purchase);
+        $manager->persist($purchaseProduct);
+        $manager->flush();
+
+        $trialBalance = $trialBalanceRepository->findOneByProduct($product);
+
+        $this->assertEquals(79.99, $trialBalance->price->getCount());
+        $this->assertEquals(-3, $trialBalance->quantity);
+        $this->assertEquals(239.97, $trialBalance->totalPrice->getCount());
     }
 }

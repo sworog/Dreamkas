@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
 
 /**
  * Class TrialBalanceListener
@@ -49,6 +50,19 @@ class TrialBalanceListener
                 $trialBalance->product = $document->product;
                 $trialBalance->reason = $document;
                 $trialBalance->createdDate = $document->invoice->acceptanceDate;
+
+                $dm->persist($trialBalance);
+
+                $this->computeChangeSet($dm, $uow, $trialBalance);
+            }
+
+            if ($document instanceof PurchaseProduct) {
+                $trialBalance = new TrialBalance();
+                $trialBalance->price = $document->sellingPrice;
+                $trialBalance->quantity = - $document->quantity;
+                $trialBalance->product = $document->product;
+                $trialBalance->reason = $document;
+                $trialBalance->createdDate = $document->createdDate;
 
                 $dm->persist($trialBalance);
 

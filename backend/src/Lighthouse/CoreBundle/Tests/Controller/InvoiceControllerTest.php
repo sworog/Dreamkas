@@ -38,7 +38,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         for ($i = 0; $i < 5; $i++) {
             $invoiceData['sku'] = '12122004' . $i;
-            $this->createInvoice($invoiceData, $this->client);
+            $this->createInvoice($invoiceData);
         }
 
         $crawler = $this->client->request(
@@ -56,7 +56,7 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testGetInvoice(array $invoiceData, array $assertions)
     {
-        $id = $this->createInvoice($invoiceData, $this->client);
+        $id = $this->createInvoice($invoiceData);
 
         $crawler = $this->client->request(
             'GET',
@@ -547,24 +547,5 @@ class InvoiceControllerTest extends WebTestCase
                 ),
             ),
         );
-    }
-
-    /**
-     * @param array $invoiceData
-     * @param Client $client
-     * @return string
-     */
-    protected function createInvoice(array $invoiceData, $client)
-    {
-        /** @var Crawler $crawler  */
-        $crawler = $client->request(
-            'POST',
-            '/api/1/invoices',
-            array('invoice' => $invoiceData)
-        );
-
-        Assert::assertResponseCode(201, $client);
-
-        return $crawler->filterXPath("//invoice/id")->text();
     }
 }

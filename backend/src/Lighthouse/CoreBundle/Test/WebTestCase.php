@@ -163,6 +163,30 @@ class WebTestCase extends BaseTestCase
         return $postResponse['id'];
     }
 
+    public function createPurchaseWithProduct($productId, $sellingPrice, $quantity, $date = 'now')
+    {
+        $purchaseProductData = array(
+            'product' => $productId,
+            'sellingPrice' => $sellingPrice,
+            'quantity' => $quantity,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/purchases.json',
+            array('purchase' => array(
+                'createdDate' => date('c', strtotime($date)),
+                'products' => array($purchaseProductData),
+            ))
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
+
     /**
      * @param string $extra
      * @return string

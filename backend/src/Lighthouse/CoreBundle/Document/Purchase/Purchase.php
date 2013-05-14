@@ -12,6 +12,10 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Purchase\PurchaseRepository"
  * )
+ *
+ * @property int        $id
+ * @property DiteTime   $createdDate
+ * @property PurchaseProduct[]  $product
  */
 class Purchase extends AbstractDocument
 {

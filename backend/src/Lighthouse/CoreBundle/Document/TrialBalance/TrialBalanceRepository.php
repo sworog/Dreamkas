@@ -101,6 +101,7 @@ class TrialBalanceRepository extends DocumentRepository
             ->createQueryBuilder()
             ->field('createdDate')->gt($dateStart)
             ->field('createdDate')->lt($dateEnd)
+            ->field('reason.$ref')->equals('InvoiceProduct')
             ->map(
                 new \MongoCode(
                     "function() {

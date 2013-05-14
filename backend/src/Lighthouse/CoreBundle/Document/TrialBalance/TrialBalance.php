@@ -104,7 +104,8 @@ class TrialBalance extends AbstractDocument
      * @MongoDB\ReferenceOne(
      *      discriminatorField="reasonType",
      *      discriminatorMap={
-     *          "invoiceProduct"="Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct"
+     *          "invoiceProduct"="Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct",
+     *          "purchaseProduct"="Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct"
      *      }
      * )
      * @var Invoice
@@ -118,6 +119,6 @@ class TrialBalance extends AbstractDocument
     public function updateTotalPrice()
     {
         $this->totalPrice = new Money();
-        $this->totalPrice->setCountByQuantity($this->price, $this->quantity);
+        $this->totalPrice->setCountByQuantity($this->price, abs($this->quantity));
     }
 }

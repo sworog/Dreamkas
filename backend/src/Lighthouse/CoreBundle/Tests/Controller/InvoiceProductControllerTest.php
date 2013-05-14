@@ -1038,6 +1038,8 @@ class InvoiceProductControllerTest extends WebTestCase
         $productId = $this->createProduct();
         $productId2 = $this->createProduct('2');
 
+        $purchaseId = $this->createPurchaseWithProduct($productId, 79.99, 13, '-2 days');
+
         $invoiceId1 = $this->createInvoice(
             array(
                 'sku' => '-3 days',
