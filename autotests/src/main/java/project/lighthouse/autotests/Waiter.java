@@ -9,10 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Waiter {
 
     WebDriver driver;
-    WebDriverWait waiter = new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000);
+    WebDriverWait waiter;
 
     public Waiter(WebDriver driver) {
         this.driver = driver;
+        waiter = new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000);
     }
 
     public WebElement getPresentWebElement(By findBy) {
@@ -23,7 +24,7 @@ public class Waiter {
         return waiter.until(ExpectedConditions.visibilityOfElementLocated(findBy));
     }
 
-    public void waitUntilIsNotPresent(By findBy) {
+    public void waitUntilIsNotVisible(By findBy) {
         waiter.until(ExpectedConditions.invisibilityOfElementLocated(findBy));
     }
 }

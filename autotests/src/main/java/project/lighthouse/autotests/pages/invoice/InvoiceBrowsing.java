@@ -144,7 +144,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void addNewInvoiceProductButtonClick() {
         findBy("//span[@class='button button_color_blue invoice__addMoreProduct']/input").click();
-        waiter.waitUntilIsNotPresent(By.xpath("//span[@class='button button_color_blue invoice__addMoreProduct preloader']"));
+        waiter.waitUntilIsNotVisible(By.xpath("//span[@class='button button_color_blue invoice__addMoreProduct preloader']"));
     }
 
     public void checkItemIsNotPresent(String elementName) {
