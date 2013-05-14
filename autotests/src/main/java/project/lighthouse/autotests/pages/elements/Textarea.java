@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.pages.elements;
 
-import project.lighthouse.autotests.pages.common.CommonPageObject;
+import project.lighthouse.autotests.common.CommonPageObject;
 
 public class Textarea extends Input {
 

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.CommonViewInterface;
-import project.lighthouse.autotests.pages.common.CommonView;
+import project.lighthouse.autotests.common.CommonView;
 
 public class InvoiceBrowsing extends InvoiceCreatePage {
 

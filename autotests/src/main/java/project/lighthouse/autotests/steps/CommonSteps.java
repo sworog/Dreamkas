@@ -6,7 +6,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticDataCollections;
-import project.lighthouse.autotests.pages.common.CommonPage;
+import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;

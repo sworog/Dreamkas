@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import project.lighthouse.autotests.pages.common.CommonItem;
-import project.lighthouse.autotests.pages.common.CommonPageObject;
+import project.lighthouse.autotests.common.CommonItem;
+import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.pages.elements.*;
 
 @DefaultUrl("/invoice/create")

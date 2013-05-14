@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.pages.common.CommonPage;
+import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.pages.elements.DateTime;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;

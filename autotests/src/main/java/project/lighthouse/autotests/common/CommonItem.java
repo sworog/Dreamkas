@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.common;
+package project.lighthouse.autotests.common;
 
 import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;

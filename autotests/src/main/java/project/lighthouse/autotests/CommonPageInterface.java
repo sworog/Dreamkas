@@ -1,7 +1,7 @@
 package project.lighthouse.autotests;
 
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.pages.common.CommonItem;
+import project.lighthouse.autotests.common.CommonItem;
 
 public interface CommonPageInterface {
 

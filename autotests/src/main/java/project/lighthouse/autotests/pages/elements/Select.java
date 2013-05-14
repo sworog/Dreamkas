@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.pages.elements;
 
-import project.lighthouse.autotests.pages.common.CommonItem;
-import project.lighthouse.autotests.pages.common.CommonPageObject;
+import project.lighthouse.autotests.common.CommonItem;
+import project.lighthouse.autotests.common.CommonPageObject;
 
 public class Select extends CommonItem {
 

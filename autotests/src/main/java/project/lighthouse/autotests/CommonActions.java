@@ -4,9 +4,9 @@ import net.thucydides.core.pages.PageObject;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.pages.common.CommonItem;
-import project.lighthouse.autotests.pages.common.CommonPage;
-import project.lighthouse.autotests.pages.common.CommonView;
+import project.lighthouse.autotests.common.CommonItem;
+import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.common.CommonView;
 
 import java.util.Map;
 

@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
-import project.lighthouse.autotests.pages.common.CommonView;
+import project.lighthouse.autotests.common.CommonView;
 
 @DefaultUrl("/products")
 public class ProductListPage extends ProductCreatePage {
