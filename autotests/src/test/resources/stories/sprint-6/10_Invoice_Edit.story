@@ -57,7 +57,7 @@ And there is the invoice with 'Invoice-IE-IPE' sku
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
-And the user navigates to invoice product addition
+And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IE-IPE' sku is present
@@ -105,7 +105,7 @@ And there is the invoice with 'Invoice-IE-IPE-ASELC' sku
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
-And the user navigates to invoice product addition
+And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IE-IPE-ASELC' sku is present
@@ -134,7 +134,7 @@ And there is the invoice with 'Invoice-IE-IPE-999' sku
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
-And the user navigates to invoice product addition
+And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IE-IPE' sku is present
@@ -182,7 +182,7 @@ And there is the invoice with 'Invoice-IE-IPE-ASSELC' sku
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
-And the user navigates to invoice product addition
+And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IE-IPE-ASSELC' sku is present
@@ -211,7 +211,7 @@ And there is the invoice with 'Invoice-IE-IPE-1012' sku
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
-And the user navigates to invoice product addition
+And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IE-IPE' sku is present
@@ -259,7 +259,7 @@ And there is the invoice with 'Invoice-IE-IPE-ASBELC' sku
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
-And the user navigates to invoice product addition
+And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IE-IPE-ASBELC' sku is present
