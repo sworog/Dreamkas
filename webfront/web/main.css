@@ -5,6 +5,7 @@
 @import "/blocks/invoice/invoice.css";
 @import "/blocks/productForm/productForm.css";
 @import "/blocks/product/product.css";
+@import "/blocks/saleBox/saleBox.css";
 /* /blocks */
 
 html{
@@ -22,6 +23,10 @@ body{
     background: #f4f4f4;
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+table{
+    border-collapse: collapse;
 }
 
 a{

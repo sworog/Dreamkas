@@ -1,0 +1,36 @@
+.saleBox{
+
+}
+
+.saleBox__productForm{
+    padding-bottom: 20px;
+}
+
+.saleBox__purchaseForm{
+    padding-bottom: 20px;
+}
+
+.saleBox__purchaseForm input{
+    border-color: #fff;
+    background: none;
+}
+
+.saleBox__productForm .saleBox__removeProductLink{
+    display: none;
+}
+
+.saleBox__purchaseForm .saleBox__addProductLink{
+    display: none;
+}
+
+.saleBox__purchaseForm .saleBox__removeProductLink{
+    visibility: hidden;
+}
+
+.saleBox__purchaseForm tr:hover .saleBox__removeProductLink{
+    visibility: visible;
+}
+
+.saleBox__rowControls{
+    text-align: right;
+}

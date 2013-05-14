@@ -19,6 +19,7 @@ input.inputText, .inputText input, textarea.inputText, .inputText textarea{
     line-height: 17px;
     padding: 0 8px;
     vertical-align: middle;
+    width: 100%;
 }
 
 .inputText_inline, input.inputText_inline, textarea.inputText_inline {
@@ -38,6 +39,7 @@ textarea.inputText, .inputText textarea {
 .inputText:focus, .inputText input:focus, .inputText textarea:focus {
     border-color: #3b77b2 !important;
     box-shadow: 0 0 3px #4791d8 !important;
+    background: #fff !important;
 }
 
 .inputText[disabled], .inputText input[disabled], .inputText textarea[disabled] {

@@ -1,0 +1,47 @@
+<h2>Эмулятор продажи</h2>
+<form class="form saleBox__purchaseForm" id="saleBox__purchaseForm">
+    <table class="table">
+        <thead>
+        <tr>
+            <th style="width: 500px;">Наздвание товара</th>
+            <th style="width: 100px;">Количество</th>
+            <th style="width: 150px;">Цена</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</form>
+<form class="form saleBox__productForm">
+    <table class="table">
+        <tr class="saleBox__productRow">
+            <td style="width: 500px;">
+                <input lh_product_autocomplete="name" type="text" class="inputText" placeholder="Наздвание товара"/>
+                <input type="hidden" name="product[]" />
+            </td>
+            <td style="width: 100px;">
+                <input name="quantity[]" type="text" class="inputText" placeholder="Количество"/>
+            </td>
+            <td style="width: 150px;">
+                <input name="sellingPrice[]" type="text" class="inputText" placeholder="Цена"/>
+            </td>
+            <td class="saleBox__rowControls">
+                <span class="button saleBox__addProductLink">
+                    Добавить
+                    <input type="submit"/>
+                </span>
+                <span class="button saleBox__removeProductLink">
+                    Удалить
+                </span>
+            </td>
+        </tr>
+    </table>
+</form>
+<div>
+    <span class="button button_color_blue">
+        Расчитать
+        <input type="submit" form="saleBox__purchaseForm"/>
+    </span>
+</div>

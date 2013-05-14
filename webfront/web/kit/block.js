@@ -18,15 +18,19 @@ define(
                 Backbone.View.apply(this, arguments);
             },
             render: function() {
-                var block = this;
+                var block = this,
+                    $el = $(block.tpl.main({
+                        block: block
+                    }));
 
-                if (block.tpl.main){
-                    block.$el
-                        .html(block.tpl.main({
-                            block: block
-                        }))
-                        .initBlocks();
-                }
+                block.$el
+                    .html($el)
+                    .initBlocks();
+
+                block._saveElements();
+            },
+            _saveElements: function() {
+
             },
             remove: function() {
                 var block = this;
