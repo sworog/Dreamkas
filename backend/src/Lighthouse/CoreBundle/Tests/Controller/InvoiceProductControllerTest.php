@@ -775,23 +775,6 @@ class InvoiceProductControllerTest extends WebTestCase
     }
 
     /**
-     * @param string $productId
-     * @param array $assertions
-     */
-    protected function assertProduct($productId, array $assertions)
-    {
-        $productJson = $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/products/' . $productId . '.json'
-        );
-
-        Assert::assertResponseCode(200, $this->client);
-
-        $this->performJsonAssertions($productJson, $assertions);
-    }
-
-    /**
      * @param string $invoiceId
      * @param string $sumTotal
      * @param int $itemsCount

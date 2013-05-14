@@ -389,14 +389,95 @@ class PurchaseControllerTest extends WebTestCase
         );
     }
 
-    /*
-    public function testPostPurchasesAmountChange()
+    public function testPostPurchasesActionAmountChange()
     {
         $this->clearMongoDb();
 
         $productId = $this->createProduct();
 
         $invoiceId = $this->createInvoice();
+
+        $invoiceProductData = array(
+            'quantity' => 10,
+            'price'    => 17.68,
+            'product'  => $productId,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $invoiceProductData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        $this->assertProduct($productId, array('amount' => 10));
+
+        $this->createProductPurchase(
+            $productId,
+            array(
+                'sellingPrice' => 19.99,
+                'quantity' => 6,
+            )
+        );
+
+        $this->createProductPurchase(
+            $productId,
+            array(
+                'sellingPrice' => 15.99,
+                'quantity' => 4,
+            )
+        );
+
+        $this->assertProduct($productId, array('amount' => 0));
+
+
+        $this->createProductPurchase(
+            $productId,
+            array(
+                'sellingPrice' => 17.99,
+                'quantity' => 2,
+            )
+        );
+
+        $this->assertProduct($productId, array('amount' => -2));
     }
-    */
+
+    /**
+     * @param string $productId
+     * @param array $data
+     * @return mixed
+     */
+    protected function createProductPurchase($productId, array $data)
+    {
+        $purchaseData = array(
+            'products' => array(
+                $data + array(
+                    'product' => $productId,
+                    'sellingPrice' => 19.99,
+                    'quantity' => 6,
+                )
+            )
+        );
+
+        $purchaseResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/purchases.json',
+            array('purchase' => $purchaseData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('products.*.id', $purchaseResponse);
+        Assert::assertJsonHasPath('id', $purchaseResponse);
+        Assert::assertJsonPathEquals(
+            $purchaseData['products'][0]['product'],
+            'products.*.product.id',
+            $purchaseResponse
+        );
+
+        return $purchaseResponse;
+    }
 }
