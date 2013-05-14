@@ -23,6 +23,9 @@ class MoneyModelTransformer implements DataTransformerInterface
     protected $digits = 2;
 
     /**
+     * @DI\InjectParams({
+     *      "digits"=@DI\Inject("%money.digits%")
+     * })
      * @param int $digits
      */
     public function __construct($digits = null)

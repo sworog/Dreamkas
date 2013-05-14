@@ -257,4 +257,19 @@ class WebTestCase extends BaseTestCase
 
         return $productsData;
     }
+
+    /**
+     * @param mixed $json
+     * @param array $assertions
+     */
+    protected function performJsonAssertions($json, array $assertions)
+    {
+        foreach ($assertions as $path => $expected) {
+            if (null === $expected) {
+                Assert::assertNotJsonHasPath($path, $json);
+            } else {
+                Assert::assertJsonPathEquals($expected, $path, $json);
+            }
+        }
+    }
 }

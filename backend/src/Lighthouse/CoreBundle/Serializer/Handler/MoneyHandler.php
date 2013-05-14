@@ -20,11 +20,11 @@ class MoneyHandler implements SubscribingHandlerInterface
      * @DI\Inject("lighthouse.core.data_transformer.money_model")
      * @var MoneyModelTransformer
      */
-    public $moneyTransformer;
+    public $modelTransformer;
 
     /**
-     * @DI\Inject("lighthouse.core.data_transformer.money_view")
-     * @var MoneyViewTransformer
+     * @DI\Inject("lighthouse.core.data_transformer.float_view")
+     * @var FloatViewTransformer
      */
     public $viewTransformer;
 
@@ -57,7 +57,7 @@ class MoneyHandler implements SubscribingHandlerInterface
      */
     public function serializeMoney(VisitorInterface $visitor, Money $value, array $type)
     {
-        $normData = $this->moneyTransformer->transform($value);
+        $normData = $this->modelTransformer->transform($value);
         $viewData = $this->viewTransformer->transform($normData);
         if (null === $viewData) {
             $serialized = $visitor->visitNull($viewData, $type);

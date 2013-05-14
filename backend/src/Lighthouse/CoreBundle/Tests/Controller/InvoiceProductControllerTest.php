@@ -2,12 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\Product\ProductRepository;
-use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Service\AveragePriceService;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
 
 class InvoiceProductControllerTest extends WebTestCase
 {
@@ -815,21 +812,6 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->performJsonAssertions($invoiceJson, $assertions);
-    }
-
-    /**
-     * @param mixed $json
-     * @param array $assertions
-     */
-    protected function performJsonAssertions($json, array $assertions)
-    {
-        foreach ($assertions as $path => $expected) {
-            if (null === $expected) {
-                Assert::assertNotJsonHasPath($path, $json);
-            } else {
-                Assert::assertJsonPathEquals($expected, $path, $json);
-            }
-        }
     }
 
     /**

@@ -388,4 +388,15 @@ class PurchaseControllerTest extends WebTestCase
             ),
         );
     }
+
+    /*
+    public function testPostPurchasesAmountChange()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+
+        $invoiceId = $this->createInvoice();
+    }
+    */
 }

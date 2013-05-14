@@ -1,3 +1,6 @@
+parameters:
+    money.digits: 2
+
 services:
     jms_serializer.serialized_name_annotation_strategy:
         class: %jms_serializer.serialized_name_annotation_strategy.class%
