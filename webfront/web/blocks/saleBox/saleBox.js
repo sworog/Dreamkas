@@ -1,13 +1,15 @@
 define(
     [
         '/kit/block.js',
+        '/kit/form/form.js',
         '/models/purchase.js',
         './tpl/tpl.js'
     ],
-    function(Block, PurchaseModel, tpl) {
+    function(Block, Form, PurchaseModel, tpl) {
         return Block.extend({
             defaults: {
-                tpl: tpl
+                tpl: tpl,
+                purchaseModel: new PurchaseModel()
             },
             initialize: function() {
                 var block = this;
@@ -20,26 +22,6 @@ define(
                         $link = $(e.target);
 
                     $link.closest('.saleBox__productRow').remove();
-                },
-                'submit .saleBox__purchaseForm': function(e) {
-                    e.preventDefault();
-                    var block = this,
-                        purchaseFormData = Backbone.Syphon.serialize(block.$purchaseForm[0]),
-                        products = [];
-
-                    _.each(purchaseFormData.product, function(product, index) {
-                        products.push({
-                            product: product,
-                            quantity: purchaseFormData.quantity[index],
-                            sellingPrice: purchaseFormData.sellingPrice[index]
-                        });
-                    });
-
-                    block.purchaseModel = new PurchaseModel({
-                        products: products
-                    });
-
-                    block.purchaseModel.save();
                 },
                 'submit .saleBox__productForm': function(e) {
                     e.preventDefault();
@@ -100,13 +82,48 @@ define(
                     }
                 });
             },
-            _saveElements: function() {
+            _afterRender: function() {
                 var block = this;
 
                 block.$purchaseForm = block.$el.find('.saleBox__purchaseForm');
                 block.$purchaseTable = block.$purchaseForm.find('.table');
                 block.$productForm = block.$el.find('.saleBox__productForm');
                 block.$productRow = block.$productForm.find('.saleBox__productRow');
+
+                block.purchaseForm = new Form({
+                    el: block.$purchaseForm[0],
+                    submit: function() {
+                        var deferred = $.Deferred();
+                        var purchaseFormData = Backbone.Syphon.serialize(this),
+                            products = [];
+
+                        _.each(purchaseFormData.product, function(product, index) {
+                            products.push({
+                                product: product,
+                                quantity: purchaseFormData.quantity[index],
+                                sellingPrice: purchaseFormData.sellingPrice[index]
+                            });
+                        });
+
+                        block.purchaseModel.save({
+                            products: products
+                        }, {
+                            success: function() {
+                                alert('Продано!');
+                                document.location.reload();
+                                deferred.resolve();
+                            },
+                            error: function() {
+                                alert('Ошибка!');
+                                deferred.reject();
+                            }
+                        });
+
+                        return deferred.promise();
+                    }
+                });
+
+                block.purchaseForm.$submitButton = block.$el.find('[form="saleBox__purchaseForm"]').closest('.button');
 
                 block.autocompleteToInput(block.$productForm.find('[lh_product_autocomplete]'));
             }

@@ -27,9 +27,9 @@ define(
                     .html($el)
                     .initBlocks();
 
-                block._saveElements();
+                block._afterRender();
             },
-            _saveElements: function() {
+            _afterRender: function() {
 
             },
             remove: function() {
