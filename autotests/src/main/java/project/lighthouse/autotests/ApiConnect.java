@@ -11,6 +11,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.objects.Invoice;
+import project.lighthouse.autotests.objects.Product;
 import project.lighthouse.autotests.pages.elements.DateTime;
 
 import java.util.HashMap;
@@ -25,32 +27,28 @@ public class ApiConnect {
         this.driver = driver;
     }
 
-    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) {
-        if (!StaticDataCollections.products.contains(sku)) {
+    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException {
+        if (!StaticDataCollections.products.containsKey(sku)) {
             String getApiUrl = getApiUrl() + "/api/1/products.json";
-            String jsonDataPattern = "{\"product\":{\"name\":\"%s\",\"units\":\"%s\",\"vat\":\"0\",\"purchasePrice\":\"%s\",\"barcode\":\"%s\",\"sku\":\"%s\",\"vendorCountry\":\"Тестовая страна\",\"vendor\":\"Тестовый производитель\",\"info\":\"\"}}";
-            String jsonData = String.format(jsonDataPattern, name, units, purchasePrice, barcode, sku);
-            executePostRequest(getApiUrl, jsonData);
-            StaticDataCollections.products.add(sku);
+            String jsonData = String.format(Product.productJsonDataPattern, name, units, purchasePrice, barcode, sku);
+            String postResponse = executePostRequest(getApiUrl, jsonData);
+
+            Product product = new Product(new JSONObject(postResponse));
+            StaticDataCollections.products.put(sku, product);
         }
     }
 
-    public void createInvoiceThroughPost(String invoiceName) {
-        if (!StaticDataCollections.invoices.contains(invoiceName)) {
+    public void createInvoiceThroughPost(String invoiceName) throws JSONException {
+        if (!StaticDataCollections.invoices.containsKey(invoiceName)) {
             String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
-            String jsonDataPattern = "{\"invoice\":{\"sku\":\"%s\",\"supplier\":\"supplier\",\"acceptanceDate\":\"%s\",\"accepter\":\"accepter\",\"legalEntity\":\"legalEntity\",\"supplierInvoiceSku\":\"\",\"supplierInvoiceDate\":\"\"}}";
-            String jsonData = String.format(jsonDataPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
+            String jsonData = String.format(Invoice.invoiceJsonPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
             String postResponse = executePostRequest(getApiUrl, jsonData);
-            StaticDataCollections.invoices.add(invoiceName);
-            try {
-                JSONObject object = new JSONObject(postResponse);
-                String invoiceId = (String) object.get("id");
-                String invoiceUrl = String.format("%s/invoice/products/%s", getApiUrl().replace("api", "webfront"), invoiceId);
-                driver.navigate().to(invoiceUrl);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new AssertionError(e.getMessage());
-            }
+
+            Invoice invoice = new Invoice(new JSONObject(postResponse));
+            StaticDataCollections.invoices.put(invoiceName, invoice);
+
+            String invoiceUrl = String.format("%s/invoice/%s?editMode=true", getApiUrl().replace("api", "webfront"), invoice.getInvoiceId());
+            driver.navigate().to(invoiceUrl);
         }
     }
 
@@ -71,16 +69,21 @@ public class ApiConnect {
             request.setHeader("Accept", "application/json");
             request.setEntity(entity);
 
-            HttpResponse response = null;
             DefaultHttpClient httpClient = new DefaultHttpClient();
             httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
-            response = httpClient.execute(request);
+            HttpResponse response = httpClient.execute(request);
 
             HttpEntity httpEntity = response.getEntity();
             String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
             if (response.getStatusLine().getStatusCode() != 201) {
                 StringBuilder builder = new StringBuilder();
-                JSONObject jsonObject = new JSONObject(responseMessage).getJSONObject("children");
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(responseMessage).getJSONObject("children");
+                } catch (Exception e) {
+                    String errorMessage = String.format("Exception message: %s\nJson: %s", e.getMessage(), jsonObject.toString());
+                    throw new AssertionError(errorMessage);
+                }
                 Object[] objects = toMap(jsonObject).values().toArray();
                 for (int i = 0; i < objects.length; i++) {
                     if (objects[i] instanceof HashMap) {

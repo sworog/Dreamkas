@@ -1,10 +1,10 @@
 define(
     [
-        './main.js',
+        './baseCollection.js',
         '/models/invoice.js'
     ],
-    function(BaseCollection, invoiceModel) {
-        return BaseCollection.extend({
+    function(baseCollection, invoiceModel) {
+        return baseCollection.extend({
             model: invoiceModel,
             url: baseApiUrl + "/invoices.json"
         });

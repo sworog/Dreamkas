@@ -38,7 +38,8 @@ Then the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 25 |
-When the user clicks the invoice create button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-AIP1PWNAU' sku is present
 
 Scenario: Adding invoice products - 1 product with sku autocomplete
@@ -74,7 +75,8 @@ Then the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 12 |
-When the user clicks the invoice create button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-AIP1PWSA' sku is present
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete
@@ -110,7 +112,8 @@ Then the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum |  554,4 |
-When the user clicks the invoice create button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-AIP1PWBA' sku is present
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation 0 symbols
@@ -475,7 +478,8 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 3 |
 | totalSum | 54,40 |
-When the user clicks the invoice create button
+When the user clicks finish edit button and ends the invoice edition
+Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-AIP2PWBNA-1' sku is present
 
 

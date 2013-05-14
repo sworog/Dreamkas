@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calendar kit block</title>
+
+    <link rel="stylesheet" href="/main.css" />
+
+    <script src="/libs/require.min.js" ></script>
+    <script src="/libs/jquery.min.js" ></script>
+    <script src="/libs/jquery.initBlocks.js" ></script>
+    <script src="/libs/underscore.min.js" ></script>
+    <script src="/libs/backbone.min.js" ></script>
+    <script src="/libs/moment.min.js" ></script>
+    <script src="/config.js" ></script>
+</head>
+<body>
+<div style="margin: 50px;">
+    <input type="text" class="inputDate inputText" />
+    <input type="text" class="inputDate inputText" />
+</div>
+<script>
+    require(['/kit/inputDate/inputDate.js'], function(inputDate){
+        $('.inputDate').each(function(){
+            new inputDate({
+                el: this
+            });
+        });
+    });
+</script>
+</body>
+</html>

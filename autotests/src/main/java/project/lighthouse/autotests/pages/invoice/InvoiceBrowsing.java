@@ -14,9 +14,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     private static final String ITEM_SKU_NAME = "productSku";
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
 
-    @FindBy(xpath = "//*[@class='saveInvoiceAndAddProduct']")
-    private WebElement goToTheaAdditionOfProductsLink;
-
     @FindBy(xpath = "//*[@class='addMoreProduct']")
     private WebElement addOneMoreProductLink;
 
@@ -48,7 +45,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void checkCardValue(String checkType, String elementName, String expectedValue) {
-        checkElementValue(checkType, elementName, expectedValue);
+        commonActions.checkElementValue(checkType, elementName, expectedValue);
     }
 
     public void checkCardValue(String elementName, String expectedValue) {
@@ -61,7 +58,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
-        checkElementValue(checkType, checkValuesTable);
+        commonActions.checkElementValue(checkType, checkValuesTable);
     }
 
     public void checkCardValue(ExamplesTable checkValuesTable) {
@@ -73,11 +70,11 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void goToTheaAdditionOfProductsLinkClick() {
-        $(goToTheaAdditionOfProductsLink).click();
+        findBy("//span[@class='button button_color_blue']/input").click();
     }
 
     public void addOneMoreProductLinkClick() {
-        $(addOneMoreProductLink).click();
+        addNewInvoiceProductButtonClick();
     }
 
     public void listItemClick(String value) {
@@ -147,6 +144,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void addNewInvoiceProductButtonClick() {
         findBy("//span[@class='button button_color_blue invoice__addMoreProduct']/input").click();
+        waiter.waitUntilIsNotVisible(By.xpath("//span[@class='button button_color_blue invoice__addMoreProduct preloader']"));
     }
 
     public void checkItemIsNotPresent(String elementName) {

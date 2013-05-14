@@ -2,6 +2,7 @@ package project.lighthouse.autotests.jbehave.section_chief;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
+import org.jbehave.core.annotations.Pending;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
@@ -28,13 +29,9 @@ public class InvoiceUserSteps {
     }
 
     @When("the user clicks the invoice create button")
+    @Pending
     public void whenTheUserClicksTheInvoiceCreateButton() {
-        invoiceSteps.invoiceCreateButtonClick();
-    }
-
-    @When("the user clicks close button in the invoice create page")
-    public void whenTheUserClicksCloseButtonInTheInvoiceCreatePage() {
-        invoiceSteps.invoiceCloseButtonClick();
+        //Pending
     }
 
     @When("the user clicks the create button on the invoice list page")

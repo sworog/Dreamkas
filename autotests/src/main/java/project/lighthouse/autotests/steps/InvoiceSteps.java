@@ -42,16 +42,6 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void invoiceCreateButtonClick() {
-        invoiceCreatePage.invoiceCreateButtonClick();
-    }
-
-    @Step
-    public void invoiceCloseButtonClick() {
-        invoiceCreatePage.invoiceCloseButtonClick();
-    }
-
-    @Step
     public void listItemCheck(String skuValue) {
         invoiceListPage.listItemCheck(skuValue);
     }

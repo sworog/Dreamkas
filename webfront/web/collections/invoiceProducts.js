@@ -1,16 +1,16 @@
 define(
     [
-        './main.js',
+        './baseCollection.js',
         '/models/invoiceProduct.js'
     ],
-    function(BaseCollection, invoiceProduct) {
-        return BaseCollection.extend({
+    function(baseCollection, invoiceProduct) {
+        return baseCollection.extend({
             initialize: function(opt){
                 this.invoiceId = opt.invoiceId;
             },
             model: invoiceProduct,
             url: function() {
-                return baseApiUrl + "/invoices/"+ this.invoiceId  +"/products.json"
+                return baseApiUrl + '/invoices/'+ this.invoiceId  + '/products.json'
             }
         });
     }

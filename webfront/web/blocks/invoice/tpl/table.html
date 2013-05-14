@@ -1,0 +1,8 @@
+<tbody>
+    <% _.each(block.invoiceProductCollection.toJSON(), function(invoiceProduct){ %>
+        <%= block.tpl.row({
+            invoiceProduct: invoiceProduct,
+            block: block
+        }) %>
+    <% }) %>
+</tbody>

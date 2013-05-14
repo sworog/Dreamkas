@@ -2,8 +2,11 @@ package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
+import org.jbehave.core.annotations.Pending;
 import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.steps.CommonSteps;
 
 public class CommonUserSteps {
@@ -12,37 +15,37 @@ public class CommonUserSteps {
     CommonSteps commonSteps;
 
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode")
-    public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode) {
+    public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode) throws JSONException {
         commonSteps.createProductPostRequestSend(name, sku, barcode, "kg", "123");
     }
 
     @Given("there is created product with sku '$sku'")
-    public void givenThereIsCreatedProductWithSkuValue(String sku) {
+    public void givenThereIsCreatedProductWithSkuValue(String sku) throws JSONException {
         givenTheUserCreatesProductWithParams(sku, sku, sku, "kg");
     }
 
     @Given("there is created product with sku '$sku' and '$purchasePrice' purchasePrice")
-    public void givenThereIsCreatedProductWithSkuValue(String sku, String purchasePrice) {
+    public void givenThereIsCreatedProductWithSkuValue(String sku, String purchasePrice) throws JSONException {
         givenTheUserCreatesProductWithParamsPrice(sku, sku, sku, "kg", purchasePrice);
     }
 
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units")
-    public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode, String units) {
+    public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode, String units) throws JSONException {
         commonSteps.createProductPostRequestSend(name, sku, barcode, units, "123");
     }
 
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice")
-    public void givenTheUserCreatesProductWithParamsPrice(String name, String sku, String barcode, String units, String purchasePrice) {
+    public void givenTheUserCreatesProductWithParamsPrice(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException {
         commonSteps.createProductPostRequestSend(name, sku, barcode, units, purchasePrice);
     }
 
     @Given("there is the invoice with '$sku' sku")
-    public void givenThereIsTheInvoiceWithSku(String sku) {
+    public void givenThereIsTheInvoiceWithSku(String sku) throws JSONException {
         commonSteps.createInvoiceThroughPost(sku);
     }
 
     @Given("there is the invoice '$invoiceSku' with product '$productName' name, '$productSku' sku, '$productBarCode' barcode, '$productUnits' units")
-    public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) {
+    public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) throws JSONException {
         givenTheUserCreatesProductWithParams(productName, productSku, productBarCode, productUnits);
         commonSteps.createInvoiceThroughPostWithData(invoiceSku, productName);
     }
@@ -90,5 +93,11 @@ public class CommonUserSteps {
     @Then("the user checks there is no alert on the page")
     public void thenTheUserChecksNoAlertOnThePage() {
         commonSteps.NoAlertIsPresent();
+    }
+
+    @When("test pending")
+    @Pending
+    public void whenTheUserClicksCloseButtonInTheInvoiceCreatePage() {
+        // PENDING
     }
 }

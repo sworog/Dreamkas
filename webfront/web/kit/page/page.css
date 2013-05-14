@@ -1,0 +1,42 @@
+.page{
+    width: 1000px;
+    margin: 0 auto;
+    text-align: left;
+    min-height: 100%;
+    padding: 20px 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.page_reloading{
+    background: url("/img/preloader2.gif") center no-repeat;
+}
+
+.page_reloading * {
+    display: none;
+}
+
+.page__header{
+    padding: 0 0 10px;
+}
+
+.page__clear{
+    clear: both;
+}
+
+.page__controls{
+    float: right;
+    text-align: right;
+    padding-left: 20px;
+}
+
+.page__controlsList{
+    list-style: none;
+    padding: 0 0 0 30px;
+    margin: 0;
+}
+
+.page [href] {
+    cursor: pointer;
+}

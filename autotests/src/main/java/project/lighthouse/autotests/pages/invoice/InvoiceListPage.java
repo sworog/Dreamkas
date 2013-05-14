@@ -6,10 +6,10 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.pages.common.CommonView;
 
-@DefaultUrl("/invoice/list")
+@DefaultUrl("/invoices")
 public class InvoiceListPage extends InvoiceCreatePage {
 
-    private static final String ITEM_NAME = "invoice";
+    public static final String ITEM_NAME = "invoice";
     private static final String ITEM_SKU_NAME = "sku";
 
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
@@ -19,7 +19,7 @@ public class InvoiceListPage extends InvoiceCreatePage {
     }
 
     public void invoiceListItemCreate() {
-        String xpath = "//*[@lh_button='create']";
+        String xpath = "//a[@class='button']";
         findElement(By.xpath(xpath)).click();
     }
 

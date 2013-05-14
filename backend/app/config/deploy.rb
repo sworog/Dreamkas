@@ -5,7 +5,7 @@ require 'capistrano/ext/multistage'
 
 set :app_end, "api"
 set :application, "api"
-set :domain,      "alexandria.lighthouse.cs"
+set :domain,      "coquille.lighthouse.cs"
 set :deploy_to_base,   "/var/www/"
 set :deploy_to,   "#{deploy_to_base}#{application}"
 set :deploy_via,  :remote_cache_subfolder

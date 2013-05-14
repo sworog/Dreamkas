@@ -1,59 +1,30 @@
 package project.lighthouse.autotests;
 
-import com.google.common.base.Function;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-
-import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Waiter {
 
     WebDriver driver;
+    WebDriverWait waiter;
 
     public Waiter(WebDriver driver) {
         this.driver = driver;
+        waiter = new WebDriverWait(driver, Integer.parseInt(StaticDataCollections.TIMEOUT) / 1000);
     }
 
-    public WebElement getFluentWaitWebElement(final By by) {
-        return new FluentWait<>(driver)
-                // Waiting 5 seconds for an element to be present on the page, checking
-//                // for its presence once every 1 seconds.
-                .withTimeout(5, TimeUnit.SECONDS)
-                .pollingEvery(1, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class)
-                .until(new Function<WebDriver, WebElement>() {
-                    public WebElement apply(WebDriver driver) {
-                        return driver.findElement(by);
-                    }
-                });
+    public WebElement getPresentWebElement(By findBy) {
+        return waiter.until(ExpectedConditions.presenceOfElementLocated(findBy));
     }
 
-    public WebElement getWebElement(By findBy) {
-        try {
-            return getFluentWaitWebElement(findBy);
-        } catch (Exception e) {
-            String errorMessage1 = "Element not found in the cache - perhaps the page has changed since it was looked up";
-            //String errorMessage2 = "isDisplayed execution failed;";
-            String getCauseMessage = e.getCause().getMessage();
-            if (getCauseMessage.contains(errorMessage1)) {
-                return getFluentWaitWebElement(findBy);
-            } else {
-                throw e;
-            }
-        }
+    public WebElement getVisibleWebElement(By findBy) {
+        return waiter.until(ExpectedConditions.visibilityOfElementLocated(findBy));
     }
 
-    public void checkElementIsNotVisible(final By findBy) {
-        new FluentWait<>(driver)
-                // Waiting 2 seconds for an element to be present on the page, checking
-//                // for its presence once every 1 seconds.
-                .withTimeout(2, TimeUnit.SECONDS)
-                .pollingEvery(1, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class)
-                .until(ExpectedConditions.invisibilityOfElementLocated(findBy));
+    public void waitUntilIsNotVisible(By findBy) {
+        waiter.until(ExpectedConditions.invisibilityOfElementLocated(findBy));
     }
 }

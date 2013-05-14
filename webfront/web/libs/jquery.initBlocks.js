@@ -4,8 +4,7 @@
         return this.each(function() {
 
             _.extend(options, {
-                el: this,
-                _url: url
+                el: this
             });
 
             try {
