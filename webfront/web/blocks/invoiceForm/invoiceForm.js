@@ -36,27 +36,6 @@ define(
                 block.datetimepicker("input[name='acceptanceDate']", currentTime);
                 block.datepicker("input[name='supplierInvoiceDate']");
             },
-            events: {
-                'submit': function(e){
-                    e.preventDefault();
-                    var block = this,
-                        formData = Backbone.Syphon.serialize(e.target);
-
-                    block.$submitButton.addClass('preloader');
-                    block.removeErrors();
-
-                    block.invoiceModel.save(formData, {
-                        success: function(model){
-                            router.navigate('/invoice/' + model.id + '?editMode=true', {
-                                trigger: true
-                            });
-                        },
-                        error: function(model, response){
-                            block.showErrors(JSON.parse(response.responseText));
-                        }
-                    });
-                }
-            },
             datepicker: function(selector) {
                 var jqObj = this.$el.find(selector);
 

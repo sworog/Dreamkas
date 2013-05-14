@@ -1,18 +1,9 @@
-define(
-    [
-        './units.js',
-        './formatPrice.js',
-        './prevalidateInput.js',
-        './normalizePrice.js',
-        './isEmptyJSON.js'
-    ],
-    function(units, formatPrice, prevalidateInput, normalizePrice, isEmptyJSON) {
-        return {
-            units: units,
-            formatPrice: formatPrice,
-            prevalidateInput: prevalidateInput,
-            normalizePrice: normalizePrice,
-            isEmptyJSON: isEmptyJSON
-        }
+define(function(require) {
+    return {
+        formatPrice: require('./formatPrice.js'),
+        isEmptyJSON: require('./isEmptyJSON.js'),
+        normalizePrice: require('./normalizePrice.js'),
+        prevalidateInput: require('./prevalidateInput.js'),
+        units: require('./units.js')
     }
-);
+});

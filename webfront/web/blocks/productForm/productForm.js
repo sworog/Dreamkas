@@ -48,7 +48,7 @@ define(
                 block.renderRetailMarkupLink();
                 block.renderRetailPriceLink();
             },
-            events: {
+            events: _.extend(Form.prototype.events, {
                 'click .productForm__inputLink': function(e) {
                     e.preventDefault;
                     var $link = $(e.currentTarget),
@@ -84,7 +84,7 @@ define(
                 'change [name="retailPrice"]': function() {
                     this.renderRetailPriceLink();
                 }
-            },
+            }),
             submit: function(){
                 var block = this,
                     deferred = $.Deferred(),

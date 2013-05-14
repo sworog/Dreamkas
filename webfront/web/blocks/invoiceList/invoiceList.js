@@ -11,6 +11,10 @@ define(
             initialize: function() {
                 var block = this;
 
+                block.render();
+
+                block.$table = block.$el.find('.invoiceList__table');
+
                 block.listenTo(block.invoiceCollection, {
                     reset: function(){
                         block.renderTable();
@@ -20,10 +24,6 @@ define(
                         block.$table.find('thead').addClass('preloader');
                     }
                 });
-
-                block.render();
-
-                block.$table = block.$el.find('.invoiceList__table');
 
                 block.invoiceCollection.fetch();
             },
