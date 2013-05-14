@@ -95,7 +95,10 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void acceptChangesButtonClick() {
         $(acceptChangesButton).click();
-        WaitUntilEditFieldBecomeNotVisible();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
     }
 
     public void discardChangesButtonClick() {
@@ -104,7 +107,10 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void acceptDeleteButtonClick() {
         $(acceptDeleteButton).click();
-        WaitUntilEditFieldBecomeNotVisible();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
     }
 
     public void discardDeleteButtonClick() {
@@ -143,10 +149,5 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void checkItemIsNotPresent(String elementName) {
         commonViewInterface.itemCheckIsNotPresent(elementName);
-    }
-
-    public void WaitUntilEditFieldBecomeNotVisible() {
-        String xpath = "//*[@class='invoice__dataInput']";
-        waiter.waitUntilIsNotPresent(By.xpath(xpath));
     }
 }
