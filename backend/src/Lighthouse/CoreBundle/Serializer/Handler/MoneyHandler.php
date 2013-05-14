@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Serializer\Handler;
 
+use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\VisitorInterface;
@@ -53,16 +54,17 @@ class MoneyHandler implements SubscribingHandlerInterface
      * @param \JMS\Serializer\VisitorInterface $visitor
      * @param Money $value
      * @param array $type
+     * @param Context $context
      * @return string|null
      */
-    public function serializeMoney(VisitorInterface $visitor, Money $value, array $type)
+    public function serializeMoney(VisitorInterface $visitor, Money $value, array $type, Context $context)
     {
         $normData = $this->modelTransformer->transform($value);
         $viewData = $this->viewTransformer->transform($normData);
         if (null === $viewData) {
-            $serialized = $visitor->visitNull($viewData, $type);
+            $serialized = $visitor->visitNull($viewData, $type, $context);
         } else {
-            $serialized = $visitor->visitString($viewData, $type);
+            $serialized = $visitor->visitString($viewData, $type, $context);
         }
         return $serialized;
     }

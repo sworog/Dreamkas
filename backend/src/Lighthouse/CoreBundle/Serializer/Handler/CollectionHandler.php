@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Serializer\Handler;
 
+use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonSerializationVisitor;
@@ -45,16 +46,18 @@ class CollectionHandler implements SubscribingHandlerInterface
      * @param XmlSerializationVisitor $visitor
      * @param \Lighthouse\CoreBundle\Document\AbstractCollection $collection
      * @param array $type
+     * @param Context $context
      */
     public function serializeCollectionToXml(
         XmlSerializationVisitor $visitor,
         AbstractCollection $collection,
-        array $type
+        array $type,
+        Context $context
     ) {
         /* @var ClassMetadata $collectionMetadata  */
         $collectionMetadata = $this->metadataFactory->getMetadataForClass(get_class($collection));
 
-        $visitor->startVisitingObject($collectionMetadata, $collection, $type);
+        $visitor->startVisitingObject($collectionMetadata, $collection, $type, $context);
 
         foreach ($collection->toArray() as $item) {
             $itemMetadata = $this->metadataFactory->getMetadataForClass(get_class($item));
@@ -63,17 +66,24 @@ class CollectionHandler implements SubscribingHandlerInterface
             $visitor->getCurrentNode()->appendChild($itemNode);
             $visitor->setCurrentNode($itemNode);
 
-            $visitor->getNavigator()->accept($item, null, $visitor);
+            $visitor->getNavigator()->accept($item, null, $context);
 
             $visitor->revertCurrentNode();
         }
     }
 
+    /**
+     * @param JsonSerializationVisitor $visitor
+     * @param AbstractCollection $collection
+     * @param array $type
+     * @param Context $context
+     */
     public function serializeCollectionToJson(
         JsonSerializationVisitor $visitor,
         AbstractCollection $collection,
-        array $type
+        array $type,
+        Context $context
     ) {
-        $visitor->visitArray($collection->toArray(), $type);
+        $visitor->visitArray($collection->toArray(), $type, $context);
     }
 }
