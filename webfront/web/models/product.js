@@ -4,7 +4,7 @@ define(
     ],
     function(BaseModel) {
         return BaseModel.extend({
-            modelName: "product",
+            modelName: 'product',
             urlRoot: baseApiUrl + '/products',
             defaults: {
                 amount: 0,

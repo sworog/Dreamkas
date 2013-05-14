@@ -1,48 +1,47 @@
 define(
     [
         '/kit/block.js',
+        '/models/purchase.js',
         './tpl/tpl.js'
     ],
-    function(Block, tpl) {
+    function(Block, PurchaseModel, tpl) {
         return Block.extend({
             defaults: {
                 tpl: tpl
             },
-            initialize: function(){
+            initialize: function() {
                 var block = this;
 
                 block.render();
             },
             events: {
-                'click .saleBox__removeProductLink': function(e){
+                'click .saleBox__removeProductLink': function(e) {
                     var block = this,
                         $link = $(e.target);
 
                     $link.closest('.saleBox__productRow').remove();
                 },
-                'submit .saleBox__purchaseForm': function(e){
+                'submit .saleBox__purchaseForm': function(e) {
                     e.preventDefault();
                     var block = this,
                         purchaseFormData = Backbone.Syphon.serialize(block.$purchaseForm[0]),
-                        purchase = [];
+                        products = [];
 
-                    _.each(purchaseFormData.product, function(product, index){
-                        purchase.push({
+                    _.each(purchaseFormData.product, function(product, index) {
+                        products.push({
                             product: product,
                             quantity: purchaseFormData.quantity[index],
                             sellingPrice: purchaseFormData.sellingPrice[index]
                         });
                     });
 
-                    $.post(baseApiUrl + '/purchases.json', {
-                        purchase: {
-                            products: purchase
-                        }
-                    }, function(data){
-                        console.log(data);
+                    block.purchaseModel = new PurchaseModel({
+                        products: products
                     });
+
+                    block.purchaseModel.save();
                 },
-                'submit .saleBox__productForm': function(e){
+                'submit .saleBox__productForm': function(e) {
                     e.preventDefault();
                     var block = this;
 
@@ -101,7 +100,7 @@ define(
                     }
                 });
             },
-            _saveElements: function(){
+            _saveElements: function() {
                 var block = this;
 
                 block.$purchaseForm = block.$el.find('.saleBox__purchaseForm');
