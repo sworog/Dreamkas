@@ -9,9 +9,9 @@ define(
     function(Form, InvoiceModel, utils, router, tpl) {
         return Form.extend({
             defaults: {
-                invoiceId: null
+                invoiceId: null,
+                tpl: tpl
             },
-            tpl: tpl,
 
             initialize: function() {
                 var block = this,
@@ -35,6 +35,24 @@ define(
 
                 block.datetimepicker("input[name='acceptanceDate']", currentTime);
                 block.datepicker("input[name='supplierInvoiceDate']");
+            },
+            submit: function(){
+                var block = this,
+                    deferred = $.Deferred(),
+                    formData = Backbone.Syphon.serialize(block);
+
+                block.invoiceModel.save(formData, {
+                    success: function(model){
+                        router.navigate('/invoice/' + model.id + '?editMode=true', {
+                            trigger: true
+                        });
+                    },
+                    error: function(model, response){
+                        deferred.reject(JSON.parse(response.responseText));
+                    }
+                });
+
+                return deferred.promise();
             },
             datepicker: function(selector) {
                 var jqObj = this.$el.find(selector);

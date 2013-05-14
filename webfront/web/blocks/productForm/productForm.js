@@ -33,21 +33,6 @@ define(
                     }
                 });
             },
-            render: function(){
-                var block = this;
-                Form.prototype.render.apply(block, arguments);
-
-                block.$retailPricePreferenceInput = block.$el.find('[name="retailPricePreference"]');
-                block.$retailPriceInput = block.$el.find('[name="retailPrice"]');
-                block.$retailMarkupInput = block.$el.find('[name="retailMarkup"]');
-                block.$purchasePriceInput = block.$el.find('[name="purchasePrice"]');
-
-                block.$retailPriceLink = block.$retailPriceInput.next('.productForm__inputLink');
-                block.$retailMarkupLink = block.$retailMarkupInput.next('.productForm__inputLink');
-
-                block.renderRetailMarkupLink();
-                block.renderRetailPriceLink();
-            },
             events: _.extend(Form.prototype.events, {
                 'click .productForm__inputLink': function(e) {
                     e.preventDefault;
@@ -85,6 +70,21 @@ define(
                     this.renderRetailPriceLink();
                 }
             }),
+            render: function(){
+                var block = this;
+                Form.prototype.render.apply(block, arguments);
+
+                block.$retailPricePreferenceInput = block.$el.find('[name="retailPricePreference"]');
+                block.$retailPriceInput = block.$el.find('[name="retailPrice"]');
+                block.$retailMarkupInput = block.$el.find('[name="retailMarkup"]');
+                block.$purchasePriceInput = block.$el.find('[name="purchasePrice"]');
+
+                block.$retailPriceLink = block.$retailPriceInput.next('.productForm__inputLink');
+                block.$retailMarkupLink = block.$retailMarkupInput.next('.productForm__inputLink');
+
+                block.renderRetailMarkupLink();
+                block.renderRetailPriceLink();
+            },
             submit: function(){
                 var block = this,
                     deferred = $.Deferred(),
