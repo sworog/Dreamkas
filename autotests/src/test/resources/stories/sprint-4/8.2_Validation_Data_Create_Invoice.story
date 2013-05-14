@@ -429,7 +429,6 @@ Then the user sees no error messages
 Scenario: Invoice supplierInvoiceDate validation through datepicker good
 Given the user is on the invoice list page
 When the user clicks the create button on the invoice list page
-And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs '8S9654464645' in the invoice 'sku' field
 And the user inputs 'todayDate' in the invoice 'supplierInvoiceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
