@@ -2,6 +2,7 @@ package project.lighthouse.autotests.pages.product;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -83,7 +84,7 @@ public class ProductCreatePage extends CommonPageObject {
 
     public void createButtonClick() {
         findBy("//*[@class='button button_color_blue']/input").click();
-        commonPage.checkCreateAlertSuccess(PRODUCT_NAME);
+        waiter.waitUntilIsNotVisible(By.xpath("//*[@class='button button_color_blue preloader']"));
     }
 
     public void checkDropDownDefaultValue(String dropDownType, String expectedValue) {

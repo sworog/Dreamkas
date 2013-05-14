@@ -69,25 +69,6 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         }
     }
 
-    public void checkCreateAlertSuccess(String name) {
-        boolean isAlertPresent;
-        Alert alert = null;
-        try {
-            alert = getAlert();
-            isAlertPresent = true;
-        } catch (Exception e) {
-            isAlertPresent = false;
-        }
-        if (isAlertPresent) {
-            String errorAlertMessage = "Ошибка";
-            String alertText = alert.getText();
-            if (alertText.contains(errorAlertMessage)) {
-                String errorMessage = String.format("Can't create new '%s'. Error alert is present. Alert text: %s", name, alertText);
-                throw new AssertionError(errorMessage);
-            }
-        }
-    }
-
     public void checkFieldLength(String elementName, int fieldLength, int actualLength) {
         if (actualLength != fieldLength) {
             String errorMessage = String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.", elementName, fieldLength, actualLength);
