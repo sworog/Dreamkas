@@ -12,11 +12,10 @@ define(
                 var block = this;
 
                 block.listenTo(block.productCollection, {
-                    reset: function(){
+                    reset: function() {
                         block.renderTable();
-                        block.$table.find('thead').removeClass('preloader');
                     },
-                    request: function(){
+                    request: function() {
                         block.$table.find('thead').addClass('preloader');
                     }
                 });
@@ -30,9 +29,11 @@ define(
             renderTable: function() {
                 var block = this;
 
-                block.$table.html(block.tpl.table({
-                    block: block
-                }));
+                block.$table
+                    .html(block.tpl.table({
+                        block: block
+                    }))
+                    .find('thead').removeClass('preloader');
             }
         });
     }

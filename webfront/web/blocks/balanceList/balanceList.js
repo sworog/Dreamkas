@@ -12,24 +12,28 @@ define(
             initialize: function() {
                 var block = this;
 
+                block.render();
+                block.$table = block.$el.find('.balanceList__table');
+
                 block.listenTo(block.productCollection, {
-                    sync: function(){
+                    reset: function() {
                         block.renderTable();
+                    },
+                    request: function() {
+                        block.$table.find('thead').addClass('preloader');
                     }
                 });
-
-                block.render();
-
-                block.$table = block.$el.find('.balanceList__table');
 
                 block.productCollection.fetch();
             },
             renderTable: function() {
                 var block = this;
 
-                block.$table.html(block.tpl.table({
-                    block: block
-                }));
+                block.$table
+                    .html(block.tpl.table({
+                        block: block
+                    }))
+                    .find('thead').removeClass('preloader');
             }
         });
     }
