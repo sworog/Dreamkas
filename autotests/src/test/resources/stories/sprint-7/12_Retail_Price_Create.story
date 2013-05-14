@@ -150,8 +150,6 @@ And the user checks 'retailMarkupHint' 'is not' avalaible
 When the user clicks 'retailPriceHint' to make it avalaible
 When the user inputs '140' in 'retailPrice' field
 When the user clicks the create button
-Then the user checks the product with 'Retailprice-RM-LUFIAOPE-all' sku is present
-When the user open the product card with 'Retailprice-RM-LUFIAOPE-all' sku
 And the user clicks the edit button on product card view page
 Then the user checks the elements values
 | elementName | expectedValue |
