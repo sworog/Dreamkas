@@ -32,9 +32,4 @@ public class SalesSteps extends ScenarioSteps {
     public void makePurchase() {
         salesEmulatorManagerPage.makePurchase();
     }
-
-    @Step
-    public void check(String productName, String quantity, String purchasePrice) {
-        salesEmulatorManagerPage.check(productName, quantity, purchasePrice);
-    }
 }
