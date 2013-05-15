@@ -9,7 +9,7 @@ import project.lighthouse.autotests.common.CommonView;
 @DefaultUrl("/products")
 public class ProductListPage extends ProductCreatePage {
 
-    private static final String ITEM_NAME = "product";
+    public static final String ITEM_NAME = "product";
     private static final String ITEM_SKU_NAME = "sku";
 
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
