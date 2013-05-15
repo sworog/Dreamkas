@@ -4,15 +4,18 @@ define(
         './tpl/tpl.js'
     ],
     function(Block, tpl) {
-        var Calendar = Block.extend({
+        var Datepicker = Block.extend({
             defaults: {
                 visibleDate: moment().valueOf(),
                 selectedDate: null,
-                template: 'month',
                 noTime: false,
-                dateList: []
+                dateList: [],
+                tpl: tpl
             },
-            tpl: tpl,
+
+            className: 'datepicker',
+            tagName: 'div',
+
             initialize: function() {
                 var block = this;
 
@@ -20,52 +23,50 @@ define(
                     block._generateDateList();
                 }
 
-                block.$el.toggleClass('calendar_noTime', block.noTime);
+                block.$el.toggleClass('datepicker_noTime', block.noTime);
 
                 block.render();
-
-                block.$dateList = block.$el.find('.calendar__dateList');
-                block.$header = block.$el.find('.calendar__header');
             },
+
             events: {
-                'click .calendar__setNowLink': function(e){
+                'click .datepicker__setNowLink': function(e){
                     e.preventDefault();
 
                     var block = this;
 
                     block.set('selectedDate', moment().valueOf());
                 },
-                'click .calendar__nextMonthLink': function(e) {
+                'click .datepicker__nextMonthLink': function(e) {
                     e.preventDefault();
 
                     var block = this;
 
                     block.showNextMonth();
                 },
-                'click .calendar__prevMonthLink': function(e) {
+                'click .datepicker__prevMonthLink': function(e) {
                     e.preventDefault();
 
                     var block = this;
 
                     block.showPrevMonth();
                 },
-                'click .calendar__showNowLink': function(e) {
+                'click .datepicker__showNowLink': function(e) {
                     e.preventDefault();
 
                     var block = this;
 
                     block.showNow();
                 },
-                'click .calendar__dateItem': function(e) {
+                'click .datepicker__dateItem': function(e) {
                     e.preventDefault();
 
                     var block = this,
-                        selectedMoment = moment($(e.target).data('calendar_date')),
+                        selectedMoment = moment(+$(e.target).data('date')),
                         renderTimeControls = true;
 
-                    if (!block.$el.find('.calendar__timeControls .inputText:disabled').length){
+                    if (!block.$el.find('.datepicker__timeControls .inputText:disabled').length){
                         renderTimeControls = false;
-                        block.$el.find('.calendar__timeControls .inputText').each(function(){
+                        block.$el.find('.datepicker__timeControls .inputText').each(function(){
                             selectedMoment[$(this).attr('name')]($(this).val());
                         });
                     }
@@ -74,7 +75,7 @@ define(
                         renderTimeControls: renderTimeControls
                     });
                 },
-                'change .calendar__timeControls [name]': function(e) {
+                'change .datepicker__timeControls [name]': function(e) {
                     e.preventDefault();
 
                     var block = this;
@@ -87,7 +88,7 @@ define(
             'set:noTime': function(val){
                 var block = this;
 
-                block.$el.toggleClass('calendar_noTime', val);
+                block.$el.toggleClass('datepicker_noTime', val);
             },
             'set:lang': function(val){
                 var block = this;
@@ -117,14 +118,14 @@ define(
                     renderTimeControls: true
                 }, extra);
 
-                block.$el.find('.calendar__timeControls .inputText').removeAttr('disabled');
-                block.$el.find('.calendar__dateItem_selected').removeClass('calendar__dateItem_selected');
-                block.$el.find('[data-calendar_date="' + moment(value).startOf('day').valueOf() + '"]').addClass('calendar__dateItem_selected');
+                block.$el.find('.datepicker__timeControls .inputText').removeAttr('disabled');
+                block.$el.find('.datepicker__dateItem_selected').removeClass('datepicker__dateItem_selected');
+                block.$el.find('.datepicker__dateItem[data-date="' + moment(value).startOf('day').valueOf() + '"]').addClass('datepicker__dateItem_selected');
 
                 if (extra.renderTimeControls){
-                    block.$el.find('.calendar__timeControls [name="hours"]').val(moment(value).format('HH'));
-                    block.$el.find('.calendar__timeControls [name="minutes"]').val(moment(value).format('mm'));
-                    block.$el.find('.calendar__timeControls [name="seconds"]').val(moment(value).format('ss'));
+                    block.$el.find('.datepicker__timeControls [name="hours"]').val(moment(value).format('HH'));
+                    block.$el.find('.datepicker__timeControls [name="minutes"]').val(moment(value).format('mm'));
+                    block.$el.find('.datepicker__timeControls [name="seconds"]').val(moment(value).format('ss'));
                 }
             },
             showNextMonth: function() {
@@ -145,17 +146,22 @@ define(
             _clearSelectedDate: function(){
                 var block = this;
 
-                block.$el.find('.calendar__timeControls .inputText').val('').attr('disabled', true);
-                block.$el.find('.calendar__dateItem_selected').removeClass('calendar__dateItem_selected');
+                block.$el.find('.datepicker__timeControls .inputText').val('').attr('disabled', true);
+                block.$el.find('.datepicker__dateItem_selected').removeClass('datepicker__dateItem_selected');
             },
             _generateDateList: function() {
                 var block = this,
                     visibleMoment = moment(block.visibleDate),
                     startMoment = moment(block.visibleDate).startOf('month').day(1),
-                    endMoment = moment(block.visibleDate).endOf('month').day(7),
-                    diff = endMoment.diff(startMoment, 'days'),
+                    endMoment = moment(block.visibleDate).endOf('month'),
+                    diff,
                     itemMoment;
 
+                if (endMoment.day() !== 0){
+                    endMoment.day(7);
+                }
+
+                diff = endMoment.diff(startMoment, 'days');
                 block.dateList = [];
 
                 for (var i = 0; i <= diff; i++) {
@@ -193,14 +199,14 @@ define(
 
         //jquery plugin
 
-        $.fn.lh_calendar = function(opt){
+        $.fn.lh_datepicker = function(opt){
             return this.each(function(){
-                new Calendar(_.extend({
+                new Datepicker(_.extend({
                     el: this
                 }, opt));
             });
         };
 
-        return Calendar;
+        return Datepicker;
     }
 );

@@ -1,0 +1,5 @@
+<% _.each(block.dateList, function(date){ %>
+    <div data-date="<%= date.moment.valueOf() %>" class="datepicker__dateItem <%= date.isOtherMonth ? 'datepicker__dateItem_otherMonth' : '' %> <%= date.isNow ? 'datepicker__dateItem_now' : '' %> <%= date.isSelected ? 'datepicker__dateItem_selected' : '' %>">
+        <%= date.moment.format('DD') %>
+    </div>
+<% }) %>

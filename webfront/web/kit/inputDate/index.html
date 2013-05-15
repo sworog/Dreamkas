@@ -8,15 +8,17 @@
     <script src="/libs/require.min.js" ></script>
     <script src="/libs/jquery.min.js" ></script>
     <script src="/libs/jquery.initBlocks.js" ></script>
+    <script src="/libs/jquery.maskedinput.js" ></script>
     <script src="/libs/underscore.min.js" ></script>
     <script src="/libs/backbone.min.js" ></script>
     <script src="/libs/moment.min.js" ></script>
+    <script src="/libs/moment.ru.js" ></script>
     <script src="/config.js" ></script>
 </head>
 <body>
 <div style="margin: 50px;">
-    <input type="text" class="inputDate inputText" />
-    <input type="text" class="inputDate inputText" />
+    <input value="25.05.2013 16:20" type="text" class="inputDate inputText inputText_inline" />
+    <input value="123123" type="text" class="inputDate inputText inputText_inline" />
 </div>
 <script>
     require(['/kit/inputDate/inputDate.js'], function(inputDate){

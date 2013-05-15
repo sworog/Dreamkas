@@ -1,55 +1,55 @@
-<div class="calendar__controlLinks">
-    <a class="calendar__prevMonthLink">пред</a>
-    <a class="calendar__nextMonthLink">след</a>
+<div class="datepicker__controlLinks">
+    <a class="datepicker__prevMonthLink">пред</a>
+    <a class="datepicker__nextMonthLink">след</a>
 </div>
 
-<div class="calendar__header">
+<div class="datepicker__header">
     <%= block.tpl.header({
         block: block
     }) %>
 </div>
 
-<div class="calendar__daysOfWeek">
-    <div class="calendar__dayOfWeek">
+<div class="datepicker__daysOfWeek">
+    <div class="datepicker__dayOfWeek">
         <%= moment().day(1).format('dd') %>
     </div>
-    <div class="calendar__dayOfWeek">
+    <div class="datepicker__dayOfWeek">
         <%= moment().day(2).format('dd') %>
     </div>
-    <div class="calendar__dayOfWeek">
+    <div class="datepicker__dayOfWeek">
         <%= moment().day(3).format('dd') %>
     </div>
-    <div class="calendar__dayOfWeek">
+    <div class="datepicker__dayOfWeek">
         <%= moment().day(4).format('dd') %>
     </div>
-    <div class="calendar__dayOfWeek">
+    <div class="datepicker__dayOfWeek">
         <%= moment().day(5).format('dd') %>
     </div>
-    <div class="calendar__dayOfWeek">
+    <div class="datepicker__dayOfWeek">
         <%= moment().day(6).format('dd') %>
     </div>
-    <div class="calendar__dayOfWeek">
+    <div class="datepicker__dayOfWeek">
         <%= moment().day(7).format('dd') %>
     </div>
 </div>
 
-<div class="calendar__dateList">
+<div class="datepicker__dateList">
     <%= block.tpl.dateList({
         block: block
     }) %>
 </div>
 
 
-<div class="calendar__timeControls">
-    <span class="calendar__timeControlsLabel">Время:</span>
+<div class="datepicker__timeControls">
+    <span class="datepicker__timeControlsLabel">Время:</span>
     <input placeholder="часы" name="hours" type="text" class="inputText" value="<%= block.selectedDate ? moment(block.selectedDate).format('HH') : '' %>" <%= block.selectedDate ? '' : 'disabled' %> />
-    <span class="calendar__timeControlsSpacer">:</span>
+    <span class="datepicker__timeControlsSpacer">:</span>
     <input placeholder="мин" name="minutes" type="text" class="inputText" value="<%= block.selectedDate ? moment(block.selectedDate).format('mm') : '' %>" <%= block.selectedDate ? '' : 'disabled' %> />
-    <span class="calendar__timeControlsSpacer">:</span>
+    <span class="datepicker__timeControlsSpacer">:</span>
     <input placeholder="сек" name="seconds" type="text" class="inputText" value="<%= block.selectedDate ? moment(block.selectedDate).format('ss') : '' %>" <%= block.selectedDate ? '' : 'disabled' %> />
 </div>
 
-<div class="calendar__controls">
-    <a class="button button_color_blue calendar__saveLink">Сохранить</a>
-    <a class="button calendar__setNowLink calendar__showNowLink">Сейчас</a>
+<div class="datepicker__controls">
+    <a class="button button_color_blue datepicker__saveLink">Сохранить</a>
+    <a class="button datepicker__setNowLink datepicker__showNowLink">Сейчас</a>
 </div>

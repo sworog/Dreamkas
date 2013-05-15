@@ -1,8 +1,10 @@
 window.baseApiUrl = "http://%api_url%/api/1";
 
-require.config({
+require({
     baseUrl: '/',
     paths: {
         tpl: '/libs/requirejs.tpl'
     }
+}, function(){
+    moment.lang('ru');
 });

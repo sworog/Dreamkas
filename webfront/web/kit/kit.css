@@ -8,6 +8,5 @@
 @import "form/form.css";
 @import "select/select.css";
 @import "preloader/preloader.css";
-@import "calendar/calendar.css";
 @import "tooltip/tooltip.css";
-@import "datePicker/datePicker.css";
+@import "datepicker/datepicker.css";

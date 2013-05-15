@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define(function(require) {
     return {
         main: require('tpl!./tooltip.html')
     }

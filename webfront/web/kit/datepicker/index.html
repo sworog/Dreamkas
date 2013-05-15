@@ -15,15 +15,15 @@
     <script src="/config.js" ></script>
 </head>
 <body>
-    <div class="calendar" style="margin: 50px auto;"></div>
-    <div class="calendar" style="margin: 50px auto;"></div>
+    <div class="datepicker" style="margin: 50px auto;"></div>
+    <div class="datepicker" style="margin: 50px auto;"></div>
     <script>
-        require(['/kit/calendar/calendar.js'], function(){
-            var $calendar = $('.calendar');
-            $calendar.eq(0).lh_calendar({
+        require(['/kit/datepicker/datepicker.js'], function(){
+            var $datepicker = $('.datepicker');
+            $datepicker.eq(0).lh_datepicker({
                 noTime: true
             });
-            $calendar.eq(1).lh_calendar();
+            $datepicker.eq(1).lh_datepicker();
         });
     </script>
 </body>

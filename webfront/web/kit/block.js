@@ -4,30 +4,55 @@ define(
     ],
     function(page) {
         return Backbone.View.extend({
-            page: page,
-            tpl: {},
+            defaults: {
+                tpl: {}
+            },
             constructor: function(opt) {
                 var block = this;
 
                 _.extend(block, block.defaults, opt);
 
-                block.set('initialized', true);
+                block.cid = _.uniqueId('block');
+                block._ensureElement();
+                block._findElements();
+                block.delegateEvents();
+                block.initialize.apply(block, arguments);
 
                 page.addBlocks([block]);
-
-                Backbone.View.apply(this, arguments);
             },
             render: function() {
                 var block = this,
-                    $el = $(block.tpl.main({
+                    $tpl = $(block.tpl.main({
                         block: block
                     }));
 
                 block.$el
-                    .html($el)
+                    .html($tpl)
                     .initBlocks();
 
+                block._findElements();
                 block._afterRender();
+            },
+            _findElements: function($context){
+                var block = this,
+                    $context = $context || block.$el,
+                    elements = [];
+
+                if (block.className){
+                    $context.find('[class^="' + block.className + '__"]').each(function(){
+                        var classes = _.filter($(this).attr('class').split(' '), function(className){
+                            return className.indexOf(block.className + '__') === 0;
+                        });
+
+                        elements = _.union(elements, classes);
+                    });
+
+                    _.each(elements, function(className){
+                        var elementName = className.split('__')[1];
+
+                        block['$' + elementName] = block.$el.find('.' + className);
+                    });
+                }
             },
             _afterRender: function() {
 

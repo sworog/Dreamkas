@@ -9,8 +9,6 @@ require(
                 pushState: true
             });
 
-            moment.lang('ru');
-
             window.LH = {
                 helpers: helpers   
             };

@@ -1,32 +1,32 @@
-.calendar{
+.datepicker{
     width: 274px;
 }
 
-.calendar__prevMonthLink{
+.datepicker__prevMonthLink{
     float: left;
 }
 
-.calendar__nextMonthLink{
+.datepicker__nextMonthLink{
     float: right;
 }
 
-.calendar__header{
+.datepicker__header{
     text-align: center;
     padding: 0 0 10px;
     font-size: 22px;
 }
 
-.calendar__monthName{
+.datepicker__monthName{
     margin-right: 10px;
 }
 
-.calendar__dateList{
+.datepicker__dateList{
     padding-bottom: 20px;
     float: left;
     width: 100%;
 }
 
-.calendar__dateItem{
+.datepicker__dateItem{
     float: left;
     text-align: center;
     width: 40px;
@@ -40,69 +40,69 @@
     z-index: 10;
 }
 
-.calendar__dateItem_otherMonth{
+.datepicker__dateItem_otherMonth{
     color: #ccc;
     border-color: #dedede;
     z-index: 1;
 }
 
-.calendar__controlLinks{
+.datepicker__controlLinks{
     text-align: center;
     position: relative;
     top: 5px;
 }
 
-.calendar__dateItem_now{
+.datepicker__dateItem_now{
     z-index: 20;
     border-color: #999;
     box-shadow: 0 0 0 2px #999 inset;
 }
 
-.calendar__daysOfWeek {
+.datepicker__daysOfWeek {
     overflow: hidden;
     font-size: 12px;
     color: #555;
     padding-bottom: 5px;
 }
 
-.calendar__dayOfWeek{
+.datepicker__dayOfWeek{
     width: 40px;
     text-align: center;
     float: left;
     margin: 0 -1px 0 0;
 }
 
-.calendar__dateItem_selected{
+.datepicker__dateItem_selected{
     background: #e2e2e2;
     box-shadow: 1px 1px 2px #999 inset;
     border-color: #777;
     z-index: 30;
 }
 
-.calendar__timeControls{
+.datepicker__timeControls{
     padding-bottom: 20px;
 }
 
-.calendar__timeControls .inputText{
+.datepicker__timeControls .inputText{
     width: 50px;
     text-align: center;
 }
 
-.calendar__timeControlsSpacer{
+.datepicker__timeControlsSpacer{
     vertical-align: middle;
     padding: 0 5px;
 }
 
-.calendar__timeControlsLabel{
+.datepicker__timeControlsLabel{
     vertical-align: middle;
     padding-right: 10px;
 }
 
-.calendar__saveLink{
+.datepicker__saveLink{
     float: right;
     margin: 0;
 }
 
-.calendar_noTime .calendar__timeControls{
+.datepicker_noTime .datepicker__timeControls{
     display: none;
 }

@@ -5,9 +5,18 @@ define(
     ],
     function(Block, tpl) {
         return Block.extend({
-            tpl: tpl,
+            defaults: {
+                $trigger: null,
+                tpl: tpl
+            },
+
+            tagName: 'div',
+            className: 'tooltip',
+
             initialize: function() {
                 var block = this;
+
+                block.$el.appendTo('body');
 
                 block.render();
 
@@ -22,27 +31,14 @@ define(
                     e.stopPropagation();
                 }
             },
-            render: function() {
-                var block = this;
-
-                block.$el = $(block.tpl.main({
-                    block: block
-                }));
-
-                block.$el
-                    .appendTo('body')
-                    .initBlocks();
-
-                block.el = block.$el[0];
-            },
             show: function(opt) {
                 var block = this;
 
                 opt = _.extend({
-                    $trigger: $('#page')
+                    $trigger: null
                 }, opt);
 
-                block.$trigger = opt.$trigger;
+                block.$trigger = opt.$trigger || block.$trigger;
 
                 block.$el
                     .css({
