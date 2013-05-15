@@ -58,7 +58,7 @@ public class TeamCityStepListener implements StepListener {
             );
         }
         String message = String.format(messageTemplate, messageName, propertiesBuilder.toString());
-        printMessage(message);
+        logger.info(message);
     }
 
     private void printMessage(String messageName, String description) {
@@ -67,13 +67,14 @@ public class TeamCityStepListener implements StepListener {
         printMessage(messageName, properties);
     }
 
-    private void printMessage(String message) {
-        logger.info(message);
+    private void printMessage(String messageName) {
+        Map<String,String> properties = new HashMap<>();
+        printMessage(messageName, properties);
     }
 
     @Override
     public void testSuiteStarted(Class<?> storyClass) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        printMessage("testSuiteStarted", storyClass.getSimpleName());
     }
 
     @Override
@@ -83,7 +84,7 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void testSuiteFinished() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        printMessage("testSuiteFinished");
     }
 
     @Override
@@ -143,12 +144,12 @@ public class TeamCityStepListener implements StepListener {
     @Override
     public void testFailed(TestOutcome testOutcome, Throwable cause) {
 
-        //To change body of implemented methods use File | Settings | File Templates.
+        printMessage("testFailed", testOutcome.getTitle());
     }
 
     @Override
     public void testIgnored() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        printMessage("testIgnored");
     }
 
     @Override
