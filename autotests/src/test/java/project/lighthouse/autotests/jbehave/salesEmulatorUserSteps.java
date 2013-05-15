@@ -25,6 +25,6 @@ public class SalesEmulatorUserSteps {
 
     @When("the user makes the purchase")
     public void whenTheUSerMakesThePurchase() {
-        salesSteps.makePurchase();
+        salesSteps.makePurchase();//
     }
 }
