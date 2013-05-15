@@ -1,5 +1,6 @@
 package project.lighthouse.autotests;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,5 +27,9 @@ public class Waiter {
 
     public void waitUntilIsNotVisible(By findBy) {
         waiter.until(ExpectedConditions.invisibilityOfElementLocated(findBy));
+    }
+
+    public Alert getAlert() {
+        return waiter.until(ExpectedConditions.alertIsPresent());
     }
 }
