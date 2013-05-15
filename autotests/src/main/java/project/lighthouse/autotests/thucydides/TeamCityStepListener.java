@@ -1,11 +1,14 @@
 package project.lighthouse.autotests.thucydides;
 
+import net.thucydides.core.Thucydides;
 import net.thucydides.core.model.DataTable;
 import net.thucydides.core.model.Story;
 import net.thucydides.core.model.TestOutcome;
 import net.thucydides.core.steps.ExecutedStepDescription;
 import net.thucydides.core.steps.StepFailure;
 import net.thucydides.core.steps.StepListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,22 +18,57 @@ public class TeamCityStepListener implements StepListener {
     private static final String messageTemplate = "##teamcity[%s %s]";
     private static final String propertyTemplate = " %s='%s'";
 
-    private String formatMessage(String messageName, Map<String,String> properties) {
-        StringBuilder propertiesBuilder = new StringBuilder();
-        for (Map.Entry<String, String> property: properties.entrySet()) {
-            propertiesBuilder.append(String.format(propertyTemplate, property.getKey(), property.getValue()));
+    private static final HashMap<String,String> escapeChars = new HashMap(){
+        {
+            put("\'", "|\'");
+            put("\n", "|n");
+            put("\r", "|r");
+            put("\\|", "||");
+            put("\\[", "|[");
+            put("\\]", "|]");
         }
-        return String.format(messageTemplate, messageName, propertiesBuilder.toString());
+    };
+
+    private Logger logger;
+
+    public TeamCityStepListener(Logger logger) {
+        this.logger = logger;
     }
 
-    private String formatMessage(String messageName, String description) {
+    public TeamCityStepListener() {
+        this(LoggerFactory.getLogger(TeamCityStepListener.class));
+    }
+
+    private String escapeProperty(String value) {
+        for (Map.Entry<String, String> escapeChar: escapeChars.entrySet()) {
+            value = value.replaceAll(escapeChar.getKey(), escapeChar.getValue());
+        }
+        return value;
+    }
+
+    private void printMessage(String messageName, Map<String,String> properties) {
+        StringBuilder propertiesBuilder = new StringBuilder();
+        for (Map.Entry<String, String> property: properties.entrySet()) {
+            propertiesBuilder.append(
+                    String.format(
+                            propertyTemplate,
+                            property.getKey(),
+                            escapeProperty(property.getValue())
+                    )
+            );
+        }
+        String message = String.format(messageTemplate, messageName, propertiesBuilder.toString());
+        printMessage(message);
+    }
+
+    private void printMessage(String messageName, String description) {
         Map<String,String> properties = new HashMap<>();
         properties.put("name", description);
-        return formatMessage(messageName, properties);
+        printMessage(messageName, properties);
     }
 
     private void printMessage(String message) {
-        System.out.println(message);
+        logger.info(message);
     }
 
     @Override
@@ -40,7 +78,7 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void testSuiteStarted(Story story) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        printMessage("testSuiteStarted", story.getName());
     }
 
     @Override
@@ -50,19 +88,16 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void testStarted(String description) {
-        String message = formatMessage("testStarted", description);
-        printMessage(message);
+        printMessage("testStarted", description);
     }
 
     @Override
     public void testFinished(TestOutcome result) {
-        String message = formatMessage("testFinished", result.getTitle());
-        printMessage(message);
+        printMessage("testFinished", result.getTitle());
     }
 
     @Override
     public void stepStarted(ExecutedStepDescription description) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

@@ -13,8 +13,6 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
     public AcceptanceTestSuite() {
 
-        StepEventBus.getEventBus().registerListener(new TeamCityStepListener());
-
         EnvironmentVariables environmentVariables = getEnvironmentVariables();
         String timeout = environmentVariables.getProperty(IMPLICITY_WAIT, null);
         if (timeout != null) {
