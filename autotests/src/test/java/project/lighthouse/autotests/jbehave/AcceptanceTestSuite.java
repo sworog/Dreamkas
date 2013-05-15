@@ -1,8 +1,10 @@
 package project.lighthouse.autotests.jbehave;
 
+import net.thucydides.core.steps.StepEventBus;
 import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
 import project.lighthouse.autotests.StaticDataCollections;
+import project.lighthouse.autotests.thucydides.TeamCityStepListener;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
@@ -10,6 +12,8 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     private static final String IMPLICITY_WAIT = "webdriver.timeouts.implicitlywait";
 
     public AcceptanceTestSuite() {
+
+        StepEventBus.getEventBus().registerListener(new TeamCityStepListener());
 
         EnvironmentVariables environmentVariables = getEnvironmentVariables();
         String timeout = environmentVariables.getProperty(IMPLICITY_WAIT, null);
