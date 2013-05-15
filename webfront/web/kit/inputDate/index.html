@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Calendar kit block</title>
-
+    <title>InputDate kit block</title>
     <link rel="stylesheet" href="/main.css" />
-
-    <script src="/libs/require.min.js" ></script>
-    <script src="/libs/jquery.min.js" ></script>
-    <script src="/libs/jquery.initBlocks.js" ></script>
-    <script src="/libs/jquery.maskedinput.js" ></script>
-    <script src="/libs/underscore.min.js" ></script>
-    <script src="/libs/backbone.min.js" ></script>
-    <script src="/libs/moment.min.js" ></script>
-    <script src="/libs/moment.ru.js" ></script>
-    <script src="/config.js" ></script>
 </head>
 <body>
-<div style="margin: 50px;">
+<div style="padding: 50px;">
     <input value="25.05.2013 16:20" type="text" class="inputDate inputText inputText_inline" />
-    <input value="123123" type="text" class="inputDate inputText inputText_inline" />
+    <input type="text" class="inputDate inputText inputText_inline" />
 </div>
+<script data-main="/main.js" src="/libs/require/require.min.js" type="text/javascript"></script>
 <script>
     require(['/kit/inputDate/inputDate.js'], function(inputDate){
-        $('.inputDate').each(function(){
-            new inputDate({
-                el: this
-            });
+        new inputDate({
+            el: $('.inputDate')[0]
+        });
+
+        new inputDate({
+            el: $('.inputDate')[1],
+            noTime: true
         });
     });
 </script>

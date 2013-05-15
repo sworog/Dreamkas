@@ -1,4 +1,8 @@
-define(function() {
+define(
+    [
+        'backbone'
+    ],
+    function() {
     return Backbone.Model.extend({
         url: function() {
             var url = Backbone.Model.prototype.url.call(this).split('.json').join('');
