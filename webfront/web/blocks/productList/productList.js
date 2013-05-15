@@ -6,7 +6,13 @@ define(
     ],
     function(Block, ProductCollection, tpl) {
         return Block.extend({
-            tpl: tpl,
+            defaults: {
+                tpl: tpl
+            },
+
+            tagName: 'div',
+            className: 'productList',
+
             productCollection: new ProductCollection(),
             initialize: function() {
                 var block = this;
@@ -21,8 +27,6 @@ define(
                 });
 
                 block.render();
-
-                block.$table = block.$el.find('.productList__table');
 
                 block.productCollection.fetch();
             },

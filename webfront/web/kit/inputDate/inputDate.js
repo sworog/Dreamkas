@@ -8,8 +8,7 @@ define(
         return Block.extend({
             defaults: {
                 date: null,
-                noTime: false,
-                dateFormat: 'DD.MM.YYYY HH:mm'
+                noTime: false
             },
 
             tagName: 'input',
@@ -18,7 +17,13 @@ define(
             initialize: function() {
                 var block = this;
 
-                block.$el.mask('99.99.9999 99:99');
+                if (block.noTime){
+                    block.$el.mask('99.99.9999');
+                    block.dateFormat = 'DD.MM.YYYY';
+                } else {
+                    block.$el.mask('99.99.9999 99:99');
+                    block.dateFormat = 'DD.MM.YYYY HH:mm'
+                }
 
                 block.tooltip = new Tooltip({
                     $trigger: block.$el
@@ -38,6 +43,9 @@ define(
                         block.set('date', date, {
                             updateDatepicker: false
                         });
+                    },
+                    save: function(){
+                        block.tooltip.hide();
                     }
                 });
             },

@@ -29,6 +29,13 @@ define(
             },
 
             events: {
+                'click .datepicker__saveLink': function(e){
+                    e.preventDefault();
+
+                    var block = this;
+
+                    block.trigger('save');
+                },
                 'click .datepicker__setNowLink': function(e){
                     e.preventDefault();
 

@@ -2,16 +2,14 @@ define(
     [
         '/kit/block.js',
         '/models/product.js',
-        '/helpers/helpers.js',
         './tpl/tpl.js'
     ],
-    function(Block, ProductModel, utils, tpl) {
+    function(Block, ProductModel, tpl) {
         return Block.extend({
             defaults: {
-                productId: null
+                productId: null,
+                tpl: tpl
             },
-            utils: utils,
-            tpl: tpl,
 
             initialize: function() {
                 var block = this;

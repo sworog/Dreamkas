@@ -20,7 +20,7 @@
                 <th>Закупочная цена</th>
                 <td>
                     <span name="purchasePrice">
-                        <%= block.utils.formatPrice(block.productModel.get('purchasePrice')) %>
+                        <%= LH.helpers.formatPrice(block.productModel.get('purchasePrice')) %>
                     </span>
                     руб.
                 </td>
@@ -41,7 +41,7 @@
             <tr>
                 <th>Единица измерения</th>
                 <td>
-                    <span name="units"><%= block.utils.units(block.productModel.get('units'), 'smallFull') %></span>
+                    <span name="units"><%= LH.helpers.units(block.productModel.get('units'), 'smallFull') %></span>
                 </td>
             </tr>
             <tr>
@@ -76,7 +76,7 @@
                 <td>
                     <% if(block.productModel.get('retailPrice')){ %>
                         <span name="retailPrice">
-                            <%= block.utils.formatPrice(block.productModel.get('retailPrice')) %>
+                            <%= LH.helpers.formatPrice(block.productModel.get('retailPrice')) %>
                         </span>
                         руб.
                     <% } else { %>

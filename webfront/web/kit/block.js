@@ -4,9 +4,6 @@ define(
     ],
     function(page) {
         return Backbone.View.extend({
-            defaults: {
-                tpl: {}
-            },
             constructor: function(opt) {
                 var block = this;
 
@@ -39,7 +36,7 @@ define(
                     elements = [];
 
                 if (block.className){
-                    $context.find('[class^="' + block.className + '__"]').each(function(){
+                    $context.find('[class*="' + block.className + '__"]').each(function(){
                         var classes = _.filter($(this).attr('class').split(' '), function(className){
                             return className.indexOf(block.className + '__') === 0;
                         });

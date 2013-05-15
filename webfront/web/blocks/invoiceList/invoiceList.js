@@ -6,8 +6,11 @@ define(
     ],
     function(Block, InvoiceCollection, tpl) {
         return Block.extend({
-            tpl: tpl,
-            invoiceCollection: new InvoiceCollection(),
+            defaults: {
+                invoiceCollection: new InvoiceCollection(),
+                tpl: tpl
+            },
+
             initialize: function() {
                 var block = this;
 
