@@ -3,9 +3,6 @@ define(
         'jquery'
     ],
     function($) {
-
-        debugger;
-
         $.fn.initBlock = function(url, options) {
             return this.each(function() {
 
