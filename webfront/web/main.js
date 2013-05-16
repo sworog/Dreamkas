@@ -22,6 +22,9 @@ require(
             lhAutocomplete: '/libs/lhAutocomplete'
         },
         shim: {
+            'jquery': {
+                exports: 'jQuery'
+            },
             'jquery.maskedinput': ['jquery'],
             'jquery.ui': ['jquery'],
 
@@ -37,7 +40,6 @@ require(
         '/routers/mainRouter.js',
         'jquery',
         'jquery.maskedinput',
-        'jquery.initBlocks',
         'jquery.mod',
         'jquery.ui',
         'underscore',

@@ -1,7 +1,8 @@
 define(
     [
         '/pages/page.js',
-        'backbone'
+        'backbone',
+        'jquery.initBlocks'
     ],
     function(page) {
         return Backbone.View.extend({
