@@ -51,18 +51,18 @@ require(
     function(helpers, router, $) {
         moment.lang('ru');
 
-        $(function(){
-            Backbone.history.start({
-                pushState: true
-            });
-        });
-
         window.LH = {
             helpers: helpers
         };
 
-        $('body').on('click', '[href]', function(e) {
-            e.preventDefault();
-            router.navigate($(this).attr('href'), {trigger: true});
+        $(function(){
+            Backbone.history.start({
+                pushState: true
+            });
+
+            $('body').on('click', '[href]', function(e) {
+                e.preventDefault();
+                router.navigate($(this).attr('href'), {trigger: true});
+            });
         });
     });
