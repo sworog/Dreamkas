@@ -29,6 +29,13 @@ define(
             events: {
                 'click': function(e) {
                     e.stopPropagation();
+                },
+                'click .tooltip__closeLink': function(e){
+                    e.preventDefault();
+
+                    var block = this;
+
+                    block.hide();
                 }
             },
             show: function(opt) {

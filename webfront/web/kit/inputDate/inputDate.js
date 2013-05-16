@@ -2,13 +2,15 @@ define(
     [
         '/kit/block.js',
         '/kit/datepicker/datepicker.js',
-        '/kit/tooltip/tooltip.js'
+        '/kit/tooltip/tooltip.js',
+        './tpl/tpl.js'
     ],
-    function(Block, Datepicker, Tooltip) {
+    function(Block, Datepicker, Tooltip, tpl) {
         return Block.extend({
             defaults: {
                 date: null,
-                noTime: false
+                noTime: false,
+                tpl: tpl
             },
 
             tagName: 'input',
@@ -30,6 +32,9 @@ define(
                 });
 
                 block.datepicker = new Datepicker({
+                    tpl: _.extend({}, Datepicker.prototype.defaults.tpl, {
+                        controls: block.tpl.datepicker__controls
+                    }),
                     noTime: block.noTime
                 });
 
@@ -43,9 +48,6 @@ define(
                         block.set('date', date, {
                             updateDatepicker: false
                         });
-                    },
-                    save: function(){
-                        block.tooltip.hide();
                     }
                 });
             },

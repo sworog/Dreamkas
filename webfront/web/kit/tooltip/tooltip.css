@@ -8,6 +8,10 @@
     padding: 10px 20px;
     z-index: 100;
     border-radius: 4px;
+    margin-top: 5px;
+}
+
+.tooltip__inputDate{
     margin-top: 10px;
 }
 

@@ -4,9 +4,7 @@
 </div>
 
 <div class="datepicker__header">
-    <%= block.tpl.header({
-        block: block
-    }) %>
+    <%= block.tpl.header({block: block}) %>
 </div>
 
 <div class="datepicker__daysOfWeek">
@@ -34,9 +32,7 @@
 </div>
 
 <div class="datepicker__dateList">
-    <%= block.tpl.dateList({
-        block: block
-    }) %>
+    <%= block.tpl.dateList({block: block}) %>
 </div>
 
 
@@ -48,6 +44,5 @@
 </div>
 
 <div class="datepicker__controls">
-    <a class="button button_color_blue datepicker__saveLink">Закрыть</a>
-    <a class="button datepicker__setNowLink datepicker__showNowLink">Сейчас</a>
+    <%= block.tpl.controls({block: block}) %>
 </div>

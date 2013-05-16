@@ -33,7 +33,7 @@ define(
                     }
                 });
             },
-            events: _.extend(Form.prototype.events, {
+            events: _.extend({}, Form.prototype.events, {
                 'click .productForm__inputLink': function(e) {
                     e.preventDefault;
                     var $link = $(e.currentTarget),

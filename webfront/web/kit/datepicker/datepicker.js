@@ -36,6 +36,13 @@ define(
 
                     block.trigger('save');
                 },
+                'click .datepicker__closeLink': function(e){
+                    e.preventDefault();
+
+                    var block = this;
+
+                    block.trigger('close');
+                },
                 'click .datepicker__setNowLink': function(e){
                     e.preventDefault();
 
