@@ -83,32 +83,32 @@ public class DateTime extends CommonItem {
     }
 
     public void dateTimePickerClose() {
-        pageObject.findBy("//button[normalize-space(text())='Закрыть']").click();
+        String dateTimePickerCloseButtonXpath = "//*[@class='button button_color_blue datepicker__saveLink']";
+        pageObject.findBy(dateTimePickerCloseButtonXpath).click();
     }
 
     public String getActualDatePickerMonth() {
-        String actualDatePickerMonthXpath = "//div[@class='ui-datepicker-title']/span[@class='ui-datepicker-month']";
+        String actualDatePickerMonthXpath = "//*[@class='datepicker__monthName']";
         return pageObject.findBy(actualDatePickerMonthXpath).getText();
     }
 
     public int getActualDatePickerYear() {
-        String actualDatePickerYearXpath = "//div[@class='ui-datepicker-title']/span[@class='ui-datepicker-year']";
+        String actualDatePickerYearXpath = "//*[@class='datepicker__yearNum']";
         return Integer.parseInt(pageObject.findBy(actualDatePickerYearXpath).getText());
     }
 
     public void setTime(String timeString) {
         String[] time = timeString.split(":");
-        String timePickerHourXpath = "//div[@class='ui_tpicker_hour_slider']//input";
-        String timePickerMinuteXpath = "//div[@class='ui_tpicker_minute_slider']//input";
-        pageObject.findBy(timePickerHourXpath).type(time[0]);
-        pageObject.findBy(timePickerMinuteXpath).type(time[1]);
+        pageObject.find(By.name("hours")).type(time[0]);
+        pageObject.find(By.name("minutes")).type(time[1]);
     }
 
     public void setDay(String dayString) {
         if (dayString.startsWith("0")) {
             dayString = dayString.substring(1);
         }
-        String timePickerDayXpath = String.format("//td[@data-handler='selectDay']/a[normalize-space(text())='%s']", dayString);
+        String timePickerDayXpath =
+                String.format("//*[@class='datepicker__dateList']/*[normalize-space(@class='datepicker__dateItem') and normalize-space(text())='%s']", dayString);
         pageObject.findBy(timePickerDayXpath).click();
     }
 
@@ -118,13 +118,13 @@ public class DateTime extends CommonItem {
         if (monthValue < getActualMonth) {
             actualMonthValue = 0;
             while (!(monthValue == actualMonthValue)) {
-                pageObject.findBy("//a[@data-handler='prev']").click();
+                pageObject.findBy("//*[@class='datepicker__prevMonthLink']").click();
                 actualMonthValue = getMonthNumber(getActualDatePickerMonth());
             }
         } else if (monthValue > actualMonthValue) {
             actualMonthValue = 0;
             while (!(monthValue == actualMonthValue)) {
-                pageObject.findBy("//a[@data-handler='next']").click();
+                pageObject.findBy("//*[@class='datepicker__nextMonthLink']").click();
                 actualMonthValue = getMonthNumber(getActualDatePickerMonth());
             }
         }
@@ -135,7 +135,7 @@ public class DateTime extends CommonItem {
         if (yearValue < getActualDatePickerYear()) {
             int actualYearValue = 0;
             while (!(yearValue == actualYearValue)) {
-                pageObject.findBy("//a[@data-handler='prev']").click();
+                pageObject.findBy("//*[@class='datepicker__prevMonthLink']").click();
                 actualYearValue = getActualDatePickerYear();
             }
         } else if (yearValue > actualYear) {

@@ -15,5 +15,7 @@ public class Date extends DateTime {
 
     @Override
     public void dateTimePickerClose() {
+        String xpath = "//*[@class='datepicker datepicker_noTime']//*[@class='button button_color_blue datepicker__saveLink']";
+        pageObject.findBy(xpath).click();
     }
 }
