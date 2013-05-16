@@ -1,8 +1,6 @@
 define(
     [
-        '/pages/page.js',
-        'backbone',
-        'jquery.initBlocks'
+        '/pages/page.js'
     ],
     function(page) {
         return Backbone.View.extend({
@@ -32,21 +30,21 @@ define(
                 block._findElements();
                 block._afterRender();
             },
-            _findElements: function($context){
+            _findElements: function($context) {
                 var block = this,
                     $context = $context || block.$el,
                     elements = [];
 
-                if (block.className){
-                    $context.find('[class*="' + block.className + '__"]').each(function(){
-                        var classes = _.filter($(this).attr('class').split(' '), function(className){
+                if (block.className) {
+                    $context.find('[class*="' + block.className + '__"]').each(function() {
+                        var classes = _.filter($(this).attr('class').split(' '), function(className) {
                             return className.indexOf(block.className + '__') === 0;
                         });
 
                         elements = _.union(elements, classes);
                     });
 
-                    _.each(elements, function(className){
+                    _.each(elements, function(className) {
                         var elementName = className.split('__')[1];
 
                         block['$' + elementName] = block.$el.find('.' + className);

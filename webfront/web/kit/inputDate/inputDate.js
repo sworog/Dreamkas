@@ -38,7 +38,7 @@ define(
                     noTime: block.noTime
                 });
 
-                block.tooltip.$el.addClass('tooltip__inputDate');
+                block.tooltip.$el.addClass('inputDate__tooltip');
                 block.tooltip.$content.html(block.datepicker.$el);
 
                 block.$el.change();

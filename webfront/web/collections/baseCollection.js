@@ -1,10 +1,6 @@
-define(
-    [
-        'backbone'
-    ],
-    function() {
+define(function() {
     return Backbone.Collection.extend({
-        fetch: function(options){
+        fetch: function(options) {
             return Backbone.Collection.prototype.fetch.call(this, _.extend({
                 reset: true
             }, options));

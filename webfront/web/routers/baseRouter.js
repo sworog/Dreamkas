@@ -1,3 +1,5 @@
-define(['backbone', 'backbone.queryparams'], function() {
-    return Backbone.Router;
+define(function() {
+    return Backbone.Router.extend({
+
+    });
 });

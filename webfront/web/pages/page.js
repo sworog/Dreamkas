@@ -1,8 +1,4 @@
-define(
-    [
-        'jquery'
-    ],
-    function($) {
+define(function() {
 
     var pageBlocks = [],
         $page;
@@ -15,7 +11,7 @@ define(
 
             $page.addClass('page_reloading');
             page.clear();
-            require(['tpl!' + pageTpl, 'jquery.initBlocks'], function(pageTpl) {
+            require(['tpl!' + pageTpl], function(pageTpl) {
                 $page
                     .html(pageTpl(data))
                     .initBlocks()
