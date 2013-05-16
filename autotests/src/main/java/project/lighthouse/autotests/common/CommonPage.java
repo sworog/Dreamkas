@@ -14,6 +14,7 @@ import project.lighthouse.autotests.pages.elements.Autocomplete;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -173,11 +174,11 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         }
     }
 
-    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException {
+    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
         apiConnect.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
     }
 
-    public void createInvoiceThroughPost(String invoiceName) throws JSONException {
+    public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
         apiConnect.createInvoiceThroughPost(invoiceName);
     }
 

@@ -15,6 +15,7 @@ import project.lighthouse.autotests.objects.Invoice;
 import project.lighthouse.autotests.objects.Product;
 import project.lighthouse.autotests.pages.elements.DateTime;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class ApiConnect {
         this.driver = driver;
     }
 
-    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException {
+    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
         if (!StaticDataCollections.products.containsKey(sku)) {
             String getApiUrl = getApiUrl() + "/api/1/products.json";
             String jsonData = String.format(Product.productJsonDataPattern, name, units, purchasePrice, barcode, sku);
@@ -38,7 +39,7 @@ public class ApiConnect {
         }
     }
 
-    public void createInvoiceThroughPost(String invoiceName) throws JSONException {
+    public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
         if (!StaticDataCollections.invoices.containsKey(invoiceName)) {
             String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
             String jsonData = String.format(Invoice.invoiceJsonPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
@@ -60,45 +61,41 @@ public class ApiConnect {
         }
     }
 
-    private String executePostRequest(String targetURL, String urlParameters) {
+    private String executePostRequest(String targetURL, String urlParameters) throws IOException {
         HttpPost request = new HttpPost(targetURL);
-        try {
-            StringEntity entity = new StringEntity(urlParameters, "UTF-8");
-            entity.setContentType("application/json;charset=UTF-8");
-            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-            request.setHeader("Accept", "application/json");
-            request.setEntity(entity);
+        StringEntity entity = new StringEntity(urlParameters, "UTF-8");
+        entity.setContentType("application/json;charset=UTF-8");
+        entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+        request.setHeader("Accept", "application/json");
+        request.setEntity(entity);
 
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
-            HttpResponse response = httpClient.execute(request);
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
+        HttpResponse response = httpClient.execute(request);
 
-            HttpEntity httpEntity = response.getEntity();
-            String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
-            if (response.getStatusLine().getStatusCode() != 201) {
-                StringBuilder builder = new StringBuilder();
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(responseMessage).getJSONObject("children");
-                } catch (Exception e) {
-                    String errorMessage = String.format("Exception message: %s\nJson: %s", e.getMessage(), jsonObject.toString());
-                    throw new AssertionError(errorMessage);
-                }
+        HttpEntity httpEntity = response.getEntity();
+        String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
+        if (response.getStatusLine().getStatusCode() != 201) {
+            StringBuilder builder = new StringBuilder();
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(responseMessage).getJSONObject("children");
                 Object[] objects = toMap(jsonObject).values().toArray();
+
                 for (int i = 0; i < objects.length; i++) {
                     if (objects[i] instanceof HashMap) {
                         String errors = new JSONObject(objects[i].toString()).getString("errors");
                         builder.append(errors);
                     }
                 }
-                String errorMessage = String.format("Responce json error: '%s'", builder.toString());
+            } catch (JSONException e) {
+                String errorMessage = String.format("Exception message: %s\nJson: %s", e.getMessage(), jsonObject.toString());
                 throw new AssertionError(errorMessage);
             }
-            return responseMessage;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new AssertionError(e.getMessage());
+            String errorMessage = String.format("Responce json error: '%s'", builder.toString());
+            throw new AssertionError(errorMessage);
         }
+        return responseMessage;
     }
 
     private String executePost(String targetUrl, String urlParameters) {
