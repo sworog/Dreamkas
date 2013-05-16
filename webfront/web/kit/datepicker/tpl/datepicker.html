@@ -45,8 +45,6 @@
     <input placeholder="часы" name="hours" type="text" class="inputText" value="<%= block.selectedDate ? moment(block.selectedDate).format('HH') : '' %>" <%= block.selectedDate ? '' : 'disabled' %> />
     <span class="datepicker__timeControlsSpacer">:</span>
     <input placeholder="мин" name="minutes" type="text" class="inputText" value="<%= block.selectedDate ? moment(block.selectedDate).format('mm') : '' %>" <%= block.selectedDate ? '' : 'disabled' %> />
-    <span class="datepicker__timeControlsSpacer">:</span>
-    <input placeholder="сек" name="seconds" type="text" class="inputText" value="<%= block.selectedDate ? moment(block.selectedDate).format('ss') : '' %>" <%= block.selectedDate ? '' : 'disabled' %> />
 </div>
 
 <div class="datepicker__controls">

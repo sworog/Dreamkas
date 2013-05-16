@@ -68,26 +68,23 @@ define(
                     e.preventDefault();
 
                     var block = this,
-                        selectedMoment = moment(+$(e.target).data('date')),
-                        renderTimeControls = true;
+                        selectedMoment = moment(+$(e.target).data('date'));
 
-                    if (!block.$el.find('.datepicker__timeControls .inputText:disabled').length){
-                        renderTimeControls = false;
+                    if (!block.noTime){
                         block.$el.find('.datepicker__timeControls .inputText').each(function(){
-                            selectedMoment[$(this).attr('name')]($(this).val());
+                            selectedMoment[$(this).attr('name')]($(this).val() || 0);
                         });
                     }
 
-                    block.set('selectedDate', selectedMoment.valueOf(), {
-                        renderTimeControls: renderTimeControls
-                    });
+                    block.set('selectedDate', selectedMoment.valueOf());
                 },
-                'change .datepicker__timeControls [name]': function(e) {
+                'change .datepicker__timeControls .inputText': function(e) {
                     e.preventDefault();
 
-                    var block = this;
+                    var block = this,
+                        date = moment(block.selectedDate)[$(e.target).attr('name')]($(e.target).val()).valueOf();
 
-                    block.set('selectedDate', moment(block.selectedDate)[$(e.target).attr('name')]($(e.target).val()).valueOf(), {
+                    block.set('selectedDate', date, {
                         renderTimeControls: false
                     });
                 }
@@ -122,7 +119,7 @@ define(
                 }
 
                 extra = _.extend({
-                    renderTimeControls: true
+                    renderTimeControls: !block.noTime
                 }, extra);
 
                 block.$el.find('.datepicker__timeControls .inputText').removeAttr('disabled');
