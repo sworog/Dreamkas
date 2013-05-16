@@ -2,7 +2,7 @@ define(
     [
         'jquery'
     ],
-    function() {
+    function($) {
 
     var pageBlocks = [],
         $page;
