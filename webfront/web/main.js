@@ -51,8 +51,10 @@ require(
     function(helpers, router, $) {
         moment.lang('ru');
 
-        Backbone.history.start({
-            pushState: true
+        $(function(){
+            Backbone.history.start({
+                pushState: true
+            });
         });
 
         window.LH = {
