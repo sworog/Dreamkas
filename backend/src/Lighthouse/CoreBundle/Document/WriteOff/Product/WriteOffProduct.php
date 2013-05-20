@@ -65,6 +65,8 @@ class WriteOffProduct extends AbstractDocument
 
     /**
      * @MongoDB\String
+     * @Assert\NotBlank
+     * @Assert\Length(max="1000", maxMessage="lighthouse.validation.errors.length")
      */
     protected $cause;
 
