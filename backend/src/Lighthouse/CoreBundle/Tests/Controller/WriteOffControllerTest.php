@@ -44,13 +44,103 @@ class WriteOffControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider validationWriteOffProvider
+     *
+     * @param $expectedCode
+     * @param array $data
+     * @param array $assertions
+     */
+    public function testPostWriteOffValidation($expectedCode, array $data, array $assertions = array())
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+
+        $writeOffProductData = array(
+            'product' => $productId,
+            'price' => 7.99,
+            'quantity' => 2,
+            'cause' => 'Плохо было',
+        );
+
+        $writeOffData = $data + array(
+            'products' => array($writeOffProductData),
+            'date' => '11.07.2012',
+            'number' => '1234567',
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/writeoffs.json',
+            array('writeOff' => $writeOffData)
+        );
+
+        Assert::assertResponseCode($expectedCode, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathContains($expected, $path, $postResponse);
+        }
+    }
+
+    public function validationWriteOffProvider()
+    {
+        return array(
+            'not valid empty date' => array(
+                400,
+                array('date' => ''),
+                array(
+                    'children.date.errors.0'
+                    =>
+                    'Заполните это поле'
+                )
+            ),
+            'valid date' => array(
+                201,
+                array('date' => '2013-12-31')
+            ),
+            'not valid date' => array(
+                400,
+                array('date' => '2013-2sd-31'),
+                array(
+                    'children.date.errors.0'
+                    =>
+                    'Вы ввели неверную дату 2013-2sd-31, формат должен быть следующий дд.мм.гггг'
+                )
+            ),
+            'not valid empty number' => array(
+                400,
+                array('number' => ''),
+                array(
+                    'children.number.errors.0'
+                    =>
+                    'Заполните это поле'
+                )
+            ),
+            'not valid long 101 number' => array(
+                400,
+                array('number' => str_repeat('z', 101)),
+                array(
+                    'children.number.errors.0'
+                    =>
+                    'Не более 100 символов'
+                )
+            ),
+            'valid long 100 number' => array(
+                201,
+                array('number' => str_repeat('z', 100)),
+            ),
+        );
+    }
+
+    /**
      * @dataProvider validationWriteOffProductProvider
      *
      * @param $expectedCode
      * @param array $data
      * @param array $assertions
      */
-    public function testPostPurchaseProductValidation($expectedCode, array $data, array $assertions = array())
+    public function testPostWriteOffProductValidation($expectedCode, array $data, array $assertions = array())
     {
         $this->clearMongoDb();
 
