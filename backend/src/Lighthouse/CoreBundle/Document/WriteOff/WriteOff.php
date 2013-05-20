@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Document\WriteOff;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Lighthouse\CoreBundle\Document\WriteOffProduct\WriteOffProduct;
+use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 
 /**
  * @MongoDB\Document(
@@ -54,7 +54,7 @@ class WriteOff extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\WriteOffProduct\WriteOffProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct",
      *      simple=true,
      *      cascade="persist"
      * )

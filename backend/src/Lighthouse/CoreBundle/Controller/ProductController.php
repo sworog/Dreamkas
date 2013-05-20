@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\LoggableCursor;
+use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
@@ -123,7 +124,7 @@ class ProductController extends FOSRestController
             $this->productRepository->getDocumentManager()->flush();
             return $product;
         } else {
-            return View::create($form, 400);
+            return View::create($form, Codes::HTTP_BAD_REQUEST);
         }
     }
 }

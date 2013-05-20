@@ -40,9 +40,20 @@ services:
         arguments:
             - LighthouseCoreBundle:TrialBalance\TrialBalance
 
-
     lighthouse.core.document.repository.purchase:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\Purchase\PurchaseRepository
         arguments:
             - LighthouseCoreBundle:Purchase\Purchase
+
+    lighthouse.core.document.repository.writeoff:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository
+        arguments:
+            - LighthouseCoreBundle:WriteOff\WriteOff
+
+    lighthouse.core.document.repository.writeoff.product:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository
+        arguments:
+            - LighthouseCoreBundle:WriteOff\Product\WriteOffProduct

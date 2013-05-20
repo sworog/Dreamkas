@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -39,6 +40,6 @@ class PurchaseController extends FOSRestController
             }
         }
 
-        return $this->view($form, 400);
+        return $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 }

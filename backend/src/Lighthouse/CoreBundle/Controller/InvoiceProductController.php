@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -109,7 +110,7 @@ class InvoiceProductController extends FOSRestController
             $this->invoiceRepository->getDocumentManager()->flush();
             return $invoiceProduct;
         } else {
-            return View::create($form, 400);
+            return View::create($form, Codes::HTTP_BAD_REQUEST);
         }
     }
 

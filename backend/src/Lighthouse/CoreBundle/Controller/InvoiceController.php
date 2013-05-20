@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\LoggableCursor;
+use FOS\Rest\Util\Codes;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
@@ -63,7 +64,7 @@ class InvoiceController extends FOSRestController
             $this->invoiceRepository->getDocumentManager()->flush();
             return $invoice;
         } else {
-            return View::create($form, 400);
+            return View::create($form, Codes::HTTP_BAD_REQUEST);
         }
     }
 

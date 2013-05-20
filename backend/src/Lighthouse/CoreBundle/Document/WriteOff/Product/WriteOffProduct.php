@@ -1,15 +1,19 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\WriteOffProduct;
+namespace Lighthouse\CoreBundle\Document\WriteOff\Product;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations\AbstractDocument;
+use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
+use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 
 /**
+ * @MongoDB\Document(
+ *      repositoryClass="Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository"
+ * )
  * @property int        $id
  * @property Money      $price
  * @property int        $quantity
@@ -76,7 +80,7 @@ class WriteOffProduct extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\WriteOff/WriteOff",
+     *     targetDocument="Lighthouse\CoreBundle\Document\WriteOff\WriteOff",
      *     simple=true,
      *     cascade="persist"
      * )
