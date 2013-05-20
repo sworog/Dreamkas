@@ -126,9 +126,7 @@ And the user inputs 'Валидация поставщик' in the invoice 'supp
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату 12.34.5456 78:90, формат должен быть следующий дд.мм.гггг чч:мм |
+Then the user sees no error messages
 
 Scenario: Invoice acceptanceDate validation manual negative1 numbers 2
 Given the user is on the invoice list page
@@ -215,9 +213,7 @@ And the user inputs 'Валидация поставщик' in the invoice 'supp
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
+Then the user sees no error messages
 
 
 Scenario: Invoice acceptanceDate validation through datepicker negative2
@@ -229,9 +225,7 @@ And the user inputs 'Валидация поставщик' in the invoice 'supp
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату 27.03.2013 55:55, формат должен быть следующий дд.мм.гггг чч:мм |
+Then the user sees no error messages
 
 
 Scenario: Invoice accepter validation is required
@@ -376,7 +370,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
-| Вы ввели неверную дату |
+| Дата накладной не должна быть старше даты приемки |
 
 Scenario: Invoice supplierInvoiceDate validation manual negative2 eng symbols
 Given the user is on the invoice list page
@@ -451,20 +445,4 @@ Then the user sees error messages
 | error message |
 | Дата накладной не должна быть старше даты приемки |
 
-Scenario: regression bug 1
-Given the user is on the invoice list page
-When the user clicks the create button on the invoice list page
-And the user inputs '!77.77.7777 77:77' in the invoice 'acceptanceDate' field
-And the user inputs 'I56SAVMN1' in the invoice 'sku' field
-And the user inputs '!todayDate' in the invoice 'supplierInvoiceDate' field
-And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
-And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
-And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
-And the user navigates to invoice product addition
-Then the user sees no error messages
-| error message |
-| Дата накладной не должна быть старше даты приемки |
-And the user sees error messages
-| error message |
-| Вы ввели неверную дату 77.77.7777 77:77, формат должен быть следующий дд.мм.гггг чч:мм |
 

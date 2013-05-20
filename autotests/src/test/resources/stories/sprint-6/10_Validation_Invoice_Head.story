@@ -112,11 +112,8 @@ And the user clicks edit button and starts invoice edition
 And the user clicks on 'acceptanceDate' element to edit it
 And the user inputs '!123454567890' in the invoice 'inline acceptanceDate' field
 And the user clicks OK and accepts changes
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату 12.34.5456 78:90, формат должен быть следующий дд.мм.гггг чч:мм |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit link and ends the invoice edition
+Then the user sees no error messages
+When the user clicks finish edit link and ends the invoice edition
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative1 numbers 2
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
@@ -207,11 +204,8 @@ And the user clicks edit button and starts invoice edition
 And the user clicks on 'acceptanceDate' element to edit it
 And the user inputs '27.03.2013 9999:9999' in the invoice 'inline acceptanceDate' field
 And the user clicks OK and accepts changes
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit link and ends the invoice edition
+Then the user sees no error messages
+When the user clicks finish edit link and ends the invoice edition
 
 Scenario: Invoice edition - Invoice acceptanceDate validation through datepicker negative2
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
@@ -221,11 +215,8 @@ And the user clicks edit button and starts invoice edition
 And the user clicks on 'acceptanceDate' element to edit it
 And the user inputs '27.03.2013 1155:222255' in the invoice 'inline acceptanceDate' field
 And the user clicks OK and accepts changes
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit link and ends the invoice edition
+Then the user sees no error messages
+When the user clicks finish edit link and ends the invoice edition
 
 Scenario: Invoice edition - Invoice accepter validation is required
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
@@ -354,7 +345,7 @@ And the user inputs '!12345456789' in the invoice 'inline supplierInvoiceDate' f
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Вы ввели неверную дату |
+| Дата накладной не должна быть старше даты приемки |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 
