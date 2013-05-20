@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\WriteOff\Product;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,11 +19,12 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  * @property Money      $price
  * @property int        $quantity
  * @property Money      $totalPrice
- * @property \DateTime   $createdDate
+ * @property \DateTime  $createdDate
+ * @property cause      $cause
  * @property Product    $product
  * @property WriteOff   $writeOff
  */
-class WriteOffProduct extends AbstractDocument
+class WriteOffProduct extends AbstractDocument implements Reasonable
 {
     /**
      * @MongoDB\Id
@@ -89,4 +91,20 @@ class WriteOffProduct extends AbstractDocument
      * @var WriteOff
      */
     protected $writeOff;
+
+    /**
+     * @return string
+     */
+    public function getReasonId()
+    {
+        $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReasonType()
+    {
+        return 'WriteOffProduct';
+    }
 }

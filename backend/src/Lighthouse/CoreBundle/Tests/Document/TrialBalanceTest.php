@@ -12,6 +12,8 @@ use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceCollection;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
+use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
+use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Money;
@@ -209,6 +211,39 @@ class TrialBalanceTest extends WebTestCase
 
         $manager->persist($purchase);
         $manager->persist($purchaseProduct);
+        $manager->flush();
+
+        $trialBalance = $trialBalanceRepository->findOneByProduct($product);
+
+        $this->assertEquals(79.99, $trialBalance->price->getCount());
+        $this->assertEquals(-3, $trialBalance->quantity);
+        $this->assertEquals(239.97, $trialBalance->totalPrice->getCount());
+    }
+
+    public function testCreateTrialBalanceByWriteOff()
+    {
+        $this->clearMongoDb();
+
+        $manager = $this->getManager();
+        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
+        $productRepository = $this->getContainer()->get('lighthouse.core.document.repository.product');
+
+        $productId = $this->createProduct();
+        $product = $productRepository->findOneBy(array('id' => $productId));
+
+        $writeOff = new WriteOff();
+
+        $writeOffProduct = new WriteOffProduct();
+        $writeOffProduct->writeOff = $writeOff;
+        $writeOffProduct->product = $product;
+        $writeOffProduct->quantity = 3;
+        $writeOffProduct->price = new Money(79.99);
+        $writeOffProduct->cause = 'Плохой товар';
+
+        $writeOff->products = array($writeOffProduct);
+
+        $manager->persist($writeOff);
+        $manager->persist($writeOffProduct);
         $manager->flush();
 
         $trialBalance = $trialBalanceRepository->findOneByProduct($product);

@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
+use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 
 /**
  * Class TrialBalanceListener
@@ -59,6 +60,19 @@ class TrialBalanceListener
             if ($document instanceof PurchaseProduct) {
                 $trialBalance = new TrialBalance();
                 $trialBalance->price = $document->sellingPrice;
+                $trialBalance->quantity = - $document->quantity;
+                $trialBalance->product = $document->product;
+                $trialBalance->reason = $document;
+                $trialBalance->createdDate = $document->createdDate;
+
+                $dm->persist($trialBalance);
+
+                $this->computeChangeSet($dm, $uow, $trialBalance);
+            }
+
+            if ($document instanceof WriteOffProduct) {
+                $trialBalance = new TrialBalance();
+                $trialBalance->price = $document->price;
                 $trialBalance->quantity = - $document->quantity;
                 $trialBalance->product = $document->product;
                 $trialBalance->reason = $document;
