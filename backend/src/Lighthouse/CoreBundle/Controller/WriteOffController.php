@@ -43,7 +43,7 @@ class WriteOffController extends FOSRestController
 
         if ($form->isValid()) {
             $this->writeOffRepository->getDocumentManager()->persist($writeOff);
-            $this->writeOffRepository->getDocumentManager()->flush($writeOff);
+            $this->writeOffRepository->getDocumentManager()->flush();
             return $writeOff;
         } else {
             return $this->view($form, Codes::HTTP_BAD_REQUEST);

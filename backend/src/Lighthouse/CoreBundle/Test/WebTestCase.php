@@ -26,6 +26,33 @@ class WebTestCase extends BaseTestCase
      */
     protected $client;
 
+    /**
+     * @param $invoiceId
+     * @param $productId
+     * @param $quantity
+     * @param $price
+     * @return mixed
+     */
+    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
+    {
+        $invoiceProductData = array(
+            'product' => $productId,
+            'quantity' => $quantity,
+            'price' => $price
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $invoiceProductData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        return $postResponse['id'];
+    }
+
     protected function setUp()
     {
         $this->client = static::createClient();

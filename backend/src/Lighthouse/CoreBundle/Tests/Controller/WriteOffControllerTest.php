@@ -368,4 +368,61 @@ class WriteOffControllerTest extends WebTestCase
             ),
         );
     }
+
+    public function testProductAmountChangeOnWriteOf()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+
+        $this->assertProduct($productId, array('amount' => null));
+
+        $invoiceId = $this->createInvoice();
+
+        $this->createInvoiceProduct($invoiceId, $productId, 10, 4.99);
+
+        $this->assertProduct($productId, array('amount' => 10));
+
+        $this->createWriteOff('431-678', null, $productId, 3.49, 5, 'Порча');
+
+        $this->assertProduct($productId, array('amount' => 5));
+    }
+
+    /**
+     * @param string $number
+     * @param int $date
+     * @param string $productId
+     * @param float $price
+     * @param int $quantity
+     * @param string $cause
+     */
+    protected function createWriteOff($number, $date = null, $productId, $price, $quantity, $cause)
+    {
+        $date = $date ?: strtotime('-1 day');
+        $writeOffData = array(
+            'number' => $number,
+            'date' => date('c', $date),
+            'products' => array(),
+        );
+
+        $writeOffData['products'][] = array(
+            'product' => $productId,
+            'quantity' => $quantity,
+            'price' => $price,
+            'cause' => $cause
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/writeoffs.json',
+            array('writeOff' => $writeOffData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
 }

@@ -1203,30 +1203,4 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertProduct($productId, array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26));
     }
 
-    /**
-     * @param $invoiceId
-     * @param $productId
-     * @param $quantity
-     * @param $price
-     * @return mixed
-     */
-    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
-    {
-        $invoiceProductData = array(
-            'product' => $productId,
-            'quantity' => $quantity,
-            'price' => $price
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $this->client,
-            'POST',
-            '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
-        );
-
-        Assert::assertResponseCode(201, $this->client);
-
-        return $postResponse['id'];
-    }
 }
