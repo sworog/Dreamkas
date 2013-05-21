@@ -1,11 +1,14 @@
 define(function() {
 
     var pageBlocks = [],
-        $page = $('#page');
+        $page;
 
     return {
         open: function(pageTpl, data) {
             var page = this;
+
+            $page = $page || $('#page');
+
             $page.addClass('page_reloading');
             page.clear();
             require(['tpl!' + pageTpl], function(pageTpl) {

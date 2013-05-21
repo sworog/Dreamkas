@@ -1,19 +1,25 @@
 require(
+    {
+        baseUrl: '/',
+        paths: {
+            tpl: '/libs/requirejs.tpl'
+        }
+    },
     [
         '/helpers/helpers.js',
         '/routers/mainRouter.js'
     ],
     function(helpers, router) {
-        $(function() {
+        moment.lang('ru');
+
+        window.LH = {
+            helpers: helpers
+        };
+
+        $(function(){
             Backbone.history.start({
                 pushState: true
             });
-
-            moment.lang('ru');
-
-            window.LH = {
-                helpers: helpers   
-            };
 
             $('body').on('click', '[href]', function(e) {
                 e.preventDefault();

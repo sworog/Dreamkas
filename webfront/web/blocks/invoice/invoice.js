@@ -40,7 +40,7 @@ define(
 
                 block.addForm = new AddForm({
                     invoiceId: block.invoiceId,
-                    el: block.el.getElementsByClassName('invoice__addForm')
+                    el: block.el.getElementsByClassName('invoice__addProductForm')
                 });
 
                 block.listenTo(block.addForm, {

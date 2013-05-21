@@ -6,7 +6,7 @@ define(
         '/routers/mainRouter.js',
         './tpl/tpl.js'
     ],
-    function(Form, ProductModel, utils, router, tpl) {
+    function(Form, ProductModel, helpers, router, tpl) {
         return Form.extend({
             defaults: {
                 defaultInputLinkText: 'Введите значение',
@@ -33,7 +33,7 @@ define(
                     }
                 });
             },
-            events: _.extend(Form.prototype.events, {
+            events: _.extend({}, Form.prototype.events, {
                 'click .productForm__inputLink': function(e) {
                     e.preventDefault;
                     var $link = $(e.currentTarget),
@@ -120,14 +120,14 @@ define(
                 this.$retailPricePreferenceInput.val('retailPrice');
             },
             calculateRetailPrice: function() {
-                var purchasePrice = utils.normalizePrice(this.$purchasePriceInput.val()),
-                    retailMarkup = utils.normalizePrice(this.$retailMarkupInput.val()),
+                var purchasePrice = helpers.normalizePrice(this.$purchasePriceInput.val()),
+                    retailMarkup = helpers.normalizePrice(this.$retailMarkupInput.val()),
                     calculatedVal;
 
                 if (!purchasePrice || !retailMarkup || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
                     calculatedVal = '';
                 } else {
-                    calculatedVal = utils.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedVal = helpers.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 this.$retailPriceInput
@@ -135,14 +135,14 @@ define(
                     .change();
             },
             calculateRetailMarkup: function() {
-                var retailPrice = utils.normalizePrice(this.$retailPriceInput.val()),
-                    purchasePrice = utils.normalizePrice(this.$purchasePriceInput.val()),
+                var retailPrice = helpers.normalizePrice(this.$retailPriceInput.val()),
+                    purchasePrice = helpers.normalizePrice(this.$purchasePriceInput.val()),
                     calculatedVal;
 
                 if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
                     calculatedVal = '';
                 } else {
-                    calculatedVal = utils.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedVal = helpers.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 this.$retailMarkupInput
@@ -154,7 +154,7 @@ define(
                     text;
 
                 if (price){
-                    text = utils.formatPrice(price) + ' руб.'
+                    text = helpers.formatPrice(price) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -168,7 +168,7 @@ define(
                     text;
 
                 if (markup){
-                    text = utils.formatPrice(markup) + '%'
+                    text = helpers.formatPrice(markup) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }

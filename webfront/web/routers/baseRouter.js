@@ -1,3 +1,5 @@
 define(function() {
-    return Backbone.Router;
+    return Backbone.Router.extend({
+
+    });
 });
