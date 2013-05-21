@@ -373,6 +373,89 @@ class WriteOffProductControllerTest extends WebTestCase
         Assert::assertResponseCode(204, $this->client);
     }
 
+    public function testGetAction()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+        $writeOffId = $this->createWriteOff();
+        $writeOffProductId = $this->createWriteOffProduct($writeOffId, $productId);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathEquals($writeOffProductId, 'id', $getResponse);
+        Assert::assertJsonPathEquals($writeOffId, 'writeOff.id', $getResponse);
+        Assert::assertJsonPathEquals($productId, 'product.id', $getResponse);
+    }
+
+    public function testGetActionNotFound()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+
+        $writeOffId1 = $this->createWriteOff('1');
+        $writeOffProductId1 = $this->createWriteOffProduct($writeOffId1, $productId);
+
+        $writeOffId2 = $this->createWriteOff('2');
+        $writeOffProductId2 = $this->createWriteOffProduct($writeOffId2, $productId);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId1 . '/products/' . $writeOffProductId2 . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId2 . '/products/' . $writeOffProductId1 . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/invalidId/products/' . $writeOffProductId1 . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/invalidId/products/' . $writeOffProductId2 . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId1 . '/products/invalidId.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId2 . '/products/invalidId.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
+
+
     public function testProductAmountChangeOnWriteOf()
     {
         $this->clearMongoDb();

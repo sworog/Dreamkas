@@ -74,6 +74,16 @@ class WriteOffProductController extends AbstractRestController
 
     /**
      * @param string $writeOffId
+     * @param string $writeOffProductId
+     * @return WriteOffProduct
+     */
+    public function getProductAction($writeOffId, $writeOffProductId)
+    {
+        return $this->findWriteOffProduct($writeOffProductId, $writeOffId);
+    }
+
+    /**
+     * @param string $writeOffId
      * @return WriteOff
      * @throws NotFoundHttpException
      */
