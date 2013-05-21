@@ -15,14 +15,6 @@ class WriteOffType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'products',
-                'collection',
-                array(
-                    'type' => new WriteOffProductType(),
-                    'allow_add' => true
-                )
-            )
             ->add('number', 'text')
             ->add('date', 'datetime');
     }

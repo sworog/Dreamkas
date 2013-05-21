@@ -2,8 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\Rest\Util\Codes;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Purchase\Purchase;
@@ -12,13 +10,21 @@ use Lighthouse\CoreBundle\Form\PurchaseType;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 
-class PurchaseController extends FOSRestController
+class PurchaseController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.purchase")
      * @var PurchaseRepository
      */
-    protected $purchaseRepository;
+    protected $documentRepository;
+
+    /**
+     * @return AbstractType
+     */
+    protected function getDocumentFormType()
+    {
+        return new PurchaseType();
+    }
 
     /**
      * @Rest\View(statusCode=201)
@@ -28,18 +34,6 @@ class PurchaseController extends FOSRestController
      */
     public function postPurchasesAction(Request $request)
     {
-        $purchase = new Purchase();
-        $form = $this->createForm(new PurchaseType(), $purchase);
-
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
-            if ($form->isValid()) {
-                $this->purchaseRepository->getDocumentManager()->persist($purchase);
-                $this->purchaseRepository->getDocumentManager()->flush();
-                return $purchase;
-            }
-        }
-
-        return $this->view($form, Codes::HTTP_BAD_REQUEST);
+        return $this->processPost($request);
     }
 }

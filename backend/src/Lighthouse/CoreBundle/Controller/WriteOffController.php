@@ -11,13 +11,29 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
 
-class WriteOffController extends FOSRestController
+class WriteOffController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.writeoff")
      * @var WriteOffRepository
      */
     protected $writeOffRepository;
+
+    /**
+     * @return \Lighthouse\CoreBundle\Document\DocumentRepository|WriteOffRepository
+     */
+    protected function getDocumentRepository()
+    {
+        return $this->writeOffRepository;
+    }
+
+    /**
+     * @return WriteOffType|\Symfony\Component\Form\AbstractType
+     */
+    protected function getDocumentFormType()
+    {
+        return new WriteOffType();
+    }
 
     /**
      * @Rest\View(statusCode=201)
@@ -27,26 +43,16 @@ class WriteOffController extends FOSRestController
      */
     public function postWriteoffsAction(Request $request)
     {
-        $writeOff = new WriteOff();
-        return $this->processForm($request, $writeOff);
+        return $this->processPost($request);
     }
 
     /**
+     * @Rest\View(statusCode=200)
+     *
      * @param Request $request
-     * @param WriteOff $writeOff
-     * @return \FOS\RestBundle\View\View
      */
-    protected function processForm(Request $request, WriteOff $writeOff)
+    public function putWriteoffsAction(Request $request, $id)
     {
-        $form = $this->createForm(new WriteOffType(), $writeOff);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $this->writeOffRepository->getDocumentManager()->persist($writeOff);
-            $this->writeOffRepository->getDocumentManager()->flush();
-            return $writeOff;
-        } else {
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
-        }
+        return $this->processPut($request, $id);
     }
 }
