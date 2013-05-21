@@ -11,8 +11,6 @@ class WriteOffControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $productId = $this->createProduct();
-
         $date = strtotime('-1 day');
 
         $writeOffData = array(
@@ -113,25 +111,5 @@ class WriteOffControllerTest extends WebTestCase
                 array('number' => str_repeat('z', 100)),
             ),
         );
-    }
-
-    public function testProductAmountChangeOnWriteOf()
-    {
-        $this->clearMongoDb();
-
-        $productId = $this->createProduct();
-
-        $this->assertProduct($productId, array('amount' => null));
-
-        $invoiceId = $this->createInvoice();
-
-        $this->createInvoiceProduct($invoiceId, $productId, 10, 4.99);
-
-        $this->assertProduct($productId, array('amount' => 10));
-
-        $writeOffId = $this->createWriteOff('431-678');
-        $this->createWriteOffProduct($writeOffId, $productId, 3.49, 5, 'Порча');
-
-        $this->assertProduct($productId, array('amount' => 5));
     }
 }

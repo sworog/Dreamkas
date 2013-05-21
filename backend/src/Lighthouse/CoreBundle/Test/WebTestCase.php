@@ -380,7 +380,7 @@ class WebTestCase extends BaseTestCase
      * @param string $cause
      * @return string
      */
-    protected function createWriteOffProduct($writeOffId, $productId, $price, $quantity, $cause)
+    protected function createWriteOffProduct($writeOffId, $productId, $price = 5.99, $quantity = 10, $cause = 'Порча')
     {
         $postData = array(
             'product' => $productId,

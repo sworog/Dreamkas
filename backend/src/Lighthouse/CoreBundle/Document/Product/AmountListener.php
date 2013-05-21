@@ -44,6 +44,10 @@ class AmountListener
         if ($document instanceof InvoiceProduct) {
             $document->product->amount = $document->product->amount - $document->quantity;
         }
+
+        if ($document instanceof WriteOffProduct) {
+            $document->product->amount = $document->product->amount + $document->quantity;
+        }
     }
 
     /**

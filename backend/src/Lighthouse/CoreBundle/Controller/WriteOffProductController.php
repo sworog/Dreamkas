@@ -61,6 +61,18 @@ class WriteOffProductController extends AbstractRestController
     }
 
     /**
+     * @Rest\View(statusCode=204)
+     * @param string $writeOffId
+     * @param string $writeOffProductId
+     */
+    public function deleteProductsAction($writeOffId, $writeOffProductId)
+    {
+        $writeOffProduct = $this->findWriteOffProduct($writeOffProductId, $writeOffId);
+        $this->getDocumentRepository()->getDocumentManager()->remove($writeOffProduct);
+        $this->getDocumentRepository()->getDocumentManager()->flush();
+    }
+
+    /**
      * @param string $writeOffId
      * @return WriteOff
      * @throws NotFoundHttpException
@@ -82,10 +94,11 @@ class WriteOffProductController extends AbstractRestController
      */
     protected function findWriteOffProduct($writeOffProductId, $writeOffId)
     {
+        $writeOff = $this->findWriteOff($writeOffId);
         $writeOffProduct = $this->getDocumentRepository()->find($writeOffProductId);
         if (null === $writeOffProduct) {
             throw new NotFoundHttpException("WriteOffProduct not found");
-        } elseif ($writeOffProduct->writeOff->id != $writeOffId) {
+        } elseif ($writeOffProduct->writeOff->id != $writeOff->id) {
             throw new NotFoundHttpException("WriteOffProduct not found");
         }
         return $writeOffProduct;

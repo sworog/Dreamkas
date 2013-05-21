@@ -1202,5 +1202,4 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertProduct($productId, array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26));
     }
-
 }
