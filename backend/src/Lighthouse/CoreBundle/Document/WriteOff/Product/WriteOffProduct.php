@@ -92,6 +92,17 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      */
     protected $writeOff;
 
+
+    /**
+     * @MongoDB\PrePersist
+     * @MongoDB\PreUpdate
+     */
+    public function updateTotalPrice()
+    {
+        $this->totalPrice = new Money();
+        $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
+    }
+
     /**
      * @return string
      */

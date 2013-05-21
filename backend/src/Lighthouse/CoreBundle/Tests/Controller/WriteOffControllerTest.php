@@ -186,7 +186,7 @@ class WriteOffControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $writeOfId = $this->createWriteOff();
+        $this->createWriteOff();
 
         $getResponse = $this->clientJsonRequest(
             $this->client,
@@ -200,5 +200,99 @@ class WriteOffControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('id', $getResponse);
         Assert::assertNotJsonHasPath('number', $getResponse);
         Assert::assertNotJsonHasPath('date', $getResponse);
+    }
+
+    public function testWriteOffTotals()
+    {
+        $this->clearMongoDb();
+
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
+
+        $writeOffId = $this->createWriteOff();
+
+        $this->assertWriteOff($writeOffId, array('itemsCount' => null, 'sumTotal' => null));
+
+        $writeOffProductId1 = $this->createWriteOffProduct($writeOffId, $productId1, 5.99, 12);
+
+        $this->assertWriteOff($writeOffId, array('itemsCount' => 1, 'sumTotal' => 71.88));
+
+        $writeOffProductId2 = $this->createWriteOffProduct($writeOffId, $productId2, 6.49, 3);
+
+        $this->assertWriteOff($writeOffId, array('itemsCount' => 2, 'sumTotal' => 91.35));
+
+        $writeOffProductId3 = $this->createWriteOffProduct($writeOffId, $productId3, 11.12, 1);
+
+        $this->assertWriteOff($writeOffId, array('itemsCount' => 3, 'sumTotal' => 102.47));
+
+        // update 1st write off product quantity and price
+
+        $putData = array(
+            'product' => $productId1,
+            'price' => 6.99,
+            'quantity' => 10,
+            'cause' => 'because',
+        );
+
+        $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1 . '.json',
+            array('writeOffProduct' => $putData)
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->assertWriteOff($writeOffId, array('itemsCount' => 3, 'sumTotal' => 100.49));
+
+        // update 2nd write off product product id
+
+        $putData = array(
+            'product' => $productId3,
+            'price' => 6.49,
+            'quantity' => 3,
+            'cause' => 'because',
+        );
+
+        $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2 . '.json',
+            array('writeOffProduct' => $putData)
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->assertWriteOff($writeOffId, array('itemsCount' => 3, 'sumTotal' => 100.49));
+
+        // remove 3rd write off product
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId3 . '.json'
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $this->assertWriteOff($writeOffId, array('itemsCount' => 2, 'sumTotal' => 89.37));
+    }
+
+    /**
+     * @param string $writeOffId
+     * @param array $assertions
+     */
+    protected function assertWriteOff($writeOffId, array $assertions = array())
+    {
+        $writeOffJson = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId. '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->performJsonAssertions($writeOffJson, $assertions);
     }
 }
