@@ -340,4 +340,66 @@ class WebTestCase extends BaseTestCase
 
         $this->performJsonAssertions($productJson, $assertions);
     }
+
+    /**
+     * @param string $number
+     * @param int $date
+     * @param string $productId
+     * @param float $price
+     * @param int $quantity
+     * @param string $cause
+     */
+    protected function createWriteOff($number, $date = null)
+    {
+        $date = $date ? : strtotime('-1 day');
+
+        $postData = array(
+            'number' => $number,
+            'date' => date('c', $date),
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/writeoffs.json',
+            array('writeOff' => $postData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
+
+    /**
+     * @param string $writeOffId
+     * @param string $productId
+     * @param float $price
+     * @param int $quantity
+     * @param string $cause
+     * @return string
+     */
+    protected function createWriteOffProduct($writeOffId, $productId, $price, $quantity, $cause)
+    {
+        $postData = array(
+            'product' => $productId,
+            'price' => $price,
+            'quantity' => $quantity,
+            'cause' => $cause,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/writeoffs/' . $writeOffId . '/products.json',
+            array('writeOffProduct' => $postData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
 }

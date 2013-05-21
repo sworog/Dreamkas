@@ -6,7 +6,7 @@ lighthouse.core.invoice:
     resource: Lighthouse\CoreBundle\Controller\InvoiceController
     type:     rest
 
-lighthouse.core.invoice_product:
+lighthouse.core.invoice.product:
     resource: Lighthouse\CoreBundle\Controller\InvoiceProductController
     parent:   lighthouse.core.invoice
     type:     rest
@@ -18,6 +18,11 @@ lighthouse.core.purchase:
 lighthouse.core.write-off:
     resource: Lighthouse\CoreBundle\Controller\WriteOffController
     type:     rest
+
+lighthouse.core.write-off.product:
+    resource: Lighthouse\CoreBundle\Controller\WriteOffProductController
+    type:     rest
+    parent:   lighthouse.core.write-off
 
 lighthouse.core.service:
     resource: Lighthouse\CoreBundle\Controller\ServiceController
