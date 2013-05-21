@@ -107,4 +107,36 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     {
         return 'WriteOffProduct';
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getReasonDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReasonQuantity()
+    {
+        return - $this->quantity;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getReasonProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @return Money
+     */
+    public function getReasonPrice()
+    {
+        return $this->price;
+    }
 }

@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Purchase\Purchase;
+use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
@@ -21,7 +22,7 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  * @property Product    $product
  * @property Purchase   $purchase
  */
-class PurchaseProduct extends AbstractDocument
+class PurchaseProduct extends AbstractDocument implements Reasonable
 {
     /**
      * @MongoDB\Id
@@ -92,5 +93,53 @@ class PurchaseProduct extends AbstractDocument
         $this->totalSellingPrice->setCountByQuantity($this->sellingPrice, $this->quantity, true);
 
         $this->createdDate = $this->purchase->createdDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReasonId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReasonType()
+    {
+        return 'PurchaseProduct';
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getReasonDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReasonQuantity()
+    {
+        return - $this->quantity;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getReasonProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @return Money
+     */
+    public function getReasonPrice()
+    {
+        return $this->sellingPrice;
     }
 }
