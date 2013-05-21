@@ -373,7 +373,7 @@ class WriteOffProductControllerTest extends WebTestCase
         Assert::assertResponseCode(204, $this->client);
     }
 
-    public function testGetAction()
+    public function testGetWriteOffProductAction()
     {
         $this->clearMongoDb();
 
@@ -394,7 +394,7 @@ class WriteOffProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productId, 'product.id', $getResponse);
     }
 
-    public function testGetActionNotFound()
+    public function testGetWriteOffProductActionNotFound()
     {
         $this->clearMongoDb();
 
@@ -594,5 +594,85 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->assertProduct($productId1, array('amount' => 10));
         $this->assertProduct($productId2, array('amount' => 20));
+    }
+
+    public function testGetWriteOffProductsAction()
+    {
+        $this->clearMongoDb();
+
+        $product1 = $this->createProduct('1');
+        $product2 = $this->createProduct('2');
+        $product3 = $this->createProduct('3');
+
+        $writeOffId1 = $this->createWriteOff('1');
+        $writeOffId2 = $this->createWriteOff('2');
+
+        $writeOffProduct1 = $this->createWriteOffProduct($writeOffId1, $product1);
+        $writeOffProduct2 = $this->createWriteOffProduct($writeOffId1, $product2);
+        $writeOffProduct3 = $this->createWriteOffProduct($writeOffId1, $product3);
+
+        $writeOffProduct4 = $this->createWriteOffProduct($writeOffId2, $product2);
+        $writeOffProduct5 = $this->createWriteOffProduct($writeOffId2, $product3);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId1 . '/products.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(3, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOffProduct1, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($writeOffProduct2, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($writeOffProduct3, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($writeOffProduct4, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($writeOffProduct5, '*.id', $getResponse, false);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId2 . '/products.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOffProduct4, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($writeOffProduct5, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($writeOffProduct1, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($writeOffProduct2, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($writeOffProduct3, '*.id', $getResponse, false);
+    }
+
+    public function testGetWriteOffProductsActionNotFound()
+    {
+        $this->clearMongoDb();
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/123484923423/products.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
+
+    public function testGetInvoiceProductsActionEmptyCollection()
+    {
+        $this->clearMongoDb();
+
+        $writeOffId = $this->createWriteOff();
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId . '/products.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(0, '*.id', $response);
     }
 }

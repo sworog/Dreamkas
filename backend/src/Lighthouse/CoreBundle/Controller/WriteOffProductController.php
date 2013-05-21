@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
+use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductCollection;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Form\WriteOffProductType;
@@ -80,6 +81,16 @@ class WriteOffProductController extends AbstractRestController
     public function getProductAction($writeOffId, $writeOffProductId)
     {
         return $this->findWriteOffProduct($writeOffProductId, $writeOffId);
+    }
+
+    /**
+     * @param string $writeOffId
+     * @return WriteOffProductCollection
+     */
+    public function getProductsAction($writeOffId)
+    {
+        $writeOff = $this->findWriteOff($writeOffId);
+        return $this->getDocumentRepository()->findAllByWriteOff($writeOff);
     }
 
     /**
