@@ -220,7 +220,7 @@ class TrialBalanceTest extends WebTestCase
         $this->assertEquals(239.97, $trialBalance->totalPrice->getCount());
     }
 
-    public function testCreateTrialBalanceByWriteOff()
+    public function testCreateTrialBalanceByWriteOffCRUD()
     {
         $this->clearMongoDb();
 
@@ -251,5 +251,23 @@ class TrialBalanceTest extends WebTestCase
         $this->assertEquals(79.99, $trialBalance->price->getCount());
         $this->assertEquals(-3, $trialBalance->quantity);
         $this->assertEquals(239.97, $trialBalance->totalPrice->getCount());
+
+        // Edit
+        $writeOffProduct->price = new Money(77.99);
+        $writeOffProduct->quantity = 7;
+        $manager->flush($writeOffProduct);
+
+        $afterEditTrialBalance = $trialBalanceRepository->findOneByProduct($product);
+
+        $this->assertEquals(77.99, $trialBalance->price->getCount());
+        $this->assertEquals(-7, $trialBalance->quantity);
+        $this->assertEquals(545.93, $trialBalance->totalPrice->getCount());
+
+        // Delete
+        $manager->remove($writeOffProduct);
+        $manager->flush();
+
+        $afterDeleteTrialBalance = $trialBalanceRepository->findOneByProduct($product);
+        $this->assertTrue(null === $afterDeleteTrialBalance);
     }
 }
