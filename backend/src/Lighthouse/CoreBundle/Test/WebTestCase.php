@@ -349,13 +349,13 @@ class WebTestCase extends BaseTestCase
      * @param int $quantity
      * @param string $cause
      */
-    protected function createWriteOff($number, $date = null)
+    protected function createWriteOff($number = '431-6782', $date = null)
     {
-        $date = $date ? : strtotime('-1 day');
+        $date = $date ? : date('c', strtotime('-1 day'));
 
         $postData = array(
             'number' => $number,
-            'date' => date('c', $date),
+            'date' => $date,
         );
 
         $postResponse = $this->clientJsonRequest(

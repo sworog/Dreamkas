@@ -63,6 +63,53 @@ class WriteOffControllerTest extends WebTestCase
         }
     }
 
+    /**
+     * @dataProvider validationWriteOffProvider
+     *
+     * @param $expectedCode
+     * @param array $data
+     * @param array $assertions
+     */
+    public function testPutWriteOffValidation($expectedCode, array $data, array $assertions = array())
+    {
+        $this->clearMongoDb();
+
+        $postData = array(
+            'date' => '11.07.2012',
+            'number' => '1234567',
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/writeoffs.json',
+            array('writeOff' => $postData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        $writeOffId = $postResponse['id'];
+
+        $putData = $data + $postData;
+
+        $putResponse = $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/writeoffs/' . $writeOffId . '.json',
+            array('writeOff' => $putData)
+        );
+
+        $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
+
+        Assert::assertResponseCode($expectedCode, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathContains($expected, $path, $putResponse);
+        }
+    }
+
     public function validationWriteOffProvider()
     {
         return array(
@@ -111,5 +158,47 @@ class WriteOffControllerTest extends WebTestCase
                 array('number' => str_repeat('z', 100)),
             ),
         );
+    }
+
+    public function testGetAction()
+    {
+        $this->clearMongoDb();
+
+        $number = '431-1234';
+        $date = '2012-05-23T15:12:05+0400';
+
+        $writeOfId = $this->createWriteOff($number, $date);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/' . $writeOfId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathEquals($writeOfId, 'id', $getResponse);
+        Assert::assertJsonPathEquals($number, 'number', $getResponse);
+        Assert::assertJsonPathEquals($date, 'date', $getResponse);
+    }
+
+    public function testGetActionNotFound()
+    {
+        $this->clearMongoDb();
+
+        $writeOfId = $this->createWriteOff();
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs/invalidId.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        Assert::assertJsonPathContains('not found', '*.message', $getResponse);
+        Assert::assertNotJsonHasPath('id', $getResponse);
+        Assert::assertNotJsonHasPath('number', $getResponse);
+        Assert::assertNotJsonHasPath('date', $getResponse);
     }
 }

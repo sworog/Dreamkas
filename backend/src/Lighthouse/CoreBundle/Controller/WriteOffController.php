@@ -17,15 +17,7 @@ class WriteOffController extends AbstractRestController
      * @DI\Inject("lighthouse.core.document.repository.writeoff")
      * @var WriteOffRepository
      */
-    protected $writeOffRepository;
-
-    /**
-     * @return \Lighthouse\CoreBundle\Document\DocumentRepository|WriteOffRepository
-     */
-    protected function getDocumentRepository()
-    {
-        return $this->writeOffRepository;
-    }
+    protected $documentRepository;
 
     /**
      * @return WriteOffType|\Symfony\Component\Form\AbstractType
@@ -39,7 +31,7 @@ class WriteOffController extends AbstractRestController
      * @Rest\View(statusCode=201)
      *
      * @param Request $request
-     * @return \FOS\RestBundle\View\View
+     * @return \FOS\RestBundle\View\View|WriteOff
      */
     public function postWriteoffsAction(Request $request)
     {
@@ -50,9 +42,19 @@ class WriteOffController extends AbstractRestController
      * @Rest\View(statusCode=200)
      *
      * @param Request $request
+     * @return \FOS\RestBundle\View\View|WriteOff
      */
     public function putWriteoffsAction(Request $request, $id)
     {
         return $this->processPut($request, $id);
+    }
+
+    /**
+     * @param string $id
+     * @return \Lighthouse\CoreBundle\Document\WriteOff\WriteOff
+     */
+    public function getWriteoffAction($id)
+    {
+        return $this->processGet($id);
     }
 }

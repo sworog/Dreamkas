@@ -103,7 +103,7 @@ abstract class AbstractRestController extends FOSRestController
 
     /**
      * @param int $id
-     * @return \Lighthouse\CoreBundle\Document\Invoice\Invoice
+     * @return \Lighthouse\CoreBundle\Document\AbstractDocument
      */
     protected function processGet($id)
     {
