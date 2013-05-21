@@ -100,10 +100,24 @@ class TrialBalanceListener
             if ($document instanceof Invoice) {
                 $this->processInvoiceOnUpdate($document, $dm, $uow);
             }
+
+            if ($document instanceof WriteOffProduct) {
+                $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
+
+                $trialBalance->price = $document->price;
+                $trialBalance->quantity = - $document->quantity;
+                $trialBalance->product = $document->product;
+
+                $dm->persist($trialBalance);
+
+                $this->computeChangeSet($dm, $uow, $trialBalance);
+            }
         }
 
         foreach ($uow->getScheduledDocumentDeletions() as $document) {
-            if ($document instanceof InvoiceProduct) {
+            if ($document instanceof InvoiceProduct
+                || $document instanceof WriteOffProduct
+            ) {
                 $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
                 $dm->remove($trialBalance);
 

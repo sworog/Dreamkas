@@ -97,7 +97,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonId()
     {
-        $this->id;
+        return $this->id;
     }
 
     /**
