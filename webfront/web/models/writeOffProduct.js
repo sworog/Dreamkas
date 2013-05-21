@@ -6,12 +6,13 @@ define(
         return baseModel.extend({
             modelName: 'writeOffProduct',
             urlRoot: function(){
-                return baseApiUrl + '/writeOff/'+ this.get('writeOff').id  + '/products';
+                return baseApiUrl + '/writeoffs/'+ this.get('writeOff').id  + '/products';
             },
             saveFields: [
                 'product',
                 'quantity',
-                'price'
+                'price',
+                'cause'
             ]
         });
     });

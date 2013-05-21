@@ -1,0 +1,146 @@
+.writeOff__title{
+    font-size: 20px;
+    padding: 0 0 20px;
+}
+
+.writeOff__totalSum {
+    margin: 0 5px;
+}
+
+.writeOff__totalProducts {
+    margin: 0 5px;
+}
+
+.writeOff__table {
+    margin-bottom: 20px;
+}
+
+.writeOff__controlItem{
+    padding-bottom: 10px;
+}
+
+.writeOff__footer{
+    padding-bottom: 20px;
+}
+
+.writeOff__addProductForm,
+.writeOff__stopEditLink {
+    display: none;
+}
+
+.writeOff_editMode .writeOff__addProductForm {
+    display: block;
+}
+
+.writeOff_editMode .writeOff__stopEditLink {
+    display: inline;
+}
+
+.writeOff_editMode .writeOff__editLink {
+    display: none;
+}
+
+.writeOff_editMode .writeOff__editable {
+    border-bottom: dashed 1px;
+    cursor: pointer;
+}
+
+.writeOff_dataEditing .writeOff__editable{
+    border-bottom: transparent;
+    cursor: default;
+}
+
+.writeOff__hiddenData {
+    display: none;
+    color: #999;
+}
+
+.writeOff__table .writeOff__hiddenData {
+    visibility: hidden;
+    display: inline;
+}
+
+.writeOff_editMode .writeOff__hiddenData {
+    display: inline;
+    visibility: visible;
+}
+
+.invoice [name] {
+    position: relative;
+}
+
+.writeOff__dataInput{
+    position: absolute;
+    left: -9px;
+    top: -7px;
+    z-index: 10;
+}
+
+.writeOff__dataInput .inputText{
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+
+.writeOff__dataInput [type="submit"] {
+    display: none;
+}
+
+.writeOff__dataInputControlsTd{
+    padding: 10px;
+    background: #f4f4f4;
+    margin-top: 10px;
+}
+
+.writeOff__dataInputControlsTd{
+    padding: 0 !important;
+}
+
+.writeOff__dataInputControls{
+    padding: 10px;
+    background: #fffee2 !important;
+    margin: 10px 0;
+}
+
+.writeOff__dataInputControlsTd .writeOff__dataInputControls{
+    margin: 0;
+}
+
+.writeOff__dataInputControls[lh_field_error]:before{
+    content: attr(lh_field_error);
+    display: block;
+    color: #c60f13;
+    padding: 0 0 10px;
+}
+
+.writeOff__dataInputControls[lh_field_error]:after{
+    display: none;
+}
+
+.writeOff__removeLink {
+    cursor: pointer;
+    visibility: hidden;
+    color: #336699;
+    border-bottom: 1px dotted;
+    opacity: 0;
+}
+
+.writeOff_editMode .writeOff__removeLink {
+    visibility: visible;
+}
+
+.writeOff__table tr:hover .writeOff__removeLink {
+    opacity: 1;
+}
+
+.writeOff__removeConfirmRow td{
+    background: #eee;
+}
+
+.writeOff__removeCancel{
+    vertical-align: middle;
+}
+
+.writeOff_dataEditing .writeOff__removeLink{
+    visibility: hidden;
+}

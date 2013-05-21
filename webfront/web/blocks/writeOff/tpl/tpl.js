@@ -1,7 +1,9 @@
 define(function(require) {
     return {
-        main: require('./writeOff.html'),
-        head: require('./head.html'),
-        footer: require('./footer.html')
+        main: require('tpl!./writeOff.html'),
+        table: require('tpl!./table.html'),
+        row: require('tpl!./row.html'),
+        head: require('tpl!./head.html'),
+        footer: require('tpl!./footer.html')
     }
 });

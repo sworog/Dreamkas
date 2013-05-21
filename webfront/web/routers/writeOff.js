@@ -1,19 +1,19 @@
 define(
     [
-        '/pages/page.js',
+        '/kit/page.js',
         './baseRouter.js'
     ],
     function(page, BaseRouter) {
-        return BaseRouter.extend({
+        var Router = BaseRouter.extend({
             routes: {
-                'writeOff': 'list',
-                'writeOff/:writeOffId': 'view',
-                'writeOff/create': 'create'
+                'writeOffs': 'list',
+                'writeOff/create': 'create',
+                'writeOff/:writeOffId': 'view'
             },
             view: function(writeOffId, params) {
                 page.open('/pages/writeOff/view.html', {
                     writeOffId: writeOffId,
-                    params: params
+                    params: params || {}
                 });
             },
             list: function(){
@@ -23,5 +23,7 @@ define(
                 page.open('/pages/writeOff/create.html');
             }
         });
+
+        return new Router();
     }
 );

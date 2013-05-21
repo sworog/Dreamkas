@@ -9,11 +9,7 @@
     -moz-box-sizing: border-box;
 }
 
-.page_reloading{
-    background: url("/img/preloader2.gif") center no-repeat;
-}
-
-.page_reloading * {
+.page.preloader * {
     display: none;
 }
 

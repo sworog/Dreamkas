@@ -10,7 +10,7 @@ define(
             },
             model: writeOffProduct,
             url: function() {
-                return baseApiUrl + '/writeOff/'+ this.writeOffId  + '/products.json'
+                return baseApiUrl + '/writeoffs/'+ this.writeOffId  + '/products.json'
             }
         });
     }

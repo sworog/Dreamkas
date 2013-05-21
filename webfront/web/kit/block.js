@@ -1,6 +1,6 @@
 define(
     [
-        '/pages/page.js'
+        '/kit/page.js'
     ],
     function(page) {
         return Backbone.View.extend({

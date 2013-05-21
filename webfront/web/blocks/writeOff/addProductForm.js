@@ -1,13 +1,12 @@
 define(
     [
         '/kit/form/form.js',
-        '/models/invoiceProduct.js'
+        '/models/writeOffProduct.js'
     ],
-    function(Form, InvoiceProduct) {
+    function(Form, WriteOffProduct) {
         return Form.extend({
-            defaults: {
-                invoiceId: null
-            },
+            writeOffId: null,
+
             initialize: function(){
                 Form.prototype.initialize.apply(this, arguments);
 
@@ -21,9 +20,9 @@ define(
                 var block = this,
                     deferred = $.Deferred(),
                     productData = Backbone.Syphon.serialize(block),
-                    newProduct = new InvoiceProduct({
-                        invoice: {
-                            id: block.invoiceId
+                    newProduct = new WriteOffProduct({
+                        writeOff: {
+                            id: block.writeOffId
                         }
                     });
 

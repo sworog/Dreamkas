@@ -7,13 +7,10 @@ define(
         './addProductForm.js',
         './tpl/tpl.js'
     ],
-    function(Block, InvoiceModel, InvoiceProductCollection, utils, AddForm, tpl) {
+    function(Block, InvoiceModel, InvoiceProductCollection, helpers, AddProductForm, tpl) {
         return Block.extend({
-            defaults: {
-                editMode: false,
-                dataEditing: false
-            },
-            utils: utils,
+            editMode: false,
+            dataEditing: false,
             tpl: tpl,
 
             initialize: function() {
@@ -38,7 +35,7 @@ define(
                 block.$table = block.$el.find('.invoice__table');
                 block.$footer = block.$el.find('.invoice__footer');
 
-                block.addForm = new AddForm({
+                block.addForm = new AddProductForm({
                     invoiceId: block.invoiceId,
                     el: block.el.getElementsByClassName('invoice__addProductForm')
                 });

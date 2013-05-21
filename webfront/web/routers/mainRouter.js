@@ -1,10 +1,11 @@
 define(
     [
-        '/pages/page.js',
+        '/kit/page.js',
         './baseRouter.js',
         './invoice.js',
         './balance.js',
-        './product.js'
+        './product.js',
+        './writeOff.js'
     ],
     function(page, BaseRouter) {
 
