@@ -6,10 +6,10 @@
 </tr>
 </thead>
 <tbody>
-<% _.each(block.invoiceCollection.toJSON(), function(invoice){ %>
+<% _.each(block.writeOffCollection.toJSON(), function(writeOff){ %>
     <%= block.tpl.row({
         block: block,
-        invoice: invoice
+        writeOff: writeOff
     }) %>
 <% }) %>
 </tbody>

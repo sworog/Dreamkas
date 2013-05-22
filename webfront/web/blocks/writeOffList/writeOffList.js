@@ -7,7 +7,7 @@ define(
     function(Block, WriteOffCollection, tpl) {
         return Block.extend({
             tpl: tpl,
-            invoiceCollection: new WriteOffCollection(),
+            writeOffCollection: new WriteOffCollection(),
 
             initialize: function() {
                 var block = this;
@@ -15,7 +15,7 @@ define(
                 block.render();
                 block.$table = block.$el.find('.writeOff__table');
 
-                block.listenTo(block.invoiceCollection, {
+                block.listenTo(block.writeOffCollection, {
                     reset: function() {
                         block.renderTable();
                     },
@@ -24,7 +24,7 @@ define(
                     }
                 });
 
-                block.invoiceCollection.fetch();
+                block.writeOffCollection.fetch();
             },
             renderTable: function() {
                 var block = this;
