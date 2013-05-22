@@ -6,7 +6,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use JMS\DiExtraBundle\Annotation as DI;
 
+/**
+ * Class InvoiceType
+ * @DI\Service("lighthouse_core.form.invoice")
+ */
 class InvoiceType extends AbstractType
 {
     /**

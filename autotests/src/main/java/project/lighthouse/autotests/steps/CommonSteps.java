@@ -12,6 +12,8 @@ import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
 
+import java.io.IOException;
+
 public class CommonSteps extends ScenarioSteps {
 
     CommonPage commonPage;
@@ -56,19 +58,19 @@ public class CommonSteps extends ScenarioSteps {
     }
 
     @Step
-    public void createProductPostRequestSend(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException {
+    public void createProductPostRequestSend(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
         productListPage.open();
         commonPage.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
     }
 
     @Step
-    public void createInvoiceThroughPost(String invoiceName) throws JSONException {
+    public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
         invoiceListPage.open();
         commonPage.createInvoiceThroughPost(invoiceName);
     }
 
     @Step
-    public void createInvoiceThroughPostWithData(String invoiceName, String productName) throws JSONException {
+    public void createInvoiceThroughPostWithData(String invoiceName, String productName) throws JSONException, IOException {
         if (!StaticDataCollections.invoices.containsKey(invoiceName)) {
             createInvoiceThroughPost(invoiceName);
             continueCreatingInvoiceProduct(productName);

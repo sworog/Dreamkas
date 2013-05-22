@@ -12,7 +12,6 @@ import project.lighthouse.autotests.pages.elements.*;
 @DefaultUrl("/invoice/create")
 public class InvoiceCreatePage extends CommonPageObject {
 
-    private static final String INVOICE_NAME = "invoice";
     private static final String XPATH_PATTERN = "//*[@class='invoice__dataInput']/*[@name='%s']";
     private static final String XPATH_AC_PATTERN = "//*[@class='invoice__dataInput']/*[@lh_product_autocomplete='%s']";
 

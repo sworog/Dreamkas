@@ -24,6 +24,7 @@ class FloatViewTransformer implements DataTransformerInterface
     /**
      * @param mixed $value
      * @return mixed|void
+     * @throws TransformationFailedException
      */
     public function reverseTransform($value)
     {

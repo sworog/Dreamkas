@@ -59,12 +59,12 @@
     padding-bottom: 20px;
 }
 
-.invoice__addForm,
+.invoice__addProductForm,
 .invoice__stopEditLink {
     display: none;
 }
 
-.invoice_editMode .invoice__addForm {
+.invoice_editMode .invoice__addProductForm {
     display: block;
 }
 

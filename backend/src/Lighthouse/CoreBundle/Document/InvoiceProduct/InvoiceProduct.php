@@ -106,4 +106,36 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     {
         return 'InvoiceProduct';
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getReasonDate()
+    {
+        return $this->invoice->acceptanceDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReasonQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getReasonProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @return Money
+     */
+    public function getReasonPrice()
+    {
+        return $this->price;
+    }
 }

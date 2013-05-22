@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
@@ -15,19 +14,27 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use JMS\DiExtraBundle\Annotation as DI;
 
-class InvoiceProductController extends FOSRestController
+class InvoiceProductController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.invoice_product")
      * @var InvoiceProductRepository
      */
-    protected $invoiceProductRepository;
+    protected $documentRepository;
 
     /**
      * @DI\Inject("lighthouse.core.document.repository.invoice")
      * @var InvoiceRepository
      */
     protected $invoiceRepository;
+
+    /**
+     * @return AbstractType
+     */
+    protected function getDocumentFormType()
+    {
+        return new InvoiceProductType();
+    }
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -76,7 +83,7 @@ class InvoiceProductController extends FOSRestController
     public function getProductsAction($invoiceId)
     {
         $invoice = $this->findInvoice($invoiceId);
-        $invoiceProducts = $this->invoiceProductRepository->findByInvoice($invoice->id);
+        $invoiceProducts = $this->getDocumentRepository()->findByInvoice($invoice->id);
         return new InvoiceProductCollection($invoiceProducts);
     }
 
@@ -88,29 +95,8 @@ class InvoiceProductController extends FOSRestController
     public function deleteProductAction($invoiceId, $invoiceProductId)
     {
         $invoiceProduct = $this->findInvoiceProduct($invoiceProductId, $invoiceId);
-        $this->invoiceProductRepository->getDocumentManager()->remove($invoiceProduct);
-        $this->invoiceProductRepository->getDocumentManager()->flush();
-    }
-
-    /**
-     * @param Request $request
-     * @param InvoiceProduct $invoiceProduct
-     * @return \FOS\RestBundle\View\View|InvoiceProduct
-     */
-    protected function processForm(Request $request, InvoiceProduct $invoiceProduct)
-    {
-        $invoiceType = new InvoiceProductType();
-
-        $form = $this->createForm($invoiceType, $invoiceProduct);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $this->invoiceRepository->getDocumentManager()->persist($invoiceProduct);
-            $this->invoiceRepository->getDocumentManager()->flush();
-            return $invoiceProduct;
-        } else {
-            return View::create($form, 400);
-        }
+        $this->getDocumentRepository()->getDocumentManager()->remove($invoiceProduct);
+        $this->getDocumentRepository()->getDocumentManager()->flush();
     }
 
     /**
@@ -135,7 +121,7 @@ class InvoiceProductController extends FOSRestController
      */
     protected function findInvoiceProduct($invoiceProductId, $invoiceId)
     {
-        $invoiceProduct = $this->invoiceProductRepository->find($invoiceProductId);
+        $invoiceProduct = $this->getDocumentRepository()->find($invoiceProductId);
         if (null === $invoiceProduct) {
             throw new NotFoundHttpException("InvoiceProduct not found");
         } elseif ($invoiceProduct->invoice->id != $invoiceId) {

@@ -432,7 +432,6 @@ class InvoiceProductControllerTest extends WebTestCase
     public function testGetInvoiceProductsAction()
     {
         $this->clearMongoDb();
-        $this->client->restart();
 
         $invoiceId = $this->createInvoice();
         $productId = $this->createProduct();
@@ -473,7 +472,9 @@ class InvoiceProductControllerTest extends WebTestCase
                 array('invoiceProduct' => $invoiceProductData)
             );
 
-            $this->assertEquals(201, $this->client->getResponse()->getStatusCode(), $this->client->getResponse());
+            Assert::assertResponseCode(201, $this->client);
+            Assert::assertJsonHasPath('id', $response);
+
             $providerData[$i]['id'] = $response['id'];
         }
 
@@ -483,20 +484,17 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId . '/products.json'
         );
 
-        $this->assertInternalType('array', $response);
-        $this->assertCount(3, $response);
-        foreach ($providerData as $i => $row) {
-            $this->assertTrue(isset($response[$i]['id']));
-            $this->assertEquals($row['id'], $response[$i]['id']);
-            $this->assertTrue(isset($response[$i]['product']['id']));
-            $this->assertEquals($row['product'], $response[$i]['product']['id']);
+        Assert::assertJsonPathCount(3, '*.id', $response);
+
+        foreach ($providerData as $row) {
+            Assert::assertJsonPathEquals($row['id'], '*.id', $response, 1);
+            Assert::assertJsonPathEquals($row['product'], '*.product.id', $response);
         }
     }
 
     public function testGetInvoiceProductsActionNotFound()
     {
         $this->clearMongoDb();
-        $this->client->restart();
 
         $this->clientJsonRequest(
             $this->client,
@@ -504,7 +502,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/123484923423/products.json'
         );
 
-        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        Assert::assertResponseCode(404, $this->client);
     }
 
     public function testGetInvoiceProductsActionEmptyCollection()
@@ -519,7 +517,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId . '/products.json'
         );
 
-        Assert::assertResponseCode(200, $this->client->getResponse());
+        Assert::assertResponseCode(200, $this->client);
         $this->assertInternalType('array', $response);
         $this->assertCount(0, $response);
     }
@@ -1201,32 +1199,5 @@ class InvoiceProductControllerTest extends WebTestCase
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertProduct($productId, array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26));
-    }
-
-    /**
-     * @param $invoiceId
-     * @param $productId
-     * @param $quantity
-     * @param $price
-     * @return mixed
-     */
-    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
-    {
-        $invoiceProductData = array(
-            'product' => $productId,
-            'quantity' => $quantity,
-            'price' => $price
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $this->client,
-            'POST',
-            '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
-        );
-
-        Assert::assertResponseCode(201, $this->client);
-
-        return $postResponse['id'];
     }
 }

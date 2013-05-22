@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
+use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 
 /**
  * Class TrialBalanceListener
@@ -42,27 +43,14 @@ class TrialBalanceListener
         $uow = $dm->getUnitOfWork();
 
         foreach ($uow->getScheduledDocumentInsertions() as $document) {
-            if ($document instanceof InvoiceProduct) {
+            if ($document instanceof Reasonable) {
                 $trialBalance = new TrialBalance();
 
-                $trialBalance->price = $document->price;
-                $trialBalance->quantity = $document->quantity;
-                $trialBalance->product = $document->product;
+                $trialBalance->price = $document->getReasonPrice();
+                $trialBalance->quantity = $document->getReasonQuantity();
+                $trialBalance->product = $document->getReasonProduct();
                 $trialBalance->reason = $document;
-                $trialBalance->createdDate = $document->invoice->acceptanceDate;
-
-                $dm->persist($trialBalance);
-
-                $this->computeChangeSet($dm, $uow, $trialBalance);
-            }
-
-            if ($document instanceof PurchaseProduct) {
-                $trialBalance = new TrialBalance();
-                $trialBalance->price = $document->sellingPrice;
-                $trialBalance->quantity = - $document->quantity;
-                $trialBalance->product = $document->product;
-                $trialBalance->reason = $document;
-                $trialBalance->createdDate = $document->createdDate;
+                $trialBalance->createdDate = $document->getReasonDate();
 
                 $dm->persist($trialBalance);
 
@@ -71,12 +59,12 @@ class TrialBalanceListener
         }
 
         foreach ($uow->getScheduledDocumentUpdates() as $document) {
-            if ($document instanceof InvoiceProduct) {
+            if ($document instanceof Reasonable) {
                 $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
 
-                $trialBalance->price = $document->price;
-                $trialBalance->quantity = $document->quantity;
-                $trialBalance->product = $document->product;
+                $trialBalance->price = $document->getReasonPrice();
+                $trialBalance->quantity = $document->getReasonQuantity();
+                $trialBalance->product = $document->getReasonProduct();
 
                 $dm->persist($trialBalance);
 
@@ -89,7 +77,7 @@ class TrialBalanceListener
         }
 
         foreach ($uow->getScheduledDocumentDeletions() as $document) {
-            if ($document instanceof InvoiceProduct) {
+            if ($document instanceof Reasonable) {
                 $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
                 $dm->remove($trialBalance);
 

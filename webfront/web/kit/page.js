@@ -9,19 +9,20 @@ define(function() {
 
             $page = $page || $('#page');
 
-            $page.addClass('page_reloading');
+            $page.addClass('preloader preloader_spinner');
             page.clear();
             require(['tpl!' + pageTpl], function(pageTpl) {
                 $page
                     .html(pageTpl(data))
                     .initBlocks()
-                    .removeClass('page_reloading');
+                    .removeClass('preloader preloader_spinner');
             })
         },
         clear: function() {
+            $page.empty();
+
             _.each(pageBlocks, function(block) {
                 block.stopListening();
-                block.$el.remove();
             });
 
             pageBlocks = [];

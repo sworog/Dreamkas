@@ -1,0 +1,55 @@
+<tr writeOff-product-id="<%= writeOffProduct.id %>" name="writeOffProduct" class="writeOff__dataRow" product-sku="<%= writeOffProduct.product.sku %>">
+    <td>
+        <span name="productName"
+              class="writeOff__editable"
+              autocomplete-name="name"
+              model-attr="product"
+              product-id="<%= writeOffProduct.product.id %>"><%= writeOffProduct.product.name %></span>
+        <br />
+        <span name="productSku"
+              class="writeOff__editable"
+              autocomplete-name="sku"
+              model-attr="product"
+              product-id="<%= writeOffProduct.product.id %>"><%= writeOffProduct.product.sku %></span>
+    </td>
+    <td>
+        <span name="productBarcode"
+              class="writeOff__editable <%= writeOffProduct.product.barcode ? '' : 'writeOff__hiddenData' %>"
+              autocomplete-name="barcode"
+              model-attr="product"
+              product-id="<%= writeOffProduct.product.id %>">
+            <%= writeOffProduct.product.barcode ? writeOffProduct.product.barcode : 'Ввести штрихкод' %>
+        </span>
+    </td>
+    <td>
+        <span class="writeOff__editable">
+            <span name="productAmount" model-attr="quantity">
+                <%= writeOffProduct.quantity %>
+            </span>
+            <span name="productUnits">
+                <%= LH.helpers.units(writeOffProduct.product.units, 'smallShort') %>
+            </span>
+        </span>
+    </td>
+    <td>
+        <span class="writeOff__editable">
+            <span>
+                по
+            </span>
+            <span name="productPrice" model-attr="price">
+                <%= LH.helpers.formatPrice(writeOffProduct.price) %>
+            </span>
+            <span>
+                р.
+            </span>
+        </span>
+    </td>
+    <td>
+        <span class="writeOff__editable" name="productCause" model-attr="cause">
+            <%= writeOffProduct.cause %>
+        </span>
+    </td>
+    <td style="width: 1px;">
+        <span class="writeOff__removeLink">удалить</span>
+    </td>
+</tr>

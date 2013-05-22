@@ -1,27 +1,27 @@
 define(
     [
-        '/pages/page.js',
+        '/kit/page.js',
         './baseRouter.js'
     ],
     function(page, BaseRouter) {
 
         var Router = BaseRouter.extend({
             routes: {
-                'invoices': 'invoiceList',
-                'invoice/list': 'invoiceList',
-                'invoice/create': 'invoiceCreate',
-                'invoice/:invoiceId': 'invoiceView'
+                'invoices': 'list',
+                'invoice/list': 'list',
+                'invoice/create': 'create',
+                'invoice/:invoiceId': 'view'
             },
-            invoiceView: function(invoiceId, params){
+            view: function(invoiceId, params){
                 page.open('/pages/invoice/view.html', {
                     invoiceId: invoiceId,
                     params: params || {}
                 });
             },
-            invoiceCreate: function(){
+            create: function(){
                 page.open('/pages/invoice/create.html');
             },
-            invoiceList: function(){
+            list: function(){
                 page.open('/pages/invoice/list.html');
             }
         });

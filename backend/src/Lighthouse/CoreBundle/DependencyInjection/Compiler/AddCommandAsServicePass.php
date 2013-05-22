@@ -13,7 +13,7 @@ class AddCommandAsServicePass implements CompilerPassInterface
      * You can modify the container here before it is dumped to PHP code.
      *
      * @param ContainerBuilder $container
-     *
+     * @throws ServiceNotFoundException
      * @api
      */
     public function process(ContainerBuilder $container)

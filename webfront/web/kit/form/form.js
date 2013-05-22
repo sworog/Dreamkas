@@ -13,15 +13,15 @@ define(
                     e.preventDefault();
                     var block = this;
 
-                    block.$submitButton.addClass('preloader');
+                    block.$submitButton.addClass('preloader preloader_rows');
                     block.removeErrors();
 
                     block.submit().then(function(data) {
                         block.trigger('successSubmit', data);
-                        block.$submitButton.removeClass('preloader');
+                        block.$submitButton.removeClass('preloader preloader_rows');
                     }, function(data) {
                         block.showErrors(data);
-                        block.$submitButton.removeClass('preloader');
+                        block.$submitButton.removeClass('preloader preloader_rows');
                     });
                 }
             },
@@ -40,7 +40,7 @@ define(
                 var block = this;
 
                 block.removeErrors();
-                block.$submitButton.removeClass('preloader');
+                block.$submitButton.removeClass('preloader preloader_rows');
 
                 if (errors) {
                     _.each(errors.children, function(data, field) {
@@ -71,7 +71,7 @@ define(
                 var block = this;
 
                 block.removeErrors();
-                block.$submitButton.removeClass('preloader');
+                block.$submitButton.removeClass('preloader preloader_rows');
 
                 block.$el.find(':input').each(function() {
                     switch (this.type) {

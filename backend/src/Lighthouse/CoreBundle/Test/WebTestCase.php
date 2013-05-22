@@ -26,6 +26,33 @@ class WebTestCase extends BaseTestCase
      */
     protected $client;
 
+    /**
+     * @param $invoiceId
+     * @param $productId
+     * @param $quantity
+     * @param $price
+     * @return mixed
+     */
+    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
+    {
+        $invoiceProductData = array(
+            'product' => $productId,
+            'quantity' => $quantity,
+            'price' => $price
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $invoiceProductData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        return $postResponse['id'];
+    }
+
     protected function setUp()
     {
         $this->client = static::createClient();
@@ -312,5 +339,67 @@ class WebTestCase extends BaseTestCase
         Assert::assertResponseCode(200, $this->client);
 
         $this->performJsonAssertions($productJson, $assertions);
+    }
+
+    /**
+     * @param string $number
+     * @param int $date
+     * @param string $productId
+     * @param float $price
+     * @param int $quantity
+     * @param string $cause
+     */
+    protected function createWriteOff($number = '431-6782', $date = null)
+    {
+        $date = $date ? : date('c', strtotime('-1 day'));
+
+        $postData = array(
+            'number' => $number,
+            'date' => $date,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/writeoffs.json',
+            array('writeOff' => $postData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
+
+    /**
+     * @param string $writeOffId
+     * @param string $productId
+     * @param float $price
+     * @param int $quantity
+     * @param string $cause
+     * @return string
+     */
+    protected function createWriteOffProduct($writeOffId, $productId, $price = 5.99, $quantity = 10, $cause = 'Порча')
+    {
+        $postData = array(
+            'product' => $productId,
+            'price' => $price,
+            'quantity' => $quantity,
+            'cause' => $cause,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/writeoffs/' . $writeOffId . '/products.json',
+            array('writeOffProduct' => $postData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
     }
 }

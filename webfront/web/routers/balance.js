@@ -1,6 +1,6 @@
 define(
     [
-        '/pages/page.js',
+        '/kit/page.js',
         './baseRouter.js'
     ],
     function(page, BaseRouter) {

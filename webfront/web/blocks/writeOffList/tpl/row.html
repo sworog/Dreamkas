@@ -1,0 +1,12 @@
+<tr name="writeOff" href="/writeOff/<%= writeOff.id %>">
+    <td>
+        <span name="date"><%= moment(writeOff.date).format('DD.MM.YYYY') %></span>
+    </td>
+    <td>
+        <span name="number"><%= writeOff.number %></span>
+    </td>
+    <td>
+        <span name="sumTotal"><%= LH.helpers.formatPrice(writeOff.sumTotal) %></span>
+        <span>р.</span>
+    </td>
+</tr>

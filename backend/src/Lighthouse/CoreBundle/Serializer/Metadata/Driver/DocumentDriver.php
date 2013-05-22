@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Serializer\Metadata\Driver;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use FOS\RestBundle\Util\Pluralization;
+use FOS\RestBundle\Util\Inflector\DoctrineInflector;
 use JMS\Serializer\Metadata\Driver\DoctrineTypeDriver;
 use Metadata\Driver\DriverInterface;
 use Metadata\ClassMetadata;
@@ -15,16 +15,25 @@ use JMS\DiExtraBundle\Annotation as DI;
 class DocumentDriver extends DoctrineTypeDriver
 {
     /**
+     * @var DoctrineInflector
+     */
+    protected $inflector;
+
+    /**
      * @DI\InjectParams({
      *      "delegate" = @DI\Inject("jms_serializer.metadata.chain_driver"),
-     *      "registry" = @DI\Inject("doctrine_mongodb")
+     *      "registry" = @DI\Inject("doctrine_mongodb"),
+     *      "inflector"= @DI\Inject("fos_rest.inflector.doctrine")
      * })
      * @param DriverInterface $delegate
      * @param ManagerRegistry $registry
+     * @param DoctrineInflector $inflector
      */
-    public function __construct(DriverInterface $delegate, ManagerRegistry $registry)
+    public function __construct(DriverInterface $delegate, ManagerRegistry $registry, DoctrineInflector $inflector)
     {
         parent::__construct($delegate, $registry);
+
+        $this->inflector = $inflector;
     }
 
     /**
@@ -73,7 +82,7 @@ class DocumentDriver extends DoctrineTypeDriver
     {
         $className = str_replace('Collection', '', $className);
         $className = lcfirst($className);
-        return Pluralization::pluralize($className);
+        return $this->inflector->pluralize($className);
     }
 
     /**
