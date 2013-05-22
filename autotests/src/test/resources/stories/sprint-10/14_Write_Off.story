@@ -88,10 +88,6 @@ Then the user checks write off elements values
 | elementName | expectedValue |
 | writeOff product price | 15 |
 
-
-!--Review
-
-
 Scenario: write off review kg
 Given there is the product with 'WriteOff-ProductName-review1' name, 'WriteOff-ProductSku-review1' sku, 'WriteOff-ProductBarCode-review1' barcode, 'kg' units, '15' purchasePrice
 And the user opens amount list page
@@ -255,10 +251,6 @@ Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductSku-review1' sku has 'amounts amount' element equal to '-20' on amounts page
 Then the user checks the product with 'WriteOff-ProductSku-review2' sku has 'amounts amount' element equal to '-20' on amounts page
 Then the user checks the product with 'WriteOff-ProductSku-review3' sku has 'amounts amount' element equal to '-20' on amounts page
-
-
-
-!--edit--!
 
 Scenario: Write off edition - number
 Given navigate to new write off with 'WriteOff-Edit-1' number

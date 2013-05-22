@@ -37,11 +37,6 @@ public class WriteOffSteps extends ScenarioSteps {
     }
 
     @Step
-    public void executeWriteOff() {
-        writeOffPage.executeWriteOff();
-    }
-
-    @Step
     public void checkCardValue(String elementName, String expectedValue) {
         writeOffPage.checkCardValue(elementName, expectedValue);
     }

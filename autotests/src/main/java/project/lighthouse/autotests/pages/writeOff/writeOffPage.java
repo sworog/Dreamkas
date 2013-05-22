@@ -80,12 +80,6 @@ public class WriteOffPage extends InvoiceBrowsing {
         waiter.waitUntilIsNotVisible(By.xpath(String.format("//*[@class='%s preloader']", className)));
     }
 
-    public void executeWriteOff() {
-        throw new AssertionError("Oops!");
-//        String executeWriteOffXpath = "";
-//        findVisibleElement(By.xpath(executeWriteOffXpath)).click();
-    }
-
     public void itemCheck(String value) {
         commonViewInterface.itemCheck(value);
     }

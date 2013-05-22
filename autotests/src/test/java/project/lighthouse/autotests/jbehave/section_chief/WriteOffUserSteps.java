@@ -39,11 +39,6 @@ public class WriteOffUserSteps {
         writeOffSteps.addProductToWriteOff();
     }
 
-    @When("the user makes the write off")
-    public void whenTheUserMakesTheWriteOff() {
-        writeOffSteps.executeWriteOff();
-    }
-
     @When("the user generates charData with '$charNumber' number in the '$elementName' write off field")
     public void generateTestCharData(int charNumber, String elementName) {
         writeOffSteps.generateTestCharData(elementName, charNumber);
