@@ -93,6 +93,11 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void listItemCheckIsNotPresent(String skuValue) {
+        productListPage.listItemCheckIsNotPresent(skuValue);
+    }
+
+    @Step
     public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue) {
         productListPage.checkProductWithSkuHasExpectedValue(skuValue, name, expectedValue);
     }

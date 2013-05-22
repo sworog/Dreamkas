@@ -5,16 +5,16 @@ import org.json.JSONObject;
 
 public class Invoice {
 
-    public static final String invoiceJsonPattern = "{\"invoice\":{\"sku\":\"%s\",\"supplier\":\"supplier\",\"acceptanceDate\":\"%s\",\"accepter\":\"accepter\",\"legalEntity\":\"legalEntity\",\"supplierInvoiceSku\":\"\",\"supplierInvoiceDate\":\"\"}}";
-    ;
+    public static final String jsonPattern = "{\"invoice\":{\"sku\":\"%s\",\"supplier\":\"supplier\"," +
+            "\"acceptanceDate\":\"%s\",\"accepter\":\"accepter\",\"legalEntity\":\"legalEntity\",\"supplierInvoiceSku\":\"\",\"supplierInvoiceDate\":\"\"}}";
 
-    private JSONObject jsonInvoiceObject;
+    private JSONObject jsonObject;
 
-    public Invoice(JSONObject jsonInvoiceObject) throws JSONException {
-        this.jsonInvoiceObject = jsonInvoiceObject;
+    public Invoice(JSONObject jsonObject) throws JSONException {
+        this.jsonObject = jsonObject;
     }
 
-    public String getInvoiceId() throws JSONException {
-        return (String) jsonInvoiceObject.get("id");
+    public String getId() throws JSONException {
+        return (String) jsonObject.get("id");
     }
 }

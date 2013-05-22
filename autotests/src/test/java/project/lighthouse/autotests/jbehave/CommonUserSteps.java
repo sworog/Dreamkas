@@ -52,6 +52,33 @@ public class CommonUserSteps {
         commonSteps.createInvoiceThroughPostWithData(invoiceSku, productName);
     }
 
+    @Given("there is the write off with number '$writeOffNumber'")
+    public void givenThereIsTheWriteOffWithNumber(String writeOffNumber) throws IOException, JSONException {
+        commonSteps.createWriteOffThroughPost(writeOffNumber);
+    }
+
+    @Given("there is the write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
+    public void givenThereIsTheWriteOffWithProduct(String writeOffNumber, String productSku, String quantity, String price, String cause)
+            throws IOException, JSONException {
+        commonSteps.createWriteOffThroughPost(writeOffNumber, productSku, productSku, productSku, "kg", "15", quantity, price, cause);
+    }
+
+    @Given("the user navigates to new write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
+    public void givenThereIsTheWriteOffWithProductWithNavigation(String writeOffNumber, String productSku, String productUnits, String purchasePrice, String quantity, String price, String cause)
+            throws IOException, JSONException {
+        commonSteps.createWriteOffAndNavigateToIt(writeOffNumber, productSku, productSku, productSku, productUnits, purchasePrice, quantity, price, cause);
+    }
+
+    @Given("navigate to new write off with '$writeOffNumber' number")
+    public void givenThereIsTheWriteOffWithProductWithNavigation(String writeOffNumber) throws IOException, JSONException {
+        commonSteps.createWriteOffAndNavigateToIt(writeOffNumber);
+    }
+
+    @Given("the user navigates to the write off with number '$writeOffNumber'")
+    public void givenNavigateToTheWriteOffWithNumber(String writeNumber) throws JSONException {
+        commonSteps.navigatoToWriteOffPage(writeNumber);
+    }
+
     @Given("starting average price calculation")
     public void givenStartingAveragePriceCalculation() {
         commonSteps.averagePriceCalculation();
@@ -102,4 +129,5 @@ public class CommonUserSteps {
     public void whenTheUserClicksCloseButtonInTheInvoiceCreatePage() {
         // PENDING
     }
+
 }

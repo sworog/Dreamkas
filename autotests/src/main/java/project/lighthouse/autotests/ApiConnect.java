@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.objects.Invoice;
 import project.lighthouse.autotests.objects.Product;
+import project.lighthouse.autotests.objects.WriteOff;
 import project.lighthouse.autotests.pages.elements.DateTime;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class ApiConnect {
     public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
         if (!StaticDataCollections.products.containsKey(sku)) {
             String getApiUrl = getApiUrl() + "/api/1/products.json";
-            String jsonData = String.format(Product.productJsonDataPattern, name, units, purchasePrice, barcode, sku);
+            String jsonData = String.format(Product.jsonPattern, name, units, purchasePrice, barcode, sku);
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             Product product = new Product(new JSONObject(postResponse));
@@ -42,13 +43,13 @@ public class ApiConnect {
     public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
         if (!StaticDataCollections.invoices.containsKey(invoiceName)) {
             String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
-            String jsonData = String.format(Invoice.invoiceJsonPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
+            String jsonData = String.format(Invoice.jsonPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             Invoice invoice = new Invoice(new JSONObject(postResponse));
             StaticDataCollections.invoices.put(invoiceName, invoice);
 
-            String invoiceUrl = String.format("%s/invoice/%s?editMode=true", getApiUrl().replace("api", "webfront"), invoice.getInvoiceId());
+            String invoiceUrl = String.format("%s/invoice/%s?editMode=true", getApiUrl().replace("api", "webfront"), invoice.getId());
             driver.navigate().to(invoiceUrl);
         }
     }
@@ -59,6 +60,58 @@ public class ApiConnect {
         if (!response.contains("{\"ok\":true}")) {
             throw new AssertionError("Average price recalculation failed!");
         }
+    }
+
+    public void createWriteOffThroughPost(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
+                                          String quantity, String price, String cause)
+            throws JSONException, IOException {
+
+        createWriteOffThroughPost(writeOffNumber);
+        addProductToWriteOff(writeOffNumber, productSku, productUnits, purchasePrice, quantity, price, cause);
+    }
+
+    public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
+        if (!StaticDataCollections.writeOffs.containsKey(writeOffNumber)) {
+            String getApiUrl = String.format("%s/api/1/writeoffs.json", getApiUrl());
+
+            String jsonData = String.format(WriteOff.jsonPattern, writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN));
+            String postResponse = executePostRequest(getApiUrl, jsonData);
+
+            WriteOff writeOff = new WriteOff(new JSONObject(postResponse));
+            StaticDataCollections.writeOffs.put(writeOffNumber, writeOff);
+        }
+    }
+
+    public void addProductToWriteOff(String writeOffNumber, String productSku, String productUnits, String purchasePrice, String quantity, String price, String cause)
+            throws JSONException, IOException {
+        if (!StaticDataCollections.products.containsKey(productSku)) {
+            сreateProductThroughPost(productSku, productSku, productSku, productUnits, purchasePrice);
+        }
+        String productId = StaticDataCollections.products.get(productSku).getId();
+        String writeOffId = StaticDataCollections.writeOffs.get(writeOffNumber).getId();
+        String apiUrl = String.format("%s/api/1/writeoffs/%s/products.json", getApiUrl(), writeOffId);
+
+        String productJsonData = String.format("{\"writeOffProduct\":{\"product\":\"%s\",\"quantity\":\"%s\",\"price\":\"%s\",\"cause\":\"%s\"}}", productId, quantity, price, cause);
+        executePostRequest(apiUrl, productJsonData);
+    }
+
+    public void createWriteOffAndNavigateToIt(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
+                                              String quantity, String price, String cause)
+            throws JSONException, IOException {
+        createWriteOffThroughPost(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+        navigatoToWriteOffPage(writeOffNumber);
+    }
+
+    public void createWriteOffAndNavigateToIt(String writeOffNumber) throws JSONException, IOException {
+        createWriteOffThroughPost(writeOffNumber);
+        navigatoToWriteOffPage(writeOffNumber);
+    }
+
+    public void navigatoToWriteOffPage(String writeOffNumber) throws JSONException {
+        String writeOffId = StaticDataCollections.writeOffs.get(writeOffNumber).getId();
+//        String url = String.format("%s/writeOff/%s?editMode=true", getWebFrontUrl(), writeOffId);
+        String url = String.format("%s/writeOff/%s", getWebFrontUrl(), writeOffId);
+        driver.navigate().to(url);
     }
 
     private String executePostRequest(String targetURL, String urlParameters) throws IOException {
@@ -121,6 +174,10 @@ public class ApiConnect {
 
     private String getApiUrl() {
         return "http://" + driver.getCurrentUrl().replaceFirst(".*//*/(.*)\\.webfront\\.([a-zA-Z\\.]+)/.*", "$1.api.$2");
+    }
+
+    private String getWebFrontUrl() {
+        return getApiUrl().replace("api", "webfront");
     }
 
     private static Map<String, Object> toMap(JSONObject object) throws JSONException {

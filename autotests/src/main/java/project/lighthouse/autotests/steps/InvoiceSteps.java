@@ -145,12 +145,12 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void invoiceStopEditButtonClick() {
-        invoiceBrowsing.invoiceStopEditButtonClick();
+        invoiceBrowsing.writeOffStopEditButtonClick();
     }
 
     @Step
     public void invoiceStopEditlinkClick() {
-        invoiceBrowsing.invoiceStopEditlinkClick();
+        invoiceBrowsing.writeOffStopEditlinkClick();
     }
 
     @Step

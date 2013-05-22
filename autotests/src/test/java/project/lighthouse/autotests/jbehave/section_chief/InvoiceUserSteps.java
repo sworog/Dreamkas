@@ -64,7 +64,6 @@ public class InvoiceUserSteps {
         whenTheUserInputsTextInTheInvoiceField(elementName, value);
     }
 
-
     @When("the user clicks the add more product button")
     public void whenTheUserClicksTheAddMoreProductButton() {
         invoiceSteps.addOneMoreProductLinkClick();

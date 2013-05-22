@@ -31,6 +31,10 @@ abstract public class CommonPageObject extends PageObject {
         return waiter.getPresentWebElement(by);
     }
 
+    public WebElement findVisibleElement(By by) {
+        return waiter.getVisibleWebElement(by);
+    }
+
     public void input(String elementName, String inputText) {
         commonActions.input(elementName, inputText);
     }
