@@ -1,0 +1,15 @@
+<thead>
+<tr>
+    <th>Дата</th>
+    <th>Номер</th>
+    <th>Сумма</th>
+</tr>
+</thead>
+<tbody>
+<% _.each(block.invoiceCollection.toJSON(), function(invoice){ %>
+    <%= block.tpl.row({
+        block: block,
+        invoice: invoice
+    }) %>
+<% }) %>
+</tbody>
