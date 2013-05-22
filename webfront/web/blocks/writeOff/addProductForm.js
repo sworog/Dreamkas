@@ -90,6 +90,7 @@ define(
                         $(this).parents("form").find("[lh_product_autocomplete='sku']").val(ui.item.product.sku);
                         $(this).parents("form").find("[lh_product_autocomplete='barcode']").val(ui.item.product.barcode);
                         $(this).parents("form").find("[name='product']").val(ui.item.product.id);
+                        $(this).parents("form").find("[name='price']").val(ui.item.product.purchasePrice || ui.item.product.retailPrice);
 
                         $(this).parents("form").find("[name='quantity']").focus();
                     }
@@ -112,7 +113,7 @@ define(
                         default:
                             var term = $(this).autocomplete('getTerm');
                             if (term != $(this).val()) {
-                                var inputs = ['name', 'sku', 'barcode'];
+                                var inputs = ['name', 'sku', 'barcode', 'price'];
                                 for (var i in inputs) {
                                     if (inputs[i] != name) {
                                         $(this).parents("form").find("[lh_product_autocomplete='" + inputs[i] + "']").val('').trigger('input');
