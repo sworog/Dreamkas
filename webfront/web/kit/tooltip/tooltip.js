@@ -5,11 +5,8 @@ define(
     ],
     function(Block, tpl) {
         return Block.extend({
-            defaults: {
-                $trigger: null,
-                tpl: tpl
-            },
-
+            $trigger: null,
+            tpl: tpl,
             tagName: 'div',
             className: 'tooltip',
 

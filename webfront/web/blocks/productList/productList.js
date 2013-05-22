@@ -6,14 +6,11 @@ define(
     ],
     function(Block, ProductCollection, tpl) {
         return Block.extend({
-            defaults: {
-                tpl: tpl
-            },
-
+            tpl: tpl,
             tagName: 'div',
             className: 'productList',
-
             productCollection: new ProductCollection(),
+
             initialize: function() {
                 var block = this;
 

@@ -7,12 +7,9 @@ define(
     ],
     function(Block, Datepicker, Tooltip, tpl) {
         return Block.extend({
-            defaults: {
-                date: null,
-                noTime: false,
-                tpl: tpl
-            },
-
+            date: null,
+            noTime: false,
+            tpl: tpl,
             tagName: 'input',
             className: 'inputDate',
 
@@ -32,9 +29,9 @@ define(
                 });
 
                 block.datepicker = new Datepicker({
-                    tpl: _.extend({}, Datepicker.prototype.defaults.tpl, {
+                    tpl: {
                         controls: block.tpl.datepicker__controls
-                    }),
+                    },
                     noTime: block.noTime
                 });
 

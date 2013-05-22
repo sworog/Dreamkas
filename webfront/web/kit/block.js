@@ -1,13 +1,15 @@
 define(
     [
-        '/kit/page.js'
+        '/kit/page.js',
+        './utils/deepExtend.js',
+        './utils/inherit.js'
     ],
-    function(page) {
-        return Backbone.View.extend({
-            constructor: function(opt) {
+    function(page, deepExtend, inherit) {
+        var Block = Backbone.View.extend({
+            constructor: function(props) {
                 var block = this;
 
-                _.extend(block, block.defaults, opt);
+                deepExtend(block, props);
 
                 block.cid = _.uniqueId('block');
                 block._ensureElement();
@@ -30,9 +32,9 @@ define(
                 block._findElements();
                 block._afterRender();
             },
-            _findElements: function($context) {
+            _findElements: function() {
                 var block = this,
-                    $context = $context || block.$el,
+                    $context = arguments[0] || block.$el,
                     elements = [];
 
                 if (block.className) {
@@ -63,7 +65,7 @@ define(
                     keyPath = this,
                     setValue;
 
-                extra = _.extend({
+                extra = deepExtend({
                     canceled: false,
                     cancel: function() {
                         this.canceled = true;
@@ -111,4 +113,8 @@ define(
                 block.trigger('set:' + path, value);
             }
         });
+
+        Block.extend = inherit;
+
+        return Block;
     });

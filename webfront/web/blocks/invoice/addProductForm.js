@@ -5,9 +5,8 @@ define(
     ],
     function(Form, InvoiceProduct) {
         return Form.extend({
-            defaults: {
-                invoiceId: null
-            },
+            invoiceId: null,
+
             initialize: function(){
                 Form.prototype.initialize.apply(this, arguments);
 

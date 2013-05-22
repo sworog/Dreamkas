@@ -8,11 +8,9 @@ define(
     ],
     function(Form, ProductModel, helpers, router, tpl) {
         return Form.extend({
-            defaults: {
-                defaultInputLinkText: 'Введите значение',
-                productId: null,
-                tpl: tpl
-            },
+            defaultInputLinkText: 'Введите значение',
+            productId: null,
+            tpl: tpl,
 
             initialize: function() {
                 var block = this;
@@ -33,7 +31,7 @@ define(
                     }
                 });
             },
-            events: _.extend({}, Form.prototype.events, {
+            events: {
                 'click .productForm__inputLink': function(e) {
                     e.preventDefault;
                     var $link = $(e.currentTarget),
@@ -69,7 +67,7 @@ define(
                 'change [name="retailPrice"]': function() {
                     this.renderRetailPriceLink();
                 }
-            }),
+            },
             render: function(){
                 var block = this;
                 Form.prototype.render.apply(block, arguments);

@@ -4,15 +4,12 @@ define(
         './tpl/tpl.js'
     ],
     function(Block, tpl) {
-        var Datepicker = Block.extend({
-            defaults: {
-                visibleDate: moment().valueOf(),
-                selectedDate: null,
-                noTime: false,
-                dateList: [],
-                tpl: tpl
-            },
-
+        return Block.extend({
+            visibleDate: moment().valueOf(),
+            selectedDate: null,
+            noTime: false,
+            dateList: [],
+            tpl: tpl,
             className: 'datepicker',
             tagName: 'div',
 
@@ -207,17 +204,5 @@ define(
                 return block;
             }
         });
-
-        //jquery plugin
-
-        $.fn.lh_datepicker = function(opt){
-            return this.each(function(){
-                new Datepicker(_.extend({
-                    el: this
-                }, opt));
-            });
-        };
-
-        return Datepicker;
     }
 );

@@ -7,7 +7,7 @@ define(
         './addProductForm.js',
         './tpl/tpl.js'
     ],
-    function(Block, InputDate, InvoiceModel, InvoiceProductCollection, helpers, AddProductForm, tpl) {
+    function(Block, InputDate, InvoiceModel, InvoiceProductCollection, AddProductForm, tpl) {
         return Block.extend({
             editMode: false,
             dataEditing: false,

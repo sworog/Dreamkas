@@ -7,10 +7,9 @@ define(
     ],
     function(Block, Form, PurchaseModel, tpl) {
         return Block.extend({
-            defaults: {
-                tpl: tpl,
-                purchaseModel: new PurchaseModel()
-            },
+            tpl: tpl,
+            purchaseModel: new PurchaseModel(),
+
             initialize: function() {
                 var block = this;
 

@@ -7,10 +7,8 @@ define(
     ],
     function(Form, InvoiceModel, router, tpl) {
         return Form.extend({
-            defaults: {
-                invoiceId: null,
-                tpl: tpl
-            },
+            invoiceId: null,
+            tpl: tpl,
 
             initialize: function() {
                 var block = this;

@@ -6,10 +6,8 @@ define(
     ],
     function(Block, ProductModel, tpl) {
         return Block.extend({
-            defaults: {
-                productId: null,
-                tpl: tpl
-            },
+            productId: null,
+            tpl: tpl,
 
             initialize: function() {
                 var block = this;
