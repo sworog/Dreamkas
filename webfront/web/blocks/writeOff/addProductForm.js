@@ -90,7 +90,7 @@ define(
                         $(this).parents("form").find("[lh_product_autocomplete='sku']").val(ui.item.product.sku);
                         $(this).parents("form").find("[lh_product_autocomplete='barcode']").val(ui.item.product.barcode);
                         $(this).parents("form").find("[name='product']").val(ui.item.product.id);
-                        $(this).parents("form").find("[name='price']").val(ui.item.product.purchasePrice || ui.item.product.retailPrice);
+                        $(this).parents("form").find("[name='price']").val(ui.item.product.retailPrice || ui.item.product.purchasePrice);
 
                         $(this).parents("form").find("[name='quantity']").focus();
                     }
