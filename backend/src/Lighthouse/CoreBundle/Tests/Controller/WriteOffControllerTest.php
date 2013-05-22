@@ -295,4 +295,32 @@ class WriteOffControllerTest extends WebTestCase
 
         $this->performJsonAssertions($writeOffJson, $assertions);
     }
+
+    public function testGetWriteOffsAction()
+    {
+        $this->clearMongoDb();
+
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
+
+        $writeOffId = $this->createWriteOff();
+        $writeOffProductId11 = $this->createWriteOffProduct($writeOffId, $productId1, 5.99, 12);
+        $writeOffProductId12 = $this->createWriteOffProduct($writeOffId, $productId2, 6.49, 3);
+        $writeOffProductId13 = $this->createWriteOffProduct($writeOffId, $productId3, 11.12, 1);
+
+        $writeOffId2 = $this->createWriteOff('2');
+        $writeOffProductId21 = $this->createWriteOffProduct($writeOffId2, $productId1, 6.92, 1);
+        $writeOffProductId22 = $this->createWriteOffProduct($writeOffId2, $productId2, 3.49, 2);
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/writeoffs.json'
+        );
+
+        Assert::assertJsonPathCount(2, '*.id', $response);
+        Assert::assertJsonPathEquals($writeOffId, '*.id', $response, 1);
+        Assert::assertJsonPathEquals($writeOffId2, '*.id', $response, 1);
+    }
 }

@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Controller;
 use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Document\WriteOff\WriteOffCollection;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Form\WriteOffType;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,5 +57,15 @@ class WriteOffController extends AbstractRestController
     public function getWriteoffAction($id)
     {
         return $this->processGet($id);
+    }
+
+    /**
+     * @return WriteOffCollection
+     */
+    public function getWriteoffsAction()
+    {
+        $cursor = $this->documentRepository->findAll();
+        $collection = new WriteOffCollection($cursor);
+        return $collection;
     }
 }
