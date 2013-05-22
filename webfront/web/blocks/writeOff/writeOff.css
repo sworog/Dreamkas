@@ -40,7 +40,7 @@
     display: none;
 }
 
-.writeOff__editable{
+.writeOff__editable, .writeOff__editable [name]{
     position: relative;
 }
 

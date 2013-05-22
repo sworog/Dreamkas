@@ -13,14 +13,14 @@ define(
                 var block = this;
 
                 block.render();
-                block.$table = block.$el.find('.writeOff__table');
+                block.$table = block.$el.find('.writeOffList__table');
 
                 block.listenTo(block.writeOffCollection, {
                     reset: function() {
                         block.renderTable();
                     },
                     request: function() {
-                        block.$table.find('thead').addClass('preloader');
+                        block.$table.find('thead').addClass('preloader_rows');
                     }
                 });
 
@@ -33,7 +33,7 @@ define(
                     .html(block.tpl.table({
                         block: block
                     }))
-                    .find('thead').removeClass('preloader');
+                    .find('thead').removeClass('preloader_rows');
             }
         });
     }

@@ -19,7 +19,7 @@ define(
                         block.renderTable();
                     },
                     request: function() {
-                        block.$table.find('thead').addClass('preloader');
+                        block.$table.find('thead').addClass('preloader_rows');
                     }
                 });
 
@@ -32,7 +32,7 @@ define(
                     .html(block.tpl.table({
                         block: block
                     }))
-                    .find('thead').removeClass('preloader');
+                    .find('thead').removeClass('preloader_rows');
             }
         });
     }
