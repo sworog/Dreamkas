@@ -93,7 +93,7 @@ define(
                     var block = this,
                         writeOffProductId = $(e.target).closest('.writeOff__removeConfirmRow').attr('writeOff-product-id');
 
-                    block.removewriteOffProduct(writeOffProductId);
+                    block.removeWriteOffProduct(writeOffProductId);
                     block.set('dataEditing', false);
                 },
                 'click .writeOff__editLink': function(e) {
@@ -235,7 +235,7 @@ define(
                 $writeOffProductRow.show();
                 $removeConfirmRows.remove();
             },
-            removewriteOffProduct: function(writeOffProductId) {
+            removeWriteOffProduct: function(writeOffProductId) {
                 var block = this,
                     writeOffProductModel = block.writeOffProductCollection.get(writeOffProductId);
 
@@ -275,52 +275,6 @@ define(
                 $input.removeClass('.inputText_error');
                 $inputControls.removeAttr('lh_field_error');
             },
-            dateTimePickerToInput: function($input, currentTime) {
-                var block = this;
-                $input.mask('99.99.9999 99:99');
-
-                var onClose = function(dateText, datepicker) {
-                    $input.val(dateText);
-                }
-
-                var dateTimePickerControl = {
-                    create: function(tp_inst, obj, unit, val, min, max, step) {
-                        var input = jQuery('<input class="ui-timepicker-input" value="' + val + '" style="width:50%">');
-                        input.change(function(e) {
-                            if (e.originalEvent !== undefined) {
-                                tp_inst._onTimeChange();
-                            }
-                            tp_inst._onSelectHandler();
-                        })
-                        input.appendTo(obj);
-                        return obj;
-                    },
-                    options: function(tp_inst, obj, unit, opts, val) {
-                    },
-                    value: function(tp_inst, obj, unit, val) {
-                        if (val !== undefined) {
-                            return obj.find('.ui-timepicker-input').val(val);
-                        } else {
-                            return obj.find('.ui-timepicker-input').val();
-                        }
-                    }
-                };
-
-                var options = {
-                    controlType: dateTimePickerControl,
-                    onClose: onClose,
-                    dateFormat: block.writeOffModel.dateFormat,
-                    timeFormat: block.writeOffModel.timeFormat
-                }
-
-                $input.datetimepicker(options);
-
-                var currentTime = currentTime || false;
-
-                if (currentTime) {
-                    $input.datetimepicker('setDate', new Date())
-                }
-            },
             datePickerToInput: function($input) {
                 var block = this;
 
@@ -353,22 +307,15 @@ define(
                         $dataElement.append(block.tpl.dataInputAutocomplete({
                             $dataElement: $dataElement
                         }));
-                        this.autocompleteToInput($dataElement.find("[lh_product_autocomplete]"));
+                        block.autocompleteToInput($dataElement.find("[lh_product_autocomplete]"));
                         break;
 
-                    case 'acceptanceDate':
+                    case 'date':
                         $dataElement.append(block.tpl.dataInput({
                             $dataElement: $dataElement
                         }));
-                        block.dateTimePickerToInput($dataElement.find("form [name]"), false);
+                        block.datePickerToInput($dataElement.find("form [name]"), false);
                         break;
-
-                    case 'supplierwriteOffDate':
-                        $dataElement.append(block.tpl.dataInput({
-                            $dataElement: $dataElement
-                        }));
-                        block.datePickerToInput($dataElement.find("form [name]"));
-                        break
 
                     default:
                         $dataElement.append(block.tpl.dataInput({

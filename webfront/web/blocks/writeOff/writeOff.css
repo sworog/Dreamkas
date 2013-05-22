@@ -40,6 +40,10 @@
     display: none;
 }
 
+.writeOff__editable{
+    position: relative;
+}
+
 .writeOff_editMode .writeOff__editable {
     border-bottom: dashed 1px;
     cursor: pointer;

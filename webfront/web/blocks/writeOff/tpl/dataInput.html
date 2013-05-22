@@ -1,0 +1,7 @@
+<form class="writeOff__dataInput">
+    <input class="inputText"
+           type="text"
+           name="<%= $dataElement.attr('model-attr') %>"
+           value="<%= _.escape($.trim($dataElement.html())) %>"/>
+    <input type="submit" />
+</form>

@@ -1,13 +1,13 @@
-<div class="invoice__title invoice__dataRow">
+<div class="writeOff__title writeOff__dataRow">
     Списание
-    <span class="invoice__editable">
+    <span class="writeOff__editable">
         №
-        <span name="sku" model-attr="sku">
+        <span name="number" model-attr="number">
             <%= _.escape(block.writeOffModel.get('number')) %>
         </span>
     </span>
     от
-    <span name="acceptanceDate" class="invoice__editable" model-attr="acceptanceDate">
-        <%= moment(block.writeOffModel.get('date')).format('DD.MM.YYYY HH:mm') %>
+    <span name="date" class="writeOff__editable" model-attr="date">
+        <%= moment(block.writeOffModel.get('date')).format('DD.MM.YYYY') %>
     </span>
 </div>

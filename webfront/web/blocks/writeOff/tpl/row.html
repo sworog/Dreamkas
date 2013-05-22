@@ -45,14 +45,8 @@
         </span>
     </td>
     <td>
-        <span>
-            =
-        </span>
-        <span name="productSum">
-            <%= LH.helpers.formatPrice(writeOffProduct.totalPrice) %>
-        </span>
-        <span>
-            р.
+        <span class="writeOff__editable" name="productCause" model-attr="cause">
+            <%= writeOffProduct.cause %>
         </span>
     </td>
     <td style="width: 1px;">
