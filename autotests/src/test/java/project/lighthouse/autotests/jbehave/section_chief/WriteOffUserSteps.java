@@ -124,7 +124,7 @@ public class WriteOffUserSteps {
         writeOffSteps.listItemCheck(value);
     }
 
-    @Then("the user checks the product with '$skuValue' sku has '$name' element equal to '$expectedValue' on write off page")
+    @Then("the user checks the product with '$value' sku has '$name' element equal to '$expectedValue' on write off list page")
     public void thenTheUserChecksTheProductWithValueHasElement(String value, String elementName, String expectedValue) {
         writeOffSteps.checkListItemHasExpectedValueByFindByLocatorInList(value, elementName, expectedValue);
     }

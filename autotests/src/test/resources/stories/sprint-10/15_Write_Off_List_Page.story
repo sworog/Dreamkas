@@ -19,6 +19,6 @@ And the user presses the add product button and add the product to write off
 And the user clicks finish edit button and ends the write off edition
 And the user goes to the write off list page by clicking the link
 Then the user checks the write off with 'WriteOff-wolc' is present on write off list page
-And the user checks the product with 'WriteOff-wolc' sku has 'writeOff list page date' element equal to '24.10.2012' on write off page
-And the user checks the product with 'WriteOff-wolc' sku has 'writeOff list page number' element equal to 'WriteOff-wolc' on write off page
-And the user checks the product with 'WriteOff-wolc' sku has 'writeOff list page sumTotal' element equal to '150' on write off page
+And the user checks the product with 'WriteOff-wolc' sku has 'writeOff list page date' element equal to '24.10.2012' on write off list page
+And the user checks the product with 'WriteOff-wolc' sku has 'writeOff list page number' element equal to 'WriteOff-wolc' on write off list page
+And the user checks the product with 'WriteOff-wolc' sku has 'writeOff list page sumTotal' element equal to '150' on write off list page
