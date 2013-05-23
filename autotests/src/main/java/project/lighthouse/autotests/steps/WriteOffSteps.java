@@ -5,12 +5,14 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.pages.writeOff.WriteOffListPage;
 import project.lighthouse.autotests.pages.writeOff.WriteOffPage;
 
 public class WriteOffSteps extends ScenarioSteps {
 
     WriteOffPage writeOffPage;
     CommonPage commonPage;
+    WriteOffListPage writeOffListPage;
 
     public WriteOffSteps(Pages pages) {
         super(pages);
@@ -105,5 +107,30 @@ public class WriteOffSteps extends ScenarioSteps {
     @Step
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         writeOffPage.childrentItemClickByFindByLocator(parentElementName, elementName);
+    }
+
+    @Step
+    public void writeOffListPageOpen() {
+        writeOffListPage.open();
+    }
+
+    @Step
+    public void checkListItemHasExpectedValueByFindByLocatorInList(String value, String elementName, String expectedValue) {
+        writeOffListPage.checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
+    }
+
+    @Step
+    public void listItemCheck(String value) {
+        writeOffListPage.listItemCheck(value);
+    }
+
+    @Step
+    public void writeOffItemListCreate() {
+        writeOffListPage.writeOffItemListCreate();
+    }
+
+    @Step
+    public void goToTheWriteOffListPage() {
+        writeOffListPage.goToTheWriteOffListPage();
     }
 }

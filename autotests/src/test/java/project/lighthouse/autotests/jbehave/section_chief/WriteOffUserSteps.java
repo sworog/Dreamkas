@@ -69,6 +69,16 @@ public class WriteOffUserSteps {
         writeOffSteps.writeOffStopEditlinkClick();
     }
 
+    @When("the user creates write off from write off list page")
+    public void whenTheUserCreatesWriteOff() {
+        writeOffSteps.writeOffItemListCreate();
+    }
+
+    @When("the user goes to the write off list page by clicking the link")
+    public void goToTheWriteOffListPage() {
+        writeOffSteps.goToTheWriteOffListPage();
+    }
+
     @Then("the user checks write off elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
         writeOffSteps.checkCardValue("", checkValuesTable);
@@ -102,5 +112,20 @@ public class WriteOffUserSteps {
     @When("the user clicks on '$parentElementName' element of write off product with '$invoiceSku' sku to edit")
     public void whenTheUserClicksOnElementOfInvoiceProductWithSkuToEdit(String parentElementName, String invoiceSku) {
         writeOffSteps.childrentItemClickByFindByLocator(parentElementName, invoiceSku);
+    }
+
+    @Given("the user opens write off list page")
+    public void givenTheUserOpensAmountListPage() {
+        writeOffSteps.writeOffListPageOpen();
+    }
+
+    @Then("the user checks the write off with '$value' is present on write off list page")
+    public void thenTheUserChecksTheProductWithValueHasElement(String value) {
+        writeOffSteps.listItemCheck(value);
+    }
+
+    @Then("the user checks the product with '$skuValue' sku has '$name' element equal to '$expectedValue' on write off page")
+    public void thenTheUserChecksTheProductWithValueHasElement(String value, String elementName, String expectedValue) {
+        writeOffSteps.checkListItemHasExpectedValueByFindByLocatorInList(value, elementName, expectedValue);
     }
 }
