@@ -31,6 +31,10 @@ public class ProductListPage extends ProductCreatePage {
         commonViewInterface.itemCheck(skuValue);
     }
 
+    public void listItemCheckIsNotPresent(String value) {
+        commonViewInterface.itemCheckIsNotPresent(value);
+    }
+
     public void checkProductWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue) {
         commonViewInterface.checkListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }

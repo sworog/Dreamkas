@@ -1,15 +1,14 @@
 package project.lighthouse.autotests.jbehave;
 
-import net.thucydides.core.steps.StepEventBus;
 import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
 import project.lighthouse.autotests.StaticDataCollections;
-import project.lighthouse.autotests.thucydides.TeamCityStepListener;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
-    public static final String CURRENT_BRANCH = "lighthouse.autotests.branch";
+    private static final String CURRENT_BRANCH = "lighthouse.autotests.branch";
     private static final String IMPLICITY_WAIT = "webdriver.timeouts.implicitlywait";
+    private static final String WEB_DRIVER_BASE_URL = "webdriver.base.url";
 
     public AcceptanceTestSuite() {
 
@@ -18,6 +17,7 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
         if (timeout != null) {
             StaticDataCollections.TIMEOUT = timeout;
         }
+        StaticDataCollections.WEB_DRIVER_BASE_URL = environmentVariables.getProperty(WEB_DRIVER_BASE_URL, null);
         String branch = environmentVariables.getProperty(CURRENT_BRANCH, null);
         if (branch != null) {
             if (branch.startsWith("us-")) {

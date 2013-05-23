@@ -85,4 +85,8 @@ public class CommonActions extends PageObject {
             }
         }
     }
+
+    public void elementClick(String elementName) {
+        items.get(elementName).getWebElement().click();
+    }
 }

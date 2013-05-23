@@ -10,6 +10,8 @@ import project.lighthouse.autotests.pages.amount.AmountListPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
+import project.lighthouse.autotests.pages.writeOff.WriteOffListPage;
+import project.lighthouse.autotests.pages.writeOff.WriteOffPage;
 
 import java.util.Map;
 
@@ -31,6 +33,8 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
             case AmountListPage.ITEM_NAME:
             case ProductListPage.ITEM_NAME:
             case InvoiceListPage.ITEM_NAME:
+            case WriteOffPage.ITEM_NAME:
+            case WriteOffListPage.ITEM_NAME:
                 return XPATH_PATTERN + "/..";
             default:
                 return XPATH_PATTERN;

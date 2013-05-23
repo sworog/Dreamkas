@@ -99,4 +99,38 @@ public class CommonSteps extends ScenarioSteps {
         productListPage.open();
         commonPage.averagePriceCalculation();
     }
+
+    @Step
+    public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
+        productListPage.open();
+        commonPage.createWriteOffThroughPost(writeOffNumber);
+    }
+
+    @Step
+    public void createWriteOffThroughPost(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
+                                          String quantity, String price, String cause)
+            throws IOException, JSONException {
+        productListPage.open();
+        commonPage.createWriteOffThroughPost(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+    }
+
+    @Step
+    public void createWriteOffAndNavigateToIt(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
+                                              String quantity, String price, String cause)
+            throws JSONException, IOException {
+        productListPage.open();
+        commonPage.createWriteOffAndNavigateToIt(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+    }
+
+    @Step
+    public void createWriteOffAndNavigateToIt(String writeOffNumber)
+            throws JSONException, IOException {
+        productListPage.open();
+        commonPage.createWriteOffAndNavigateToIt(writeOffNumber);
+    }
+
+    @Step
+    public void navigatoToWriteOffPage(String writeOffNumber) throws JSONException {
+        commonPage.navigatoToWriteOffPage(writeOffNumber);
+    }
 }

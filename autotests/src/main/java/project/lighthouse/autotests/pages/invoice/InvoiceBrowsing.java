@@ -26,19 +26,19 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     @FindBy(xpath = "//*[@class='button invoice__stopEditButton']")
     public WebElement invoiceStopEditButtonLink;
 
-    @FindBy(xpath = "//a[@class='button invoice__dataInputSave']")
+    @FindBy(xpath = "//*[contains(@class, 'dataInputSave')]")
     public WebElement acceptChangesButton;
 
-    @FindBy(xpath = "//*[@class='invoice__dataInputCancel']")
+    @FindBy(xpath = "//*[contains(@class, 'dataInputCancel')]")
     public WebElement discardChangesButton;
 
-    @FindBy(xpath = "//a[@class='button invoice__removeConfirmButton']")
+    @FindBy(xpath = "//*[contains(@class, 'removeConfirmButton')]")
     public WebElement acceptDeleteButton;
 
-    @FindBy(xpath = "//*[@class='invoice__removeCancel']")
+    @FindBy(xpath = "//*[contains(@class, 'removeCancel')]")
     public WebElement discardDeleteButton;
 
-    private String deleteButtonXpath = "//*[@class='invoice__removeLink']";
+    public String deleteButtonXpath = "//*[@class='invoice__removeLink']";
 
     public InvoiceBrowsing(WebDriver driver) {
         super(driver);
@@ -117,11 +117,11 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         $(discardDeleteButton).click();
     }
 
-    public void invoiceStopEditButtonClick() {
+    public void writeOffStopEditButtonClick() {
         invoiceStopEditButtonLink.click();
     }
 
-    public void invoiceStopEditlinkClick() {
+    public void writeOffStopEditlinkClick() {
         invoiceStopEditLink.click();
     }
 
