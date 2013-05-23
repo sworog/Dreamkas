@@ -12,8 +12,6 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
     public AcceptanceTestSuite() {
 
-        findStoriesCalled("test.story");
-
         EnvironmentVariables environmentVariables = getEnvironmentVariables();
         String timeout = environmentVariables.getProperty(IMPLICITY_WAIT, null);
         if (timeout != null) {
