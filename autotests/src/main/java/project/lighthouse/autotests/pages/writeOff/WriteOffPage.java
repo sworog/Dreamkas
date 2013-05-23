@@ -69,8 +69,10 @@ public class WriteOffPage extends InvoiceBrowsing {
     }
 
     public void continueWriteOffCreation() {
-        String xpath = "//*[@class='button button_color_blue']/input";
+        String className = "button button_color_blue";
+        String xpath = String.format("//*[@class='%s']/input", className);
         findElement(By.xpath(xpath)).click();
+        waiter.waitUntilIsNotVisible(By.xpath(String.format("//*[@class='%s preloader preloader_rows']", className)));
     }
 
     public void addProductToWriteOff() {

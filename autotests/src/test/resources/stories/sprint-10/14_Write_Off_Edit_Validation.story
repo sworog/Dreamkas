@@ -57,9 +57,7 @@ When the user clicks edit button and starts write off edition
 And the user clicks on 'writeOff date review' write off element to edit it
 And the user inputs '!03.12.2012' in the 'inline writeOff date' field on the write off page
 And the user clicks OK and accepts changes
-Then the user sees error messages
-| error message |
-| Заполните это поле |
+Then the user sees no error messages
 When the user clicks finish edit button and ends the write off edition
 
 Scenario: writeOff date Edit validation manual negative1 numbers
