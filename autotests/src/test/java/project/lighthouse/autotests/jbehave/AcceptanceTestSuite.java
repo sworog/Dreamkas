@@ -1,10 +1,8 @@
 package project.lighthouse.autotests.jbehave;
 
-import net.thucydides.core.steps.StepEventBus;
 import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
 import project.lighthouse.autotests.StaticDataCollections;
-import project.lighthouse.autotests.thucydides.TeamCityStepListener;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 

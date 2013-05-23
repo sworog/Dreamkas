@@ -98,4 +98,9 @@ public class WriteOffUserSteps {
     public void itemCheckIsNotPresent(String value) {
         writeOffSteps.itemCheckIsNotPresent(value);
     }
+
+    @When("the user clicks on '$parentElementName' element of write off product with '$invoiceSku' sku to edit")
+    public void whenTheUserClicksOnElementOfInvoiceProductWithSkuToEdit(String parentElementName, String invoiceSku) {
+        writeOffSteps.childrentItemClickByFindByLocator(parentElementName, invoiceSku);
+    }
 }

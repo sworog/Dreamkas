@@ -101,4 +101,9 @@ public class WriteOffSteps extends ScenarioSteps {
     public void elementClick(String elementName) {
         writeOffPage.elementClick(elementName);
     }
+
+    @Step
+    public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
+        writeOffPage.childrentItemClickByFindByLocator(parentElementName, elementName);
+    }
 }

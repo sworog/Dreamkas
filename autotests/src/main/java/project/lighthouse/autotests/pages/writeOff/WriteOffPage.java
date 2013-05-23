@@ -128,4 +128,10 @@ public class WriteOffPage extends InvoiceBrowsing {
     public void elementClick(String elementName) {
         commonActions.elementClick(elementName);
     }
+
+    @Override
+    public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
+        By findBy = items.get(parentElementName).getFindBy();
+        commonViewInterface.childrentItemClickByFindByLocator(elementName, findBy);
+    }
 }
