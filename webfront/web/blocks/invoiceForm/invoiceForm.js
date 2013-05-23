@@ -3,12 +3,13 @@ define(
         '/kit/form/form.js',
         '/models/invoice.js',
         '/routers/mainRouter.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Form, InvoiceModel, router, tpl) {
+    function(Form, InvoiceModel, router, templates) {
         return Form.extend({
             invoiceId: null,
-            tpl: tpl,
+            className: 'invoiceForm',
+            templates: templates,
 
             initialize: function() {
                 var block = this;

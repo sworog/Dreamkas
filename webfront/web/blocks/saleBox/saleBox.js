@@ -3,18 +3,14 @@ define(
         '/kit/block.js',
         '/kit/form/form.js',
         '/models/purchase.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Block, Form, PurchaseModel, tpl) {
+    function(Block, Form, PurchaseModel, templates) {
         return Block.extend({
-            tpl: tpl,
             purchaseModel: new PurchaseModel(),
+            className: 'saleBox',
+            templates: templates,
 
-            initialize: function() {
-                var block = this;
-
-                block.render();
-            },
             events: {
                 'click .saleBox__removeProductLink': function(e) {
                     var block = this,
@@ -83,11 +79,6 @@ define(
             },
             _afterRender: function() {
                 var block = this;
-
-                block.$purchaseForm = block.$el.find('.saleBox__purchaseForm');
-                block.$purchaseTable = block.$purchaseForm.find('.table');
-                block.$productForm = block.$el.find('.saleBox__productForm');
-                block.$productRow = block.$productForm.find('.saleBox__productRow');
 
                 block.purchaseForm = new Form({
                     el: block.$purchaseForm[0],

@@ -2,18 +2,18 @@ define(
     [
         '/kit/block.js',
         '/collections/products.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Block, ProductCollection, tpl) {
+    function(Block, ProductCollection, templates) {
         return Block.extend({
             productCollection: new ProductCollection(),
-            tpl: tpl,
+            className: 'balanceList',
+            templates: templates,
 
             initialize: function() {
                 var block = this;
 
                 block.render();
-                block.$table = block.$el.find('.balanceList__table');
 
                 block.listenTo(block.productCollection, {
                     reset: function() {
@@ -30,7 +30,7 @@ define(
                 var block = this;
 
                 block.$table
-                    .html(block.tpl.table({
+                    .html(block.templates.table({
                         block: block
                     }))
                     .find('thead').removeClass('preloader_rows');

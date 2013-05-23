@@ -8,8 +8,6 @@ define(
             invoiceId: null,
 
             initialize: function(){
-                Form.prototype.initialize.apply(this, arguments);
-
                 var block = this;
 
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='name']"));

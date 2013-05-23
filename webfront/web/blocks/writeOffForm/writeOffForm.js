@@ -4,21 +4,15 @@ define(
         '/models/writeOff.js',
         '/helpers/helpers.js',
         '/routers/mainRouter.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Form, WriteOffModel, helpers, router, tpl) {
+    function(Form, WriteOffModel, helpers, router, templates) {
         return Form.extend({
             writeOffFormId: null,
-            tpl: tpl,
             writeOffModel: new WriteOffModel(),
+            className: 'writeOffForm',
+            templates: templates,
 
-            initialize: function() {
-                var block = this;
-
-                block.render();
-
-                block.datepicker("input[name='date']", true);
-            },
             submit: function(){
                 var block = this,
                     deferred = $.Deferred(),
@@ -36,21 +30,6 @@ define(
                 });
 
                 return deferred.promise();
-            },
-            datepicker: function(selector, currentTime) {
-                var jqObj = this.$el.find(selector);
-
-                jqObj.mask('99.99.9999');
-
-                var options = {
-                    dateFormat: this.writeOffModel.dateFormat
-                };
-
-                jqObj.datepicker(options);
-
-                if (currentTime) {
-                    jqObj.datepicker('setDate', new Date())
-                }
             }
         });
     }

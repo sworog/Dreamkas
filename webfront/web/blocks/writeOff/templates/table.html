@@ -1,0 +1,8 @@
+<tbody>
+    <% _.each(block.writeOffProductCollection.toJSON(), function(writeOffProduct){ %>
+        <%= block.templates.row({
+            writeOffProduct: writeOffProduct,
+            block: block
+        }) %>
+    <% }) %>
+</tbody>

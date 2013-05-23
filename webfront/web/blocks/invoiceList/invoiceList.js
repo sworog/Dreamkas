@@ -2,18 +2,18 @@ define(
     [
         '/kit/block.js',
         '/collections/invoices.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Block, InvoiceCollection, tpl) {
+    function(Block, InvoiceCollection, templates) {
         return Block.extend({
             invoiceCollection: new InvoiceCollection(),
-            tpl: tpl,
+            className: 'invoiceList',
+            templates: templates,
 
             initialize: function() {
                 var block = this;
 
                 block.render();
-                block.$table = block.$el.find('.invoiceList__table');
 
                 block.listenTo(block.invoiceCollection, {
                     reset: function() {
@@ -30,7 +30,7 @@ define(
                 var block = this;
 
                 block.$table
-                    .html(block.tpl.table({
+                    .html(block.templates.table({
                         block: block
                     }))
                     .find('thead').removeClass('preloader_rows');

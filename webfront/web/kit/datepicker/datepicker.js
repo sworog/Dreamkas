@@ -1,17 +1,17 @@
 define(
     [
         '/kit/block.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Block, tpl) {
+    function(Block, templates) {
         return Block.extend({
             visibleDate: moment().valueOf(),
             selectedDate: null,
             noTime: false,
             dateList: [],
-            tpl: tpl,
             className: 'datepicker',
             tagName: 'div',
+            templates: templates,
 
             initialize: function() {
                 var block = this;
@@ -188,7 +188,7 @@ define(
             _renderDateList: function() {
                 var block = this;
 
-                block.$dateList.html(block.tpl.dateList({
+                block.$dateList.html(block.templates.dateList({
                     block: block
                 }));
 
@@ -197,7 +197,7 @@ define(
             _renderHeader: function() {
                 var block = this;
 
-                block.$header.html(block.tpl.header({
+                block.$header.html(block.templates.header({
                     block: block
                 }));
 

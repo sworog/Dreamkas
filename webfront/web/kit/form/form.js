@@ -4,10 +4,6 @@ define(
     ],
     function(Block) {
         return Block.extend({
-            initialize: function() {
-                var block = this;
-                block.findSubmitButton();
-            },
             events: {
                 'submit': function(e) {
                     e.preventDefault();
@@ -25,16 +21,14 @@ define(
                     });
                 }
             },
-            submit: function() {
-            },
-            _afterRender: function() {
-                var block = this;
-                block.findSubmitButton();
-            },
-            findSubmitButton: function() {
+            findElements: function(){
                 var block = this;
 
-                return block.$submitButton = block.$el.find('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
+                Block.prototype.findElements.apply(block, arguments);
+
+                block.$submitButton = block.$el.find('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
+            },
+            submit: function() {
             },
             showErrors: function(errors) {
                 var block = this;

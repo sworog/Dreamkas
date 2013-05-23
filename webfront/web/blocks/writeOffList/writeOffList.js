@@ -2,18 +2,18 @@ define(
     [
         '/kit/block.js',
         '/collections/writeOff.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Block, WriteOffCollection, tpl) {
+    function(Block, WriteOffCollection, templates) {
         return Block.extend({
-            tpl: tpl,
             writeOffCollection: new WriteOffCollection(),
+            className: 'writeOffList',
+            templates: templates,
 
             initialize: function() {
                 var block = this;
 
                 block.render();
-                block.$table = block.$el.find('.writeOffList__table');
 
                 block.listenTo(block.writeOffCollection, {
                     reset: function() {
@@ -30,7 +30,7 @@ define(
                 var block = this;
 
                 block.$table
-                    .html(block.tpl.table({
+                    .html(block.templates.table({
                         block: block
                     }))
                     .find('thead').removeClass('preloader_rows');

@@ -5,13 +5,14 @@ define(
         '/models/invoice.js',
         '/collections/invoiceProducts.js',
         './addProductForm.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Block, InputDate, InvoiceModel, InvoiceProductCollection, AddProductForm, tpl) {
+    function(Block, InputDate, InvoiceModel, InvoiceProductCollection, AddProductForm, templates) {
         return Block.extend({
             editMode: false,
             dataEditing: false,
-            tpl: tpl,
+            className: 'invoice',
+            templates: templates,
 
             initialize: function() {
                 var block = this;
@@ -31,10 +32,6 @@ define(
 
                 block.set('editMode', block.editMode);
 
-                block.$head = block.$el.find('.invoice__head');
-                block.$table = block.$el.find('.invoice__table');
-                block.$footer = block.$el.find('.invoice__footer');
-
                 block.addForm = new AddProductForm({
                     invoiceId: block.invoiceId,
                     el: block.el.getElementsByClassName('invoice__addProductForm')
@@ -48,10 +45,10 @@ define(
                 });
 
                 block.listenTo(block.invoiceModel, 'sync change', function() {
-                        block.$head.html(block.tpl.head({
+                        block.$head.html(block.templates.head({
                             block: block
                         }));
-                        block.$footer.html(block.tpl.footer({
+                        block.$footer.html(block.templates.footer({
                             block: block
                         }));
                     });
@@ -113,7 +110,6 @@ define(
                             notEmptyForm = true;
                         }
                     });
-
 
                     if (notEmptyForm || block.dataEditing) {
                         alert("У вас есть не сохранённые данные");
@@ -214,7 +210,7 @@ define(
                 block.set('dataEditing', true);
 
                 $invoiceProductRow
-                    .after(block.tpl.removeConfirm({
+                    .after(block.templates.removeConfirm({
                         invoiceProductId: invoiceProductId
                     }))
                     .hide();
@@ -247,7 +243,7 @@ define(
             renderTable: function() {
                 var block = this;
 
-                block.$table.html(block.tpl.table({
+                block.$table.html(block.templates.table({
                     block: block
                 }));
             },
@@ -280,7 +276,7 @@ define(
                 var block = this,
                     $dataElement = $el,
                     $dataRow = $el.closest('.invoice__dataRow'),
-                    dataInputControls = block.tpl.dataInputControls();
+                    dataInputControls = block.templates.dataInputControls();
 
                 block.set('dataEditing', true);
 
@@ -294,14 +290,14 @@ define(
 
                 switch ($dataElement.attr('model-attr')) {
                     case 'product':
-                        $dataElement.append(block.tpl.dataInputAutocomplete({
+                        $dataElement.append(block.templates.dataInputAutocomplete({
                             $dataElement: $dataElement
                         }));
                         this.autocompleteToInput($dataElement.find("[lh_product_autocomplete]"));
                         break;
 
                     case 'acceptanceDate':
-                        $dataElement.append(block.tpl.dataInput({
+                        $dataElement.append(block.templates.dataInput({
                             $dataElement: $dataElement
                         }));
                         new InputDate({
@@ -310,7 +306,7 @@ define(
                         break;
 
                     case 'supplierInvoiceDate':
-                        $dataElement.append(block.tpl.dataInput({
+                        $dataElement.append(block.templates.dataInput({
                             $dataElement: $dataElement
                         }));
                         new InputDate({
@@ -320,7 +316,7 @@ define(
                         break
 
                     default:
-                        $dataElement.append(block.tpl.dataInput({
+                        $dataElement.append(block.templates.dataInput({
                             $dataElement: $dataElement
                         }));
                         break;

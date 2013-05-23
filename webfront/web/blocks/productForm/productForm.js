@@ -4,13 +4,14 @@ define(
         '/models/product.js',
         '/helpers/helpers.js',
         '/routers/mainRouter.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Form, ProductModel, helpers, router, tpl) {
+    function(Form, ProductModel, helpers, router, templates) {
         return Form.extend({
             defaultInputLinkText: 'Введите значение',
             productId: null,
-            tpl: tpl,
+            className: 'productForm',
+            templates: templates,
 
             initialize: function() {
                 var block = this;
@@ -68,9 +69,9 @@ define(
                     this.renderRetailPriceLink();
                 }
             },
-            render: function(){
+            findElements: function(){
                 var block = this;
-                Form.prototype.render.apply(block, arguments);
+                Form.prototype.findElements.apply(block, arguments);
 
                 block.$retailPricePreferenceInput = block.$el.find('[name="retailPricePreference"]');
                 block.$retailPriceInput = block.$el.find('[name="retailPrice"]');
@@ -79,6 +80,9 @@ define(
 
                 block.$retailPriceLink = block.$retailPriceInput.next('.productForm__inputLink');
                 block.$retailMarkupLink = block.$retailMarkupInput.next('.productForm__inputLink');
+            },
+            _afterRender: function(){
+                var block = this;
 
                 block.renderRetailMarkupLink();
                 block.renderRetailPriceLink();

@@ -3,15 +3,15 @@ define(
         '/kit/block.js',
         '/kit/datepicker/datepicker.js',
         '/kit/tooltip/tooltip.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Block, Datepicker, Tooltip, tpl) {
+    function(Block, Datepicker, Tooltip, templates) {
         return Block.extend({
             date: null,
             noTime: false,
-            tpl: tpl,
             tagName: 'input',
             className: 'inputDate',
+            templates: templates,
 
             initialize: function() {
                 var block = this;
@@ -29,8 +29,8 @@ define(
                 });
 
                 block.datepicker = new Datepicker({
-                    tpl: {
-                        controls: block.tpl.datepicker__controls
+                    templates: {
+                        controls: block.templates.datepicker__controls
                     },
                     noTime: block.noTime
                 });

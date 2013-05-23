@@ -1,14 +1,13 @@
 define(
     [
         '/kit/block.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Block, tpl) {
+    function(Block, templates) {
         return Block.extend({
             $trigger: null,
-            tpl: tpl,
-            tagName: 'div',
             className: 'tooltip',
+            templates: templates,
 
             initialize: function() {
                 var block = this;

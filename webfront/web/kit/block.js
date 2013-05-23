@@ -1,11 +1,15 @@
 define(
     [
         '/kit/page.js',
-        './utils/deepExtend.js',
-        './utils/inherit.js'
+        './_utils/deepExtend.js',
+        './_utils/inherit.js'
     ],
     function(page, deepExtend, inherit) {
         var Block = Backbone.View.extend({
+            templates: {},
+            className: null,
+            tagName: 'div',
+
             constructor: function(props) {
                 var block = this;
 
@@ -13,26 +17,33 @@ define(
 
                 block.cid = _.uniqueId('block');
                 block._ensureElement();
-                block._findElements();
+                block.findElements();
                 block.delegateEvents();
                 block.initialize.apply(block, arguments);
 
                 page.addBlocks([block]);
             },
+            initialize: function(){
+                var block = this;
+
+                if (block.templates.index){
+                    block.render();
+                }
+            },
             render: function() {
                 var block = this,
-                    $tpl = $(block.tpl.main({
+                    $template = $(block.templates.index({
                         block: block
                     }));
 
                 block.$el
-                    .html($tpl)
+                    .html($template)
                     .initBlocks();
 
-                block._findElements();
+                block.findElements();
                 block._afterRender();
             },
-            _findElements: function() {
+            findElements: function() {
                 var block = this,
                     $context = arguments[0] || block.$el,
                     elements = [];

@@ -1,17 +1,19 @@
 define(
     [
         '/kit/block.js',
+        '/kit/inputDate/inputDate.js',
         '/models/writeOff.js',
         '/collections/writeOffProducts.js',
         '/helpers/helpers.js',
         './addProductForm.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Block, WriteOffModel, WriteOffProductCollection, helpers, AddProductForm, tpl) {
+    function(Block, InputDate, WriteOffModel, WriteOffProductCollection, helpers, AddProductForm, templates) {
         return Block.extend({
             editMode: false,
             dataEditing: false,
-            tpl: tpl,
+            className: 'writeOff',
+            templates: templates,
 
             initialize: function() {
                 var block = this;
@@ -31,10 +33,6 @@ define(
 
                 block.set('editMode', block.editMode);
 
-                block.$head = block.$el.find('.writeOff__head');
-                block.$table = block.$el.find('.writeOff__table');
-                block.$footer = block.$el.find('.writeOff__footer');
-
                 block.addForm = new AddProductForm({
                     writeOffId: block.writeOffId,
                     el: block.el.getElementsByClassName('writeOff__addProductForm')
@@ -48,10 +46,10 @@ define(
                 });
 
                 block.listenTo(block.writeOffModel, 'sync change', function() {
-                    block.$head.html(block.tpl.head({
+                    block.$head.html(block.templates.head({
                         block: block
                     }));
-                    block.$footer.html(block.tpl.footer({
+                    block.$footer.html(block.templates.footer({
                         block: block
                     }));
                 });
@@ -114,7 +112,6 @@ define(
                         }
                     });
 
-
                     if (notEmptyForm || block.dataEditing) {
                         alert("У вас есть не сохранённые данные");
                     } else {
@@ -123,6 +120,7 @@ define(
                 },
                 'click .writeOff__editable': function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     var block = this;
 
                     if (block.editMode && !block.dataEditing) {
@@ -213,7 +211,7 @@ define(
                 block.set('dataEditing', true);
 
                 $writeOffProductRow
-                    .after(block.tpl.removeConfirm({
+                    .after(block.templates.removeConfirm({
                         writeOffProductId: writeOffProductId
                     }))
                     .hide();
@@ -246,7 +244,7 @@ define(
             renderTable: function() {
                 var block = this;
 
-                block.$table.html(block.tpl.table({
+                block.$table.html(block.templates.table({
                     block: block
                 }));
             },
@@ -275,22 +273,11 @@ define(
                 $input.removeClass('.inputText_error');
                 $inputControls.removeAttr('lh_field_error');
             },
-            datePickerToInput: function($input) {
-                var block = this;
-
-                $input.mask('99.99.9999');
-
-                var options = {
-                    dateFormat: block.writeOffModel.dateFormat
-                };
-
-                $input.datepicker(options);
-            },
             showDataInput: function($el) {
                 var block = this,
                     $dataElement = $el,
                     $dataRow = $el.closest('.writeOff__dataRow'),
-                    dataInputControls = block.tpl.dataInputControls();
+                    dataInputControls = block.templates.dataInputControls();
 
                 block.set('dataEditing', true);
 
@@ -304,21 +291,23 @@ define(
 
                 switch ($dataElement.attr('model-attr')) {
                     case 'product':
-                        $dataElement.append(block.tpl.dataInputAutocomplete({
+                        $dataElement.append(block.templates.dataInputAutocomplete({
                             $dataElement: $dataElement
                         }));
                         block.autocompleteToInput($dataElement.find("[lh_product_autocomplete]"));
                         break;
 
                     case 'date':
-                        $dataElement.append(block.tpl.dataInput({
+                        $dataElement.append(block.templates.dataInput({
                             $dataElement: $dataElement
                         }));
-                        block.datePickerToInput($dataElement.find("form [name]"), false);
+                        new InputDate({
+                            el: $dataElement.find('.inputText')[0]
+                        });
                         break;
 
                     default:
-                        $dataElement.append(block.tpl.dataInput({
+                        $dataElement.append(block.templates.dataInput({
                             $dataElement: $dataElement
                         }));
                         break;

@@ -2,14 +2,13 @@ define(
     [
         '/kit/block.js',
         '/collections/products.js',
-        './tpl/tpl.js'
+        './templates/_templates.js'
     ],
-    function(Block, ProductCollection, tpl) {
+    function(Block, ProductCollection, templates) {
         return Block.extend({
-            tpl: tpl,
-            tagName: 'div',
             className: 'productList',
             productCollection: new ProductCollection(),
+            templates: templates,
 
             initialize: function() {
                 var block = this;
@@ -31,7 +30,7 @@ define(
                 var block = this;
 
                 block.$table
-                    .html(block.tpl.table({
+                    .html(block.templates.table({
                         block: block
                     }))
                     .find('thead').removeClass('preloader_rows');
