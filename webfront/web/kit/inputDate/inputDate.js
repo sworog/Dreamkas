@@ -36,6 +36,7 @@ define(
                 });
 
                 block.tooltip.$el.addClass('inputDate__tooltip');
+                block.datepicker.$el.attr({rel: block.$el.attr('name')});
                 block.tooltip.$content.html(block.datepicker.$el);
 
                 block.$el.change();
