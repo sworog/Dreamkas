@@ -9,8 +9,6 @@ import project.lighthouse.autotests.StaticDataCollections;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
-import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
-import project.lighthouse.autotests.pages.product.ProductListPage;
 
 import java.io.IOException;
 
@@ -18,8 +16,6 @@ public class CommonSteps extends ScenarioSteps {
 
     CommonPage commonPage;
     InvoiceCreatePage invoiceCreatePage;
-    ProductListPage productListPage;
-    InvoiceListPage invoiceListPage;
     InvoiceBrowsing invoiceBrowsing;
 
 
@@ -59,13 +55,11 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void createProductPostRequestSend(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
-        productListPage.open();
         commonPage.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
     }
 
     @Step
     public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
-        invoiceListPage.open();
         commonPage.createInvoiceThroughPost(invoiceName);
     }
 
@@ -96,13 +90,11 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void averagePriceCalculation() {
-        productListPage.open();
         commonPage.averagePriceCalculation();
     }
 
     @Step
     public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
-        productListPage.open();
         commonPage.createWriteOffThroughPost(writeOffNumber);
     }
 
@@ -110,7 +102,6 @@ public class CommonSteps extends ScenarioSteps {
     public void createWriteOffThroughPost(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
                                           String quantity, String price, String cause)
             throws IOException, JSONException {
-        productListPage.open();
         commonPage.createWriteOffThroughPost(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
     }
 
@@ -118,14 +109,12 @@ public class CommonSteps extends ScenarioSteps {
     public void createWriteOffAndNavigateToIt(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
                                               String quantity, String price, String cause)
             throws JSONException, IOException {
-        productListPage.open();
         commonPage.createWriteOffAndNavigateToIt(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
     }
 
     @Step
     public void createWriteOffAndNavigateToIt(String writeOffNumber)
             throws JSONException, IOException {
-        productListPage.open();
         commonPage.createWriteOffAndNavigateToIt(writeOffNumber);
     }
 

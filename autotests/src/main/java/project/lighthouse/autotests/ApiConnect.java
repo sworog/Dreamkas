@@ -173,11 +173,11 @@ public class ApiConnect {
     }
 
     private String getApiUrl() {
-        return "http://" + driver.getCurrentUrl().replaceFirst(".*//*/(.*)\\.webfront\\.([a-zA-Z\\.]+)/.*", "$1.api.$2");
+        return StaticDataCollections.WEB_DRIVER_BASE_URL.replace("webfront", "api");
     }
 
     private String getWebFrontUrl() {
-        return getApiUrl().replace("api", "webfront");
+        return StaticDataCollections.WEB_DRIVER_BASE_URL;
     }
 
     private static Map<String, Object> toMap(JSONObject object) throws JSONException {
