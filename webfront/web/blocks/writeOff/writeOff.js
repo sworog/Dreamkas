@@ -302,7 +302,8 @@ define(
                             $dataElement: $dataElement
                         }));
                         new InputDate({
-                            el: $dataElement.find('.inputText')[0]
+                            el: $dataElement.find('.inputText')[0],
+                            noTime: true
                         });
                         break;
 
