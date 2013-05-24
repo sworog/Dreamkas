@@ -64,7 +64,7 @@ And the user inputs 'WriteOff-ProductName-1' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
-And the user inputs 'Retail price - PCWRPF' in 'sku' field
+And the user inputs 'Retail price - WO-PCWRPF' in 'sku' field
 And the user clicks 'retailPriceHint' to make it avalaible
 When the user inputs '140' in 'retailPrice' field
 When the user clicks the create button
