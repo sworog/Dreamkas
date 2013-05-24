@@ -7,7 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.pages.elements.*;
+import project.lighthouse.autotests.pages.elements.Autocomplete;
+import project.lighthouse.autotests.pages.elements.DateTime;
+import project.lighthouse.autotests.pages.elements.Input;
+import project.lighthouse.autotests.pages.elements.NonType;
 
 @DefaultUrl("/invoice/create")
 public class InvoiceCreatePage extends CommonPageObject {
@@ -32,7 +35,7 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("accepter", new Input(this, "accepter"));
         items.put("recipient", new Input(this, "recipient"));
         items.put("supplierInvoiceSku", new Input(this, "supplierInvoiceSku"));
-        items.put("supplierInvoiceDate", new Date(this, "supplierInvoiceDate"));
+        items.put("supplierInvoiceDate", new DateTime(this, "supplierInvoiceDate"));
         items.put("legalEntity", new Input(this, "legalEntity"));
 
         items.put("productName", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='name']")));
@@ -52,12 +55,12 @@ public class InvoiceCreatePage extends CommonPageObject {
 
         /*Edit mode*/
         items.put("inline sku", new Input(this, By.xpath(String.format(XPATH_PATTERN, "sku"))));
-        items.put("inline acceptanceDate", new DateTime(this, By.xpath(String.format(XPATH_PATTERN, "acceptanceDate"))));
+        items.put("inline acceptanceDate", new DateTime(this, By.xpath(String.format(XPATH_PATTERN, "acceptanceDate")), "acceptanceDate"));
         items.put("inline supplier", new Input(this, By.xpath(String.format(XPATH_PATTERN, "supplier"))));
         items.put("inline accepter", new Input(this, By.xpath(String.format(XPATH_PATTERN, "accepter"))));
         items.put("inline recipient", new Input(this, By.xpath(String.format(XPATH_PATTERN, "recipient"))));
         items.put("inline supplierInvoiceSku", new Input(this, By.xpath(String.format(XPATH_PATTERN, "supplierInvoiceSku"))));
-        items.put("inline supplierInvoiceDate", new Date(this, By.xpath(String.format(XPATH_PATTERN, "supplierInvoiceDate"))));
+        items.put("inline supplierInvoiceDate", new DateTime(this, By.xpath(String.format(XPATH_PATTERN, "supplierInvoiceDate")), "supplierInvoiceDate"));
         items.put("inline legalEntity", new Input(this, By.xpath(String.format(XPATH_PATTERN, "legalEntity"))));
 
         items.put("inline productName", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "name"))));

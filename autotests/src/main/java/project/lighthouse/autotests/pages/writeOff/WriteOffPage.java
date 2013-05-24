@@ -29,13 +29,13 @@ public class WriteOffPage extends InvoiceBrowsing {
     @Override
     public void createElements() {
         items.put("writeOff number", new Input(this, "number"));
-        items.put("writeOff date", new Date(this, "date"));
+        items.put("writeOff date", new DateTime(this, "date"));
 
         items.put("writeOff number review", new NonType(this, "number"));
         items.put("writeOff date review", new NonType(this, "date"));
 
         items.put("inline writeOff number", new Input(this, By.xpath(String.format(XPATH_PATTERN, "number"))));
-        items.put("inline writeOff date", new Date(this, By.xpath(String.format(XPATH_PATTERN, "date"))));
+        items.put("inline writeOff date", new DateTime(this, By.xpath(String.format(XPATH_PATTERN, "date")), "date"));
 
         items.put("writeOff product name autocomplete", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='name']")));
         items.put("writeOff product sku autocomplete", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='sku']")));

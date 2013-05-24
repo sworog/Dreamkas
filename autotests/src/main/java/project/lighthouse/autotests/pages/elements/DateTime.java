@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.pages.elements;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
 
@@ -14,10 +13,6 @@ import java.util.Locale;
 
 public class DateTime extends CommonItem {
 
-    /*
-    Попросить Андрея сделать на каждом дэйтпикере атрибут нэйм с именем поля, используемого. и переделать класс и все такое
-     */
-
     public static final String DATE_PATTERN = "dd.MM.yyyy";
     public static final String DATE_TIME_PATTERN = "dd.MM.yyyy HH:mm";
     public final Locale locale = new Locale("ru");
@@ -27,8 +22,9 @@ public class DateTime extends CommonItem {
     public static final String prevMonthLinkXpath = "//*[@class='datepicker__prevMonthLink']";
     public static final String nextMonthLinkXpath = "//*[@class='datepicker__nextMonthLink']";
 
-    public DateTime(CommonPageObject pageObject, By findBy) {
+    public DateTime(CommonPageObject pageObject, By findBy, String name) {
         super(pageObject, findBy);
+        this.name = name;
     }
 
     public DateTime(CommonPageObject pageObject, String name) {
@@ -36,20 +32,9 @@ public class DateTime extends CommonItem {
         this.name = name;
     }
 
-    public WebElement getDatePicker() {
-        String datePickerXpath = getDatePickerXpath();
-        switch (name) {
-            case "acceptanceDate":
-            case "supplierInvoiceDate":
-            default:
-                return pageObject.findVisibleElement(By.xpath(datePickerXpath));
-        }
-    }
-
     public String getDatePickerXpath() {
-        String xpathTemplate = "//*[contains(@class, 'datepicker') and name='%s']";
+        String xpathTemplate = "//*[contains(@class, 'datepicker') and @rel='%s']";
         return String.format(xpathTemplate, name);
-
     }
 
     @Override
@@ -102,81 +87,76 @@ public class DateTime extends CommonItem {
         if (!monthString.toLowerCase().equals(getActualDatePickerMonth())) {
             setMonth(monthInt);
         }
-        if (dayString.startsWith("0")) {
-            dayString = dayString.substring(1);
+        if (!dayString.startsWith("0") && dayString.length() == 1) {
+            dayString = "0" + dayString;
         }
         setDay(dayString);
         if (dateArray.length == 2) {
             setTime(dateArray[1]);
-            dateTimePickerClose();
         }
+        dateTimePickerClose();
     }
 
     public void dateTimePickerClose() {
-        String dateTimePickerCloseButtonXpath = "//*[@class='button button_color_blue datepicker__saveLink tooltip__closeLink']";
-        pageObject.findVisibleElement(By.xpath(dateTimePickerCloseButtonXpath)).click();
+        String dateTimePickerCloseButtonXpath = getDatePickerXpath() + "//*[@class='button button_color_blue datepicker__saveLink tooltip__closeLink']";
+        pageObject.findElement(By.xpath(dateTimePickerCloseButtonXpath)).click();
     }
 
     public String getActualDatePickerMonth() {
-        String actualDatePickerMonthXpath = "//*[@class='datepicker__monthName']";
-        return pageObject.findBy(actualDatePickerMonthXpath).getText();
+        String actualDatePickerMonthXpath = getDatePickerXpath() + "//*[@class='datepicker__monthName']";
+        return pageObject.find(By.xpath(actualDatePickerMonthXpath)).getText();
     }
 
     public int getActualDatePickerYear() {
-        String actualDatePickerYearXpath = "//*[@class='datepicker__yearNum']";
-        return Integer.parseInt(pageObject.findBy(actualDatePickerYearXpath).getText());
+        String actualDatePickerYearXpath = getDatePickerXpath() + "//*[@class='datepicker__yearNum']";
+        String actualDatePickerYear = pageObject.find(By.xpath(actualDatePickerYearXpath)).getText();
+        return Integer.parseInt(actualDatePickerYear);
     }
 
     public void setTime(String timeString) {
         String[] time = timeString.split(":");
-        pageObject.find(By.name("hours")).type(time[0]);
-        pageObject.find(By.name("minutes")).type(time[1]);
+        String hoursXpath = getDatePickerXpath() + "//*[@name='hours']";
+        String minutesXpath = getDatePickerXpath() + "//*[@name='minutes']";
+        pageObject.find(By.xpath(hoursXpath)).type(time[0]);
+        pageObject.find(By.xpath(minutesXpath)).type(time[1]);
     }
 
     public void setDay(String dayString) {
         String timePickerDayXpath =
-                String.format("//*[@class='datepicker__dateList']/*[normalize-space(@class='datepicker__dateItem') and normalize-space(text())='%s']", dayString);
-        pageObject.findVisibleElement(By.xpath(timePickerDayXpath)).click();
+                String.format(getDatePickerXpath() + "//*[@class='datepicker__dateList']/*[normalize-space(@class='datepicker__dateItem') and normalize-space(text())='%s']", dayString);
+        pageObject.findElement(By.xpath(timePickerDayXpath)).click();
     }
 
     public void setMonth(int monthValue) {
-        setMonth(monthValue, prevMonthLinkXpath, nextMonthLinkXpath);
-    }
-
-    public void setMonth(int monthValue, String prevMonthLinkXpath, String nextMonthLinkXpath) {
         int getActualMonth = getMonthNumber(getActualDatePickerMonth());
         int actualMonthValue = 0;
         if (monthValue < getActualMonth) {
             actualMonthValue = 0;
             while (!(monthValue == actualMonthValue)) {
-                pageObject.findBy(prevMonthLinkXpath).click();
+                pageObject.findElement(By.xpath(getDatePickerXpath() + prevMonthLinkXpath)).click();
                 actualMonthValue = getMonthNumber(getActualDatePickerMonth());
             }
         } else if (monthValue > actualMonthValue) {
             actualMonthValue = 0;
             while (!(monthValue == actualMonthValue)) {
-                pageObject.findBy(nextMonthLinkXpath).click();
+                pageObject.findElement(By.xpath(getDatePickerXpath() + nextMonthLinkXpath)).click();
                 actualMonthValue = getMonthNumber(getActualDatePickerMonth());
             }
         }
     }
 
-    public void setYear(int yearValue, String prevMonthLinkXpath) {
+    public void setYear(int yearValue) {
         int actualYear = Calendar.getInstance().get(Calendar.YEAR);
         if (yearValue < getActualDatePickerYear()) {
             int actualYearValue = 0;
             while (!(yearValue == actualYearValue)) {
-                pageObject.findBy(prevMonthLinkXpath).click();
+                pageObject.findElement(By.xpath(getDatePickerXpath() + prevMonthLinkXpath)).click();
                 actualYearValue = getActualDatePickerYear();
             }
         } else if (yearValue > actualYear) {
             String errorMessage = String.format("Year '%s' cantbe older than current year '%s'", yearValue, actualYear);
             throw new AssertionError(errorMessage);
         }
-    }
-
-    public void setYear(int yearValue) {
-        setYear(yearValue, prevMonthLinkXpath);
     }
 
     public String getMonthName(int month) {
