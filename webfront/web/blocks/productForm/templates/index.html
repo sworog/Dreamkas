@@ -11,11 +11,11 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Измеряется в</label>
-        <select value="<%=_.escape( block.productModel.get('units')) %>" class="select" name="units" block="/kit/select/select_units.js"></select>
+        <select value="<%=_.escape( block.productModel.get('units')) %>" class="select" name="units" block="/blocks/select/select_units.js"></select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">НДС</label>
-        <select value="<%= _.escape(block.productModel.get('vat')) %>" class="select" name="vat" block="/kit/select/select_vat.js"></select>
+        <select value="<%= _.escape(block.productModel.get('vat')) %>" class="select" name="vat" block="/blocks/select/select_vat.js"></select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена закупки</label>
