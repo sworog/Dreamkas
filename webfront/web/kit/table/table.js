@@ -9,6 +9,10 @@ define(
 
             initialize: function(){
                 var block = this;
+            },
+            'set:loading': function(loading){
+                var block = this;
+                block.find('thead').toggleClass('preloader_rows', loading);
             }
         })
     }
