@@ -1,0 +1,8 @@
+<tr>
+    <% _.each(block.columns, function(column, index){ %>
+        <%= block.templates.td({
+            block: block,
+            data: item[column.dataKey || index]
+        }) %>
+    <% }) %>
+</tr>

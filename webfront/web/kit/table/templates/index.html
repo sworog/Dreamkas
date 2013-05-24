@@ -1,0 +1,15 @@
+<thead>
+<tr>
+    <% _.each(block.columns, function(column){ %>
+    <th><%= column.title || column %></th>
+    <% }) %>
+</tr>
+</thead>
+<tbody>
+<% _.each(block.data, function(item){ %>
+    <%= block.templates.tr({
+        block: block,
+        item: item
+    }) %>
+<% }) %>
+</tbody>
