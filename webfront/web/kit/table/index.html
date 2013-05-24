@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Datepicker kit block</title>
+
+    <link rel="stylesheet" href="/main.css"/>
+
+    <!--js libs-->
+    <script src="/libs/jquery/jquery.min.js"></script>
+    <script src="/libs/jquery/jquery.initBlocks.js"></script>
+
+    <script src="/libs/underscore/underscore.min.js"></script>
+    <script src="/libs/backbone/backbone.min.js"></script>
+    <script src="/libs/require/require.min.js" type="text/javascript"></script>
+    <!--/js libs-->
+</head>
+<body>
+<div class="page">
+    <div class="box">
+        <table class="table"></table>
+    </div>
+</div>
+<script>
+    require({
+        paths: {
+            tpl: '/libs/require/tpl'
+        }
+    }, ['/kit/table/table.js'], function(Table) {
+        new Table({
+            el: document.getElementsByClassName('table'),
+            columns: ['Number', 'Ru', 'En'],
+            data: [
+                ['1', 'А', 'A'],
+                ['2', 'Б', 'B'],
+                ['3', 'В', 'C'],
+                ['4', 'Г', 'D'],
+                ['5', 'Д', 'E']
+            ]
+        });
+    });
+</script>
+</body>
+</html>
