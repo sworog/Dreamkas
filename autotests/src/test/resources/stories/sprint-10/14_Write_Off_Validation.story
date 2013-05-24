@@ -46,18 +46,14 @@ Given the user opens the write off create page
 When the user inputs 'WriteOff test-2' in the 'writeOff number' field on the write off page
 And the user inputs '!123454567890' in the write off 'writeOff date' field
 When the user continues the write off creation
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
+Then the user sees no error messages
 
 Scenario: writeOff date validation manual negative1 numbers 2
 Given the user opens the write off create page
 When the user inputs 'WriteOff test-3' in the 'writeOff number' field on the write off page
 And the user inputs '!12345456789' in the write off 'writeOff date' field
 When the user continues the write off creation
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
+Then the user sees no error messages
 
 Scenario: Write off writeOff date validation manual negative2 eng symbols
 Given the user opens the write off create page

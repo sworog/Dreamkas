@@ -71,6 +71,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void goToTheaAdditionOfProductsLinkClick() {
         findBy("//span[@class='button button_color_blue']/input").click();
+        waiter.waitUntilIsNotVisible(By.xpath("//span[@class='button button_color_blue preloader preloader_rows']"));
     }
 
     public void addOneMoreProductLinkClick() {

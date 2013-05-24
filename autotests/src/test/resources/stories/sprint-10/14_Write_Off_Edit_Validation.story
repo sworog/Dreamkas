@@ -67,11 +67,8 @@ When the user clicks edit button and starts write off edition
 And the user clicks on 'writeOff date review' write off element to edit it
 And the user inputs '!123454567890' in the 'inline writeOff date' field on the write off page
 And the user clicks OK and accepts changes
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
+Then the user sees no error messages
+When the user clicks finish edit button and ends the write off edition
 
 Scenario: writeOff date Edit validation manual negative1 numbers 2
 Given there is the write off with number 'WriteOff-Edit-Val-7'
@@ -80,11 +77,8 @@ When the user clicks edit button and starts write off edition
 And the user clicks on 'writeOff date review' write off element to edit it
 And the user inputs '!12345456789' in the 'inline writeOff date' field on the write off page
 And the user clicks OK and accepts changes
-Then the user sees error messages
-| error message |
-| Вы ввели неверную дату |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
+Then the user sees no error messages
+When the user clicks finish edit button and ends the write off edition
 
 Scenario: Write off date Edit validation manual negative2 eng symbols
 Given there is the write off with number 'WriteOff-Edit-Val-8'
