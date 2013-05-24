@@ -4,7 +4,7 @@ define(
         '/models/writeOff.js',
         '/helpers/helpers.js',
         '/routers/mainRouter.js',
-        './templates/_templates.js'
+        './writeOffForm.templates.js'
     ],
     function(Form, WriteOffModel, helpers, router, templates) {
         return Form.extend({

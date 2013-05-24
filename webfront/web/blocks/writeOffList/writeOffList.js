@@ -2,7 +2,7 @@ define(
     [
         '/kit/block.js',
         '/collections/writeOff.js',
-        './templates/_templates.js'
+        './writeOffList.templates.js'
     ],
     function(Block, WriteOffCollection, templates) {
         return Block.extend({

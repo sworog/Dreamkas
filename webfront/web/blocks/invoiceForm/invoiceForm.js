@@ -3,7 +3,7 @@ define(
         '/kit/form/form.js',
         '/models/invoice.js',
         '/routers/mainRouter.js',
-        './templates/_templates.js'
+        './invoiceForm.templates.js'
     ],
     function(Form, InvoiceModel, router, templates) {
         return Form.extend({

@@ -3,7 +3,7 @@ define(
         '/kit/block.js',
         '/kit/form/form.js',
         '/models/purchase.js',
-        './templates/_templates.js'
+        './saleBox.templates.js'
     ],
     function(Block, Form, PurchaseModel, templates) {
         return Block.extend({

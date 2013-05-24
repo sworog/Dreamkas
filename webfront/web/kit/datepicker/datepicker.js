@@ -1,7 +1,7 @@
 define(
     [
         '/kit/block.js',
-        './templates/_templates.js'
+        './datepicker.templates.js'
     ],
     function(Block, templates) {
         return Block.extend({

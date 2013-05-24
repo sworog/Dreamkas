@@ -4,7 +4,7 @@ define(
         '/models/product.js',
         '/helpers/helpers.js',
         '/routers/mainRouter.js',
-        './templates/_templates.js'
+        './productForm.templates.js'
     ],
     function(Form, ProductModel, helpers, router, templates) {
         return Form.extend({

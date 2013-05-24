@@ -6,7 +6,7 @@ define(
         '/collections/writeOffProducts.js',
         '/helpers/helpers.js',
         './addProductForm.js',
-        './templates/_templates.js'
+        './writeOff.templates.js'
     ],
     function(Block, InputDate, WriteOffModel, WriteOffProductCollection, helpers, AddProductForm, templates) {
         return Block.extend({

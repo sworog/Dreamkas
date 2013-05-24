@@ -2,7 +2,7 @@ define(
     [
         '/kit/block.js',
         '/models/product.js',
-        './templates/_templates.js'
+        './product.templates.js'
     ],
     function(Block, ProductModel, templates) {
         return Block.extend({

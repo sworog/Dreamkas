@@ -2,7 +2,7 @@ define(
     [
         '/kit/block.js',
         '/collections/invoices.js',
-        './templates/_templates.js'
+        './invoiceList.templates.js'
     ],
     function(Block, InvoiceCollection, templates) {
         return Block.extend({

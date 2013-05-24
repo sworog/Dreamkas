@@ -5,7 +5,7 @@ define(
         '/models/invoice.js',
         '/collections/invoiceProducts.js',
         './addProductForm.js',
-        './templates/_templates.js'
+        './invoice.templates.js'
     ],
     function(Block, InputDate, InvoiceModel, InvoiceProductCollection, AddProductForm, templates) {
         return Block.extend({

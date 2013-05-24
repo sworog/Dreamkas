@@ -1,7 +1,7 @@
 define(
     [
         '/kit/block.js',
-        './templates/_templates.js'
+        './tooltip.templates.js'
     ],
     function(Block, templates) {
         return Block.extend({

@@ -1,7 +1,7 @@
 define(
     [
         './select.js',
-        'tpl!./select_units.html'
+        'tpl!./templates/select_units.html'
     ],
     function(Select, indexTemplate) {
         return Select.extend({

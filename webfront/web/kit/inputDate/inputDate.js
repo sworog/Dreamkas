@@ -3,7 +3,7 @@ define(
         '/kit/block.js',
         '/kit/datepicker/datepicker.js',
         '/kit/tooltip/tooltip.js',
-        './templates/_templates.js'
+        './inputDate.templates.js'
     ],
     function(Block, Datepicker, Tooltip, templates) {
         return Block.extend({

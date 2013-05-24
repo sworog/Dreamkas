@@ -2,7 +2,7 @@ define(
     [
         '/kit/block.js',
         '/collections/products.js',
-        './templates/_templates.js'
+        './balanceList.templates.js'
     ],
     function(Block, ProductCollection, templates) {
         return Block.extend({
