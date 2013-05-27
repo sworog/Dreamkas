@@ -24,6 +24,10 @@ lighthouse.core.write-off.product:
     type:     rest
     parent:   lighthouse.core.write-off
 
+lighthouse.core.klass:
+    resource: Lighthouse\CoreBundle\Controller\KlassController
+    type:     rest
+
 lighthouse.core.service:
     resource: Lighthouse\CoreBundle\Controller\ServiceController
     type:     annotation
