@@ -1,0 +1,22 @@
+.catalog__classItem{
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 0 50px 30px 0;
+    margin-right: -5px;
+}
+
+.catalog__controls{
+    padding-bottom: 20px;
+}
+
+.catalog__groupLink{
+    margin: 0 10px 5px 0;
+}
+
+.catalog__classTitle{
+    font-size: 16px;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
