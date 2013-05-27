@@ -5,7 +5,8 @@ define(
         './invoice.js',
         './balance.js',
         './product.js',
-        './writeOff.js'
+        './writeOff.js',
+        './catalog.js'
     ],
     function(page, BaseRouter) {
 
