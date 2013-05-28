@@ -7,24 +7,24 @@ define(
         var Router = BaseRouter.extend({
             routes: {
                 'catalog': 'catalog',
-                'catalog/:classId': 'catalogClass',
-                'catalog/:classId/:groupId': 'catalogGroup'
+                'catalog/:catalogClassId': 'catalogClass',
+                'catalog/:catalogClassId/:catalogGroupId': 'catalogGroup'
             },
             catalog: function(params) {
                 page.open('/pages/catalog/catalog.html', {
                     params: params || {}
                 });
             },
-            catalogClass: function(classId, params){
+            catalogClass: function(catalogClassId, params){
                 page.open('/pages/catalog/class.html', {
-                    classId: classId,
+                    catalogClassId: catalogClassId,
                     params: params || {}
                 });
             },
-            catalogGroup: function(classId, groupId, params){
+            catalogGroup: function(catalogClassId, catalogGroupId, params){
                 page.open('/pages/catalog/group.html', {
-                    classId: classId,
-                    groupId: groupId,
+                    catalogClassId: catalogClassId,
+                    catalogGroupId: catalogGroupId,
                     params: params || {}
                 });
             }
