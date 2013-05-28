@@ -4,6 +4,8 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
+use Lighthouse\CoreBundle\Document\Klass\Klass;
+use Lighthouse\CoreBundle\Document\Klass\KlassCollection;
 use Lighthouse\CoreBundle\Document\Klass\KlassRepository;
 use Lighthouse\CoreBundle\Form\KlassType;
 use Symfony\Component\Form\AbstractType;
@@ -36,5 +38,33 @@ class KlassController extends AbstractRestController
     public function postKlassesAction(Request $request)
     {
         return $this->processPost($request);
+    }
+
+    /**
+     * @Rest\View(statusCode=200)
+     *
+     * @param Request $request
+     * @param $id
+     * @return \FOS\RestBundle\View\View|Klass
+     */
+    public function putKlassesAction(Request $request, $id)
+    {
+        return $this->processPut($request, $id);
+    }
+
+    /**
+     * @param $id
+     * @return Klass
+     */
+    public function getKlassAction($id)
+    {
+        return $this->processGet($id);
+    }
+
+    public function getKlassesAction()
+    {
+        $cursor = $this->documentRepository->findAll();
+        $collection = new KlassCollection($cursor);
+        return $collection;
     }
 }
