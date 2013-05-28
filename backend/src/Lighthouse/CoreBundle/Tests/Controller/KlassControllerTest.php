@@ -18,7 +18,7 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            'api/1/klasses.json',
+            '/api/1/klasses.json',
             array('klass' => $klassData)
         );
 
@@ -46,7 +46,7 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            'api/1/klasses.json',
+            '/api/1/klasses.json',
             array('klass' => $klassData)
         );
 
@@ -83,5 +83,98 @@ class KlassControllerTest extends WebTestCase
                 array('name' => str_repeat('z', 100)),
             ),
         );
+    }
+
+    /**
+     * @param $expectedCode
+     * @param array $data
+     * @param array $assertions
+     *
+     * @dataProvider validationKlassProvider
+     */
+    public function testPutKlassValidation($expectedCode, array $data, array $assertions = array())
+    {
+        $this->clearMongoDb();
+
+        $klassId = $this->createKlass('Прод тов');
+
+        $klassData = $data + array(
+            'name' => 'Продовольственные товары'
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/klasses/' . $klassId .'.json',
+            array('klass' => $klassData)
+        );
+
+        $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
+
+        Assert::assertResponseCode($expectedCode, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathContains($expected, $path, $postResponse);
+        }
+    }
+
+    public function testGetKlass()
+    {
+        $this->clearMongoDb();
+
+        $klassId = $this->createKlass('Прод Тов');
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId . '.json'
+        );
+
+        Assert::assertJsonPathEquals($klassId, 'id', $postResponse);
+        Assert::assertJsonPathEquals('Прод Тов', 'name', $postResponse);
+    }
+
+    public function testGetKlasses()
+    {
+        $this->clearMongoDb();
+
+        $klassIds = array();
+        for ($i = 0; $i < 5; $i++) {
+            $klassIds[$i] = $this->createKlass('Прод Тов' . $i);
+        }
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathCount(5, '*.id', $postResponse);
+
+        foreach ($klassIds as $id) {
+            Assert::assertJsonPathEquals($id, '*.id', $postResponse);
+        }
+    }
+
+    public function testKlassUnique()
+    {
+        $this->clearMongoDb();
+
+        $klassId = $this->createKlass('Прод Тов');
+
+        $postData = array(
+            'name' => 'Прод Тов',
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/klasses.json',
+            array('klass' => $postData)
+        );
+
+        Assert::assertResponseCode(400, $this->client);
+        Assert::assertJsonPathEquals('Такой класс уже есть', 'children.name.errors.0', $postResponse);
     }
 }

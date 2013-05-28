@@ -402,4 +402,28 @@ class WebTestCase extends BaseTestCase
 
         return $postResponse['id'];
     }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    protected function createKlass($name)
+    {
+        $postData = array(
+            'name' => $name,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/klasses.json',
+            array('klass' => $postData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
 }

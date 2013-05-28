@@ -5,11 +5,13 @@ namespace Lighthouse\CoreBundle\Document\Klass;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Klass\KlassRepository"
  * )
+ * @Unique(fields="name", message="lighthouse.validation.errors.klass.name.unique")
  */
 class Klass extends AbstractDocument
 {
