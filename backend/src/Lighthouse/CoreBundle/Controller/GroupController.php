@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\Group\Group;
+use Lighthouse\CoreBundle\Document\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Klass\KlassRepository;
 use Lighthouse\CoreBundle\Form\GroupType;
@@ -70,6 +71,18 @@ class GroupController extends AbstractRestController
     public function getGroupAction($klassId, $groupId)
     {
         return $this->findGroup($klassId, $groupId);
+    }
+
+    /**
+     * @param string $klassId
+     * @return GroupCollection
+     */
+    public function getGroupsAction($klassId)
+    {
+        $klass = $this->findKlass($klassId);
+        $cursor = $this->getDocumentRepository()->findByKlass($klass->id);
+        $collection = new GroupCollection($cursor);
+        return $collection;
     }
 
     /**
