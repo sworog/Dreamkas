@@ -1,112 +1,15 @@
+<% if(!block.catalogClassesCollection.length) { %>
+    <div>Каталог не заполнен</div>
+<% } %>
+
+<% _.each(block.catalogClassesCollection.toJSON(), function(catalogClass){ %>
 <div class="catalog__classItem">
     <div class="catalog__classTitle">
-        <a href="/catalog/1" class="catalog__classLink">Класс 1</a>
+        <a href="/catalog/<%= catalogClass.id %>" class="catalog__classLink"><%= catalogClass.name %></a>
         <a class="editor__editLink catalog__editClassLink"></a>
     </div>
     <ul class="catalog__classGroupList">
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 1</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 2</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 3</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 4</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 5</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
+        <%= block.templates.groupList({block: block}) %>
     </ul>
 </div>
-<div class="catalog__classItem">
-    <div class="catalog__classTitle">
-        <a href="/catalog/1" class="catalog__classLink">Класс 2</a>
-        <a class="editor__editLink catalog__editClassLink"></a>
-    </div>
-    <ul class="catalog__classGroupList">
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 1</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 2</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 3</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 4</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 5</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-    </ul>
-</div>
-<div class="catalog__classItem">
-    <div class="catalog__classTitle">
-        <a href="/catalog/1" class="catalog__classLink">Класс 3</a>
-        <a class="editor__editLink catalog__editClassLink"></a>
-    </div>
-    <ul class="catalog__classGroupList">
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 1</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 2</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 3</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 4</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 5</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-    </ul>
-</div>
-<div class="catalog__classItem">
-    <div class="catalog__classTitle">
-        <a href="/catalog/1" class="catalog__classLink">Класс 4</a>
-        <a class="editor__editLink catalog__editClassLink"></a>
-    </div>
-    <ul class="catalog__classGroupList">
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 1</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 2</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 3</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 4</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-        <li class="catalog__classGroupItem">
-            <a href="/catalog/1/2" class="catalog__groupLink">Группа 5</a>
-            <a class="editor__editLink catalog__editGroupLink"></a>
-        </li>
-    </ul>
-</div>
+<% }) %>

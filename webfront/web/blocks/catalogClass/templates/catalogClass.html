@@ -10,43 +10,13 @@
         Добавить группу
     </a>
 </h3>
-<ul class="catalogClass__list">
-    <li class="catalogClass__listTitle">
-        Классы
-    </li>
-    <li class="catalogClass__listItem">
-        <a href="/catalog/1">Класс 1</a>
-    </li>
-    <li class="catalogClass__listItem">
-        <a href="/catalog/1">Класс 2</a>
-    </li>
-    <li class="catalogClass__listItem">
-        <a href="/catalog/1">Класс 3</a>
-    </li>
-    <li class="catalogClass__listItem">
-        <a href="/catalog/1">Класс 4</a>
-    </li>
+<div class="catalogClass__listTitle">
+    Классы
+</div>
+<ul class="catalogClass__classList">
+    <%= block.templates.classList({block: block}) %>
 </ul>
 <ul class="catalog__classGroupList">
-    <li class="catalog__classGroupItem">
-        <a href="/catalog/1/2" class="catalog__groupLink">Группа 1</a>
-        <a class="editor__editLink catalog__editGroupLink editor__control"></a>
-    </li>
-    <li class="catalog__classGroupItem">
-        <a href="/catalog/1/2" class="catalog__groupLink">Группа 2</a>
-        <a class="editor__editLink catalog__editGroupLink editor__control"></a>
-    </li>
-    <li class="catalog__classGroupItem">
-        <a href="/catalog/1/2" class="catalog__groupLink">Группа 3</a>
-        <a class="editor__editLink catalog__editGroupLink editor__control"></a>
-    </li>
-    <li class="catalog__classGroupItem">
-        <a href="/catalog/1/2" class="catalog__groupLink">Группа 4</a>
-        <a class="editor__editLink catalog__editGroupLink editor__control"></a>
-    </li>
-    <li class="catalog__classGroupItem">
-        <a href="/catalog/1/2" class="catalog__groupLink">Группа 5</a>
-        <a class="editor__editLink catalog__editGroupLink editor__control"></a>
-    </li>
+    <%= block.templates.groupList({block: block}) %>
 </ul>
 <div style="clear: both"></div>
