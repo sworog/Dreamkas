@@ -34,6 +34,7 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
 # Assetic Configuration
 assetic:
@@ -79,6 +80,11 @@ fos_rest:
           json: true
         templating_formats:
             html: false
+    exception:
+        codes:
+            'Lighthouse\CoreBundle\Document\Klass\KlassNotEmptyException': 409
+        messages:
+            'Lighthouse\CoreBundle\Document\Klass\KlassNotEmptyException': true
 
 nelmio_cors:
     paths:

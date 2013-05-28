@@ -270,7 +270,7 @@ class WriteOffProductControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('WriteOff not found', '*.message', $postResponse);
+        Assert::assertJsonPathContains('WriteOff not found', 'message', $postResponse);
     }
 
     public function testPutActionWriteOffProductNotFound()
@@ -304,7 +304,7 @@ class WriteOffProductControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('WriteOffProduct not found', '*.message', $putResponse);
+        Assert::assertJsonPathContains('WriteOffProduct not found', 'message', $putResponse);
 
         $putResponse = $this->clientJsonRequest(
             $this->client,
@@ -314,7 +314,7 @@ class WriteOffProductControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('WriteOff not found', '*.message', $putResponse);
+        Assert::assertJsonPathContains('WriteOff not found', 'message', $putResponse);
 
         $writeOffId2 = $this->createWriteOff('123-43432');
         $writeOffProductId2 = $this->createWriteOffProduct($writeOffId2, $productId);
@@ -327,7 +327,7 @@ class WriteOffProductControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('WriteOffProduct not found', '*.message', $putResponse);
+        Assert::assertJsonPathContains('WriteOffProduct not found', 'message', $putResponse);
 
         $putResponse = $this->clientJsonRequest(
             $this->client,
@@ -337,7 +337,7 @@ class WriteOffProductControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('WriteOffProduct not found', '*.message', $putResponse);
+        Assert::assertJsonPathContains('WriteOffProduct not found', 'message', $putResponse);
     }
 
     public function testDeleteActionWriteOffProductNotFound()
