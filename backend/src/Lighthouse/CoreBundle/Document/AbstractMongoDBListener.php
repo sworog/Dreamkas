@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Lighthouse\CoreBundle\Types\Money;
 
@@ -45,5 +46,18 @@ abstract class AbstractMongoDBListener
         } else {
             return (int) $value;
         }
+    }
+
+    /**
+     * Helper method for computing changes set
+     *
+     * @param DocumentManager $dm
+     * @param $document
+     */
+    protected function computeChangeSet(DocumentManager $dm, $document)
+    {
+        $uow = $dm->getUnitOfWork();
+        $class = $dm->getClassMetadata(get_class($document));
+        $uow->computeChangeSet($class, $document);
     }
 }

@@ -8,6 +8,7 @@ use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository;
@@ -19,7 +20,7 @@ use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
  *
  * @DI\DoctrineMongoDBListener(events={"onFlush"})
  */
-class TrialBalanceListener
+class TrialBalanceListener extends AbstractMongoDBListener
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.trial_balance")
@@ -54,7 +55,7 @@ class TrialBalanceListener
 
                 $dm->persist($trialBalance);
 
-                $this->computeChangeSet($dm, $uow, $trialBalance);
+                $this->computeChangeSet($dm, $trialBalance);
             }
         }
 
@@ -68,7 +69,7 @@ class TrialBalanceListener
 
                 $dm->persist($trialBalance);
 
-                $this->computeChangeSet($dm, $uow, $trialBalance);
+                $this->computeChangeSet($dm, $trialBalance);
             }
 
             if ($document instanceof Invoice) {
@@ -81,7 +82,7 @@ class TrialBalanceListener
                 $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
                 $dm->remove($trialBalance);
 
-                $this->computeChangeSet($dm, $uow, $trialBalance);
+                $this->computeChangeSet($dm, $trialBalance);
             }
         }
     }
@@ -105,18 +106,8 @@ class TrialBalanceListener
 
         foreach ($trailBalances as $trailBalance) {
             $trailBalance->createdDate = $newAcceptanceDate;
-            $this->computeChangeSet($dm, $uow, $trailBalance);
+            $this->computeChangeSet($dm, $trailBalance);
         }
     }
 
-    /**
-     * @param DocumentManager $dm
-     * @param UnitOfWork $uow
-     * @param AbstractDocument $document
-     */
-    protected function computeChangeSet(DocumentManager $dm, UnitOfWork $uow, AbstractDocument $document)
-    {
-        $metadata = $dm->getClassMetadata(get_class($document));
-        $uow->computeChangeSet($metadata, $document);
-    }
 }
