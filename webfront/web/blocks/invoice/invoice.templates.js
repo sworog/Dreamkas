@@ -1,6 +1,6 @@
 define(function(require) {
     return {
-        index: require('tpl!./templates/index.html'),
+        index: require('tpl!./templates/invoice.html'),
         dataInput: require('tpl!./templates/dataInput.html'),
         dataInputAutocomplete: require('tpl!./templates/dataInputAutocomplete.html'),
         dataInputControls: require('tpl!./templates/dataInputControls.html'),

@@ -7,16 +7,24 @@
     margin-right: -5px;
 }
 
-.catalog__controls{
-    padding-bottom: 20px;
+.catalog__classLink{
+    vertical-align: middle;
 }
 
-.catalog__groupLink{
+.catalog__classGroupList{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.catalog__classGroupItem{
     margin: 0 10px 5px 0;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .catalog__classTitle{
     font-size: 16px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     font-weight: bold;
 }

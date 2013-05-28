@@ -1,10 +1,9 @@
 define(
     [
-        '/kit/page.js',
         './_utils/deepExtend.js',
         './_utils/inherit.js'
     ],
-    function(page, deepExtend, inherit) {
+    function(deepExtend, inherit) {
         var Block = Backbone.View.extend({
             templates: {},
             className: null,
@@ -20,8 +19,11 @@ define(
                 block.findElements();
                 block.delegateEvents();
                 block.initialize.apply(block, arguments);
-                block.$el.attr('lighthouse', block.className);
-                block.$el.data('lighthouse', block);
+
+                block.$el
+                    .addClass(block.className)
+                    .attr('block', block.className)
+                    .data('block', block);
 
             },
             initialize: function(){
@@ -39,7 +41,7 @@ define(
 
                 block.$el
                     .html($template)
-                    .initBlocks();
+                    .require();
 
                 block.findElements();
                 block._afterRender();
@@ -70,7 +72,10 @@ define(
             },
             remove: function() {
                 var block = this;
-                page.removeBlocks({cid: block.cid});
+
+                block.stopListening();
+                block.$el.find(['block']).data('block').remove();
+                block.$el.remove();
             },
             'set': function(path, value, extra) {
                 var block = this,

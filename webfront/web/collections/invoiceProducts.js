@@ -3,8 +3,8 @@ define(
         './baseCollection.js',
         '/models/invoiceProduct.js'
     ],
-    function(baseCollection, invoiceProduct) {
-        return baseCollection.extend({
+    function(BaseCollection, invoiceProduct) {
+        return BaseCollection.extend({
             initialize: function(opt){
                 this.invoiceId = opt.invoiceId;
             },

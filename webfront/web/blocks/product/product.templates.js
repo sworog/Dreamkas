@@ -1,5 +1,5 @@
 define(function(require) {
     return {
-        index: require('tpl!./templates/index.html')
+        index: require('tpl!./templates/product.html')
     }
 });
