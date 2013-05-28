@@ -1,0 +1,9 @@
+<div class="catalog__classItem" id="<%= catalogClassModel.get('id') %>">
+    <div class="catalog__classTitle">
+        <a href="/catalog/<%= catalogClassModel.get('id') %>" class="catalog__classLink"><%= catalogClassModel.get('name') %></a>
+        <a class="editor__editLink catalog__editClassLink"></a>
+    </div>
+    <ul class="catalog__classGroupList">
+        <%= block.templates.groupList({block: block}) %>
+    </ul>
+</div>

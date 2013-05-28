@@ -1,15 +1,3 @@
-<% if(!block.catalogClassesCollection.length) { %>
-    <div>Каталог не заполнен</div>
-<% } %>
-
-<% _.each(block.catalogClassesCollection.toJSON(), function(catalogClass){ %>
-<div class="catalog__classItem">
-    <div class="catalog__classTitle">
-        <a href="/catalog/<%= catalogClass.id %>" class="catalog__classLink"><%= catalogClass.name %></a>
-        <a class="editor__editLink catalog__editClassLink"></a>
-    </div>
-    <ul class="catalog__classGroupList">
-        <%= block.templates.groupList({block: block}) %>
-    </ul>
-</div>
+<% block.catalogClassesCollection.each(function(catalogClassModel){ %>
+    <%= block.templates.classItem({block: block, catalogClassModel: catalogClassModel}) %>
 <% }) %>

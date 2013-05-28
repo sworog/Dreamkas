@@ -4,6 +4,10 @@ define(
     ],
     function(Block) {
         return Block.extend({
+            tagName: 'form',
+            className: 'form',
+            Model: null,
+
             events: {
                 'submit': function(e) {
                     e.preventDefault();
@@ -21,7 +25,7 @@ define(
                     });
                 }
             },
-            findElements: function(){
+            findElements: function() {
                 var block = this;
 
                 Block.prototype.findElements.apply(block, arguments);
@@ -29,6 +33,22 @@ define(
                 block.$submitButton = block.$el.find('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
             },
             submit: function() {
+                var block = this,
+                    deferred = $.Deferred(),
+                    model = new block.Model,
+                    formData = Backbone.Syphon.serialize(block);
+
+                model.save(formData, {
+                    success: function(model) {
+                        deferred.resolve(model);
+                        model.clear();
+                    },
+                    error: function(model, response) {
+                        deferred.reject(JSON.parse(response.responseText));
+                    }
+                });
+
+                return deferred.promise();
             },
             showErrors: function(errors) {
                 var block = this;

@@ -4,12 +4,11 @@ define(
     ],
     function(BaseModel) {
         return BaseModel.extend({
-            modelName: 'invoice',
+            modelName: 'klass',
             urlRoot: baseApiUrl + '/klasses',
 
             saveFields: [
-                'name',
-                'description'
+                'name'
             ]
         });
     }

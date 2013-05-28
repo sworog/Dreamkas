@@ -5,18 +5,18 @@
 <h3>
     <a style="vertical-align: middle" href="/catalog">Товарный справочник</a>
     <span style="vertical-align: middle">/</span>
-    <span style="vertical-align: middle; margin-right: 10px;">Класс 1</span>
+    <span class="catalogClass__className" style="vertical-align: middle; margin-right: 10px;"></span>
     <a class="button button_color_blue catalog__addClassLink editor__control">
         Добавить группу
     </a>
 </h3>
-<div class="catalogClass__listTitle">
-    Классы
+
+<div class="catalogClass__rightSide">
+    <div class="catalogClass__listTitle">
+        Классы
+    </div>
+    <ul class="catalogClass__classList"></ul>
 </div>
-<ul class="catalogClass__classList">
-    <%= block.templates.classList({block: block}) %>
-</ul>
-<ul class="catalog__classGroupList">
-    <%= block.templates.groupList({block: block}) %>
-</ul>
+
+<ul class="catalog__classGroupList catalogClass__groupList"></ul>
 <div style="clear: both"></div>
