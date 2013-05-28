@@ -63,7 +63,11 @@ class GroupControllerTest extends WebTestCase
         );
         Assert::assertResponseCode(400, $this->client);
 
-        Assert::assertJsonPathContains('Группа с таким названием уже существует в этом классе', 'children.name.errors', $postResponse);
+        Assert::assertJsonPathContains(
+            'Группа с таким названием уже существует в этом классе',
+            'children.name.errors',
+            $postResponse
+        );
 
         // Create group with same name but in klass 2
         $postResponse = $this->clientJsonRequest(
@@ -85,7 +89,11 @@ class GroupControllerTest extends WebTestCase
         );
         Assert::assertResponseCode(400, $this->client);
 
-        Assert::assertJsonPathContains('Группа с таким названием уже существует в этом классе', 'children.name.errors', $postResponse);
+        Assert::assertJsonPathContains(
+            'Группа с таким названием уже существует в этом классе',
+            'children.name.errors',
+            $postResponse
+        );
     }
 
     public function testPostGroupsKlassDoesNotFound()
@@ -106,7 +114,7 @@ class GroupControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('Klass not found', '*.message', $postResponse);
+        Assert::assertJsonPathContains('Klass not found', 'message', $postResponse);
         Assert::assertNotJsonHasPath('id', $postResponse);
     }
 

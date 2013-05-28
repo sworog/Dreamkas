@@ -91,14 +91,15 @@ abstract class AbstractRestController extends FOSRestController
     }
 
     /**
-     * @param Request $request
      * @param string $id
-     * @return \FOS\RestBundle\View\View|AbstractDocument
+     * @return null
      */
-    protected function processDelete(Request $request, $id)
+    protected function processDelete($id)
     {
         $document = $this->findDocument($id);
-        return $this->processForm($request, $document);
+        $this->getDocumentRepository()->getDocumentManager()->remove($document);
+        $this->getDocumentRepository()->getDocumentManager()->flush();
+        return null;
     }
 
     /**

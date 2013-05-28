@@ -177,4 +177,53 @@ class KlassControllerTest extends WebTestCase
         Assert::assertResponseCode(400, $this->client);
         Assert::assertJsonPathEquals('Такой класс уже есть', 'children.name.errors.0', $postResponse);
     }
+
+    public function testDeleteKlassNoGroups()
+    {
+        $this->clearMongoDb();
+
+        $klassId = $this->createKlass();
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/klasses/' . $klassId . '.json'
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
+
+    public function testDeleteKlassWithGroups()
+    {
+        $this->clearMongoDb();
+
+        $klassId = $this->createKlass();
+
+        $this->createGroup($klassId, '1');
+        $this->createGroup($klassId, '2');
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/klasses/' . $klassId . '.json'
+        );
+
+        Assert::assertResponseCode(409, $this->client);
+    }
 }

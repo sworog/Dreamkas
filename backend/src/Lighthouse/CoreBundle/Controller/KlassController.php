@@ -4,11 +4,14 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\Klass\Klass;
 use Lighthouse\CoreBundle\Document\Klass\KlassCollection;
+use Lighthouse\CoreBundle\Document\Klass\KlassNotEmptyException;
 use Lighthouse\CoreBundle\Document\Klass\KlassRepository;
 use Lighthouse\CoreBundle\Form\KlassType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class KlassController extends AbstractRestController
 {
@@ -50,6 +53,15 @@ class KlassController extends AbstractRestController
     }
 
     /**
+     * @param string $id
+     * @return null
+     */
+    public function deleteKlassesAction($id)
+    {
+        return $this->processDelete($id);
+    }
+
+    /**
      * @param $id
      * @return Klass
      */
@@ -58,6 +70,9 @@ class KlassController extends AbstractRestController
         return $this->processGet($id);
     }
 
+    /**
+     * @return KlassCollection
+     */
     public function getKlassesAction()
     {
         $cursor = $this->documentRepository->findAll();

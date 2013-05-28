@@ -10,7 +10,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\Klass\KlassRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\Group\GroupRepository"
  * )
  * @Unique(fields={"name", "klass"}, message="lighthouse.validation.errors.group.name.unique")
  */
