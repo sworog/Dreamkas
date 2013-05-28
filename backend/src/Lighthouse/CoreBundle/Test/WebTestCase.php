@@ -26,33 +26,6 @@ class WebTestCase extends BaseTestCase
      */
     protected $client;
 
-    /**
-     * @param $invoiceId
-     * @param $productId
-     * @param $quantity
-     * @param $price
-     * @return mixed
-     */
-    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
-    {
-        $invoiceProductData = array(
-            'product' => $productId,
-            'quantity' => $quantity,
-            'price' => $price
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $this->client,
-            'POST',
-            '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
-        );
-
-        Assert::assertResponseCode(201, $this->client);
-
-        return $postResponse['id'];
-    }
-
     protected function setUp()
     {
         $this->client = static::createClient();
@@ -190,6 +163,33 @@ class WebTestCase extends BaseTestCase
         return $postResponse['id'];
     }
 
+    /**
+     * @param string $invoiceId
+     * @param stirng $productId
+     * @param int $quantity
+     * @param float $price
+     * @return string
+     */
+    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
+    {
+        $invoiceProductData = array(
+            'product' => $productId,
+            'quantity' => $quantity,
+            'price' => $price
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/invoices/' . $invoiceId . '/products.json',
+            array('invoiceProduct' => $invoiceProductData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        return $postResponse['id'];
+    }
+
     public function createPurchaseWithProduct($productId, $sellingPrice, $quantity, $date = 'now')
     {
         $purchaseProductData = array(
@@ -310,38 +310,6 @@ class WebTestCase extends BaseTestCase
     }
 
     /**
-     * @param mixed $json
-     * @param array $assertions
-     */
-    protected function performJsonAssertions($json, array $assertions)
-    {
-        foreach ($assertions as $path => $expected) {
-            if (null === $expected) {
-                Assert::assertNotJsonHasPath($path, $json);
-            } else {
-                Assert::assertJsonPathEquals($expected, $path, $json);
-            }
-        }
-    }
-
-    /**
-     * @param string $productId
-     * @param array $assertions
-     */
-    protected function assertProduct($productId, array $assertions)
-    {
-        $productJson = $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/products/' . $productId . '.json'
-        );
-
-        Assert::assertResponseCode(200, $this->client);
-
-        $this->performJsonAssertions($productJson, $assertions);
-    }
-
-    /**
      * @param string $number
      * @param int $date
      * @param string $productId
@@ -425,5 +393,40 @@ class WebTestCase extends BaseTestCase
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
+    }
+
+    /**
+     * @param mixed $json
+     * @param array $assertions
+     * @param bool  $contains
+     */
+    protected function performJsonAssertions($json, array $assertions, $contains = false)
+    {
+        foreach ($assertions as $path => $expected) {
+            if (null === $expected) {
+                Assert::assertNotJsonHasPath($path, $json);
+            } elseif ($contains) {
+                Assert::assertJsonPathContains($expected, $path, $json);
+            } else {
+                Assert::assertJsonPathEquals($expected, $path, $json);
+            }
+        }
+    }
+
+    /**
+     * @param string $productId
+     * @param array $assertions
+     */
+    protected function assertProduct($productId, array $assertions)
+    {
+        $productJson = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/products/' . $productId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->performJsonAssertions($productJson, $assertions);
     }
 }

@@ -63,3 +63,9 @@ services:
         class: Lighthouse\CoreBundle\Document\Klass\Klass
         arguments:
             - LighthouseCoreBundle:Klass\Klass
+
+    lighthouse.core.document.repository.group:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Group\Group
+        arguments:
+            - LighthouseCoreBundle:Group\Group
