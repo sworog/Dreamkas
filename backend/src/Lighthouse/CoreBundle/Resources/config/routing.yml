@@ -28,6 +28,11 @@ lighthouse.core.klass:
     resource: Lighthouse\CoreBundle\Controller\KlassController
     type:     rest
 
+lighthouse.core.group:
+    resource: Lighthouse\CoreBundle\Controller\GroupController
+    type:     rest
+    parent:   lighthouse.core.klass
+
 lighthouse.core.service:
     resource: Lighthouse\CoreBundle\Controller\ServiceController
     type:     annotation
