@@ -41,6 +41,11 @@ public class ApiConnect {
     }
 
     public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
+        createInvoiceThroughPostWithoutNavigation(invoiceName);
+        navigateToInvoicePage(invoiceName);
+    }
+
+    public void createInvoiceThroughPostWithoutNavigation(String invoiceName) throws JSONException, IOException {
         if (!StaticDataCollections.invoices.containsKey(invoiceName)) {
             String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
             String jsonData = String.format(Invoice.jsonPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
@@ -48,10 +53,18 @@ public class ApiConnect {
 
             Invoice invoice = new Invoice(new JSONObject(postResponse));
             StaticDataCollections.invoices.put(invoiceName, invoice);
-
-            String invoiceUrl = String.format("%s/invoice/%s?editMode=true", getApiUrl().replace("api", "webfront"), invoice.getId());
-            driver.navigate().to(invoiceUrl);
         }
+    }
+
+    public void navigateToInvoicePage(String invoiceName) throws JSONException {
+        String invoiceId = StaticDataCollections.invoices.get(invoiceName).getId();
+        String invoiceUrl = String.format("%s/invoice/%s?editMode=true", getApiUrl().replace("api", "webfront"), invoiceId);
+        driver.navigate().to(invoiceUrl);
+    }
+
+    public void createInvoiceThroughPost(String invoiceName, String productSku) throws IOException, JSONException {
+        createInvoiceThroughPost(invoiceName);
+        addProductToInvoice(invoiceName, productSku);
     }
 
     public void averagePriceRecalculation() {
@@ -92,6 +105,16 @@ public class ApiConnect {
         String apiUrl = String.format("%s/api/1/writeoffs/%s/products.json", getApiUrl(), writeOffId);
 
         String productJsonData = String.format("{\"writeOffProduct\":{\"product\":\"%s\",\"quantity\":\"%s\",\"price\":\"%s\",\"cause\":\"%s\"}}", productId, quantity, price, cause);
+        executePostRequest(apiUrl, productJsonData);
+    }
+
+    public void addProductToInvoice(String InvoiceName, String productSku)
+            throws JSONException, IOException {
+        String productId = StaticDataCollections.products.get(productSku).getId();
+        String invoiceId = StaticDataCollections.invoices.get(InvoiceName).getId();
+        String apiUrl = String.format("%s/api/1/invoices/%s/products.json", getApiUrl(), invoiceId);
+
+        String productJsonData = String.format("{\"invoiceProduct\":{\"product\":\"%s\",\"quantity\":\"%s\",\"price\":\"%s\"}}", productId, "1", "1");
         executePostRequest(apiUrl, productJsonData);
     }
 

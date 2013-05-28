@@ -182,6 +182,10 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         apiConnect.createInvoiceThroughPost(invoiceName);
     }
 
+    public void createInvoiceThroughPost(String invoiceName, String productSku) throws IOException, JSONException {
+        apiConnect.createInvoiceThroughPost(invoiceName, productSku);
+    }
+
     public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
         apiConnect.createWriteOffThroughPost(writeOffNumber);
     }

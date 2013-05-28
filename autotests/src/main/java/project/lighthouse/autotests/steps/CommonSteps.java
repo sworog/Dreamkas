@@ -5,19 +5,13 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.StaticDataCollections;
 import project.lighthouse.autotests.common.CommonPage;
-import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
-import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 
 import java.io.IOException;
 
 public class CommonSteps extends ScenarioSteps {
 
     CommonPage commonPage;
-    InvoiceCreatePage invoiceCreatePage;
-    InvoiceBrowsing invoiceBrowsing;
-
 
     public CommonSteps(Pages pages) {
         super(pages);
@@ -65,11 +59,7 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void createInvoiceThroughPostWithData(String invoiceName, String productName) throws JSONException, IOException {
-        if (!StaticDataCollections.invoices.containsKey(invoiceName)) {
-            createInvoiceThroughPost(invoiceName);
-            continueCreatingInvoiceProduct(productName);
-            StaticDataCollections.invoices.put(invoiceName, null);
-        }
+        commonPage.createInvoiceThroughPost(invoiceName, productName);
     }
 
     public void checkAlertText(String expectedText) {
@@ -78,14 +68,6 @@ public class CommonSteps extends ScenarioSteps {
 
     public void NoAlertIsPresent() {
         commonPage.NoAlertIsPresent();
-    }
-
-    @Step
-    public void continueCreatingInvoiceProduct(String productName) {
-        invoiceCreatePage.input("productName", productName);
-        invoiceCreatePage.input("productAmount", "1");
-        invoiceCreatePage.input("invoiceCost", "1");
-        invoiceBrowsing.addOneMoreProductLinkClick();
     }
 
     @Step
