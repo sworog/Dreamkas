@@ -1,9 +1,13 @@
-.catalogClass__list{
+.catalogClass__rightSide{
     float: right;
     padding: 0 40px;
-    margin: 0;
-    list-style: none;
     width: 150px;
+}
+
+.catalogClass__classList{
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .catalogClass__listTitle{

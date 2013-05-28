@@ -7,6 +7,7 @@ define(
         return Block.extend({
             $trigger: null,
             className: 'tooltip',
+            blockName: 'tooltip',
             templates: templates,
 
             initialize: function() {
@@ -16,17 +17,25 @@ define(
 
                 block.render();
 
-                $(document).on('click', function(e) {
-                    if (block.$trigger && e.target != block.$trigger[0]) {
-                        block.hide();
-                    }
-                });
+                $(document)
+                    .on({
+                        click: function(e) {
+                            if (block.$trigger && e.target != block.$trigger[0]) {
+                                block.hide();
+                            }
+                        },
+                        keyup: function(e){
+                            if (e.keyCode === 27){
+                                block.hide();
+                            }
+                        }
+                    });
             },
             events: {
                 'click': function(e) {
                     e.stopPropagation();
                 },
-                'click .tooltip__closeLink': function(e){
+                'click .tooltip__closeLink': function(e) {
                     e.preventDefault();
 
                     var block = this;

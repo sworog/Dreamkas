@@ -1,12 +1,5 @@
+<% block.catalogClassesCollection.each(function(catalogClassModel){ %>
 <li class="catalogClass__listItem">
-    <a href="/catalog/1">Класс 1</a>
+    <a href="/catalog/<%= catalogClassModel.get('id') %>"><%= catalogClassModel.get('name') %></a>
 </li>
-<li class="catalogClass__listItem">
-    <a href="/catalog/1">Класс 2</a>
-</li>
-<li class="catalogClass__listItem">
-    <a href="/catalog/1">Класс 3</a>
-</li>
-<li class="catalogClass__listItem">
-    <a href="/catalog/1">Класс 4</a>
-</li>
+<% }) %>

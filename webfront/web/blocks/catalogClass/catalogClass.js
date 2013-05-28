@@ -10,23 +10,23 @@ define(
             editMode: false,
             className: 'catalogClass',
             catalogClassId: null,
-            catalogClassModel: new CatalogClassModel(),
-            catalogClassesCollection: new СatalogClassesCollection(),
             templates: templates,
 
-            initialize: function(){
+            initialize: function() {
                 var block = this;
 
                 Editor.prototype.initialize.call(block);
 
-                block.catalogClassModel.id = block.catalogClassId;
+                block.catalogClassModel = new CatalogClassModel({
+                    id: block.catalogClassId
+                });
+
+                block.catalogClassesCollection = new СatalogClassesCollection();
 
                 block.listenTo(block.catalogClassModel, {
-                    reset: function() {
+                    change: function(model) {
                         block.renderGroupList();
-                    },
-                    request: function() {
-                        block.$groupList.addClass('preloader preloader_spinner');
+                        block.$className.html(model.get('name'));
                     }
                 });
 
@@ -39,16 +39,15 @@ define(
                 block.catalogClassModel.fetch();
                 block.catalogClassesCollection.fetch();
             },
-            renderGroupList: function(){
+            renderGroupList: function() {
                 var block = this;
 
                 block.$groupList
                     .html(block.templates.groupList({
                         block: block
-                    }))
-                    .removeClass('preloader preloader_spinner');
+                    }));
             },
-            renderClassList: function(){
+            renderClassList: function() {
                 var block = this;
 
                 block.$classList

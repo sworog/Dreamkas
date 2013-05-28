@@ -7,6 +7,8 @@ define(
         var Block = Backbone.View.extend({
             templates: {},
             className: null,
+            blockName: null,
+            addClass: null,
             tagName: 'div',
 
             constructor: function(props) {
@@ -22,7 +24,8 @@ define(
 
                 block.$el
                     .addClass(block.className)
-                    .attr('block', block.className)
+                    .addClass(block.addClass)
+                    .attr('block', block.blockName || block.className)
                     .data('block', block);
 
             },
@@ -73,9 +76,9 @@ define(
             remove: function() {
                 var block = this;
 
-                block.stopListening();
                 block.$el.find(['block']).data('block').remove();
-                block.$el.remove();
+
+                Backbone.View.prototype.remove.call(this);
             },
             'set': function(path, value, extra) {
                 var block = this,
