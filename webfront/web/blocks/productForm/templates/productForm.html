@@ -11,11 +11,11 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Измеряется в</label>
-        <select value="<%=_.escape( block.productModel.get('units')) %>" class="select" name="units" block="/blocks/select/select_units.js"></select>
+        <select value="<%=_.escape( block.productModel.get('units')) %>" class="select" name="units" require="/blocks/select/select_units.js"></select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">НДС</label>
-        <select value="<%= _.escape(block.productModel.get('vat')) %>" class="select" name="vat" block="/blocks/select/select_vat.js"></select>
+        <select value="<%= _.escape(block.productModel.get('vat')) %>" class="select" name="vat" require="/blocks/select/select_vat.js"></select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена закупки</label>
@@ -25,17 +25,17 @@
     <div class="form__field form__field_inline">
         <label class="form__label">Наценка</label>
         <input style="width: 150px;" value="<%= _.escape(block.productModel.get('retailMarkup')) %>" class="inputText productForm__linkedInput <%= block.productModel.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>" type="text" name="retailMarkup"/>
-        <a class="productForm__inputLink">
+        <span class="productForm__inputLink">
             <span class="productForm__inputLinkText" name="retailMarkupHint"></span>
-        </a>
+        </span>
         <span class="inputText__postfix">%</span>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена продажи</label>
         <input style="width: 150px;" value="<%= block.productModel.get('retailPrice') ? _.escape(LH.helpers.formatPrice(block.productModel.get('retailPrice'))) : '' %>" class="inputText productForm__linkedInput <%= block.productModel.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>" type="text" name="retailPrice"/>
-        <a class="productForm__inputLink">
+        <span class="productForm__inputLink">
             <span class="productForm__inputLinkText" name="retailPriceHint"></span>
-        </a>
+        </span>
         <span class="inputText__postfix">руб.</span>
     </div>
     <input type="hidden" value="<%= block.productModel.get('retailPricePreference') %>" name="retailPricePreference" />

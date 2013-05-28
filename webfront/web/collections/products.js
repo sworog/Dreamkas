@@ -3,8 +3,8 @@ define(
         './baseCollection.js',
         '/models/product.js'
     ],
-    function(baseCollection, ProductModel) {
-        return baseCollection.extend({
+    function(BaseCollection, ProductModel) {
+        return BaseCollection.extend({
             model: ProductModel,
             url: baseApiUrl + "/products.json"
         });

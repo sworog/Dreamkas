@@ -1,6 +1,6 @@
 define(
     [
-        '/kit/page.js',
+        '/blocks/page/page.js',
         './baseRouter.js',
         './invoice.js',
         './balance.js',

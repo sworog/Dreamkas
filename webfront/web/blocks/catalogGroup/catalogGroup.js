@@ -1,11 +1,11 @@
 define(
     [
-        '/kit/block.js',
+        '/kit/editor/editor.js',
         './catalogGroup.templates.js'
     ],
-    function(Block, templates) {
-        return Block.extend({
-            editMode: false,
+    function(Editor, templates) {
+        return Editor.extend({
+            className: 'catalogGroup',
             templates: templates
         })
     }

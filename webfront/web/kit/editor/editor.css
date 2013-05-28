@@ -1,0 +1,48 @@
+.editor_editMode_off .editor__control, .editor_editMode_off .editor__editLink{
+    visibility: hidden;
+}
+
+.editor_editMode_on .editor__control, .editor_editMode_on .editor__editLink{
+    visibility: visible;
+}
+
+.editor_editMode_off .editor__off{
+    display: none;
+}
+
+.editor_editMode_on .editor__on{
+    display: none;
+}
+
+.editor__editLink {
+    display: inline-block;
+    line-height: 0;
+    font-size: 0;
+    border-radius: 100%;
+    border: 2px solid;
+    vertical-align: middle;
+    height: 16px;
+    width: 16px;
+    position: relative;
+    color: #999;
+}
+
+.editor__editLink:hover{
+    color: #333;
+}
+
+.editor__editLink:after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -5px;
+    margin-top: -2px;
+    width: 0;
+    height: 0;
+    border-bottom: none;
+    border-left: solid 5px transparent;
+    border-top: solid 6px;
+    border-right: solid 5px transparent;
+    display: block;
+}
