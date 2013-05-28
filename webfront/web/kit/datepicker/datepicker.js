@@ -160,13 +160,17 @@ define(
             _generateDateList: function() {
                 var block = this,
                     visibleMoment = moment(block.visibleDate),
-                    startMoment = moment(block.visibleDate).startOf('month').day(1),
-                    endMoment = moment(block.visibleDate).endOf('month'),
+                    startMoment = moment(block.visibleDate).startOf('month').startOf('week').day(1),
+                    endMoment = moment(block.visibleDate).endOf('month').endOf('week').day(7),
                     diff,
                     itemMoment;
 
-                if (endMoment.day() !== 0){
-                    endMoment.day(7);
+                if (endMoment.date() == 7){
+                    endMoment.day(-7);
+                }
+
+                if (startMoment.date() == 2){
+                    startMoment.day(-6);
                 }
 
                 diff = endMoment.diff(startMoment, 'days');

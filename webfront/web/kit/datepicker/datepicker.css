@@ -38,6 +38,8 @@
     box-sizing: border-box;
     position: relative;
     z-index: 10;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 
 .datepicker__dateItem_otherMonth{

@@ -6,10 +6,25 @@ define(
     function(page, BaseRouter) {
         var Router = BaseRouter.extend({
             routes: {
-                'catalog': 'catalog'
+                'catalog': 'catalog',
+                'catalog/:classId': 'catalogClass',
+                'catalog/:classId/:groupId': 'catalogGroup'
             },
-            catalog: function(classId, groupId, params) {
+            catalog: function(params) {
                 page.open('/pages/catalog/catalog.html', {
+                    params: params || {}
+                });
+            },
+            catalogClass: function(classId, params){
+                page.open('/pages/catalog/class.html', {
+                    classId: classId,
+                    params: params || {}
+                });
+            },
+            catalogGroup: function(classId, groupId, params){
+                page.open('/pages/catalog/group.html', {
+                    classId: classId,
+                    groupId: groupId,
                     params: params || {}
                 });
             }

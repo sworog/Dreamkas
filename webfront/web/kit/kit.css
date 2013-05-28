@@ -11,3 +11,50 @@
 @import "tooltip/tooltip.css";
 @import "datepicker/datepicker.css";
 @import "inputDate/inputDate.css";
+
+html{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    height: 100%;
+    font-size: 14px;
+    font-family: Tahoma, Arial, "sans serif";
+    padding: 0;
+    margin: 0;
+    background: #f0f0f0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+a{
+    color: #336699;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+h1{
+    padding:0 0 25px;
+    margin: 0;
+}
+
+h2{
+    padding:0 0 20px;
+    margin: 0;
+}
+
+h3{
+    padding:0 0 25px;
+    margin: 0;
+}
+
+h4{
+    padding:0 0 10px;
+    margin: 0;
+}

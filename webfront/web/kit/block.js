@@ -20,8 +20,9 @@ define(
                 block.findElements();
                 block.delegateEvents();
                 block.initialize.apply(block, arguments);
+                block.$el.attr('lighthouse', block.className);
+                block.$el.data('lighthouse', block);
 
-                page.addBlocks([block]);
             },
             initialize: function(){
                 var block = this;
