@@ -280,4 +280,80 @@ class GroupControllerTest extends WebTestCase
 
         Assert::assertResponseCode(404, $this->client);
     }
+
+    public function testGetGroups()
+    {
+        $this->clearMongoDb();
+
+        $klassId1 = $this->createKlass('1');
+        $klassId2 = $this->createKlass('2');
+
+        $groupId1 = $this->createGroup($klassId1, '1.1');
+        $groupId2 = $this->createGroup($klassId1, '1.2');
+        $groupId3 = $this->createGroup($klassId1, '1.3');
+
+        $groupId4 = $this->createGroup($klassId2, '2.4');
+        $groupId5 = $this->createGroup($klassId2, '2.5');
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId1 . '/groups.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(3, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($groupId1, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId2, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId3, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId4, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($groupId5, '*.id', $getResponse, false);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId2 . '/groups.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($groupId4, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId5, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId1, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($groupId2, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($groupId3, '*.id', $getResponse, false);
+    }
+
+    public function testGetGroupsNotFound()
+    {
+        $this->clearMongoDb();
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/123484923423/groups.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
+
+    public function testGetGroupsEmptyCollection()
+    {
+        $this->clearMongoDb();
+
+        $klassId = $this->createKlass();
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId . '/groups.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(0, '*.id', $response);
+    }
 }
