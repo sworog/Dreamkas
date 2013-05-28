@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
@@ -14,7 +15,7 @@ use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 /**
  * @DI\DoctrineMongoDBListener(events={"prePersist", "preRemove", "onFlush"})
  */
-class AmountListener
+class AmountListener extends AbstractMongoDBListener
 {
     /**
      * @param LifecycleEventArgs $eventArgs
@@ -116,18 +117,5 @@ class AmountListener
         } else {
             return false;
         }
-    }
-
-    /**
-     * Helper method for computing changes set
-     *
-     * @param DocumentManager $dm
-     * @param $document
-     */
-    protected function computeChangeSet(DocumentManager $dm, $document)
-    {
-        $uow = $dm->getUnitOfWork();
-        $class = $dm->getClassMetadata(get_class($document));
-        $uow->computeChangeSet($class, $document);
     }
 }
