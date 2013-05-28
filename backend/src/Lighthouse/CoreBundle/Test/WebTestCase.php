@@ -375,7 +375,7 @@ class WebTestCase extends BaseTestCase
      * @param string $name
      * @return string
      */
-    protected function createKlass($name)
+    protected function createKlass($name = 'Продовольственные товары')
     {
         $postData = array(
             'name' => $name,
@@ -428,5 +428,29 @@ class WebTestCase extends BaseTestCase
         Assert::assertResponseCode(200, $this->client);
 
         $this->performJsonAssertions($productJson, $assertions);
+    }
+
+    /**
+     * @param string $klassId
+     * @param string $name
+     * @return string
+     */
+    protected function createGroup($klassId, $name = 'Винно-водочные изделия')
+    {
+        $groupData = array(
+            'name' => $name
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/klasses/' . $klassId . '/groups.json',
+            array('group' => $groupData)
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
     }
 }

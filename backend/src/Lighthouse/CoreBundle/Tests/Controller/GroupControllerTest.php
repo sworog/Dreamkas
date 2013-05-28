@@ -169,4 +169,115 @@ class GroupControllerTest extends WebTestCase
             ),
         );
     }
+
+    /**
+     * @param int $expectedCode
+     * @param array $data
+     * @param array $assertions
+     *
+     * @dataProvider validationGroupProvider
+     */
+    public function testPutGroupsValidation($expectedCode, array $data, array $assertions = array())
+    {
+        $this->clearMongoDb();
+
+        $klassId = $this->createKlass('Продовольственные товары');
+
+        $groupId = $this->createGroup($klassId);
+
+        $putData = $data + array(
+            'name' => 'Винно-водочные изделия'
+        );
+
+        $putResponse = $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/klasses/' . $klassId . '/groups/' . $groupId . '.json',
+            array('group' => $putData)
+        );
+
+        $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
+
+        Assert::assertResponseCode($expectedCode, $this->client);
+
+        $this->performJsonAssertions($putResponse, $assertions, true);
+    }
+
+    public function testGetGroup()
+    {
+        $this->clearMongoDb();
+
+        $klassId = $this->createKlass();
+        $groupId = $this->createGroup($klassId);
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId . '/groups/' . $groupId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathEquals($groupId, 'id', $getResponse);
+        Assert::assertJsonPathEquals($klassId, 'klass.id', $getResponse);
+    }
+
+    public function testGetGroupNotFound()
+    {
+        $this->clearMongoDb();
+
+        $klassId1 = $this->createKlass('1');
+        $groupId1 = $this->createGroup($klassId1, '1.1');
+
+        $klassId2 = $this->createKlass('2');
+        $groupId2 = $this->createGroup($klassId2, '2.2');
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId1 . '/groups/' . $groupId2 . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId2 . '/groups/' . $groupId1 . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/invalidId/groups/' . $groupId1 . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/invalidId/groups/' . $groupId2 . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId1 . '/groups/invalidId.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId2 . '/groups/invalidId.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
 }

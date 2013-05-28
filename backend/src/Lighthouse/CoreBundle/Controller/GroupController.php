@@ -51,6 +51,28 @@ class GroupController extends AbstractRestController
     }
 
     /**
+     * @param Request $request
+     * @param string $klassId
+     * @param string $groupId
+     * @return \FOS\RestBundle\View\View|Group
+     */
+    public function putGroupsAction(Request $request, $klassId, $groupId)
+    {
+        $group = $this->findGroup($klassId, $groupId);
+        return $this->processForm($request, $group);
+    }
+
+    /**
+     * @param string $klassId
+     * @param string $groupId
+     * @return Group
+     */
+    public function getGroupAction($klassId, $groupId)
+    {
+        return $this->findGroup($klassId, $groupId);
+    }
+
+    /**
      * @param $klassId
      * @return Klass
      * @throws NotFoundHttpException
@@ -62,5 +84,23 @@ class GroupController extends AbstractRestController
             throw new NotFoundHttpException("Klass not found");
         }
         return $klass;
+    }
+
+    /**
+     * @param string $klassId
+     * @param string $groupId
+     * @return Group
+     * @throws NotFoundHttpException
+     */
+    protected function findGroup($klassId, $groupId)
+    {
+        $klass = $this->findKlass($klassId);
+        $group = $this->getDocumentRepository()->find($groupId);
+        if (null === $group) {
+            throw new NotFoundHttpException("Group not found");
+        } elseif ($group->klass->id != $klass->id) {
+            throw new NotFoundHttpException("Klass not found");
+        }
+        return $group;
     }
 }
