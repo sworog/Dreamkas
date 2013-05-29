@@ -1,7 +1,8 @@
 ﻿
 Scenario: Write off Validation - number is required
 Given the user opens the write off create page
-When the user inputs 'todayDate' in the 'writeOff date' field on the write off page
+When the user inputs '' in the 'writeOff number' field on the write off page
+And the user inputs 'todayDate' in the 'writeOff date' field on the write off page
 And the user continues the write off creation
 Then the user sees error messages
 | error message |
