@@ -123,7 +123,10 @@ public class DateTime extends CommonItem {
 
     public void setDay(String dayString) {
         String timePickerDayXpath =
-                String.format(getDatePickerXpath() + "//*[@class='datepicker__dateList']/*[normalize-space(@class='datepicker__dateItem') and normalize-space(text())='%s']", dayString);
+                String.format(getDatePickerXpath() +
+                        "//*[@class='datepicker__dateList']/*[normalize-space(@class='datepicker__dateItem') and normalize-space(text())='%s' " +
+                        "and not(contains(@class, 'datepicker__dateItem datepicker__dateItem_otherMonth'))]",
+                        dayString);
         pageObject.findElement(By.xpath(timePickerDayXpath)).click();
     }
 
