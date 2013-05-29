@@ -5,9 +5,10 @@ define(
         '/kit/form/form.js',
         '/collections/catalogClasses.js',
         '/models/catalogClass.js',
+        '/routers/catalog.js',
         './catalog.templates.js'
     ],
-    function(Editor, Tooltip, Form, СatalogClassesCollection, CatalogClassModel, templates) {
+    function(Editor, Tooltip, Form, СatalogClassesCollection, CatalogClassModel, catalogRouter, templates) {
         return Editor.extend({
             className: 'catalog',
             templates: templates,
@@ -78,6 +79,10 @@ define(
                         block: block,
                         catalogClasses: block.catalogClassesCollection.toJSON()
                     }));
+            },
+            'set:editMode': function(editMode){
+                Editor.prototype['set:editMode'].apply(this, arguments);
+                catalogRouter.params.editMode = editMode;
             }
         })
     }
