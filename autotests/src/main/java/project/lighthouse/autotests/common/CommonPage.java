@@ -215,6 +215,18 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         apiConnect.averagePriceRecalculation();
     }
 
+    public void createKlassThroughPost(String klassName) throws IOException, JSONException {
+        apiConnect.createKlassThroughPost(klassName);
+    }
+
+    public void createGroupThroughPost(String groupName, String klassName) throws IOException, JSONException {
+        apiConnect.createGroupThroughPost(groupName, klassName);
+    }
+
+    public void navigateToKlassPage(String klassName) throws JSONException {
+        apiConnect.navigateToKlassPage(klassName);
+    }
+
     public void checkAlertText(String expectedText) {
         boolean isAlertPresent;
         Alert alert;
