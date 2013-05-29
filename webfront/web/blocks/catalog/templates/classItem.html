@@ -3,7 +3,7 @@
         <a href="/catalog/<%= catalogClass.id %>" class="catalog__classLink"><%= catalogClass.name %></a>
         <a class="editor__editLink catalog__editClassLink"></a>
     </div>
-    <% if(catalogClass.groups.length) { %>
+    <% if(catalogClass.groups && catalogClass.groups.length) { %>
         <ul class="catalog__classGroupList">
             <%= block.templates.groupList({
                 block: block,
