@@ -31,7 +31,6 @@ lighthouse.core.klass:
 lighthouse.core.group:
     resource: Lighthouse\CoreBundle\Controller\GroupController
     type:     rest
-    parent:   lighthouse.core.klass
 
 lighthouse.core.service:
     resource: Lighthouse\CoreBundle\Controller\ServiceController
