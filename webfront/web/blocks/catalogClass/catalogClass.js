@@ -53,7 +53,9 @@ define(
                 });
 
                 block.addGroupForm = new Form({
-                    model: new CatalogGroupModel(),
+                    model: new CatalogGroupModel({
+                        klass: block.catalogClassId
+                    }),
                     templates: {
                         index: block.templates.addGroupForm
                     },
@@ -72,6 +74,12 @@ define(
                 block.listenTo(block.classGroupsCollection, {
                     reset: function() {
                         block.renderGroupList();
+                    },
+                    add: function(model) {
+                        block.$groupList.prepend(block.templates.groupItem({
+                            block: block,
+                            classGroup: model.toJSON()
+                        }))
                     }
                 });
 
@@ -83,9 +91,9 @@ define(
 
                 block.listenTo(block.addGroupForm, {
                     successSubmit: function(model) {
-                        block.catalogClassesCollection.push(model);
-                        block.addClassForm.clear();
-                        block.addClassForm.$el.find('[name="name"]').focus();
+                        block.classGroupsCollection.push(model);
+                        block.addGroupForm.clear();
+                        block.addGroupForm.$el.find('[name="name"]').focus();
                     }
                 });
 

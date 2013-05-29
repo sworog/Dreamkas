@@ -8,7 +8,8 @@ define(
             urlRoot: baseApiUrl + '/groups',
 
             saveFields: [
-                'name'
+                'name',
+                'klass'
             ]
         });
     }
