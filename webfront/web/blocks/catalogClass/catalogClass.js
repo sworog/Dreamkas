@@ -78,7 +78,8 @@ define(
                     add: function(model) {
                         block.$groupList.prepend(block.templates.groupItem({
                             block: block,
-                            classGroup: model.toJSON()
+                            classGroup: model.toJSON(),
+                            catalogClass: block.catalogClassModel.toJSON()
                         }))
                     }
                 });
@@ -107,7 +108,8 @@ define(
                 block.$groupList
                     .html(block.templates.groupList({
                         block: block,
-                        classGroups: block.classGroupsCollection.toJSON()
+                        classGroups: block.classGroupsCollection.toJSON(),
+                        catalogClass: block.catalogClassModel.toJSON()
                     }));
             },
             renderClassList: function() {
