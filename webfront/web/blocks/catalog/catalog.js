@@ -2,11 +2,12 @@ define(
     [
         '/kit/editor/editor.js',
         '/kit/tooltip/tooltip.js',
-        './addClassForm.js',
+        '/kit/form/form.js',
         '/collections/catalogClasses.js',
+        '/models/catalogClass.js',
         './catalog.templates.js'
     ],
-    function(Editor, Tooltip, AddClassForm, СatalogClassesCollection, templates) {
+    function(Editor, Tooltip, Form, СatalogClassesCollection, CatalogClassModel, templates) {
         return Editor.extend({
             className: 'catalog',
             templates: templates,
@@ -36,7 +37,12 @@ define(
                 block.addClassTooltip = new Tooltip({
                     addClass: 'catalog__addClassTooltip'
                 });
-                block.addClassForm = new AddClassForm({
+
+                block.addClassForm = new Form({
+                    model: new CatalogClassModel(),
+                    templates: {
+                        index: block.templates.addClassForm
+                    },
                     addClass: 'catalog__addClassForm'
                 });
 
@@ -47,7 +53,7 @@ define(
                         block.renderClassList();
                     },
                     add: function(model) {
-                        block.$classList.append(block.templates.classItem({
+                        block.$classList.prepend(block.templates.classItem({
                             block: block,
                             catalogClassModel: model
                         }))
@@ -69,7 +75,8 @@ define(
 
                 block.$classList
                     .html(block.templates.classList({
-                        block: block
+                        block: block,
+                        catalogClasses: block.catalogClassesCollection.toJ()
                     }));
             }
         })

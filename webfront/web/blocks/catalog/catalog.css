@@ -29,6 +29,6 @@
     font-weight: bold;
 }
 
-.catalog__addClassTooltip{
+.catalog__addClassTooltip, .catalog__addGroupTooltip{
     margin-top: -40px;
 }

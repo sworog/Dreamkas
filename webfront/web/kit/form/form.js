@@ -6,7 +6,7 @@ define(
         return Block.extend({
             tagName: 'form',
             className: 'form',
-            Model: null,
+            model: null,
 
             events: {
                 'submit': function(e) {
@@ -35,10 +35,9 @@ define(
             submit: function() {
                 var block = this,
                     deferred = $.Deferred(),
-                    model = new block.Model,
                     formData = Backbone.Syphon.serialize(block);
 
-                model.save(formData, {
+                block.model.clone().save(formData, {
                     success: function(model) {
                         deferred.resolve(model);
                         model.clear();
