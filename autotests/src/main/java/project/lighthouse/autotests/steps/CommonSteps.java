@@ -104,4 +104,19 @@ public class CommonSteps extends ScenarioSteps {
     public void navigatoToWriteOffPage(String writeOffNumber) throws JSONException {
         commonPage.navigatoToWriteOffPage(writeOffNumber);
     }
+
+    @Step
+    public void createKlassThroughPost(String klassName) throws IOException, JSONException {
+        commonPage.createKlassThroughPost(klassName);
+    }
+
+    @Step
+    public void createGroupThroughPost(String groupName, String klassName) throws IOException, JSONException {
+        commonPage.createGroupThroughPost(groupName, klassName);
+    }
+
+    @Step
+    public void navigateToKlassPage(String klassName) throws JSONException {
+        commonPage.navigateToKlassPage(klassName);
+    }
 }
