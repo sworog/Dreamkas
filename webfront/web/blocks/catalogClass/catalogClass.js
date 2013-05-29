@@ -7,9 +7,10 @@ define(
         '/models/catalogGroup.js',
         '/collections/catalogClasses.js',
         '/collections/classGroups.js',
+        '/routers/catalog.js',
         './catalogClass.templates.js'
     ],
-    function(Editor, Form, Tooltip, CatalogClassModel, CatalogGroupModel, СatalogClassesCollection, ClassGroupsCollection, templates) {
+    function(Editor, Form, Tooltip, CatalogClassModel, CatalogGroupModel, СatalogClassesCollection, ClassGroupsCollection, catalogRouter, templates) {
 
         return Editor.extend({
             editMode: false,
@@ -119,6 +120,10 @@ define(
                     .html(block.templates.classList({
                         block: block
                     }));
+            },
+            'set:editMode': function(editMode){
+                Editor.prototype['set:editMode'].apply(this, arguments);
+                catalogRouter.params.editMode = editMode;
             }
         })
     }
