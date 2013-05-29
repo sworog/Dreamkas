@@ -109,5 +109,4 @@ class TrialBalanceListener extends AbstractMongoDBListener
             $this->computeChangeSet($dm, $trailBalance);
         }
     }
-
 }
