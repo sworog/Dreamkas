@@ -116,4 +116,20 @@ class GroupController extends AbstractRestController
         }
         return $group;
     }
+
+    /**
+     * @param string $id
+     * @return null
+     */
+    public function deleteGroupsAction($klassId, $groupId)
+    {
+        $klass = $this->findKlass($klassId);
+        $group = $this->getDocumentRepository()->find($groupId);
+        if (null === $group) {
+            throw new NotFoundHttpException("Group not found");
+        } elseif ($group->klass->id != $klass->id) {
+            throw new NotFoundHttpException("Klass not found");
+        }
+        return $this->processDelete($groupId);
+    }
 }
