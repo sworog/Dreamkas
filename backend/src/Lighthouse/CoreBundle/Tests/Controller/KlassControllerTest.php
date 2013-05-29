@@ -226,4 +226,25 @@ class KlassControllerTest extends WebTestCase
 
         Assert::assertResponseCode(409, $this->client);
     }
+
+    public function testKlassWithGroups()
+    {
+        $this->clearMongoDb();
+
+        $klassId = $this->createKlass();
+
+        $groupId1 = $this->createGroup($klassId, '1');
+        $groupId2 = $this->createGroup($klassId, '2');
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathCount(2, 'groups.*.id', $getResponse);
+        Assert::assertJsonPathEquals($groupId1, 'groups.*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId2, 'groups.*.id', $getResponse, 1);
+    }
 }
