@@ -364,4 +364,36 @@ class GroupControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, '*.id', $response);
     }
+
+    public function testDeleteGroup()
+    {
+        $this->clearMongoDb();
+
+        $klassId = $this->createKlass();
+        $groupId = $this->createGroup($klassId);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId . '/groups/' . $groupId . '.json'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'DELETE',
+            '/api/1/klasses/' . $klassId . '/groups/' . $groupId . '.json'
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/klasses/' . $klassId . '/groups/' . $groupId . '.json'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
 }
