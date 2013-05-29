@@ -55,7 +55,7 @@ define(
                     add: function(model) {
                         block.$classList.prepend(block.templates.classItem({
                             block: block,
-                            catalogClassModel: model
+                            catalogClass: model.toJSON()
                         }))
                     }
                 });
@@ -76,7 +76,7 @@ define(
                 block.$classList
                     .html(block.templates.classList({
                         block: block,
-                        catalogClasses: block.catalogClassesCollection.toJ()
+                        catalogClasses: block.catalogClassesCollection.toJSON()
                     }));
             }
         })
