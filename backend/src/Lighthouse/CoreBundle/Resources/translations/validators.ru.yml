@@ -39,6 +39,7 @@ lighthouse:
         name.unique: Такой класс уже есть
       group:
         name.unique: Группа с таким названием уже существует в этом классе
+        klass.does_not_exists: Такого класса не существует
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов

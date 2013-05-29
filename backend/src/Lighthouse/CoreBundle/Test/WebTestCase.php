@@ -438,13 +438,14 @@ class WebTestCase extends BaseTestCase
     protected function createGroup($klassId, $name = 'Винно-водочные изделия')
     {
         $groupData = array(
-            'name' => $name
+            'name' => $name,
+            'klass' => $klassId,
         );
 
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/klasses/' . $klassId . '/groups.json',
+            '/api/1/groups.json',
             array('group' => $groupData)
         );
 

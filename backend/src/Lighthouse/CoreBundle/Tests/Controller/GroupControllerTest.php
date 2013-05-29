@@ -15,12 +15,13 @@ class GroupControllerTest extends WebTestCase
 
         $groupData = array(
             'name' => 'Винно-водочные изделия',
+            'klass' => $klassId,
         );
 
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/klasses/'. $klassId . '/groups.json',
+            '/api/1/groups.json',
             array('group' => $groupData)
         );
 
@@ -41,13 +42,14 @@ class GroupControllerTest extends WebTestCase
 
         $groupData = array(
             'name' => 'Винно-водочные изделия',
+            'klass' => $klassId1,
         );
 
         // Create first group
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/klasses/'. $klassId1 . '/groups.json',
+            '/api/1/groups.json',
             array('group' => $groupData)
         );
 
@@ -58,7 +60,7 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/klasses/'. $klassId1 . '/groups.json',
+            '/api/1/groups.json',
             array('group' => $groupData)
         );
         Assert::assertResponseCode(400, $this->client);
@@ -69,12 +71,14 @@ class GroupControllerTest extends WebTestCase
             $postResponse
         );
 
+        $groupData2 = array('klass' => $klassId2) + $groupData;
+
         // Create group with same name but in klass 2
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/klasses/'. $klassId2 . '/groups.json',
-            array('group' => $groupData)
+            '/api/1/groups.json',
+            array('group' => $groupData2)
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -84,8 +88,8 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/klasses/'. $klassId2 . '/groups.json',
-            array('group' => $groupData)
+            '/api/1/groups.json',
+            array('group' => $groupData2)
         );
         Assert::assertResponseCode(400, $this->client);
 
@@ -94,28 +98,6 @@ class GroupControllerTest extends WebTestCase
             'children.name.errors',
             $postResponse
         );
-    }
-
-    public function testPostGroupsKlassDoesNotFound()
-    {
-        $this->clearMongoDb();
-
-        $klassId = $this->createKlass('Продовольственные товары');
-
-        $groupData = array(
-            'name' => 'Винно-водочные изделия',
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $this->client,
-            'POST',
-            '/api/1/klasses/12312412423/groups.json',
-            array('group' => $groupData)
-        );
-
-        Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('Klass not found', 'message', $postResponse);
-        Assert::assertNotJsonHasPath('id', $postResponse);
     }
 
     /**
@@ -132,13 +114,14 @@ class GroupControllerTest extends WebTestCase
         $klassId = $this->createKlass('Продовольственные товары');
 
         $groupData = $data + array(
-            'name' => 'Винно-водочные изделия'
+            'name' => 'Винно-водочные изделия',
+            'klass' => $klassId,
         );
 
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/klasses/' . $klassId . '/groups.json',
+            '/api/1/groups.json',
             array('group' => $groupData)
         );
 
@@ -171,6 +154,15 @@ class GroupControllerTest extends WebTestCase
                     'Не более 100 символов'
                 )
             ),
+            'not valid klass' => array(
+                400,
+                array('klass' => '1234'),
+                array(
+                    'children.klass.errors.0'
+                    =>
+                    'Такого класса не существует'
+                )
+            ),
             'valid long 100 name' => array(
                 201,
                 array('name' => str_repeat('z', 100)),
@@ -194,13 +186,14 @@ class GroupControllerTest extends WebTestCase
         $groupId = $this->createGroup($klassId);
 
         $putData = $data + array(
-            'name' => 'Винно-водочные изделия'
+            'name' => 'Винно-водочные изделия',
+            'klass' => $klassId,
         );
 
         $putResponse = $this->clientJsonRequest(
             $this->client,
             'PUT',
-            '/api/1/klasses/' . $klassId . '/groups/' . $groupId . '.json',
+            '/api/1/groups/' . $groupId . '.json',
             array('group' => $putData)
         );
 
@@ -221,7 +214,7 @@ class GroupControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/' . $klassId . '/groups/' . $groupId . '.json'
+            '/api/1/groups/' . $groupId . '.json'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -237,53 +230,10 @@ class GroupControllerTest extends WebTestCase
         $klassId1 = $this->createKlass('1');
         $groupId1 = $this->createGroup($klassId1, '1.1');
 
-        $klassId2 = $this->createKlass('2');
-        $groupId2 = $this->createGroup($klassId2, '2.2');
-
         $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/' . $klassId1 . '/groups/' . $groupId2 . '.json'
-        );
-
-        Assert::assertResponseCode(404, $this->client);
-
-        $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/klasses/' . $klassId2 . '/groups/' . $groupId1 . '.json'
-        );
-
-        Assert::assertResponseCode(404, $this->client);
-
-        $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/klasses/invalidId/groups/' . $groupId1 . '.json'
-        );
-
-        Assert::assertResponseCode(404, $this->client);
-
-        $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/klasses/invalidId/groups/' . $groupId2 . '.json'
-        );
-
-        Assert::assertResponseCode(404, $this->client);
-
-        $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/klasses/' . $klassId1 . '/groups/invalidId.json'
-        );
-
-        Assert::assertResponseCode(404, $this->client);
-
-        $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/klasses/' . $klassId2 . '/groups/invalidId.json'
+            '/api/1/groups/invalidId.json'
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -375,7 +325,7 @@ class GroupControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/' . $klassId . '/groups/' . $groupId . '.json'
+            '/api/1/groups/' . $groupId . '.json'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -383,17 +333,9 @@ class GroupControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'DELETE',
-            '/api/1/klasses/' . $klassId . '/groups/' . $groupId . '.json'
+            '/api/1/groups/' . $groupId . '.json'
         );
 
         Assert::assertResponseCode(204, $this->client);
-
-        $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/klasses/' . $klassId . '/groups/' . $groupId . '.json'
-        );
-
-        Assert::assertResponseCode(404, $this->client);
     }
 }

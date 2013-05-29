@@ -37,47 +37,37 @@ class GroupController extends AbstractRestController
 
     /**
      * @Rest\View(statusCode=201)
-     *
      * @param Request $request
-     * @param string $klassId
-     * @return \FOS\RestBundle\View\View|Group
      */
-    public function postGroupsAction(Request $request, $klassId)
+    public function postGroupsAction(Request $request)
     {
-        $klass = $this->findKlass($klassId);
-        $group = new Group();
-        $group->klass = $klass;
-
-        return $this->processForm($request, $group);
+        return $this->processPost($request);
     }
 
     /**
      * @param Request $request
-     * @param string $klassId
      * @param string $groupId
      * @return \FOS\RestBundle\View\View|Group
      */
-    public function putGroupsAction(Request $request, $klassId, $groupId)
+    public function putGroupsAction(Request $request, $groupId)
     {
-        $group = $this->findGroup($klassId, $groupId);
-        return $this->processForm($request, $group);
+        return $this->processPut($request, $groupId);
     }
 
     /**
-     * @param string $klassId
      * @param string $groupId
      * @return Group
      */
-    public function getGroupAction($klassId, $groupId)
+    public function getGroupAction($groupId)
     {
-        return $this->findGroup($klassId, $groupId);
+        return $this->processGet($groupId);
     }
 
     /**
      * @param string $klassId
      * @return GroupCollection
      */
-    public function getGroupsAction($klassId)
+    public function getKlassGroupsAction($klassId)
     {
         $klass = $this->findKlass($klassId);
         $cursor = $this->getDocumentRepository()->findByKlass($klass->id);
@@ -100,36 +90,11 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @param string $klassId
-     * @param string $groupId
-     * @return Group
-     * @throws NotFoundHttpException
-     */
-    protected function findGroup($klassId, $groupId)
-    {
-        $klass = $this->findKlass($klassId);
-        $group = $this->getDocumentRepository()->find($groupId);
-        if (null === $group) {
-            throw new NotFoundHttpException("Group not found");
-        } elseif ($group->klass->id != $klass->id) {
-            throw new NotFoundHttpException("Klass not found");
-        }
-        return $group;
-    }
-
-    /**
      * @param string $id
      * @return null
      */
-    public function deleteGroupsAction($klassId, $groupId)
+    public function deleteGroupsAction($groupId)
     {
-        $klass = $this->findKlass($klassId);
-        $group = $this->getDocumentRepository()->find($groupId);
-        if (null === $group) {
-            throw new NotFoundHttpException("Group not found");
-        } elseif ($group->klass->id != $klass->id) {
-            throw new NotFoundHttpException("Klass not found");
-        }
         return $this->processDelete($groupId);
     }
 }
