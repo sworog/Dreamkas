@@ -87,7 +87,7 @@ define(
                         block.$classList.prepend(block.templates.classItem({
                             block: block,
                             catalogClass: model.toJSON()
-                        }))
+                        }));
                     },
                     remove: function(classModel){
                         block.$el
@@ -106,7 +106,7 @@ define(
 
                 block.listenTo(block.addClassForm, {
                     successSubmit: function(model) {
-                        block.catalogClassesCollection.push(model);
+                        block.catalogClassesCollection.push(model.toJSON());
                         block.addClassForm.clear();
                         block.addClassForm.$el.find('[name="name"]').focus();
                     }
