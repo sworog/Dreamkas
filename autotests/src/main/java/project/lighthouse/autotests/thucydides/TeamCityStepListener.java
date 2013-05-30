@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
 
 public class TeamCityStepListener implements StepListener {
 
@@ -30,6 +32,8 @@ public class TeamCityStepListener implements StepListener {
     };
 
     private Logger logger;
+
+    private Stack<String> suiteStack = new Stack<String>();
 
     public TeamCityStepListener(Logger logger) {
         this.logger = logger;
@@ -79,12 +83,15 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void testSuiteStarted(Story story) {
-        printMessage("testSuiteStarted", story.getName());
+        String storyName = story.getName();
+        suiteStack.push(storyName);
+        printMessage("testSuiteStarted", storyName);
     }
 
     @Override
     public void testSuiteFinished() {
-        printMessage("testSuiteFinished");
+        String suiteName = suiteStack.pop();
+        printMessage("testSuiteFinished", suiteName);
     }
 
     @Override
@@ -94,7 +101,39 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void testFinished(TestOutcome result) {
+        if (result.isFailure() || result.isError()) {
+            printFailure(result);
+        } else if (result.isPending()) {
+            printPending(result);
+        } else if (result.isSkipped()) {
+            printSkipped(result);
+        }
         printMessage("testFinished", result.getTitle());
+    }
+
+    private void printFailure(TestOutcome result) {
+        HashMap<String,String> properties = new HashMap<String,String>();
+        properties.put("name", result.getTitle());
+        properties.put("message", result.getTestFailureCause().getMessage());
+        printMessage("testFailed", properties);
+    }
+
+    private void printPending(TestOutcome result) {
+        printMessage("testPending", result.getTitle());
+    }
+
+    private void printSkipped(TestOutcome result) {
+        printMessage("testSkipped", result.getTitle());
+    }
+
+    @Override
+    public void testFailed(TestOutcome testOutcome, Throwable cause) {
+        printMessage("testFailed", testOutcome.getTitle());
+    }
+
+    @Override
+    public void testIgnored() {
+        printMessage("testIgnored");
     }
 
     @Override
@@ -108,7 +147,6 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void stepFailed(StepFailure failure) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -139,17 +177,6 @@ public class TeamCityStepListener implements StepListener {
     @Override
     public void stepFinished() {
         //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void testFailed(TestOutcome testOutcome, Throwable cause) {
-
-        printMessage("testFailed", testOutcome.getTitle());
-    }
-
-    @Override
-    public void testIgnored() {
-        printMessage("testIgnored");
     }
 
     @Override
