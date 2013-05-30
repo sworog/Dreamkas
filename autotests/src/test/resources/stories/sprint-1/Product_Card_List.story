@@ -18,7 +18,7 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs '1234567' in 'sku' field
 And the user inputs 'Info1' in 'info' field
 And the user clicks the create button
-Then the user checks the product with '1234567' sku is present
+Then the user checks the product with '1234567aaaaa' sku is present
 Then the user checks the product with '1234567' sku has 'name' equal to 'Наименование56'
 Then the user checks the product with '1234567' sku has 'vendor' equal to 'Производитель56'
 Then the user checks the product with '1234567' sku has 'vendorCountry' equal to 'Россия56'
