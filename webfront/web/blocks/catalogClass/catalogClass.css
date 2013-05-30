@@ -1,7 +1,7 @@
 .catalogClass__rightSide{
     float: right;
-    padding: 0 40px;
-    width: 150px;
+    padding: 0 0 0 40px;
+    width: 200px;
 }
 
 .catalogClass__classList{
@@ -16,6 +16,15 @@
     padding-bottom: 10px;
 }
 
-.catalogClass__listItem{
-    padding-bottom: 5px;
+.catalogClass__listLink{
+    display: block;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    margin-bottom: -1px;
+    padding: 8px 10px;
+    text-decoration: none;
+}
+
+.catalogClass__listLink:hover{
+    background: #fafafa;
 }
