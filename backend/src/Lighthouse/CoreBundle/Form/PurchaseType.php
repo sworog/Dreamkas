@@ -44,6 +44,6 @@ class PurchaseType extends AbstractType
      */
     public function getName()
     {
-        return 'purchase';
+        return '';
     }
 }
