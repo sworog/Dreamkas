@@ -7,6 +7,7 @@ import net.thucydides.core.model.TestOutcome;
 import net.thucydides.core.steps.ExecutedStepDescription;
 import net.thucydides.core.steps.StepFailure;
 import net.thucydides.core.steps.StepListener;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,7 +112,8 @@ public class TeamCityStepListener implements StepListener {
     private void printFailure(TestOutcome result) {
         HashMap<String,String> properties = new HashMap<String,String>();
         properties.put("name", result.getTitle());
-        properties.put("details", result.getTestFailureCause().getMessage());
+        properties.put("message", result.getTestFailureCause().getMessage());
+        properties.put("details", ExceptionUtils.getStackTrace(result.getTestFailureCause()));
         printMessage("testFailed", properties);
     }
 
