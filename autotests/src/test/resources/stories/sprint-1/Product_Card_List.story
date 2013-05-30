@@ -8,7 +8,7 @@ Narrative:
 Scenario: Creating new product from product list
 Given the user is on the product list page
 When the user creates new product from product list page
-And the user inputs 'Наименование56' in 'nameaaaa' field
+And the user inputs 'Наименование56' in 'name' field
 And the user inputs 'Производитель56' in 'vendor' field
 And the user inputs 'Россия56' in 'vendorCountry' field
 And the user inputs '12356' in 'purchasePrice' field
