@@ -58,6 +58,11 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void popUpGroupMenuInteraction(String name) {
+        classPage.popUpMenuInteraction(name);
+    }
+
+    @Step
     public void itemDeleteThroughPopUpMenu() {
         catalogPage.popUpMenuDelete();
     }
@@ -93,8 +98,8 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
-    public void itemEditThroughPopUpMenu(String className, String newClassName) {
-        catalogPage.popUpMenuEdit(className, newClassName);
+    public void itemEditThroughPopUpMenu() {
+        catalogPage.popUpMenuEdit();
     }
 
     @Step

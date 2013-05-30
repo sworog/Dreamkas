@@ -51,6 +51,11 @@ public class CatalogUserSteps {
         catalogSteps.popUpMenuInteraction(name);
     }
 
+    @When("the user opens pop up menu of group '$name' element")
+    public void whenTheUserOpensPopUpMenuOfGroupElement(String name) {
+        catalogSteps.popUpGroupMenuInteraction(name);
+    }
+
     @When("the user deletes element through pop up menu")
     public void whenTheUserDeletesClassWithNameThroughPopUp() {
         catalogSteps.itemDeleteThroughPopUpMenu();
@@ -66,9 +71,9 @@ public class CatalogUserSteps {
         catalogSteps.popUpMenuCancel();
     }
 
-    @When("the user edits the element name with new name '$newName' through pop up menu")
-    public void whenTheUserEditsTheClassName(String name, String newName) {
-        catalogSteps.itemEditThroughPopUpMenu(name, newName);
+    @When("the user edits the element name through pop up menu")
+    public void whenTheUserEditsTheClassName() {
+        catalogSteps.itemEditThroughPopUpMenu();
     }
 
     @When("the user clicks create new class button")

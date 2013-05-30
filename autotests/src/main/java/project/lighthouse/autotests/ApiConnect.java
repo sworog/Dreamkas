@@ -150,7 +150,7 @@ public class ApiConnect {
         createKlassThroughPost(klassName);
         String apiUrl = String.format("%s/api/1/groups.json", getApiUrl());
         String klassId = StaticDataCollections.klasses.get(klassName).getId();
-        String groupJsonData = String.format(Group.jsonPattern, groupName, klassName);
+        String groupJsonData = String.format(Group.jsonPattern, groupName, klassId);
         executePostRequest(apiUrl, groupJsonData);
     }
 

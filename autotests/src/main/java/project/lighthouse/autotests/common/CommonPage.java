@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.ApiConnect;
 import project.lighthouse.autotests.CommonPageInterface;
+import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.pages.elements.Autocomplete;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
@@ -24,6 +25,8 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     public static final String STRING_EMPTY = "";
 
     protected ApiConnect apiConnect = new ApiConnect(getDriver());
+
+    protected Waiter waiter = new Waiter(getDriver());
 
     public CommonPage(WebDriver driver) {
         super(driver);
@@ -228,21 +231,11 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void checkAlertText(String expectedText) {
-        boolean isAlertPresent;
-        Alert alert;
-        try {
-            alert = getAlert();
-            isAlertPresent = true;
-        } catch (Exception e) {
-            String errorMessage = "No alert is present";
+        Alert alert = waiter.getAlert();
+        String alertText = alert.getText();
+        if (!alertText.contains(expectedText)) {
+            String errorMessage = String.format("Alert text is '%s'. Should be '%s'.", alert, expectedText);
             throw new AssertionError(errorMessage);
-        }
-        if (isAlertPresent) {
-            String alertText = alert.getText();
-            if (alertText.contains(expectedText)) {
-                String errorMessage = String.format("Alert text is '%s'. Should be '%s'.", alert, expectedText);
-                throw new AssertionError(errorMessage);
-            }
         }
         alert.accept();
     }
