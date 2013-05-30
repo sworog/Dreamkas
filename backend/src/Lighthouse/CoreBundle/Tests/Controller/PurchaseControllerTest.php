@@ -40,7 +40,7 @@ class PurchaseControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/purchases.json',
-            array('purchase' => $purchaseData)
+            $purchaseData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -96,7 +96,7 @@ class PurchaseControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/purchases.json',
-            array('purchase' => $purchaseData)
+            $purchaseData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -143,7 +143,7 @@ class PurchaseControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/purchases.json',
-            array('purchase' => $purchaseData)
+            $purchaseData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -208,9 +208,9 @@ class PurchaseControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/purchases.json',
-            array('purchase' => array(
+            array(
                 'products' => array($purchaseProductData)
-            ))
+            )
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -403,11 +403,11 @@ class PurchaseControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
-        $postResponse = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
+            $invoiceProductData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -465,7 +465,7 @@ class PurchaseControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/purchases.json',
-            array('purchase' => $purchaseData)
+            $purchaseData
         );
 
         Assert::assertResponseCode(201, $this->client);

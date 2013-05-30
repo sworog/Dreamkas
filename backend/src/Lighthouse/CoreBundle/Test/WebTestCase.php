@@ -202,10 +202,10 @@ class WebTestCase extends BaseTestCase
             $this->client,
             'POST',
             '/api/1/purchases.json',
-            array('purchase' => array(
+            array(
                 'createdDate' => date('c', strtotime($date)),
                 'products' => array($purchaseProductData),
-            ))
+            )
         );
 
         Assert::assertResponseCode(201, $this->client);
