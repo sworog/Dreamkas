@@ -42,7 +42,7 @@ define(
                         block: block
                     }));
 
-                block.$el.find('[block]').each(function(){
+                block.$el.children('[block]').each(function(){
                     $(this).data('block').remove();
                 });
 

@@ -1,4 +1,4 @@
-.page{
+.page__content {
     width: 1000px;
     margin: 0 auto;
     text-align: left;
@@ -9,7 +9,7 @@
     -moz-box-sizing: border-box;
 }
 
-.page.preloader * {
+.page__content.preloader * {
     display: none;
 }
 
@@ -33,6 +33,6 @@
     margin: 0;
 }
 
-.page [href] {
+.page__content [href] {
     cursor: pointer;
 }
