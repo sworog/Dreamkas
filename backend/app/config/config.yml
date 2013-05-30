@@ -65,10 +65,7 @@ jms_di_extra:
 
 fos_rest:
     param_fetcher_listener: true
-    body_listener:
-        decoders:
-            json: fos_rest.decoder.json
-            xml: lighthouse.core.decoder.xml
+    body_listener: true
     format_listener: true
     routing_loader:
         default_format: json
