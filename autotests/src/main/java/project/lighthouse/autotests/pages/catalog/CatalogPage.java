@@ -73,7 +73,7 @@ public class CatalogPage extends CommonPageObject {
     }
 
     public void popUpMenuDelete() {
-        //click delete
+        getOnlyVisibleWebElementFromTheWebElementsList(By.xpath("//*[@class='tooltip__controlLink tooltip__removeLink']")).click();
     }
 
     public void popUpMenuAccept() {
@@ -84,9 +84,8 @@ public class CatalogPage extends CommonPageObject {
         //click cancel
     }
 
-    public void popUpMenuEdit(String name, String newName) {
+    public void popUpMenuEdit() {
         //click edit
-        //input new name
     }
 
     public void checkIsNotPresent(String name) {
@@ -95,7 +94,7 @@ public class CatalogPage extends CommonPageObject {
     }
 
     public void itemClick(String name) {
-        String itemXpath = getItemXpath(name) + "/a[@href]";
+        String itemXpath = getItemXpath(name);
         findElement(By.xpath(itemXpath)).click();
     }
 
