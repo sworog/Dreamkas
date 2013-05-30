@@ -11,7 +11,7 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     private static final String WEB_DRIVER_BASE_URL = "webdriver.base.url";
 
     public AcceptanceTestSuite() {
-        findStoriesIn("**/sprint-1");
+
         EnvironmentVariables environmentVariables = getEnvironmentVariables();
         String timeout = environmentVariables.getProperty(IMPLICITY_WAIT, null);
         if (timeout != null) {
