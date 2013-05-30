@@ -1,7 +1,7 @@
 <div class="catalog__classItem" id="<%= catalogClass.id %>">
     <div class="catalog__classTitle">
         <a href="/catalog/<%= catalogClass.id %>" class="catalog__classLink"><%= catalogClass.name %></a>
-        <a class="editor__editLink catalog__editClassLink"></a>
+        <a classId="<%= catalogClass.id %>" class="editor__editLink catalog__editClassLink"></a>
     </div>
     <% if(catalogClass.groups && catalogClass.groups.length) { %>
         <ul class="catalog__classGroupList">

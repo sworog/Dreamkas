@@ -1,0 +1,23 @@
+.tooltip_editMenu{
+    margin-top: -33px;
+    min-width: 200px;
+}
+
+.tooltip_editMenu .tooltip__controls{
+    list-style: none;
+    margin: 0 -20px;
+    padding: 0;
+}
+
+.tooltip_editMenu .tooltip__controlLink{
+    display: block;
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    margin-bottom: -1px;
+    padding: 8px 10px;
+}
+
+.tooltip_editMenu .tooltip__controlLink:hover{
+    background: #f4f4f4;
+}
