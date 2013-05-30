@@ -105,11 +105,13 @@ define(
 
                 //listeners
                 block.listenTo(block.catalogClassModel, {
-                    change: function(model) {
+                    change: function(model, opt) {
                         block.$className.html(model.get('name'));
-                        block.renderClassList();
                         block.classGroupsCollection.reset(block.catalogClassModel.get('groups'));
-                        block.catalogClassesCollection.set([model.toJSON()]);
+                        block.catalogClassesCollection.add(model.toJSON(), {
+                            merge: true
+                        });
+                        block.renderClassList();
                     },
                     destroy: function(){
                         catalogRouter.navigate('/catalog', {
@@ -132,9 +134,6 @@ define(
 
                 block.listenTo(block.catalogClassesCollection, {
                     reset: function() {
-                        block.renderClassList();
-                    },
-                    change: function(){
                         block.renderClassList();
                     }
                 });
