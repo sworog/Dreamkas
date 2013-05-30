@@ -236,7 +236,7 @@ class WebTestCase extends BaseTestCase
             $this->client,
             'POST',
             '/api/1/products.json',
-            array('product' => $productData)
+            $productData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -250,7 +250,7 @@ class WebTestCase extends BaseTestCase
      * @param $invoiceId
      * @return array
      */
-    protected function createProducts($productId, $invoiceId)
+    protected function createInvoiceProducts($productId, $invoiceId)
     {
         $productsData = array(
             array(

@@ -22,7 +22,7 @@ class ProductControllerTest extends WebTestCase
         $crawler = $this->client->request(
             'POST',
             'api/1/products',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -45,7 +45,7 @@ class ProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/products.json',
-            array('product' => $productData)
+            $productData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -73,7 +73,7 @@ class ProductControllerTest extends WebTestCase
         $crawler = $this->client->request(
             'POST',
             '/api/1/products',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -90,18 +90,18 @@ class ProductControllerTest extends WebTestCase
         $crawler = $this->client->request(
             'POST',
             '/api/1/products',
-            array('product' => $invalidData)
+            $invalidData
         );
 
         Assert::assertResponseCode(400, $this->client);
 
         $this->assertEquals(
             1,
-            $crawler->filter('form[name="product"] form[name="purchasePrice"] errors entry')->count()
+            $crawler->filter('form[name="purchasePrice"] errors entry')->count()
         );
         $this->assertEquals(
             1,
-            $crawler->filter('form[name="product"] form[name="units"] errors entry')->count()
+            $crawler->filter('form[name="units"] errors entry')->count()
         );
     }
 
@@ -167,7 +167,7 @@ EOF;
         $this->client->request(
             'POST',
             '/api/1/products',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -175,14 +175,14 @@ EOF;
         $crawler = $this->client->request(
             'POST',
             '/api/1/products',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(400, $this->client);
 
         $this->assertContains(
             'уже есть',
-            $crawler->filter('form[name="product"] form[name="sku"] errors entry')->first()->text()
+            $crawler->filter('form[name="sku"] errors entry')->first()->text()
         );
     }
 
@@ -194,7 +194,7 @@ EOF;
         $crawler = $this->client->request(
             'POST',
             '/api/1/products',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -212,7 +212,7 @@ EOF;
         $this->client->request(
             'PUT',
             '/api/1/products/' . $id,
-            array('product' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(204, $this->client);
@@ -238,7 +238,7 @@ EOF;
         $this->client->request(
             'PUT',
             '/api/1/products/' . $id,
-            array('product' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -252,7 +252,7 @@ EOF;
         $crawler = $this->client->request(
             'POST',
             '/api/1/products',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -269,14 +269,14 @@ EOF;
         $crawler = $this->client->request(
             'PUT',
             '/api/1/products/' . $id,
-            array('product' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(400, $this->client);
 
         $this->assertContains(
             'Заполните это поле',
-            $crawler->filter('form[name="product"] form[name="name"] errors entry')->first()->text()
+            $crawler->filter('form[name="name"] errors entry')->first()->text()
         );
     }
 
@@ -288,7 +288,7 @@ EOF;
         $crawler = $this->client->request(
             'POST',
             '/api/1/products',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -303,13 +303,13 @@ EOF;
         $crawler = $this->client->request(
             'PUT',
             '/api/1/products/' . $id,
-            array('product' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(400, $this->client);
         $this->assertContains(
             'Эта форма не должна содержать дополнительных полей',
-            $crawler->filter('form[name="product"] > errors entry')->first()->text()
+            $crawler->filter('errors entry')->first()->text()
         );
 
         $this->client->request(
@@ -360,7 +360,7 @@ EOF;
             $this->client->request(
                 'POST',
                 '/api/1/products',
-                array('product' => $postData)
+                $postData
             );
             Assert::assertResponseCode(201, $this->client);
         }
@@ -383,7 +383,7 @@ EOF;
             $this->client,
             'POST',
             '/api/1/products.json',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -420,7 +420,7 @@ EOF;
             $this->client->request(
                 'POST',
                 '/api/1/products',
-                array('product' => $postData)
+                $postData
             );
             Assert::assertResponseCode(201, $this->client);
         }
@@ -469,7 +469,7 @@ EOF;
                 400,
                 array('name' => ''),
                 array(
-                    'form[name="product"] form[name="name"] errors entry'
+                    'form[name="name"] errors entry'
                     =>
                     'Заполните это поле',
                 ),
@@ -478,7 +478,7 @@ EOF;
                 400,
                 array('name' => str_repeat("z", 305)),
                 array(
-                    'form[name="product"] form[name="name"] errors entry'
+                    'form[name="name"] errors entry'
                     =>
                     'Не более 300 символов',
                 ),
@@ -502,7 +502,7 @@ EOF;
                 400,
                 array('purchasePrice' => ''),
                 array(
-                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    'form[name="purchasePrice"] errors entry'
                     =>
                     'Заполните это поле'
                 )
@@ -511,7 +511,7 @@ EOF;
                 400,
                 array('purchasePrice' => '10,898'),
                 array(
-                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    'form[name="purchasePrice"] errors entry'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -520,7 +520,7 @@ EOF;
                 400,
                 array('purchasePrice' => '10.898'),
                 array(
-                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    'form[name="purchasePrice"] errors entry'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -533,7 +533,7 @@ EOF;
                 400,
                 array('purchasePrice' => 'not a number'),
                 array(
-                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    'form[name="purchasePrice"] errors entry'
                     =>
                     'Цена не должна быть меньше или равна нулю',
                 ),
@@ -542,7 +542,7 @@ EOF;
                 400,
                 array('purchasePrice' => 0),
                 array(
-                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    'form[name="purchasePrice"] errors entry'
                     =>
                     'Цена не должна быть меньше или равна нулю'
                 ),
@@ -551,7 +551,7 @@ EOF;
                 400,
                 array('purchasePrice' => -10),
                 array(
-                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    'form[name="purchasePrice"] errors entry'
                     =>
                     'Цена не должна быть меньше или равна нулю'
                 )
@@ -560,7 +560,7 @@ EOF;
                 400,
                 array('purchasePrice' => 2000000001),
                 array(
-                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    'form[name="purchasePrice"] errors entry'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -569,7 +569,7 @@ EOF;
                 400,
                 array('purchasePrice' => '100000000'),
                 array(
-                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    'form[name="purchasePrice"] errors entry'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -582,7 +582,7 @@ EOF;
                 400,
                 array('purchasePrice' => '10000001'),
                 array(
-                    'form[name="product"] form[name="purchasePrice"] errors entry'
+                    'form[name="purchasePrice"] errors entry'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -602,7 +602,7 @@ EOF;
                 400,
                 array('vat' => 'not a number'),
                 array(
-                    'form[name="product"] form[name="vat"] errors entry'
+                    'form[name="vat"] errors entry'
                     =>
                     'Значение должно быть числом.',
                 ),
@@ -611,7 +611,7 @@ EOF;
                 400,
                 array('vat' => -30),
                 array(
-                    'form[name="product"] form[name="vat"] errors entry'
+                    'form[name="vat"] errors entry'
                     =>
                     'Значение должно быть 0 или больше.',
                 ),
@@ -620,7 +620,7 @@ EOF;
                 400,
                 array('vat' => ''),
                 array(
-                    'form[name="product"] form[name="vat"] errors entry'
+                    'form[name="vat"] errors entry'
                     =>
                     'Выберите ставку НДС',
                 ),
@@ -644,7 +644,7 @@ EOF;
                 400,
                 array('barcode' => str_repeat("z", 201)),
                 array(
-                    'form[name="product"] form[name="barcode"] errors entry'
+                    'form[name="barcode"] errors entry'
                     =>
                     'Не более 200 символов',
                 ),
@@ -668,7 +668,7 @@ EOF;
                 400,
                 array('vendor' => str_repeat("z", 301)),
                 array(
-                    'form[name="product"] form[name="vendor"] errors entry'
+                    'form[name="vendor"] errors entry'
                     =>
                     'Не более 300 символов',
                 ),
@@ -692,7 +692,7 @@ EOF;
                 400,
                 array('vendorCountry' => str_repeat("z", 101)),
                 array(
-                    'form[name="product"] form[name="vendorCountry"] errors entry'
+                    'form[name="vendorCountry"] errors entry'
                     =>
                     'Не более 100 символов',
                 ),
@@ -716,7 +716,7 @@ EOF;
                 400,
                 array('info' => str_repeat("z", 2001)),
                 array(
-                    'form[name="product"] form[name="info"] errors entry'
+                    'form[name="info"] errors entry'
                     =>
                     'Не более 2000 символов',
                 ),
@@ -736,7 +736,7 @@ EOF;
                 400,
                 array('sku' => ''),
                 array(
-                    'form[name="product"] form[name="sku"] errors entry'
+                    'form[name="sku"] errors entry'
                     =>
                     'Заполните это поле',
                 ),
@@ -745,7 +745,7 @@ EOF;
                 400,
                 array('sku' => str_repeat("z", 101)),
                 array(
-                    'form[name="product"] form[name="sku"] errors entry'
+                    'form[name="sku"] errors entry'
                     =>
                     'Не более 100 символов',
                 ),
@@ -765,7 +765,7 @@ EOF;
             $this->client,
             'POST',
             '/api/1/products.json',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -791,7 +791,7 @@ EOF;
             $this->client,
             'POST',
             '/api/1/products.json',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(400, $this->client);
@@ -819,7 +819,7 @@ EOF;
             $this->client,
             'POST',
             '/api/1/products.json',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -831,7 +831,7 @@ EOF;
             $this->client,
             'PUT',
             '/api/1/products/' . $id . '.json',
-            array('product' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(204, $this->client);
@@ -866,7 +866,7 @@ EOF;
             $this->client,
             'POST',
             '/api/1/products.json',
-            array('product' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -878,7 +878,7 @@ EOF;
             $this->client,
             'PUT',
             '/api/1/products/' . $id . '.json',
-            array('product' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(400, $this->client);

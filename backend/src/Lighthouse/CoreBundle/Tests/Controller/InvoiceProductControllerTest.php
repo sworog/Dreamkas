@@ -843,7 +843,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice();
 
-        $productsData = $this->createProducts($productId, $invoiceId);
+        $productsData = $this->createInvoiceProducts($productId, $invoiceId);
 
         $this->clientJsonRequest(
             $this->client,
@@ -876,7 +876,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice();
 
-        $productsData = $this->createProducts($productId, $invoiceId);
+        $productsData = $this->createInvoiceProducts($productId, $invoiceId);
 
         $productResponse = $this->clientJsonRequest(
             $this->client,
@@ -952,7 +952,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId = $this->createInvoice();
 
-        $invoiceProducts = $this->createProducts($productId, $invoiceId);
+        $invoiceProducts = $this->createInvoiceProducts($productId, $invoiceId);
 
         $this->assertProductTotals($productId, $invoiceProducts[2]['productAmount'], $invoiceProducts[2]['price']);
 
@@ -995,7 +995,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId = $this->createInvoice();
 
-        $invoiceProducts = $this->createProducts($productId, $invoiceId);
+        $invoiceProducts = $this->createInvoiceProducts($productId, $invoiceId);
 
         $this->assertProductTotals($productId, $invoiceProducts[2]['productAmount'], $invoiceProducts[2]['price']);
         $newInvoiceProductData = $invoiceProducts[1];
@@ -1188,10 +1188,8 @@ class InvoiceProductControllerTest extends WebTestCase
             'PUT',
             '/api/1/invoices/' . $invoiceId . '.json',
             array(
-                'invoice' => array(
-                    'acceptanceDate' => date('c', strtotime('-2 days 13:00'))
-                ) + $invoiceData
-            )
+                'acceptanceDate' => date('c', strtotime('-2 days 13:00'))
+            ) + $invoiceData
         );
 
         Assert::assertResponseCode(200, $this->client);
