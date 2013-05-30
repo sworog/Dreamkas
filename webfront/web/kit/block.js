@@ -42,6 +42,10 @@ define(
                         block: block
                     }));
 
+                block.$el.find('[block]').each(function(){
+                    $(this).data('block').remove();
+                });
+
                 block.$el
                     .html($template)
                     .require();
@@ -76,7 +80,9 @@ define(
             remove: function() {
                 var block = this;
 
-                block.$el.find(['block']).data('block').remove();
+                block.$el.find(['block']).each(function(){
+                    $(this).data('block').remove();
+                });
 
                 Backbone.View.prototype.remove.call(this);
             },

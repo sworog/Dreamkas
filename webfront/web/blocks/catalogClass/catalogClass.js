@@ -40,12 +40,17 @@ define(
                     var block = this,
                         $el = $(e.target);
 
-                    block.tooltip_editGroupMenu.show({
-                        $trigger: $el
+                    if (block.tooltip_editGroupMenu){
+                        block.tooltip_editGroupMenu.remove();
+                    }
+
+                    block.tooltip_editGroupMenu = new Tooltip_editGroupMenu({
+                        $trigger: $el,
+                        classModel: block.catalogClassModel,
+                        groupId: $el.attr('groupId')
                     });
 
-                    block.tooltip_editGroupMenu.classModel = block.catalogClassModel;
-                    block.tooltip_editGroupMenu.groupId = $el.attr('groupId');
+                    block.tooltip_editGroupMenu.show();
                 },
                 'click .catalog__editClassLink': function(e){
                     e.preventDefault();
@@ -53,11 +58,17 @@ define(
                     var block = this,
                         $el = $(e.target);
 
-                    block.tooltip_editClassMenu.show({
-                        $trigger: $el
+                    if (block.tooltip_editClassMenu){
+                        block.tooltip_editClassMenu.tooltip_editClass.remove();
+                        block.tooltip_editClassMenu.remove();
+                    }
+
+                    block.tooltip_editClassMenu = new Tooltip_editClassMenu({
+                        $trigger: $el,
+                        classModel: block.catalogClassModel
                     });
 
-                    block.tooltip_editClassMenu.classModel = block.catalogClassModel;
+                    block.tooltip_editClassMenu.show();
                 }
             },
 
@@ -65,9 +76,6 @@ define(
                 var block = this;
 
                 Editor.prototype.initialize.call(block);
-
-                block.tooltip_editClassMenu = new Tooltip_editClassMenu();
-                block.tooltip_editGroupMenu = new Tooltip_editGroupMenu();
 
                 block.catalogClassModel = new CatalogClassModel({
                     id: block.catalogClassId
@@ -99,7 +107,9 @@ define(
                 block.listenTo(block.catalogClassModel, {
                     change: function(model) {
                         block.$className.html(model.get('name'));
+                        block.renderClassList();
                         block.classGroupsCollection.reset(block.catalogClassModel.get('groups'));
+                        block.catalogClassesCollection.set([model.toJSON()]);
                     },
                     destroy: function(){
                         catalogRouter.navigate('/catalog', {
@@ -122,6 +132,9 @@ define(
 
                 block.listenTo(block.catalogClassesCollection, {
                     reset: function() {
+                        block.renderClassList();
+                    },
+                    change: function(){
                         block.renderClassList();
                     }
                 });

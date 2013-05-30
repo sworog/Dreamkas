@@ -1,4 +1,4 @@
-.tooltip_editMenu{
+.tooltip_editMenu, .tooltip_editClass, .tooltip_editGroup{
     margin-top: -33px;
     min-width: 200px;
 }

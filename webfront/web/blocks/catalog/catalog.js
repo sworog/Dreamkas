@@ -34,11 +34,17 @@ define(
                     var block = this,
                         $el = $(e.target);
 
-                    block.tooltip_editClassMenu.show({
-                        $trigger: $el
+                    if (block.tooltip_editClassMenu){
+                        block.tooltip_editClassMenu.tooltip_editClass.remove();
+                        block.tooltip_editClassMenu.remove();
+                    }
+
+                    block.tooltip_editClassMenu = new Tooltip_editClassMenu({
+                        $trigger: $el,
+                        classModel: block.catalogClassesCollection.get($el.attr('classId'))
                     });
 
-                    block.tooltip_editClassMenu.classModel = block.catalogClassesCollection.get($el.attr('classId'));
+                    block.tooltip_editClassMenu.show();
                 },
                 'click .catalog__editGroupLink': function(e){
                     e.preventDefault();
@@ -46,12 +52,18 @@ define(
                     var block = this,
                         $el = $(e.target);
 
-                    block.tooltip_editGroupMenu.show({
-                        $trigger: $el
+                    //block.tooltip_editGroupMenu.tooltip_editGroup.remove();
+                    if (block.tooltip_editGroupMenu){
+                        block.tooltip_editGroupMenu.remove();
+                    }
+
+                    block.tooltip_editGroupMenu = new Tooltip_editGroupMenu({
+                        $trigger: $el,
+                        classModel: block.catalogClassesCollection.get($el.closest('.catalog__classItem').attr('id')),
+                        groupId: $el.attr('groupId')
                     });
 
-                    block.tooltip_editGroupMenu.classModel = block.catalogClassesCollection.get($el.closest('.catalog__classItem').attr('id'));
-                    block.tooltip_editGroupMenu.groupId = $el.attr('groupId');
+                    block.tooltip_editGroupMenu.show();
                 }
             },
 
@@ -61,9 +73,6 @@ define(
                 Editor.prototype.initialize.call(block);
 
                 block.catalogClassesCollection = new СatalogClassesCollection();
-
-                block.tooltip_editClassMenu = new Tooltip_editClassMenu();
-                block.tooltip_editGroupMenu = new Tooltip_editGroupMenu();
 
                 block.addClassTooltip = new Tooltip({
                     addClass: 'catalog__addClassTooltip'

@@ -1,17 +1,21 @@
 define(
     [
         './tooltip_editMenu.js',
+        './tooltip_editGroup.js',
         '/models/catalogGroup.js'
     ],
-    function(tooltip_editMenu, CatalogGroupModel) {
-        return tooltip_editMenu.extend({
+    function(Tooltip_editMenu, Tooltip_editGroup, CatalogGroupModel) {
+        return Tooltip_editMenu.extend({
             groupId: null,
             events: {
-                'click .catalogEditTooltip__editLink': function(e){
+                'click .tooltip__editLink': function(e){
                     e.preventDefault();
-                    var block = this;
+                    var block = this,
+                        $el = $(e.target);
 
+                    block.hide();
 
+                    block.tooltip_editGroup.show();
                 },
                 'click .tooltip__removeLink': function(e){
                     e.preventDefault();
@@ -31,6 +35,17 @@ define(
 
                     block.hide();
                 }
+            },
+            initialize: function(){
+                var block = this;
+
+                Tooltip_editMenu.prototype.initialize.call(this);
+
+                block.tooltip_editGroup = new Tooltip_editGroup({
+                    $trigger: block.$trigger,
+                    classModel: block.classModel,
+                    groupId: block.groupId
+                });
             }
         });
     }
