@@ -52,6 +52,6 @@ class InvoiceType extends AbstractType
      */
     public function getName()
     {
-        return 'invoice';
+        return '';
     }
 }

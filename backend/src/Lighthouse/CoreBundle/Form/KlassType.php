@@ -38,6 +38,6 @@ class KlassType extends AbstractType
      */
     public function getName()
     {
-        return 'klass';
+        return '';
     }
 }

@@ -19,7 +19,7 @@ class KlassControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/klasses.json',
-            array('klass' => $klassData)
+            $klassData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -47,7 +47,7 @@ class KlassControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/klasses.json',
-            array('klass' => $klassData)
+            $klassData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -106,7 +106,7 @@ class KlassControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/klasses/' . $klassId .'.json',
-            array('klass' => $klassData)
+            $klassData
         );
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
@@ -171,7 +171,7 @@ class KlassControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/klasses.json',
-            array('klass' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(400, $this->client);
