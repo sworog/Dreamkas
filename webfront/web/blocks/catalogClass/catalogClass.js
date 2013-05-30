@@ -34,6 +34,19 @@ define(
 
                     block.addGroupForm.$el.find('[name="name"]').focus();
                 },
+                'click .catalog__editGroupLink': function(e){
+                    e.preventDefault();
+
+                    var block = this,
+                        $el = $(e.target);
+
+                    block.tooltip_editGroupMenu.show({
+                        $trigger: $el
+                    });
+
+                    block.tooltip_editGroupMenu.classModel = block.catalogClassModel;
+                    block.tooltip_editGroupMenu.groupId = $el.attr('groupId');
+                },
                 'click .catalog__editClassLink': function(e){
                     e.preventDefault();
 
@@ -86,6 +99,7 @@ define(
                 block.listenTo(block.catalogClassModel, {
                     change: function(model) {
                         block.$className.html(model.get('name'));
+                        block.classGroupsCollection.reset(block.catalogClassModel.get('groups'));
                     },
                     destroy: function(){
                         catalogRouter.navigate('/catalog', {
@@ -98,12 +112,11 @@ define(
                     reset: function() {
                         block.renderGroupList();
                     },
-                    add: function(model) {
-                        block.$groupList.prepend(block.templates.groupItem({
-                            block: block,
-                            classGroup: model.toJSON(),
-                            catalogClass: block.catalogClassModel.toJSON()
-                        }))
+                    change: function() {
+                        block.renderGroupList();
+                    },
+                    add: function(model, collection) {
+                        block.catalogClassModel.set('groups', collection.toJSON())
                     }
                 });
 

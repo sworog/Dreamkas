@@ -49,6 +49,9 @@ define(
                     block.tooltip_editGroupMenu.show({
                         $trigger: $el
                     });
+
+                    block.tooltip_editGroupMenu.classModel = block.catalogClassesCollection.get($el.closest('.catalog__classItem').attr('id'));
+                    block.tooltip_editGroupMenu.groupId = $el.attr('groupId');
                 }
             },
 
@@ -90,6 +93,14 @@ define(
                         block.$el
                             .find('#' + classModel.get('id'))
                             .remove();
+                    },
+                    change: function(classModel){
+                        block.$el
+                            .find('#' + classModel.get('id'))
+                            .replaceWith(block.templates.classItem({
+                                block: block,
+                                catalogClass: classModel.toJSON()
+                            }));
                     }
                 });
 
