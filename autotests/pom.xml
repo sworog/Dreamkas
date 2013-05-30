@@ -83,6 +83,7 @@
                         <include>**/When*.java</include>
                         <include>**/*TestSuite.java</include>
                     </includes>
+                    <disableXmlReport>true</disableXmlReport>
                     <systemPropertyVariables>
                         <thucydides.browser.width>${thucydides.browser.width}</thucydides.browser.width>
                         <thucydides.browser.height>${thucydides.browser.height}</thucydides.browser.height>
