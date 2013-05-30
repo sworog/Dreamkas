@@ -6,9 +6,11 @@ define(
         '/collections/catalogClasses.js',
         '/models/catalogClass.js',
         '/routers/catalog.js',
+        '/blocks/tooltip/tooltip_editClassMenu.js',
+        '/blocks/tooltip/tooltip_editGroupMenu.js',
         './catalog.templates.js'
     ],
-    function(Editor, Tooltip, Form, СatalogClassesCollection, CatalogClassModel, catalogRouter, templates) {
+    function(Editor, Tooltip, Form, СatalogClassesCollection, CatalogClassModel, catalogRouter, Tooltip_editClassMenu, Tooltip_editGroupMenu, templates) {
         return Editor.extend({
             className: 'catalog',
             templates: templates,
@@ -25,6 +27,28 @@ define(
                     });
 
                     block.addClassForm.$el.find('[name="name"]').focus();
+                },
+                'click .catalog__editClassLink': function(e){
+                    e.preventDefault();
+
+                    var block = this,
+                        $el = $(e.target);
+
+                    block.tooltip_editClassMenu.show({
+                        $trigger: $el
+                    });
+
+                    block.tooltip_editClassMenu.classModel = block.catalogClassesCollection.get($el.attr('classId'));
+                },
+                'click .catalog__editGroupLink': function(e){
+                    e.preventDefault();
+
+                    var block = this,
+                        $el = $(e.target);
+
+                    block.tooltip_editGroupMenu.show({
+                        $trigger: $el
+                    });
                 }
             },
 
@@ -34,7 +58,10 @@ define(
                 Editor.prototype.initialize.call(block);
 
                 block.catalogClassesCollection = new СatalogClassesCollection();
-                
+
+                block.tooltip_editClassMenu = new Tooltip_editClassMenu();
+                block.tooltip_editGroupMenu = new Tooltip_editGroupMenu();
+
                 block.addClassTooltip = new Tooltip({
                     addClass: 'catalog__addClassTooltip'
                 });
@@ -58,6 +85,11 @@ define(
                             block: block,
                             catalogClass: model.toJSON()
                         }))
+                    },
+                    remove: function(classModel){
+                        block.$el
+                            .find('#' + classModel.get('id'))
+                            .remove();
                     }
                 });
 

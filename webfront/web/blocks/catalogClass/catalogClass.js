@@ -1,5 +1,6 @@
 define(
     [
+        '/blocks/tooltip/tooltip_editGroupMenu.js',
         '/kit/editor/editor.js',
         '/kit/form/form.js',
         '/kit/tooltip/tooltip.js',
@@ -8,9 +9,10 @@ define(
         '/collections/catalogClasses.js',
         '/collections/classGroups.js',
         '/routers/catalog.js',
+        '/blocks/tooltip/tooltip_editClassMenu.js',
         './catalogClass.templates.js'
     ],
-    function(Editor, Form, Tooltip, CatalogClassModel, CatalogGroupModel, СatalogClassesCollection, ClassGroupsCollection, catalogRouter, templates) {
+    function(Tooltip_editGroupMenu, Editor, Form, Tooltip, CatalogClassModel, CatalogGroupModel, СatalogClassesCollection, ClassGroupsCollection, catalogRouter, Tooltip_editClassMenu, templates) {
 
         return Editor.extend({
             editMode: false,
@@ -31,6 +33,18 @@ define(
                     });
 
                     block.addGroupForm.$el.find('[name="name"]').focus();
+                },
+                'click .catalog__editClassLink': function(e){
+                    e.preventDefault();
+
+                    var block = this,
+                        $el = $(e.target);
+
+                    block.tooltip_editClassMenu.show({
+                        $trigger: $el
+                    });
+
+                    block.tooltip_editClassMenu.classModel = block.catalogClassModel;
                 }
             },
 
@@ -38,6 +52,9 @@ define(
                 var block = this;
 
                 Editor.prototype.initialize.call(block);
+
+                block.tooltip_editClassMenu = new Tooltip_editClassMenu();
+                block.tooltip_editGroupMenu = new Tooltip_editGroupMenu();
 
                 block.catalogClassModel = new CatalogClassModel({
                     id: block.catalogClassId
@@ -69,6 +86,11 @@ define(
                 block.listenTo(block.catalogClassModel, {
                     change: function(model) {
                         block.$className.html(model.get('name'));
+                    },
+                    destroy: function(){
+                        catalogRouter.navigate('/catalog', {
+                            trigger: true
+                        })
                     }
                 });
 
