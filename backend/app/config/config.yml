@@ -71,7 +71,7 @@ fos_rest:
             xml: lighthouse.core.decoder.xml
     format_listener: true
     routing_loader:
-        default_format: xml
+        default_format: json
     view:
         view_response_listener: force
         formats:
