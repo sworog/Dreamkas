@@ -46,6 +46,6 @@ class GroupType extends AbstractType
      */
     public function getName()
     {
-        return 'group';
+        return '';
     }
 }

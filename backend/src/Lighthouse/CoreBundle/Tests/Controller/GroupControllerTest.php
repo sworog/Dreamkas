@@ -22,7 +22,7 @@ class GroupControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/groups.json',
-            array('group' => $groupData)
+            $groupData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -50,7 +50,7 @@ class GroupControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/groups.json',
-            array('group' => $groupData)
+            $groupData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -61,7 +61,7 @@ class GroupControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/groups.json',
-            array('group' => $groupData)
+            $groupData
         );
         Assert::assertResponseCode(400, $this->client);
 
@@ -78,7 +78,7 @@ class GroupControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/groups.json',
-            array('group' => $groupData2)
+            $groupData2
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -89,7 +89,7 @@ class GroupControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/groups.json',
-            array('group' => $groupData2)
+            $groupData2
         );
         Assert::assertResponseCode(400, $this->client);
 
@@ -122,7 +122,7 @@ class GroupControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/groups.json',
-            array('group' => $groupData)
+            $groupData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -194,7 +194,7 @@ class GroupControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/groups/' . $groupId . '.json',
-            array('group' => $putData)
+            $putData
         );
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;

@@ -154,7 +154,7 @@ class WebTestCase extends BaseTestCase
             $this->client,
             'POST',
             '/api/1/invoices.json',
-            array('invoice' => $invoiceData)
+            $invoiceData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -182,7 +182,7 @@ class WebTestCase extends BaseTestCase
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
+            $invoiceProductData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -285,7 +285,7 @@ class WebTestCase extends BaseTestCase
                 $this->client,
                 'POST',
                 '/api/1/invoices/' . $invoiceId . '/products.json',
-                array('invoiceProduct' => $invoiceProductData)
+                $invoiceProductData
             );
 
             Assert::assertResponseCode(201, $this->client);
@@ -385,7 +385,7 @@ class WebTestCase extends BaseTestCase
             $this->client,
             'POST',
             '/api/1/klasses.json',
-            array('klass' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -446,7 +446,7 @@ class WebTestCase extends BaseTestCase
             $this->client,
             'POST',
             '/api/1/groups.json',
-            array('group' => $groupData)
+            $groupData
         );
 
         Assert::assertResponseCode(201, $this->client);

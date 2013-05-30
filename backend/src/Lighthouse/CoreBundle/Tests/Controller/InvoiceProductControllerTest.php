@@ -28,7 +28,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
+            $invoiceProductData
         );
 
         Assert::assertResponseCode(201, $this->client->getResponse());
@@ -73,7 +73,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
+            $invoiceProductData
         );
 
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
@@ -97,7 +97,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
+            $invoiceProductData
         );
 
         $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
@@ -121,7 +121,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
+            $invoiceProductData
         );
 
         $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
@@ -171,7 +171,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 $this->client,
                 'POST',
                 '/api/1/invoices/' . $invoiceId . '/products.json',
-                array('invoiceProduct' => $invoiceProductData)
+                $invoiceProductData
             );
 
             Assert::assertResponseCode(201, $this->client->getResponse());
@@ -224,7 +224,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 $this->client,
                 'POST',
                 '/api/1/invoices/' . $invoiceId . '/products.json',
-                array('invoiceProduct' => $invoiceProductData)
+                $invoiceProductData
             );
 
             Assert::assertResponseCode(201, $this->client->getResponse());
@@ -257,7 +257,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
+            $invoiceProductData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -469,7 +469,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 $this->client,
                 'POST',
                 '/api/1/invoices/' . $invoiceId . '/products.json',
-                array('invoiceProduct' => $invoiceProductData)
+                $invoiceProductData
             );
 
             Assert::assertResponseCode(201, $this->client);
@@ -562,7 +562,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
+            $invoiceProductData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -610,7 +610,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $invoiceProductData)
+            $invoiceProductData
         );
 
         Assert::assertResponseCode(201, $this->client->getResponse());
@@ -637,7 +637,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProductId . '.json',
-            array('invoiceProduct' => $modifiedInvoiceProductData)
+            $modifiedInvoiceProductData
         );
 
         Assert::assertResponseCode(200, $this->client->getResponse());
@@ -717,7 +717,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
-            array('invoiceProduct' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -743,7 +743,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProductId . '.json',
-            array('invoiceProduct' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -1005,7 +1005,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[1]['id'] . '.json',
-            array('invoiceProduct' => $newInvoiceProductData)
+            $newInvoiceProductData
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -1020,7 +1020,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[2]['id'] . '.json',
-            array('invoiceProduct' => $newInvoiceProductDataNewProduct)
+            $newInvoiceProductDataNewProduct
         );
 
         Assert::assertResponseCode(200, $this->client);
