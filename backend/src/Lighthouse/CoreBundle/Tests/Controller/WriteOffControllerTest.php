@@ -22,7 +22,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/writeoffs.json',
-            array('writeOff' => $writeOffData)
+            $writeOffData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -53,7 +53,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/writeoffs.json',
-            array('writeOff' => $writeOffData)
+            $writeOffData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -83,7 +83,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/writeoffs.json',
-            array('writeOff' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -98,7 +98,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/writeoffs/' . $writeOffId . '.json',
-            array('writeOff' => $putData)
+            $putData
         );
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
@@ -239,7 +239,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1 . '.json',
-            array('writeOffProduct' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -259,7 +259,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2 . '.json',
-            array('writeOffProduct' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(200, $this->client);

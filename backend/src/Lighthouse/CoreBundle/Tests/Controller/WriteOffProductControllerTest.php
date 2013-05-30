@@ -32,7 +32,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/writeoffs/' . $writeOffId . '/products.json',
-            array('writeOffProduct' => $writeOffProductData)
+            $writeOffProductData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -257,7 +257,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/writeoffs/'. $writeOffId . '/products.json',
-            array('writeOffProduct' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -266,7 +266,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/writeoffs/invalidWriteOffId/products.json',
-            array('writeOffProduct' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -291,7 +291,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/writeoffs/'. $writeOffId . '/products/' . $writeOffProductId . '.json',
-            array('writeOffProduct' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -300,7 +300,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/writeoffs/'. $writeOffId . '/products/invalidId.json',
-            array('writeOffProduct' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -310,7 +310,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/writeoffs/invalidWriteOffId/products/' . $writeOffProductId . '.json',
-            array('writeOffProduct' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -323,7 +323,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/writeoffs/' . $writeOffId2 . '/products/' . $writeOffProductId . '.json',
-            array('writeOffProduct' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -333,7 +333,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2 . '.json',
-            array('writeOffProduct' => $putData)
+            $putData
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -488,7 +488,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/writeoffs/' . $writeOffId . '/products.json',
-            array('writeOffProduct' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -514,7 +514,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1 . '.json',
-            array('writeOffProduct' => $putData1)
+            $putData1
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -535,7 +535,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'POST',
             '/api/1/writeoffs/' . $writeOffId . '/products.json',
-            array('writeOffProduct' => $putData2)
+            $putData2
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -559,7 +559,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->client,
             'PUT',
             '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2 . '.json',
-            array('writeOffProduct' => $putData2)
+            $putData2
         );
 
         Assert::assertResponseCode(200, $this->client);
