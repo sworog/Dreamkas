@@ -16,6 +16,7 @@
     border-top: 1px solid #eee;
     margin-bottom: -1px;
     padding: 8px 10px;
+    text-decoration: none;
 }
 
 .tooltip_editMenu .tooltip__controlLink:hover{
