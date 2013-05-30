@@ -330,7 +330,7 @@ class WebTestCase extends BaseTestCase
             $this->client,
             'POST',
             '/api/1/writeoffs.json',
-            array('writeOff' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -361,7 +361,7 @@ class WebTestCase extends BaseTestCase
             $this->client,
             'POST',
             '/api/1/writeoffs/' . $writeOffId . '/products.json',
-            array('writeOffProduct' => $postData)
+            $postData
         );
 
         Assert::assertResponseCode(201, $this->client);

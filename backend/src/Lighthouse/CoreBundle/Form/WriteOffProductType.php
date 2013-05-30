@@ -46,6 +46,6 @@ class WriteOffProductType extends AbstractType
      */
     public function getName()
     {
-        return 'writeOffProduct';
+        return '';
     }
 }
