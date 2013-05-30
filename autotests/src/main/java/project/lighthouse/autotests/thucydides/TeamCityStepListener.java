@@ -10,22 +10,19 @@ import net.thucydides.core.steps.StepListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class TeamCityStepListener implements StepListener {
 
     private static final String messageTemplate = "##teamcity[%s %s]";
     private static final String propertyTemplate = " %s='%s'";
 
-    private static final HashMap<String,String> escapeChars = new HashMap(){
+    private static final HashMap<String,String> escapeChars = new LinkedHashMap(){
         {
+            put("\\|", "||");
             put("\'", "|\'");
             put("\n", "|n");
             put("\r", "|r");
-            put("\\|", "||");
             put("\\[", "|[");
             put("\\]", "|]");
         }
@@ -114,7 +111,7 @@ public class TeamCityStepListener implements StepListener {
     private void printFailure(TestOutcome result) {
         HashMap<String,String> properties = new HashMap<String,String>();
         properties.put("name", result.getTitle());
-        properties.put("message", result.getTestFailureCause().getMessage());
+        properties.put("details", result.getTestFailureCause().getMessage());
         printMessage("testFailed", properties);
     }
 
