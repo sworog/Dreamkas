@@ -17,15 +17,12 @@ public class Invoice {
 
     public static JSONObject getJsonObject(String sku, String supplier, String acceptanceDate, String accepter, String legalEntity, String supplierInvoiceSku, String supplierInvoiceDate) throws JSONException {
         return new JSONObject()
-                .put("invoice",
-                        new JSONObject()
-                                .put("sku", sku)
-                                .put("supplier", supplier)
-                                .put("acceptanceDate", acceptanceDate)
-                                .put("accepter", accepter)
-                                .put("legalEntity", legalEntity)
-                                .put("supplierInvoiceSku", supplierInvoiceSku)
-                                .put("supplierInvoiceDate", supplierInvoiceDate)
-                );
+                .put("sku", sku)
+                .put("supplier", supplier)
+                .put("acceptanceDate", acceptanceDate)
+                .put("accepter", accepter)
+                .put("legalEntity", legalEntity)
+                .put("supplierInvoiceSku", supplierInvoiceSku)
+                .put("supplierInvoiceDate", supplierInvoiceDate);
     }
 }

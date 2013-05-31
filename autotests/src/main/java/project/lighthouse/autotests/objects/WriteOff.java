@@ -17,10 +17,7 @@ public class WriteOff {
 
     public static JSONObject getJsonObject(String number, String date) throws JSONException {
         return new JSONObject()
-                .put("writeOff",
-                        new JSONObject()
-                                .put("number", number)
-                                .put("date", date)
-                );
+                .put("number", number)
+                .put("date", date);
     }
 }

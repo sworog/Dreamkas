@@ -17,17 +17,14 @@ public class Product {
 
     public static JSONObject getJsonObject(String name, String units, String vat, String purchasePrice, String barcode, String sku, String vendorCountry, String vendor, String info) throws JSONException {
         return new JSONObject()
-                .put("product",
-                        new JSONObject()
-                                .put("name", name)
-                                .put("units", units)
-                                .put("vat", vat)
-                                .put("purchasePrice", purchasePrice)
-                                .put("barcode", barcode)
-                                .put("sku", sku)
-                                .put("vendorCountry", vendorCountry)
-                                .put("vendor", vendor)
-                                .put("info", info)
-                );
+                .put("name", name)
+                .put("units", units)
+                .put("vat", vat)
+                .put("purchasePrice", purchasePrice)
+                .put("barcode", barcode)
+                .put("sku", sku)
+                .put("vendorCountry", vendorCountry)
+                .put("vendor", vendor)
+                .put("info", info);
     }
 }
