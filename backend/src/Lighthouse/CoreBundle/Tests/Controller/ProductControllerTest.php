@@ -21,7 +21,7 @@ class ProductControllerTest extends WebTestCase
     {
         $crawler = $this->client->request(
             'POST',
-            'api/1/products',
+            'api/1/products.xml',
             $postData
         );
 
@@ -72,7 +72,7 @@ class ProductControllerTest extends WebTestCase
 
         $crawler = $this->client->request(
             'POST',
-            '/api/1/products',
+            '/api/1/products.xml',
             $postData
         );
 
@@ -89,7 +89,7 @@ class ProductControllerTest extends WebTestCase
 
         $crawler = $this->client->request(
             'POST',
-            '/api/1/products',
+            '/api/1/products.xml',
             $invalidData
         );
 
@@ -123,7 +123,7 @@ class ProductControllerTest extends WebTestCase
 EOF;
         $this->client->request(
             'POST',
-            '/api/1/products',
+            '/api/1/products.xml',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/xml'),
@@ -140,7 +140,7 @@ not an xml
 EOF;
         $this->client->request(
             'POST',
-            '/api/1/products',
+            '/api/1/products.xml',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/xml'),
@@ -154,7 +154,7 @@ EOF;
     {
         $this->client->request(
             'POST',
-            '/api/1/products'
+            '/api/1/products.xml'
         );
         Assert::assertResponseCode(400, $this->client);
     }
@@ -166,7 +166,7 @@ EOF;
     {
         $this->client->request(
             'POST',
-            '/api/1/products',
+            '/api/1/products.xml',
             $postData
         );
 
@@ -174,7 +174,7 @@ EOF;
 
         $crawler = $this->client->request(
             'POST',
-            '/api/1/products',
+            '/api/1/products.xml',
             $postData
         );
 
@@ -193,7 +193,7 @@ EOF;
     {
         $crawler = $this->client->request(
             'POST',
-            '/api/1/products',
+            '/api/1/products.xml',
             $postData
         );
 
@@ -211,7 +211,7 @@ EOF;
 
         $this->client->request(
             'PUT',
-            '/api/1/products/' . $id,
+            '/api/1/products/' . $id . '.xml',
             $putData
         );
 
@@ -219,7 +219,7 @@ EOF;
 
         $crawler = $this->client->request(
             'GET',
-            '/api/1/products/' . $id
+            '/api/1/products/' . $id . '.xml'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -237,7 +237,7 @@ EOF;
 
         $this->client->request(
             'PUT',
-            '/api/1/products/' . $id,
+            '/api/1/products/' . $id . '.xml',
             $putData
         );
 
@@ -251,7 +251,7 @@ EOF;
     {
         $crawler = $this->client->request(
             'POST',
-            '/api/1/products',
+            '/api/1/products.xml',
             $postData
         );
 
@@ -268,7 +268,7 @@ EOF;
 
         $crawler = $this->client->request(
             'PUT',
-            '/api/1/products/' . $id,
+            '/api/1/products/' . $id . '.xml',
             $putData
         );
 
@@ -287,7 +287,7 @@ EOF;
     {
         $crawler = $this->client->request(
             'POST',
-            '/api/1/products',
+            '/api/1/products.xml',
             $postData
         );
 
@@ -302,7 +302,7 @@ EOF;
 
         $crawler = $this->client->request(
             'PUT',
-            '/api/1/products/' . $id,
+            '/api/1/products/' . $id . '.xml',
             $putData
         );
 
@@ -321,7 +321,7 @@ EOF;
 
         $this->client->request(
             'GET',
-            '/api/1/products/' . $id
+            '/api/1/products/' . $id . '.xml'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -337,13 +337,13 @@ EOF;
             'HTTP_Origin' => 'www.a.com',
         );
 
-        $this->client->request('POST', '/api/1/product', $postArray, array(), $headers);
+        $this->client->request('POST', '/api/1/product.xml', $postArray, array(), $headers);
 
         /* @var $response Response */
         $response = $this->client->getResponse();
         $this->assertTrue($response->headers->has('Access-Control-Allow-Origin'));
 
-        $this->client->request('POST', '/api/1/product', $postArray);
+        $this->client->request('POST', '/api/1/product.xml', $postArray);
         /* @var $response Response */
         $response = $this->client->getResponse();
         $this->assertFalse($response->headers->has('Access-Control-Allow-Origin'));
@@ -359,7 +359,7 @@ EOF;
             $postData['sku'] = 'sku' . $i;
             $this->client->request(
                 'POST',
-                '/api/1/products',
+                '/api/1/products.xml',
                 $postData
             );
             Assert::assertResponseCode(201, $this->client);
@@ -367,7 +367,7 @@ EOF;
 
         $this->client->request(
             'GET',
-            '/api/1/products'
+            '/api/1/products.xml'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -419,7 +419,7 @@ EOF;
             $postData['sku'] = 'sku' . $i;
             $this->client->request(
                 'POST',
-                '/api/1/products',
+                '/api/1/products.xml',
                 $postData
             );
             Assert::assertResponseCode(201, $this->client);
@@ -427,7 +427,7 @@ EOF;
 
         $crawler = $this->client->request(
             'GET',
-            '/api/1/products/name/search',
+            '/api/1/products/name/search.xml',
             array(
                 'query' => 'кефир3',
             )

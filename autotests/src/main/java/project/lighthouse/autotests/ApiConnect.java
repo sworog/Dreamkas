@@ -11,9 +11,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.objects.Invoice;
-import project.lighthouse.autotests.objects.Product;
-import project.lighthouse.autotests.objects.WriteOff;
+import project.lighthouse.autotests.objects.*;
 import project.lighthouse.autotests.pages.elements.DateTime;
 
 import java.io.IOException;
@@ -134,6 +132,31 @@ public class ApiConnect {
         String writeOffId = StaticDataCollections.writeOffs.get(writeOffNumber).getId();
 //        String url = String.format("%s/writeOff/%s?editMode=true", getWebFrontUrl(), writeOffId);
         String url = String.format("%s/writeOff/%s", getWebFrontUrl(), writeOffId);
+        driver.navigate().to(url);
+    }
+
+    public void createKlassThroughPost(String klassName) throws IOException, JSONException {
+        if (!StaticDataCollections.klasses.containsKey(klassName)) {
+            String getApiUrl = String.format("%s/api/1/klasses.json", getApiUrl());
+            String jsonData = String.format(Klass.jsonPattern, klassName);
+            String postResponse = executePostRequest(getApiUrl, jsonData);
+
+            Klass klass = new Klass(new JSONObject(postResponse));
+            StaticDataCollections.klasses.put(klassName, klass);
+        }
+    }
+
+    public void createGroupThroughPost(String groupName, String klassName) throws IOException, JSONException {
+        createKlassThroughPost(klassName);
+        String apiUrl = String.format("%s/api/1/groups.json", getApiUrl());
+        String klassId = StaticDataCollections.klasses.get(klassName).getId();
+        String groupJsonData = String.format(Group.jsonPattern, groupName, klassName);
+        executePostRequest(apiUrl, groupJsonData);
+    }
+
+    public void navigateToKlassPage(String klassName) throws JSONException {
+        String klassId = StaticDataCollections.klasses.get(klassName).getId();
+        String url = String.format("%s/catalog/%s", getWebFrontUrl(), klassId);
         driver.navigate().to(url);
     }
 

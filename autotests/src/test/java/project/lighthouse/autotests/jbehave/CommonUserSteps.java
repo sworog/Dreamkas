@@ -57,6 +57,16 @@ public class CommonUserSteps {
         commonSteps.createWriteOffThroughPost(writeOffNumber);
     }
 
+    @Given("there is the class with name '$klassName'")
+    public void givenThereIsTheClassWithName(String klassName) throws IOException, JSONException {
+        commonSteps.createKlassThroughPost(klassName);
+    }
+
+    @Given("there is the group with name '$groupName' related to class '$klassName'")
+    public void givenThereIsTheGroupWithNameRelatedToKlass(String groupName, String klassName) throws IOException, JSONException {
+        commonSteps.createGroupThroughPost(groupName, klassName);
+    }
+
     @Given("there is the write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
     public void givenThereIsTheWriteOffWithProduct(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws IOException, JSONException {
@@ -77,6 +87,11 @@ public class CommonUserSteps {
     @Given("the user navigates to the write off with number '$writeOffNumber'")
     public void givenNavigateToTheWriteOffWithNumber(String writeNumber) throws JSONException {
         commonSteps.navigatoToWriteOffPage(writeNumber);
+    }
+
+    @Given("the user navigates to the klass with name '$klassName'")
+    public void givenTheUserNavigatesToTheKlassName(String klassName) throws JSONException {
+        commonSteps.navigateToKlassPage(klassName);
     }
 
     @Given("starting average price calculation")

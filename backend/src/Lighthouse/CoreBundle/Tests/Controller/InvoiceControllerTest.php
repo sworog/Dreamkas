@@ -22,7 +22,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $crawler = $this->client->request(
             'POST',
-            '/api/1/invoices',
+            '/api/1/invoices.xml',
             $invoiceData
         );
 
@@ -43,7 +43,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $crawler = $this->client->request(
             'GET',
-            '/api/1/invoices'
+            '/api/1/invoices.xml'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -60,7 +60,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $crawler = $this->client->request(
             'GET',
-            '/api/1/invoices/' . $id
+            '/api/1/invoices/' . $id . '.xml'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -102,7 +102,7 @@ class InvoiceControllerTest extends WebTestCase
         $id = 'not_exists_id';
         $this->client->request(
             'GET',
-            '/api/1/invoices/' . $id
+            '/api/1/invoices/' . $id . '.xml'
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -120,7 +120,7 @@ class InvoiceControllerTest extends WebTestCase
         $crawler = $this->client->request(
             'POST',
             '/api/1/invoices',
-            $postData
+            array('invoice' => $postData)
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -139,7 +139,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $crawler = $this->client->request(
             'POST',
-            '/api/1/invoices',
+            '/api/1/invoices.xml',
             $postData
         );
 

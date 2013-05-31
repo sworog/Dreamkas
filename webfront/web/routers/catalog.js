@@ -1,31 +1,41 @@
 define(
     [
         '/blocks/page/page.js',
+        '/kit/_utils/deepExtend.js',
         './baseRouter.js'
     ],
-    function(page, BaseRouter) {
+    function(page, deepExtend, BaseRouter) {
+
         var Router = BaseRouter.extend({
+            params: {
+                editMode: false
+            },
             routes: {
                 'catalog': 'catalog',
                 'catalog/:catalogClassId': 'catalogClass',
                 'catalog/:catalogClassId/:catalogGroupId': 'catalogGroup'
             },
+            open: function(pageUrl, opt){
+                page.open(pageUrl, deepExtend({} , opt, {
+                    params: this.params
+                }));
+            },
             catalog: function(params) {
-                page.open('/pages/catalog/catalog.html', {
-                    params: params || {}
+                this.open('/pages/catalog/catalog.html', {
+                    params: params
                 });
             },
             catalogClass: function(catalogClassId, params){
-                page.open('/pages/catalog/class.html', {
+                this.open('/pages/catalog/class.html', {
                     catalogClassId: catalogClassId,
-                    params: params || {}
+                    params: params
                 });
             },
             catalogGroup: function(catalogClassId, catalogGroupId, params){
-                page.open('/pages/catalog/group.html', {
+                this.open('/pages/catalog/group.html', {
                     catalogClassId: catalogClassId,
                     catalogGroupId: catalogGroupId,
-                    params: params || {}
+                    params: params
                 });
             }
         });
