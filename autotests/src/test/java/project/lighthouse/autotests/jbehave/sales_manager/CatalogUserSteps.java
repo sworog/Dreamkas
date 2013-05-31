@@ -101,6 +101,11 @@ public class CatalogUserSteps {
         catalogSteps.generateTestCharData(element, number);
     }
 
+    @When("the user generates charData with '$number' number with string char '$str' in the '$element' pop up field")
+    public void whenTheUserGeneratesCharDate(int number, String str, String element) {
+        catalogSteps.generateTestCharData(element, number, str);
+    }
+
     @Then("the user checks '$element' pop up field contains only '$numbers' symbols")
     public void whenTheUserChecksNumbers(String element, int numbers) {
         catalogSteps.checkFieldLength(element, numbers);

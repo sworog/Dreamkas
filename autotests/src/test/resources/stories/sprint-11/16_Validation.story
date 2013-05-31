@@ -1,5 +1,4 @@
 
-@Verified
 Scenario: Can't delete not empty class from catalog page
 Given there is the group with name 'Group cdnecfcp' related to class named 'Class cdnecfcp'
 And the user opens catalog page
@@ -9,7 +8,6 @@ And the user deletes element through pop up menu
 Then the user checks alert text is equal to 'Необходимо удалить все группы из класса'
 When the user clicks on end edition link and ends the edition
 
-@Verified
 Scenario: Can't delete not empty class from class page
 Given there is the group with name 'Group cdnecfcp1' related to class named 'Class cdnecfcp1'
 And the user opens catalog page
@@ -20,7 +18,6 @@ And the user deletes element through pop up menu
 Then the user checks alert text is equal to 'Необходимо удалить все группы из класса'
 When the user clicks on end edition link and ends the edition
 
-@Verified
 Scenario: Class validation name good - 100 symbols
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
@@ -31,7 +28,6 @@ When the user clicks the create new class button in pop up
 Then the user sees no error messages
 When the user clicks on end edition link and ends the edition
 
-@Verified
 Scenario: Class validation name invalid - 101 symbols
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
@@ -44,7 +40,6 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user clicks on end edition link and ends the edition
 
-@Verified
 Scenario: Class validation name is required
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
@@ -55,7 +50,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks on end edition link and ends the edition
 
-@Verified
 Scenario: Class validation - can't create class with equal name
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
@@ -68,14 +62,14 @@ Then the user sees error messages
 | Такой класс уже есть |
 When the user clicks on end edition link and ends the edition
 
-!--edition validation from catalog page
+
 Scenario: Class edit from catalog page - validation name good - 100 symbols
 Given there is the class with name 'class vng-100'
 And the user opens catalog page
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of 'class vng-100' element
 And the user edits the element name through pop up menu
-And the user generates charData with '100' number in the 'name' pop up field
+And the user generates charData with '100' number with string char 'b' in the 'name' pop up field
 Then the user checks 'name' pop up field contains only '100' symbols
 When the user accept pop up menu changes
 Then the user sees no error messages
@@ -125,14 +119,14 @@ Then the user sees error messages
 When the user discards pop up menu changes
 And the user clicks on end edition link and ends the edition
 
-!--edition validation from class page
+
 Scenario: Class edit from class page - validation name good - 100 symbols
 Given there is the class with name 'class vng-103'
 And the user navigates to the klass with name 'class vng-103'
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of 'class vng-103' element
 And the user edits the element name through pop up menu
-And the user generates charData with '100' number in the 'name' pop up field
+And the user generates charData with '100' number with string char 'c' in the 'name' pop up field
 Then the user checks 'name' pop up field contains only '100' symbols
 When the user accept pop up menu changes
 Then the user sees no error messages
@@ -182,8 +176,6 @@ Then the user sees error messages
 When the user discards pop up menu changes
 And the user clicks on end edition link and ends the edition
 
-!--creation
-@Verified
 Scenario: Group validation name good - 100 symbols
 Given there is the class with name 'GVNG class'
 And the user navigates to the klass with name 'GVNG class'
@@ -194,7 +186,6 @@ Then the user checks 'name' pop up field contains only '100' symbols
 When the user clicks the create new class button in pop up
 Then the user sees no error messages
 
-@Verified
 Scenario: Group validation name invalid - 101 symbols
 Given there is the class with name 'GVNG class'
 And the user navigates to the klass with name 'GVNG class'
@@ -207,7 +198,6 @@ Then the user sees error messages
 | error message |
 | Не более 100 |
 
-@Verified
 Scenario: Group validation name is required
 Given there is the class with name 'GVNG class'
 And the user navigates to the klass with name 'GVNG class'
@@ -218,7 +208,6 @@ Then the user sees error messages
 | error message |
 | Заполните это поле |
 
-@Verified
 Scenario: Group validation - can't create Group with equal name
 Given there is the class with name 'GVNG class'
 And the user navigates to the klass with name 'GVNG class'
@@ -234,14 +223,13 @@ Then the user sees error messages
 | Группа с таким названием уже существует в этом классе |
 
 
-!--edition validation from catalog page
 Scenario: Group edit from catalog page - validation name good - 100 symbols
 Given there is the group with name 'group edit vng-100' related to class named 'group edit'
 And the user opens catalog page
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of group 'group edit vng-100' element
 And the user edits the element name through pop up menu
-And the user generates charData with '100' number in the 'name' pop up field
+And the user generates charData with '100' number with string char 'd' in the 'name' pop up field
 Then the user checks 'name' pop up field contains only '100' symbols
 When the user accept pop up menu changes
 Then the user sees no error messages
@@ -281,14 +269,14 @@ And the user opens catalog page
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of group 'group edit vng-104' element
 And the user edits the element name through pop up menu
-When the user inputs 'group edit vng-103' in 'name' field of pop up                           s
+When the user inputs 'group edit vng-103' in 'name' field of pop up
 When the user accept pop up menu changes
 Then the user sees error messages
 | error message |
 | Группа с таким названием уже существует в этом классе |
 When the user clicks on end edition link and ends the edition
 
-!--edition validation from catalog page
+
 Scenario: Group edit from catalog page - validation name good - 100 symbols
 Given there is the group with name 'group edit vng-105' related to class named 'group edit'
 And the user navigates to the klass with name 'group edit'
@@ -333,7 +321,7 @@ Given there is the group with name 'group edit vng-108' related to class named '
 Given there is the group with name 'group edit vng-109' related to class named 'group edit'
 And the user navigates to the klass with name 'group edit'
 When the user clicks on start edition link and starts the edition
-And the user opens pop up menu of 'group edit vng-109' element
+And the user opens pop up menu of group 'group edit vng-109' element
 And the user edits the element name through pop up menu
 When the user inputs 'group edit vng-108' in 'name' field of pop up
 When the user accept pop up menu changes
