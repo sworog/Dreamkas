@@ -54,7 +54,10 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public String generateTestData(int n) {
-        String str = "a";
+        return generateTestData(n, "a");
+    }
+
+    public String generateTestData(int n, String str) {
         String testData = new String(new char[n]).replace("\0", str);
         StringBuilder formattedData = new StringBuilder(testData);
         for (int i = 0; i < formattedData.length(); i++) {

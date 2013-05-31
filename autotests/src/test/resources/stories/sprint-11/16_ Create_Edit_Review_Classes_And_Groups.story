@@ -5,7 +5,6 @@ Narrative:
 Я хочу создавать, редактироватьи и просматривать структуру классов и групп товарного классификатора,
 Чтобы управлять ассортиментом по классам и группам
 
-@Verified
 Scenario: Class create from catalog page
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
@@ -14,7 +13,6 @@ Then the user checks the class with 'First class create' name is present
 When the user clicks on end edition link and ends the edition
 Then the user checks the class with 'First class create' name is present
 
-@Verified - Bug bug bug
 Scenario: Class delete from catalog page
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
@@ -26,7 +24,6 @@ Then the user checks the class with 'Class delete from catalog' name is not pres
 When the user clicks on end edition link and ends the edition
 Then the user checks the class with 'Class delete from catalog' name is not present
 
-@Verified
 Scenario: Class delete from class page
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
@@ -44,7 +41,7 @@ Then the user checks the class with 'Class delete from class page' name is not p
 Scenario: Class edit from catalog page
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
-When the user creates new class with name 'Class edits from catalog'
+And the user creates new class with name 'Class edits from catalog'
 Then the user checks the class with 'Class edits from catalog' name is present
 When the user opens pop up menu of 'Class edits from catalog' element
 And the user edits the element name through pop up menu
@@ -57,7 +54,7 @@ Then the user checks the class with 'new Class edits from catalog' name is prese
 Scenario: Class edit from class page
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
-When the user creates new class with name 'Class edits from class page'
+And the user creates new class with name 'Class edits from class page'
 Then the user checks the class with 'Class edits from class page' name is present
 When the user clicks on the class name 'Class edits from class page'
 And the user opens pop up menu of 'Class edits from class page' element
@@ -72,7 +69,7 @@ Then the user checks the class with 'new Class edits from class page' name is pr
 Scenario: Class edit cancel from catalog page
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
-When the user creates new class with name 'Class edits from catalog cancel'
+And the user creates new class with name 'Class edits from catalog cancel'
 Then the user checks the class with 'Class edits from catalog cancel' name is present
 When the user opens pop up menu of 'Class edits from catalog cancel' element
 And the user edits the element name through pop up menu
@@ -80,28 +77,25 @@ When the user inputs 'new Class edits from catalog cancel' in 'name' field of po
 And the user discards pop up menu changes
 When the user clicks on end edition link and ends the edition
 Then the user checks the class with 'new Class edits from catalog cancel' name is not present
-Then the user checks the class with 'new Class edits from catalog cancel' name is present
+And the user checks the class with 'Class edits from catalog cancel' name is present
 
 Scenario: Class edit cancel from class page
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
-When the user creates new class with name 'Class edits cancel from class page'
+And the user creates new class with name 'Class edits cancel from class page'
 Then the user checks the class with 'Class edits cancel from class page' name is present
-When the user clicks on the class name 'Clas cancels edits from class page'
+When the user clicks on the class name 'Class edits cancel from class page'
 And the user opens pop up menu of 'Class edits cancel from class page' element
 And the user edits the element name through pop up menu
 When the user inputs 'new Class edits cancel from class page' in 'name' field of pop up
 And the user discards pop up menu changes
 When the user clicks on end edition link and ends the edition
-Then the user checks the class with 'new Class edits from class page' name is present
-Then the user checks the class with 'new Class edits cancel from class page' name is not present
+Then the user checks the class with 'Class edits cancel from class page' name is present
+And the user checks the class with 'new Class edits cancel from class page' name is not present
 Given the user opens catalog page
-Then the user checks the class with 'new Class edits cancel from class page' name is present
-Then the user checks the class with 'new Class edits cancel from class page cancel' name is not present
+Then the user checks the class with 'Class edits cancel from class page' name is present
+And the user checks the class with 'new Class edits cancel from class page' name is not present
 
-!--group
-
-@Verified
 Scenario: Group create from class page
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
@@ -114,7 +108,6 @@ Then the user checks the group with 'First group create' name is present
 Given the user opens catalog page
 Then the user checks the group with 'First group create' name is related to class 'GcFcP'
 
-@Verified
 Scenario: Group delete from catalog
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
@@ -130,7 +123,6 @@ When the user clicks on end edition link and ends the edition
 Given the user opens catalog page
 Then the user checks the group with 'Group delete from catalog' name is not present
 
-@Verified
 Scenario: Group delete from class page
 Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
@@ -149,13 +141,13 @@ Then the user checks the group with 'Group delete from class page' name is not p
 
 Scenario: Group edit from catalog
 Given the user opens catalog page
-When the user creates new class with name 'GEDC'
-And the user clicks on start edition link and starts the edition
+When the user clicks on start edition link and starts the edition
+And the user creates new class with name 'GEDC'
 Then the user checks the class with 'GEDC' name is present
 When the user clicks on the class name 'GEDC'
 And the user creates new group with name 'Group edit cancel from catalog'
-Then the user checks the group with 'Group delete edit from catalog' name is present
-When the user opens pop up menu of group 'Group delete edit from catalog' element
+Then the user checks the group with 'Group edit cancel from catalog' name is present
+When the user opens pop up menu of group 'Group edit cancel from catalog' element
 And the user edits the element name through pop up menu
 When the user inputs 'new group edit from catalog' in 'name' field of pop up
 And the user accept pop up menu changes
@@ -166,14 +158,15 @@ Then the user checks the group with 'new group edit from catalog' name is presen
 
 Scenario: Group edit from class page
 Given the user opens catalog page
-When the user creates new class with name 'GEFCP'
-And the user clicks on start edition link and starts the edition
+When the user clicks on start edition link and starts the edition
+And the user creates new class with name 'GEFCP'
 Then the user checks the class with 'GEFCP' name is present
 When the user clicks on the class name 'GEFCP'
-And the user creates new group with name 'Group edit cancel from catalog'
-Then the user checks the group with 'Group delete edit from catalog' name is present
+And the user creates new group with name 'Group edit from catalog'
+Then the user checks the group with 'Group edit from catalog' name is present
 Given the user opens catalog page
-When the user opens pop up menu of group 'Group delete edit from catalog' element
+When the user clicks on start edition link and starts the edition
+And the user opens pop up menu of group 'Group edit from catalog' element
 And the user edits the element name through pop up menu
 When the user inputs 'new group edit from catalog' in 'name' field of pop up
 And the user accept pop up menu changes
@@ -183,39 +176,40 @@ Then the user checks the group with 'new group edit from catalog' name is presen
 
 Scenario: Group edit cancel from catalog
 Given the user opens catalog page
-When the user creates new class with name 'GECFC'
-And the user clicks on start edition link and starts the edition
+When the user clicks on start edition link and starts the edition
+And the user creates new class with name 'GECFC'
 Then the user checks the class with 'GECFC' name is present
 When the user clicks on the class name 'GECFC'
 And the user creates new group with name 'Group edit cancel from catalog'
-Then the user checks the group with 'Group delete edit cancel from catalog' name is present
-When the user opens pop up menu of group 'Group delete edit cancel from catalog' element
+Then the user checks the group with 'Group edit cancel from catalog' name is present
+When the user opens pop up menu of group 'Group edit cancel from catalog' element
 And the user edits the element name through pop up menu
 When the user inputs 'new group edit cancel from catalog' in 'name' field of pop up
 And the user discards pop up menu changes
 Then the user checks the group with 'new group edit cancel from catalog' name is not present
-Then the user checks the group with 'group edit cancel from catalog' name is present
+Then the user checks the group with 'Group edit cancel from catalog' name is present
 When the user clicks on end edition link and ends the edition
 Given the user opens catalog page
 Then the user checks the group with 'new group edit cancel from catalog' name is not present
-Then the user checks the group with 'group edit cancel from catalog' name is present
+Then the user checks the group with 'Group edit cancel from catalog' name is present
 
 Scenario: Group edit cancel from class page
 Given the user opens catalog page
-When the user creates new class with name 'GECFCP'
-And the user clicks on start edition link and starts the edition
+When the user clicks on start edition link and starts the edition
+And the user creates new class with name 'GECFCP'
 Then the user checks the class with 'GECFCP' name is present
 When the user clicks on the class name 'GECFCP'
 And the user creates new group with name 'Group edit cancel from class page'
 Then the user checks the group with 'Group edit cancel from class page' name is present
 Given the user opens catalog page
-When the user opens pop up menu of group 'Group delete edit cancel from class page' element
+When the user clicks on start edition link and starts the edition
+And the user opens pop up menu of group 'Group edit cancel from class page' element
 And the user edits the element name through pop up menu
 When the user inputs 'new group edit cancel from class page' in 'name' field of pop up
 And the user discards pop up menu changes
 Then the user checks the group with 'new group edit cancel from class page' name is not present
-Then the user checks the group with 'group edit cancel from class page' name is present
+Then the user checks the group with 'Group edit cancel from class page' name is present
 When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'new group edit cancel from class page' name is not present
-Then the user checks the group with 'group edit cancel from class page' name is present
+Then the user checks the group with 'Group edit cancel from class page' name is present
 

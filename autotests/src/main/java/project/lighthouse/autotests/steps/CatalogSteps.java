@@ -119,6 +119,12 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void generateTestCharData(String elementName, int charNumber, String str) {
+        String generatedData = commonPage.generateTestData(charNumber, str);
+        input(elementName, generatedData);
+    }
+
+    @Step
     public void checkFieldLength(String elementName, int fieldLength) {
         catalogPage.checkFieldLength(elementName, fieldLength);
     }
