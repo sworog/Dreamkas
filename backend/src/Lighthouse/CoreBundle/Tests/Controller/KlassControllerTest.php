@@ -18,7 +18,7 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/klasses.json',
+            '/api/1/klasses',
             $klassData
         );
 
@@ -46,7 +46,7 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/klasses.json',
+            '/api/1/klasses',
             $klassData
         );
 
@@ -105,7 +105,7 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'PUT',
-            '/api/1/klasses/' . $klassId .'.json',
+            '/api/1/klasses/' . $klassId,
             $klassData
         );
 
@@ -127,7 +127,7 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/' . $klassId . '.json'
+            '/api/1/klasses/' . $klassId
         );
 
         Assert::assertJsonPathEquals($klassId, 'id', $postResponse);
@@ -146,7 +146,7 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses.json'
+            '/api/1/klasses'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -170,7 +170,7 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/klasses.json',
+            '/api/1/klasses',
             $postData
         );
 
@@ -187,7 +187,7 @@ class KlassControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/' . $klassId . '.json'
+            '/api/1/klasses/' . $klassId
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -195,7 +195,7 @@ class KlassControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'DELETE',
-            '/api/1/klasses/' . $klassId . '.json'
+            '/api/1/klasses/' . $klassId
         );
 
         Assert::assertResponseCode(204, $this->client);
@@ -203,7 +203,7 @@ class KlassControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/' . $klassId . '.json'
+            '/api/1/klasses/' . $klassId
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -221,7 +221,7 @@ class KlassControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'DELETE',
-            '/api/1/klasses/' . $klassId . '.json'
+            '/api/1/klasses/' . $klassId
         );
 
         Assert::assertResponseCode(409, $this->client);
@@ -239,7 +239,7 @@ class KlassControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/' . $klassId . '.json'
+            '/api/1/klasses/' . $klassId
         );
 
         Assert::assertResponseCode(200, $this->client);

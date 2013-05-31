@@ -21,7 +21,7 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/groups.json',
+            '/api/1/groups',
             $groupData
         );
 
@@ -49,7 +49,7 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/groups.json',
+            '/api/1/groups',
             $groupData
         );
 
@@ -60,7 +60,7 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/groups.json',
+            '/api/1/groups',
             $groupData
         );
         Assert::assertResponseCode(400, $this->client);
@@ -77,7 +77,7 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/groups.json',
+            '/api/1/groups',
             $groupData2
         );
 
@@ -88,7 +88,7 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/groups.json',
+            '/api/1/groups',
             $groupData2
         );
         Assert::assertResponseCode(400, $this->client);
@@ -121,7 +121,7 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/groups.json',
+            '/api/1/groups',
             $groupData
         );
 
@@ -193,7 +193,7 @@ class GroupControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $this->client,
             'PUT',
-            '/api/1/groups/' . $groupId . '.json',
+            '/api/1/groups/' . $groupId,
             $putData
         );
 
@@ -214,7 +214,7 @@ class GroupControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/groups/' . $groupId . '.json'
+            '/api/1/groups/' . $groupId
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -233,7 +233,7 @@ class GroupControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/groups/invalidId.json'
+            '/api/1/groups/invalidId'
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -256,7 +256,7 @@ class GroupControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/' . $klassId1 . '/groups.json'
+            '/api/1/klasses/' . $klassId1 . '/groups'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -272,7 +272,7 @@ class GroupControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/' . $klassId2 . '/groups.json'
+            '/api/1/klasses/' . $klassId2 . '/groups'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -292,7 +292,7 @@ class GroupControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/123484923423/groups.json'
+            '/api/1/klasses/123484923423/groups'
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -307,7 +307,7 @@ class GroupControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/klasses/' . $klassId . '/groups.json'
+            '/api/1/klasses/' . $klassId . '/groups'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -325,7 +325,7 @@ class GroupControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/groups/' . $groupId . '.json'
+            '/api/1/groups/' . $groupId
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -333,7 +333,7 @@ class GroupControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'DELETE',
-            '/api/1/groups/' . $groupId . '.json'
+            '/api/1/groups/' . $groupId
         );
 
         Assert::assertResponseCode(204, $this->client);

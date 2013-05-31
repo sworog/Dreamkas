@@ -44,7 +44,7 @@ class ProductControllerTest extends WebTestCase
         $responseJson = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/products.json',
+            '/api/1/products',
             $productData
         );
 
@@ -55,7 +55,7 @@ class ProductControllerTest extends WebTestCase
         $responseJson = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/products/' .$responseJson['id']. '.json'
+            '/api/1/products/' .$responseJson['id']
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -382,7 +382,7 @@ EOF;
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/products.json',
+            '/api/1/products',
             $postData
         );
 
@@ -393,7 +393,7 @@ EOF;
         $getResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/products/' . $id . '.json'
+            '/api/1/products/' . $id
         );
         Assert::assertResponseCode(200, $this->client);
         Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', 'name', $getResponse);
@@ -442,7 +442,7 @@ EOF;
         $response = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/products/invalid/search.json'
+            '/api/1/products/invalid/search'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -764,7 +764,7 @@ EOF;
         $response = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/products.json',
+            '/api/1/products',
             $postData
         );
 
@@ -790,7 +790,7 @@ EOF;
         $response = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/products.json',
+            '/api/1/products',
             $postData
         );
 
@@ -818,7 +818,7 @@ EOF;
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/products.json',
+            '/api/1/products',
             $postData
         );
 
@@ -830,7 +830,7 @@ EOF;
         $putResponse = $this->clientJsonRequest(
             $this->client,
             'PUT',
-            '/api/1/products/' . $id . '.json',
+            '/api/1/products/' . $id,
             $putData
         );
 
@@ -838,7 +838,7 @@ EOF;
         $getResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/products/' . $id . '.json'
+            '/api/1/products/' . $id
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -865,7 +865,7 @@ EOF;
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/products.json',
+            '/api/1/products',
             $postData
         );
 
@@ -877,7 +877,7 @@ EOF;
         $putResponse = $this->clientJsonRequest(
             $this->client,
             'PUT',
-            '/api/1/products/' . $id . '.json',
+            '/api/1/products/' . $id,
             $putData
         );
 

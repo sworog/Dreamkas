@@ -39,7 +39,7 @@ class PurchaseControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/purchases.json',
+            '/api/1/purchases',
             $purchaseData
         );
 
@@ -95,7 +95,7 @@ class PurchaseControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/purchases.json',
+            '/api/1/purchases',
             $purchaseData
         );
 
@@ -142,7 +142,7 @@ class PurchaseControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/purchases.json',
+            '/api/1/purchases',
             $purchaseData
         );
 
@@ -207,7 +207,7 @@ class PurchaseControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/purchases.json',
+            '/api/1/purchases',
             array(
                 'products' => array($purchaseProductData)
             )
@@ -406,7 +406,7 @@ class PurchaseControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/invoices/' . $invoiceId . '/products.json',
+            '/api/1/invoices/' . $invoiceId . '/products',
             $invoiceProductData
         );
 
@@ -464,7 +464,7 @@ class PurchaseControllerTest extends WebTestCase
         $purchaseResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/purchases.json',
+            '/api/1/purchases',
             $purchaseData
         );
 
