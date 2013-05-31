@@ -6,7 +6,7 @@ define(
     function(BaseCollection, invoiceModel) {
         return BaseCollection.extend({
             model: invoiceModel,
-            url: baseApiUrl + "/invoices.json"
+            url: baseApiUrl + "/invoices"
         });
     }
 );
