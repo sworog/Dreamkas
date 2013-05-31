@@ -277,7 +277,7 @@ Then the user sees error messages
 When the user clicks on end edition link and ends the edition
 
 
-Scenario: Group edit from catalog page - validation name good - 100 symbols
+Scenario: Group edit from class page - validation name good - 100 symbols
 Given there is the group with name 'group edit vng-105' related to class named 'group edit'
 And the user navigates to the klass with name 'group edit'
 When the user clicks on start edition link and starts the edition
@@ -289,7 +289,7 @@ When the user accept pop up menu changes
 Then the user sees no error messages
 When the user clicks on end edition link and ends the edition
 
-Scenario: Group edit from catalog page - validation name invalid - 101 symbols
+Scenario: Group edit from class page - validation name invalid - 101 symbols
 Given there is the group with name 'group edit vng-106' related to class named 'group edit'
 And the user navigates to the klass with name 'group edit'
 When the user clicks on start edition link and starts the edition
@@ -303,7 +303,7 @@ Then the user sees error messages
 | Не более 100 |
 When the user clicks on end edition link and ends the edition
 
-Scenario: Group edit from catalog page - validation name is required
+Scenario: Group edit from class page - validation name is required
 Given there is the group with name 'group edit vng-107' related to class named 'group edit'
 And the user navigates to the klass with name 'group edit'
 When the user clicks on start edition link and starts the edition
@@ -316,7 +316,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks on end edition link and ends the edition
 
-Scenario: Group edit from catalog page - validation - can't create Group with equal name
+Scenario: Group edit from class page - validation - can't create Group with equal name
 Given there is the group with name 'group edit vng-108' related to class named 'group edit'
 Given there is the group with name 'group edit vng-109' related to class named 'group edit'
 And the user navigates to the klass with name 'group edit'
