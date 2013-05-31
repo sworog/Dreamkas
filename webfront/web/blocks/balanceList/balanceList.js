@@ -1,14 +1,17 @@
-define(
-    [
-        '/kit/block.js',
-        '/collections/products.js',
-        './balanceList.templates.js'
-    ],
-    function(Block, ProductCollection, templates) {
+define(function(require) {
+
+        //requirements
+        var Block = require('/kit/block.js'),
+            ProductCollection = require('collections/products');
+
         return Block.extend({
             productCollection: new ProductCollection(),
             className: 'balanceList',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/balanceList.html'),
+                table: require('tpl!./templates/table.html'),
+                row: require('tpl!./templates/row.html')
+            },
 
             initialize: function() {
                 var block = this;
