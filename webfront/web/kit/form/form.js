@@ -35,12 +35,12 @@ define(
             submit: function() {
                 var block = this,
                     deferred = $.Deferred(),
-                    formData = Backbone.Syphon.serialize(block);
+                    formData = Backbone.Syphon.serialize(block),
+                    model = block.model.id ? block.model : block.model.clone();
 
-                block.model.clone().save(formData, {
+                model.save(formData, {
                     success: function(model) {
                         deferred.resolve(model);
-                        model.clear();
                     },
                     error: function(model, response) {
                         deferred.reject(JSON.parse(response.responseText));

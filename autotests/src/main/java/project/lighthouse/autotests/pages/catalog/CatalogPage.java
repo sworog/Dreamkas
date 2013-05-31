@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.pages.elements.Input;
+import project.lighthouse.autotests.pages.elements.InputOnlyVisible;
 
 @DefaultUrl("/catalog")
 public class CatalogPage extends CommonPageObject {
@@ -43,7 +43,7 @@ public class CatalogPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("name", new Input(this, "name"));
+        items.put("name", new InputOnlyVisible(this, "name"));
     }
 
     public CommonItem getItem() {
@@ -53,7 +53,6 @@ public class CatalogPage extends CommonPageObject {
     public void create(String name) {
         addNewButtonClick();
         getItem().setValue(name);
-        //popUpMenuAccept();
         addNewButtonConfirmClick();
     }
 
@@ -73,20 +72,19 @@ public class CatalogPage extends CommonPageObject {
     }
 
     public void popUpMenuDelete() {
-        //click delete
+        findOnlyVisibleWebElementFromTheWebElementsList(By.xpath("//*[@class='tooltip__controlLink tooltip__removeLink']")).click();
     }
 
     public void popUpMenuAccept() {
-        //click ok
+        findBy("//*[@class='form__field']/*[@class='button button_color_blue' and normalize-space(text())='Подтвердить']/input").click();
     }
 
     public void popUpMenuCancel() {
-        //click cancel
+        findBy("//*[@class='tooltip__closeLink']").click();
     }
 
-    public void popUpMenuEdit(String name, String newName) {
-        //click edit
-        //input new name
+    public void popUpMenuEdit() {
+        findOnlyVisibleWebElementFromTheWebElementsList(By.xpath("//*[@class='tooltip__controlLink tooltip__editLink']")).click();
     }
 
     public void checkIsNotPresent(String name) {
@@ -95,7 +93,7 @@ public class CatalogPage extends CommonPageObject {
     }
 
     public void itemClick(String name) {
-        String itemXpath = getItemXpath(name) + "/a[@href]";
+        String itemXpath = getItemXpath(name);
         findElement(By.xpath(itemXpath)).click();
     }
 
@@ -108,6 +106,6 @@ public class CatalogPage extends CommonPageObject {
 
     public void checkFieldLength(String elementName, int fieldLength) {
         CommonItem item = items.get(elementName);
-        commonPage.checkFieldLength(elementName, fieldLength, item.getWebElement());
+        commonPage.checkFieldLength(elementName, fieldLength, item.getOnlyVisibleWebElement());
     }
 }

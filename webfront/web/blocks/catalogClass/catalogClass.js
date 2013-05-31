@@ -1,5 +1,6 @@
 define(
     [
+        '/blocks/tooltip/tooltip_editGroupMenu.js',
         '/kit/editor/editor.js',
         '/kit/form/form.js',
         '/kit/tooltip/tooltip.js',
@@ -8,9 +9,10 @@ define(
         '/collections/catalogClasses.js',
         '/collections/classGroups.js',
         '/routers/catalog.js',
+        '/blocks/tooltip/tooltip_editClassMenu.js',
         './catalogClass.templates.js'
     ],
-    function(Editor, Form, Tooltip, CatalogClassModel, CatalogGroupModel, СatalogClassesCollection, ClassGroupsCollection, catalogRouter, templates) {
+    function(Tooltip_editGroupMenu, Editor, Form, Tooltip, CatalogClassModel, CatalogGroupModel, СatalogClassesCollection, ClassGroupsCollection, catalogRouter, Tooltip_editClassMenu, templates) {
 
         return Editor.extend({
             editMode: false,
@@ -31,6 +33,42 @@ define(
                     });
 
                     block.addGroupForm.$el.find('[name="name"]').focus();
+                },
+                'click .catalog__editGroupLink': function(e){
+                    e.preventDefault();
+
+                    var block = this,
+                        $el = $(e.target);
+
+                    if (block.tooltip_editGroupMenu){
+                        block.tooltip_editGroupMenu.remove();
+                    }
+
+                    block.tooltip_editGroupMenu = new Tooltip_editGroupMenu({
+                        $trigger: $el,
+                        classModel: block.catalogClassModel,
+                        groupId: $el.attr('groupId')
+                    });
+
+                    block.tooltip_editGroupMenu.show();
+                },
+                'click .catalog__editClassLink': function(e){
+                    e.preventDefault();
+
+                    var block = this,
+                        $el = $(e.target);
+
+                    if (block.tooltip_editClassMenu){
+                        block.tooltip_editClassMenu.tooltip_editClass.remove();
+                        block.tooltip_editClassMenu.remove();
+                    }
+
+                    block.tooltip_editClassMenu = new Tooltip_editClassMenu({
+                        $trigger: $el,
+                        classModel: block.catalogClassModel
+                    });
+
+                    block.tooltip_editClassMenu.show();
                 }
             },
 
@@ -67,8 +105,18 @@ define(
 
                 //listeners
                 block.listenTo(block.catalogClassModel, {
-                    change: function(model) {
+                    change: function(model, opt) {
                         block.$className.html(model.get('name'));
+                        block.classGroupsCollection.reset(block.catalogClassModel.get('groups'));
+                        block.catalogClassesCollection.add(model.toJSON(), {
+                            merge: true
+                        });
+                        block.renderClassList();
+                    },
+                    destroy: function(){
+                        catalogRouter.navigate('/catalog', {
+                            trigger: true
+                        })
                     }
                 });
 
@@ -76,12 +124,11 @@ define(
                     reset: function() {
                         block.renderGroupList();
                     },
-                    add: function(model) {
-                        block.$groupList.prepend(block.templates.groupItem({
-                            block: block,
-                            classGroup: model.toJSON(),
-                            catalogClass: block.catalogClassModel.toJSON()
-                        }))
+                    change: function() {
+                        block.renderGroupList();
+                    },
+                    add: function(model, collection) {
+                        block.catalogClassModel.set('groups', collection.toJSON())
                     }
                 });
 

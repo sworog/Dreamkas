@@ -10,6 +10,11 @@ define(function() {
                 isSave: true
             }, options));
         },
+        destroy: function(options){
+            Backbone.Model.prototype.destroy.call(this, _.extend({
+                wait: true
+            }, options))
+        },
         toJSON: function(options) {
             options = options || {};
 

@@ -62,7 +62,7 @@ public class CommonUserSteps {
         commonSteps.createKlassThroughPost(klassName);
     }
 
-    @Given("there is the group with name '$groupName' related to class '$klassName'")
+    @Given("there is the group with name '$groupName' related to class named '$klassName'")
     public void givenThereIsTheGroupWithNameRelatedToKlass(String groupName, String klassName) throws IOException, JSONException {
         commonSteps.createGroupThroughPost(groupName, klassName);
     }

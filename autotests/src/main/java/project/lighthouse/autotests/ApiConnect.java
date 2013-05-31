@@ -30,7 +30,7 @@ public class ApiConnect {
     public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
         if (!StaticDataCollections.products.containsKey(sku)) {
             String getApiUrl = getApiUrl() + "/api/1/products.json";
-            String jsonData = String.format(Product.jsonPattern, name, units, purchasePrice, barcode, sku);
+            String jsonData = Product.getJsonObject(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "").toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             Product product = new Product(new JSONObject(postResponse));
@@ -46,7 +46,7 @@ public class ApiConnect {
     public void createInvoiceThroughPostWithoutNavigation(String invoiceName) throws JSONException, IOException {
         if (!StaticDataCollections.invoices.containsKey(invoiceName)) {
             String getApiUrl = String.format("%s/api/1/invoices.json", getApiUrl());
-            String jsonData = String.format(Invoice.jsonPattern, invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN));
+            String jsonData = Invoice.getJsonObject(invoiceName, "supplier", DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "accepter", "legalEntity", "", "").toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             Invoice invoice = new Invoice(new JSONObject(postResponse));
@@ -84,8 +84,7 @@ public class ApiConnect {
     public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
         if (!StaticDataCollections.writeOffs.containsKey(writeOffNumber)) {
             String getApiUrl = String.format("%s/api/1/writeoffs.json", getApiUrl());
-
-            String jsonData = String.format(WriteOff.jsonPattern, writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN));
+            String jsonData = WriteOff.getJsonObject(writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN)).toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             WriteOff writeOff = new WriteOff(new JSONObject(postResponse));
@@ -138,7 +137,7 @@ public class ApiConnect {
     public void createKlassThroughPost(String klassName) throws IOException, JSONException {
         if (!StaticDataCollections.klasses.containsKey(klassName)) {
             String getApiUrl = String.format("%s/api/1/klasses.json", getApiUrl());
-            String jsonData = String.format(Klass.jsonPattern, klassName);
+            String jsonData = Klass.getJsonObject(klassName).toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             Klass klass = new Klass(new JSONObject(postResponse));
@@ -150,7 +149,7 @@ public class ApiConnect {
         createKlassThroughPost(klassName);
         String apiUrl = String.format("%s/api/1/groups.json", getApiUrl());
         String klassId = StaticDataCollections.klasses.get(klassName).getId();
-        String groupJsonData = String.format(Group.jsonPattern, groupName, klassName);
+        String groupJsonData = Group.getJsonObject(groupName, klassId).toString();
         executePostRequest(apiUrl, groupJsonData);
     }
 

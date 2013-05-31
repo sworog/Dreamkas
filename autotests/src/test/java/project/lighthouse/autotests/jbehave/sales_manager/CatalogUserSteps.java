@@ -51,6 +51,11 @@ public class CatalogUserSteps {
         catalogSteps.popUpMenuInteraction(name);
     }
 
+    @When("the user opens pop up menu of group '$name' element")
+    public void whenTheUserOpensPopUpMenuOfGroupElement(String name) {
+        catalogSteps.popUpGroupMenuInteraction(name);
+    }
+
     @When("the user deletes element through pop up menu")
     public void whenTheUserDeletesClassWithNameThroughPopUp() {
         catalogSteps.itemDeleteThroughPopUpMenu();
@@ -66,9 +71,9 @@ public class CatalogUserSteps {
         catalogSteps.popUpMenuCancel();
     }
 
-    @When("the user edits the element name with new name '$newName' through pop up menu")
-    public void whenTheUserEditsTheClassName(String name, String newName) {
-        catalogSteps.itemEditThroughPopUpMenu(name, newName);
+    @When("the user edits the element name through pop up menu")
+    public void whenTheUserEditsTheClassName() {
+        catalogSteps.itemEditThroughPopUpMenu();
     }
 
     @When("the user clicks create new class button")
@@ -94,6 +99,11 @@ public class CatalogUserSteps {
     @When("the user generates charData with '$number' number in the '$element' pop up field")
     public void whenTheUserGeneratesCharDate(int number, String element) {
         catalogSteps.generateTestCharData(element, number);
+    }
+
+    @When("the user generates charData with '$number' number with string char '$str' in the '$element' pop up field")
+    public void whenTheUserGeneratesCharDate(int number, String str, String element) {
+        catalogSteps.generateTestCharData(element, number, str);
     }
 
     @Then("the user checks '$element' pop up field contains only '$numbers' symbols")
