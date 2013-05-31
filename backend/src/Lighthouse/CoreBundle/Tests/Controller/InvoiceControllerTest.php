@@ -119,8 +119,8 @@ class InvoiceControllerTest extends WebTestCase
 
         $crawler = $this->client->request(
             'POST',
-            '/api/1/invoices',
-            array('invoice' => $postData)
+            '/api/1/invoices.xml',
+            $postData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -188,7 +188,7 @@ class InvoiceControllerTest extends WebTestCase
         $postJson = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/invoices.json',
+            '/api/1/invoices',
             $postData
         );
 
@@ -203,7 +203,7 @@ class InvoiceControllerTest extends WebTestCase
         $putJson = $this->clientJsonRequest(
             $this->client,
             'PUT',
-            '/api/1/invoices/' . $invoiceId . '.json',
+            '/api/1/invoices/' . $invoiceId,
             $putData
         );
 

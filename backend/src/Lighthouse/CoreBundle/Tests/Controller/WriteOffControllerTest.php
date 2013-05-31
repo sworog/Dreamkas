@@ -21,7 +21,7 @@ class WriteOffControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/writeoffs.json',
+            '/api/1/writeoffs',
             $writeOffData
         );
 
@@ -52,7 +52,7 @@ class WriteOffControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/writeoffs.json',
+            '/api/1/writeoffs',
             $writeOffData
         );
 
@@ -82,7 +82,7 @@ class WriteOffControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            '/api/1/writeoffs.json',
+            '/api/1/writeoffs',
             $postData
         );
 
@@ -97,7 +97,7 @@ class WriteOffControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $this->client,
             'PUT',
-            '/api/1/writeoffs/' . $writeOffId . '.json',
+            '/api/1/writeoffs/' . $writeOffId,
             $putData
         );
 
@@ -172,7 +172,7 @@ class WriteOffControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/writeoffs/' . $writeOfId . '.json'
+            '/api/1/writeoffs/' . $writeOfId
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -191,7 +191,7 @@ class WriteOffControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/writeoffs/invalidId.json'
+            '/api/1/writeoffs/invalidId'
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -238,7 +238,7 @@ class WriteOffControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'PUT',
-            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1 . '.json',
+            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1,
             $putData
         );
 
@@ -258,7 +258,7 @@ class WriteOffControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'PUT',
-            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2 . '.json',
+            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2,
             $putData
         );
 
@@ -271,7 +271,7 @@ class WriteOffControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $this->client,
             'DELETE',
-            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId3 . '.json'
+            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId3
         );
 
         Assert::assertResponseCode(204, $this->client);
@@ -288,7 +288,7 @@ class WriteOffControllerTest extends WebTestCase
         $writeOffJson = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/writeoffs/' . $writeOffId. '.json'
+            '/api/1/writeoffs/' . $writeOffId
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -316,7 +316,7 @@ class WriteOffControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $this->client,
             'GET',
-            '/api/1/writeoffs.json'
+            '/api/1/writeoffs'
         );
 
         Assert::assertJsonPathCount(2, '*.id', $response);
