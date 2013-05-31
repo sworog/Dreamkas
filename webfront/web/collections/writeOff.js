@@ -6,7 +6,7 @@ define(
     function(BaseCollection, writeOffModel) {
         return BaseCollection.extend({
             model: writeOffModel,
-            url: baseApiUrl + "/writeoffs.json"
+            url: baseApiUrl + "/writeoffs"
         });
     }
 );

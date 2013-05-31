@@ -11,7 +11,7 @@ define(
                 this.writeOffId = opt.writeOffId;
             },
             url: function() {
-                return baseApiUrl + '/writeoffs/'+ this.writeOffId  + '/products.json'
+                return baseApiUrl + '/writeoffs/'+ this.writeOffId  + '/products'
             }
         });
     }

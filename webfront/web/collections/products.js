@@ -6,7 +6,7 @@ define(
     function(BaseCollection, ProductModel) {
         return BaseCollection.extend({
             model: ProductModel,
-            url: baseApiUrl + "/products.json"
+            url: baseApiUrl + "/products"
         });
     }
 );

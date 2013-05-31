@@ -6,7 +6,7 @@ define(
     function(BaseCollection, CatalogClass) {
         return BaseCollection.extend({
             model: CatalogClass,
-            url: baseApiUrl + "/klasses.json"
+            url: baseApiUrl + "/klasses"
         });
     }
 );

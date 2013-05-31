@@ -10,7 +10,7 @@ define(
             },
             model: invoiceProduct,
             url: function() {
-                return baseApiUrl + '/invoices/'+ this.invoiceId  + '/products.json'
+                return baseApiUrl + '/invoices/'+ this.invoiceId  + '/products'
             }
         });
     }

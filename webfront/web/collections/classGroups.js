@@ -10,7 +10,7 @@ define(
             },
             model: CatalogGroup,
             url: function() {
-                return baseApiUrl + '/klasses/'+ this.classId  + '/groups.json'
+                return baseApiUrl + '/klasses/'+ this.classId  + '/groups'
             }
         });
     }
