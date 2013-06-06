@@ -39,6 +39,7 @@ public class CatalogPage extends CommonPageObject {
 
     public void addNewButtonConfirmClick() {
         findBy("//*[@class='button button_color_blue']/input").click();
+        preloaderWait();
     }
 
     @Override
@@ -108,4 +109,10 @@ public class CatalogPage extends CommonPageObject {
         CommonItem item = items.get(elementName);
         commonPage.checkFieldLength(elementName, fieldLength, item.getOnlyVisibleWebElement());
     }
+
+    public void preloaderWait() {
+        String preloaderXpath = "//*[contains(@class, 'preloader')]";
+        waiter.waitUntilIsNotVisible(By.xpath(preloaderXpath));
+    }
+
 }
