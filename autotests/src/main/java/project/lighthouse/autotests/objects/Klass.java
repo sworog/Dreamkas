@@ -17,9 +17,6 @@ public class Klass {
 
     public static JSONObject getJsonObject(String name) throws JSONException {
         return new JSONObject()
-                .put("klass",
-                        new JSONObject()
-                                .put("name", name)
-                );
+                .put("name", name);
     }
 }

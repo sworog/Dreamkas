@@ -101,7 +101,19 @@ public class ApiConnect {
         String writeOffId = StaticDataCollections.writeOffs.get(writeOffNumber).getId();
         String apiUrl = String.format("%s/api/1/writeoffs/%s/products.json", getApiUrl(), writeOffId);
 
-        String productJsonData = String.format("{\"writeOffProduct\":{\"product\":\"%s\",\"quantity\":\"%s\",\"price\":\"%s\",\"cause\":\"%s\"}}", productId, quantity, price, cause);
+        // TODO move to object
+        String productJsonData = String.format("{\"product\":\"%s\",\"quantity\":\"%s\",\"price\":\"%s\",\"cause\":\"%s\"}", productId, quantity, price, cause);
+        executePostRequest(apiUrl, productJsonData);
+    }
+
+    public void addProductToInvoice(String InvoiceName, String productSku)
+            throws JSONException, IOException {
+        String productId = StaticDataCollections.products.get(productSku).getId();
+        String invoiceId = StaticDataCollections.invoices.get(InvoiceName).getId();
+        String apiUrl = String.format("%s/api/1/invoices/%s/products.json", getApiUrl(), invoiceId);
+
+        // TODO move to object
+        String productJsonData = String.format("{\"product\":\"%s\",\"quantity\":\"%s\",\"price\":\"%s\"}", productId, "1", "1");
         executePostRequest(apiUrl, productJsonData);
     }
 
