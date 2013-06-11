@@ -1,9 +1,7 @@
-define(
-    [
-        '/blocks/page/page.js',
-        './baseRouter.js'
-    ],
-    function(page, BaseRouter) {
+define(function(require) {
+        //requirements
+        var page = require('blocks/page/page'),
+            BaseRouter = require('routers/baseRouter');
 
         var Router = BaseRouter.extend({
             routes: {

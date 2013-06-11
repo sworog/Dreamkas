@@ -1,13 +1,15 @@
-define(
-    [
-        '/collections/products.js',
-        './productList.templates.js'
-    ],
-    function(ProductCollection, templates) {
+define(function(require) {
+        //requirements
+        var ProductCollection = require('collections/products');
+
         return Backbone.Block.extend({
             className: 'productList',
             productCollection: new ProductCollection(),
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/productList.html'),
+                table: require('tpl!./templates/table.html'),
+                row: require('tpl!./templates/row.html')
+            },
 
             initialize: function() {
                 var block = this;

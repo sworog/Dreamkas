@@ -1,9 +1,8 @@
-define(
-    [
-        './baseModel.js'
-    ],
-    function(baseModel) {
-        return baseModel.extend({
+define(function(require) {
+    //requirements
+    var BaseModel = require('models/baseModel');
+
+    return BaseModel.extend({
             modelName: 'invoiceProduct',
             urlRoot: function(){
                 return baseApiUrl + '/invoices/'+ this.get('invoice').id  + '/products';

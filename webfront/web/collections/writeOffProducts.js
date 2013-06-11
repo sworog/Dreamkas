@@ -1,17 +1,16 @@
-define(
-    [
-        './baseCollection.js',
-        '/models/writeOffProduct.js'
-    ],
-    function(BaseCollection, writeOffProduct) {
-        return BaseCollection.extend({
-            model: writeOffProduct,
+define(function(require) {
+        //requirements
+        var BaseCollection = require('collections/baseCollection'),
+            writeOffProductModel = require('models/writeOffProduct');
 
-            initialize: function(opt){
+        return BaseCollection.extend({
+            model: writeOffProductModel,
+
+            initialize: function(opt) {
                 this.writeOffId = opt.writeOffId;
             },
             url: function() {
-                return baseApiUrl + '/writeoffs/'+ this.writeOffId  + '/products'
+                return baseApiUrl + '/writeoffs/' + this.writeOffId + '/products'
             }
         });
     }

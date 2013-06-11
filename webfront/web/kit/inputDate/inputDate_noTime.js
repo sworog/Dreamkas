@@ -1,8 +1,7 @@
-define(
-    [
-        './inputDate.js'
-    ],
-    function(InputDate) {
+define(function(require) {
+        //requirements
+        var InputDate = require('kit/inputDate/inputDate');
+
         return InputDate.extend({
             noTime: true
         });

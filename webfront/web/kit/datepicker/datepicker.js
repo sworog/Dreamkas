@@ -1,11 +1,10 @@
-define(
-    [
-        './datepicker.templates.js',
-        'moment',
-        'moment/ru'
-    ],
-    function(templates, moment) {
+define(function(require) {
+        //requirements
+        var moment = require('moment');
+        require('moment/ru');
+
         moment.lang('ru');
+
         return Backbone.Block.extend({
             visibleDate: moment().valueOf(),
             selectedDate: null,
@@ -13,7 +12,12 @@ define(
             dateList: [],
             className: 'datepicker',
             tagName: 'div',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/datepicker.html'),
+                controls: require('tpl!./templates/controls.html'),
+                dateList: require('tpl!./templates/dateList.html'),
+                header: require('tpl!./templates/header.html')
+            },
 
             initialize: function() {
                 var block = this;

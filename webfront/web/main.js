@@ -13,8 +13,8 @@ require(
         ]
     },
     [
-        '/helpers/helpers.js',
-        '/routers/mainRouter.js'
+        'helpers/helpers',
+        'routers/mainRouter'
     ],
     function(helpers, router) {
         window.LH = {

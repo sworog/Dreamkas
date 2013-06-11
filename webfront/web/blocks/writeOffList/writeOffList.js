@@ -1,14 +1,16 @@
-define(
-    [
-        '/collections/writeOff.js',
-        'moment',
-        './writeOffList.templates.js'
-    ],
-    function(WriteOffCollection, moment, templates) {
+define(function(require) {
+        //requirements
+        var WriteOffCollection = require('collections/writeOff'),
+            moment = require('moment');
+
         return Backbone.Block.extend({
             writeOffCollection: new WriteOffCollection(),
             className: 'writeOffList',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/writeOffList.html'),
+                table: require('tpl!./templates/table.html'),
+                row: require('tpl!./templates/row.html')
+            },
 
             initialize: function() {
                 var block = this;

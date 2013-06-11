@@ -1,17 +1,25 @@
-define(
-    [
-        '/kit/inputDate/inputDate.js',
-        '/models/invoice.js',
-        '/collections/invoiceProducts.js',
-        './addProductForm.js',
-        './invoice.templates.js'
-    ],
-    function(InputDate, InvoiceModel, InvoiceProductCollection, AddProductForm, templates) {
+define(function(require) {
+        //requirements
+        var InputDate = require('kit/inputDate/inputDate'),
+            InvoiceModel = require('models/invoice'),
+            InvoiceProductCollection = require('collections/invoiceProducts'),
+            AddProductForm = require('blocks/invoice/addProductForm');
+
         return Backbone.Block.extend({
             editMode: false,
             dataEditing: false,
             className: 'invoice',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/invoice.html'),
+                dataInput: require('tpl!./templates/dataInput.html'),
+                dataInputAutocomplete: require('tpl!./templates/dataInputAutocomplete.html'),
+                dataInputControls: require('tpl!./templates/dataInputControls.html'),
+                footer: require('tpl!./templates/footer.html'),
+                head: require('tpl!./templates/head.html'),
+                removeConfirm: require('tpl!./templates/removeConfirm.html'),
+                row: require('tpl!./templates/row.html'),
+                table: require('tpl!./templates/table.html')
+            },
 
             initialize: function() {
                 var block = this;

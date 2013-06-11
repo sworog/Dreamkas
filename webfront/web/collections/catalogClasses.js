@@ -1,11 +1,10 @@
-define(
-    [
-        './baseCollection.js',
-        '/models/catalogClass.js'
-    ],
-    function(BaseCollection, CatalogClass) {
+define(function(require) {
+        //requirements
+        var BaseCollection = require('collections/baseCollection'),
+            CatalogClassModel = require('models/catalogClass');
+
         return BaseCollection.extend({
-            model: CatalogClass,
+            model: CatalogClassModel,
             url: baseApiUrl + "/klasses"
         });
     }

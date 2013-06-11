@@ -1,14 +1,13 @@
-define(
-    [
-        '/blocks/page/page.js',
-        './baseRouter.js',
-        './invoice.js',
-        './balance.js',
-        './product.js',
-        './writeOff.js',
-        './catalog.js'
-    ],
-    function(page, BaseRouter) {
+define(function(require) {
+        //requirements
+        var page = require('blocks/page/page'),
+            BaseRouter = require('routers/baseRouter');
+
+        require('routers/invoice');
+        require('routers/balance');
+        require('routers/product');
+        require('routers/writeOff');
+        require('routers/catalog');
 
         var Router = BaseRouter.extend({
             routes: {

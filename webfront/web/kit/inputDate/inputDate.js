@@ -1,16 +1,16 @@
-define(
-    [
-        '/kit/datepicker/datepicker.js',
-        '/kit/tooltip/tooltip.js',
-        './inputDate.templates.js'
-    ],
-    function(Datepicker, Tooltip, templates) {
+define(function(require) {
+        //requirements
+        var Datepicker = require('kit/datepicker/datepicker'),
+            Tooltip = require('kit/tooltip/tooltip');
+
         return Backbone.Block.extend({
             date: null,
             noTime: false,
             tagName: 'input',
             className: 'inputDate',
-            templates: templates,
+            templates: {
+                datepicker__controls: require('tpl!./templates/datepicker__controls.html')
+            },
 
             initialize: function() {
                 var block = this;

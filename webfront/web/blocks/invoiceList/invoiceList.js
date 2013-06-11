@@ -1,14 +1,16 @@
-define(
-    [
-        '/collections/invoices.js',
-        'moment',
-        './invoiceList.templates.js'
-    ],
-    function(InvoiceCollection, moment, templates) {
+define(function(require) {
+        //requirements
+        var InvoiceCollection = require('collections/invoices'),
+            moment = require('moment');
+
         return Backbone.Block.extend({
             invoiceCollection: new InvoiceCollection(),
             className: 'invoiceList',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/invoiceList.html'),
+                table: require('tpl!./templates/table.html'),
+                row: require('tpl!./templates/row.html')
+            },
 
             initialize: function() {
                 var block = this;

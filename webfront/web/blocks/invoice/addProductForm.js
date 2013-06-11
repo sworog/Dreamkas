@@ -1,20 +1,19 @@
-define(
-    [
-        '/kit/form/form.js',
-        '/models/invoiceProduct.js'
-    ],
-    function(Form, InvoiceProduct) {
+define(function(require) {
+        //requirements
+        var Form = require('kit/form/form'),
+            InvoiceProduct = require('models/invoiceProduct');
+
         return Form.extend({
             invoiceId: null,
 
-            initialize: function(){
+            initialize: function() {
                 var block = this;
 
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='name']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='sku']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='barcode']"));
             },
-            submit: function(){
+            submit: function() {
                 var block = this,
                     deferred = $.Deferred(),
                     productData = Backbone.Syphon.serialize(block),

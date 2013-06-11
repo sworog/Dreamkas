@@ -1,15 +1,16 @@
-define(
-    [
-        '/kit/form/form.js',
-        '/models/invoice.js',
-        '/routers/mainRouter.js',
-        './invoiceForm.templates.js'
-    ],
-    function(Form, InvoiceModel, router, templates) {
+define(function(require) {
+        //requirements
+        var Form = require('kit/form/form'),
+            moment = require('moment'),
+            InvoiceModel = require('models/invoice'),
+            router = require('routers/mainRouter');
+
         return Form.extend({
             invoiceId: null,
             className: 'invoiceForm',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/invoiceForm.html')
+            },
 
             initialize: function() {
                 var block = this;
@@ -19,25 +20,25 @@ define(
                 });
 
                 block.listenTo(block.invoiceModel, {
-                    sync: function(){
+                    sync: function() {
                         block.render();
                     }
                 });
 
                 block.render();
             },
-            submit: function(){
+            submit: function() {
                 var block = this,
                     deferred = $.Deferred(),
                     formData = Backbone.Syphon.serialize(block);
 
                 block.invoiceModel.save(formData, {
-                    success: function(model){
+                    success: function(model) {
                         router.navigate('/invoice/' + model.id + '?editMode=true', {
                             trigger: true
                         });
                     },
-                    error: function(model, response){
+                    error: function(model, response) {
                         deferred.reject(JSON.parse(response.responseText));
                     }
                 });

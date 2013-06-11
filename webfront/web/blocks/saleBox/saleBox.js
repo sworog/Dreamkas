@@ -1,14 +1,14 @@
-define(
-    [
-        '/kit/form/form.js',
-        '/models/purchase.js',
-        './saleBox.templates.js'
-    ],
-    function(Form, PurchaseModel, templates) {
+define(function(require) {
+        //requirements
+        var Form = require('kit/form/form'),
+            PurchaseModel = require('models/purchase');
+
         return Backbone.Block.extend({
             purchaseModel: new PurchaseModel(),
             className: 'saleBox',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/saleBox.html')
+            },
 
             events: {
                 'click .saleBox__removeProductLink': function(e) {

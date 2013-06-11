@@ -1,12 +1,10 @@
-define(
-    [
-        '/kit/select/select.js',
-        'tpl!./templates/select_vat.html'
-    ],
-    function(Select, indexTemplate) {
+define(function(require) {
+        //requirements
+        var Select = require('kit/select/select');
+
         return Select.extend({
             templates: {
-                index: indexTemplate
+                index: require('tpl!./templates/select_vat.html')
             }
         });
     }

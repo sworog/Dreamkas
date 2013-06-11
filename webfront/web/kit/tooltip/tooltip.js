@@ -1,13 +1,12 @@
-define(
-    [
-        './tooltip.templates.js'
-    ],
-    function(templates) {
+define(function(require) {
         return Backbone.Block.extend({
             $trigger: null,
             className: 'tooltip',
             blockName: 'tooltip',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/tooltip.html'),
+                content: require('tpl!./templates/content.html')
+            },
 
             initialize: function() {
                 var block = this;

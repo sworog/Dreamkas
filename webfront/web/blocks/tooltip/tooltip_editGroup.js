@@ -1,22 +1,20 @@
-define(
-    [
-        '/kit/tooltip/tooltip.js',
-        '/kit/form/form.js',
-        '/models/catalogGroup.js',
-        'tpl!./templates/tooltip_editGroup.html'
-    ],
-    function(Tooltip, Form, CatalogGroupModel, tooltip_editGroupTpl) {
+define(function(require) {
+        //requirements
+        var Tooltip = require('kit/tooltip/tooltip'),
+            Form = require('kit/form/form'),
+            CatalogGroupModel = require('models/catalogGroup');
+
         return Tooltip.extend({
             groupModel: null,
             classModel: null,
             addClass: 'tooltip_editGroup',
             templates: {
-                content: tooltip_editGroupTpl
+                content: require('tpl!./templates/tooltip_editGroup.html')
             },
 
-            initialize: function(){
+            initialize: function() {
                 var block = this,
-                    group = _.find(block.classModel.get('groups'), function(group){
+                    group = _.find(block.classModel.get('groups'), function(group) {
                         return group.id == block.groupId;
                     });
 
@@ -32,9 +30,9 @@ define(
                 });
 
                 block.listenTo(block.groupModel, {
-                    change: function(model){
-                        block.classModel.set('groups', _.map(block.classModel.get('groups'), function(group){
-                            if (group.id === model.id){
+                    change: function(model) {
+                        block.classModel.set('groups', _.map(block.classModel.get('groups'), function(group) {
+                            if (group.id === model.id) {
                                 return model.toJSON();
                             }
 
@@ -44,12 +42,12 @@ define(
                 });
 
                 block.listenTo(block.form, {
-                    successSubmit: function(){
+                    successSubmit: function() {
                         block.hide();
                     }
                 });
             },
-            show: function(){
+            show: function() {
                 var block = this;
 
                 Tooltip.prototype.show.apply(this, arguments);

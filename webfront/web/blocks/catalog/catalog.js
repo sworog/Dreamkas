@@ -1,19 +1,26 @@
-define(
-    [
-        '/kit/editor/editor.js',
-        '/kit/tooltip/tooltip.js',
-        '/kit/form/form.js',
-        '/collections/catalogClasses.js',
-        '/models/catalogClass.js',
-        '/routers/catalog.js',
-        '/blocks/tooltip/tooltip_editClassMenu.js',
-        '/blocks/tooltip/tooltip_editGroupMenu.js',
-        './catalog.templates.js'
-    ],
-    function(Editor, Tooltip, Form, СatalogClassesCollection, CatalogClassModel, catalogRouter, Tooltip_editClassMenu, Tooltip_editGroupMenu, templates) {
+define(function(require) {
+
+        //requirements
+        var Editor = require('kit/editor/editor'),
+            Tooltip = require('kit/tooltip/tooltip'),
+            Form = require('kit/form/form'),
+            Tooltip_editGroupMenu = require('blocks/tooltip/tooltip_editGroupMenu'),
+            Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
+            catalogRouter = require('routers/catalog'),
+            CatalogClassModel = require('models/catalogClass'),
+            СatalogClassesCollection = require('collections/catalogClasses');
+
         return Editor.extend({
             className: 'catalog',
-            templates: templates,
+            blockName: 'catalog',
+            templates: {
+                index: require('tpl!./templates/catalog.html'),
+                classList: require('tpl!./templates/classList.html'),
+                classItem: require('tpl!./templates/classItem.html'),
+                groupList: require('tpl!./templates/groupList.html'),
+                groupItem: require('tpl!./templates/groupItem.html'),
+                addClassForm: require('tpl!./templates/addClassForm.html')
+            },
 
             events: {
                 'click .catalog__addClassLink': function(e) {

@@ -1,19 +1,17 @@
-define(
-    [
-        '/kit/tooltip/tooltip.js',
-        '/kit/form/form.js',
-        '/models/catalogClass.js',
-        'tpl!./templates/tooltip_editClass.html'
-    ],
-    function(Tooltip, Form, CatalogClassModel, tooltip_editClassTpl) {
+define(function(require) {
+        //requirements
+        var Tooltip = require('kit/tooltip/tooltip'),
+            Form = require('kit/form/form'),
+            CatalogClassModel = require('models/catalogClass');
+
         return Tooltip.extend({
             classModel: null,
             addClass: 'tooltip_editClass',
             templates: {
-                content: tooltip_editClassTpl
+                content: require('tpl!./templates/tooltip_editClass.html')
             },
 
-            initialize: function(){
+            initialize: function() {
                 var block = this;
 
                 block.classModel = block.classModel || new CatalogClassModel();
@@ -26,12 +24,12 @@ define(
                 });
 
                 block.listenTo(block.form, {
-                    successSubmit: function(){
+                    successSubmit: function() {
                         block.hide();
                     }
                 });
             },
-            show: function(){
+            show: function() {
                 var block = this;
 
                 Tooltip.prototype.show.apply(this, arguments);

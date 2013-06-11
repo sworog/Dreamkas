@@ -1,10 +1,8 @@
-define(
-    [
-        '/blocks/page/page.js',
-        '/kit/_utils/deepExtend.js',
-        './baseRouter.js'
-    ],
-    function(page, deepExtend, BaseRouter) {
+define(function(require) {
+        //requirements
+        var page = require('blocks/page/page'),
+            deepExtend = require('kit/_utils/deepExtend'),
+            BaseRouter = require('routers/baseRouter');
 
         var Router = BaseRouter.extend({
             params: {

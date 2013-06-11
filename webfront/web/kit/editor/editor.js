@@ -1,4 +1,4 @@
-define(function() {
+define(function(require) {
         return Backbone.Block.extend({
             className: 'editor',
             editMode: false,

@@ -1,25 +1,28 @@
-define(
-    [
-        '/blocks/tooltip/tooltip_editGroupMenu.js',
-        '/kit/editor/editor.js',
-        '/kit/form/form.js',
-        '/kit/tooltip/tooltip.js',
-        '/models/catalogClass.js',
-        '/models/catalogGroup.js',
-        '/collections/catalogClasses.js',
-        '/collections/classGroups.js',
-        '/routers/catalog.js',
-        '/blocks/tooltip/tooltip_editClassMenu.js',
-        './catalogClass.templates.js'
-    ],
-    function(Tooltip_editGroupMenu, Editor, Form, Tooltip, CatalogClassModel, CatalogGroupModel, СatalogClassesCollection, ClassGroupsCollection, catalogRouter, Tooltip_editClassMenu, templates) {
+define(function(require) {
+        //requirements
+        var Tooltip_editGroupMenu = require('blocks/tooltip/tooltip_editGroupMenu'),
+            Editor = require('kit/editor/editor'),
+            Tooltip = require('kit/tooltip/tooltip'),
+            CatalogClassModel = require('models/catalogClass'),
+            CatalogGroupModel = require('models/catalogGroup'),
+            СatalogClassesCollection = require('collections/catalogClasses'),
+            ClassGroupsCollection = require('collections/classGroups'),
+            catalogRouter = require('routers/catalog'),
+            Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
+            Form = require('kit/form/form');
 
         return Editor.extend({
             editMode: false,
             className: 'catalogClass',
             addClass: 'catalog',
             catalogClassId: null,
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/catalogClass.html'),
+                groupList: require('tpl!/blocks/catalog/templates/groupList.html'),
+                groupItem: require('tpl!/blocks/catalog/templates/groupItem.html'),
+                classList: require('tpl!./templates/classList.html'),
+                addGroupForm: require('tpl!./templates/addGroupForm.html')
+            },
 
             events: {
                 'click .catalog__addGroupLink': function(e) {

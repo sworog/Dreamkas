@@ -1,12 +1,12 @@
-define(
-    [
-        '/kit/tooltip/tooltip.js',
-        './tooltip_editMenu.templates.js'
-    ],
-    function(Tooltip, templates) {
+define(function(require) {
+        //requirements
+        var Tooltip = require('kit/tooltip/tooltip');
+
         return Tooltip.extend({
             addClass: 'tooltip_editMenu',
-            templates: templates
+            templates: {
+                content: require('tpl!./templates/tooltip_editMenu.html')
+            }
         });
     }
 );

@@ -1,17 +1,17 @@
-define(
-    [
-        '/kit/form/form.js',
-        '/models/product.js',
-        '/helpers/helpers.js',
-        '/routers/mainRouter.js',
-        './productForm.templates.js'
-    ],
-    function(Form, ProductModel, helpers, router, templates) {
+define(function(require) {
+        //requirements
+        var Form = require('kit/form/form'),
+            ProductModel = require('models/product'),
+            helpers = require('helpers/helpers'),
+            router = require('routers/mainRouter');
+
         return Form.extend({
             defaultInputLinkText: 'Введите значение',
             productId: null,
             className: 'productForm',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/productForm.html')
+            },
 
             initialize: function() {
                 var block = this;

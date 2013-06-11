@@ -1,18 +1,26 @@
-define(
-    [
-        '/kit/inputDate/inputDate.js',
-        '/models/writeOff.js',
-        '/collections/writeOffProducts.js',
-        '/helpers/helpers.js',
-        './addProductForm.js',
-        './writeOff.templates.js'
-    ],
-    function(InputDate, WriteOffModel, WriteOffProductCollection, helpers, AddProductForm, templates) {
+define(function(require) {
+        //requirements
+        var InputDate = require('kit/inputDate/inputDate'),
+            WriteOffModel = require('models/writeOff'),
+            WriteOffProductCollection = require('collections/writeOffProducts'),
+            helpers = require('helpers/helpers'),
+            AddProductForm = require('blocks/writeOff/addProductForm');
+
         return Backbone.Block.extend({
             editMode: false,
             dataEditing: false,
             className: 'writeOff',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/writeOff.html'),
+                dataInput: require('tpl!./templates/dataInput.html'),
+                dataInputAutocomplete: require('tpl!./templates/dataInputAutocomplete.html'),
+                dataInputControls: require('tpl!./templates/dataInputControls.html'),
+                footer: require('tpl!./templates/footer.html'),
+                head: require('tpl!./templates/head.html'),
+                removeConfirm: require('tpl!./templates/removeConfirm.html'),
+                row: require('tpl!./templates/row.html'),
+                table: require('tpl!./templates/table.html')
+            },
 
             initialize: function() {
                 var block = this;

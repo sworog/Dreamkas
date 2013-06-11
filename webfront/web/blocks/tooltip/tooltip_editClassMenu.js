@@ -1,13 +1,12 @@
-define(
-    [
-        './tooltip_editMenu.js',
-        './tooltip_editClass.js'
-    ],
-    function(Tooltip_editMenu, Tooltip_editClass) {
+define(function(require) {
+        //requirements
+        var Tooltip_editMenu = require('blocks/tooltip/tooltip_editMenu'),
+            Tooltip_editClass = require('blocks/tooltip/tooltip_editClass');
+
         return Tooltip_editMenu.extend({
             classModel: null,
             events: {
-                'click .tooltip__editLink': function(e){
+                'click .tooltip__editLink': function(e) {
                     e.preventDefault();
                     var block = this,
                         $el = $(e.target);
@@ -16,11 +15,11 @@ define(
 
                     block.tooltip_editClass.show();
                 },
-                'click .tooltip__removeLink': function(e){
+                'click .tooltip__removeLink': function(e) {
                     e.preventDefault();
                     var block = this;
 
-                    if (block.classModel.get('groups') && block.classModel.get('groups').length){
+                    if (block.classModel.get('groups') && block.classModel.get('groups').length) {
                         alert('Необходимо удалить все группы из класса');
                     } else {
                         block.classModel.destroy();
@@ -29,7 +28,7 @@ define(
                     block.hide();
                 }
             },
-            initialize: function(){
+            initialize: function() {
                 var block = this;
 
                 Tooltip_editMenu.prototype.initialize.call(this);

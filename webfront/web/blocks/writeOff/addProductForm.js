@@ -1,9 +1,8 @@
-define(
-    [
-        '/kit/form/form.js',
-        '/models/writeOffProduct.js'
-    ],
-    function(Form, WriteOffProduct) {
+define(function(require) {
+        //requirements
+        var Form = require('kit/form/form'),
+            WriteOffProduct = require('models/writeOffProduct');
+
         return Form.extend({
             writeOffId: null,
 

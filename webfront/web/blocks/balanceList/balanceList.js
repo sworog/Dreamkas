@@ -6,6 +6,7 @@ define(function(require) {
         return Backbone.Block.extend({
             productCollection: new ProductCollection(),
             className: 'balanceList',
+            blockName: 'balanceList',
             templates: {
                 index: require('tpl!./templates/balanceList.html'),
                 table: require('tpl!./templates/table.html'),

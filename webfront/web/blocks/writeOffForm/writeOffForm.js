@@ -1,17 +1,17 @@
-define(
-    [
-        '/kit/form/form.js',
-        '/models/writeOff.js',
-        '/helpers/helpers.js',
-        '/routers/mainRouter.js',
-        './writeOffForm.templates.js'
-    ],
-    function(Form, WriteOffModel, helpers, router, templates) {
+define(function(require) {
+        //requirements
+        var Form = require('kit/form/form'),
+            WriteOffModel = require('models/writeOff'),
+            helpers = require('helpers/helpers'),
+            router = require('routers/mainRouter');
+
         return Form.extend({
             writeOffFormId: null,
             writeOffModel: new WriteOffModel(),
             className: 'writeOffForm',
-            templates: templates,
+            templates: {
+                index: require('tpl!./templates/writeOffForm.html')
+            },
 
             submit: function(){
                 var block = this,

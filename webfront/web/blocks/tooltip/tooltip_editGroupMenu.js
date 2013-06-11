@@ -1,14 +1,13 @@
-define(
-    [
-        './tooltip_editMenu.js',
-        './tooltip_editGroup.js',
-        '/models/catalogGroup.js'
-    ],
-    function(Tooltip_editMenu, Tooltip_editGroup, CatalogGroupModel) {
+define(function(require) {
+        //requirements
+        var Tooltip_editMenu = require('blocks/tooltip/tooltip_editMenu'),
+            Tooltip_editGroup = require('blocks/tooltip/tooltip_editGroup'),
+            CatalogGroupModel = require('models/catalogGroup');
+
         return Tooltip_editMenu.extend({
             groupId: null,
             events: {
-                'click .tooltip__editLink': function(e){
+                'click .tooltip__editLink': function(e) {
                     e.preventDefault();
                     var block = this,
                         $el = $(e.target);
@@ -17,7 +16,7 @@ define(
 
                     block.tooltip_editGroup.show();
                 },
-                'click .tooltip__removeLink': function(e){
+                'click .tooltip__removeLink': function(e) {
                     e.preventDefault();
                     var block = this,
                         groups = block.classModel.get('groups'),
@@ -26,8 +25,8 @@ define(
                         });
 
                     groupModel.destroy({
-                        success: function(){
-                            block.classModel.set('groups', _.reject(groups, function(group){
+                        success: function() {
+                            block.classModel.set('groups', _.reject(groups, function(group) {
                                 return group.id === block.groupId
                             }));
                         }
@@ -36,7 +35,7 @@ define(
                     block.hide();
                 }
             },
-            initialize: function(){
+            initialize: function() {
                 var block = this;
 
                 Tooltip_editMenu.prototype.initialize.call(this);
