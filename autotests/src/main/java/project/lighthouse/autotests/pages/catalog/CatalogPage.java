@@ -78,6 +78,7 @@ public class CatalogPage extends CommonPageObject {
 
     public void popUpMenuAccept() {
         findBy("//*[@class='form__field']/*[@class='button button_color_blue' and normalize-space(text())='Подтвердить']/input").click();
+        preloaderWait();
     }
 
     public void popUpMenuCancel() {
