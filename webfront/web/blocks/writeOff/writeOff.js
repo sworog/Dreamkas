@@ -120,7 +120,7 @@ define(function(require) {
                     });
 
                     if (notEmptyForm || block.dataEditing) {
-                        alert("У вас есть не сохранённые данные");
+                        alert("У вас есть несохранённые данные");
                     } else {
                         block.set("editMode", false);
                     }
