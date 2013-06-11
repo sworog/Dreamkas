@@ -24,6 +24,7 @@ public class ClassPage extends CatalogPage {
     @Override
     public void addNewButtonConfirmClick() {
         findBy("//*[@class='form catalog__addGroupForm']//*[@class='button button_color_blue']/input").click();
+        preloaderWait();
     }
 
     @Override
