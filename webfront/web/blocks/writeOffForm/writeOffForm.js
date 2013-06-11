@@ -3,6 +3,7 @@ define(function(require) {
         var Form = require('kit/form/form'),
             WriteOffModel = require('models/writeOff'),
             helpers = require('helpers/helpers'),
+            moment = require('moment'),
             router = require('routers/mainRouter');
 
         return Form.extend({
