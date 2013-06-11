@@ -3,15 +3,20 @@ require(
         baseUrl: '/',
         paths: {
             tpl: '/libs/require/tpl'
-        }
+        },
+        packages: [
+            {
+                name: 'moment',
+                location: '/libs/moment',
+                main: 'moment.min'
+            }
+        ]
     },
     [
         '/helpers/helpers.js',
         '/routers/mainRouter.js'
     ],
     function(helpers, router) {
-        moment.lang('ru');
-
         window.LH = {
             helpers: helpers
         };

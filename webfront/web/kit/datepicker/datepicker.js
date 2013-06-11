@@ -1,10 +1,12 @@
 define(
     [
-        '/kit/block.js',
-        './datepicker.templates.js'
+        './datepicker.templates.js',
+        'moment',
+        'moment/ru'
     ],
-    function(Block, templates) {
-        return Block.extend({
+    function(templates, moment) {
+        moment.lang('ru');
+        return Backbone.Block.extend({
             visibleDate: moment().valueOf(),
             selectedDate: null,
             noTime: false,

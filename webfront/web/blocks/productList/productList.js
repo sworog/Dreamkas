@@ -1,11 +1,10 @@
 define(
     [
-        '/kit/block.js',
         '/collections/products.js',
         './productList.templates.js'
     ],
-    function(Block, ProductCollection, templates) {
-        return Block.extend({
+    function(ProductCollection, templates) {
+        return Backbone.Block.extend({
             className: 'productList',
             productCollection: new ProductCollection(),
             templates: templates,

@@ -1,14 +1,13 @@
 define(
     [
-        '/kit/block.js',
         '/kit/inputDate/inputDate.js',
         '/models/invoice.js',
         '/collections/invoiceProducts.js',
         './addProductForm.js',
         './invoice.templates.js'
     ],
-    function(Block, InputDate, InvoiceModel, InvoiceProductCollection, AddProductForm, templates) {
-        return Block.extend({
+    function(InputDate, InvoiceModel, InvoiceProductCollection, AddProductForm, templates) {
+        return Backbone.Block.extend({
             editMode: false,
             dataEditing: false,
             className: 'invoice',

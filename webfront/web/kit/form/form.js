@@ -1,9 +1,5 @@
-define(
-    [
-        '/kit/block.js'
-    ],
-    function(Block) {
-        return Block.extend({
+define(function() {
+        return Backbone.Block.extend({
             tagName: 'form',
             className: 'form',
             model: null,
@@ -28,7 +24,7 @@ define(
             findElements: function() {
                 var block = this;
 
-                Block.prototype.findElements.apply(block, arguments);
+                Backbone.Block.prototype.findElements.apply(block, arguments);
 
                 block.$submitButton = block.$el.find('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
             },

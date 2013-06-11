@@ -1,37 +1,33 @@
-define(
-    [
-        '/kit/block.js'
-    ],
-    function(Block) {
-        return Block.extend({
+define(function() {
+        return Backbone.Block.extend({
             className: 'editor',
             editMode: false,
 
             events: {
-                'click .editor__on': function(e){
+                'click .editor__on': function(e) {
                     e.preventDefault();
                     var block = this;
 
                     block.set('editMode', true);
                 },
-                'click .editor__off': function(e){
+                'click .editor__off': function(e) {
                     e.preventDefault();
                     var block = this;
 
                     block.set('editMode', false);
                 }
             },
-            initialize: function(){
+            initialize: function() {
                 var block = this;
 
-                Block.prototype.initialize.call(block);
+                Backbone.Block.prototype.initialize.call(block);
 
                 block.set('editMode', block.editMode);
             },
-            'set:editMode': function(editMode){
+            'set:editMode': function(editMode) {
                 var block = this;
 
-                if (editMode){
+                if (editMode) {
                     block.$el.addClass('editor_editMode_on');
                     block.$el.removeClass('editor_editMode_off');
                 } else {

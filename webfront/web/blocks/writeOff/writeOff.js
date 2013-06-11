@@ -1,6 +1,5 @@
 define(
     [
-        '/kit/block.js',
         '/kit/inputDate/inputDate.js',
         '/models/writeOff.js',
         '/collections/writeOffProducts.js',
@@ -8,8 +7,8 @@ define(
         './addProductForm.js',
         './writeOff.templates.js'
     ],
-    function(Block, InputDate, WriteOffModel, WriteOffProductCollection, helpers, AddProductForm, templates) {
-        return Block.extend({
+    function(InputDate, WriteOffModel, WriteOffProductCollection, helpers, AddProductForm, templates) {
+        return Backbone.Block.extend({
             editMode: false,
             dataEditing: false,
             className: 'writeOff',

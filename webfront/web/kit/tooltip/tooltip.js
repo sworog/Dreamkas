@@ -1,10 +1,9 @@
 define(
     [
-        '/kit/block.js',
         './tooltip.templates.js'
     ],
-    function(Block, templates) {
-        return Block.extend({
+    function(templates) {
+        return Backbone.Block.extend({
             $trigger: null,
             className: 'tooltip',
             blockName: 'tooltip',

@@ -1,11 +1,10 @@
 define(
     [
-        '/kit/block.js',
         '/collections/writeOff.js',
         './writeOffList.templates.js'
     ],
-    function(Block, WriteOffCollection, templates) {
-        return Block.extend({
+    function(WriteOffCollection, templates) {
+        return Backbone.Block.extend({
             writeOffCollection: new WriteOffCollection(),
             className: 'writeOffList',
             templates: templates,

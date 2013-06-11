@@ -1,10 +1,9 @@
 define(
     [
-        '/kit/block.js',
         './table.templates.js'
     ],
-    function(Block, templates) {
-        return Block.extend({
+    function(templates) {
+        return Backbone.Block.extend({
             loading: false,
             columns: [],
             data: [],

@@ -1,12 +1,11 @@
 define(
     [
-        '/kit/block.js',
         '/kit/datepicker/datepicker.js',
         '/kit/tooltip/tooltip.js',
         './inputDate.templates.js'
     ],
-    function(Block, Datepicker, Tooltip, templates) {
-        return Block.extend({
+    function(Datepicker, Tooltip, templates) {
+        return Backbone.Block.extend({
             date: null,
             noTime: false,
             tagName: 'input',

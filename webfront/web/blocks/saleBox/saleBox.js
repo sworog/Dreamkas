@@ -1,12 +1,11 @@
 define(
     [
-        '/kit/block.js',
         '/kit/form/form.js',
         '/models/purchase.js',
         './saleBox.templates.js'
     ],
-    function(Block, Form, PurchaseModel, templates) {
-        return Block.extend({
+    function(Form, PurchaseModel, templates) {
+        return Backbone.Block.extend({
             purchaseModel: new PurchaseModel(),
             className: 'saleBox',
             templates: templates,

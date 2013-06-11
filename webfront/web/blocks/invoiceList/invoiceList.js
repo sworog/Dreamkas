@@ -1,11 +1,10 @@
 define(
     [
-        '/kit/block.js',
         '/collections/invoices.js',
         './invoiceList.templates.js'
     ],
-    function(Block, InvoiceCollection, templates) {
-        return Block.extend({
+    function(InvoiceCollection, templates) {
+        return Backbone.Block.extend({
             invoiceCollection: new InvoiceCollection(),
             className: 'invoiceList',
             templates: templates,
