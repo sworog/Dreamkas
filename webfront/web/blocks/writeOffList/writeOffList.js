@@ -1,9 +1,10 @@
 define(
     [
         '/collections/writeOff.js',
+        'moment',
         './writeOffList.templates.js'
     ],
-    function(WriteOffCollection, templates) {
+    function(WriteOffCollection, moment, templates) {
         return Backbone.Block.extend({
             writeOffCollection: new WriteOffCollection(),
             className: 'writeOffList',

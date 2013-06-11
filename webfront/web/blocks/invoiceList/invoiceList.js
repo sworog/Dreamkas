@@ -1,9 +1,10 @@
 define(
     [
         '/collections/invoices.js',
+        'moment',
         './invoiceList.templates.js'
     ],
-    function(InvoiceCollection, templates) {
+    function(InvoiceCollection, moment, templates) {
         return Backbone.Block.extend({
             invoiceCollection: new InvoiceCollection(),
             className: 'invoiceList',
