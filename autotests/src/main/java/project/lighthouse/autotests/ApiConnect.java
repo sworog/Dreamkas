@@ -61,8 +61,9 @@ public class ApiConnect {
     }
 
     public void createInvoiceThroughPost(String invoiceName, String productSku) throws IOException, JSONException {
-        createInvoiceThroughPost(invoiceName);
+        createInvoiceThroughPostWithoutNavigation(invoiceName);
         addProductToInvoice(invoiceName, productSku);
+        navigateToInvoicePage(invoiceName);
     }
 
     public void averagePriceRecalculation() {
@@ -105,10 +106,10 @@ public class ApiConnect {
         executePostRequest(apiUrl, productJsonData);
     }
 
-    public void addProductToInvoice(String InvoiceName, String productSku)
+    public void addProductToInvoice(String invoiceName, String productSku)
             throws JSONException, IOException {
         String productId = StaticDataCollections.products.get(productSku).getId();
-        String invoiceId = StaticDataCollections.invoices.get(InvoiceName).getId();
+        String invoiceId = StaticDataCollections.invoices.get(invoiceName).getId();
         String apiUrl = String.format("%s/api/1/invoices/%s/products.json", getApiUrl(), invoiceId);
 
         String productJsonData = InvoiceProduct.getJsonObject(productId, "1", "1").toString();

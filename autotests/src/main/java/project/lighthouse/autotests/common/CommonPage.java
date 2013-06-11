@@ -236,11 +236,11 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     public void checkAlertText(String expectedText) {
         Alert alert = waiter.getAlert();
         String alertText = alert.getText();
+        alert.accept();
         if (!alertText.contains(expectedText)) {
             String errorMessage = String.format("Alert text is '%s'. Should be '%s'.", alert, expectedText);
             throw new AssertionError(errorMessage);
         }
-        alert.accept();
     }
 
     public void NoAlertIsPresent() {
