@@ -143,4 +143,14 @@ public class CatalogSteps extends ScenarioSteps {
     public void addNewButtonConfirmClick() {
         catalogPage.addNewButtonConfirmClick();
     }
+
+    @Step
+    public void itemLinkCheck(String name) {
+        catalogPage.itemLinkCheck(name);
+    }
+
+    @Step
+    public void itemLinkClick(String name) {
+        catalogPage.itemLinkClick(name);
+    }
 }

@@ -116,4 +116,18 @@ public class CatalogPage extends CommonPageObject {
         waiter.waitUntilIsNotVisible(By.xpath(preloaderXpath));
     }
 
+    public String getItemLinkXpath(String name) {
+        String classLinkXpath = "//*[@class='catalogClass__listLink' and normalize-space(text())='%s']";
+        return String.format(classLinkXpath, name);
+    }
+
+    public void itemLinkCheck(String name) {
+        String itemLinkXpath = getItemLinkXpath(name);
+        $(findVisibleElement(By.xpath(itemLinkXpath))).shouldBeVisible();
+    }
+
+    public void itemLinkClick(String name) {
+        String itemLinkXpath = getItemLinkXpath(name);
+        findBy(itemLinkXpath).click();
+    }
 }

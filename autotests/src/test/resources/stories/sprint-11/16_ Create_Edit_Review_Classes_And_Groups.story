@@ -213,3 +213,10 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'new group edit cancel from class page' name is not present
 Then the user checks the group with 'Group edit cancel from class page' name is present
 
+Scenario: Class left panel link check
+Given there is the class with name 'class vng-300'
+And the user navigates to the klass with name 'class vng-300'
+Then the user checks the class 'class vng-300' link is present on right panel
+When the user clicks the class 'class vng-300' link on right panel
+Then the user checks the class with 'class vng-300' name is present
+
