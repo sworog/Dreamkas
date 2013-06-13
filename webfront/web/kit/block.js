@@ -1,7 +1,12 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('kit/_utils/deepExtend'),
+    var Backbone = require('backbone'),
+        _ = require('underscore'),
+        $ = require('jquery'),
+        deepExtend = require('kit/_utils/deepExtend'),
         inherit = require('kit/_utils/inherit');
+
+    require('jquery.require');
 
     var Block = Backbone.View.extend({
         templates: {},

@@ -5,25 +5,15 @@
 
     <link rel="stylesheet" href="/main.css" />
 
-    <script src="/libs/require/require.min.js" ></script>
-    <script src="/libs/jquery/jquery.min.js" ></script>
-    <script src="/libs/jquery/jquery.require.js" ></script>
-    <script src="/libs/underscore/underscore.min.js" ></script>
-    <script src="/libs/backbone/backbone.min.js" ></script>
-    <script src="/libs/moment/moment.min.js" ></script>
-    <script src="/libs/moment/moment.ru.js" ></script>
-    <script src="/config.js" ></script>
+    <script src="/kit/_libs/require/require.min.js"></script>
+    <script src="/kit/config.js"></script>
 </head>
 <body>
     <div class="datepicker" style="margin: 50px auto;"></div>
     <div class="datepicker" style="margin: 50px auto;"></div>
     <script>
-        require(['/kit/datepicker/datepicker.js'], function(){
-            var $datepicker = $('.datepicker');
-            $datepicker.eq(0).lh_datepicker({
-                noTime: true
-            });
-            $datepicker.eq(1).lh_datepicker();
+        require(['kit/_utils/deepExtend'], function(deepExtend){
+            console.log(deepExtend)
         });
     </script>
 </body>

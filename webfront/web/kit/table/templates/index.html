@@ -1,15 +1,10 @@
-<thead>
-<tr>
-    <% _.each(block.columns, function(column){ %>
-    <th><%= column.title || column %></th>
-    <% }) %>
-</tr>
+<thead class="table__head">
+<%= block.templates.head({
+    block: block
+}) %>
 </thead>
-<tbody>
-<% _.each(block.data, function(item){ %>
-    <%= block.templates.tr({
-        block: block,
-        item: item
-    }) %>
-<% }) %>
+<tbody class="table__body">
+<%= block.templates.body({
+    block: block
+}) %>
 </tbody>
