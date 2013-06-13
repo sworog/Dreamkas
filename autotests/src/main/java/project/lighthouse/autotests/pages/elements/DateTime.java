@@ -39,11 +39,11 @@ public class DateTime extends CommonItem {
 
     @Override
     public void setValue(String value) {
+        $().click();
         if (value.startsWith("!")) {
             String parsedValue = getDate(value.substring(1));
             $().type(parsedValue);
         } else {
-            $().click();
             String parsedValue = getDate(value);
             dateTimePickerInput(parsedValue);
         }
