@@ -65,6 +65,7 @@ public class WriteOffUserSteps {
         writeOffSteps.elementClick(elementName);
     }
 
+    @When("the user clicks finish edit link and ends the write off edition")
     public void writeOffStopEditlinkClick() {
         writeOffSteps.writeOffStopEditlinkClick();
     }
