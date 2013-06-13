@@ -42,12 +42,12 @@ public class DateTime extends CommonItem {
         if (value.startsWith("!")) {
             String parsedValue = getDate(value.substring(1));
             $().type(parsedValue);
-            dateTimePickerClose();
         } else {
             $().click();
             String parsedValue = getDate(value);
             dateTimePickerInput(parsedValue);
         }
+        dateTimePickerClose();
     }
 
     public String getDate(String value) {
@@ -94,7 +94,6 @@ public class DateTime extends CommonItem {
         if (dateArray.length == 2) {
             setTime(dateArray[1]);
         }
-        dateTimePickerClose();
     }
 
     public void dateTimePickerClose() {
