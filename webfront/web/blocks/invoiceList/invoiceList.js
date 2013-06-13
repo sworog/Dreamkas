@@ -1,9 +1,10 @@
 define(function(require) {
         //requirements
-        var InvoiceCollection = require('collections/invoices'),
+        var Block = require('kit/block'),
+            InvoiceCollection = require('collections/invoices'),
             moment = require('moment');
 
-        return Backbone.Block.extend({
+        return Block.extend({
             invoiceCollection: new InvoiceCollection(),
             className: 'invoiceList',
             templates: {

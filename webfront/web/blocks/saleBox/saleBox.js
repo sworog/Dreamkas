@@ -1,9 +1,10 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/form/form'),
+        var Block = require('kit/block'),
+            Form = require('kit/form/form'),
             PurchaseModel = require('models/purchase');
 
-        return Backbone.Block.extend({
+        return Block.extend({
             purchaseModel: new PurchaseModel(),
             className: 'saleBox',
             templates: {

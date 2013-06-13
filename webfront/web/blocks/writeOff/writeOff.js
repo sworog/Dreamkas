@@ -1,15 +1,17 @@
 define(function(require) {
         //requirements
-        var InputDate = require('kit/inputDate/inputDate'),
+        var Block = require('kit/block'),
+            InputDate = require('kit/inputDate/inputDate'),
             WriteOffModel = require('models/writeOff'),
             WriteOffProductCollection = require('collections/writeOffProducts'),
             helpers = require('helpers/helpers'),
             AddProductForm = require('blocks/writeOff/addProductForm');
 
-        return Backbone.Block.extend({
+        return Block.extend({
             editMode: false,
             dataEditing: false,
             className: 'writeOff',
+            blockName: 'writeOff',
             templates: {
                 index: require('tpl!./templates/writeOff.html'),
                 dataInput: require('tpl!./templates/dataInput.html'),
@@ -113,7 +115,7 @@ define(function(require) {
 
                     var notEmptyForm = false;
 
-                    block.addForm.$el.find("input").each(function() {
+                    block.addForm.$el.find('.inputText').each(function() {
                         if ($(this).val()) {
                             notEmptyForm = true;
                         }

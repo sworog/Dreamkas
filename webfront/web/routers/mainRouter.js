@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var page = require('blocks/page/page'),
+        var content_main = require('blocks/content/content_main'),
             BaseRouter = require('routers/baseRouter');
 
         require('routers/invoice');
@@ -17,10 +17,10 @@ define(function(require) {
                 'sale': 'sale'
             },
             dashboard: function() {
-                page.open('/pages/dashboard.html');
+                content_main.load('/pages/dashboard.html');
             },
             sale: function() {
-                page.open('/pages/sale.html');
+                content_main.load('/pages/sale.html');
             }
         });
 

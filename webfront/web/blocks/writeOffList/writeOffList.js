@@ -1,9 +1,10 @@
 define(function(require) {
         //requirements
-        var WriteOffCollection = require('collections/writeOff'),
+        var Block = require('kit/block'),
+            WriteOffCollection = require('collections/writeOff'),
             moment = require('moment');
 
-        return Backbone.Block.extend({
+        return Block.extend({
             writeOffCollection: new WriteOffCollection(),
             className: 'writeOffList',
             templates: {

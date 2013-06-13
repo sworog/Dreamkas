@@ -1,8 +1,9 @@
 define(function(require) {
         //requirements
-        var ProductCollection = require('collections/products');
+        var Block = require('kit/block'),
+            ProductCollection = require('collections/products');
 
-        return Backbone.Block.extend({
+        return Block.extend({
             className: 'productList',
             productCollection: new ProductCollection(),
             templates: {

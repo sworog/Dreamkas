@@ -1,11 +1,12 @@
 define(function(require) {
         //requirements
-        var moment = require('moment');
+        var Block = require('kit/block'),
+            moment = require('moment');
         require('moment/ru');
 
         moment.lang('ru');
 
-        return Backbone.Block.extend({
+        return Block.extend({
             visibleDate: moment().valueOf(),
             selectedDate: null,
             noTime: false,

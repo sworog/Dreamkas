@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var page = require('blocks/page/page'),
+        var content_main = require('blocks/content/content_main'),
             deepExtend = require('kit/_utils/deepExtend'),
             BaseRouter = require('routers/baseRouter');
 
@@ -14,7 +14,7 @@ define(function(require) {
                 'catalog/:catalogClassId/:catalogGroupId': 'catalogGroup'
             },
             open: function(pageUrl, opt){
-                page.open(pageUrl, deepExtend({} , opt, {
+                content_main.load(pageUrl, deepExtend({} , opt, {
                     params: this.params
                 }));
             },

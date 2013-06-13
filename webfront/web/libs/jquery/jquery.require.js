@@ -1,16 +1,8 @@
-(function(root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['jquery'], factory);
-    } else {
-        // Browser globals
-        factory(jQuery);
-    }
-}(this, function($) {
+(function($) {
     $.fn.require = function(url, options) {
         return this.each(function() {
 
-            if (!url){
+            if (!url) {
                 var $elements = $(this).find('[require]').add($(this).filter('[require]'));
 
                 $elements.each(function() {
@@ -35,4 +27,4 @@
 
         });
     };
-}));
+})(jQuery);

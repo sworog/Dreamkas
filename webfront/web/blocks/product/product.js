@@ -1,8 +1,9 @@
 define(function(require) {
         //requirements
-        var ProductModel = require('models/product');
+        var Block = require('kit/block'),
+            ProductModel = require('models/product');
 
-        return Backbone.Block.extend({
+        return Block.extend({
             productId: null,
             className: 'product',
             templates: {

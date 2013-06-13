@@ -5,11 +5,13 @@
     <link href="/main.css" rel="stylesheet" media="all" />
 </head>
 <body class="page">
-    <div class="page__content"></div>
+    <div id="content_main"></div>
 
     <script src="/config.js" type="text/javascript"></script>
 
     <!--js libs-->
+    <script src="/libs/require/require.min.js"></script>
+
     <script src="/libs/jquery/jquery.min.js"></script>
     <script src="/libs/jquery-ui/ui/minified/jquery-ui.min.js"></script>
     <script src="/libs/jquery/jquery.require.js"></script>
@@ -18,13 +20,12 @@
     <script src="/libs/underscore/underscore.min.js"></script>
 
     <script src="/libs/backbone/backbone.min.js"></script>
-    <script src="/libs/backbone/backbone.block.js"></script>
     <script src="/libs/backbone/backbone.queryparams.js"></script>
     <script src="/libs/backbone/backbone.syphon.js"></script>
 
     <script src="/libs/lhAutocomplete.js"></script>
     <!--/js libs-->
 
-    <script data-main="/main.js" src="/libs/require/require.min.js" type="text/javascript"></script>
+    <script src="/main.js"></script>
 </body>
 </html>

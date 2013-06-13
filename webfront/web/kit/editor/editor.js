@@ -1,5 +1,8 @@
 define(function(require) {
-        return Backbone.Block.extend({
+        //requirements
+        var Block = require('kit/block');
+
+        return Block.extend({
             className: 'editor',
             editMode: false,
 
@@ -20,7 +23,7 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                Backbone.Block.prototype.initialize.call(block);
+                Block.prototype.initialize.call(block);
 
                 block.set('editMode', block.editMode);
             },

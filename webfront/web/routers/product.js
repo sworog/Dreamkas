@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var page = require('blocks/page/page'),
+        var content_main = require('blocks/content/content_main'),
             BaseRouter = require('routers/baseRouter');
 
         var Router = BaseRouter.extend({
@@ -13,18 +13,18 @@ define(function(require) {
                 'product/:productId': 'productView'
             },
             productList: function(){
-                page.open('/pages/product/list.html');
+                content_main.load('/pages/product/list.html');
             },
             productView: function(productId){
-                page.open('/pages/product/view.html', {
+                content_main.load('/pages/product/view.html', {
                     productId: productId
                 });
             },
             productCreate: function(){
-                page.open('/pages/product/create.html');
+                content_main.load('/pages/product/create.html');
             },
             productEdit: function(productId){
-                page.open('/pages/product/edit.html', {
+                content_main.load('/pages/product/edit.html', {
                     productId: productId
                 });
             }

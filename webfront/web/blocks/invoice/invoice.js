@@ -1,11 +1,12 @@
 define(function(require) {
         //requirements
-        var InputDate = require('kit/inputDate/inputDate'),
+        var Block = require('kit/block'),
+            InputDate = require('kit/inputDate/inputDate'),
             InvoiceModel = require('models/invoice'),
             InvoiceProductCollection = require('collections/invoiceProducts'),
             AddProductForm = require('blocks/invoice/addProductForm');
 
-        return Backbone.Block.extend({
+        return Block.extend({
             editMode: false,
             dataEditing: false,
             className: 'invoice',

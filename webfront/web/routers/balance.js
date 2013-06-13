@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var page = require('blocks/page/page'),
+        var content_main = require('blocks/content/content_main'),
             BaseRouter = require('routers/baseRouter');
 
         var Router = BaseRouter.extend({
@@ -8,7 +8,7 @@ define(function(require) {
                 'balance': 'balance'
             },
             balance: function() {
-                page.open('/pages/balance.html');
+                content_main.load('/pages/balance.html');
             }
         });
 

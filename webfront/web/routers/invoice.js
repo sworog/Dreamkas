@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var page = require('blocks/page/page'),
+        var content_main = require('blocks/content/content_main'),
             BaseRouter = require('routers/baseRouter');
 
         var Router = BaseRouter.extend({
@@ -11,16 +11,16 @@ define(function(require) {
                 'invoice/:invoiceId': 'view'
             },
             view: function(invoiceId, params){
-                page.open('/pages/invoice/view.html', {
+                content_main.load('/pages/invoice/view.html', {
                     invoiceId: invoiceId,
                     params: params || {}
                 });
             },
             create: function(){
-                page.open('/pages/invoice/create.html');
+                content_main.load('/pages/invoice/create.html');
             },
             list: function(){
-                page.open('/pages/invoice/list.html');
+                content_main.load('/pages/invoice/list.html');
             }
         });
 

@@ -1,5 +1,8 @@
 define(function(require) {
-        return Backbone.Block.extend({
+        //requirements
+        var Block = require('kit/block');
+
+        return Block.extend({
             $trigger: null,
             className: 'tooltip',
             blockName: 'tooltip',

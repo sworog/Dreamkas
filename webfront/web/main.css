@@ -2,6 +2,7 @@
 @import "/kit/kit.css";
 
 /* blocks */
+@import "/blocks/content/content.css";
 @import "/blocks/page/page.css";
 @import "/blocks/invoice/invoice.css";
 @import "/blocks/productForm/productForm.css";
@@ -10,6 +11,5 @@
 @import "/blocks/writeOff/writeOff.css";
 @import "/blocks/catalog/catalog.css";
 @import "/blocks/catalogClass/catalogClass.css";
-@import "/blocks/catalogGroup/catalogGroup.css";
 @import "/blocks/tooltip/tooltip.css";
 /* /blocks */

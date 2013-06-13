@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var page = require('blocks/page/page'),
+        var content_main = require('blocks/content/content_main'),
             BaseRouter = require('routers/baseRouter');
 
         var Router = BaseRouter.extend({
@@ -10,16 +10,16 @@ define(function(require) {
                 'writeOff/:writeOffId': 'view'
             },
             view: function(writeOffId, params) {
-                page.open('/pages/writeOff/view.html', {
+                content_main.load('/pages/writeOff/view.html', {
                     writeOffId: writeOffId,
                     params: params || {}
                 });
             },
             list: function(){
-                page.open('/pages/writeOff/list.html');
+                content_main.load('/pages/writeOff/list.html');
             },
             create: function(){
-                page.open('/pages/writeOff/create.html');
+                content_main.load('/pages/writeOff/create.html');
             }
         });
 

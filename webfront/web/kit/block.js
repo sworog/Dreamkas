@@ -1,76 +1,7 @@
-(function(root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['backbone', 'underscore', 'jquery'], factory);
-    } else {
-        // Browser globals
-        Backbone.Block = factory(Backbone, _, jQuery);
-    }
-}(this, function(Backbone, _, $) {
-
-    function deepExtend(obj) {
-        var slice = Array.prototype.slice,
-            hasOwnProperty = Object.prototype.hasOwnProperty;
-
-        _.each(slice.call(arguments, 1), function(source) {
-            for (var prop in source) {
-                if (hasOwnProperty.call(source, prop)) {
-                    if ($.isPlainObject(obj[prop]) && $.isPlainObject(source[prop])) {
-                        obj[prop] = deepExtend({}, obj[prop], source[prop]);
-                    } else {
-                        switch (source[prop]) {
-                            case 'false':
-                                source[prop] = false;
-                                break;
-                            case 'true':
-                                source[prop] = true;
-                                break;
-                        }
-                        obj[prop] = source[prop];
-                    }
-                }
-            }
-        });
-
-        return obj;
-    }
-
-    function inherit(protoProps, staticProps) {
-        var parent = this;
-        var child;
-
-        // The constructor function for the new subclass is either defined by you
-        // (the "constructor" property in your `extend` definition), or defaulted
-        // by us to simply call the parent's constructor.
-        if (protoProps && _.has(protoProps, 'constructor')) {
-            child = protoProps.constructor;
-        } else {
-            child = function() {
-                return parent.apply(this, arguments);
-            };
-        }
-
-        // Add static properties to the constructor function, if supplied.
-        deepExtend(child, parent, staticProps);
-
-        // Set the prototype chain to inherit from `parent`, without calling
-        // `parent`'s constructor function.
-        var Surrogate = function() {
-            this.constructor = child;
-        };
-        Surrogate.prototype = parent.prototype;
-        child.prototype = new Surrogate;
-
-        // Add prototype properties (instance properties) to the subclass,
-        // if supplied.
-        if (protoProps) deepExtend(child.prototype, protoProps);
-
-        // Set a convenience property in case the parent's prototype is needed
-        // later.
-        child.__super__ = parent.prototype;
-
-        return child;
-    }
+define(function(require) {
+    //requirements
+    var deepExtend = require('kit/_utils/deepExtend'),
+        inherit = require('kit/_utils/inherit');
 
     var Block = Backbone.View.extend({
         templates: {},
@@ -211,5 +142,4 @@
     Block.extend = inherit;
 
     return Block;
-
-}));
+});

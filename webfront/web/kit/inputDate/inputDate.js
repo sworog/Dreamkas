@@ -1,9 +1,10 @@
 define(function(require) {
         //requirements
-        var Datepicker = require('kit/datepicker/datepicker'),
+        var Block = require('kit/block'),
+            Datepicker = require('kit/datepicker/datepicker'),
             Tooltip = require('kit/tooltip/tooltip');
 
-        return Backbone.Block.extend({
+        return Block.extend({
             date: null,
             noTime: false,
             tagName: 'input',
