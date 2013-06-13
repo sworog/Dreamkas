@@ -2,12 +2,12 @@ require(
     {
         baseUrl: '/',
         paths: {
-            tpl: '/libs/require/tpl'
+            tpl: 'libs/require/tpl'
         },
         packages: [
             {
                 name: 'moment',
-                location: '/libs/moment',
+                location: 'libs/moment',
                 main: 'moment.min'
             }
         ]
