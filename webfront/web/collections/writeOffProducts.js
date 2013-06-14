@@ -10,7 +10,7 @@ define(function(require) {
                 this.writeOffId = opt.writeOffId;
             },
             url: function() {
-                return baseApiUrl + '/writeoffs/' + this.writeOffId + '/products'
+                return LH.baseApiUrl + '/writeoffs/' + this.writeOffId + '/products'
             }
         });
     }

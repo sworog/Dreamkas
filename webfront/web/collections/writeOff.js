@@ -5,7 +5,7 @@ define(function(require) {
 
         return BaseCollection.extend({
             model: writeOffModel,
-            url: baseApiUrl + "/writeoffs"
+            url: LH.baseApiUrl + "/writeoffs"
         });
     }
 );

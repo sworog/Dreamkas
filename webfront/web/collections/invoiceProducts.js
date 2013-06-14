@@ -9,7 +9,7 @@ define(function(require) {
             },
             model: invoiceProductModel,
             url: function() {
-                return baseApiUrl + '/invoices/' + this.invoiceId + '/products'
+                return LH.baseApiUrl + '/invoices/' + this.invoiceId + '/products'
             }
         });
     }

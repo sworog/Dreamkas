@@ -1,14 +1,24 @@
 require(
+    {
+        baseUrl: '/',
+        paths: {
+            'backbone.queryparams': 'libs/backbone/backbone.queryparams'
+        },
+        shim: {
+            'backbone.queryparams': ['backbone']
+        }
+    },
     [
         'jquery',
         'backbone',
+        'underscore',
         'helpers/helpers',
         'routers/mainRouter'
     ],
-    function($, Backbone, helpers, router) {
-        window.LH = {
+    function($, Backbone, _, helpers, router) {
+        window.LH = _.extend({
             helpers: helpers
-        };
+        }, window.LH);
 
         $(function(){
             Backbone.history.start({

@@ -4,6 +4,8 @@ define(function(require) {
             Datepicker = require('kit/datepicker/datepicker'),
             Tooltip = require('kit/tooltip/tooltip');
 
+        require('jquery.maskedinput');
+
         return Block.extend({
             date: null,
             noTime: false,

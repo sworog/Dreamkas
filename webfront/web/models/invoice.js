@@ -4,7 +4,7 @@ define(function(require) {
 
     return BaseModel.extend({
         modelName: 'invoice',
-        urlRoot: baseApiUrl + '/invoices',
+        urlRoot: LH.baseApiUrl + '/invoices',
 
         dateFormat: 'dd.mm.yy',
         datePrintFormat: "dd.mm.yyyy",

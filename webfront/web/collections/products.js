@@ -5,7 +5,7 @@ define(function(require) {
 
         return BaseCollection.extend({
             model: ProductModel,
-            url: baseApiUrl + "/products"
+            url: LH.baseApiUrl + "/products"
         });
     }
 );

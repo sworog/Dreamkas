@@ -4,7 +4,7 @@ define(function(require) {
 
     return BaseModel.extend({
         modelName: 'writeOff',
-        urlRoot: baseApiUrl + '/writeoffs',
+        urlRoot: LH.baseApiUrl + '/writeoffs',
 
         dateFormat: 'dd.mm.yy',
         datePrintFormat: "dd.mm.yyyy",

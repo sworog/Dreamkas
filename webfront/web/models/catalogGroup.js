@@ -4,7 +4,7 @@ define(function(require) {
 
         return BaseModel.extend({
             modelName: 'group',
-            urlRoot: baseApiUrl + '/groups',
+            urlRoot: LH.baseApiUrl + '/groups',
 
             saveFields: [
                 'name',

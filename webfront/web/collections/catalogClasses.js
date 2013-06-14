@@ -5,7 +5,7 @@ define(function(require) {
 
         return BaseCollection.extend({
             model: CatalogClassModel,
-            url: baseApiUrl + "/klasses"
+            url: LH.baseApiUrl + "/klasses"
         });
     }
 );

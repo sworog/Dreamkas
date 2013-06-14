@@ -4,7 +4,7 @@ define(function(require) {
 
     return BaseModel.extend({
             modelName: 'purchase',
-            urlRoot: baseApiUrl + '/purchases',
+            urlRoot: LH.baseApiUrl + '/purchases',
             defaults: {
                 products: []
             },

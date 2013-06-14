@@ -5,7 +5,7 @@ define(function(require) {
     return BaseModel.extend({
             modelName: 'writeOffProduct',
             urlRoot: function(){
-                return baseApiUrl + '/writeoffs/'+ this.get('writeOff').id  + '/products';
+                return LH.baseApiUrl + '/writeoffs/'+ this.get('writeOff').id  + '/products';
             },
             saveFields: [
                 'product',
