@@ -1,15 +1,15 @@
-@import "/libs/jquery-ui/themes/base/minified/jquery-ui.min.css";
-@import "/kit/kit.css";
+@import "./libs/jquery-ui/themes/base/minified/jquery-ui.min.css";
+@import "./kit/kit.css";
 
 /* blocks */
-@import "/blocks/content/content.css";
-@import "/blocks/page/page.css";
-@import "/blocks/invoice/invoice.css";
-@import "/blocks/productForm/productForm.css";
-@import "/blocks/product/product.css";
-@import "/blocks/saleBox/saleBox.css";
-@import "/blocks/writeOff/writeOff.css";
-@import "/blocks/catalog/catalog.css";
-@import "/blocks/catalogClass/catalogClass.css";
-@import "/blocks/tooltip/tooltip.css";
+@import "./blocks/content/content.css";
+@import "./blocks/page/page.css";
+@import "./blocks/invoice/invoice.css";
+@import "./blocks/productForm/productForm.css";
+@import "./blocks/product/product.css";
+@import "./blocks/saleBox/saleBox.css";
+@import "./blocks/writeOff/writeOff.css";
+@import "./blocks/catalog/catalog.css";
+@import "./blocks/catalogClass/catalogClass.css";
+@import "./blocks/tooltip/tooltip.css";
 /* /blocks */
