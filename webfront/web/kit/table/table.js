@@ -2,7 +2,6 @@ define(function(require) {
         //requirements
         var Block = require('kit/block'),
             _ = require('underscore'),
-            Backbone = require('backbone'),
             DataCollection = require('kit/table/collections/data'),
             columnsCollection = require('kit/table/collections/columns');
 
@@ -21,7 +20,7 @@ define(function(require) {
                 td: require('tpl!./templates/td.html')
             },
             listeners: {
-                'collection': {
+                data: {
                     reset: function() {
                         var block = this;
 

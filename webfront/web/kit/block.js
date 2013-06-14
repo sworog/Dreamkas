@@ -29,9 +29,11 @@ define(function(require) {
             block.cid = _.uniqueId('block');
             block._ensureElement();
             block.findElements();
+
+            block.initialize.apply(block, arguments);
+
             block.delegateEvents();
             block.startListening();
-            block.initialize.apply(block, arguments);
 
             block.$el
                 .addClass(block.className)
