@@ -1,22 +1,11 @@
 require(
-    {
-        baseUrl: '/',
-        paths: {
-            tpl: '/libs/require/tpl'
-        },
-        packages: [
-            {
-                name: 'moment',
-                location: '/libs/moment',
-                main: 'moment.min'
-            }
-        ]
-    },
     [
+        'jquery',
+        'backbone',
         'helpers/helpers',
         'routers/mainRouter'
     ],
-    function(helpers, router) {
+    function($, Backbone, helpers, router) {
         window.LH = {
             helpers: helpers
         };

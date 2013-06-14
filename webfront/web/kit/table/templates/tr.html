@@ -2,7 +2,7 @@
     <% block.columns.each(function(column, index){ %>
         <%= block.templates.td({
             block: block,
-            data: index
+            data: item.get(column.get('dataKey') || index)
         }) %>
     <% }) %>
 </tr>

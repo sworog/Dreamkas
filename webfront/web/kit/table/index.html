@@ -35,13 +35,46 @@
 
         new Table({
             el: document.getElementById('table_2'),
-            columns: ['Number', 'Ru', 'En'],
+            columns: [
+                {
+                    label: 'Number',
+                    dataKey: 'num'
+                },
+                {
+                    label: 'Russian letter',
+                    dataKey: 'ru'
+                },
+                {
+                    label: 'English letter',
+                    dataKey: 'en'
+                }
+            ],
             data: [
-                ['1', 'А', 'A'],
-                ['2', 'Б', 'B'],
-                ['3', 'В', 'C'],
-                ['4', 'Г', 'D'],
-                ['5', 'Д', 'E']
+                {
+                    num: 1,
+                    ru: 'А',
+                    en: 'A'
+                },
+                {
+                    num: 2,
+                    ru: 'Б',
+                    en: 'B'
+                },
+                {
+                    num: 3,
+                    ru: 'В',
+                    en: 'C'
+                },
+                {
+                    num: 4,
+                    ru: 'Г',
+                    en: 'D'
+                },
+                {
+                    num: 5,
+                    ru: 'E',
+                    en: 'A'
+                }
             ]
         });
     });

@@ -46,16 +46,6 @@ define(function(require) {
                 }
 
                 Block.prototype.initialize.call(block);
-
-                block.listenTo(block.collection, {
-                    reset: function() {
-                        block.renderBody();
-                        block.set('loading', false);
-                    },
-                    request: function() {
-                        block.set('loading', true);
-                    }
-                });
             },
             renderBody: function(){
                 var block = this;

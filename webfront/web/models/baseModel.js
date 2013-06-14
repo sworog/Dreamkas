@@ -1,4 +1,8 @@
 define(function(require) {
+    //requirements
+    var Backbone = require('backbone'),
+        _ = require('underscore');
+
     return Backbone.Model.extend({
         save: function(attributes, options) {
             return Backbone.Model.prototype.save.call(this, attributes, _.extend({
