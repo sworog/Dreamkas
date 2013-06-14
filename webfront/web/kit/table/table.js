@@ -1,13 +1,15 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
-            Backbone = require('backbone');
+            _ = require('underscore'),
+            Backbone = require('backbone'),
+            DataCollection = require('kit/table/collections/data'),
+            columnsCollection = require('kit/table/collections/columns');
 
         return Block.extend({
             loading: false,
             columns: [],
             data: [],
-            collection: null,
             tagName: 'table',
             className: 'table',
             blockName: 'table',
@@ -18,10 +20,31 @@ define(function(require) {
                 tr: require('tpl!./templates/tr.html'),
                 td: require('tpl!./templates/td.html')
             },
+            listeners: {
+                'collection': {
+                    reset: function() {
+                        var block = this;
+
+                        block.renderBody();
+                        block.set('loading', false);
+                    },
+                    request: function() {
+                        var block = this;
+
+                        block.set('loading', true);
+                    }
+                }
+            },
             initialize: function(){
                 var block = this;
 
-                block.collection = block.collection || new Backbone.Collection(block.data);
+                if (_.isArray(block.data)){
+                    block.data = new DataCollection(block.data);
+                }
+
+                if (_.isArray(block.columns)){
+                    block.columns = new columnsCollection(block.columns);
+                }
 
                 Block.prototype.initialize.call(block);
 
