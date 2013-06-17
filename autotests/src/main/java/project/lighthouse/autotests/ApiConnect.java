@@ -160,6 +160,23 @@ public class ApiConnect {
         driver.navigate().to(url);
     }
 
+    public void createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
+        if (!StaticDataCollections.users.containsKey(login)) {
+            String apiUrl = String.format("%s/api/1/users.json", getApiUrl());
+            String jsonData = User.getJsonObject(name, position, login, password, role).toString();
+            String postResponse = executePostRequest(apiUrl, jsonData);
+
+            User user = new User(new JSONObject(postResponse));
+            StaticDataCollections.users.put(login, user);
+        }
+    }
+
+    public void navigateToTheUserPage(String login) throws JSONException {
+        String userId = StaticDataCollections.users.get(login).getId();
+        String url = String.format("%s/user/%s", getWebFrontUrl(), userId);
+        driver.navigate().to(url);
+    }
+
     private String executePostRequest(String targetURL, String urlParameters) throws IOException {
         HttpPost request = new HttpPost(targetURL);
         StringEntity entity = new StringEntity(urlParameters, "UTF-8");
