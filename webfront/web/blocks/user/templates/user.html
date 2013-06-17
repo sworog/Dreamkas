@@ -1,0 +1,23 @@
+<div class="page__controls">
+    <a class="user__editLink"
+       href="/user/edit/<%= block.userModel.get('id') %>">
+        Редактировать
+    </a>
+</div>
+
+<h3><%= block.userModel.get('name') %></h3>
+
+<table class="table">
+    <tr>
+        <th>Роль</th>
+        <td><%= block.userModel.get('role') %></td>
+    </tr>
+    <tr>
+        <th>Должность</th>
+        <td><%= block.userModel.get('position') %></td>
+    </tr>
+    <tr>
+        <th>Логин</th>
+        <td><%= block.userModel.get('login') %></td>
+    </tr>
+</table>

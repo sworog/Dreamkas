@@ -8,14 +8,21 @@ define(function(require) {
         require('routers/product');
         require('routers/writeOff');
         require('routers/catalog');
-        require('routers/user');
 
         var Router = BaseRouter.extend({
             routes: {
                 '': 'dashboard',
                 '/': 'dashboard',
                 'dashboard': 'dashboard',
-                'sale': 'sale'
+                'sale': 'sale',
+
+                //users
+                'users': require('pages/user/list'),
+                'user/list': require('pages/user/list'),
+                'user/edit/:userId': require('pages/user/form'),
+                'user/create': require('pages/user/form'),
+                'user/:userId': require('pages/user/view')
+
             },
             dashboard: function() {
                 content.load('pages/dashboard.html');

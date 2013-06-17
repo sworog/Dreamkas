@@ -5,6 +5,7 @@ define(function(require) {
         Form_user = require('blocks/form/_user/form_user');
 
     return function(userId){
+
         content.render(template, {
             title: userId ? 'Редактирование пользователя' : 'Добавление нового пользователя'
         });
