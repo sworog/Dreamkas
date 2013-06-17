@@ -8,8 +8,8 @@ define(function(require) {
     return Block.extend({
         tagName: 'form',
         className: 'form',
+        Model: Backbone.Model,
         model: null,
-        modelId: null,
         events: {
             'submit': function(e) {
                 e.preventDefault();
@@ -29,32 +29,17 @@ define(function(require) {
         },
         listeners: {
             model: {
-                sync: function(){
+                change: function(){
                     var block = this;
 
                     block.render();
                 }
             }
         },
-        initialize: function(){
+        fetch: function(){
             var block = this;
 
-            if (typeof block.model === 'function'){
-                block.model = new block.model({
-                    id: block.modelId
-                });
-            }
-
-            if (block.model.isNew()){
-                block.render();
-            }
-        },
-        startListening: function(){
-            var block = this;
-
-            Block.prototype.startListening.call(this);
-
-            if (block.modelId){
+            if (block.model.id){
                 block.model.fetch();
             }
         },

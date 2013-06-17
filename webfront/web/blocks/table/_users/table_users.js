@@ -4,7 +4,7 @@ define(function(require) {
         UsersCollection = require('collections/users');
 
     return Table.extend({
-        data: UsersCollection,
+        Collection: UsersCollection,
         blockName: 'table_users',
         templates: {
             head: require('tpl!./templates/head.html'),

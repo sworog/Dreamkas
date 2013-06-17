@@ -8,7 +8,8 @@ define(function(require) {
         return Block.extend({
             loading: false,
             columns: [],
-            data: [],
+            Collection: DataCollection,
+            collection: [],
             tagName: 'table',
             className: 'table',
             blockName: 'table',
@@ -20,7 +21,7 @@ define(function(require) {
                 td: require('tpl!./templates/td.html')
             },
             listeners: {
-                data: {
+                collection: {
                     reset: function() {
                         var block = this;
 
@@ -39,27 +40,17 @@ define(function(require) {
             initialize: function(){
                 var block = this;
 
-                if (_.isArray(block.data)){
-                    block.data = new DataCollection(block.data);
-                }
-
-                if (_.isFunction(block.data)){
-                    block.data = new block.data();
-                }
-
                 if (_.isArray(block.columns)){
                     block.columns = new columnsCollection(block.columns);
                 }
 
                 Block.prototype.initialize.call(block);
             },
-            startListening: function(){
+            fetch: function(){
                 var block = this;
 
-                Block.prototype.startListening.call(this);
-
-                if (typeof block.defaults.data === 'function'){
-                    block.data.fetch();
+                if (block.collection.url){
+                    block.collection.fetch();
                 }
             },
             renderBody: function(){

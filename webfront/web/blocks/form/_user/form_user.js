@@ -7,8 +7,14 @@ define(function(require) {
 
     return Form.extend({
         blockName: 'form_user',
-        model: UserModel,
-        modelId: null,
+        model: function(){
+            var block = this;
+
+            return new UserModel({
+                id: block.userId
+            });
+        },
+        userId: null,
         templates: {
             index: require('tpl!./templates/form_user.html')
         }

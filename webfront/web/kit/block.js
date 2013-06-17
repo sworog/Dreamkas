@@ -32,10 +32,12 @@ define(function(require) {
             block._ensureElement();
             block.findElements();
 
+            block._setup();
             block.initialize.apply(block, arguments);
 
             block.delegateEvents();
             block.startListening();
+            block.fetch();
 
             block.$el
                 .addClass(block.className)
@@ -47,6 +49,22 @@ define(function(require) {
         initialize: function() {
             var block = this;
             block.render();
+        },
+        fetch: function(){},
+        _setup: function() {
+            var block = this;
+
+            if (typeof block.model === 'function'){
+                block.model = block.model.call(block);
+            } else if (typeof block.Model === 'function'){
+                block.model = new block.Model(block.model || {});
+            }
+
+            if (typeof block.collection === 'function'){
+                block.collection = block.collection.call(block);
+            } else if (typeof block.Collection === 'function'){
+                block.collection = new block.Collection(block.collection || []);
+            }
         },
         render: function() {
             var block = this,
@@ -99,7 +117,7 @@ define(function(require) {
             _.each(block.listeners, function(listener, property) {
                 if (typeof listener === 'function') {
                     block.listenTo(block, listener);
-                } else {
+                } else if (block[property]){
                     block.listenTo(block[property], listener);
                 }
             });

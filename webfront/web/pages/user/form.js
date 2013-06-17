@@ -11,7 +11,7 @@ define(function(require) {
         });
 
         new Form_user({
-            modelId: userId,
+            userId: userId,
             el: document.getElementById('form_user')
         });
     };
