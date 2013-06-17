@@ -2,8 +2,15 @@
 <html>
 <head>
     <title>Lighthouse UI kit</title>
+    <script src="/kit/_libs/require/require.min.js"></script>
+    <script src="/kit/config.js"></script>
 </head>
 <body>
     Lighthouse UI kit
+<script>
+    require(['backbone', 'jquery', 'underscore'], function(Backbone, $, _){
+        console.log(Backbone, $, _);
+    });
+</script>
 </body>
 </html>

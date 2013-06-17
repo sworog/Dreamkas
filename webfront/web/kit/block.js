@@ -1,32 +1,46 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('kit/_utils/deepExtend'),
-        inherit = require('kit/_utils/inherit');
+    var Backbone = require('backbone'),
+        _ = require('underscore'),
+        $ = require('jquery'),
+        deepExtend = require('kit/_utils/deepExtend'),
+        classExtend = require('kit/_utils/classExtend');
+
+    require('jquery.require');
 
     var Block = Backbone.View.extend({
-        templates: {},
+        templates: {
+            index: null
+        },
+
         className: null,
         blockName: null,
         addClass: null,
         tagName: 'div',
 
-        constructor: function(props) {
+        events: null,
+        listeners: null,
+
+        constructor: function(options) {
             var block = this;
 
-            deepExtend(block, props);
+            deepExtend(block, options);
 
             block.cid = _.uniqueId('block');
             block._ensureElement();
             block.findElements();
-            block.delegateEvents();
+
             block.initialize.apply(block, arguments);
+
+            block.delegateEvents();
+            block.startListening();
 
             block.$el
                 .addClass(block.className)
+                .addClass(block.blockName)
                 .addClass(block.addClass)
-                .attr('block', block.blockName || block.className)
-                .data('block', block);
-
+                .attr('block', block.blockName)
+                .data(block.blockName, block);
         },
         initialize: function() {
             var block = this;
@@ -50,7 +64,6 @@ define(function(require) {
                 .require();
 
             block.findElements();
-            block._afterRender();
         },
         findElements: function() {
             var block = this,
@@ -73,14 +86,22 @@ define(function(require) {
                 });
             }
         },
-        _afterRender: function() {
+        startListening: function(){
+            var block = this;
 
+            _.each(block.listeners, function(listener, property){
+                if (typeof listener === 'function'){
+                    block.listenTo(block, listener);
+                } else {
+                    block.listenTo(block[property], listener);
+                }
+            });
         },
         remove: function() {
             var block = this;
 
             block.$el.find(['block']).each(function() {
-                $(this).data('block').remove();
+                $(this).data($(this).attr('block')).remove();
             });
 
             Backbone.View.prototype.remove.call(this);
@@ -139,7 +160,7 @@ define(function(require) {
         }
     });
 
-    Block.extend = inherit;
+    Block.extend = classExtend;
 
     return Block;
 });

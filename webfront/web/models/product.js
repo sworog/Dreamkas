@@ -4,7 +4,7 @@ define(function(require) {
 
     return BaseModel.extend({
             modelName: 'product',
-            urlRoot: baseApiUrl + '/products',
+            urlRoot: LH.baseApiUrl + '/products',
             defaults: {
                 amount: 0,
                 retailPricePreference: 'retailMarkup'

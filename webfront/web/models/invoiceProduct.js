@@ -5,7 +5,7 @@ define(function(require) {
     return BaseModel.extend({
             modelName: 'invoiceProduct',
             urlRoot: function(){
-                return baseApiUrl + '/invoices/'+ this.get('invoice').id  + '/products';
+                return LH.baseApiUrl + '/invoices/'+ this.get('invoice').id  + '/products';
             },
             saveFields: [
                 'product',

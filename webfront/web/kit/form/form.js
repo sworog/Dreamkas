@@ -1,6 +1,9 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block');
+    var Block = require('kit/block'),
+        Backbone = require('backbone');
+
+    require('backbone.syphon');
 
     return Block.extend({
         tagName: 'form',

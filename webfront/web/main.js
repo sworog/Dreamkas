@@ -2,24 +2,23 @@ require(
     {
         baseUrl: '/',
         paths: {
-            tpl: 'libs/require/tpl'
+            'backbone.queryparams': 'libs/backbone/backbone.queryparams'
         },
-        packages: [
-            {
-                name: 'moment',
-                location: 'libs/moment',
-                main: 'moment.min'
-            }
-        ]
+        shim: {
+            'backbone.queryparams': ['backbone']
+        }
     },
     [
+        'jquery',
+        'backbone',
+        'underscore',
         'helpers/helpers',
         'routers/mainRouter'
     ],
-    function(helpers, router) {
-        window.LH = {
+    function($, Backbone, _, helpers, router) {
+        window.LH = _.extend({
             helpers: helpers
-        };
+        }, window.LH);
 
         $(function(){
             Backbone.history.start({

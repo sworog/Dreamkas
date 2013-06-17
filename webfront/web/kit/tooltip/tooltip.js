@@ -1,6 +1,7 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block');
+        var Block = require('kit/block'),
+            _ = require('underscore');
 
         return Block.extend({
             $trigger: null,

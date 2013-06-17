@@ -4,8 +4,10 @@ define(function(require) {
 
         return Block.extend({
             initialize: function() {
-                this.render();
-                this.$el.val(this.$el.attr('value'));
+                var block = this;
+
+                Block.prototype.initialize.call(block);
+                block.$el.val(block.$el.attr('value'));
             }
         });
     }

@@ -3,31 +3,26 @@
 <head>
     <title>Table kit block</title>
 
-    <link rel="stylesheet" href="/main.css"/>
+    <link rel="stylesheet" href="/kit/kit.css"/>
 
     <!--js libs-->
-    <script src="/libs/jquery/jquery.min.js"></script>
-    <script src="/libs/jquery/jquery.require.js"></script>
-
-    <script src="/libs/underscore/underscore.min.js"></script>
-    <script src="/libs/backbone/backbone.min.js"></script>
-    <script src="/libs/require/require.min.js" type="text/javascript"></script>
+    <script src="/kit/_libs/require/require.min.js"></script>
+    <script src="/kit/config.js"></script>
     <!--/js libs-->
 </head>
-<body>
-<div class="page__content">
+<body class="page">
+<div style="padding: 50px;">
     <div class="box">
-        <table class="table"></table>
+        <table id="table_1" class="table"></table>
+    </div>
+    <div class="box">
+        <table id="table_2" class="table"></table>
     </div>
 </div>
 <script>
-    require({
-        paths: {
-            tpl: '/libs/require/tpl'
-        }
-    }, ['/kit/table/table.js'], function(Table) {
+    require(['kit/table/table'], function(Table) {
         new Table({
-            el: document.getElementsByClassName('table'),
+            el: document.getElementById('table_1'),
             columns: ['Number', 'Ru', 'En'],
             data: [
                 ['1', 'А', 'A'],
@@ -35,6 +30,51 @@
                 ['3', 'В', 'C'],
                 ['4', 'Г', 'D'],
                 ['5', 'Д', 'E']
+            ]
+        });
+
+        new Table({
+            el: document.getElementById('table_2'),
+            columns: [
+                {
+                    label: 'Number',
+                    dataKey: 'num'
+                },
+                {
+                    label: 'Russian letter',
+                    dataKey: 'ru'
+                },
+                {
+                    label: 'English letter',
+                    dataKey: 'en'
+                }
+            ],
+            data: [
+                {
+                    num: 1,
+                    ru: 'А',
+                    en: 'A'
+                },
+                {
+                    num: 2,
+                    ru: 'Б',
+                    en: 'B'
+                },
+                {
+                    num: 3,
+                    ru: 'В',
+                    en: 'C'
+                },
+                {
+                    num: 4,
+                    ru: 'Г',
+                    en: 'D'
+                },
+                {
+                    num: 5,
+                    ru: 'E',
+                    en: 'A'
+                }
             ]
         });
     });

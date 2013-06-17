@@ -66,7 +66,7 @@ define(function(require) {
                 $input.autocomplete({
                     source: function(request, response) {
                         $.ajax({
-                            url: baseApiUrl + "/products/" + name + "/search.json",
+                            url: LH.baseApiUrl + "/products/" + name + "/search.json",
                             dataType: "json",
                             data: {
                                 query: request.term

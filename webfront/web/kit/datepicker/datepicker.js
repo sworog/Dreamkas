@@ -2,6 +2,7 @@ define(function(require) {
         //requirements
         var Block = require('kit/block'),
             moment = require('moment');
+
         require('moment/ru');
 
         moment.lang('ru');

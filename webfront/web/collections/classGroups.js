@@ -9,7 +9,7 @@ define(function(require) {
             },
             model: CatalogGroupModel,
             url: function() {
-                return baseApiUrl + '/klasses/'+ this.classId  + '/groups'
+                return LH.baseApiUrl + '/klasses/'+ this.classId  + '/groups'
             }
         });
     }

@@ -1,8 +1,8 @@
 <tr>
-    <% _.each(block.columns, function(column, index){ %>
+    <% block.columns.each(function(column, index){ %>
         <%= block.templates.td({
             block: block,
-            data: item[column.dataKey || index]
+            data: rowData.get(column.get('dataKey') || index)
         }) %>
     <% }) %>
 </tr>

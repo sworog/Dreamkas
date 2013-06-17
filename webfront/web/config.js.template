@@ -1,1 +1,3 @@
-window.baseApiUrl = "http://%api_url%/api/1";
+window.LH = {
+    baseApiUrl: 'http://%api_url%/api/1'
+};

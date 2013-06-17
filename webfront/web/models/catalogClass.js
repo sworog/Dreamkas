@@ -4,7 +4,7 @@ define(function(require) {
 
         return BaseModel.extend({
             modelName: 'klass',
-            urlRoot: baseApiUrl + '/klasses',
+            urlRoot: LH.baseApiUrl + '/klasses',
 
             saveFields: [
                 'name'
