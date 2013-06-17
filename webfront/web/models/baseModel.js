@@ -4,6 +4,7 @@ define(function(require) {
         _ = require('underscore');
 
     return Backbone.Model.extend({
+        saveFields: [],
         save: function(attributes, options) {
             return Backbone.Model.prototype.save.call(this, attributes, _.extend({
                 wait: true,

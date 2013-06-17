@@ -9,7 +9,7 @@ define(function(require) {
         tagName: 'form',
         className: 'form',
         model: null,
-
+        modelId: null,
         events: {
             'submit': function(e) {
                 e.preventDefault();
@@ -25,6 +25,37 @@ define(function(require) {
                     block.showErrors(data);
                     block.$submitButton.removeClass('preloader preloader_rows');
                 });
+            }
+        },
+        listeners: {
+            model: {
+                sync: function(){
+                    var block = this;
+
+                    block.render();
+                }
+            }
+        },
+        initialize: function(){
+            var block = this;
+
+            if (typeof block.model === 'function'){
+                block.model = new block.model({
+                    id: block.modelId
+                });
+            }
+
+            if (block.model.isNew()){
+                block.render();
+            }
+        },
+        startListening: function(){
+            var block = this;
+
+            Block.prototype.startListening.call(this);
+
+            if (block.modelId){
+                block.model.fetch();
             }
         },
         findElements: function() {

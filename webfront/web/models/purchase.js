@@ -3,7 +3,6 @@ define(function(require) {
     var BaseModel = require('models/baseModel');
 
     return BaseModel.extend({
-            modelName: 'purchase',
             urlRoot: LH.baseApiUrl + '/purchases',
             defaults: {
                 products: []

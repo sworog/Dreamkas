@@ -3,7 +3,6 @@ define(function(require) {
     var BaseModel = require('models/baseModel');
 
     return BaseModel.extend({
-        modelName: 'writeOff',
         urlRoot: LH.baseApiUrl + '/writeoffs',
 
         dateFormat: 'dd.mm.yy',

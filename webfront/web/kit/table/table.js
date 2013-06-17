@@ -34,11 +34,17 @@ define(function(require) {
                     }
                 }
             },
+            $body: null,
+            $head: null,
             initialize: function(){
                 var block = this;
 
                 if (_.isArray(block.data)){
                     block.data = new DataCollection(block.data);
+                }
+
+                if (_.isFunction(block.data)){
+                    block.data = new block.data();
                 }
 
                 if (_.isArray(block.columns)){
@@ -47,6 +53,15 @@ define(function(require) {
 
                 Block.prototype.initialize.call(block);
             },
+            startListening: function(){
+                var block = this;
+
+                Block.prototype.startListening.call(this);
+
+                if (typeof block.defaults.data === 'function'){
+                    block.data.fetch();
+                }
+            },
             renderBody: function(){
                 var block = this;
 
@@ -54,7 +69,7 @@ define(function(require) {
             },
             'set:loading': function(loading){
                 var block = this;
-                block.find('thead').toggleClass('preloader_rows', loading);
+                block.$head.toggleClass('preloader_rows', loading);
             }
         })
     }

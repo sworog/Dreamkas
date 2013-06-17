@@ -24,6 +24,8 @@ define(function(require) {
         constructor: function(options) {
             var block = this;
 
+            block.defaults = _.clone(this);
+
             deepExtend(block, options);
 
             block.cid = _.uniqueId('block');
@@ -44,16 +46,19 @@ define(function(require) {
         },
         initialize: function() {
             var block = this;
-
-            if (block.templates.index) {
-                block.render();
-            }
+            block.render();
         },
         render: function() {
             var block = this,
-                $template = $(block.templates.index({
-                    block: block
-                }));
+                $template;
+
+            if (!block.templates.index) {
+                return block;
+            }
+
+            $template = $(block.templates.index({
+                block: block
+            }));
 
             block.$el.children('[block]').each(function() {
                 $(this).data('block').remove();
@@ -64,6 +69,8 @@ define(function(require) {
                 .require();
 
             block.findElements();
+
+            return block;
         },
         findElements: function() {
             var block = this,
@@ -86,11 +93,11 @@ define(function(require) {
                 });
             }
         },
-        startListening: function(){
+        startListening: function() {
             var block = this;
 
-            _.each(block.listeners, function(listener, property){
-                if (typeof listener === 'function'){
+            _.each(block.listeners, function(listener, property) {
+                if (typeof listener === 'function') {
                     block.listenTo(block, listener);
                 } else {
                     block.listenTo(block[property], listener);

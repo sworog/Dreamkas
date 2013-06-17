@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var content_main = require('blocks/content/content_main'),
+        var content = require('blocks/content/content_main'),
             BaseRouter = require('routers/baseRouter');
 
         require('routers/invoice');
@@ -8,6 +8,7 @@ define(function(require) {
         require('routers/product');
         require('routers/writeOff');
         require('routers/catalog');
+        require('routers/user');
 
         var Router = BaseRouter.extend({
             routes: {
@@ -17,10 +18,10 @@ define(function(require) {
                 'sale': 'sale'
             },
             dashboard: function() {
-                content_main.load('/pages/dashboard.html');
+                content.load('pages/dashboard.html');
             },
             sale: function() {
-                content_main.load('/pages/sale.html');
+                content.load('pages/sale.html');
             }
         });
 

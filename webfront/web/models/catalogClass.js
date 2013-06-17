@@ -3,7 +3,6 @@ define(function(require) {
         var BaseModel = require('models/baseModel');
 
         return BaseModel.extend({
-            modelName: 'klass',
             urlRoot: LH.baseApiUrl + '/klasses',
 
             saveFields: [

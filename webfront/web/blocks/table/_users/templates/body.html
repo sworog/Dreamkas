@@ -1,0 +1,8 @@
+<% block.data.each(function(userModel){ %>
+<tr>
+    <td><%= userModel.get('name') %></td>
+    <td><%= userModel.get('position') %></td>
+    <td><%= userModel.get('login') %></td>
+    <td><%= userModel.get('role') %></td>
+</tr>
+<% }) %>

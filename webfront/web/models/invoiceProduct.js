@@ -3,7 +3,6 @@ define(function(require) {
     var BaseModel = require('models/baseModel');
 
     return BaseModel.extend({
-            modelName: 'invoiceProduct',
             urlRoot: function(){
                 return LH.baseApiUrl + '/invoices/'+ this.get('invoice').id  + '/products';
             },
