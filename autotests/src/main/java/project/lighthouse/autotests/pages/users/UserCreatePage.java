@@ -16,16 +16,16 @@ public class UserCreatePage extends ProductCreatePage {
 
     @Override
     public void createElements() {
-        items.put("name", new Input(this, "name"));
-        items.put("position", new Input(this, "position"));
-        items.put("login", new Input(this, "login"));
-        items.put("password", new Input(this, "password"));
-        items.put("role", new Select(this, "role"));
+        items.put("name", new Input(this, By.xpath("//input[@name='name']")));
+        items.put("position", new Input(this, By.xpath("//input[@name='position']")));
+        items.put("login", new Input(this, By.xpath("//input[@name='login']")));
+        items.put("password", new Input(this, By.xpath("//input[@name='password']")));
+        items.put("role", new Select(this, By.xpath("//select[@name='role']")));
     }
 
     public void userCreateButtonClick() {
-        String userCreateButtonXpath = "";
-        findElement(By.xpath(userCreateButtonXpath)).click();
+        String userCreateButtonXpath = "//*[@class='button button_color_blue']/input";
+        findBy(userCreateButtonXpath).click();
         preloaderWait();
     }
 
@@ -35,7 +35,7 @@ public class UserCreatePage extends ProductCreatePage {
     }
 
     public void backToTheUsersListPageLink() {
-        String link = "";
+        String link = "//*[@class='page__backLink']";
         findElement(By.xpath(link)).click();
     }
 }
