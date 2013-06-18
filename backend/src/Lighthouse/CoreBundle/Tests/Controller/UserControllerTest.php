@@ -7,6 +7,40 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
 {
+    public function testPostUserUniqueUsernameTest()
+    {
+        $this->clearMongoDb();
+
+
+        $userData = array(
+                'username'  => 'test',
+                'name'      => 'Вася пупкин',
+                'position'  => 'Комерческий директор',
+                'role'      => 'commercialManager',
+                'password'  => 'qwerty',
+            );
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/users',
+            $userData
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/users',
+            $userData
+        );
+
+        Assert::assertResponseCode(400, $this->client);
+
+        Assert::assertJsonPathContains('Пользователь с таким логином уже существует', 'children.username.errors.0', $response);
+    }
+
     /**
      * @dataProvider userValidationProvider
      */
@@ -15,6 +49,8 @@ class UserControllerTest extends WebTestCase
         array $data,
         array $assertions = array()
     ) {
+        $this->clearMongoDb();
+
         $userData = $data + array(
             'username'  => 'test',
             'name'      => 'Вася пупкин',
@@ -88,13 +124,30 @@ class UserControllerTest extends WebTestCase
                 201,
                 array('username' => '1234567890-_aф@.'),
             ),
+            'valid username symbols 1' => array(
+                201,
+                array('username' => '1234567890'),
+            ),
+            'valid username symbols 2' => array(
+                201,
+                array('username' => '@asdffdd'),
+            ),
+            'valid username symbols 3' => array(
+                201,
+                array('username' => 'q.wer'),
+            ),
+
+            'valid username symbols 4' => array(
+                201,
+                array('username' => 'фыва'),
+            ),
             'not valid username symbols' => array(
                 400,
                 array('username' => 'фa1234567890-_=][\';/.,.|+_)()*&^%$#@!{}:"'),
                 array(
                     'children.username.errors.0'
                     =>
-                    'Запрещенные символы в имени пользователя можно только ...'
+                    'Значение недопустимо.'
                 ),
             ),
             'not valid username 101 chars' => array(
@@ -173,7 +226,7 @@ class UserControllerTest extends WebTestCase
                 array(
                     'children.role.errors.0'
                     =>
-                    'Такой роли не существует'
+                    'Выбранное Вами значение недопустимо.'
                 )
             ),
             'empty role' => array(
@@ -202,11 +255,11 @@ class UserControllerTest extends WebTestCase
             ),
             'not valid password 5 chars' => array(
                 400,
-                array('password' => str_repeat('z', 101)),
+                array('password' => str_repeat('z', 5)),
                 array(
                     'children.password.errors.0'
                     =>
-                    'Не менее 6 символов'
+                    'Значение слишком короткое. Должно быть равно 6 символам или больше.'
                 )
             ),
             'empty password' => array(
@@ -220,7 +273,7 @@ class UserControllerTest extends WebTestCase
             ),
             'not valid password equals username' => array(
                 400,
-                array('password' => 'user', 'username' => 'user'),
+                array('password' => 'userer', 'username' => 'userer'),
                 array(
                     'children.password.errors.0'
                     =>

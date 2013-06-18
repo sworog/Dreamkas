@@ -69,3 +69,9 @@ services:
         class: Lighthouse\CoreBundle\Document\Group\Group
         arguments:
             - LighthouseCoreBundle:Group\Group
+
+    lighthouse.core.document.repository.user:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\User\User
+        arguments:
+            - LighthouseCoreBundle:User\User

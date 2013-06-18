@@ -32,6 +32,10 @@ lighthouse.core.group:
     resource: Lighthouse\CoreBundle\Controller\GroupController
     type:     rest
 
+lighthouse.core.user:
+    resource: Lighthouse\CoreBundle\Controller\UserController
+    type:     rest
+
 lighthouse.core.service:
     resource: Lighthouse\CoreBundle\Controller\ServiceController
     type:     annotation
