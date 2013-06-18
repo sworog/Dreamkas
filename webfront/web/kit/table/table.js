@@ -8,7 +8,6 @@ define(function(require) {
         return Block.extend({
             loading: false,
             columns: [],
-            Collection: DataCollection,
             collection: [],
             tagName: 'table',
             className: 'table',
@@ -44,14 +43,11 @@ define(function(require) {
                     block.columns = new columnsCollection(block.columns);
                 }
 
-                Block.prototype.initialize.call(block);
-            },
-            fetch: function(){
-                var block = this;
-
-                if (block.collection.url){
-                    block.collection.fetch();
+                if (_.isArray(block.collection)){
+                    block.collection = new DataCollection(block.collection);
                 }
+
+                Block.prototype.initialize.call(block);
             },
             renderBody: function(){
                 var block = this;

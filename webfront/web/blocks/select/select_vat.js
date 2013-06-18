@@ -4,7 +4,7 @@ define(function(require) {
 
         return Select.extend({
             templates: {
-                index: require('tpl!./templates/select_vat.html')
+                index: require('tpl!./select_vat.html')
             }
         });
     }

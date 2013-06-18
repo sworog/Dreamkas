@@ -1,10 +1,8 @@
 define(function(require) {
     //requirements
-    var Table = require('kit/table/table'),
-        UsersCollection = require('collections/users');
+    var Table = require('kit/table/table');
 
     return Table.extend({
-        Collection: UsersCollection,
         blockName: 'table_users',
         templates: {
             head: require('tpl!./templates/head.html'),

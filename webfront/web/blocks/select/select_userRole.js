@@ -4,7 +4,7 @@ define(function(require) {
 
         return Select.extend({
             templates: {
-                index: require('tpl!./templates/_userRoles.html')
+                index: require('tpl!./select_userRoles.html')
             }
         });
     }

@@ -8,7 +8,8 @@ define(function(require) {
         // class properties to be extended.
         return function(protoProps, staticProps) {
             var parent = this;
-            var child;
+            var child,
+                instance = true;
 
             // The constructor function for the new subclass is either defined by you
             // (the "constructor" property in your `extend` definition), or defaulted
@@ -17,7 +18,15 @@ define(function(require) {
                 child = protoProps.constructor;
             } else {
                 child = function() {
-                    return parent.apply(this, arguments);
+                    var args;
+                    if (this instanceof child){
+                        args = instance ? arguments : arguments[0];
+                        instance = true;
+                        return parent.apply(this, args);
+                    } else {
+                        instance = false;
+                        return new child(arguments);
+                    }
                 };
             }
 

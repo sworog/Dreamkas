@@ -36,13 +36,6 @@ define(function(require) {
                 }
             }
         },
-        fetch: function(){
-            var block = this;
-
-            if (block.model.id){
-                block.model.fetch();
-            }
-        },
         findElements: function() {
             var block = this;
 

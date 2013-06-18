@@ -56,14 +56,10 @@ define(function(require) {
 
             if (typeof block.model === 'function'){
                 block.model = block.model.call(block);
-            } else if (typeof block.Model === 'function'){
-                block.model = new block.Model(block.model || {});
             }
 
             if (typeof block.collection === 'function'){
                 block.collection = block.collection.call(block);
-            } else if (typeof block.Collection === 'function'){
-                block.collection = new block.Collection(block.collection || []);
             }
         },
         render: function() {

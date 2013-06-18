@@ -4,7 +4,7 @@ define(function(require) {
 
         return Select.extend({
             templates: {
-                index: require('tpl!./templates/select_units.html')
+                index: require('tpl!./select_units.html')
             }
         });
     }
