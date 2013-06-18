@@ -38,7 +38,11 @@ class UserControllerTest extends WebTestCase
 
         Assert::assertResponseCode(400, $this->client);
 
-        Assert::assertJsonPathContains('Пользователь с таким логином уже существует', 'children.username.errors.0', $response);
+        Assert::assertJsonPathContains(
+            'Пользователь с таким логином уже существует',
+            'children.username.errors.0',
+            $response
+        );
     }
 
     /**

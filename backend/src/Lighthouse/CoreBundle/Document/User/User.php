@@ -8,6 +8,8 @@ use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -22,7 +24,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $name
  * @property string $position
  * @property hash   $password
- * @property enum   $role
+ * @property string $role
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\User\UserRepository",
@@ -76,7 +78,10 @@ class User extends AbstractDocument implements UserInterface, EquatableInterface
      * @MongoDB\String
      * @Assert\NotBlank
      * @Assert\Length(min="6")
-     * @LighthouseAssert\NotEqualsField(field = "username", message = "lighthouse.validation.errors.user.password.not_equals_login")
+     * @LighthouseAssert\NotEqualsField(
+     *      field = "username",
+     *      message = "lighthouse.validation.errors.user.password.not_equals_login"
+     * )
      * @Serializer\Exclude
      * @var string
      */
