@@ -18,10 +18,9 @@ define(function(require) {
 
                 //users
                 'users': require('pages/user/list'),
-                'user/list': require('pages/user/list'),
                 'user/edit/:userId': require('pages/user/form'),
                 'user/create': require('pages/user/form'),
-                'user/:userId': require('pages/user/view')
+                'users/:userId': require('pages/user/view')
 
             },
             dashboard: function() {
