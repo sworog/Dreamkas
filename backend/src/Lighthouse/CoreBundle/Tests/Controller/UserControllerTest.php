@@ -286,4 +286,87 @@ class UserControllerTest extends WebTestCase
             ),
         );
     }
+
+    /**
+     * @dataProvider userProvider
+     */
+    public function testGetUsersAction(array $data)
+    {
+        $this->clearMongoDb();
+
+        $postDataArray = array();
+        for ($i = 0; $i < 5; $i++) {
+            $postData = $data;
+            $postData['name'] .= $i;
+            $postData['username'] .= $i;
+            $this->client->request(
+                'POST',
+                '/api/1/users',
+                $postData
+            );
+            Assert::assertResponseCode(201, $this->client);
+            $postDataArray[] = $postData;
+        }
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/users'
+        );
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathCount(5, '*.username', $postResponse);
+
+        foreach ($postDataArray as $postData) {
+            foreach ($postData as $key => $value) {
+                if ($key != 'password') {
+                    Assert::assertJsonPathEquals($value, '*.'.$key, $postResponse);
+                }
+            }
+        }
+    }
+
+    /**
+     * @dataProvider userProvider
+     */
+    public function testGetUserAction(array $postData)
+    {
+        $this->clearMongoDb();
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/users',
+            $postData
+        );
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postResponse);
+        $id = $postResponse['id'];
+
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/users/' . $id
+        );
+        Assert::assertResponseCode(200, $this->client);
+        foreach ($postData as $key => $value) {
+            if ($key != 'password') {
+                Assert::assertJsonPathEquals($value, $key, $postResponse);
+            }
+        }
+    }
+
+    public function userProvider()
+    {
+        return array(
+            'standard' => array(
+                array(
+                    'username'  => 'test',
+                    'name'      => 'Вася пупкин',
+                    'position'  => 'Комерческий директор',
+                    'role'      => 'commercialManager',
+                    'password'  => 'qwerty',
+                ),
+            ),
+        );
+    }
 }

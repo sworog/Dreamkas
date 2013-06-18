@@ -2,8 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\LoggableCursor;
 use FOS\Rest\Util\Codes;
 use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Form\UserType;
 use Symfony\Component\Form\AbstractType;
@@ -61,5 +63,25 @@ class UserController extends AbstractRestController
         } else {
             return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
+    }
+
+    /**
+     * @param int $id
+     * @return User
+     */
+    public function getUserAction($id)
+    {
+        return $this->processGet($id);
+    }
+
+    /**
+     * @return \Lighthouse\CoreBundle\Document\User\UserCollection
+     */
+    public function getUsersAction()
+    {
+        /* @var LoggableCursor $cursor */
+        $cursor = $this->getDocumentRepository()->findAll();
+        $collection = new UserCollection($cursor);
+        return $collection;
     }
 }
