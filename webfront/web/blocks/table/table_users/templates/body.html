@@ -1,5 +1,5 @@
 <% block.collection.each(function(userModel){ %>
-<tr>
+<tr href="/users/<%= userModel.get('id') %>">
     <td><%= userModel.get('name') %></td>
     <td><%= userModel.get('position') %></td>
     <td><%= userModel.get('login') %></td>

@@ -122,7 +122,10 @@ define(function(require) {
             var block = this;
 
             block.$el.find(['block']).each(function() {
-                $(this).data($(this).attr('block')).remove();
+                var $block = $(this),
+                    blockName = $block.attr('block');
+
+                $block.data('blockName').remove();
             });
 
             Backbone.View.prototype.remove.call(this);

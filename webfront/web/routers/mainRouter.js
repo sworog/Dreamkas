@@ -11,9 +11,9 @@ define(function(require) {
 
         var Router = BaseRouter.extend({
             routes: {
-                '': 'dashboard',
-                '/': 'dashboard',
-                'dashboard': 'dashboard',
+                '': require('pages/main/dashboard'),
+                '/': require('pages/main/dashboard'),
+                'dashboard': require('pages/main/dashboard'),
                 'sale': 'sale',
 
                 //users

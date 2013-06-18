@@ -1,21 +1,22 @@
 define(function(require) {
     //requirements
-    var content = require('blocks/content/content_main'),
-        template = require('tpl!./templates/list.html'),
+    var Page = require('kit/page'),
         Table_users = require('blocks/table/table_users/table_users'),
         UsersCollection = require('collections/users');
 
-    return function(){
-
-        var userCollection = new UsersCollection();
-
-        content.render(template);
-
-        new Table_users({
-            collection: userCollection,
-            el: document.getElementById('table_users')
-        });
-
-        userCollection.fetch();
-    };
+    return Page.extend({
+        templates: {
+            content: require('tpl!./templates/list.html')
+        },
+        collections: {},
+        initData: function(){
+            this.collections.users = new UsersCollection();
+        },
+        initBlocks: function(){
+            new Table_users({
+                collection: this.collections.users,
+                el: document.getElementById('table_users')
+            });
+        }
+    });
 });
