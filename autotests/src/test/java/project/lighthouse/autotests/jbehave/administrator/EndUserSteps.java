@@ -75,6 +75,11 @@ public class EndUserSteps {
         userSteps.backToTheUsersListPageLink();
     }
 
+    @When("the user generates charData with '$number' number in the '$elementName' user page field")
+    public void whenTheUserGeneratesCharDataWithNumber(int number, String elementName) {
+        userSteps.generateTestCharData(elementName, number);
+    }
+
     @Then("the user checks the user with '$login' login is present")
     public void thenTheUSerChecksTheProductWithSkuIsPresent(String login) {
         userSteps.listItemCheck(login);
@@ -93,5 +98,10 @@ public class EndUserSteps {
     @Then("the user checks the user page elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
         userSteps.checkCardValue(checkValuesTable);
+    }
+
+    @Then("the user checks '$elementName' user page field contains only '$number' symbols")
+    public void thenTheUserChecksUserPageFieldContainsSymbols(String elementName, int number) {
+        userSteps.checkFieldLength(elementName, number);
     }
 }
