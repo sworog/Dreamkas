@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var content = require('blocks/content/content_main'),
-        template = require('tpl!./view.html'),
+        template = require('tpl!./templates/view.html'),
         User = require('blocks/user/user');
 
     return function(userId){

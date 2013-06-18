@@ -6,25 +6,29 @@
     <label class="form__label">Имя</label>
     <input class="inputText"
            type="text"
-           name="name"/>
+           name="name"
+           value="<%= block.model.get('name') %>"/>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label">Должность</label>
     <input type="text"
            class="inputText"
-           name="position"/>
+           name="position"
+           value="<%= block.model.get('position') %>"/>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label">Логин</label>
     <input type="text"
            class="inputText"
-           name="login"/>
+           name="login"
+           value="<%= block.model.get('login') %>"/>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label">Пароль</label>
     <input type="password"
            class="inputText"
-           name="password"/>
+           name="password"
+           value="<%= block.model.get('password') %>"/>
 </div>
 <div class="form__controls">
     <span class="button button_color_blue">

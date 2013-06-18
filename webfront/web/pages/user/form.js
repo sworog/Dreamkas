@@ -1,14 +1,32 @@
 define(function(require) {
     //requirements
     var Page = require('pages/page'),
-        content = require('blocks/content/content_main'),
-        template = require('tpl!./form.html'),
-        Form_user = require('blocks/form/form_user/form_user');
+        Form_user = require('blocks/form/form_user/form_user'),
+        UserModel = require('models/user');
 
     return Page.extend({
-        pageName: 'user_editor',
+        pageName: 'page_user-form',
+        templates: {
+            content: require('tpl!./templates/form.html')
+        },
         initialize: function(userId, params){
-            console.log(this);
+            var page = this,
+                userModel = new UserModel({
+                    id: userId
+                });
+
+            page.title = userId ? 'Редактирование пользователя' : 'Добавление нового пользователя';
+
+            page.render();
+
+            new Form_user({
+                model: userModel,
+                el: document.getElementById('form_user')
+            });
+
+            if (userModel.id){
+                userModel.fetch();
+            }
         }
     });
 });
