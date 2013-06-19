@@ -79,7 +79,7 @@ define(function(require) {
                     var fieldErrors;
 
                     if (data.errors) {
-                        fieldErrors = data.errors.join(', ');
+                        fieldErrors = data.errors.join('. ');
                     }
 
                     block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", fieldErrors);

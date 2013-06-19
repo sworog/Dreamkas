@@ -2,15 +2,16 @@ require.config({
     baseUrl: '/',
     paths: {
         'backbone': 'kit/_libs/backbone/backbone',
-        'backbone.syphon': 'libs/backbone/backbone.syphon',
+        'backbone.syphon': 'kit/_libs/backbone/backbone.syphon',
         'underscore': 'kit/_libs/underscore/underscore',
 
         'jquery': 'kit/_libs/jquery/jquery',
         'jquery.require': 'kit/_libs/jquery/jquery.require',
         'jquery.mod': 'kit/_libs/jquery/jquery.mod',
-        'jquery.maskedinput': 'libs/jquery/jquery.maskedinput',
+        'jquery.maskedinput': 'kit/_libs/jquery/jquery.maskedinput',
 
-        'tpl': 'kit/_libs/require/tpl'
+        'tpl': 'kit/_libs/require/tpl',
+        'i18n': 'kit/_libs/require/i18n'
     },
     packages: [
         {
