@@ -69,7 +69,7 @@ class User extends AbstractDocument implements UserInterface, EquatableInterface
     /**
      * @MongoDB\string
      * @Assert\NotBlank
-     * @Assert\Choice(choices = {"commercialManager", "storeManager", "departmentalManager", "administrator"})
+     * @Assert\Choice(choices = {"commercialManager", "storeManager", "departmentManager", "administrator"})
      * @var string
      */
     protected $role;
