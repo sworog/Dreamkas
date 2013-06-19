@@ -10,7 +10,7 @@ require(
         packages: [
             {
                 name: 'nls',
-                location: 'dict'
+                location: 'dictionary'
             },
             {
                 name: 'helpers',
