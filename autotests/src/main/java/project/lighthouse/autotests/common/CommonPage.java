@@ -205,31 +205,6 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         apiConnect.createInvoiceThroughPost(invoiceName, productSku);
     }
 
-    public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
-        apiConnect.createWriteOffThroughPost(writeOffNumber);
-    }
-
-    public void createWriteOffThroughPost(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
-                                          String quantity, String price, String cause)
-            throws IOException, JSONException {
-        apiConnect.createWriteOffThroughPost(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
-    }
-
-    public void createWriteOffAndNavigateToIt(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
-                                              String quantity, String price, String cause)
-            throws JSONException, IOException {
-        apiConnect.createWriteOffAndNavigateToIt(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
-    }
-
-    public void createWriteOffAndNavigateToIt(String writeOffNumber)
-            throws JSONException, IOException {
-        apiConnect.createWriteOffAndNavigateToIt(writeOffNumber);
-    }
-
-    public void navigatoToWriteOffPage(String writeOffNumber) throws JSONException {
-        apiConnect.navigatoToWriteOffPage(writeOffNumber);
-    }
-
     public void averagePriceCalculation() {
         apiConnect.averagePriceRecalculation();
     }

@@ -4,19 +4,55 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.pages.writeOff.WriteOffApi;
 import project.lighthouse.autotests.pages.writeOff.WriteOffListPage;
 import project.lighthouse.autotests.pages.writeOff.WriteOffPage;
+
+import java.io.IOException;
 
 public class WriteOffSteps extends ScenarioSteps {
 
     WriteOffPage writeOffPage;
     CommonPage commonPage;
     WriteOffListPage writeOffListPage;
+    WriteOffApi writeOffApi;
 
     public WriteOffSteps(Pages pages) {
         super(pages);
     }
+
+    @Step
+    public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
+        writeOffApi.createWriteOffThroughPost(writeOffNumber);
+    }
+
+    @Step
+    public void createWriteOffThroughPost(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
+                                          String quantity, String price, String cause)
+            throws IOException, JSONException {
+        writeOffApi.createWriteOffThroughPost(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+    }
+
+    @Step
+    public void createWriteOffAndNavigateToIt(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
+                                              String quantity, String price, String cause)
+            throws JSONException, IOException {
+        writeOffApi.createWriteOffAndNavigateToIt(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+    }
+
+    @Step
+    public void createWriteOffAndNavigateToIt(String writeOffNumber)
+            throws JSONException, IOException {
+        writeOffApi.createWriteOffAndNavigateToIt(writeOffNumber);
+    }
+
+    @Step
+    public void navigatoToWriteOffPage(String writeOffNumber) throws JSONException {
+        writeOffApi.navigatoToWriteOffPage(writeOffNumber);
+    }
+
 
     @Step
     public void openPage() {
@@ -53,22 +89,27 @@ public class WriteOffSteps extends ScenarioSteps {
         writeOffPage.checkCardValue(checkType, checkValuesTable);
     }
 
+    @Step
     public void itemCheck(String value) {
         writeOffPage.itemCheck(value);
     }
 
+    @Step
     public void itemCheckIsNotPresent(String value) {
         writeOffPage.itemCheckIsNotPresent(value);
     }
 
+    @Step
     public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
         writeOffPage.checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
     }
 
+    @Step
     public void checkListItemHasExpectedValueByFindByLocator(String value, ExamplesTable checkValuesTable) {
         writeOffPage.checkListItemHasExpectedValueByFindByLocator(value, checkValuesTable);
     }
 
+    @Step
     public void itemDelete(String value) {
         writeOffPage.itemDelete(value);
     }

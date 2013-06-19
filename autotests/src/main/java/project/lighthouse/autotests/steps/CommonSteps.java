@@ -62,10 +62,12 @@ public class CommonSteps extends ScenarioSteps {
         commonPage.createInvoiceThroughPost(invoiceName, productName);
     }
 
+    @Step
     public void checkAlertText(String expectedText) {
         commonPage.checkAlertText(expectedText);
     }
 
+    @Step
     public void NoAlertIsPresent() {
         commonPage.NoAlertIsPresent();
     }
@@ -73,36 +75,6 @@ public class CommonSteps extends ScenarioSteps {
     @Step
     public void averagePriceCalculation() {
         commonPage.averagePriceCalculation();
-    }
-
-    @Step
-    public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
-        commonPage.createWriteOffThroughPost(writeOffNumber);
-    }
-
-    @Step
-    public void createWriteOffThroughPost(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
-                                          String quantity, String price, String cause)
-            throws IOException, JSONException {
-        commonPage.createWriteOffThroughPost(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
-    }
-
-    @Step
-    public void createWriteOffAndNavigateToIt(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
-                                              String quantity, String price, String cause)
-            throws JSONException, IOException {
-        commonPage.createWriteOffAndNavigateToIt(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
-    }
-
-    @Step
-    public void createWriteOffAndNavigateToIt(String writeOffNumber)
-            throws JSONException, IOException {
-        commonPage.createWriteOffAndNavigateToIt(writeOffNumber);
-    }
-
-    @Step
-    public void navigatoToWriteOffPage(String writeOffNumber) throws JSONException {
-        commonPage.navigatoToWriteOffPage(writeOffNumber);
     }
 
     @Step
