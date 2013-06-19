@@ -6,20 +6,27 @@ require(
         },
         shim: {
             'backbone.queryparams': ['backbone']
-        }
+        },
+        packages: [
+            {
+                name: 'nls',
+                location: 'dict'
+            },
+            {
+                name: 'helpers',
+                location: 'helpers'
+            }
+        ]
     },
     [
         'jquery',
         'backbone',
         'underscore',
-        'helpers/helpers',
-        'routers/mainRouter'
+        'routers/mainRouter',
+        'helpers',
+        'nls'
     ],
-    function($, Backbone, _, helpers, router) {
-        window.LH = _.extend({
-            helpers: helpers
-        }, window.LH);
-
+    function($, Backbone, _, router) {
         $(function() {
             Backbone.history.start({
                 pushState: true

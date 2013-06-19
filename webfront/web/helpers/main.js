@@ -1,5 +1,5 @@
 define(function(require) {
-    return {
+    return LH.helpers = {
         formatPrice: require('helpers/formatPrice'),
         isEmptyJSON: require('helpers/isEmptyJSON'),
         normalizePrice: require('helpers/normalizePrice'),
