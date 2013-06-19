@@ -1,4 +1,5 @@
 window.LH = {
     baseApiUrl: 'http://%api_url%/api/1',
-    mainJsFile: '/main.js'
+    mainJsFile: '/main.js',
+    locale: 'auto'
 };
