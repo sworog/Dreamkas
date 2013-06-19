@@ -37,7 +37,7 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void userCreatePageOpen() {
-        userCardPage.open();
+        userCreatePage.open();
     }
 
     @Step
@@ -113,6 +113,18 @@ public class UserSteps extends ScenarioSteps {
     @Step
     public void generateTestCharData(String elementName, int charNumber) {
         String generatedData = commonPage.generateTestData(charNumber);
+        input(elementName, generatedData);
+    }
+
+    @Step
+    public void generateTestCharDataWithoutSpaces(String elementName, int charNumber, String str) {
+        String generatedData = commonPage.generateTestDataWithoutWhiteSpaces(charNumber, str);
+        input(elementName, generatedData);
+    }
+
+    @Step
+    public void generateTestCharDataWithoutSpaces(String elementName, int charNumber) {
+        String generatedData = commonPage.generateTestDataWithoutWhiteSpaces(charNumber);
         input(elementName, generatedData);
     }
 

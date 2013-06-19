@@ -19,7 +19,7 @@ public class User {
         return new JSONObject()
                 .put("name", name)
                 .put("position", position)
-                .put("login", login)
+                .put("username", login)
                 .put("password", password)
                 .put("role", role);
     }

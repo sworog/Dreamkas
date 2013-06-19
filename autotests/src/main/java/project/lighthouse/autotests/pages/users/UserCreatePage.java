@@ -7,7 +7,7 @@ import project.lighthouse.autotests.pages.elements.Input;
 import project.lighthouse.autotests.pages.elements.Select;
 import project.lighthouse.autotests.pages.product.ProductCreatePage;
 
-@DefaultUrl("/url")
+@DefaultUrl("/user/create")
 public class UserCreatePage extends ProductCreatePage {
 
     public UserCreatePage(WebDriver driver) {
@@ -18,7 +18,7 @@ public class UserCreatePage extends ProductCreatePage {
     public void createElements() {
         items.put("name", new Input(this, By.xpath("//input[@name='name']")));
         items.put("position", new Input(this, By.xpath("//input[@name='position']")));
-        items.put("login", new Input(this, By.xpath("//input[@name='login']")));
+        items.put("username", new Input(this, By.xpath("//input[@name='username']")));
         items.put("password", new Input(this, By.xpath("//input[@name='password']")));
         items.put("role", new Select(this, By.xpath("//select[@name='role']")));
     }

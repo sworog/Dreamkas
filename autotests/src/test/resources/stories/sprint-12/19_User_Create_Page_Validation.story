@@ -4,9 +4,9 @@ Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | position | nflv100 |
-| login | nflv100 |
+| username | nflv100 |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user generates charData with '100' number in the 'name' user page field
 Then the user checks 'name' user page field contains only '100' symbols
 When the user clicks the create new user button
@@ -17,24 +17,24 @@ Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | position | nflv100 |
-| login | nflv100 |
+| username | nflv101 |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user generates charData with '101' number in the 'name' user page field
 Then the user checks 'name' user page field contains only '101' symbols
 When the user clicks the create new user button
 Then the user sees error messages
 | error message |
-| Не более 101 символов |
+| Не более 100 символов |
 
 Scenario: name field is required
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | position | nflv100 |
-| login | nflv100 |
+| username | nflv102 |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 When the user clicks the create new user button
 Then the user sees error messages
 | error message |
@@ -45,11 +45,11 @@ Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
-| login | Логин1 |
+| username | nflv103 |
 | password | Пароль1 |
-| role | Коммерческий директор сети |
-And the user generates charData with '100' number in the 'name' user page field
-Then the user checks 'name' user page field contains only '100' symbols
+| role | commercialManager |
+And the user generates charData with '100' number in the 'position' user page field
+Then the user checks 'position' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
 
@@ -58,24 +58,24 @@ Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
-| login | Логин1 |
+| username | nflv104 |
 | password | Пароль1 |
-| role | Коммерческий директор сети |
-And the user generates charData with '101' number in the 'name' user page field
-Then the user checks 'name' user page field contains only '101' symbols
+| role | commercialManager |
+And the user generates charData with '101' number in the 'position' user page field
+Then the user checks 'position' user page field contains only '101' symbols
 When the user clicks the create new user button
 Then the user sees error messages
 | error message |
-| Не более 101 символов |
+| Не более 100 символов |
 
 Scenario: position field is required
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
-| login | Логин1 |
+| username | nflv105 |
 | password | Пароль1 |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 When the user clicks the create new user button
 Then the user sees error messages
 | error message |
@@ -87,7 +87,7 @@ When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
 | position | Позиция2 |
-| login | Логин1 |
+| username | nflv106 |
 | password | Пароль1 |
 When the user clicks the create new user button
 Then the user sees error messages
@@ -100,13 +100,13 @@ When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
 | position | Позиция2 |
-| login | Логин1 |
+| username | nflv107 |
 | password | 12345 |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees error messages
 | error message |
-| Пароль должен быть не меньше 6 символов |
+| Значение слишком короткое. Должно быть равно 6 символам или больше. |
 
 Scenario: password minimum length validation positive
 Given the user opens create new user page
@@ -114,25 +114,25 @@ When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
 | position | Позиция2 |
-| login | pmlvp |
-| password | 12345 |
-| role | Коммерческий директор сети |
+| username | nflv108 |
+| password | 123456 |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: password must be not equal to login
+Scenario: password must be not equal to username
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
 | position | Позиция2 |
-| login | pmbnetl |
+| username | pmbnetl |
 | password | pmbnetl |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees error messages
 | error message |
-| Логин должен быть отличен от пароля |
+| Логин и пароль не должны совпадать |
 
 Scenario: password validation positive
 Given the user opens create new user page
@@ -140,216 +140,216 @@ When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
 | position | Позиция2 |
-| login | pvp1234 |
+| username | nflv109 |
 | password | ФыEf3!@$#$$%() |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login field length validation 100 symbols
+Scenario: username field length validation 100 symbols
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
 | position | Позиция2 |
 | password | Пароль1 |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
-And the user generates charData with '100' number in the 'login' user page field
-Then the user checks 'login' user page field contains only '100' symbols
+And the user generates charData with '100' number without spaces  in the 'username' user page field
+Then the user checks 'username' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login field length validation negative 101 symbols
+Scenario: username field length validation negative 101 symbols
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
 | position | Позиция2 |
 | password | Пароль1 |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
-And the user generates charData with '101' number in the 'login' user page field
-Then the user checks 'login' user page field contains only '101' symbols
+And the user generates charData with '101' number without spaces  in the 'username' user page field
+Then the user checks 'username' user page field contains only '101' symbols
 When the user clicks the create new user button
 Then the user sees error messages
 | error message |
-| Не более 101 символов |
+| Не более 100 символов |
 
-Scenario: login must be unique
-Given there is the user with name 'User validation lmbu', position 'User validation lmbu', login 'User validation lmbu', password 'User validation lmbu', role 'администратор'
+Scenario: username must be unique
+Given there is the user with name 'User validation lmbu', position 'User validation lmbu', username 'Uservalidationlmbu', password 'Uservalidationlmbu1', role 'commercialManager'
 And the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
 | position | Позиция2 |
-| login | User validation lmbu |
+| username | Uservalidationlmbu |
 | password | Пароль1 |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees error messages
 | error message |
-| Такое имя пользователя уже существует |
+| Пользователь с таким логином уже существует |
 
-Scenario: login is required
+Scenario: username is required
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
 | position | Позиция2 |
 | password | Пароль1 |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
 
-Scenario: login validation positive Rus Big regiser
+Scenario: username validation positive Rus Big regiser
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | РУССКИЙ |
+| username | РУССКИЙ |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login validation positive Rus Small register
+Scenario: username validation positive Rus Small register
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | руссский |
+| username | руссский |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login validation positive Eng Small register
+Scenario: username validation positive Eng Small register
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | ENGLISH |
+| username | ENGLISH |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login validation positive Eng Big register
+Scenario: username validation positive Eng Big register
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | englishh |
+| username | englishh |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login validation positive digits 0-9
+Scenario: username validation positive digits 0-9
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | 1234567890 |
+| username | 1234567890 |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login validation positive symbols _
+Scenario: username validation positive symbols _
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | login_login |
+| username | username_username |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login validation positive symbols -
+Scenario: username validation positive symbols -
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | login-login |
+| username | username-username |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login validation positive symbols .
+Scenario: username validation positive symbols .
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | login.login |
+| username | username.username |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login validation positive symbols @
+Scenario: username validation positive symbols @
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | login@login |
+| username | username@username |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login validation positive symbols mix
+Scenario: username validation positive symbols mix
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | login_login-login@gmaik.com |
+| username | username_username-username@gmaik.com |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
 
-Scenario: login validation negative symbols
+Scenario: username validation negative symbols
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | ~!@#$%^&*()+= |
+| username | ~!@#$%^&*()+= |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees error messages
 | error message |
-| Неверный ввод! |
+| Значение недопустимо |
 
-Scenario: login validation negative symbols white space
+Scenario: username validation negative symbols white space
 Given the user opens create new user page
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
 | position | тест1 |
-| login | login login |
+| username | username username |
 | password | password |
-| role | Коммерческий директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user sees error messages
 | error message |
-| Неверный ввод! |
+| Значение недопустимо |
 
 

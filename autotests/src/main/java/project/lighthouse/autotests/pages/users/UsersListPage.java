@@ -7,11 +7,11 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.pages.elements.NonType;
 
-@DefaultUrl("/url")
+@DefaultUrl("/users")
 public class UsersListPage extends CommonPageObject {
 
     public static final String ITEM_NAME = "user";
-    private static final String ITEM_SKU_NAME = "login";
+    private static final String ITEM_SKU_NAME = "username";
 
     CommonView commonView = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
 
@@ -23,13 +23,13 @@ public class UsersListPage extends CommonPageObject {
     public void createElements() {
         items.put("name", new NonType(this, "name"));
         items.put("position", new NonType(this, "position"));
-        items.put("login", new NonType(this, "login"));
+        items.put("username", new NonType(this, "login"));
         items.put("password", new NonType(this, "password"));
         items.put("role", new NonType(this, "role"));
     }
 
     public void createNewUserButtonClick() {
-        String createNewUserButtonXpath = "";
+        String createNewUserButtonXpath = "//*[@class='button']";
         findElement(By.xpath(createNewUserButtonXpath)).click();
     }
 
@@ -49,5 +49,4 @@ public class UsersListPage extends CommonPageObject {
         By findBy = items.get(elementName).getFindBy();
         commonView.checkListItemHasExpectedValueByFindByLocator(value, elementName, findBy, expectedValue);
     }
-
 }
