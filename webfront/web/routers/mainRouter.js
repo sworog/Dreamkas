@@ -7,7 +7,6 @@ define(function(require) {
         require('routers/balance');
         require('routers/product');
         require('routers/writeOff');
-        require('routers/catalog');
 
         var Router = BaseRouter.extend({
             routes: {
@@ -16,15 +15,17 @@ define(function(require) {
                 'dashboard': require('pages/main/dashboard'),
                 'sale': 'sale',
 
+                //catalog
+                'catalog': require('pages/catalog/catalog'),
+                'catalog/:catalogClassId': require('pages/catalog/class'),
+                'catalog/:catalogClassId/:catalogGroupId': require('pages/catalog/group'),
+
                 //users
                 'users': require('pages/user/list'),
                 'user/edit/:userId': require('pages/user/form'),
                 'user/create': require('pages/user/form'),
                 'users/:userId': require('pages/user/view')
 
-            },
-            dashboard: function() {
-                content.load('pages/dashboard.html');
             },
             sale: function() {
                 content.load('pages/sale.html');
