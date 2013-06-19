@@ -4,14 +4,11 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\Klass\Klass;
 use Lighthouse\CoreBundle\Document\Klass\KlassCollection;
-use Lighthouse\CoreBundle\Document\Klass\KlassNotEmptyException;
 use Lighthouse\CoreBundle\Document\Klass\KlassRepository;
 use Lighthouse\CoreBundle\Form\KlassType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class KlassController extends AbstractRestController
 {

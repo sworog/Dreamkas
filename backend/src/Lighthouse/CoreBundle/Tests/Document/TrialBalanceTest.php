@@ -14,7 +14,6 @@ use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceCollection;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
-use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 

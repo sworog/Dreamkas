@@ -27,6 +27,7 @@ class Assert
      * @param string $expected
      * @param string $path
      * @param mixed $json
+     * @param bool|int $count
      * @param string $message
      */
     public static function assertJsonPathEquals($expected, $path, $json, $count = true, $message = '')
@@ -68,6 +69,7 @@ class Assert
      * @param string $expected
      * @param string $path
      * @param mixed $json
+     * @param bool|int $count
      * @param string $message
      */
     public static function assertJsonPathContains($expected, $path, $json, $count = true, $message = '')

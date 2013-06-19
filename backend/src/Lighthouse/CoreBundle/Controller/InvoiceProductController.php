@@ -29,7 +29,7 @@ class InvoiceProductController extends AbstractRestController
     protected $invoiceRepository;
 
     /**
-     * @return AbstractType
+     * @return InvoiceProductType
      */
     protected function getDocumentFormType()
     {

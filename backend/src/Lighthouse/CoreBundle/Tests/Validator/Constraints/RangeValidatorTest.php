@@ -169,7 +169,7 @@ class RangeValidatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Validator\Exception\MissingOptionsException
+     * @expectedException \Symfony\Component\Validator\Exception\MissingOptionsException
      * @expectedExceptionMessage Either option
      */
     public function testConstraintRejectEmptyConstructor()

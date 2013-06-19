@@ -165,7 +165,7 @@ class WebTestCase extends BaseTestCase
 
     /**
      * @param string $invoiceId
-     * @param stirng $productId
+     * @param string $productId
      * @param int $quantity
      * @param float $price
      * @return string
@@ -311,11 +311,8 @@ class WebTestCase extends BaseTestCase
 
     /**
      * @param string $number
-     * @param int $date
-     * @param string $productId
-     * @param float $price
-     * @param int $quantity
-     * @param string $cause
+     * @param int $date timestamp
+     * @return mixed
      */
     protected function createWriteOff($number = '431-6782', $date = null)
     {
