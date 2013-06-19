@@ -13,3 +13,5 @@ parameters:
 
     locale:            ru
     secret:            kjhf843f34nbfi34fed23efedf34
+
+    fos_rest.serializer.serialize_null: false
