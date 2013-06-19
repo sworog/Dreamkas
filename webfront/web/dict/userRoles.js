@@ -5,5 +5,6 @@ define({
         storeManager: 'Директор магазина',
         departmentManager: 'Заведующий отделом',
         administrator: 'Системный администратор'
-    }
+    },
+    "en-us": true
 });

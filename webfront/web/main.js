@@ -16,7 +16,14 @@ require(
                 name: 'helpers',
                 location: 'helpers'
             }
-        ]
+        ],
+        config: {
+            //Set the config for the i18n
+            //module ID
+            i18n: {
+                locale: LH.locale === 'auto' ? undefined : LH.locale
+            }
+        }
     },
     [
         'jquery',
