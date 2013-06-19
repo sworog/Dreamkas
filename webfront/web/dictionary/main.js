@@ -3,8 +3,8 @@ define(function(require) {
     var _ = require('underscore'),
         dictionary = require('i18n!nls/dictionary');
 
-    LH.text = function(text) {
-        return dictionary[text.toLowerCase()] || text;
+    LH.text = window.t = function(text) {
+        return dictionary[text] || dictionary[text.toLowerCase()] || text;
     };
 
     LH.dictionary = _.extend(dictionary, {
