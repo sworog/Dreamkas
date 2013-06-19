@@ -1,8 +1,8 @@
 <% block.collection.each(function(userModel){ %>
-<tr href="/users/<%= userModel.get('id') %>">
-    <td><%= userModel.get('name') %></td>
-    <td><%= userModel.get('position') %></td>
-    <td><%= userModel.get('username') %></td>
-    <td><%= userModel.get('role') %></td>
+<tr name="user" href="/users/<%= userModel.get('id') %>">
+    <td name="name"><%= userModel.get('name') %></td>
+    <td name="position"><%= userModel.get('position') %></td>
+    <td name="username"><%= userModel.get('username') %></td>
+    <td name="role"><%= userModel.get('role') %></td>
 </tr>
 <% }) %>

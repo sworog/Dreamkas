@@ -5,19 +5,19 @@
     </a>
 </div>
 
-<h3><%= block.userModel.get('name') %></h3>
+<h3 name="name"><%= block.userModel.get('name') %></h3>
 
 <table class="table" style="width: 50%">
     <tr>
         <th>Роль</th>
-        <td><%= block.userModel.get('role') %></td>
+        <td name="role"><%= block.userModel.get('role') %></td>
     </tr>
     <tr>
         <th>Должность</th>
-        <td><%= block.userModel.get('position') %></td>
+        <td name="position"><%= block.userModel.get('position') %></td>
     </tr>
     <tr>
         <th>Логин</th>
-        <td><%= block.userModel.get('username') %></td>
+        <td name="username"><%= block.userModel.get('username') %></td>
     </tr>
 </table>
