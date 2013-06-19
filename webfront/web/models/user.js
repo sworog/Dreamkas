@@ -6,7 +6,7 @@ define(function(require) {
         saveFields: [
             'name',
             'position',
-            'login',
+            'username',
             'password',
             'role'
         ],
