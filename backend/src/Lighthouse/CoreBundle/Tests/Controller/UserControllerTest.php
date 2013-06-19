@@ -77,7 +77,58 @@ class UserControllerTest extends WebTestCase
         }
     }
 
-    public function userValidationProvider()
+    /**
+     * @dataProvider editUserValidationProvider
+     */
+    public function testPutUserAction(
+        $expectedCode,
+        array $data,
+        array $assertions = array()
+    ) {
+        $this->clearMongoDb();
+
+        $userData = array(
+            'username'  => 'qweqwe',
+            'name'      => 'ASFFS',
+            'position'  => 'SFwewe',
+            'role'      => 'commercialManager',
+            'password'  => 'qwerty',
+        );
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/users',
+            $userData
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $response);
+        $id = $response['id'];
+
+        $newUserData = $data + array(
+            'username'  => 'васяпупкин',
+            'name'      => 'Вася Пупкин',
+            'position'  => 'Комец бля',
+            'role'      => 'commercialManager',
+        );
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/users/' . $id,
+            $newUserData
+        );
+
+        $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
+        Assert::assertResponseCode($expectedCode, $this->client);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathContains($expected, $path, $response);
+        }
+    }
+
+    public function editUserValidationProvider()
     {
         return array(
             /***********************************************************************************************
@@ -242,6 +293,12 @@ class UserControllerTest extends WebTestCase
                     'Заполните это поле',
                 ),
             ),
+        );
+    }
+
+    public function userValidationProvider()
+    {
+        return $this->editUserValidationProvider() + array(
             /***********************************************************************************************
              * 'password'
              ***********************************************************************************************/
