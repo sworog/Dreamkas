@@ -20,7 +20,7 @@ require(
             helpers: helpers
         }, window.LH);
 
-        $(function(){
+        $(function() {
             Backbone.history.start({
                 pushState: true
             });
