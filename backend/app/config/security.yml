@@ -5,8 +5,7 @@ jms_security_extra:
 security:
     encoders:
         Lighthouse\CoreBundle\Document\User\User:
-            algorithm: bcrypt
-            cost:      17
+            algorithm: sha1
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
