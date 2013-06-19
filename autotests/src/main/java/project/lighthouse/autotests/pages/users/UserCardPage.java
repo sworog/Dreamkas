@@ -15,7 +15,7 @@ public class UserCardPage extends UserCreatePage {
     public void createElements() {
         items.put("name", new NonType(this, "name"));
         items.put("position", new NonType(this, "position"));
-        items.put("login", new NonType(this, "login"));
+        items.put("username", new NonType(this, "username"));
         items.put("password", new NonType(this, "password"));
         items.put("role", new NonType(this, "role"));
     }
@@ -29,7 +29,7 @@ public class UserCardPage extends UserCreatePage {
     }
 
     public void editButtonClick() {
-        String editButtonXpath = "";
+        String editButtonXpath = "//*[@class='user__editLink']";
         findElement(By.xpath(editButtonXpath)).click();
     }
 }

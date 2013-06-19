@@ -20,12 +20,12 @@ public class EndUserSteps {
         userSteps.userCreatePageOpen();
     }
 
-    @Given("there is the user with name '$name', position '$position', login '$login', password '$password', role '$role'")
+    @Given("there is the user with name '$name', position '$position', username '$login', password '$password', role '$role'")
     public void givenThereIsTheUser(String name, String position, String login, String password, String role) throws IOException, JSONException {
         userSteps.createUserThroughPost(name, position, login, password, role);
     }
 
-    @Given("the user navigates to the user page with login '$login'")
+    @Given("the user navigates to the user page with username '$login'")
     public void givenTheUserNavigatesToTheUserPage(String login) throws JSONException {
         userSteps.navigateToTheUserPage(login);
     }
@@ -65,7 +65,7 @@ public class EndUserSteps {
         userSteps.editButtonClick();
     }
 
-    @When("the user opens the user card with '$login' login")
+    @When("the user opens the user card with '$login' username")
     public void whenTheUserOpensTheUserCard(String login) {
         userSteps.listItemClick(login);
     }
@@ -80,12 +80,22 @@ public class EndUserSteps {
         userSteps.generateTestCharData(elementName, number);
     }
 
-    @Then("the user checks the user with '$login' login is present")
+    @When("the user generates charData with '$number' number without spaces in the '$elementName' user page field")
+    public void whenTheUserGeneratesCharDataWithNumberWithoutSpaces(int number, String elementName) {
+        userSteps.generateTestCharDataWithoutSpaces(elementName, number);
+    }
+
+    @When("the user generates charData with '$number' number without spaces and '$str' char in the '$elementName' user page field")
+    public void whenTheUserGeneratesCharDataWithNumberWithoutSpaces(int number, String str, String elementName) {
+        userSteps.generateTestCharDataWithoutSpaces(elementName, number, str);
+    }
+
+    @Then("the user checks the user with '$login' username is present")
     public void thenTheUSerChecksTheProductWithSkuIsPresent(String login) {
         userSteps.listItemCheck(login);
     }
 
-    @Then("the user checks the user with '$login' sku has '$name' element equal to '$expectedValue' on amounts page")
+    @Then("the user checks the user with '$login' username has '$name' element equal to '$expectedValue' on amounts page")
     public void thenTheUserChecksTheProductWithValueHasElement(String login, String elementName, String expectedValue) {
         userSteps.checkListItemHasExpectedValueByFindByLocator(login, elementName, expectedValue);
     }
