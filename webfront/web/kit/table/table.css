@@ -16,15 +16,19 @@
     padding: 12px;
 }
 
-.table td{
+.table tbody td, .table tbody th{
     vertical-align: middle;
     border-bottom: 1px solid #eee;
     border-top: 1px solid #eee;
+    font-weight: normal;
 }
 
 .table th{
-    border-bottom: 1px solid #ddd;
     text-align: left;
+}
+
+.table thead th{
+    border-bottom: 1px solid #ddd;
 }
 
 .table tbody tr:hover{

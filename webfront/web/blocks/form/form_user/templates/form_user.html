@@ -1,6 +1,6 @@
 <div class="form__field form__field_inline">
     <label class="form__label">Роль</label>
-    <select name="role" require="blocks/select/select_userRole"></select>
+    <select value="<%= block.model.get('role') %>" name="role" require="blocks/select/select_userRole"></select>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label">Имя</label>
@@ -20,15 +20,14 @@
     <label class="form__label">Логин</label>
     <input type="text"
            class="inputText"
-           name="login"
-           value="<%= block.model.get('login') %>"/>
+           name="username"
+           value="<%= block.model.get('username') %>"/>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label">Пароль</label>
     <input type="password"
            class="inputText"
-           name="password"
-           value="<%= block.model.get('password') %>"/>
+           name="password"/>
 </div>
 <div class="form__controls">
     <span class="button button_color_blue">
