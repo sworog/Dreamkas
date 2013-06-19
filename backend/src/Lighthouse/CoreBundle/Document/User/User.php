@@ -76,7 +76,7 @@ class User extends AbstractDocument implements UserInterface, EquatableInterface
 
     /**
      * @MongoDB\String
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"registration"})
      * @Assert\Length(min="6")
      * @LighthouseAssert\NotEqualsField(
      *      field = "username",

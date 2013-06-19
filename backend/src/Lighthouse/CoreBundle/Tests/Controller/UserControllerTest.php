@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
@@ -78,7 +79,7 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider editUserValidationProvider
+     * @dataProvider editUserValidationPasswordProvider
      */
     public function testPutUserAction(
         $expectedCode,
@@ -126,6 +127,104 @@ class UserControllerTest extends WebTestCase
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathContains($expected, $path, $response);
         }
+    }
+
+    public function testPasswordChange()
+    {
+        $this->clearMongoDb();
+
+        $userData = array(
+            'username'  => 'qweqwe',
+            'name'      => 'ASFFS',
+            'position'  => 'SFwewe',
+            'role'      => 'commercialManager',
+            'password'  => 'qwerty',
+        );
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/users',
+            $userData
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $response);
+        $id = $response['id'];
+
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->getContainer()->get('lighthouse.core.document.repository.user');
+        $userModel = $userRepository->find($id);
+
+        $oldPasswordHash = $userModel->password;
+
+        $newUserData = array(
+            'username'  => 'qweqwe',
+            'name'      => 'ASFFSssd',
+            'position'  => 'SFwewe',
+            'role'      => 'commercialManager',
+            'password'  => '',
+        );
+
+        $response = $this->clientJsonRequest(
+            $this->client,
+            'PUT',
+            '/api/1/users/' . $id,
+            $newUserData
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        $userRepository->clear();
+        $userModel = $userRepository->find($id);
+
+        $encoder = $this->getContainer()->get('security.encoder_factory')->getEncoder($userModel);
+        $passwordHash = $encoder->encodePassword($userData['password'], $userModel->getSalt());
+
+        $this->assertEquals($passwordHash, $userModel->password);
+        $this->assertEquals($oldPasswordHash, $userModel->password);
+    }
+
+    public function editUserValidationPasswordProvider()
+    {
+        return $this->editUserValidationProvider() + array(
+            /***********************************************************************************************
+             * 'password'
+             ***********************************************************************************************/
+            'valid password' => array(
+                200,
+                array('password' => 'qwerty'),
+            ),
+            'valid password 100 chars' => array(
+                200,
+                array('password' => str_repeat('z', 100)),
+            ),
+            'valid password symbols' => array(
+                200,
+                array('password' => 'фa1234567890-_=][\';/.,.|+_)()*&^%$#@!{}:"'),
+            ),
+            'not valid password 5 chars' => array(
+                400,
+                array('password' => str_repeat('z', 5)),
+                array(
+                    'children.password.errors.0'
+                    =>
+                    'Значение слишком короткое. Должно быть равно 6 символам или больше.'
+                )
+            ),
+            'empty password' => array(
+                200,
+                array('password' => ''),
+            ),
+            'not valid password equals username' => array(
+                400,
+                array('password' => 'userer', 'username' => 'userer'),
+                array(
+                    'children.password.errors.0'
+                    =>
+                    'Логин и пароль не должны совпадать'
+                )
+            ),
+        );
     }
 
     public function editUserValidationProvider()
