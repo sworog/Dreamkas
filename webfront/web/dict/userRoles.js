@@ -6,5 +6,5 @@ define({
         departmentManager: 'Заведующий отделом',
         administrator: 'Системный администратор'
     },
-    "en-us": true
+    'en-us': true
 });
