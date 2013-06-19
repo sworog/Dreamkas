@@ -42,7 +42,7 @@ lighthouse:
         klass.does_not_exists: Такого класса не существует
       not_equals_field: Значение поля не должно совпадать с полем {{ field }}
       user:
-        password.not_equals_login: Логин и пароль не должный совпадать
+        password.not_equals_login: Логин и пароль не должны совпадать
         username.unique: Пользователь с таким логином уже существует
 
 This value should not be blank.: Заполните это поле

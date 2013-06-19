@@ -281,7 +281,7 @@ class UserControllerTest extends WebTestCase
                 array(
                     'children.password.errors.0'
                     =>
-                    'Логин и пароль не должный совпадать'
+                    'Логин и пароль не должны совпадать'
                 )
             ),
         );
