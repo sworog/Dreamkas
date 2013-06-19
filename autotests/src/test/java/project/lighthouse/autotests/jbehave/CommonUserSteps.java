@@ -52,21 +52,6 @@ public class CommonUserSteps {
         commonSteps.createInvoiceThroughPostWithData(invoiceSku, productName);
     }
 
-    @Given("there is the class with name '$klassName'")
-    public void givenThereIsTheClassWithName(String klassName) throws IOException, JSONException {
-        commonSteps.createKlassThroughPost(klassName);
-    }
-
-    @Given("there is the group with name '$groupName' related to class named '$klassName'")
-    public void givenThereIsTheGroupWithNameRelatedToKlass(String groupName, String klassName) throws IOException, JSONException {
-        commonSteps.createGroupThroughPost(groupName, klassName);
-    }
-
-    @Given("the user navigates to the klass with name '$klassName'")
-    public void givenTheUserNavigatesToTheKlassName(String klassName) throws JSONException {
-        commonSteps.navigateToKlassPage(klassName);
-    }
-
     @Given("starting average price calculation")
     public void givenStartingAveragePriceCalculation() {
         commonSteps.averagePriceCalculation();
