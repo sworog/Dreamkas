@@ -5,11 +5,14 @@ define(function(require) {
 
     require('backbone.syphon');
 
+    var router = new Backbone.Router();
+
     return Block.extend({
         tagName: 'form',
         className: 'form',
         Model: Backbone.Model,
         model: null,
+        redirectUrl: null,
         events: {
             'submit': function(e) {
                 e.preventDefault();
@@ -20,6 +23,11 @@ define(function(require) {
 
                 block.submit().then(function(data) {
                     block.trigger('successSubmit', data);
+                    if (block.redirectUrl){
+                        router.navigate(block.redirectUrl, {
+                            trigger: true
+                        });
+                    }
                     block.$submitButton.removeClass('preloader preloader_rows');
                 }, function(data) {
                     block.showErrors(data);

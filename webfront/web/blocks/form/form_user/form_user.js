@@ -6,6 +6,7 @@ define(function(require) {
 
     return Form.extend({
         blockName: 'form_user',
+        redirectUrl: '/users',
         templates: {
             index: require('tpl!./templates/form_user.html')
         }

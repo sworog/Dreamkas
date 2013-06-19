@@ -41,7 +41,7 @@ define(function(require) {
                     var $block = $(this),
                         blockName = $block.attr('block');
 
-                    $block.data('blockName').remove();
+                    $block.data(blockName).remove();
                 });
 
                 $renderContainer.html(template({page: page}));
