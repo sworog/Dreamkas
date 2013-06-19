@@ -2,7 +2,7 @@ define(function(require) {
         //requirements
         var Form = require('kit/form/form'),
             ProductModel = require('models/product'),
-            helpers = require('helpers/helpers'),
+            helpers = require('helpers'),
             router = require('routers/mainRouter');
 
         return Form.extend({

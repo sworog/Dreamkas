@@ -4,7 +4,7 @@ define(function(require) {
             InputDate = require('kit/inputDate/inputDate'),
             WriteOffModel = require('models/writeOff'),
             WriteOffProductCollection = require('collections/writeOffProducts'),
-            helpers = require('helpers/helpers'),
+            helpers = require('helpers'),
             AddProductForm = require('blocks/writeOff/addProductForm');
 
         return Block.extend({
