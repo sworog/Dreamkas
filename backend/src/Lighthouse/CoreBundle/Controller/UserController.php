@@ -38,7 +38,7 @@ class UserController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\Invoice
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
      *
      * @Rest\View(statusCode=201)
      */
@@ -48,7 +48,7 @@ class UserController extends AbstractRestController
         $document = $this->getDocumentRepository()->createNew();
 
         $type = $this->getDocumentFormType();
-        $form = $this->createForm($type, $document, array('validation_groups' => array('registration')));
+        $form = $this->createForm($type, $document, array('validation_groups' => array('Default', 'registration')));
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -68,7 +68,7 @@ class UserController extends AbstractRestController
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product\Product
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
      *
      * @Rest\View(statusCode=200)
      */
