@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Types\MongoDB;
 
-use Doctrine\ODM\MongoDB\Mapping\Types\Type;
+use Doctrine\ODM\MongoDB\Types\Type;
 use Lighthouse\CoreBundle\Types\Money;
 
 class MoneyType extends Type

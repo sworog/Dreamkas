@@ -3,17 +3,14 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\LoggableCursor;
-use FOS\Rest\Util\Codes;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Form\InvoiceType;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class InvoiceController extends AbstractRestController
 {

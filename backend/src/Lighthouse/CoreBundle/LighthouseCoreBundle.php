@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\DependencyInjection\Compiler\DocumentRepositoryPass;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Doctrine\ODM\MongoDB\Mapping\Types\Type;
+use Doctrine\ODM\MongoDB\Types\Type;
 
 class LighthouseCoreBundle extends Bundle
 {

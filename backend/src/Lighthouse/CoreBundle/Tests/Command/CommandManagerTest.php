@@ -28,7 +28,7 @@ class CommandManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param array $commands
-     * @param stirng $commandName
+     * @param string $commandName
      * @param Command $command
      */
     protected function assertCommand(array $commands, $commandName, Command $command)

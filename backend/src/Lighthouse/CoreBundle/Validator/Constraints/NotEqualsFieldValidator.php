@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
-
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
@@ -15,7 +14,7 @@ class NotEqualsFieldValidator extends ConstraintValidator
      * @return bool|void
      * @throws \Symfony\Component\Validator\Exception\MissingOptionsException
      */
-    public function isValid($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint)
     {
         if ($value == $this->context->getRoot()->get($constraint->field)->getData()) {
             $this->context->addViolation(

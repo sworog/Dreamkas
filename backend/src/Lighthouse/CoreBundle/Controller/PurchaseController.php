@@ -19,7 +19,7 @@ class PurchaseController extends AbstractRestController
     protected $documentRepository;
 
     /**
-     * @return AbstractType
+     * @return PurchaseType
      */
     protected function getDocumentFormType()
     {

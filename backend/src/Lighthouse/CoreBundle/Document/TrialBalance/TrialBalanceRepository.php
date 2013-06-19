@@ -54,7 +54,8 @@ class TrialBalanceRepository extends DocumentRepository
 
     /**
      * @param Product $product
-     * @return TrialBalance|null
+     * @param InvoiceProduct $invoiceProduct
+     * @return TrialBalance
      */
     public function findOneByProduct(Product $product, InvoiceProduct $invoiceProduct = null)
     {

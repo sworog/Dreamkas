@@ -49,6 +49,8 @@ class JsonPath
     }
 
     /**
+     * @param array $array
+     * @param string $path
      * @return array|mixed
      * @throws \DomainException
      */

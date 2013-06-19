@@ -4,8 +4,6 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Component\DomCrawler\Crawler;
 
 class InvoiceControllerTest extends WebTestCase
 {
@@ -117,15 +115,18 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = $data + $invoiceData['invoice']['data'];
 
-        $crawler = $this->client->request(
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/invoices.xml',
+            '/api/1/invoices',
             $postData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
 
-        $this->runCrawlerAssertions($crawler, $assertions);
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathContains($expected, $path, $postResponse);
+        }
     }
 
     /**
@@ -137,21 +138,17 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = $data + $invoiceData['invoice']['data'];
 
-        $crawler = $this->client->request(
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/invoices.xml',
+            '/api/1/invoices',
             $postData
         );
 
         Assert::assertResponseCode(400, $this->client);
 
-        $this->assertContains(
-            'Вы ввели неверную дату',
-            $crawler->filter('form[name="acceptanceDate"] errors entry')->first()->text()
-        );
-        $this->assertEmpty(
-            $crawler->filter('form[name="supplierInvoiceDate"] errors entry')->count()
-        );
+        Assert::assertJsonPathContains('Вы ввели неверную дату', 'children.acceptanceDate.errors.0', $postResponse);
+        Assert::assertNotJsonHasPath('children.supplierInvoiceDate.errors.0', $postResponse);
     }
 
     /**
@@ -295,7 +292,7 @@ class InvoiceControllerTest extends WebTestCase
                 400,
                 array('sku' => ''),
                 array(
-                    'form[name="sku"] errors entry'
+                    'children.sku.errors.0'
                     =>
                     'Заполните это поле',
                 ),
@@ -303,11 +300,7 @@ class InvoiceControllerTest extends WebTestCase
             'not valid sku too long' => array(
                 400,
                 array('sku' => str_repeat("z", 105)),
-                array(
-                    'form[name="sku"] errors entry'
-                    =>
-                    'Не более 100 символов',
-                ),
+                array('children.sku.errors.0' => 'Не более 100 символов'),
             ),
             /***********************************************************************************************
              * 'supplier'
@@ -323,20 +316,12 @@ class InvoiceControllerTest extends WebTestCase
             'empty supplier' => array(
                 400,
                 array('supplier' => ''),
-                array(
-                    'form[name="supplier"] errors entry'
-                    =>
-                    'Заполните это поле',
-                ),
+                array('children.supplier.errors.0' => 'Заполните это поле'),
             ),
             'not valid supplier too long' => array(
                 400,
                 array('supplier' => str_repeat("z", 305)),
-                array(
-                    'form[name="supplier"] errors entry'
-                    =>
-                    'Не более 300 символов',
-                ),
+                array('children.supplier.errors.0' => 'Не более 300 символов'),
             ),
             /***********************************************************************************************
              * 'accepter'
@@ -352,20 +337,12 @@ class InvoiceControllerTest extends WebTestCase
             'empty accepter' => array(
                 400,
                 array('accepter' => ''),
-                array(
-                    'form[name="accepter"] errors entry'
-                    =>
-                    'Заполните это поле',
-                ),
+                array('children.accepter.errors.0' => 'Заполните это поле',),
             ),
             'not valid accepter too long' => array(
                 400,
                 array('accepter' => str_repeat("z", 105)),
-                array(
-                    'form[name="accepter"] errors entry'
-                    =>
-                    'Не более 100 символов',
-                ),
+                array('children.accepter.errors.0' => 'Не более 100 символов'),
             ),
             /***********************************************************************************************
              * 'legalEntity'
@@ -381,20 +358,12 @@ class InvoiceControllerTest extends WebTestCase
             'empty legalEntity' => array(
                 400,
                 array('legalEntity' => ''),
-                array(
-                    'form[name="legalEntity"] errors entry'
-                    =>
-                    'Заполните это поле',
-                ),
+                array('children.legalEntity.errors.0' => 'Заполните это поле'),
             ),
             'not valid legalEntity too long' => array(
                 400,
                 array('legalEntity' => str_repeat("z", 305)),
-                array(
-                    'form[name="legalEntity"] errors entry'
-                    =>
-                    'Не более 300 символов',
-                ),
+                array('children.legalEntity.errors.0' => 'Не более 300 символов'),
             ),
             /***********************************************************************************************
              * 'supplierInvoiceSku'
@@ -414,11 +383,7 @@ class InvoiceControllerTest extends WebTestCase
             'not valid supplierInvoiceSku too long' => array(
                 400,
                 array('supplierInvoiceSku' => str_repeat("z", 105)),
-                array(
-                    'form[name="supplierInvoiceSku"] errors entry'
-                    =>
-                    'Не более 100 символов',
-                ),
+                array('children.supplierInvoiceSku.errors.0' => 'Не более 100 символов'),
             ),
             /***********************************************************************************************
              * 'acceptanceDate'
@@ -446,26 +411,18 @@ class InvoiceControllerTest extends WebTestCase
             'empty acceptanceDate' => array(
                 400,
                 array('acceptanceDate' => ''),
-                array(
-                    'form[name="acceptanceDate"] errors entry'
-                    =>
-                    'Заполните это поле',
-                ),
+                array('children.acceptanceDate.errors.0' => 'Заполните это поле'),
             ),
             'not valid acceptanceDate 2013-02-31' => array(
                 400,
                 array('acceptanceDate' => '2013-02-31'),
-                array(
-                    'form[name="acceptanceDate"] errors entry'
-                    =>
-                    'Вы ввели неверную дату',
-                ),
+                array('children.acceptanceDate.errors.0' => 'Вы ввели неверную дату'),
             ),
             'not valid acceptanceDate aaa' => array(
                 400,
                 array('acceptanceDate' => 'aaa'),
                 array(
-                    'form[name="acceptanceDate"] errors entry'
+                    'children.acceptanceDate.errors.0'
                     =>
                     'Вы ввели неверную дату',
                 ),
@@ -501,7 +458,7 @@ class InvoiceControllerTest extends WebTestCase
                 400,
                 array('supplierInvoiceDate' => '2013-02-31'),
                 array(
-                    'form[name="supplierInvoiceDate"] errors entry'
+                    'children.supplierInvoiceDate.errors.0'
                     =>
                     'Вы ввели неверную дату',
                 ),
@@ -510,7 +467,7 @@ class InvoiceControllerTest extends WebTestCase
                 400,
                 array('supplierInvoiceDate' => 'aaa'),
                 array(
-                    'form[name="supplierInvoiceDate"] errors entry'
+                    'children.supplierInvoiceDate.errors.0'
                     =>
                     'Вы ввели неверную дату',
                 ),
@@ -529,7 +486,7 @@ class InvoiceControllerTest extends WebTestCase
                     'acceptanceDate' => '2013-03-14'
                 ),
                 array(
-                    'form[name="supplierInvoiceDate"] errors entry'
+                    'children.supplierInvoiceDate.errors.0'
                     =>
                     'Дата накладной не должна быть старше даты приемки',
                 ),
@@ -541,7 +498,7 @@ class InvoiceControllerTest extends WebTestCase
                 400,
                 array('createdDate' => '2013-03-26T12:34:56'),
                 array(
-                    'errors entry'
+                    'errors.0'
                     =>
                     'Эта форма не должна содержать дополнительных полей',
                 ),

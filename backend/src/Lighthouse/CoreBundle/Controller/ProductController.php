@@ -3,9 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\LoggableCursor;
-use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\Product;
@@ -14,7 +12,6 @@ use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractRestController
@@ -26,7 +23,7 @@ class ProductController extends AbstractRestController
     protected $documentRepository;
 
     /**
-     * @return AbstractType
+     * @return ProductType
      */
     protected function getDocumentFormType()
     {

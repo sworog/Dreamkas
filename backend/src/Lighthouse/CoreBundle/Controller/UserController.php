@@ -49,7 +49,7 @@ class UserController extends AbstractRestController
 
         $type = $this->getDocumentFormType();
         $form = $this->createForm($type, $document);
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             // Set encode password
