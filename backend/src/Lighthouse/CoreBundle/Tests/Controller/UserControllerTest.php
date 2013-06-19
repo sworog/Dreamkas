@@ -216,9 +216,9 @@ class UserControllerTest extends WebTestCase
                 201,
                 array('role' => 'storeManager'),
             ),
-            'valid role departmentalManager' => array(
+            'valid role departmentManager' => array(
                 201,
-                array('role' => 'departmentalManager'),
+                array('role' => 'departmentManager'),
             ),
             'valid role administrator' => array(
                 201,
