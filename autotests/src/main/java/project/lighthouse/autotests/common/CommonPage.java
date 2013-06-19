@@ -205,10 +205,6 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         apiConnect.createInvoiceThroughPost(invoiceName, productSku);
     }
 
-    public void averagePriceCalculation() {
-        apiConnect.averagePriceRecalculation();
-    }
-
     public void checkAlertText(String expectedText) {
         Alert alert = waiter.getAlert();
         String alertText = alert.getText();

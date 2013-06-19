@@ -71,9 +71,4 @@ public class CommonSteps extends ScenarioSteps {
     public void NoAlertIsPresent() {
         commonPage.NoAlertIsPresent();
     }
-
-    @Step
-    public void averagePriceCalculation() {
-        commonPage.averagePriceCalculation();
-    }
 }
