@@ -4,20 +4,16 @@ define(function(require) {
             BaseRouter = require('routers/baseRouter');
 
         require('routers/invoice');
-        require('routers/balance');
         require('routers/writeOff');
+        require('routers/catalog');
 
         var Router = BaseRouter.extend({
             routes: {
-                '': require('pages/main/dashboard'),
-                '/': require('pages/main/dashboard'),
-                'dashboard': require('pages/main/dashboard'),
+                '': require('pages/common/dashboard'),
+                '/': require('pages/common/dashboard'),
+                'dashboard': require('pages/common/dashboard'),
                 'sale': 'sale',
-
-                //catalog
-                //'catalog': require('pages/catalog/catalog'),
-                //'catalog/:catalogClassId': require('pages/catalog/class'),
-                //'catalog/:catalogClassId/:catalogGroupId': require('pages/catalog/group'),
+                'balance': require('pages/common/balance'),
 
                 //users
                 'users': require('pages/user/list'),
