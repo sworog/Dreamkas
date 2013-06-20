@@ -8,15 +8,20 @@ define(function(require) {
         templates: {
             content: require('tpl!./templates/list.html')
         },
-        collections: {},
-        initData: function(){
-            this.collections.users = new UsersCollection();
+        initCollections: {
+            users: function(){
+                return new UsersCollection();
+            }
         },
-        initBlocks: function(){
-            new Table_users({
-                collection: this.collections.users,
-                el: document.getElementById('table_users')
-            });
+        initBlocks: {
+            table_users: function(){
+                var page = this;
+
+                return new Table_users({
+                    collection: page.collections.users,
+                    el: document.getElementById('table_users')
+                });
+            }
         }
     });
 });

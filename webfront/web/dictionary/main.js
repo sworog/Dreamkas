@@ -4,12 +4,12 @@ define(function(require) {
         dictionary = require('i18n!nls/dictionary');
 
     LH.text = window.t = function(text) {
-        return dictionary[text] || dictionary[text.toLowerCase()] || text;
+        return text ? _.escape(dictionary[text] || dictionary[text.toLowerCase()] || text) : '';
     };
 
-    LH.dictionary = _.extend(dictionary, {
-        userRoles: require('i18n!nls/userRoles')
-    });
+    LH.dictionary = _.extend(dictionary,
+        require('i18n!nls/userRoles')
+    );
 
     return LH;
 });

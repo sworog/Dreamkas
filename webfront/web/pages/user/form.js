@@ -15,16 +15,20 @@ define(function(require) {
             page.userId = userId;
             page.title = userId ? 'Редактирование пользователя' : 'Добавление нового пользователя';
         },
-        initBlocks: function(){
-            new Form_user({
-                model: this.models.user,
-                el: document.getElementById('form_user')
-            });
+        initBlocks: {
+            form_user: function() {
+                return new Form_user({
+                    model: this.models.user,
+                    el: document.getElementById('form_user')
+                });
+            }
         },
-        initData: function(){
-            this.models.user = new UserModel({
-                id: this.userId
-            });
+        initModels: {
+            user: function() {
+                return new UserModel({
+                    id: this.userId
+                });
+            }
         }
     });
 });
