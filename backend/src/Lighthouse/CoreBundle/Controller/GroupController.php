@@ -38,6 +38,7 @@ class GroupController extends AbstractRestController
     /**
      * @Rest\View(statusCode=201)
      * @param Request $request
+     * @return \FOS\RestBundle\View\View|Group
      */
     public function postGroupsAction(Request $request)
     {
@@ -90,7 +91,7 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @param string $id
+     * @param string $groupId
      * @return null
      */
     public function deleteGroupsAction($groupId)

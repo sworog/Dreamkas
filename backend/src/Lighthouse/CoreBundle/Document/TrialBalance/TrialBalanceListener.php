@@ -2,18 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
-use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository;
-use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
-use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 
 /**
  * Class TrialBalanceListener
@@ -100,7 +96,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         }
         $newAcceptanceDate = $changeSet['acceptanceDate'][1];
 
-        /* @var Cursor $invoiceProducts */
+        /* @var InvoiceProduct[] $invoiceProducts */
         $invoiceProducts = $this->invoiceProductRepository->findByInvoice($invoice->id);
         $trailBalances = $this->trialBalanceRepository->findByReasons($invoiceProducts);
 

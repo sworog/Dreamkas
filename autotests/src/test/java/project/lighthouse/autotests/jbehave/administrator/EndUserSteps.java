@@ -95,7 +95,7 @@ public class EndUserSteps {
         userSteps.listItemCheck(login);
     }
 
-    @Then("the user checks the user with '$login' username has '$name' element equal to '$expectedValue' on amounts page")
+    @Then("the user checks the user with '$login' username has '$name' element equal to '$expectedValue' on users page")
     public void thenTheUserChecksTheProductWithValueHasElement(String login, String elementName, String expectedValue) {
         userSteps.checkListItemHasExpectedValueByFindByLocator(login, elementName, expectedValue);
     }

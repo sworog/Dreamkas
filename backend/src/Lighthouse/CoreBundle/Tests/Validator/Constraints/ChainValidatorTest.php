@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
 use Lighthouse\CoreBundle\Validator\Constraints\Chain;
 use Lighthouse\CoreBundle\Validator\Constraints\ChainValidator;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\ExecutionContextInterface;
@@ -130,7 +129,7 @@ class ChainValidatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidOptionsProvider
-     * @expectedException Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      */
     public function testRejectConstructorWithInvalidConstraints($options)
     {
@@ -160,7 +159,7 @@ class ChainValidatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider missingOptionsProvider
-     * @expectedException Symfony\Component\Validator\Exception\MissingOptionsException
+     * @expectedException \Symfony\Component\Validator\Exception\MissingOptionsException
      */
     public function testRejectConstructorWithMissingOptions($options)
     {

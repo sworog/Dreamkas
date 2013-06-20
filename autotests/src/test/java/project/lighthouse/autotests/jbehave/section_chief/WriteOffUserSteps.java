@@ -6,7 +6,10 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.steps.WriteOffSteps;
+
+import java.io.IOException;
 
 public class WriteOffUserSteps {
 
@@ -16,6 +19,33 @@ public class WriteOffUserSteps {
     @Given("the user opens the write off create page")
     public void givenTheUserOpensTheWriteOffCreatePage() {
         writeOffSteps.openPage();
+    }
+
+    @Given("there is the write off with number '$writeOffNumber'")
+    public void givenThereIsTheWriteOffWithNumber(String writeOffNumber) throws IOException, JSONException {
+        writeOffSteps.createWriteOffThroughPost(writeOffNumber);
+    }
+
+    @Given("there is the write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
+    public void givenThereIsTheWriteOffWithProduct(String writeOffNumber, String productSku, String quantity, String price, String cause)
+            throws IOException, JSONException {
+        writeOffSteps.createWriteOffThroughPost(writeOffNumber, productSku, productSku, productSku, "kg", "15", quantity, price, cause);
+    }
+
+    @Given("the user navigates to new write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
+    public void givenThereIsTheWriteOffWithProductWithNavigation(String writeOffNumber, String productSku, String productUnits, String purchasePrice, String quantity, String price, String cause)
+            throws IOException, JSONException {
+        writeOffSteps.createWriteOffAndNavigateToIt(writeOffNumber, productSku, productSku, productSku, productUnits, purchasePrice, quantity, price, cause);
+    }
+
+    @Given("navigate to new write off with '$writeOffNumber' number")
+    public void givenThereIsTheWriteOffWithProductWithNavigation(String writeOffNumber) throws IOException, JSONException {
+        writeOffSteps.createWriteOffAndNavigateToIt(writeOffNumber);
+    }
+
+    @Given("the user navigates to the write off with number '$writeOffNumber'")
+    public void givenNavigateToTheWriteOffWithNumber(String writeNumber) throws JSONException {
+        writeOffSteps.navigatoToWriteOffPage(writeNumber);
     }
 
     @When("the user inputs '$inputValue' in the '$elementName' field on the write off page")

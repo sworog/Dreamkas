@@ -4,7 +4,10 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.json.JSONException;
 import project.lighthouse.autotests.steps.CatalogSteps;
+
+import java.io.IOException;
 
 public class CatalogUserSteps {
 
@@ -14,6 +17,21 @@ public class CatalogUserSteps {
     @Given("the user opens catalog page")
     public void givenTheUSerOpensCatalogPage() {
         catalogSteps.openPage();
+    }
+
+    @Given("there is the class with name '$klassName'")
+    public void givenThereIsTheClassWithName(String klassName) throws IOException, JSONException {
+        catalogSteps.createKlassThroughPost(klassName);
+    }
+
+    @Given("there is the group with name '$groupName' related to class named '$klassName'")
+    public void givenThereIsTheGroupWithNameRelatedToKlass(String groupName, String klassName) throws IOException, JSONException {
+        catalogSteps.createGroupThroughPost(groupName, klassName);
+    }
+
+    @Given("the user navigates to the klass with name '$klassName'")
+    public void givenTheUserNavigatesToTheKlassName(String klassName) throws JSONException {
+        catalogSteps.navigateToKlassPage(klassName);
     }
 
     @When("the user clicks on start edition link and starts the edition")

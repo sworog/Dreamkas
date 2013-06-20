@@ -3,18 +3,38 @@ package project.lighthouse.autotests.steps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.pages.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.catalog.CatalogPage;
 import project.lighthouse.autotests.pages.catalog.ClassPage;
+
+import java.io.IOException;
 
 public class CatalogSteps extends ScenarioSteps {
 
     CatalogPage catalogPage;
     ClassPage classPage;
     CommonPage commonPage;
+    CatalogApi catalogApi;
 
     public CatalogSteps(Pages pages) {
         super(pages);
+    }
+
+    @Step
+    public void createKlassThroughPost(String klassName) throws IOException, JSONException {
+        catalogApi.createKlassThroughPost(klassName);
+    }
+
+    @Step
+    public void createGroupThroughPost(String groupName, String klassName) throws IOException, JSONException {
+        catalogApi.createGroupThroughPost(groupName, klassName);
+    }
+
+    @Step
+    public void navigateToKlassPage(String klassName) throws JSONException {
+        catalogApi.navigateToKlassPage(klassName);
     }
 
     @Step

@@ -9,6 +9,15 @@ define(function(require) {
         redirectUrl: '/users',
         templates: {
             index: require('tpl!./templates/form_user.html')
+        },
+        initialize: function(){
+            var block = this;
+
+            if (block.model.id){
+                block.redirectUrl = '/users/' + block.model.id
+            }
+
+            Form.prototype.initialize.call(this);
         }
     });
 });

@@ -6,12 +6,40 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.steps.ProductSteps;
+
+import java.io.IOException;
 
 public class ProductUserSteps {
 
     @Steps
     ProductSteps productSteps;
+
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode")
+    public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode) throws JSONException, IOException {
+        productSteps.createProductPostRequestSend(name, sku, barcode, "kg", "123");
+    }
+
+    @Given("there is created product with sku '$sku'")
+    public void givenThereIsCreatedProductWithSkuValue(String sku) throws JSONException, IOException {
+        givenTheUserCreatesProductWithParams(sku, sku, sku, "kg");
+    }
+
+    @Given("there is created product with sku '$sku' and '$purchasePrice' purchasePrice")
+    public void givenThereIsCreatedProductWithSkuValue(String sku, String purchasePrice) throws JSONException, IOException {
+        givenTheUserCreatesProductWithParamsPrice(sku, sku, sku, "kg", purchasePrice);
+    }
+
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units")
+    public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode, String units) throws JSONException, IOException {
+        productSteps.createProductPostRequestSend(name, sku, barcode, units, "123");
+    }
+
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice")
+    public void givenTheUserCreatesProductWithParamsPrice(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
+        productSteps.createProductPostRequestSend(name, sku, barcode, units, purchasePrice);
+    }
 
     @Given("the user is on the product create page")
     public void givenTheUserIsOnTheOrderCreatePage() {

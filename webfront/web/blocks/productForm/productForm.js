@@ -2,7 +2,7 @@ define(function(require) {
         //requirements
         var Form = require('kit/form/form'),
             ProductModel = require('models/product'),
-            helpers = require('helpers/helpers'),
+            helpers = require('helpers'),
             router = require('routers/mainRouter');
 
         return Form.extend({
@@ -81,8 +81,10 @@ define(function(require) {
                 block.$retailPriceLink = block.$retailPriceInput.next('.productForm__inputLink');
                 block.$retailMarkupLink = block.$retailMarkupInput.next('.productForm__inputLink');
             },
-            _afterRender: function(){
+            render: function(){
                 var block = this;
+
+                Form.prototype.render.call(this);
 
                 block.renderRetailMarkupLink();
                 block.renderRetailPriceLink();

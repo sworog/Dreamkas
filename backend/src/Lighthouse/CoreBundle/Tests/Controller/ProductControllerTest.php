@@ -19,16 +19,17 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPostProductAction(array $postData)
     {
-        $crawler = $this->client->request(
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            'api/1/products.xml',
+            'api/1/products',
             $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
 
-        $this->assertEquals(30.48, $crawler->filter('purchasePrice')->first()->text());
-        $this->assertEquals(0, $crawler->filterXPath('//product/lastPurchasePrice')->count());
+        Assert::assertJsonPathEquals(30.48, 'purchasePrice', $postResponse);
+        Assert::assertNotJsonHasPath('lastPurchasePrice', $postResponse);
     }
 
     /**

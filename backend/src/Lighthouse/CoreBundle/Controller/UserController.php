@@ -38,7 +38,7 @@ class UserController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\Invoice
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
      *
      * @Rest\View(statusCode=201)
      */
@@ -48,8 +48,8 @@ class UserController extends AbstractRestController
         $document = $this->getDocumentRepository()->createNew();
 
         $type = $this->getDocumentFormType();
-        $form = $this->createForm($type, $document);
-        $form->bind($request);
+        $form = $this->createForm($type, $document, array('validation_groups' => array('Default', 'registration')));
+        $form->submit($request);
 
         if ($form->isValid()) {
             // Set encode password
@@ -57,6 +57,41 @@ class UserController extends AbstractRestController
             $document->salt = md5(date('cr'));
             $document->password = $encoder->encodePassword($document->password, $document->getSalt());
 
+            $this->getDocumentRepository()->getDocumentManager()->persist($document);
+            $this->getDocumentRepository()->getDocumentManager()->flush();
+            return $document;
+        } else {
+            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+        }
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $id
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
+     *
+     * @Rest\View(statusCode=200)
+     */
+    public function putUsersAction(Request $request, $id)
+    {
+        /** @var User $document */
+        $document = $this->findDocument($id);
+        $originPassword = $document->password;
+
+        $type = $this->getDocumentFormType();
+        $form = $this->createForm($type, $document);
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            $requestPassword = $form->get('password')->getData();
+            if (null === $requestPassword || '' == $requestPassword) {
+                $document->password = $originPassword;
+            } else {
+                // Set encode password
+                $encoder = $this->encodeFactory->getEncoder($document);
+                $document->salt = md5(date('cr'));
+                $document->password = $encoder->encodePassword($document->password, $document->getSalt());
+            }
             $this->getDocumentRepository()->getDocumentManager()->persist($document);
             $this->getDocumentRepository()->getDocumentManager()->flush();
             return $document;

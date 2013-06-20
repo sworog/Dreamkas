@@ -23,7 +23,7 @@ public class UsersListPage extends CommonPageObject {
     public void createElements() {
         items.put("name", new NonType(this, "name"));
         items.put("position", new NonType(this, "position"));
-        items.put("username", new NonType(this, "login"));
+        items.put("username", new NonType(this, "username"));
         items.put("password", new NonType(this, "password"));
         items.put("role", new NonType(this, "role"));
     }

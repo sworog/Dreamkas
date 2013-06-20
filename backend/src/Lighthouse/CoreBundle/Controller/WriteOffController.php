@@ -2,8 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\Rest\Util\Codes;
-use FOS\RestBundle\Controller\FOSRestController;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffCollection;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository;
@@ -43,6 +41,7 @@ class WriteOffController extends AbstractRestController
      * @Rest\View(statusCode=200)
      *
      * @param Request $request
+     * @param string $id
      * @return \FOS\RestBundle\View\View|WriteOff
      */
     public function putWriteoffsAction(Request $request, $id)

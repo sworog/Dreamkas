@@ -6,12 +6,25 @@ import org.jbehave.core.annotations.Pending;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.steps.InvoiceSteps;
+
+import java.io.IOException;
 
 public class InvoiceUserSteps {
 
     @Steps
     InvoiceSteps invoiceSteps;
+
+    @Given("there is the invoice '$invoiceSku' with product '$productName' name, '$productSku' sku, '$productBarCode' barcode, '$productUnits' units")
+    public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
+        invoiceSteps.createInvoiceThroughPostWithData(invoiceSku, productName, productSku, productBarCode, productUnits);
+    }
+
+    @Given("there is the invoice with '$sku' sku")
+    public void givenThereIsTheInvoiceWithSku(String sku) throws JSONException, IOException {
+        invoiceSteps.createInvoiceThroughPost(sku);
+    }
 
     @Given("the user is on the invoice create page")
     public void givenTheUserIsOnTheInvoiceCreatePage() {

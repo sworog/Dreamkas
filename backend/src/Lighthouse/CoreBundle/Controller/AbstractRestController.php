@@ -39,7 +39,7 @@ abstract class AbstractRestController extends FOSRestController
     {
         $type = $this->getDocumentFormType();
         $form = $this->createForm($type, $document);
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             $this->getDocumentRepository()->getDocumentManager()->persist($document);

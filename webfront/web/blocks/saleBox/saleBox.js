@@ -77,8 +77,10 @@ define(function(require) {
                     }
                 });
             },
-            _afterRender: function() {
+            render: function() {
                 var block = this;
+
+                Block.prototype.render.call(this);
 
                 block.purchaseForm = new Form({
                     el: block.$purchaseForm[0],

@@ -1,15 +1,12 @@
 package project.lighthouse.autotests.pages.users;
 
-import net.thucydides.core.pages.PageObject;
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.ApiConnect;
+import project.lighthouse.autotests.common.CommonApi;
 
 import java.io.IOException;
 
-public class UserApi extends PageObject {
-
-    ApiConnect apiConnect = new ApiConnect(getDriver());
+public class UserApi extends CommonApi {
 
     public UserApi(WebDriver driver) {
         super(driver);

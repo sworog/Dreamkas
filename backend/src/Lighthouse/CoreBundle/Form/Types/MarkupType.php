@@ -75,9 +75,4 @@ class MarkupType extends AbstractType
     {
         return 'markup';
     }
-
-    public function getParent()
-    {
-        return 'field';
-    }
 }
