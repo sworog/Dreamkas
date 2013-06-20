@@ -23,7 +23,8 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $username
  * @property string $name
  * @property string $position
- * @property hash   $password
+ * @property string $password
+ * @property string $salt
  * @property string $role
  *
  * @MongoDB\Document(

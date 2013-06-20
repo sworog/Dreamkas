@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Form\UserType;
+use Lighthouse\CoreBundle\Security\UserProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -23,10 +24,10 @@ class UserController extends AbstractRestController
     protected $documentRepository;
 
     /**
-     * @DI\Inject("security.encoder_factory")
-     * @var EncoderFactory
+     * @DI\Inject("lighthouse.core.user.provider")
+     * @var UserProvider
      */
-    public $encodeFactory;
+    public $userProvider;
 
     /**
      * @return AbstractType
@@ -52,10 +53,7 @@ class UserController extends AbstractRestController
         $form->submit($request);
 
         if ($form->isValid()) {
-            // Set encode password
-            $encoder = $this->encodeFactory->getEncoder($document);
-            $document->salt = md5(date('cr'));
-            $document->password = $encoder->encodePassword($document->password, $document->getSalt());
+            $this->userProvider->setPassword($document, $document->password);
 
             $this->getDocumentRepository()->getDocumentManager()->persist($document);
             $this->getDocumentRepository()->getDocumentManager()->flush();
@@ -87,10 +85,7 @@ class UserController extends AbstractRestController
             if (null === $requestPassword || '' == $requestPassword) {
                 $document->password = $originPassword;
             } else {
-                // Set encode password
-                $encoder = $this->encodeFactory->getEncoder($document);
-                $document->salt = md5(date('cr'));
-                $document->password = $encoder->encodePassword($document->password, $document->getSalt());
+                $this->userProvider->setPassword($document, $document->password);
             }
             $this->getDocumentRepository()->getDocumentManager()->persist($document);
             $this->getDocumentRepository()->getDocumentManager()->flush();
