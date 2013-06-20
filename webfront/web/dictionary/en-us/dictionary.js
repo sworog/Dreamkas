@@ -7,5 +7,6 @@ define({
     'Списания': 'Write offs',
     'Алтарь администратора': 'Altar of administrator',
     'Консоль товароведа': 'Console goods manager',
-    'Пользователи': 'Users'
+    'Пользователи': 'Users',
+    'Выберите роль пользователя': 'Choose user role'
 });
