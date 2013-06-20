@@ -81,8 +81,10 @@ define(function(require) {
                 block.$retailPriceLink = block.$retailPriceInput.next('.productForm__inputLink');
                 block.$retailMarkupLink = block.$retailMarkupInput.next('.productForm__inputLink');
             },
-            _afterRender: function(){
+            render: function(){
                 var block = this;
+
+                Form.prototype.render.call(this);
 
                 block.renderRetailMarkupLink();
                 block.renderRetailPriceLink();
