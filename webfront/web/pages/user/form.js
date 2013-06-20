@@ -22,15 +22,13 @@ define(function(require) {
                 });
             }
         },
-        initBlocks: {
-            form_user: function() {
-                var page = this;
+        initBlocks: function() {
+            var page = this;
 
-                return new Form_user({
-                    model: page.models.user,
-                    el: document.getElementById('form_user')
-                });
-            }
+            new Form_user({
+                model: page.models.user,
+                el: document.getElementById('form_user')
+            });
         }
     });
 });

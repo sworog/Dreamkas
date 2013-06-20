@@ -1,9 +1,19 @@
 <% block.collection.each(function(model){ %>
 <tr name="product" href="/products/<%= model.get('id') %>">
-    <td name="sku"><%= model.get('sku') %></td>
-    <td name="name"><%= model.get('name') %></td>
-    <td name="vendor"><%= model.get('vendor') %></td>
-    <td name="vendorCountry"><%= model.get('vendorCountry') %></td>
-    <td name="purchasePrice"><%= LH.helpers.formatPrice(model.get('purchasePrice')) %> р.</td>
+    <td name="sku">
+        <%= model.get('sku') %>
+    </td>
+    <td name="name">
+        <%= model.get('name') %>
+    </td>
+    <td name="vendor">
+        <%= model.get('vendor') %>
+    </td>
+    <td name="vendorCountry">
+        <%= model.get('vendorCountry') %>
+    </td>
+    <td name="purchasePrice">
+        <%= LH.helpers.formatPrice(model.get('purchasePrice')) %> р.
+    </td>
 </tr>
 <% }) %>

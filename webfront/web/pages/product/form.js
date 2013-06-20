@@ -5,7 +5,7 @@ define(function(require) {
         Form_product = require('blocks/form/form_product/form_product');
 
     return Page.extend({
-        initialize: function(productId){
+        initialize: function(productId) {
             var page = this;
 
             page.productId = productId;
@@ -14,7 +14,7 @@ define(function(require) {
             '#content': require('tpl!./templates/form.html')
         },
         initModels: {
-            product: function(){
+            product: function() {
                 var page = this;
 
                 return new ProductModel({
@@ -22,15 +22,13 @@ define(function(require) {
                 })
             }
         },
-        initBlocks: {
-            form_product: function(){
-                var page = this;
+        initBlocks: function() {
+            var page = this;
 
-                return new Form_product({
-                    model: page.models.product,
-                    el: document.getElementById('form_product')
-                });
-            }
+            new Form_product({
+                model: page.models.product,
+                el: document.getElementById('form_product')
+            });
         }
     });
 });

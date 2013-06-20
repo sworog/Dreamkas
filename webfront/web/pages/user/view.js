@@ -5,7 +5,7 @@ define(function(require) {
         UserModel = require('models/user');
 
     return Page.extend({
-        initialize: function(userId){
+        initialize: function(userId) {
             var page = this;
 
             page.userId = userId;
@@ -14,7 +14,7 @@ define(function(require) {
             '#content': require('tpl!./templates/view.html')
         },
         initModels: {
-            user: function(){
+            user: function() {
                 var page = this;
 
                 return new UserModel({
@@ -22,15 +22,13 @@ define(function(require) {
                 });
             }
         },
-        initBlocks: {
-            user: function(){
-                var page = this;
+        initBlocks: function() {
+            var page = this;
 
-                return new User({
-                    model: page.models.user,
-                    el: document.getElementById('user')
-                });
-            }
+            new User({
+                model: page.models.user,
+                el: document.getElementById('user')
+            });
         }
     });
 });
