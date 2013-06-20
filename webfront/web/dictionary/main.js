@@ -4,7 +4,13 @@ define(function(require) {
         dictionary = require('i18n!nls/dictionary');
 
     LH.text = window.t = function(text) {
-        return text ? _.escape(dictionary[text] || dictionary[text.toLowerCase()] || text) : '';
+        var result = '';
+
+        if (typeof text === 'string'){
+            result = _.escape(dictionary[text] || text);
+        }
+
+        return result;
     };
 
     LH.dictionary = _.extend(dictionary,
