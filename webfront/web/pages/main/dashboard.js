@@ -4,7 +4,7 @@ define(function(require) {
 
     return Page.extend({
         templates: {
-            content: require('tpl!./templates/dashboard.html')
+            '#content': require('tpl!./templates/dashboard.html')
         }
     });
 });

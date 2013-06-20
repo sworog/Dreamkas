@@ -11,7 +11,7 @@ define(function(require) {
             page.userId = userId;
         },
         templates: {
-            content: require('tpl!./templates/view.html')
+            '#content': require('tpl!./templates/view.html')
         },
         initModels: {
             user: function(){

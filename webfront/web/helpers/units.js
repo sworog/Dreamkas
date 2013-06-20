@@ -19,6 +19,6 @@ define(function() {
     };
 
     return function(unit, format) {
-        return unitsEnums[unit][format];
+        return unit ? unitsEnums[unit][format] : '';
     }
 });

@@ -1,3 +1,4 @@
+<h3><%= block.model.id ? 'Редактирование пользователя' : 'Добавление нового пользователя' %></h3>
 <div class="form__field form__field_inline">
     <label class="form__label">Роль</label>
     <select class="select" value="<%= block.model.get('role') %>" name="role" require="blocks/select/select_userRole"></select>
@@ -31,7 +32,7 @@
 </div>
 <div class="form__controls">
     <span class="button button_color_blue">
-        Сохранить
+        <%= block.model.id ? 'Сохранить' : 'Добавить' %>
         <input type="submit"/>
     </span>
 </div>

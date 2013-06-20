@@ -5,7 +5,6 @@ define(function(require) {
 
         require('routers/invoice');
         require('routers/balance');
-        require('routers/product');
         require('routers/writeOff');
 
         var Router = BaseRouter.extend({
@@ -22,10 +21,15 @@ define(function(require) {
 
                 //users
                 'users': require('pages/user/list'),
-                'user/edit/:userId': require('pages/user/form'),
-                'user/create': require('pages/user/form'),
-                'users/:userId': require('pages/user/view')
+                'users/edit/:userId': require('pages/user/form'),
+                'users/create': require('pages/user/form'),
+                'users/:userId': require('pages/user/view'),
 
+                //products
+                'products': require('pages/product/list'),
+                'products/edit/:productId': require('pages/product/form'),
+                'products/create': require('pages/product/form'),
+                'products/:productId': require('pages/product/view')
             },
             sale: function() {
                 content.load('pages/sale.html');
