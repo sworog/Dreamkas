@@ -1,26 +1,26 @@
 <% block.collection.each(function(model){ %>
 <tr name="amountItem">
     <td name="sku">
-        <%= model.get('sku') %>
+        <%t model.get('sku') %>
     </td>
     <td name="name">
-        <%= model.get('name') %>
+        <%t model.get('name') %>
     </td>
     <td name="vendor">
-        <%= model.get('vendor') %>
+        <%t model.get('vendor') %>
     </td>
     <td name="vendorCountry">
-        <%= model.get('vendorCountry') %>
+        <%t model.get('vendorCountry') %>
     </td>
     <td name="averagePurchasePrice">
-        <%= model.get('averagePurchasePrice') ? LH.helpers.formatPrice(model.get('averagePurchasePrice')) + 'р.' : '&mdash;' %>
+        <%t model.get('averagePurchasePrice') ? LH.helpers.formatPrice(model.get('averagePurchasePrice')) + 'р.' : '&mdash;' %>
     </td>
     <td name="lastPurchasePrice">
-        <%= model.get('lastPurchasePrice') ? LH.helpers.formatPrice(model.get('lastPurchasePrice')) : LH.helpers.formatPrice(model.get('purchasePrice')) %> р.
+        <%t model.get('lastPurchasePrice') ? LH.helpers.formatPrice(model.get('lastPurchasePrice')) : LH.helpers.formatPrice(model.get('purchasePrice')) %> р.
     </td>
     <td>
-        <span name="amount"><%= model.get('amount') || 0 %></span>
-        <span name="units"><%= LH.helpers.units(model.get('units'), 'smallShort') %></span>
+        <span name="amount"><%t model.get('amount') || 0 %></span>
+        <span name="units"><%t LH.helpers.units(model.get('units'), 'smallShort') %></span>
     </td>
 </tr>
 <% }) %>

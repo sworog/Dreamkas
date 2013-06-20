@@ -5,10 +5,10 @@
     </a>
 </div>
 
-<h3 name="name" class="product__name"><%= block.model.get('name') %></h3>
+<h3 name="name" class="product__name"><%t block.model.get('name') %></h3>
 
 <div class="product__sku" name="sku">
-    <%= block.model.get('sku') %>
+    <%t block.model.get('sku') %>
 </div>
 
 <table class="table" style="width: 50%">
@@ -16,7 +16,7 @@
         <th>Закупочная цена</th>
         <td>
             <span name="purchasePrice">
-                <%= LH.helpers.formatPrice(block.model.get('purchasePrice')) %>
+                <%t LH.helpers.formatPrice(block.model.get('purchasePrice')) %>
             </span>
             руб.
         </td>
@@ -24,32 +24,32 @@
     <tr>
         <th>НДС</th>
         <td>
-            <span name="vat"><%= block.model.get('vat') %></span>
+            <span name="vat"><%t block.model.get('vat') %></span>
             %
         </td>
     </tr>
     <tr>
         <th>Штрих-код</th>
         <td>
-            <span name="barcode"><%= block.model.get('barcode') %></span>
+            <span name="barcode"><%t block.model.get('barcode') %></span>
         </td>
     </tr>
     <tr>
         <th>Единица измерения</th>
         <td name="units">
-            <%= LH.helpers.units(block.model.get('units'), 'smallFull') %>
+            <%t LH.helpers.units(block.model.get('units'), 'smallFull') %>
         </td>
     </tr>
     <tr>
         <th>Производитель</th>
         <td name="vendor">
-            <%= block.model.get('vendor') %>
+            <%t block.model.get('vendor') %>
         </td>
     </tr>
     <tr>
         <th>Страна</th>
         <td name="vendorCountry">
-            <%= block.model.get('vendorCountry') %>
+            <%t block.model.get('vendorCountry') %>
         </td>
     </tr>
     <tr>
@@ -57,7 +57,7 @@
         <td>
             <% if(block.model.get('retailMarkup')) { %>
                 <span name="retailMarkup">
-                    <%= block.model.get('retailMarkup') %>
+                    <%t block.model.get('retailMarkup') %>
                 </span>
             %
             <% } else { %>
@@ -72,7 +72,7 @@
         <td>
             <% if(block.model.get('retailPrice')){ %>
                 <span name="retailPrice">
-                    <%= LH.helpers.formatPrice(block.model.get('retailPrice')) %>
+                    <%t LH.helpers.formatPrice(block.model.get('retailPrice')) %>
                 </span>
             руб.
             <% } else { %>
@@ -84,5 +84,5 @@
     </tr>
 </table>
 <p name="info">
-    <%= block.model.get('info') %>
+    <%t block.model.get('info') %>
 </p>

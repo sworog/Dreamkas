@@ -1,5 +1,5 @@
 Итого
-<span name="totalProducts" class="writeOff__totalProducts"><%= block.writeOffModel.get('itemsCount') || 0 %></span>
+<span name="totalProducts" class="writeOff__totalProducts"><%t block.writeOffModel.get('itemsCount') || 0 %></span>
 позиций на сумму
-<span name="totalSum" class="writeOff__totalSum"><%= LH.helpers.formatPrice(block.writeOffModel.get('sumTotal')) %></span>
+<span name="totalSum" class="writeOff__totalSum"><%t LH.helpers.formatPrice(block.writeOffModel.get('sumTotal')) %></span>
 рублей
