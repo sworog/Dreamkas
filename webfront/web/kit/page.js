@@ -7,11 +7,43 @@ define(function(require) {
     var $page = $('body');
 
     var Page = function() {
-        $page.data('page', this);
-        this.initialize.apply(this, arguments);
+        var page = this;
+
+        $page.data('page', page);
+        page.initialize.apply(page, arguments);
+
+        if (typeof page.initModels === 'function') {
+            page.initModels();
+        } else {
+            _.each(page.initModels, function(initFunction, modelName) {
+                if (typeof initFunction === 'function') {
+                    page.models[modelName] = initFunction.call(page);
+                }
+            });
+        }
+
+        if (typeof page.initCollections === 'function') {
+            page.initCollections();
+        } else {
+            _.each(page.initCollections, function(initFunction, collectionName) {
+                if (typeof initFunction === 'function') {
+                    page.collections[collectionName] = initFunction.call(page);
+                }
+            });
+        }
+
         this.render();
-        this.initData();
-        this.initBlocks();
+
+        if (typeof this.initBlocks === 'function') {
+            page.initBlocks();
+        } else {
+            _.each(page.initBlocks, function(initFunction, blockName) {
+                if (typeof initFunction === 'function') {
+                    page.blocks[blockName] = initFunction.call(page);
+                }
+            });
+        }
+
         this.fetchData();
     };
 
@@ -47,30 +79,9 @@ define(function(require) {
                 $renderContainer.html(template({page: page}));
             });
         },
-        initBlocks: function() {
-            var page = this;
-
-            _.each(page.blocks, function(init, blockName) {
-                if (typeof init === 'function'){
-                    page.blocks[blockName] = init.call(page);
-                }
-            });
-        },
-        initData: function() {
-            var page = this;
-
-            _.each(page.models, function(init, modelName) {
-                if (typeof init === 'function') {
-                    page.models[modelName] = init.call(page);
-                }
-            });
-
-            _.each(page.collections, function(init, collectionName) {
-                if (typeof init === 'function') {
-                    page.collections[collectionName] = init.call(page);
-                }
-            });
-        },
+        initBlocks: {},
+        initModels: {},
+        initCollections: {},
         fetchData: function() {
             var page = this;
 

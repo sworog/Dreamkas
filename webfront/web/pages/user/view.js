@@ -1,16 +1,36 @@
 define(function(require) {
     //requirements
-    var content = require('blocks/content/content_main'),
-        template = require('tpl!./templates/view.html'),
-        User = require('blocks/user/user');
+    var Page = require('kit/page'),
+        User = require('blocks/user/user'),
+        UserModel = require('models/user');
 
-    return function(userId){
+    return Page.extend({
+        initialize: function(userId){
+            var page = this;
 
-        content.render(template);
+            page.userId = userId;
+        },
+        templates: {
+            content: require('tpl!./templates/view.html')
+        },
+        initModels: {
+            user: function(){
+                var page = this;
 
-        new User({
-            userId: userId,
-            el: document.getElementById('user')
-        });
-    };
+                return new UserModel({
+                    id: page.userId
+                });
+            }
+        },
+        initBlocks: {
+            user: function(){
+                var page = this;
+
+                return new User({
+                    model: page.models.user,
+                    el: document.getElementById('user')
+                });
+            }
+        }
+    });
 });

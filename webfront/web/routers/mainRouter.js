@@ -16,9 +16,9 @@ define(function(require) {
                 'sale': 'sale',
 
                 //catalog
-                'catalog': require('pages/catalog/catalog'),
-                'catalog/:catalogClassId': require('pages/catalog/class'),
-                'catalog/:catalogClassId/:catalogGroupId': require('pages/catalog/group'),
+                //'catalog': require('pages/catalog/catalog'),
+                //'catalog/:catalogClassId': require('pages/catalog/class'),
+                //'catalog/:catalogClassId/:catalogGroupId': require('pages/catalog/group'),
 
                 //users
                 'users': require('pages/user/list'),
