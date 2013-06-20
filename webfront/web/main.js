@@ -2,7 +2,8 @@ require(
     {
         baseUrl: '/',
         paths: {
-            'backbone.queryparams': 'libs/backbone/backbone.queryparams'
+            'backbone.queryparams': 'libs/backbone/backbone.queryparams',
+            'tpl': 'libs/require/tpl'
         },
         shim: {
             'backbone.queryparams': ['backbone']

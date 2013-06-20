@@ -17,13 +17,13 @@
 (function () {
 //>>excludeStart('excludeTpl', pragmas.excludeTpl)
 	var progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
-	
+
 		xmlRegExp = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,
-		
+
 		bodyRegExp = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im,
-		
+
 		buildMap = [],
-		
+
 		templateSettings = {
 			evaluate	: /<%([\s\S]+?)%>/g,
 			interpolate : /<%=([\s\S]+?)%>/g
@@ -52,7 +52,7 @@
 					.replace(/\t/g, '')
 					+ "');}return __p.join('');";
 			return tmpl;
-			
+
 			/** /
 			var func = new Function('obj', tmpl);
 			return data ? func(data) : func;

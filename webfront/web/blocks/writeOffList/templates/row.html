@@ -3,10 +3,10 @@
         <span name="date"><%= moment(writeOff.date).format('DD.MM.YYYY') %></span>
     </td>
     <td>
-        <span name="number"><%= writeOff.number %></span>
+        <span name="number"><%t writeOff.number %></span>
     </td>
     <td>
-        <span name="sumTotal"><%= LH.helpers.formatPrice(writeOff.sumTotal) %></span>
+        <span name="sumTotal"><%t LH.helpers.formatPrice(writeOff.sumTotal) %></span>
         <span>р.</span>
     </td>
 </tr>

@@ -3,16 +3,16 @@
         <span name="acceptanceDate"><%= moment(invoice.acceptanceDate).format('DD.MM.YYYY HH:mm') %></span>
     </td>
     <td>
-        <span name="sku"><%= invoice.sku %></span>
+        <span name="sku"><%t invoice.sku %></span>
     </td>
     <td>
-        <span name="supplier"><%= invoice.supplier %></span>
+        <span name="supplier"><%t invoice.supplier %></span>
     </td>
     <td>
-        <span name="sumTotal"><%= LH.helpers.formatPrice(invoice.sumTotal) %></span>
+        <span name="sumTotal"><%t LH.helpers.formatPrice(invoice.sumTotal) %></span>
         <span>р.</span>
     </td>
     <td>
-        <span name="accepter"><%= invoice.accepter %></span>
+        <span name="accepter"><%t invoice.accepter %></span>
     </td>
 </tr>

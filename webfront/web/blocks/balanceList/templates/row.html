@@ -1,24 +1,24 @@
 <tr name="amountItem">
     <td>
-        <span name="sku"><%= product.sku %></span>
+        <span name="sku"><%t product.sku %></span>
     </td>
     <td>
-        <span name="name"><%= product.name %></span>
+        <span name="name"><%t product.name %></span>
     </td>
     <td>
-        <span name="vendor"><%= product.vendor %></span>
+        <span name="vendor"><%t product.vendor %></span>
     </td>
     <td>
-        <span name="vendorCountry"><%= product.vendorCountry %></span>
+        <span name="vendorCountry"><%t product.vendorCountry %></span>
     </td>
     <td>
-        <span name="averagePurchasePrice"><%= product.averagePurchasePrice ? LH.helpers.formatPrice(product.averagePurchasePrice) + 'р.' : '&mdash;' %></span>
+        <span name="averagePurchasePrice"><%t product.averagePurchasePrice ? LH.helpers.formatPrice(product.averagePurchasePrice) + 'р.' : '&mdash;' %></span>
     </td>
     <td>
-        <span name="lastPurchasePrice"><%= product.lastPurchasePrice ? LH.helpers.formatPrice(product.lastPurchasePrice) : LH.helpers.formatPrice(product.purchasePrice) %> р.</span>
+        <span name="lastPurchasePrice"><%t product.lastPurchasePrice ? LH.helpers.formatPrice(product.lastPurchasePrice) : LH.helpers.formatPrice(product.purchasePrice) %> р.</span>
     </td>
     <td>
-        <span name="amount"><%= product.amount || 0 %></span>
-        <span name="units"><%= LH.helpers.units(product.units, 'smallShort') %></span>
+        <span name="amount"><%t product.amount || 0 %></span>
+        <span name="units"><%t LH.helpers.units(product.units, 'smallShort') %></span>
     </td>
 </tr>
