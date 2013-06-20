@@ -32,9 +32,9 @@ define(function(require) {
             });
         }
 
-        this.render();
+        page.render();
 
-        if (typeof this.initBlocks === 'function') {
+        if (typeof page.initBlocks === 'function') {
             page.initBlocks();
         } else {
             _.each(page.initBlocks, function(initFunction, blockName) {
@@ -44,7 +44,7 @@ define(function(require) {
             });
         }
 
-        this.fetchData();
+        page.fetchData();
     };
 
     _.extend(Page.prototype, {
@@ -61,7 +61,7 @@ define(function(require) {
                 var $renderContainer;
 
                 switch (name) {
-                    case 'content':
+                    case '#content':
                         $renderContainer = $('#content_main');
                         break;
                     default:

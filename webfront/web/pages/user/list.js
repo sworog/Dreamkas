@@ -6,7 +6,7 @@ define(function(require) {
 
     return Page.extend({
         templates: {
-            content: require('tpl!./templates/list.html')
+            '#content': require('tpl!./templates/list.html')
         },
         initCollections: {
             users: function(){

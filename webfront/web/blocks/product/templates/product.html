@@ -1,17 +1,16 @@
 <div class="page__controls">
     <a class="page__controlsList product_editLink"
-       lh_link="edit"
-       href="/product/edit/<%= block.productModel.get('id') %>">
+       href="/products/edit/<%= block.model.get('id') %>">
         Редактировать
     </a>
 </div>
 <div class="product__content">
     <div class="product__head">
         <div class="product__name">
-            <span name="name"><%= block.productModel.get('name') %></span>
+            <span name="name"><%= block.model.get('name') %></span>
         </div>
         <div class="product__sku">
-            <span name="sku"><%= block.productModel.get('sku') %></span>
+            <span name="sku"><%= block.model.get('sku') %></span>
         </div>
     </div>
     <div class="product__body">
@@ -20,7 +19,7 @@
                 <th>Закупочная цена</th>
                 <td>
                     <span name="purchasePrice">
-                        <%= LH.helpers.formatPrice(block.productModel.get('purchasePrice')) %>
+                        <%= LH.helpers.formatPrice(block.model.get('purchasePrice')) %>
                     </span>
                     руб.
                 </td>
@@ -28,40 +27,40 @@
             <tr>
                 <th>НДС</th>
                 <td>
-                    <span name="vat"><%= block.productModel.get('vat') %></span>
+                    <span name="vat"><%= block.model.get('vat') %></span>
                     %
                 </td>
             </tr>
             <tr>
                 <th>Штрих-код</th>
                 <td>
-                    <span name="barcode"><%= block.productModel.get('barcode') %></span>
+                    <span name="barcode"><%= block.model.get('barcode') %></span>
                 </td>
             </tr>
             <tr>
                 <th>Единица измерения</th>
                 <td>
-                    <span name="units"><%= LH.helpers.units(block.productModel.get('units'), 'smallFull') %></span>
+                    <span name="units"><%= LH.helpers.units(block.model.get('units'), 'smallFull') %></span>
                 </td>
             </tr>
             <tr>
                 <th>Производитель</th>
                 <td>
-                    <span name="vendor"><%= block.productModel.get('vendor') %></span>
+                    <span name="vendor"><%= block.model.get('vendor') %></span>
                 </td>
             </tr>
             <tr>
                 <th>Страна</th>
                 <td>
-                    <span name="vendorCountry"><%= block.productModel.get('vendorCountry') %></span>
+                    <span name="vendorCountry"><%= block.model.get('vendorCountry') %></span>
                 </td>
             </tr>
             <tr>
                 <th>Наценка</th>
                 <td>
-                    <% if(block.productModel.get('retailMarkup')) { %>
+                    <% if(block.model.get('retailMarkup')) { %>
                         <span name="retailMarkup">
-                            <%= block.productModel.get('retailMarkup') %>
+                            <%= block.model.get('retailMarkup') %>
                         </span>
                         %
                     <% } else { %>
@@ -74,9 +73,9 @@
             <tr>
                 <th>Цена продажи</th>
                 <td>
-                    <% if(block.productModel.get('retailPrice')){ %>
+                    <% if(block.model.get('retailPrice')){ %>
                         <span name="retailPrice">
-                            <%= LH.helpers.formatPrice(block.productModel.get('retailPrice')) %>
+                            <%= LH.helpers.formatPrice(block.model.get('retailPrice')) %>
                         </span>
                         руб.
                     <% } else { %>
@@ -88,7 +87,7 @@
             </tr>
         </table>
         <p name="info">
-            <%= block.productModel.get('info') %>
+            <%= block.model.get('info') %>
         </p>
     </div>
 </div>

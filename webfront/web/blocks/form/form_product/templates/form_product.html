@@ -1,30 +1,29 @@
-<h3>Добавление нового товара в матрицу</h3>
-
+<h3><%= block.model.id ? 'Редактирование товара' : 'Добавление товара' %></h3>
 <fieldset class="form__fieldset">
     <div class="form__field form__field_inline">
         <label class="form__label">Артикул</label>
-        <input value="<%= _.escape(block.productModel.get('sku')) %>" class="inputText" type="text" name="sku"/>
+        <input value="<%= _.escape(block.model.get('sku')) %>" class="inputText" type="text" name="sku"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Наименование</label>
-        <input value="<%= _.escape(block.productModel.get('name')) %>" class="inputText" type="text" name="name"/>
+        <input value="<%= _.escape(block.model.get('name')) %>" class="inputText" type="text" name="name"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Измеряется в</label>
-        <select value="<%=_.escape( block.productModel.get('units')) %>" class="select" name="units" require="/blocks/select/select_unit.js"></select>
+        <select value="<%=_.escape( block.model.get('units')) %>" class="select" name="units" require="/blocks/select/select_unit.js"></select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">НДС</label>
-        <select value="<%= _.escape(block.productModel.get('vat')) %>" class="select" name="vat" require="/blocks/select/select_vat.js"></select>
+        <select value="<%= _.escape(block.model.get('vat')) %>" class="select" name="vat" require="/blocks/select/select_vat.js"></select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена закупки</label>
-        <input style="width: 150px;" value="<%= block.productModel.get('purchasePrice') ? _.escape(LH.helpers.formatPrice(block.productModel.get('purchasePrice'))) : '' %>" class="inputText" type="text" name="purchasePrice"/>
+        <input style="width: 150px;" value="<%= block.model.get('purchasePrice') ? _.escape(LH.helpers.formatPrice(block.model.get('purchasePrice'))) : '' %>" class="inputText" type="text" name="purchasePrice"/>
         <span class="inputText__postfix">руб.</span>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Наценка</label>
-        <input style="width: 150px;" value="<%= _.escape(block.productModel.get('retailMarkup')) %>" class="inputText productForm__linkedInput <%= block.productModel.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>" type="text" name="retailMarkup"/>
+        <input style="width: 150px;" value="<%= _.escape(block.model.get('retailMarkup')) %>" class="inputText productForm__linkedInput <%= block.model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>" type="text" name="retailMarkup"/>
         <span class="productForm__inputLink">
             <span class="productForm__inputLinkText" name="retailMarkupHint"></span>
         </span>
@@ -32,36 +31,36 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена продажи</label>
-        <input style="width: 150px;" value="<%= block.productModel.get('retailPrice') ? _.escape(LH.helpers.formatPrice(block.productModel.get('retailPrice'))) : '' %>" class="inputText productForm__linkedInput <%= block.productModel.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>" type="text" name="retailPrice"/>
+        <input style="width: 150px;" value="<%= block.model.get('retailPrice') ? _.escape(LH.helpers.formatPrice(block.model.get('retailPrice'))) : '' %>" class="inputText productForm__linkedInput <%= block.model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>" type="text" name="retailPrice"/>
         <span class="productForm__inputLink">
             <span class="productForm__inputLinkText" name="retailPriceHint"></span>
         </span>
         <span class="inputText__postfix">руб.</span>
     </div>
-    <input type="hidden" value="<%= block.productModel.get('retailPricePreference') %>" name="retailPricePreference" />
+    <input type="hidden" value="<%= block.model.get('retailPricePreference') %>" name="retailPricePreference" />
 </fieldset>
 <fieldset class="form__fieldset">
     <legend class="form__legend">Необязательно к заполнению</legend>
     <div class="form__field form__field_inline">
         <label class="form__label">Штрихкод</label>
-        <input value="<%= _.escape(block.productModel.get('barcode')) %>" class="inputText" type="text" name="barcode"/>
+        <input value="<%= _.escape(block.model.get('barcode')) %>" class="inputText" type="text" name="barcode"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Страна производства</label>
-        <input value="<%= _.escape(block.productModel.get('vendorCountry')) %>" class="inputText" type="text" name="vendorCountry"/>
+        <input value="<%= _.escape(block.model.get('vendorCountry')) %>" class="inputText" type="text" name="vendorCountry"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Производитель</label>
-        <input value="<%= _.escape(block.productModel.get('vendor')) %>" class="inputText" type="text" name="vendor"/>
+        <input value="<%= _.escape(block.model.get('vendor')) %>" class="inputText" type="text" name="vendor"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Дополнительная информация</label>
-        <textarea class="inputText" name="info"><%= _.escape(block.productModel.get('info')) %></textarea>
+        <textarea class="inputText" name="info"><%= _.escape(block.model.get('info')) %></textarea>
     </div>
 </fieldset>
 <div class="form__controls">
     <span class="button button_color_blue">
-        <%= block.productId ? 'Сохранить товар' : 'Добавить товар' %>
+        <%= block.model.id ? 'Сохранить' : 'Добавить' %>
         <input type="submit"/>
     </span>
 </div>
