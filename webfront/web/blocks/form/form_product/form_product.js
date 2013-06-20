@@ -1,36 +1,23 @@
 define(function(require) {
         //requirements
         var Form = require('kit/form/form'),
-            ProductModel = require('models/product'),
-            helpers = require('helpers'),
-            router = require('routers/mainRouter');
+            _ = require('underscore');
 
         return Form.extend({
             defaultInputLinkText: 'Введите значение',
-            productId: null,
-            className: 'productForm',
+            model: null,
+            blockName: 'form_product',
+            redirectUrl: '/products',
             templates: {
-                index: require('tpl!./templates/productForm.html')
+                index: require('tpl!./templates/form_product.html')
             },
-
-            initialize: function() {
-                var block = this;
-
-                block.productModel = new ProductModel({
-                    id: block.productId
-                });
-
-                if (block.productId){
-                    block.productModel.fetch();
-                } else {
-                    block.render();
-                }
-
-                block.listenTo(block.productModel, {
-                    sync: function(){
+            listeners: {
+                model: {
+                    change: function(){
+                        var block = this;
                         block.render();
                     }
-                });
+                }
             },
             events: {
                 'click .productForm__inputLink': function(e) {
@@ -69,6 +56,15 @@ define(function(require) {
                     this.renderRetailPriceLink();
                 }
             },
+            initialize: function(){
+                var block = this;
+
+                if (block.model.id){
+                    block.redirectUrl = '/products/' + block.model.id
+                } else {
+                    block.render();
+                }
+            },
             findElements: function(){
                 var block = this;
                 Form.prototype.findElements.apply(block, arguments);
@@ -89,24 +85,6 @@ define(function(require) {
                 block.renderRetailMarkupLink();
                 block.renderRetailPriceLink();
             },
-            submit: function(){
-                var block = this,
-                    deferred = $.Deferred(),
-                    formData = Backbone.Syphon.serialize(block);
-
-                block.productModel.save(formData, {
-                    success: function(){
-                        router.navigate(block.productId ? '/product/' + block.productId : '/products', {
-                            trigger: true
-                        });
-                    },
-                    error: function(model, response){
-                        deferred.reject(JSON.parse(response.responseText));
-                    }
-                });
-
-                return deferred.promise();
-            },
             showRetailMarkupInput: function() {
                 this.$retailPriceInput.addClass('productForm__hiddenInput');
                 this.$retailMarkupInput
@@ -124,14 +102,14 @@ define(function(require) {
                 this.$retailPricePreferenceInput.val('retailPrice');
             },
             calculateRetailPrice: function() {
-                var purchasePrice = helpers.normalizePrice(this.$purchasePriceInput.val()),
-                    retailMarkup = helpers.normalizePrice(this.$retailMarkupInput.val()),
+                var purchasePrice = LH.helpers.normalizePrice(this.$purchasePriceInput.val()),
+                    retailMarkup = LH.helpers.normalizePrice(this.$retailMarkupInput.val()),
                     calculatedVal;
 
                 if (!purchasePrice || !retailMarkup || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
                     calculatedVal = '';
                 } else {
-                    calculatedVal = helpers.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedVal = LH.helpers.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 this.$retailPriceInput
@@ -139,14 +117,14 @@ define(function(require) {
                     .change();
             },
             calculateRetailMarkup: function() {
-                var retailPrice = helpers.normalizePrice(this.$retailPriceInput.val()),
-                    purchasePrice = helpers.normalizePrice(this.$purchasePriceInput.val()),
+                var retailPrice = LH.helpers.normalizePrice(this.$retailPriceInput.val()),
+                    purchasePrice = LH.helpers.normalizePrice(this.$purchasePriceInput.val()),
                     calculatedVal;
 
                 if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
                     calculatedVal = '';
                 } else {
-                    calculatedVal = helpers.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedVal = LH.helpers.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 this.$retailMarkupInput
@@ -158,7 +136,7 @@ define(function(require) {
                     text;
 
                 if (price){
-                    text = helpers.formatPrice(price) + ' руб.'
+                    text = LH.helpers.formatPrice(price) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -172,7 +150,7 @@ define(function(require) {
                     text;
 
                 if (markup){
-                    text = helpers.formatPrice(markup) + '%'
+                    text = LH.helpers.formatPrice(markup) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }

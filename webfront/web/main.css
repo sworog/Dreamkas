@@ -5,7 +5,7 @@
 @import "./blocks/content/content.css";
 @import "./blocks/page/page.css";
 @import "./blocks/invoice/invoice.css";
-@import "./blocks/productForm/productForm.css";
+@import "./blocks/form/form_product/form_product.css";
 @import "./blocks/product/product.css";
 @import "./blocks/saleBox/saleBox.css";
 @import "./blocks/writeOff/writeOff.css";

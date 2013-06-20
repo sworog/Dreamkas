@@ -5,28 +5,30 @@ define(function(require) {
         UserModel = require('models/user');
 
     return Page.extend({
-        templates: {
-            content: require('tpl!./templates/form.html')
-        },
-        models: {},
         initialize: function(userId, params) {
             var page = this;
 
             page.userId = userId;
-            page.title = userId ? 'Редактирование пользователя' : 'Добавление нового пользователя';
         },
-        initBlocks: {
-            form_user: function() {
-                return new Form_user({
-                    model: this.models.user,
-                    el: document.getElementById('form_user')
-                });
-            }
+        templates: {
+            '#content': require('tpl!./templates/form.html')
         },
         initModels: {
             user: function() {
+                var page = this;
+
                 return new UserModel({
-                    id: this.userId
+                    id: page.userId
+                });
+            }
+        },
+        initBlocks: {
+            form_user: function() {
+                var page = this;
+
+                return new Form_user({
+                    model: page.models.user,
+                    el: document.getElementById('form_user')
                 });
             }
         }
