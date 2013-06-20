@@ -1,13 +1,13 @@
 <% block.collection.each(function(model){ %>
 <tr name="user" href="/users/<%= model.get('id') %>">
     <td name="name">
-        <%= model.get('name') %>
+        <%= t(model.get('name')) %>
     </td>
     <td name="position">
-        <%= model.get('position') %>
+        <%= t(model.get('position')) %>
     </td>
     <td name="username">
-        <%= model.get('username') %>
+        <%= t(model.get('username')) %>
     </td>
     <td name="role">
         <%= t(model.get('role')) %>
