@@ -4,11 +4,11 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
-import project.lighthouse.autotests.pages.product.ProductCardView;
-import project.lighthouse.autotests.pages.product.ProductCreatePage;
-import project.lighthouse.autotests.pages.product.ProductEditPage;
-import project.lighthouse.autotests.pages.product.ProductListPage;
+import project.lighthouse.autotests.pages.product.*;
+
+import java.io.IOException;
 
 public class ProductSteps extends ScenarioSteps {
 
@@ -17,9 +17,15 @@ public class ProductSteps extends ScenarioSteps {
     ProductCardView productCardView;
     ProductListPage productListPage;
     CommonPage commonPage;
+    ProductApi productApi;
 
     public ProductSteps(Pages pages) {
         super(pages);
+    }
+
+    @Step
+    public void createProductPostRequestSend(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
+        productApi.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
     }
 
     @Step

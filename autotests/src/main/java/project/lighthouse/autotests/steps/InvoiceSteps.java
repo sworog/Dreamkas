@@ -4,21 +4,39 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.pages.elements.DateTime;
+import project.lighthouse.autotests.pages.invoice.InvoiceApi;
 import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.invoice.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
+import project.lighthouse.autotests.pages.product.ProductApi;
+
+import java.io.IOException;
 
 public class InvoiceSteps extends ScenarioSteps {
 
     InvoiceCreatePage invoiceCreatePage;
     InvoiceListPage invoiceListPage;
     InvoiceBrowsing invoiceBrowsing;
+    InvoiceApi invoiceApi;
+    ProductApi productApi;
     CommonPage commonPage;
 
     public InvoiceSteps(Pages pages) {
         super(pages);
+    }
+
+    @Step
+    public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
+        invoiceApi.createInvoiceThroughPost(invoiceName);
+    }
+
+    @Step
+    public void createInvoiceThroughPostWithData(String invoiceName, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
+        productApi.сreateProductThroughPost(productName, productSku, productBarCode, productUnits, "123");
+        invoiceApi.createInvoiceThroughPost(invoiceName, productName);
     }
 
     @Step

@@ -3,7 +3,6 @@ package project.lighthouse.autotests.common;
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.pages.WebElementFacade;
 import org.jbehave.core.model.ExamplesTable;
-import org.json.JSONException;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +14,6 @@ import project.lighthouse.autotests.pages.elements.Autocomplete;
 import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.product.ProductListPage;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -191,18 +189,6 @@ public class CommonPage extends PageObject implements CommonPageInterface {
             String errorMessage = String.format("Element '%s' doesnt contain '%s'. It contains '%s'", elementName, expectedValue, actualValue);
             throw new AssertionError(errorMessage);
         }
-    }
-
-    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
-        apiConnect.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
-    }
-
-    public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
-        apiConnect.createInvoiceThroughPost(invoiceName);
-    }
-
-    public void createInvoiceThroughPost(String invoiceName, String productSku) throws IOException, JSONException {
-        apiConnect.createInvoiceThroughPost(invoiceName, productSku);
     }
 
     public void checkAlertText(String expectedText) {
