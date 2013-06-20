@@ -9,19 +9,17 @@ define(function(require) {
             '#content': require('tpl!./templates/list.html')
         },
         initCollections: {
-            products: function(){
+            products: function() {
                 return new ProductsCollection();
             }
         },
-        initBlocks: {
-            table_products: function(){
-                var page = this;
+        initBlocks: function() {
+            var page = this;
 
-                return new Table_products({
-                    collection: page.collections.products,
-                    el: document.getElementById('table_products')
-                });
-            }
+            new Table_products({
+                collection: page.collections.products,
+                el: document.getElementById('table_products')
+            });
         }
     });
 });

@@ -5,7 +5,7 @@ define(function(require) {
         ProductModel = require('models/product');
 
     return Page.extend({
-        initialize: function(productId){
+        initialize: function(productId) {
             var page = this;
 
             page.productId = productId;
@@ -14,7 +14,7 @@ define(function(require) {
             '#content': require('tpl!./templates/view.html')
         },
         initModels: {
-            product: function(){
+            product: function() {
                 var page = this;
 
                 return new ProductModel({
@@ -22,15 +22,13 @@ define(function(require) {
                 });
             }
         },
-        initBlocks: {
-            product: function(){
-                var page = this;
+        initBlocks: function() {
+            var page = this;
 
-                return new Product({
-                    model: page.models.product,
-                    el: document.getElementById('product')
-                });
-            }
+            new Product({
+                model: page.models.product,
+                el: document.getElementById('product')
+            });
         }
     });
 });
