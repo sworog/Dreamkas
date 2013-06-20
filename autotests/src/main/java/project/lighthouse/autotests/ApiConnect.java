@@ -173,7 +173,7 @@ public class ApiConnect {
 
     public void navigateToTheUserPage(String login) throws JSONException {
         String userId = StaticDataCollections.users.get(login).getId();
-        String url = String.format("%s/user/%s", getWebFrontUrl(), userId);
+        String url = String.format("%s/users/%s", getWebFrontUrl(), userId);
         driver.navigate().to(url);
     }
 

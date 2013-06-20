@@ -15,10 +15,10 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user checks the user with 'CommercialManager' username is present
-And the user checks the user with 'CommercialManager' username has 'name' element equal to 'Имя1' on amounts page
-And the user checks the user with 'CommercialManager' username has 'position' element equal to 'Позиция2' on amounts page
-And the user checks the user with 'CommercialManager' username has 'username' element equal to 'CommercialManager' on amounts page
-And the user checks the user with 'CommercialManager' username has 'role' element equal to 'Коммерческий директор сети' on amounts page
+And the user checks the user with 'CommercialManager' username has 'name' element equal to 'Имя1' on users page
+And the user checks the user with 'CommercialManager' username has 'position' element equal to 'Позиция2' on users page
+And the user checks the user with 'CommercialManager' username has 'username' element equal to 'CommercialManager' on users page
+And the user checks the user with 'CommercialManager' username has 'role' element equal to 'Коммерческий директор сети' on users page
 When the user opens the user card with 'CommercialManager' username
 Then the user checks the user page elements values
 | elementName | expectedValue |
@@ -38,17 +38,17 @@ When the user inputs values in the user page element fields
 | role | storeManager |
 And the user clicks the create new user button
 Then the user checks the user with 'storeManager' username is present
-And the user checks the user with 'storeManager' username has 'name' element equal to 'Имя1' on amounts page
-And the user checks the user with 'storeManager' username has 'position' element equal to 'Позиция2' on amounts page
-And the user checks the user with 'storeManager' username has 'username' element equal to 'storeManager' on amounts page
-And the user checks the user with 'storeManager' username has 'role' element equal to 'Директор сети' on amounts page
+And the user checks the user with 'storeManager' username has 'name' element equal to 'Имя1' on users page
+And the user checks the user with 'storeManager' username has 'position' element equal to 'Позиция2' on users page
+And the user checks the user with 'storeManager' username has 'username' element equal to 'storeManager' on users page
+And the user checks the user with 'storeManager' username has 'role' element equal to 'Директор магазина' on users page
 When the user opens the user card with 'storeManager' username
 Then the user checks the user page elements values
 | elementName | expectedValue |
 | name | Имя1 |
 | position | Позиция2 |
 | username | storeManager |
-| role | Директор сети |
+| role | Директор магазина |
 
 Scenario: Create user department Manager type
 Given the user opens create new user page
@@ -61,17 +61,17 @@ When the user inputs values in the user page element fields
 | role | departmentManager |
 And the user clicks the create new user button
 Then the user checks the user with 'departmentManager' username is present
-And the user checks the user with 'departmentManager' username has 'name' element equal to 'Имя1' on amounts page
-And the user checks the user with 'departmentManager' username has 'position' element equal to 'Позиция2' on amounts page
-And the user checks the user with 'departmentManager' username has 'username' element equal to 'departmentManager' on amounts page
-And the user checks the user with 'departmentManager' username has 'role' element equal to 'Заведующим отделом' on amounts page
+And the user checks the user with 'departmentManager' username has 'name' element equal to 'Имя1' on users page
+And the user checks the user with 'departmentManager' username has 'position' element equal to 'Позиция2' on users page
+And the user checks the user with 'departmentManager' username has 'username' element equal to 'departmentManager' on users page
+And the user checks the user with 'departmentManager' username has 'role' element equal to 'Заведующий отделом' on users page
 When the user opens the user card with 'departmentManager' username
 Then the user checks the user page elements values
 | elementName | expectedValue |
 | name | Имя1 |
 | position | Позиция2 |
 | username | departmentManager |
-| role | Заведующим отделом |
+| role | Заведующий отделом |
 
 Scenario: Create user administrator type
 Given the user opens create new user page
@@ -84,11 +84,11 @@ When the user inputs values in the user page element fields
 | role | administrator |
 And the user clicks the create new user button
 Then the user checks the user with 'administrator' username is present
-And the user checks the user with 'administrator' username has 'name' element equal to 'Имя1' on amounts page
-And the user checks the user with 'administrator' username has 'position' element equal to 'Позиция2' on amounts page
-And the user checks the user with 'administrator' username has 'username' element equal to 'administrator' on amounts page
-And the user checks the user with 'administrator' username has 'role' element equal to 'Системный администратор' on amounts page
-When the user opens the user card with 'Логин1' username
+And the user checks the user with 'administrator' username has 'name' element equal to 'Имя1' on users page
+And the user checks the user with 'administrator' username has 'position' element equal to 'Позиция2' on users page
+And the user checks the user with 'administrator' username has 'username' element equal to 'administrator' on users page
+And the user checks the user with 'administrator' username has 'role' element equal to 'Системный администратор' on users page
+When the user opens the user card with 'administrator' username
 Then the user checks the user page elements values
 | elementName | expectedValue |
 | name | Имя1 |
@@ -111,7 +111,7 @@ Then the user checks the user with 'createfromuserslistpage' username is present
 
 Scenario: user edition
 Given there is the user with name 'Name1', position 'Position1', username 'Login1', password 'password', role 'commercialManager'
-And the user navigates to the user page with login 'Login1'
+And the user navigates to the user page with username 'Login1'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
@@ -119,82 +119,79 @@ And the user inputs values in the user page element fields
 | position | Position_edited |
 | username | Login_edited |
 | password | Password_edited |
-| role | Администратор |
+| role | administrator |
 And the user clicks the create new user button
 Then the user checks the user page elements values
-| elementName | inputText |
+| elementName | expectedValue |
 | name | Name_edited |
 | position | Position_edited |
 | username | Login_edited |
-| password | Password_edited |
-| role | Администратор |
+| role | Системный администратор |
 When the user clicks on the users list page link
 Then the user checks the user with 'Login_edited' username is present
-And the user checks the user with 'Login_edited' username has 'name' element equal to 'Name_edited' on amounts page
-And the user checks the user with 'Login_edited' username has 'position' element equal to 'Position_edited' on amounts page
-And the user checks the user with 'Login_edited' username has 'username' element equal to 'Login_edited' on amounts page
-And the user checks the user with 'Login_edited' username has 'password' element equal to 'Password_edited' on amounts page
-And the user checks the user with 'Login_edited' username has 'role' element equal to 'Администратор' on amounts page
+And the user checks the user with 'Login_edited' username has 'name' element equal to 'Name_edited' on users page
+And the user checks the user with 'Login_edited' username has 'position' element equal to 'Position_edited' on users page
+And the user checks the user with 'Login_edited' username has 'username' element equal to 'Login_edited' on users page
+And the user checks the user with 'Login_edited' username has 'role' element equal to 'Системный администратор' on users page
 
-Scenario: user edition sales manager type
-Given there is the user with name 'User edition', position 'User edition', username 'User edition', password 'User edition', role 'commercialManager'
-And the user navigates to the user page with login 'User edition'
+Scenario: user edition commercialManager type
+Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
+And the user navigates to the user page with username 'User-edition'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| role | Директор сети |
+| role | commercialManager |
 And the user clicks the create new user button
 Then the user checks the user page elements values
-| role | Директор сети |
+| elementName | expectedValue |
+| role | Коммерческий директор сети |
 When the user clicks on the users list page link
 Then the user checks the user with 'User edition' username is present
-And the user checks the user with 'User edition' username has 'role' element equal to 'Директор сети' on amounts page
+And the user checks the user with 'User edition' username has 'role' element equal to 'Коммерческий директор сети' on users page
 
-Scenario: user edition Commercial Director type
-Given there is the user with name 'User edition', position 'User edition', username 'User edition', password 'User edition', role 'commercialManager'
-And the user navigates to the user page with login 'User edition'
+Scenario: user edition storeManager type
+Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
+And the user navigates to the user page with username 'User-edition'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| role | Коммерческий директор сети |
+| role | storeManager |
 And the user clicks the create new user button
 Then the user checks the user page elements values
-| role | Коммерческий директор сети |
+| elementName | expectedValue |
+| role | Директор магазина |
 When the user clicks on the users list page link
 Then the user checks the user with 'User edition' username is present
-And the user checks the user with 'User edition' username has 'role' element equal to 'Коммерческий директор сети' on amounts page
+And the user checks the user with 'User edition' username has 'role' element equal to 'Директор магазина' on users page
 
 Scenario: user edition section chief type
-Given there is the user with name 'User edition', position 'User edition', username 'User edition', password 'User edition', role 'commercialManager'
-And the user navigates to the user page with login 'User edition'
+Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
+And the user navigates to the user page with username 'User-edition'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| role | Заведующим отделом |
+| role | departmentManager |
 And the user clicks the create new user button
 Then the user checks the user page elements values
-| role | Заведующим отделом |
+| elementName | expectedValue |
+| role | Заведующий отделом |
 When the user clicks on the users list page link
 Then the user checks the user with 'User edition' username is present
-And the user checks the user with 'User edition' username has 'role' element equal to 'Заведующим отделом' on amounts page
+And the user checks the user with 'User edition' username has 'role' element equal to 'Заведующий отделом' on users page
 
 Scenario: user edition administrator type
-Given there is the user with name 'User edition', position 'User edition', username 'User edition', password 'User edition', role 'commercialManager'
-And the user navigates to the user page with login 'User edition'
+Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
+And the user navigates to the user page with username 'User-edition'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| role | администратор |
+| role | administrator |
 And the user clicks the create new user button
 Then the user checks the user page elements values
-| role | администратор |
+| elementName | expectedValue |
+| role | Системный администратор |
 When the user clicks on the users list page link
 Then the user checks the user with 'User edition' username is present
-And the user checks the user with 'User edition' username has 'role' element equal to 'администратор' on amounts page
-
-!--
-!--Тест на ссылку при создании и редактировании
-the user clicks on the users list page link
-!--Тест на ссылку при просмотре карточки
+And the user checks the user with 'User edition' username has 'role' element equal to 'Системный администратор' on users page
 
 

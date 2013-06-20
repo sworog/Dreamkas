@@ -125,7 +125,6 @@ Scenario: edit mode username field length validation 100 symbols
 Given there is the user with name 'User validation', position 'User validation', username 'emnf12', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf12'
 When the user clicks the edit button on the user card page
-And the user clicks the create new user button
 And the user generates charData with '100' number without spaces and 'c' char in the 'username' user page field
 Then the user checks 'username' user page field contains only '100' symbols
 When the user clicks the create new user button
@@ -135,7 +134,6 @@ Scenario: edit mode username field length validation negative 101 symbols
 Given there is the user with name 'User validation', position 'User validation', username 'emnf13', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf13'
 When the user clicks the edit button on the user card page
-And the user clicks the create new user button
 And the user generates charData with '101' number without spaces and 'b' char in the 'username' user page field
 Then the user checks 'username' user page field contains only '101' symbols
 When the user clicks the create new user button
@@ -180,7 +178,7 @@ Then the user sees no error messages
 
 Scenario: edit mode username validation positive Rus Small register
 Given there is the user with name 'User validation', position 'User validation', username 'emnf17', password 'password', role 'commercialManager'
-And the user navigates to the user page with username 'emnf18'
+And the user navigates to the user page with username 'emnf17'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
