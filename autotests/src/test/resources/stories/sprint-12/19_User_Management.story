@@ -146,8 +146,8 @@ Then the user checks the user page elements values
 | elementName | expectedValue |
 | role | Коммерческий директор сети |
 When the user clicks on the users list page link
-Then the user checks the user with 'User edition' username is present
-And the user checks the user with 'User edition' username has 'role' element equal to 'Коммерческий директор сети' on users page
+Then the user checks the user with 'User-edition' username is present
+And the user checks the user with 'User-edition' username has 'role' element equal to 'Коммерческий директор сети' on users page
 
 Scenario: user edition storeManager type
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
@@ -161,8 +161,8 @@ Then the user checks the user page elements values
 | elementName | expectedValue |
 | role | Директор магазина |
 When the user clicks on the users list page link
-Then the user checks the user with 'User edition' username is present
-And the user checks the user with 'User edition' username has 'role' element equal to 'Директор магазина' on users page
+Then the user checks the user with 'User-edition' username is present
+And the user checks the user with 'User-edition' username has 'role' element equal to 'Директор магазина' on users page
 
 Scenario: user edition section chief type
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
@@ -176,8 +176,8 @@ Then the user checks the user page elements values
 | elementName | expectedValue |
 | role | Заведующий отделом |
 When the user clicks on the users list page link
-Then the user checks the user with 'User edition' username is present
-And the user checks the user with 'User edition' username has 'role' element equal to 'Заведующий отделом' on users page
+Then the user checks the user with 'User-edition' username is present
+And the user checks the user with 'User-edition' username has 'role' element equal to 'Заведующий отделом' on users page
 
 Scenario: user edition administrator type
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
@@ -191,7 +191,7 @@ Then the user checks the user page elements values
 | elementName | expectedValue |
 | role | Системный администратор |
 When the user clicks on the users list page link
-Then the user checks the user with 'User edition' username is present
-And the user checks the user with 'User edition' username has 'role' element equal to 'Системный администратор' on users page
+Then the user checks the user with 'User-edition' username is present
+And the user checks the user with 'User-edition' username has 'role' element equal to 'Системный администратор' on users page
 
 
