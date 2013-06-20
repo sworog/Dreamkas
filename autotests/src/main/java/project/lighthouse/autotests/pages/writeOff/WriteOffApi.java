@@ -1,15 +1,12 @@
 package project.lighthouse.autotests.pages.writeOff;
 
-import net.thucydides.core.pages.PageObject;
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.ApiConnect;
+import project.lighthouse.autotests.common.CommonApi;
 
 import java.io.IOException;
 
-public class WriteOffApi extends PageObject {
-
-    ApiConnect apiConnect = new ApiConnect(getDriver());
+public class WriteOffApi extends CommonApi {
 
     public WriteOffApi(WebDriver driver) {
         super(driver);

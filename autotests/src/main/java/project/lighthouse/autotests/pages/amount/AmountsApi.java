@@ -1,12 +1,9 @@
 package project.lighthouse.autotests.pages.amount;
 
-import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.ApiConnect;
+import project.lighthouse.autotests.common.CommonApi;
 
-public class AmountsApi extends PageObject {
-
-    ApiConnect apiConnect = new ApiConnect(getDriver());
+public class AmountsApi extends CommonApi {
 
     public AmountsApi(WebDriver driver) {
         super(driver);

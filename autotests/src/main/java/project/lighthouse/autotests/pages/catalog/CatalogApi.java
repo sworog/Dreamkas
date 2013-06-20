@@ -1,15 +1,12 @@
 package project.lighthouse.autotests.pages.catalog;
 
-import net.thucydides.core.pages.PageObject;
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.ApiConnect;
+import project.lighthouse.autotests.common.CommonApi;
 
 import java.io.IOException;
 
-public class CatalogApi extends PageObject {
-
-    ApiConnect apiConnect = new ApiConnect(getDriver());
+public class CatalogApi extends CommonApi {
 
     public CatalogApi(WebDriver driver) {
         super(driver);

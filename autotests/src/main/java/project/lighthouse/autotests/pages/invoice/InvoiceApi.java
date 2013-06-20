@@ -1,15 +1,12 @@
 package project.lighthouse.autotests.pages.invoice;
 
-import net.thucydides.core.pages.PageObject;
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.ApiConnect;
+import project.lighthouse.autotests.common.CommonApi;
 
 import java.io.IOException;
 
-public class InvoiceApi extends PageObject {
-
-    ApiConnect apiConnect = new ApiConnect(getDriver());
+public class InvoiceApi extends CommonApi {
 
     public InvoiceApi(WebDriver driver) {
         super(driver);
