@@ -49,7 +49,7 @@ class UserController extends AbstractRestController
 
         $type = $this->getDocumentFormType();
         $form = $this->createForm($type, $document, array('validation_groups' => array('Default', 'registration')));
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             // Set encode password
@@ -76,15 +76,15 @@ class UserController extends AbstractRestController
     {
         /** @var User $document */
         $document = $this->findDocument($id);
-        $requestPassword = $request->request->get('password', null);
         $originPassword = $document->password;
 
         $type = $this->getDocumentFormType();
         $form = $this->createForm($type, $document);
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            if (null == $requestPassword || '' == $requestPassword) {
+            $requestPassword = $form->get('password')->getData();
+            if (null === $requestPassword || '' == $requestPassword) {
                 $document->password = $originPassword;
             } else {
                 // Set encode password
