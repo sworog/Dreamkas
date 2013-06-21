@@ -3,6 +3,10 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\Auth\Client as Client0;
+use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Document\User\UserRepository;
+use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\Container;
@@ -25,6 +29,10 @@ class WebTestCase extends BaseTestCase
      * @var Client
      */
     protected $client;
+
+    protected $oauthClient;
+
+    protected $oauthUser;
 
     protected function setUp()
     {
@@ -99,12 +107,18 @@ class WebTestCase extends BaseTestCase
         $data = null,
         array $parameters = array(),
         array $server = array(),
-        $changeHistory = true
+        $changeHistory = true,
+        $oauth = true
     ) {
         if (null !== $data) {
             $json = json_encode($data);
         } else {
             $json = null;
+        }
+
+        if ($oauth) {
+            $token = $this->auth();
+            $server['HTTP_AUTHORIZATION'] = 'Bearer ' . $token->access_token;
         }
 
         if (!isset($server['CONTENT_TYPE'])) {
@@ -450,5 +464,91 @@ class WebTestCase extends BaseTestCase
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
+    }
+
+    /**
+     * @param string $secret
+     * @return Client0
+     */
+    protected function createAuthClient($secret = 'secret')
+    {
+        $client = new Client0();
+        $client->setSecret($secret);
+        $client->setAllowedGrantTypes(array('password'));
+
+        $dm = $this->getContainer()->get('doctrine_mongodb.odm.document_manager');
+
+        $dm->persist($client);
+        $dm->flush();
+
+        return $client;
+    }
+
+    /**
+     * @param string $username
+     * @param string $password
+     * @param string $role
+     * @param string $name
+     * @param string $position
+     * @return User
+     */
+    protected function createUser(
+        $username = 'admin',
+        $password = 'admin',
+        $role = 'administrator',
+        $name = 'Админ Админыч',
+        $position = 'Администратор'
+    ) {
+        /* @var UserRepository $userRepository */
+        $userRepository = $this->getContainer()->get('lighthouse.core.document.repository.user');
+        /* @var UserProvider $userProvider */
+        $userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
+
+        $user = new User();
+        $user->name = $name;
+        $user->username = $username;
+        $user->role = $role;
+        $user->position = $position;
+
+        $userProvider->setPassword($user, $password);
+
+        $userRepository->getDocumentManager()->persist($user);
+        $userRepository->getDocumentManager()->flush();
+
+        return $user;
+    }
+
+    /**
+     * @return array
+     */
+    protected function auth()
+    {
+        if (!$this->oauthClient) {
+            $this->oauthClient = $this->createAuthClient();
+        }
+        if (!$this->oauthUser) {
+            $this->oauthUser = $this->createUser('admin', 'password');
+        }
+
+        $authParams = array(
+            'grant_type' => 'password',
+            'username' => 'admin',
+            'password' => 'password',
+            'client_id' => $this->oauthClient->getPublicId(),
+            'client_secret' => $this->oauthClient->getSecret()
+        );
+
+        $this->client->request(
+            'POST',
+            '/oauth/v2/token',
+            $authParams,
+            array(),
+            array('Content-Type' => 'application/x-www-form-urlencoded')
+        );
+
+        $response = $this->client->getResponse()->getContent();
+        $json = json_decode($response);
+
+        return $json;
     }
 }

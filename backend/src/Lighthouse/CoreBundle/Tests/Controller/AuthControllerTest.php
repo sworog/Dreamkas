@@ -2,40 +2,43 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\User\User;
-use Lighthouse\CoreBundle\Security\UserProvider;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use Lighthouse\CoreBundle\Document\User\UserRepository;
 
 class AuthControllerTest extends WebTestCase
 {
     public function testAuth()
     {
-        $user = $this->createUser();
-    }
+        $this->clearMongoDb();
 
-    /**
-     * @return User
-     */
-    protected function createUser()
-    {
-        /* @var UserRepository $userRepository */
-        $userRepository = $this->getContainer()->get('lighthouse.core.document.repository.user');
-        /* @var UserProvider $userProvider */
-        $userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
+        $authClient = $this->createAuthClient();
+        $user = $this->createUser('admin', 'qwerty123');
 
-        $user = new User();
-        $user->name = 'Админ Админыч';
-        $user->username = 'admin';
-        $user->role = 'administrator';
-        $user->position = 'Администратор';
+        $authParams = array(
+            'grant_type' => 'password',
+            'username' => $user->username,
+            'password' => 'qwerty123',
+            'client_id' => $authClient->getPublicId(),
+            'client_secret' => $authClient->getSecret()
+        );
 
-        $userProvider->setPassword($user, 'qwerty123');
+        $this->client->request(
+            'POST',
+            '/oauth/v2/token',
+            $authParams,
+            array(),
+            array('Content-Type' => 'application/x-www-form-urlencoded')
+        );
 
-        $userRepository->getDocumentManager()->persist($user);
-        $userRepository->getDocumentManager()->flush();
+        $response = $this->client->getResponse()->getContent();
+        $jsonResponse = json_decode($response, true);
 
-        return $user;
+        Assert::assertResponseCode(200, $this->client);
+        self::assertNotNull($jsonResponse);
+
+        Assert::assertJsonHasPath('access_token', $jsonResponse);
+        Assert::assertJsonHasPath('refresh_token', $jsonResponse);
+        Assert::assertJsonHasPath('token_type', $jsonResponse);
+        Assert::assertJsonHasPath('expires_in', $jsonResponse);
     }
 }
