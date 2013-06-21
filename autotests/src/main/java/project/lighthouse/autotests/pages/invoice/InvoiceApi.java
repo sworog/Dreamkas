@@ -14,9 +14,16 @@ public class InvoiceApi extends CommonApi {
 
     public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
         apiConnect.createInvoiceThroughPost(invoiceName);
+        navigateToTheInvoicePage(invoiceName);
     }
 
     public void createInvoiceThroughPost(String invoiceName, String productSku) throws IOException, JSONException {
         apiConnect.createInvoiceThroughPost(invoiceName, productSku);
+        navigateToTheInvoicePage(invoiceName);
+    }
+
+    public void navigateToTheInvoicePage(String invoiceName) throws JSONException {
+        String invoicePageUrl = apiConnect.getInvoicePageUrl(invoiceName);
+        getDriver().navigate().to(invoicePageUrl);
     }
 }

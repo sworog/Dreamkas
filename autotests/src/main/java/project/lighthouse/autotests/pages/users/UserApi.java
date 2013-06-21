@@ -16,7 +16,8 @@ public class UserApi extends CommonApi {
         apiConnect.createUserThroughPost(name, position, login, password, role);
     }
 
-    public void navigateToTheUserPage(String login) throws JSONException {
-        apiConnect.navigateToTheUserPage(login);
+    public void navigateToTheUserPage(String userName) throws JSONException {
+        String userPageUrl = apiConnect.getUserPageUrl(userName);
+        getDriver().navigate().to(userPageUrl);
     }
 }
