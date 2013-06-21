@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Form\UserType;
-use Lighthouse\CoreBundle\Security\UserProvider;
+use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -25,7 +25,7 @@ class UserController extends AbstractRestController
 
     /**
      * @DI\Inject("lighthouse.core.user.provider")
-     * @var UserProvider
+     * @var \Lighthouse\CoreBundle\Security\User\UserProvider
      */
     public $userProvider;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Security;
+namespace Lighthouse\CoreBundle\Security\User;
 
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
