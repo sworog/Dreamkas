@@ -77,19 +77,6 @@ class WebTestCase extends BaseTestCase
     }
 
     /**
-     * @param Crawler $crawler
-     * @param array $assertions
-     * @param bool $xpath
-     */
-    protected function runCrawlerAssertions(Crawler $crawler, array $assertions, $xpath = false)
-    {
-        foreach ($assertions as $selector => $expected) {
-            $filtered = ($xpath) ? $crawler->filterXPath($selector) : $crawler->filter($selector);
-            $this->assertContains($expected, $filtered->first()->text());
-        }
-    }
-
-    /**
      * @param Client $client
      * @param string $method
      * @param string $uri
