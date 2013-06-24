@@ -61,4 +61,56 @@ namespace :symfony do
             run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{destination_file}"
         end
     end
+
+    namespace :auth do
+        namespace :client do
+
+            def create_auth_client(secret, public_id)
+                run "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:auth:client:create #{secret} #{public_id} --env=#{symfony_env_prod}'", :once => true
+            end
+
+            task :create, :roles => :app, :except => { :no_release => true } do
+                capifony_pretty_print "--> Creating client"
+                raise "secret should be provided by -S secret=.." unless exists?(:secret)
+                raise "public_id should be provided by -S public_id=.." unless exists?(:public_id)
+                create_auth_client(secret, public_id)
+                capifony_puts_ok
+            end
+
+            task :create_default, :roles => :app, :except => { :no_release => true } do
+                capifony_pretty_print "--> Creating default clients"
+                create_auth_client("secret", "webfront")
+                create_auth_client("secret", "autotests")
+                capifony_puts_ok
+            end
+
+            task :list, :roles => :app, :except => { :no_release => true } do
+                puts "--> List auth clients"
+                puts capture "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:auth:client:list --env=#{symfony_env_prod}'", :once => true
+            end
+        end
+    end
+
+    namespace :user do
+        def create_api_user(username, userpass, userrole)
+            capture "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:user:create #{username} #{userpass} #{userrole} --env=#{symfony_env_prod}'", :once => true
+        end
+
+        desc "Create user, required: -S username=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default)"
+        task :create, :roles => :app, :except => { :no_release => true } do
+            puts "--> Creating user"
+            raise "username should be provided by -S username=.." unless exists?(:username)
+            raise "userpass should be provided by -S userpass=.." unless exists?(:userpass)
+            set :userrole, "" unless exists?(:userrole)
+            puts create_api_user(username, userpass, userrole)
+            capifony_puts_ok
+        end
+
+        task :create_default, :roles => :app, :except => { :no_release => true } do
+            api_users.each do |api_user|
+                puts "--> Creating user " + api_user['username'].green
+                puts create_api_user(api_user['username'], api_user['userpass'], api_user['userrole'])
+            end
+        end
+    end
 end

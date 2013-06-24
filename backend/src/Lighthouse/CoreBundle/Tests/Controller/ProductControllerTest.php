@@ -22,7 +22,7 @@ class ProductControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $this->client,
             'POST',
-            'api/1/products',
+            '/api/1/products',
             $postData
         );
 
@@ -89,74 +89,26 @@ class ProductControllerTest extends WebTestCase
         $invalidData['purchasePrice'] = '';
         $invalidData['units'] = '';
 
-        $crawler = $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/products.xml',
+            '/api/1/products',
             $invalidData
         );
 
-        Assert::assertResponseCode(400, $this->client);
-
-        $this->assertEquals(
-            1,
-            $crawler->filter('form[name="purchasePrice"] errors entry')->count()
-        );
-        $this->assertEquals(
-            1,
-            $crawler->filter('form[name="units"] errors entry')->count()
-        );
-    }
-
-    public function testPostProductActionXmlPost()
-    {
-        $xml = <<<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<product>
-    <name>Кефир "Веселый Молочник" 1% 950гр</name>
-    <units>gr</units>
-    <barcode>4607025392408</barcode>
-    <purchasePrice>3048</purchasePrice>
-    <sku>КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР</sku>
-    <vat>10</vat>
-    <vendor>Вимм-Билль-Данн</vendor>
-    <vendorCountry>Россия</vendorCountry>
-    <info>Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса</info>
-</product>
-EOF;
-        $this->client->request(
-            'POST',
-            '/api/1/products.xml',
-            array(),
-            array(),
-            array('CONTENT_TYPE' => 'application/xml'),
-            $xml
-        );
-
-        Assert::assertResponseCode(201, $this->client);
-    }
-
-    public function testPostProductActionInvalidXmlPost()
-    {
-        $xml = <<<EOF
-not an xml
-EOF;
-        $this->client->request(
-            'POST',
-            '/api/1/products.xml',
-            array(),
-            array(),
-            array('CONTENT_TYPE' => 'application/xml'),
-            $xml
-        );
 
         Assert::assertResponseCode(400, $this->client);
+
+        Assert::assertJsonPathCount(1, 'children.purchasePrice.errors.*', $response);
+        Assert::assertJsonPathCount(1, 'children.units.errors.*', $response);
     }
 
     public function testPostProductActionEmptyPost()
     {
-        $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/products.xml'
+            '/api/1/products'
         );
         Assert::assertResponseCode(400, $this->client);
     }
@@ -166,26 +118,25 @@ EOF;
      */
     public function testPostProductActionUniqueSku(array $postData)
     {
-        $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/products.xml',
+            '/api/1/products',
             $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
 
-        $crawler = $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/products.xml',
+            '/api/1/products',
             $postData
         );
 
         Assert::assertResponseCode(400, $this->client);
 
-        $this->assertContains(
-            'уже есть',
-            $crawler->filter('form[name="sku"] errors entry')->first()->text()
-        );
+        Assert::assertJsonPathContains('уже есть', 'children.sku.errors.0', $response);
     }
 
     /**
@@ -193,41 +144,45 @@ EOF;
      */
     public function testPutProductAction(array $postData)
     {
-        $crawler = $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/products.xml',
+            '/api/1/products',
             $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
 
-        $this->assertEquals($postData['barcode'], $crawler->filter('product barcode')->first()->text());
-        $this->assertEquals($postData['vat'], $crawler->filter('product vat')->first()->text());
+        Assert::assertJsonPathEquals($postData['barcode'], 'barcode', $response);
+        Assert::assertJsonPathEquals($postData['vat'], 'vat', $response);
 
-        $id = $crawler->filter('product id')->first()->text();
+        Assert::assertJsonHasPath('id', $response);
+        $id = $response['id'];
         $this->assertNotEmpty($id);
 
         $putData = $postData;
         $putData['barcode'] = '65346456456';
         $putData['vat'] = 18;
 
-        $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'PUT',
-            '/api/1/products/' . $id . '.xml',
+            '/api/1/products/' . $id,
             $putData
         );
 
         Assert::assertResponseCode(204, $this->client);
 
-        $crawler = $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'GET',
-            '/api/1/products/' . $id . '.xml'
+            '/api/1/products/' . $id
         );
 
         Assert::assertResponseCode(200, $this->client);
 
-        $this->assertEquals($putData['barcode'], $crawler->filter('product barcode')->first()->text());
-        $this->assertEquals($putData['vat'], $crawler->filter('product vat')->first()->text());
+        Assert::assertJsonPathEquals($putData['barcode'], 'barcode', $response);
+        Assert::assertJsonPathEquals($putData['vat'], 'vat', $response);
     }
 
     /**
@@ -237,9 +192,10 @@ EOF;
     {
         $id = '1234534312';
 
-        $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'PUT',
-            '/api/1/products/' . $id . '.xml',
+            '/api/1/products/' . $id,
             $putData
         );
 
@@ -251,35 +207,35 @@ EOF;
      */
     public function testPutProductActionInvalidData(array $postData)
     {
-        $crawler = $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/products.xml',
+            '/api/1/products',
             $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
 
-        $this->assertEquals($postData['barcode'], $crawler->filter('product barcode')->first()->text());
-        $this->assertEquals($postData['vat'], $crawler->filter('product vat')->first()->text());
+        Assert::assertJsonPathEquals($postData['barcode'], 'barcode', $response);
+        Assert::assertJsonPathEquals($postData['vat'], 'vat', $response);
 
-        $id = $crawler->filter('product id')->first()->text();
+        Assert::assertJsonHasPath('id', $response);
+        $id = $response['id'];
         $this->assertNotEmpty($id);
 
         $putData = $postData;
         unset($putData['name']);
 
-        $crawler = $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'PUT',
-            '/api/1/products/' . $id . '.xml',
+            '/api/1/products/' . $id,
             $putData
         );
 
         Assert::assertResponseCode(400, $this->client);
 
-        $this->assertContains(
-            'Заполните это поле',
-            $crawler->filter('form[name="name"] errors entry')->first()->text()
-        );
+        Assert::assertJsonPathContains('Заполните это поле', 'children.name.errors.0', $response);
     }
 
     /**
@@ -287,43 +243,45 @@ EOF;
      */
     public function testPutProductActionChangeId(array $postData)
     {
-        $crawler = $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/products.xml',
+            '/api/1/products',
             $postData
         );
 
         Assert::assertResponseCode(201, $this->client);
 
-        $id = $crawler->filter('product id')->first()->text();
+        Assert::assertJsonHasPath('id', $response);
+        $id = $response['id'];
         $this->assertNotEmpty($id);
 
         $newId = 123;
         $putData = $postData;
         $putData['id'] = $newId;
 
-        $crawler = $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'PUT',
-            '/api/1/products/' . $id . '.xml',
+            '/api/1/products/' . $id,
             $putData
         );
 
         Assert::assertResponseCode(400, $this->client);
-        $this->assertContains(
-            'Эта форма не должна содержать дополнительных полей',
-            $crawler->filter('errors entry')->first()->text()
-        );
+        Assert::assertJsonPathContains('Эта форма не должна содержать дополнительных полей', 'errors.0', $response);
 
-        $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'GET',
             '/api/1/products/' . $newId
         );
 
         Assert::assertResponseCode(404, $this->client);
 
-        $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'GET',
-            '/api/1/products/' . $id . '.xml'
+            '/api/1/products/' . $id
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -339,13 +297,25 @@ EOF;
             'HTTP_Origin' => 'www.a.com',
         );
 
-        $this->client->request('POST', '/api/1/product.xml', $postArray, array(), $headers);
+        $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/products',
+            $postArray,
+            array(),
+            $headers
+        );
 
         /* @var $response Response */
         $response = $this->client->getResponse();
         $this->assertTrue($response->headers->has('Access-Control-Allow-Origin'));
 
-        $this->client->request('POST', '/api/1/product.xml', $postArray);
+        $this->clientJsonRequest(
+            $this->client,
+            'POST',
+            '/api/1/products',
+            $postArray
+        );
         /* @var $response Response */
         $response = $this->client->getResponse();
         $this->assertFalse($response->headers->has('Access-Control-Allow-Origin'));
@@ -359,21 +329,23 @@ EOF;
         for ($i = 0; $i < 5; $i++) {
             $postData['name'] = 'Кефир' . $i;
             $postData['sku'] = 'sku' . $i;
-            $this->client->request(
+            $this->clientJsonRequest(
+                $this->client,
                 'POST',
-                '/api/1/products.xml',
+                '/api/1/products',
                 $postData
             );
             Assert::assertResponseCode(201, $this->client);
         }
 
-        $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'GET',
-            '/api/1/products.xml'
+            '/api/1/products'
         );
 
         Assert::assertResponseCode(200, $this->client);
-        $this->assertSelectCount('products product', 5, $this->client->getResponse()->getContent());
+        Assert::assertJsonPathCount(5, '*.id', $response);
     }
 
     /**
@@ -404,7 +376,8 @@ EOF;
 
     public function testGetProductNotFound()
     {
-        $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'GET',
             '/api/1/products/1111'
         );
@@ -419,24 +392,23 @@ EOF;
         for ($i = 0; $i < 5; $i++) {
             $postData['name'] = 'Кефир' . $i;
             $postData['sku'] = 'sku' . $i;
-            $this->client->request(
+            $response = $this->clientJsonRequest(
+                $this->client,
                 'POST',
-                '/api/1/products.xml',
+                '/api/1/products',
                 $postData
             );
             Assert::assertResponseCode(201, $this->client);
         }
 
-        $crawler = $this->client->request(
+        $response = $this->clientJsonRequest(
+            $this->client,
             'GET',
-            '/api/1/products/name/search.xml',
-            array(
-                'query' => 'кефир3',
-            )
+            '/api/1/products/name/search' . '?query=кефир3'
         );
 
-        $this->assertEquals(1, $crawler->filter('product name')->count());
-        $this->assertEquals('Кефир3', $crawler->filter('product name')->first()->text());
+        Assert::assertJsonPathCount(1, '*.name', $response);
+        Assert::assertJsonPathEquals('Кефир3', '*.name', $response);
     }
 
     public function testSearchProductsActionEmptyRequest()

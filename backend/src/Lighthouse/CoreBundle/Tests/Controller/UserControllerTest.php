@@ -455,7 +455,8 @@ class UserControllerTest extends WebTestCase
             $postData = $data;
             $postData['name'] .= $i;
             $postData['username'] .= $i;
-            $this->client->request(
+            $postResponse = $this->clientJsonRequest(
+                $this->client,
                 'POST',
                 '/api/1/users',
                 $postData
@@ -470,7 +471,7 @@ class UserControllerTest extends WebTestCase
             '/api/1/users'
         );
         Assert::assertResponseCode(200, $this->client);
-        Assert::assertJsonPathCount(5, '*.username', $postResponse);
+        Assert::assertJsonPathCount(6, '*.username', $postResponse);
 
         foreach ($postDataArray as $postData) {
             foreach ($postData as $key => $value) {

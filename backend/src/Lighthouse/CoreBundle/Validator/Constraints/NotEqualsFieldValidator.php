@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
+use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
@@ -16,7 +17,14 @@ class NotEqualsFieldValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if ($value == $this->context->getRoot()->get($constraint->field)->getData()) {
+        $root = $this->context->getRoot();
+        if ($root instanceof AbstractDocument) {
+            $fieldValue = $root->{$constraint->field};
+        } else {
+            $fieldValue = $root->get($constraint->field)->getData();
+        }
+
+        if ($value == $fieldValue) {
             $this->context->addViolation(
                 $constraint->message,
                 array(

@@ -3,14 +3,13 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Lighthouse\CoreBundle\Document\Auth\Client as Client0;
+use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use AppKernel;
 
@@ -455,11 +454,11 @@ class WebTestCase extends BaseTestCase
 
     /**
      * @param string $secret
-     * @return Client0
+     * @return AuthClient
      */
     protected function createAuthClient($secret = 'secret')
     {
-        $client = new Client0();
+        $client = new AuthClient();
         $client->setSecret($secret);
         $client->setAllowedGrantTypes(array('password'));
 
