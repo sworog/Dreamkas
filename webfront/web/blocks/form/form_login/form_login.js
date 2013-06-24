@@ -1,7 +1,8 @@
 define(function(require) {
     //requirements
     var Form = require('kit/blocks/form/form'),
-        _ = require('underscore');
+        _ = require('underscore'),
+        tokenModel = require('models/token');
 
     require('jquery.cookie');
 
@@ -14,20 +15,12 @@ define(function(require) {
             var block = this,
                 deferred = $.Deferred();
 
-            $.ajax({
-                url: '/oauth/v2/token',
-                method: 'POST',
-                data: _.extend(block.data, {
-                    grant_type: 'password',
-                    client_id: '',
-                    client_secret: ''
-                }),
+            tokenModel.save(block.data, {
                 success: function(data){
-                    $.cookie('token', data.access_token);
-                    document.location.reload();
+                    console.log(data);
                 },
                 error: function(data){
-                    deferred.reject(data);
+                    console.log(data);
                 }
             });
 
