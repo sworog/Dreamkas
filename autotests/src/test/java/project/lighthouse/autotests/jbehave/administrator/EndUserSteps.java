@@ -6,7 +6,7 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.steps.UserSteps;
+import project.lighthouse.autotests.steps.administrator.UserSteps;
 
 import java.io.IOException;
 

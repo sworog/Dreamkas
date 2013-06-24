@@ -9,9 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.Waiter;
-import project.lighthouse.autotests.pages.elements.Autocomplete;
-import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
-import project.lighthouse.autotests.pages.product.ProductListPage;
+import project.lighthouse.autotests.elements.Autocomplete;
+import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
+import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceListPage;
 
 import java.util.List;
 import java.util.Map;

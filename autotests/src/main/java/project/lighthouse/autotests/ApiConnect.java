@@ -2,6 +2,7 @@ package project.lighthouse.autotests;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -10,8 +11,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.lighthouse.autotests.elements.DateTime;
 import project.lighthouse.autotests.objects.*;
-import project.lighthouse.autotests.pages.elements.DateTime;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,6 +20,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class ApiConnect {
+
+    String userName;
+    String password;
+
+    public ApiConnect(String userName, String password) throws JSONException {
+        this.userName = userName;
+        this.password = password;
+    }
 
     public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
         if (!StaticDataCollections.products.containsKey(sku)) {
@@ -66,11 +75,11 @@ public class ApiConnect {
         executePostRequest(apiUrl, productJsonData);
     }
 
-    public void averagePriceRecalculation() {
+    public void averagePriceRecalculation() throws IOException, JSONException {
         String url = UrlHelper.getApiUrl() + "/api/1/service/recalculate-average-purchase-price";
-        String response = executePost(url, "");
+        String response = executePostRequest(url, "");
         if (!response.contains("{\"ok\":true}")) {
-            throw new AssertionError("Average price recalculation failed!");
+            throw new AssertionError("Average price recalculation failed!\nResponse: " + response);
         }
     }
 
@@ -151,12 +160,13 @@ public class ApiConnect {
         return String.format("%s/users/%s", UrlHelper.getWebFrontUrl(), userId);
     }
 
-    private String executePostRequest(String targetURL, String urlParameters) throws IOException {
+    private String executePostRequest(String targetURL, String urlParameters) throws IOException, JSONException {
         HttpPost request = new HttpPost(targetURL);
         StringEntity entity = new StringEntity(urlParameters, "UTF-8");
         entity.setContentType("application/json;charset=UTF-8");
         entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
         request.setHeader("Accept", "application/json");
+        request.setHeader("Authorization", "Bearer " + getAccessToken());
         request.setEntity(entity);
 
         DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -165,11 +175,18 @@ public class ApiConnect {
 
         HttpEntity httpEntity = response.getEntity();
         String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
-        if (response.getStatusLine().getStatusCode() != 201) {
+        validateResponseMessage(response, responseMessage);
+        return responseMessage;
+    }
+
+    private void validateResponseMessage(HttpResponse httpResponse, String responseMessage) {
+        int statusCode = httpResponse.getStatusLine().getStatusCode();
+        if (statusCode != 201 && statusCode != 200) {
             StringBuilder builder = new StringBuilder();
-            JSONObject jsonObject = null;
+            JSONObject mainJsonObject = null;
             try {
-                jsonObject = new JSONObject(responseMessage).getJSONObject("children");
+                mainJsonObject = new JSONObject(responseMessage);
+                JSONObject jsonObject = !mainJsonObject.isNull("children") ? mainJsonObject.getJSONObject("children") : mainJsonObject;
                 Object[] objects = toMap(jsonObject).values().toArray();
 
                 for (int i = 0; i < objects.length; i++) {
@@ -177,35 +194,44 @@ public class ApiConnect {
                         String errors = new JSONObject(objects[i].toString()).getString("errors");
                         builder.append(errors);
                     }
+                    if (objects[i] instanceof String) {
+                        builder.append(objects[i] + ";");
+                    }
                 }
             } catch (JSONException e) {
-                String errorMessage = String.format("Exception message: %s\nJson: %s", e.getMessage(), jsonObject.toString());
+                String errorMessage = String.format("Exception message: %s\nJson: %s", e.getMessage(), mainJsonObject.toString());
                 throw new AssertionError(errorMessage);
             }
             String errorMessage = String.format("Responce json error: '%s'", builder.toString());
             throw new AssertionError(errorMessage);
         }
+    }
+
+    private String executeSimpleGetRequest(String targetUrl) throws IOException {
+
+        //TODO Work around for token expiration 401 : The access token provided has expired.
+        HttpGet request = new HttpGet(targetUrl);
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpResponse response = httpClient.execute(request);
+        HttpEntity httpEntity = response.getEntity();
+        String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
+        validateResponseMessage(response, responseMessage);
         return responseMessage;
     }
 
-    private String executePost(String targetUrl, String urlParameters) {
-        try {
-            HttpPost request = new HttpPost(targetUrl);
-            StringEntity entity = new StringEntity(urlParameters, "UTF-8");
-            entity.setContentType("application/json;charset=UTF-8");
-            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-            request.setHeader("Accept", "application/json");
-            request.setEntity(entity);
+    private String getAccessToken() throws JSONException, IOException {
+        receiveAccessToken(userName, password);
+        return StaticDataCollections.userTokens.get(userName).getAccessToken();
+    }
 
-            HttpResponse response = null;
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
-            response = httpClient.execute(request);
-
-            HttpEntity httpEntity = response.getEntity();
-            return EntityUtils.toString(httpEntity, "UTF-8");
-        } catch (Exception e) {
-            throw new AssertionError(e.getMessage());
+    private void receiveAccessToken(String userName, String password) throws JSONException, IOException {
+        if (!StaticDataCollections.userTokens.containsKey(userName)) {
+            String url = String.format("%s/oauth/v2/token", UrlHelper.getApiUrl());
+            String parameters = String.format("?grant_type=password&username=%s&password=%s&client_id=%s&client_secret=%s",
+                    userName, password, StaticDataCollections.client_id, StaticDataCollections.client_secret);
+            String response = executeSimpleGetRequest(url + parameters);
+            OauthAuthorizeData oauthAuthorize = new OauthAuthorizeData(new JSONObject(response));
+            StaticDataCollections.userTokens.put(userName, oauthAuthorize);
         }
     }
 

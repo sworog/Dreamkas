@@ -6,12 +6,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonViewInterface;
-import project.lighthouse.autotests.pages.amount.AmountListPage;
-import project.lighthouse.autotests.pages.invoice.InvoiceBrowsing;
-import project.lighthouse.autotests.pages.invoice.InvoiceListPage;
-import project.lighthouse.autotests.pages.product.ProductListPage;
-import project.lighthouse.autotests.pages.writeOff.WriteOffListPage;
-import project.lighthouse.autotests.pages.writeOff.WriteOffPage;
+import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
+import project.lighthouse.autotests.pages.departmentManager.amount.AmountListPage;
+import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrowsing;
+import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceListPage;
+import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffListPage;
+import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffPage;
 
 import java.util.Map;
 
