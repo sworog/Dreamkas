@@ -6,7 +6,7 @@ import project.lighthouse.autotests.ApiConnect;
 
 public class CommonApi extends PageObject {
 
-    protected ApiConnect apiConnect = new ApiConnect(getDriver());
+    protected ApiConnect apiConnect = new ApiConnect();
 
     public CommonApi(WebDriver driver) {
         super(driver);

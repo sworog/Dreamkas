@@ -7,7 +7,6 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.ApiConnect;
 import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.pages.elements.Autocomplete;
@@ -21,8 +20,6 @@ public class CommonPage extends PageObject implements CommonPageInterface {
 
     public static final String ERROR_MESSAGE = "No such option for '%s'";
     public static final String STRING_EMPTY = "";
-
-    protected ApiConnect apiConnect = new ApiConnect(getDriver());
 
     protected Waiter waiter = new Waiter(getDriver());
 
@@ -206,10 +203,16 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void NoAlertIsPresent() {
+//        try {
+//            String alertText = getAlert().getText();
+//            throw new AssertionError(String.format("Alert is present! Alert text: '%s'", alertText));
+//        } catch (Exception e) {
+//        }
         try {
-            String alertText = getAlert().getText();
-            throw new AssertionError(String.format("Alert is present! Alert text: '%s'", alertText));
+            Alert alert = waiter.getAlert();
+            throw new AssertionError(String.format("Alert is present! Alert text: '%s'", alert.getText()));
         } catch (Exception e) {
+
         }
     }
 }

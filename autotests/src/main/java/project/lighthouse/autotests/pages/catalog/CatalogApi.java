@@ -21,6 +21,7 @@ public class CatalogApi extends CommonApi {
     }
 
     public void navigateToKlassPage(String klassName) throws JSONException {
-        apiConnect.navigateToKlassPage(klassName);
+        String klassPageUrl = apiConnect.getKlassPageUrl(klassName);
+        getDriver().navigate().to(klassPageUrl);
     }
 }

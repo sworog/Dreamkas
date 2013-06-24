@@ -25,15 +25,18 @@ public class WriteOffApi extends CommonApi {
     public void createWriteOffAndNavigateToIt(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
                                               String quantity, String price, String cause)
             throws JSONException, IOException {
-        apiConnect.createWriteOffAndNavigateToIt(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+        apiConnect.createWriteOffThroughPost(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+        navigatoToWriteOffPage(writeOffNumber);
     }
 
     public void createWriteOffAndNavigateToIt(String writeOffNumber)
             throws JSONException, IOException {
-        apiConnect.createWriteOffAndNavigateToIt(writeOffNumber);
+        apiConnect.createWriteOffThroughPost(writeOffNumber);
+        navigatoToWriteOffPage(writeOffNumber);
     }
 
     public void navigatoToWriteOffPage(String writeOffNumber) throws JSONException {
-        apiConnect.navigatoToWriteOffPage(writeOffNumber);
+        String writeOffPageUrl = apiConnect.getWriteOffPageUrl(writeOffNumber);
+        getDriver().navigate().to(writeOffPageUrl);
     }
 }
