@@ -460,7 +460,6 @@ class WebTestCase extends BaseTestCase
     {
         $client = new AuthClient();
         $client->setSecret($secret);
-        $client->setAllowedGrantTypes(array('password'));
 
         $dm = $this->getContainer()->get('doctrine_mongodb.odm.document_manager');
 

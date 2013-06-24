@@ -16,7 +16,7 @@ class AccessToken extends BaseAccessToken
     protected $id;
 
     /**
-     * @@MongoDB\ReferenceOne(
+     * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Auth\Client",
      *     simple=true,
      *     cascade="persist"
