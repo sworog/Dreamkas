@@ -61,4 +61,19 @@ namespace :symfony do
             run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{destination_file}"
         end
     end
+
+    namespace :auth do
+        namespace :client do
+
+            def create_auth_client(secret, public_id)
+                run "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:auth:client:create #{secret} #{public_id} --env=#{symfony_env_prod}'", :once => true
+            end
+
+            task :create, :roles => :app, :except => { :no_release => true } do
+                capifony_pretty_print "--> Creating client"
+                create_auth_client(secret, public_id)
+                capifony_puts_ok
+            end
+        end
+    end
 end
