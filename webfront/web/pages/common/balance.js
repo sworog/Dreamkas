@@ -1,10 +1,11 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('pages/page'),
         Table_balance = require('blocks/table/table_balance/table_balance'),
         ProductCollection = require('collections/products');
 
     return Page.extend({
+        pageName: 'page_balance',
         templates: {
             '#content': require('tpl!./templates/balance.html')
         },

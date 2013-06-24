@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page');
+    var Page = require('pages/page');
 
     return Page.extend({
 

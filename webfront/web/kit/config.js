@@ -1,26 +1,32 @@
+window.KIT = {};
+
 require.config({
     baseUrl: '/',
     paths: {
-        'backbone': 'kit/_libs/backbone/backbone',
-        'backbone.syphon': 'kit/_libs/backbone/backbone.syphon',
-        'underscore': 'kit/_libs/underscore/underscore',
+        'backbone': 'kit/libs/backbone/backbone',
+        'backbone.syphon': 'kit/libs/backbone/backbone.syphon',
+        'underscore': 'kit/libs/underscore/underscore',
 
-        'jquery': 'kit/_libs/jquery/jquery',
-        'jquery.require': 'kit/_libs/jquery/jquery.require',
-        'jquery.mod': 'kit/_libs/jquery/jquery.mod',
-        'jquery.maskedinput': 'kit/_libs/jquery/jquery.maskedinput',
+        'jquery': 'kit/libs/jquery/jquery',
+        'jquery.require': 'kit/libs/jquery/jquery.require',
+        'jquery.mod': 'kit/libs/jquery/jquery.mod',
+        'jquery.maskedinput': 'kit/libs/jquery/jquery.maskedinput',
 
-        'tpl': 'kit/_libs/require/tpl',
-        'i18n': 'kit/_libs/require/i18n'
+        'tpl': 'kit/utils/tpl',
+        'i18n': 'kit/libs/require/i18n'
     },
     packages: [
+        {
+            name: 'nls',
+            location: 'kit/nls'
+        },
         {
             name: 'kit',
             location: 'kit'
         },
         {
             name: 'moment',
-            location: 'kit/_libs/moment',
+            location: 'kit/libs/moment',
             main: 'moment'
         }
     ],

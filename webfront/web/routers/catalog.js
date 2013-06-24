@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var content_main = require('blocks/content/content_main'),
-            deepExtend = require('kit/_utils/deepExtend'),
+            deepExtend = require('kit/utils/deepExtend'),
             BaseRouter = require('routers/baseRouter');
 
         var Router = BaseRouter.extend({
@@ -19,18 +19,18 @@ define(function(require) {
                 }));
             },
             catalog: function(params) {
-                this.open('/pages/catalog/catalog.html', {
+                this.open('/pages/catalog/templates/catalog.html', {
                     params: params
                 });
             },
             catalogClass: function(catalogClassId, params){
-                this.open('/pages/catalog/class.html', {
+                this.open('/pages/catalog/templates/class.html', {
                     catalogClassId: catalogClassId,
                     params: params
                 });
             },
             catalogGroup: function(catalogClassId, catalogGroupId, params){
-                this.open('/pages/catalog/group.html', {
+                this.open('/pages/catalog/templates/group.html', {
                     catalogClassId: catalogClassId,
                     catalogGroupId: catalogGroupId,
                     params: params

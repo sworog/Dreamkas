@@ -1,0 +1,20 @@
+<% block.collection.each(function(model){ %>
+<tr name="invoice" href="/invoices/<%= model.id %>">
+    <td name="acceptanceDate">
+        <%= moment(model.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
+    </td>
+    <td name="sku">
+        <%e model.get('sku') %>
+    </td>
+    <td name="supplier">
+        <%t model.get('supplier') %>
+    </td>
+    <td>
+        <span name="sumTotal"><%e LH.helpers.formatPrice(model.get('sumTotal')) %></span>
+        <span>р.</span>
+    </td>
+    <td name="accepter">
+        <%t model.get('accepter') %>
+    </td>
+</tr>
+<% }) %>

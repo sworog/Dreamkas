@@ -1,23 +1,23 @@
 <div class="page__controls">
     <a class="user__editLink"
        href="/users/edit/<%= block.model.get('id') %>">
-        Редактировать
+       Редактировать
     </a>
 </div>
 
-<h3 name="name"><%= block.model.get('name') %></h3>
+<h3 name="name"><%t block.model.get('name') %></h3>
 
 <table class="table" style="width: 50%">
     <tr>
         <th>Роль</th>
-        <td name="role"><%= t(block.model.get('role')) %></td>
+        <td name="role"><%t block.model.get('role') %></td>
     </tr>
     <tr>
         <th>Должность</th>
-        <td name="position"><%= block.model.get('position') %></td>
+        <td name="position"><%t block.model.get('position') %></td>
     </tr>
     <tr>
         <th>Логин</th>
-        <td name="username"><%= block.model.get('username') %></td>
+        <td name="username"><%e block.model.get('username') %></td>
     </tr>
 </table>

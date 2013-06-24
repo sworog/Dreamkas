@@ -15,6 +15,10 @@ require(
             {
                 name: 'helpers',
                 location: 'helpers'
+            },
+            {
+                name: 'routers',
+                location: 'routers'
             }
         ],
         config: {
@@ -29,11 +33,11 @@ require(
         'jquery',
         'backbone',
         'underscore',
-        'routers/mainRouter',
+        'routers',
         'helpers',
         'nls'
     ],
-    function($, Backbone, _, router) {
+    function($, Backbone, _, routers) {
         $(function() {
             Backbone.history.start({
                 pushState: true
@@ -41,7 +45,7 @@ require(
 
             $('body').on('click', '[href]', function(e) {
                 e.preventDefault();
-                router.navigate($(this).attr('href'), {trigger: true});
+                routers.navigate($(this).attr('href'), {trigger: true});
             });
         });
     });

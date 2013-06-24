@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
-            InputDate = require('kit/inputDate/inputDate'),
+            InputDate = require('kit/blocks/inputDate/inputDate'),
             InvoiceModel = require('models/invoice'),
             InvoiceProductCollection = require('collections/invoiceProducts'),
             AddProductForm = require('blocks/invoice/addProductForm');

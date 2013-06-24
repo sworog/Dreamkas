@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Tooltip = require('kit/tooltip/tooltip');
+        var Tooltip = require('kit/blocks/tooltip/tooltip');
 
         return Tooltip.extend({
             addClass: 'tooltip_editMenu',

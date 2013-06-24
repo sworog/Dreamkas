@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/form/form'),
+        var Form = require('kit/blocks/form/form'),
             InvoiceProduct = require('models/invoiceProduct');
 
         return Form.extend({

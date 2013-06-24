@@ -3,8 +3,8 @@ define(function(require) {
     var Backbone = require('backbone'),
         _ = require('underscore'),
         $ = require('jquery'),
-        deepExtend = require('kit/_utils/deepExtend'),
-        classExtend = require('kit/_utils/classExtend');
+        deepExtend = require('kit/utils/deepExtend'),
+        classExtend = require('kit/utils/classExtend');
 
     require('jquery.require');
 

@@ -1,10 +1,11 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('pages/page'),
         User = require('blocks/user/user'),
         UserModel = require('models/user');
 
     return Page.extend({
+        pageName: 'page_user_view',
         initialize: function(userId) {
             var page = this;
 

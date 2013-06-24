@@ -1,16 +1,16 @@
-@import "./button/button.css";
-@import "./button/button_color_blue.css";
-@import "./box/box.css";
-@import "./table/table.css";
-@import "./inputText/inputText.css";
-@import "./checkbox/checkbox.css";
-@import "./form/form.css";
-@import "./select/select.css";
-@import "./preloader/preloader.css";
-@import "./tooltip/tooltip.css";
-@import "./datepicker/datepicker.css";
-@import "./inputDate/inputDate.css";
-@import "./editor/editor.css";
+@import "./blocks/button/button.css";
+@import "./blocks/button/button_color_blue.css";
+@import "./blocks/box/box.css";
+@import "./blocks/table/table.css";
+@import "./blocks/inputText/inputText.css";
+@import "./blocks/checkbox/checkbox.css";
+@import "./blocks/form/form.css";
+@import "./blocks/select/select.css";
+@import "./blocks/preloader/preloader.css";
+@import "./blocks/tooltip/tooltip.css";
+@import "./blocks/datepicker/datepicker.css";
+@import "./blocks/inputDate/inputDate.css";
+@import "./blocks/editor/editor.css";
 
 html{
     height: 100%;

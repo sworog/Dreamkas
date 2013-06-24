@@ -1,10 +1,11 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('pages/page'),
         ProductModel = require('models/product'),
         Form_product = require('blocks/form/form_product/form_product');
 
     return Page.extend({
+        pageName: 'page_product_form',
         initialize: function(productId) {
             var page = this;
 

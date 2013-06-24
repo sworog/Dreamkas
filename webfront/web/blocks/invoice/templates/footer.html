@@ -1,5 +1,5 @@
 Итого
-<span name="totalProducts" class="invoice__totalProducts"><%= block.invoiceModel.get('itemsCount') %></span>
+<span name="totalProducts" class="invoice__totalProducts"><%e block.invoiceModel.get('itemsCount') %></span>
 позиций на сумму
-<span name="totalSum" class="invoice__totalSum"><%= LH.helpers.formatPrice(block.invoiceModel.get('sumTotal')) %></span>
+<span name="totalSum" class="invoice__totalSum"><%e LH.helpers.formatPrice(block.invoiceModel.get('sumTotal')) %></span>
 рублей

@@ -122,12 +122,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
                 String errorXpath = "//*[@lh_field_error]";
                 String errorMessage;
                 if (isPresent(errorXpath)) {
-                    List<WebElementFacade> webElementList = findAll(By.xpath(errorXpath));
-                    StringBuilder builder = new StringBuilder("Another validation errors are present:");
-                    for (WebElementFacade element : webElementList) {
-                        builder.append(element.getAttribute("lh_field_error"));
-                    }
-                    errorMessage = builder.toString();
+                    errorMessage = getErrorMessages(errorXpath);
                 } else {
                     errorMessage = "There are no error field validation messages on the page!";
                 }
@@ -136,12 +131,21 @@ public class CommonPage extends PageObject implements CommonPageInterface {
         }
     }
 
+    public String getErrorMessages(String xpath) {
+        List<WebElementFacade> webElementList = findAll(By.xpath(xpath));
+        StringBuilder builder = new StringBuilder("Validation errors are present: ");
+        for (WebElementFacade element : webElementList) {
+            builder.append(element.getAttribute("lh_field_error"));
+        }
+        return builder.toString();
+    }
+
     public void checkNoErrorMessages(ExamplesTable errorMessageTable) {
         for (Map<String, String> row : errorMessageTable.getRows()) {
             String expectedErrorMessage = row.get("error message");
             String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
             if (isPresent(xpath)) {
-                String errorMessage = ("The error message is present!");
+                String errorMessage = getErrorMessages(xpath);
                 throw new AssertionError(errorMessage);
             }
         }
@@ -150,7 +154,7 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     public void checkNoErrorMessages() {
         String xpath = "//*[@lh_field_error]";
         if (isPresent(xpath)) {
-            String errorMessage = "There are error field validation messages on the page!";
+            String errorMessage = getErrorMessages(xpath);
             throw new AssertionError(errorMessage);
         }
     }

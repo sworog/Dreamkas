@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
-            InputDate = require('kit/inputDate/inputDate'),
+            InputDate = require('kit/blocks/inputDate/inputDate'),
             WriteOffModel = require('models/writeOff'),
             WriteOffProductCollection = require('collections/writeOffProducts'),
             helpers = require('helpers'),

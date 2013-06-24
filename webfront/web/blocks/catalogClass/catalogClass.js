@@ -1,15 +1,15 @@
 define(function(require) {
         //requirements
         var Tooltip_editGroupMenu = require('blocks/tooltip/tooltip_editGroupMenu'),
-            Editor = require('kit/editor/editor'),
-            Tooltip = require('kit/tooltip/tooltip'),
+            Editor = require('kit/blocks/editor/editor'),
+            Tooltip = require('kit/blocks/tooltip/tooltip'),
             CatalogClassModel = require('models/catalogClass'),
             CatalogGroupModel = require('models/catalogGroup'),
             СatalogClassesCollection = require('collections/catalogClasses'),
             ClassGroupsCollection = require('collections/classGroups'),
             catalogRouter = require('routers/catalog'),
             Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
-            Form = require('kit/form/form');
+            Form = require('kit/blocks/form/form');
 
         return Editor.extend({
             editMode: false,

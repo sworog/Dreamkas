@@ -172,7 +172,7 @@ And the user navigates to the user page with username 'emnf16'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| username | РУССКИЙ |
+| username | РУССКИЙЙ |
 And the user clicks the create new user button
 Then the user sees no error messages
 
@@ -182,7 +182,7 @@ And the user navigates to the user page with username 'emnf17'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| username | руссский |
+| username | руссскийй |
 And the user clicks the create new user button
 Then the user sees no error messages
 
@@ -192,7 +192,7 @@ And the user navigates to the user page with username 'emnf19'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| username | ENGLISH |
+| username | ENGLISHHH |
 And the user clicks the create new user button
 Then the user sees no error messages
 
@@ -202,7 +202,7 @@ And the user navigates to the user page with username 'emnf20'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| username | englishh |
+| username | englishhh |
 And the user clicks the create new user button
 Then the user sees no error messages
 
@@ -212,7 +212,7 @@ And the user navigates to the user page with username 'emnf21'
 When the user clicks the edit button on the user card page
 When the user inputs values in the user page element fields
 | elementName | inputText |
-| username | 1234567890 |
+| username | 12345678901 |
 And the user clicks the create new user button
 Then the user sees no error messages
 
@@ -222,7 +222,7 @@ And the user navigates to the user page with username 'emnf22'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| username | username_username |
+| username | username_usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
 
@@ -232,7 +232,7 @@ And the user navigates to the user page with username 'emnf23'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| username | username-username |
+| username | username-usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
 
@@ -242,7 +242,7 @@ And the user navigates to the user page with username 'emnf24'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| username | username.username |
+| username | username.usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
 
@@ -252,7 +252,7 @@ And the user navigates to the user page with username 'emnf25'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| username | username@username |
+| username | username@usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
 
@@ -262,7 +262,7 @@ And the user navigates to the user page with username 'emnf26'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
 | elementName | inputText |
-| username | username_username-username@gmaik.com |
+| username | username_username-username@gmaik.comm |
 And the user clicks the create new user button
 Then the user sees no error messages
 
