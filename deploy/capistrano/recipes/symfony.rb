@@ -71,8 +71,22 @@ namespace :symfony do
 
             task :create, :roles => :app, :except => { :no_release => true } do
                 capifony_pretty_print "--> Creating client"
+                raise "secret should be provided by -S secret=.." unless exists?(:secret)
+                raise "public_id should be provided by -S public_id=.." unless exists?(:public_id)
                 create_auth_client(secret, public_id)
                 capifony_puts_ok
+            end
+
+            task :create_default, :roles => :app, :except => { :no_release => true } do
+                capifony_pretty_print "--> Creating default clients"
+                create_auth_client("secret", "webfront")
+                create_auth_client("secret", "autotests")
+                capifony_puts_ok
+            end
+
+            task :list, :roles => :app, :except => { :no_release => true } do
+                puts "--> List auth clients"
+                puts capture "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:auth:client:list --env=#{symfony_env_prod}'", :once => true
             end
         end
     end

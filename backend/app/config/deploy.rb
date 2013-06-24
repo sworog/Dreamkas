@@ -43,3 +43,4 @@ before "deploy:restart", "deploy:reload_php"
 after "deploy:restart" do
     puts "--> API was successfully deployed to ".green + "#{application_url}".yellow
 end
+
