@@ -110,6 +110,8 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testPostActionsNotExistingProduct()
     {
+        $this->clearMongoDb();
+
         $invoiceId = $this->createInvoice();
 
         $invoiceProductData = array(

@@ -94,3 +94,12 @@ nelmio_cors:
 sensio_framework_extra:
     view:    { annotations: false }
     router:  { annotations: true }
+
+fos_oauth_server:
+    db_driver: mongodb
+    client_class:        Lighthouse\CoreBundle\Document\Auth\Client
+    access_token_class:  Lighthouse\CoreBundle\Document\Auth\AccessToken
+    refresh_token_class: Lighthouse\CoreBundle\Document\Auth\RefreshToken
+    auth_code_class:     Lighthouse\CoreBundle\Document\Auth\AuthCode
+    service:
+        user_provider: lighthouse.core.user.provider

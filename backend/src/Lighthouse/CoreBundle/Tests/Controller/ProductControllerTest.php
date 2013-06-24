@@ -71,15 +71,16 @@ class ProductControllerTest extends WebTestCase
     {
         $postData = $data + $this->getProductData();
 
-        $crawler = $this->client->request(
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/products.xml',
+            '/api/1/products',
             $postData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
 
-        $this->runCrawlerAssertions($crawler, $assertions);
+        $this->performJsonAssertions($postResponse, $assertions);
     }
 
     public function testPostProductActionOnlyOneErrorMessageOnNotBlank()
@@ -470,7 +471,7 @@ EOF;
                 400,
                 array('name' => ''),
                 array(
-                    'form[name="name"] errors entry'
+                    'children.name.errors.0'
                     =>
                     'Заполните это поле',
                 ),
@@ -479,7 +480,7 @@ EOF;
                 400,
                 array('name' => str_repeat("z", 305)),
                 array(
-                    'form[name="name"] errors entry'
+                    'children.name.errors.0'
                     =>
                     'Не более 300 символов',
                 ),
@@ -503,7 +504,7 @@ EOF;
                 400,
                 array('purchasePrice' => ''),
                 array(
-                    'form[name="purchasePrice"] errors entry'
+                    'children.purchasePrice.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -512,18 +513,18 @@ EOF;
                 400,
                 array('purchasePrice' => '10,898'),
                 array(
-                    'form[name="purchasePrice"] errors entry'
+                    'children.purchasePrice.errors.0'
                     =>
-                    'Цена не должна содержать больше 2 цифр после запятой'
+                    'Цена не должна содержать больше 2 цифр после запятой.'
                 ),
             ),
             'not valid price very float dot' => array(
                 400,
                 array('purchasePrice' => '10.898'),
                 array(
-                    'form[name="purchasePrice"] errors entry'
+                    'children.purchasePrice.errors.0'
                     =>
-                    'Цена не должна содержать больше 2 цифр после запятой'
+                    'Цена не должна содержать больше 2 цифр после запятой.'
                 ),
             ),
             'valid price very float with dot' => array(
@@ -534,34 +535,34 @@ EOF;
                 400,
                 array('purchasePrice' => 'not a number'),
                 array(
-                    'form[name="purchasePrice"] errors entry'
+                    'children.purchasePrice.errors.0'
                     =>
-                    'Цена не должна быть меньше или равна нулю',
+                    'Цена не должна быть меньше или равна нулю.',
                 ),
             ),
             'not valid price zero' => array(
                 400,
                 array('purchasePrice' => 0),
                 array(
-                    'form[name="purchasePrice"] errors entry'
+                    'children.purchasePrice.errors.0'
                     =>
-                    'Цена не должна быть меньше или равна нулю'
+                    'Цена не должна быть меньше или равна нулю.'
                 ),
             ),
             'not valid price negative' => array(
                 400,
                 array('purchasePrice' => -10),
                 array(
-                    'form[name="purchasePrice"] errors entry'
+                    'children.purchasePrice.errors.0'
                     =>
-                    'Цена не должна быть меньше или равна нулю'
+                    'Цена не должна быть меньше или равна нулю.'
                 )
             ),
             'not valid price too big 2 000 000 001' => array(
                 400,
                 array('purchasePrice' => 2000000001),
                 array(
-                    'form[name="purchasePrice"] errors entry'
+                    'children.purchasePrice.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -570,7 +571,7 @@ EOF;
                 400,
                 array('purchasePrice' => '100000000'),
                 array(
-                    'form[name="purchasePrice"] errors entry'
+                    'children.purchasePrice.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -583,7 +584,7 @@ EOF;
                 400,
                 array('purchasePrice' => '10000001'),
                 array(
-                    'form[name="purchasePrice"] errors entry'
+                    'children.purchasePrice.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -603,7 +604,7 @@ EOF;
                 400,
                 array('vat' => 'not a number'),
                 array(
-                    'form[name="vat"] errors entry'
+                    'children.vat.errors.0'
                     =>
                     'Значение должно быть числом.',
                 ),
@@ -612,7 +613,7 @@ EOF;
                 400,
                 array('vat' => -30),
                 array(
-                    'form[name="vat"] errors entry'
+                    'children.vat.errors.0'
                     =>
                     'Значение должно быть 0 или больше.',
                 ),
@@ -621,7 +622,7 @@ EOF;
                 400,
                 array('vat' => ''),
                 array(
-                    'form[name="vat"] errors entry'
+                    'children.vat.errors.0'
                     =>
                     'Выберите ставку НДС',
                 ),
@@ -645,7 +646,7 @@ EOF;
                 400,
                 array('barcode' => str_repeat("z", 201)),
                 array(
-                    'form[name="barcode"] errors entry'
+                    'children.barcode.errors.0'
                     =>
                     'Не более 200 символов',
                 ),
@@ -669,7 +670,7 @@ EOF;
                 400,
                 array('vendor' => str_repeat("z", 301)),
                 array(
-                    'form[name="vendor"] errors entry'
+                    'children.vendor.errors.0'
                     =>
                     'Не более 300 символов',
                 ),
@@ -693,7 +694,7 @@ EOF;
                 400,
                 array('vendorCountry' => str_repeat("z", 101)),
                 array(
-                    'form[name="vendorCountry"] errors entry'
+                    'children.vendorCountry.errors.0'
                     =>
                     'Не более 100 символов',
                 ),
@@ -717,7 +718,7 @@ EOF;
                 400,
                 array('info' => str_repeat("z", 2001)),
                 array(
-                    'form[name="info"] errors entry'
+                    'children.info.errors.0'
                     =>
                     'Не более 2000 символов',
                 ),
@@ -737,7 +738,7 @@ EOF;
                 400,
                 array('sku' => ''),
                 array(
-                    'form[name="sku"] errors entry'
+                    'children.sku.errors.0'
                     =>
                     'Заполните это поле',
                 ),
@@ -746,7 +747,7 @@ EOF;
                 400,
                 array('sku' => str_repeat("z", 101)),
                 array(
-                    'form[name="sku"] errors entry'
+                    'children.sku.errors.0'
                     =>
                     'Не более 100 символов',
                 ),
