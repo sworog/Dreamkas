@@ -2,14 +2,11 @@ package project.lighthouse.autotests.pages.administrator.users;
 
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.ApiConnect;
 import project.lighthouse.autotests.pages.administrator.api.AdministratorApi;
 
 import java.io.IOException;
 
 public class UserApi extends AdministratorApi {
-
-    ApiConnect apiConnect;
 
     public UserApi(WebDriver driver) throws JSONException {
         super(driver);

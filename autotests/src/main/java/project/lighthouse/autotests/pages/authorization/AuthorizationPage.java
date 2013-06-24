@@ -18,9 +18,9 @@ public class AuthorizationPage extends CommonPageObject {
 
     public void users() {
         users.put("watchman", "lighthouse");
-        users.put("commercialManager", "123456");
-        users.put("storeManager", "123456");
-        users.put("departmentManager", "123456");
+        users.put("commercialManager", "lighthouse");
+        users.put("storeManager", "lighthouse");
+        users.put("departmentManager", "lighthouse");
     }
 
     @Override
@@ -29,10 +29,8 @@ public class AuthorizationPage extends CommonPageObject {
     }
 
     public void authorization(String userName) {
-        getDriver().manage().deleteCookieNamed("cookie");
         String password = users.get(userName);
         authorization(userName, password);
-
         isAuthorized = true;
     }
 
@@ -46,9 +44,14 @@ public class AuthorizationPage extends CommonPageObject {
     }
 
     public void logOut() {
+        String logOutButtonXpath = "";
+        findBy(logOutButtonXpath).click();
+        isAuthorized = false;
+    }
+
+    public void afterScenarioFailure() {
         if (isAuthorized) {
-            String logOutButtonXpath = "";
-            findBy(logOutButtonXpath).click();
+            logOut();
         }
     }
 

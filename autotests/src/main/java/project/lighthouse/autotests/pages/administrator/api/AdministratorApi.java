@@ -7,10 +7,10 @@ import project.lighthouse.autotests.ApiConnect;
 
 public class AdministratorApi extends PageObject {
 
-    ApiConnect apiConnect;
+    protected ApiConnect apiConnect;
 
     public AdministratorApi(WebDriver driver) throws JSONException {
         super(driver);
-        apiConnect = new ApiConnect("watchmanApi", "lighthouse");
+        apiConnect = new ApiConnect("administrator", "lighthouse");
     }
 }

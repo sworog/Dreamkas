@@ -22,4 +22,9 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void logOut() {
         authorizationPage.logOut();
     }
+
+    @Step
+    public void afterScenarioFailure() {
+        authorizationPage.afterScenarioFailure();
+    }
 }
