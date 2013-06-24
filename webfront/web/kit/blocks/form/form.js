@@ -13,6 +13,7 @@ define(function(require) {
         Model: Backbone.Model,
         model: null,
         redirectUrl: null,
+        data: null,
         events: {
             'submit': function(e) {
                 e.preventDefault();
@@ -20,7 +21,7 @@ define(function(require) {
 
                 block.$submitButton.addClass('preloader preloader_rows');
                 block.removeErrors();
-
+                block.data = Backbone.Syphon.serialize(block);
                 block.submit().then(function(data) {
                     block.trigger('successSubmit', data);
                     if (block.redirectUrl){
@@ -54,10 +55,9 @@ define(function(require) {
         submit: function() {
             var block = this,
                 deferred = $.Deferred(),
-                formData = Backbone.Syphon.serialize(block),
                 model = block.model.id ? block.model : block.model.clone();
 
-            model.save(formData, {
+            model.save(block.data, {
                 success: function(model) {
                     deferred.resolve(model);
                 },

@@ -1,10 +1,15 @@
 define(function(require) {
     //requirements
-    var Backbone = require('backbone');
+    var Backbone = require('backbone'),
+        classExtend = require('kit/utils/classExtend');
 
     require('backbone.queryparams');
 
-    return Backbone.Router.extend({
-
+    var BaseRouter = Backbone.Router.extend({
+        routers: {}
     });
+
+    BaseRouter.extend = classExtend;
+
+    return BaseRouter;
 });

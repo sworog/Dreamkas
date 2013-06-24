@@ -4,7 +4,7 @@ define(function(require) {
         SaleBox = require('blocks/saleBox/saleBox');
 
     return Page.extend({
-        pageName: 'page_sale',
+        pageName: 'page_common_sale',
         templates: {
             '#content': require('tpl!./templates/sale.html')
         },
