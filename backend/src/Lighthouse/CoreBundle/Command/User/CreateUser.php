@@ -52,13 +52,14 @@ class CreateUser extends Command
 
         $username = $input->getArgument('username');
         $role = $input->getArgument('role');
+        $password =  $input->getArgument('password');
+
         $user->name = $username;
         $user->username = $username;
         $user->role = $role;
         $user->position = $role;
 
-        $this->userProvider->setPassword($user, $input->getArgument('password'));
-        $this->userProvider->updateUser($user);
+        $this->userProvider->updateUserWithPassword($user, $password, true);
 
         $output->writeln('Done');
 

@@ -90,4 +90,16 @@ namespace :symfony do
             end
         end
     end
+
+    namespace :user do
+        desc "Create user, required: -S username=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default)"
+        task :create, :roles => :app, :except => { :no_release => true } do
+            puts "--> Creating user"
+            raise "username should be provided by -S username=.." unless exists?(:username)
+            raise "userpass should be provided by -S userpass=.." unless exists?(:userpass)
+            set :userrole, "" unless exists?(:userrole)
+            puts capture "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:user:create #{username} #{userpass} #{userrole} --env=#{symfony_env_prod}'", :once => true
+            capifony_puts_ok
+        end
+    end
 end
