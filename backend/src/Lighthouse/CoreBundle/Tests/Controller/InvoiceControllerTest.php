@@ -18,15 +18,16 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testPostInvoiceAction(array $invoiceData, array $assertions = array())
     {
-        $crawler = $this->client->request(
+        $postResponse = $this->clientJsonRequest(
+            $this->client,
             'POST',
-            '/api/1/invoices.xml',
+            '/api/1/invoices',
             $invoiceData
         );
 
         Assert::assertResponseCode(201, $this->client);
 
-        $this->runCrawlerAssertions($crawler, $assertions, true);
+        $this->performJsonAssertions($postResponse, $assertions, true);
     }
 
     /**
@@ -39,14 +40,14 @@ class InvoiceControllerTest extends WebTestCase
             $this->createInvoice($invoiceData);
         }
 
-        $crawler = $this->client->request(
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
             'GET',
-            '/api/1/invoices.xml'
+            '/api/1/invoices'
         );
 
         Assert::assertResponseCode(200, $this->client);
-
-        $this->assertEquals(5, $crawler->filterXPath('//invoices/invoice')->count());
+        Assert::assertJsonPathCount(5, '*.id', $getResponse);
     }
 
     /**
@@ -56,14 +57,15 @@ class InvoiceControllerTest extends WebTestCase
     {
         $id = $this->createInvoice($invoiceData);
 
-        $crawler = $this->client->request(
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
             'GET',
-            '/api/1/invoices/' . $id . '.xml'
+            '/api/1/invoices/' . $id
         );
 
         Assert::assertResponseCode(200, $this->client);
 
-        $this->runCrawlerAssertions($crawler, $assertions, true);
+        $this->performJsonAssertions($getResponse, $assertions, true);
     }
 
     public function postInvoiceDataProvider()
@@ -82,14 +84,14 @@ class InvoiceControllerTest extends WebTestCase
                 ),
                 // Assertions xpath
                 'assertions' => array(
-                    '//invoice/sku' => 'sdfwfsf232',
-                    '//invoice/supplier' => 'ООО "Поставщик"',
-                    '//invoice/acceptanceDate' => '2013-03-18T12:56:00+0400',
-                    '//invoice/accepter' => 'Приемных Н.П.',
-                    '//invoice/legalEntity' => 'ООО "Магазин"',
-                    '//invoice/supplierInvoiceSku' => '1248373',
-                    '//invoice/supplierInvoiceDate' => '2013-03-17T00:00:00+0400',
-                    '//invoice/createdDate' => $now->format('Y-m-d\TH:'),
+                    'sku' => 'sdfwfsf232',
+                    'supplier' => 'ООО "Поставщик"',
+                    'acceptanceDate' => '2013-03-18T12:56:00+0400',
+                    'accepter' => 'Приемных Н.П.',
+                    'legalEntity' => 'ООО "Магазин"',
+                    'supplierInvoiceSku' => '1248373',
+                    'supplierInvoiceDate' => '2013-03-17T00:00:00+0400',
+                    'createdDate' => $now->format('Y-m-d\TH:'),
                 )
             )
         );
@@ -98,9 +100,10 @@ class InvoiceControllerTest extends WebTestCase
     public function testGetInvoiceNotFound()
     {
         $id = 'not_exists_id';
-        $this->client->request(
+        $this->clientJsonRequest(
+            $this->client,
             'GET',
-            '/api/1/invoices/' . $id . '.xml'
+            '/api/1/invoices/' . $id
         );
 
         Assert::assertResponseCode(404, $this->client);
