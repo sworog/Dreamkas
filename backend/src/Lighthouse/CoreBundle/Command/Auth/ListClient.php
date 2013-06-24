@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Auth;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -54,9 +55,9 @@ class ListClient extends Command
      * @DI\InjectParams({
      *      "clientRepository" = @DI\Inject("lighthouse.core.document.repository.client")
      * })
-     * @param DocumentRepository $clientRepository
+     * @param ObjectRepository $clientRepository
      */
-    public function setClientRepository(DocumentRepository $clientRepository)
+    public function setClientRepository(ObjectRepository $clientRepository)
     {
         $this->clientRepository = $clientRepository;
     }
