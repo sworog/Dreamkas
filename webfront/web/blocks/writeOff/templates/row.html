@@ -27,7 +27,7 @@
                 <%e writeOffProduct.quantity %>
             </span>
             <span name="productUnits">
-                <%t LH.helpers.units(writeOffProduct.product.units, 'smallShort') %>
+                <%t LH.utils.units(writeOffProduct.product.units, 'smallShort') %>
             </span>
         </span>
     </td>
@@ -37,7 +37,7 @@
                 по
             </span>
             <span name="productPrice" model-attr="price">
-                <%e LH.helpers.formatPrice(writeOffProduct.price) %>
+                <%e LH.utils.formatPrice(writeOffProduct.price) %>
             </span>
             <span>
                 р.

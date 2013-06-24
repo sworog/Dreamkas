@@ -18,7 +18,7 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена закупки</label>
-        <input style="width: 150px;" value="<%e block.model.get('purchasePrice') ? LH.helpers.formatPrice(block.model.get('purchasePrice')) : '' %>" class="inputText" type="text" name="purchasePrice"/>
+        <input style="width: 150px;" value="<%e block.model.get('purchasePrice') ? LH.utils.formatPrice(block.model.get('purchasePrice')) : '' %>" class="inputText" type="text" name="purchasePrice"/>
         <span class="inputText__postfix">руб.</span>
     </div>
     <div class="form__field form__field_inline">
@@ -31,7 +31,7 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена продажи</label>
-        <input style="width: 150px;" value="<%e block.model.get('retailPrice') ? LH.helpers.formatPrice(block.model.get('retailPrice')) : '' %>" class="inputText productForm__linkedInput <%= block.model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>" type="text" name="retailPrice"/>
+        <input style="width: 150px;" value="<%e block.model.get('retailPrice') ? LH.utils.formatPrice(block.model.get('retailPrice')) : '' %>" class="inputText productForm__linkedInput <%= block.model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>" type="text" name="retailPrice"/>
         <span class="productForm__inputLink">
             <span class="productForm__inputLinkText" name="retailPriceHint"></span>
         </span>

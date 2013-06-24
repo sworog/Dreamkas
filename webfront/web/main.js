@@ -13,8 +13,8 @@ require(
                 location: 'dictionary'
             },
             {
-                name: 'helpers',
-                location: 'helpers'
+                name: 'utils',
+                location: 'utils'
             },
             {
                 name: 'routers',
@@ -34,7 +34,7 @@ require(
         'backbone',
         'underscore',
         'routers',
-        'helpers',
+        'utils',
         'nls'
     ],
     function($, Backbone, _, routers) {

@@ -102,14 +102,14 @@ define(function(require) {
                 this.$retailPricePreferenceInput.val('retailPrice');
             },
             calculateRetailPrice: function() {
-                var purchasePrice = LH.helpers.normalizePrice(this.$purchasePriceInput.val()),
-                    retailMarkup = LH.helpers.normalizePrice(this.$retailMarkupInput.val()),
+                var purchasePrice = LH.utils.normalizePrice(this.$purchasePriceInput.val()),
+                    retailMarkup = LH.utils.normalizePrice(this.$retailMarkupInput.val()),
                     calculatedVal;
 
                 if (!purchasePrice || !retailMarkup || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
                     calculatedVal = '';
                 } else {
-                    calculatedVal = LH.helpers.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedVal = LH.utils.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 this.$retailPriceInput
@@ -117,14 +117,14 @@ define(function(require) {
                     .change();
             },
             calculateRetailMarkup: function() {
-                var retailPrice = LH.helpers.normalizePrice(this.$retailPriceInput.val()),
-                    purchasePrice = LH.helpers.normalizePrice(this.$purchasePriceInput.val()),
+                var retailPrice = LH.utils.normalizePrice(this.$retailPriceInput.val()),
+                    purchasePrice = LH.utils.normalizePrice(this.$purchasePriceInput.val()),
                     calculatedVal;
 
                 if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
                     calculatedVal = '';
                 } else {
-                    calculatedVal = LH.helpers.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedVal = LH.utils.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 this.$retailMarkupInput
@@ -136,7 +136,7 @@ define(function(require) {
                     text;
 
                 if (price){
-                    text = LH.helpers.formatPrice(price) + ' руб.'
+                    text = LH.utils.formatPrice(price) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -150,7 +150,7 @@ define(function(require) {
                     text;
 
                 if (markup){
-                    text = LH.helpers.formatPrice(markup) + '%'
+                    text = LH.utils.formatPrice(markup) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }

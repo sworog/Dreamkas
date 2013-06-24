@@ -13,7 +13,7 @@
         <%t model.get('vendorCountry') %>
     </td>
     <td name="purchasePrice">
-        <%e LH.helpers.formatPrice(model.get('purchasePrice')) %> р.
+        <%e LH.utils.formatPrice(model.get('purchasePrice')) %> р.
     </td>
 </tr>
 <% }) %>

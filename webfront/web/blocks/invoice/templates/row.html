@@ -27,7 +27,7 @@
                 <%e invoiceProduct.quantity %>
             </span>
             <span name="productUnits">
-                <%t LH.helpers.units(invoiceProduct.product.units, 'smallShort') %>
+                <%t LH.utils.units(invoiceProduct.product.units, 'smallShort') %>
             </span>
         </span>
     </td>
@@ -37,7 +37,7 @@
                 по
             </span>
             <span name="productPrice" model-attr="price">
-                <%t LH.helpers.formatPrice(invoiceProduct.price) %>
+                <%t LH.utils.formatPrice(invoiceProduct.price) %>
             </span>
             <span>
                 р.
@@ -49,7 +49,7 @@
             =
         </span>
         <span name="productSum">
-            <%t LH.helpers.formatPrice(invoiceProduct.totalPrice) %>
+            <%t LH.utils.formatPrice(invoiceProduct.totalPrice) %>
         </span>
         <span>
             р.
