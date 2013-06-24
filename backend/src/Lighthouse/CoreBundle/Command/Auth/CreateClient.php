@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.command.create_client")
+ * @DI\Service("lighthouse.core.command.auth.create_client")
  * @DI\Tag("console.command")
  */
 class CreateClient extends Command

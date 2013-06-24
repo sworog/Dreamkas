@@ -18,6 +18,11 @@ use JMS\DiExtraBundle\Annotation as DI;
 class UserProvider implements UserProviderInterface
 {
     /**
+     * @var string
+     */
+    protected $class = 'Lighthouse\\CoreBundle\\Document\\User\\User';
+
+    /**
      * @var UserRepository
      */
     protected $userRepository;
@@ -88,7 +93,7 @@ class UserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'Lighthouse\\CoreBundle\\Document\\User\\User';
+        return $class === $this->class;
     }
 
     /**
@@ -100,5 +105,22 @@ class UserProvider implements UserProviderInterface
         $encoder = $this->encoderFactory->getEncoder($user);
         $user->salt = md5(date('cr'));
         $user->password = $encoder->encodePassword($password, $user->getSalt());
+    }
+
+    /**
+     * @param UserInterface $user
+     */
+    public function updateUser(UserInterface $user)
+    {
+        $this->userRepository->getDocumentManager()->persist($user);
+        $this->userRepository->getDocumentManager()->flush();
+    }
+
+    /**
+     * @return \Lighthouse\CoreBundle\Document\User\User
+     */
+    public function createUser()
+    {
+        return $this->userRepository->createNew();
     }
 }
