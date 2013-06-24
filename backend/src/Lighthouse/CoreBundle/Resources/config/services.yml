@@ -75,3 +75,9 @@ services:
         class: Lighthouse\CoreBundle\Document\User\User
         arguments:
             - LighthouseCoreBundle:User\User
+
+    lighthouse.core.document.repository.client:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Auth\Client
+        arguments:
+            - LighthouseCoreBundle:Auth\Client
