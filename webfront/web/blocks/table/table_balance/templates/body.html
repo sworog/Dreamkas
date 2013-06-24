@@ -13,10 +13,10 @@
         <%t model.get('vendorCountry') %>
     </td>
     <td name="averagePurchasePrice">
-        <%e model.get('averagePurchasePrice') ? LH.helpers.formatPrice(model.get('averagePurchasePrice')) + 'р.' : '&mdash;' %>
+        <%= model.get('averagePurchasePrice') ? LH.helpers.formatPrice(model.get('averagePurchasePrice')) + 'р.' : '&mdash;' %>
     </td>
     <td name="lastPurchasePrice">
-        <%t model.get('lastPurchasePrice') ? LH.helpers.formatPrice(model.get('lastPurchasePrice')) : LH.helpers.formatPrice(model.get('purchasePrice')) %> р.
+        <%= model.get('lastPurchasePrice') ? LH.helpers.formatPrice(model.get('lastPurchasePrice')) : LH.helpers.formatPrice(model.get('purchasePrice')) %> р.
     </td>
     <td>
         <span name="amount"><%e model.get('amount') || 0 %></span>
