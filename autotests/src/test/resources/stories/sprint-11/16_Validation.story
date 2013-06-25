@@ -212,7 +212,7 @@ And the user generates charData with '100' number in the 'name' pop up field
 Then the user checks 'name' pop up field contains only '100' symbols
 When the user clicks the create new class button in pop up
 Then the user sees no error messages
-And the user logs out
+When the user logs out
 
 Scenario: Group validation name invalid - 101 symbols
 Given there is the class with name 'GVNG class'
@@ -226,7 +226,7 @@ When the user clicks the create new class button in pop up
 Then the user sees error messages
 | error message |
 | Не более 100 |
-And the user logs out
+When the user logs out
 
 Scenario: Group validation name is required
 Given there is the class with name 'GVNG class'
@@ -238,7 +238,7 @@ When the user clicks the create new class button in pop up
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-And the user logs out
+When the user logs out
 
 Scenario: Group validation - can't create Group with equal name
 Given there is the class with name 'GVNG class'
@@ -254,7 +254,7 @@ When the user clicks the create new class button in pop up
 Then the user sees error messages
 | error message |
 | Группа с таким названием уже существует в этом классе |
-And the user logs out
+When the user logs out
 
 Scenario: Group edit from catalog page - validation name good - 100 symbols
 Given there is the group with name 'group edit vng-100' related to class named 'group edit'
