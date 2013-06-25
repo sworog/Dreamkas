@@ -2,5 +2,7 @@ window.LH = {
     baseUrl: 'http://%api_url%',
     baseApiUrl: 'http://%api_url%/api/1',
     mainJsFile: '/main.js',
-    locale: 'auto'
+    clientId: 'webfront_webfront',
+    clientSecret: 'secret',
+    locale: 'root'
 };
