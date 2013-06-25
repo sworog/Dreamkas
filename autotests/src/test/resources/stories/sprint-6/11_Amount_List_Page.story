@@ -8,6 +8,7 @@ Narrative:
 Scenario: Amounts increase kg
 Given there is the product with 'ADADAD-11' name, 'ADADAD-11' sku, 'BARCode-11' barcode
 And there is the invoice with 'Invoice-ADADAD-11' sku
+And the user logs in as 'departmentManager'
 When the user inputs 'ADADAD-11' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '1' in the invoice product 'invoiceCost' field
@@ -33,10 +34,12 @@ And the user checks the product with 'ADADAD-11' sku has 'amounts name' element 
 And the user checks the product with 'ADADAD-11' sku has 'amounts vendor' element equal to 'Тестовый производитель' on amounts page
 And the user checks the product with 'ADADAD-11' sku has 'amounts vendorCountry' element equal to 'Тестовая страна' on amounts page
 And the user checks the product with 'ADADAD-11' sku has 'amounts purchasePrice' element equal to '111,34' on amounts page
+When the user logs out
 
 Scenario: Amounts increase units
 Given there is the product with 'ADADAD-22' name, 'ADADAD-22' sku, 'BARCode-22' barcode, 'unit' units
 And there is the invoice with 'Invoice-ADADAD-22' sku
+And the user logs in as 'departmentManager'
 When the user inputs 'ADADAD-22' in the invoice product 'productName' field
 And the user inputs '12' in the invoice product 'productAmount' field
 And the user inputs '1' in the invoice product 'invoiceCost' field
@@ -62,10 +65,12 @@ And the user checks the product with 'ADADAD-22' sku has 'amounts name' element 
 And the user checks the product with 'ADADAD-22' sku has 'amounts vendor' element equal to 'Тестовый производитель' on amounts page
 And the user checks the product with 'ADADAD-22' sku has 'amounts vendorCountry' element equal to 'Тестовая страна' on amounts page
 And the user checks the product with 'ADADAD-22' sku has 'amounts purchasePrice' element equal to '45,6' on amounts page
+When the user logs out
 
 Scenario: Amount increase liter
 Given there is the product with 'ADADAD-33' name, 'ADADAD-33' sku, 'BARCode-33' barcode, 'liter' units
 And there is the invoice with 'Invoice-ADADAD-33' sku
+And the user logs in as 'departmentManager'
 When the user inputs 'ADADAD-33' in the invoice product 'productName' field
 And the user inputs '45' in the invoice product 'productAmount' field
 And the user inputs '1' in the invoice product 'invoiceCost' field
@@ -91,7 +96,7 @@ And the user checks the product with 'ADADAD-33' sku has 'amounts name' element 
 And the user checks the product with 'ADADAD-33' sku has 'amounts vendor' element equal to 'Тестовый производитель' on amounts page
 And the user checks the product with 'ADADAD-33' sku has 'amounts vendorCountry' element equal to 'Тестовая страна' on amounts page
 And the user checks the product with 'ADADAD-33' sku has 'amounts purchasePrice' element equal to '34' on amounts page
-
+When the user logs out
 
 
 

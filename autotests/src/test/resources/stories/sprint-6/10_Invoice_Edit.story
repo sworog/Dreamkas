@@ -7,6 +7,7 @@ Narrative:
 
 Scenario: Invoice head edition
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'Invoice-IE-IH' in the invoice 'sku' field
 And the user inputs '02.04.2013 16:23' in the invoice 'acceptanceDate' field
@@ -38,9 +39,11 @@ Then the user checks invoice 'head' elements  values
 | acceptanceDate | 03.03.2012 14:56 |
 | supplierInvoiceDate | 02.03.2012 |
 | supplierInvoiceSku | 654321 |
+When the user logs out
 
 Scenario: Invoice head edition stop edit link click
 Given there is the invoice with 'Invoice-IE-IPE-SELC' sku
+And the user logs in as 'departmentManager'
 And the user is on the invoice list page
 When the user open the invoice card with 'Invoice-IE-IPE-SELC' sku
 And the user clicks edit button and starts invoice edition
@@ -49,11 +52,13 @@ And the user clicks finish edit link and ends the invoice edition
 Then the user checks invoice 'head' elements  values
 | elementName | expectedValue |
 | sku | Invoice-IE-IPE-SELC-Edited |
+When the user logs out
 
 Scenario: Invoice product edition name autocomplete
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
-Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
+And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE' sku
+And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
@@ -97,11 +102,13 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 6 |
+When the user logs out
 
 Scenario: Invoice product edition name autocomplete stop edit link click
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
-Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
+And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-ASELC' sku
+And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
@@ -125,12 +132,13 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
-
+When the user logs out
 
 Scenario: Invoice product edition sku autocomplete
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
-Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
+And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-999' sku
+And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
@@ -174,11 +182,13 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 6 |
+When the user logs out
 
 Scenario: Invoice product edition sku autocomplete stop edit link click
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
-Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
+And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-ASSELC' sku
+And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
@@ -202,12 +212,13 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
-
+When the user logs out
 
 Scenario: Invoice product edition barcode autocomplete
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
-Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
+And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-1012' sku
+And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
@@ -251,11 +262,13 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 6 |
+When the user logs out
 
 Scenario: Invoice product edition barcode autocomplete stop edit link click
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
-Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
+And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-ASBELC' sku
+And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
@@ -279,11 +292,13 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
+When the user logs out
 
 Scenario: Invoice product adding
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPA' sku
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'Invoice-IE-IPA' sku
 When the user clicks edit button and starts invoice edition
 And the user inputs 'IE-IPA-1' in the invoice product 'productName' field
@@ -309,11 +324,13 @@ Then the user checks the product with 'IE-IPA-1' sku has values
 | productAmount | 1 |
 | productPrice | 3 |
 | productSum | 3 |
+When the user logs out
 
 Scenario: Invoice product adding stop edit link click
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPA-EBC' sku
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'Invoice-IE-IPA-EBC' sku
 When the user clicks edit button and starts invoice edition
 And the user inputs 'IE-IPA-1' in the invoice product 'productName' field
@@ -339,12 +356,14 @@ Then the user checks the product with 'IE-IPA-1' sku has values
 | productAmount | 1 |
 | productPrice | 3 |
 | productSum | 3 |
+When the user logs out
 
 Scenario: Invoice product adding and edition
 Given there is the product with 'IE-IPA' name, 'IE-IPA' sku, 'IE-IPA' barcode
 And there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPA1' sku
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'Invoice-IE-IPA1' sku
 When the user clicks edit button and starts invoice edition
 And the user inputs 'IE-IPA-1' in the invoice product 'productName' field
@@ -394,10 +413,12 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 6 |
+When the user logs out
 
 Scenario: issue 9 regresssion
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productNameView' element of invoice product with 'IE-IPE' sku to edit
@@ -415,11 +436,13 @@ Then the user sees error messages
 | Значение должно быть целым числом |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
+When the user logs out
 
 Scenario: issue 8 regresssion
 Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productNameView' element of invoice product with 'IE-IPE' sku to edit
@@ -444,5 +467,5 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
 When the user clicks finish edit link and ends the invoice edition
-
+When the user logs out
 

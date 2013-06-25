@@ -8,6 +8,7 @@ Narrative:
 Scenario: invoice full browsing kg
 Given there is the product with 'IFBKG-11' name, 'IFBKG-11' sku, 'IFBKG-11' barcode
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'Invoice-IFBKG-11' in the invoice 'sku' field
 And the user inputs '02.04.2013 16:23' in the invoice 'acceptanceDate' field
@@ -47,10 +48,12 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 1 |
+When the user logs out
 
 Scenario: invoice full browsing units
 Given there is the product with 'IFBUNITS-11' name, 'IFBUNITS-11' sku, 'IFBUNITS-11' barcode, 'unit' units
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'Invoice-IFBUNITS-11' in the invoice 'sku' field
 And the user inputs '02.04.2013 16:23' in the invoice 'acceptanceDate' field
@@ -90,10 +93,12 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 1 |
+When the user logs out
 
 Scenario: invoice full browsing liter
 Given there is the product with 'IFBLITER-11' name, 'IFBLITER-11' sku, 'IFBLITER-11' barcode, 'liter' units
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'Invoice-IFBLITER-11' in the invoice 'sku' field
 And the user inputs '02.04.2013 16:23' in the invoice 'acceptanceDate' field
@@ -133,12 +138,14 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 1 |
+When the user logs out
 
 Scenario: invoice full browsing 3 products kg liter unit
 Given there is the product with 'IFBKG-111' name, 'IFBKG-111' sku, 'IFBKG-111' barcode
 Given there is the product with 'IFBUNITS-112' name, 'IFBUNITS-112' sku, 'IFBUNITS-112' barcode, 'unit' units
 Given there is the product with 'IFBLITER-113' name, 'IFBLITER-113' sku, 'IFBLITER-113' barcode, 'liter' units
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'Invoice-IFB3PKLU-11' in the invoice 'sku' field
 And the user inputs '02.04.2013 16:23' in the invoice 'acceptanceDate' field
@@ -204,6 +211,6 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 3 |
 | totalSum | 3 |
-
+When the user logs out
 
 
