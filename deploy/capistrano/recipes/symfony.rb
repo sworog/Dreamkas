@@ -66,24 +66,27 @@ namespace :symfony do
         namespace :client do
 
             def create_auth_client(secret, public_id)
-                run "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:auth:client:create #{secret} #{public_id} --env=#{symfony_env_prod}'", :once => true
+                capture "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:auth:client:create #{secret} #{public_id} --env=#{symfony_env_prod}'", :once => true
             end
 
+            desc "Create API client, required: -S public_id=<..> -S secret=<..>"
             task :create, :roles => :app, :except => { :no_release => true } do
-                capifony_pretty_print "--> Creating client"
+                puts "--> Creating client"
                 raise "secret should be provided by -S secret=.." unless exists?(:secret)
                 raise "public_id should be provided by -S public_id=.." unless exists?(:public_id)
-                create_auth_client(secret, public_id)
-                capifony_puts_ok
+                puts create_auth_client(secret, public_id)
             end
 
+            desc "Create default API clients provided in :api_clients variable"
             task :create_default, :roles => :app, :except => { :no_release => true } do
-                capifony_pretty_print "--> Creating default clients"
-                create_auth_client("secret", "webfront")
-                create_auth_client("secret", "autotests")
-                capifony_puts_ok
+                puts "--> Creating default clients"
+                api_clients.each do |api_client|
+                    puts "--> Creating client " + api_client['public_id'].green
+                    puts create_auth_client(api_client['secret'], api_client['public_id'])
+                end
             end
 
+            desc "List API clients"
             task :list, :roles => :app, :except => { :no_release => true } do
                 puts "--> List auth clients"
                 puts capture "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:auth:client:list --env=#{symfony_env_prod}'", :once => true
@@ -92,8 +95,9 @@ namespace :symfony do
     end
 
     namespace :user do
+
         def create_api_user(username, userpass, userrole)
-            capture "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:user:create #{username} #{userpass} #{userrole} --env=#{symfony_env_prod}'", :once => true
+            capture "cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:user:create #{username} #{userpass} #{userrole} --env=#{symfony_env_prod}"
         end
 
         desc "Create user, required: -S username=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default)"
@@ -106,10 +110,16 @@ namespace :symfony do
             capifony_puts_ok
         end
 
+        desc "Create default users"
         task :create_default, :roles => :app, :except => { :no_release => true } do
+            transaction do
+            on_rollback do
+                puts "--> Failed to create user".red
+            end
             api_users.each do |api_user|
                 puts "--> Creating user " + api_user['username'].green
                 puts create_api_user(api_user['username'], api_user['userpass'], api_user['userrole'])
+            end
             end
         end
     end

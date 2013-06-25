@@ -28,6 +28,11 @@ set :update_vendors, true
 
 set :use_set_permissions,   false
 
+set :api_clients, [
+    {"public_id" => "autotests", "secret" => "secret"},
+    {"public_id" => "webfront", "secret" => "secret"}
+]
+
 set :api_users, [
     {"username" => "watchman", "userpass" => "lighthouse", "userrole" => "administrator"},
     {"username" => "administrator", "userpass" => "lighthouse", "userrole" => "administrator"},
