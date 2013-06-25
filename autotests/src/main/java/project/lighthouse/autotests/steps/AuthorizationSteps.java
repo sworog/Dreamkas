@@ -19,6 +19,11 @@ public class AuthorizationSteps extends ScenarioSteps {
     }
 
     @Step
+    public void authorization(String userName, String password) {
+        authorizationPage.authorization(userName, password);
+    }
+
+    @Step
     public void logOut() {
         authorizationPage.logOut();
     }
@@ -26,5 +31,15 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void afterScenarioFailure() {
         authorizationPage.afterScenarioFailure();
+    }
+
+    @Step
+    public void checkUser(String userName) {
+        authorizationPage.checkUser(userName);
+    }
+
+    @Step
+    public void openPage() {
+        authorizationPage.open();
     }
 }

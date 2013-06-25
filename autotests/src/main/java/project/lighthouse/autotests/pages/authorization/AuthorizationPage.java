@@ -1,11 +1,13 @@
 package project.lighthouse.autotests.pages.authorization;
 
+import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@DefaultUrl("/")
 public class AuthorizationPage extends CommonPageObject {
 
     public Map<String, String> users = new HashMap();
