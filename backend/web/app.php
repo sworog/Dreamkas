@@ -12,18 +12,19 @@ $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 // with other applications also using APC.
 /*
 */
-if ('production' === $env) {
+
+if ('production' === $env || 'staging' === $env) {
     $loader = new ApcClassLoader('sf2', $loader);
     $loader->register(true);
 }
 
-require_once __DIR__.'/../app/AppKernel.php';
-//require_once __DIR__.'/../app/AppCache.php';
-
 $debug = getenv('SYMFONY_DEBUG') !== '0' && $env !== 'production';
+
+require_once __DIR__.'/../app/AppKernel.php';
 
 $kernel = new AppKernel($env, $debug);
 $kernel->loadClassCache();
+//require_once __DIR__.'/../app/AppCache.php';
 //$kernel = new AppCache($kernel);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
