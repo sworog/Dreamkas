@@ -7,6 +7,7 @@ Narrative:
 
 Scenario: Invoice list item check
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '654321' in the invoice 'sku' field
 And the user inputs '02.04.2013 16:23' in the invoice 'acceptanceDate' field
@@ -23,4 +24,5 @@ And the user checks the invoice with '654321' sku has 'acceptanceDate' equal to 
 And the user checks the invoice with '654321' sku has 'supplier' equal to 'ОАЭ Поставщик'
 And the user checks the invoice with '654321' sku has 'sumTotal' equal to ''
 And the user checks the invoice with '654321' sku has 'accepter' equal to 'Иван Петрович Васильев'
+When the user logs out
 

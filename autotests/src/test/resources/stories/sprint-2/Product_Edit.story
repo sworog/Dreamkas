@@ -7,6 +7,7 @@ Narrative:
 
 Scenario: Product edit main
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs values in element fields
 | elementName | inputText |
@@ -57,9 +58,11 @@ Then the user checks the elements values
 | unit | литр |
 | vat | 0 |
 | info | Info1688 |
+When the user logs out
 
 Scenario: Product edit check all dropdawn values
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs values in element fields
 | elementName | inputText |
@@ -99,4 +102,5 @@ Then the user checks the elements values
 | elementName | expectedValue  |
 | unit | штука |
 | vat | 0 |
+When the user logs out
 

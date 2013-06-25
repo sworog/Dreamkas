@@ -7,6 +7,7 @@ Narrative:
 
 Scenario: Creating new product from product list
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs 'Производитель56' in 'vendor' field
@@ -23,6 +24,7 @@ Then the user checks the product with '1234567' sku has 'name' equal to 'Наи�
 Then the user checks the product with '1234567' sku has 'vendor' equal to 'Производитель56'
 Then the user checks the product with '1234567' sku has 'vendorCountry' equal to 'Россия56'
 Then the user checks the product with '1234567' sku has 'purchasePrice' equal to '12356'
+When the user logs out
 
 
 

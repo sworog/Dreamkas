@@ -7,8 +7,9 @@ Narrative:
 
 Scenario: Viewing product card after creation 1
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
-When the user inputs 'Веселый' in 'name' field
+And the user inputs 'Веселый' in 'name' field
 And the user inputs 'Рамзон' in 'vendor' field
 And the user inputs 'Раша матушка' in 'vendorCountry' field
 And the user inputs '5698' in 'purchasePrice' field
@@ -29,12 +30,14 @@ And the user checks the 'barcode' value is '8954'
 And the user checks the 'unit' value is 'штука'
 And the user checks the 'vat' value is '10'
 And the user checks the 'info' value is 'Доп инфо: Текст двадцать пять'
+When the user logs out
 
 
 Scenario: Viewing product card after creation 2
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
-When the user inputs 'Веселый фермер' in 'name' field
+And the user inputs 'Веселый фермер' in 'name' field
 And the user inputs 'Рамзон зона' in 'vendor' field
 And the user inputs 'Раша матушка зе бест' in 'vendorCountry' field
 And the user inputs '589554' in 'purchasePrice' field
@@ -55,11 +58,13 @@ And the user checks the 'barcode' value is '8988854'
 And the user checks the 'unit' value is 'литр'
 And the user checks the 'vat' value is '0'
 And the user checks the 'info' value is 'Доп инфо: Тестовые сущности'
+When the user logs out
 
 Scenario: Viewing product card after creation 3
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
-When the user inputs 'ООО ИМЯ' in 'name' field
+And the user inputs 'ООО ИМЯ' in 'name' field
 And the user inputs 'Фирма 1' in 'vendor' field
 And the user inputs 'Германия' in 'vendorCountry' field
 And the user inputs '567' in 'purchasePrice' field
@@ -80,5 +85,6 @@ And the user checks the 'barcode' value is '0000000'
 And the user checks the 'unit' value is 'килограмм'
 And the user checks the 'vat' value is '18'
 And the user checks the 'info' value is 'Доп инфо: Тестовые сущности 3434'
+When the user logs out
 
 

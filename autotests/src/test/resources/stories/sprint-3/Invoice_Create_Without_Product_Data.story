@@ -7,6 +7,7 @@ Narrative:
 
 Scenario: Invoice Create
 Given the user is on the invoice create page
+And the user logs in as 'departmentManager'
 When the user inputs '123456' in the invoice 'sku' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'ООО Поставщик' in the invoice 'supplier' field
@@ -18,3 +19,4 @@ And the user navigates to invoice product addition
 And the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks that he is on the 'InvoiceListPage'
+When the user logs out

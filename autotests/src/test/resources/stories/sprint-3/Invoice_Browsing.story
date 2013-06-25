@@ -7,6 +7,7 @@ Narrative:
 
 Scenario: Invoice browsing verification
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '89698' in the invoice 'sku' field
 And the user inputs '02.04.2013 16:23' in the invoice 'acceptanceDate' field
@@ -29,3 +30,4 @@ Then the user checks invoice elements values
 | acceptanceDate | 02.04.2013 16:23 |
 | supplierInvoiceDate | 01.04.2013 |
 | supplierInvoiceSku | 8659 |
+When the user logs out
