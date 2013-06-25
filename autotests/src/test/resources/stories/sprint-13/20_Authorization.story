@@ -11,16 +11,37 @@ Given the user opens the authorization page
 When the user logs in using 'watchman' userName and '123456' password
 Then the user sees error messages
 | error message |
-| error! |
+| Неверный логин или пароль |
 
 Scenario: Authorization invalid password, userName
 Given the user opens the authorization page
 When the user logs in using '123456' userName and '123456' password
 Then the user sees error messages
 | error message |
-| Error! |
+| Неверный логин или пароль |
 
-!--More tests on errors?
+Scenario: Authorization blank userName, password
+Given the user opens the authorization page
+When the user logs in using '' userName and '' password
+Then the user sees error messages
+| error message |
+| Пожалуйста заполните обязательные поля логин и пароль |
+
+Scenario: Authorization blank only userName
+Given the user opens the authorization page
+When the user logs in using '' userName and '123456' password
+Then the user sees error messages
+| error message |
+| Пожалуйста заполните обязательные поля логин и пароль |
+
+Scenario: Authorization blank only password
+Given the user opens the authorization page
+When the user logs in using 'watchman' userName and '' password
+Then the user sees error messages
+| error message |
+| Пожалуйста заполните обязательные поля логин и пароль |
+
+!--/-/-/-
 
 Scenario: Authorization successfull
 Given the user opens the authorization page

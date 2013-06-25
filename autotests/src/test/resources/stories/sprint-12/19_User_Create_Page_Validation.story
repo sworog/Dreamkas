@@ -1,6 +1,7 @@
 
 Scenario: name field length validation 100 symbols
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | position | nflv100 |
@@ -11,9 +12,11 @@ And the user generates charData with '100' number in the 'name' user page field
 Then the user checks 'name' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: name field length validation negative 101 symbols
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | position | nflv100 |
@@ -26,9 +29,11 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
+When the user logs out
 
 Scenario: name field is required
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | position | nflv100 |
@@ -39,9 +44,11 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: position field length validation 100 symbols
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -52,9 +59,11 @@ And the user generates charData with '100' number in the 'position' user page fi
 Then the user checks 'position' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: position field length validation negative 101 symbols
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -67,9 +76,11 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
+When the user logs out
 
 Scenario: position field is required
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -80,9 +91,11 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: role field is required
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -93,9 +106,11 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: password minimum length validation invalid
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -107,9 +122,11 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Значение слишком короткое. Должно быть равно 6 символам или больше. |
+When the user logs out
 
 Scenario: password minimum length validation positive
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -119,9 +136,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: password must be not equal to username
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -133,9 +152,11 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Логин и пароль не должны совпадать |
+When the user logs out
 
 Scenario: password validation positive
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -145,9 +166,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username field length validation 100 symbols
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -159,9 +182,11 @@ And the user generates charData with '100' number without spaces  in the 'userna
 Then the user checks 'username' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username field length validation negative 101 symbols
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -175,6 +200,7 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
+When the user logs out
 
 Scenario: username must be unique
 Given there is the user with name 'User validation lmbu', position 'User validation lmbu', username 'Uservalidationlmbu', password 'Uservalidationlmbu1', role 'commercialManager'
@@ -190,9 +216,11 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Пользователь с таким логином уже существует |
+When the user logs out
 
 Scenario: username is required
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
@@ -203,9 +231,11 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: username validation positive Rus Big regiser
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -215,9 +245,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username validation positive Rus Small register
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -227,9 +259,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username validation positive Eng Small register
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -239,9 +273,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username validation positive Eng Big register
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -251,9 +287,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username validation positive digits 0-9
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -263,9 +301,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username validation positive symbols _
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -275,9 +315,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username validation positive symbols -
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -287,9 +329,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username validation positive symbols .
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -299,9 +343,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username validation positive symbols @
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -311,9 +357,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username validation positive symbols mix
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -323,9 +371,11 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: username validation negative symbols
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -337,9 +387,11 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Значение недопустимо |
+When the user logs out
 
 Scenario: username validation negative symbols white space
 Given the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | тест1 |
@@ -351,5 +403,5 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Значение недопустимо |
-
+When the user logs out
 
