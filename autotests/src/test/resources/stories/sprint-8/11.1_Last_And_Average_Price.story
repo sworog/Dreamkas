@@ -9,6 +9,7 @@ Narrative:
 Scenario: Average price is not changed in current day
 Given there is the product with 'Печенье Московское' name, 'Печенье-Московское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'AVPINCICD2' in the invoice 'sku' field
 And the user inputs 'todayDateAndTime-15day' in the invoice 'acceptanceDate' field
@@ -45,10 +46,12 @@ Given starting average price calculation
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Московское-Артикул' sku has 'amounts purchasePrice' element equal to '56' on amounts page
 And the user checks the product with 'Печенье-Московское-Артикул' sku has 'amounts averagePrice' element equal to '26' on amounts page
+When the user logs out
 
 Scenario: Average price is changed in 30 days
 Given there is the product with 'Печенье Питерское' name, 'Печенье-Питерское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'AVPINCICD' in the invoice 'sku' field
 And the user inputs 'todayDateAndTime-15day' in the invoice 'acceptanceDate' field
@@ -86,10 +89,12 @@ Given starting average price calculation
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Питерское-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Питерское-Артикул' sku has 'amounts averagePrice' element equal to '41' on amounts page
+When the user logs out
 
 Scenario: Average price is not changed above 30 days
 Given there is the product with 'Печенье Гламурное' name, 'Печенье-Гламурное-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'AVPINCICD5' in the invoice 'sku' field
 And the user inputs 'todayDateAndTime-15day' in the invoice 'acceptanceDate' field
@@ -127,10 +132,12 @@ Given starting average price calculation
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Гламурное-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Гламурное-Артикул' sku has 'amounts averagePrice' element equal to '26' on amounts page
+When the user logs out
 
 Scenario: Average price is changed in 1 days
 Given there is the product with 'Печенье Астраханское' name, 'Печенье-Астраханское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'AVPINCICD8' in the invoice 'sku' field
 And the user inputs 'todayDateAndTime-15day' in the invoice 'acceptanceDate' field
@@ -168,10 +175,12 @@ Given starting average price calculation
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Астраханское-Артикул' sku has 'amounts purchasePrice' element equal to '56' on amounts page
 And the user checks the product with 'Печенье-Астраханское-Артикул' sku has 'amounts averagePrice' element equal to '41' on amounts page
+When the user logs out
 
 Scenario: Average price round checking
 Given there is the product with 'Печенье Киевское' name, 'Печенье-Киевское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'AVPINCICD10' in the invoice 'sku' field
 And the user inputs 'todayDateAndTime-15day' in the invoice 'acceptanceDate' field
@@ -209,10 +218,12 @@ Given starting average price calculation
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Киевское-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Киевское-Артикул' sku has 'amounts averagePrice' element equal to '24,67' on amounts page
+When the user logs out
 
 Scenario: Average price calculation
 Given there is the product with 'Печенье Юбилейное' name, 'Печенье-Юбилейное-Артикул' sku, '45695514566' barcode, 'liter' units, '25,50' purchasePrice
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'Приемка-1' in the invoice 'sku' field
 And the user inputs 'todayDateAndTime-15day' in the invoice 'acceptanceDate' field
@@ -298,10 +309,4 @@ Given starting average price calculation
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Юбилейное-Артикул' sku has 'amounts purchasePrice' element equal to '25,50' on amounts page
 And the user checks the product with 'Печенье-Юбилейное-Артикул' sku has 'amounts averagePrice' element equal to '—' on amounts page
-
-
-
-
-
-
-
+When the user logs out
