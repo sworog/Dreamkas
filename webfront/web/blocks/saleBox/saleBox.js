@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
-            Form = require('kit/blocks/form/form'),
+            Form = require('blocks/form/form'),
             PurchaseModel = require('models/purchase');
 
         return Block.extend({

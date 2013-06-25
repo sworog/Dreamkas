@@ -1,0 +1,7 @@
+[ lh_field_error ]:after {
+    content: attr( lh_field_error );
+    display: inline-block;
+    color: #c60f13;
+    padding-left: 10px;
+    vertical-align: middle;
+}

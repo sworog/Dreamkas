@@ -1,7 +1,8 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block'),
-        Backbone = require('backbone');
+        Backbone = require('backbone'),
+        _ = require('underscore');
 
     require('backbone.syphon');
 
@@ -20,8 +21,11 @@ define(function(require) {
                 var block = this;
 
                 block.$submitButton.addClass('preloader preloader_rows');
+
                 block.removeErrors();
+
                 block.data = Backbone.Syphon.serialize(block);
+
                 block.submit().then(function(data) {
                     block.trigger('successSubmit', data);
                     if (block.redirectUrl){
@@ -74,7 +78,7 @@ define(function(require) {
             block.removeErrors();
             block.$submitButton.removeClass('preloader preloader_rows');
 
-            if (errors) {
+            if (errors.children) {
                 _.each(errors.children, function(data, field) {
                     var fieldErrors;
 
@@ -82,14 +86,18 @@ define(function(require) {
                         fieldErrors = data.errors.join('. ');
                     }
 
-                    block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", fieldErrors);
+                    block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", KIT.text(fieldErrors));
                 });
+            }
+
+            if (errors.description){
+                block.$controls.attr("lh_field_error", KIT.text(errors.description));
             }
 
         },
         removeErrors: function() {
             var block = this;
-            block.$el.find("input, textarea, select").closest(".form__field").removeAttr("lh_field_error");
+            block.$el.find('[lh_field_error]').removeAttr("lh_field_error");
         },
         disable: function(disabled) {
             var block = this;

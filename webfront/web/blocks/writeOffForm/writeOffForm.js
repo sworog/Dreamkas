@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/blocks/form/form'),
+        var Form = require('blocks/form/form'),
             WriteOffModel = require('models/writeOff'),
             moment = require('moment'),
             router = require('routers/mainRouter');

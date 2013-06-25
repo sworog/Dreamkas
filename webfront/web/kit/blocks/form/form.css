@@ -50,11 +50,3 @@ textarea.inputText ~ .form__label{
 .form__controlLink{
     vertical-align: middle;
 }
-
-[ lh_field_error ]:after {
-    content: attr( lh_field_error );
-    display: inline-block;
-    color: #c60f13;
-    padding-left: 10px;
-    vertical-align: middle;
-}

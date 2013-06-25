@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Tooltip = require('kit/blocks/tooltip/tooltip'),
-            Form = require('kit/blocks/form/form'),
+            Form = require('blocks/form/form'),
             CatalogClassModel = require('models/catalogClass');
 
         return Tooltip.extend({

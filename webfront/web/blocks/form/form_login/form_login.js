@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Form = require('kit/blocks/form/form'),
+    var Form = require('blocks/form/form'),
         _ = require('underscore'),
         tokenModel = require('models/token');
 
@@ -16,11 +16,13 @@ define(function(require) {
                 deferred = $.Deferred();
 
             tokenModel.save(block.data, {
-                success: function(data){
-                    console.log(data);
+                success: function(model) {
+                    console.log(model);
                 },
-                error: function(data){
-                    console.log(data);
+                error: function(model, res) {
+                    deferred.reject({
+                        description: res.responseJSON.error_description || res.responseJSON.error
+                    })
                 }
             });
 

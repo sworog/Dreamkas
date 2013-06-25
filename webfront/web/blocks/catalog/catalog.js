@@ -3,7 +3,7 @@ define(function(require) {
         //requirements
         var Editor = require('kit/blocks/editor/editor'),
             Tooltip = require('kit/blocks/tooltip/tooltip'),
-            Form = require('kit/blocks/form/form'),
+            Form = require('blocks/form/form'),
             Tooltip_editGroupMenu = require('blocks/tooltip/tooltip_editGroupMenu'),
             Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
             catalogRouter = require('routers/catalog'),

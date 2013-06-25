@@ -9,7 +9,7 @@ define(function(require) {
             ClassGroupsCollection = require('collections/classGroups'),
             catalogRouter = require('routers/catalog'),
             Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
-            Form = require('kit/blocks/form/form');
+            Form = require('blocks/form/form');
 
         return Editor.extend({
             editMode: false,
