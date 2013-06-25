@@ -8,6 +8,7 @@ Narrative:
 Scenario: Selling more products amounts then had
 Given there is the product with 'Хлопья Питерские' name, 'Хлопья-Питерские-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'AmVeDuSe-2' in the invoice 'sku' field
 And the user inputs 'поставщик' in the invoice 'supplier' field
@@ -22,8 +23,12 @@ Given the user is on the invoice list page
 Then the user checks the invoice with 'AmVeDuSe-2' sku is present
 Given the user opens amount list page
 Then the user checks the product with 'Хлопья-Питерские-Артикул' sku has 'amounts amount' element equal to '1' on amounts page
+When the user logs out
 Given the user opens sales emulator page
+And the user logs in as 'watchman'
 When the user adds the product with 'Хлопья Питерские' name, '100' quantity and '18' price to bill
 And the user makes the purchase
+And the user logs out
 Given the user opens amount list page
+And the user logs in as 'departmentManager'
 Then the user checks the product with 'Хлопья-Питерские-Артикул' sku has 'amounts amount' element equal to '-99' on amounts page
