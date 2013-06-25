@@ -10,20 +10,13 @@ define(function(require) {
 
     return function() {
         if (!token) {
-            deferred.resolve({
-                status: 'nonAuthorized',
+            deferred.reject({
+                status: 'unauthorized',
                 message: 'no token'
             });
         } else {
-            currentUserModel.fetch({
-                success: function(model) {
-                    deferred.resolve({
-                        status: 'authorized'
-                    });
-                },
-                error: function(data) {
-                    console.log(data);
-                }
+            deferred.resolve({
+                status: 'authorized'
             });
         }
 

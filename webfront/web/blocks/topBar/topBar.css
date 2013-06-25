@@ -1,0 +1,15 @@
+.topBar{
+    text-align: right;
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+    padding: 10px 20px;
+}
+
+.topBar__userName{
+    margin-right: 20px;
+    vertical-align: middle;
+}
+
+.page_common_login .topBar{
+    display: none;
+}

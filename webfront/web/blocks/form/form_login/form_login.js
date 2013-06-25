@@ -17,7 +17,8 @@ define(function(require) {
 
             tokenModel.save(block.data, {
                 success: function(model) {
-                    console.log(model);
+                    $.cookie('token', model.get('access_token'));
+                    document.location.reload();
                 },
                 error: function(model, res) {
                     deferred.reject({

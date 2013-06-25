@@ -2,14 +2,23 @@ define(function(require) {
     //requirements
     var classExtend = require('kit/utils/classExtend'),
         $ = require('jquery'),
-        _ = require('underscore');
+        Backbone = require('backbone'),
+        _ = require('underscore'),
+        topBar = require('blocks/topBar/topBar');
 
     var $page = $('body');
 
     var Page = function() {
         var page = this;
 
+        if ($page.data('page')){
+            $page.data('page').stopListening();
+        }
+
         $page.data('page', page);
+        $page
+            .removeAttr('class')
+            .addClass('page ' + page.pageName);
 
         page.initialize.apply(page, arguments);
 
@@ -48,7 +57,7 @@ define(function(require) {
         page.fetchData();
     };
 
-    _.extend(Page.prototype, {
+    _.extend(Page.prototype, Backbone.Events, {
         templates: {},
         blocks: {},
         models: {},
