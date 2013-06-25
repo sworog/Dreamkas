@@ -45,7 +45,7 @@ public class AuthorizationPage extends CommonPageObject {
     }
 
     public void logOut() {
-        String logOutButtonXpath = "";
+        String logOutButtonXpath = "//*[@class='topBar']/*[@class='topBar__logoutLink button']";
         findBy(logOutButtonXpath).click();
         isAuthorized = false;
     }
