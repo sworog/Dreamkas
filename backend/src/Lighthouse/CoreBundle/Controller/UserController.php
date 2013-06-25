@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class UserController extends AbstractRestController
 {
@@ -28,6 +29,12 @@ class UserController extends AbstractRestController
      * @var \Lighthouse\CoreBundle\Security\User\UserProvider
      */
     public $userProvider;
+
+    /**
+     * @DI\Inject("security.context")
+     * @var SecurityContextInterface
+     */
+    public $securityContext;
 
     /**
      * @return AbstractType
@@ -93,6 +100,14 @@ class UserController extends AbstractRestController
         } else {
             return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
+    }
+
+    /**
+     * @return User
+     */
+    public function getUsersCurrentAction()
+    {
+        return $this->securityContext->getToken()->getUser();
     }
 
     /**

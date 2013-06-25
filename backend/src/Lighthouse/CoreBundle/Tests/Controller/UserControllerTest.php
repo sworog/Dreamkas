@@ -12,14 +12,13 @@ class UserControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-
         $userData = array(
-                'username'  => 'test',
-                'name'      => 'Вася пупкин',
-                'position'  => 'Комерческий директор',
-                'role'      => 'commercialManager',
-                'password'  => 'qwerty',
-            );
+            'username'  => 'test',
+            'name'      => 'Вася пупкин',
+            'position'  => 'Комерческий директор',
+            'role'      => 'commercialManager',
+            'password'  => 'qwerty',
+        );
 
         $response = $this->clientJsonRequest(
             $this->client,
@@ -510,6 +509,35 @@ class UserControllerTest extends WebTestCase
                 Assert::assertJsonPathEquals($value, $key, $postResponse);
             }
         }
+    }
+
+    public function testGetUsersCurrentAction()
+    {
+        $this->clearMongoDb();
+
+        $authClient = $this->createAuthClient();
+        $user = $this->createUser('user', 'qwerty123');
+
+        $token = $this->auth($authClient, $user, 'qwerty123');
+
+        $headers = array(
+            'HTTP_AUTHORIZATION' => 'Bearer ' . $token->access_token,
+        );
+
+        $getResponse = $this->clientJsonRequest(
+            $this->client,
+            'GET',
+            '/api/1/users/current',
+            null,
+            array(),
+            $headers,
+            true,
+            false
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathEquals('user', 'username', $getResponse);
     }
 
     public function userProvider()

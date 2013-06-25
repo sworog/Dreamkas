@@ -506,21 +506,28 @@ class WebTestCase extends BaseTestCase
     /**
      * @return array
      */
-    protected function auth()
+    protected function auth(AuthClient $oauthClient = null, User $oauthUser = null, $password = 'password')
     {
-        if (!$this->oauthClient) {
-            $this->oauthClient = $this->createAuthClient();
+        if (!$oauthClient) {
+            if (!$this->oauthClient) {
+                $this->oauthClient = $this->createAuthClient();
+            }
+            $oauthClient = $this->oauthClient;
         }
-        if (!$this->oauthUser) {
-            $this->oauthUser = $this->createUser('admin', 'password');
+
+        if (!$oauthUser) {
+            if (!$this->oauthUser) {
+                $this->oauthUser = $this->createUser('admin', $password);
+            }
+            $oauthUser = $this->oauthUser;
         }
 
         $authParams = array(
             'grant_type' => 'password',
-            'username' => 'admin',
-            'password' => 'password',
-            'client_id' => $this->oauthClient->getPublicId(),
-            'client_secret' => $this->oauthClient->getSecret()
+            'username' => $oauthUser->username,
+            'password' => $password,
+            'client_id' => $oauthClient->getPublicId(),
+            'client_secret' => $oauthClient->getSecret()
         );
 
         $this->client->request(
