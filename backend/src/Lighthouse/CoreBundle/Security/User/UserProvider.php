@@ -154,8 +154,12 @@ class UserProvider implements UserProviderInterface
      */
     public function updateUserWithPassword(UserInterface $user, $password, $validate = false)
     {
+        if ($validate) {
+            $user->password = $password;
+            $this->validate($user);
+        }
         $this->setPassword($user, $password);
-        $this->updateUser($user, $validate);
+        $this->updateUser($user);
     }
 
     /**

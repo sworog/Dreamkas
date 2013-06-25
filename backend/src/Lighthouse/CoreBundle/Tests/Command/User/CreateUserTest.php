@@ -39,7 +39,7 @@ class CreateUserTest extends WebTestCase
 
         $input = array(
             'username' => 'admin',
-            'password' => 'admin',
+            'password' => 'lighthouse',
             'role' => 'administrator',
         );
 
@@ -49,13 +49,14 @@ class CreateUserTest extends WebTestCase
 
         $display = $commandTester->getDisplay();
         $this->assertContains('Creating user...Done', $display);
-        $this->assertContains('"username":"admin","name":"admin"', $display);
+        $this->assertContains('"username":"admin"', $display);
+        $this->assertContains('"role":"administrator"', $display);
 
         $user = $this->userProvider->loadUserByUsername('admin');
 
         $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\User\\User', $user);
         $this->assertEquals('admin', $user->username);
-        $this->assertNotEquals('admin', $user->password);
+        $this->assertNotEquals('lighthouse', $user->password);
         $this->assertEquals('administrator', $user->role);
     }
 
@@ -69,7 +70,7 @@ class CreateUserTest extends WebTestCase
 
         $input = array(
             'username' => 'admin',
-            'password' => 'admin',
+            'password' => 'lighthouse',
             'role' => 'administrator',
         );
 
