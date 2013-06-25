@@ -14,6 +14,7 @@ Narrative:
 
 Scenario: Invoice sku validation is required
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация поставщик' in the invoice 'supplier' field
@@ -23,9 +24,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: Invoice sku validation good
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user generates charData with '100' number in the 'sku' invoice field
 Then the user checks 'sku' invoice field contains only '100' symbols
@@ -35,9 +38,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice sku validation negative
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user generates charData with '101' number in the 'sku' invoice field
 Then the user checks 'sku' invoice field contains only '101' symbols
@@ -48,10 +53,11 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
-| Не более 100 символов |
+| Не более 100 символов |When the user logs out
 
 Scenario: Invoice Supplier validation is required
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'ISVIR-01' in the invoice 'sku' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
@@ -61,9 +67,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: Invoice Supplier validation good
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'ISVG-01' in the invoice 'sku' field
 And the user generates charData with '300' number in the 'supplier' invoice field
@@ -73,9 +81,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice Supplier validation negative
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'ISVN-01' in the invoice 'sku' field
 And the user generates charData with '301' number in the 'supplier' invoice field
@@ -87,9 +97,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation is required
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '89654464645' in the invoice 'sku' field
 And the user inputs '!' in the invoice 'acceptanceDate' field
@@ -100,14 +112,18 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: Invoice acceptanceDate autofilling
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 Then the user checks the 'acceptanceDate' is prefilled and equals NowDate
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation good manual
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '89654464645' in the invoice 'sku' field
 And the user inputs '!03.12.2012 10:45' in the invoice 'acceptanceDate' field
@@ -116,9 +132,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative1 numbers
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVMN1' in the invoice 'sku' field
 And the user inputs '!123454567890' in the invoice 'acceptanceDate' field
@@ -127,9 +145,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative1 numbers 2
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVMN1' in the invoice 'sku' field
 And the user inputs '!12345456789' in the invoice 'acceptanceDate' field
@@ -140,9 +160,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative2 eng symbols
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVMN2' in the invoice 'sku' field
 And the user inputs '!HAasdfsfsfsf' in the invoice 'acceptanceDate' field
@@ -153,9 +175,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative3 rus symbols
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVMN2' in the invoice 'sku' field
 And the user inputs '!Русский набор' in the invoice 'acceptanceDate' field
@@ -166,9 +190,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative symbols
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVMN2' in the invoice 'sku' field
 And the user inputs '!"№;%:?*()_+' in the invoice 'acceptanceDate' field
@@ -179,9 +205,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative symbols mix
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVMN2' in the invoice 'sku' field
 And the user inputs '!"56gfЛВ' in the invoice 'acceptanceDate' field
@@ -192,9 +220,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation through datepicker good
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '89654464645' in the invoice 'sku' field
 And the user inputs 'todayDateAndTime' in the invoice 'acceptanceDate' field
@@ -203,9 +233,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation through datepicker negative1
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVMN1' in the invoice 'sku' field
 And the user inputs '27.03.2013 9999:9999' in the invoice 'acceptanceDate' field
@@ -214,10 +246,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-
+When the user logs out
 
 Scenario: Invoice acceptanceDate validation through datepicker negative2
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVMN1' in the invoice 'sku' field
 And the user inputs '27.03.2013 1155:222255' in the invoice 'acceptanceDate' field
@@ -226,10 +259,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-
+When the user logs out
 
 Scenario: Invoice accepter validation is required
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVIR-01' in the invoice 'sku' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
@@ -239,10 +273,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-
+When the user logs out
 
 Scenario: Invoice accepter validation good
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVG-01' in the invoice 'sku' field
 And the user generates charData with '100' number in the 'accepter' invoice field
@@ -252,9 +287,11 @@ And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice accepter validation negative
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'IAVN-01' in the invoice 'sku' field
 And the user generates charData with '101' number in the 'accepter' invoice field
@@ -266,9 +303,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
+When the user logs out
 
 Scenario: Invoice legalEntity validation is required
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'ILEVIR-01' in the invoice 'sku' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
@@ -278,10 +317,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-
+When the user logs out
 
 Scenario: Invoice legalEntity validation good
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'ILEVG-01' in the invoice 'sku' field
 And the user generates charData with '300' number in the 'legalEntity' invoice field
@@ -291,10 +331,11 @@ And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-
+When the user logs out
 
 Scenario: Invoice legalEntity validation negative
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'ILEVN-01' in the invoice 'sku' field
 And the user generates charData with '301' number in the 'legalEntity' invoice field
@@ -306,9 +347,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
+When the user logs out
 
 Scenario: Invoice supplierInvoiceSku validation good
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'ISSVG-01' in the invoice 'sku' field
 And the user generates charData with '100' number in the 'supplierInvoiceSku' invoice field
@@ -319,9 +362,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice supplierInvoiceSku validation negative
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'ISSIVVN-01' in the invoice 'sku' field
 And the user generates charData with '101' number in the 'supplierInvoiceSku' invoice field
@@ -334,9 +379,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
+When the user logs out
 
 Scenario: Invoice supplierInvoiceSku, supplierInvoiceDate are not required
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs 'ISISSID-01' in the invoice 'sku' field
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
@@ -345,9 +392,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation good manual
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs '6765934' in the invoice 'sku' field
@@ -357,9 +406,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative1 numbers
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'ISSSSAVMN1' in the invoice 'sku' field
@@ -371,9 +422,11 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Дата накладной не должна быть старше даты приемки |
+When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative2 eng symbols
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'ISSAVMN2' in the invoice 'sku' field
@@ -383,9 +436,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative3 rus symbols
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'ISAVMN2' in the invoice 'sku' field
@@ -395,9 +450,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative symbols
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'ISAVMN2' in the invoice 'sku' field
@@ -407,9 +464,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative symbols mix
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'ISAVMN2' in the invoice 'sku' field
@@ -419,9 +478,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation through datepicker good
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '8S9654464645' in the invoice 'sku' field
 And the user inputs 'todayDate' in the invoice 'supplierInvoiceDate' field
@@ -430,9 +491,11 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Invoice supplier date cantbe older then acceptance date 1
 Given the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 And the user inputs '!27.03.2013 10:11' in the invoice 'acceptanceDate' field
 And the user inputs 'ISAVMN1' in the invoice 'sku' field
@@ -444,5 +507,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Дата накладной не должна быть старше даты приемки |
+When the user logs out
 
 
