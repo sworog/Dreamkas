@@ -3,6 +3,7 @@
 Scenario: Edit Retail price validation String+Symbols+Num
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -11,10 +12,12 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
+When the user logs out
 
 Scenario: Edit Retail price validation commma
 Given there is created product with sku 'ED-MVC-VCC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC-VCC' sku
 And the user clicks the edit button on product card view page
 And the user inputs '1' in 'purchasePrice' field
@@ -22,10 +25,12 @@ And the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs ',78' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Edit Retail price validation dott
 Given there is created product with sku 'ED-MVC-VDT' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC-VDT' sku
 And the user clicks the edit button on product card view page
 And the user inputs '1' in 'purchasePrice' field
@@ -33,49 +38,59 @@ And the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs ',78' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Edit Retail price validation comma
 Given there is created product with sku 'ED-MVC-VC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC-VC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
 And the user clicks the create button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Edit Retail price validation dot
 Given there is created product with sku 'ED-MVC-VD' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC-VD' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs '125,26' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Edit Retail price validation one digit
 Given there is created product with sku 'ED-MVC-RPOD' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC-RPOD' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs '789,6' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Edit Retail price validation two digits
 Given there is created product with sku 'ED-MVC-RPTW' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC-RPTW' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs '739,67' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Edit Retail price validation three digits
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -84,10 +99,12 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна содержать больше 2 цифр после запятой. |
+When the user logs out
 
 Scenario: Edit Retail price validation sub zero
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -96,10 +113,12 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
+When the user logs out
 
 Scenario: Edit Purhase prise validation zero
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -108,10 +127,12 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
+When the user logs out
 
 Scenario: Edit Retail price validation String en small register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -120,10 +141,12 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
+When the user logs out
 
 Scenario: Edit Retail price validation String en big register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -132,10 +155,12 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
+When the user logs out
 
 Scenario: Edit Retail price validation String rus small register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -144,10 +169,12 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
+When the user logs out
 
 Scenario: Edit Retail price validation String rus big register
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -156,10 +183,12 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
+When the user logs out
 
 Scenario: Edit Retail price validation symbols
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -168,20 +197,24 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
+When the user logs out
 
 Scenario: Edit Retail price validation length good
 Given there is created product with sku 'ED-MVC-RPVLG' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC-RPVLG' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs '10000000' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
+When the user logs out
 
 Scenario: Edit Retail price validation length negative
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -190,10 +223,12 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть больше 10000000 |
+When the user logs out
 
 Scenario: Edit Retail Price regress
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-MVC' sku
 And the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -205,3 +240,4 @@ Then the user sees error messages
 Then the user sees no error messages
 | error message |
 | Наценка должна быть больше -100% |
+When the user logs out

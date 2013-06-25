@@ -7,6 +7,7 @@ Narrative:
 
 Scenario: Retail price - product creation without retail price filling
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs '12356' in 'purchasePrice' field
@@ -21,9 +22,11 @@ Then the user checks the elements values
 | purchasePrice | 12356 |
 | retailMarkup | отсутствует |
 | retailPrice | отсутствует |
+When the user logs out
 
 Scenario: Retail price - product creation with markup filling
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
@@ -40,9 +43,11 @@ Then the user checks the elements values
 | purchasePrice | 112 |
 | retailMarkup | 10 |
 | retailPrice | 123,2 |
+When the user logs out
 
 Scenario: Retail price - product creation with retailMarkup filling
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
@@ -59,9 +64,11 @@ Then the user checks the elements values
 | purchasePrice | 112 |
 | retailMarkup | 10 |
 | retailPrice | 123,2 |
+When the user logs out
 
 Scenario: Retail price - product creation with retailPrice filling
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
@@ -83,9 +90,11 @@ Then the user checks the elements values
 | purchasePrice | 112 |
 | retailMarkup | 25 |
 | retailPrice | 140 |
+When the user logs out
 
 Scenario: Retail price - retailMarkup - last used field is active in product edition
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
@@ -104,9 +113,11 @@ And the user checks 'retailPrice' 'is not' avalaible
 And the user checks 'retailMarkup' 'is' avalaible
 And the user checks 'retailPriceHint' 'is' avalaible
 And the user checks 'retailMarkupHint' 'is not' avalaible
+When the user logs out
 
 Scenario: Retail price - retailPrice - last used field is active in product edition
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
@@ -126,9 +137,11 @@ And the user checks 'retailPrice' 'is' avalaible
 And the user checks 'retailMarkup' 'is not' avalaible
 And the user checks 'retailMarkupHint' 'is' avalaible
 And the user checks 'retailPriceHint' 'is not' avalaible
+When the user logs out
 
 Scenario: Retail price - retailMarkup - last used field is active in product edition all
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
@@ -158,32 +171,40 @@ And the user checks 'retailMarkup' 'is not' avalaible
 And the user checks 'retailPrice' 'is' avalaible
 And the user checks 'retailMarkupHint' 'is' avalaible
 And the user checks 'retailPriceHint' 'is not' avalaible
+When the user logs out
 
 Scenario: Retail price - retailPrice is active by default
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 Then the user checks 'retailMarkup' 'is' avalaible
 And the user checks 'retailPrice' 'is not' avalaible
 And the user checks 'retailMarkupHint' 'is not' avalaible
 And the user checks 'retailPriceHint' 'is' avalaible
+When the user logs out
 
 Scenario: Retail price - retail price hint text
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 Then the user checks the elements values
 | elementName | expectedValue |
 | retailPriceHint | Введите значение |
+When the user logs out
 
 Scenario: Retail price - retail markup hint text
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 When the user clicks 'retailPriceHint' to make it avalaible
 Then the user checks the elements values
 | elementName | expectedValue |
 | retailMarkupHint | Введите значение |
+When the user logs out
 
 Scenario: Retail price - retail price correct round testing
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
@@ -192,9 +213,11 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs 'Retailprice-PCWRMF' in 'sku' field
 And the user inputs '140' in 'retailMarkup' field
 Then the user checks the 'retailPriceHint' value is '268,80'
+When the user logs out
 
 Scenario: Retail price - retail markup correct round testing
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
@@ -204,9 +227,11 @@ And the user inputs 'Retail price - PCWRPF' in 'sku' field
 And the user clicks 'retailPriceHint' to make it avalaible
 When the user inputs '268,8' in 'retailPrice' field
 Then the user checks the 'retailMarkupHint' value is '140'
+When the user logs out
 
 Scenario: Retail price regress 1
 Given the user is on the product list page
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'Наименование56' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
@@ -222,7 +247,7 @@ When the user clicks 'retailPriceHint' to make it avalaible
 Then the user checks the elements values
 | elementName | expectedValue |
 | retailPrice | 137,76 |
-
+When the user logs out
 
 
 
