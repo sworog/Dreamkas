@@ -1,5 +1,6 @@
 define(function(require) {
-    var BaseModel = require('models/baseModel');
+    var BaseModel = require('models/baseModel'),
+        Backbone = require('backbone');
 
     var TokenModel = BaseModel.extend({
         urlRoot: LH.baseUrl + '/oauth/v2/token',
@@ -8,6 +9,7 @@ define(function(require) {
             client_secret: LH.clientSecret,
             grant_type: 'password'
         },
+        sync: Backbone.Model.prototype.sync,
         saveFields: [
             'client_id',
             'client_secret',
