@@ -9,12 +9,16 @@ Narrative:
 Scenario: Authorization invalid password
 Given the user opens the authorization page
 When the user logs in using 'watchman' userName and '123456' password
-Then the user see the login page error 'еррор!'
+Then the user sees error messages
+| error message |
+| error! |
 
 Scenario: Authorization invalid password, userName
 Given the user opens the authorization page
 When the user logs in using '123456' userName and '123456' password
-Then the user see the login page error 'еррор!'
+Then the user sees error messages
+| error message |
+| Error! |
 
 !--More tests on errors?
 

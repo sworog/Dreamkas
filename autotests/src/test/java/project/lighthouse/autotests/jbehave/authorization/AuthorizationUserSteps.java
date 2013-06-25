@@ -38,11 +38,6 @@ public class AuthorizationUserSteps {
         authorizationSteps.logOut();
     }
 
-    @Then("the user see the login page error '$errorMessage'")
-    public void thenTheUserChecksTheLoginPageErrors(String errorMessage) {
-
-    }
-
     @Then("the user checks that authorized is '$userName' user")
     public void thenTheUserChecksThatAuthorizedIsUser(String userName) {
         authorizationSteps.checkUser(userName);

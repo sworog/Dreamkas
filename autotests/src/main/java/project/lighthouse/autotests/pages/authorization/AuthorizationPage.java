@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.pages.authorization;
 
 import net.thucydides.core.annotations.DefaultUrl;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 
@@ -33,16 +34,14 @@ public class AuthorizationPage extends CommonPageObject {
     public void authorization(String userName) {
         String password = users.get(userName);
         authorization(userName, password);
-        isAuthorized = true;
     }
 
     public void authorization(String userName, String password) {
-        String userNameXpath = "";
-        findBy(userNameXpath).type(userName);
-        String passwordXpath = "";
-        findBy(passwordXpath).type(password);
-        String loginButtonXpath = "";
+        find(By.name("username")).type(userName);
+        find(By.name("password")).type(password);
+        String loginButtonXpath = "//*[@class='button button_color_blue']/input";
         findBy(loginButtonXpath).click();
+        isAuthorized = true;
     }
 
     public void logOut() {
