@@ -50,12 +50,13 @@ public class AuthorizationPage extends CommonPageObject {
     }
 
     public void logOutButtonClick() {
-        String logOutButtonXpath = "//*[@class='topBar']/*[@class='topBar__logoutLink button']";
-        findBy(logOutButtonXpath).click();
+        String logOutButtonXpath = "//*[@class='topBar__logoutLink button']";
+        findElement(By.xpath(logOutButtonXpath)).click();
     }
 
     public void beforeScenario() {
         if (isAuthorized) {
+            //getDriver().manage().deleteCookieNamed("token");
             logOut();
         }
     }
