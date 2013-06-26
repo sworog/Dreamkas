@@ -158,10 +158,10 @@ And the user checks invoice elements values
 When the user logs out
 
 Scenario: Authorization successfull - simple write off scenarios
-Given there is the product with 'WriteOff-ProductName99' name, 'WriteOff-ProductSku99' sku, 'WriteOff-ProductBarCode99' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'WriteOff-ProductName99' name, '1WriteOff-ProductSku99' sku, 'WriteOff-ProductBarCode99' barcode, 'liter' units, '15' purchasePrice
 And the user opens amount list page
 When the user logs in using 'departmentManager' userName and 'lighthouse' password
-Then the user checks the product with 'WriteOff-ProductSku99' sku has 'amounts amount' element equal to '0' on amounts page
+Then the user checks the product with '1WriteOff-ProductSku99' sku has 'amounts amount' element equal to '0' on amounts page
 Given the user opens the write off create page
 When the user inputs 'WriteOff Number-199' in the 'writeOff number' field on the write off page
 And the user inputs '24.10.2012' in the 'writeOff date' field on the write off page
@@ -175,11 +175,11 @@ Then the user checks write off elements values
 | elementName | expectedValue |
 | writeOff number review | WriteOff Number-199 |
 | writeOff date review | 24.10.2012 |
-And the user checks the write off product with 'WriteOff-ProductSku99' sku is present
-And the user checks the product with 'WriteOff-ProductSku99' sku has elements on the write off page
+And the user checks the write off product with '1WriteOff-ProductSku99' sku is present
+And the user checks the product with '1WriteOff-ProductSku99' sku has elements on the write off page
 | elementName | expectedValue |
 | writeOff product name review | WriteOff-ProductName99 |
-| writeOff product sku review | WriteOff-ProductSku99 |
+| writeOff product sku review | 1WriteOff-ProductSku99 |
 | writeOff product barCode review | WriteOff-ProductBarCode99 |
 | writeOff product quantity review | 10 |
 | writeOff product price review | 15 |
@@ -189,7 +189,7 @@ Then the user checks write off elements values
 | totalProducts | 1 |
 | totalSum | 150 |
 Given the user opens amount list page
-Then the user checks the product with 'WriteOff-ProductSku99' sku has 'amounts amount' element equal to '-10' on amounts page
+Then the user checks the product with '1WriteOff-ProductSku99' sku has 'amounts amount' element equal to '-10' on amounts page
 When the user logs out
 
 Scenario: Authorization successfull - simple user scenarios
