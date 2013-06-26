@@ -358,6 +358,9 @@ define(function(require) {
                             data: {
                                 query: request.term
                             },
+                            headers: {
+                                Authorization: 'Bearer ' + $.cookie('token')
+                            },
                             success: function(data) {
                                 response($.map(data, function(item) {
                                     return {

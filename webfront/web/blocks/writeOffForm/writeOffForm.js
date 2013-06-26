@@ -3,7 +3,9 @@ define(function(require) {
         var Form = require('blocks/form/form'),
             WriteOffModel = require('models/writeOff'),
             moment = require('moment'),
-            router = require('routers/mainRouter');
+            Backbone = require('backbone');
+
+        var router = new Backbone.Router;
 
         return Form.extend({
             writeOffFormId: null,

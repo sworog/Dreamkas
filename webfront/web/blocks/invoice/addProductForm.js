@@ -68,6 +68,9 @@ define(function(require) {
                         $.ajax({
                             url: LH.baseApiUrl + "/products/" + name + "/search.json",
                             dataType: "json",
+                            headers: {
+                                Authorization: 'Bearer ' + $.cookie('token')
+                            },
                             data: {
                                 query: request.term
                             },
