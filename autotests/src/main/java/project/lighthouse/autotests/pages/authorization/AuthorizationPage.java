@@ -52,7 +52,7 @@ public class AuthorizationPage extends CommonPageObject {
 
     public void logOutButtonClick() {
         String logOutButtonXpath = "//*[@class='topBar__logoutLink button']";
-        findElement(By.xpath(logOutButtonXpath)).click();
+        findVisibleElement(By.xpath(logOutButtonXpath)).click();
     }
 
     public void beforeScenario() {
