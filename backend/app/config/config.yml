@@ -110,3 +110,6 @@ fos_oauth_server:
         user_provider: lighthouse.core.user.provider
         options:
             access_token_lifetime: 86400
+
+nelmio_api_doc:
+    name: Lighthouse API

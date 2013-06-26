@@ -13,8 +13,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class UserController extends AbstractRestController
 {
@@ -37,7 +37,7 @@ class UserController extends AbstractRestController
     public $securityContext;
 
     /**
-     * @return AbstractType
+     * @return UserType
      */
     protected function getDocumentFormType()
     {
@@ -49,6 +49,11 @@ class UserController extends AbstractRestController
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
      *
      * @Rest\View(statusCode=201)
+     * @ApiDoc(
+     *      resource=true,
+     *      description="Create user",
+     *      input="Lighthouse\CoreBundle\Form\UserType"
+     * )
      */
     public function postUsersAction(Request $request)
     {
@@ -76,6 +81,9 @@ class UserController extends AbstractRestController
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
      *
      * @Rest\View(statusCode=200)
+     * @ApiDoc(
+     *      description="Update user"
+     * )
      */
     public function putUsersAction(Request $request, $id)
     {
@@ -104,6 +112,9 @@ class UserController extends AbstractRestController
 
     /**
      * @return User
+     * @ApiDoc(
+     *      description="Get current logged user"
+     * )
      */
     public function getUsersCurrentAction()
     {
@@ -111,8 +122,11 @@ class UserController extends AbstractRestController
     }
 
     /**
-     * @param int $id
+     * @param int $id User ID
      * @return User
+     * @ApiDoc(
+     *      description="Get user"
+     * )
      */
     public function getUserAction($id)
     {
@@ -121,6 +135,9 @@ class UserController extends AbstractRestController
 
     /**
      * @return \Lighthouse\CoreBundle\Document\User\UserCollection
+     * @ApiDoc(
+     *      description="Create users"
+     * )
      */
     public function getUsersAction()
     {

@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Lighthouse\CoreBundle\LighthouseCoreBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
         );
