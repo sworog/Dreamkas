@@ -6,35 +6,35 @@ Narrative:
 
 Scenario: Authorization invalid password
 Given the user opens the authorization page
-When the user logs in using 'watchman' userName and '123456' password
+When the user logs in using 'watchman' userName and '123456' password to check validation
 Then the user sees error messages
 | error message |
 | Неверный логин или пароль |
 
 Scenario: Authorization invalid password, userName
 Given the user opens the authorization page
-When the user logs in using '123456' userName and '123456' password
+When the user logs in using '123456' userName and '123456' password to check validation
 Then the user sees error messages
 | error message |
 | Неверный логин или пароль |
 
 Scenario: Authorization blank userName, password
 Given the user opens the authorization page
-When the user logs in using '' userName and '' password
+When the user logs in using '' userName and '' password to check validation
 Then the user sees error messages
 | error message |
 | Пожалуйста заполните обязательные поля логин и пароль |
 
 Scenario: Authorization blank only userName
 Given the user opens the authorization page
-When the user logs in using '' userName and '123456' password
+When the user logs in using '' userName and '123456' password to check validation
 Then the user sees error messages
 | error message |
 | Пожалуйста заполните обязательные поля логин и пароль |
 
 Scenario: Authorization blank only password
 Given the user opens the authorization page
-When the user logs in using 'watchman' userName and '' password
+When the user logs in using 'watchman' userName and '' password to check validation
 Then the user sees error messages
 | error message |
 | Пожалуйста заполните обязательные поля логин и пароль |
@@ -116,6 +116,8 @@ And the user clicks on end edition link and ends the edition
 Then the user checks the group with 'First group create123' name is present
 Given the user opens catalog page
 Then the user checks the group with 'First group create123' name is related to class 'GcFcP123'
+When the user logs out
+
 
 Scenario: Authorization successfull - simple invoice scenarios
 Given there is the product with 'IFBKG-119' name, 'IFBKG-119' sku, 'IFBKG-119' barcode
@@ -160,12 +162,13 @@ And the user checks invoice elements values
 | elementName | expectedValue |
 | totalProducts | 1 |
 | totalSum | 1 |
+When the user logs out
 
 Scenario: Authorization successfull - simple write off scenarios
 Given there is the product with 'WriteOff-ProductName99' name, 'WriteOff-ProductSku99' sku, 'WriteOff-ProductBarCode99' barcode, 'liter' units, '15' purchasePrice
 And the user opens amount list page
 When the user logs in using 'departmentManager' userName and 'lighthouse' password
-Then the user checks the product with 'WriteOff-ProductSku9' sku has 'amounts amount' element equal to '0' on amounts page
+Then the user checks the product with 'WriteOff-ProductSku99' sku has 'amounts amount' element equal to '0' on amounts page
 Given the user opens the write off create page
 When the user inputs 'WriteOff Number-199' in the 'writeOff number' field on the write off page
 And the user inputs '24.10.2012' in the 'writeOff date' field on the write off page
@@ -194,6 +197,7 @@ Then the user checks write off elements values
 | totalSum | 150 |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductSku99' sku has 'amounts amount' element equal to '-10' on amounts page
+When the user logs out
 
 Scenario: Authorization successfull - simple user scenarios
 Given the user is on the users list page
@@ -208,5 +212,6 @@ And the user inputs values in the user page element fields
 | role | administrator |
 And the user clicks the create new user button
 Then the user checks the user with 'createfromuserslistpage99' username is present
+When the user logs out
 
 

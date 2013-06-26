@@ -45,12 +45,16 @@ public class AuthorizationPage extends CommonPageObject {
     }
 
     public void logOut() {
-        String logOutButtonXpath = "//*[@class='topBar']/*[@class='topBar__logoutLink button']";
-        findBy(logOutButtonXpath).click();
+        logOutButtonClick();
         isAuthorized = false;
     }
 
-    public void afterScenarioFailure() {
+    public void logOutButtonClick() {
+        String logOutButtonXpath = "//*[@class='topBar']/*[@class='topBar__logoutLink button']";
+        findBy(logOutButtonXpath).click();
+    }
+
+    public void beforeScenario() {
         if (isAuthorized) {
             logOut();
         }
@@ -62,7 +66,18 @@ public class AuthorizationPage extends CommonPageObject {
         findBy(userXpath).shouldBeVisible();
     }
 
+    public boolean loginFormIsVisible() {
+        return commonPage.isElementVisible(By.id("form_login"));
+    }
+
     public void loginFormIsPresent() {
-        find(By.id("form_login")).shouldBePresent();
+        if (!loginFormIsVisible()) {
+            throw new AssertionError("The log out is not successful!");
+        }
+    }
+
+    public void authorizationFalse(String userName, String password) {
+        authorization(userName, password);
+        isAuthorized = false;
     }
 }

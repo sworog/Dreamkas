@@ -29,8 +29,8 @@ public class AuthorizationSteps extends ScenarioSteps {
     }
 
     @Step
-    public void afterScenarioFailure() {
-        authorizationPage.afterScenarioFailure();
+    public void beforeScenario() {
+        authorizationPage.beforeScenario();
     }
 
     @Step
@@ -46,5 +46,10 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void loginFormIsPresent() {
         authorizationPage.loginFormIsPresent();
+    }
+
+    @Step
+    public void authorizationFalse(String userName, String password) {
+        authorizationPage.authorizationFalse(userName, password);
     }
 }
