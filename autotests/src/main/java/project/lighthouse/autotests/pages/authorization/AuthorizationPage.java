@@ -2,6 +2,7 @@ package project.lighthouse.autotests.pages.authorization;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 
@@ -56,8 +57,10 @@ public class AuthorizationPage extends CommonPageObject {
 
     public void beforeScenario() {
         if (isAuthorized) {
-            //getDriver().manage().deleteCookieNamed("token");
-            logOut();
+            Cookie token = getDriver().manage().getCookieNamed("token");
+            if (token != null) {
+                getDriver().manage().deleteCookie(token);
+            }
         }
     }
 

@@ -39,13 +39,7 @@ Then the user sees error messages
 | error message |
 | Пожалуйста заполните обязательные поля логин и пароль |
 
-Scenario: Authorization successfull
-Given the user opens the authorization page
-When the user logs in using 'watchman' userName and 'lighthouse' password
-And the user logs out
-Then the user checks the login form is present
-
-Scenario: Log out successfull
+Scenario: Authorization, log out successfull
 Given the user opens the authorization page
 When the user logs in using 'watchman' userName and 'lighthouse' password
 And the user logs out
@@ -117,7 +111,6 @@ Then the user checks the group with 'First group create123' name is present
 Given the user opens catalog page
 Then the user checks the group with 'First group create123' name is related to class 'GcFcP123'
 When the user logs out
-
 
 Scenario: Authorization successfull - simple invoice scenarios
 Given there is the product with 'IFBKG-119' name, 'IFBKG-119' sku, 'IFBKG-119' barcode
