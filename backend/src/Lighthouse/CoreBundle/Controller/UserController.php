@@ -46,7 +46,7 @@ class UserController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
+     * @return \Lighthouse\CoreBundle\Document\User\User|\FOS\RestBundle\View\View
      *
      * @Rest\View(statusCode=201)
      * @ApiDoc(
@@ -77,12 +77,13 @@ class UserController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $id
+     * @param string $id User ID
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
      *
      * @Rest\View(statusCode=200)
      * @ApiDoc(
      *      description="Update user"
+     *      input="Lighthouse\CoreBundle\Form\UserType"
      * )
      */
     public function putUsersAction(Request $request, $id)
