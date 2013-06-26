@@ -57,7 +57,12 @@ public class AuthorizationPage extends CommonPageObject {
     }
 
     public void checkUser(String userName) {
-        String userXpath = "";
+        String userXpath = "//*[@class='topBar__userName']";
+        String actualUserName = find(By.xpath(userXpath)).getText();
         findBy(userXpath).shouldBeVisible();
+    }
+
+    public void loginFormIsPresent() {
+        find(By.id("form_login")).shouldBePresent();
     }
 }

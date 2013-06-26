@@ -123,4 +123,13 @@ namespace :symfony do
             end
         end
     end
+
+    namespace :env do
+        desc "Reacreate db, create default clients and users"
+        task :init, :roles => :app, :except => { :no_release => true } do
+            doctrine.mongodb.schema.recreate
+            user.create_default
+            auth.client.create_default
+        end
+    end
 end

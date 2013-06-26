@@ -42,4 +42,9 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void openPage() {
         authorizationPage.open();
     }
+
+    @Step
+    public void loginFormIsPresent() {
+        authorizationPage.loginFormIsPresent();
+    }
 }

@@ -42,4 +42,9 @@ public class AuthorizationUserSteps {
     public void thenTheUserChecksThatAuthorizedIsUser(String userName) {
         authorizationSteps.checkUser(userName);
     }
+
+    @Then("the user checks the login form is present")
+    public void thenTheUserChecksTheLoginFormIsPresent() {
+        authorizationSteps.loginFormIsPresent();
+    }
 }

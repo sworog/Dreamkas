@@ -4,8 +4,6 @@ Narrative:
 Как пользователь, я хочу авторизироваться в системе,
 Чтобы работать
 
-!--Подправить тесты про юзеров с одинаковым именем
-
 Scenario: Authorization invalid password
 Given the user opens the authorization page
 When the user logs in using 'watchman' userName and '123456' password
@@ -41,24 +39,57 @@ Then the user sees error messages
 | error message |
 | Пожалуйста заполните обязательные поля логин и пароль |
 
-!--/-/-/-
-
 Scenario: Authorization successfull
 Given the user opens the authorization page
 When the user logs in using 'watchman' userName and 'lighthouse' password
-Then the user checks that authorized is 'watchman' user
-!--Role checking?
-When the user logs out
-!-- checks login form
+And the user logs out
+Then the user checks the login form is present
 
 Scenario: Log out successfull
 Given the user opens the authorization page
 When the user logs in using 'watchman' userName and 'lighthouse' password
-Then the user checks that authorized is 'watchman' user
-When the user logs out
+And the user logs out
+Then the user checks the login form is present
+
+Scenario: Unathorization use - product create page
 Given the user is on the product create page
-!-- checks login form
-!-- Может быть для других страниц???
+Then the user checks the login form is present
+
+Scenario: Unathorization use - product list page
+Given the user is on the product list page
+Then the user checks the login form is present
+
+Scenario: Unathorization use - catalog page
+Given the user opens catalog page
+Then the user checks the login form is present
+
+Scenario: Unathorization use - users list page
+Given the user is on the users list page
+Then the user checks the login form is present
+
+Scenario: Unathorization use - users create page
+Given the user opens create new user page
+Then the user checks the login form is present
+
+Scenario: Unathorization use - users ivoice list page
+Given the user is on the invoice list page
+Then the user checks the login form is present
+
+Scenario: Unathorization use - users ivoice create page
+Given the user is on the invoice create page
+Then the user checks the login form is present
+
+Scenario: Unathorization use - amount list page
+Given the user opens amount list page
+Then the user checks the login form is present
+
+Scenario: Unathorization use - the write off create page
+Given the user opens the write off create page
+Then the user checks the login form is present
+
+Scenario: Unathorization use - the write off list page
+Given the user opens write off list page
+Then the user checks the login form is present
 
 Scenario: Authorization successfull - simple product scenarios
 Given the user is on the product list page
