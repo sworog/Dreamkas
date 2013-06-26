@@ -82,7 +82,7 @@ class UserController extends AbstractRestController
      *
      * @Rest\View(statusCode=200)
      * @ApiDoc(
-     *      description="Update user"
+     *      description="Update user",
      *      input="Lighthouse\CoreBundle\Form\UserType"
      * )
      */
