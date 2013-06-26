@@ -57,7 +57,7 @@ public class ApiConnect {
 
     public String getInvoicePageUrl(String invoiceName) throws JSONException {
         String invoiceId = StaticDataCollections.invoices.get(invoiceName).getId();
-        return String.format("%s/invoice/%s?editMode=true", UrlHelper.getApiUrl().replace("api", "webfront"), invoiceId);
+        return String.format("%s/invoices/%s?editMode=true", UrlHelper.getApiUrl().replace("api", "webfront"), invoiceId);
     }
 
     public void createInvoiceThroughPost(String invoiceName, String productSku) throws IOException, JSONException {
