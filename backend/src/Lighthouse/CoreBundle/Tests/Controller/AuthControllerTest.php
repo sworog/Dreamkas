@@ -40,6 +40,8 @@ class AuthControllerTest extends WebTestCase
         Assert::assertJsonHasPath('refresh_token', $jsonResponse);
         Assert::assertJsonHasPath('token_type', $jsonResponse);
         Assert::assertJsonHasPath('expires_in', $jsonResponse);
+
+        Assert::assertJsonPathEquals(86400, 'expires_in', $jsonResponse);
     }
 
     public function testRefreshToken()

@@ -108,3 +108,5 @@ fos_oauth_server:
     auth_code_class:     Lighthouse\CoreBundle\Document\Auth\AuthCode
     service:
         user_provider: lighthouse.core.user.provider
+        options:
+            access_token_lifetime: 86400
