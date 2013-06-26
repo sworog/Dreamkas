@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
-import project.lighthouse.autotests.pages.departmentManager.amount.AmountListPage;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceListPage;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffListPage;
@@ -30,7 +29,6 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
     public String getCorrectXpathPattern() {
         switch (listPageName) {
             case InvoiceBrowsing.ITEM_NAME:
-            case AmountListPage.ITEM_NAME:
             case ProductListPage.ITEM_NAME:
             case InvoiceListPage.ITEM_NAME:
             case WriteOffPage.ITEM_NAME:
