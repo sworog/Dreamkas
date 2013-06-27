@@ -21,16 +21,11 @@ define(function(require) {
             },
             listeners: {
                 collection: {
-                    reset: function() {
+                    sync: function() {
                         var block = this;
 
                         block.renderBody();
                         block.set('loading', false);
-                    },
-                    request: function() {
-                        var block = this;
-
-                        block.set('loading', true);
                     }
                 }
             },

@@ -2,8 +2,7 @@ require.config(
     {
         baseUrl: '/',
         paths: {
-            'backbone.queryparams': 'libs/backbone/backbone.queryparams',
-            'jquery.cookie': 'libs/jquery/jquery.cookie'
+            'backbone.queryparams': 'libs/backbone/backbone.queryparams'
         },
         shim: {
             'backbone.queryparams': ['backbone']
@@ -27,14 +26,15 @@ require.config(
         }
     });
 
-require(['utils/checkToken'], function(checkToken) {
-    checkToken().then(
-        function(data) {
-            console.log(data);
+require(['models/currentUser'], function(currentUserModel) {
+    currentUserModel.fetch({
+        success: function(){
+            console.log(arguments);
             require(['loaders/authorized']);
         },
-        function(data) {
-            console.log(data);
+        error: function(){
+            console.log(arguments);
             require(['loaders/unauthorized']);
-        });
+        }
+    });
 });

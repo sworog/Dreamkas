@@ -1,7 +1,3 @@
-.preloader{
-    position: relative;
-}
-
 .preloader_rows{
     background-image: url("/img/preloader1.gif") !important;
     background-attachment: fixed;
@@ -12,9 +8,14 @@
     min-height: 100px;
 }
 
+.preloader_spinner *{
+    visibility: hidden;
+}
+
 .preloader_spinner:after {
     content: "";
     display: block;
+    visibility: visible;
     width: 64px;
     height: 64px;
     position: absolute;

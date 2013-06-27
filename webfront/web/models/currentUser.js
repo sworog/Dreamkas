@@ -3,7 +3,7 @@ define(function(require) {
     var BaseModel = require('models/baseModel');
 
     var CurrentUserModel = BaseModel.extend({
-        urlRoot: LH.baseApiUrl + 'users/current'
+        urlRoot: LH.baseApiUrl + '/users/current'
     });
 
     return new CurrentUserModel();

@@ -2,11 +2,11 @@ define(function(require) {
     //requirements
     var $ = require('jquery'),
         Backbone = require('backbone'),
-        _ = require('underscore');
+        _ = require('underscore'),
+        cookie = require('utils/cookie');
 
     require('utils');
     require('nls');
-    require('jquery.cookie');
 
     $(function() {
         var router = new Backbone.Router();
@@ -26,7 +26,7 @@ define(function(require) {
             });
         },
         logout: function() {
-            $.removeCookie('token');
+            cookie.remove('token');
             document.location.reload();
         }
     }

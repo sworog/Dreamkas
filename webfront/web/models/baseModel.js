@@ -1,12 +1,18 @@
 define(function(require) {
     //requirements
     var Backbone = require('backbone'),
-        _ = require('underscore');
-
-    require('jquery.cookie');
+        _ = require('underscore'),
+        cookie = require('utils/cookie');
 
     return Backbone.Model.extend({
         saveFields: [],
+        fetch: function(options) {
+            return Backbone.Model.prototype.fetch.call(this, _.extend({
+                error: function() {
+                    console.log(arguments)
+                }
+            }, options));
+        },
         save: function(attributes, options) {
             return Backbone.Model.prototype.save.call(this, attributes, _.extend({
                 wait: true,
@@ -21,7 +27,7 @@ define(function(require) {
         sync: function(method, model, options){
             Backbone.Model.prototype.sync.call(this, method, model, _.extend({
                 headers: {
-                    Authorization: 'Bearer ' + $.cookie('token')
+                    Authorization: 'Bearer ' + cookie.get('token')
                 }
             }, options));
         },

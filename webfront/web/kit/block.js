@@ -19,7 +19,35 @@ define(function(require) {
         tagName: 'div',
 
         events: null,
-        listeners: null,
+
+        listeners: {
+            collection: {
+                sync: function() {
+                    var block = this;
+
+                    block.render();
+                    block.set('loading', false);
+                },
+                request: function() {
+                    var block = this;
+
+                    block.set('loading', true);
+                }
+            },
+            model: {
+                sync: function() {
+                    var block = this;
+
+                    block.set('loading', false);
+                    block.render();
+                },
+                request: function() {
+                    var block = this;
+
+                    block.set('loading', true);
+                }
+            }
+        },
 
         constructor: function(options) {
             var block = this;
@@ -32,12 +60,10 @@ define(function(require) {
             block._ensureElement();
             block.findElements();
 
-            block._setup();
             block.initialize.apply(block, arguments);
 
             block.delegateEvents();
             block.startListening();
-            block.fetch();
 
             block.$el
                 .addClass(block.className)
@@ -45,28 +71,21 @@ define(function(require) {
                 .addClass(block.addClass)
                 .attr('block', block.blockName)
                 .data(block.blockName, block);
+
         },
         initialize: function() {
             var block = this;
             block.render();
-        },
-        fetch: function(){},
-        _setup: function() {
-            var block = this;
-
-            if (typeof block.model === 'function'){
-                block.model = block.model.call(block);
-            }
-
-            if (typeof block.collection === 'function'){
-                block.collection = block.collection.call(block);
-            }
         },
         render: function() {
             var block = this,
                 $template;
 
             if (!block.templates.index) {
+                return block;
+            }
+
+            if (block.loading) {
                 return block;
             }
 
@@ -181,6 +200,10 @@ define(function(require) {
             }
 
             block.trigger('set:' + path, value);
+        },
+        'set:loading': function(loading){
+            var block = this;
+            block.$el.toggleClass('preloader_spinner', loading);
         }
     });
 

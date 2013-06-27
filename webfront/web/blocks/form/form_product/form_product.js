@@ -11,14 +11,6 @@ define(function(require) {
             templates: {
                 index: require('tpl!./templates/form_product.html')
             },
-            listeners: {
-                model: {
-                    change: function(){
-                        var block = this;
-                        block.render();
-                    }
-                }
-            },
             events: {
                 'click .productForm__inputLink': function(e) {
                     e.preventDefault;
@@ -61,9 +53,9 @@ define(function(require) {
 
                 if (block.model.id){
                     block.redirectUrl = '/products/' + block.model.id
-                } else {
-                    block.render();
                 }
+
+                block.render();
             },
             findElements: function(){
                 var block = this;
