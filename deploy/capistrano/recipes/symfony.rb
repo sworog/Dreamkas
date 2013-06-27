@@ -22,10 +22,11 @@ namespace :symfony do
 
     namespace :logs do
 
-        desc "Tail symfony log according to environment"
+        desc "Tail symfony log according to environment, optional -S log_name=<log name without .log>"
         task :default, :roles => :app, :except => { :no_release => true } do
             set :lines, '50' unless exists?(:lines)
-            log = "#{stage}.log"
+            set :log_name, stage unless exists?(:log_name)
+            log = "#{log_name}.log"
             run "#{try_sudo} tail -n #{lines} -f #{shared_path}/#{log_path}/#{log}" do |channel, stream, data|
               trap("INT") { puts 'Interrupted'; exit 0; }
               puts
