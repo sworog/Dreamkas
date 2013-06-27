@@ -1,15 +1,46 @@
 .topBar{
-    text-align: right;
     border-bottom: 1px solid #ccc;
     background: #fff;
-    padding: 10px 20px;
+    height: 40px;
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-shadow: 0 0 4px #ccc;
+    z-index: 100;
+}
+
+.topBar__userControls{
+    float: right;
+    height: 100%;
+}
+
+.topBar a{
+    height: 100%;
+    line-height: 38px;
+    vertical-align: top;
+    cursor: pointer;
+    color: #000;
+    display: inline-block;
+    padding: 0 20px;
+    text-decoration: none;
+    margin-right: -4px;
+}
+
+.topBar a:hover{
+    background-color: #f4f4f4;
+}
+
+.topBar__logo{
+    background: url("/img/logo1.png") 10px center no-repeat;
+    background-size: auto 100%;
+    padding: 0 20px 0 50px !important;
+    font-size: 22px;
+    border-right: 1px solid #eee;
 }
 
 .topBar__userName{
-    margin-right: 20px;
-    vertical-align: middle;
-}
-
-.page_common_login .topBar{
-    display: none;
+    border-right: 1px solid #eee;
+    font-weight: bold;
 }

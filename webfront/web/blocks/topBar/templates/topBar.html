@@ -1,2 +1,30 @@
-<span class="topBar__userName"><%e block.currentUserModel.get('username') %></span>
-<span class="topBar__logoutLink button"><%t 'Выйти' %></span>
+<a href="/" class="topBar__logo">
+    Lighthouse
+</a>
+
+<% if(block.currentUserModel.get('id')) { %>
+
+<% if(block.currentUserModel.get('role') === 'commercialManager'){ %>
+<a href="/products"><%t 'Продукты' %></a>
+<a href="/catalog"><%t 'Каталог' %></a>
+<% } %>
+
+<% if(block.currentUserModel.get('role') === 'departmentManager'){ %>
+<a href="/invoices"><%t 'Накладные' %></a>
+<a href="/balance"><%t 'Остатки' %></a>
+<a href="/writeOffs"><%t 'Списания' %></a>
+<% } %>
+
+<% if(block.currentUserModel.get('role') === 'administrator'){ %>
+<a href="/users"><%t 'Пользователи' %></a>
+<% } %>
+
+<div class="topBar__userControls">
+    <a href="/users/<%= block.currentUserModel.get('id') %>" class="topBar__userName">
+        <%e block.currentUserModel.get('username') %>
+    </a>
+    <a class="topBar__logoutLink">
+        <%t 'Выйти' %>
+    </a>
+</div>
+<% } %>
