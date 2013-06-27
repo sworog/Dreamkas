@@ -29,11 +29,9 @@ require.config(
 require(['models/currentUser'], function(currentUserModel) {
     currentUserModel.fetch({
         success: function(){
-            console.log(arguments);
             require(['loaders/authorized']);
         },
         error: function(){
-            console.log(arguments);
             require(['loaders/unauthorized']);
         }
     });
