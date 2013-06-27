@@ -1,14 +1,10 @@
 package project.lighthouse.autotests.pages.commercialManager.product;
 
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 public class ProductCardView extends ProductCreatePage {
-
-    @FindBy(xpath = "//*[@lh_link='edit']")
-    private WebElement editButton;
 
     public ProductCardView(WebDriver driver) {
         super(driver);
@@ -23,6 +19,7 @@ public class ProductCardView extends ProductCreatePage {
     }
 
     public void editButtonClick() {
-        $(editButton).click();
+        String editButtonXpath = "//*[@class='user__editLink']";
+        findVisibleElement(By.xpath(editButtonXpath)).click();
     }
 }

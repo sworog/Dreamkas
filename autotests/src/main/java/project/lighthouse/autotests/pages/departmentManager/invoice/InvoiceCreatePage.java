@@ -12,7 +12,7 @@ import project.lighthouse.autotests.elements.DateTime;
 import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.NonType;
 
-@DefaultUrl("/invoice/create")
+@DefaultUrl("/invoices/create")
 public class InvoiceCreatePage extends CommonPageObject {
 
     private static final String XPATH_PATTERN = "//*[@class='invoice__dataInput']/*[@name='%s']";

@@ -2,6 +2,7 @@ package project.lighthouse.autotests;
 
 import net.thucydides.core.pages.PageObject;
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonItem;
@@ -18,12 +19,13 @@ public class CommonActions extends PageObject {
     private String errorMessage2 = "Element is no longer attached to the DOM";
     private String errorMessage3 = "Element does not exist in cache";
 
+    protected CommonPage commonPage = new CommonPage(getDriver());
+    protected Waiter waiter = new Waiter(getDriver());
+
     public CommonActions(WebDriver driver, Map<String, CommonItem> items) {
         super(driver);
         this.items = items;
     }
-
-    protected CommonPage commonPage = new CommonPage(getDriver());
 
     public void input(String elementName, String inputText) {
         try {
@@ -43,10 +45,13 @@ public class CommonActions extends PageObject {
     public void checkElementValue(String checkType, String elementName, String expectedValue) {
         try {
             WebElement element;
+            By findBy;
             if (checkType.isEmpty()) {
-                element = items.get(elementName).getWebElement();
+                findBy = items.get(elementName).getFindBy();
+                element = waiter.getVisibleWebElement(findBy);
             } else {
-                WebElement parent = items.get(checkType).getWebElement();
+                By parentFindBy = items.get(checkType).getFindBy();
+                WebElement parent = waiter.getVisibleWebElement(parentFindBy);
                 element = items.get(elementName).getWebElement(parent);
             }
             commonPage.shouldContainsText(elementName, element, expectedValue);
@@ -73,7 +78,7 @@ public class CommonActions extends PageObject {
     public void elementShouldBeVisible(String value, CommonView commonView) {
         WebElement element = commonView.getWebElementItem(value);
         try {
-            $(element).shouldBeVisible();
+            waiter.getVisibleWebElement(element);
         } catch (Exception e) {
             String getExceptionMessage = e.getCause() != null
                     ? e.getCause().getMessage()

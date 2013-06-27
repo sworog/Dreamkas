@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import project.lighthouse.autotests.steps.DashBoardSteps;
 
@@ -37,5 +38,15 @@ public class DashboarUserSteps {
     @When("the user opens the users section on the dashboard page")
     public void whenTheUserOpensTheUsersSectionOnTheDashboarPage() {
         dashBoardSteps.userSectionButtonClick();
+    }
+
+    @Then("the user checks the link to '$sectionName' section is present")
+    public void thenTheUserChecksTheLinkToSectionIsPresent(String sectionName) {
+
+    }
+
+    @Then("the user checks the link to '$sectionName' section is not present")
+    public void thenTheUserChecksTheLinkToSectionIsNotPresent(String sectionName) {
+
     }
 }

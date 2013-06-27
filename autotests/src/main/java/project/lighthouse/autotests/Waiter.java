@@ -27,6 +27,10 @@ public class Waiter {
         return waiter.until(ExpectedConditions.visibilityOfElementLocated(findBy));
     }
 
+    public WebElement getVisibleWebElement(WebElement element) {
+        return waiter.until(ExpectedConditions.visibilityOf(element));
+    }
+
     public void waitUntilIsNotVisible(By findBy) {
         waiter.until(ExpectedConditions.invisibilityOfElementLocated(findBy));
     }
