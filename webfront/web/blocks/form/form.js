@@ -40,15 +40,6 @@ define(function(require) {
                 });
             }
         },
-        listeners: {
-            model: {
-                change: function(){
-                    var block = this;
-
-                    block.render();
-                }
-            }
-        },
         findElements: function() {
             var block = this;
 
@@ -84,9 +75,8 @@ define(function(require) {
 
                     if (data.errors) {
                         fieldErrors = data.errors.join('. ');
+                        block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", KIT.text(fieldErrors));
                     }
-
-                    block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", KIT.text(fieldErrors));
                 });
             }
 

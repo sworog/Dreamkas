@@ -24,13 +24,13 @@ define(function(require) {
             collection: {
                 sync: function() {
                     var block = this;
-
+                    console.log(arguments);
                     block.render();
                     block.set('loading', false);
                 },
                 request: function() {
                     var block = this;
-
+                    console.log(arguments);
                     block.set('loading', true);
                 }
             },
@@ -41,10 +41,12 @@ define(function(require) {
                     block.set('loading', false);
                     block.render();
                 },
-                request: function() {
+                request: function(model, xhr, options) {
                     var block = this;
 
-                    block.set('loading', true);
+                    if (options.isFetch){
+                        block.set('loading', true);
+                    }
                 }
             }
         },
