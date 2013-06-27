@@ -27,11 +27,11 @@ define(function(require) {
             });
         },
         logout: function() {
-            cookie.remove('token');
+            cookie.set('token', '', {path: '/'});
             document.location.reload();
         },
         login: function(token){
-            cookie.set('token', token);
+            cookie.set('token', token, {path: '/'});
             document.location.reload();
         }
     }
