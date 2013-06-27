@@ -4,7 +4,8 @@ define(function(require) {
             InputDate = require('kit/blocks/inputDate/inputDate'),
             WriteOffModel = require('models/writeOff'),
             WriteOffProductCollection = require('collections/writeOffProducts'),
-            AddProductForm = require('blocks/writeOff/addProductForm');
+            AddProductForm = require('blocks/writeOff/addProductForm'),
+            cookie = require('utils/cookie');
 
         return Block.extend({
             editMode: false,
@@ -351,7 +352,7 @@ define(function(require) {
                                 query: request.term
                             },
                             headers: {
-                                Authorization: 'Bearer ' + $.cookie('token')
+                                Authorization: 'Bearer ' + cookie.get('token')
                             },
                             success: function(data) {
                                 response($.map(data, function(item) {

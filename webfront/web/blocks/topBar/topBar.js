@@ -1,11 +1,13 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block'),
-        app = require('app');
+        app = require('app'),
+        currentUserModel = require('models/currentUser');
 
     var TopBar = Block.extend({
         className: 'topBar',
         blockName: 'topBar',
+        currentUserModel: currentUserModel,
         templates: {
             index: require('tpl!./templates/topBar.html')
         },

@@ -21,12 +21,17 @@ define(function(require) {
 
     return {
         start: function() {
+            $('body').removeClass('preloader_spinner');
             Backbone.history.start({
                 pushState: true
             });
         },
         logout: function() {
             cookie.remove('token');
+            document.location.reload();
+        },
+        login: function(token){
+            cookie.set('token', token);
             document.location.reload();
         }
     }

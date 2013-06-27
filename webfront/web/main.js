@@ -31,9 +31,6 @@ require(['models/currentUser'], function(currentUserModel) {
     currentUserModel.on({
         request: function(){
             $('body').addClass('preloader_spinner');
-        },
-        sync: function(){
-            $('body').removeClass('preloader_spinner');
         }
     });
 

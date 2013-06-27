@@ -1,7 +1,8 @@
 define(function(require) {
         //requirements
         var Form = require('blocks/form/form'),
-            InvoiceProduct = require('models/invoiceProduct');
+            InvoiceProduct = require('models/invoiceProduct'),
+            cookie = require('utils/cookie');
 
         return Form.extend({
             invoiceId: null,
@@ -69,7 +70,7 @@ define(function(require) {
                             url: LH.baseApiUrl + "/products/" + name + "/search.json",
                             dataType: "json",
                             headers: {
-                                Authorization: 'Bearer ' + $.cookie('token')
+                                Authorization: 'Bearer ' + cookie.get('token')
                             },
                             data: {
                                 query: request.term

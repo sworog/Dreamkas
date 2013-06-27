@@ -4,7 +4,8 @@ define(function(require) {
             InputDate = require('kit/blocks/inputDate/inputDate'),
             InvoiceModel = require('models/invoice'),
             InvoiceProductCollection = require('collections/invoiceProducts'),
-            AddProductForm = require('blocks/invoice/addProductForm');
+            AddProductForm = require('blocks/invoice/addProductForm'),
+            cookie = require('utils/cookie');
 
         return Block.extend({
             editMode: false,
@@ -359,7 +360,7 @@ define(function(require) {
                                 query: request.term
                             },
                             headers: {
-                                Authorization: 'Bearer ' + $.cookie('token')
+                                Authorization: 'Bearer ' + cookie.get('token')
                             },
                             success: function(data) {
                                 response($.map(data, function(item) {

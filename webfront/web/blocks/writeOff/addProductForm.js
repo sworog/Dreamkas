@@ -1,7 +1,8 @@
 define(function(require) {
         //requirements
         var Form = require('blocks/form/form'),
-            WriteOffProduct = require('models/writeOffProduct');
+            WriteOffProduct = require('models/writeOffProduct'),
+            cookie = require('utils/cookie');
 
         return Form.extend({
             writeOffId: null,
@@ -74,7 +75,7 @@ define(function(require) {
                                 query: request.term
                             },
                             headers: {
-                                Authorization: 'Bearer ' + $.cookie('token')
+                                Authorization: 'Bearer ' + cookie.get('token')
                             },
                             success: function(data) {
                                 response($.map(data, function(item) {

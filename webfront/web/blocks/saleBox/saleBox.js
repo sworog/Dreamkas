@@ -2,7 +2,8 @@ define(function(require) {
         //requirements
         var Block = require('kit/block'),
             Form = require('blocks/form/form'),
-            PurchaseModel = require('models/purchase');
+            PurchaseModel = require('models/purchase'),
+            cookie = require('utils/cookie');
 
         return Block.extend({
             purchaseModel: new PurchaseModel(),
@@ -37,7 +38,7 @@ define(function(require) {
                                 query: request.term
                             },
                             headers: {
-                                Authorization: 'Bearer ' + $.cookie('token')
+                                Authorization: 'Bearer ' + cookie.get('token')
                             },
                             success: function(data) {
                                 response($.map(data, function(item) {
