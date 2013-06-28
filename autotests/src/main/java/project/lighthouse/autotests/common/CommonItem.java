@@ -47,4 +47,12 @@ abstract public class CommonItem {
     public WebElementFacade getOnlyVisibleWebElementFacade() {
         return pageObject.$(getOnlyVisibleWebElement());
     }
+
+    public void click() {
+        pageObject.commonActions.elementClick(findBy);
+    }
+
+    public void selectByValue(String value) {
+        pageObject.commonActions.elementSelect(value, findBy);
+    }
 }

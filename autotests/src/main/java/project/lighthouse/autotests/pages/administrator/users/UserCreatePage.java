@@ -7,7 +7,7 @@ import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.Select;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
 
-@DefaultUrl("/user/create")
+@DefaultUrl("/users/create")
 public class UserCreatePage extends ProductCreatePage {
 
     public UserCreatePage(WebDriver driver) {

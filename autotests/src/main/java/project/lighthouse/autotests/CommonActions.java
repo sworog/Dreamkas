@@ -92,6 +92,50 @@ public class CommonActions extends PageObject {
     }
 
     public void elementClick(String elementName) {
-        items.get(elementName).getWebElement().click();
+        By findBy = items.get(elementName).getFindBy();
+        try {
+            waiter.getVisibleWebElement(findBy).click();
+        } catch (Exception e) {
+            String getExceptionMessage = e.getCause() != null
+                    ? e.getCause().getMessage()
+                    : e.getMessage();
+            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2) || getExceptionMessage.contains(errorMessage3)) {
+                elementClick(elementName);
+            } else {
+                throw e;
+            }
+        }
+    }
+
+    public void elementClick(By findBy) {
+        try {
+            waiter.getVisibleWebElement(findBy).click();
+        } catch (Exception e) {
+            String getExceptionMessage = e.getCause() != null
+                    ? e.getCause().getMessage()
+                    : e.getMessage();
+            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2) || getExceptionMessage.contains(errorMessage3)) {
+                elementClick(findBy);
+            } else {
+                throw e;
+            }
+        }
+    }
+
+    public void elementSelect(String value, By findBy) {
+        try {
+            WebElement element = waiter.getVisibleWebElement(findBy);
+            $(element).selectByValue(value);
+        } catch (Exception e) {
+            String getExceptionMessage = e.getCause() != null
+                    ? e.getCause().getMessage()
+                    : e.getMessage();
+            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2) || getExceptionMessage.contains(errorMessage3)) {
+                elementSelect(value, findBy);
+            } else {
+                throw e;
+            }
+        }
+
     }
 }

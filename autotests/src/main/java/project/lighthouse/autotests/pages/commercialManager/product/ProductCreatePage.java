@@ -69,7 +69,7 @@ public class ProductCreatePage extends CommonPageObject {
     }
 
     public void elementClick(String elementName) {
-        items.get(elementName).getWebElement().click();
+        items.get(elementName).click();
     }
 
     public void checkElementPresence(String elementName, String action) {

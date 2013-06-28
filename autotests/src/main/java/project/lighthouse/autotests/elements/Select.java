@@ -16,6 +16,6 @@ public class Select extends CommonItem {
 
     @Override
     public void setValue(String value) {
-        $().selectByValue(value);
+        selectByValue(value);
     }
 }

@@ -51,7 +51,7 @@ public class AuthorizationPage extends CommonPageObject {
     }
 
     public void logOutButtonClick() {
-        String logOutButtonXpath = "//*[@class='topBar__logoutLink button']";
+        String logOutButtonXpath = "//*[@class='topBar__logoutLink']";
         findVisibleElement(By.xpath(logOutButtonXpath)).click();
     }
 
