@@ -1,34 +1,31 @@
 define(function(require) {
     //requirements
-    var Page = require('pages/page'),
+    var $ = require('jquery'),
+        Page = require('pages/page'),
         User = require('blocks/user/user'),
         UserModel = require('models/user');
 
     return Page.extend({
         pageName: 'page_user_view',
+        templates: {
+            '#content': require('tpl!./templates/view.html')
+        },
         initialize: function(userId) {
             var page = this;
 
             page.userId = userId;
-        },
-        templates: {
-            '#content': require('tpl!./templates/view.html')
-        },
-        initModels: {
-            user: function() {
-                var page = this;
 
-                return new UserModel({
-                    id: page.userId
+            page.userModel = new UserModel({
+                id: page.userId
+            });
+
+            $.when(page.userModel.fetch()).then(function(){
+                page.render();
+
+                new User({
+                    model: page.userModel,
+                    el: document.getElementById('user')
                 });
-            }
-        },
-        initBlocks: function() {
-            var page = this;
-
-            new User({
-                model: page.models.user,
-                el: document.getElementById('user')
             });
         }
     });

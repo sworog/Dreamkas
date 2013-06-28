@@ -21,13 +21,13 @@ define(function(require) {
                 isSave: true
             }, options));
         },
-        destroy: function(options){
+        destroy: function(options) {
             Backbone.Model.prototype.destroy.call(this, _.extend({
                 wait: true
             }, options))
         },
-        sync: function(method, model, options){
-            Backbone.Model.prototype.sync.call(this, method, model, _.extend({
+        sync: function(method, model, options) {
+            return Backbone.Model.prototype.sync.call(this, method, model, _.extend({
                 headers: {
                     Authorization: 'Bearer ' + cookie.get('token')
                 }

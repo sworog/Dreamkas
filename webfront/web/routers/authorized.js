@@ -15,12 +15,13 @@ define(function(require) {
         'sale(/)': require('pages/common/sale'),
         'users/:userId(/)': function(userId){
             var UserPage = require('pages/user/view'),
+                UserForm = require('pages/user/form'),
                 Page404 = require('pages/common/404');
 
             if (currentUserModel.get('id') === userId){
                 new UserPage(userId);
             } else if (LH.isAllow('users')){
-                new UserPage(userId);
+                userId === 'create' ? new UserForm() : new UserPage(userId);
             } else {
                 new Page404();
             }
@@ -44,8 +45,7 @@ define(function(require) {
     if (LH.isAllow('users')) {
         _.extend(routes, {
             'users(/)': require('pages/user/list'),
-            'users/edit/:userId(/)': require('pages/user/form'),
-            'users/create(/)': require('pages/user/form')
+            'users/edit/:userId(/)': require('pages/user/form')
         });
     }
 

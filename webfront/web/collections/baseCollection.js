@@ -13,7 +13,7 @@ define(function(require) {
             }, options));
         },
         sync: function(method, model, options) {
-            Backbone.Collection.prototype.sync.call(this, method, model, _.extend({
+            return Backbone.Collection.prototype.sync.call(this, method, model, _.extend({
                 headers: {
                     Authorization: 'Bearer ' + cookie.get('token')
                 }

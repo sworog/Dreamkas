@@ -16,52 +16,18 @@ define(function(require) {
         }
 
         $page.data('page', page);
+
         $page
             .removeAttr('class')
-            .addClass('page ' + page.pageName);
+            .addClass('page ' + page.pageName)
+            .addClass('preloader_spinner');
 
         page.initialize.apply(page, arguments);
 
-        if (typeof page.initModels === 'function') {
-            page.initModels();
-        } else {
-            _.each(page.initModels, function(initFunction, modelName) {
-                if (typeof initFunction === 'function') {
-                    page.models[modelName] = initFunction.call(page);
-                }
-            });
-        }
-
-        if (typeof page.initCollections === 'function') {
-            page.initCollections();
-        } else {
-            _.each(page.initCollections, function(initFunction, collectionName) {
-                if (typeof initFunction === 'function') {
-                    page.collections[collectionName] = initFunction.call(page);
-                }
-            });
-        }
-
-        page.render();
-
-        if (typeof page.initBlocks === 'function') {
-            page.initBlocks();
-        } else {
-            _.each(page.initBlocks, function(initFunction, blockName) {
-                if (typeof initFunction === 'function') {
-                    page.blocks[blockName] = initFunction.call(page);
-                }
-            });
-        }
-
-        page.fetchData();
     };
 
     _.extend(Page.prototype, Backbone.Events, {
         templates: {},
-        blocks: {},
-        models: {},
-        collections: {},
         initialize: function() {
         },
         render: function() {
@@ -88,24 +54,8 @@ define(function(require) {
 
                 $renderContainer.html(template({page: page}));
             });
-        },
-        initBlocks: {},
-        initModels: {},
-        initCollections: {},
-        fetchData: function() {
-            var page = this;
 
-            _.each(page.models, function(model) {
-                if (model.id && model.url) {
-                    model.fetch();
-                }
-            });
-
-            _.each(page.collections, function(collection) {
-                if (collection.url) {
-                    collection.fetch();
-                }
-            });
+            $page.removeClass('preloader_spinner');
         }
     });
 

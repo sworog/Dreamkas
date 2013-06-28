@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
-    var Page = require('pages/page'),
+    var $ = require('jquery'),
+        Page = require('pages/page'),
         Table_users = require('blocks/table/table_users/table_users'),
         UsersCollection = require('collections/users');
 
@@ -9,17 +10,18 @@ define(function(require) {
         templates: {
             '#content': require('tpl!./templates/list.html')
         },
-        initCollections: {
-            users: function() {
-                return new UsersCollection();
-            }
-        },
-        initBlocks: function() {
+        initialize: function(){
             var page = this;
 
-            new Table_users({
-                collection: page.collections.users,
-                el: document.getElementById('table_users')
+            page.usersCollection = new UsersCollection();
+
+            $.when(page.usersCollection.fetch()).then(function(){
+                page.render();
+
+                new Table_users({
+                    collection: page.usersCollection,
+                    el: document.getElementById('table_users')
+                });
             });
         }
     });

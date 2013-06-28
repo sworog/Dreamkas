@@ -33,3 +33,11 @@
     background-repeat: no-repeat;
     background-size: contain;
 }
+
+.page.preloader_spinner * {
+    visibility: visible;
+}
+
+.page.preloader_spinner .content {
+    display: none;
+}
