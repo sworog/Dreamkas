@@ -15,40 +15,22 @@ public class DashBoardPage extends CommonPageObject {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public void productSectionButtonClick() {
-        buttonClick("products");
+    private String getButtonXpath(String name) {
+        return String.format("//*[@class='button' and contains(@href, '%s')]", name);
     }
 
-    public void catalogSectionButtonClick() {
-        buttonClick("catalog");
-    }
-
-    public void invoicesSectionButtonClick() {
-        buttonClick("invoices");
-    }
-
-    public void balanceSectionButtonClick() {
-        buttonClick("balance");
-    }
-
-    public void writeOffsSectionButtonClick() {
-        buttonClick("writeOffs");
-    }
-
-    public void userSectionButtonClick() {
-        buttonClick("users");
-    }
-
-    private String getButtonXpath(String hrefParameter) {
-        return String.format("//*[@class='button' and contains(@href, '%s')]", hrefParameter);
-    }
-
-    private void buttonClick(String hrefParamater) {
-        String buttonXpath = getButtonXpath(hrefParamater);
+    public void buttonClick(String name) {
+        String buttonXpath = getButtonXpath(name);
         findElement(By.xpath(buttonXpath)).click();
     }
 
-    public void isNotPresent(By finBy) {
-        waiter.waitUntilIsNotVisible(finBy);
+    public void shouldNotBeVisible(String name) {
+        String buttonXpath = getButtonXpath(name);
+        waiter.waitUntilIsNotVisible(By.xpath(buttonXpath));
+    }
+
+    public void shouldBeVisible(String name) {
+        String buttonXpath = getButtonXpath(name);
+        waiter.getVisibleWebElement(By.xpath(buttonXpath));
     }
 }

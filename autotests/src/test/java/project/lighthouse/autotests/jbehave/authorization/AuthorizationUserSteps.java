@@ -1,10 +1,7 @@
 package project.lighthouse.autotests.jbehave.authorization;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.BeforeScenario;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.*;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
 
 public class AuthorizationUserSteps {
@@ -18,6 +15,7 @@ public class AuthorizationUserSteps {
     }
 
     @Given("the user logs in as '$userName'")
+    @Alias("the user logs in as <userName>")
     public void givenTheUSerLogsInAsUserName(String userName) {
         authorizationSteps.authorization(userName);
     }
@@ -43,6 +41,7 @@ public class AuthorizationUserSteps {
     }
 
     @Then("the user checks that authorized is '$userName' user")
+    @Alias("the user checks that authorized is <userName> user")
     public void thenTheUserChecksThatAuthorizedIsUser(String userName) {
         authorizationSteps.checkUser(userName);
     }

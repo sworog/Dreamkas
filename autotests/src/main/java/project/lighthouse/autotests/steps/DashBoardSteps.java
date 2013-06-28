@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.steps;
 
-import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.pages.authorization.DashBoardPage;
@@ -13,33 +12,15 @@ public class DashBoardSteps extends ScenarioSteps {
         super(pages);
     }
 
-    @Step
-    public void productSectionButtonClick() {
-        dashBoardPage.productSectionButtonClick();
+    public void buttonClick(String name) {
+        dashBoardPage.buttonClick(name);
     }
 
-    @Step
-    public void catalogSectionButtonClick() {
-        dashBoardPage.catalogSectionButtonClick();
+    public void shouldNotBeVisible(String name) {
+        dashBoardPage.shouldNotBeVisible(name);
     }
 
-    @Step
-    public void invoicesSectionButtonClick() {
-        dashBoardPage.invoicesSectionButtonClick();
-    }
-
-    @Step
-    public void balanceSectionButtonClick() {
-        dashBoardPage.balanceSectionButtonClick();
-    }
-
-    @Step
-    public void writeOffsSectionButtonClick() {
-        dashBoardPage.writeOffsSectionButtonClick();
-    }
-
-    @Step
-    public void userSectionButtonClick() {
-        dashBoardPage.userSectionButtonClick();
+    public void shouldBeVisible(String name) {
+        dashBoardPage.shouldBeVisible(name);
     }
 }

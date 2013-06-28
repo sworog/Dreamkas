@@ -67,7 +67,10 @@ public class AuthorizationPage extends CommonPageObject {
     public void checkUser(String userName) {
         String userXpath = "//*[@class='topBar__userName']";
         String actualUserName = find(By.xpath(userXpath)).getText();
-        findBy(userXpath).shouldBeVisible();
+        if (!userName.equals(actualUserName)) {
+            String errorMessage = String.format("The user name is '%s'. Should be '%s'.", actualUserName, userName);
+            throw new AssertionError(errorMessage);
+        }
     }
 
     public boolean loginFormIsVisible() {
