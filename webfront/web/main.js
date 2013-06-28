@@ -10,11 +10,7 @@ require.config(
         packages: [
             {
                 name: 'nls',
-                location: 'dictionary'
-            },
-            {
-                name: 'utils',
-                location: 'utils'
+                location: 'nls'
             }
         ],
         config: {
@@ -27,13 +23,6 @@ require.config(
     });
 
 require(['models/currentUser'], function(currentUserModel) {
-
-    currentUserModel.on({
-        request: function(){
-            $('body').addClass('preloader_spinner');
-        }
-    });
-
     currentUserModel.fetch({
         success: function(){
             require(['loaders/authorized']);

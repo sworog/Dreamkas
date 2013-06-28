@@ -5,23 +5,25 @@ define(function(require) {
         _ = require('underscore'),
         cookie = require('utils/cookie');
 
-    require('utils');
+    require('LH');
     require('nls');
-
-    $(function() {
-        var router = new Backbone.Router();
-
-        $('body').on('click', '[href]', function(e) {
-            e.preventDefault();
-            router.navigate($(this).attr('href'), {
-                trigger: true
-            });
-        });
-    });
 
     return {
         start: function() {
+
+            $(function() {
+                var router = new Backbone.Router();
+
+                $('body').on('click', '[href]', function(e) {
+                    e.preventDefault();
+                    router.navigate($(this).attr('href'), {
+                        trigger: true
+                    });
+                });
+            });
+
             $('body').removeClass('preloader_spinner');
+
             Backbone.history.start({
                 pushState: true
             });

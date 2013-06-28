@@ -4,18 +4,27 @@
 
 <% if(block.currentUserModel.get('id')) { %>
 
-<% if(block.currentUserModel.get('role') === 'commercialManager'){ %>
+<% if(LH.isAllow('products')){ %>
 <a href="/products"><%t 'Продукты' %></a>
+<% } %>
+
+<% if(LH.isAllow('klasses')){ %>
 <a href="/catalog"><%t 'Каталог' %></a>
 <% } %>
 
-<% if(block.currentUserModel.get('role') === 'departmentManager'){ %>
+<% if(LH.isAllow('invoices')){ %>
 <a href="/invoices"><%t 'Накладные' %></a>
+<% } %>
+
+<% if(LH.isAllow('balance')){ %>
 <a href="/balance"><%t 'Остатки' %></a>
+<% } %>
+
+<% if(LH.isAllow('writeoffs')){ %>
 <a href="/writeOffs"><%t 'Списания' %></a>
 <% } %>
 
-<% if(block.currentUserModel.get('role') === 'administrator'){ %>
+<% if(LH.isAllow('users')){ %>
 <a href="/users"><%t 'Пользователи' %></a>
 <% } %>
 
