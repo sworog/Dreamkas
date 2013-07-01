@@ -21,4 +21,20 @@ class ServiceControllerTest extends WebTestCase
         Assert::assertResponseCode(200, $client);
         Assert::assertJsonPathEquals(true, 'ok', $response);
     }
+
+    public function testPermissionsAction()
+    {
+        $this->clearMongoDb();
+
+        $client = static::createClient();
+        $response = $this->clientJsonRequest(
+            $client,
+            'GET',
+            '/api/1/service/permissions'
+        );
+
+        Assert::assertResponseCode(200, $client);
+        Assert::assertJsonPathEquals('administrator', 'users.GET::{user}.*', $response);
+        Assert::assertJsonPathEquals(false, 'users.POST', $response);
+    }
 }
