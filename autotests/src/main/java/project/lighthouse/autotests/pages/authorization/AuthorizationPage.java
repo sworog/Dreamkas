@@ -88,8 +88,27 @@ public class AuthorizationPage extends CommonPageObject {
         isAuthorized = false;
     }
 
-    public void error404IsPresent() {
-        String error404Xpath = "//body[@class='page page_common_404']";
-        $(findElement(By.xpath(error404Xpath))).shouldBePresent();
+    public void error403IsPresent() {
+        String error404Xpath = getError403Xpath();
+        findElement(By.xpath(error404Xpath));
+    }
+
+    public String getError403Xpath() {
+        return "//body[@class='page page_common_403']";
+    }
+
+    public void error403IsNotPresent() {
+        String error404Xpath = getError403Xpath();
+        waiter.waitUntilIsNotVisible(By.xpath(error404Xpath));
+    }
+
+    public void editProductButtonIsNotPresent() {
+        String editButtonXpath = "//*[@class='user__editLink']";
+        waiter.waitUntilIsNotVisible(By.xpath(editButtonXpath));
+    }
+
+    public void newProductCreateButtonIsNotPresent() {
+        String xpath = "//a[@class='button']";
+        waiter.waitUntilIsNotVisible(By.xpath(xpath));
     }
 }
