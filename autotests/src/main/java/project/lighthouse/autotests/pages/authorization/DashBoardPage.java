@@ -21,7 +21,7 @@ public class DashBoardPage extends CommonPageObject {
 
     public void buttonClick(String name) {
         String buttonXpath = getButtonXpath(name);
-        findElement(By.xpath(buttonXpath)).click();
+        findVisibleElement(By.xpath(buttonXpath)).click();
     }
 
     public void shouldNotBeVisible(String name) {
