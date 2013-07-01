@@ -52,4 +52,9 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void authorizationFalse(String userName, String password) {
         authorizationPage.authorizationFalse(userName, password);
     }
+
+    @Step
+    public void error404IsPresent() {
+        authorizationPage.error404IsPresent();
+    }
 }

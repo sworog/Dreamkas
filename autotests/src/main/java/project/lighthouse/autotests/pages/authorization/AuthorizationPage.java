@@ -87,4 +87,9 @@ public class AuthorizationPage extends CommonPageObject {
         authorization(userName, password);
         isAuthorized = false;
     }
+
+    public void error404IsPresent() {
+        String error404Xpath = "//body[@class='page page_common_404']";
+        $(findElement(By.xpath(error404Xpath))).shouldBePresent();
+    }
 }

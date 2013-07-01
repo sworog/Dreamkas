@@ -16,12 +16,12 @@ public class DashBoardPage extends CommonPageObject {
     }
 
     private String getButtonXpath(String name) {
-        return String.format("//*[@class='button' and contains(@href, '%s')]", name);
+        return String.format("//*[@href='/%s']", name);
     }
 
     public void buttonClick(String name) {
         String buttonXpath = getButtonXpath(name);
-        findElement(By.xpath(buttonXpath)).click();
+        findVisibleElement(By.xpath(buttonXpath)).click();
     }
 
     public void shouldNotBeVisible(String name) {
