@@ -8,8 +8,10 @@ define(function(require) {
         templates: {
             '#content': require('tpl!./templates/login.html')
         },
-        initBlocks: function(){
+        initialize: function(){
             var page = this;
+
+            page.render();
 
             new Form_login({
                 el: document.getElementById('form_login')

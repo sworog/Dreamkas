@@ -6,29 +6,28 @@ define(function(require) {
 
     return Page.extend({
         pageName: 'page_product_view',
+        templates: {
+            '#content': require('tpl!./templates/view.html')
+        },
+        permissions: {
+            products: 'get'
+        },
         initialize: function(productId) {
             var page = this;
 
             page.productId = productId;
-        },
-        templates: {
-            '#content': require('tpl!./templates/view.html')
-        },
-        initModels: {
-            product: function() {
-                var page = this;
 
-                return new ProductModel({
-                    id: page.productId
+            page.productModel = new ProductModel({
+                id: page.productId
+            });
+
+            page.render();
+
+            $.when(page.productModel.fetch()).then(function(){
+                new Product({
+                    model: page.productModel,
+                    el: document.getElementById('product')
                 });
-            }
-        },
-        initBlocks: function() {
-            var page = this;
-
-            new Product({
-                model: page.models.product,
-                el: document.getElementById('product')
             });
         }
     });

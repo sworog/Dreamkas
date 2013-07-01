@@ -10,6 +10,9 @@ define(function(require) {
         templates: {
             '#content': require('tpl!./templates/form.html')
         },
+        permissions: {
+            users: 'all'
+        },
         initialize: function(userId, params) {
             var page = this;
 

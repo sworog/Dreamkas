@@ -1,9 +1,11 @@
+<% if(LH.isAllow('products', 'put')) { %>
 <div class="page__controls">
     <a class="user__editLink"
        href="/products/edit/<%= block.model.get('id') %>">
         Редактировать
     </a>
 </div>
+<% } %>
 
 <h3 name="name" class="product__name"><%t block.model.get('name') %></h3>
 

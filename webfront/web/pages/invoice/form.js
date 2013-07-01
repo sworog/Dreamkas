@@ -6,24 +6,21 @@ define(function(require) {
 
     return Page.extend({
         pageName: 'page_invoice_form',
-        initialize: function(productId) {
-            var page = this;
-
-            page.productId = productId;
-        },
         templates: {
             '#content': require('tpl!./templates/form.html')
         },
-        initModels: {
-            invoice: function() {
-                return new InvoiceModel()
-            }
+        permissions: {
+            invoices: 'all'
         },
-        initBlocks: function() {
+        initialize: function() {
             var page = this;
 
+            page.invoiceModel = new InvoiceModel();
+
+            page.render();
+
             new Form_invoice({
-                model: page.models.invoice,
+                model: page.invoiceModel,
                 el: document.getElementById('form_invoice')
             });
         }

@@ -7,7 +7,7 @@ define(function(require) {
             CatalogGroupModel = require('models/catalogGroup'),
             СatalogClassesCollection = require('collections/catalogClasses'),
             ClassGroupsCollection = require('collections/classGroups'),
-            catalogRouter = require('routers/catalog'),
+            params = require('pages/catalog/params'),
             Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
             Form = require('blocks/form/form');
 
@@ -117,7 +117,7 @@ define(function(require) {
                         block.renderClassList();
                     },
                     destroy: function(){
-                        catalogRouter.navigate('/catalog', {
+                        params.navigate('/catalog', {
                             trigger: true
                         })
                     }
@@ -173,7 +173,7 @@ define(function(require) {
             },
             'set:editMode': function(editMode){
                 Editor.prototype['set:editMode'].apply(this, arguments);
-                catalogRouter.params.editMode = editMode;
+                params.editMode = editMode;
             }
         })
     }

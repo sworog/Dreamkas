@@ -8,7 +8,7 @@ define(function(require) {
         templates: {
             '#content': require('tpl!./templates/sale.html')
         },
-        initBlocks: function(){
+        initialize: function(){
             new SaleBox({
                 el: document.getElementById('saleBox')
             });

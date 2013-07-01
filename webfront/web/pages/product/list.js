@@ -9,17 +9,21 @@ define(function(require) {
         templates: {
             '#content': require('tpl!./templates/list.html')
         },
-        initCollections: {
-            products: function() {
-                return new ProductsCollection();
-            }
+        permissions: {
+            products: 'get'
         },
-        initBlocks: function() {
+        initialize: function(){
             var page = this;
 
-            new Table_products({
-                collection: page.collections.products,
-                el: document.getElementById('table_products')
+            page.productsCollection = new ProductsCollection();
+
+            page.render();
+
+            $.when(page.productsCollection.fetch()).then(function(){
+                new Table_products({
+                    collection: page.productsCollection,
+                    el: document.getElementById('table_products')
+                });
             });
         }
     });

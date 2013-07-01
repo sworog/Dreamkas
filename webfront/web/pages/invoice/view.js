@@ -2,31 +2,35 @@ define(function(require) {
     //requirements
     var Page = require('pages/page'),
         Invoice = require('blocks/invoice/invoice'),
-        content_main = require('blocks/content/content_main');
+        InvoiceModel = require('models/invoice');
 
-//    return Page.extend({
-//        initialize: function(invoiceId, params){
-//            var page = this,
-//                params = params || {};
-//
-//            page.editMode = params.editMode;
-//            page.invoiceId = invoiceId;
-//        },
-//        templates: {
-//            '#content': require('tpl!./templates/view.html')
-//        },
-//        initModels: {
-//
-//        },
-//        initBlocks: function(){
-//            new Invoice();
-//        }
-//    });
+    return Page.extend({
+        pageName: 'page_invoice_view',
+        templates: {
+            '#content': require('tpl!./templates/view.html')
+        },
+        permissions: {
+            invoices: 'get'
+        },
+        initialize: function(invoiceId, params) {
+            var page = this;
 
-    return function(invoiceId, params){
-        content_main.load('/pages/invoice/templates/view.html', {
-            invoiceId: invoiceId,
-            params: params || {}
-        });
-    };
+            page.invoiceId = invoiceId;
+            page.params = params || {};
+            page.invoiceModel = new InvoiceModel({
+                id: page.invoiceId
+            });
+
+            $.when(page.invoiceModel.fetch()).then(function(){
+                page.render();
+
+                new Invoice({
+                    model: page.invoiceModel,
+                    invoiceId: page.invoiceId,
+                    editMode: page.params.editMode,
+                    el: document.getElementById('invoice')
+                });
+            });
+        }
+    });
 });

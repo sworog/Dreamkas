@@ -6,7 +6,7 @@ define(function(require) {
             Form = require('blocks/form/form'),
             Tooltip_editGroupMenu = require('blocks/tooltip/tooltip_editGroupMenu'),
             Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
-            catalogRouter = require('routers/catalog'),
+            params = require('pages/catalog/params'),
             CatalogClassModel = require('models/catalogClass'),
             СatalogClassesCollection = require('collections/catalogClasses');
 
@@ -141,7 +141,7 @@ define(function(require) {
             },
             'set:editMode': function(editMode){
                 Editor.prototype['set:editMode'].apply(this, arguments);
-                catalogRouter.params.editMode = editMode;
+                params.editMode = editMode;
             }
         })
     }

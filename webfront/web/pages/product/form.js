@@ -6,30 +6,29 @@ define(function(require) {
 
     return Page.extend({
         pageName: 'page_product_form',
-        initialize: function(productId) {
-            var page = this;
-
-            page.productId = productId;
-        },
         templates: {
             '#content': require('tpl!./templates/form.html')
         },
-        initModels: {
-            product: function() {
-                var page = this;
-
-                return new ProductModel({
-                    id: page.productId
-                })
-            }
+        permissions: {
+            products: 'all'
         },
-        initBlocks: function() {
+        initialize: function(productId){
             var page = this;
 
-            new Form_product({
-                model: page.models.product,
-                el: document.getElementById('form_product')
+            page.productId = productId;
+
+            page.productModel = new ProductModel({
+                id: page.productId
             });
+
+            page.render();
+
+            $.when(productId ? page.productModel.fetch() : {}).then(function(){
+                new Form_product({
+                    model: page.productModel,
+                    el: document.getElementById('form_product')
+                });
+            })
         }
     });
 });

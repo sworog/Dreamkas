@@ -4,15 +4,27 @@ define(function(require) {
         $ = require('jquery'),
         Backbone = require('backbone'),
         _ = require('underscore'),
-        topBar = require('blocks/topBar/topBar');
+        topBar = require('blocks/topBar/topBar'),
+        LH = require('LH'),
+        Page403 = require('pages/403');
 
     var $page = $('body');
 
     var Page = function() {
-        var page = this;
+        var page = this,
+            previousPage = $page.data('page'),
+            accessDenied = _.some(page.permissions, function(value, key) {
+                return !LH.isAllow(key, value);
+            });
 
-        if ($page.data('page')){
-            $page.data('page').stopListening();
+        if (accessDenied){
+            new Page403();
+            return;
+        }
+
+        if (previousPage) {
+            page.referer = previousPage.pageName;
+            previousPage.stopListening();
         }
 
         $page.data('page', page);
@@ -28,7 +40,11 @@ define(function(require) {
 
     _.extend(Page.prototype, Backbone.Events, {
         templates: {},
+        permissions: {},
         initialize: function() {
+            var page = this;
+
+            page.render();
         },
         render: function() {
             var page = this;

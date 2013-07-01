@@ -9,17 +9,21 @@ define(function(require) {
         templates: {
             '#content': require('tpl!./templates/list.html')
         },
-        initCollections: {
-            invoices: function() {
-                return new InvoicesCollection();
-            }
+        permissions: {
+            invoices: 'get'
         },
-        initBlocks: function() {
+        initialize: function(){
             var page = this;
 
-            new Table_invoices({
-                collection: page.collections.invoices,
-                el: document.getElementById('table_invoices')
+            page.invoicesCollection = new InvoicesCollection();
+
+            $.when(page.invoicesCollection.fetch()).then(function(){
+                page.render();
+
+                new Table_invoices({
+                    collection: page.invoicesCollection,
+                    el: document.getElementById('table_invoices')
+                });
             });
         }
     });

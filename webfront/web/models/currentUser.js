@@ -8,15 +8,15 @@ define(function(require) {
         },
         commercialManager: {
             klasses: 'all',
-            groups: 'all',
             products: 'all'
         },
         storeManager: {
-            balance: 'all'
         },
         departmentManager: {
             invoices: 'all',
-            writeoffs: 'all'
+            writeoffs: 'all',
+            balance: 'all',
+            products: 'get'
         }
     };
 
