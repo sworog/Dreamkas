@@ -11,7 +11,7 @@ import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrows
 
 import java.util.Map;
 
-@DefaultUrl("/writeOff/create")
+@DefaultUrl("/writeOffs/create")
 public class WriteOffPage extends InvoiceBrowsing {
 
     public static final String ITEM_NAME = "writeOffProduct";
