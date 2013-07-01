@@ -3,6 +3,7 @@ package project.lighthouse.autotests.pages.commercialManager.catalog;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.common.CommonItem;
@@ -34,7 +35,16 @@ public class CatalogPage extends CommonPageObject {
     }
 
     public void stopEditionButtonLinkClick() {
-        stopEditionButtonLink.click();
+        try {
+            stopEditionButtonLink.click();
+        } catch (Exception e) {
+            if (e.getMessage().contains("Element is not clickable at point")) {
+                withAction().sendKeys(Keys.ESCAPE).build().perform();
+                stopEditionButtonLinkClick();
+            } else {
+                throw e;
+            }
+        }
     }
 
     public void addNewButtonConfirmClick() {
