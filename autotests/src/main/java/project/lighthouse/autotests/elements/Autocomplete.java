@@ -16,12 +16,12 @@ public class Autocomplete extends CommonItem {
     public void setValue(String value) {
         if (value.startsWith("!")) {
             value = value.substring(1);
-            $().type(value);
+            getVisibleWebElementFacade().type(value);
         } else {
-            $().type(value);
+            getVisibleWebElementFacade().type(value);
             String xpath = String.format(AUTOCOMPLETE_XPATH_PATTERN, value);
             try {
-                pageObject.findBy(xpath).click();
+                pageObject.findVisibleElement(By.xpath(xpath)).click();
             } catch (Exception e) {
                 e.printStackTrace();
                 String errorMessage = String.format("Can't find '%s' value in autoComplete results", value);

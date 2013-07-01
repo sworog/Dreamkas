@@ -19,7 +19,6 @@ import java.util.Map;
 public class CommonPage extends PageObject implements CommonPageInterface {
 
     public static final String ERROR_MESSAGE = "No such option for '%s'";
-    public static final String STRING_EMPTY = "";
 
     protected Waiter waiter = new Waiter(getDriver());
 
