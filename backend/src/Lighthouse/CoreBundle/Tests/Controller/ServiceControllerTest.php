@@ -11,14 +11,15 @@ class ServiceControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $client = static::createClient();
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $response = $this->clientJsonRequest(
-            $client,
+            $accessToken,
             'GET',
             '/api/1/service/recalculate-average-purchase-price'
         );
 
-        Assert::assertResponseCode(200, $client);
+        Assert::assertResponseCode(200, $this->client);
         Assert::assertJsonPathEquals(true, 'ok', $response);
     }
 
@@ -26,15 +27,16 @@ class ServiceControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $client = static::createClient();
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $response = $this->clientJsonRequest(
-            $client,
+            $accessToken,
             'GET',
             '/api/1/service/permissions'
         );
 
-        Assert::assertResponseCode(200, $client);
-        Assert::assertJsonPathEquals('administrator', 'users.GET::{user}.*', $response);
-        Assert::assertJsonPathEquals(false, 'users.POST', $response);
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathEquals('ROLE_ADMINISTRATOR', 'users.GET::{user}.*', $response);
+        Assert::assertJsonPathEquals('ROLE_ADMINISTRATOR', 'users.POST.*', $response);
     }
 }

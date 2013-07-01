@@ -24,8 +24,10 @@ class InvoiceProductControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $responseJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products',
             $invoiceProductData
@@ -69,8 +71,10 @@ class InvoiceProductControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products',
             $invoiceProductData
@@ -93,8 +97,10 @@ class InvoiceProductControllerTest extends WebTestCase
             'foo' => 'bar',
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products',
             $invoiceProductData
@@ -119,8 +125,10 @@ class InvoiceProductControllerTest extends WebTestCase
             'product' => 'dwdwdwd',
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products',
             $invoiceProductData
@@ -169,8 +177,10 @@ class InvoiceProductControllerTest extends WebTestCase
                 'product'  => $productId,
             );
 
+            $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
             $response = $this->clientJsonRequest(
-                $this->client,
+                $accessToken,
                 'POST',
                 '/api/1/invoices/' . $invoiceId . '/products',
                 $invoiceProductData
@@ -222,8 +232,10 @@ class InvoiceProductControllerTest extends WebTestCase
                 'product'  => $row['product'],
             );
 
+            $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
             $response = $this->clientJsonRequest(
-                $this->client,
+                $accessToken,
                 'POST',
                 '/api/1/invoices/' . $invoiceId . '/products',
                 $invoiceProductData
@@ -255,8 +267,10 @@ class InvoiceProductControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products',
             $invoiceProductData
@@ -467,8 +481,10 @@ class InvoiceProductControllerTest extends WebTestCase
                 'product'  => $row['product'],
             );
 
+            $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
             $response = $this->clientJsonRequest(
-                $this->client,
+                $accessToken,
                 'POST',
                 '/api/1/invoices/' . $invoiceId . '/products',
                 $invoiceProductData
@@ -481,7 +497,7 @@ class InvoiceProductControllerTest extends WebTestCase
         }
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId . '/products'
         );
@@ -498,8 +514,10 @@ class InvoiceProductControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/123484923423/products'
         );
@@ -513,8 +531,10 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId = $this->createInvoice();
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId . '/products'
         );
@@ -530,8 +550,10 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId = $this->createInvoice();
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId . '/products/1'
         );
@@ -539,7 +561,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertResponseCode(404, $this->client);
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/2/products/1'
         );
@@ -560,8 +582,10 @@ class InvoiceProductControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $postJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products',
             $invoiceProductData
@@ -573,7 +597,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
 
         $getJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProductId
         );
@@ -584,7 +608,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertEquals($postJson, $getJson);
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/324234234234/products/' . $invoiceProductId
         );
@@ -608,8 +632,10 @@ class InvoiceProductControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $responseJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products',
             $invoiceProductData
@@ -636,7 +662,7 @@ class InvoiceProductControllerTest extends WebTestCase
         ) + $invoiceProductData;
 
         $responseJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProductId,
             $modifiedInvoiceProductData
@@ -657,7 +683,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($newTotalPrice, 'invoice.sumTotal', $responseJson);
 
         $responseJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProductId
         );
@@ -715,8 +741,10 @@ class InvoiceProductControllerTest extends WebTestCase
             'product'  => $product1Id,
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $postJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products',
             $postData
@@ -742,7 +770,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $putJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProductId,
             $putData
@@ -781,8 +809,10 @@ class InvoiceProductControllerTest extends WebTestCase
      */
     protected function assertInvoiceTotals($invoiceId, $sumTotal, $itemsCount)
     {
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $invoiceJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId
         );
@@ -847,8 +877,10 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $productsData = $this->createInvoiceProducts($productId, $invoiceId);
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/invoices/' . $invoiceId . '/products/' . $productsData[1]['id']
         );
@@ -856,7 +888,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertResponseCode(204, $this->client);
 
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId . '/products'
         );
@@ -880,8 +912,10 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $productsData = $this->createInvoiceProducts($productId, $invoiceId);
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $productResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/' . $productId
         );
@@ -891,7 +925,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(5.99, 'lastPurchasePrice', $productResponse);
 
         $invoiceResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId
         );
@@ -901,7 +935,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(3, 'itemsCount', $invoiceResponse);
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/invoices/' . $invoiceId . '/products/' . $productsData[1]['id']
         );
@@ -909,7 +943,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertResponseCode(204, $this->client);
 
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId . '/products'
         );
@@ -926,7 +960,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(11, '*.product.amount', $getResponse, 2);
 
         $productResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/' . $productId
         );
@@ -936,7 +970,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productsData[2]['price'], 'lastPurchasePrice', $productResponse);
 
         $invoiceResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId
         );
@@ -958,8 +992,10 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertProductTotals($productId, $invoiceProducts[2]['productAmount'], $invoiceProducts[2]['price']);
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[2]['id']
         );
@@ -969,7 +1005,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertProductTotals($productId, 15, $invoiceProducts[1]['price']);
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[0]['id']
         );
@@ -979,7 +1015,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertProductTotals($productId, 5, $invoiceProducts[1]['price']);
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[1]['id']
         );
@@ -1003,8 +1039,11 @@ class InvoiceProductControllerTest extends WebTestCase
         $newInvoiceProductData = $invoiceProducts[1];
         $newInvoiceProductData['price'] = 13.01;
         unset($newInvoiceProductData['productAmount'], $newInvoiceProductData['id']);
+
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[1]['id'],
             $newInvoiceProductData
@@ -1019,7 +1058,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $newInvoiceProductDataNewProduct['product'] = $newProductId;
         unset($newInvoiceProductDataNewProduct['productAmount'], $newInvoiceProductDataNewProduct['id']);
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[2]['id'],
             $newInvoiceProductDataNewProduct
@@ -1090,8 +1129,10 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertProduct($productId, array('averagePurchasePrice' => 28.6));
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/invoices/' . $invoiceId3 . '/products/' . $invoiceProductId3
         );
@@ -1103,7 +1144,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertProduct($productId, array('averagePurchasePrice' => 27, 'lastPurchasePrice' => 29));
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/invoices/' . $invoiceId2 . '/products/' . $invoiceProductId2
         );
@@ -1115,7 +1156,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertProduct($productId, array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26));
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/invoices/' . $invoiceId1. '/products/' . $invoiceProductId1
         );
@@ -1147,9 +1188,9 @@ class InvoiceProductControllerTest extends WebTestCase
                 'acceptanceDate' => date('c', strtotime('-15 days'))
             )
         );
-        $invoiceProductIdOld = $this->createInvoiceProduct($invoiceIdOld, $productId, 10, 23.33);
 
-        $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
+        $this->createInvoiceProduct($invoiceIdOld, $productId, 10, 23.33);
+        $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
         $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67);
 
         /* @var $averagePriceService AveragePriceService */
@@ -1177,7 +1218,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId = $this->createInvoice($invoiceData);
 
-        $invoiceProductId = $this->createInvoiceProduct($invoiceId, $productId, 10, 26);
+        $this->createInvoiceProduct($invoiceId, $productId, 10, 26);
 
         /* @var $averagePriceService AveragePriceService */
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
@@ -1185,8 +1226,10 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertProduct($productId, array('averagePurchasePrice' => null, 'lastPurchasePrice' => 26));
 
-        $response = $this->clientJsonRequest(
-            $this->client,
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
+        $this->clientJsonRequest(
+            $accessToken,
             'PUT',
             '/api/1/invoices/' . $invoiceId,
             array(

@@ -18,8 +18,10 @@ class WriteOffControllerTest extends WebTestCase
             'date' => date('c', $date),
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/writeoffs',
             $writeOffData
@@ -49,8 +51,10 @@ class WriteOffControllerTest extends WebTestCase
             'number' => '1234567',
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/writeoffs',
             $writeOffData
@@ -79,8 +83,10 @@ class WriteOffControllerTest extends WebTestCase
             'number' => '1234567',
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/writeoffs',
             $postData
@@ -95,7 +101,7 @@ class WriteOffControllerTest extends WebTestCase
         $putData = $data + $postData;
 
         $putResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/writeoffs/' . $writeOffId,
             $putData
@@ -169,8 +175,10 @@ class WriteOffControllerTest extends WebTestCase
 
         $writeOfId = $this->createWriteOff($number, $date);
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/writeoffs/' . $writeOfId
         );
@@ -188,8 +196,10 @@ class WriteOffControllerTest extends WebTestCase
 
         $this->createWriteOff();
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/writeoffs/invalidId'
         );
@@ -235,8 +245,10 @@ class WriteOffControllerTest extends WebTestCase
             'cause' => 'because',
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1,
             $putData
@@ -256,7 +268,7 @@ class WriteOffControllerTest extends WebTestCase
         );
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2,
             $putData
@@ -269,7 +281,7 @@ class WriteOffControllerTest extends WebTestCase
         // remove 3rd write off product
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId3
         );
@@ -285,8 +297,10 @@ class WriteOffControllerTest extends WebTestCase
      */
     protected function assertWriteOff($writeOffId, array $assertions = array())
     {
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $writeOffJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/writeoffs/' . $writeOffId
         );
@@ -305,16 +319,18 @@ class WriteOffControllerTest extends WebTestCase
         $productId3 = $this->createProduct('3');
 
         $writeOffId = $this->createWriteOff();
-        $writeOffProductId11 = $this->createWriteOffProduct($writeOffId, $productId1, 5.99, 12);
-        $writeOffProductId12 = $this->createWriteOffProduct($writeOffId, $productId2, 6.49, 3);
-        $writeOffProductId13 = $this->createWriteOffProduct($writeOffId, $productId3, 11.12, 1);
+        $this->createWriteOffProduct($writeOffId, $productId1, 5.99, 12);
+        $this->createWriteOffProduct($writeOffId, $productId2, 6.49, 3);
+        $this->createWriteOffProduct($writeOffId, $productId3, 11.12, 1);
 
         $writeOffId2 = $this->createWriteOff('2');
-        $writeOffProductId21 = $this->createWriteOffProduct($writeOffId2, $productId1, 6.92, 1);
-        $writeOffProductId22 = $this->createWriteOffProduct($writeOffId2, $productId2, 3.49, 2);
+        $this->createWriteOffProduct($writeOffId2, $productId1, 6.92, 1);
+        $this->createWriteOffProduct($writeOffId2, $productId2, 3.49, 2);
+
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/writeoffs'
         );

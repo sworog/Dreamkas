@@ -13,6 +13,8 @@ use Lighthouse\CoreBundle\Form\InvoiceProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use JMS\DiExtraBundle\Annotation as DI;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class InvoiceProductController extends AbstractRestController
 {
@@ -38,14 +40,15 @@ class InvoiceProductController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $invoiceId
+     * @param Invoice $invoice
      * @return \FOS\RestBundle\View\View|Invoice
      *
      * @Rest\View(statusCode=201)
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function postProductsAction(Request $request, $invoiceId)
+    public function postProductsAction(Request $request, Invoice $invoice)
     {
-        $invoice = $this->findInvoice($invoiceId);
         $invoiceProduct = new InvoiceProduct();
         $invoiceProduct->invoice = $invoice;
         return $this->processForm($request, $invoiceProduct);
@@ -53,36 +56,44 @@ class InvoiceProductController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @param string $invoiceId
-     * @param string $invoiceProductId
+     * @param Invoice $invoiceId
+     * @param InvoiceProduct $invoiceProductId
      *
      * @return \FOS\RestBundle\View\View|InvoiceProduct
      *
-     * @Rest\View(statusCode=200)
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function putProductAction(Request $request, $invoiceId, $invoiceProductId)
+    public function putProductAction(Request $request, Invoice $invoice, InvoiceProduct $invoiceProduct)
     {
-        $invoiceProduct = $this->findInvoiceProduct($invoiceProductId, $invoiceId);
+        $this->checkInvoiceProduct($invoiceProduct, $invoice);
         return $this->processForm($request, $invoiceProduct);
     }
 
     /**
-     * @param string $invoiceId
-     * @param string $invoiceProductId
+     * @param Invoice $invoice
+     * @param InvoiceProduct $invoiceProduct
      * @return InvoiceProductCollection
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function getProductAction($invoiceId, $invoiceProductId)
+    public function getProductAction(Invoice $invoice, InvoiceProduct $invoiceProduct)
     {
-        return $this->findInvoiceProduct($invoiceProductId, $invoiceId);
+        $this->checkInvoiceProduct($invoiceProduct, $invoice);
+        return $invoiceProduct;
     }
 
     /**
-     * @param string $invoiceId
+     * @param invoice $invoice
      * @return InvoiceProductCollection
+     * @ApiDoc(
+     *      resource=true
+     * )
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function getProductsAction($invoiceId)
+    public function getProductsAction(Invoice $invoice)
     {
-        $invoice = $this->findInvoice($invoiceId);
         $invoiceProducts = $this->getDocumentRepository()->findByInvoice($invoice->id);
         return new InvoiceProductCollection($invoiceProducts);
     }
@@ -90,43 +101,25 @@ class InvoiceProductController extends AbstractRestController
     /**
      * @param string $invoiceId
      * @param string $invoiceProductId
-     * @Rest\View(statusCode=204)
+     * @return null
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function deleteProductAction($invoiceId, $invoiceProductId)
+    public function deleteProductAction(Invoice $invoice, InvoiceProduct $invoiceProduct)
     {
-        $invoiceProduct = $this->findInvoiceProduct($invoiceProductId, $invoiceId);
-        $this->getDocumentRepository()->getDocumentManager()->remove($invoiceProduct);
-        $this->getDocumentRepository()->getDocumentManager()->flush();
+        $this->checkInvoiceProduct($invoiceProduct, $invoice);
+        return $this->processDelete($invoiceProduct);
     }
 
     /**
-     * @param string $invoiceId
-     * @return Invoice
-     * @throws NotFoundHttpException
+     * @param InvoiceProduct $invoiceProduct
+     * @param Invoice $invoice
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    protected function findInvoice($invoiceId)
+    protected function checkInvoiceProduct(InvoiceProduct $invoiceProduct, Invoice $invoice)
     {
-        $invoice = $this->invoiceRepository->find($invoiceId);
-        if (null === $invoice) {
-            throw new NotFoundHttpException("Invoice not found");
+        if ($invoiceProduct->invoice->id != $invoice->id) {
+            throw new NotFoundHttpException(sprintf("%s object not found", get_class($invoice)));
         }
-        return $invoice;
-    }
-
-    /**
-     * @param string $invoiceProductId
-     * @param string $invoiceId
-     * @throws NotFoundHttpException
-     * @return InvoiceProduct
-     */
-    protected function findInvoiceProduct($invoiceProductId, $invoiceId)
-    {
-        $invoiceProduct = $this->getDocumentRepository()->find($invoiceProductId);
-        if (null === $invoiceProduct) {
-            throw new NotFoundHttpException("InvoiceProduct not found");
-        } elseif ($invoiceProduct->invoice->id != $invoiceId) {
-            throw new NotFoundHttpException("InvoiceProduct not found");
-        }
-        return $invoiceProduct;
     }
 }

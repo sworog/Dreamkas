@@ -13,6 +13,8 @@ use Lighthouse\CoreBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class ProductController extends AbstractRestController
 {
@@ -35,6 +37,8 @@ class ProductController extends AbstractRestController
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product\Product
      *
      * @Rest\View(statusCode=201)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
     public function postProductsAction(Request $request)
     {
@@ -43,28 +47,34 @@ class ProductController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $id
+     * @param Product $product
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product\Product
      *
      * @Rest\View(statusCode=204)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
-    public function putProductsAction(Request $request, $id)
+    public function putProductsAction(Request $request, Product $product)
     {
-        return $this->processPut($request, $id);
+        return $this->processForm($request, $product);
     }
 
     /**
-     * @param string $id
+     * @param Product $product
      * @return \Lighthouse\CoreBundle\Document\Product\Product
+     * @ApiDoc
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
      */
-    public function getProductAction($id)
+    public function getProductAction(Product $product)
     {
-        return $this->processGet($id);
+        return $product;
     }
 
     /**
-     * @param string $property
+     * @param string $property name, sku, barcode
      * @return \Lighthouse\CoreBundle\Document\Product\ProductCollection
+     * @ApiDoc
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
      */
     public function getProductsSearchAction($property)
     {
@@ -87,6 +97,10 @@ class ProductController extends AbstractRestController
 
     /**
      * @return \Lighthouse\CoreBundle\Document\Product\ProductCollection
+     * @ApiDoc(
+     *      resource=true
+     * )
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      */
     public function getProductsAction()
     {

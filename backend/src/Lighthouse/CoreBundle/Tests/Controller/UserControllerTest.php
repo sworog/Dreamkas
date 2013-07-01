@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
@@ -16,12 +17,14 @@ class UserControllerTest extends WebTestCase
             'username'  => 'test',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
-            'role'      => 'commercialManager',
+            'role'      => 'ROLE_COMMERCIAL_MANAGER',
             'password'  => 'qwerty',
         );
 
-        $response = $this->clientJsonRequest(
-            $this->client,
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
+        $this->clientJsonRequest(
+            $accessToken,
             'POST',
             '/api/1/users',
             $userData
@@ -30,7 +33,7 @@ class UserControllerTest extends WebTestCase
         Assert::assertResponseCode(201, $this->client);
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/users',
             $userData
@@ -59,12 +62,14 @@ class UserControllerTest extends WebTestCase
             'username'  => 'test',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
-            'role'      => 'commercialManager',
+            'role'      => 'ROLE_COMMERCIAL_MANAGER',
             'password'  => 'qwerty',
         );
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/users',
             $userData
@@ -91,12 +96,14 @@ class UserControllerTest extends WebTestCase
             'username'  => 'qweqwe',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
-            'role'      => 'commercialManager',
+            'role'      => 'ROLE_COMMERCIAL_MANAGER',
             'password'  => 'qwerty',
         );
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/users',
             $userData
@@ -110,11 +117,11 @@ class UserControllerTest extends WebTestCase
             'username'  => 'васяпупкин',
             'name'      => 'Вася Пупкин',
             'position'  => 'Комец бля',
-            'role'      => 'commercialManager',
+            'role'      => 'ROLE_COMMERCIAL_MANAGER',
         );
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/users/' . $id,
             $newUserData
@@ -136,12 +143,14 @@ class UserControllerTest extends WebTestCase
             'username'  => 'qweqwe',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
-            'role'      => 'commercialManager',
+            'role'      => 'ROLE_COMMERCIAL_MANAGER',
             'password'  => 'qwerty',
         );
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/users',
             $userData
@@ -161,12 +170,12 @@ class UserControllerTest extends WebTestCase
             'username'  => 'qweqwe',
             'name'      => 'ASFFSssd',
             'position'  => 'SFwewe',
-            'role'      => 'commercialManager',
+            'role'      => 'ROLE_COMMERCIAL_MANAGER',
             'password'  => '',
         );
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/users/' . $id,
             $newUserData
@@ -359,19 +368,19 @@ class UserControllerTest extends WebTestCase
              ***********************************************************************************************/
             'valid role commercialManager' => array(
                 201,
-                array('role' => 'commercialManager'),
+                array('role' => 'ROLE_COMMERCIAL_MANAGER'),
             ),
             'valid role storeManager' => array(
                 201,
-                array('role' => 'storeManager'),
+                array('role' => 'ROLE_STORE_MANAGER'),
             ),
             'valid role departmentManager' => array(
                 201,
-                array('role' => 'departmentManager'),
+                array('role' => 'ROLE_DEPARTMENT_MANAGER'),
             ),
             'valid role administrator' => array(
                 201,
-                array('role' => 'administrator'),
+                array('role' => 'ROLE_ADMINISTRATOR'),
             ),
             'not valid role' => array(
                 400,
@@ -449,13 +458,15 @@ class UserControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $postDataArray = array();
         for ($i = 0; $i < 5; $i++) {
             $postData = $data;
             $postData['name'] .= $i;
             $postData['username'] .= $i;
-            $postResponse = $this->clientJsonRequest(
-                $this->client,
+            $this->clientJsonRequest(
+                $accessToken,
                 'POST',
                 '/api/1/users',
                 $postData
@@ -465,7 +476,7 @@ class UserControllerTest extends WebTestCase
         }
 
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/users'
         );
@@ -488,8 +499,10 @@ class UserControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/users',
             $postData
@@ -499,7 +512,7 @@ class UserControllerTest extends WebTestCase
         $id = $postResponse['id'];
 
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/users/' . $id
         );
@@ -518,22 +531,12 @@ class UserControllerTest extends WebTestCase
         $authClient = $this->createAuthClient();
         $user = $this->createUser('user', 'qwerty123');
 
-        $token = $this->auth($authClient, $user, 'qwerty123');
+        $token = $this->auth($user, 'qwerty123', $authClient);
 
-        $headers = array(
-            'HTTP_AUTHORIZATION' => 'Bearer ' . $token->access_token,
-        );
+        $request = new JsonRequest('/api/1/users/current');
+        $request->addHttpHeader('Authorization', 'Bearer ' . $token->access_token);
 
-        $getResponse = $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/users/current',
-            null,
-            array(),
-            $headers,
-            true,
-            false
-        );
+        $getResponse = $this->jsonRequest($request);
 
         Assert::assertResponseCode(200, $this->client);
 
@@ -548,7 +551,7 @@ class UserControllerTest extends WebTestCase
                     'username'  => 'test',
                     'name'      => 'Вася пупкин',
                     'position'  => 'Комерческий директор',
-                    'role'      => 'commercialManager',
+                    'role'      => 'ROLE_COMMERCIAL_MANAGER',
                     'password'  => 'qwerty',
                 ),
             ),

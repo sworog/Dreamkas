@@ -9,6 +9,8 @@ use Lighthouse\CoreBundle\Form\WriteOffType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class WriteOffController extends AbstractRestController
 {
@@ -31,6 +33,8 @@ class WriteOffController extends AbstractRestController
      *
      * @param Request $request
      * @return \FOS\RestBundle\View\View|WriteOff
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
     public function postWriteoffsAction(Request $request)
     {
@@ -41,25 +45,33 @@ class WriteOffController extends AbstractRestController
      * @Rest\View(statusCode=200)
      *
      * @param Request $request
-     * @param string $id
+     * @param WriteOff $writeOff
      * @return \FOS\RestBundle\View\View|WriteOff
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function putWriteoffsAction(Request $request, $id)
+    public function putWriteoffsAction(Request $request, WriteOff $writeOff)
     {
-        return $this->processPut($request, $id);
+        return $this->processForm($request, $writeOff);
     }
 
     /**
-     * @param string $id
+     * @param WriteOff $writeOff
      * @return \Lighthouse\CoreBundle\Document\WriteOff\WriteOff
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function getWriteoffAction($id)
+    public function getWriteoffAction(WriteOff $writeOff)
     {
-        return $this->processGet($id);
+        return $writeOff;
     }
 
     /**
      * @return WriteOffCollection
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc(
+     *      resource=true
+     * )
      */
     public function getWriteoffsAction()
     {

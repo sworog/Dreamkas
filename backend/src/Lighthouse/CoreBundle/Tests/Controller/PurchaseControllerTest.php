@@ -36,8 +36,10 @@ class PurchaseControllerTest extends WebTestCase
             )
         );
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/purchases',
             $purchaseData
@@ -92,8 +94,10 @@ class PurchaseControllerTest extends WebTestCase
             )
         );
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/purchases',
             $purchaseData
@@ -139,8 +143,10 @@ class PurchaseControllerTest extends WebTestCase
             'products' => array($purchaseProductData)
         );
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/purchases',
             $purchaseData
@@ -204,8 +210,10 @@ class PurchaseControllerTest extends WebTestCase
             'quantity' => 2,
         );
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/purchases',
             array(
@@ -403,8 +411,10 @@ class PurchaseControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products',
             $invoiceProductData
@@ -461,8 +471,10 @@ class PurchaseControllerTest extends WebTestCase
             )
         );
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $purchaseResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/purchases',
             $purchaseData

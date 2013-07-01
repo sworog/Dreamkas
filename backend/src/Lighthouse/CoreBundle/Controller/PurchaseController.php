@@ -9,6 +9,8 @@ use Lighthouse\CoreBundle\Document\Purchase\PurchaseRepository;
 use Lighthouse\CoreBundle\Form\PurchaseType;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class PurchaseController extends AbstractRestController
 {
@@ -31,6 +33,10 @@ class PurchaseController extends AbstractRestController
      *
      * @param Request $request
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Purchase\Purchase
+     * @Secure(roles="ROLE_ADMINISTRATOR")
+     * @ApiDoc(
+     *      resource=true
+     * )
      */
     public function postPurchasesAction(Request $request)
     {

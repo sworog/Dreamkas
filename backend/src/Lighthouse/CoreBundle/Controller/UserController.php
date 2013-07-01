@@ -50,11 +50,13 @@ class UserController extends AbstractRestController
      * @return \Lighthouse\CoreBundle\Document\User\User|\FOS\RestBundle\View\View
      *
      * @Rest\View(statusCode=201)
+     * @Secure(roles="ROLE_ADMINISTRATOR")
      * @ApiDoc(
      *      resource=true,
      *      description="Create user",
      *      input="Lighthouse\CoreBundle\Form\UserType"
      * )
+     *
      */
     public function postUsersAction(Request $request)
     {
@@ -80,8 +82,7 @@ class UserController extends AbstractRestController
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param User $user User ID
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
-     *
-     * @Rest\View(statusCode=200)
+     * @Secure(roles="ROLE_ADMINISTRATOR")
      * @ApiDoc(
      *      description="Update user",
      *      input="Lighthouse\CoreBundle\Form\UserType"
@@ -122,11 +123,12 @@ class UserController extends AbstractRestController
     }
 
     /**
+     * @param User $user
      * @return User
+     * @Secure(roles="ROLE_ADMINISTRATOR")
      * @ApiDoc(
      *      description="Get user"
      * )
-     * @Secure(roles="administrator")
      */
     public function getUserAction(User $user)
     {
@@ -135,6 +137,7 @@ class UserController extends AbstractRestController
 
     /**
      * @return \Lighthouse\CoreBundle\Document\User\UserCollection
+     * @Secure(roles="ROLE_ADMINISTRATOR")
      * @ApiDoc(
      *      description="Create users"
      * )

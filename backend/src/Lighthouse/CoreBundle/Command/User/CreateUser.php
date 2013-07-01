@@ -36,7 +36,7 @@ class CreateUser extends Command
             ->setDescription('Create user')
             ->addArgument('username', InputArgument::REQUIRED, 'Username')
             ->addArgument('password', InputArgument::REQUIRED, 'Password')
-            ->addArgument('role', InputArgument::OPTIONAL, 'User role', 'administrator');
+            ->addArgument('role', InputArgument::OPTIONAL, 'User role', 'ROLE_ADMINISTRATOR');
     }
 
     /**

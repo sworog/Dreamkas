@@ -8,7 +8,6 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class AbstractRestController extends FOSRestController
 {
@@ -51,25 +50,6 @@ abstract class AbstractRestController extends FOSRestController
     }
 
     /**
-     * @param string $id
-     * @return AbstractDocument
-     * @throws NotFoundHttpException
-     */
-    protected function findDocument($id)
-    {
-        $document = $this->getDocumentRepository()->find($id);
-        if (null === $document) {
-            throw new NotFoundHttpException(
-                sprintf(
-                    '%s not found',
-                    $this->getDocumentRepository()->getClassMetadata()->getReflectionClass()->getShortName()
-                )
-            );
-        }
-        return $document;
-    }
-
-    /**
      * @param Request $request
      * @return \FOS\RestBundle\View\View|AbstractDocument
      */
@@ -80,34 +60,13 @@ abstract class AbstractRestController extends FOSRestController
     }
 
     /**
-     * @param Request $request
-     * @param string $id
-     * @return \FOS\RestBundle\View\View|AbstractDocument
-     */
-    protected function processPut(Request $request, $id)
-    {
-        $document = $this->findDocument($id);
-        return $this->processForm($request, $document);
-    }
-
-    /**
-     * @param string $id
+     * @param AbstractDocument $document
      * @return null
      */
-    protected function processDelete($id)
+    protected function processDelete(AbstractDocument $document)
     {
-        $document = $this->findDocument($id);
         $this->getDocumentRepository()->getDocumentManager()->remove($document);
         $this->getDocumentRepository()->getDocumentManager()->flush();
         return null;
-    }
-
-    /**
-     * @param int $id
-     * @return \Lighthouse\CoreBundle\Document\AbstractDocument
-     */
-    protected function processGet($id)
-    {
-        return $this->findDocument($id);
     }
 }

@@ -19,8 +19,10 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPostProductAction(array $postData)
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -42,8 +44,10 @@ class ProductControllerTest extends WebTestCase
         $productData['retailPrice'] = '';
         $productData['retailPricePreference'] = 'retailMarkup';
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $responseJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $productData
@@ -54,7 +58,7 @@ class ProductControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('retailPrice', $responseJson);
 
         $responseJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/' .$responseJson['id']
         );
@@ -71,8 +75,10 @@ class ProductControllerTest extends WebTestCase
     {
         $postData = $data + $this->getProductData();
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -89,8 +95,10 @@ class ProductControllerTest extends WebTestCase
         $invalidData['purchasePrice'] = '';
         $invalidData['units'] = '';
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $invalidData
@@ -105,8 +113,10 @@ class ProductControllerTest extends WebTestCase
 
     public function testPostProductActionEmptyPost()
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products'
         );
@@ -118,8 +128,10 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPostProductActionUniqueSku(array $postData)
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -128,7 +140,7 @@ class ProductControllerTest extends WebTestCase
         Assert::assertResponseCode(201, $this->client);
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -144,8 +156,10 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPutProductAction(array $postData)
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -164,8 +178,8 @@ class ProductControllerTest extends WebTestCase
         $putData['barcode'] = '65346456456';
         $putData['vat'] = 18;
 
-        $response = $this->clientJsonRequest(
-            $this->client,
+        $this->clientJsonRequest(
+            $accessToken,
             'PUT',
             '/api/1/products/' . $id,
             $putData
@@ -174,7 +188,7 @@ class ProductControllerTest extends WebTestCase
         Assert::assertResponseCode(204, $this->client);
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/' . $id
         );
@@ -192,8 +206,10 @@ class ProductControllerTest extends WebTestCase
     {
         $id = '1234534312';
 
-        $response = $this->clientJsonRequest(
-            $this->client,
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $this->clientJsonRequest(
+            $accessToken,
             'PUT',
             '/api/1/products/' . $id,
             $putData
@@ -207,8 +223,10 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPutProductActionInvalidData(array $postData)
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -227,7 +245,7 @@ class ProductControllerTest extends WebTestCase
         unset($putData['name']);
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/products/' . $id,
             $putData
@@ -243,8 +261,10 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPutProductActionChangeId(array $postData)
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -261,7 +281,7 @@ class ProductControllerTest extends WebTestCase
         $putData['id'] = $newId;
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/products/' . $id,
             $putData
@@ -271,7 +291,7 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonPathContains('Эта форма не должна содержать дополнительных полей', 'errors.0', $response);
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/' . $newId
         );
@@ -279,7 +299,7 @@ class ProductControllerTest extends WebTestCase
         Assert::assertResponseCode(404, $this->client);
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/' . $id
         );
@@ -297,8 +317,10 @@ class ProductControllerTest extends WebTestCase
             'HTTP_Origin' => 'www.a.com',
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postArray,
@@ -311,7 +333,7 @@ class ProductControllerTest extends WebTestCase
         $this->assertTrue($response->headers->has('Access-Control-Allow-Origin'));
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postArray
@@ -326,11 +348,13 @@ class ProductControllerTest extends WebTestCase
      */
     public function testGetProductsAction(array $postData)
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         for ($i = 0; $i < 5; $i++) {
             $postData['name'] = 'Кефир' . $i;
             $postData['sku'] = 'sku' . $i;
             $this->clientJsonRequest(
-                $this->client,
+                $accessToken,
                 'POST',
                 '/api/1/products',
                 $postData
@@ -339,7 +363,7 @@ class ProductControllerTest extends WebTestCase
         }
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products'
         );
@@ -353,8 +377,10 @@ class ProductControllerTest extends WebTestCase
      */
     public function testGetProduct(array $postData)
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -365,7 +391,7 @@ class ProductControllerTest extends WebTestCase
         $id = $postResponse['id'];
 
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/' . $id
         );
@@ -376,8 +402,10 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetProductNotFound()
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/1111'
         );
@@ -389,11 +417,13 @@ class ProductControllerTest extends WebTestCase
      */
     public function testSearchProductsAction(array $postData)
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         for ($i = 0; $i < 5; $i++) {
             $postData['name'] = 'Кефир' . $i;
             $postData['sku'] = 'sku' . $i;
             $response = $this->clientJsonRequest(
-                $this->client,
+                $accessToken,
                 'POST',
                 '/api/1/products',
                 $postData
@@ -402,7 +432,7 @@ class ProductControllerTest extends WebTestCase
         }
 
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/name/search' . '?query=кефир3'
         );
@@ -413,8 +443,10 @@ class ProductControllerTest extends WebTestCase
 
     public function testSearchProductsActionEmptyRequest()
     {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/invalid/search'
         );
@@ -735,8 +767,10 @@ class ProductControllerTest extends WebTestCase
         array $assertions = array(),
         array $emptyAssertions = array()
     ) {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -761,8 +795,10 @@ class ProductControllerTest extends WebTestCase
         array $assertions = array(),
         array $emptyAssertions = array()
     ) {
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -789,8 +825,10 @@ class ProductControllerTest extends WebTestCase
     ) {
         $postData = $this->getProductData();
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -801,8 +839,8 @@ class ProductControllerTest extends WebTestCase
 
         $id = $postResponse['id'];
 
-        $putResponse = $this->clientJsonRequest(
-            $this->client,
+        $this->clientJsonRequest(
+            $accessToken,
             'PUT',
             '/api/1/products/' . $id,
             $putData
@@ -810,7 +848,7 @@ class ProductControllerTest extends WebTestCase
 
         Assert::assertResponseCode(204, $this->client);
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/products/' . $id
         );
@@ -836,8 +874,10 @@ class ProductControllerTest extends WebTestCase
     ) {
         $postData = $this->getProductData();
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/products',
             $postData
@@ -849,7 +889,7 @@ class ProductControllerTest extends WebTestCase
         $id = $postResponse['id'];
 
         $putResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/products/' . $id,
             $putData

@@ -12,6 +12,8 @@ use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class GroupController extends AbstractRestController
 {
@@ -36,9 +38,13 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @Rest\View(statusCode=201)
      * @param Request $request
      * @return \FOS\RestBundle\View\View|Group
+     * @Rest\View(statusCode=201)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc(
+     *      resource=true
+     * )
      */
     public function postGroupsAction(Request $request)
     {
@@ -47,55 +53,48 @@ class GroupController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @param string $groupId
+     * @param Group $group
      * @return \FOS\RestBundle\View\View|Group
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
-    public function putGroupsAction(Request $request, $groupId)
+    public function putGroupsAction(Request $request, Group $group)
     {
-        return $this->processPut($request, $groupId);
+        return $this->processForm($request, $group);
     }
 
     /**
-     * @param string $groupId
+     * @param Group $group
      * @return Group
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
-    public function getGroupAction($groupId)
+    public function getGroupAction(Group $group)
     {
-        return $this->processGet($groupId);
+        return $group;
     }
 
     /**
-     * @param string $klassId
+     * @param Klass $klass
      * @return GroupCollection
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
-    public function getKlassGroupsAction($klassId)
+    public function getKlassGroupsAction(Klass $klass)
     {
-        $klass = $this->findKlass($klassId);
         $cursor = $this->getDocumentRepository()->findByKlass($klass->id);
         $collection = new GroupCollection($cursor);
         return $collection;
     }
 
     /**
-     * @param $klassId
-     * @return Klass
-     * @throws NotFoundHttpException
-     */
-    protected function findKlass($klassId)
-    {
-        $klass = $this->klassRepository->find($klassId);
-        if (null === $klass) {
-            throw new NotFoundHttpException("Klass not found");
-        }
-        return $klass;
-    }
-
-    /**
-     * @param string $groupId
+     * @param Group $group
      * @return null
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
-    public function deleteGroupsAction($groupId)
+    public function deleteGroupsAction(Group $group)
     {
-        return $this->processDelete($groupId);
+        return $this->processDelete($group);
     }
 }

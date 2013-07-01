@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class WriteOffProductController extends AbstractRestController
 {
@@ -22,12 +24,6 @@ class WriteOffProductController extends AbstractRestController
     protected $documentRepository;
 
     /**
-     * @DI\Inject("lighthouse.core.document.repository.writeoff")
-     * @var WriteOffRepository
-     */
-    protected $writeOffRepository;
-
-    /**
      * @return WriteOffProductType
      */
     protected function getDocumentFormType()
@@ -36,14 +32,15 @@ class WriteOffProductController extends AbstractRestController
     }
 
     /**
-     * @Rest\View(statusCode=201)
      * @param Request $request
-     * @param string $writeOffId
+     * @param WriteOff $writeOff
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\AbstractDocument
+     * @Rest\View(statusCode=201)
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function postProductsAction(Request $request, $writeOffId)
+    public function postProductsAction(Request $request, WriteOff $writeOff)
     {
-        $writeOff = $this->findWriteOff($writeOffId);
         $writeOffProduct = new WriteOffProduct();
         $writeOffProduct->writeOff = $writeOff;
 
@@ -52,77 +49,66 @@ class WriteOffProductController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @param string $writeOffId
-     * @param string $writeOffProductId
+     * @param WriteOff $writeOffId
+     * @param WriteOffProduct $writeOffProductId
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\AbstractDocument
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function putProductsAction(Request $request, $writeOffId, $writeOffProductId)
+    public function putProductsAction(Request $request, WriteOff $writeOff, WriteOffProduct $writeOffProduct)
     {
-        $writeOffProduct = $this->findWriteOffProduct($writeOffProductId, $writeOffId);
+        $this->checkWriteOffProduct($writeOff, $writeOffProduct);
         return $this->processForm($request, $writeOffProduct);
     }
 
     /**
-     * @Rest\View(statusCode=204)
-     * @param string $writeOffId
-     * @param string $writeOffProductId
+     * @param WriteOff $writeOff
+     * @param WriteOffProduct $writeOffProduct
+     * @return null
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function deleteProductsAction($writeOffId, $writeOffProductId)
+    public function deleteProductsAction(WriteOff $writeOff, WriteOffProduct $writeOffProduct)
     {
-        $writeOffProduct = $this->findWriteOffProduct($writeOffProductId, $writeOffId);
-        $this->getDocumentRepository()->getDocumentManager()->remove($writeOffProduct);
-        $this->getDocumentRepository()->getDocumentManager()->flush();
+        $this->checkWriteOffProduct($writeOff, $writeOffProduct);
+        return $this->processDelete($writeOffProduct);
     }
 
     /**
-     * @param string $writeOffId
-     * @param string $writeOffProductId
+     * @param WriteOff $writeOff
+     * @param WriteOffProduct $writeOffProduct
      * @return WriteOffProduct
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function getProductAction($writeOffId, $writeOffProductId)
+    public function getProductAction(WriteOff $writeOff, WriteOffProduct $writeOffProduct)
     {
-        return $this->findWriteOffProduct($writeOffProductId, $writeOffId);
+        $this->checkWriteOffProduct($writeOff, $writeOffProduct);
+        return $writeOffProduct;
     }
 
     /**
-     * @param string $writeOffId
+     * @param WriteOff $writeOff
      * @return WriteOffProductCollection
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc(
+     *      resource=true
+     * )
      */
-    public function getProductsAction($writeOffId)
+    public function getProductsAction(WriteOff $writeOff)
     {
-        $writeOff = $this->findWriteOff($writeOffId);
         return $this->getDocumentRepository()->findAllByWriteOff($writeOff);
     }
 
     /**
-     * @param string $writeOffId
-     * @return WriteOff
-     * @throws NotFoundHttpException
+     * @param WriteOff $writeOff
+     * @param WriteOffProduct $writeOffProduct
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    protected function findWriteOff($writeOffId)
+    protected function checkWriteOffProduct(WriteOff $writeOff, WriteOffProduct $writeOffProduct)
     {
-        $writeOff = $this->writeOffRepository->find($writeOffId);
-        if (null === $writeOff) {
-            throw new NotFoundHttpException("WriteOff not found");
+        if ($writeOffProduct->writeOff->id != $writeOff->id) {
+            throw new NotFoundHttpException(sprintf("%s object not found", get_class($writeOffProduct)));
         }
-        return $writeOff;
-    }
-
-    /**
-     * @param string $writeOffProductId
-     * @param string $writeOffId
-     * @throws NotFoundHttpException
-     * @return WriteOffProduct
-     */
-    protected function findWriteOffProduct($writeOffProductId, $writeOffId)
-    {
-        $writeOff = $this->findWriteOff($writeOffId);
-        $writeOffProduct = $this->getDocumentRepository()->find($writeOffProductId);
-        if (null === $writeOffProduct) {
-            throw new NotFoundHttpException("WriteOffProduct not found");
-        } elseif ($writeOffProduct->writeOff->id != $writeOff->id) {
-            throw new NotFoundHttpException("WriteOffProduct not found");
-        }
-        return $writeOffProduct;
     }
 }

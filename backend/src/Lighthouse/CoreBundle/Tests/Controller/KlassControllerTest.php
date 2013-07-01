@@ -15,8 +15,10 @@ class KlassControllerTest extends WebTestCase
             'name' => 'Продовольственные товары'
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/klasses',
             $klassData
@@ -43,8 +45,10 @@ class KlassControllerTest extends WebTestCase
             'name' => 'Продовольственные товары'
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/klasses',
             $klassData
@@ -102,8 +106,10 @@ class KlassControllerTest extends WebTestCase
             'name' => 'Продовольственные товары'
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/klasses/' . $klassId,
             $klassData
@@ -124,8 +130,10 @@ class KlassControllerTest extends WebTestCase
 
         $klassId = $this->createKlass('Прод Тов');
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/klasses/' . $klassId
         );
@@ -143,8 +151,10 @@ class KlassControllerTest extends WebTestCase
             $klassIds[$i] = $this->createKlass('Прод Тов' . $i);
         }
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/klasses'
         );
@@ -161,14 +171,16 @@ class KlassControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass('Прод Тов');
+        $this->createKlass('Прод Тов');
 
         $postData = array(
             'name' => 'Прод Тов',
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/klasses',
             $postData
@@ -184,8 +196,10 @@ class KlassControllerTest extends WebTestCase
 
         $klassId = $this->createKlass();
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/klasses/' . $klassId
         );
@@ -193,7 +207,7 @@ class KlassControllerTest extends WebTestCase
         Assert::assertResponseCode(200, $this->client);
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/klasses/' . $klassId
         );
@@ -201,7 +215,7 @@ class KlassControllerTest extends WebTestCase
         Assert::assertResponseCode(204, $this->client);
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/klasses/' . $klassId
         );
@@ -218,8 +232,10 @@ class KlassControllerTest extends WebTestCase
         $this->createGroup($klassId, '1');
         $this->createGroup($klassId, '2');
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/klasses/' . $klassId
         );
@@ -236,8 +252,10 @@ class KlassControllerTest extends WebTestCase
         $groupId1 = $this->createGroup($klassId, '1');
         $groupId2 = $this->createGroup($klassId, '2');
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/klasses/' . $klassId
         );

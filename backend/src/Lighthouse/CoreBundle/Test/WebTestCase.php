@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
+use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\Container;
@@ -31,7 +32,10 @@ class WebTestCase extends BaseTestCase
 
     protected $oauthClient;
 
-    protected $oauthUser;
+    /**
+     * @var User[]
+     */
+    protected $oauthUsers = array();
 
     protected function setUp()
     {
@@ -76,7 +80,7 @@ class WebTestCase extends BaseTestCase
     }
 
     /**
-     * @param Client $client
+     * @param stdClass|string $token
      * @param string $method
      * @param string $uri
      * @param mixed  $data
@@ -87,7 +91,7 @@ class WebTestCase extends BaseTestCase
      * @throws \UnexpectedValueException
      */
     protected function clientJsonRequest(
-        Client $client,
+        $token,
         $method,
         $uri,
         $data = null,
@@ -96,42 +100,54 @@ class WebTestCase extends BaseTestCase
         $changeHistory = true,
         $oauth = true
     ) {
-        if (null !== $data) {
-            $json = json_encode($data);
-        } else {
-            $json = null;
+        $request = new JsonRequest($uri, $method);
+
+        $request->parameters = $parameters;
+        $request->server = $server;
+        $request->changeHistory = $changeHistory;
+
+        // Ugly hack
+        if ($token instanceof Client) {
+            $token = null;
         }
 
-        if ($oauth) {
+        if ($token) {
+            $request->setAccessToken($token);
+        } elseif (true === $oauth) {
             $token = $this->auth();
-            $server['HTTP_AUTHORIZATION'] = 'Bearer ' . $token->access_token;
+            $request->setAccessToken($token);
+        } elseif (is_string($oauth)) {
+            $request->setAccessToken($oauth);
         }
 
-        if (!isset($server['CONTENT_TYPE'])) {
-            $server['CONTENT_TYPE'] = 'application/json';
-        }
-        if (!isset($server['HTTP_ACCEPT'])) {
-            $server['HTTP_ACCEPT'] = 'application/json, */*; q=0.01';
+        $request->setJsonData($data);
+        $request->setJsonHeaders();
+
+        return $this->jsonRequest($request);
+    }
+
+    /**
+     * @param JsonRequest $jsonRequest
+     * @param stdClass|string $accessToken
+     * @return array
+     */
+    protected function jsonRequest(JsonRequest $jsonRequest, $accessToken = null)
+    {
+        if (null !== $accessToken) {
+            $jsonRequest->setAccessToken($accessToken);
         }
 
-        $client->request(
-            $method,
-            $uri,
-            $parameters,
-            array(),
-            $server,
-            $json,
-            $changeHistory
+        $this->client->request(
+            $jsonRequest->method,
+            $jsonRequest->uri,
+            $jsonRequest->parameters,
+            $jsonRequest->files,
+            $jsonRequest->server,
+            $jsonRequest->content,
+            $jsonRequest->changeHistory
         );
 
-        $content = $client->getResponse()->getContent();
-        $json = json_decode($content, true);
-
-        if (0 != json_last_error()) {
-            throw new \UnexpectedValueException('Failed to parse json: ' . $content);
-        }
-
-        return $json;
+        return $this->parseJsonResponse($this->client);
     }
 
     /**
@@ -140,6 +156,8 @@ class WebTestCase extends BaseTestCase
      */
     protected function createInvoice(array $modifiedData = array())
     {
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $invoiceData = $modifiedData + array(
             'sku' => 'sdfwfsf232',
             'supplier' => 'ООО "Поставщик"',
@@ -151,7 +169,7 @@ class WebTestCase extends BaseTestCase
         );
 
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices.json',
             $invoiceData
@@ -172,6 +190,8 @@ class WebTestCase extends BaseTestCase
      */
     public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
     {
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $invoiceProductData = array(
             'product' => $productId,
             'quantity' => $quantity,
@@ -179,7 +199,7 @@ class WebTestCase extends BaseTestCase
         );
 
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices/' . $invoiceId . '/products.json',
             $invoiceProductData
@@ -198,8 +218,10 @@ class WebTestCase extends BaseTestCase
             'quantity' => $quantity,
         );
 
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/purchases.json',
             array(
@@ -232,12 +254,9 @@ class WebTestCase extends BaseTestCase
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
         );
 
-        $postResponse = $this->clientJsonRequest(
-            $this->client,
-            'POST',
-            '/api/1/products.json',
-            $productData
-        );
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $request = new JsonRequest('/api/1/products', 'POST', $productData);
+        $postResponse = $this->jsonRequest($request, $accessToken);
 
         Assert::assertResponseCode(201, $this->client);
         Assert::assertJsonHasPath('id', $postResponse);
@@ -273,6 +292,8 @@ class WebTestCase extends BaseTestCase
             ),
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         foreach ($productsData as $i => $row) {
 
             $invoiceProductData = array(
@@ -282,7 +303,7 @@ class WebTestCase extends BaseTestCase
             );
 
             $response = $this->clientJsonRequest(
-                $this->client,
+                $accessToken,
                 'POST',
                 '/api/1/invoices/' . $invoiceId . '/products.json',
                 $invoiceProductData
@@ -293,7 +314,7 @@ class WebTestCase extends BaseTestCase
         }
 
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $invoiceId . '/products.json'
         );
@@ -323,8 +344,10 @@ class WebTestCase extends BaseTestCase
             'date' => $date,
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/writeoffs.json',
             $postData
@@ -354,12 +377,9 @@ class WebTestCase extends BaseTestCase
             'cause' => $cause,
         );
 
-        $postResponse = $this->clientJsonRequest(
-            $this->client,
-            'POST',
-            '/api/1/writeoffs/' . $writeOffId . '/products.json',
-            $postData
-        );
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $request = new JsonRequest('/api/1/writeoffs/' . $writeOffId . '/products', 'POST', $postData);
+        $postResponse = $this->jsonRequest($request, $accessToken);
 
         Assert::assertResponseCode(201, $this->client);
 
@@ -378,8 +398,10 @@ class WebTestCase extends BaseTestCase
             'name' => $name,
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/klasses.json',
             $postData
@@ -416,11 +438,12 @@ class WebTestCase extends BaseTestCase
      */
     protected function assertProduct($productId, array $assertions)
     {
-        $productJson = $this->clientJsonRequest(
-            $this->client,
-            'GET',
-            '/api/1/products/' . $productId . '.json'
-        );
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $request = new JsonRequest('/api/1/products/' . $productId);
+        $request->setAccessToken($accessToken);
+
+        $productJson = $this->jsonRequest($request);
 
         Assert::assertResponseCode(200, $this->client);
 
@@ -439,10 +462,12 @@ class WebTestCase extends BaseTestCase
             'klass' => $klassId,
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
-            '/api/1/groups.json',
+            '/api/1/groups',
             $groupData
         );
 
@@ -479,8 +504,8 @@ class WebTestCase extends BaseTestCase
      */
     protected function createUser(
         $username = 'admin',
-        $password = 'admin',
-        $role = 'administrator',
+        $password = 'password',
+        $role = 'ROLE_ADMINISTRATOR',
         $name = 'Админ Админыч',
         $position = 'Администратор'
     ) {
@@ -504,9 +529,35 @@ class WebTestCase extends BaseTestCase
     }
 
     /**
-     * @return array
+     * @param string $role
+     * @return stdClass accessToken
      */
-    protected function auth(AuthClient $oauthClient = null, User $oauthUser = null, $password = 'password')
+    protected function authAsRole($role)
+    {
+        $user = $this->getRoleUser($role);
+        return $this->auth($user);
+    }
+
+    /**
+     * @param string $role
+     * @return User
+     */
+    protected function getRoleUser($role)
+    {
+        if (!isset($this->oauthUsers[$role])) {
+            $this->oauthUsers[$role] = $this->createUser($role, 'password', $role, $role, $role);
+        }
+
+        return $this->oauthUsers[$role];
+    }
+
+    /**
+     * @param User $oauthUser
+     * @param string $password
+     * @param AuthClient $oauthClient
+     * @return stdClass access token
+     */
+    protected function auth(User $oauthUser = null, $password = 'password', AuthClient $oauthClient = null)
     {
         if (!$oauthClient) {
             if (!$this->oauthClient) {
@@ -516,10 +567,7 @@ class WebTestCase extends BaseTestCase
         }
 
         if (!$oauthUser) {
-            if (!$this->oauthUser) {
-                $this->oauthUser = $this->createUser('admin', $password);
-            }
-            $oauthUser = $this->oauthUser;
+            $oauthUser = $this->getRoleUser('ROLE_ADMINISTRATOR');
         }
 
         $authParams = array(
@@ -540,6 +588,23 @@ class WebTestCase extends BaseTestCase
 
         $response = $this->client->getResponse()->getContent();
         $json = json_decode($response);
+
+        return $json;
+    }
+
+    /**
+     * @param Client $client
+     * @return mixed
+     * @throws \UnexpectedValueException
+     */
+    protected function parseJsonResponse(Client $client)
+    {
+        $content = $client->getResponse()->getContent();
+        $json = json_decode($content, true);
+
+        if (0 != json_last_error()) {
+            throw new \UnexpectedValueException('Failed to parse json: ' . $content);
+        }
 
         return $json;
     }

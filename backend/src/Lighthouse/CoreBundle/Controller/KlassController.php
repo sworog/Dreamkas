@@ -9,6 +9,8 @@ use Lighthouse\CoreBundle\Form\KlassType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class KlassController extends AbstractRestController
 {
@@ -31,6 +33,8 @@ class KlassController extends AbstractRestController
      *
      * @param Request $request
      * @return \FOS\RestBundle\View\View|Klass
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
     public function postKlassesAction(Request $request)
     {
@@ -41,34 +45,44 @@ class KlassController extends AbstractRestController
      * @Rest\View(statusCode=200)
      *
      * @param Request $request
-     * @param $id
+     * @param Klass $klass
      * @return \FOS\RestBundle\View\View|Klass
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
-    public function putKlassesAction(Request $request, $id)
+    public function putKlassesAction(Request $request, Klass $klass)
     {
-        return $this->processPut($request, $id);
+        return $this->processForm($request, $klass);
     }
 
     /**
-     * @param string $id
+     * @param Klass $klass
      * @return null
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
-    public function deleteKlassesAction($id)
+    public function deleteKlassesAction(Klass $klass)
     {
-        return $this->processDelete($id);
+        return $this->processDelete($klass);
     }
 
     /**
-     * @param $id
+     * @param Klass $klass
      * @return Klass
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
-    public function getKlassAction($id)
+    public function getKlassAction(Klass $klass)
     {
-        return $this->processGet($id);
+        return $klass;
     }
 
     /**
      * @return KlassCollection
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc(
+     *      resource=true
+     * )
      */
     public function getKlassesAction()
     {

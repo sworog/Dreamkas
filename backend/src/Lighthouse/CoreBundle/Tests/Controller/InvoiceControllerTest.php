@@ -18,8 +18,10 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testPostInvoiceAction(array $invoiceData, array $assertions = array())
     {
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices',
             $invoiceData
@@ -40,8 +42,10 @@ class InvoiceControllerTest extends WebTestCase
             $this->createInvoice($invoiceData);
         }
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices'
         );
@@ -57,8 +61,10 @@ class InvoiceControllerTest extends WebTestCase
     {
         $id = $this->createInvoice($invoiceData);
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $id
         );
@@ -100,8 +106,11 @@ class InvoiceControllerTest extends WebTestCase
     public function testGetInvoiceNotFound()
     {
         $id = 'not_exists_id';
+
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/invoices/' . $id
         );
@@ -118,8 +127,10 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = $data + $invoiceData['invoice']['data'];
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices',
             $postData
@@ -141,8 +152,10 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = $data + $invoiceData['invoice']['data'];
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices',
             $postData
@@ -185,8 +198,10 @@ class InvoiceControllerTest extends WebTestCase
         $expectedCode,
         array $putAssertions
     ) {
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         $postJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/invoices',
             $postData
@@ -201,7 +216,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $putData += $postData;
         $putJson = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/invoices/' . $invoiceId,
             $putData

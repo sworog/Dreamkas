@@ -9,4 +9,5 @@
 /composer.lock
 /.idea
 /.bundle
+/app/phpunit.debug.xml
 /app/phpunit.xml

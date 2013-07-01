@@ -11,6 +11,8 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class InvoiceController extends AbstractRestController
 {
@@ -33,6 +35,8 @@ class InvoiceController extends AbstractRestController
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\Invoice
      *
      * @Rest\View(statusCode=201)
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
     public function postInvoicesAction(Request $request)
     {
@@ -41,18 +45,23 @@ class InvoiceController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $id
+     * @param Invoice $invoice
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\Invoice
      *
-     * @Rest\View(statusCode=200)
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function putInvoicesAction(Request $request, $id)
+    public function putInvoicesAction(Request $request, Invoice $invoice)
     {
-        return $this->processPut($request, $id);
+        return $this->processForm($request, $invoice);
     }
 
     /**
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc(
+     *      resource=true
+     * )
      */
     public function getInvoicesAction()
     {
@@ -63,11 +72,13 @@ class InvoiceController extends AbstractRestController
     }
 
     /**
-     * @param int $id
+     * @param Invoice $invoice
      * @return \Lighthouse\CoreBundle\Document\Invoice\Invoice
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
-    public function getInvoiceAction($id)
+    public function getInvoiceAction(Invoice $invoice)
     {
-        return $this->processGet($id);
+        return $invoice;
     }
 }

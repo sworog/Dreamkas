@@ -18,8 +18,10 @@ class GroupControllerTest extends WebTestCase
             'klass' => $klassId,
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/groups',
             $groupData
@@ -45,9 +47,10 @@ class GroupControllerTest extends WebTestCase
             'klass' => $klassId1,
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         // Create first group
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/groups',
             $groupData
@@ -58,7 +61,7 @@ class GroupControllerTest extends WebTestCase
 
         // Try to create second group with same name in klass 1
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/groups',
             $groupData
@@ -75,7 +78,7 @@ class GroupControllerTest extends WebTestCase
 
         // Create group with same name but in klass 2
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/groups',
             $groupData2
@@ -86,7 +89,7 @@ class GroupControllerTest extends WebTestCase
 
         // Create second group with same name in klass 2
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/groups',
             $groupData2
@@ -118,8 +121,9 @@ class GroupControllerTest extends WebTestCase
             'klass' => $klassId,
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $postResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'POST',
             '/api/1/groups',
             $groupData
@@ -190,8 +194,9 @@ class GroupControllerTest extends WebTestCase
             'klass' => $klassId,
         );
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $putResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'PUT',
             '/api/1/groups/' . $groupId,
             $putData
@@ -211,8 +216,9 @@ class GroupControllerTest extends WebTestCase
         $klassId = $this->createKlass();
         $groupId = $this->createGroup($klassId);
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/groups/' . $groupId
         );
@@ -228,10 +234,11 @@ class GroupControllerTest extends WebTestCase
         $this->clearMongoDb();
 
         $klassId1 = $this->createKlass('1');
-        $groupId1 = $this->createGroup($klassId1, '1.1');
+        $this->createGroup($klassId1, '1.1');
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/groups/invalidId'
         );
@@ -253,8 +260,9 @@ class GroupControllerTest extends WebTestCase
         $groupId4 = $this->createGroup($klassId2, '2.4');
         $groupId5 = $this->createGroup($klassId2, '2.5');
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/klasses/' . $klassId1 . '/groups'
         );
@@ -270,7 +278,7 @@ class GroupControllerTest extends WebTestCase
 
 
         $getResponse = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/klasses/' . $klassId2 . '/groups'
         );
@@ -289,8 +297,9 @@ class GroupControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/klasses/123484923423/groups'
         );
@@ -304,8 +313,9 @@ class GroupControllerTest extends WebTestCase
 
         $klassId = $this->createKlass();
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $response = $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/klasses/' . $klassId . '/groups'
         );
@@ -322,8 +332,9 @@ class GroupControllerTest extends WebTestCase
         $klassId = $this->createKlass();
         $groupId = $this->createGroup($klassId);
 
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'GET',
             '/api/1/groups/' . $groupId
         );
@@ -331,7 +342,7 @@ class GroupControllerTest extends WebTestCase
         Assert::assertResponseCode(200, $this->client);
 
         $this->clientJsonRequest(
-            $this->client,
+            $accessToken,
             'DELETE',
             '/api/1/groups/' . $groupId
         );

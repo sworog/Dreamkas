@@ -10,11 +10,6 @@ use Symfony\Component\Console\Tester\CommandTester;
 class CreateUserTest extends WebTestCase
 {
     /**
-     * @var CreateUser
-     */
-    protected $command;
-
-    /**
      * @var UserProvider
      */
     protected $userProvider;
@@ -24,23 +19,30 @@ class CreateUserTest extends WebTestCase
         $this->clearMongoDb();
 
         $this->userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
+    }
+
+    /**
+     * @return CreateUser
+     */
+    protected function getCommand()
+    {
         $serializer = $this->getContainer()->get('serializer');
 
         $command = new CreateUser();
         $command->setUserProvider($this->userProvider);
         $command->setSerializer($serializer);
 
-        $this->command = $command;
+        return $command;
     }
 
     public function testExecute()
     {
-        $commandTester = new CommandTester($this->command);
+        $commandTester = new CommandTester($this->getCommand());
 
         $input = array(
             'username' => 'admin',
             'password' => 'lighthouse',
-            'role' => 'administrator',
+            'role' => 'ROLE_ADMINISTRATOR',
         );
 
         $exitCode = $commandTester->execute($input);
@@ -50,14 +52,14 @@ class CreateUserTest extends WebTestCase
         $display = $commandTester->getDisplay();
         $this->assertContains('Creating user...Done', $display);
         $this->assertContains('"username":"admin"', $display);
-        $this->assertContains('"role":"administrator"', $display);
+        $this->assertContains('"role":"ROLE_ADMINISTRATOR"', $display);
 
         $user = $this->userProvider->loadUserByUsername('admin');
 
         $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\User\\User', $user);
         $this->assertEquals('admin', $user->username);
         $this->assertNotEquals('lighthouse', $user->password);
-        $this->assertEquals('administrator', $user->role);
+        $this->assertEquals('ROLE_ADMINISTRATOR', $user->role);
     }
 
     /**
@@ -66,12 +68,12 @@ class CreateUserTest extends WebTestCase
      */
     public function testUserExists()
     {
-        $commandTester = new CommandTester($this->command);
+        $commandTester = new CommandTester($this->getCommand());
 
         $input = array(
             'username' => 'admin',
             'password' => 'lighthouse',
-            'role' => 'administrator',
+            'role' => 'ROLE_ADMINISTRATOR',
         );
 
         $exitCode1 = $commandTester->execute($input);
@@ -87,7 +89,7 @@ class CreateUserTest extends WebTestCase
      */
     public function testMissingParams()
     {
-        $commandTester = new CommandTester($this->command);
+        $commandTester = new CommandTester($this->getCommand());
 
         $exitCode = $commandTester->execute(array());
 
