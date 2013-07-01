@@ -26,6 +26,10 @@ abstract public class CommonItem {
         return parent.findElement(findBy);
     }
 
+    public WebElement getVisibleWebElement() {
+        return pageObject.findVisibleElement(findBy);
+    }
+
     public WebElement getOnlyVisibleWebElement() {
         return pageObject.findOnlyVisibleWebElementFromTheWebElementsList(findBy);
     }
@@ -46,6 +50,10 @@ abstract public class CommonItem {
 
     public WebElementFacade getOnlyVisibleWebElementFacade() {
         return pageObject.$(getOnlyVisibleWebElement());
+    }
+
+    public WebElementFacade getVisibleWebElementFacade() {
+        return pageObject.$(getVisibleWebElement());
     }
 
     public void click() {
