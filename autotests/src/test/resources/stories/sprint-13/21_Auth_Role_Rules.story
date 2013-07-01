@@ -218,7 +218,7 @@ And the user creates new group with name 'First group create1234567'
 And the user clicks on end edition link and ends the edition
 Then the user checks the group with 'First group create1234567' name is present
 When user opens the dashboard 'catalog' section
-Then the user checks the group with 'First group create123' name is related to class 'GcFcP1234567'
+Then the user checks the group with 'First group create1234567' name is related to class 'GcFcP1234567'
 When the user logs out
 
 Scenario: departmentManager role valid rules - simple user scenario from dashboard - invoice

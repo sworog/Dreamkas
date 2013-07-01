@@ -101,14 +101,4 @@ public class AuthorizationPage extends CommonPageObject {
         String error404Xpath = getError403Xpath();
         waiter.waitUntilIsNotVisible(By.xpath(error404Xpath));
     }
-
-    public void editProductButtonIsNotPresent() {
-        String editButtonXpath = "//*[@class='user__editLink']";
-        waiter.waitUntilIsNotVisible(By.xpath(editButtonXpath));
-    }
-
-    public void newProductCreateButtonIsNotPresent() {
-        String xpath = "//a[@class='button']";
-        waiter.waitUntilIsNotVisible(By.xpath(xpath));
-    }
 }
