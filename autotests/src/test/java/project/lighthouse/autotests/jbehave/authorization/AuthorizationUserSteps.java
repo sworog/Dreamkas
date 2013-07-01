@@ -50,4 +50,9 @@ public class AuthorizationUserSteps {
     public void thenTheUserChecksTheLoginFormIsPresent() {
         authorizationSteps.loginFormIsPresent();
     }
+
+    @Then("the user sees the 404 error")
+    public void thenTheUserSeesThe404Error() {
+        authorizationSteps.error404IsPresent();
+    }
 }
