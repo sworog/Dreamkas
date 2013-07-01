@@ -17,9 +17,9 @@ define(function(require) {
 
             page.productsCollection = new ProductsCollection();
 
-            page.render();
-
             $.when(page.productsCollection.fetch()).then(function(){
+                page.render();
+
                 new Table_balance({
                     collection: page.productsCollection,
                     el: document.getElementById('table_balance')

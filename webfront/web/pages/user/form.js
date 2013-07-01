@@ -23,7 +23,6 @@ define(function(require) {
             });
 
             $.when(userId ? page.userModel.fetch() : {}).then(function(){
-
                 page.render();
 
                 new Form_user({

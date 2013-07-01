@@ -26,7 +26,7 @@ define(function(require) {
 
             'writeOffs(/)': require('pages/writeOff/list'),
             'writeOffs/create(/)': require('pages/writeOff/form'),
-            'writeOff/:writeOffId(/)': require('pages/writeOff/view'),
+            'writeOffs/:writeOffId(/)': require('pages/writeOff/view'),
 
             'catalog': require('pages/catalog/catalog'),
             'catalog/:catalogClassId': require('pages/catalog/class'),

@@ -21,9 +21,9 @@ define(function(require) {
                 id: page.productId
             });
 
-            page.render();
-
             $.when(productId ? page.productModel.fetch() : {}).then(function(){
+                page.render();
+
                 new Form_product({
                     model: page.productModel,
                     el: document.getElementById('form_product')
