@@ -99,6 +99,7 @@ nelmio_cors:
 sensio_framework_extra:
     view:    { annotations: false }
     router:  { annotations: true }
+    request: { converters: true }
 
 fos_oauth_server:
     db_driver: mongodb

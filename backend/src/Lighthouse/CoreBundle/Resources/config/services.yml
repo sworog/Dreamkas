@@ -10,6 +10,12 @@ services:
     jms_serializer.metadata_driver:
         alias: lighthouse.core.serializer.metadata.driver.document
 
+    sensio_framework_extra.converter.doctrine.orm:
+        class: %sensio_framework_extra.converter.doctrine.class%
+        arguments: ["@doctrine_mongodb"]
+        tags:
+            - { name: request.param_converter, converter: doctrine.orm }
+
     doctrine_mongodb.odm.repository:
         abstract: true
         class: Doctrine\ODM\MongoDB\DocumentRepository

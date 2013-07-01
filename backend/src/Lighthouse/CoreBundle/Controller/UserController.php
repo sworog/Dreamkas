@@ -15,6 +15,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class UserController extends AbstractRestController
 {
@@ -77,7 +78,7 @@ class UserController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $id User ID
+     * @param User $user User ID
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
      *
      * @Rest\View(statusCode=200)
@@ -86,26 +87,24 @@ class UserController extends AbstractRestController
      *      input="Lighthouse\CoreBundle\Form\UserType"
      * )
      */
-    public function putUsersAction(Request $request, $id)
+    public function putUsersAction(Request $request, User $user)
     {
-        /** @var User $document */
-        $document = $this->findDocument($id);
-        $originPassword = $document->password;
+        $originPassword = $user->password;
 
         $type = $this->getDocumentFormType();
-        $form = $this->createForm($type, $document);
+        $form = $this->createForm($type, $user);
         $form->submit($request);
 
         if ($form->isValid()) {
             $requestPassword = $form->get('password')->getData();
             if (null === $requestPassword || '' == $requestPassword) {
-                $document->password = $originPassword;
+                $user->password = $originPassword;
             } else {
-                $this->userProvider->setPassword($document, $document->password);
+                $this->userProvider->setPassword($user, $user->password);
             }
-            $this->getDocumentRepository()->getDocumentManager()->persist($document);
+            $this->getDocumentRepository()->getDocumentManager()->persist($user);
             $this->getDocumentRepository()->getDocumentManager()->flush();
-            return $document;
+            return $user;
         } else {
             return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
@@ -123,15 +122,15 @@ class UserController extends AbstractRestController
     }
 
     /**
-     * @param int $id User ID
      * @return User
      * @ApiDoc(
      *      description="Get user"
      * )
+     * @Secure(roles="administrator")
      */
-    public function getUserAction($id)
+    public function getUserAction(User $user)
     {
-        return $this->processGet($id);
+        return $user;
     }
 
     /**
