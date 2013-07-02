@@ -645,7 +645,7 @@ And the user logs in as 'departmentManager'
 When the user opens dashboard user card
 Then the user checks the user page elements values
 | elementName | expectedValue |
-| name | Заведующий отделом |
+| name | departmentManager |
 | position | Заведующий отделом |
 | username | departmentManager |
 | role | Заведующий отделом |
@@ -671,7 +671,7 @@ And the user logs in as 'commercialManager'
 When the user opens dashboard user card
 Then the user checks the user page elements values
 | elementName | expectedValue |
-| name | Коммерческий директор сети |
+| name | commercialManager |
 | position | Коммерческий директор сети |
 | username | commercialManager |
 | role | Коммерческий директор сети |
@@ -697,7 +697,7 @@ And the user logs in as 'storeManager'
 When the user opens dashboard user card
 Then the user checks the user page elements values
 | elementName | expectedValue |
-| name | Директор магазина |
+| name | storeManager |
 | position | Директор магазина |
 | username | storeManager |
 | role | Директор магазина |
