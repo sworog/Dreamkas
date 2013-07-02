@@ -1,8 +1,13 @@
 define(function(require) {
     //requirements
-    var app = require('app');
+    var app = require('app'),
+        userPermissionsModel = require('models/userPermissions');
 
     require('routers/authorized');
 
-    app.start();
+    userPermissionsModel.fetch({
+        success: function(){
+            app.start();
+        }
+    });
 });
