@@ -6,6 +6,12 @@ define(function(require) {
 
     return Backbone.Model.extend({
         saveFields: [],
+        initData: {},
+        constructor: function(attributes, options){
+            Backbone.Model.call(this, attributes, _.extend({
+                parse: true
+            }, options))
+        },
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({
                 wait: true,
@@ -43,6 +49,12 @@ define(function(require) {
             }
 
             return toJSON.apply(this, arguments);
+        },
+        parse: function(response) {
+            _.each(this.initData, function(Class, key){
+                response[key] = new Class(response[key], {parse: true});
+            });
+            return response;
         }
     })
 });
