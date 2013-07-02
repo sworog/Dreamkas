@@ -28,10 +28,12 @@ define(function(require) {
             var block = this;
 
             block.$navigation
-                .find('[href="' + pathName + '"]')
-                .addClass('topBar__active')
-                .siblings('.topBar__active')
+                .find('.topBar__active')
                 .removeClass('topBar__active');
+            
+            block.$navigation.
+                find('[href="' + pathName + '"]')
+                .addClass('topBar__active');
         }
     });
 
