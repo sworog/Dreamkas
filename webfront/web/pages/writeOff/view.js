@@ -3,7 +3,8 @@ define(function(require) {
     var $ = require('jquery'),
         Page = require('pages/page'),
         WriteOff = require('blocks/writeOff/writeOff'),
-        WriteOffModel = require('models/writeOff');
+        WriteOffModel = require('models/writeOff'),
+        WriteOffProductsCollection = require('collections/writeOffProducts');
 
     return Page.extend({
         pageName: 'page_writeOff_view',
@@ -18,16 +19,21 @@ define(function(require) {
 
             page.writeOffId = writeOffId;
             page.params = params || {};
+
             page.writeOffModel = new WriteOffModel({
                 id: page.writeOffId
             });
 
-            $.when(page.writeOffModel.fetch()).then(function(){
+            page.writeOffProductsCollection = new WriteOffProductsCollection({
+                writeOffId: page.writeOffId
+            });
+
+            $.when(page.writeOffModel.fetch(), page.writeOffProductsCollection.fetch()).then(function(){
                 page.render();
 
                 new WriteOff({
-                    model: page.writeOffModel,
-                    writeOffId: page.writeOffId,
+                    writeOffModel: page.writeOffModel,
+                    writeOffProductsCollection: page.writeOffProductsCollection,
                     editMode: page.params.editMode,
                     el: document.getElementById('writeOff')
                 });

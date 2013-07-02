@@ -1,11 +1,15 @@
 define(function(require) {
         //requirements
         var Form = require('blocks/form/form'),
+            _ = require('underscore'),
             WriteOffProduct = require('models/writeOffProduct'),
             cookie = require('utils/cookie');
 
         return Form.extend({
-            writeOffId: null,
+            blockName: 'form_writeOffProduct',
+            templates: {
+                index: require('tpl!./templates/form_writeOffProduct.html')
+            },
 
             initialize: function(){
                 Form.prototype.initialize.apply(this, arguments);
@@ -19,18 +23,19 @@ define(function(require) {
             submit: function(){
                 var block = this,
                     deferred = $.Deferred(),
-                    productData = Backbone.Syphon.serialize(block),
                     newProduct = new WriteOffProduct({
                         writeOff: {
-                            id: block.writeOffId
+                            id: block.writeOffProductsCollection.writeOffId
                         }
                     });
 
-                newProduct.save(productData, {
+                newProduct.save(block.data, {
                     error: function(model, res) {
                         deferred.reject(JSON.parse(res.responseText));
                     },
                     success: function(model) {
+                        block.writeOffProductsCollection.push(model);
+                        block.clear();
                         deferred.resolve(model);
                     }
                 });

@@ -1,10 +1,10 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
+            _ = require('underscore'),
+            Backbone = require('backbone'),
             InputDate = require('kit/blocks/inputDate/inputDate'),
-            WriteOffModel = require('models/writeOff'),
-            WriteOffProductCollection = require('collections/writeOffProducts'),
-            AddProductForm = require('blocks/writeOff/addProductForm'),
+            AddProductForm = require('blocks/form/form_writeOffProduct/form_writeOffProduct'),
             cookie = require('utils/cookie');
 
         return Block.extend({
@@ -27,58 +27,44 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                block.writeOffProductCollection = new WriteOffProductCollection({
-                    writeOffId: block.writeOffId
-                });
-
-                block.writeOffModel = new WriteOffModel({
-                    id: block.writeOffId
-                });
-
-                block.writeOffModel.fetch();
-                block.writeOffProductCollection.fetch();
-
-                block.render();
+                Block.prototype.initialize.call(this);
 
                 block.set('editMode', block.editMode);
 
-                block.addForm = new AddProductForm({
-                    writeOffId: block.writeOffId,
-                    el: block.el.getElementsByClassName('writeOff__addProductForm')
+                block.productForm = new AddProductForm({
+                    writeOffProductsCollection: block.writeOffProductsCollection,
+                    el: block.el.getElementsByClassName('writeOff__productForm')
                 });
+            },
+            listeners: {
+                writeOffModel: {
+                    change: function(){
+                        var block = this;
 
-                block.listenTo(block.addForm, {
-                    successSubmit: function(model){
-                        block.writeOffProductCollection.push(model);
-                        block.addForm.clear();
+                        block.renderHead();
+                        block.renderFooter();
                     }
-                });
-
-                block.listenTo(block.writeOffModel, 'sync change', function() {
-                    block.$head.html(block.templates.head({
-                        block: block
-                    }));
-                    block.$footer.html(block.templates.footer({
-                        block: block
-                    }));
-                });
-
-                block.listenTo(block.writeOffProductCollection, {
+                },
+                writeOffProductsCollection: {
                     sync: function() {
+                        var block = this;
                         block.renderTable();
                     },
                     add: function(model) {
+                        var block = this;
                         block.renderTable();
                         block.writeOffModel.set(model.toJSON().writeOff);
                     },
                     change: function(model) {
+                        var block = this;
                         block.writeOffModel.set(model.toJSON().writeOff);
                     },
                     destroy: function() {
+                        var block = this;
                         block.renderTable();
                         block.writeOffModel.fetch();
                     }
-                });
+                }
             },
             events: {
                 'click .writeOff__removeLink': function(e) {
@@ -115,7 +101,7 @@ define(function(require) {
 
                     var notEmptyForm = false;
 
-                    block.addForm.$el.find('.inputText').each(function() {
+                    block.productForm.$el.find('.inputText').each(function() {
                         if ($(this).val()) {
                             notEmptyForm = true;
                         }
@@ -141,7 +127,7 @@ define(function(require) {
                     var block = this,
                         data = Backbone.Syphon.serialize(e.target),
                         writeOffProductId = $(e.target).closest('[writeOff-product-id]').attr('writeOff-product-id'),
-                        writeOffProduct = block.writeOffProductCollection.get(writeOffProductId),
+                        writeOffProduct = block.writeOffProductsCollection.get(writeOffProductId),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();
@@ -204,7 +190,7 @@ define(function(require) {
             'set:dataEditing': function(val) {
                 var block = this;
 
-                block.addForm.disable(val);
+                block.productForm.disable(val);
 
                 if (val) {
                     block.$el.addClass('writeOff_dataEditing');
@@ -244,7 +230,7 @@ define(function(require) {
             },
             removeWriteOffProduct: function(writeOffProductId) {
                 var block = this,
-                    writeOffProductModel = block.writeOffProductCollection.get(writeOffProductId);
+                    writeOffProductModel = block.writeOffProductsCollection.get(writeOffProductId);
 
                 writeOffProductModel.destroy({
                     wait: true
@@ -254,6 +240,20 @@ define(function(require) {
                 var block = this;
 
                 block.$table.html(block.templates.table({
+                    block: block
+                }));
+            },
+            renderHead: function(){
+                var block = this;
+
+                block.$head.html(block.templates.head({
+                    block: block
+                }));
+            },
+            renderFooter: function(){
+                var block = this;
+
+                block.$footer.html(block.templates.footer({
                     block: block
                 }));
             },

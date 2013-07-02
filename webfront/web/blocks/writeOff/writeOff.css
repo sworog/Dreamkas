@@ -23,12 +23,12 @@
     padding-bottom: 20px;
 }
 
-.writeOff__addProductForm,
+.writeOff__roductForm,
 .writeOff__stopEditLink {
     display: none;
 }
 
-.writeOff_editMode .writeOff__addProductForm {
+.writeOff_editMode .writeOff__roductForm {
     display: block;
 }
 
