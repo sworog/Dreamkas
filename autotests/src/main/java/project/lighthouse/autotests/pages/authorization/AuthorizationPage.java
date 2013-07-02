@@ -4,13 +4,13 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @DefaultUrl("/")
-public class AuthorizationPage extends CommonPageObject {
+public class AuthorizationPage extends UserCreatePage {
 
     public Map<String, String> users = new HashMap();
     Boolean isAuthorized = false;
@@ -43,6 +43,7 @@ public class AuthorizationPage extends CommonPageObject {
         String loginButtonXpath = "//*[@class='button button_color_blue']/input";
         findBy(loginButtonXpath).click();
         isAuthorized = true;
+        preloaderWait();
     }
 
     public void logOut() {
