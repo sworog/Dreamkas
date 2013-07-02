@@ -525,6 +525,34 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertResponseCode(404, $this->client);
     }
 
+    public function testGetInvoiceProductActionNotFound()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct();
+        $invoiceId1 = $this->createInvoice();
+        $invoiceId2 = $this->createInvoice();
+        $invoiceProductId = $this->createInvoiceProduct($invoiceId1, $productId, 1, 5.00);
+
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/invoices/' . $invoiceId2 . '/products/' . $invoiceProductId
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
+
     public function testGetInvoiceProductsActionEmptyCollection()
     {
         $this->clearMongoDb();
