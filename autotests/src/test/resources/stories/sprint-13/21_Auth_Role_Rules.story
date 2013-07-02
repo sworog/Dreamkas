@@ -113,7 +113,7 @@ When the user logs out
 Scenario: commercial manager role invalid rules - dashboard links - balance
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-Then the user checks the dashboard link to 'balance' section is not present
+Then the user checks the dashboard link to 'balance' section is present
 When the user logs out
 
 Scenario: commercial manager role invalid rules - dashboard links - writeOffs
@@ -392,7 +392,7 @@ Scenario: commercialManager role invalid rules - unauthorised access from balanc
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 And the user opens amount list page
-Then the user sees the 403 error
+Then the user dont see the 403 error
 When the user logs out
 
 Scenario: commercialManager role invalid rules - unauthorised access from writeOffs link
