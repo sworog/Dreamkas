@@ -22,13 +22,14 @@ require.config(
         }
     });
 
-require(['models/currentUser'], function(currentUserModel) {
-    currentUserModel.fetch({
-        success: function(){
+require(['jquery', 'models/currentUser', 'models/userPermissions'], function($, currentUserModel, userPermissionsModel) {
+
+    $.when(currentUserModel.fetch(), userPermissionsModel.fetch()).then(
+        function() {
             require(['loaders/authorized']);
         },
-        error: function(){
+        function() {
             require(['loaders/unauthorized']);
-        }
-    });
+        });
+
 });

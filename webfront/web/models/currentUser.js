@@ -25,11 +25,5 @@ define(function(require) {
         url: LH.baseApiUrl + '/users/current'
     });
 
-    var currentUserModel = new CurrentUserModel();
-
-    currentUserModel.on('change:role', function(model, role, options){
-        model.set('permissions', permissions[role]);
-    });
-
-    return currentUserModel;
+    return new CurrentUserModel();
 });

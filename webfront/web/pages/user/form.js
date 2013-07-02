@@ -11,7 +11,7 @@ define(function(require) {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {
-            users: 'all'
+            users: 'POST'
         },
         initialize: function(userId, params) {
             var page = this;

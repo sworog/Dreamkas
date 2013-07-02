@@ -10,7 +10,7 @@ define(function(require) {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {
-            products: 'all'
+            products: 'POST'
         },
         initialize: function(productId){
             var page = this;

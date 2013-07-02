@@ -10,7 +10,7 @@ define(function(require) {
             '#content': require('tpl!./templates/view.html')
         },
         permissions: {
-            invoices: 'get'
+            invoices: 'GET::{invoice}'
         },
         initialize: function(invoiceId, params) {
             var page = this;

@@ -11,7 +11,7 @@ define(function(require) {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {
-            writeoffs: 'all'
+            writeoffs: 'POST'
         },
         initialize: function() {
             var page = this;

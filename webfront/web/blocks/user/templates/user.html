@@ -1,4 +1,4 @@
-<% if(LH.isAllow('users', 'put')) { %>
+<% if(LH.isAllow('users', 'PUT::{user}')) { %>
 <div class="page__controls">
     <a class="user__editLink"
        href="/users/edit/<%= block.model.get('id') %>">

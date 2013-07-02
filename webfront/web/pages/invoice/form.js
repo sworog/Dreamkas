@@ -10,7 +10,7 @@ define(function(require) {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {
-            invoices: 'all'
+            invoices: 'POST'
         },
         initialize: function() {
             var page = this;

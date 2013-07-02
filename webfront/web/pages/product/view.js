@@ -10,7 +10,7 @@ define(function(require) {
             '#content': require('tpl!./templates/view.html')
         },
         permissions: {
-            products: 'get'
+            products: 'GET::{product}'
         },
         initialize: function(productId) {
             var page = this;

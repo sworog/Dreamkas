@@ -1,6 +1,7 @@
 define(function(require) {
         //requirements
         var Tooltip_editGroupMenu = require('blocks/tooltip/tooltip_editGroupMenu'),
+            Backbone = require('backbone'),
             Editor = require('kit/blocks/editor/editor'),
             Tooltip = require('kit/blocks/tooltip/tooltip'),
             CatalogClassModel = require('models/catalogClass'),
@@ -10,6 +11,8 @@ define(function(require) {
             params = require('pages/catalog/params'),
             Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
             Form = require('blocks/form/form');
+
+        var router = new Backbone.Router();
 
         return Editor.extend({
             editMode: false,
@@ -117,7 +120,7 @@ define(function(require) {
                         block.renderClassList();
                     },
                     destroy: function(){
-                        params.navigate('/catalog', {
+                        router.navigate('/catalog', {
                             trigger: true
                         })
                     }

@@ -2,7 +2,8 @@ define(function(require) {
     //requirements
     var Block = require('kit/block'),
         app = require('app'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser'),
+        userPermissions = require('models/userPermissions');
 
     var TopBar = Block.extend({
         className: 'topBar',
@@ -23,6 +24,18 @@ define(function(require) {
             block.$el.prependTo('body');
 
             Block.prototype.initialize.call(this);
+
+            block.listenTo(currentUserModel, {
+                change: function(){
+                    block.render();
+                }
+            });
+
+            block.listenTo(userPermissions, {
+                change: function(){
+                    block.render();
+                }
+            });
         },
         'set:active': function(pathName){
             var block = this;

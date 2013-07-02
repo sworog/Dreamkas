@@ -1,14 +1,14 @@
 define(function(require) {
     //requirements
-    var currentUserModel = require('models/currentUser'),
+    var userPermissionsModel = require('models/userPermissions'),
         _ = require('underscore');
 
     return function(resource, method){
 
-        method = method || 'get';
+        method = method || 'GET';
 
         var isAllow = false,
-            permissions = currentUserModel.get('permissions')[resource];
+            permissions = userPermissionsModel.get(resource);
 
         if (permissions && permissions === 'all'){
             isAllow = true;

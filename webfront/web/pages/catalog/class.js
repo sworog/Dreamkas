@@ -11,7 +11,7 @@ define(function(require) {
             '#content': require('tpl!./templates/class.html')
         },
         permissions: {
-            klasses: 'get'
+            klasses: 'GET'
         },
         initialize: function(catalogClassId, params){
             var page = this;

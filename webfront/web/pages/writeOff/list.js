@@ -11,7 +11,7 @@ define(function(require) {
             '#content': require('tpl!./templates/list.html')
         },
         permissions: {
-            writeoffs: 'get'
+            writeoffs: 'GET'
         },
         initialize: function(){
             var page = this;
