@@ -22,14 +22,14 @@ services:
         factory_service: doctrine_mongodb.odm.document_manager
         factory_method: getRepository
 
-    test.client:
-        class: Lighthouse\CoreBundle\Test\Client\Client
-        scope: prototype
-        arguments:
-            - @kernel
-            - %test.client.parameters%
-            - @test.client.history
-            - @test.client.cookiejar
+    #test.client:
+    #    class: Lighthouse\CoreBundle\Test\Client\Client
+    #    scope: prototype
+    #    arguments:
+    #        - @kernel
+    #        - %test.client.parameters%
+    #        - @test.client.history
+    #        - @test.client.cookiejar
 
 
     lighthouse.core.document.repository.product:
