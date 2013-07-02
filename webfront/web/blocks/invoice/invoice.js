@@ -26,18 +26,7 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                block.invoiceProductCollection = new InvoiceProductCollection({
-                    invoiceId: block.invoiceId
-                });
-
-                block.invoiceModel = new InvoiceModel({
-                    id: block.invoiceId
-                });
-
-                block.invoiceModel.fetch();
-                block.invoiceProductCollection.fetch();
-
-                block.render();
+                Block.prototype.initialize.call(block);
 
                 block.set('editMode', block.editMode);
 
@@ -48,7 +37,7 @@ define(function(require) {
 
                 block.listenTo(block.addForm, {
                     successSubmit: function(model){
-                        block.invoiceProductCollection.push(model);
+                        block.invoiceProductsCollection.push(model);
                         block.addForm.clear();
                     }
                 });
@@ -62,7 +51,7 @@ define(function(require) {
                         }));
                     });
 
-                block.listenTo(block.invoiceProductCollection, {
+                block.listenTo(block.invoiceProductsCollection, {
                         sync: function() {
                             block.renderTable();
                         },
@@ -78,6 +67,44 @@ define(function(require) {
                             block.invoiceModel.fetch();
                         }
                     });
+            },
+            listeners: {
+                addForm : {
+                    successSubmit: function(model){
+                        var block = this;
+
+                        block.invoiceProductsCollection.push(model);
+                        block.addForm.clear();
+                    }
+                },
+                invoiceModel: {
+                    sync: function(){
+                        var block = this;
+
+                        block.$head.html(block.templates.head({
+                            block: block
+                        }));
+                        block.$footer.html(block.templates.footer({
+                            block: block
+                        }));
+                    }
+                },
+                invoiceProductsCollection: {
+                    sync: function() {
+                        block.renderTable();
+                    },
+                    add: function(model) {
+                        block.renderTable();
+                        block.invoiceModel.set(model.toJSON().invoice);
+                    },
+                    change: function(model) {
+                        block.invoiceModel.set(model.toJSON().invoice);
+                    },
+                    destroy: function() {
+                        block.renderTable();
+                        block.invoiceModel.fetch();
+                    }
+                }
             },
             events: {
                 'click .invoice__removeLink': function(e) {
@@ -140,7 +167,7 @@ define(function(require) {
                     var block = this,
                         data = Backbone.Syphon.serialize(e.target),
                         invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
-                        invoiceProduct = block.invoiceProductCollection.get(invoiceProductId),
+                        invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();
@@ -243,7 +270,7 @@ define(function(require) {
             },
             removeInvoiceProduct: function(invoiceProductId) {
                 var block = this,
-                    invoiceProductModel = block.invoiceProductCollection.get(invoiceProductId);
+                    invoiceProductModel = block.invoiceProductsCollection.get(invoiceProductId);
 
                 invoiceProductModel.destroy({
                     wait: true
