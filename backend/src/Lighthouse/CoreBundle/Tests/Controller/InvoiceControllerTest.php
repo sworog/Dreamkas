@@ -18,6 +18,7 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testPostInvoiceAction(array $invoiceData, array $assertions = array())
     {
+        $assertions['createdDate'] = $this->getNowDate();
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
@@ -59,6 +60,7 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testGetInvoice(array $invoiceData, array $assertions)
     {
+        $assertions['createdDate'] = $this->getNowDate();
         $id = $this->createInvoice($invoiceData);
 
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
@@ -76,7 +78,6 @@ class InvoiceControllerTest extends WebTestCase
 
     public function postInvoiceDataProvider()
     {
-        $now = new \DateTime();
         return array(
             'invoice' => array(
                 'data' => array(
@@ -97,7 +98,7 @@ class InvoiceControllerTest extends WebTestCase
                     'legalEntity' => 'ООО "Магазин"',
                     'supplierInvoiceSku' => '1248373',
                     'supplierInvoiceDate' => '2013-03-17T00:00:00+0400',
-                    'createdDate' => $now->format('Y-m-d\TH:'),
+                    'createdDate' => '#set now date value in test to avoid test failure#',
                 )
             )
         );
@@ -198,6 +199,12 @@ class InvoiceControllerTest extends WebTestCase
         $expectedCode,
         array $putAssertions
     ) {
+
+        $postAssertions['createdDate'] = $this->getNowDate();
+        if (isset($putAssertions['createdDate'])) {
+            $putAssertions['createdDate'] = $this->getNowDate();
+        }
+
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $postJson = $this->clientJsonRequest(
@@ -249,7 +256,7 @@ class InvoiceControllerTest extends WebTestCase
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceSku' => '1248373',
             'supplierInvoiceDate' => '2013-03-17T00:00:00+0400',
-            'createdDate' => $now->format('Y-m-d\TH:'),
+            'createdDate' => '#set now date value in test to avoid test failure#',
         );
 
         return array(

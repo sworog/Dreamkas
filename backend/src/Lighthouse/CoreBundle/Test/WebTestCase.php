@@ -598,4 +598,13 @@ class WebTestCase extends BaseTestCase
 
         return $json;
     }
+
+    /**
+     * @param string $format
+     * @return string
+     */
+    protected function getNowDate($format = 'Y-m-d\\TH:i:')
+    {
+        return date($format);
+    }
 }
