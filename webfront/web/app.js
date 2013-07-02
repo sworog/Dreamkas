@@ -30,7 +30,7 @@ define(function(require) {
         },
         logout: function() {
             cookie.set('token', '', {path: '/'});
-            document.location.reload();
+            document.location.href = '/';
         },
         login: function(token){
             cookie.set('token', token, {path: '/'});
