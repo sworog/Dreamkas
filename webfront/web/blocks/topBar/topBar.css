@@ -22,10 +22,9 @@
     vertical-align: top;
     cursor: pointer;
     color: #000;
-    display: inline-block;
+    float: left;
     padding: 0 20px;
     text-decoration: none;
-    margin-right: -4px;
 }
 
 .topBar a:hover{
@@ -43,4 +42,13 @@
 .topBar__userName{
     border-right: 1px solid #eee;
     font-weight: bold;
+}
+
+.topBar__navigation{
+    float: left;
+    height: 100%;
+}
+
+.topBar__active{
+    background-color: #e5e5e5;
 }

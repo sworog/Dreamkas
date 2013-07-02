@@ -8,7 +8,8 @@ define(function(require) {
         },
         commercialManager: {
             klasses: 'all',
-            products: 'all'
+            products: 'all',
+            balance: 'all'
         },
         storeManager: {
         },

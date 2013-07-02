@@ -23,6 +23,15 @@ define(function(require) {
             block.$el.prependTo('body');
 
             Block.prototype.initialize.call(this);
+        },
+        'set:active': function(pathName){
+            var block = this;
+
+            block.$navigation
+                .find('[href="' + pathName + '"]')
+                .addClass('topBar__active')
+                .siblings('.topBar__active')
+                .removeClass('topBar__active');
         }
     });
 
