@@ -3,6 +3,7 @@ package project.lighthouse.autotests.steps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
+import project.lighthouse.autotests.pages.administrator.users.UserCardPage;
 import project.lighthouse.autotests.pages.authorization.AuthorizationPage;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCardView;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
@@ -12,6 +13,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     AuthorizationPage authorizationPage;
     ProductCardView productCardView;
     ProductListPage productListPage;
+    UserCardPage userCardPage;
 
     public AuthorizationSteps(Pages pages) {
         super(pages);
@@ -81,6 +83,32 @@ public class AuthorizationSteps extends ScenarioSteps {
         try {
             productListPage.createNewProductButtonClick();
             throw new AssertionError("Create new product button is present on product list page!");
+        } catch (Exception e) {
+        }
+    }
+
+    @Step
+    public void userCardEditButtonIsPresent() {
+        userCardPage.editButtonClick();
+    }
+
+    @Step
+    public void userCardEditButtonIsNotPresent() {
+        try {
+            userCardPage.editButtonClick();
+        } catch (Exception e) {
+        }
+    }
+
+    @Step
+    public void userCardListLinkIsPresent() {
+        userCardPage.pageBackLink();
+    }
+
+    @Step
+    public void userCardListLinkIsNotPresent() {
+        try {
+            userCardPage.pageBackLink();
         } catch (Exception e) {
         }
     }

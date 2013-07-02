@@ -33,4 +33,8 @@ public class DashBoardPage extends CommonPageObject {
         String buttonXpath = getButtonXpath(name);
         waiter.getVisibleWebElement(By.xpath(buttonXpath));
     }
+
+    public void openUserCard() {
+        findVisibleElement(By.className("topBar__userName")).click();
+    }
 }

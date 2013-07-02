@@ -32,4 +32,8 @@ public class UserCardPage extends UserCreatePage {
         String editButtonXpath = "//*[@class='user__editLink']";
         commonActions.elementClick(By.xpath(editButtonXpath));
     }
+
+    public void pageBackLink() {
+        findVisibleElement(By.className("page__backLink")).click();
+    }
 }

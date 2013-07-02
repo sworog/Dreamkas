@@ -27,4 +27,9 @@ public class DashBoardSteps extends ScenarioSteps {
     public void shouldBeVisible(String name) {
         dashBoardPage.shouldBeVisible(name);
     }
+
+    @Step
+    public void openUserCard() {
+        dashBoardPage.openUserCard();
+    }
 }

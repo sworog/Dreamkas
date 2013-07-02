@@ -70,4 +70,24 @@ public class AuthorizationUserSteps {
     public void thenTheUserSeesNoCreateNewProductButton() {
         authorizationSteps.newProductCreateButtonIsNotPresent();
     }
+
+    @Then("the user sees user card edit button")
+    public void thenTheUserSeesUserCardEditButton() {
+        authorizationSteps.userCardEditButtonIsPresent();
+    }
+
+    @Then("the user sees no user card edit button")
+    public void thenTheUserSeesNoUserCardEditButton() {
+        authorizationSteps.userCardEditButtonIsNotPresent();
+    }
+
+    @Then("the user sees user card link to users list")
+    public void thenTheUserSeesUserCardLinkToUsersList() {
+        authorizationSteps.userCardListLinkIsPresent();
+    }
+
+    @Then("the user sees no user card link to users list")
+    public void thenTheUserSeesNoUserCardLinkToUsersList() {
+        authorizationSteps.userCardListLinkIsNotPresent();
+    }
 }

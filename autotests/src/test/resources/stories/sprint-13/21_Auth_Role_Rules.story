@@ -512,6 +512,7 @@ Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 When user opens the dashboard 'products' section
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: departmentManager role valid rules - authorised access to products card
 Given there is the product with 'IFBKG-119999' name, 'IFBKG-119999' sku, 'IFBKG-119999' barcode
@@ -520,18 +521,21 @@ And the user logs in as 'departmentManager'
 When user opens the dashboard 'products' section
 When the user open the product card with 'IFBKG-119999' sku
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: departmentManager role valid rules - authorised access to balance
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 When user opens the dashboard 'balance' section
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: departmentManager role valid rules - authorised access to invoice list
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 When user opens the dashboard 'invoices' section
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: departmentManager role valid rules - authorised access to invoice create
 Given the user opens the authorization page
@@ -539,12 +543,14 @@ And the user logs in as 'departmentManager'
 When user opens the dashboard 'invoices' section
 And the user clicks the create button on the invoice list page
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: departmentManager role valid rules - authorised access to writeOffs list
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 When user opens the dashboard 'writeOffs' section
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: departmentManager role valid rules - authorised access to writeOffs create
 Given the user opens the authorization page
@@ -552,12 +558,14 @@ And the user logs in as 'departmentManager'
 When user opens the dashboard 'writeOffs' section
 And the user creates write off from write off list page
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: commercialManager role valid rules - authorised access to product list
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 When user opens the dashboard 'products' section
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: commercialManager role valid rules - authorised access to product create
 Given the user opens the authorization page
@@ -565,18 +573,21 @@ And the user logs in as 'commercialManager'
 When user opens the dashboard 'products' section
 And the user creates new product from product list page
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: commercialManager role valid rules - authorised access to catalog
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 When user opens the dashboard 'catalog' section
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: administrator role valid rules - authorised access to users list
 Given the user opens the authorization page
 And the user logs in as 'watchman'
 When user opens the dashboard 'users' section
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: administrator role valid rules - authorised access to users create
 Given the user opens the authorization page
@@ -584,6 +595,7 @@ And the user logs in as 'watchman'
 When user opens the dashboard 'users' section
 And the user clicks the create new user button from users list page
 Then the user dont see the 403 error
+When the user logs out
 
 Scenario: departmentManager - no edit button for products card
 Given there is the product with 'IFBKG-119999' name, 'IFBKG-119999' sku, 'IFBKG-119999' barcode
@@ -592,9 +604,115 @@ And the user logs in as 'departmentManager'
 When user opens the dashboard 'products' section
 When the user open the product card with 'IFBKG-119999' sku
 Then the user sees no edit product button
+When the user logs out
 
 Scenario: departmentManager - no create button for products list
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 When user opens the dashboard 'products' section
 Then the user sees no create new product button
+When the user logs out
+
+Scenario: administrator role - user card view from dashboard
+Given the user opens the authorization page
+And the user logs in as 'watchman'
+When the user opens dashboard user card
+Then the user checks the user page elements values
+| elementName | expectedValue |
+| name | watchman |
+| position | Системный администратор |
+| username | watchman |
+| role | Системный администратор |
+When the user logs out
+
+Scenario: administrator role - user card view from dashboard - edit button is present
+Given the user opens the authorization page
+And the user logs in as 'watchman'
+When the user opens dashboard user card
+Then the user sees user card edit button
+When the user logs out
+
+Scenario: administrator role - user card view from dashboard - users list link is present
+Given the user opens the authorization page
+And the user logs in as 'watchman'
+When the user opens dashboard user card
+Then the user sees user card link to users list
+When the user logs out
+
+Scenario: departmentManager role - user card view from dashboard
+Given the user opens the authorization page
+And the user logs in as 'departmentManager'
+When the user opens dashboard user card
+Then the user checks the user page elements values
+| elementName | expectedValue |
+| name | Заведующий отделом |
+| position | Заведующий отделом |
+| username | departmentManager |
+| role | Заведующий отделом |
+When the user logs out
+
+Scenario: departmentManager role - user card view from dashboard - edit button is not present
+Given the user opens the authorization page
+And the user logs in as 'departmentManager'
+When the user opens dashboard user card
+Then the user sees no user card edit button
+When the user logs out
+
+Scenario: departmentManager role - user card view from dashboard - users list link is not present
+Given the user opens the authorization page
+And the user logs in as 'departmentManager'
+When the user opens dashboard user card
+Then the user sees no user card link to users list
+When the user logs out
+
+Scenario: commercialManager role - user card view from dashboard
+Given the user opens the authorization page
+And the user logs in as 'commercialManager'
+When the user opens dashboard user card
+Then the user checks the user page elements values
+| elementName | expectedValue |
+| name | Коммерческий директор сети |
+| position | Коммерческий директор сети |
+| username | commercialManager |
+| role | Коммерческий директор сети |
+When the user logs out
+
+Scenario: commercialManager role - user card view from dashboard - edit button is not present
+Given the user opens the authorization page
+And the user logs in as 'commercialManager'
+When the user opens dashboard user card
+Then the user sees no user card edit button
+When the user logs out
+
+Scenario: commercialManager role - user card view from dashboard - users list link is not present
+Given the user opens the authorization page
+And the user logs in as 'commercialManager'
+When the user opens dashboard user card
+Then the user sees no user card link to users list
+When the user logs out
+
+Scenario: storeManager role - user card view from dashboard
+Given the user opens the authorization page
+And the user logs in as 'storeManager'
+When the user opens dashboard user card
+Then the user checks the user page elements values
+| elementName | expectedValue |
+| name | Директор магазина |
+| position | Директор магазина |
+| username | storeManager |
+| role | Директор магазина |
+When the user logs out
+
+Scenario: storeManager role - user card view from dashboard - edit button is not present
+Given the user opens the authorization page
+And the user logs in as 'storeManager'
+When the user opens dashboard user card
+Then the user sees no user card edit button
+When the user logs out
+
+Scenario: storeManager role - user card view from dashboard - users list link is not present
+Given the user opens the authorization page
+And the user logs in as 'storeManager'
+When the user opens dashboard user card
+Then the user sees no user card link to users list
+When the user logs out

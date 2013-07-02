@@ -16,6 +16,11 @@ public class DashboarUserSteps {
         dashBoardSteps.buttonClick(sectionName);
     }
 
+    @When("the user opens dashboard user card")
+    public void whenTheUserOpensDashboardUserCard() {
+        dashBoardSteps.openUserCard();
+    }
+
     @Then("the user checks the dashboard link to '$sectionName' section is present")
     @Alias("the user checks the dashboard link to <sectionName> section is present")
     public void thenTheUserChecksTheLinkToSectionIsPresent(String sectionName) {
