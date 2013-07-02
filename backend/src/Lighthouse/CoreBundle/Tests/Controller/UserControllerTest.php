@@ -543,6 +543,23 @@ class UserControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('user', 'username', $getResponse);
     }
 
+    public function testGetUserPermissionsAction()
+    {
+        $this->clearMongoDb();
+
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/users/permissions'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathContains('GET::{user}', 'users', $response);
+    }
+
     public function userProvider()
     {
         return array(

@@ -9,6 +9,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Nelmio\ApiDocBundle\Extractor\ApiDocExtractor;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * @DI\Service("lighthouse.core.security.permissions_extractor")
@@ -43,7 +44,7 @@ class PermissionExtractor
      */
     public $reader;
 
-    public function extract()
+    public function extractAll()
     {
         $routes = $this->router->getRouteCollection();
         $extraction = $this->apiDocExtractor->extractAnnotations($routes->all());
@@ -56,6 +57,28 @@ class PermissionExtractor
         }
 
         return $resources;
+    }
+
+    /**
+     * @param SecurityContextInterface $securityContext
+     * @return array
+     */
+    public function extractForCurrentUser(SecurityContextInterface $securityContext)
+    {
+        $resources = $this->extractAll();
+        $userPermissions = array();
+        foreach ($resources as $resourceName => $methods) {
+            if ('other' == $resourceName) {
+                continue;
+            }
+            $userPermissions[$resourceName] = array();
+            foreach ($methods as $method => $roles) {
+                if (true === $roles || $securityContext->isGranted($roles)) {
+                    $userPermissions[$resourceName][] = $method;
+                }
+            }
+        }
+        return $userPermissions;
     }
 
     /**
@@ -80,7 +103,7 @@ class PermissionExtractor
         $controller = $apiDoc->getRoute()->getDefault('_controller');
         $method = $this->apiDocExtractor->getReflectionMethod($controller);
         $secure = $this->reader->getMethodAnnotation($method, 'JMS\\SecurityExtraBundle\\Annotation\\Secure');
-        $roles = ($secure) ? $secure->roles : false;
+        $roles = ($secure) ? $secure->roles : true;
         return $roles;
     }
 

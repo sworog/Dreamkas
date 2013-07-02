@@ -51,7 +51,7 @@ class ServiceController extends FOSRestController
      */
     public function permissionsAction()
     {
-        $permissions = $this->permissionExtractor->extract();
+        $permissions = $this->permissionExtractor->extractAll();
         return new JsonResponse($permissions);
     }
 }

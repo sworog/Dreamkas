@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Form\UserType;
+use Lighthouse\CoreBundle\Security\PermissionExtractor;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,12 @@ class UserController extends AbstractRestController
      * @var SecurityContextInterface
      */
     public $securityContext;
+
+    /**
+     * @DI\Inject("lighthouse.core.security.permissions_extractor")
+     * @var PermissionExtractor
+     */
+    protected $permissionExtractor;
 
     /**
      * @return UserType
@@ -120,6 +127,17 @@ class UserController extends AbstractRestController
     public function getUsersCurrentAction()
     {
         return $this->securityContext->getToken()->getUser();
+    }
+
+    /**
+     * @return array
+     * @ApiDoc(
+     *      description="Get current logged user permissions"
+     * )
+     */
+    public function getUsersPermissionsAction()
+    {
+        return $this->permissionExtractor->extractForCurrentUser($this->securityContext);
     }
 
     /**
