@@ -34,7 +34,7 @@
 
 <% if(block.currentUserModel.get('id')) { %>
 <div class="topBar__userControls">
-    <a href="/users/<%= block.currentUserModel.get('id') %>" class="topBar__userName">
+    <a href="/users/current" class="topBar__userName">
         <%e block.currentUserModel.get('username') %>
     </a>
     <a class="topBar__logoutLink">

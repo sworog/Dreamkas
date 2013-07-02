@@ -1,6 +1,6 @@
 define({
-    commercialManager: 'Commercial manager',
-    storeManager: 'Store manager',
-    departmentManager: 'Department manager',
-    administrator: 'System administrator'
+    ROLE_COMMERCIAL_MANAGER: 'Commercial manager',
+    ROLE_STORE_MANAGER: 'Store manager',
+    ROLE_DEPARTMENT_MANAGER: 'Department manager',
+    ROLE_ADMINISTRATOR: 'System administrator'
 });

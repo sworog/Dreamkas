@@ -3,17 +3,17 @@ define(function(require) {
     var BaseModel = require('models/baseModel');
 
     var permissions = {
-        administrator: {
+        ROLE_ADMINISTRATOR: {
             users: 'all'
         },
-        commercialManager: {
+        ROLE_COMMERCIAL_MANAGER: {
             klasses: 'all',
             products: 'all',
             balance: 'all'
         },
-        storeManager: {
+        ROLE_STORE_MANAGER: {
         },
-        departmentManager: {
+        ROLE_DEPARTMENT_MANAGER: {
             invoices: 'all',
             writeoffs: 'all',
             balance: 'all',

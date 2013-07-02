@@ -16,16 +16,14 @@ define(function(require) {
         initialize: function(userId) {
             var page = this;
 
-            if (!(LH.isAllow('users', 'get') || userId === currentUserModel.id)){
+            if (!(LH.isAllow('users', 'get') || userId === 'current')){
                 new Page403();
                 return;
             }
 
-            page.userId = userId;
-
-            page.userModel = new UserModel({
-                id: page.userId
-            });
+            page.userModel = userId === 'current' ? new UserModel({
+                id: userId
+            }) : currentUserModel;
 
             $.when(page.userModel.fetch()).then(function(){
                 page.render();
