@@ -83,12 +83,13 @@ class WebTestCase extends BaseTestCase
      * @param stdClass|string $token
      * @param string $method
      * @param string $uri
-     * @param mixed  $data
+     * @param array $data
      * @param array $parameters
      * @param array $server
      * @param bool $changeHistory
-     * @return mixed
-     * @throws \UnexpectedValueException
+     * @param bool $oauth
+     * @return array
+     * @throws \Exception
      */
     protected function clientJsonRequest(
         $token,
@@ -97,8 +98,7 @@ class WebTestCase extends BaseTestCase
         $data = null,
         array $parameters = array(),
         array $server = array(),
-        $changeHistory = true,
-        $oauth = true
+        $changeHistory = false
     ) {
         $request = new JsonRequest($uri, $method);
 
@@ -106,18 +106,8 @@ class WebTestCase extends BaseTestCase
         $request->server = $server;
         $request->changeHistory = $changeHistory;
 
-        // Ugly hack
-        if ($token instanceof Client) {
-            $token = null;
-        }
-
         if ($token) {
             $request->setAccessToken($token);
-        } elseif (true === $oauth) {
-            $token = $this->auth();
-            $request->setAccessToken($token);
-        } elseif (is_string($oauth)) {
-            $request->setAccessToken($oauth);
         }
 
         $request->setJsonData($data);
@@ -171,7 +161,7 @@ class WebTestCase extends BaseTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/invoices.json',
+            '/api/1/invoices',
             $invoiceData
         );
 
