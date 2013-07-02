@@ -47,8 +47,12 @@
     margin: 0 5px;
 }
 
-.invoice__table {
+.invoice__productsTable {
     margin-bottom: 20px;
+}
+
+.invoice__productsTable .table__head{
+    display: none;
 }
 
 .invoice__controlItem{
@@ -59,12 +63,12 @@
     padding-bottom: 20px;
 }
 
-.invoice__addProductForm,
+.invoice__productForm,
 .invoice__stopEditLink {
     display: none;
 }
 
-.invoice_editMode .invoice__addProductForm {
+.invoice_editMode .invoice__productForm {
     display: block;
 }
 
@@ -91,7 +95,7 @@
     color: #999;
 }
 
-.invoice__table .invoice__hiddenData {
+.invoice__productsTable .invoice__hiddenData {
     visibility: hidden;
     display: inline;
 }
@@ -165,7 +169,7 @@
     visibility: visible;
 }
 
-.invoice__table tr:hover .invoice__removeLink {
+.invoice__productsTable tr:hover .invoice__removeLink {
     opacity: 1;
 }
 

@@ -27,7 +27,7 @@ define(function(require) {
                 invoiceId: page.invoiceId
             });
 
-            $.when(page.invoiceModel.fetch()).then(function(){
+            $.when(page.invoiceModel.fetch(), page.invoiceProductsCollection.fetch()).then(function(){
                 page.render();
 
                 new Invoice({

@@ -1,33 +1,34 @@
-<tr invoice-product-id="<%= invoiceProduct.id %>" name="invoiceProduct" class="invoice__dataRow" product-sku="<%e invoiceProduct.product.sku %>">
+<% block.collection.each(function(model){ %>
+<tr invoice-product-id="<%= model.id %>" name="invoiceProduct" class="invoice__dataRow" product-sku="<%e model.get('product').sku %>">
     <td>
         <span name="productName"
               class="invoice__editable"
               autocomplete-name="name"
               model-attr="product"
-              product-id="<%= invoiceProduct.product.id %>"><%t invoiceProduct.product.name %></span>
+              product-id="<%= model.get('product').id %>"><%t model.get('product').name %></span>
         <br />
         <span name="productSku"
               class="invoice__editable"
               autocomplete-name="sku"
               model-attr="product"
-              product-id="<%= invoiceProduct.product.id %>"><%e invoiceProduct.product.sku %></span>
+              product-id="<%= model.get('product').id %>"><%e model.get('product').sku %></span>
     </td>
     <td>
         <span name="productBarcode"
-              class="invoice__editable <%= invoiceProduct.product.barcode ? '' : 'invoice__hiddenData' %>"
+              class="invoice__editable <%= model.get('product').barcode ? '' : 'invoice__hiddenData' %>"
               autocomplete-name="barcode"
               model-attr="product"
-              product-id="<%= invoiceProduct.product.id %>">
-            <%e invoiceProduct.product.barcode ? invoiceProduct.product.barcode : KIT.text('Ввести штрихкод') %>
+              product-id="<%= model.get('product').id %>">
+            <%e model.get('product').barcode ? model.get('product').barcode : KIT.text('Ввести штрихкод') %>
         </span>
     </td>
     <td>
         <span class="invoice__editable">
             <span name="productAmount" model-attr="quantity">
-                <%e invoiceProduct.quantity %>
+                <%e model.get('quantity') %>
             </span>
             <span name="productUnits">
-                <%t LH.utils.units(invoiceProduct.product.units, 'smallShort') %>
+                <%t LH.utils.units(model.get('product').units, 'smallShort') %>
             </span>
         </span>
     </td>
@@ -37,7 +38,7 @@
                 по
             </span>
             <span name="productPrice" model-attr="price">
-                <%t LH.utils.formatPrice(invoiceProduct.price) %>
+                <%t LH.utils.formatPrice(model.get('price')) %>
             </span>
             <span>
                 р.
@@ -49,13 +50,14 @@
             =
         </span>
         <span name="productSum">
-            <%t LH.utils.formatPrice(invoiceProduct.totalPrice) %>
+            <%t LH.utils.formatPrice(model.get('totalPrice')) %>
         </span>
         <span>
             р.
         </span>
     </td>
     <td style="width: 1px;">
-        <span class="invoice__removeLink">удалить</span>
+        <span class="invoice__removeLink"><%t 'удалить' %></span>
     </td>
 </tr>
+<% }) %>

@@ -21,16 +21,33 @@ define(function(require) {
             },
             listeners: {
                 collection: {
+                    request: function(){
+                        var block = this;
+
+                        block.set('loading', true);
+                    },
                     sync: function() {
                         var block = this;
 
-                        block.renderBody();
                         block.set('loading', false);
+                    },
+                    change: function() {
+                        var block = this;
+
+                        block.renderBody();
+                    },
+                    add: function(){
+                        var block = this;
+
+                        block.renderBody();
+                    },
+                    destroy: function(){
+                        var block = this;
+
+                        block.renderBody();
                     }
                 }
             },
-            $body: null,
-            $head: null,
             initialize: function(){
                 var block = this;
 

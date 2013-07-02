@@ -5,50 +5,20 @@
 
 <div class="invoice__content">
     <div class="invoice__head">
-
+        <%= block.templates.head({
+            block: block
+        }) %>
     </div>
-    <table class="invoice__table table">
 
-    </table>
+    <table class="table invoice__productsTable"></table>
+
     <div class="invoice__footer">
-
+        <%= block.templates.footer({
+            block: block
+        }) %>
     </div>
 
 </div>
 <div class="page__clear"></div>
 
-<form class="form invoice__addProductForm">
-    <h3>Добавить товар в накладную</h3>
-
-    <input type="hidden" name="product">
-
-    <div class="form__field form__field_inline">
-        <label class="form__label">Наименование</label>
-        <input class="inputText" type="text" lh_product_autocomplete="name"/>
-    </div>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Артикул</label>
-        <input class="inputText" type="text" lh_product_autocomplete="sku"/>
-    </div>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Штрихкод</label>
-        <input class="inputText" type="text" lh_product_autocomplete="barcode"/>
-    </div>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Количество</label>
-        <input class="inputText" type="text" name="quantity"/>
-    </div>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Цена приёмки</label>
-        <input class="inputText" type="text" name="price"/>
-    </div>
-    <div class="form__controls">
-        <span class="button button_color_blue invoice__addMoreProduct">
-            Добавить товар
-            <input type="submit"/>
-        </span>
-        <a class="button invoice__stopEditButton">
-            Завершить редактирование
-        </a>
-    </div>
-</form>
+<form class="form invoice__productForm"></form>

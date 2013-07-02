@@ -1,14 +1,21 @@
 define(function(require) {
         //requirements
-        var Form = require('blocks/form/form'),
+        var _ = require('underscore'),
+            Form = require('blocks/form/form'),
             InvoiceProduct = require('models/invoiceProduct'),
             cookie = require('utils/cookie');
 
         return Form.extend({
+            blockName: 'form_invoiceProduct',
             invoiceId: null,
+            templates: {
+                index: require('tpl!./templates/form_invoiceProduct.html')
+            },
 
             initialize: function() {
                 var block = this;
+
+                Form.prototype.initialize.call(this);
 
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='name']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='sku']"));
@@ -17,19 +24,20 @@ define(function(require) {
             submit: function() {
                 var block = this,
                     deferred = $.Deferred(),
-                    productData = Backbone.Syphon.serialize(block),
                     newProduct = new InvoiceProduct({
                         invoice: {
-                            id: block.invoiceId
+                            id: block.invoiceProductsCollection.invoiceId
                         }
                     });
 
-                newProduct.save(productData, {
+                newProduct.save(block.data, {
                     error: function(model, res) {
                         deferred.reject(JSON.parse(res.responseText));
                     },
                     success: function(model) {
                         deferred.resolve(model);
+                        block.invoiceProductsCollection.push(model);
+                        block.clear();
                     }
                 });
 
