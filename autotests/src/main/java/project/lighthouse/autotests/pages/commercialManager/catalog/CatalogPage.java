@@ -40,7 +40,8 @@ public class CatalogPage extends CommonPageObject {
         } catch (Exception e) {
             if (e.getMessage().contains("Element is not clickable at point")) {
                 withAction().sendKeys(Keys.ESCAPE).build().perform();
-                stopEditionButtonLinkClick();
+                stopEditionButtonLink.click();
+                //stopEditionButtonLinkClick();
             } else {
                 throw e;
             }

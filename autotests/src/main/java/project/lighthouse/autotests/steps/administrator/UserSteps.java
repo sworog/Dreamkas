@@ -27,7 +27,8 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
-        userApi.createUserThroughPost(name, position, login, password, role);
+        String updatedRole = userCreatePage.replaceSelectedValue(role);
+        userApi.createUserThroughPost(name, position, login, password, updatedRole);
     }
 
     @Step
