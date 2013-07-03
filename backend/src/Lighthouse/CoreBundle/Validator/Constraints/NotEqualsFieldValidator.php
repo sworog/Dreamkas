@@ -11,7 +11,7 @@ class NotEqualsFieldValidator extends ConstraintValidator
 {
     /**
      * @param $value
-     * @param Constraint $constraint
+     * @param Constraint|NotEqualsField $constraint
      * @return bool|void
      * @throws \Symfony\Component\Validator\Exception\MissingOptionsException
      */

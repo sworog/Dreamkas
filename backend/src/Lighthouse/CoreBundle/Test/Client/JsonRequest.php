@@ -79,7 +79,7 @@ class JsonRequest
     }
 
     /**
-     * @param stdClass|string $accessToken
+     * @param \stdClass|string $accessToken
      */
     public function setAccessToken($accessToken)
     {

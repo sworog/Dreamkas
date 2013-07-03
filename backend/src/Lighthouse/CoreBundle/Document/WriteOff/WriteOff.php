@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\WriteOff;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;

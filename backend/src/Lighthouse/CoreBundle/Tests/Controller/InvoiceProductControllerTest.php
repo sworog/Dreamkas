@@ -473,6 +473,8 @@ class InvoiceProductControllerTest extends WebTestCase
             ),
         );
 
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+
         foreach ($providerData as $i => $row) {
 
             $invoiceProductData = array(
@@ -480,8 +482,6 @@ class InvoiceProductControllerTest extends WebTestCase
                 'price'    => $row['price'],
                 'product'  => $row['product'],
             );
-
-            $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
             $response = $this->clientJsonRequest(
                 $accessToken,

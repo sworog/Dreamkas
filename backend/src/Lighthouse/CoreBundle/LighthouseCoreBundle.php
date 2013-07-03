@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle;
 
 use Lighthouse\CoreBundle\Command\CommandManager;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddCommandAsServicePass;
-use Lighthouse\CoreBundle\DependencyInjection\Compiler\DocumentRepositoryPass;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;

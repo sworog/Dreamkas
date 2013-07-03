@@ -14,7 +14,7 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  * )
  *
  * @property int        $id
- * @property DiteTime   $createdDate
+ * @property \DateTime   $createdDate
  * @property PurchaseProduct[]  $product
  */
 class Purchase extends AbstractDocument

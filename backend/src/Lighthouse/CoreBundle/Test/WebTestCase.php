@@ -80,14 +80,13 @@ class WebTestCase extends BaseTestCase
     }
 
     /**
-     * @param stdClass|string $token
+     * @param \stdClass|string $token
      * @param string $method
      * @param string $uri
      * @param array $data
      * @param array $parameters
      * @param array $server
      * @param bool $changeHistory
-     * @param bool $oauth
      * @return array
      * @throws \Exception
      */
@@ -118,7 +117,7 @@ class WebTestCase extends BaseTestCase
 
     /**
      * @param JsonRequest $jsonRequest
-     * @param stdClass|string $accessToken
+     * @param \stdClass|string $accessToken
      * @return array
      */
     protected function jsonRequest(JsonRequest $jsonRequest, $accessToken = null)
@@ -520,7 +519,7 @@ class WebTestCase extends BaseTestCase
 
     /**
      * @param string $role
-     * @return stdClass accessToken
+     * @return \stdClass accessToken
      */
     protected function authAsRole($role)
     {
@@ -545,7 +544,7 @@ class WebTestCase extends BaseTestCase
      * @param User $oauthUser
      * @param string $password
      * @param AuthClient $oauthClient
-     * @return stdClass access token
+     * @return \stdClass access token
      */
     protected function auth(User $oauthUser = null, $password = 'password', AuthClient $oauthClient = null)
     {

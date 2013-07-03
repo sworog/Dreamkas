@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use FOS\OAuthServerBundle\Model\AccessToken;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -480,7 +479,11 @@ class WriteOffProductControllerTest extends WebTestCase
             'cause' => 'Порча',
         );
 
-        $request = new JsonRequest('/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1, 'PUT', $putData1);
+        $request = new JsonRequest(
+            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1,
+            'PUT',
+            $putData1
+        );
         $putResponse = $this->jsonRequest($request, $accessToken);
 
         Assert::assertResponseCode(200, $this->client);
@@ -517,7 +520,11 @@ class WriteOffProductControllerTest extends WebTestCase
             'cause' => 'Бой посуды',
         );
 
-        $request = new JsonRequest('/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2, 'PUT', $putData2);
+        $request = new JsonRequest(
+            '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2,
+            'PUT',
+            $putData2
+        );
         $putResponse = $this->jsonRequest($request, $accessToken);
 
         Assert::assertResponseCode(200, $this->client);

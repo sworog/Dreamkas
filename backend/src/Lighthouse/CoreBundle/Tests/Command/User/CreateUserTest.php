@@ -84,7 +84,7 @@ class CreateUserTest extends WebTestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      * @expectedExceptionMessage Not enough arguments.
      */
     public function testMissingParams()

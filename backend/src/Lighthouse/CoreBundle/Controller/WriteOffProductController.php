@@ -6,7 +6,6 @@ use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductCollection;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Form\WriteOffProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -49,8 +48,8 @@ class WriteOffProductController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @param WriteOff $writeOffId
-     * @param WriteOffProduct $writeOffProductId
+     * @param WriteOff $writeOff
+     * @param WriteOffProduct $writeOffProduct
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\AbstractDocument
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc

@@ -238,7 +238,6 @@ class InvoiceControllerTest extends WebTestCase
 
     public function putInvoiceDataProvider()
     {
-        $now = new \DateTime();
         $data = array(
             'sku' => 'sdfwfsf232',
             'supplier' => 'ООО "Поставщик"',

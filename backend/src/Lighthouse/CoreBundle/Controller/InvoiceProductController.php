@@ -56,8 +56,8 @@ class InvoiceProductController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @param Invoice $invoiceId
-     * @param InvoiceProduct $invoiceProductId
+     * @param Invoice $invoice
+     * @param InvoiceProduct $invoiceProduct
      *
      * @return \FOS\RestBundle\View\View|InvoiceProduct
      *
@@ -99,8 +99,8 @@ class InvoiceProductController extends AbstractRestController
     }
 
     /**
-     * @param string $invoiceId
-     * @param string $invoiceProductId
+     * @param Invoice $invoice
+     * @param InvoiceProduct $invoiceProduct
      * @return null
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc

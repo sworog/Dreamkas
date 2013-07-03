@@ -27,4 +27,3 @@ class MoneyTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('$return ', $moneyType->closureToMongo());
     }
 }
-

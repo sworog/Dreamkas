@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Document\TrialBalance;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\DateTime;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Types\Money;
@@ -21,7 +20,7 @@ use Lighthouse\CoreBundle\Types\Money;
  * @property float  $quantity
  * @property Money  $totalPrice
  * @property Money  $price
- * @property DateTime $createdDate
+ * @property \DateTime $createdDate
  * @property Product $product
  * @property Reasonable $reason
  *

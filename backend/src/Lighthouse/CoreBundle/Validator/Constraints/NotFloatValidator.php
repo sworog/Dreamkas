@@ -9,7 +9,7 @@ class NotFloatValidator extends ConstraintValidator
 {
     /**
      * @param mixed $value
-     * @param Constraint $constraint
+     * @param Constraint|NotFloat $constraint
      */
     public function validate($value, Constraint $constraint)
     {

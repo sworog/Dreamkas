@@ -71,7 +71,7 @@ class AmountListener extends AbstractMongoDBListener
 
     /**
      * @param DocumentManager $dm
-     * @param InvoiceProduct $productDocument
+     * @param InvoiceProduct|AbstractDocument $productDocument
      * @param int $sign 1 or -1
      */
     public function updateProductOnFlush(DocumentManager $dm, AbstractDocument $productDocument, $sign = -1)

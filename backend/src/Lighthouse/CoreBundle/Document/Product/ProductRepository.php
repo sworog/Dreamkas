@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Product;
 
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Lighthouse\CoreBundle\Document\LoggableCursor;
+use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;

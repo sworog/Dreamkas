@@ -7,8 +7,8 @@ use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\VisitorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\DataTransformer\FloatViewTransformer;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
-use Lighthouse\CoreBundle\DataTransformer\MoneyViewTransformer;
 use Lighthouse\CoreBundle\Types\Money;
 
 /**

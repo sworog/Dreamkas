@@ -10,7 +10,6 @@ use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Form\UserType;
 use Lighthouse\CoreBundle\Security\PermissionExtractor;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;

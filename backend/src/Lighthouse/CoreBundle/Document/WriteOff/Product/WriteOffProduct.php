@@ -20,7 +20,7 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  * @property int        $quantity
  * @property Money      $totalPrice
  * @property \DateTime  $createdDate
- * @property cause      $cause
+ * @property string     $cause
  * @property Product    $product
  * @property WriteOff   $writeOff
  */
