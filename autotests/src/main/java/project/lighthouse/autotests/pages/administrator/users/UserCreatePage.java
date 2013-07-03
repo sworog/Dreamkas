@@ -64,7 +64,7 @@ public class UserCreatePage extends ProductCreatePage {
         for (Map<String, String> row : fieldInputTable.getRows()) {
             String elementName = row.get("elementName");
             String inputText = row.get("inputText");
-            String updatedText = replaceSelectedValue(inputText);
+            String updatedText = (elementName.equals("role")) ? replaceSelectedValue(inputText) : inputText;
             input(elementName, updatedText);
         }
     }
