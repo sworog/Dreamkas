@@ -57,8 +57,7 @@ class PurchaseControllerTest extends WebTestCase
 
         Assert::assertNotJsonHasPath('products.*.purchase', $postResponse);
 
-        $nowDate = date('Y-m-d\\TH:i');
-        Assert::assertJsonPathContains($nowDate, 'createdDate', $postResponse);
+        Assert::assertJsonPathContains($this->getNowDate(), 'createdDate', $postResponse);
 
         Assert::assertJsonPathEquals($postResponse['createdDate'], 'products.*.createdDate', $postResponse, 3);
     }
