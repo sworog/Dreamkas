@@ -4,7 +4,8 @@ define(function(require) {
             _ = require('underscore'),
             Backbone = require('backbone'),
             InputDate = require('kit/blocks/inputDate/inputDate'),
-            AddProductForm = require('blocks/form/form_writeOffProduct/form_writeOffProduct'),
+            Form_writeOffProduct = require('blocks/form/form_writeOffProduct/form_writeOffProduct'),
+            Table_writeOffProducts = require('blocks/table/table_writeOffProducts/table_writeOffProducts'),
             cookie = require('utils/cookie');
 
         return Block.extend({
@@ -19,22 +20,7 @@ define(function(require) {
                 dataInputControls: require('tpl!./templates/dataInputControls.html'),
                 footer: require('tpl!./templates/footer.html'),
                 head: require('tpl!./templates/head.html'),
-                removeConfirm: require('tpl!./templates/removeConfirm.html'),
-                row: require('tpl!./templates/row.html'),
-                table: require('tpl!./templates/table.html')
-            },
-
-            initialize: function() {
-                var block = this;
-
-                Block.prototype.initialize.call(this);
-
-                block.set('editMode', block.editMode);
-
-                block.productForm = new AddProductForm({
-                    writeOffProductsCollection: block.writeOffProductsCollection,
-                    el: block.el.getElementsByClassName('writeOff__productForm')
-                });
+                removeConfirm: require('tpl!./templates/removeConfirm.html')
             },
             listeners: {
                 writeOffModel: {
@@ -46,13 +32,8 @@ define(function(require) {
                     }
                 },
                 writeOffProductsCollection: {
-                    sync: function() {
-                        var block = this;
-                        block.renderTable();
-                    },
                     add: function(model) {
                         var block = this;
-                        block.renderTable();
                         block.writeOffModel.set(model.toJSON().writeOff);
                     },
                     change: function(model) {
@@ -61,7 +42,6 @@ define(function(require) {
                     },
                     destroy: function() {
                         var block = this;
-                        block.renderTable();
                         block.writeOffModel.fetch();
                     }
                 }
@@ -122,7 +102,7 @@ define(function(require) {
                         block.showDataInput($(e.currentTarget));
                     }
                 },
-                'submit .writeOff__table .writeOff__dataInput': function(e) {
+                'submit .writeOff__productsTable .writeOff__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
                         data = Backbone.Syphon.serialize(e.target),
@@ -178,6 +158,23 @@ define(function(require) {
                     block.removeDataInput();
                 }
             },
+            initialize: function() {
+                var block = this;
+
+                Block.prototype.initialize.call(this);
+
+                block.set('editMode', block.editMode);
+
+                block.productForm = new Form_writeOffProduct({
+                    writeOffProductsCollection: block.writeOffProductsCollection,
+                    el: block.el.getElementsByClassName('writeOff__productForm')
+                });
+
+                block.productsTable = new Table_writeOffProducts({
+                    collection: block.writeOffProductsCollection,
+                    el: block.el.getElementsByClassName('writeOff__productsTable')
+                });
+            },
             'set:editMode': function(val) {
                 var block = this;
 
@@ -200,7 +197,7 @@ define(function(require) {
             },
             showRemoveConfirm: function(writeOffProductId) {
                 var block = this,
-                    $writeOffProductRow = block.$table.find('.writeOff__dataRow[writeOff-product-id="' + writeOffProductId + '"]');
+                    $writeOffProductRow = block.$productsTable.find('.writeOff__dataRow[writeOff-product-id="' + writeOffProductId + '"]');
 
                 block.hideRemoveConfirms();
                 block.set('dataEditing', true);
@@ -213,8 +210,8 @@ define(function(require) {
             },
             hideRemoveConfirm: function(writeOffProductId) {
                 var block = this,
-                    $writeOffProductRow = block.$table.find('.writeOff__dataRow[writeOff-product-id="' + writeOffProductId + '"]'),
-                    $removeConfirmRow = block.$table.find('.writeOff__removeConfirmRow[writeOff-product-id="' + writeOffProductId + '"]');
+                    $writeOffProductRow = block.$productsTable.find('.writeOff__dataRow[writeOff-product-id="' + writeOffProductId + '"]'),
+                    $removeConfirmRow = block.$productsTable.find('.writeOff__removeConfirmRow[writeOff-product-id="' + writeOffProductId + '"]');
 
                 $removeConfirmRow.remove();
                 $writeOffProductRow.show();
@@ -222,8 +219,8 @@ define(function(require) {
             },
             hideRemoveConfirms: function() {
                 var block = this,
-                    $writeOffProductRow = block.$table.find('.writeOff__dataRow:hidden'),
-                    $removeConfirmRows = block.$table.find('.writeOff__removeConfirmRow');
+                    $writeOffProductRow = block.$productsTable.find('.writeOff__dataRow:hidden'),
+                    $removeConfirmRows = block.$productsTable.find('.writeOff__removeConfirmRow');
 
                 $writeOffProductRow.show();
                 $removeConfirmRows.remove();
@@ -235,13 +232,6 @@ define(function(require) {
                 writeOffProductModel.destroy({
                     wait: true
                 });
-            },
-            renderTable: function() {
-                var block = this;
-
-                block.$table.html(block.templates.table({
-                    block: block
-                }));
             },
             renderHead: function(){
                 var block = this;

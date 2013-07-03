@@ -1,21 +1,21 @@
 <% block.collection.each(function(model){ %>
-<tr invoice-product-id="<%= model.id %>" name="invoiceProduct" class="invoice__dataRow" product-sku="<%e model.get('product').sku %>">
+<tr writeOff-product-id="<%= model.id %>" name="writeOffProduct" class="writeOff__dataRow" product-sku="<%e model.get('product').sku %>">
     <td>
         <span name="productName"
-              class="invoice__editable"
+              class="writeOff__editable"
               autocomplete-name="name"
               model-attr="product"
               product-id="<%= model.get('product').id %>"><%t model.get('product').name %></span>
         <br />
         <span name="productSku"
-              class="invoice__editable"
+              class="writeOff__editable"
               autocomplete-name="sku"
               model-attr="product"
               product-id="<%= model.get('product').id %>"><%e model.get('product').sku %></span>
     </td>
     <td>
         <span name="productBarcode"
-              class="invoice__editable <%= model.get('product').barcode ? '' : 'invoice__hiddenData' %>"
+              class="writeOff__editable <%= model.get('product').barcode ? '' : 'writeOff__hiddenData' %>"
               autocomplete-name="barcode"
               model-attr="product"
               product-id="<%= model.get('product').id %>">
@@ -23,7 +23,7 @@
         </span>
     </td>
     <td>
-        <span class="invoice__editable">
+        <span class="writeOff__editable">
             <span name="productAmount" model-attr="quantity">
                 <%e model.get('quantity') %>
             </span>
@@ -33,12 +33,12 @@
         </span>
     </td>
     <td>
-        <span class="invoice__editable">
+        <span class="writeOff__editable">
             <span>
                 по
             </span>
             <span name="productPrice" model-attr="price">
-                <%t LH.utils.formatPrice(model.get('price')) %>
+                <%e LH.utils.formatPrice(model.get('price')) %>
             </span>
             <span>
                 р.
@@ -46,18 +46,12 @@
         </span>
     </td>
     <td>
-        <span>
-            =
-        </span>
-        <span name="productSum">
-            <%t LH.utils.formatPrice(model.get('totalPrice')) %>
-        </span>
-        <span>
-            р.
+        <span class="writeOff__editable" name="productCause" model-attr="cause">
+            <%e model.get('cause') %>
         </span>
     </td>
     <td style="width: 1px;">
-        <span class="invoice__removeLink"><%t 'удалить' %></span>
+        <span class="writeOff__removeLink"><%t 'удалить' %></span>
     </td>
 </tr>
 <% }) %>
