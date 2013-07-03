@@ -36,7 +36,7 @@ class PurchaseControllerTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -94,7 +94,7 @@ class PurchaseControllerTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -143,7 +143,7 @@ class PurchaseControllerTest extends WebTestCase
             'products' => array($purchaseProductData)
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -210,7 +210,7 @@ class PurchaseControllerTest extends WebTestCase
             'quantity' => 2,
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -471,7 +471,7 @@ class PurchaseControllerTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $purchaseResponse = $this->clientJsonRequest(
             $accessToken,

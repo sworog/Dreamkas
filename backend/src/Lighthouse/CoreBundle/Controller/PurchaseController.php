@@ -33,7 +33,7 @@ class PurchaseController extends AbstractRestController
      *
      * @param Request $request
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Purchase\Purchase
-     * @Secure(roles="ROLE_ADMINISTRATOR")
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )
