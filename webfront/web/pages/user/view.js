@@ -21,9 +21,9 @@ define(function(require) {
                 return;
             }
 
-            page.userModel = userId === 'current' ? new UserModel({
+            page.userModel = userId === 'current' ? currentUserModel : new UserModel({
                 id: userId
-            }) : currentUserModel;
+            });
 
             $.when(page.userModel.fetch()).then(function(){
                 page.render();
