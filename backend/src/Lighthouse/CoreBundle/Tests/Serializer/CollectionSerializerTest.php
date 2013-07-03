@@ -2,6 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Tests\Serializer;
 
+use Lighthouse\CoreBundle\Serializer\Handler\CollectionHandler;
+use Lighthouse\CoreBundle\Serializer\Handler\MoneyHandler;
+use Lighthouse\CoreBundle\Serializer\Subscriber\CollectionSubscriber;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\Test;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\TestCollection;
@@ -48,5 +51,42 @@ class CollectionSerializerTest extends WebTestCase
             $collection->add($document);
         }
         return $collection;
+    }
+
+    public function testGetSubscribingMethods()
+    {
+        $methods = CollectionHandler::getSubscribingMethods();
+        $this->assertInternalType('array', $methods);
+        foreach ($methods as $method) {
+            $this->assertInternalType('array', $method);
+            $this->assertArrayHasKey('method', $method);
+            $this->assertArrayHasKey('type', $method);
+            $this->assertArrayHasKey('direction', $method);
+            $this->assertArrayHasKey('format', $method);
+        }
+    }
+
+    public function testCollectionSubscriberGetSubscribedEvents()
+    {
+        $events = CollectionSubscriber::getSubscribedEvents();
+        $this->assertInternalType('array', $events);
+        foreach ($events as $event) {
+            $this->assertInternalType('array', $event);
+            $this->assertArrayHasKey('event', $event);
+            $this->assertArrayHasKey('method', $event);
+        }
+    }
+
+    public function testMoneyHandlerGetSubscribingMethods()
+    {
+        $methods = MoneyHandler::getSubscribingMethods();
+        $this->assertInternalType('array', $methods);
+        foreach ($methods as $method) {
+            $this->assertInternalType('array', $method);
+            $this->assertArrayHasKey('method', $method);
+            $this->assertArrayHasKey('type', $method);
+            $this->assertArrayHasKey('direction', $method);
+            $this->assertArrayHasKey('format', $method);
+        }
     }
 }
