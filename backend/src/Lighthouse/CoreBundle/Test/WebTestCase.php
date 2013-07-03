@@ -208,12 +208,12 @@ class WebTestCase extends BaseTestCase
             'quantity' => $quantity,
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/purchases.json',
+            '/api/1/purchases',
             array(
                 'createdDate' => date('c', strtotime($date)),
                 'products' => array($purchaseProductData),
