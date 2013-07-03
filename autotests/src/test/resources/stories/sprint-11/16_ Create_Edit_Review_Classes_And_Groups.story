@@ -188,7 +188,6 @@ When the user clicks on the class name 'GEFCP'
 And the user creates new group with name 'Group edit from catalog'
 Then the user checks the group with 'Group edit from catalog' name is present
 Given the user opens catalog page
-And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of group 'Group edit from catalog' element
 And the user edits the element name through pop up menu
