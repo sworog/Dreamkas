@@ -263,7 +263,8 @@ class WriteOffProductControllerTest extends WebTestCase
         $postResponse = $this->jsonRequest($invalidRequest, $accessToken);
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('WriteOff object not found', 'message', $postResponse);
+        // There is not message in debug=false mode
+        //Assert::assertJsonPathContains('WriteOff object not found', 'message', $postResponse);
     }
 
     public function testPutActionWriteOffProductNotFound()
@@ -300,7 +301,8 @@ class WriteOffProductControllerTest extends WebTestCase
         $putResponse = $this->jsonRequest($putRequest, $accessToken);
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('WriteOffProduct object not found', 'message', $putResponse);
+        // There is not message in debug=false mode
+        //Assert::assertJsonPathContains('WriteOffProduct object not found', 'message', $putResponse);
 
         $putRequest = new JsonRequest(
             '/api/1/writeoffs/invalidWriteOffId/products/' . $writeOffProductId,
@@ -310,7 +312,8 @@ class WriteOffProductControllerTest extends WebTestCase
         $putResponse = $this->jsonRequest($putRequest, $accessToken);
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('WriteOff object not found', 'message', $putResponse);
+        // There is not message in debug=false mode
+        //Assert::assertJsonPathContains('WriteOff object not found', 'message', $putResponse);
 
         $writeOffId2 = $this->createWriteOff('123-43432');
         $writeOffProductId2 = $this->createWriteOffProduct($writeOffId2, $productId);
@@ -323,7 +326,8 @@ class WriteOffProductControllerTest extends WebTestCase
         $putResponse = $this->jsonRequest($putRequest, $accessToken);
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('WriteOffProduct object not found', 'message', $putResponse);
+        // There is not message in debug=false mode
+        //Assert::assertJsonPathContains('WriteOffProduct object not found', 'message', $putResponse);
 
         $putRequest = new JsonRequest(
             '/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2,
@@ -333,7 +337,8 @@ class WriteOffProductControllerTest extends WebTestCase
         $putResponse = $this->jsonRequest($putRequest, $accessToken);
 
         Assert::assertResponseCode(404, $this->client);
-        Assert::assertJsonPathContains('WriteOffProduct object not found', 'message', $putResponse);
+        // There is not message in debug=false mode
+        //Assert::assertJsonPathContains('WriteOffProduct object not found', 'message', $putResponse);
     }
 
     public function testDeleteActionWriteOffProductNotFound()
