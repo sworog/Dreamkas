@@ -205,6 +205,7 @@ When the user logs out
 Scenario: username must be unique
 Given there is the user with name 'User validation lmbu', position 'User validation lmbu', username 'Uservalidationlmbu', password 'Uservalidationlmbu1', role 'commercialManager'
 And the user opens create new user page
+And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
 | elementName | inputText |
 | name | Имя1 |
