@@ -3,6 +3,7 @@ define(function(require) {
     var Page = require('pages/page'),
         _ = require('underscore'),
         pageParams = require('pages/catalog/params'),
+        СatalogClassesCollection = require('collections/catalogClasses'),
         CatalogClass = require('blocks/catalogClass/catalogClass');
 
     return Page.extend({
@@ -25,14 +26,22 @@ define(function(require) {
             }
 
             page.catalogClassId = catalogClassId;
+            page.catalogClassesCollection = new СatalogClassesCollection();
 
-            page.render();
+            $.when(page.catalogClassesCollection.fetch()).then(function(){
+                page.render();
 
-            new CatalogClass({
-                el: document.getElementById('catalogClass'),
-                catalogClassId: page.catalogClassId,
-                editMode: pageParams.editMode
-            })
+                page.catalogClassModel = page.catalogClassesCollection.get(page.catalogClassId);
+                page.classGroupsCollection = page.catalogClassModel.groups;
+
+                new CatalogClass({
+                    el: document.getElementById('catalogClass'),
+                    editMode: pageParams.editMode,
+                    catalogClassesCollection: page.catalogClassesCollection,
+                    catalogClassModel: page.catalogClassModel,
+                    classGroupsCollection: page.classGroupsCollection
+                });
+            });
         }
     });
 });

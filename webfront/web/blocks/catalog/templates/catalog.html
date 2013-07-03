@@ -10,4 +10,8 @@
         Добавить класс
     </a>
 </h3>
-<div class="catalog__classList"></div>
+<div class="catalog__classList">
+    <%= block.templates.classList({
+        block: block
+    }) %>
+</div>

@@ -7,8 +7,7 @@ define(function(require) {
             Tooltip_editGroupMenu = require('blocks/tooltip/tooltip_editGroupMenu'),
             Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
             params = require('pages/catalog/params'),
-            CatalogClassModel = require('models/catalogClass'),
-            СatalogClassesCollection = require('collections/catalogClasses');
+            CatalogClassModel = require('models/catalogClass');
 
         return Editor.extend({
             className: 'catalog',
@@ -73,13 +72,49 @@ define(function(require) {
                     block.tooltip_editGroupMenu.show();
                 }
             },
+            listeners: {
+                catalogClassesCollection: {
+                    reset: function() {
+                        var block = this;
+                        block.renderClassList();
+                    },
+                    add: function(model) {
+                        var block = this;
+                        block.$classList.prepend(block.templates.classItem({
+                            block: block,
+                            catalogClass: model.toJSON()
+                        }));
+                    },
+                    remove: function(classModel){
+                        var block = this;
+                        block.$el
+                            .find('#' + classModel.get('id'))
+                            .remove();
+                    },
+                    change: function(classModel){
+                        var block = this;
+                        block.$el
+                            .find('#' + classModel.get('id'))
+                            .replaceWith(block.templates.classItem({
+                                block: block,
+                                catalogClass: classModel.toJSON()
+                            }));
+                    }
+                },
+                addClassForm: {
+                    successSubmit: function(model) {
+                        var block = this;
+                        block.catalogClassesCollection.push(model.toJSON());
+                        block.addClassForm.clear();
+                        block.addClassForm.$el.find('[name="name"]').focus();
+                    }
+                }
+            },
 
             initialize: function() {
                 var block = this;
 
                 Editor.prototype.initialize.call(block);
-
-                block.catalogClassesCollection = new СatalogClassesCollection();
 
                 block.addClassTooltip = new Tooltip({
                     addClass: 'catalog__addClassTooltip'
@@ -94,49 +129,13 @@ define(function(require) {
                 });
 
                 block.addClassTooltip.$content.html(block.addClassForm.$el);
-
-                block.listenTo(block.catalogClassesCollection, {
-                    reset: function() {
-                        block.renderClassList();
-                    },
-                    add: function(model) {
-                        block.$classList.prepend(block.templates.classItem({
-                            block: block,
-                            catalogClass: model.toJSON()
-                        }));
-                    },
-                    remove: function(classModel){
-                        block.$el
-                            .find('#' + classModel.get('id'))
-                            .remove();
-                    },
-                    change: function(classModel){
-                        block.$el
-                            .find('#' + classModel.get('id'))
-                            .replaceWith(block.templates.classItem({
-                                block: block,
-                                catalogClass: classModel.toJSON()
-                            }));
-                    }
-                });
-
-                block.listenTo(block.addClassForm, {
-                    successSubmit: function(model) {
-                        block.catalogClassesCollection.push(model.toJSON());
-                        block.addClassForm.clear();
-                        block.addClassForm.$el.find('[name="name"]').focus();
-                    }
-                });
-
-                block.catalogClassesCollection.fetch();
             },
             renderClassList: function() {
                 var block = this;
 
                 block.$classList
                     .html(block.templates.classList({
-                        block: block,
-                        catalogClasses: block.catalogClassesCollection.toJSON()
+                        block: block
                     }));
             },
             'set:editMode': function(editMode){

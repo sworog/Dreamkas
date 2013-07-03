@@ -4,10 +4,7 @@ define(function(require) {
             Backbone = require('backbone'),
             Editor = require('kit/blocks/editor/editor'),
             Tooltip = require('kit/blocks/tooltip/tooltip'),
-            CatalogClassModel = require('models/catalogClass'),
             CatalogGroupModel = require('models/catalogGroup'),
-            СatalogClassesCollection = require('collections/catalogClasses'),
-            ClassGroupsCollection = require('collections/classGroups'),
             params = require('pages/catalog/params'),
             Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
             Form = require('blocks/form/form');
@@ -18,15 +15,13 @@ define(function(require) {
             editMode: false,
             className: 'catalogClass',
             addClass: 'catalog',
-            catalogClassId: null,
             templates: {
                 index: require('tpl!./templates/catalogClass.html'),
-                groupList: require('tpl!blocks/catalog/templates/groupList.html'),
-                groupItem: require('tpl!blocks/catalog/templates/groupItem.html'),
+                groupList: require('tpl!./templates/groupList.html'),
+                groupItem: require('tpl!./templates/groupItem.html'),
                 classList: require('tpl!./templates/classList.html'),
                 addGroupForm: require('tpl!./templates/addGroupForm.html')
             },
-
             events: {
                 'click .catalog__addGroupLink': function(e) {
                     e.preventDefault();
@@ -77,21 +72,53 @@ define(function(require) {
                     block.tooltip_editClassMenu.show();
                 }
             },
+            listeners: {
+                catalogClassModel: {
+                    change: function(model, opt) {
+                        var block = this;
 
+                        block.$className.html(model.get('name'));
+                        block.renderClassList();
+                    },
+                    destroy: function(){
+                        router.navigate('/catalog', {
+                            trigger: true
+                        })
+                    }
+                },
+                classGroupsCollection: {
+                    reset: function() {
+                        var block = this;
+                        block.renderGroupList();
+                    },
+                    change: function() {
+                        var block = this;
+                        block.renderGroupList();
+                    },
+                    add: function(){
+                        var block = this;
+                        block.renderGroupList();
+                    }
+                },
+                catalogClassesCollection: {
+                    reset: function() {
+                        var block = this;
+                        block.renderClassList();
+                    }
+                },
+                addGroupForm: {
+                    successSubmit: function(model) {
+                        var block = this;
+                        block.classGroupsCollection.push(model);
+                        block.addGroupForm.clear();
+                        block.addGroupForm.$el.find('[name="name"]').focus();
+                    }
+                }
+            },
             initialize: function() {
                 var block = this;
 
                 Editor.prototype.initialize.call(block);
-
-                block.catalogClassModel = new CatalogClassModel({
-                    id: block.catalogClassId
-                });
-
-                block.catalogClassesCollection = new СatalogClassesCollection();
-
-                block.classGroupsCollection = new ClassGroupsCollection({
-                    classId: block.catalogClassId
-                });
 
                 block.addGroupTooltip = new Tooltip({
                     addClass: 'catalog__addGroupTooltip'
@@ -99,7 +126,7 @@ define(function(require) {
 
                 block.addGroupForm = new Form({
                     model: new CatalogGroupModel({
-                        klass: block.catalogClassId
+                        parentClassModel: block.catalogClassModel
                     }),
                     templates: {
                         index: block.templates.addGroupForm
@@ -108,53 +135,6 @@ define(function(require) {
                 });
 
                 block.addGroupTooltip.$content.html(block.addGroupForm.$el);
-
-                //listeners
-                block.listenTo(block.catalogClassModel, {
-                    change: function(model, opt) {
-                        block.$className.html(model.get('name'));
-                        block.classGroupsCollection.reset(block.catalogClassModel.get('groups'));
-                        block.catalogClassesCollection.add(model.toJSON(), {
-                            merge: true
-                        });
-                        block.renderClassList();
-                    },
-                    destroy: function(){
-                        router.navigate('/catalog', {
-                            trigger: true
-                        })
-                    }
-                });
-
-                block.listenTo(block.classGroupsCollection, {
-                    reset: function() {
-                        block.renderGroupList();
-                    },
-                    change: function() {
-                        block.renderGroupList();
-                    },
-                    add: function(model, collection) {
-                        block.catalogClassModel.set('groups', collection.toJSON())
-                    }
-                });
-
-                block.listenTo(block.catalogClassesCollection, {
-                    reset: function() {
-                        block.renderClassList();
-                    }
-                });
-
-                block.listenTo(block.addGroupForm, {
-                    successSubmit: function(model) {
-                        block.classGroupsCollection.push(model);
-                        block.addGroupForm.clear();
-                        block.addGroupForm.$el.find('[name="name"]').focus();
-                    }
-                });
-
-                block.catalogClassModel.fetch();
-                block.catalogClassesCollection.fetch();
-                block.classGroupsCollection.fetch();
             },
             renderGroupList: function() {
                 var block = this;
@@ -162,8 +142,7 @@ define(function(require) {
                 block.$groupList
                     .html(block.templates.groupList({
                         block: block,
-                        classGroups: block.classGroupsCollection.toJSON(),
-                        catalogClass: block.catalogClassModel.toJSON()
+                        groupsCollection: block.classGroupsCollection
                     }));
             },
             renderClassList: function() {
@@ -171,7 +150,8 @@ define(function(require) {
 
                 block.$classList
                     .html(block.templates.classList({
-                        block: block
+                        block: block,
+                        currentClassModel: block.catalogClassModel
                     }));
             },
             'set:editMode': function(editMode){

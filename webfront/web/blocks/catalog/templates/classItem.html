@@ -1,17 +1,16 @@
-<div class="catalog__classItem" id="<%= catalogClass.id %>">
+<div class="catalog__classItem" id="<%= catalogClassModel.id %>">
     <div class="catalog__classTitle">
-        <a href="/catalog/<%= catalogClass.id %>" class="catalog__classLink"><%t catalogClass.name %></a>
-        <a classId="<%= catalogClass.id %>" class="editor__editLink catalog__editClassLink"></a>
+        <a href="/catalog/<%= catalogClassModel.id %>" class="catalog__classLink"><%t catalogClassModel.get('name') %></a>
+        <a classId="<%= catalogClassModel.id %>" class="editor__editLink catalog__editClassLink"></a>
     </div>
-    <% if(catalogClass.groups && catalogClass.groups.length) { %>
+    <% if(catalogClassModel.get('groups') && catalogClassModel.get('groups').length) { %>
         <ul class="catalog__classGroupList">
             <%= block.templates.groupList({
                 block: block,
-                classGroups: catalogClass.groups,
-                catalogClass: catalogClass
+                groupsCollection: catalogClassModel.groups
             }) %>
         </ul>
     <% } else { %>
-        <div>Нет групп</div>
+        <div><%t 'Нет групп' %></div>
     <% } %>
 </div>

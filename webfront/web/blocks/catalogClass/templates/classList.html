@@ -1,5 +1,5 @@
 <% block.catalogClassesCollection.each(function(catalogClassModel){ %>
 <li class="catalogClass__listItem">
-    <a class="catalogClass__listLink" href="/catalog/<%= catalogClassModel.get('id') %>"><%t catalogClassModel.get('name') %></a>
+    <a class="catalogClass__listLink <%= currentClassModel && currentClassModel.id === catalogClassModel.id ? 'catalogClass__listLink_active' : '' %>" href="/catalog/<%= catalogClassModel.get('id') %>"><%t catalogClassModel.get('name') %></a>
 </li>
 <% }) %>

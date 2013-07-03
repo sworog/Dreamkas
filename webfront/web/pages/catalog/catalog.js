@@ -3,7 +3,8 @@ define(function(require) {
     var Page = require('pages/page'),
         _ = require('underscore'),
         pageParams = require('pages/catalog/params'),
-        Catalog = require('blocks/catalog/catalog');
+        Catalog = require('blocks/catalog/catalog'),
+        СatalogClassesCollection = require('collections/catalogClasses');
 
     return Page.extend({
         pageName: 'page_catalog_catalog',
@@ -24,11 +25,16 @@ define(function(require) {
                 }, params)
             }
 
-            page.render();
+            page.catalogClassesCollection = new СatalogClassesCollection();
 
-            new Catalog({
-                editMode: pageParams.editMode,
-                el: document.getElementById('catalog')
+            $.when(page.catalogClassesCollection.fetch()).then(function(){
+                page.render();
+
+                new Catalog({
+                    editMode: pageParams.editMode,
+                    catalogClassesCollection: page.catalogClassesCollection,
+                    el: document.getElementById('catalog')
+                });
             });
         }
     });

@@ -4,12 +4,13 @@ define(function(require) {
             CatalogGroupModel = require('models/catalogGroup');
 
         return BaseCollection.extend({
-            initialize: function(opt){
-                this.classId = opt.classId;
+            initialize: function(models, options){
+                console.log(options.parentModel);
+                this.parentClassModel = options.parentClassModel || options.parentModel;
             },
             model: CatalogGroupModel,
             url: function() {
-                return LH.baseApiUrl + '/klasses/'+ this.classId  + '/groups'
+                return LH.baseApiUrl + '/klasses/'+ this.parentClassModel.id  + '/groups'
             }
         });
     }

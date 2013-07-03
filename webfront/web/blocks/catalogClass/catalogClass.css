@@ -25,6 +25,10 @@
     text-decoration: none;
 }
 
+.catalogClass__listLink_active{
+    background-color: #f4f4f4;
+}
+
 .catalogClass__listLink:hover{
     background: #fafafa;
 }
