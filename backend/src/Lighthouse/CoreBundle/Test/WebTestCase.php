@@ -603,7 +603,7 @@ class WebTestCase extends BaseTestCase
      * @param string $format
      * @return string
      */
-    protected function getNowDate($format = 'Y-m-d\\TH:i:')
+    protected function getNowDate($format = 'Y-m-d\\TH:')
     {
         return date($format);
     }
