@@ -83,12 +83,11 @@ public class ApiConnect {
         }
     }
 
-    public void createWriteOffThroughPost(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
-                                          String quantity, String price, String cause)
+    public void createWriteOffThroughPost(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws JSONException, IOException {
 
         createWriteOffThroughPost(writeOffNumber);
-        addProductToWriteOff(writeOffNumber, productSku, productUnits, purchasePrice, quantity, price, cause);
+        addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause);
     }
 
     public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
@@ -102,11 +101,8 @@ public class ApiConnect {
         }
     }
 
-    public void addProductToWriteOff(String writeOffNumber, String productSku, String productUnits, String purchasePrice, String quantity, String price, String cause)
+    public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws JSONException, IOException {
-        if (!StaticDataCollections.products.containsKey(productSku)) {
-            сreateProductThroughPost(productSku, productSku, productSku, productUnits, purchasePrice);
-        }
         String productId = StaticDataCollections.products.get(productSku).getId();
         String writeOffId = StaticDataCollections.writeOffs.get(writeOffNumber).getId();
         String apiUrl = String.format("%s/api/1/writeoffs/%s/products.json", UrlHelper.getApiUrl(), writeOffId);
@@ -117,7 +113,7 @@ public class ApiConnect {
 
     public String getWriteOffPageUrl(String writeOffNumber) throws JSONException {
         String writeOffId = StaticDataCollections.writeOffs.get(writeOffNumber).getId();
-        return String.format("%s/writeOff/%s", UrlHelper.getWebFrontUrl(), writeOffId);
+        return String.format("%s/writeOffs/%s", UrlHelper.getWebFrontUrl(), writeOffId);
     }
 
     public void createKlassThroughPost(String klassName) throws IOException, JSONException {

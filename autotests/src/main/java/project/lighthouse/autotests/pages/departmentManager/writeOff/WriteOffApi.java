@@ -16,16 +16,14 @@ public class WriteOffApi extends DepartmentManagerApi {
         apiConnect.createWriteOffThroughPost(writeOffNumber);
     }
 
-    public void createWriteOffThroughPost(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
-                                          String quantity, String price, String cause)
+    public void createWriteOffThroughPost(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws IOException, JSONException {
-        apiConnect.createWriteOffThroughPost(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+        apiConnect.createWriteOffThroughPost(writeOffNumber, productSku, quantity, price, cause);
     }
 
-    public void createWriteOffAndNavigateToIt(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
-                                              String quantity, String price, String cause)
+    public void createWriteOffAndNavigateToIt(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws JSONException, IOException {
-        apiConnect.createWriteOffThroughPost(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+        apiConnect.createWriteOffThroughPost(writeOffNumber, productSku, quantity, price, cause);
         navigatoToWriteOffPage(writeOffNumber);
     }
 

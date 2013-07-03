@@ -5,7 +5,9 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.StaticDataCollections;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.pages.commercialManager.product.ProductApi;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffApi;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffListPage;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffPage;
@@ -18,6 +20,7 @@ public class WriteOffSteps extends ScenarioSteps {
     CommonPage commonPage;
     WriteOffListPage writeOffListPage;
     WriteOffApi writeOffApi;
+    ProductApi productApi;
 
     public WriteOffSteps(Pages pages) {
         super(pages);
@@ -32,14 +35,22 @@ public class WriteOffSteps extends ScenarioSteps {
     public void createWriteOffThroughPost(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
                                           String quantity, String price, String cause)
             throws IOException, JSONException {
-        writeOffApi.createWriteOffThroughPost(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+        createProduct(productSku, productName, productBarCode, productUnits, purchasePrice);
+        writeOffApi.createWriteOffThroughPost(writeOffNumber, productSku, quantity, price, cause);
     }
 
     @Step
     public void createWriteOffAndNavigateToIt(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
                                               String quantity, String price, String cause)
             throws JSONException, IOException {
-        writeOffApi.createWriteOffAndNavigateToIt(writeOffNumber, productName, productSku, productBarCode, productUnits, purchasePrice, quantity, price, cause);
+        createProduct(productSku, productName, productBarCode, productUnits, purchasePrice);
+        writeOffApi.createWriteOffAndNavigateToIt(writeOffNumber, productSku, quantity, price, cause);
+    }
+
+    public void createProduct(String productSku, String productName, String productBarCode, String productUnits, String purchasePrice) throws IOException, JSONException {
+        if (!StaticDataCollections.products.containsKey(productSku)) {
+            productApi.сreateProductThroughPost(productSku, productName, productBarCode, productUnits, purchasePrice);
+        }
     }
 
     @Step

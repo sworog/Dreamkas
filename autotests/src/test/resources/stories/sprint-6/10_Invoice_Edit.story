@@ -440,10 +440,10 @@ When the user logs out
 
 Scenario: issue 8 regresssion
 Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
-And there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
+And there is the invoice 'InvoiceProduct-IPE-Common-regress' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
-When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
+When the user open the invoice card with 'InvoiceProduct-IPE-Common-regress' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productNameView' element of invoice product with 'IE-IPE' sku to edit
 And the user inputs '!1234567' in the invoice 'inline productName' field
