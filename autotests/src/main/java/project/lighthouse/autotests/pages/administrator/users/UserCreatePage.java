@@ -43,7 +43,7 @@ public class UserCreatePage extends ProductCreatePage {
     }
 
     public void preloaderWait() {
-        String preloaderXpath = "//*[contains(@class, 'preloader')]";
+        String preloaderXpath = "//*[contains(@class, 'preloader') and not(contains(@class, 'preloader_spinner'))]";
         waiter.waitUntilIsNotVisible(By.xpath(preloaderXpath));
     }
 
