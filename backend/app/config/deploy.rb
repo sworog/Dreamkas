@@ -55,7 +55,9 @@ logger.level = Logger::IMPORTANT
 
 after "deploy:setup", "symfony:parameters:setup"
 
-before "deploy:restart", "deploy:reload_php"
+before "deploy", "deploy:vpn"
+
+before "deploy:restart", "deploy:php:reload"
 
 after "deploy:restart" do
     puts "--> API was successfully deployed to ".green + "#{application_url}".yellow

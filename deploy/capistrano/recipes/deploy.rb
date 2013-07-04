@@ -23,11 +23,50 @@ namespace :deploy do
         end
     end
 
-    desc "Reload PHP-FPM"
-    task :reload_php, :roles => :app, :except => { :no_release => true } do
-        run "#{sudo} service php5-fpm reload"
-        capifony_pretty_print "--> Reloading PHP-FPM"
-        capifony_puts_ok
+    namespace :php do
+        {
+            :start  => "Start",
+            :stop   => "Stop",
+            :reload => "Reload"
+        }.each do |action, description|
+            desc "PHP-FPM #{description}"
+            task action, :roles => :app, :except => { :no_release => true } do
+                run "#{sudo} service php5-fpm #{action.to_s}"
+                capifony_pretty_print "--> PHP-FPM #{description}"
+                capifony_puts_ok
+            end
+        end
+    end
+
+    namespace :vpn do
+        desc "Check VPN"
+        task :check, :roles => :app, :except => { :no_release => true } do
+            capifony_pretty_print "--> Checking VPN is up"
+            interfaces = capture("ifconfig", :except => { :no_release => true })
+            raise "VPN is down" unless /^ppp0/.match(interfaces)
+            capifony_puts_ok
+        end
+
+        task :start,  :roles => :app, :except => { :no_release => true } do
+            run "#{sudo} pon crystal"
+            capifony_pretty_print "--> Starting VPN"
+            capifony_puts_ok
+        end
+
+        task :stop,  :roles => :app, :except => { :no_release => true } do
+            run "#{sudo} poff crystal"
+            capifony_pretty_print "--> Stopping VPN"
+            capifony_puts_ok
+        end
+
+        task :default do
+            begin
+                check
+            rescue Exception => error
+                puts "✘".red
+                start
+            end
+        end
     end
 
     desc "Init deploy configuration using current git branch"
