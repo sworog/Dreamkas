@@ -4,41 +4,26 @@ define(function(require) {
         Backbone = require('backbone'),
         _ = require('underscore');
 
-    require('backbone.syphon');
-
     var router = new Backbone.Router();
 
     return Block.extend({
         tagName: 'form',
         className: 'form',
-        Model: Backbone.Model,
+        blockName: 'form',
         model: null,
+        collection: null,
         redirectUrl: null,
-        data: null,
-        submitting: $.Deferred(),
         events: {
             'submit': function(e) {
                 e.preventDefault();
-                var block = this;
+
+                var block = this,
+                    data = Backbone.Syphon.serialize(block);
 
                 block.$submitButton.addClass('preloader_rows');
 
                 block.removeErrors();
-
-                block.data = Backbone.Syphon.serialize(block);
-
-                block.submit().then(function(data) {
-                    block.trigger('successSubmit', data);
-                    if (block.redirectUrl){
-                        router.navigate(block.redirectUrl, {
-                            trigger: true
-                        });
-                    }
-                    block.$submitButton.removeClass('preloader preloader_rows');
-                }, function(data) {
-                    block.showErrors(data);
-                    block.$submitButton.removeClass('preloader preloader_rows');
-                });
+                block.onSubmit(data);
             }
         },
         findElements: function() {
@@ -48,21 +33,36 @@ define(function(require) {
 
             block.$submitButton = block.$el.find('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
         },
-        submit: function() {
-            var block = this,
-                deferred = $.Deferred(),
-                model = block.model.id ? block.model : block.model.clone();
+        onSubmit: function(data){
+            var block = this;
 
-            model.save(block.data, {
+            block.model.save(data, {
                 success: function(model) {
-                    deferred.resolve(model);
+                    if (block.collection){
+                        block.collection.push(model);
+                    }
+                    block.submitSuccess(model);
                 },
                 error: function(model, response) {
-                    deferred.reject(JSON.parse(response.responseText));
+                    block.submitError(JSON.parse(response.responseText));
                 }
             });
+        },
+        submitSuccess: function(data){
+            var block = this;
 
-            return deferred.promise();
+            block.trigger('submit:success', data);
+            if (block.redirectUrl){
+                router.navigate(block.redirectUrl, {
+                    trigger: true
+                });
+            }
+            block.$submitButton.removeClass('preloader_rows');
+        },
+        submitError: function(data){
+            var block = this;
+            block.showErrors(data);
+            block.$submitButton.removeClass('preloader_rows');
         },
         showErrors: function(errors) {
             var block = this;
@@ -120,5 +120,5 @@ define(function(require) {
                 }
             });
         }
-    });
+    })
 });

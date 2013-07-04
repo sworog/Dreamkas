@@ -20,37 +20,6 @@ define(function(require) {
 
         events: null,
 
-        listeners: {
-            collection: {
-                sync: function() {
-                    var block = this;
-                    console.log(arguments);
-                    block.render();
-                    block.set('loading', false);
-                },
-                request: function() {
-                    var block = this;
-                    console.log(arguments);
-                    block.set('loading', true);
-                }
-            },
-            model: {
-                sync: function() {
-                    var block = this;
-
-                    block.set('loading', false);
-                    block.render();
-                },
-                request: function(model, xhr, options) {
-                    var block = this;
-
-                    if (options.isFetch){
-                        block.set('loading', true);
-                    }
-                }
-            }
-        },
-
         constructor: function(options) {
             var block = this;
 
@@ -81,7 +50,7 @@ define(function(require) {
         },
         render: function() {
             var block = this,
-                $template;
+                template;
 
             if (!block.templates.index) {
                 return block;
@@ -91,16 +60,16 @@ define(function(require) {
                 return block;
             }
 
-            $template = $(block.templates.index({
+            template = block.templates.index({
                 block: block
-            }));
+            });
 
             block.$el.children('[block]').each(function() {
                 $(this).data('block').remove();
             });
 
             block.$el
-                .html($template)
+                .html(template)
                 .require();
 
             block.findElements();
@@ -146,7 +115,9 @@ define(function(require) {
                 var $block = $(this),
                     blockName = $block.attr('block');
 
-                $block.data('blockName').remove();
+                if ($block.parents('[block]') === block.$el){
+                    $block.data(blockName).remove();
+                }
             });
 
             Backbone.View.prototype.remove.call(this);

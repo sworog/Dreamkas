@@ -5,7 +5,6 @@ define(function(require) {
 
         return BaseCollection.extend({
             initialize: function(models, options){
-                console.log(options.parentModel);
                 this.parentClassModel = options.parentClassModel || options.parentModel;
             },
             model: CatalogGroupModel,

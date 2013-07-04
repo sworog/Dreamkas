@@ -46,7 +46,9 @@ define(function(require) {
             return toJSON.apply(this, arguments);
         },
         set: function(){
-            Backbone.Model.prototype.set.apply(this, arguments);
+            if (!Backbone.Model.prototype.set.apply(this, arguments)){
+                return false;
+            }
 
             var model = this,
                 changedAttributes = this.changedAttributes();
@@ -60,6 +62,8 @@ define(function(require) {
                     }
                 })
             }
+
+            return this;
         }
     })
 });

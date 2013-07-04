@@ -12,25 +12,25 @@
     vertical-align: middle;
 }
 
-.catalog__classGroupList{
+.catalog__groupList{
     padding: 0;
     margin: 0;
     overflow: hidden;
     list-style: none;
 }
 
-.catalog__classGroupItem{
+.catalog__groupItem{
     margin: 0 10px 5px 0;
     display: inline-block;
     vertical-align: middle;
+}
+
+.catalog__groupLink{
+    margin-right: 4px;
 }
 
 .catalog__classTitle{
     font-size: 16px;
     padding-bottom: 10px;
     font-weight: bold;
-}
-
-.catalog__addClassTooltip, .catalog__addGroupTooltip{
-    margin-top: -40px;
 }

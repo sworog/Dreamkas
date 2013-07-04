@@ -61,11 +61,14 @@ define(function(require) {
                         break;
                 }
 
-                $renderContainer.children('[block]').each(function() {
+                $renderContainer.find('[block]').each(function() {
                     var $block = $(this),
+                        $parentBlock = $block.parents('[block]'),
                         blockName = $block.attr('block');
 
-                    $block.data(blockName).remove();
+                    if ($parentBlock.length === 0){
+                        $block.data(blockName).remove();
+                    }
                 });
 
                 $renderContainer.html(template({page: page}));

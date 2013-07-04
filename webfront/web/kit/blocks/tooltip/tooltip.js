@@ -1,7 +1,8 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
-            _ = require('underscore');
+            _ = require('underscore'),
+            deepExtend = require('kit/utils/deepExtend');
 
         return Block.extend({
             $trigger: null,
@@ -48,18 +49,19 @@ define(function(require) {
             show: function(opt) {
                 var block = this;
 
-                opt = _.extend({
-                    $trigger: null
-                }, opt);
+                deepExtend(block, opt);
 
-                block.$trigger = opt.$trigger || block.$trigger;
+                block.align();
+                block.$el.show();
+            },
+            align: function(){
+                var block = this;
 
                 block.$el
                     .css({
                         top: block.$trigger.offset().top + block.$trigger.height(),
                         left: block.$trigger.offset().left
                     })
-                    .show();
             },
             hide: function() {
                 var block = this;
