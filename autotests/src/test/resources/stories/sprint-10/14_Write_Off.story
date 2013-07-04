@@ -67,7 +67,7 @@ When the user logs out
 
 Scenario: Write off price is filled by retail price
 Given the user is on the product list page
-And the user logs in as 'departmentManager'
+And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'WriteOff-ProductName-1' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
@@ -77,7 +77,9 @@ And the user inputs 'Retail price - WO-PCWRPF' in 'sku' field
 And the user clicks 'retailPriceHint' to make it avalaible
 When the user inputs '140' in 'retailPrice' field
 When the user clicks the create button
+And the user logs out
 Given the user opens the write off create page
+And the user logs in as 'departmentManager'
 When the user inputs 'WriteOff ifbrp' in the 'writeOff number' field on the write off page
 And the user inputs 'todayDate' in the 'writeOff date' field on the write off page
 And the user continues the write off creation
