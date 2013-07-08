@@ -128,14 +128,16 @@ public class ApiConnect {
     }
 
     public void createCategoryThroughPost(String categoryName, String groupName) throws IOException, JSONException {
-        createGroupThroughPost(groupName);
-        String apiUrl = String.format("%s/api/1/groups.json", UrlHelper.getApiUrl());
-        String groupId = StaticDataCollections.groups.get(groupName).getId();
-        String groupJsonData = Category.getJsonObject(categoryName, groupId).toString();
-        String postResponse = executePostRequest(apiUrl, groupJsonData);
+        if (!StaticDataCollections.categories.containsKey(categoryName)) {
+            createGroupThroughPost(groupName);
+            String apiUrl = String.format("%s/api/1/groups.json", UrlHelper.getApiUrl());
+            String groupId = StaticDataCollections.groups.get(groupName).getId();
+            String groupJsonData = Category.getJsonObject(categoryName, groupId).toString();
+            String postResponse = executePostRequest(apiUrl, groupJsonData);
 
-        Category category = new Category(new JSONObject(postResponse));
-        StaticDataCollections.categories.put(categoryName, category);
+            Category category = new Category(new JSONObject(postResponse));
+            StaticDataCollections.categories.put(categoryName, category);
+        }
     }
 
     public String getGroupPageUrl(String groupName) throws JSONException {

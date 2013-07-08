@@ -39,7 +39,7 @@ public class CatalogUserSteps {
         catalogSteps.navigateToCategoryPage(categoryName, groupName);
     }
 
-    @Given("there is the subcategory related to group named '$groupName' and category named '$categoryName'")
+    @Given("there is the subCategory with name '$subCategoryName' related to group named '$groupName' and category named '$categoryName'")
     public void givenThereIsTheSubCategory(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
         catalogSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
     }
@@ -55,23 +55,33 @@ public class CatalogUserSteps {
     }
 
     @When("the user creates new group with name '$groupName'")
-    public void whenTheUserCreatesNewClassWithName(String groupName) {
+    public void whenTheUserCreatesNewGroupWithName(String groupName) {
         catalogSteps.groupCreate(groupName);
     }
 
     @When("the user clicks on the group name '$groupName'")
-    public void whenTheUSerClicksOnTheClassName(String groupName) {
+    public void whenTheUSerClicksOnTheGroupName(String groupName) {
         catalogSteps.groupClick(groupName);
     }
 
     @When("the user creates new category with name '$categoryName'")
-    public void whenTheUserCreatesNewGroup(String categoryName) {
+    public void whenTheUserCreatesNewCategory(String categoryName) {
         catalogSteps.categoryCreate(categoryName);
     }
 
     @When("the user clicks on the category name '$categoryName'")
-    public void whenTheUserClicksOnTheGroupName(String categoryName) {
+    public void whenTheUserClicksOnTheCategoryName(String categoryName) {
         catalogSteps.categoryClick(categoryName);
+    }
+
+    @When("the user creates new subCategory with name '$subCategoryName'")
+    public void whenTheUserCreatesNewSubCategory(String subCategoryName) {
+        catalogSteps.subCategoryCreate(subCategoryName);
+    }
+
+    @When("the user clicks on the subCategory name '$categoryName'")
+    public void whenTheUserClicksOnTheSubCategoryName(String subCategoryName) {
+        catalogSteps.subCategoryClick(subCategoryName);
     }
 
     @When("the user opens pop up menu of '$name' element")
@@ -80,8 +90,13 @@ public class CatalogUserSteps {
     }
 
     @When("the user opens pop up menu of category '$name' element")
-    public void whenTheUserOpensPopUpMenuOfGroupElement(String name) {
+    public void whenTheUserOpensPopUpMenuOfCategoryElement(String name) {
         catalogSteps.popUpCategoryMenuInteraction(name);
+    }
+
+    @When("the user opens pop up menu of subCategory '$subCategoryName' element")
+    public void whenTheUserOpensPopUpMenuOfSubCategoryElement(String subCategoryName) {
+        catalogSteps.popUpCategoryMenuInteraction(subCategoryName);
     }
 
     @When("the user deletes element through pop up menu")
@@ -105,13 +120,18 @@ public class CatalogUserSteps {
     }
 
     @When("the user clicks create new group button")
-    public void whenTheUserClicksCreateNewClassButton() {
-        catalogSteps.addNewButtonClick();
+    public void whenTheUserClicksCreateNewGroupButton() {
+        catalogSteps.addNewGroupButtonClick();
     }
 
     @When("the user clicks create new category button")
-    public void whenTheUserClicksCreateNewGroupButton() {
-        catalogSteps.addNewGroupClick();
+    public void whenTheUserClicksCreateNewCategoryButton() {
+        catalogSteps.addNewCategoryClick();
+    }
+
+    @When("the user clicks create new category button")
+    public void whenTheUserClicksCreateNewSubCategoryButton() {
+        catalogSteps.addNewSubCategoryClick();
     }
 
     @When("the user inputs '$value' in '$element' field of pop up")
@@ -162,6 +182,16 @@ public class CatalogUserSteps {
     @Then("the user checks the category with '$categoryName' name is not present")
     public void thenTheUserChecksTheGroupIsNotPresent(String categoryName) {
         catalogSteps.categoryCheckIsNotPresent(categoryName);
+    }
+
+    @Then("the user checks the subCategory with '$subCategoryName' name is present")
+    public void thenTheUserChecksTheSubCategoryIsPresent(String subCategoryName) {
+        catalogSteps.categoryCheck(subCategoryName);
+    }
+
+    @Then("the user checks the subCategory with '$subCategoryName' name is not present")
+    public void thenTheUserChecksTheSubCategoryIsNotPresent(String subCategoryName) {
+        catalogSteps.categoryCheckIsNotPresent(subCategoryName);
     }
 
     @Then("the user checks the category with '$name' name is related to group '$parentName'")

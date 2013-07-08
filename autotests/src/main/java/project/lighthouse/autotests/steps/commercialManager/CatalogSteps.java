@@ -8,6 +8,7 @@ import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CategoryPage;
 import project.lighthouse.autotests.pages.commercialManager.catalog.GroupPage;
+import project.lighthouse.autotests.pages.commercialManager.catalog.SubCategoryPage;
 
 import java.io.IOException;
 
@@ -17,6 +18,7 @@ public class CatalogSteps extends ScenarioSteps {
     CategoryPage categoryPage;
     CommonPage commonPage;
     CatalogApi catalogApi;
+    SubCategoryPage subCategoryPage;
 
     public CatalogSteps(Pages pages) {
         super(pages);
@@ -73,6 +75,11 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void subCategoryCreate(String subCategoryName) {
+        subCategoryPage.create(subCategoryName);
+    }
+
+    @Step
     public void groupCheck(String name) {
         groupPage.check(name);
     }
@@ -83,6 +90,11 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void subCategoryCheck(String name) {
+        subCategoryPage.check(name);
+    }
+
+    @Step
     public void popUpMenuInteraction(String name) {
         groupPage.popUpMenuInteraction(name);
     }
@@ -90,6 +102,11 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void popUpCategoryMenuInteraction(String name) {
         categoryPage.popUpMenuInteraction(name);
+    }
+
+    @Step
+    public void popUpSubCategoryMenuInteraction(String name) {
+        subCategoryPage.popUpMenuInteraction(name);
     }
 
     @Step
@@ -118,6 +135,11 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void subCategoryIsNotPresent(String subCategoryName) {
+        subCategoryPage.checkIsNotPresent(subCategoryName);
+    }
+
+    @Step
     public void groupClick(String groupName) {
         groupPage.itemClick(groupName);
     }
@@ -125,6 +147,11 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void categoryClick(String categoryName) {
         categoryPage.itemClick(categoryName);
+    }
+
+    @Step
+    public void subCategoryClick(String subCategoryName) {
+        subCategoryPage.itemClick(subCategoryName);
     }
 
     @Step
@@ -160,13 +187,18 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
-    public void addNewButtonClick() {
+    public void addNewGroupButtonClick() {
         groupPage.addNewButtonClick();
     }
 
     @Step
-    public void addNewGroupClick() {
+    public void addNewCategoryClick() {
         categoryPage.addNewButtonClick();
+    }
+
+    @Step
+    public void addNewSubCategoryClick() {
+        subCategoryPage.addNewButtonClick();
     }
 
     @Step
