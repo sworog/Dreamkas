@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Document\Group;
 
-use Lighthouse\CoreBundle\Exception\RuntimeException;
+use Lighthouse\CoreBundle\Exception\NotEmptyException;
 
-class GroupNotEmptyException extends RuntimeException
+class GroupNotEmptyException extends NotEmptyException
 {
 }

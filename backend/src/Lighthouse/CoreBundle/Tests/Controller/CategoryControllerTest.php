@@ -349,4 +349,25 @@ class CategoryControllerTest extends WebTestCase
 
         Assert::assertResponseCode(204, $this->client);
     }
+
+    public function testDeleteCategoryWithSubcategories()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+        $categoryId = $this->createCategory($groupId);
+
+        $this->createSubCategory($categoryId, '1');
+        $this->createSubCategory($categoryId, '2');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/categories/' . $categoryId
+        );
+
+        Assert::assertResponseCode(409, $this->client);
+    }
 }

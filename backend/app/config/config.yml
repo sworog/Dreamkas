@@ -79,9 +79,9 @@ fos_rest:
             html: false
     exception:
         codes:
-            'Lighthouse\CoreBundle\Document\Group\GroupNotEmptyException': 409
+            'Lighthouse\CoreBundle\Exception\NotEmptyException': 409
         messages:
-            'Lighthouse\CoreBundle\Document\Group\GroupNotEmptyException': true
+            'Lighthouse\CoreBundle\Exception\NotEmptyException': true
 
 nelmio_cors:
     paths:
