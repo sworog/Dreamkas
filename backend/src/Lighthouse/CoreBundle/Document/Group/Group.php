@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Klass;
+namespace Lighthouse\CoreBundle\Document\Group;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Category\Category;
@@ -10,11 +10,11 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\Klass\KlassRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\Group\GroupRepository"
  * )
- * @Unique(fields="name", message="lighthouse.validation.errors.klass.name.unique")
+ * @Unique(fields="name", message="lighthouse.validation.errors.group.name.unique")
  */
-class Klass extends AbstractDocument
+class Group extends AbstractDocument
 {
     /**
      * @MongoDB\Id
@@ -36,7 +36,7 @@ class Klass extends AbstractDocument
      *      targetDocument="Lighthouse\CoreBundle\Document\Category\Category",
      *      simple=true,
      *      cascade="persist",
-     *      mappedBy="klass"
+     *      mappedBy="group"
      * )
      * @var Category[]
      */

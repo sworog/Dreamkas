@@ -7,14 +7,14 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 class CategoryRepository extends DocumentRepository
 {
     /**
-     * @param string $klassId
+     * @param string $groupId
      * @return int
      */
-    public function countByKlass($klassId)
+    public function countByGroup($groupId)
     {
         $query = $this
             ->createQueryBuilder()
-            ->field('klass')->equals($klassId)
+            ->field('group')->equals($groupId)
             ->count()
             ->getQuery();
         $count = $query->execute();

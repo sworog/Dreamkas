@@ -5,9 +5,9 @@ namespace Lighthouse\CoreBundle\Controller;
 use Lighthouse\CoreBundle\Document\Category\Category;
 use Lighthouse\CoreBundle\Document\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Category\CategoryRepository;
-use Lighthouse\CoreBundle\Document\Klass\KlassRepository;
+use Lighthouse\CoreBundle\Document\Group\GroupRepository;
 use Lighthouse\CoreBundle\Form\CategoryType;
-use Lighthouse\CoreBundle\Document\Klass\Klass;
+use Lighthouse\CoreBundle\Document\Group\Group;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,10 +23,10 @@ class CategoryController extends AbstractRestController
     protected $documentRepository;
 
     /**
-     * @DI\Inject("lighthouse.core.document.repository.klass")
-     * @var KlassRepository
+     * @DI\Inject("lighthouse.core.document.repository.group")
+     * @var GroupRepository
      */
-    protected $klassRepository;
+    protected $groupRepository;
 
     /**
      * @return CategoryType
@@ -74,14 +74,14 @@ class CategoryController extends AbstractRestController
     }
 
     /**
-     * @param Klass $klass
+     * @param \Lighthouse\CoreBundle\Document\Group\Group $group
      * @return CategoryCollection
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
-    public function getKlassCategoriesAction(Klass $klass)
+    public function getGroupCategoriesAction(Group $group)
     {
-        $cursor = $this->getDocumentRepository()->findByKlass($klass->id);
+        $cursor = $this->getDocumentRepository()->findByGroup($group->id);
         $collection = new CategoryCollection($cursor);
         return $collection;
     }

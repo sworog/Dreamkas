@@ -11,11 +11,11 @@ class CategoryControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass('Продовольственные товары');
+        $groupId = $this->createGroup('Продовольственные товары');
 
         $categoryData = array(
             'name' => 'Винно-водочные изделия',
-            'klass' => $klassId,
+            'group' => $groupId,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -31,20 +31,20 @@ class CategoryControllerTest extends WebTestCase
 
         Assert::assertJsonHasPath('id', $postResponse);
         Assert::assertJsonPathEquals('Винно-водочные изделия', 'name', $postResponse);
-        Assert::assertJsonPathEquals($klassId, 'klass.id', $postResponse);
-        Assert::assertJsonPathEquals('Продовольственные товары', 'klass.name', $postResponse);
+        Assert::assertJsonPathEquals($groupId, 'group.id', $postResponse);
+        Assert::assertJsonPathEquals('Продовольственные товары', 'group.name', $postResponse);
     }
 
     public function testUniqueCategoryName()
     {
         $this->clearMongoDb();
 
-        $klassId1 = $this->createKlass('Алкоголь');
-        $klassId2 = $this->createKlass('Продовольственные товары');
+        $groupId1 = $this->createGroup('Алкоголь');
+        $groupId2 = $this->createGroup('Продовольственные товары');
 
         $categoryData = array(
             'name' => 'Винно-водочные изделия',
-            'klass' => $klassId1,
+            'group' => $groupId1,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -59,7 +59,7 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertResponseCode(201, $this->client);
         Assert::assertJsonHasPath('id', $postResponse);
 
-        // Try to create second category with same name in klass 1
+        // Try to create second category with same name in group 1
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -74,9 +74,9 @@ class CategoryControllerTest extends WebTestCase
             $postResponse
         );
 
-        $categoryData2 = array('klass' => $klassId2) + $categoryData;
+        $categoryData2 = array('group' => $groupId2) + $categoryData;
 
-        // Create category with same name but in klass 2
+        // Create category with same name but in group 2
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -87,7 +87,7 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertResponseCode(201, $this->client);
         Assert::assertJsonHasPath('id', $postResponse);
 
-        // Create second category with same name in klass 2
+        // Create second category with same name in group 2
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -114,11 +114,11 @@ class CategoryControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass('Продовольственные товары');
+        $groupId = $this->createGroup('Продовольственные товары');
 
         $categoryData = $data + array(
             'name' => 'Винно-водочные изделия',
-            'klass' => $klassId,
+            'group' => $groupId,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -158,13 +158,13 @@ class CategoryControllerTest extends WebTestCase
                     'Не более 100 символов'
                 )
             ),
-            'not valid klass' => array(
+            'not valid group' => array(
                 400,
-                array('klass' => '1234'),
+                array('group' => '1234'),
                 array(
-                    'children.klass.errors.0'
+                    'children.group.errors.0'
                     =>
-                    'Такого класса не существует'
+                    'Такой группы не существует'
                 )
             ),
             'valid long 100 name' => array(
@@ -185,13 +185,13 @@ class CategoryControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass('Продовольственные товары');
+        $groupId = $this->createGroup('Продовольственные товары');
 
-        $categoryId = $this->createCategory($klassId);
+        $categoryId = $this->createCategory($groupId);
 
         $putData = $data + array(
             'name' => 'Винно-водочные изделия',
-            'klass' => $klassId,
+            'group' => $groupId,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -213,8 +213,8 @@ class CategoryControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass();
-        $categoryId = $this->createCategory($klassId);
+        $groupId = $this->createGroup();
+        $categoryId = $this->createCategory($groupId);
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
@@ -226,15 +226,15 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertResponseCode(200, $this->client);
 
         Assert::assertJsonPathEquals($categoryId, 'id', $getResponse);
-        Assert::assertJsonPathEquals($klassId, 'klass.id', $getResponse);
+        Assert::assertJsonPathEquals($groupId, 'group.id', $getResponse);
     }
 
     public function testGetCategoryNotFound()
     {
         $this->clearMongoDb();
 
-        $klassId1 = $this->createKlass('1');
-        $this->createCategory($klassId1, '1.1');
+        $groupId1 = $this->createGroup('1');
+        $this->createCategory($groupId1, '1.1');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
@@ -250,21 +250,21 @@ class CategoryControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $klassId1 = $this->createKlass('1');
-        $klassId2 = $this->createKlass('2');
+        $groupId1 = $this->createGroup('1');
+        $groupId2 = $this->createGroup('2');
 
-        $categoryId1 = $this->createCategory($klassId1, '1.1');
-        $categoryId2 = $this->createCategory($klassId1, '1.2');
-        $categoryId3 = $this->createCategory($klassId1, '1.3');
+        $categoryId1 = $this->createCategory($groupId1, '1.1');
+        $categoryId2 = $this->createCategory($groupId1, '1.2');
+        $categoryId3 = $this->createCategory($groupId1, '1.3');
 
-        $categoryId4 = $this->createCategory($klassId2, '2.4');
-        $categoryId5 = $this->createCategory($klassId2, '2.5');
+        $categoryId4 = $this->createCategory($groupId2, '2.4');
+        $categoryId5 = $this->createCategory($groupId2, '2.5');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId1 . '/categories'
+            '/api/1/groups/' . $groupId1 . '/categories'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -280,7 +280,7 @@ class CategoryControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId2 . '/categories'
+            '/api/1/groups/' . $groupId2 . '/categories'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -301,7 +301,7 @@ class CategoryControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/123484923423/categories'
+            '/api/1/groups/123484923423/categories'
         );
 
         Assert::assertResponseCode(404, $this->client);
@@ -311,13 +311,13 @@ class CategoryControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass();
+        $groupId = $this->createGroup();
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId . '/categories'
+            '/api/1/groups/' . $groupId . '/categories'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -329,8 +329,8 @@ class CategoryControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass();
-        $categoryId = $this->createCategory($klassId);
+        $groupId = $this->createGroup();
+        $categoryId = $this->createCategory($groupId);
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(

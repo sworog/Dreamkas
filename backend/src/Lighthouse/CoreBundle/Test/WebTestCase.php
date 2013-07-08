@@ -381,7 +381,7 @@ class WebTestCase extends BaseTestCase
      * @param string $name
      * @return string
      */
-    protected function createKlass($name = 'Продовольственные товары')
+    protected function createGroup($name = 'Продовольственные товары')
     {
         $postData = array(
             'name' => $name,
@@ -392,7 +392,7 @@ class WebTestCase extends BaseTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/klasses.json',
+            '/api/1/groups.json',
             $postData
         );
 
@@ -440,15 +440,15 @@ class WebTestCase extends BaseTestCase
     }
 
     /**
-     * @param string $klassId
+     * @param string $groupId
      * @param string $name
      * @return string
      */
-    protected function createCategory($klassId, $name = 'Винно-водочные изделия')
+    protected function createCategory($groupId, $name = 'Винно-водочные изделия')
     {
         $categoryData = array(
             'name' => $name,
-            'klass' => $klassId,
+            'group' => $groupId,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');

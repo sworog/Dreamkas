@@ -74,11 +74,11 @@ services:
         arguments:
             - LighthouseCoreBundle:WriteOff\Product\WriteOffProduct
 
-    lighthouse.core.document.repository.klass:
+    lighthouse.core.document.repository.group:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Klass\Klass
+        class: Lighthouse\CoreBundle\Document\Group\Group
         arguments:
-            - LighthouseCoreBundle:Klass\Klass
+            - LighthouseCoreBundle:Group\Group
 
     lighthouse.core.document.repository.category:
         parent: doctrine_mongodb.odm.repository

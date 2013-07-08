@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class KlassType extends AbstractType
+class GroupType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -25,7 +25,7 @@ class KlassType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Klass\\Klass',
+                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Group\\Group',
                 'csrf_protection' => false
             )
         );

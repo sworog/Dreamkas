@@ -24,8 +24,8 @@ lighthouse.core.write-off.product:
     type:     rest
     parent:   lighthouse.core.write-off
 
-lighthouse.core.klass:
-    resource: Lighthouse\CoreBundle\Controller\KlassController
+lighthouse.core.group:
+    resource: Lighthouse\CoreBundle\Controller\GroupController
     type:     rest
 
 lighthouse.core.category:

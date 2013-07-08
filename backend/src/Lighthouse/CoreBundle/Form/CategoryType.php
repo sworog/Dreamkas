@@ -17,11 +17,11 @@ class CategoryType extends AbstractType
         $builder
             ->add('name', 'text')
             ->add(
-                'klass',
+                'group',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Klass\\Klass',
-                    'invalid_message' => 'lighthouse.validation.errors.category.klass.does_not_exists'
+                    'class' => 'Lighthouse\\CoreBundle\\Document\\Group\\Group',
+                    'invalid_message' => 'lighthouse.validation.errors.category.group.does_not_exists'
                 )
             );
     }

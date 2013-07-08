@@ -1,15 +1,17 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Klass;
+namespace Lighthouse\CoreBundle\Document\Group;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Lighthouse\CoreBundle\Document\Category\CategoryRepository;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Group\Group;
+use Lighthouse\CoreBundle\Document\Group\GroupNotEmptyException;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"preRemove"})
  */
-class KlassListener
+class GroupListener
 {
     /**
      * @var CategoryRepository
@@ -33,20 +35,20 @@ class KlassListener
     public function preRemove(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-        if ($document instanceof Klass) {
-            $this->checkKlassHasNoCategories($document);
+        if ($document instanceof Group) {
+            $this->checkGroupHasNoCategories($document);
         }
     }
 
     /**
-     * @param Klass $klass
-     * @throws KlassNotEmptyException
+     * @param Group $group
+     * @throws GroupNotEmptyException
      */
-    protected function checkKlassHasNoCategories(Klass $klass)
+    protected function checkGroupHasNoCategories(Group $group)
     {
-        $count = $this->categoryRepository->countByKlass($klass->id);
+        $count = $this->categoryRepository->countByGroup($group->id);
         if ($count > 0) {
-            throw new KlassNotEmptyException('Klass is not empty');
+            throw new GroupNotEmptyException('Group is not empty');
         }
     }
 }

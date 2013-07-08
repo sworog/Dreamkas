@@ -5,13 +5,13 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
-class KlassControllerTest extends WebTestCase
+class GroupControllerTest extends WebTestCase
 {
-    public function testPostKlassAction()
+    public function testPostGroupAction()
     {
         $this->clearMongoDb();
 
-        $klassData = array(
+        $groupData = array(
             'name' => 'Продовольственные товары'
         );
 
@@ -20,8 +20,8 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/klasses',
-            $klassData
+            '/api/1/groups',
+            $groupData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -35,13 +35,13 @@ class KlassControllerTest extends WebTestCase
      * @param array $data
      * @param array $assertions
      *
-     * @dataProvider validationKlassProvider
+     * @dataProvider validationGroupProvider
      */
-    public function testPostKlassValidation($expectedCode, array $data, array $assertions = array())
+    public function testPostGroupValidation($expectedCode, array $data, array $assertions = array())
     {
         $this->clearMongoDb();
 
-        $klassData = $data + array(
+        $groupData = $data + array(
             'name' => 'Продовольственные товары'
         );
 
@@ -50,8 +50,8 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/klasses',
-            $klassData
+            '/api/1/groups',
+            $groupData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -61,7 +61,7 @@ class KlassControllerTest extends WebTestCase
         }
     }
 
-    public function validationKlassProvider()
+    public function validationGroupProvider()
     {
         return array(
             'not valid empty name' => array(
@@ -94,15 +94,15 @@ class KlassControllerTest extends WebTestCase
      * @param array $data
      * @param array $assertions
      *
-     * @dataProvider validationKlassProvider
+     * @dataProvider validationGroupProvider
      */
-    public function testPutKlassValidation($expectedCode, array $data, array $assertions = array())
+    public function testPutGroupValidation($expectedCode, array $data, array $assertions = array())
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass('Прод тов');
+        $groupId = $this->createGroup('Прод тов');
 
-        $klassData = $data + array(
+        $groupData = $data + array(
             'name' => 'Продовольственные товары'
         );
 
@@ -111,8 +111,8 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/klasses/' . $klassId,
-            $klassData
+            '/api/1/groups/' . $groupId,
+            $groupData
         );
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
@@ -124,31 +124,31 @@ class KlassControllerTest extends WebTestCase
         }
     }
 
-    public function testGetKlass()
+    public function testGetGroup()
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass('Прод Тов');
+        $groupId = $this->createGroup('Прод Тов');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId
+            '/api/1/groups/' . $groupId
         );
 
-        Assert::assertJsonPathEquals($klassId, 'id', $postResponse);
+        Assert::assertJsonPathEquals($groupId, 'id', $postResponse);
         Assert::assertJsonPathEquals('Прод Тов', 'name', $postResponse);
     }
 
-    public function testGetKlasses()
+    public function testGetGroups()
     {
         $this->clearMongoDb();
 
-        $klassIds = array();
+        $groupIds = array();
         for ($i = 0; $i < 5; $i++) {
-            $klassIds[$i] = $this->createKlass('Прод Тов' . $i);
+            $groupIds[$i] = $this->createGroup('Прод Тов' . $i);
         }
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -156,22 +156,22 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses'
+            '/api/1/groups'
         );
 
         Assert::assertResponseCode(200, $this->client);
         Assert::assertJsonPathCount(5, '*.id', $postResponse);
 
-        foreach ($klassIds as $id) {
+        foreach ($groupIds as $id) {
             Assert::assertJsonPathEquals($id, '*.id', $postResponse);
         }
     }
 
-    public function testKlassUnique()
+    public function testGroupUnique()
     {
         $this->clearMongoDb();
 
-        $this->createKlass('Прод Тов');
+        $this->createGroup('Прод Тов');
 
         $postData = array(
             'name' => 'Прод Тов',
@@ -182,26 +182,26 @@ class KlassControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/klasses',
+            '/api/1/groups',
             $postData
         );
 
         Assert::assertResponseCode(400, $this->client);
-        Assert::assertJsonPathEquals('Такой класс уже есть', 'children.name.errors.0', $postResponse);
+        Assert::assertJsonPathEquals('Такая группа уже есть', 'children.name.errors.0', $postResponse);
     }
 
-    public function testDeleteKlassNoCategories()
+    public function testDeleteGroupNoCategories()
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass();
+        $groupId = $this->createGroup();
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId
+            '/api/1/groups/' . $groupId
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -209,7 +209,7 @@ class KlassControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/klasses/' . $klassId
+            '/api/1/groups/' . $groupId
         );
 
         Assert::assertResponseCode(204, $this->client);
@@ -217,47 +217,47 @@ class KlassControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId
+            '/api/1/groups/' . $groupId
         );
 
         Assert::assertResponseCode(404, $this->client);
     }
 
-    public function testDeleteKlassWithCategories()
+    public function testDeleteGroupWithCategories()
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass();
+        $groupId = $this->createGroup();
 
-        $this->createCategory($klassId, '1');
-        $this->createCategory($klassId, '2');
+        $this->createCategory($groupId, '1');
+        $this->createCategory($groupId, '2');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/klasses/' . $klassId
+            '/api/1/groups/' . $groupId
         );
 
         Assert::assertResponseCode(409, $this->client);
     }
 
-    public function testKlassWithCategories()
+    public function testGroupWithCategories()
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass();
+        $groupId = $this->createGroup();
 
-        $categoryId1 = $this->createCategory($klassId, '1');
-        $categoryId2 = $this->createCategory($klassId, '2');
+        $categoryId1 = $this->createCategory($groupId, '1');
+        $categoryId2 = $this->createCategory($groupId, '2');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId
+            '/api/1/groups/' . $groupId
         );
 
         Assert::assertResponseCode(200, $this->client);

@@ -35,11 +35,11 @@ lighthouse:
         decimals: Значение не должно содержать больше {{ decimals }} цифр после запятой
       purchase:
         product_empty: Должен присутствовать хотя бы один товар
-      klass:
-        name.unique: Такой класс уже есть
+      group:
+        name.unique: Такая группа уже есть
       category:
         name.unique: Группа с таким названием уже существует в этом классе
-        klass.does_not_exists: Такого класса не существует
+        group.does_not_exists: Такой группы не существует
       not_equals_field: Значение поля не должно совпадать с полем {{ field }}
       user:
         password.not_equals_login: Логин и пароль не должны совпадать
