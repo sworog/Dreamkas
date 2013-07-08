@@ -32,6 +32,10 @@ lighthouse.core.category:
     resource: Lighthouse\CoreBundle\Controller\CategoryController
     type:     rest
 
+lighthouse.core.subcategory:
+    resource: Lighthouse\CoreBundle\Controller\SubCategoryController
+    type:     rest
+
 lighthouse.core.user:
     resource: Lighthouse\CoreBundle\Controller\UserController
     type:     rest

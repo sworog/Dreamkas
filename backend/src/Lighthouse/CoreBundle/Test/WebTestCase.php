@@ -23,7 +23,7 @@ class WebTestCase extends BaseTestCase
      * Init app with debug
      * @var bool
      */
-    static protected $appDebug = false;
+    static protected $appDebug = true;
 
     /**
      * @var Client

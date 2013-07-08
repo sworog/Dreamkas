@@ -40,7 +40,7 @@ lighthouse:
       category:
         name.unique: Категория с таким названием уже существует в этой группе
         group.does_not_exists: Такой группы не существует
-      subcategory:
+      subCategory:
         name.unique: Подкатегория с таким названием уже существует в этой категории
         category.does_not_exists: Такой категории не существует
       not_equals_field: Значение поля не должно совпадать с полем {{ field }}

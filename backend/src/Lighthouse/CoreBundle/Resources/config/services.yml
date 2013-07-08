@@ -86,6 +86,12 @@ services:
         arguments:
             - LighthouseCoreBundle:Category\Category
 
+    lighthouse.core.document.repository.subcategory:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\SubCategory\SubCategory
+        arguments:
+            - LighthouseCoreBundle:SubCategory\SubCategory
+
     lighthouse.core.document.repository.user:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\User\User
