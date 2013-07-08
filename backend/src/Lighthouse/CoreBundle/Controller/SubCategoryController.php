@@ -2,7 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Lighthouse\CoreBundle\Document\Category\Category;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\SubCategory\SubCategoryCollection;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Form\SubCategoryType;
 use Symfony\Component\Form\AbstractType;
@@ -52,5 +54,40 @@ class SubCategoryController extends AbstractRestController
     public function putSubcategoriesAction(Request $request, SubCategory $subCategory)
     {
         return $this->processForm($request, $subCategory);
+    }
+
+    /**
+     * @param SubCategory $subCategory
+     * @return SubCategory
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getSubcategoryAction(SubCategory $subCategory)
+    {
+        return $subCategory;
+    }
+
+    /**
+     * @param \Lighthouse\CoreBundle\Document\Category\Category $category
+     * @return CategoryCollection
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getCategorySubcategoriesAction(Category $category)
+    {
+        $cursor = $this->getDocumentRepository()->findByCategory($category->id);
+        $collection = new SubCategoryCollection($cursor);
+        return $collection;
+    }
+
+    /**
+     * @param SubCategory $subCategory
+     * @return null
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteSubcategoriesAction(SubCategory $subCategory)
+    {
+        return $this->processDelete($subCategory);
     }
 }

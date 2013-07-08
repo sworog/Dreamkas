@@ -466,6 +466,34 @@ class WebTestCase extends BaseTestCase
         return $postResponse['id'];
     }
 
+
+    /**
+     * @param string $categoryId
+     * @param string $name
+     * @return string
+     */
+    protected function createSubCategory($categoryId, $name = 'Водка')
+    {
+        $subCategoryData = array(
+            'name' => $name,
+            'category' => $categoryId,
+        );
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/subcategories',
+            $subCategoryData
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
+
     /**
      * @param string $secret
      * @return AuthClient

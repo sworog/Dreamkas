@@ -229,4 +229,165 @@ class SubCategoryControllerTest extends WebTestCase
 
         $this->performJsonAssertions($putResponse, $assertions, true);
     }
+
+    public function testGetCategory()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+        $categoryId = $this->createCategory($groupId);
+        $subCategoryId = $this->createSubCategory($categoryId);
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathEquals($subCategoryId, 'id', $getResponse);
+        Assert::assertJsonPathEquals($categoryId, 'category.id', $getResponse);
+        Assert::assertJsonPathEquals($groupId, 'category.group.id', $getResponse);
+    }
+
+    public function testGetCategoryNotFound()
+    {
+        $this->clearMongoDb();
+
+        $groupId1 = $this->createGroup('1');
+        $categoryId = $this->createCategory($groupId1, '1.1');
+        $this->createSubCategory($categoryId, '1.1.1');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/invalidId'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
+
+    public function testGetCategories()
+    {
+        $this->clearMongoDb();
+
+        $groupId1 = $this->createGroup('1');
+        $groupId2 = $this->createGroup('2');
+
+        $categoryId1 = $this->createCategory($groupId1, '1.1');
+        $categoryId2 = $this->createCategory($groupId2, '2.1');
+
+        $subCategoryId1 = $this->createSubCategory($categoryId1, '1.1.1');
+        $subCategoryId2 = $this->createSubCategory($categoryId1, '1.1.2');
+        $subCategoryId3 = $this->createSubCategory($categoryId1, '1.1.3');
+
+        $subCategoryId4 = $this->createSubCategory($categoryId2, '2.1.4');
+        $subCategoryId5 = $this->createSubCategory($categoryId2, '2.1.5');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId1 . '/subcategories'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(3, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($subCategoryId1, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategoryId2, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategoryId3, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategoryId4, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($subCategoryId5, '*.id', $getResponse, false);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId2 . '/subcategories'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($subCategoryId4, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategoryId5, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategoryId1, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($subCategoryId2, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($subCategoryId3, '*.id', $getResponse, false);
+    }
+
+    public function testGetCategoriesNotFound()
+    {
+        $this->clearMongoDb();
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/123484923423/subcategories'
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
+
+    public function testGetCategoriesEmptyCollection()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+        $categoryId = $this->createCategory($groupId);
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId . '/subcategories'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        Assert::assertJsonPathCount(0, '*.id', $response);
+    }
+
+    public function testDeleteCategory()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+        $categoryId = $this->createCategory($groupId);
+        $subCategoryId = $this->createSubCategory($categoryId);
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/subcategories/' . $subCategoryId
+        );
+
+        Assert::assertResponseCode(204, $this->client);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
 }
