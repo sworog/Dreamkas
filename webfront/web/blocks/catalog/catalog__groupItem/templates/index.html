@@ -1,3 +1,6 @@
-<a href="/catalog/<%= catalogGroupModel.id %>/<%= catalogGroupModel.parentClassModel.id %>"
-   class="catalog__groupLink"><%t catalogGroupModel.get('name') %></a>
-<a class="editor__editLink catalog__editGroupLink"></a>
+<div class="catalog__groupTitle">
+    <a href="/catalog/<%= catalogGroupModel.id %>"
+       class="catalog__groupLink"><%t catalogGroupModel.get('name') %></a>
+    <a class="editor__editLink catalog__editGroupLink"></a>
+</div>
+<div class="catalog__categoryList"></div>

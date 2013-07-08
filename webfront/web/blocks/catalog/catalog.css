@@ -1,4 +1,4 @@
-.catalog__classItem{
+.catalog__groupItem{
     display: inline-block;
     vertical-align: top;
     width: 50%;
@@ -8,28 +8,28 @@
     margin-right: -5px;
 }
 
-.catalog__classLink{
+.catalog__groupLink{
     vertical-align: middle;
 }
 
-.catalog__groupList{
+.catalog__categoryList{
     padding: 0;
     margin: 0;
     overflow: hidden;
     list-style: none;
 }
 
-.catalog__groupItem{
+.catalog__categoryItem{
     margin: 0 10px 5px 0;
     display: inline-block;
     vertical-align: middle;
 }
 
-.catalog__groupLink{
+.catalog__categoryLink{
     margin-right: 4px;
 }
 
-.catalog__classTitle{
+.catalog__groupTitle{
     font-size: 16px;
     padding-bottom: 10px;
     font-weight: bold;

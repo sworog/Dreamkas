@@ -2,28 +2,28 @@ define(function(require) {
 
         //requirements
         var Editor = require('kit/blocks/editor/editor'),
-            CatalogClassModel = require('models/catalogClass'),
-            Catalog__classList = require('blocks/catalog/catalog__classList/catalog__classList'),
-            Tooltip_catalogClassForm = require('blocks/tooltip/tooltip_catalogClassForm/tooltip_catalogClassForm'),
+            CatalogGroupModel = require('models/catalogGroup'),
+            Catalog__groupList = require('blocks/catalog/catalog__groupList/catalog__groupList'),
+            Tooltip_catalogGroupForm = require('blocks/tooltip/tooltip_catalogGroupForm/tooltip_catalogGroupForm'),
             params = require('pages/catalog/params');
 
         return Editor.extend({
             blockName: 'catalog',
-            catalogClassesCollection: null,
+            catalogGroupsCollection: null,
             templates: {
-                index: require('tpl!./templates/index.html')
+                index: require('tpl!blocks/catalog/templates/index.html')
             },
             events: {
-                'click .catalog__addClassLink': function(e) {
+                'click .catalog__addGroupLink': function(e) {
                     e.preventDefault();
 
                     var block = this,
                         $trigger = $(e.target);
 
-                    block.tooltip_catalogClassForm.show({
+                    block.tooltip_catalogGroupForm.show({
                         $trigger: $trigger,
-                        catalogClassesCollection: block.catalogClassesCollection,
-                        catalogClassModel: new CatalogClassModel(),
+                        catalogGroupsCollection: block.catalogGroupsCollection,
+                        catalogGroupModel: new CatalogGroupModel(),
                         align: function(){
                             var tooltip = this;
 
@@ -41,11 +41,11 @@ define(function(require) {
 
                 Editor.prototype.initialize.call(block);
 
-                block.tooltip_catalogClassForm = new Tooltip_catalogClassForm();
+                block.tooltip_catalogGroupForm = new Tooltip_catalogGroupForm();
 
-                new Catalog__classList({
-                    el: block.el.getElementsByClassName('catalog__classList'),
-                    catalogClassesCollection: block.catalogClassesCollection
+                new Catalog__groupList({
+                    el: block.el.getElementsByGroupName('catalog__groupList'),
+                    catalogGroupsCollection: block.catalogGroupsCollection
                 });
             },
             'set:editMode': function(editMode){
@@ -55,7 +55,7 @@ define(function(require) {
             remove: function(){
                 var block = this;
 
-                block.tooltip_catalogClassForm.remove();
+                block.tooltip_catalogGroupForm.remove();
 
                 Editor.prototype.remove.call(block);
             }

@@ -12,7 +12,7 @@ define(function(require) {
             tagName: 'input',
             className: 'inputDate',
             templates: {
-                datepicker__controls: require('tpl!./templates/datepicker__controls.html')
+                datepicker__controls: require('tpl!kit/blocks/inputDate/templates/datepicker__controls.html')
             },
 
             initialize: function() {

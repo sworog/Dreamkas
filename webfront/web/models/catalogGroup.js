@@ -1,16 +1,15 @@
 define(function(require) {
         //requirements
-        var BaseModel = require('models/baseModel');
+        var BaseModel = require('models/baseModel'),
+            CatalogGroups = require('collections/catalogGroups');
 
         return BaseModel.extend({
-            initialize: function(options){
-                this.parentClassModel = options.parentClassModel || this.collection.parentClassModel;
-                this.set('klass', this.parentClassModel.id);
-            },
             urlRoot: LH.baseApiUrl + '/groups',
+            initData: {
+                groups: CatalogGroups
+            },
             saveFields: [
-                'name',
-                'klass'
+                'name'
             ]
         });
     }

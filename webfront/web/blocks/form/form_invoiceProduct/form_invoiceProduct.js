@@ -9,7 +9,7 @@ define(function(require) {
             blockName: 'form_invoiceProduct',
             invoiceId: null,
             templates: {
-                index: require('tpl!./templates/form_invoiceProduct.html')
+                index: require('tpl!blocks/form/form_invoiceProduct/templates/index.html')
             },
 
             initialize: function() {

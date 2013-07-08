@@ -1,0 +1,38 @@
+<h3><%t model.id ? 'Редактирование пользователя' : 'Добавление нового пользователя' %></h3>
+<div class="form__field form__field_inline">
+    <label class="form__label">Роль</label>
+    <select class="select" value="<%e model.get('role') %>" name="role" require="blocks/select/select_userRole/select_userRole"></select>
+</div>
+<div class="form__field form__field_inline">
+    <label class="form__label">Имя</label>
+    <input class="inputText"
+           type="text"
+           name="name"
+           value="<%e model.get('name') %>">
+</div>
+<div class="form__field form__field_inline">
+    <label class="form__label">Должность</label>
+    <input type="text"
+           class="inputText"
+           name="position"
+           value="<%t model.get('position') %>"/>
+</div>
+<div class="form__field form__field_inline">
+    <label class="form__label">Логин</label>
+    <input type="text"
+           class="inputText"
+           name="username"
+           value="<%e model.get('username') %>"/>
+</div>
+<div class="form__field form__field_inline">
+    <label class="form__label">Пароль</label>
+    <input type="password"
+           class="inputText"
+           name="password"/>
+</div>
+<div class="form__controls">
+    <span class="button button_color_blue">
+        <%t model.id ? 'Сохранить' : 'Добавить' %>
+        <input type="submit"/>
+    </span>
+</div>

@@ -9,7 +9,7 @@ define(function(require) {
         isAddForm: true,
         collection: null,
         templates: {
-            index: require('tpl!./templates/index.html')
+            index: require('tpl!blocks/form/form_catalogClass/templates/index.html')
         },
         initialize: function(){
             var block = this;

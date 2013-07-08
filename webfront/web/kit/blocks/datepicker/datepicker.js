@@ -15,10 +15,10 @@ define(function(require) {
             className: 'datepicker',
             tagName: 'div',
             templates: {
-                index: require('tpl!./templates/datepicker.html'),
-                controls: require('tpl!./templates/controls.html'),
-                dateList: require('tpl!./templates/dateList.html'),
-                header: require('tpl!./templates/header.html')
+                index: require('tpl!kit/blocks/datepicker/templates/index.html'),
+                controls: require('tpl!kit/blocks/datepicker/templates/controls.html'),
+                dateList: require('tpl!kit/blocks/datepicker/templates/dateList.html'),
+                header: require('tpl!kit/blocks/datepicker/templates/header.html')
             },
 
             initialize: function() {

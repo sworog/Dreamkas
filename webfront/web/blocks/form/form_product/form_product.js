@@ -9,7 +9,7 @@ define(function(require) {
             blockName: 'form_product',
             redirectUrl: '/products',
             templates: {
-                index: require('tpl!./templates/form_product.html')
+                index: require('tpl!blocks/form/form_product/templates/index.html')
             },
             events: {
                 'click .productForm__inputLink': function(e) {

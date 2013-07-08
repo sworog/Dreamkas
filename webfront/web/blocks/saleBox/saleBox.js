@@ -9,7 +9,7 @@ define(function(require) {
             purchaseModel: new PurchaseModel(),
             className: 'saleBox',
             templates: {
-                index: require('tpl!./templates/saleBox.html')
+                index: require('tpl!blocks/saleBox/templates/index.html')
             },
 
             events: {

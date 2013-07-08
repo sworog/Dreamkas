@@ -11,13 +11,13 @@ define(function(require) {
             dataEditing: false,
             className: 'invoice',
             templates: {
-                index: require('tpl!./templates/invoice.html'),
-                dataInput: require('tpl!./templates/dataInput.html'),
-                dataInputAutocomplete: require('tpl!./templates/dataInputAutocomplete.html'),
-                dataInputControls: require('tpl!./templates/dataInputControls.html'),
-                footer: require('tpl!./templates/footer.html'),
-                head: require('tpl!./templates/head.html'),
-                removeConfirm: require('tpl!./templates/removeConfirm.html')
+                index: require('tpl!blocks/invoice/templates/index.html'),
+                dataInput: require('tpl!blocks/invoice/templates/dataInput.html'),
+                dataInputAutocomplete: require('tpl!blocks/invoice/templates/dataInputAutocomplete.html'),
+                dataInputControls: require('tpl!blocks/invoice/templates/dataInputControls.html'),
+                footer: require('tpl!blocks/invoice/templates/footer.html'),
+                head: require('tpl!blocks/invoice/templates/head.html'),
+                removeConfirm: require('tpl!blocks/invoice/templates/removeConfirm.html')
             },
 
             initialize: function() {

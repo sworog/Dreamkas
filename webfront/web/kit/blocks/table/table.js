@@ -13,11 +13,11 @@ define(function(require) {
             className: 'table',
             blockName: 'table',
             templates: {
-                index: require('tpl!./templates/index.html'),
-                head: require('tpl!./templates/head.html'),
-                body: require('tpl!./templates/body.html'),
-                tr: require('tpl!./templates/tr.html'),
-                td: require('tpl!./templates/td.html')
+                index: require('tpl!kit/blocks/table/templates/index.html'),
+                head: require('tpl!kit/blocks/table/templates/head.html'),
+                body: require('tpl!kit/blocks/table/templates/body.html'),
+                tr: require('tpl!kit/blocks/table/templates/tr.html'),
+                td: require('tpl!kit/blocks/table/templates/td.html')
             },
             listeners: {
                 collection: {

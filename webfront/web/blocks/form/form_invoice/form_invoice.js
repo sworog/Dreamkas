@@ -8,7 +8,7 @@ define(function(require) {
     return Form.extend({
         blockName: 'form_invoice',
         templates: {
-            index: require('tpl!./templates/form_invoice.html')
+            index: require('tpl!blocks/form/form_invoice/templates/index.html')
         },
         submit: function() {
             var block = this,

@@ -14,13 +14,13 @@ define(function(require) {
             className: 'writeOff',
             blockName: 'writeOff',
             templates: {
-                index: require('tpl!./templates/writeOff.html'),
-                dataInput: require('tpl!./templates/dataInput.html'),
-                dataInputAutocomplete: require('tpl!./templates/dataInputAutocomplete.html'),
-                dataInputControls: require('tpl!./templates/dataInputControls.html'),
-                footer: require('tpl!./templates/footer.html'),
-                head: require('tpl!./templates/head.html'),
-                removeConfirm: require('tpl!./templates/removeConfirm.html')
+                index: require('tpl!blocks/writeOff/templates/index.html'),
+                dataInput: require('tpl!blocks/writeOff/templates/dataInput.html'),
+                dataInputAutocomplete: require('tpl!blocks/writeOff/templates/dataInputAutocomplete.html'),
+                dataInputControls: require('tpl!blocks/writeOff/templates/dataInputControls.html'),
+                footer: require('tpl!blocks/writeOff/templates/footer.html'),
+                head: require('tpl!blocks/writeOff/templates/head.html'),
+                removeConfirm: require('tpl!blocks/writeOff/templates/removeConfirm.html')
             },
             listeners: {
                 writeOffModel: {

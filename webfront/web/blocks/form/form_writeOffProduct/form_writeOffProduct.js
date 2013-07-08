@@ -8,7 +8,7 @@ define(function(require) {
         return Form.extend({
             blockName: 'form_writeOffProduct',
             templates: {
-                index: require('tpl!./templates/form_writeOffProduct.html')
+                index: require('tpl!blocks/form/form_writeOffProduct/templates/index.html')
             },
 
             initialize: function(){

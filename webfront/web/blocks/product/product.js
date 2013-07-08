@@ -6,7 +6,7 @@ define(function(require) {
             className: 'product',
             blockName: 'product',
             templates: {
-                index: require('tpl!./templates/product.html')
+                index: require('tpl!blocks/product/templates/index.html')
             },
             listeners: {
                 model: {

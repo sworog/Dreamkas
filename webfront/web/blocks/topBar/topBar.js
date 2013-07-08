@@ -10,7 +10,7 @@ define(function(require) {
         blockName: 'topBar',
         currentUserModel: currentUserModel,
         templates: {
-            index: require('tpl!./templates/topBar.html')
+            index: require('tpl!blocks/topBar/templates/index.html')
         },
         events: {
             'click .topBar__logoutLink': function(e){

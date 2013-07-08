@@ -5,8 +5,8 @@ define(function(require) {
     return Table.extend({
         blockName: 'table_writeOffProducts',
         templates: {
-            head: require('tpl!./templates/head.html'),
-            body: require('tpl!./templates/body.html')
+            head: require('tpl!blocks/table/table_writeOffProducts/templates/head.html'),
+            body: require('tpl!blocks/table/table_writeOffProducts/templates/body.html')
         }
     });
 });
