@@ -1,4 +1,4 @@
-<% block.collection.each(function(model){ %>
+<% collection.each(function(model){ %>
 <tr writeOff-product-id="<%= model.id %>" name="writeOffProduct" class="writeOff__dataRow" product-sku="<%e model.get('product').sku %>">
     <td>
         <span name="productName"
@@ -28,7 +28,7 @@
                 <%e model.get('quantity') %>
             </span>
             <span name="productUnits">
-                <%t LH.utils.units(model.get('product').units, 'smallShort') %>
+                <%t LH.units(model.get('product').units, 'smallShort') %>
             </span>
         </span>
     </td>
@@ -38,7 +38,7 @@
                 по
             </span>
             <span name="productPrice" model-attr="price">
-                <%e LH.utils.formatPrice(model.get('price')) %>
+                <%e LH.formatPrice(model.get('price')) %>
             </span>
             <span>
                 р.

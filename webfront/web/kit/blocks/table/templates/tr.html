@@ -1,7 +1,6 @@
 <tr>
-    <% block.columns.each(function(column, index){ %>
-        <%= block.templates.td({
-            block: block,
+    <% columns.each(function(column, index){ %>
+        <%= templates.td({
             data: rowData.get(column.get('dataKey') || index)
         }) %>
     <% }) %>

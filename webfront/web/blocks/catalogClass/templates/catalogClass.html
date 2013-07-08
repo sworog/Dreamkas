@@ -6,7 +6,7 @@
     <a style="vertical-align: middle" href="/catalog">Товарный справочник</a>
     <span style="vertical-align: middle">/</span>
     <span class="catalogClass__className" style="vertical-align: middle;">
-        <%t block.catalogClassModel.get('name') %>
+        <%t catalogClassModel.get('name') %>
     </span>
     <a class="editor__editLink catalog__editClassLink"></a>
     <a class="button button_color_blue catalog__addGroupLink editor__control">
@@ -19,17 +19,15 @@
         <%t 'Классы' %>
     </div>
     <ul class="catalogClass__classList">
-        <%= block.templates.classList({
-            block: block,
-            currentClassModel: block.catalogClassModel
+        <%= templates.classList({
+            currentClassModel: catalogClassModel
         }) %>
     </ul>
 </div>
 
 <ul class="catalog__classGroupList catalogClass__groupList">
-    <%= block.templates.groupList({
-        block: block,
-        groupsCollection: block.classGroupsCollection
+    <%= templates.groupList({
+        groupsCollection: classGroupsCollection
     }) %>
 </ul>
 <div style="clear: both"></div>

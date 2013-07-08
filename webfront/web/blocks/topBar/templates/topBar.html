@@ -3,7 +3,7 @@
 </a>
 
 <div class="topBar__navigation">
-    <% if(block.currentUserModel.get('id')) { %>
+    <% if(currentUserModel.get('id')) { %>
 
         <% if(LH.isAllow('products')){ %>
         <a href="/products"><%t 'Продукты' %></a>
@@ -32,10 +32,10 @@
     <% } %>
 </div>
 
-<% if(block.currentUserModel.get('id')) { %>
+<% if(currentUserModel.get('id')) { %>
 <div class="topBar__userControls">
     <a href="/users/current" class="topBar__userName">
-        <%e block.currentUserModel.get('username') %>
+        <%e currentUserModel.get('username') %>
     </a>
     <a class="topBar__logoutLink">
         <%t 'Выйти' %>

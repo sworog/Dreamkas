@@ -1,7 +1,7 @@
 <div class="form__field" style="white-space: nowrap; padding-bottom: 0;">
-    <input value="<%e block.model.get('name') %>" style="width: 250px;" class="inputText" type="text" name="name" placeholder="<%t 'Название класса' %>">
+    <input value="<%e model.get('name') %>" style="width: 250px;" class="inputText" type="text" name="name" placeholder="<%t 'Название класса' %>">
         <span class="button button_color_blue">
-            Подтвердить
+            <%t 'Подтвердить' %>
             <input type="submit" />
         </span>
     <a class="tooltip__closeLink" style="vertical-align: middle; margin-right: 10px;"><%t 'Отмена' %></a>

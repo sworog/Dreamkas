@@ -3,11 +3,11 @@
     <span class="writeOff__editable">
         №
         <span name="number" model-attr="number">
-            <%e block.writeOffModel.get('number') %>
+            <%e writeOffModel.get('number') %>
         </span>
     </span>
     от
     <span name="date" class="writeOff__editable" model-attr="date">
-        <%= moment(block.writeOffModel.get('date')).format('DD.MM.YYYY') %>
+        <%= moment(writeOffModel.get('date')).format('DD.MM.YYYY') %>
     </span>
 </div>

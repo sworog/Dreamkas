@@ -94,14 +94,14 @@ define(function(require) {
                 this.$retailPricePreferenceInput.val('retailPrice');
             },
             calculateRetailPrice: function() {
-                var purchasePrice = LH.utils.normalizePrice(this.$purchasePriceInput.val()),
-                    retailMarkup = LH.utils.normalizePrice(this.$retailMarkupInput.val()),
+                var purchasePrice = LH.normalizePrice(this.$purchasePriceInput.val()),
+                    retailMarkup = LH.normalizePrice(this.$retailMarkupInput.val()),
                     calculatedVal;
 
                 if (!purchasePrice || !retailMarkup || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
                     calculatedVal = '';
                 } else {
-                    calculatedVal = LH.utils.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedVal = LH.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 this.$retailPriceInput
@@ -109,14 +109,14 @@ define(function(require) {
                     .change();
             },
             calculateRetailMarkup: function() {
-                var retailPrice = LH.utils.normalizePrice(this.$retailPriceInput.val()),
-                    purchasePrice = LH.utils.normalizePrice(this.$purchasePriceInput.val()),
+                var retailPrice = LH.normalizePrice(this.$retailPriceInput.val()),
+                    purchasePrice = LH.normalizePrice(this.$purchasePriceInput.val()),
                     calculatedVal;
 
                 if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
                     calculatedVal = '';
                 } else {
-                    calculatedVal = LH.utils.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedVal = LH.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 this.$retailMarkupInput
@@ -128,7 +128,7 @@ define(function(require) {
                     text;
 
                 if (price){
-                    text = LH.utils.formatPrice(price) + ' руб.'
+                    text = LH.formatPrice(price) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -142,7 +142,7 @@ define(function(require) {
                     text;
 
                 if (markup){
-                    text = LH.utils.formatPrice(markup) + '%'
+                    text = LH.formatPrice(markup) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }

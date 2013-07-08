@@ -5,16 +5,16 @@
 
 <div class="invoice__content">
     <div class="invoice__head">
-        <%= block.templates.head({
-            block: block
+        <%= templates.head({
+            invoiceModel: invoiceModel
         }) %>
     </div>
 
     <table class="table invoice__productsTable"></table>
 
     <div class="invoice__footer">
-        <%= block.templates.footer({
-            block: block
+        <%= templates.footer({
+            invoiceModel: invoiceModel
         }) %>
     </div>
 

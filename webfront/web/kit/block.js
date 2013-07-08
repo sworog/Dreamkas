@@ -60,9 +60,7 @@ define(function(require) {
                 return block;
             }
 
-            template = block.templates.index({
-                block: block
-            });
+            template = block.templates.index(block);
 
             block.$el.children('[block]').each(function() {
                 $(this).data('block').remove();

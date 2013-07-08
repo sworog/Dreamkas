@@ -1,25 +1,25 @@
 <% if(LH.isAllow('users', 'PUT::{user}')) { %>
 <div class="page__controls">
     <a class="user__editLink"
-       href="/users/edit/<%= block.model.get('id') %>">
-       Редактировать
+       href="/users/edit/<%= model.get('id') %>">
+       <%t 'Редактировать' %>
     </a>
 </div>
 <% } %>
 
-<h3 name="name"><%t block.model.get('name') %></h3>
+<h3 name="name"><%e model.get('name') %></h3>
 
 <table class="table" style="width: 50%">
     <tr>
-        <th>Роль</th>
-        <td name="role"><%t block.model.get('role') %></td>
+        <th><%t 'Роль' %></th>
+        <td name="role"><%t model.get('role') %></td>
     </tr>
     <tr>
-        <th>Должность</th>
-        <td name="position"><%t block.model.get('position') %></td>
+        <th><%t 'Должность' %></th>
+        <td name="position"><%t model.get('position') %></td>
     </tr>
     <tr>
-        <th>Логин</th>
-        <td name="username"><%e block.model.get('username') %></td>
+        <th><%t 'Логин' %></th>
+        <td name="username"><%e model.get('username') %></td>
     </tr>
 </table>

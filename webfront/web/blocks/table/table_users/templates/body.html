@@ -1,4 +1,4 @@
-<% block.collection.each(function(model){ %>
+<% collection.each(function(model){ %>
 <tr name="user" href="/users/<%= model.get('id') %>">
     <td name="name">
         <%t model.get('name') %>

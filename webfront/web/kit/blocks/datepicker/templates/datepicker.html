@@ -4,7 +4,7 @@
 </div>
 
 <div class="datepicker__header">
-    <%= block.templates.header({block: block}) %>
+    <%= templates.header({visibleDate: visibleDate}) %>
 </div>
 
 <div class="datepicker__daysOfWeek">
@@ -32,17 +32,17 @@
 </div>
 
 <div class="datepicker__dateList">
-    <%= block.templates.dateList({block: block}) %>
+    <%= templates.dateList({dateList: dateList}) %>
 </div>
 
 
 <div class="datepicker__timeControls">
     <span class="datepicker__timeControlsLabel">Время:</span>
-    <input placeholder="часы" name="hours" type="text" class="inputText" value="<%= block.selectedDate ? moment(block.selectedDate).format('HH') : '' %>" <%= block.selectedDate ? '' : 'disabled' %> />
+    <input placeholder="часы" name="hours" type="text" class="inputText" value="<%= selectedDate ? moment(selectedDate).format('HH') : '' %>" <%= selectedDate ? '' : 'disabled' %> />
     <span class="datepicker__timeControlsSpacer">:</span>
-    <input placeholder="мин" name="minutes" type="text" class="inputText" value="<%= block.selectedDate ? moment(block.selectedDate).format('mm') : '' %>" <%= block.selectedDate ? '' : 'disabled' %> />
+    <input placeholder="мин" name="minutes" type="text" class="inputText" value="<%= selectedDate ? moment(selectedDate).format('mm') : '' %>" <%= selectedDate ? '' : 'disabled' %> />
 </div>
 
 <div class="datepicker__controls">
-    <%= block.templates.controls({block: block}) %>
+    <%= templates.controls() %>
 </div>

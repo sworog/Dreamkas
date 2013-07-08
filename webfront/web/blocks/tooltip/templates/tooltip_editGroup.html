@@ -1,14 +1,14 @@
 <!--
-    @block.groupModel
+    @groupModel
 -->
 
 <form class="form">
     <div class="form__field" style="white-space: nowrap; padding-bottom: 0;">
-        <input value="<%e block.groupModel.get('name') %>" style="width: 250px;" class="inputText" type="text" name="name" placeholder="Название группы">
+        <input value="<%e groupModel.get('name') %>" style="width: 250px;" class="inputText" type="text" name="name" placeholder="Название группы">
         <span class="button button_color_blue">
-            Подтвердить
+            <%t 'Подтвердить' %>
             <input type="submit">
         </span>
-        <a class="tooltip__closeLink" style="vertical-align: middle">Отмена</a>
+        <a class="tooltip__closeLink" style="vertical-align: middle"><%t 'Отмена' %></a>
     </div>
 </form>

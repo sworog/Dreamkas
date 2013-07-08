@@ -1,4 +1,4 @@
-<% block.collection.each(function(model){ %>
+<% collection.each(function(model){ %>
 <tr name="writeOff" href="/writeOffs/<%= model.id %>">
     <td>
         <span name="date"><%= moment(model.get('date')).format('DD.MM.YYYY') %></span>
@@ -7,7 +7,7 @@
         <span name="number"><%e model.get('number') %></span>
     </td>
     <td>
-        <span name="sumTotal"><%e LH.utils.formatPrice(model.get('sumTotal')) %></span>
+        <span name="sumTotal"><%e LH.formatPrice(model.get('sumTotal')) %></span>
         <span>р.</span>
     </td>
 </tr>

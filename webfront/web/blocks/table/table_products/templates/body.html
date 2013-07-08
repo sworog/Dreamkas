@@ -1,4 +1,4 @@
-<% block.collection.each(function(model){ %>
+<% collection.each(function(model){ %>
 <tr name="product" href="/products/<%= model.get('id') %>">
     <td name="sku">
         <%e model.get('sku') %>
@@ -13,7 +13,7 @@
         <%t model.get('vendorCountry') %>
     </td>
     <td name="purchasePrice">
-        <%e LH.utils.formatPrice(model.get('purchasePrice')) %> р.
+        <%e LH.formatPrice(model.get('purchasePrice')) %> р.
     </td>
 </tr>
 <% }) %>
