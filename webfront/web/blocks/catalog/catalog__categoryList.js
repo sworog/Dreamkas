@@ -17,7 +17,7 @@ define(function(require) {
             block.catalogCategoriesCollection.each(function(catalogCategoryModel){
                 new Catalog__categoryItem({
                     catalogCategoryModel: catalogCategoryModel,
-                    el: block.el.querySelectorAll('[categoryId="' + catalogCategoryModel.id + '"]')
+                    el: block.el.querySelectorAll('[category_id="' + catalogCategoryModel.id + '"]')
                 })
             });
         }

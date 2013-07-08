@@ -1,15 +1,18 @@
-.tooltip_editMenu, .tooltip_editClass, .tooltip_editGroup{
-    margin-top: -33px;
+.tooltip_menu{
     min-width: 200px;
 }
 
-.tooltip_editMenu .tooltip__controls{
+.tooltip_catalogGroupMenu{
+    margin-top: -33px;
+}
+
+.tooltip_menu .tooltip__controls{
     list-style: none;
     margin: 0 -10px;
     padding: 0;
 }
 
-.tooltip_editMenu .tooltip__controlLink{
+.tooltip_menu .tooltip__controlLink{
     display: block;
     background: #fafafa;
     border-bottom: 1px solid #eee;
@@ -19,6 +22,6 @@
     text-decoration: none;
 }
 
-.tooltip_editMenu .tooltip__controlLink:hover{
+.tooltip_menu .tooltip__controlLink:hover{
     background: #f4f4f4;
 }

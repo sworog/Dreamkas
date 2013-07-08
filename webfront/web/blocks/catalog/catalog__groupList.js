@@ -31,7 +31,10 @@ define(function(require) {
             block.catalogGroupsCollection.each(function(catalogGroupModel){
                 new Catalog__groupItem({
                     catalogGroupModel: catalogGroupModel,
-                    el: block.el.querySelectorAll('[groupId="' + catalogGroupModel.id + '"]')
+                    blocks: {
+                        tooltip_catalogGroupMenu: block.blocks.tooltip_catalogGroupMenu
+                    },
+                    el: block.el.querySelectorAll('[group_id="' + catalogGroupModel.id + '"]')
                 });
             })
         }

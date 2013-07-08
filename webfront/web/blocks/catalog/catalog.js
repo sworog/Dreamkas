@@ -5,6 +5,7 @@ define(function(require) {
             CatalogGroupModel = require('models/catalogGroup'),
             Catalog__groupList = require('blocks/catalog/catalog__groupList'),
             Tooltip_catalogGroupForm = require('blocks/tooltip/tooltip_catalogGroupForm/tooltip_catalogGroupForm'),
+            Tooltip_catalogGroupMenu = require('blocks/tooltip/tooltip_catalogGroupMenu/tooltip_catalogGroupMenu'),
             params = require('pages/catalog/params');
 
         return Editor.extend({
@@ -22,10 +23,10 @@ define(function(require) {
                     e.preventDefault();
 
                     var block = this,
-                        $trigger = $(e.target);
+                        $target = $(e.target);
 
                     block.blocks.tooltip_catalogGroupForm.show({
-                        $trigger: $trigger,
+                        $trigger: $target,
                         catalogGroupsCollection: block.catalogGroupsCollection,
                         catalogGroupModel: new CatalogGroupModel(),
                         align: function(){
@@ -47,9 +48,18 @@ define(function(require) {
 
                 block.blocks.tooltip_catalogGroupForm = new Tooltip_catalogGroupForm();
 
+                block.blocks.tooltip_catalogGroupMenu = new Tooltip_catalogGroupMenu({
+                    blocks: {
+                        tooltip_catalogGroupForm: block.blocks.tooltip_catalogGroupForm
+                    }
+                });
+
                 new Catalog__groupList({
                     el: block.el.getElementsByClassName('catalog__groupList'),
-                    catalogGroupsCollection: block.catalogGroupsCollection
+                    catalogGroupsCollection: block.catalogGroupsCollection,
+                    blocks: {
+                        tooltip_catalogGroupMenu: block.blocks.tooltip_catalogGroupMenu
+                    }
                 });
             },
             'set:editMode': function(editMode){

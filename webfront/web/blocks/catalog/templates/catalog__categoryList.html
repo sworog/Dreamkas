@@ -2,9 +2,9 @@
     <div><%t 'Нет категорий' %></div>
 <% } else { %>
     <% catalogCategoriesCollection.each(function(catalogCategoryModel){ %>
-        <div categoryId="<%= catalogCategoryModel.id %>" class="catalog__categoryItem">
+        <div category_id="<%= catalogCategoryModel.id %>" class="catalog__categoryItem">
             <%= templates.catalog__categoryItem({
-            catalogCategoryModel: catalogCategoryModel
+                catalogCategoryModel: catalogCategoryModel
             }) %>
         </div>
     <% }) %>

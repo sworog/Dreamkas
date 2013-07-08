@@ -52,15 +52,18 @@ define(function(require) {
             var block = this;
 
             block.trigger('submit:success', data);
+
             if (block.redirectUrl){
                 router.navigate(block.redirectUrl, {
                     trigger: true
                 });
             }
+
             block.$submitButton.removeClass('preloader_rows');
         },
         submitError: function(data){
             var block = this;
+            block.trigger('submit:error', data);
             block.showErrors(data);
             block.$submitButton.removeClass('preloader_rows');
         },

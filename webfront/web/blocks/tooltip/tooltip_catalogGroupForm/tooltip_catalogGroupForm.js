@@ -12,25 +12,24 @@ define(function(require) {
             templates: {
                 content: require('tpl!blocks/tooltip/tooltip_catalogGroupForm/templates/index.html')
             },
-            listeners: {
-                form: {
-                    'submit:success': function() {
-                        var block = this;
-                        if (block.isAddForm){
-                            block.hide();
-                        }
-                    }
-                }
-            },
             initialize: function() {
                 var block = this;
 
                 Tooltip.prototype.initialize.call(this);
 
-                block.form = new Form_catalogGroup({
+                block.blocks.form = new Form_catalogGroup({
                     el: block.el.getElementsByClassName('form'),
                     model: block.catalogGroupModel,
                     collection: block.catalogGroupsCollection
+                });
+
+                block.listenTo(block.blocks.form, {
+                    'submit:success': function() {
+                        var block = this;
+                        if (!block.blocks.form.isAddForm){
+                            block.hide();
+                        }
+                    }
                 });
 
                 if (block.catalogGroupModel.id){
@@ -43,8 +42,9 @@ define(function(require) {
                 Tooltip.prototype.show.apply(this, arguments);
 
                 block.initialize();
+                block.startListening();
 
-                block.form.$el.find('[type="text"]').eq(0).focus();
+                block.blocks.form.$el.find('[type="text"]').eq(0).focus();
             }
         });
     }
