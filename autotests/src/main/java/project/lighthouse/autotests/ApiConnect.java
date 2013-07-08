@@ -132,12 +132,37 @@ public class ApiConnect {
         String apiUrl = String.format("%s/api/1/groups.json", UrlHelper.getApiUrl());
         String groupId = StaticDataCollections.groups.get(groupName).getId();
         String groupJsonData = Category.getJsonObject(categoryName, groupId).toString();
-        executePostRequest(apiUrl, groupJsonData);
+        String postResponse = executePostRequest(apiUrl, groupJsonData);
+
+        Category category = new Category(new JSONObject(postResponse));
+        StaticDataCollections.categories.put(categoryName, category);
     }
 
     public String getGroupPageUrl(String groupName) throws JSONException {
-        String klassId = StaticDataCollections.groups.get(groupName).getId();
-        return String.format("%s/catalog/%s", UrlHelper.getWebFrontUrl(), klassId);
+        String groupId = StaticDataCollections.groups.get(groupName).getId();
+        return String.format("%s/catalog/%s", UrlHelper.getWebFrontUrl(), groupId);
+    }
+
+    public String getCategoryPageUrl(String categoryName, String groupName) throws JSONException {
+        String groupPageUrl = getGroupPageUrl(groupName) + "/%s";
+        String categoryId = StaticDataCollections.categories.get(categoryName).getId();
+        return String.format(groupPageUrl, categoryId);
+    }
+
+    public void createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        createGroupThroughPost(groupName);
+        createCategoryThroughPost(categoryName, groupName);
+        String apiUrl = String.format("%s/api/1/subCategories.json", UrlHelper.getApiUrl());
+        String categoryId = StaticDataCollections.categories.get(categoryName).getId();
+        String subCategoryJsonData = SubCategory.getJsonObject(subCategoryName, categoryId).toString();
+        String postResponse = executePostRequest(apiUrl, subCategoryJsonData);
+
+        SubCategory subCategory = new SubCategory(new JSONObject(postResponse));
+        StaticDataCollections.subCategories.put(subCategoryName, subCategory);
+    }
+
+    public void getSubCategoryPageUrl() {
+        //TODO opens category page and then opens subcategory product list page
     }
 
     public void createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {

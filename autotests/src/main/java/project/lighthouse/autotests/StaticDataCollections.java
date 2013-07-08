@@ -10,6 +10,8 @@ public class StaticDataCollections {
     public static HashMap<String, Invoice> invoices = new HashMap<>();
     public static HashMap<String, WriteOff> writeOffs = new HashMap<>();
     public static HashMap<String, Group> groups = new HashMap<>();
+    public static HashMap<String, Category> categories = new HashMap<>();
+    public static HashMap<String, SubCategory> subCategories = new HashMap<>();
     public static HashMap<String, User> users = new HashMap<>();
     public static HashMap<String, OauthAuthorizeData> userTokens = new HashMap<>();
     public static String TIMEOUT = "5000";

@@ -21,7 +21,16 @@ public class CatalogApi extends CommercialManagerApi {
     }
 
     public void navigateToGroupPage(String groupName) throws JSONException {
-        String klassPageUrl = apiConnect.getGroupPageUrl(groupName);
-        getDriver().navigate().to(klassPageUrl);
+        String groupPageUrl = apiConnect.getGroupPageUrl(groupName);
+        getDriver().navigate().to(groupPageUrl);
+    }
+
+    public void navigateToCategoryPage(String categoryName, String groupName) throws JSONException {
+        String categoryPageUrl = apiConnect.getCategoryPageUrl(categoryName, groupName);
+        getDriver().navigate().to(categoryPageUrl);
+    }
+
+    public void createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        apiConnect.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
     }
 }

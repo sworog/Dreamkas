@@ -34,6 +34,16 @@ public class CatalogUserSteps {
         catalogSteps.navigateToGroupPage(groupName);
     }
 
+    @Given("the user navigates to the category with name '$categoryName' related to group named '$groupName'")
+    public void givenTheUserNavigatesToTheCategoryPage(String categoryName, String groupName) throws JSONException {
+        catalogSteps.navigateToCategoryPage(categoryName, groupName);
+    }
+
+    @Given("there is the subcategory related to group named '$groupName' and category named '$categoryName'")
+    public void givenThereIsTheSubCategory(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        catalogSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
+    }
+
     @When("the user clicks on start edition link and starts the edition")
     public void whenTheUserStartsTheEdition() {
         catalogSteps.startEditionButtonLinkClick();

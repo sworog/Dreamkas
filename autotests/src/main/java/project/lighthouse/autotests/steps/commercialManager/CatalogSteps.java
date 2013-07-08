@@ -38,6 +38,16 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void navigateToCategoryPage(String categoryName, String groupName) throws JSONException {
+        catalogApi.navigateToCategoryPage(categoryName, groupName);
+    }
+
+    @Step
+    public void createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        catalogApi.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
+    }
+
+    @Step
     public void openPage() {
         groupPage.open();
     }
