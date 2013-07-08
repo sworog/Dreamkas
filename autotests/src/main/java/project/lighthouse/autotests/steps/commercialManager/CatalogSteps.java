@@ -6,15 +6,15 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
-import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogPage;
-import project.lighthouse.autotests.pages.commercialManager.catalog.ClassPage;
+import project.lighthouse.autotests.pages.commercialManager.catalog.CategoryPage;
+import project.lighthouse.autotests.pages.commercialManager.catalog.GroupPage;
 
 import java.io.IOException;
 
 public class CatalogSteps extends ScenarioSteps {
 
-    CatalogPage catalogPage;
-    ClassPage classPage;
+    GroupPage groupPage;
+    CategoryPage categoryPage;
     CommonPage commonPage;
     CatalogApi catalogApi;
 
@@ -23,113 +23,113 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
-    public void createKlassThroughPost(String klassName) throws IOException, JSONException {
-        catalogApi.createKlassThroughPost(klassName);
+    public void createGroupThroughPost(String groupName) throws IOException, JSONException {
+        catalogApi.createGroupThroughPost(groupName);
     }
 
     @Step
-    public void createGroupThroughPost(String groupName, String klassName) throws IOException, JSONException {
-        catalogApi.createGroupThroughPost(groupName, klassName);
+    public void createCategoryThroughPost(String categoryName, String groupName) throws IOException, JSONException {
+        catalogApi.createCategoryThroughPost(categoryName, groupName);
     }
 
     @Step
-    public void navigateToKlassPage(String klassName) throws JSONException {
-        catalogApi.navigateToKlassPage(klassName);
+    public void navigateToGroupPage(String groupName) throws JSONException {
+        catalogApi.navigateToGroupPage(groupName);
     }
 
     @Step
     public void openPage() {
-        catalogPage.open();
+        groupPage.open();
     }
 
     @Step
     public void startEditionButtonLinkClick() {
-        catalogPage.startEditionButtonLinkClick();
+        groupPage.startEditionButtonLinkClick();
     }
 
     @Step
     public void stopEditionButtonLinkClick() {
-        catalogPage.stopEditionButtonLinkClick();
-    }
-
-    @Step
-    public void classCreate(String className) {
-        catalogPage.create(className);
+        groupPage.stopEditionButtonLinkClick();
     }
 
     @Step
     public void groupCreate(String groupName) {
-        classPage.create(groupName);
+        groupPage.create(groupName);
     }
 
     @Step
-    public void classCheck(String name) {
-        catalogPage.check(name);
+    public void categoryCreate(String categoryName) {
+        categoryPage.create(categoryName);
     }
 
     @Step
     public void groupCheck(String name) {
-        classPage.check(name);
+        groupPage.check(name);
+    }
+
+    @Step
+    public void categoryCheck(String name) {
+        categoryPage.check(name);
     }
 
     @Step
     public void popUpMenuInteraction(String name) {
-        catalogPage.popUpMenuInteraction(name);
+        groupPage.popUpMenuInteraction(name);
     }
 
     @Step
-    public void popUpGroupMenuInteraction(String name) {
-        classPage.popUpMenuInteraction(name);
+    public void popUpCategoryMenuInteraction(String name) {
+        categoryPage.popUpMenuInteraction(name);
     }
 
     @Step
     public void itemDeleteThroughPopUpMenu() {
-        catalogPage.popUpMenuDelete();
+        groupPage.popUpMenuDelete();
     }
 
     @Step
     public void popUpMenuAccept() {
-        catalogPage.popUpMenuAccept();
+        groupPage.popUpMenuAccept();
     }
 
     @Step
     public void popUpMenuCancel() {
-        catalogPage.popUpMenuCancel();
-    }
-
-    @Step
-    public void classCheckIsNotPresent(String className) {
-        catalogPage.checkIsNotPresent(className);
+        groupPage.popUpMenuCancel();
     }
 
     @Step
     public void groupCheckIsNotPresent(String groupName) {
-        classPage.checkIsNotPresent(groupName);
+        groupPage.checkIsNotPresent(groupName);
     }
 
     @Step
-    public void classClick(String className) {
-        catalogPage.itemClick(className);
+    public void categoryCheckIsNotPresent(String categoryName) {
+        categoryPage.checkIsNotPresent(categoryName);
     }
 
     @Step
     public void groupClick(String groupName) {
-        classPage.itemClick(groupName);
+        groupPage.itemClick(groupName);
+    }
+
+    @Step
+    public void categoryClick(String categoryName) {
+        categoryPage.itemClick(categoryName);
     }
 
     @Step
     public void itemEditThroughPopUpMenu() {
-        catalogPage.popUpMenuEdit();
+        groupPage.popUpMenuEdit();
     }
 
     @Step
     public void checkItemParent(String item, String parent) {
-        catalogPage.checkItemParent(item, parent);
+        groupPage.checkItemParent(item, parent);
     }
 
     @Step
     public void input(String elementName, String data) {
-        catalogPage.input(elementName, data);
+        groupPage.input(elementName, data);
     }
 
     @Step
@@ -146,31 +146,31 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void checkFieldLength(String elementName, int fieldLength) {
-        catalogPage.checkFieldLength(elementName, fieldLength);
+        groupPage.checkFieldLength(elementName, fieldLength);
     }
 
     @Step
     public void addNewButtonClick() {
-        catalogPage.addNewButtonClick();
+        groupPage.addNewButtonClick();
     }
 
     @Step
     public void addNewGroupClick() {
-        classPage.addNewButtonClick();
+        categoryPage.addNewButtonClick();
     }
 
     @Step
     public void addNewButtonConfirmClick() {
-        catalogPage.addNewButtonConfirmClick();
+        groupPage.addNewButtonConfirmClick();
     }
 
     @Step
     public void itemLinkCheck(String name) {
-        catalogPage.itemLinkCheck(name);
+        groupPage.itemLinkCheck(name);
     }
 
     @Step
     public void itemLinkClick(String name) {
-        catalogPage.itemLinkClick(name);
+        groupPage.itemLinkClick(name);
     }
 }

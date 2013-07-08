@@ -116,27 +116,27 @@ public class ApiConnect {
         return String.format("%s/writeOffs/%s", UrlHelper.getWebFrontUrl(), writeOffId);
     }
 
-    public void createKlassThroughPost(String klassName) throws IOException, JSONException {
-        if (!StaticDataCollections.klasses.containsKey(klassName)) {
-            String getApiUrl = String.format("%s/api/1/klasses.json", UrlHelper.getApiUrl());
-            String jsonData = Klass.getJsonObject(klassName).toString();
+    public void createGroupThroughPost(String groupName) throws IOException, JSONException {
+        if (!StaticDataCollections.groups.containsKey(groupName)) {
+            String getApiUrl = String.format("%s/api/1/groups.json", UrlHelper.getApiUrl());
+            String jsonData = Group.getJsonObject(groupName).toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
-            Klass klass = new Klass(new JSONObject(postResponse));
-            StaticDataCollections.klasses.put(klassName, klass);
+            Group group = new Group(new JSONObject(postResponse));
+            StaticDataCollections.groups.put(groupName, group);
         }
     }
 
-    public void createGroupThroughPost(String groupName, String klassName) throws IOException, JSONException {
-        createKlassThroughPost(klassName);
+    public void createCategoryThroughPost(String categoryName, String groupName) throws IOException, JSONException {
+        createGroupThroughPost(groupName);
         String apiUrl = String.format("%s/api/1/groups.json", UrlHelper.getApiUrl());
-        String klassId = StaticDataCollections.klasses.get(klassName).getId();
-        String groupJsonData = Group.getJsonObject(groupName, klassId).toString();
+        String groupId = StaticDataCollections.groups.get(groupName).getId();
+        String groupJsonData = Category.getJsonObject(categoryName, groupId).toString();
         executePostRequest(apiUrl, groupJsonData);
     }
 
-    public String getKlassPageUrl(String klassName) throws JSONException {
-        String klassId = StaticDataCollections.klasses.get(klassName).getId();
+    public String getGroupPageUrl(String groupName) throws JSONException {
+        String klassId = StaticDataCollections.groups.get(groupName).getId();
         return String.format("%s/catalog/%s", UrlHelper.getWebFrontUrl(), klassId);
     }
 

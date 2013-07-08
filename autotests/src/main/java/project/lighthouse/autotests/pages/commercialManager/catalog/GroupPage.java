@@ -11,10 +11,10 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.InputOnlyVisible;
 
 @DefaultUrl("/catalog")
-public class CatalogPage extends CommonPageObject {
+public class GroupPage extends CommonPageObject {
 
     @FindBy(xpath = "//*[@class='button button_color_blue catalog__addClassLink editor__control']")
-    WebElementFacade addNewClassButton;
+    WebElementFacade addNewGroupButton;
 
     @FindBy(xpath = "//*[@class='page__controlsLink editor__on']")
     WebElementFacade startEditionButtonLink;
@@ -22,12 +22,12 @@ public class CatalogPage extends CommonPageObject {
     @FindBy(xpath = "//*[@class='page__controlsLink editor__off']")
     WebElementFacade stopEditionButtonLink;
 
-    public CatalogPage(WebDriver driver) {
+    public GroupPage(WebDriver driver) {
         super(driver);
     }
 
     public void addNewButtonClick() {
-        addNewClassButton.click();
+        addNewGroupButton.click();
     }
 
     public void startEditionButtonLinkClick() {

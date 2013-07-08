@@ -12,16 +12,16 @@ public class CatalogApi extends CommercialManagerApi {
         super(driver);
     }
 
-    public void createKlassThroughPost(String klassName) throws IOException, JSONException {
-        apiConnect.createKlassThroughPost(klassName);
+    public void createGroupThroughPost(String groupName) throws IOException, JSONException {
+        apiConnect.createGroupThroughPost(groupName);
     }
 
-    public void createGroupThroughPost(String groupName, String klassName) throws IOException, JSONException {
-        apiConnect.createGroupThroughPost(groupName, klassName);
+    public void createCategoryThroughPost(String categoryName, String groupName) throws IOException, JSONException {
+        apiConnect.createCategoryThroughPost(categoryName, groupName);
     }
 
-    public void navigateToKlassPage(String klassName) throws JSONException {
-        String klassPageUrl = apiConnect.getKlassPageUrl(klassName);
+    public void navigateToGroupPage(String groupName) throws JSONException {
+        String klassPageUrl = apiConnect.getGroupPageUrl(groupName);
         getDriver().navigate().to(klassPageUrl);
     }
 }

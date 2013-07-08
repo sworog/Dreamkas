@@ -206,19 +206,19 @@ And the user clicks the create button
 Then the user checks the product with 'assps123' sku is present
 When the user logs out
 
-Scenario: commercialManager role valid rules - simple user scenario from dashboard - class creation
+Scenario: commercialManager role valid rules - simple user scenario from dashboard - group creation
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 When user opens the dashboard 'catalog' section
 When the user clicks on start edition link and starts the edition
-And the user creates new class with name 'GcFcP1234567'
-Then the user checks the class with 'GcFcP1234567' name is present
-When the user clicks on the class name 'GcFcP1234567'
-And the user creates new group with name 'First group create1234567'
+And the user creates new group with name 'GcFcP1234567'
+Then the user checks the group with 'GcFcP1234567' name is present
+When the user clicks on the group name 'GcFcP1234567'
+And the user creates new category with name 'First category create1234567'
 And the user clicks on end edition link and ends the edition
-Then the user checks the group with 'First group create1234567' name is present
+Then the user checks the category with 'First category create1234567' name is present
 When user opens the dashboard 'catalog' section
-Then the user checks the group with 'First group create1234567' name is related to class 'GcFcP1234567'
+Then the user checks the category with 'First category create1234567' name is related to group 'GcFcP1234567'
 When the user logs out
 
 Scenario: departmentManager role valid rules - simple user scenario from dashboard - invoice

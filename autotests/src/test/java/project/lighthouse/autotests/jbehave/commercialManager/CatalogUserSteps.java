@@ -19,19 +19,19 @@ public class CatalogUserSteps {
         catalogSteps.openPage();
     }
 
-    @Given("there is the class with name '$klassName'")
-    public void givenThereIsTheClassWithName(String klassName) throws IOException, JSONException {
-        catalogSteps.createKlassThroughPost(klassName);
+    @Given("there is the group with name '$groupName'")
+    public void givenThereIsTheClassWithName(String groupName) throws IOException, JSONException {
+        catalogSteps.createGroupThroughPost(groupName);
     }
 
-    @Given("there is the group with name '$groupName' related to class named '$klassName'")
-    public void givenThereIsTheGroupWithNameRelatedToKlass(String groupName, String klassName) throws IOException, JSONException {
-        catalogSteps.createGroupThroughPost(groupName, klassName);
+    @Given("there is the category with name '$categoryName' related to group named '$groupName'")
+    public void givenThereIsTheGroupWithNameRelatedToKlass(String categoryName, String groupName) throws IOException, JSONException {
+        catalogSteps.createCategoryThroughPost(categoryName, groupName);
     }
 
-    @Given("the user navigates to the klass with name '$klassName'")
-    public void givenTheUserNavigatesToTheKlassName(String klassName) throws JSONException {
-        catalogSteps.navigateToKlassPage(klassName);
+    @Given("the user navigates to the group with name '$groupName'")
+    public void givenTheUserNavigatesToTheKlassName(String groupName) throws JSONException {
+        catalogSteps.navigateToGroupPage(groupName);
     }
 
     @When("the user clicks on start edition link and starts the edition")
@@ -44,24 +44,24 @@ public class CatalogUserSteps {
         catalogSteps.stopEditionButtonLinkClick();
     }
 
-    @When("the user creates new class with name '$className'")
-    public void whenTheUserCreatesNewClassWithName(String className) {
-        catalogSteps.classCreate(className);
-    }
-
-    @When("the user clicks on the class name '$className'")
-    public void whenTheUSerClicksOnTheClassName(String className) {
-        catalogSteps.classClick(className);
-    }
-
     @When("the user creates new group with name '$groupName'")
-    public void whenTheUserCreatesNewGroup(String groupName) {
+    public void whenTheUserCreatesNewClassWithName(String groupName) {
         catalogSteps.groupCreate(groupName);
     }
 
     @When("the user clicks on the group name '$groupName'")
-    public void whenTheUserClicksOnTheGroupName(String groupName) {
+    public void whenTheUSerClicksOnTheClassName(String groupName) {
         catalogSteps.groupClick(groupName);
+    }
+
+    @When("the user creates new category with name '$categoryName'")
+    public void whenTheUserCreatesNewGroup(String categoryName) {
+        catalogSteps.categoryCreate(categoryName);
+    }
+
+    @When("the user clicks on the category name '$categoryName'")
+    public void whenTheUserClicksOnTheGroupName(String categoryName) {
+        catalogSteps.categoryClick(categoryName);
     }
 
     @When("the user opens pop up menu of '$name' element")
@@ -69,9 +69,9 @@ public class CatalogUserSteps {
         catalogSteps.popUpMenuInteraction(name);
     }
 
-    @When("the user opens pop up menu of group '$name' element")
+    @When("the user opens pop up menu of category '$name' element")
     public void whenTheUserOpensPopUpMenuOfGroupElement(String name) {
-        catalogSteps.popUpGroupMenuInteraction(name);
+        catalogSteps.popUpCategoryMenuInteraction(name);
     }
 
     @When("the user deletes element through pop up menu")
@@ -94,12 +94,12 @@ public class CatalogUserSteps {
         catalogSteps.itemEditThroughPopUpMenu();
     }
 
-    @When("the user clicks create new class button")
+    @When("the user clicks create new group button")
     public void whenTheUserClicksCreateNewClassButton() {
         catalogSteps.addNewButtonClick();
     }
 
-    @When("the user clicks create new group button")
+    @When("the user clicks create new category button")
     public void whenTheUserClicksCreateNewGroupButton() {
         catalogSteps.addNewGroupClick();
     }
@@ -109,7 +109,7 @@ public class CatalogUserSteps {
         catalogSteps.input(element, value);
     }
 
-    @When("the user clicks the create new class button in pop up")
+    @When("the user clicks the create new group button in pop up")
     public void whenTheUserClicksTheCreateNewClassButtonInPopUp() {
         catalogSteps.addNewButtonConfirmClick();
     }
@@ -124,7 +124,7 @@ public class CatalogUserSteps {
         catalogSteps.generateTestCharData(element, number, str);
     }
 
-    @When("the user clicks the class '$name' link on right panel")
+    @When("the user clicks the group '$name' link on right panel")
     public void whenTheUserClicksTheClassLink(String name) {
         catalogSteps.itemLinkClick(name);
     }
@@ -134,32 +134,32 @@ public class CatalogUserSteps {
         catalogSteps.checkFieldLength(element, numbers);
     }
 
-    @Then("the user checks the class with '$className' name is present")
-    public void thenTheUserChecksTheClassIsPresent(String className) {
-        catalogSteps.classCheck(className);
-    }
-
-    @Then("the user checks the class with '$className' name is not present")
-    public void thenTheUserChecksTheClassIsNotPresent(String className) {
-        catalogSteps.classCheckIsNotPresent(className);
-    }
-
-    @Then("the user checks the group with '$className' name is present")
-    public void thenTheUserChecksTheGroupIsPresent(String groupName) {
+    @Then("the user checks the group with '$groupName' name is present")
+    public void thenTheUserChecksTheClassIsPresent(String groupName) {
         catalogSteps.groupCheck(groupName);
     }
 
-    @Then("the user checks the group with '$className' name is not present")
-    public void thenTheUserChecksTheGroupIsNotPresent(String groupName) {
+    @Then("the user checks the group with '$groupName' name is not present")
+    public void thenTheUserChecksTheClassIsNotPresent(String groupName) {
         catalogSteps.groupCheckIsNotPresent(groupName);
     }
 
-    @Then("the user checks the group with '$name' name is related to class '$parentName'")
+    @Then("the user checks the category with '$categoryName' name is present")
+    public void thenTheUserChecksTheGroupIsPresent(String categoryName) {
+        catalogSteps.categoryCheck(categoryName);
+    }
+
+    @Then("the user checks the category with '$categoryName' name is not present")
+    public void thenTheUserChecksTheGroupIsNotPresent(String categoryName) {
+        catalogSteps.categoryCheckIsNotPresent(categoryName);
+    }
+
+    @Then("the user checks the category with '$name' name is related to group '$parentName'")
     public void thenTheUserChecksTheItemsIsRelatedToParent(String name, String parentName) {
         catalogSteps.checkItemParent(name, parentName);
     }
 
-    @Then("the user checks the class '$name' link is present on right panel")
+    @Then("the user checks the group '$name' link is present on right panel")
     public void whenTheUserChecksTheClassLinkIsPresent(String name) {
         catalogSteps.itemLinkCheck(name);
     }

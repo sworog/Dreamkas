@@ -98,18 +98,18 @@ And the user clicks the create button
 Then the user checks the product with 'assps' sku is present
 When the user logs out
 
-Scenario: Authorization successfull - simple class scenarios
+Scenario: Authorization successfull - simple group scenarios
 Given the user opens catalog page
 When the user logs in using 'commercialManager' userName and 'lighthouse' password
 When the user clicks on start edition link and starts the edition
-And the user creates new class with name 'GcFcP123'
-Then the user checks the class with 'GcFcP123' name is present
-When the user clicks on the class name 'GcFcP123'
-And the user creates new group with name 'First group create123'
+And the user creates new group with name 'GcFcP123'
+Then the user checks the group with 'GcFcP123' name is present
+When the user clicks on the group name 'GcFcP123'
+And the user creates new category with name 'First category create123'
 And the user clicks on end edition link and ends the edition
-Then the user checks the group with 'First group create123' name is present
+Then the user checks the category with 'First category create123' name is present
 Given the user opens catalog page
-Then the user checks the group with 'First group create123' name is related to class 'GcFcP123'
+Then the user checks the category with 'First category create123' name is related to group 'GcFcP123'
 When the user logs out
 
 Scenario: Authorization successfull - simple invoice scenarios

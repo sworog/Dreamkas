@@ -15,9 +15,8 @@ public class Group {
         return jsonObject.getString("id");
     }
 
-    public static JSONObject getJsonObject(String name, String klassId) throws JSONException {
+    public static JSONObject getJsonObject(String name) throws JSONException {
         return new JSONObject()
-                .put("name", name)
-                .put("klass", klassId);
+                .put("name", name);
     }
 }

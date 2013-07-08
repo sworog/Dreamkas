@@ -3,11 +3,11 @@ package project.lighthouse.autotests.objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Klass {
+public class Category {
 
     JSONObject jsonObject;
 
-    public Klass(JSONObject jsonObject) {
+    public Category(JSONObject jsonObject) {
         this.jsonObject = jsonObject;
     }
 
@@ -15,8 +15,9 @@ public class Klass {
         return jsonObject.getString("id");
     }
 
-    public static JSONObject getJsonObject(String name) throws JSONException {
+    public static JSONObject getJsonObject(String name, String groupId) throws JSONException {
         return new JSONObject()
-                .put("name", name);
+                .put("name", name)
+                .put("group", groupId);
     }
 }

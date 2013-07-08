@@ -7,18 +7,18 @@ import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.elements.Input;
 
-public class ClassPage extends CatalogPage {
+public class CategoryPage extends GroupPage {
 
     @FindBy(xpath = "//*[@class='button button_color_blue catalog__addGroupLink editor__control']")
-    WebElementFacade addNewGroupButton;
+    WebElementFacade addNewCategoryButton;
 
-    public ClassPage(WebDriver driver) {
+    public CategoryPage(WebDriver driver) {
         super(driver);
     }
 
     @Override
     public void addNewButtonClick() {
-        addNewGroupButton.click();
+        addNewCategoryButton.click();
     }
 
     @Override
