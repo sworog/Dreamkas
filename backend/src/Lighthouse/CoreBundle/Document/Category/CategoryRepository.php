@@ -1,10 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Group;
+namespace Lighthouse\CoreBundle\Document\Category;
 
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
-class GroupRepository extends DocumentRepository
+class CategoryRepository extends DocumentRepository
 {
     /**
      * @param string $klassId

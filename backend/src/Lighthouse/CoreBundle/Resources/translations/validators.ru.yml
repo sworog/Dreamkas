@@ -37,7 +37,7 @@ lighthouse:
         product_empty: Должен присутствовать хотя бы один товар
       klass:
         name.unique: Такой класс уже есть
-      group:
+      category:
         name.unique: Группа с таким названием уже существует в этом классе
         klass.does_not_exists: Такого класса не существует
       not_equals_field: Значение поля не должно совпадать с полем {{ field }}

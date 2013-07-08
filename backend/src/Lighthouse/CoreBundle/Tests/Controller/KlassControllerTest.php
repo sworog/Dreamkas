@@ -190,7 +190,7 @@ class KlassControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Такой класс уже есть', 'children.name.errors.0', $postResponse);
     }
 
-    public function testDeleteKlassNoGroups()
+    public function testDeleteKlassNoCategories()
     {
         $this->clearMongoDb();
 
@@ -223,14 +223,14 @@ class KlassControllerTest extends WebTestCase
         Assert::assertResponseCode(404, $this->client);
     }
 
-    public function testDeleteKlassWithGroups()
+    public function testDeleteKlassWithCategories()
     {
         $this->clearMongoDb();
 
         $klassId = $this->createKlass();
 
-        $this->createGroup($klassId, '1');
-        $this->createGroup($klassId, '2');
+        $this->createCategory($klassId, '1');
+        $this->createCategory($klassId, '2');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
@@ -243,14 +243,14 @@ class KlassControllerTest extends WebTestCase
         Assert::assertResponseCode(409, $this->client);
     }
 
-    public function testKlassWithGroups()
+    public function testKlassWithCategories()
     {
         $this->clearMongoDb();
 
         $klassId = $this->createKlass();
 
-        $groupId1 = $this->createGroup($klassId, '1');
-        $groupId2 = $this->createGroup($klassId, '2');
+        $categoryId1 = $this->createCategory($klassId, '1');
+        $categoryId2 = $this->createCategory($klassId, '2');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
@@ -261,8 +261,8 @@ class KlassControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(200, $this->client);
-        Assert::assertJsonPathCount(2, 'groups.*.id', $getResponse);
-        Assert::assertJsonPathEquals($groupId1, 'groups.*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId2, 'groups.*.id', $getResponse, 1);
+        Assert::assertJsonPathCount(2, 'categories.*.id', $getResponse);
+        Assert::assertJsonPathEquals($categoryId1, 'categories.*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId2, 'categories.*.id', $getResponse, 1);
     }
 }

@@ -28,8 +28,8 @@ lighthouse.core.klass:
     resource: Lighthouse\CoreBundle\Controller\KlassController
     type:     rest
 
-lighthouse.core.group:
-    resource: Lighthouse\CoreBundle\Controller\GroupController
+lighthouse.core.category:
+    resource: Lighthouse\CoreBundle\Controller\CategoryController
     type:     rest
 
 lighthouse.core.user:

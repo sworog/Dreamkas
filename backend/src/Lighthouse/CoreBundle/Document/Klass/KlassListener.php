@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Klass;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
-use Lighthouse\CoreBundle\Document\Group\GroupRepository;
+use Lighthouse\CoreBundle\Document\Category\CategoryRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -12,19 +12,19 @@ use JMS\DiExtraBundle\Annotation as DI;
 class KlassListener
 {
     /**
-     * @var GroupRepository
+     * @var CategoryRepository
      */
-    protected $groupRepository;
+    protected $categoryRepository;
 
     /**
      * @DI\InjectParams({
-     *      "groupRepository"=@DI\Inject("lighthouse.core.document.repository.group")
+     *      "categoryRepository"=@DI\Inject("lighthouse.core.document.repository.category")
      * })
-     * @param GroupRepository $groupRepository
+     * @param CategoryRepository $categoryRepository
      */
-    public function __construct(GroupRepository $groupRepository)
+    public function __construct(CategoryRepository $categoryRepository)
     {
-        $this->groupRepository = $groupRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -34,7 +34,7 @@ class KlassListener
     {
         $document = $eventArgs->getDocument();
         if ($document instanceof Klass) {
-            $this->checkKlassHasNoGroups($document);
+            $this->checkKlassHasNoCategories($document);
         }
     }
 
@@ -42,9 +42,9 @@ class KlassListener
      * @param Klass $klass
      * @throws KlassNotEmptyException
      */
-    protected function checkKlassHasNoGroups(Klass $klass)
+    protected function checkKlassHasNoCategories(Klass $klass)
     {
-        $count = $this->groupRepository->countByKlass($klass->id);
+        $count = $this->categoryRepository->countByKlass($klass->id);
         if ($count > 0) {
             throw new KlassNotEmptyException('Klass is not empty');
         }

@@ -5,15 +5,15 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
-class GroupControllerTest extends WebTestCase
+class CategoryControllerTest extends WebTestCase
 {
-    public function testPostGroupsAction()
+    public function testPostCategoriesAction()
     {
         $this->clearMongoDb();
 
         $klassId = $this->createKlass('Продовольственные товары');
 
-        $groupData = array(
+        $categoryData = array(
             'name' => 'Винно-водочные изделия',
             'klass' => $klassId,
         );
@@ -23,8 +23,8 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/groups',
-            $groupData
+            '/api/1/categories',
+            $categoryData
         );
 
         Assert::assertResponseCode(201, $this->client);
@@ -35,36 +35,36 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Продовольственные товары', 'klass.name', $postResponse);
     }
 
-    public function testUniqueGroupName()
+    public function testUniqueCategoryName()
     {
         $this->clearMongoDb();
 
         $klassId1 = $this->createKlass('Алкоголь');
         $klassId2 = $this->createKlass('Продовольственные товары');
 
-        $groupData = array(
+        $categoryData = array(
             'name' => 'Винно-водочные изделия',
             'klass' => $klassId1,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
-        // Create first group
+        // Create first category
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/groups',
-            $groupData
+            '/api/1/categories',
+            $categoryData
         );
 
         Assert::assertResponseCode(201, $this->client);
         Assert::assertJsonHasPath('id', $postResponse);
 
-        // Try to create second group with same name in klass 1
+        // Try to create second category with same name in klass 1
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/groups',
-            $groupData
+            '/api/1/categories',
+            $categoryData
         );
         Assert::assertResponseCode(400, $this->client);
 
@@ -74,25 +74,25 @@ class GroupControllerTest extends WebTestCase
             $postResponse
         );
 
-        $groupData2 = array('klass' => $klassId2) + $groupData;
+        $categoryData2 = array('klass' => $klassId2) + $categoryData;
 
-        // Create group with same name but in klass 2
+        // Create category with same name but in klass 2
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/groups',
-            $groupData2
+            '/api/1/categories',
+            $categoryData2
         );
 
         Assert::assertResponseCode(201, $this->client);
         Assert::assertJsonHasPath('id', $postResponse);
 
-        // Create second group with same name in klass 2
+        // Create second category with same name in klass 2
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/groups',
-            $groupData2
+            '/api/1/categories',
+            $categoryData2
         );
         Assert::assertResponseCode(400, $this->client);
 
@@ -108,15 +108,15 @@ class GroupControllerTest extends WebTestCase
      * @param array $data
      * @param array $assertions
      *
-     * @dataProvider validationGroupProvider
+     * @dataProvider validationCategoryProvider
      */
-    public function testPostGroupsValidation($expectedCode, array $data, array $assertions = array())
+    public function testPostCategoriesValidation($expectedCode, array $data, array $assertions = array())
     {
         $this->clearMongoDb();
 
         $klassId = $this->createKlass('Продовольственные товары');
 
-        $groupData = $data + array(
+        $categoryData = $data + array(
             'name' => 'Винно-водочные изделия',
             'klass' => $klassId,
         );
@@ -125,8 +125,8 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/groups',
-            $groupData
+            '/api/1/categories',
+            $categoryData
         );
 
         Assert::assertResponseCode($expectedCode, $this->client);
@@ -137,7 +137,7 @@ class GroupControllerTest extends WebTestCase
     /**
      * @return array
      */
-    public function validationGroupProvider()
+    public function validationCategoryProvider()
     {
         return array(
             'not valid empty name' => array(
@@ -179,15 +179,15 @@ class GroupControllerTest extends WebTestCase
      * @param array $data
      * @param array $assertions
      *
-     * @dataProvider validationGroupProvider
+     * @dataProvider validationCategoryProvider
      */
-    public function testPutGroupsValidation($expectedCode, array $data, array $assertions = array())
+    public function testPutCategoriesValidation($expectedCode, array $data, array $assertions = array())
     {
         $this->clearMongoDb();
 
         $klassId = $this->createKlass('Продовольственные товары');
 
-        $groupId = $this->createGroup($klassId);
+        $categoryId = $this->createCategory($klassId);
 
         $putData = $data + array(
             'name' => 'Винно-водочные изделия',
@@ -198,7 +198,7 @@ class GroupControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/groups/' . $groupId,
+            '/api/1/categories/' . $categoryId,
             $putData
         );
 
@@ -209,91 +209,91 @@ class GroupControllerTest extends WebTestCase
         $this->performJsonAssertions($putResponse, $assertions, true);
     }
 
-    public function testGetGroup()
+    public function testGetCategory()
     {
         $this->clearMongoDb();
 
         $klassId = $this->createKlass();
-        $groupId = $this->createGroup($klassId);
+        $categoryId = $this->createCategory($klassId);
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId
+            '/api/1/categories/' . $categoryId
         );
 
         Assert::assertResponseCode(200, $this->client);
 
-        Assert::assertJsonPathEquals($groupId, 'id', $getResponse);
+        Assert::assertJsonPathEquals($categoryId, 'id', $getResponse);
         Assert::assertJsonPathEquals($klassId, 'klass.id', $getResponse);
     }
 
-    public function testGetGroupNotFound()
+    public function testGetCategoryNotFound()
     {
         $this->clearMongoDb();
 
         $klassId1 = $this->createKlass('1');
-        $this->createGroup($klassId1, '1.1');
+        $this->createCategory($klassId1, '1.1');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/invalidId'
+            '/api/1/categories/invalidId'
         );
 
         Assert::assertResponseCode(404, $this->client);
     }
 
-    public function testGetGroups()
+    public function testGetCategories()
     {
         $this->clearMongoDb();
 
         $klassId1 = $this->createKlass('1');
         $klassId2 = $this->createKlass('2');
 
-        $groupId1 = $this->createGroup($klassId1, '1.1');
-        $groupId2 = $this->createGroup($klassId1, '1.2');
-        $groupId3 = $this->createGroup($klassId1, '1.3');
+        $categoryId1 = $this->createCategory($klassId1, '1.1');
+        $categoryId2 = $this->createCategory($klassId1, '1.2');
+        $categoryId3 = $this->createCategory($klassId1, '1.3');
 
-        $groupId4 = $this->createGroup($klassId2, '2.4');
-        $groupId5 = $this->createGroup($klassId2, '2.5');
+        $categoryId4 = $this->createCategory($klassId2, '2.4');
+        $categoryId5 = $this->createCategory($klassId2, '2.5');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId1 . '/groups'
+            '/api/1/klasses/' . $klassId1 . '/categories'
         );
 
         Assert::assertResponseCode(200, $this->client);
 
         Assert::assertJsonPathCount(3, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($groupId1, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId2, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId3, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId4, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($groupId5, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($categoryId1, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId2, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId3, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId4, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($categoryId5, '*.id', $getResponse, false);
 
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId2 . '/groups'
+            '/api/1/klasses/' . $klassId2 . '/categories'
         );
 
         Assert::assertResponseCode(200, $this->client);
 
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($groupId4, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId5, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId1, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($groupId2, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($groupId3, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($categoryId4, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId5, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId1, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($categoryId2, '*.id', $getResponse, false);
+        Assert::assertJsonPathEquals($categoryId3, '*.id', $getResponse, false);
     }
 
-    public function testGetGroupsNotFound()
+    public function testGetCategoriesNotFound()
     {
         $this->clearMongoDb();
 
@@ -301,13 +301,13 @@ class GroupControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/123484923423/groups'
+            '/api/1/klasses/123484923423/categories'
         );
 
         Assert::assertResponseCode(404, $this->client);
     }
 
-    public function testGetGroupsEmptyCollection()
+    public function testGetCategoriesEmptyCollection()
     {
         $this->clearMongoDb();
 
@@ -317,7 +317,7 @@ class GroupControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId . '/groups'
+            '/api/1/klasses/' . $klassId . '/categories'
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -325,18 +325,18 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonPathCount(0, '*.id', $response);
     }
 
-    public function testDeleteGroup()
+    public function testDeleteCategory()
     {
         $this->clearMongoDb();
 
         $klassId = $this->createKlass();
-        $groupId = $this->createGroup($klassId);
+        $categoryId = $this->createCategory($klassId);
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId
+            '/api/1/categories/' . $categoryId
         );
 
         Assert::assertResponseCode(200, $this->client);
@@ -344,7 +344,7 @@ class GroupControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/groups/' . $groupId
+            '/api/1/categories/' . $categoryId
         );
 
         Assert::assertResponseCode(204, $this->client);

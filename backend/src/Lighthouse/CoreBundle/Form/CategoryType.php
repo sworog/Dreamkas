@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class GroupType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -21,7 +21,7 @@ class GroupType extends AbstractType
                 'reference',
                 array(
                     'class' => 'Lighthouse\\CoreBundle\\Document\\Klass\\Klass',
-                    'invalid_message' => 'lighthouse.validation.errors.group.klass.does_not_exists'
+                    'invalid_message' => 'lighthouse.validation.errors.category.klass.does_not_exists'
                 )
             );
     }
@@ -33,7 +33,7 @@ class GroupType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Group\\Group',
+                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Category\\Category',
                 'csrf_protection' => false
             )
         );

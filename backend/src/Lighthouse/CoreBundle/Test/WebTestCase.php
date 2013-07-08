@@ -444,9 +444,9 @@ class WebTestCase extends BaseTestCase
      * @param string $name
      * @return string
      */
-    protected function createGroup($klassId, $name = 'Винно-водочные изделия')
+    protected function createCategory($klassId, $name = 'Винно-водочные изделия')
     {
-        $groupData = array(
+        $categoryData = array(
             'name' => $name,
             'klass' => $klassId,
         );
@@ -456,8 +456,8 @@ class WebTestCase extends BaseTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/groups',
-            $groupData
+            '/api/1/categories',
+            $categoryData
         );
 
         Assert::assertResponseCode(201, $this->client);

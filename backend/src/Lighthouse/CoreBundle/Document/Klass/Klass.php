@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Klass;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\Group\Group;
+use Lighthouse\CoreBundle\Document\Category\Category;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
@@ -33,12 +33,12 @@ class Klass extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\Group\Group",
+     *      targetDocument="Lighthouse\CoreBundle\Document\Category\Category",
      *      simple=true,
      *      cascade="persist",
      *      mappedBy="klass"
      * )
-     * @var Group[]
+     * @var Category[]
      */
-    protected $groups;
+    protected $categories;
 }

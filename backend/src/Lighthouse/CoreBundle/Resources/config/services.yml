@@ -80,11 +80,11 @@ services:
         arguments:
             - LighthouseCoreBundle:Klass\Klass
 
-    lighthouse.core.document.repository.group:
+    lighthouse.core.document.repository.category:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Group\Group
+        class: Lighthouse\CoreBundle\Document\Category\Category
         arguments:
-            - LighthouseCoreBundle:Group\Group
+            - LighthouseCoreBundle:Category\Category
 
     lighthouse.core.document.repository.user:
         parent: doctrine_mongodb.odm.repository
