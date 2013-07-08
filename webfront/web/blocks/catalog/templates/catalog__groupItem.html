@@ -3,4 +3,9 @@
        class="catalog__groupLink"><%t catalogGroupModel.get('name') %></a>
     <a class="editor__editLink catalog__editGroupLink"></a>
 </div>
-<div class="catalog__categoryList"></div>
+<div class="catalog__categoryList">
+    <%= templates.catalog__categoryList({
+        templates: templates,
+        catalogCategoriesCollection: catalogGroupModel.categories
+    }) %>
+</div>

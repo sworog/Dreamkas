@@ -1,15 +1,15 @@
 define(function(require) {
     //requirements
     var Form = require('kit/blocks/form/form'),
-        CatalogClassModel = require('models/catalogClass');
+        CatalogGroupModel = require('models/catalogGroup');
 
     return Form.extend({
-        blockName: 'form_catalogClass',
-        model: new CatalogClassModel(),
+        blockName: 'form_catalogGroup',
+        model: new CatalogGroupModel(),
         isAddForm: true,
         collection: null,
         templates: {
-            index: require('tpl!blocks/form/form_catalogClass/templates/index.html')
+            index: require('tpl!blocks/form/form_catalogGroup/templates/index.html')
         },
         initialize: function(){
             var block = this;
@@ -26,7 +26,7 @@ define(function(require) {
             Form.prototype.submitSuccess.call(block);
 
             if (block.isAddForm){
-                block.model = new CatalogClassModel();
+                block.model = new CatalogGroupModel();
                 block.clear();
                 block.$el.find('[name="name"]').focus();
             }

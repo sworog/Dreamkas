@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
-        var Tooltip_editMenu = require('blocks/tooltip/tooltip_editMenu/tooltip_editMenu'),
-            Tooltip_editClass = require('blocks/tooltip/tooltip_editClass/tooltip_editClass');
+        var Tooltip_editMenu = require('blocks/tooltip/tooltip_menu/tooltip_menu'),
+            Tooltip_catalogGroupForm = require('blocks/tooltip/tooltip_catalogGroupForm/tooltip_catalogGroupForm');
 
         return Tooltip_editMenu.extend({
             classModel: null,
@@ -9,11 +9,11 @@ define(function(require) {
                 'click .tooltip__editLink': function(e) {
                     e.preventDefault();
                     var block = this,
-                        $el = $(e.target);
+                        $target = $(e.target);
 
                     block.hide();
 
-                    block.tooltip_editClass.show();
+                    block.tooltip_catalogGroupForm.show();
                 },
                 'click .tooltip__removeLink': function(e) {
                     e.preventDefault();
@@ -33,7 +33,7 @@ define(function(require) {
 
                 Tooltip_editMenu.prototype.initialize.call(this);
 
-                block.tooltip_editClass = new Tooltip_editClass({
+                block.tooltip_catalogGroupForm = new Tooltip_catalogGroupForm({
                     $trigger: block.$trigger,
                     classModel: block.classModel
                 });

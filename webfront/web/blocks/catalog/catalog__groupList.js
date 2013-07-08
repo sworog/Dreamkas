@@ -1,12 +1,15 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block'),
-        Catalog__groupItem = require('blocks/catalog/catalog__groupItem/catalog__groupItem');
+        Catalog__groupItem = require('blocks/catalog/catalog__groupItem');
 
     return Block.extend({
         catalogGroupsCollection: null,
         templates: {
-            index: require('tpl!blocks/catalog/catalog__groupList/templates/index.html')
+            index: require('tpl!blocks/catalog/templates/catalog__groupList.html'),
+            catalog__groupItem: require('tpl!blocks/catalog/templates/catalog__groupItem.html'),
+            catalog__categoryList: require('tpl!blocks/catalog/templates/catalog__categoryList.html'),
+            catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
         },
         listeners: {
             catalogGroupsCollection: {

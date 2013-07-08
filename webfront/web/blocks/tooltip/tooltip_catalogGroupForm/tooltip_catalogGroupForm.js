@@ -1,16 +1,16 @@
 define(function(require) {
         //requirements
         var Tooltip = require('kit/blocks/tooltip/tooltip'),
-            Form_catalogClass = require('blocks/form/form_catalogClass/form_catalogClass'),
-            CatalogClassModel = require('models/catalogClass');
+            Form_catalogGroup = require('blocks/form/form_catalogGroup/form_catalogGroup'),
+            CatalogGroupModel = require('models/catalogGroup');
 
         return Tooltip.extend({
-            catalogClassModel: new CatalogClassModel(),
-            catalogClassesCollection: null,
+            catalogGroupModel: new CatalogGroupModel(),
+            catalogGroupsCollection: null,
             isAddForm: true,
-            addClass: 'tooltip_catalogClassForm',
+            blockName: 'tooltip_catalogGroupForm',
             templates: {
-                content: require('tpl!./templates/index.html')
+                content: require('tpl!blocks/tooltip/tooltip_catalogGroupForm/templates/index.html')
             },
             listeners: {
                 form: {
@@ -27,13 +27,13 @@ define(function(require) {
 
                 Tooltip.prototype.initialize.call(this);
 
-                block.form = new Form_catalogClass({
+                block.form = new Form_catalogGroup({
                     el: block.el.getElementsByClassName('form'),
-                    model: block.catalogClassModel,
-                    collection: block.catalogClassesCollection
+                    model: block.catalogGroupModel,
+                    collection: block.catalogGroupsCollection
                 });
 
-                if (block.catalogClassModel.id){
+                if (block.catalogGroupModel.id){
                     block.isAddForm = false;
                 }
             },

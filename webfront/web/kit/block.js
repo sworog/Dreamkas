@@ -9,9 +9,7 @@ define(function(require) {
     require('jquery.require');
 
     var Block = Backbone.View.extend({
-        templates: {
-            index: null
-        },
+        templates: null,
 
         className: null,
         blockName: null,
@@ -19,13 +17,17 @@ define(function(require) {
         tagName: 'div',
 
         events: null,
+        listeners: null,
+        blocks: null,
 
         constructor: function(options) {
             var block = this;
 
             block.defaults = _.clone(this);
 
-            deepExtend(block, options);
+            deepExtend(block, {
+                blocks: {}
+            }, options);
 
             block.cid = _.uniqueId('block');
             block._ensureElement();
@@ -46,7 +48,11 @@ define(function(require) {
         },
         initialize: function() {
             var block = this;
-            block.render();
+
+            if (!block.$el.html()){
+                block.render();
+            }
+
         },
         render: function() {
             var block = this,
@@ -62,9 +68,7 @@ define(function(require) {
 
             template = block.templates.index(block);
 
-            block.$el.children('[block]').each(function() {
-                $(this).data('block').remove();
-            });
+            block.removeBlocks('inner');
 
             block.$el
                 .html(template)
@@ -109,6 +113,19 @@ define(function(require) {
         remove: function() {
             var block = this;
 
+            block.removeBlocks();
+
+            Backbone.View.prototype.remove.call(this);
+        },
+        removeBlocks: function(){
+            var block = this;
+
+            if (arguments[0] !== 'inner'){
+                _.each(block.blocks, function(innerBlock){
+                    innerBlock.remove();
+                })
+            }
+
             block.$el.find(['block']).each(function() {
                 var $block = $(this),
                     blockName = $block.attr('block');
@@ -117,8 +134,6 @@ define(function(require) {
                     $block.data(blockName).remove();
                 }
             });
-
-            Backbone.View.prototype.remove.call(this);
         },
         'set': function(path, value, extra) {
             var block = this,

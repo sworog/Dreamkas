@@ -1,12 +1,12 @@
 define(function(require) {
         //requirements
         var BaseModel = require('models/baseModel'),
-            CatalogGroups = require('collections/catalogGroups');
+            CatalogCategories = require('collections/catalogCategories');
 
         return BaseModel.extend({
             urlRoot: LH.baseApiUrl + '/groups',
             initData: {
-                groups: CatalogGroups
+                categories: CatalogCategories
             },
             saveFields: [
                 'name'

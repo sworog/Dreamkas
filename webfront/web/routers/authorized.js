@@ -36,7 +36,7 @@ define(function(require) {
 
             //catalog
             'catalog': require('pages/catalog/catalog'),
-            'catalog/:catalogClassId': require('pages/catalog/class'),
+            'catalog/:catalogGroupId': require('pages/catalog/group'),
 
             '*path': require('pages/common/404')
         },

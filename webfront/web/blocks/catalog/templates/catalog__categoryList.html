@@ -1,0 +1,12 @@
+<% if(!catalogCategoriesCollection || catalogCategoriesCollection.length === 0) { %>
+    <div><%t 'Нет категорий' %></div>
+<% } else { %>
+    <% catalogCategoriesCollection.each(function(catalogCategoryModel){ %>
+        <div categoryId="<%= catalogCategoryModel.id %>" class="catalog__categoryItem">
+            <%= templates.catalog__categoryItem({
+            catalogCategoryModel: catalogCategoryModel
+            }) %>
+        </div>
+    <% }) %>
+<% } %>
+

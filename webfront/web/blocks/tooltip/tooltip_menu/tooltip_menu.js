@@ -3,9 +3,9 @@ define(function(require) {
         var Tooltip = require('kit/blocks/tooltip/tooltip');
 
         return Tooltip.extend({
-            addClass: 'tooltip_editMenu',
+            blockName: 'tooltip_menu',
             templates: {
-                content: require('tpl!blocks/tooltip/tooltip_editMenu/templates/index.html')
+                content: require('tpl!blocks/tooltip/tooltip_menu/templates/index.html')
             }
         });
     }

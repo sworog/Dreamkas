@@ -1,12 +1,13 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block'),
-        Catalog__categoryItem = require('blocks/catalog/catalog__categoryItem/catalog__categoryItem');
+        Catalog__categoryItem = require('blocks/catalog/catalog__categoryItem');
 
     return Block.extend({
         catalogCategoriesCollection: null,
         templates: {
-            index: require('tpl!blocks/catalog/catalog__categoryList/templates/index.html')
+            index: require('tpl!blocks/catalog/templates/catalog__categoryList.html'),
+            catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
         },
         initialize: function(){
             var block = this;

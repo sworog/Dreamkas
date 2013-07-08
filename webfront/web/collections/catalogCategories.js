@@ -1,13 +1,13 @@
 define(function(require) {
         //requirements
         var BaseCollection = require('collections/baseCollection'),
-            CatalogGroupModel = require('models/catalogGroup');
+            CatalogCategoryModel = require('models/catalogCategory');
 
         return BaseCollection.extend({
             initialize: function(models, options){
                 this.parentGroupModel = options.parentGroupModel || options.parentModel;
             },
-            model: CatalogGroupModel,
+            model: CatalogCategoryModel,
             url: function() {
                 return LH.baseApiUrl + '/groups/'+ this.parentGroupModel.id  + '/groups'
             }

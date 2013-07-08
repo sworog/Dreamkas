@@ -1,7 +1,0 @@
-<% if(catalogCategoriesCollection.length === 0) { %>
-    <div><%t 'Нет групп' %></div>
-<% } %>
-
-<% catalogCategoriesCollection.each(function(catalogCategoryModel){ %>
-    <div categoryId="<%= catalogCategoryModel.id %>" class="catalog__categoryItem"></div>
-<% }) %>
