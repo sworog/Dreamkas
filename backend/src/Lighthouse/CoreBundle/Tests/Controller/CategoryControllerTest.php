@@ -69,7 +69,7 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertResponseCode(400, $this->client);
 
         Assert::assertJsonPathContains(
-            'Группа с таким названием уже существует в этом классе',
+            'Категория с таким названием уже существует в этой группе',
             'children.name.errors',
             $postResponse
         );
@@ -97,7 +97,7 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertResponseCode(400, $this->client);
 
         Assert::assertJsonPathContains(
-            'Группа с таким названием уже существует в этом классе',
+            'Категория с таким названием уже существует в этой группе',
             'children.name.errors',
             $postResponse
         );
