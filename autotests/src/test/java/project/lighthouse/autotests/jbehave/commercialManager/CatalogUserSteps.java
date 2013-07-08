@@ -129,7 +129,7 @@ public class CatalogUserSteps {
         catalogSteps.addNewCategoryClick();
     }
 
-    @When("the user clicks create new category button")
+    @When("the user clicks create new subCategory button")
     public void whenTheUserClicksCreateNewSubCategoryButton() {
         catalogSteps.addNewSubCategoryClick();
     }
@@ -140,8 +140,13 @@ public class CatalogUserSteps {
     }
 
     @When("the user clicks the create new group button in pop up")
-    public void whenTheUserClicksTheCreateNewClassButtonInPopUp() {
+    public void whenTheUserClicksTheCreateNewGroupButtonInPopUp() {
         catalogSteps.addNewButtonConfirmClick();
+    }
+
+    @When("the user clicks the create new subCategory button in pop up")
+    public void whenTheUserClicksTheCreateNewSubCategoryButtonInPopUp() {
+        catalogSteps.addNewSubCategoryConfirmClick();
     }
 
     @When("the user generates charData with '$number' number in the '$element' pop up field")
