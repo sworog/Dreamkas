@@ -28,16 +28,7 @@ define(function(require) {
                     block.blocks.tooltip_catalogGroupForm.show({
                         $trigger: $target,
                         catalogGroupsCollection: block.catalogGroupsCollection,
-                        catalogGroupModel: new CatalogGroupModel(),
-                        align: function(){
-                            var tooltip = this;
-
-                            tooltip.$el
-                                .css({
-                                    top: tooltip.$trigger.offset().top - 15,
-                                    left: tooltip.$trigger.offset().left
-                                })
-                        }
+                        catalogGroupModel: new CatalogGroupModel()
                     });
                 }
             },

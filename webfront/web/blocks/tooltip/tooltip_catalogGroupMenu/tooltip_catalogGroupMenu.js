@@ -14,16 +14,7 @@ define(function(require) {
 
                     block.blocks.tooltip_catalogGroupForm.show({
                         catalogGroupModel: block.catalogGroupModel,
-                        $trigger: $target,
-                        align: function(){
-                            var tooltip = this;
-
-                            tooltip.$el
-                                .css({
-                                    top: tooltip.$trigger.offset().top - 15,
-                                    left: tooltip.$trigger.offset().left
-                                })
-                        }
+                        $trigger: $target
                     });
 
                     block.hide();

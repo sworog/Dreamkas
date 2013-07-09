@@ -23,7 +23,7 @@ define(function(require) {
         constructor: function(options) {
             var block = this;
 
-            block.defaults = _.clone(this);
+            block.defaults = _.clone(block);
 
             deepExtend(block, {
                 blocks: {}

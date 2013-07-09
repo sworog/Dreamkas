@@ -36,6 +36,15 @@ define(function(require) {
                     block.isAddForm = false;
                 }
             },
+            align: function(){
+                var tooltip = this;
+
+                tooltip.$el
+                    .css({
+                        top: tooltip.$trigger.offset().top - 15,
+                        left: tooltip.$trigger.offset().left
+                    })
+            },
             show: function(opt) {
                 var block = this;
 
