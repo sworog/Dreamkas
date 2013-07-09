@@ -1,22 +1,20 @@
 define(function(require) {
         //requirements
         var Tooltip = require('kit/blocks/tooltip/tooltip'),
-            Form_catalogGroup = require('blocks/form/form_catalogGroup/form_catalogGroup'),
-            CatalogGroupModel = require('models/catalogGroup');
+            Form_catalogCategory = require('blocks/form/form_catalogCategory/form_catalogCategory');
 
         return Tooltip.extend({
-            catalogGroupModel: new CatalogGroupModel(),
-            catalogGroupsCollection: null,
+            blockName: 'tooltip_catalogCategoryForm',
+            catalogCategoryModel: null,
+            catalogCategoriesCollection: null,
             isAddForm: true,
-            blockName: 'tooltip_catalogGroupForm',
             templates: {
-                content: require('tpl!blocks/tooltip/tooltip_catalogGroupForm/templates/content.html')
+                content: require('tpl!blocks/tooltip/tooltip_catalogCategoryForm/templates/content.html')
             },
             listeners: {
                 form: {
                     'submit:success': function() {
                         var block = this;
-
                         if (!block.form.isAddForm){
                             block.hide();
                         }
@@ -28,13 +26,13 @@ define(function(require) {
 
                 Tooltip.prototype.initialize.call(this);
 
-                block.form = new Form_catalogGroup({
+                block.form = new Form_catalogCategory({
                     el: block.el.getElementsByClassName('form'),
-                    model: block.catalogGroupModel,
-                    collection: block.catalogGroupsCollection
+                    model: block.catalogCategoryModel,
+                    collection: block.catalogCategoriesCollection
                 });
 
-                if (block.catalogGroupModel.id){
+                if (block.catalogCategoryModel.id){
                     block.isAddForm = false;
                 }
             },
@@ -50,10 +48,7 @@ define(function(require) {
             show: function(opt) {
                 var block = this;
 
-                Tooltip.prototype.show.apply(this, arguments);
-
-                block.initialize();
-                block.startListening();
+                Tooltip.prototype.show.apply(block, arguments);
 
                 block.form.$el.find('[type="text"]').eq(0).focus();
             }

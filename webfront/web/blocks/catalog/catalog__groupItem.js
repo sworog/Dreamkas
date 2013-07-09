@@ -6,8 +6,8 @@ define(function(require) {
         CatalogCategoriesCollection = require('collections/catalogCategories');
 
     return Block.extend({
-        catalogGroupModel: null,
         blockName: 'catalog__groupItem',
+        catalogGroupModel: null,
         templates: {
             index: require('tpl!blocks/catalog/templates/catalog__groupItem.html'),
             catalog__categoryList: require('tpl!blocks/catalog/templates/catalog__categoryList.html'),
@@ -19,7 +19,7 @@ define(function(require) {
                 var block = this,
                     $target = $(e.target);
 
-                block.blocks.tooltip_catalogGroupMenu.show({
+                block.tooltip_catalogGroupMenu.show({
                     $trigger: $target,
                     catalogGroupModel: block.catalogGroupModel
                 });
@@ -27,10 +27,10 @@ define(function(require) {
         },
         listeners: {
             catalogGroupModel: {
-                'change': function(){
+                'destroy': function(){
                     var block = this;
 
-                    block.render();
+                    block.remove();
                 }
             }
         },
@@ -41,9 +41,9 @@ define(function(require) {
                 parentGroupModel: block.catalogGroupModel
             });
 
-            block.blocks.tooltip_catalogGroupMenu = block.blocks.tooltip_catalogGroupMenu || new Tooltip_catalogGroupMenu();
-
             Block.prototype.initialize.call(block);
+
+            block.tooltip_catalogGroupMenu = $('[block="tooltip_catalogGroupMenu"]').data('tooltip_catalogGroupMenu') || new Tooltip_catalogGroupMenu();
 
             new Catalog__categoryList({
                 catalogCategoriesCollection: block.catalogCategoriesCollection,

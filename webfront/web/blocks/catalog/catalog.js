@@ -25,7 +25,7 @@ define(function(require) {
                     var block = this,
                         $target = $(e.target);
 
-                    block.blocks.tooltip_catalogGroupForm.show({
+                    block.tooltip_catalogGroupForm.show({
                         $trigger: $target,
                         catalogGroupsCollection: block.catalogGroupsCollection,
                         catalogGroupModel: new CatalogGroupModel()
@@ -37,23 +37,16 @@ define(function(require) {
 
                 Editor.prototype.initialize.call(block);
 
-                block.blocks.tooltip_catalogGroupForm = new Tooltip_catalogGroupForm();
-
-                block.blocks.tooltip_catalogGroupMenu = new Tooltip_catalogGroupMenu({
-                    blocks: {
-                        tooltip_catalogGroupForm: block.blocks.tooltip_catalogGroupForm
-                    }
-                });
+                block.tooltip_catalogGroupForm = new Tooltip_catalogGroupForm();
+                block.tooltip_catalogGroupMenu = new Tooltip_catalogGroupMenu();
 
                 new Catalog__groupList({
-                    el: block.el.getElementsByClassName('catalog__groupList'),
-                    catalogGroupsCollection: block.catalogGroupsCollection,
-                    blocks: {
-                        tooltip_catalogGroupMenu: block.blocks.tooltip_catalogGroupMenu
-                    }
+                    el: document.getElementById('catalog__groupList'),
+                    catalogGroupsCollection: block.catalogGroupsCollection
                 });
+
             },
-            'set:editMode': function(editMode){
+            'set:editMode': function(editMode) {
                 Editor.prototype['set:editMode'].apply(this, arguments);
                 params.editMode = editMode;
             }

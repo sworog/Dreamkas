@@ -3,6 +3,7 @@ define(function(require) {
     var _ = require('underscore');
 
     return window.LH = _.extend({
+        attr: require('utils/attr'),
         isAllow: require('utils/isAllow'),
         formatPrice: require('utils/formatPrice'),
         isEmptyJSON: require('utils/isEmptyJSON'),

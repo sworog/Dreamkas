@@ -51,6 +51,9 @@ define(function(require) {
 
                 deepExtend(block, opt);
 
+                block.initialize();
+                block.startListening();
+
                 block.align();
                 block.$el.show();
             },

@@ -3,15 +3,18 @@ define(function(require) {
         var BaseModel = require('models/baseModel');
 
         return BaseModel.extend({
-            initialize: function(options){
-                this.parentGroupModel = options.parentGroupModel || this.collection.parentGroupModel;
-                this.set('group', this.parentGroupModel.id);
+            urlRoot: LH.baseApiUrl + '/categories',
+            defaults: {
+                subcategories: []
             },
-            urlRoot: LH.baseApiUrl + '/groups',
             saveFields: [
                 'name',
                 'group'
-            ]
+            ],
+            initialize: function(options){
+                this.parentGroupModel = options.parentGroupModel || this.collection.parentGroupModel;
+                this.set('group', this.parentGroupModel.id);
+            }
         });
     }
 );

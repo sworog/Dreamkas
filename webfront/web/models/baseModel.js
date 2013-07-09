@@ -54,13 +54,19 @@ define(function(require) {
                 changedAttributes = this.changedAttributes();
 
             if (changedAttributes){
-                _.each(this.initData, function(Class, key){
-                    if (changedAttributes[key]){
-                        model[key] = new Class(changedAttributes[key], {
+
+                _.each(changedAttributes, function(value, key){
+                    $('body')
+                        .find('[model_id="' + model.id + '"]')
+                        .filter('[model_attr="' + key + '"]')
+                        .html(value);
+
+                    if (model.initData[key]){
+                        model[key] = new model.initData[key](value, {
                             parentModel: model
                         });
                     }
-                })
+                });
             }
 
             return this;

@@ -9,41 +9,44 @@ define(function(require) {
         className: 'topBar',
         blockName: 'topBar',
         currentUserModel: currentUserModel,
+        userPermissions: userPermissions,
         templates: {
             index: require('tpl!blocks/topBar/templates/index.html')
         },
         events: {
-            'click .topBar__logoutLink': function(e){
+            'click .topBar__logoutLink': function(e) {
                 e.preventDefault();
                 app.logout();
             }
         },
-        initialize: function(){
+        listeners: {
+            currentUserModel: {
+                change: function() {
+                    var block = this;
+                    block.render();
+                }
+            },
+            userPermissions: {
+                change: function() {
+                    var block = this;
+                    block.render();
+                }
+            }
+        },
+        initialize: function() {
             var block = this;
 
             block.$el.prependTo('body');
 
             Block.prototype.initialize.call(this);
-
-            block.listenTo(currentUserModel, {
-                change: function(){
-                    block.render();
-                }
-            });
-
-            block.listenTo(userPermissions, {
-                change: function(){
-                    block.render();
-                }
-            });
         },
-        'set:active': function(pathName){
+        'set:active': function(pathName) {
             var block = this;
 
             block.$navigation
                 .find('.topBar__active')
                 .removeClass('topBar__active');
-            
+
             block.$navigation.
                 find('[href="' + pathName + '"]')
                 .addClass('topBar__active');

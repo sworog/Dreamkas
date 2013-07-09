@@ -18,24 +18,21 @@ define(function(require) {
 
         events: null,
         listeners: null,
-        blocks: null,
 
         constructor: function(options) {
             var block = this;
 
             block.defaults = _.clone(block);
 
-            deepExtend(block, {
-                blocks: {}
-            }, options);
+            deepExtend(block, options);
 
             block.cid = _.uniqueId('block');
             block._ensureElement();
             block.findElements();
+            block.delegateEvents();
 
             block.initialize.apply(block, arguments);
 
-            block.delegateEvents();
             block.startListening();
 
             block.$el
@@ -49,10 +46,9 @@ define(function(require) {
         initialize: function() {
             var block = this;
 
-            if (!block.$el.html()){
+            if (!$.trim(block.$el.html())){
                 block.render();
             }
-
         },
         render: function() {
             var block = this,
@@ -68,7 +64,7 @@ define(function(require) {
 
             template = block.templates.index(block);
 
-            block.removeBlocks('inner');
+            block.removeBlocks();
 
             block.$el
                 .html(template)
@@ -119,12 +115,6 @@ define(function(require) {
         },
         removeBlocks: function(){
             var block = this;
-
-            if (arguments[0] !== 'inner'){
-                _.each(block.blocks, function(innerBlock){
-                    innerBlock.remove();
-                })
-            }
 
             block.$el.find(['block']).each(function() {
                 var $block = $(this),

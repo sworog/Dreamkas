@@ -1,49 +1,55 @@
 define(function(require) {
         //requirements
-        var Tooltip_editMenu = require('blocks/tooltip/tooltip_editMenu/tooltip_editMenu'),
-            Tooltip_editGroup = require('blocks/tooltip/tooltip_editGroup/tooltip_editGroup'),
-            CatalogGroupModel = require('models/catalogGroup');
+        var Tooltip_menu = require('blocks/tooltip/tooltip_menu/tooltip_menu'),
+            Tooltip_catalogCategoryForm = require('blocks/tooltip/tooltip_catalogCategoryForm/tooltip_catalogCategoryForm');
 
-        return Tooltip_editMenu.extend({
-            groupId: null,
+        return Tooltip_menu.extend({
+            catalogCategoryModel: null,
+            blockName: 'tooltip_catalogCategoryMenu',
             events: {
                 'click .tooltip__editLink': function(e) {
                     e.preventDefault();
                     var block = this,
-                        $el = $(e.target);
+                        $target = $(e.target);
+
+                    block.tooltip_catalogCategoryForm.show({
+                        catalogCategoryModel: block.catalogCategoryModel,
+                        $trigger: $target
+                    });
 
                     block.hide();
-
-                    block.tooltip_editGroup.show();
                 },
                 'click .tooltip__removeLink': function(e) {
                     e.preventDefault();
                     var block = this,
-                        groups = block.classModel.get('groups'),
-                        groupModel = new CatalogGroupModel({
-                            id: block.groupId
+                        $target = $(e.target);
+
+                    if ($target.hasClass('preloader_rows')) {
+                        return;
+                    }
+
+                    if (block.catalogCategoryModel.subcategories && block.catalogCategoryModel.subcategories.length) {
+                        alert('Необходимо удалить все подкатегории из группы');
+                        block.hide();
+                    } else {
+                        $target.addClass('preloader_rows');
+                        block.catalogCategoryModel.destroy({
+                            success: function() {
+                                $target.removeClass('preloader_rows');
+                                block.hide();
+                            }
                         });
-
-                    groupModel.destroy({
-                        success: function() {
-                            block.classModel.set('groups', _.reject(groups, function(group) {
-                                return group.id === block.groupId
-                            }));
-                        }
-                    });
-
-                    block.hide();
+                    }
                 }
             },
             initialize: function() {
                 var block = this;
 
-                Tooltip_editMenu.prototype.initialize.call(this);
+                Tooltip_menu.prototype.initialize.call(this);
 
-                block.tooltip_editGroup = new Tooltip_editGroup({
+                block.tooltip_catalogCategoryForm = $('[block="tooltip_catalogCategoryForm"]').data('tooltip_catalogCategoryForm') || new Tooltip_catalogCategoryForm({
                     $trigger: block.$trigger,
-                    classModel: block.classModel,
-                    groupId: block.groupId
+                    catalogCategoryModel: block.catalogCategoryModel
                 });
             }
         });

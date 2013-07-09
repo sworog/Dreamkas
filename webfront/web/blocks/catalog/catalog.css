@@ -34,3 +34,33 @@
     padding-bottom: 10px;
     font-weight: bold;
 }
+
+.catalog__groupNavigation{
+    float: right;
+    width: 200px;
+    padding-left: 40px;
+}
+
+.catalog__groupNavigationLink{
+    display: block;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    text-decoration: none;
+    margin-bottom: -1px;
+    padding: 5px 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.catalog__groupNavigationLink:hover{
+    background-color: #f4f4f4;
+}
+
+.catalog__groupNavigationLink_active{
+    background-color: #fafafa;
+    color: #000;
+    cursor: default;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    z-index: 10;
+}

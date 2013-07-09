@@ -1,0 +1,28 @@
+<div class="page__controls">
+    <a class="page__controlsLink editor__on"><%t 'Редактировать' %></a>
+    <a class="page__controlsLink editor__off"><%t 'Завершить редактирование' %></a>
+</div>
+<h3>
+    <a href="/catalog" style="vertical-align: middle; margin-right: 10px;"><%t 'Товарный справочник' %></a>
+    <span style="vertical-align: middle">/</span>
+    <span style="vertical-align: middle">
+        <%= LH.attr(catalogGroupModel, 'name') %>
+    </span>
+    <a class="editor__editLink catalog__editGroupLink"></a>
+    <a class="button button_color_blue catalog__addCategoryLink editor__control">
+        <%t 'Добавить категорию' %>
+    </a>
+</h3>
+<div id="catalog__groupNavigation" class="catalog__groupNavigation">
+    <%= templates.catalog__groupNavigation({
+        currentGroupModel: catalogGroupModel,
+        catalogGroupsCollection: catalogGroupsCollection
+    }) %>
+</div>
+<div id="catalog__categoryList" class="catalog__categoryList">
+    <%= templates.catalog__categoryList({
+        templates: templates,
+        catalogCategoriesCollection: catalogGroupModel.categories
+    }) %>
+</div>
+<div style="clear: both;"></div>

@@ -4,6 +4,7 @@ define(function(require) {
         Catalog__groupItem = require('blocks/catalog/catalog__groupItem');
 
     return Block.extend({
+        blockName: 'catalog__groupList',
         catalogGroupsCollection: null,
         templates: {
             index: require('tpl!blocks/catalog/templates/catalog__groupList.html'),
@@ -31,9 +32,6 @@ define(function(require) {
             block.catalogGroupsCollection.each(function(catalogGroupModel){
                 new Catalog__groupItem({
                     catalogGroupModel: catalogGroupModel,
-                    blocks: {
-                        tooltip_catalogGroupMenu: block.blocks.tooltip_catalogGroupMenu
-                    },
                     el: block.el.querySelectorAll('[group_id="' + catalogGroupModel.id + '"]')
                 });
             })

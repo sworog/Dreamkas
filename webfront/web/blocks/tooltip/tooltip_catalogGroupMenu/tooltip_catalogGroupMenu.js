@@ -12,7 +12,7 @@ define(function(require) {
                     var block = this,
                         $target = $(e.target);
 
-                    block.blocks.tooltip_catalogGroupForm.show({
+                    block.tooltip_catalogGroupForm.show({
                         catalogGroupModel: block.catalogGroupModel,
                         $trigger: $target
                     });
@@ -21,15 +21,25 @@ define(function(require) {
                 },
                 'click .tooltip__removeLink': function(e) {
                     e.preventDefault();
-                    var block = this;
+                    var block = this,
+                        $target = $(e.target);
 
-                    if (block.catalogGroupModel.get('groups') && block.classModel.get('groups').length) {
-                        alert('Необходимо удалить все группы из класса');
-                    } else {
-                        block.classModel.destroy();
+                    if ($target.hasClass('preloader_rows')) {
+                        return;
                     }
 
-                    block.hide();
+                    if (block.catalogGroupModel.categories && block.catalogGroupModel.categories.length) {
+                        alert('Необходимо удалить все категории из группы');
+                        block.hide();
+                    } else {
+                        $target.addClass('preloader_rows');
+                        block.catalogGroupModel.destroy({
+                            success: function() {
+                                $target.removeClass('preloader_rows');
+                                block.hide();
+                            }
+                        });
+                    }
                 }
             },
             initialize: function() {
@@ -37,9 +47,9 @@ define(function(require) {
 
                 Tooltip_menu.prototype.initialize.call(this);
 
-                block.blocks.tooltip_catalogGroupForm = block.blocks.tooltip_catalogGroupForm || new Tooltip_catalogGroupForm({
+                block.tooltip_catalogGroupForm = $('[block="tooltip_catalogGroupForm"]').data('tooltip_catalogGroupForm') || new Tooltip_catalogGroupForm({
                     $trigger: block.$trigger,
-                    classModel: block.classModel
+                    catalogGroupModel: block.catalogGroupModel
                 });
             }
         });

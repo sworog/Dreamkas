@@ -32,14 +32,12 @@ define(function(require) {
                 page.render();
 
                 page.catalogGroupModel = page.catalogGroupsCollection.get(page.catalogGroupId);
-                page.classGroupsCollection = page.catalogGroupModel.groups;
 
                 new CatalogGroup({
                     el: document.getElementById('catalogGroup'),
                     editMode: pageParams.editMode,
                     catalogGroupsCollection: page.catalogGroupsCollection,
-                    catalogGroupModel: page.catalogGroupModel,
-                    classGroupsCollection: page.classGroupsCollection
+                    catalogGroupModel: page.catalogGroupModel
                 });
             });
         }
