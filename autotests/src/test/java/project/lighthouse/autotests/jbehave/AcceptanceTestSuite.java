@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
-import project.lighthouse.autotests.StaticDataCollections;
+import project.lighthouse.autotests.StaticData;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
@@ -21,12 +21,12 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     private void setImplicitlyWaitTimeOut() {
         String timeout = environmentVariables.getProperty(IMPLICITLY_WAIT, null);
         if (timeout != null) {
-            StaticDataCollections.TIMEOUT = timeout;
+            StaticData.TIMEOUT = timeout;
         }
     }
 
     private void setWebDriverBaseUrl() {
-        StaticDataCollections.WEB_DRIVER_BASE_URL = environmentVariables.getProperty(WEB_DRIVER_BASE_URL, null);
+        StaticData.WEB_DRIVER_BASE_URL = environmentVariables.getProperty(WEB_DRIVER_BASE_URL, null);
     }
 
     private void runTestSuite() {

@@ -30,13 +30,13 @@ public class ApiConnect {
     }
 
     public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
-        if (!StaticDataCollections.products.containsKey(sku)) {
+        if (!StaticData.products.containsKey(sku)) {
             String getApiUrl = UrlHelper.getApiUrl() + "/api/1/products.json";
             String jsonData = Product.getJsonObject(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "").toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             Product product = new Product(new JSONObject(postResponse));
-            StaticDataCollections.products.put(sku, product);
+            StaticData.products.put(sku, product);
         }
     }
 
@@ -45,18 +45,18 @@ public class ApiConnect {
     }
 
     public void createInvoiceThroughPostWithoutNavigation(String invoiceName) throws JSONException, IOException {
-        if (!StaticDataCollections.invoices.containsKey(invoiceName)) {
+        if (!StaticData.invoices.containsKey(invoiceName)) {
             String getApiUrl = String.format("%s/api/1/invoices.json", UrlHelper.getApiUrl());
             String jsonData = Invoice.getJsonObject(invoiceName, "supplier", DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "accepter", "legalEntity", "", "").toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             Invoice invoice = new Invoice(new JSONObject(postResponse));
-            StaticDataCollections.invoices.put(invoiceName, invoice);
+            StaticData.invoices.put(invoiceName, invoice);
         }
     }
 
     public String getInvoicePageUrl(String invoiceName) throws JSONException {
-        String invoiceId = StaticDataCollections.invoices.get(invoiceName).getId();
+        String invoiceId = StaticData.invoices.get(invoiceName).getId();
         return String.format("%s/invoices/%s?editMode=true", UrlHelper.getWebFrontUrl(), invoiceId);
     }
 
@@ -67,8 +67,8 @@ public class ApiConnect {
 
     public void addProductToInvoice(String invoiceName, String productSku)
             throws JSONException, IOException {
-        String productId = StaticDataCollections.products.get(productSku).getId();
-        String invoiceId = StaticDataCollections.invoices.get(invoiceName).getId();
+        String productId = StaticData.products.get(productSku).getId();
+        String invoiceId = StaticData.invoices.get(invoiceName).getId();
         String apiUrl = String.format("%s/api/1/invoices/%s/products.json", UrlHelper.getApiUrl(), invoiceId);
 
         String productJsonData = InvoiceProduct.getJsonObject(productId, "1", "1").toString();
@@ -91,20 +91,20 @@ public class ApiConnect {
     }
 
     public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
-        if (!StaticDataCollections.writeOffs.containsKey(writeOffNumber)) {
+        if (!StaticData.writeOffs.containsKey(writeOffNumber)) {
             String getApiUrl = String.format("%s/api/1/writeoffs.json", UrlHelper.getApiUrl());
             String jsonData = WriteOff.getJsonObject(writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN)).toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             WriteOff writeOff = new WriteOff(new JSONObject(postResponse));
-            StaticDataCollections.writeOffs.put(writeOffNumber, writeOff);
+            StaticData.writeOffs.put(writeOffNumber, writeOff);
         }
     }
 
     public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws JSONException, IOException {
-        String productId = StaticDataCollections.products.get(productSku).getId();
-        String writeOffId = StaticDataCollections.writeOffs.get(writeOffNumber).getId();
+        String productId = StaticData.products.get(productSku).getId();
+        String writeOffId = StaticData.writeOffs.get(writeOffNumber).getId();
         String apiUrl = String.format("%s/api/1/writeoffs/%s/products.json", UrlHelper.getApiUrl(), writeOffId);
 
         String productJsonData = WriteOffProduct.getJsonObject(productId, quantity, price, cause).toString();
@@ -112,55 +112,57 @@ public class ApiConnect {
     }
 
     public String getWriteOffPageUrl(String writeOffNumber) throws JSONException {
-        String writeOffId = StaticDataCollections.writeOffs.get(writeOffNumber).getId();
+        String writeOffId = StaticData.writeOffs.get(writeOffNumber).getId();
         return String.format("%s/writeOffs/%s", UrlHelper.getWebFrontUrl(), writeOffId);
     }
 
     public void createGroupThroughPost(String groupName) throws IOException, JSONException {
-        if (!StaticDataCollections.groups.containsKey(groupName)) {
+        if (!StaticData.isGroupCreated(groupName)) {
             String getApiUrl = String.format("%s/api/1/groups.json", UrlHelper.getApiUrl());
             String jsonData = Group.getJsonObject(groupName).toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             Group group = new Group(new JSONObject(postResponse));
-            StaticDataCollections.groups.put(groupName, group);
+            StaticData.groups.put(groupName, group);
         }
     }
 
     public void createCategoryThroughPost(String categoryName, String groupName) throws IOException, JSONException {
-        if (!StaticDataCollections.categories.containsKey(categoryName)) {
+        if (!(StaticData.hasGroup(categoryName, groupName))) {
             createGroupThroughPost(groupName);
             String apiUrl = String.format("%s/api/1/groups.json", UrlHelper.getApiUrl());
-            String groupId = StaticDataCollections.groups.get(groupName).getId();
+            String groupId = StaticData.groups.get(groupName).getId();
             String groupJsonData = Category.getJsonObject(categoryName, groupId).toString();
             String postResponse = executePostRequest(apiUrl, groupJsonData);
 
             Category category = new Category(new JSONObject(postResponse));
-            StaticDataCollections.categories.put(categoryName, category);
+            StaticData.categories.put(categoryName, category);
         }
     }
 
     public String getGroupPageUrl(String groupName) throws JSONException {
-        String groupId = StaticDataCollections.groups.get(groupName).getId();
+        String groupId = StaticData.groups.get(groupName).getId();
         return String.format("%s/catalog/%s", UrlHelper.getWebFrontUrl(), groupId);
     }
 
     public String getCategoryPageUrl(String categoryName, String groupName) throws JSONException {
         String groupPageUrl = getGroupPageUrl(groupName) + "/%s";
-        String categoryId = StaticDataCollections.categories.get(categoryName).getId();
+        String categoryId = StaticData.categories.get(categoryName).getId();
         return String.format(groupPageUrl, categoryId);
     }
 
     public void createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
-        createGroupThroughPost(groupName);
-        createCategoryThroughPost(categoryName, groupName);
-        String apiUrl = String.format("%s/api/1/subCategories.json", UrlHelper.getApiUrl());
-        String categoryId = StaticDataCollections.categories.get(categoryName).getId();
-        String subCategoryJsonData = SubCategory.getJsonObject(subCategoryName, categoryId).toString();
-        String postResponse = executePostRequest(apiUrl, subCategoryJsonData);
+        if (!StaticData.hasCategory(categoryName, subCategoryName)) {
+            createGroupThroughPost(groupName);
+            createCategoryThroughPost(categoryName, groupName);
+            String apiUrl = String.format("%s/api/1/subCategories.json", UrlHelper.getApiUrl());
+            String categoryId = StaticData.categories.get(categoryName).getId();
+            String subCategoryJsonData = SubCategory.getJsonObject(subCategoryName, categoryId).toString();
+            String postResponse = executePostRequest(apiUrl, subCategoryJsonData);
 
-        SubCategory subCategory = new SubCategory(new JSONObject(postResponse));
-        StaticDataCollections.subCategories.put(subCategoryName, subCategory);
+            SubCategory subCategory = new SubCategory(new JSONObject(postResponse));
+            StaticData.subCategories.put(subCategoryName, subCategory);
+        }
     }
 
     public void getSubCategoryPageUrl() {
@@ -168,18 +170,18 @@ public class ApiConnect {
     }
 
     public void createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
-        if (!StaticDataCollections.users.containsKey(login)) {
+        if (!StaticData.users.containsKey(login)) {
             String apiUrl = String.format("%s/api/1/users.json", UrlHelper.getApiUrl());
             String jsonData = User.getJsonObject(name, position, login, password, role).toString();
             String postResponse = executePostRequest(apiUrl, jsonData);
 
             User user = new User(new JSONObject(postResponse));
-            StaticDataCollections.users.put(login, user);
+            StaticData.users.put(login, user);
         }
     }
 
     public String getUserPageUrl(String userName) throws JSONException {
-        String userId = StaticDataCollections.users.get(userName).getId();
+        String userId = StaticData.users.get(userName).getId();
         return String.format("%s/users/%s", UrlHelper.getWebFrontUrl(), userId);
     }
 
@@ -244,17 +246,17 @@ public class ApiConnect {
 
     private String getAccessToken() throws JSONException, IOException {
         receiveAccessToken(userName, password);
-        return StaticDataCollections.userTokens.get(userName).getAccessToken();
+        return StaticData.userTokens.get(userName).getAccessToken();
     }
 
     private void receiveAccessToken(String userName, String password) throws JSONException, IOException {
-        if (!StaticDataCollections.userTokens.containsKey(userName)) {
+        if (!StaticData.userTokens.containsKey(userName)) {
             String url = String.format("%s/oauth/v2/token", UrlHelper.getApiUrl());
             String parameters = String.format("?grant_type=password&username=%s&password=%s&client_id=%s&client_secret=%s",
-                    userName, password, StaticDataCollections.client_id, StaticDataCollections.client_secret);
+                    userName, password, StaticData.client_id, StaticData.client_secret);
             String response = executeSimpleGetRequest(url + parameters);
             OauthAuthorizeData oauthAuthorize = new OauthAuthorizeData(new JSONObject(response));
-            StaticDataCollections.userTokens.put(userName, oauthAuthorize);
+            StaticData.userTokens.put(userName, oauthAuthorize);
         }
     }
 

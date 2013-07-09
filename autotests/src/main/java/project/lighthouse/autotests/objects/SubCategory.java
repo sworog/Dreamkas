@@ -15,6 +15,14 @@ public class SubCategory {
         return jsonObject.getString("id");
     }
 
+    public Category getCategory() throws JSONException {
+        return new Category(jsonObject.getJSONObject("category"));
+    }
+
+    public Boolean hasCategory(String categoryName) throws JSONException {
+        return getCategory().getName().equals(categoryName);
+    }
+
     public static JSONObject getJsonObject(String name, String categoryId) throws JSONException {
         return new JSONObject()
                 .put("name", name)

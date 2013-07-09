@@ -15,6 +15,10 @@ public class Group {
         return jsonObject.getString("id");
     }
 
+    public String getGroupName() throws JSONException {
+        return jsonObject.getString("name");
+    }
+
     public static JSONObject getJsonObject(String name) throws JSONException {
         return new JSONObject()
                 .put("name", name);
