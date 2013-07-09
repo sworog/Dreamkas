@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Controller;
 use Lighthouse\CoreBundle\Document\Category\Category;
 use Lighthouse\CoreBundle\Document\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Category\CategoryRepository;
-use Lighthouse\CoreBundle\Document\Group\GroupRepository;
 use Lighthouse\CoreBundle\Form\CategoryType;
 use Lighthouse\CoreBundle\Document\Group\Group;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -21,12 +20,6 @@ class CategoryController extends AbstractRestController
      * @var CategoryRepository
      */
     protected $documentRepository;
-
-    /**
-     * @DI\Inject("lighthouse.core.document.repository.group")
-     * @var GroupRepository
-     */
-    protected $groupRepository;
 
     /**
      * @return CategoryType
