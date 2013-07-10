@@ -1,7 +1,14 @@
-[ lh_field_error ]:after {
-    content: attr( lh_field_error );
+[lh_field_error]:after {
+    content: attr(lh_field_error);
     display: inline-block;
     color: #c60f13;
     padding-left: 10px;
     vertical-align: middle;
+}
+
+.form_catalogCategory [lh_field_error]:after,
+.form_catalogGroup [lh_field_error]:after,
+.form_catalogSubcategory [lh_field_error]:after {
+    display: block;
+    padding: 10px 0 0 0;
 }
