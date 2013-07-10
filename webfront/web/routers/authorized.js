@@ -35,8 +35,9 @@ define(function(require) {
             'writeOffs/:writeOffId(/)': require('pages/writeOff/view'),
 
             //catalog
-            'catalog': require('pages/catalog/catalog'),
-            'catalog/:catalogGroupId': require('pages/catalog/group'),
+            'catalog(/)': require('pages/catalog/catalog'),
+            'catalog/:catalogGroupId(/)': require('pages/catalog/group'),
+            'catalog/:catalogGroupId/:catalogCategoryId(/:catalogSubcategoryId)': require('pages/catalog/category'),
 
             '*path': require('pages/common/404')
         },

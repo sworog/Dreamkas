@@ -71,7 +71,7 @@ define(function(require) {
                     }
                 });
 
-                $renderContainer.html(template({page: page}));
+                $renderContainer.html(template(page));
             });
 
             $page.removeClass('preloader_spinner');
