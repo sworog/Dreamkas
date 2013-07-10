@@ -80,7 +80,7 @@ public class GroupPage extends CommonPageObject {
 
     public void popUpMenuInteraction(String name) {
         String triangleItemXpath = getItemXpath(name) + "/../../a[contains(@class, 'editor__editLink')]";
-        commonActions.presentElementClick(By.xpath(triangleItemXpath));
+        commonActions.elementClick(By.xpath(triangleItemXpath));
     }
 
     public void popUpMenuDelete() {
