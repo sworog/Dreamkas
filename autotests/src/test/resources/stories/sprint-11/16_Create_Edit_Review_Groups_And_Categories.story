@@ -212,12 +212,3 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the category with 'new category edit cancel from group page' name is not present
 Then the user checks the category with 'category edit cancel from group page' name is present
 When the user logs out
-
-Scenario: group left panel link check
-Given there is the group with name 'group vng-300'
-And the user navigates to the group with name 'group vng-300'
-And the user logs in as 'commercialManager'
-Then the user checks the group 'group vng-300' link is present on right panel
-When the user clicks the group 'group vng-300' link on right panel
-Then the user checks the group with 'group vng-300' name is present
-When the user logs out

@@ -13,7 +13,7 @@ import project.lighthouse.autotests.elements.InputOnlyVisible;
 @DefaultUrl("/catalog")
 public class GroupPage extends CommonPageObject {
 
-    @FindBy(xpath = "//*[@class='button button_color_blue catalog__addClassLink editor__control']")
+    @FindBy(xpath = "//*[@class='button button_color_blue catalog__addGroupLink editor__control']")
     WebElementFacade addNewGroupButton;
 
     @FindBy(xpath = "//*[@class='page__controlsLink editor__on']")
@@ -49,7 +49,7 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void addNewButtonConfirmClick() {
-        findBy("//*[@class='button button_color_blue']/input").click();
+        findOnlyVisibleWebElementFromTheWebElementsList(By.xpath("//*[@class='button button_color_blue']")).click();
         preloaderWait();
     }
 
@@ -74,12 +74,12 @@ public class GroupPage extends CommonPageObject {
     }
 
     public String getItemXpath(String name) {
-        String classXpath = "//*[(@class='catalog__classLink' or @class='catalogClass__className') and text()='%s']";
+        String classXpath = "//*[@model_name='catalogGroup' and text()='%s']";
         return String.format(classXpath, name);
     }
 
     public void popUpMenuInteraction(String name) {
-        String triangleItemXpath = getItemXpath(name) + "/../a[contains(@class, 'editor__editLink')]";
+        String triangleItemXpath = getItemXpath(name) + "/../../a[contains(@class, 'editor__editLink')]";
         commonActions.presentElementClick(By.xpath(triangleItemXpath));
     }
 
@@ -88,12 +88,12 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void popUpMenuAccept() {
-        findBy("//*[@class='form__field']/*[@class='button button_color_blue' and normalize-space(text())='Подтвердить']/input").click();
+        findOnlyVisibleWebElementFromTheWebElementsList(By.xpath("//*[@class='form__field']/*[@class='button button_color_blue' and normalize-space(text())='Подтвердить']")).click();
         preloaderWait();
     }
 
     public void popUpMenuCancel() {
-        findBy("//*[@class='tooltip__closeLink']").click();
+        findOnlyVisibleWebElementFromTheWebElementsList(By.xpath("//*[@class='tooltip__closeLink']")).click();
     }
 
     public void popUpMenuEdit() {
@@ -112,7 +112,7 @@ public class GroupPage extends CommonPageObject {
 
     public void checkItemParent(String item, String parent) {
         String xpath = String.format(
-                "//*[@class='catalog__classItem' and *[@class='catalog__classTitle']/a[text()='%s'] and *[@class='catalog__classGroupList']//a[text()='%s']]",
+                "//*[@class='catalog__groupItem' and *[@class='catalog__groupTitle']//*[@model_name='catalogGroup' and text()='%s'] and *[@class='catalog__categoryList']//*[@model_name='catalogCategory' and text()='%s']]",
                 parent, item);
         find(By.xpath(xpath)).shouldBeVisible();
     }
@@ -125,20 +125,5 @@ public class GroupPage extends CommonPageObject {
     public void preloaderWait() {
         String preloaderXpath = "//*[contains(@class, 'preloader')]";
         waiter.waitUntilIsNotVisible(By.xpath(preloaderXpath));
-    }
-
-    public String getItemLinkXpath(String name) {
-        String classLinkXpath = "//*[@class='catalogClass__listLink' and normalize-space(text())='%s']";
-        return String.format(classLinkXpath, name);
-    }
-
-    public void itemLinkCheck(String name) {
-        String itemLinkXpath = getItemLinkXpath(name);
-        $(findVisibleElement(By.xpath(itemLinkXpath))).shouldBeVisible();
-    }
-
-    public void itemLinkClick(String name) {
-        String itemLinkXpath = getItemLinkXpath(name);
-        findBy(itemLinkXpath).click();
     }
 }

@@ -161,11 +161,6 @@ public class CatalogUserSteps {
         catalogSteps.generateTestCharData(element, number, str);
     }
 
-    @When("the user clicks the group '$name' link on right panel")
-    public void whenTheUserClicksTheClassLink(String name) {
-        catalogSteps.itemLinkClick(name);
-    }
-
     @Then("the user checks '$element' pop up field contains only '$numbers' symbols")
     public void whenTheUserChecksNumbers(String element, int numbers) {
         catalogSteps.checkFieldLength(element, numbers);
@@ -204,10 +199,5 @@ public class CatalogUserSteps {
     @Then("the user checks the category with '$name' name is related to group '$parentName'")
     public void thenTheUserChecksTheItemsIsRelatedToParent(String name, String parentName) {
         catalogSteps.checkItemParent(name, parentName);
-    }
-
-    @Then("the user checks the group '$name' link is present on right panel")
-    public void whenTheUserChecksTheClassLinkIsPresent(String name) {
-        catalogSteps.itemLinkCheck(name);
     }
 }

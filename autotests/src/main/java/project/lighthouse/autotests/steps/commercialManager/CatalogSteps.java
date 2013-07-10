@@ -210,14 +210,4 @@ public class CatalogSteps extends ScenarioSteps {
     public void addNewSubCategoryConfirmClick() {
         subCategoryPage.addNewButtonConfirmClick();
     }
-
-    @Step
-    public void itemLinkCheck(String name) {
-        groupPage.itemLinkCheck(name);
-    }
-
-    @Step
-    public void itemLinkClick(String name) {
-        groupPage.itemLinkClick(name);
-    }
 }
