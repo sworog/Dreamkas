@@ -27,3 +27,8 @@ assetic:
 
 ekino_new_relic:
     application_name: Lighthouse API dev
+
+fos_rest:
+    exception:
+        messages:
+            'Exception': true
