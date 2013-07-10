@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.commercialManager;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -140,6 +141,7 @@ public class CatalogUserSteps {
     }
 
     @When("the user clicks the create new group button in pop up")
+    @Alias("the user clicks the create new category button in pop up")
     public void whenTheUserClicksTheCreateNewGroupButtonInPopUp() {
         catalogSteps.addNewButtonConfirmClick();
     }

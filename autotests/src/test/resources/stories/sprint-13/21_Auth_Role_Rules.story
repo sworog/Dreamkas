@@ -214,7 +214,9 @@ When the user clicks on start edition link and starts the edition
 And the user creates new group with name 'GcFcP1234567'
 Then the user checks the group with 'GcFcP1234567' name is present
 When the user clicks on the group name 'GcFcP1234567'
-And the user creates new category with name 'First category create1234567'
+And the user clicks create new category button
+And the user inputs 'First category create1234567' in 'name' field of pop up
+And the user clicks the create new category button in pop up
 And the user clicks on end edition link and ends the edition
 Then the user checks the category with 'First category create1234567' name is present
 When user opens the dashboard 'catalog' section

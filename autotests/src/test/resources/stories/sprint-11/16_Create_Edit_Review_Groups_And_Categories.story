@@ -111,13 +111,13 @@ And the user checks the group with 'new group edits cancel from group page' name
 When the user logs out
 
 Scenario: category create from group page
-Given the user opens catalog page
+Given there is the group with name 'GcFcP'
+And the user navigates to the group with name 'GcFcP'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user creates new group with name 'GcFcP'
-Then the user checks the group with 'GcFcP' name is present
-When the user clicks on the group name 'GcFcP'
-And the user creates new category with name 'First category create'
+And the user clicks create new category button
+And the user inputs 'First category create' in 'name' field of pop up
+And the user clicks the create new category button in pop up
 And the user clicks on end edition link and ends the edition
 Then the user checks the category with 'First category create' name is present
 Given the user opens catalog page
@@ -125,15 +125,12 @@ Then the user checks the category with 'First category create' name is related t
 When the user logs out
 
 Scenario: category delete from catalog
-Given the user opens catalog page
+Given there is the category with name 'category delete from catalog' related to group named 'GDFC'
+And the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user creates new group with name 'GDFC'
-Then the user checks the group with 'GDFC' name is present
-When the user clicks on the group name 'GDFC'
-And the user creates new category with name 'category delete from catalog'
-Then the user checks the category with 'category delete from catalog' name is present
-When the user opens pop up menu of category 'category delete from catalog' element
+And the user clicks on the group name 'GDFC'
+And the user opens pop up menu of category 'category delete from catalog' element
 And the user deletes element through pop up menu
 Then the user checks the category with 'category delete from catalog' name is not present
 When the user clicks on end edition link and ends the edition
@@ -142,15 +139,9 @@ Then the user checks the category with 'category delete from catalog' name is no
 When the user logs out
 
 Scenario: category delete from group page
-Given the user opens catalog page
+Given there is the category with name 'category delete from group page' related to group named 'GDFCP'
+And the user opens catalog page
 And the user logs in as 'commercialManager'
-When the user clicks on start edition link and starts the edition
-And the user creates new group with name 'GDFCP'
-Then the user checks the group with 'GDFCP' name is present
-When the user clicks on the group name 'GDFCP'
-And the user creates new category with name 'category delete from group page'
-Then the user checks the category with 'category delete from group page' name is present
-Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'category delete from group page' element
 And the user deletes element through pop up menu
@@ -160,15 +151,11 @@ Then the user checks the category with 'category delete from group page' name is
 When the user logs out
 
 Scenario: category edit from catalog
-Given the user opens catalog page
+Given there is the category with name 'category edit cancel from catalog' related to group named 'GEDC'
+And the user navigates to the group with name 'GEDC'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user creates new group with name 'GEDC'
-Then the user checks the group with 'GEDC' name is present
-When the user clicks on the group name 'GEDC'
-And the user creates new category with name 'category edit cancel from catalog'
-Then the user checks the category with 'category edit cancel from catalog' name is present
-When the user opens pop up menu of category 'category edit cancel from catalog' element
+And the user opens pop up menu of category 'category edit cancel from catalog' element
 And the user edits the element name through pop up menu
 When the user inputs 'new category edit from catalog' in 'name' field of pop up
 And the user accept pop up menu changes
@@ -179,15 +166,9 @@ Then the user checks the category with 'new category edit from catalog' name is 
 When the user logs out
 
 Scenario: category edit from group page
-Given the user opens catalog page
+Given there is the category with name 'category edit from catalog' related to group named 'GEFCP'
+And the user opens catalog page
 And the user logs in as 'commercialManager'
-When the user clicks on start edition link and starts the edition
-And the user creates new group with name 'GEFCP'
-Then the user checks the group with 'GEFCP' name is present
-When the user clicks on the group name 'GEFCP'
-And the user creates new category with name 'category edit from catalog'
-Then the user checks the category with 'category edit from catalog' name is present
-Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'category edit from catalog' element
 And the user edits the element name through pop up menu
@@ -199,15 +180,12 @@ Then the user checks the category with 'new category edit from catalog' name is 
 When the user logs out
 
 Scenario: category edit cancel from catalog
-Given the user opens catalog page
+Given there is the category with name 'category edit cancel from catalog' related to group named 'GECFC'
+And the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user creates new group with name 'GECFC'
-Then the user checks the group with 'GECFC' name is present
-When the user clicks on the group name 'GECFC'
-And the user creates new category with name 'category edit cancel from catalog'
-Then the user checks the category with 'category edit cancel from catalog' name is present
-When the user opens pop up menu of category 'category edit cancel from catalog' element
+And the user clicks on the group name 'GECFC'
+And the user opens pop up menu of category 'category edit cancel from catalog' element
 And the user edits the element name through pop up menu
 When the user inputs 'new category edit cancel from catalog' in 'name' field of pop up
 And the user discards pop up menu changes
@@ -220,15 +198,9 @@ Then the user checks the category with 'category edit cancel from catalog' name 
 When the user logs out
 
 Scenario: category edit cancel from group page
-Given the user opens catalog page
+Given there is the category with name 'category edit cancel from group page' related to group named 'GECFCP'
+And the user opens catalog page
 And the user logs in as 'commercialManager'
-When the user clicks on start edition link and starts the edition
-And the user creates new group with name 'GECFCP'
-Then the user checks the group with 'GECFCP' name is present
-When the user clicks on the group name 'GECFCP'
-And the user creates new category with name 'category edit cancel from group page'
-Then the user checks the category with 'category edit cancel from group page' name is present
-Given the user opens catalog page
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'category edit cancel from group page' element
 And the user edits the element name through pop up menu

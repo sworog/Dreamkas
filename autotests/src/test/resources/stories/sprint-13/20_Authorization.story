@@ -105,7 +105,9 @@ When the user clicks on start edition link and starts the edition
 And the user creates new group with name 'GcFcP123'
 Then the user checks the group with 'GcFcP123' name is present
 When the user clicks on the group name 'GcFcP123'
-And the user creates new category with name 'First category create123'
+And the user clicks create new category button
+And the user inputs 'First category create123' in 'name' field of pop up
+And the user clicks the create new category button in pop up
 And the user clicks on end edition link and ends the edition
 Then the user checks the category with 'First category create123' name is present
 Given the user opens catalog page
