@@ -1,16 +1,15 @@
 define(function(require) {
         //requirements
         var BaseCollection = require('collections/baseCollection'),
-            CatalogCategoryModel = require('models/catalogCategory');
+            CatalogSubcategoryModel = require('models/catalogSubcategory');
 
         return BaseCollection.extend({
             initialize: function(models, options){
                 this.parentCategoryModel = options.parentCategoryModel || options.parentModel;
-                this.parentGroupModel = this.parentCategoryModel.parentGroupModel;
             },
-            model: CatalogCategoryModel,
+            model: CatalogSubcategoryModel,
             url: function() {
-                return LH.baseApiUrl + '/groups/'+ this.parentGroupModel.id  + '/categories/' + this.parentCategoryModel.id + '/subcategories'
+                return LH.baseApiUrl + '/categories/' + this.parentCategoryModel.id + '/subcategories'
             }
         });
     }

@@ -6,9 +6,6 @@ define(function(require) {
             modelName: 'catalogSubcategory',
             urlRoot: LH.baseApiUrl + '/subcategories',
             parentGroupModel: {},
-            defaults: {
-                subcategories: []
-            },
             saveFields: [
                 'name',
                 'category'
@@ -17,15 +14,11 @@ define(function(require) {
 
                 BaseModel.prototype.initialize.apply(this, arguments);
 
-                if (this.collection && this.collection.parentCategoryModel){
-                    this.parentCategoryModel = this.collection.parentCategoryModel;
+                if (!this.get('category')){
+                    if (this.collection && this.collection.parentCategoryModel){
+                        this.set('category', this.collection.parentCategoryModel.id);
+                    }
                 }
-
-                if (options && options.parentCategoryModel){
-                    this.parentCategoryModel = options.parentCategoryModel;
-                }
-
-                this.set('category', this.parentCategoryModel.id);
             }
         });
     }

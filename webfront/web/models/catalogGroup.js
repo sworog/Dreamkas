@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var BaseModel = require('models/baseModel'),
-            CatalogCategories = require('collections/catalogCategories');
+            CatalogCategoriesCollection = require('collections/catalogCategories');
 
         return BaseModel.extend({
             modelName: 'catalogGroup',
@@ -10,7 +10,7 @@ define(function(require) {
                 categories: []
             },
             initData: {
-                categories: CatalogCategories
+                categories: CatalogCategoriesCollection
             },
             saveFields: [
                 'name'

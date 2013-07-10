@@ -1,6 +1,7 @@
 define(function(require) {
         //requirements
-        var BaseModel = require('models/baseModel');
+        var BaseModel = require('models/baseModel'),
+            CatalogSubcategoriesCollection = require('collections/catalogSubcategories');
 
         return BaseModel.extend({
             modelName: 'catalogCategory',
@@ -8,6 +9,9 @@ define(function(require) {
             parentGroupModel: {},
             defaults: {
                 subcategories: []
+            },
+            initData: {
+                subcategories: CatalogSubcategoriesCollection
             },
             saveFields: [
                 'name',
