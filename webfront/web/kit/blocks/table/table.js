@@ -41,7 +41,7 @@ define(function(require) {
 
                         block.renderBody();
                     },
-                    destroy: function(){
+                    remove: function(){
                         var block = this;
 
                         block.renderBody();
@@ -64,7 +64,7 @@ define(function(require) {
             renderBody: function(){
                 var block = this;
 
-                block.$body.html(block.templates.body({block: block}));
+                block.$body.html(block.templates.body(block));
             },
             'set:loading': function(loading){
                 var block = this;

@@ -53,6 +53,14 @@ define(function(require) {
             var model = this,
                 changedAttributes = this.changedAttributes();
 
+            _.each(this.initData, function(Class, key){
+                if (!model[key]){
+                    model[key] = new Class(null, {
+                        parentModel: model
+                    });
+                }
+            });
+
             if (changedAttributes){
 
                 _.each(changedAttributes, function(value, key){
@@ -62,9 +70,7 @@ define(function(require) {
                         .html(value);
 
                     if (model.initData[key]){
-                        model[key] = new model.initData[key](value, {
-                            parentModel: model
-                        });
+                        model[key].set(value);
                     }
                 });
             }

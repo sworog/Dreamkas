@@ -47,10 +47,14 @@ define(function(require) {
 
                 Tooltip_menu.prototype.initialize.call(this);
 
-                block.tooltip_catalogCategoryForm = $('[block="tooltip_catalogCategoryForm"]').data('tooltip_catalogCategoryForm') || new Tooltip_catalogCategoryForm({
-                    $trigger: block.$trigger,
-                    catalogCategoryModel: block.catalogCategoryModel
-                });
+                block.tooltip_catalogCategoryForm = $('[block="tooltip_catalogCategoryForm"]').data('tooltip_catalogCategoryForm') || new Tooltip_catalogCategoryForm();
+            },
+            remove: function(){
+                var block = this;
+
+                block.tooltip_catalogCategoryForm.remove();
+
+                Tooltip_menu.prototype.remove.call(block);
             }
         });
     }

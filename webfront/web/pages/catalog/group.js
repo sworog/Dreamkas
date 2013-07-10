@@ -3,7 +3,7 @@ define(function(require) {
     var Page = require('pages/page'),
         _ = require('underscore'),
         pageParams = require('pages/catalog/params'),
-        СatalogGroupsCollection = require('collections/catalogGroups'),
+        СatalogGroupModel = require('models/catalogGroup'),
         CatalogGroup = require('blocks/catalogGroup/catalogGroup');
 
     return Page.extend({
@@ -25,18 +25,16 @@ define(function(require) {
                 }, params)
             }
 
-            page.catalogGroupId = catalogGroupId;
-            page.catalogGroupsCollection = new СatalogGroupsCollection();
+            page.catalogGroupModel = new СatalogGroupModel({
+                id: catalogGroupId
+            });
 
-            $.when(page.catalogGroupsCollection.fetch()).then(function(){
+            $.when(page.catalogGroupModel.fetch()).then(function(){
                 page.render();
-
-                page.catalogGroupModel = page.catalogGroupsCollection.get(page.catalogGroupId);
 
                 new CatalogGroup({
                     el: document.getElementById('catalogGroup'),
                     editMode: pageParams.editMode,
-                    catalogGroupsCollection: page.catalogGroupsCollection,
                     catalogGroupModel: page.catalogGroupModel
                 });
             });

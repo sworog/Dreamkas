@@ -1,6 +1,0 @@
-<% catalogGroupsCollection.each(function(catalogGroupModel){ %>
-    <a href="/catalog/<%= catalogGroupModel.id %>" class="catalog__groupNavigationLink <%= catalogGroupModel.id === currentGroupModel.id ? 'catalog__groupNavigationLink_active' : '' %>">
-        <%= LH.attr(catalogGroupModel, 'name') %>
-    </a>
-<% }) %>
-

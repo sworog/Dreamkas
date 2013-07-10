@@ -51,6 +51,13 @@ define(function(require) {
                     $trigger: block.$trigger,
                     catalogGroupModel: block.catalogGroupModel
                 });
+            },
+            remove: function(){
+                var block = this;
+
+                block.tooltip_catalogGroupForm.remove();
+
+                Tooltip_menu.prototype.remove.call(block);
             }
         });
     }

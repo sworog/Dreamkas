@@ -1,11 +1,12 @@
 define(function(require) {
         //requirements
         var Tooltip = require('kit/blocks/tooltip/tooltip'),
+            CatalogCategoryModel = require('models/catalogCategory'),
             Form_catalogCategory = require('blocks/form/form_catalogCategory/form_catalogCategory');
 
         return Tooltip.extend({
             blockName: 'tooltip_catalogCategoryForm',
-            catalogCategoryModel: null,
+            catalogCategoryModel: new CatalogCategoryModel(),
             catalogCategoriesCollection: null,
             isAddForm: true,
             templates: {
@@ -15,7 +16,7 @@ define(function(require) {
                 form: {
                     'submit:success': function() {
                         var block = this;
-                        if (!block.form.isAddForm){
+                        if (!block.form.isAddForm) {
                             block.hide();
                         }
                     }
@@ -32,16 +33,16 @@ define(function(require) {
                     collection: block.catalogCategoriesCollection
                 });
 
-                if (block.catalogCategoryModel.id){
+                if (block.catalogCategoryModel.id) {
                     block.isAddForm = false;
                 }
             },
-            align: function(){
+            align: function() {
                 var tooltip = this;
 
                 tooltip.$el
                     .css({
-                        top: tooltip.$trigger.offset().top - 15,
+                        top: tooltip.$trigger.offset().top - (tooltip.$el.outerHeight() - tooltip.$trigger.outerHeight()) / 2,
                         left: tooltip.$trigger.offset().left
                     })
             },

@@ -43,7 +43,7 @@ define(function(require) {
 
                 tooltip.$el
                     .css({
-                        top: tooltip.$trigger.offset().top - 15,
+                        top: tooltip.$trigger.offset().top - (tooltip.$el.outerHeight() - tooltip.$trigger.outerHeight())/2,
                         left: tooltip.$trigger.offset().left
                     })
             },

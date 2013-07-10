@@ -23,6 +23,13 @@ define(function(require) {
                     } else {
                         block.$el.prepend(catalogCategoryItem.el);
                     }
+                },
+                remove: function(model, collection, options){
+                    var block = this;
+
+                    if (!collection.length){
+                        block.render();
+                    }
                 }
             }
         },

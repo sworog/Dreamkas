@@ -3,7 +3,6 @@ define(function(require) {
     var Backbone = require('backbone'),
         Editor = require('kit/blocks/editor/editor'),
         Catalog__categoryList = require('blocks/catalog/catalog__categoryList'),
-        Catalog__groupNavigation = require('blocks/catalog/catalog__groupNavigation'),
         Tooltip_catalogGroupMenu = require('blocks/tooltip/tooltip_catalogGroupMenu/tooltip_catalogGroupMenu'),
         Tooltip_catalogCategoryForm = require('blocks/tooltip/tooltip_catalogCategoryForm/tooltip_catalogCategoryForm'),
         Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
@@ -14,7 +13,6 @@ define(function(require) {
 
     return Editor.extend({
         blockName: 'catalogGroup',
-        catalogGroupsCollection: null,
         catalogGroupModel: null,
         templates: {
             index: require('tpl!blocks/catalogGroup/templates/index.html'),
@@ -43,7 +41,7 @@ define(function(require) {
                 block.tooltip_catalogCategoryForm.show({
                     $trigger: $target,
                     catalogCategoriesCollection: block.catalogGroupModel.categories,
-                    catalogCategoryModel: new CatalogCategoryModel({
+                    catalogCategoryModel: new CatalogCategoryModel({}, {
                         parentGroupModel: block.catalogGroupModel
                     })
                 });
@@ -82,16 +80,19 @@ define(function(require) {
                 el: document.getElementById('catalog__categoryList'),
                 catalogCategoriesCollection: block.catalogGroupModel.categories
             });
-
-            new Catalog__groupNavigation({
-                el: document.getElementById('catalog__groupNavigation'),
-                catalogGroupModel: block.catalogGroupModel,
-                catalogGroupsCollection: block.catalogGroupsCollection
-            });
         },
         'set:editMode': function(editMode) {
             Editor.prototype['set:editMode'].apply(this, arguments);
             params.editMode = editMode;
+        },
+        remove: function(){
+            var block = this;
+
+            block.tooltip_catalogCategoryForm.remove();
+            block.tooltip_catalogCategoryMenu.remove();
+            block.tooltip_catalogGroupMenu.remove();
+
+            Editor.prototype.remove.call(block);
         }
     });
 });

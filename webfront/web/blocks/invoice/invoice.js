@@ -234,16 +234,12 @@ define(function(require) {
             renderHead: function(){
                 var block = this;
 
-                block.$head.html(block.templates.head({
-                    block: block
-                }));
+                block.$head.html(block.templates.head(block));
             },
             renderFooter: function(){
                 var block = this;
 
-                block.$footer.html(block.templates.footer({
-                    block: block
-                }));
+                block.$footer.html(block.templates.footer(block));
             },
             showInlineErrors: function(data) {
                 var block = this,

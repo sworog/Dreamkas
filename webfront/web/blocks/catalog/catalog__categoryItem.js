@@ -10,12 +10,12 @@ define(function(require) {
             index: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
         },
         events: {
-            'click .catalog__editGroupLink': function(e){
+            'click .catalog__editCategoryLink': function(e){
                 e.stopPropagation();
                 var block = this,
                     $target = $(e.target);
 
-                block.tooltip_catalogGroupMenu.show({
+                block.tooltip_catalogCategoryMenu.show({
                     $trigger: $target,
                     catalogCategoryModel: block.catalogCategoryModel
                 });
@@ -33,7 +33,9 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            block.tooltip_catalogGroupMenu = $('[block="tooltip_catalogGroupMenu"]').data('tooltip_catalogGroupMenu') || new Tooltip_catalogCategoryMenu()
+            Block.prototype.initialize.call(block);
+
+            block.tooltip_catalogCategoryMenu = $('[block="tooltip_catalogCategoryMenu"]').data('tooltip_catalogCategoryMenu') || new Tooltip_catalogCategoryMenu()
         }
     });
 });

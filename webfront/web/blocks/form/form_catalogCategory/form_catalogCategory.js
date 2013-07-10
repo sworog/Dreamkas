@@ -1,24 +1,24 @@
 define(function(require) {
     //requirements
     var Form = require('kit/blocks/form/form'),
-        CatalogGroupModel = require('models/catalogGroup');
+        CatalogCategoryModel = require('models/catalogCategory');
 
     return Form.extend({
         blockName: 'form_catalogCategory',
-        model: new CatalogGroupModel(),
-        isAddForm: true,
+        model: new CatalogCategoryModel(),
         collection: null,
+        isAddForm: true,
         templates: {
             index: require('tpl!blocks/form/form_catalogCategory/templates/index.html')
         },
         initialize: function(){
             var block = this;
 
-            Form.prototype.initialize.call(block);
-
             if (block.model.id){
                 block.isAddForm = false;
             }
+
+            Form.prototype.initialize.call(block);
         },
         submitSuccess: function(){
             var block = this;
@@ -26,7 +26,9 @@ define(function(require) {
             Form.prototype.submitSuccess.call(block);
 
             if (block.isAddForm){
-                block.model = new CatalogGroupModel();
+                block.model = new CatalogCategoryModel({}, {
+                    parentGroupModel: block.model.parentGroupModel
+                });
                 block.clear();
                 block.$el.find('[name="name"]').focus();
             }
