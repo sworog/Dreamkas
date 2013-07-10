@@ -5,11 +5,12 @@ define(function(require) {
 
         return BaseCollection.extend({
             initialize: function(models, options){
-                this.parentGroupModel = options.parentGroupModel || options.parentModel;
+                this.parentCategoryModel = options.parentCategoryModel || options.parentModel;
+                this.parentGroupModel = this.parentCategoryModel.parentGroupModel;
             },
             model: CatalogCategoryModel,
             url: function() {
-                return LH.baseApiUrl + '/groups/'+ this.parentGroupModel.id  + '/categories'
+                return LH.baseApiUrl + '/groups/'+ this.parentGroupModel.id  + '/categories/' + this.parentCategoryModel.id + '/subcategories'
             }
         });
     }
