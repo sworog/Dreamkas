@@ -26,6 +26,15 @@ define(function(require) {
                         this.set('group', this.collection.parentGroupModel.id);
                     }
                 }
+            },
+            parse: function(response, options){
+                var data = BaseModel.prototype.parse.apply(this, arguments);
+
+                if (typeof data.group == 'object'){
+                    data.group = data.group.id;
+                }
+
+                return data;
             }
         });
     }

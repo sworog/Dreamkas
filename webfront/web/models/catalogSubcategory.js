@@ -19,6 +19,15 @@ define(function(require) {
                         this.set('category', this.collection.parentCategoryModel.id);
                     }
                 }
+            },
+            parse: function(response, options){
+                var data = BaseModel.prototype.parse.apply(this, arguments);
+
+                if (typeof data.category == 'object'){
+                    data.category = data.category.id;
+                }
+
+                return data;
             }
         });
     }

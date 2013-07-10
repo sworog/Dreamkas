@@ -4,7 +4,8 @@ define(function(require) {
         _ = require('underscore'),
         pageParams = require('pages/catalog/params'),
         CatalogCategoryBlock = require('blocks/catalogCategory/catalogCategory'),
-        СatalogGroupModel = require('models/catalogGroup');
+        СatalogGroupModel = require('models/catalogGroup'),
+        СatalogCategoryModel = require('models/catalogCategory');
 
     return Page.extend({
         pageName: 'page_catalog_category',
@@ -29,9 +30,14 @@ define(function(require) {
                 id: catalogGroupId
             });
 
-            $.when(page.catalogGroupModel.fetch()).then(function(){
-                page.catalogCategoryModel = page.catalogGroupModel.categories.get(catalogCategoryId);
+            page.catalogCategoryModel = new СatalogCategoryModel({
+                id: catalogCategoryId
+            });
+
+            $.when(page.catalogGroupModel.fetch(), page.catalogCategoryModel.fetch()).then(function(){
                 page.render();
+
+                console.log(page.catalogCategoryModel);
 
                 new CatalogCategoryBlock({
                     el: document.getElementById('catalogCategory'),

@@ -32,10 +32,6 @@ define(function(require) {
                     model: block.catalogCategoryModel,
                     collection: block.catalogCategoriesCollection
                 });
-
-                if (block.catalogCategoryModel.id) {
-                    block.isAddForm = false;
-                }
             },
             align: function() {
                 var tooltip = this;

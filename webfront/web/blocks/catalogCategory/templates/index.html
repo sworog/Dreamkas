@@ -6,8 +6,15 @@
     <span style="vertical-align: middle">
         <%= LH.attr(catalogCategoryModel, 'name') %>
     </span>
-    <a class="editor__editLink catalog__editGroupLink"></a>
+    <a class="editor__editLink catalog__editCategoryLink"></a>
     <a class="button button_color_blue catalog__addSubcategoryLink editor__control">
         <%t 'Добавить подкатегорию' %>
     </a>
 </h3>
+
+<div id="catalogCategory__subcategoryList">
+    <%= templates.catalogCategory__subcategoryList({
+        templates: templates,
+        catalogSubcategoriesCollection: catalogCategoryModel.subcategories
+    }) %>
+</div>
