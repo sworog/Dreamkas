@@ -41,8 +41,8 @@ define(function(require) {
                 block.tooltip_catalogCategoryForm.show({
                     $trigger: $target,
                     catalogCategoriesCollection: block.catalogGroupModel.categories,
-                    catalogCategoryModel: new CatalogCategoryModel({}, {
-                        parentGroupModel: block.catalogGroupModel
+                    catalogCategoryModel: new CatalogCategoryModel({
+                        group: block.catalogGroupModel.id
                     })
                 });
             }

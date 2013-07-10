@@ -26,8 +26,8 @@ define(function(require) {
             Form.prototype.submitSuccess.call(block);
 
             if (block.isAddForm){
-                block.model = new CatalogCategoryModel({}, {
-                    parentGroupModel: block.model.parentGroupModel
+                block.model = new CatalogCategoryModel({
+                    group: block.model.get('group')
                 });
                 block.clear();
                 block.$el.find('[name="name"]').focus();

@@ -17,15 +17,11 @@ define(function(require) {
 
                 BaseModel.prototype.initialize.apply(this, arguments);
 
-                if (this.collection && this.collection.parentGroupModel){
-                    this.parentGroupModel = this.collection.parentGroupModel;
+                if (!this.get('group')){
+                    if (this.collection && this.collection.parentGroupModel){
+                        this.set('group', this.collection.parentGroupModel.id);
+                    }
                 }
-
-                if (options && options.parentGroupModel){
-                    this.parentGroupModel = options.parentGroupModel;
-                }
-
-                this.set('group', this.parentGroupModel.id);
             }
         });
     }
