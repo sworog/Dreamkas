@@ -22,6 +22,7 @@ define(function(require) {
     };
 
     var CurrentUserModel = BaseModel.extend({
+        modelName: 'currentUser',
         url: LH.baseApiUrl + '/users/current'
     });
 

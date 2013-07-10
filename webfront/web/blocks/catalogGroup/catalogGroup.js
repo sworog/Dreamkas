@@ -63,17 +63,8 @@ define(function(require) {
 
             Editor.prototype.initialize.call(block);
 
-            block.tooltip_catalogGroupMenu = new Tooltip_catalogGroupMenu({
-                catalogGroupModel: block.catalogGroupModel
-            });
-
-            block.tooltip_catalogCategoryForm = new Tooltip_catalogCategoryForm({
-                catalogCategoriesCollection: block.catalogGroupModel.categories,
-                catalogCategoryModel: new CatalogCategoryModel({
-                    parentGroupModel: block.catalogGroupModel
-                })
-            });
-
+            block.tooltip_catalogGroupMenu = new Tooltip_catalogGroupMenu();
+            block.tooltip_catalogCategoryForm = new Tooltip_catalogCategoryForm();
             block.tooltip_catalogCategoryMenu = new Tooltip_catalogCategoryMenu();
 
             new Catalog__categoryList({

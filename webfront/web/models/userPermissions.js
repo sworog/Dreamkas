@@ -3,6 +3,7 @@ define(function(require) {
     var BaseModel = require('models/baseModel');
 
     var UserPermissionsModel = BaseModel.extend({
+        modelName: 'userPermissions',
         url: LH.baseApiUrl + '/users/permissions'
     });
 

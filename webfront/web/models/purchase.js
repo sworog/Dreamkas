@@ -3,12 +3,13 @@ define(function(require) {
     var BaseModel = require('models/baseModel');
 
     return BaseModel.extend({
-            urlRoot: LH.baseApiUrl + '/purchases',
-            defaults: {
-                products: []
-            },
-            saveFields: [
-                'products'
-            ]
-        });
+        modelName: 'purchase',
+        urlRoot: LH.baseApiUrl + '/purchases',
+        defaults: {
+            products: []
+        },
+        saveFields: [
+            'products'
+        ]
     });
+});

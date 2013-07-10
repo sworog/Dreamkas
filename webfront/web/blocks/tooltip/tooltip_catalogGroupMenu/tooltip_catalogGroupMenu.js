@@ -1,10 +1,11 @@
 define(function(require) {
         //requirements
         var Tooltip_menu = require('blocks/tooltip/tooltip_menu/tooltip_menu'),
-            Tooltip_catalogGroupForm = require('blocks/tooltip/tooltip_catalogGroupForm/tooltip_catalogGroupForm');
+            Tooltip_catalogGroupForm = require('blocks/tooltip/tooltip_catalogGroupForm/tooltip_catalogGroupForm'),
+            CatalogGroupModel = require('models/catalogGroup');
 
         return Tooltip_menu.extend({
-            catalogGroupModel: null,
+            catalogGroupModel: new CatalogGroupModel(),
             blockName: 'tooltip_catalogGroupMenu',
             events: {
                 'click .tooltip__editLink': function(e) {

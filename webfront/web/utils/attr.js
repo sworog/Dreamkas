@@ -3,6 +3,6 @@ define(function(require) {
     var text = require('kit/utils/text');
 
     return function(model, attr){
-        return '<span model_id="' + model.id + '" model_attr="' + attr + '">' + text(model.get(attr)) + '</span>';
+        return '<span model_name="' + model.modelName + '" model_id="' + model.id + '" model_attr="' + attr + '">' + text(model.get(attr)) + '</span>';
     }
 });

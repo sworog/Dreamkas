@@ -3,6 +3,7 @@ define(function(require) {
         Backbone = require('backbone');
 
     var TokenModel = BaseModel.extend({
+        modelName: 'token',
         urlRoot: LH.baseUrl + '/oauth/v2/token',
         defaults: {
             client_id: LH.clientId,

@@ -3,6 +3,7 @@ define(function(require) {
     var BaseModel = require('models/baseModel');
 
     return BaseModel.extend({
+        modelName: 'user',
         saveFields: [
             'name',
             'position',

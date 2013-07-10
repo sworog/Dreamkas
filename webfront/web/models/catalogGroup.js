@@ -4,6 +4,7 @@ define(function(require) {
             CatalogCategories = require('collections/catalogCategories');
 
         return BaseModel.extend({
+            modelName: 'catalogGroup',
             urlRoot: LH.baseApiUrl + '/groups',
             defaults: {
                 categories: []
