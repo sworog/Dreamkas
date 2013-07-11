@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Category;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Group\Group;
+use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
@@ -40,4 +41,15 @@ class Category extends AbstractDocument
      * @var Group
      */
     protected $group;
+
+    /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\SubCategory\SubCategory",
+     *      simple=true,
+     *      cascade="persist",
+     *      mappedBy="category"
+     * )
+     * @var SubCategory[]
+     */
+    protected $subCategories;
 }

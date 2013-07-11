@@ -246,6 +246,32 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertResponseCode(404, $this->client);
     }
 
+    public function testGetCategoryWithSubcategories()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+        $categoryId = $this->createCategory($groupId);
+
+        $this->createSubCategory($categoryId, '1');
+        $this->createSubCategory($categoryId, '2');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonHasPath('id', $getResponse);
+        Assert::assertJsonHasPath('subCategories', $getResponse);
+        Assert::assertJsonPathCount(2, 'subCategories.*.id', $getResponse);
+        Assert::assertJsonPathEquals('1', 'subCategories.*.name', $getResponse);
+        Assert::assertJsonPathEquals('2', 'subCategories.*.name', $getResponse);
+    }
+
     public function testGetCategories()
     {
         $this->clearMongoDb();
