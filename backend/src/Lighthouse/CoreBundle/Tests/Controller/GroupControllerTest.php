@@ -142,6 +142,44 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Прод Тов', 'name', $postResponse);
     }
 
+    public function testGetGroupWithCategoriesAndSubCategories()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('1');
+
+        $categoryId1 = $this->createCategory($groupId, '1.1');
+        $categoryId2 = $this->createCategory($groupId, '1.2');
+
+        $subCategory1 = $this->createSubCategory($categoryId1, '1.1.1');
+        $subCategory2 = $this->createSubCategory($categoryId1, '1.1.2');
+        $subCategory3 = $this->createSubCategory($categoryId1, '1.1.3');
+
+        $subCategory4 = $this->createSubCategory($categoryId2, '1.2.1');
+        $subCategory5 = $this->createSubCategory($categoryId2, '1.2.2');
+        $subCategory6 = $this->createSubCategory($categoryId2, '1.2.3');
+        $subCategory7 = $this->createSubCategory($categoryId2, '1.2.4');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/groups/' . $groupId
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonHasPath('id', $getResponse);
+        Assert::assertJsonHasPath('categories', $getResponse);
+
+        Assert::assertJsonPathCount(2, 'categories.*.id', $getResponse);
+        Assert::assertJsonPathEquals($categoryId1, 'categories.*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId2, 'categories.*.id', $getResponse, 1);
+
+        Assert::assertJsonPathCount(true, 'categories.0.subCategories.*.id', $getResponse);
+        Assert::assertJsonPathCount(true, 'categories.1.subCategories.*.id', $getResponse);
+    }
+
     public function testGetGroups()
     {
         $this->clearMongoDb();
