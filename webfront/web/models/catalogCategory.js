@@ -10,7 +10,7 @@ define(function(require) {
                 parentGroupId: null
             },
             initData: {
-                subcategories: CatalogSubcategoriesCollection
+                subCategories: CatalogSubcategoriesCollection
             },
             saveFields: [
                 'name',

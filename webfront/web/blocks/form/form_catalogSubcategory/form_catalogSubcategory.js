@@ -27,7 +27,8 @@ define(function(require) {
 
             if (block.isAddForm){
                 block.model = new CatalogSubcategoryModel({
-                    parentCategoryId: block.model.get('parentCategoryId')
+                    parentCategoryId: block.model.get('parentCategoryId'),
+                    parentGroupId: block.model.get('parentGroupId')
                 });
                 block.clear();
                 block.$el.find('[name="name"]').focus();

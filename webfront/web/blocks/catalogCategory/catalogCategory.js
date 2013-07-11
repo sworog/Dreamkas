@@ -41,9 +41,21 @@ define(function(require) {
                     $trigger: $target,
                     collection: block.catalogSubcategoriesCollection,
                     model: new CatalogSubcategoryModel({
-                        parentCategoryId: block.catalogCategoryModel.id
+                        parentCategoryId: block.catalogCategoryModel.id,
+                        parentGroupId: block.catalogCategoryModel.get('parentGroupId')
                     })
                 });
+            },
+            'click .catalogCategory__subcategoryLink': function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                var block = this,
+                    $target = $(e.currentTarget);
+
+                router.navigate($target.attr('href'));
+
+                block.set('catalogSubcategoryId', $target.attr('subcategory_id'));
             }
         },
         listeners: {
@@ -88,8 +100,16 @@ define(function(require) {
 
             Editor.prototype.remove.call(block);
         },
-        'set:catalogSubcategoryId': function(catalogSubcategoryId){
+        'set:catalogSubcategoryId': function(catalogSubcategoryId) {
             var block = this;
+
+            block.$el
+                .find('.catalogCategory__subcategoryLink_active')
+                .removeClass('catalogCategory__subcategoryLink_active');
+
+            block.$el
+                .find('.catalogCategory__subcategoryLink[subcategory_id="' + catalogSubcategoryId + '"]')
+                .addClass('catalogCategory__subcategoryLink_active');
         }
     });
 });

@@ -30,7 +30,7 @@ define(function(require) {
                         return;
                     }
 
-                    if (block.catalogCategoryModel.subcategories && block.catalogCategoryModel.subcategories.length) {
+                    if (block.catalogCategoryModel.subCategories && block.catalogCategoryModel.subCategories.length) {
                         alert('Необходимо удалить все подкатегории из категории');
                         block.hide();
                     } else {

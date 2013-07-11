@@ -14,6 +14,8 @@
     padding: 0 10px;
     margin-bottom: -1px;
     text-decoration: none;
+    position: relative;
+    z-index: 1;
 }
 
 .catalogCategory__subcategoryLink:hover{
@@ -30,4 +32,10 @@
     top: 50%;
     margin-top: -11px;
     left: 4px;
+}
+
+.catalogCategory__subcategoryLink_active{
+    background-color: #eee;
+    z-index: 10;
+    border-color: #ccc;
 }
