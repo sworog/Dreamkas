@@ -97,7 +97,7 @@ public class CatalogUserSteps {
 
     @When("the user opens pop up menu of subCategory '$subCategoryName' element")
     public void whenTheUserOpensPopUpMenuOfSubCategoryElement(String subCategoryName) {
-        catalogSteps.popUpCategoryMenuInteraction(subCategoryName);
+        catalogSteps.popUpSubCategoryMenuInteraction(subCategoryName);
     }
 
     @When("the user deletes element through pop up menu")
@@ -188,12 +188,12 @@ public class CatalogUserSteps {
 
     @Then("the user checks the subCategory with '$subCategoryName' name is present")
     public void thenTheUserChecksTheSubCategoryIsPresent(String subCategoryName) {
-        catalogSteps.categoryCheck(subCategoryName);
+        catalogSteps.subCategoryCheck(subCategoryName);
     }
 
     @Then("the user checks the subCategory with '$subCategoryName' name is not present")
     public void thenTheUserChecksTheSubCategoryIsNotPresent(String subCategoryName) {
-        catalogSteps.categoryCheckIsNotPresent(subCategoryName);
+        catalogSteps.subCategoryIsNotPresent(subCategoryName);
     }
 
     @Then("the user checks the category with '$name' name is related to group '$parentName'")
