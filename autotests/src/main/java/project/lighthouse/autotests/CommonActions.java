@@ -93,18 +93,7 @@ public class CommonActions extends PageObject {
 
     public void elementClick(String elementName) {
         By findBy = items.get(elementName).getFindBy();
-        try {
-            waiter.getVisibleWebElement(findBy).click();
-        } catch (Exception e) {
-            String getExceptionMessage = e.getCause() != null
-                    ? e.getCause().getMessage()
-                    : e.getMessage();
-            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2) || getExceptionMessage.contains(errorMessage3)) {
-                elementClick(elementName);
-            } else {
-                throw e;
-            }
-        }
+        elementClick(findBy);
     }
 
     public void elementClick(By findBy) {

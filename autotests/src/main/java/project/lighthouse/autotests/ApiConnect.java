@@ -9,15 +9,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.elements.DateTime;
 import project.lighthouse.autotests.objects.*;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 public class ApiConnect {
 
@@ -155,7 +154,7 @@ public class ApiConnect {
         if (!StaticData.hasCategory(categoryName, subCategoryName)) {
             createGroupThroughPost(groupName);
             createCategoryThroughPost(categoryName, groupName);
-            String apiUrl = String.format("%s/api/1/subCategories.json", UrlHelper.getApiUrl());
+            String apiUrl = String.format("%s/api/1/subcategories.json", UrlHelper.getApiUrl());
             String categoryId = StaticData.categories.get(categoryName).getId();
             String subCategoryJsonData = SubCategory.getJsonObject(subCategoryName, categoryId).toString();
             String postResponse = executePostRequest(apiUrl, subCategoryJsonData);
@@ -211,20 +210,30 @@ public class ApiConnect {
             JSONObject mainJsonObject = null;
             try {
                 mainJsonObject = new JSONObject(responseMessage);
-                JSONObject jsonObject = !mainJsonObject.isNull("children") ? mainJsonObject.getJSONObject("children") : mainJsonObject;
-                Object[] objects = toMap(jsonObject).values().toArray();
-
-                for (int i = 0; i < objects.length; i++) {
-                    if (objects[i] instanceof HashMap) {
-                        String errors = new JSONObject(objects[i].toString()).getString("errors");
-                        builder.append(errors);
+                if (!mainJsonObject.isNull("children")) {
+                    JSONObject jsonObject = mainJsonObject.getJSONObject("children");
+                    for (Iterator keys = jsonObject.keys(); keys.hasNext(); ) {
+                        String key = (String) keys.next();
+                        if (jsonObject.get(key) instanceof JSONObject) {
+                            JSONArray jsonArray = jsonObject.getJSONObject(key).getJSONArray("errors");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                String message = String.format("%s : '%s'", key, jsonArray.get(i));
+                                builder.append(message);
+                            }
+                        }
                     }
-                    if (objects[i] instanceof String) {
-                        builder.append(objects[i] + ";");
-                    }
+                } else {
+                    String message = String.format("message: '%s', statusCode: '%s', status: '%s', statusText: '%s', currentContent: '%s'.",
+                            mainJsonObject.getString("message"),
+                            mainJsonObject.getString("statusCode"),
+                            mainJsonObject.getString("status"),
+                            mainJsonObject.getString("statusText"),
+                            mainJsonObject.getString("currentContent")
+                    );
+                    builder.append(message);
                 }
             } catch (JSONException e) {
-                String errorMessage = String.format("Exception message: %s\nJson: %s", e.getMessage(), mainJsonObject.toString());
+                String errorMessage = String.format("Exception message: %s\nJson: %s", e.getMessage(), mainJsonObject != null ? mainJsonObject.toString() : null);
                 throw new AssertionError(errorMessage);
             }
             String errorMessage = String.format("Responce json error: '%s'", builder.toString());
@@ -257,26 +266,6 @@ public class ApiConnect {
             String response = executeSimpleGetRequest(url + parameters);
             OauthAuthorizeData oauthAuthorize = new OauthAuthorizeData(new JSONObject(response));
             StaticData.userTokens.put(userName, oauthAuthorize);
-        }
-    }
-
-    private static Map<String, Object> toMap(JSONObject object) throws JSONException {
-        Map<String, Object> map = new HashMap();
-        Iterator keys = object.keys();
-        while (keys.hasNext()) {
-            String key = (String) keys.next();
-            map.put(key, fromJson(object.get(key)));
-        }
-        return map;
-    }
-
-    private static Object fromJson(Object json) throws JSONException {
-        if (json == JSONObject.NULL) {
-            return null;
-        } else if (json instanceof JSONObject) {
-            return toMap((JSONObject) json);
-        } else {
-            return json;
         }
     }
 }

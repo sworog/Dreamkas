@@ -9,7 +9,7 @@ import project.lighthouse.autotests.elements.Input;
 
 public class SubCategoryPage extends GroupPage {
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = "//*[@class='button button_color_blue catalog__addSubcategoryLink editor__control']")
     WebElementFacade addNewSubCategoryButton;
 
     public SubCategoryPage(WebDriver driver) {
@@ -26,15 +26,15 @@ public class SubCategoryPage extends GroupPage {
         addNewSubCategoryButton.click();
     }
 
-    @Override
-    public void addNewButtonConfirmClick() {
-        findBy("").click();
-        preloaderWait();
-    }
+//    @Override
+//    public void addNewButtonConfirmClick() {
+//        findBy("").click();
+//        preloaderWait();
+//    }
 
     @Override
     public String getItemXpath(String name) {
-        String groupXpath = "//*[@class='catalog__subCategoryLink' and text()='%s']";
+        String groupXpath = "//*[@model_name='catalogSubcategory' and text()='%s']";
         return String.format(groupXpath, name);
     }
 
