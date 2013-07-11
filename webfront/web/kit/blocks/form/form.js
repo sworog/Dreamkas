@@ -7,9 +7,9 @@ define(function(require) {
     var router = new Backbone.Router();
 
     return Block.extend({
-        tagName: 'form',
-        className: 'form',
         blockName: 'form',
+        className: 'form',
+        tagName: 'form',
         model: null,
         collection: null,
         redirectUrl: null,

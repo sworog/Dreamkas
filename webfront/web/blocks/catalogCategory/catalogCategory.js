@@ -14,9 +14,11 @@ define(function(require) {
         blockName: 'catalogCategory',
         catalogCategoryModel: null,
         catalogSubcategoryId: null,
+        catalogSubcategoriesCollection: null,
         templates: {
             index: require('tpl!blocks/catalogCategory/templates/index.html'),
-            catalogCategory__subcategoryList: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryList.html')
+            catalogCategory__subcategoryList: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryList.html'),
+            catalogCategory__subcategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryItem.html')
         },
         events: {
             'click .catalog__editCategoryLink': function(e){
@@ -36,9 +38,9 @@ define(function(require) {
 
                 block.tooltip_catalogSubcategoryForm.show({
                     $trigger: $target,
-                    catalogSubcategoriesCollection: block.catalogCategoryModel.subcategories,
-                    catalogSubcategoryModel: new CatalogSubcategoryModel({
-                        category: block.catalogCategoryModel.id
+                    collection: block.catalogSubcategoriesCollection,
+                    model: new CatalogSubcategoryModel({
+                        parentCategoryId: block.catalogCategoryModel.id
                     })
                 });
             }
@@ -68,7 +70,7 @@ define(function(require) {
 
             new CatalogCategory__subcategoryList({
                 el: document.getElementById('catalogCategory__subcategoryList'),
-                catalogSubcategoriesCollection: block.catalogCategoryModel.subcategories
+                catalogSubcategoriesCollection: block.catalogSubcategoriesCollection
             });
         },
         'set:editMode': function(editMode) {

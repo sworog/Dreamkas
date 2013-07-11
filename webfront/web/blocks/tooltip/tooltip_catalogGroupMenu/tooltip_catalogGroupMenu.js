@@ -14,7 +14,8 @@ define(function(require) {
                         $target = $(e.target);
 
                     block.tooltip_catalogGroupForm.show({
-                        catalogGroupModel: block.catalogGroupModel,
+                        model: block.catalogGroupModel,
+                        collection: null,
                         $trigger: $target
                     });
 

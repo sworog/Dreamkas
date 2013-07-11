@@ -6,10 +6,12 @@ define(function(require) {
         return BaseCollection.extend({
             initialize: function(models, options){
                 this.parentCategoryModel = options.parentCategoryModel || options.parentModel;
+                this.parentCategoryId = options.parentCategoryId || this.parentCategoryModel.id;
+                this.parentGroupId = options.parentGroupId || this.parentCategoryModel.get('parentGroupId');
             },
             model: CatalogSubcategoryModel,
             url: function() {
-                return LH.baseApiUrl + '/categories/' + this.parentCategoryModel.id + '/subcategories'
+                return LH.baseApiUrl + '/categories/' + this.parentCategoryId + '/subcategories'
             }
         });
     }

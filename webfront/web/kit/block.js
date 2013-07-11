@@ -41,12 +41,11 @@ define(function(require) {
                 .addClass(block.addClass)
                 .attr('block', block.blockName)
                 .data(block.blockName, block);
-
         },
         initialize: function() {
             var block = this;
 
-            if (!$.trim(block.$el.html())){
+            if (!$.trim(block.$el.html())) {
                 block.render();
             }
         },
@@ -64,7 +63,7 @@ define(function(require) {
 
             template = block.templates.index(block);
 
-            block.removeBlocks();
+            //block.removeBlocks();
 
             block.$el
                 .html(template)
@@ -101,7 +100,7 @@ define(function(require) {
             _.each(block.listeners, function(listener, property) {
                 if (typeof listener === 'function') {
                     block.listenTo(block, listener);
-                } else if (block[property]){
+                } else if (block[property]) {
                     block.listenTo(block[property], listener);
                 }
             });
@@ -113,17 +112,22 @@ define(function(require) {
 
             Backbone.View.prototype.remove.call(this);
         },
-        removeBlocks: function(){
-            var block = this;
+        removeBlocks: function() {
+            var block = this,
+                blocks = [];
 
-            block.$el.find(['block']).each(function() {
+            block.$el.find('[block]').each(function() {
                 var $block = $(this),
                     blockName = $block.attr('block');
 
-                if ($block.parents('[block]') === block.$el){
-                    $block.data(blockName).remove();
+                if ($block.parents('[block]').attr('block') === block.blockName) {
+                    blocks.push($block.data(blockName));
                 }
             });
+
+            _.each(blocks, function(block){
+                block.remove();
+            })
         },
         'set': function(path, value, extra) {
             var block = this,
@@ -177,7 +181,7 @@ define(function(require) {
 
             block.trigger('set:' + path, value);
         },
-        'set:loading': function(loading){
+        'set:loading': function(loading) {
             var block = this;
             block.$el.toggleClass('preloader_spinner', loading);
         }

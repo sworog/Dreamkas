@@ -17,7 +17,7 @@ define(function(require) {
                 return !LH.isAllow(key, value);
             });
 
-        if (accessDenied){
+        if (accessDenied) {
             new Page403();
             return;
         }
@@ -61,20 +61,29 @@ define(function(require) {
                         break;
                 }
 
-                $renderContainer.find('[block]').each(function() {
-                    var $block = $(this),
-                        $parentBlock = $block.parents('[block]'),
-                        blockName = $block.attr('block');
-
-                    if ($parentBlock.length === 0){
-                        $block.data(blockName).remove();
-                    }
-                });
+                page.removeBlocks($renderContainer);
 
                 $renderContainer.html(template(page));
             });
 
             $page.removeClass('preloader_spinner');
+        },
+        removeBlocks: function($container){
+            var blocks = [];
+
+            $container.find('[block]').each(function() {
+                var $block = $(this),
+                    $parentBlock = $block.parents('[block]'),
+                    blockName = $block.attr('block');
+
+                if ($parentBlock.length === 0) {
+                    blocks.push($block.data(blockName));
+                }
+            });
+
+            _.each(blocks, function(block){
+                block.remove();
+            });
         }
     });
 

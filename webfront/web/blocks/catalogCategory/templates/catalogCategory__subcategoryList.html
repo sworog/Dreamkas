@@ -1,5 +1,12 @@
+<% if(!catalogSubcategoriesCollection || !catalogSubcategoriesCollection.length) { %>
+<div><%t 'Нет подкатегорий' %></div>
+<% } else { %>
 <% catalogSubcategoriesCollection.each(function(catalogSubcategoryModel){ %>
-    <div>
-        <%= LH.attr(catalogSubcategoryModel, 'name') %>
-    </div>
+<div class="catalogCategory__subcategoryItem">
+    <%= templates.catalogCategory__subcategoryItem({
+        catalogSubcategoryModel: catalogSubcategoryModel
+    }) %>
+</div>
 <% }) %>
+<% } %>
+

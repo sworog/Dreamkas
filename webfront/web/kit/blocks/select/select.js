@@ -3,8 +3,8 @@ define(function(require) {
         var Block = require('kit/block');
 
         return Block.extend({
-            className: 'select',
             blockName: 'select',
+            className: 'select',
 
             initialize: function() {
                 var block = this;

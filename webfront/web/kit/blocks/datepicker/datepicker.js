@@ -8,12 +8,12 @@ define(function(require) {
         moment.lang('ru');
 
         return Block.extend({
+            blockName: 'datepicker',
+            className: 'datepicker',
             visibleDate: moment().valueOf(),
             selectedDate: null,
             noTime: false,
             dateList: [],
-            className: 'datepicker',
-            tagName: 'div',
             templates: {
                 index: require('tpl!kit/blocks/datepicker/templates/index.html'),
                 controls: require('tpl!kit/blocks/datepicker/templates/controls.html'),
@@ -200,18 +200,14 @@ define(function(require) {
             _renderDateList: function() {
                 var block = this;
 
-                block.$dateList.html(block.templates.dateList({
-                    block: block
-                }));
+                block.$dateList.html(block.templates.dateList(block));
 
                 return block;
             },
             _renderHeader: function() {
                 var block = this;
 
-                block.$header.html(block.templates.header({
-                    block: block
-                }));
+                block.$header.html(block.templates.header(block));
 
                 return block;
             }

@@ -1,17 +1,13 @@
 define(function(require) {
         //requirements
-        var Tooltip = require('kit/blocks/tooltip/tooltip'),
+        var Tooltip_form = require('blocks/tooltip/tooltip_form/tooltip_form'),
             CatalogCategoryModel = require('models/catalogCategory'),
             Form_catalogCategory = require('blocks/form/form_catalogCategory/form_catalogCategory');
 
-        return Tooltip.extend({
+        return Tooltip_form.extend({
             blockName: 'tooltip_catalogCategoryForm',
-            catalogCategoryModel: new CatalogCategoryModel(),
-            catalogCategoriesCollection: null,
-            isAddForm: true,
-            templates: {
-                content: require('tpl!blocks/tooltip/tooltip_catalogCategoryForm/templates/content.html')
-            },
+            model: new CatalogCategoryModel(),
+            collection: null,
             listeners: {
                 form: {
                     'submit:success': function() {
@@ -25,29 +21,13 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                Tooltip.prototype.initialize.call(this);
+                Tooltip_form.prototype.initialize.call(this);
 
                 block.form = new Form_catalogCategory({
                     el: block.el.getElementsByClassName('form'),
-                    model: block.catalogCategoryModel,
-                    collection: block.catalogCategoriesCollection
+                    model: block.model,
+                    collection: block.collection
                 });
-            },
-            align: function() {
-                var tooltip = this;
-
-                tooltip.$el
-                    .css({
-                        top: tooltip.$trigger.offset().top - (tooltip.$el.outerHeight() - tooltip.$trigger.outerHeight()) / 2,
-                        left: tooltip.$trigger.offset().left
-                    })
-            },
-            show: function(opt) {
-                var block = this;
-
-                Tooltip.prototype.show.apply(block, arguments);
-
-                block.form.$el.find('[type="text"]').eq(0).focus();
             }
         });
     }

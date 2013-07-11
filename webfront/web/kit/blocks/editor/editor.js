@@ -3,6 +3,7 @@ define(function(require) {
         var Block = require('kit/block');
 
         return Block.extend({
+            blockName: 'editor',
             className: 'editor',
             editMode: false,
 

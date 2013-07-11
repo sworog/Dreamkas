@@ -3,8 +3,9 @@ define(function(require) {
     var Block = require('kit/block');
 
     return Block.extend({
-        className: 'content',
         blockName: 'content',
+        className: 'content',
+
         initialize: function(){},
         load: function(templateUrl, data) {
             var block = this;

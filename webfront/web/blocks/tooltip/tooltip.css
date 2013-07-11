@@ -29,3 +29,8 @@
 .tooltip_menu .tooltip__controlLink:hover{
     background: #f4f4f4;
 }
+
+.tooltip_form [lh_field_error]:after {
+    display: block;
+    padding: 10px 0 0 0;
+}

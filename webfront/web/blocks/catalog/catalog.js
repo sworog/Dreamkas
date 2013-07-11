@@ -28,8 +28,8 @@ define(function(require) {
 
                     block.tooltip_catalogGroupForm.show({
                         $trigger: $target,
-                        catalogGroupsCollection: block.catalogGroupsCollection,
-                        catalogGroupModel: new CatalogGroupModel()
+                        collection: block.catalogGroupsCollection,
+                        model: new CatalogGroupModel()
                     });
                 }
             },

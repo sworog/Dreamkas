@@ -40,9 +40,9 @@ define(function(require) {
 
                 block.tooltip_catalogCategoryForm.show({
                     $trigger: $target,
-                    catalogCategoriesCollection: block.catalogGroupModel.categories,
-                    catalogCategoryModel: new CatalogCategoryModel({
-                        group: block.catalogGroupModel.id
+                    collection: block.catalogGroupModel.categories,
+                    model: new CatalogCategoryModel({
+                        parentGroupId: block.catalogGroupModel.id
                     })
                 });
             }

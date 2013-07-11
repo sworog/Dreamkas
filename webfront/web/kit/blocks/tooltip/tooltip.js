@@ -5,9 +5,9 @@ define(function(require) {
             deepExtend = require('kit/utils/deepExtend');
 
         return Block.extend({
-            $trigger: null,
-            className: 'tooltip',
             blockName: 'tooltip',
+            className: 'tooltip',
+            $trigger: null,
             templates: {
                 index: require('tpl!./templates/tooltip.html'),
                 content: require('tpl!./templates/content.html')
@@ -50,9 +50,6 @@ define(function(require) {
                 var block = this;
 
                 deepExtend(block, opt);
-
-                block.initialize();
-                block.startListening();
 
                 block.align();
                 block.$el.show();

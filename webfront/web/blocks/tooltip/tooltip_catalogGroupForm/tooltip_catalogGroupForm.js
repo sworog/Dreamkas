@@ -1,17 +1,13 @@
 define(function(require) {
         //requirements
-        var Tooltip = require('kit/blocks/tooltip/tooltip'),
+        var Tooltip_form = require('blocks/tooltip/tooltip_form/tooltip_form'),
             Form_catalogGroup = require('blocks/form/form_catalogGroup/form_catalogGroup'),
             CatalogGroupModel = require('models/catalogGroup');
 
-        return Tooltip.extend({
-            catalogGroupModel: new CatalogGroupModel(),
-            catalogGroupsCollection: null,
-            isAddForm: true,
+        return Tooltip_form.extend({
             blockName: 'tooltip_catalogGroupForm',
-            templates: {
-                content: require('tpl!blocks/tooltip/tooltip_catalogGroupForm/templates/content.html')
-            },
+            model: new CatalogGroupModel(),
+            collection: null,
             listeners: {
                 form: {
                     'submit:success': function() {
@@ -26,32 +22,13 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                Tooltip.prototype.initialize.call(this);
+                Tooltip_form.prototype.initialize.call(this);
 
                 block.form = new Form_catalogGroup({
                     el: block.el.getElementsByClassName('form'),
-                    model: block.catalogGroupModel,
-                    collection: block.catalogGroupsCollection
+                    model: block.model,
+                    collection: block.collection
                 });
-            },
-            align: function(){
-                var tooltip = this;
-
-                tooltip.$el
-                    .css({
-                        top: tooltip.$trigger.offset().top - (tooltip.$el.outerHeight() - tooltip.$trigger.outerHeight())/2,
-                        left: tooltip.$trigger.offset().left
-                    })
-            },
-            show: function(opt) {
-                var block = this;
-
-                Tooltip.prototype.show.apply(this, arguments);
-
-                block.initialize();
-                block.startListening();
-
-                block.form.$el.find('[type="text"]').eq(0).focus();
             }
         });
     }

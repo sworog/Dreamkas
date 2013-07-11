@@ -5,29 +5,27 @@ define(function(require) {
         return BaseModel.extend({
             modelName: 'catalogSubcategory',
             urlRoot: LH.baseApiUrl + '/subcategories',
-            parentGroupModel: {},
+            defaults: {
+                parentCategoryId: null,
+                parentGroupId: null
+            },
             saveFields: [
                 'name',
                 'category'
             ],
-            initialize: function(attrs, options){
+            initialize: function(attrs, options) {
 
                 BaseModel.prototype.initialize.apply(this, arguments);
 
-                if (!this.get('category')){
-                    if (this.collection && this.collection.parentCategoryModel){
-                        this.set('category', this.collection.parentCategoryModel.id);
-                    }
-                }
-            },
-            parse: function(response, options){
-                var data = BaseModel.prototype.parse.apply(this, arguments);
-
-                if (typeof data.category == 'object'){
-                    data.category = data.category.id;
+                if (this.collection && this.collection.parentCategoryId) {
+                    this.set('parentCategoryId', this.collection.parentCategoryId);
                 }
 
-                return data;
+                if (this.collection && this.collection.parentGroupId) {
+                    this.set('parentGroupId', this.collection.parentGroupId);
+                }
+
+                this.set('category', this.get('parentCategoryId'));
             }
         });
     }

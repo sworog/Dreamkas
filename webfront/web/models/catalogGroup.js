@@ -6,9 +6,6 @@ define(function(require) {
         return BaseModel.extend({
             modelName: 'catalogGroup',
             urlRoot: LH.baseApiUrl + '/groups',
-            defaults: {
-                categories: []
-            },
             initData: {
                 categories: CatalogCategoriesCollection
             },
