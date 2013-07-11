@@ -48,7 +48,8 @@ define(function(require) {
                     el: document.getElementById('catalogCategory'),
                     catalogCategoryModel: page.catalogCategoryModel,
                     catalogSubcategoriesCollection: page.catalogSubcategoriesCollection,
-                    catalogSubcategoryId: catalogSubcategoryId
+                    catalogSubcategoryId: catalogSubcategoryId,
+                    editMode: pageParams.editMode
                 })
             });
         }
