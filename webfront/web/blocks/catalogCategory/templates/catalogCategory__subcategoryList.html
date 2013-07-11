@@ -2,7 +2,7 @@
 <div><%t 'Нет подкатегорий' %></div>
 <% } else { %>
 <% catalogSubcategoriesCollection.each(function(catalogSubcategoryModel){ %>
-<div class="catalogCategory__subcategoryItem">
+<div class="catalogCategory__subcategoryItem" subcategory_id="<%= catalogSubcategoryModel.id %>">
     <%= templates.catalogCategory__subcategoryItem({
         catalogSubcategoryModel: catalogSubcategoryModel
     }) %>

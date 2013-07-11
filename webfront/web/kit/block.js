@@ -105,30 +105,6 @@ define(function(require) {
                 }
             });
         },
-        remove: function() {
-            var block = this;
-
-            block.removeBlocks();
-
-            Backbone.View.prototype.remove.call(this);
-        },
-        removeBlocks: function() {
-            var block = this,
-                blocks = [];
-
-            block.$el.find('[block]').each(function() {
-                var $block = $(this),
-                    blockName = $block.attr('block');
-
-                if ($block.parents('[block]').attr('block') === block.blockName) {
-                    blocks.push($block.data(blockName));
-                }
-            });
-
-            _.each(blocks, function(block){
-                block.remove();
-            })
-        },
         'set': function(path, value, extra) {
             var block = this,
                 keyPath = this,

@@ -1,3 +1,4 @@
-<a href="/catalog/<%= catalogSubcategoryModel.get('parentGroupId') %>/<%= catalogSubcategoryModel.get('parentCategoryId') %>/<%= catalogSubcategoryModel.id %>" subcategory_id="<%= catalogSubcategoryModel.id %>">
-    <%= LH.attr(catalogSubcategoryModel, 'name') %>
+<a class="catalogCategory__subcategoryLink" href="/catalog/<%= catalogSubcategoryModel.get('parentGroupId') %>/<%= catalogSubcategoryModel.get('parentCategoryId') %>/<%= catalogSubcategoryModel.id %>" subcategory_id="<%= catalogSubcategoryModel.id %>">
+    <span class="editor__editLink catalog__editSubcategoryLink"></span>
+    <span class="catalogCategory__subcategoryLinkText"><%= LH.attr(catalogSubcategoryModel, 'name') %></span>
 </a>

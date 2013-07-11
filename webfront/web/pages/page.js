@@ -68,20 +68,17 @@ define(function(require) {
 
             $page.removeClass('preloader_spinner');
         },
-        removeBlocks: function($container){
+        removeBlocks: function($container) {
             var blocks = [];
 
             $container.find('[block]').each(function() {
                 var $block = $(this),
-                    $parentBlock = $block.parents('[block]'),
                     blockName = $block.attr('block');
 
-                if ($parentBlock.length === 0) {
-                    blocks.push($block.data(blockName));
-                }
+                blocks.push($block.data(blockName));
             });
 
-            _.each(blocks, function(block){
+            _.each(blocks, function(block) {
                 block.remove();
             });
         }

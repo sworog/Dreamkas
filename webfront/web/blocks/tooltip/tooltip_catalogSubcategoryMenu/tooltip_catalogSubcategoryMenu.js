@@ -1,20 +1,20 @@
 define(function(require) {
         //requirements
         var Tooltip_menu = require('blocks/tooltip/tooltip_menu/tooltip_menu'),
-            CatalogCategoryModel = require('models/catalogCategory'),
-            Tooltip_catalogCategoryForm = require('blocks/tooltip/tooltip_catalogCategoryForm/tooltip_catalogCategoryForm');
+            CatalogSubcategoryModel = require('models/catalogSubcategory'),
+            Tooltip_catalogSubcategoryForm = require('blocks/tooltip/tooltip_catalogSubcategoryForm/tooltip_catalogSubcategoryForm');
 
         return Tooltip_menu.extend({
-            catalogCategoryModel: new CatalogCategoryModel(),
-            blockName: 'tooltip_catalogCategoryMenu',
+            catalogSubcategoryModel: new CatalogSubcategoryModel(),
+            blockName: 'tooltip_catalogSubcategoryMenu',
             events: {
                 'click .tooltip__editLink': function(e) {
                     e.preventDefault();
                     var block = this,
                         $target = $(e.target);
 
-                    block.tooltip_catalogCategoryForm.show({
-                        model: block.catalogCategoryModel,
+                    block.tooltip_catalogSubcategoryForm.show({
+                        model: block.catalogSubcategoryModel,
                         collection: null,
                         $trigger: $target
                     });
@@ -30,12 +30,12 @@ define(function(require) {
                         return;
                     }
 
-                    if (block.catalogCategoryModel.subcategories && block.catalogCategoryModel.subcategories.length) {
-                        alert('Необходимо удалить все подкатегории из категории');
+                    if (block.catalogSubcategoryModel.products && block.catalogSubcategoryModel.products.length) {
+                        alert('Необходимо удалить все товары из подкатегории');
                         block.hide();
                     } else {
                         $target.addClass('preloader_rows');
-                        block.catalogCategoryModel.destroy({
+                        block.catalogSubcategoryModel.destroy({
                             success: function() {
                                 $target.removeClass('preloader_rows');
                                 block.hide();
@@ -49,14 +49,14 @@ define(function(require) {
 
                 Tooltip_menu.prototype.initialize.call(this);
 
-                block.tooltip_catalogCategoryForm = $('[block="tooltip_catalogCategoryForm"]').data('tooltip_catalogCategoryForm') || new Tooltip_catalogCategoryForm({
-                    catalogCategoryModel: block.catalogCategoryModel
+                block.tooltip_catalogSubcategoryForm = $('[block="tooltip_catalogSubcategoryForm"]').data('tooltip_catalogSubcategoryForm') || new Tooltip_catalogSubcategoryForm({
+                    catalogSubcategoryModel: block.catalogSubcategoryModel
                 });
             },
             remove: function(){
                 var block = this;
 
-                block.tooltip_catalogCategoryForm.remove();
+                block.tooltip_catalogSubcategoryForm.remove();
 
                 Tooltip_menu.prototype.remove.call(block);
             }

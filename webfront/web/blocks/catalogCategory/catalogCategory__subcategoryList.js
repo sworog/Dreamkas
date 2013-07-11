@@ -25,6 +25,18 @@ define(function(require) {
                     }
                 }
             }
+        },
+        initialize: function(){
+            var block = this;
+
+            Block.prototype.initialize.call(block);
+
+            block.catalogSubcategoriesCollection.each(function(catalogSubcategoryModel){
+                new CatalogCategory__subcategoryItem({
+                    catalogSubcategoryModel: catalogSubcategoryModel,
+                    el: block.el.querySelectorAll('[subcategory_id="' + catalogSubcategoryModel.id + '"]')
+                })
+            });
         }
     });
 });

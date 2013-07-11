@@ -1,0 +1,33 @@
+.catalogCategory__subcategoryList{
+    float: left;
+    width: 300px;
+    background-color: #fafafa;
+}
+
+.catalogCategory__subcategoryLink{
+    display: block;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    white-space: nowrap;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    margin-bottom: -1px;
+    text-decoration: none;
+}
+
+.catalogCategory__subcategoryLink:hover{
+    background-color: #f4f4f4;
+}
+
+.catalogCategory__subcategoryLinkText{
+    display: block;
+    text-overflow: ellipsis;
+}
+
+.catalogCategory__subcategoryLink .catalog__editSubcategoryLink{
+    float: right;
+    top: 50%;
+    margin-top: -11px;
+    left: 4px;
+}

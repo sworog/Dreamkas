@@ -5,6 +5,7 @@ define(function(require) {
         CatalogSubcategoryModel = require('models/catalogSubcategory'),
         CatalogCategory__subcategoryList = require('blocks/catalogCategory/catalogCategory__subcategoryList'),
         Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
+        Tooltip_catalogSubcategoryMenu = require('blocks/tooltip/tooltip_catalogSubcategoryMenu/tooltip_catalogSubcategoryMenu'),
         Tooltip_catalogSubcategoryForm = require('blocks/tooltip/tooltip_catalogSubcategoryForm/tooltip_catalogSubcategoryForm'),
         params = require('pages/catalog/params');
 
@@ -67,6 +68,7 @@ define(function(require) {
 
             block.tooltip_catalogCategoryMenu = new Tooltip_catalogCategoryMenu();
             block.tooltip_catalogSubcategoryForm = new Tooltip_catalogSubcategoryForm();
+            block.tooltip_catalogSubcategoryMenu = new Tooltip_catalogSubcategoryMenu();
 
             new CatalogCategory__subcategoryList({
                 el: document.getElementById('catalogCategory__subcategoryList'),
@@ -82,6 +84,7 @@ define(function(require) {
 
             block.tooltip_catalogCategoryMenu.remove();
             block.tooltip_catalogSubcategoryForm.remove();
+            block.tooltip_catalogSubcategoryMenu.remove();
 
             Editor.prototype.remove.call(block);
         },
