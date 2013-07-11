@@ -7,6 +7,19 @@ define(function(require) {
     return Backbone.Model.extend({
         saveFields: [],
         initData: {},
+        constructor: function() {
+            var model = this;
+
+            Backbone.Model.apply(model, arguments);
+
+            _.each(model.initData, function(Class, key) {
+                model[key] = new Class(model.get(key), {
+                    parentModel: model,
+                    parse: true
+                });
+            });
+
+        },
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({
                 wait: true,
@@ -45,31 +58,22 @@ define(function(require) {
 
             return toJSON.apply(this, arguments);
         },
-        set: function(){
-            if (!Backbone.Model.prototype.set.apply(this, arguments)){
+        set: function() {
+            if (!Backbone.Model.prototype.set.apply(this, arguments)) {
                 return false;
             }
 
             var model = this,
                 changedAttributes = this.changedAttributes();
 
-            _.each(this.initData, function(Class, key){
-                if (!model[key]){
-                    model[key] = new Class(null, {
-                        parentModel: model
-                    });
-                }
-            });
-
-            if (changedAttributes){
-
-                _.each(changedAttributes, function(value, key){
+            if (changedAttributes) {
+                _.each(changedAttributes, function(value, key) {
                     $('body')
                         .find('[model_id="' + model.id + '"]')
                         .filter('[model_attr="' + key + '"]')
                         .html(value);
 
-                    if (model.initData[key]){
+                    if (model.initData[key] && model[key]) {
                         model[key].set(value);
                     }
                 });
