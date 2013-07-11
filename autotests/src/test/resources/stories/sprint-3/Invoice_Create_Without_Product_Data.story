@@ -17,6 +17,4 @@ And the user inputs '123' in the invoice 'supplierInvoiceSku' field
 And the user inputs '!todayDate' in the invoice 'supplierInvoiceDate' field
 And the user navigates to invoice product addition
 And the user clicks finish edit button and ends the invoice edition
-Given the user is on the invoice list page
-Then the user checks that he is on the 'InvoiceListPage'
 When the user logs out

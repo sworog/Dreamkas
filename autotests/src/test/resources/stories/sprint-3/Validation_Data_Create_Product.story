@@ -18,7 +18,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'NFLV-879' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 Scenario: Name field length validation negative
@@ -108,7 +107,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'FTY6456789' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 Scenario: Barcode field length validation negative
@@ -188,7 +186,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'VBVCF678' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 
@@ -205,7 +202,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'VFV-01' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 Scenario: Vendor field validation lenght negative
@@ -239,7 +235,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'VCFV-01' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 Scenario: VendorCountry field validation lenght negative
@@ -272,7 +267,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'IFV-01' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 Scenario: Info field validation lenght negative
@@ -348,7 +342,6 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs ',78' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees no error messages
-And the user checks that he is on the 'ProductListPage'
 Then the user checks the product with 'PPV-07' sku has 'purchasePrice' equal to '0,78'
 When the user logs out
 
@@ -363,7 +356,6 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs ',78' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees no error messages
-And the user checks that he is on the 'ProductListPage'
 Then the user checks the product with 'PPV-08' sku has 'purchasePrice' equal to '0,78'
 When the user logs out
 
@@ -378,7 +370,6 @@ And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
-And the user checks that he is on the 'ProductListPage'
 Then the user checks the product with 'JFGE89075' sku has 'purchasePrice' equal to '123,25'
 When the user logs out
 
@@ -393,7 +384,6 @@ And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
-And the user checks that he is on the 'ProductListPage'
 Then the user checks the product with 'JFGE89078' sku has 'purchasePrice' equal to '125,26'
 When the user logs out
 
@@ -407,7 +397,6 @@ And the user inputs '789,6' in 'purchasePrice' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
-Then the user checks that he is on the 'ProductListPage'
 And the user checks the product with 'FTY64' sku has 'purchasePrice' equal to '789,6'
 When the user logs out
 
@@ -421,8 +410,7 @@ And the user inputs '739,67' in 'purchasePrice' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
-Then the user checks that he is on the 'ProductListPage'
-And the user checks the product with 'FTY645' sku has 'purchasePrice' equal to '739,67'
+Then the user checks the product with 'FTY645' sku has 'purchasePrice' equal to '739,67'
 When the user logs out
 
 Scenario: Purchase price validation three digits
@@ -540,8 +528,7 @@ And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '10000000' in 'purchasePrice' field
 And the user clicks the create button
-Then the user checks that he is on the 'ProductListPage'
-And the user checks the product with 'PPV-090' sku has 'purchasePrice' equal to '10000000'
+Then the user checks the product with 'PPV-090' sku has 'purchasePrice' equal to '10000000'
 When the user logs out
 
 Scenario: Purchase price validation length negative
@@ -569,6 +556,5 @@ And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '10.12' in 'purchasePrice' field
 And the user clicks the create button
-Then the user checks that he is on the 'ProductListPage'
-And the user checks the product with 'PPV-0903456' sku has 'purchasePrice' equal to '10,12'
+Then the user checks the product with 'PPV-0903456' sku has 'purchasePrice' equal to '10,12'
 When the user logs out

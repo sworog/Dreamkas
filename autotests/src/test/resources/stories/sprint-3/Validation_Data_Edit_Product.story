@@ -15,7 +15,6 @@ And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
 Then the user checks the product with 'EPNFLV-879' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 Scenario: Name field length validation negative
@@ -88,7 +87,6 @@ And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
 Then the user checks the product with 'EPFTY6456789' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 Scenario: Barcode field length validation negative
@@ -183,7 +181,6 @@ And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
 Then the user checks the product with 'EPVBVCF678' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 
@@ -203,7 +200,6 @@ And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
 Then the user checks the product with 'EPVFV-01' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 Scenario: Vendor field validation lenght negative
@@ -242,7 +238,6 @@ And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
 Then the user checks the product with 'EPVCFV-01' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 Scenario: VendorCountry field validation lenght negative
@@ -280,7 +275,6 @@ And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
 Then the user checks the product with 'EPIFV-01' sku is present
-And the user checks that he is on the 'ProductListPage'
 When the user logs out
 
 Scenario: Info field validation lenght negative
@@ -334,7 +328,6 @@ And the user inputs ',78' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
-Then the user checks that he is on the 'ProductListPage'
 Then the user checks the product with 'EPPPV-07' sku has 'purchasePrice' equal to '0,78'
 When the user logs out
 
@@ -352,7 +345,6 @@ And the user inputs ',78' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
-Then the user checks that he is on the 'ProductListPage'
 Then the user checks the product with 'EPPPV-08' sku has 'purchasePrice' equal to '0,78'
 When the user logs out
 
@@ -370,7 +362,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
-Then the user checks that he is on the 'ProductListPage'
 Then the user checks the product with 'EPJFGE89075' sku has 'purchasePrice' equal to '123,25'
 When the user logs out
 
@@ -388,7 +379,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
-Then the user checks that he is on the 'ProductListPage'
 Then the user checks the product with 'EPJFGE89078' sku has 'purchasePrice' equal to '125,26'
 When the user logs out
 
@@ -406,8 +396,7 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
-Then the user checks that he is on the 'ProductListPage'
-And the user checks the product with 'EPFTY64' sku has 'purchasePrice' equal to '789,6'
+Then the user checks the product with 'EPFTY64' sku has 'purchasePrice' equal to '789,6'
 When the user logs out
 
 Scenario: Purchase price validation two digits
@@ -424,8 +413,7 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
-Then the user checks that he is on the 'ProductListPage'
-And the user checks the product with 'EPFTY645' sku has 'purchasePrice' equal to '739,67'
+Then the user checks the product with 'EPFTY645' sku has 'purchasePrice' equal to '739,67'
 When the user logs out
 
 Scenario: Purchase price validation three digits
@@ -560,8 +548,7 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs '10000000' in 'purchasePrice' field
 And the user clicks the create button
 Given the user is on the product list page
-Then the user checks that he is on the 'ProductListPage'
-And the user checks the product with 'EPPPV-090' sku has 'purchasePrice' equal to '10000000'
+Then the user checks the product with 'EPPPV-090' sku has 'purchasePrice' equal to '10000000'
 When the user logs out
 
 Scenario: Purchase price validation length negative
