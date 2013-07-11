@@ -13,7 +13,7 @@ And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
-Then the user checks alert text is equal to 'Необходимо удалить все группы из класса'
+Then the user checks alert text is equal to 'Необходимо удалить все подкатегории из категории'
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -25,7 +25,7 @@ And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
-Then the user checks alert text is equal to 'Необходимо удалить все группы из класса'
+Then the user checks alert text is equal to 'Необходимо удалить все подкатегории из категории'
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -37,7 +37,7 @@ And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
-Then the user checks alert text is equal to 'Необходимо удалить все группы из класса'
+Then the user checks alert text is equal to 'Необходимо удалить все подкатегории из категории'
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
