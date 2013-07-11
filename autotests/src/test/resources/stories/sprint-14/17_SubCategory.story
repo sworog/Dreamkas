@@ -55,8 +55,8 @@ And the user edits the element name through pop up menu
 When the user inputs 'new subCategoryTestEditCancel' in 'name' field of pop up
 And the user discards pop up menu changes
 Then the user checks the subCategory with 'new subCategoryTestEditCancel' name is not present
-And the user checks the group with 'subCategoryTestEditCancel' name is present
+And the user checks the subCategory with 'subCategoryTestEditCancel' name is present
 When the user clicks on end edition link and ends the edition
 Then the user checks the subCategory with 'new subCategoryTestEditCancel' name is not present
-And the user checks the group with 'subCategoryTestEditCancel' name is present
+And the user checks the subCategory with 'subCategoryTestEditCancel' name is present
 When the user logs out

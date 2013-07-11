@@ -11,7 +11,7 @@ And there is the subCategory with name 'subCategoryTest11' related to group name
 And the user navigates to the group with name 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user opens pop up menu of category 'subCategoryTestGroup' element
+And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
 Then the user checks alert text is equal to 'Необходимо удалить все группы из класса'
 When the user clicks on end edition link and ends the edition
@@ -23,19 +23,19 @@ And there is the subCategory with name 'subCategoryTest10' related to group name
 And the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user opens pop up menu of category 'subCategoryTestGroup' element
+And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
 Then the user checks alert text is equal to 'Необходимо удалить все группы из класса'
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: Can't delete not empty category from category page
+Scenario: Can't delete not empty subCategory from category page
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'subCategoryTest12' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user opens pop up menu of category 'subCategoryTestGroup' element
+And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
 Then the user checks alert text is equal to 'Необходимо удалить все группы из класса'
 When the user clicks on end edition link and ends the edition
@@ -94,7 +94,7 @@ When the user inputs 'subCategoryTestEqualName' in 'name' field of pop up
 And the user clicks the create new subCategory button in pop up
 Then the user sees error messages
 | error message |
-| Такая подкатегория уже есть |
+| Подкатегория с таким названием уже существует в этой категории |
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -104,7 +104,7 @@ And there is the subCategory with name 'edit subCategoryTest' related to group n
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user opens pop up menu of 'edit subCategoryTest' element
+And the user opens pop up menu of subCategory 'edit subCategoryTest' element
 And the user edits the element name through pop up menu
 And the user generates charData with '100' number with string char 'f' in the 'name' pop up field
 Then the user checks 'name' pop up field contains only '100' symbols
@@ -119,7 +119,7 @@ And there is the subCategory with name 'edit subCategoryTest1' related to group 
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user opens pop up menu of 'edit subCategoryTest1' element
+And the user opens pop up menu of subCategory 'edit subCategoryTest1' element
 And the user edits the element name through pop up menu
 And the user generates charData with '101' number in the 'name' pop up field
 Then the user checks 'name' pop up field contains only '101' symbols
@@ -137,7 +137,7 @@ And there is the subCategory with name 'edit subCategoryTest1' related to group 
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user opens pop up menu of 'edit subCategoryTest1' element
+And the user opens pop up menu of subCategory 'edit subCategoryTest1' element
 And the user edits the element name through pop up menu
 When the user inputs '' in 'name' field of pop up
 When the user clicks the create new subCategory button in pop up
@@ -154,13 +154,13 @@ And there is the subCategory with name 'edit subCategoryTest2' related to group 
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user opens pop up menu of 'edit subCategoryTest2' element
+And the user opens pop up menu of subCategory 'edit subCategoryTest2' element
 And the user edits the element name through pop up menu
 When the user inputs 'subCategoryTestEqualName' in 'name' field of pop up
 When the user clicks the create new subCategory button in pop up
 Then the user sees error messages
 | error message |
-| Такая подкатегория уже есть |
+| Подкатегория с таким названием уже существует в этой категории |
 When the user discards pop up menu changes
 And the user clicks on end edition link and ends the edition
 And the user logs out

@@ -1,11 +1,10 @@
 package project.lighthouse.autotests.pages.commercialManager.catalog;
 
 import net.thucydides.core.pages.WebElementFacade;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.common.CommonItem;
-import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.InputOnlyVisible;
 
 public class SubCategoryPage extends GroupPage {
 
@@ -18,19 +17,13 @@ public class SubCategoryPage extends GroupPage {
 
     @Override
     public void createElements() {
-        items.put("name", new Input(this, By.xpath("")));
+        items.put("name", new InputOnlyVisible(this, "name"));
     }
 
     @Override
     public void addNewButtonClick() {
         addNewSubCategoryButton.click();
     }
-
-//    @Override
-//    public void addNewButtonConfirmClick() {
-//        findBy("").click();
-//        preloaderWait();
-//    }
 
     @Override
     public String getItemXpath(String name) {
