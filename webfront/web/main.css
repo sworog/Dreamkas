@@ -1,7 +1,11 @@
+/* fonts */
+@import "/fonts/lobster/lobster.css";
+@import "/fonts/sansus/sansus.css";
+    /* libs */
 @import "./libs/jquery-ui/themes/base/minified/jquery-ui.min.css";
 @import "./kit/kit.css";
-
-/* blocks */
+@import "/icons/font-awesome/font-awesome.css";
+    /* blocks */
 @import "./blocks/content/content.css";
 @import "./blocks/page/page.css";
 @import "./blocks/invoice/invoice.css";
@@ -14,4 +18,14 @@
 @import "./blocks/form/form.css";
 @import "./blocks/topBar/topBar.css";
 @import "./blocks/catalogCategory/catalogCategory.css";
-/* /blocks */
+
+h3 {
+    font-family: 'Sansus Webissimo';
+    font-size: 28px;
+    font-weight: normal;
+}
+
+[href] {
+    transition: all 0.4s;
+}
+

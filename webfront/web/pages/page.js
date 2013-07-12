@@ -49,17 +49,8 @@ define(function(require) {
         render: function() {
             var page = this;
 
-            _.each(page.templates, function(template, name) {
-                var $renderContainer;
-
-                switch (name) {
-                    case '#content':
-                        $renderContainer = $('#content_main');
-                        break;
-                    default:
-                        $renderContainer = $(name);
-                        break;
-                }
+            _.each(page.templates, function(template, selector) {
+                var $renderContainer = $(selector);
 
                 page.removeBlocks($renderContainer);
 

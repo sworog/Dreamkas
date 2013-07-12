@@ -30,18 +30,18 @@ define(function(require) {
                         return;
                     }
 
-                    if (block.catalogCategoryModel.subCategories && block.catalogCategoryModel.subCategories.length) {
-                        alert('Необходимо удалить все подкатегории из категории');
-                        block.hide();
-                    } else {
-                        $target.addClass('preloader_rows');
-                        block.catalogCategoryModel.destroy({
-                            success: function() {
-                                $target.removeClass('preloader_rows');
-                                block.hide();
-                            }
-                        });
-                    }
+                    $target.addClass('preloader_rows');
+
+                    block.catalogCategoryModel.destroy({
+                        complete: function(){
+                            $target.removeClass('preloader_rows');
+                            block.hide();
+                        },
+                        error: function() {
+                            console.log(arguments);
+                            alert('Необходимо удалить все подкатегории из категории');
+                        }
+                    });
                 }
             },
             initialize: function() {
@@ -53,7 +53,7 @@ define(function(require) {
                     model: block.catalogCategoryModel
                 });
             },
-            remove: function(){
+            remove: function() {
                 var block = this;
 
                 block.tooltip_catalogCategoryForm.remove();

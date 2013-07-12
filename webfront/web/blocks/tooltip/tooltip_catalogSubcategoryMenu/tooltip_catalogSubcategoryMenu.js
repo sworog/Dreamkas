@@ -33,18 +33,17 @@ define(function(require) {
                         return;
                     }
 
-                    if (block.catalogSubcategoryModel.products && block.catalogSubcategoryModel.products.length) {
-                        alert('Необходимо удалить все товары из подкатегории');
-                        block.hide();
-                    } else {
-                        $target.addClass('preloader_rows');
-                        block.catalogSubcategoryModel.destroy({
-                            success: function() {
-                                $target.removeClass('preloader_rows');
-                                block.hide();
-                            }
-                        });
-                    }
+                    $target.addClass('preloader_rows');
+                    block.catalogSubcategoryModel.destroy({
+                        complete: function() {
+                            $target.removeClass('preloader_rows');
+                            block.hide();
+                        },
+                        error: function() {
+                            console.log(arguments);
+                            alert('Необходимо удалить все товары из подкатегории');
+                        }
+                    });
                 }
             },
             initialize: function() {
@@ -56,7 +55,7 @@ define(function(require) {
                     model: block.catalogSubcategoryModel
                 });
             },
-            remove: function(){
+            remove: function() {
                 var block = this;
 
                 block.tooltip_catalogSubcategoryForm.remove();

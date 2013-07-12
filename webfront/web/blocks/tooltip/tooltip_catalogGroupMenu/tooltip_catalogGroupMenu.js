@@ -30,18 +30,18 @@ define(function(require) {
                         return;
                     }
 
-                    if (block.catalogGroupModel.categories && block.catalogGroupModel.categories.length) {
-                        alert('Необходимо удалить все категории из группы');
-                        block.hide();
-                    } else {
-                        $target.addClass('preloader_rows');
-                        block.catalogGroupModel.destroy({
-                            success: function() {
-                                $target.removeClass('preloader_rows');
-                                block.hide();
-                            }
-                        });
-                    }
+                    $target.addClass('preloader_rows');
+
+                    block.catalogGroupModel.destroy({
+                        complete: function() {
+                            $target.removeClass('preloader_rows');
+                            block.hide();
+                        },
+                        error: function() {
+                            console.log(arguments);
+                            alert('Необходимо удалить все категории из группы');
+                        }
+                    });
                 }
             },
             initialize: function() {
@@ -54,7 +54,7 @@ define(function(require) {
                     model: block.catalogGroupModel
                 });
             },
-            remove: function(){
+            remove: function() {
                 var block = this;
 
                 block.tooltip_catalogGroupForm.remove();

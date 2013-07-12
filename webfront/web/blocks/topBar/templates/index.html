@@ -35,9 +35,11 @@
 <% if(currentUserModel.get('id')) { %>
 <div class="topBar__userControls">
     <a href="/users/current" class="topBar__userName">
+        <i style="vertical-align: middle; position: relative; left: -5px; top: -1px;" class="icon-user"></i>
         <%e currentUserModel.get('username') %>
     </a>
     <a class="topBar__logoutLink">
+        <i class="icon-signout" style="margin-left: -5px;"></i>
         <%t 'Выйти' %>
     </a>
 </div>
