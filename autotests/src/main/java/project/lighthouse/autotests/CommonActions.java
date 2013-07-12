@@ -70,7 +70,7 @@ public class CommonActions extends PageObject {
     public void checkElementValue(String checkType, ExamplesTable checkValuesTable) {
         for (Map<String, String> row : checkValuesTable.getRows()) {
             String elementName = row.get("elementName");
-            String expectedValue = row.get("expectedValue");
+            String expectedValue = row.get("value");
             checkElementValue(checkType, elementName, expectedValue);
         }
     }

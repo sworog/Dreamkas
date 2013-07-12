@@ -9,8 +9,8 @@ Scenario: Subcategory page full product create/edit
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
-And the user inputs values in element fields
-| elementName | inputText |
+And the user fills form with following data
+| elementName | value |
 | name | Наименование1689 |
 | vendor | Производитель1689 |
 | vendorCountry | Россия1689 |
@@ -22,20 +22,10 @@ And the user inputs values in element fields
 | vat | 10 |
 And the user clicks the create button
 When the user open the product card with '1689' sku
-Then the user checks the elements values
-| elementName | expectedValue  |
-| sku | 1689 |
-| name | Наименование1689 |
-| vendor | Производитель1689 |
-| vendorCountry | Россия1689 |
-| purchasePrice | 1231689 |
-| barcode | 1231689 |
-| unit | штука |
-| vat | 10 |
-| info | Info1689 |
+Then the user checks the elements values matches input data
 When the user clicks the edit button on product card view page
-And the user inputs values in element fields
-| elementName | inputText |
+And the user fills form with following data
+| elementName | value |
 | name | Имя23 56 |
 | vendor | Вендор45 |
 | vendorCountry | Вендоркантри56 |
@@ -46,18 +36,7 @@ And the user inputs values in element fields
 | unit | liter |
 | vat | 0 |
 And the user clicks the create button
-Then the user checks the elements values
-| elementName | expectedValue  |
-| sku | 89489545DGF1 |
-| name | Имя23 56 |
-| vendor | Вендор45 |
-| vendorCountry | Вендоркантри56 |
-| vendorCountry |  |
-| purchasePrice | 8922174 |
-| barcode | 102454 |
-| unit | литр |
-| vat | 0 |
-| info | Info1689 |
+Then the user checks the elements values matches input data
 When the user logs out
 
 Scenario: Check product is related to group/category/subcategory
@@ -92,7 +71,7 @@ When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of subCategory 'productListPage' element
 And the user creates new product through pop up menu
 And the user inputs values in element fields
-| elementName | inputText |
+| elementName | value |
 | name | PCFTM |
 | vendor | PCFTM|
 | vendorCountry | PCFTM |

@@ -18,7 +18,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user navigates to invoice product addition
 When the user inputs 'Тестовое имя 25-3' in the invoice product 'productName' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Тестовое имя 25-3 |
 | productSku | SKU-AIP1PWNAU |
 | productBarCode | BARCode-AIP1PWNAU |
@@ -27,7 +27,7 @@ And the user inputs '5' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user checks the invoice product with 'SKU-AIP1PWNAU' sku is present
 And the user checks the product with 'SKU-AIP1PWNAU' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Тестовое имя 25-3 |
 | productSku | SKU-AIP1PWNAU |
 | productBarcode | BARCode-AIP1PWNAU |
@@ -36,7 +36,7 @@ And the user checks the product with 'SKU-AIP1PWNAU' sku has values
 | productPrice | 5 |
 | productSum | 25 |
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 25 |
 When the user clicks finish edit button and ends the invoice edition
@@ -57,7 +57,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user navigates to invoice product addition
 And the user inputs 'SKU-AIP1PWSA' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Тестовое имя AIP1PWSA |
 | productSku | SKU-AIP1PWSA |
 | productBarCode | BARCode-AIP1PWSA |
@@ -66,7 +66,7 @@ And the user inputs '4' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user checks the invoice product with 'SKU-AIP1PWSA' sku is present
 And the user checks the product with 'SKU-AIP1PWSA' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Тестовое имя AIP1PWSA |
 | productSku | SKU-AIP1PWSA |
 | productBarcode | BARCode-AIP1PWSA |
@@ -75,7 +75,7 @@ And the user checks the product with 'SKU-AIP1PWSA' sku has values
 | productPrice | 4 |
 | productSum | 12 |
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 12 |
 When the user clicks finish edit button and ends the invoice edition
@@ -96,7 +96,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user navigates to invoice product addition
 And the user inputs 'BARCode-AIP1PWBA' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Тестовое имя AIP1PWBA |
 | productSku | SKU-AIP1PWBA |
 | productBarCode | BARCode-AIP1PWBA |
@@ -105,7 +105,7 @@ And the user inputs '12,32' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user checks the invoice product with 'SKU-AIP1PWBA' sku is present
 And the user checks the product with 'SKU-AIP1PWBA' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Тестовое имя AIP1PWBA |
 | productSku | SKU-AIP1PWBA |
 | productBarcode | BARCode-AIP1PWBA |
@@ -114,7 +114,7 @@ And the user checks the product with 'SKU-AIP1PWBA' sku has values
 | productPrice | 12,32 |
 | productSum |  554,4 |
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum |  554,4 |
 When the user clicks finish edit button and ends the invoice edition
@@ -230,7 +230,7 @@ And there is the invoice with 'Invoice-AIP1WNAVRS' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'Имя-AIP1WNAVRS' in the invoice product 'productName' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Имя-AIP1WNAVRS |
 | productSku | Артикул-AIP1WNAVRS |
 | productBarCode | Баркод-AIP1WNAVRS |
@@ -242,7 +242,7 @@ And there is the invoice with 'Invoice-AIP1PWNAVNS' sku
 And the user logs in as 'departmentManager'
 When the user inputs '123-AIP1PWNAVNS' in the invoice product 'productName' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | 123-AIP1PWNAVNS |
 | productSku | 123-AIP1PWNAVNS |
 | productBarCode | 123-AIP1PWNAVNS |
@@ -254,7 +254,7 @@ And there is the invoice with 'Invoice-AIP1PWNAVES' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'NAME-AIP1PWNAVES' in the invoice product 'productName' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | NAME-AIP1PWNAVES |
 | productSku | SKU-AIP1PWNAVES |
 | productBarCode | BC-AIP1PWNAVES |
@@ -266,7 +266,7 @@ And there is the invoice with 'Invoice-AIP1PWNAWSS' sku
 And the user logs in as 'departmentManager'
 When the user inputs '@#$-AIP1PWNAWSS' in the invoice product 'productName' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | @#$-AIP1PWNAWSS |
 | productSku | @#$-AIP1PWNAWSS |
 | productBarCode | @#$-AIP1PWNAWSS |
@@ -278,7 +278,7 @@ And there is the invoice with 'Invoice-AIP1PWBAVSRS' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'name-AIP1PWBAVSRS' in the invoice product 'productName' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | name-AIP1PWBAVSRS |
 | productSku | sku-AIP1PWBAVSRS |
 | productBarCode | barcode-AIP1PWBAVSRS |
@@ -290,7 +290,7 @@ And there is the invoice with 'Invoice-AIP1PWBAVBRS' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'Name-AIP1PWBAVBRS' in the invoice product 'productName' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Name-AIP1PWBAVBRS |
 | productSku | Sku-AIP1PWBAVBRS |
 | productBarCode | Barcode-AIP1PWBAVBRS |
@@ -302,7 +302,7 @@ And there is the invoice with 'Invoice-AIP1WSAVRS' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'Артикул-AIP1WSAVRS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Имя-AIP1WSAVRS |
 | productSku | Артикул-AIP1WSAVRS |
 | productBarCode | Баркод-AIP1WSAVRS |
@@ -314,7 +314,7 @@ And there is the invoice with 'Invoice-AIP1PWSAVNS' sku
 And the user logs in as 'departmentManager'
 When the user inputs '123-AIP1PWSAVNS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | 123-AIP1PWSAVNS |
 | productSku | 123-AIP1PWSAVNS |
 | productBarCode | 123-AIP1PWSAVNS |
@@ -326,7 +326,7 @@ And there is the invoice with 'Invoice-AIP1PWSAVES' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'SKU-AIP1PWSAVES' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | NAME-AIP1PWSAVES |
 | productSku | SKU-AIP1PWSAVES |
 | productBarCode | BC-AIP1PWSAVES |
@@ -338,7 +338,7 @@ And there is the invoice with 'Invoice-AIP1PWSAVSS' sku
 And the user logs in as 'departmentManager'
 When the user inputs '%^*-AIP1PWSAVSS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | %^*-AIP1PWSAVSS |
 | productSku | %^*-AIP1PWSAVSS |
 | productBarCode | %^*-AIP1PWSAVSS |
@@ -350,7 +350,7 @@ And there is the invoice with 'Invoice-AIP-1PWSAVSRS' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'sku-AIP1PWSAVSS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | name-AIP1PWSAVSS |
 | productSku | sku-AIP1PWSAVSS |
 | productBarCode | barcode-AIP1PWSAVSS |
@@ -362,7 +362,7 @@ And there is the invoice with 'Invoice-AIP-1PWSAVBRS' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'Sku-AIP1PWSAVSS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Name-AIP1PWSAVSS |
 | productSku | Sku-AIP1PWSAVSS |
 | productBarCode | Barcode-AIP1PWSAVSS |
@@ -374,7 +374,7 @@ And there is the invoice with 'Invoice-AIP1PWBAVRS' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'Баркод-AIP1PWBAVRS' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Имя-AIP1PWBAVRS |
 | productSku | Артикул-AIP1PWBAVRS |
 | productBarCode | Баркод-AIP1PWBAVRS |
@@ -386,7 +386,7 @@ And there is the invoice with 'Invoice-AIP1PWBAVNS' sku
 And the user logs in as 'departmentManager'
 When the user inputs '123-AIP1PWBAVNS' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | 123-AIP1PWBAVNS |
 | productSku | 123-AIP1PWBAVNS |
 | productBarCode | 123-AIP1PWBAVNS |
@@ -398,7 +398,7 @@ And there is the invoice with 'Invoice-AIP1PWBAVES' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'BC-AIP1PWBAVES' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | NAME-AIP1PWBAVES |
 | productSku | SKU-AIP1PWBAVES |
 | productBarCode | BC-AIP1PWBAVES |
@@ -410,7 +410,7 @@ And there is the invoice with 'Invoice-AIP-1PWBAVSS' sku
 And the user logs in as 'departmentManager'
 When the user inputs '()_+-AIP1PWBAVES' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | ()_+-AIP1PWBAVES |
 | productSku | ()_+-AIP1PWBAVES |
 | productBarCode | ()_+-AIP1PWBAVES |
@@ -422,7 +422,7 @@ And there is the invoice with 'Invoice-AIP-1PWBAVSRS' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'barcode-AIP1PWBAVES' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | name-AIP1PWBAVES |
 | productSku | sku-AIP1PWBAVES |
 | productBarCode | barcode-AIP1PWBAVES |
@@ -434,7 +434,7 @@ And there is the invoice with 'Invoice-AIP-1PWBAVBRS' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'Barcode-AIP1PWBAVES' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Name-AIP1PWBAVES |
 | productSku | Sku-AIP1PWBAVES |
 | productBarCode | Barcode-AIP1PWBAVES |
@@ -446,13 +446,13 @@ And there is the invoice with 'Invoice-CLTFIAAIIN' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'Name-CLTFIAAIIN' in the invoice product 'productName' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Name-CLTFIAAIIN |
 | productSku | Sku-CLTFIAAIIN |
 | productBarCode | Barcode-CLTFIAAIIN |
 When the user inputs '!' in the invoice product 'productName' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName |  |
 | productSku |  |
 | productBarCode |  |
@@ -464,13 +464,13 @@ And there is the invoice with 'Invoice-CLTFIAAIIS' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'Sku-CLTFIAAIIS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Name-CLTFIAAIIS |
 | productSku | Sku-CLTFIAAIIS |
 | productBarCode | Barcode-CLTFIAAIIS |
 When the user inputs '!' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName |  |
 | productSku |  |
 | productBarCode |  |
@@ -482,13 +482,13 @@ And there is the invoice with 'Invoice-CLTFIAAIIB' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'Barcode-CLTFIAAIIB' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Name-CLTFIAAIIB |
 | productSku | Sku-CLTFIAAIIB |
 | productBarCode | Barcode-CLTFIAAIIB |
 When the user inputs '!' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName |  |
 | productSku |  |
 | productBarCode |  |
@@ -509,7 +509,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user navigates to invoice product addition
 And the user inputs 'Тестовый продукт-1' in the invoice product 'productName' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Тестовый продукт-1 |
 | productSku | Тестовый артикул-1 |
 | productBarCode |Тестовый баркод-1 |
@@ -518,12 +518,12 @@ And the user inputs '5,4' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user checks the invoice product with 'Тестовый артикул-1' sku is present
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 10,8 |
 When the user inputs 'Тестовый артикул-2' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Тестовый продукт-2 |
 | productSku | Тестовый артикул-2 |
 | productBarCode |Тестовый баркод-2 |
@@ -532,12 +532,12 @@ And the user inputs '1,2' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user checks the invoice product with 'Тестовый артикул-2' sku is present
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 2 |
 | totalSum | 14,40 |
 When the user inputs 'Тестовый артикул-3' in the invoice product 'productSku' field
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName | Тестовый продукт-3 |
 | productSku | Тестовый артикул-3 |
 | productBarCode |Тестовый баркод-3 |
@@ -546,7 +546,7 @@ And the user inputs '20' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user checks the invoice product with 'Тестовый артикул-3' sku is present
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 3 |
 | totalSum | 54,40 |
 When the user clicks finish edit button and ends the invoice edition

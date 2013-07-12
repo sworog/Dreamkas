@@ -98,7 +98,7 @@ public class WriteOffPage extends InvoiceBrowsing {
     public void checkListItemHasExpectedValueByFindByLocator(String value, ExamplesTable checkValuesTable) {
         for (Map<String, String> row : checkValuesTable.getRows()) {
             String elementName = row.get("elementName");
-            String expectedValue = row.get("expectedValue");
+            String expectedValue = row.get("value");
             checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
         }
     }

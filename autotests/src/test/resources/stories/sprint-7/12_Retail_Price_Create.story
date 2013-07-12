@@ -18,7 +18,7 @@ And the user clicks the create button
 Then the user checks the product with 'Retail price - PCWRPR-1' sku is present
 When the user open the product card with 'Retail price - PCWRPR-1' sku
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | purchasePrice | 12356 |
 | retailMarkup | отсутствует |
 | retailPrice | отсутствует |
@@ -39,7 +39,7 @@ When the user clicks the create button
 Then the user checks the product with 'Retail price - PCWMF' sku is present
 When the user open the product card with 'Retail price - PCWMF' sku
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | purchasePrice | 112 |
 | retailMarkup | 10 |
 | retailPrice | 123,2 |
@@ -60,7 +60,7 @@ When the user clicks the create button
 Then the user checks the product with 'Retail price - PCWRMF' sku is present
 When the user open the product card with 'Retail price - PCWRMF' sku
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | purchasePrice | 112 |
 | retailMarkup | 10 |
 | retailPrice | 123,2 |
@@ -86,7 +86,7 @@ When the user clicks the create button
 Then the user checks the product with 'Retail price - PCWRPF' sku is present
 When the user open the product card with 'Retail price - PCWRPF' sku
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | purchasePrice | 112 |
 | retailMarkup | 25 |
 | retailPrice | 140 |
@@ -107,7 +107,7 @@ Then the user checks the product with 'Retailprice-RM-LUFIAOPE' sku is present
 When the user open the product card with 'Retailprice-RM-LUFIAOPE' sku
 And the user clicks the edit button on product card view page
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | retailPriceHint | 268,8 |
 And the user checks 'retailPrice' 'is not' avalaible
 And the user checks 'retailMarkup' 'is' avalaible
@@ -131,7 +131,7 @@ Then the user checks the product with 'Retailprice-RP-LUFIAIPE' sku is present
 When the user open the product card with 'Retailprice-RP-LUFIAIPE' sku
 And the user clicks the edit button on product card view page
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | retailPrice | 140 |
 And the user checks 'retailPrice' 'is' avalaible
 And the user checks 'retailMarkup' 'is not' avalaible
@@ -154,7 +154,7 @@ Then the user checks the product with 'Retailprice-RM-LUFIAOPE-all' sku is prese
 When the user open the product card with 'Retailprice-RM-LUFIAOPE-all' sku
 And the user clicks the edit button on product card view page
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | retailPriceHint | 268,8 |
 And the user checks 'retailPrice' 'is not' avalaible
 And the user checks 'retailMarkup' 'is' avalaible
@@ -165,7 +165,7 @@ When the user inputs '140' in 'retailPrice' field
 When the user clicks the create button
 And the user clicks the edit button on product card view page
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | retailPrice | 140 |
 And the user checks 'retailMarkup' 'is not' avalaible
 And the user checks 'retailPrice' 'is' avalaible
@@ -188,7 +188,7 @@ Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | retailPriceHint | Введите значение |
 When the user logs out
 
@@ -198,7 +198,7 @@ And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 When the user clicks 'retailPriceHint' to make it avalaible
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | retailMarkupHint | Введите значение |
 When the user logs out
 
@@ -245,7 +245,7 @@ When the user open the product card with 'Retailprice-RM-LUFIAOPE-all1' sku
 And the user clicks the edit button on product card view page
 When the user clicks 'retailPriceHint' to make it avalaible
 Then the user checks the elements values
-| elementName | expectedValue |
+| elementName | value |
 | retailPrice | 137,76 |
 When the user logs out
 

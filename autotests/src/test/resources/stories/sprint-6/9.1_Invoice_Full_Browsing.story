@@ -27,7 +27,7 @@ Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IFBKG-11' sku is present
 When the user open the invoice card with 'Invoice-IFBKG-11' sku
 Then the user checks invoice 'head' elements  values
-| elementName | expectedValue |
+| elementName | value |
 | sku | Invoice-IFBKG-11 |
 | supplier | Поставщик |
 | accepter | Иван Петрович Петрович |
@@ -36,7 +36,7 @@ Then the user checks invoice 'head' elements  values
 | supplierInvoiceDate | 01.04.2013 |
 | supplierInvoiceSku | 123456 |
 Then the user checks the product with 'IFBKG-11' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IFBKG-11 |
 | productSku | IFBKG-11 |
 | productBarcode | IFBKG-11 |
@@ -45,7 +45,7 @@ Then the user checks the product with 'IFBKG-11' sku has values
 | productPrice | 1 |
 | productSum | 1 |
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 1 |
 When the user logs out
@@ -72,7 +72,7 @@ Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IFBUNITS-11' sku is present
 When the user open the invoice card with 'Invoice-IFBUNITS-11' sku
 Then the user checks invoice 'head' elements  values
-| elementName | expectedValue |
+| elementName | value |
 | sku | Invoice-IFBUNITS-11 |
 | supplier | Поставщик |
 | accepter | Иван Петрович Петрович |
@@ -81,7 +81,7 @@ Then the user checks invoice 'head' elements  values
 | supplierInvoiceDate | 01.04.2013 |
 | supplierInvoiceSku | 123456 |
 Then the user checks the product with 'IFBUNITS-11' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IFBUNITS-11 |
 | productSku | IFBUNITS-11 |
 | productBarcode | IFBUNITS-11 |
@@ -90,7 +90,7 @@ Then the user checks the product with 'IFBUNITS-11' sku has values
 | productPrice | 1 |
 | productSum | 1 |
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 1 |
 When the user logs out
@@ -117,7 +117,7 @@ Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IFBLITER-11' sku is present
 When the user open the invoice card with 'Invoice-IFBLITER-11' sku
 Then the user checks invoice 'head' elements  values
-| elementName | expectedValue |
+| elementName | value |
 | sku | Invoice-IFBLITER-11 |
 | supplier | Поставщик |
 | accepter | Иван Петрович Петрович |
@@ -126,7 +126,7 @@ Then the user checks invoice 'head' elements  values
 | supplierInvoiceDate | 01.04.2013 |
 | supplierInvoiceSku | 123456 |
 Then the user checks the product with 'IFBLITER-11' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IFBLITER-11 |
 | productSku | IFBLITER-11 |
 | productBarcode | IFBLITER-11 |
@@ -135,7 +135,7 @@ Then the user checks the product with 'IFBLITER-11' sku has values
 | productPrice | 1 |
 | productSum | 1 |
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 1 |
 When the user logs out
@@ -172,7 +172,7 @@ Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IFBLITER-11' sku is present
 When the user open the invoice card with 'Invoice-IFB3PKLU-11' sku
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | sku | Invoice-IFB3PKLU-11 |
 | supplier | Поставщик |
 | accepter | Иван Петрович Петрович |
@@ -181,7 +181,7 @@ Then the user checks invoice elements values
 | supplierInvoiceDate | 01.04.2013 |
 | supplierInvoiceSku | 123456 |
 Then the user checks the product with 'IFBKG-111' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IFBKG-111 |
 | productSku | IFBKG-111 |
 | productBarcode | IFBKG-111 |
@@ -190,7 +190,7 @@ Then the user checks the product with 'IFBKG-111' sku has values
 | productPrice | 1 |
 | productSum | 1 |
 Then the user checks the product with 'IFBUNITS-112' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IFBUNITS-112 |
 | productSku | IFBUNITS-112 |
 | productBarcode | IFBUNITS-112 |
@@ -199,7 +199,7 @@ Then the user checks the product with 'IFBUNITS-112' sku has values
 | productPrice | 1 |
 | productSum | 1 |
 Then the user checks the product with 'IFBLITER-113' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IFBLITER-113 |
 | productSku | IFBLITER-113 |
 | productBarcode | IFBLITER-113 |
@@ -208,7 +208,7 @@ Then the user checks the product with 'IFBLITER-113' sku has values
 | productPrice | 1 |
 | productSum | 1 |
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 3 |
 | totalSum | 3 |
 When the user logs out
