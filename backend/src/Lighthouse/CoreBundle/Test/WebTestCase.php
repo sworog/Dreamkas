@@ -444,8 +444,11 @@ class WebTestCase extends BaseTestCase
      * @param string $name
      * @return string
      */
-    protected function createCategory($groupId, $name = 'Винно-водочные изделия')
+    protected function createCategory($groupId = null, $name = 'Винно-водочные изделия')
     {
+        if ($groupId == null) {
+            $groupId = $this->createGroup();
+        }
         $categoryData = array(
             'name' => $name,
             'group' => $groupId,
@@ -472,8 +475,11 @@ class WebTestCase extends BaseTestCase
      * @param string $name
      * @return string
      */
-    protected function createSubCategory($categoryId, $name = 'Водка')
+    protected function createSubCategory($categoryId = null, $name = 'Водка')
     {
+        if ($categoryId == null) {
+            $categoryId = $this->createCategory();
+        }
         $subCategoryData = array(
             'name' => $name,
             'category' => $categoryId,
