@@ -5,13 +5,11 @@ define(function(require) {
 
         return BaseCollection.extend({
             initialize: function(models, options){
-                var parentGroupModel = options.parentGroupModel || options.parentModel;
-
-                this.group = options.parentGroupId || parentGroupModel.id;
+                this.group = options.group || options.parentModel.id;
             },
             model: CatalogCategoryModel,
             url: function() {
-                return LH.baseApiUrl + '/groups/'+ this.parentGroupId  + '/categories'
+                return LH.baseApiUrl + '/groups/'+ this.group  + '/categories'
             }
         });
     }

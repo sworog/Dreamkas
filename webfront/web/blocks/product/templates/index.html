@@ -15,11 +15,27 @@
 
 <table class="table" style="width: 50%">
     <tr>
+        <th>Группа</th>
+        <td>
+            <a href="/catalog/<%= model.get('group') %>" name="group">
+                <%t model.get('group') %>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <th>Категория</th>
+        <td>
+            <a href="/catalog/<%= model.get('group') %>/<%= model.get('category') %>" name="category">
+                <%t model.get('category') %>
+            </a>
+        </td>
+    </tr>
+    <tr>
         <th>Подкатегория</th>
         <td>
-            <span name="subcategory">
+            <a href="/catalog/<%= model.get('group') %>/<%= model.get('category') %>/<%= model.get('subcategory') %>" name="subcategory">
                 <%t model.get('subcategory') %>
-            </span>
+            </a>
         </td>
     </tr>
     <tr>

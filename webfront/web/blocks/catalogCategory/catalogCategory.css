@@ -2,6 +2,12 @@
     float: left;
     width: 250px;
     background-color: #fafafa;
+    margin-right: 40px;
+}
+
+.catalogCategory .catalogCategory__productList{
+    display: none;
+    overflow: hidden;
 }
 
 .catalogCategory__subcategoryLink{

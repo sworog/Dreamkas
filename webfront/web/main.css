@@ -25,6 +25,12 @@ h3 {
     font-weight: normal;
 }
 
+h4 {
+    font-family: 'Sansus Webissimo';
+    font-size: 22px;
+    font-weight: normal;
+}
+
 [href] {
     transition: all 0.4s;
 }

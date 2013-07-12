@@ -14,9 +14,19 @@
 
 <div id="catalogCategory__subcategoryList">
     <%= templates.catalogCategory__subcategoryList({
-        templates: templates,
-        catalogSubcategoriesCollection: catalogSubcategoriesCollection
+    templates: templates,
+    catalogSubcategoriesCollection: catalogSubcategoriesCollection
     }) %>
+</div>
+
+<div class="catalogCategory__productList">
+    <h4>
+        <%t 'Список товаров' %>
+        <a style="margin-left: 15px;" href="/products/create?subcategory=<%= catalogSubcategoryId %>" class="button button_color_blue catalogCategory__addProductLink editor__control">
+            Добавить товар
+        </a>
+    </h4>
+    <table class="table table_products"></table>
 </div>
 
 <div style="clear: both;"></div>

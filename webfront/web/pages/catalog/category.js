@@ -4,6 +4,7 @@ define(function(require) {
         _ = require('underscore'),
         pageParams = require('pages/catalog/params'),
         CatalogCategoryBlock = require('blocks/catalogCategory/catalogCategory'),
+        CatalogProductsCollection = require('collections/catalogProducts'),
         СatalogGroupModel = require('models/catalogGroup');
 
     return Page.extend({
@@ -29,7 +30,11 @@ define(function(require) {
                 id: catalogGroupId
             });
 
-            $.when(page.catalogGroupModel.fetch()).then(function(){
+            page.catalogProductsCollection = new CatalogProductsCollection([], {
+                subcategory: catalogSubcategoryId
+            });
+
+            $.when(page.catalogGroupModel.fetch(), catalogSubcategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
 
                 page.catalogCategoryModel = page.catalogGroupModel.categories.get(catalogCategoryId);
                 page.catalogSubcategoriesCollection = page.catalogCategoryModel.subCategories;
@@ -41,6 +46,7 @@ define(function(require) {
                     catalogCategoryModel: page.catalogCategoryModel,
                     catalogSubcategoriesCollection: page.catalogSubcategoriesCollection,
                     catalogSubcategoryId: catalogSubcategoryId,
+                    catalogProductsCollection: page.catalogProductsCollection,
                     editMode: pageParams.editMode
                 })
             });
