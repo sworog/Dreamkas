@@ -5,9 +5,9 @@ define(function(require) {
 
         return BaseCollection.extend({
             initialize: function(models, options){
-                this.parentCategoryModel = options.parentCategoryModel || options.parentModel;
-                this.parentCategoryId = options.parentCategoryId || this.parentCategoryModel.id;
-                this.parentGroupId = options.parentGroupId || this.parentCategoryModel.get('parentGroupId');
+                var parentCategoryModel = options.parentCategoryModel || options.parentModel;
+                this.category = options.parentCategoryId || parentCategoryModel.id;
+                this.group = options.parentGroupId || parentCategoryModel.get('group');
             },
             model: CatalogSubcategoryModel,
             url: function() {

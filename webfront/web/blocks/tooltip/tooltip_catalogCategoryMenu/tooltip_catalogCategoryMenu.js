@@ -5,8 +5,8 @@ define(function(require) {
             Tooltip_catalogCategoryForm = require('blocks/tooltip/tooltip_catalogCategoryForm/tooltip_catalogCategoryForm');
 
         return Tooltip_menu.extend({
-            catalogCategoryModel: new CatalogCategoryModel(),
             blockName: 'tooltip_catalogCategoryMenu',
+            catalogCategoryModel: new CatalogCategoryModel(),
             events: {
                 'click .tooltip__editLink': function(e) {
                     e.preventDefault();
@@ -50,7 +50,7 @@ define(function(require) {
                 Tooltip_menu.prototype.initialize.call(this);
 
                 block.tooltip_catalogCategoryForm = $('[block="tooltip_catalogCategoryForm"]').data('tooltip_catalogCategoryForm') || new Tooltip_catalogCategoryForm({
-                    catalogCategoryModel: block.catalogCategoryModel
+                    model: block.catalogCategoryModel
                 });
             },
             remove: function(){

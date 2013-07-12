@@ -42,7 +42,7 @@ define(function(require) {
                     $trigger: $target,
                     collection: block.catalogGroupModel.categories,
                     model: new CatalogCategoryModel({
-                        parentGroupId: block.catalogGroupModel.id
+                        group: block.catalogGroupModel.id
                     })
                 });
             }

@@ -12,32 +12,14 @@ define(function(require) {
                 index: require('tpl!./templates/tooltip.html'),
                 content: require('tpl!./templates/content.html')
             },
-
             initialize: function() {
                 var block = this;
 
                 block.$el.appendTo('body');
 
                 block.render();
-
-                $(document)
-                    .on({
-                        click: function(e) {
-                            if (block.$trigger && e.target != block.$trigger[0]) {
-                                block.hide();
-                            }
-                        },
-                        keyup: function(e){
-                            if (e.keyCode === 27){
-                                block.hide();
-                            }
-                        }
-                    });
             },
             events: {
-                'click': function(e) {
-                    e.stopPropagation();
-                },
                 'click .tooltip__closeLink': function(e) {
                     e.preventDefault();
 
@@ -48,6 +30,18 @@ define(function(require) {
             },
             show: function(opt) {
                 var block = this;
+
+                $(document).on('click.tooltip', function(e) {
+                    if (block.$trigger && e.target != block.$trigger[0] && !$(e.target).closest(block.el).length) {
+                        block.hide();
+                    }
+                });
+
+                $(document).on('keyup.tooltip', function(e) {
+                    if (e.keyCode === 27) {
+                        block.hide();
+                    }
+                });
 
                 deepExtend(block, opt);
 
@@ -65,6 +59,10 @@ define(function(require) {
             },
             hide: function() {
                 var block = this;
+
+                $(document)
+                    .off('click.tooltip')
+                    .off('keyup.tooltip');
 
                 block.$el.hide();
             }

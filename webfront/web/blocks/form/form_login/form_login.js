@@ -3,7 +3,7 @@ define(function(require) {
     var Form = require('blocks/form/form'),
         _ = require('underscore'),
         tokenModel = require('models/token'),
-        app = require('app');
+        login = require('utils/login');
 
     return Form.extend({
         blockName: 'form_invoice',
@@ -16,7 +16,7 @@ define(function(require) {
 
             tokenModel.save(block.data, {
                 success: function(model) {
-                    app.login(model.get('access_token'));
+                    login(model.get('access_token'));
                 },
                 error: function(model, res) {
                     deferred.reject({

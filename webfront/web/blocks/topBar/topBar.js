@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block'),
-        app = require('app'),
+        logout = require('utils/logout'),
         currentUserModel = require('models/currentUser'),
         userPermissions = require('models/userPermissions');
 
@@ -16,7 +16,7 @@ define(function(require) {
         events: {
             'click .topBar__logoutLink': function(e) {
                 e.preventDefault();
-                app.logout();
+                logout();
             }
         },
         listeners: {

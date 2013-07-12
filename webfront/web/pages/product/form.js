@@ -12,13 +12,21 @@ define(function(require) {
         permissions: {
             products: 'POST'
         },
-        initialize: function(productId){
+        initialize: function(productId, params){
             var page = this;
+
+            if (productId && typeof productId !== 'string'){
+                params = productId;
+                productId = null;
+            }
+
+            params = params || {};
 
             page.productId = productId;
 
             page.productModel = new ProductModel({
-                id: page.productId
+                id: page.productId,
+                subcategory: params.subcategory
             });
 
             $.when(productId ? page.productModel.fetch() : {}).then(function(){

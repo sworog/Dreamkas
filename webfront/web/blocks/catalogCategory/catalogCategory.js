@@ -41,8 +41,8 @@ define(function(require) {
                     $trigger: $target,
                     collection: block.catalogSubcategoriesCollection,
                     model: new CatalogSubcategoryModel({
-                        parentCategoryId: block.catalogCategoryModel.id,
-                        parentGroupId: block.catalogCategoryModel.get('parentGroupId')
+                        category: block.catalogCategoryModel.id,
+                        group: block.catalogCategoryModel.get('group')
                     })
                 });
             },

@@ -6,9 +6,6 @@ define(function(require) {
         return BaseModel.extend({
             modelName: 'catalogCategory',
             urlRoot: LH.baseApiUrl + '/categories',
-            defaults: {
-                parentGroupId: null
-            },
             initData: {
                 subCategories: CatalogSubcategoriesCollection
             },
@@ -20,11 +17,9 @@ define(function(require) {
 
                 BaseModel.prototype.initialize.apply(this, arguments);
 
-                if (this.collection && this.collection.parentGroupId) {
-                    this.set('parentGroupId', this.collection.parentGroupId);
+                if (this.collection && this.collection.group) {
+                    this.set('group', this.collection.group);
                 }
-
-                this.set('group', this.get('parentGroupId'));
             },
             parse: function(response, options) {
                 var data = BaseModel.prototype.parse.apply(this, arguments);

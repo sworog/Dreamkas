@@ -21,7 +21,8 @@ define(function(require) {
             'sku',
             'vendorCountry',
             'vendor',
-            'info'
+            'info',
+            'subcategory'
         ]
     });
 });

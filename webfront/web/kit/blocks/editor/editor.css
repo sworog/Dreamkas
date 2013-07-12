@@ -25,6 +25,7 @@
     width: 16px;
     position: relative;
     color: #999;
+    cursor: pointer !important;
 }
 
 .editor__editLink:hover{

@@ -5,8 +5,11 @@ define(function(require) {
             Tooltip_catalogSubcategoryForm = require('blocks/tooltip/tooltip_catalogSubcategoryForm/tooltip_catalogSubcategoryForm');
 
         return Tooltip_menu.extend({
-            catalogSubcategoryModel: new CatalogSubcategoryModel(),
             blockName: 'tooltip_catalogSubcategoryMenu',
+            catalogSubcategoryModel: new CatalogSubcategoryModel(),
+            templates: {
+                content: require('tpl!blocks/tooltip/tooltip_catalogSubcategoryMenu/templates/content.html')
+            },
             events: {
                 'click .tooltip__editLink': function(e) {
                     e.preventDefault();
@@ -50,7 +53,7 @@ define(function(require) {
                 Tooltip_menu.prototype.initialize.call(this);
 
                 block.tooltip_catalogSubcategoryForm = $('[block="tooltip_catalogSubcategoryForm"]').data('tooltip_catalogSubcategoryForm') || new Tooltip_catalogSubcategoryForm({
-                    catalogSubcategoryModel: block.catalogSubcategoryModel
+                    model: block.catalogSubcategoryModel
                 });
             },
             remove: function(){

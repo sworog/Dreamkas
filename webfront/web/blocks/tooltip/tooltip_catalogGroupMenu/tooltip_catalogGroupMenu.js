@@ -51,7 +51,7 @@ define(function(require) {
 
                 block.tooltip_catalogGroupForm = $('[block="tooltip_catalogGroupForm"]').data('tooltip_catalogGroupForm') || new Tooltip_catalogGroupForm({
                     $trigger: block.$trigger,
-                    catalogGroupModel: block.catalogGroupModel
+                    model: block.catalogGroupModel
                 });
             },
             remove: function(){
