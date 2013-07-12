@@ -7,9 +7,6 @@ define(function(require) {
         return Tooltip_menu.extend({
             blockName: 'tooltip_catalogSubcategoryMenu',
             catalogSubcategoryModel: new CatalogSubcategoryModel(),
-            templates: {
-                content: require('tpl!blocks/tooltip/tooltip_catalogSubcategoryMenu/templates/content.html')
-            },
             events: {
                 'click .tooltip__editLink': function(e) {
                     e.preventDefault();

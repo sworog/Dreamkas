@@ -5,10 +5,6 @@
 <div class="topBar__navigation">
     <% if(currentUserModel.get('id')) { %>
 
-        <% if(LH.isAllow('products')){ %>
-        <a href="/products"><%t 'Продукты' %></a>
-        <% } %>
-
         <% if(LH.isAllow('groups')){ %>
         <a href="/catalog"><%t 'Каталог' %></a>
         <% } %>

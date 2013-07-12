@@ -25,6 +25,10 @@ define(function(require) {
                 }, params)
             }
 
+            if (!LH.isAllow('groups', 'POST')) {
+                pageParams.editMode = false;
+            }
+
             page.catalogGroupsCollection = new СatalogGroupsCollection();
 
             $.when(page.catalogGroupsCollection.fetch()).then(function(){

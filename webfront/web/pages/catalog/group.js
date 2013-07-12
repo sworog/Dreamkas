@@ -25,6 +25,10 @@ define(function(require) {
                 }, params)
             }
 
+            if (!LH.isAllow('groups', 'POST')) {
+                pageParams.editMode = false;
+            }
+
             page.catalogGroupModel = new СatalogGroupModel({
                 id: catalogGroupId
             });

@@ -32,6 +32,8 @@ h4 {
 }
 
 [href] {
-    transition: all 0.4s;
+    transition:
+        all 0.4s,
+        visibility 0s;
 }
 
