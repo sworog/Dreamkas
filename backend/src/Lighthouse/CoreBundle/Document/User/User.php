@@ -34,6 +34,11 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  */
 class User extends AbstractDocument implements UserInterface, EquatableInterface
 {
+    const ROLE_COMMERCIAL_MANAGER = "ROLE_COMMERCIAL_MANAGER";
+    const ROLE_STORE_MANAGER = "ROLE_STORE_MANAGER";
+    const ROLE_DEPARTMENT_MANAGER = "ROLE_DEPARTMENT_MANAGER";
+    const ROLE_ADMINISTRATOR = "ROLE_ADMINISTRATOR";
+
     /**
      * @MongoDB\Id(strategy="auto")
      */

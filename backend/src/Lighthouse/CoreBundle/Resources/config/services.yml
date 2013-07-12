@@ -16,6 +16,9 @@ services:
         tags:
             - { name: request.param_converter, converter: doctrine.orm }
 
+    doctrine:
+        alias: doctrine_mongodb
+
     doctrine_mongodb.odm.repository:
         abstract: true
         class: Doctrine\ODM\MongoDB\DocumentRepository
