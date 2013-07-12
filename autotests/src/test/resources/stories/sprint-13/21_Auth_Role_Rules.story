@@ -36,12 +36,6 @@ And the user logs in as 'watchman'
 Then the user checks the dashboard link to 'users' section is present
 When the user logs out
 
-Scenario: commercialManager role valid rules - dashboard links - products
-Given the user opens the authorization page
-And the user logs in as 'commercialManager'
-Then the user checks the dashboard link to 'products' section is present
-When the user logs out
-
 Scenario: commercialManager role valid rules - dashboard links - catalog
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -54,12 +48,6 @@ And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'invoices' section is present
 When the user logs out
 
-Scenario: departmentManager role valid rules - dashboard links - products
-Given the user opens the authorization page
-And the user logs in as 'departmentManager'
-Then the user checks the dashboard link to 'products' section is present
-When the user logs out
-
 Scenario: departmentManager role valid rules - dashboard links - balance
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -70,14 +58,6 @@ Scenario: departmentManager role valid rules - dashboard links - writeOffs
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'writeOffs' section is present
-When the user logs out
-
-Scenario: departmentManager role valid rules - product card view
-
-Scenario: administrator role invalid rules - dashboard links - products
-Given the user opens the authorization page
-And the user logs in as 'watchman'
-Then the user checks the dashboard link to 'products' section is not present
 When the user logs out
 
 Scenario: administrator role invalid rules - dashboard links - catalog
@@ -134,7 +114,7 @@ And the user logs in as 'storeManager'
 Then the user checks the dashboard link to 'users' section is not present
 When the user logs out
 
-Scenario: storeManager role invalid rules - dashboard links - products
+Scenario: storeManager role invalid rules - dashboard links - users
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 Then the user checks the dashboard link to 'users' section is not present
