@@ -21,6 +21,8 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $postData['subCategory'] = $this->createSubCategory();
+
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -32,6 +34,7 @@ class ProductControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals(30.48, 'purchasePrice', $postResponse);
         Assert::assertNotJsonHasPath('lastPurchasePrice', $postResponse);
+        Assert::assertJsonHasPath('subCategory', $postResponse);
     }
 
     /**
@@ -130,6 +133,8 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $postData['subCategory'] = $this->createSubCategory();
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -157,6 +162,8 @@ class ProductControllerTest extends WebTestCase
     public function testPutProductAction(array $postData)
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $postData['subCategory'] = $this->createSubCategory();
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -208,6 +215,8 @@ class ProductControllerTest extends WebTestCase
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $putData['subCategory'] = $this->createSubCategory();
+
         $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -224,6 +233,8 @@ class ProductControllerTest extends WebTestCase
     public function testPutProductActionInvalidData(array $postData)
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $postData['subCategory'] = $this->createSubCategory();
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -262,6 +273,8 @@ class ProductControllerTest extends WebTestCase
     public function testPutProductActionChangeId(array $postData)
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $postData['subCategory'] = $this->createSubCategory();
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -350,6 +363,8 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $postData['subCategory'] = $this->createSubCategory();
+
         for ($i = 0; $i < 5; $i++) {
             $postData['name'] = 'Кефир' . $i;
             $postData['sku'] = 'sku' . $i;
@@ -378,6 +393,8 @@ class ProductControllerTest extends WebTestCase
     public function testGetProduct(array $postData)
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $postData['subCategory'] = $this->createSubCategory();
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -418,6 +435,8 @@ class ProductControllerTest extends WebTestCase
     public function testSearchProductsAction(array $postData)
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $postData['subCategory'] = $this->createSubCategory();
 
         for ($i = 0; $i < 5; $i++) {
             $postData['name'] = 'Кефир' . $i;
@@ -754,6 +773,27 @@ class ProductControllerTest extends WebTestCase
                     'children.sku.errors.0'
                     =>
                     'Не более 100 символов',
+                ),
+            ),
+            /***********************************************************************************************
+             * 'sku'
+             ***********************************************************************************************/
+            'not valid subCategory not exist' => array(
+                400,
+                array('subCategory' => 'not_exist_subCategory'),
+                array(
+                    'children.subCategory.errors.0'
+                    =>
+                    'Такой подкатегории не существует'
+                ),
+            ),
+            'not valid subCategory empty' => array(
+                400,
+                array('subCategory' => ''),
+                array(
+                    'children.subCategory.errors.0'
+                    =>
+                    'Такой подкатегории не существует'
                 ),
             ),
         );
@@ -1323,9 +1363,13 @@ class ProductControllerTest extends WebTestCase
     /**
      * @return array
      */
-    public function getProductData()
+    public function getProductData($withSubCategory = true)
     {
         $productData = $this->productProvider();
+        if ($withSubCategory) {
+            $subCategoryId = $this->createSubCategory();
+            $productData['milkman'][0]['subCategory'] = $subCategoryId;
+        }
         return $productData['milkman'][0];
     }
 }
