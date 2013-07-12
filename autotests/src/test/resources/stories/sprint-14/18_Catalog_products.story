@@ -61,7 +61,8 @@ Then the user checks the elements values
 When the user logs out
 
 Scenario: Check product is related to group/category/subcategory
-Given the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
+Given there is the subCategory with name 'productListPage' related to group named 'productListPage' and category named 'productListPage'
+And the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
 And there is the product with 'CPIRTGCS' name, 'CPIRTGCS' sku, 'CPIRTGCS' barcode, 'kg' units, '123' purchasePrice in the subcategory named 'productListPage'
 And the user logs in as 'commercialManager'
 When the user open the product card with 'CPIRTGCS' sku
@@ -84,7 +85,8 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: Product create from triangle menu
-Given the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
+Given there is the subCategory with name 'productListPage' related to group named 'productListPage' and category named 'productListPage'
+And the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of subCategory 'productListPage' element
@@ -123,11 +125,13 @@ When the user logs out
 Scenario: Catalog - no edit link for department manager
 Given the user opens catalog page
 And the user logs in as 'departmentManager'
-Then the user checks the edit button is not present
+Then the user dont see the 403 error
+And the user checks the edit button is not present
 When the user logs out
 
 Scenario: Catalog - products list view by department manager
-Given the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
+Given there is the subCategory with name 'productListPage' related to group named 'productListPage' and category named 'productListPage'
+And the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
 And there is the product with 'CPIRTGCS' name, 'CPIRTGCS' sku, 'CPIRTGCS' barcode, 'kg' units, '123' purchasePrice in the subcategory named 'productListPage'
 And the user logs in as 'departmentManager'
 When the user open the product card with 'CPIRTGCS' sku

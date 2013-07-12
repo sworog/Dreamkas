@@ -45,7 +45,7 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void openProductListPage() throws IOException, JSONException {
         catalogApi.createSubCategoryThroughPost(StaticData.NAME, StaticData.NAME, StaticData.NAME);
-        catalogApi.navigateToSubCategoryProductListPageUrl(StaticData.NAME, StaticData.NAME, StaticData.NAME);
+        catalogApi.navigateToSubCategoryProductListPageUrlWihEditModeOn(StaticData.NAME, StaticData.NAME, StaticData.NAME);
     }
 
     @Step

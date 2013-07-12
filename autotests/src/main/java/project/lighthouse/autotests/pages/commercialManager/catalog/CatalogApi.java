@@ -39,6 +39,11 @@ public class CatalogApi extends CommercialManagerApi {
         getDriver().navigate().to(subCategoryProductListPageUrl);
     }
 
+    public void navigateToSubCategoryProductListPageUrlWihEditModeOn(String subCategoryName, String categoryName, String groupName) throws JSONException {
+        String subCategoryProductListPageUrl = apiConnect.getSubCategoryProductListPageUrl(subCategoryName, categoryName, groupName) + "?editMode=true";
+        getDriver().navigate().to(subCategoryProductListPageUrl);
+    }
+
     public void navigateToSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
         String subCategoryProductCreatePageUrl = apiConnect.getSubCategoryProductCreatePageUrl(subCategoryName);
         getDriver().navigate().to(subCategoryProductCreatePageUrl);

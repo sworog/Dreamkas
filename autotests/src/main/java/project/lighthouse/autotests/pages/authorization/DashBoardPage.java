@@ -25,13 +25,23 @@ public class DashBoardPage extends CommonPageObject {
     }
 
     public void shouldNotBeVisible(String name) {
-        String buttonXpath = getButtonXpath(name);
-        waiter.waitUntilIsNotVisible(By.xpath(buttonXpath));
+        try {
+            String buttonXpath = getButtonXpath(name);
+            waiter.waitUntilIsNotVisible(By.xpath(buttonXpath));
+        } catch (Exception e) {
+            String errorMessage = String.format("The dashboard '%s' link is present on the page", name);
+            throw new AssertionError(errorMessage);
+        }
     }
 
     public void shouldBeVisible(String name) {
-        String buttonXpath = getButtonXpath(name);
-        waiter.getVisibleWebElement(By.xpath(buttonXpath));
+        try {
+            String buttonXpath = getButtonXpath(name);
+            waiter.getVisibleWebElement(By.xpath(buttonXpath));
+        } catch (Exception e) {
+            String errorMessage = String.format("The dashboard '%s' link is not present on the page", name);
+            throw new AssertionError(errorMessage);
+        }
     }
 
     public void openUserCard() {

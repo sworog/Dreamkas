@@ -172,7 +172,7 @@ public class ApiConnect {
     public String getSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
         String categoryPageUrl = getCategoryPageUrl(categoryName, groupName);
         String subCategoryId = StaticData.subCategories.get(subCategoryName).getId();
-        return categoryPageUrl + "/" + subCategoryId + "?editMode=true";
+        return categoryPageUrl + "/" + subCategoryId;
     }
 
     public String getSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
@@ -223,7 +223,13 @@ public class ApiConnect {
             JSONObject mainJsonObject = null;
             try {
                 mainJsonObject = new JSONObject(responseMessage);
-                if (!mainJsonObject.isNull("children")) {
+
+                if (!mainJsonObject.isNull("errors")) {
+                    JSONArray jsonArray = mainJsonObject.getJSONArray("errors");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        builder.append(jsonArray.get(i));
+                    }
+                } else if (!mainJsonObject.isNull("children")) {
                     JSONObject jsonObject = mainJsonObject.getJSONObject("children");
                     for (Iterator keys = jsonObject.keys(); keys.hasNext(); ) {
                         String key = (String) keys.next();

@@ -34,6 +34,15 @@ public class GroupPage extends CommonPageObject {
         startEditionButtonLink.click();
     }
 
+    public void startEditButtonLinkClickIsNotPresent() {
+        try {
+            startEditionButtonLinkClick();
+            String errorMessage = "The edit button is present on catalog page!";
+            throw new AssertionError(errorMessage);
+        } catch (Exception e) {
+        }
+    }
+
     public void stopEditionButtonLinkClick() {
         try {
             stopEditionButtonLink.click();

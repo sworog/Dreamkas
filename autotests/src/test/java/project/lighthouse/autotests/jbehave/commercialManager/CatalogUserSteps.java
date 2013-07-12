@@ -213,11 +213,6 @@ public class CatalogUserSteps {
 
     @Then("the user checks the edit button is not present")
     public void whenTheUserChecksTheEditIsNotPresent() {
-        try {
-            whenTheUserStartsTheEdition();
-            String errorMessage = "The edit button is present!";
-            throw new AssertionError(errorMessage);
-        } catch (Exception e) {
-        }
+        catalogSteps.startEditButtonLinkClickIsNotPresent();
     }
 }

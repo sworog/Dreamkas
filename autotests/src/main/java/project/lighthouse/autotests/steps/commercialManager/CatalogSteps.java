@@ -70,6 +70,11 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void startEditButtonLinkClickIsNotPresent() {
+        groupPage.startEditButtonLinkClickIsNotPresent();
+    }
+
+    @Step
     public void stopEditionButtonLinkClick() {
         groupPage.stopEditionButtonLinkClick();
     }
