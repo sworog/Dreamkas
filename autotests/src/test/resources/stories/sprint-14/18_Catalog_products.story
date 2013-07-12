@@ -137,7 +137,3 @@ Then the user checks the elements values
 | category | productListPage |
 | subCategory | productListPage |
 When the user logs out
-
-
-
-
