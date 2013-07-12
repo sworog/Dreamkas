@@ -620,7 +620,7 @@ class WebTestCase extends BaseTestCase
         $json = json_decode($content, true);
 
         if (0 != json_last_error()) {
-            throw new \UnexpectedValueException('Failed to parse json: ' . $content);
+            throw new \PHPUnit_Framework_AssertionFailedError(sprintf('Failed asserting that response body is json. Response given: %s', $content));
         }
 
         return $json;

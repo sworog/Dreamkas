@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class CategoryControllerTest extends WebTestCase
@@ -395,5 +396,14 @@ class CategoryControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(409, $this->client);
+
+        $request = new JsonRequest('/api/1/categories/' . $categoryId, 'DELETE');
+        $request->setAccessToken($accessToken);
+        $request->addHttpHeader('Accept', 'application/json, text/javascript, */*; q=0.01');
+
+        $response = $this->jsonRequest($request);
+
+        Assert::assertResponseCode(409, $this->client);
+        Assert::assertJsonHasPath('message', $response);
     }
 }

@@ -66,7 +66,10 @@ jms_di_extra:
 fos_rest:
     param_fetcher_listener: true
     body_listener: true
-    format_listener: true
+    format_listener:
+        default_priorities:
+            - json
+            - "*/*"
     routing_loader:
         default_format: json
     view:
