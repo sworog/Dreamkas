@@ -37,9 +37,8 @@ define(function(require) {
                             $target.removeClass('preloader_rows');
                             block.hide();
                         },
-                        error: function() {
-                            console.log(arguments);
-                            alert('Необходимо удалить все категории из группы');
+                        error: function(model, response) {
+                            alert(KIT.text(response.responseJSON.message));
                         }
                     });
                 }

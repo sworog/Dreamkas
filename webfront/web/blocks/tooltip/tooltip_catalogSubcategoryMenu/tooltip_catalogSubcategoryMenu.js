@@ -39,9 +39,8 @@ define(function(require) {
                             $target.removeClass('preloader_rows');
                             block.hide();
                         },
-                        error: function() {
-                            console.log(arguments);
-                            alert('Необходимо удалить все товары из подкатегории');
+                        error: function(model, response) {
+                            alert(KIT.text(response.responseJSON.message));
                         }
                     });
                 }
