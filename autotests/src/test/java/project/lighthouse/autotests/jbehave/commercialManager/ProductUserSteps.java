@@ -7,6 +7,8 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
 import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
 
 import java.io.IOException;
@@ -15,6 +17,7 @@ public class ProductUserSteps {
 
     @Steps
     ProductSteps productSteps;
+    CatalogSteps catalogSteps;
 
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode")
     public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode) throws JSONException, IOException {
@@ -41,9 +44,15 @@ public class ProductUserSteps {
         productSteps.createProductPostRequestSend(name, sku, barcode, units, purchasePrice);
     }
 
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice in the subcategory named '$subCategoryName'")
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
+        productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, subCategoryName);
+    }
+
     @Given("the user is on the product create page")
-    public void givenTheUserIsOnTheOrderCreatePage() {
-        productSteps.isTheProductCreatePage();
+    public void givenTheUserIsOnTheOrderCreatePage() throws JSONException, IOException {
+        catalogSteps.createSubCategoryThroughPost(StaticData.NAME, StaticData.NAME, StaticData.NAME);
+        catalogSteps.navigateToSubCategoryProductCreatePageUrl(StaticData.NAME);
     }
 
     @Given("the user is on the order edit page")
@@ -57,8 +66,9 @@ public class ProductUserSteps {
     }
 
     @Given("the user is on the product list page")
-    public void givenTheUserIsOnTheProductListPage() {
-        productSteps.isTheProductListPageOpen();
+    public void givenTheUserIsOnTheProductListPage() throws IOException, JSONException {
+        catalogSteps.createSubCategoryThroughPost(StaticData.NAME, StaticData.NAME, StaticData.NAME);
+        catalogSteps.navigateToSubCategoryProductListPageUrl(StaticData.NAME, StaticData.NAME, StaticData.NAME);
     }
 
     @Given("the user is on the product card")

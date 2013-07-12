@@ -29,9 +29,14 @@ public class ApiConnect {
     }
 
     public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
+        createProductThroughPost(name, sku, barcode, units, purchasePrice, StaticData.NAME);
+    }
+
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
         if (!StaticData.products.containsKey(sku)) {
+            String subCategoryId = StaticData.subCategories.get(subCategoryName).getId();
             String getApiUrl = UrlHelper.getApiUrl() + "/api/1/products.json";
-            String jsonData = Product.getJsonObject(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "").toString();
+            String jsonData = Product.getJsonObject(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategoryId).toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             Product product = new Product(new JSONObject(postResponse));
@@ -164,8 +169,16 @@ public class ApiConnect {
         }
     }
 
-    public void getSubCategoryPageUrl() {
-        //TODO opens category page and then opens subcategory product list page
+    public String getSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
+        String categoryPageUrl = getCategoryPageUrl(categoryName, groupName);
+        String subCategoryId = StaticData.subCategories.get(subCategoryName).getId();
+        return categoryPageUrl + "/" + subCategoryId + "?editMode=true";
+    }
+
+    public String getSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
+        String subCategoryId = StaticData.subCategories.get(subCategoryName).getId();
+        String subCategoryProductCreatePageUrl = String.format("%s/products/create?subcategory=%s", UrlHelper.getWebFrontUrl(), subCategoryId);
+        return subCategoryProductCreatePageUrl;
     }
 
     public void createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
@@ -233,7 +246,7 @@ public class ApiConnect {
                     builder.append(message);
                 }
             } catch (JSONException e) {
-                String errorMessage = String.format("Exception message: %s\nJson: %s", e.getMessage(), mainJsonObject != null ? mainJsonObject.toString() : null);
+                String errorMessage = String.format("Exception message: %s. Json: %s", e.getMessage(), mainJsonObject != null ? mainJsonObject.toString() : null);
                 throw new AssertionError(errorMessage);
             }
             String errorMessage = String.format("Responce json error: '%s'", builder.toString());

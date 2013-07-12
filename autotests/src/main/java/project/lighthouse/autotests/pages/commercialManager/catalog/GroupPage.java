@@ -100,6 +100,10 @@ public class GroupPage extends CommonPageObject {
         findOnlyVisibleWebElementFromTheWebElementsList(By.xpath("//*[@class='tooltip__controlLink tooltip__editLink']")).click();
     }
 
+    public void popUpMenuProductCreate() {
+        findOnlyVisibleWebElementFromTheWebElementsList(By.xpath("//*[@class='tooltip__controlLink']")).click();
+    }
+
     public void checkIsNotPresent(String name) {
         String itemXpath = getItemXpath(name);
         waiter.waitUntilIsNotVisible(By.xpath(itemXpath));

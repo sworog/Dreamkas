@@ -45,6 +45,11 @@ public class CatalogUserSteps {
         catalogSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
     }
 
+    @Given("the user navigates to the subCategory '$subCategoryName', category '$categoryName', group '$groupName' product list page")
+    public void navigateToSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
+        catalogSteps.navigateToSubCategoryProductListPageUrl(subCategoryName, categoryName, groupName);
+    }
+
     @When("the user clicks on start edition link and starts the edition")
     public void whenTheUserStartsTheEdition() {
         catalogSteps.startEditionButtonLinkClick();
@@ -118,6 +123,11 @@ public class CatalogUserSteps {
     @When("the user edits the element name through pop up menu")
     public void whenTheUserEditsTheClassName() {
         catalogSteps.itemEditThroughPopUpMenu();
+    }
+
+    @When("the user creates new product through pop up menu")
+    public void whenTheUserCreatesNewProductThroughPopUpMenu() {
+        catalogSteps.popUpMenuProductCreate();
     }
 
     @When("the user clicks create new group button")
@@ -199,5 +209,15 @@ public class CatalogUserSteps {
     @Then("the user checks the category with '$name' name is related to group '$parentName'")
     public void thenTheUserChecksTheItemsIsRelatedToParent(String name, String parentName) {
         catalogSteps.checkItemParent(name, parentName);
+    }
+
+    @Then("the user checks the edit button is not present")
+    public void whenTheUserChecksTheEditIsNotPresent() {
+        try {
+            whenTheUserStartsTheEdition();
+            String errorMessage = "The edit button is present!";
+            throw new AssertionError(errorMessage);
+        } catch (Exception e) {
+        }
     }
 }

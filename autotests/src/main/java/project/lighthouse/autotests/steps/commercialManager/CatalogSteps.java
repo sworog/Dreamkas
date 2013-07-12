@@ -50,6 +50,16 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void navigateToSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
+        catalogApi.navigateToSubCategoryProductListPageUrl(subCategoryName, categoryName, groupName);
+    }
+
+    @Step
+    public void navigateToSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
+        catalogApi.navigateToSubCategoryProductCreatePageUrl(subCategoryName);
+    }
+
+    @Step
     public void openPage() {
         groupPage.open();
     }
@@ -157,6 +167,11 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void itemEditThroughPopUpMenu() {
         groupPage.popUpMenuEdit();
+    }
+
+    @Step
+    public void popUpMenuProductCreate() {
+        groupPage.popUpMenuProductCreate();
     }
 
     @Step

@@ -33,4 +33,14 @@ public class CatalogApi extends CommercialManagerApi {
     public void createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
         apiConnect.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
     }
+
+    public void navigateToSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
+        String subCategoryProductListPageUrl = apiConnect.getSubCategoryProductListPageUrl(subCategoryName, categoryName, groupName);
+        getDriver().navigate().to(subCategoryProductListPageUrl);
+    }
+
+    public void navigateToSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
+        String subCategoryProductCreatePageUrl = apiConnect.getSubCategoryProductCreatePageUrl(subCategoryName);
+        getDriver().navigate().to(subCategoryProductCreatePageUrl);
+    }
 }

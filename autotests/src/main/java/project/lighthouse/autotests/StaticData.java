@@ -21,6 +21,8 @@ public class StaticData {
     public static final String client_id = "autotests_autotests";
     public static final String client_secret = "secret";
 
+    public static final String NAME = "productListPage";
+
     public static Boolean isGroupCreated(String groupName) {
         return groups.containsKey(groupName);
     }
