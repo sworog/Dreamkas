@@ -1,7 +1,7 @@
 <tr>
     <% columns.each(function(column, index){ %>
         <%= templates.td({
-            data: rowData.get(column.get('dataKey') || index)
+            data: model.get(column.get('dataKey') || index)
         }) %>
     <% }) %>
 </tr>

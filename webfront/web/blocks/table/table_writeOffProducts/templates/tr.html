@@ -1,4 +1,3 @@
-<% collection.each(function(model){ %>
 <tr writeOff-product-id="<%= model.id %>" name="writeOffProduct" class="writeOff__dataRow" product-sku="<%e model.get('product').sku %>">
     <td>
         <span name="productName"
@@ -54,4 +53,3 @@
         <span class="writeOff__removeLink"><%t 'удалить' %></span>
     </td>
 </tr>
-<% }) %>

@@ -6,7 +6,7 @@ define(function(require) {
         blockName: 'table_users',
         templates: {
             head: require('tpl!blocks/table/table_users/templates/head.html'),
-            body: require('tpl!blocks/table/table_users/templates/body.html')
+            tr: require('tpl!blocks/table/table_users/templates/tr.html')
         }
     });
 });

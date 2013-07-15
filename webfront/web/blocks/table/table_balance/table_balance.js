@@ -6,7 +6,7 @@ define(function(require) {
         blockName: 'table_products',
         templates: {
             head: require('tpl!blocks/table/table_balance/templates/head.html'),
-            body: require('tpl!blocks/table/table_balance/templates/body.html')
+            tr: require('tpl!blocks/table/table_balance/templates/tr.html')
         }
     });
 });

@@ -6,7 +6,7 @@ define(function(require) {
         blockName: 'table_invoiceProducts',
         templates: {
             head: require('tpl!blocks/table/table_invoiceProducts/templates/head.html'),
-            body: require('tpl!blocks/table/table_invoiceProducts/templates/body.html')
+            tr: require('tpl!blocks/table/table_invoiceProducts/templates/tr.html')
         }
     });
 });
