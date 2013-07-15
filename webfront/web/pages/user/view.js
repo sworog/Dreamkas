@@ -5,7 +5,7 @@ define(function(require) {
         User = require('blocks/user/user'),
         UserModel = require('models/user'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/403'),
+        Page403 = require('pages/403/403'),
         LH = require('LH');
 
     return Page.extend({

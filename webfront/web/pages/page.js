@@ -6,7 +6,7 @@ define(function(require) {
         _ = require('underscore'),
         topBar = require('blocks/topBar/topBar'),
         LH = require('LH'),
-        Page403 = require('pages/403');
+        Page403 = require('pages/403/403');
 
     var $page = $('body');
 
@@ -23,7 +23,7 @@ define(function(require) {
         }
 
         if (previousPage) {
-            page.referer = previousPage.pageName;
+            page.referer = previousPage;
             previousPage.stopListening();
         }
 
@@ -35,7 +35,6 @@ define(function(require) {
             .addClass('preloader_spinner');
 
         page.initialize.apply(page, arguments);
-
     };
 
     _.extend(Page.prototype, Backbone.Events, {

@@ -1,40 +1,40 @@
 define(function(require) {
     //requirements
     var Page = require('pages/page'),
-        ProductModel = require('models/product'),
-        Form_product = require('blocks/form/form_product/form_product');
+        StoreModel = require('models/product'),
+        Form_store = require('blocks/form/form_store/form_store');
 
     return Page.extend({
-        pageName: 'page_product_form',
+        pageName: 'page_store_form',
         templates: {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {
             products: 'POST'
         },
-        initialize: function(productId, params){
+        initialize: function(storeId, params){
             var page = this;
 
-            if (productId && typeof productId !== 'string'){
-                params = productId;
-                productId = null;
+            if (storeId && typeof storeId !== 'string'){
+                params = storeId;
+                storeId = null;
             }
 
             params = params || {};
 
-            page.productId = productId;
+            page.storeId = storeId;
 
-            page.productModel = new ProductModel({
-                id: page.productId,
+            page.storeModel = new StoreModel({
+                id: page.storeId,
                 subcategory: params.subcategory
             });
 
-            $.when(productId ? page.productModel.fetch() : {}).then(function(){
+            $.when(storeId ? page.storeModel.fetch() : {}).then(function(){
                 page.render();
 
-                new Form_product({
-                    model: page.productModel,
-                    el: document.getElementById('form_product')
+                new Form_store({
+                    model: page.storeModel,
+                    el: document.getElementById('form_store')
                 });
             })
         }

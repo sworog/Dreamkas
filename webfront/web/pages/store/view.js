@@ -1,32 +1,32 @@
 define(function(require) {
     //requirements
     var Page = require('pages/page'),
-        Product = require('blocks/product/product'),
-        ProductModel = require('models/product');
+        Store = require('blocks/store/store'),
+        StoreModel = require('models/store');
 
     return Page.extend({
-        pageName: 'page_product_view',
+        pageName: 'page_store_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },
         permissions: {
-            products: 'GET::{product}'
+            stores: 'GET::{store}'
         },
-        initialize: function(productId) {
+        initialize: function(storeId) {
             var page = this;
 
-            page.productId = productId;
+            page.storeId = storeId;
 
-            page.productModel = new ProductModel({
-                id: page.productId
+            page.storeModel = new StoreModel({
+                id: storeId
             });
 
-            $.when(page.productModel.fetch()).then(function(){
+            $.when(page.storeModel.fetch()).then(function(){
                 page.render();
 
-                new Product({
-                    model: page.productModel,
-                    el: document.getElementById('product')
+                new Store({
+                    model: page.storeModel,
+                    el: document.getElementById('store')
                 });
             });
         }

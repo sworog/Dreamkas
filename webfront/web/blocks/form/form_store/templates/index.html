@@ -1,0 +1,19 @@
+<h3><%t model.id ? 'Редактирование магазина' : 'Добавление магазина' %></h3>
+<div class="form__field form__field_inline">
+    <label class="form__label"><%t 'Номер магазина' %></label>
+    <input value="<%e model.get('number') %>" class="inputText" type="text" name="number"/>
+</div>
+<div class="form__field form__field_inline">
+    <label class="form__label"><%t 'Адрес' %></label>
+    <input value="<%e model.get('address') %>" class="inputText" type="text" name="address"/>
+</div>
+<div class="form__field form__field_inline">
+    <label class="form__label"><%t 'Телефон' %></label>
+    <select value="<%e model.get('phone') %>" class="inputText" name="phone"></select>
+</div>
+<div class="form__controls">
+    <span class="button button_color_blue">
+        <%t model.id ? 'Сохранить' : 'Добавить' %>
+        <input type="submit"/>
+    </span>
+</div>
