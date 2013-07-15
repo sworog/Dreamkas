@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
+use Lighthouse\CoreBundle\Util\JsonPath;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\Container;
@@ -241,6 +242,7 @@ class WebTestCase extends BaseTestCase
             'vendor' => 'Вимм-Билль-Данн',
             'vendorCountry' => 'Россия',
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+            'subCategory' => $this->createSubCategory(),
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -381,13 +383,29 @@ class WebTestCase extends BaseTestCase
      * @param string $name
      * @return string
      */
-    protected function createGroup($name = 'Продовольственные товары')
+    protected function createGroup($name = 'Продовольственные товары', $ifNotExists = true)
     {
         $postData = array(
             'name' => $name,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        if ($ifNotExists) {
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/groups.json'
+            );
+
+            if (count($postResponse)) {
+                foreach ($postResponse as $value) {
+                    if ($value['name'] == $name) {
+                        return $value['id'];
+                    }
+                }
+            }
+        }
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -444,7 +462,7 @@ class WebTestCase extends BaseTestCase
      * @param string $name
      * @return string
      */
-    protected function createCategory($groupId = null, $name = 'Винно-водочные изделия')
+    protected function createCategory($groupId = null, $name = 'Винно-водочные изделия', $ifNotExists = true)
     {
         if ($groupId == null) {
             $groupId = $this->createGroup();
@@ -455,6 +473,22 @@ class WebTestCase extends BaseTestCase
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        if ($ifNotExists) {
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/groups/'. $groupId .'/categories'
+            );
+
+            if (count($postResponse)) {
+                foreach ($postResponse as $value) {
+                    if ($value['name'] == $name) {
+                        return $value['id'];
+                    }
+                }
+            }
+        }
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -475,7 +509,7 @@ class WebTestCase extends BaseTestCase
      * @param string $name
      * @return string
      */
-    protected function createSubCategory($categoryId = null, $name = 'Водка')
+    protected function createSubCategory($categoryId = null, $name = 'Водка', $ifNotExists = true)
     {
         if ($categoryId == null) {
             $categoryId = $this->createCategory();
@@ -486,6 +520,22 @@ class WebTestCase extends BaseTestCase
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        if ($ifNotExists) {
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/categories/'. $categoryId .'/subcategories'
+            );
+
+            if (count($postResponse)) {
+                foreach ($postResponse as $value) {
+                    if ($value['name'] == $name) {
+                        return $value['id'];
+                    }
+                }
+            }
+        }
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
