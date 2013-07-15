@@ -1,4 +1,6 @@
-
+Meta:
+@sprint 12
+@us 19
 
 Scenario: edit mode name field length validation 100 symbols
 Given there is the user with name 'User validation', position 'User validation', username 'emnf1', password 'password', role 'commercialManager'
@@ -30,7 +32,7 @@ And the user navigates to the user page with username 'emnf3'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name |  |
 When the user clicks the create new user button
 Then the user sees error messages
@@ -68,7 +70,7 @@ And the user navigates to the user page with username 'emnf6'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | position | |
 When the user clicks the create new user button
 Then the user sees error messages
@@ -82,7 +84,7 @@ And the user navigates to the user page with username 'emnf7'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | role | |
 When the user clicks the create new user button
 Then the user sees error messages
@@ -96,7 +98,7 @@ And the user navigates to the user page with username 'emnf8'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | password | 12345 |
 And the user clicks the create new user button
 Then the user sees error messages
@@ -110,7 +112,7 @@ And the user navigates to the user page with username 'emnf9'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | password | 123456 |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -122,7 +124,7 @@ And the user navigates to the user page with username 'emnf10'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | pmbnetl23 |
 | password | pmbnetl23 |
 And the user clicks the create new user button
@@ -137,7 +139,7 @@ And the user navigates to the user page with username 'emnf11'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | password | ФыEf3!@$#$$%() |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -174,7 +176,7 @@ And the user navigates to the user page with username 'emnf14'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | Uservalidationlmbu |
 And the user clicks the create new user button
 Then the user sees error messages
@@ -188,7 +190,7 @@ And the user navigates to the user page with username 'emnf15'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | |
 And the user clicks the create new user button
 Then the user sees error messages
@@ -202,7 +204,7 @@ And the user navigates to the user page with username 'emnf16'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | РУССКИЙЙ |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -214,7 +216,7 @@ And the user navigates to the user page with username 'emnf17'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | руссскийй |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -226,7 +228,7 @@ And the user navigates to the user page with username 'emnf19'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | ENGLISHHH |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -238,7 +240,7 @@ And the user navigates to the user page with username 'emnf20'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | englishhh |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -250,7 +252,7 @@ And the user navigates to the user page with username 'emnf21'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | 12345678901 |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -262,7 +264,7 @@ And the user navigates to the user page with username 'emnf22'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | username_usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -274,7 +276,7 @@ And the user navigates to the user page with username 'emnf23'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | username-usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -286,7 +288,7 @@ And the user navigates to the user page with username 'emnf24'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | username.usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -298,7 +300,7 @@ And the user navigates to the user page with username 'emnf25'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | username@usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -310,7 +312,7 @@ And the user navigates to the user page with username 'emnf26'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | username_username-username@gmaik.comm |
 And the user clicks the create new user button
 Then the user sees no error messages
@@ -322,7 +324,7 @@ And the user navigates to the user page with username 'emnf27'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | ~!@#$%^&*()+= |
 And the user clicks the create new user button
 Then the user sees error messages
@@ -336,7 +338,7 @@ And the user navigates to the user page with username 'emnf28'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | username | username username |
 And the user clicks the create new user button
 Then the user sees error messages

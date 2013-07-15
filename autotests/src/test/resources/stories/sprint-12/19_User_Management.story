@@ -3,12 +3,15 @@ Narrative:
 Я хочу создавать, редактировать и просматривать профили пользователей,
 Чтобы они могли работать с системой
 
+Meta:
+@sprint 12
+@us 19
 
 Scenario: Create user Commercial Manager type
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | CommercialManager9 |
@@ -22,7 +25,7 @@ And the user checks the user with 'CommercialManager9' username has 'username' e
 And the user checks the user with 'CommercialManager9' username has 'role' element equal to 'Коммерческий директор сети' on users page
 When the user opens the user card with 'CommercialManager9' username
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | CommercialManager9 |
@@ -33,7 +36,7 @@ Scenario: Create user store Manager type
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | storeManager9 |
@@ -47,7 +50,7 @@ And the user checks the user with 'storeManager9' username has 'username' elemen
 And the user checks the user with 'storeManager9' username has 'role' element equal to 'Директор магазина' on users page
 When the user opens the user card with 'storeManager9' username
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | storeManager9 |
@@ -58,7 +61,7 @@ Scenario: Create user department Manager type
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | departmentManager9 |
@@ -72,7 +75,7 @@ And the user checks the user with 'departmentManager9' username has 'username' e
 And the user checks the user with 'departmentManager9' username has 'role' element equal to 'Заведующий отделом' on users page
 When the user opens the user card with 'departmentManager9' username
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | departmentManager9 |
@@ -83,7 +86,7 @@ Scenario: Create user administrator type
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | administrator9 |
@@ -97,7 +100,7 @@ And the user checks the user with 'administrator9' username has 'username' eleme
 And the user checks the user with 'administrator9' username has 'role' element equal to 'Системный администратор' on users page
 When the user opens the user card with 'administrator9' username
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | administrator9 |
@@ -109,7 +112,7 @@ Given the user is on the users list page
 And the user logs in as 'watchman'
 When the user clicks the create new user button from users list page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя11 |
 | position | Позиция22 |
 | username | createfromuserslistpage |
@@ -125,7 +128,7 @@ And the user navigates to the user page with username 'Login1'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Name_edited |
 | position | Position_edited |
 | username | Login_edited |
@@ -133,7 +136,7 @@ And the user inputs values in the user page element fields
 | role | administrator |
 And the user clicks the create new user button
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | name | Name_edited |
 | position | Position_edited |
 | username | Login_edited |
@@ -152,11 +155,11 @@ And the user navigates to the user page with username 'User-edition'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | role | Коммерческий директор сети |
 When the user clicks on the users list page link
 Then the user checks the user with 'User-edition' username is present
@@ -169,11 +172,11 @@ And the user navigates to the user page with username 'User-edition'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | role | storeManager |
 And the user clicks the create new user button
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | role | Директор магазина |
 When the user clicks on the users list page link
 Then the user checks the user with 'User-edition' username is present
@@ -186,11 +189,11 @@ And the user navigates to the user page with username 'User-edition'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | role | departmentManager |
 And the user clicks the create new user button
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | role | Заведующий отделом |
 When the user clicks on the users list page link
 Then the user checks the user with 'User-edition' username is present
@@ -203,11 +206,11 @@ And the user navigates to the user page with username 'User-edition'
 And the user logs in as 'watchman'
 When the user clicks the edit button on the user card page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | role | administrator |
 And the user clicks the create new user button
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | role | Системный администратор |
 When the user clicks on the users list page link
 Then the user checks the user with 'User-edition' username is present

@@ -1,4 +1,6 @@
-
+Meta:
+@sprint 6
+@us 10
 
 Scenario: alert productSku changesVerification stop edit button
 Given there is the invoice with 'Invoice-IE-APCVSE' sku

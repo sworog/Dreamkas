@@ -214,5 +214,41 @@
                 <directory>target-iexplorer</directory>
             </build>
         </profile>
+        <profile>
+            <id>cap</id>
+            <activation>
+                <property>
+                    <name>init</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>Symfony env init</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>cap</executable>
+                                    <workingDirectory>../backend</workingDirectory>
+                                    <arguments>
+                                        <argument>autotests</argument>
+                                        <argument>symfony:env:init</argument>
+                                        <argument>-S</argument>
+                                        <argument>host=test</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>

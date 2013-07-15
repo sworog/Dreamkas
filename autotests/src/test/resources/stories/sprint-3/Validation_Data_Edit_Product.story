@@ -1,4 +1,5 @@
-
+Meta:
+@sprint 3
 
 Scenario: Name field length validation
 Given there is created product with sku 'ED-NMLV'

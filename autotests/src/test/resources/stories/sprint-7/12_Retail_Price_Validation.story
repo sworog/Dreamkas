@@ -1,3 +1,6 @@
+Meta:
+@sprint 7
+@us 12
 
 Scenario: Retail price validation String+Symbols+Num
 Given the user is on the product list page

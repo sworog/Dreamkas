@@ -1,3 +1,6 @@
+Meta:
+@sprint 7
+@us 12
 
 Scenario: Retail Markup validation sub zero -105
 Given the user is on the product list page

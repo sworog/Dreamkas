@@ -12,6 +12,10 @@ Narrative:
 6. Номер входящей накладной - необязательное поле. строка до 100 символов.
 7. Дата входящей накладной - необязательное поле. При клике на поле появляется дата пикер.
 
+Meta:
+@sprint 4
+@us 8.2
+
 Scenario: Invoice sku validation is required
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'

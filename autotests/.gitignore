@@ -2,3 +2,4 @@
 /target-*
 /autotests.iml
 /chromedriver.log
+/libpeerconnection.log

@@ -5,6 +5,9 @@ Narrative:
 Я хочу просматривать накладную,
 Чтобы определять верно ли завфиксирована приемка
 
+Meta:
+@sprint 3
+
 Scenario: Invoice browsing verification
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -22,7 +25,7 @@ Given the user is on the invoice list page
 Then the user checks the invoice with '89698' sku is present
 When the user open the invoice card with '89698' sku
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | sku | 89698 |
 | supplier | ОАЭ Поставщик в квадрате |
 | accepter | Иван Петрович Петрович |

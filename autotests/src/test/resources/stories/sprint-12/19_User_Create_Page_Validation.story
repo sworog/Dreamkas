@@ -1,9 +1,12 @@
+Meta:
+@sprint 12
+@us 19
 
 Scenario: name field length validation 100 symbols
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | position | nflv100 |
 | username | nflv100 |
 | password | password |
@@ -18,7 +21,7 @@ Scenario: name field length validation negative 101 symbols
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | position | nflv100 |
 | username | nflv101 |
 | password | password |
@@ -35,7 +38,7 @@ Scenario: name field is required
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | position | nflv100 |
 | username | nflv102 |
 | password | password |
@@ -50,7 +53,7 @@ Scenario: position field length validation 100 symbols
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | username | nflv103 |
 | password | Пароль1 |
@@ -65,7 +68,7 @@ Scenario: position field length validation negative 101 symbols
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | username | nflv104 |
 | password | Пароль1 |
@@ -82,7 +85,7 @@ Scenario: position field is required
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | username | nflv105 |
 | password | Пароль1 |
@@ -97,7 +100,7 @@ Scenario: role field is required
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | nflv106 |
@@ -112,7 +115,7 @@ Scenario: password minimum length validation invalid
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | nflv107 |
@@ -128,7 +131,7 @@ Scenario: password minimum length validation positive
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | nflv108 |
@@ -142,7 +145,7 @@ Scenario: password must be not equal to username
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | pmbnetl |
@@ -158,7 +161,7 @@ Scenario: password validation positive
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | nflv109 |
@@ -172,7 +175,7 @@ Scenario: username field length validation 100 symbols
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | password | Пароль1 |
@@ -188,7 +191,7 @@ Scenario: username field length validation negative 101 symbols
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | password | Пароль1 |
@@ -207,7 +210,7 @@ Given there is the user with name 'User validation lmbu', position 'User validat
 And the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | username | Uservalidationlmbu |
@@ -223,7 +226,7 @@ Scenario: username is required
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя1 |
 | position | Позиция2 |
 | password | Пароль1 |
@@ -238,7 +241,7 @@ Scenario: username validation positive Rus Big regiser
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | РУССКИЙ |
@@ -252,7 +255,7 @@ Scenario: username validation positive Rus Small register
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | руссский |
@@ -266,7 +269,7 @@ Scenario: username validation positive Eng Small register
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | ENGLISH |
@@ -280,7 +283,7 @@ Scenario: username validation positive Eng Big register
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | englishh |
@@ -294,7 +297,7 @@ Scenario: username validation positive digits 0-9
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | 1234567890 |
@@ -308,7 +311,7 @@ Scenario: username validation positive symbols _
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | username_username |
@@ -322,7 +325,7 @@ Scenario: username validation positive symbols -
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | username-username |
@@ -336,7 +339,7 @@ Scenario: username validation positive symbols .
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | username.username |
@@ -350,7 +353,7 @@ Scenario: username validation positive symbols @
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | username@username |
@@ -364,7 +367,7 @@ Scenario: username validation positive symbols mix
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | username_username-username@gmaik.com |
@@ -378,7 +381,7 @@ Scenario: username validation negative symbols
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | ~!@#$%^&*()+= |
@@ -394,7 +397,7 @@ Scenario: username validation negative symbols white space
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | тест1 |
 | position | тест1 |
 | username | username username |

@@ -29,7 +29,10 @@ public class ApiConnect {
     }
 
     public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
-        createProductThroughPost(name, sku, barcode, units, purchasePrice, StaticData.NAME);
+        if (!StaticData.hasSubCategory(SubCategory.DEFAULT_NAME)) {
+            createSubCategoryThroughPost();
+        }
+        createProductThroughPost(name, sku, barcode, units, purchasePrice, SubCategory.DEFAULT_NAME);
     }
 
     public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
@@ -167,6 +170,10 @@ public class ApiConnect {
             SubCategory subCategory = new SubCategory(new JSONObject(postResponse));
             StaticData.subCategories.put(subCategoryName, subCategory);
         }
+    }
+
+    public void createSubCategoryThroughPost() throws IOException, JSONException {
+        createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
     }
 
     public String getSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {

@@ -1,3 +1,6 @@
+Meta:
+@sprint 6
+@us 10
 
 Scenario: Invoice product edition - Invoice product amount is required
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units

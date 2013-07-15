@@ -6,6 +6,10 @@ Narrative:
 Я хочу видеть последнюю закупочную цену товара,
 Чтобы отталкиваться от нее при заказе товара и переговорах с поставщиками
 
+Meta:
+@sprint 8
+@us 11.1
+
 Scenario: Average price is not changed in current day
 Given there is the product with 'Печенье Московское' name, 'Печенье-Московское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page

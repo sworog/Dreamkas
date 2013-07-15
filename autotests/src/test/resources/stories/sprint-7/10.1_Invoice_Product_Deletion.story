@@ -6,6 +6,10 @@ Narrative:
 Я хочу удалть товарные позиции из накладной,
 Чтобы исправлять в ней ошибки
 
+Meta:
+@sprint 7
+@us 10.1
+
 Scenario: Invoice product deletion
 Given there is the invoice 'InvoiceProductdeletion-1' with product 'IE-IPD' name, 'IE-IPD' sku, 'IE-IPD' barcode, 'liter' units
 And the user logs in as 'departmentManager'

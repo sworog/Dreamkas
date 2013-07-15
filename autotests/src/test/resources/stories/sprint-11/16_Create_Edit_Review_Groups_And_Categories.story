@@ -5,6 +5,10 @@ Narrative:
 Я хочу создавать, редактироватьи и просматривать структуру классов и групп товарного классификатора,
 Чтобы управлять ассортиментом по классам и группам
 
+Meta:
+@sprint 11
+@us 16
+
 Scenario: group create from catalog page
 Given the user opens catalog page
 And the user logs in as 'commercialManager'

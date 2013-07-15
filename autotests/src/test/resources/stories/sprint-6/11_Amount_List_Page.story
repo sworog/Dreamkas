@@ -5,6 +5,10 @@ Narrative:
 Я хочу просматривать товарные остатки,
 Чтобы определять когда и какого объема требуется размещать заказ у поставщика
 
+Meta:
+@sprint 6
+@us 11
+
 Scenario: Amounts increase kg
 Given there is the product with 'ADADAD-11' name, 'ADADAD-11' sku, 'BARCode-11' barcode
 And there is the invoice with 'Invoice-ADADAD-11' sku

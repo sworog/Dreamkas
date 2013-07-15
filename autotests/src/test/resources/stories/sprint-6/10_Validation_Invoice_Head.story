@@ -1,3 +1,6 @@
+Meta:
+@sprint 6
+@us 10
 
 Scenario: Invoice edition - Invoice sku validation is required
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
