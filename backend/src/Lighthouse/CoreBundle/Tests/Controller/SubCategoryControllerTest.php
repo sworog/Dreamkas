@@ -390,4 +390,47 @@ class SubCategoryControllerTest extends WebTestCase
 
         Assert::assertResponseCode(404, $this->client);
     }
+
+    public function testGetSubCategoryProducts()
+    {
+        $this->clearMongoDb();
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $subCategoryId1 = $this->createSubCategory(null, 'Пиво');
+        $subCategoryId2 = $this->createSubCategory(null, 'Водка');
+
+        $productsSubCategory1 = array();
+        $productsSubCategory2 = array();
+
+        for ($i = 0; $i < 5; $i++) {
+            $productsSubCategory1[] = $this->createProduct("пиво ". $i, $subCategoryId1);
+            $productsSubCategory2[] = $this->createProduct("водка ". $i, $subCategoryId2);
+        }
+
+        $jsonResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId1 . '/products'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        foreach ($productsSubCategory1 as $productId) {
+            Assert::assertJsonPathEquals($productId, '*.id', $jsonResponse);
+        }
+
+
+        $jsonResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId2 . '/products'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        foreach ($productsSubCategory2 as $productId) {
+            Assert::assertJsonPathEquals($productId, '*.id', $jsonResponse);
+        }
+    }
 }
