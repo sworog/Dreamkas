@@ -22,7 +22,12 @@ define(function(require) {
                 }
             },
             parse: function(response, options) {
+
                 var data = BaseModel.prototype.parse.apply(this, arguments);
+
+                if (!options.parse){
+                    return data;
+                }
 
                 if (typeof data.category == 'object') {
                     data.group = data.category.group.id;

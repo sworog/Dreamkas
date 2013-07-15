@@ -26,7 +26,7 @@ define(function(require) {
             catalogCategory__subCategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')
         },
         events: {
-            'click .catalog__editCategoryLink': function(e){
+            'click .catalog__editCategoryLink': function(e) {
                 var block = this,
                     $target = $(e.target);
 
@@ -64,7 +64,7 @@ define(function(require) {
         },
         listeners: {
             catalogCategoryModel: {
-                destroy: function(){
+                destroy: function() {
                     var block = this;
 
                     router.navigate('/catalog/' + block.catalogCategoryModel.get('group'), {
@@ -94,7 +94,7 @@ define(function(require) {
 
             block.set('catalogSubCategoryId', block.catalogSubCategoryId);
         },
-        remove: function(){
+        remove: function() {
             var block = this;
 
             block.tooltip_catalogCategoryMenu.remove();
@@ -103,11 +103,13 @@ define(function(require) {
 
             Editor.prototype.remove.call(block);
         },
-        findElements: function(){
+        findElements: function() {
             var block = this;
 
             block.$productList = block.$('.catalogCategory__productList');
             block.$addProductLink = block.$('.catalogCategory__addProductLink');
+            block.$productListTitle = block.$('.catalogCategory__productListTitle');
+            block.$table_products = block.$('.table_products');
         },
         'set:editMode': function(editMode) {
             Editor.prototype['set:editMode'].apply(this, arguments);
@@ -120,23 +122,39 @@ define(function(require) {
                 .find('.catalogCategory__subCategoryLink_active')
                 .removeClass('catalogCategory__subCategoryLink_active');
 
-            if (catalogSubCategoryId){
+            if (catalogSubCategoryId) {
                 block.$productList.show();
 
                 block.$addProductLink.attr('href', '/products/create?subCategory=' + catalogSubCategoryId);
 
-                block.$el
+                block.$subCategoryLink_active = block.$el
                     .find('.catalogCategory__subCategoryLink[subCategory_id="' + catalogSubCategoryId + '"]')
                     .addClass('catalogCategory__subCategoryLink_active');
             } else {
                 block.$productList.hide();
             }
 
-            if (block.catalogSubCategoryId !== catalogSubCategoryId){
+            if (catalogSubCategoryId && block.catalogSubCategoryId !== catalogSubCategoryId) {
                 block.catalogProductsCollection.subCategory = catalogSubCategoryId;
-                block.catalogProductsCollection.fetch();
-            }
+                block.$table_products.hide();
+                block.$subCategoryLink_active.addClass('preloader_rows');
 
+                block.catalogProductsCollection.fetch({
+                    success: function(collection) {
+                        if (collection.length) {
+                            block.$productListTitle.html(KIT.text('Список товаров'));
+                            block.$table_products.show();
+                        } else {
+                            block.$productListTitle.html(KIT.text('Нет товаров'));
+                        }
+
+                        block.$subCategoryLink_active.removeClass('preloader_rows');
+                    }
+                });
+            } else if (!block.catalogProductsCollection.length){
+                block.$productListTitle.html(KIT.text('Нет товаров'));
+                block.$table_products.hide();
+            }
         }
     });
 });

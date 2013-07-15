@@ -34,10 +34,12 @@ define(function(require) {
                 id: params.subCategory
             });
 
-            $.when(productId ? page.productModel.fetch() : {}, page.subCategoryModel.id ? page.subCategoryModel.fetch() : {}).then(function(){
+            $.when(productId ? page.productModel.fetch() : {}, page.subCategoryModel.id ? page.subCategoryModel.fetch({parse: false}) : {}).then(function(){
 
-                if (productId){
-                    page.subCategoryModel = new SubCategoryModel(page.productModel.get('subCategory'), {
+                if (!productId){
+                    page.productModel = new ProductModel({
+                        subCategory: page.subCategoryModel.toJSON()
+                    }, {
                         parse: true
                     });
                 }
@@ -46,7 +48,6 @@ define(function(require) {
 
                 new Form_product({
                     model: page.productModel,
-                    subCategoryModel: page.subCategoryModel,
                     el: document.getElementById('form_product')
                 });
             })

@@ -1,11 +1,4 @@
-<% if(model.id){ %>
-    <h3><%t 'Редактирование товара' %></h3>
-<% } else { %>
-    <h3><%t 'Добавление товара в подкатегорию ' %>
-        <a href="/catalog/<%= subCategoryModel.get('group') %>/<%= subCategoryModel.get('category') %>/<%= subCategoryModel.id %>"><%= LH.attr(subCategoryModel, 'name') %></a>
-    </h3>
-<% } %>
-
+<h3><%t model.id ? 'Редактирование товара' : 'Добавление товара' %></h3>
 <fieldset class="form__fieldset">
     <div class="form__field form__field_inline">
         <label class="form__label">Артикул</label>

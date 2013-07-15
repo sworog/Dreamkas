@@ -1,6 +1,9 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block');
+        var Block = require('kit/block'),
+            Backbone = require('backbone');
+
+        var router = new Backbone.Router();
 
         return Block.extend({
             blockName: 'editor',
@@ -29,7 +32,8 @@ define(function(require) {
                 block.set('editMode', block.editMode);
             },
             'set:editMode': function(editMode) {
-                var block = this;
+                var block = this,
+                    url;
 
                 if (editMode) {
                     block.$el.addClass('editor_editMode_on');

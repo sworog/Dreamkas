@@ -23,7 +23,6 @@ define(function(require) {
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({
                 wait: true,
-                isFetch: true,
                 error: function() {
                     console.log(arguments)
                 }

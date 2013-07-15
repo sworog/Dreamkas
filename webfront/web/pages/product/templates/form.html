@@ -1,5 +1,11 @@
 <div class="page__header">
-    <a href="/catalog/<%= subCategoryModel.get('group') %>/<%= subCategoryModel.get('category') %>/<%= subCategoryModel.id %>" class="page__backLink"><%t 'Список продуктов' %></a>
+    <a href="/catalog" class="page__backLink"><%t 'Товарный справочник' %></a>
+    <span style="vertical-align: middle">/</span>
+    <a href="/catalog/<%= productModel.get('group').id %>" class="page__backLink"><%t productModel.get('group').name %></a>
+    <span style="vertical-align: middle">/</span>
+    <a href="/catalog/<%= productModel.get('group').id %>/<%= productModel.get('category').id %>" class="page__backLink"><%t productModel.get('category').name %></a>
+    <span style="vertical-align: middle">/</span>
+    <a href="/catalog/<%= productModel.get('group').id %>/<%= productModel.get('category').id %>/<%= productModel.get('subCategory').id %>" class="page__backLink"><%t productModel.get('subCategory').name %></a>
 </div>
 <div class="box">
     <form id="form_product"></form>

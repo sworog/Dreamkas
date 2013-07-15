@@ -54,7 +54,7 @@ define(function(require) {
                 if (block.model.id){
                     block.redirectUrl = '/products/' + block.model.id
                 } else {
-                    block.redirectUrl = '/catalog/' + block.subCategoryModel.get('group') + '/' + block.subCategoryModel.get('category') + '/' + block.subCategoryModel.id
+                    block.redirectUrl = '/catalog/' + block.model.get('group').id + '/' + block.model.get('category').id + '/' + block.model.get('subCategory').id
                 }
 
                 block.render();
