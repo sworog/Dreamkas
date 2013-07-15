@@ -17,24 +17,24 @@
     <tr>
         <th>Группа</th>
         <td>
-            <a href="/catalog/<%= model.get('group') %>" name="group">
-                <%t model.get('group') %>
+            <a href="/catalog/<%= model.get('group').id %>" name="group">
+                <%t model.get('group').name %>
             </a>
         </td>
     </tr>
     <tr>
         <th>Категория</th>
         <td>
-            <a href="/catalog/<%= model.get('group') %>/<%= model.get('category') %>" name="category">
-                <%t model.get('category') %>
+            <a href="/catalog/<%= model.get('group').id %>/<%= model.get('category').id %>" name="category">
+                <%t model.get('category').name %>
             </a>
         </td>
     </tr>
     <tr>
         <th>Подкатегория</th>
         <td>
-            <a href="/catalog/<%= model.get('group') %>/<%= model.get('category') %>/<%= model.get('subcategory') %>" name="subcategory">
-                <%t model.get('subcategory') %>
+            <a href="/catalog/<%= model.get('group').id %>/<%= model.get('category').id %>/<%= model.get('subCategory').id %>" name="subCategory">
+                <%t model.get('subCategory').name %>
             </a>
         </td>
     </tr>

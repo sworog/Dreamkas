@@ -22,7 +22,17 @@ define(function(require) {
             'vendorCountry',
             'vendor',
             'info',
-            'subcategory'
-        ]
+            'subCategory'
+        ],
+        parse: function(response, options) {
+            var data = BaseModel.prototype.parse.apply(this, arguments);
+
+            if (typeof data.subCategory == 'object') {
+                data.group = data.subCategory.category.group;
+                data.category = data.subCategory.category;
+            }
+
+            return data;
+        }
     });
 });
