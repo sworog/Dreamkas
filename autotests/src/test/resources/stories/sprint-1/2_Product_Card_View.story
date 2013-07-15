@@ -7,6 +7,7 @@ Narrative:
 
 Meta:
 @sprint 1
+@us 2
 
 Scenario: Viewing product card after creation 1
 Given the user is on the product list page

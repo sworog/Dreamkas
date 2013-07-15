@@ -7,6 +7,7 @@ Narrative:
 
 Meta:
 @sprint 2
+@us 3
 
 Scenario: Product edit main
 Given the user is on the product list page

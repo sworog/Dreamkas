@@ -1,4 +1,4 @@
-История создания продукта
+4 Создания продукта
 
 Narrative:
 Как коммерческий директор,
@@ -7,6 +7,7 @@ Narrative:
 
 Meta:
 @sprint 0
+@us 4
 
 Scenario: Creating new product 1
 Given the user is on the product create page

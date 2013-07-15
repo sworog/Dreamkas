@@ -7,6 +7,7 @@ Narrative:
 
 Meta:
 @sprint 3
+@us 8.1
 
 Scenario: Invoice Create
 Given the user is on the invoice create page

@@ -7,6 +7,7 @@ Narrative:
 
 Meta:
 @sprint 3
+@us 9
 
 Scenario: Invoice browsing verification
 Given the user is on the invoice list page
