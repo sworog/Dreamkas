@@ -5,6 +5,9 @@ Narrative:
 Я хочу просматривать список товаров,
 Чтобы знать из каких товаров состоит ассортимент магазина
 
+Meta:
+@sprint 1
+
 Scenario: Creating new product from product list
 Given the user is on the product list page
 And the user logs in as 'commercialManager'

@@ -5,6 +5,10 @@ Narrative:
 Я хочу задать розничную цену на конкретный товар,
 Чтобы покрыть издержки и получить прибыль при продаже этого товара.
 
+Meta:
+@sprint 7
+@us 12
+
 Scenario: Retail price - product creation without retail price filling
 Given the user is on the product list page
 And the user logs in as 'commercialManager'

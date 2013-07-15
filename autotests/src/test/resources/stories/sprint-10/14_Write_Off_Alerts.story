@@ -1,3 +1,6 @@
+Meta:
+@sprint 10
+@us 14
 
 Scenario: alert number changesVerification stop edit button
 Given there is the write off with number 'WriteOff-Alerts-1'

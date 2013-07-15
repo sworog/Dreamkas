@@ -5,6 +5,9 @@ Narrative:
 Я хочу изменять данные товара,
 Чтобы актуализировать эти данные и исправлять в них ошибки
 
+Meta:
+@sprint 2
+
 Scenario: Product edit main
 Given the user is on the product list page
 And the user logs in as 'commercialManager'

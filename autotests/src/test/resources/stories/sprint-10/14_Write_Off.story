@@ -1,5 +1,9 @@
 ﻿14 Списания
 
+Meta:
+@sprint 10
+@us 14
+
 Scenario: Write off creation
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductSku' sku, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
 And the user opens amount list page

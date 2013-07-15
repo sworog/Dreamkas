@@ -5,6 +5,10 @@ Narrative:
 Я хочу просматривать накладную с товарными позициями,
 Чтобы определять верно ли зафиксирвоана приемка
 
+Meta:
+@sprint 6
+@us 9.1
+
 Scenario: invoice full browsing kg
 Given there is the product with 'IFBKG-11' name, 'IFBKG-11' sku, 'IFBKG-11' barcode
 And the user is on the invoice list page

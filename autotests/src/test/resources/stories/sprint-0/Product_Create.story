@@ -5,6 +5,9 @@ Narrative:
 Я хочу создавать новый товар в системе,
 Чтобы ввести товар в ассортимент
 
+Meta:
+@sprint 0
+
 Scenario: Creating new product 1
 Given the user is on the product create page
 And the user logs in as 'commercialManager'

@@ -1,4 +1,8 @@
 ﻿
+Meta:
+@sprint 10
+@us 14
+
 Scenario: Write off Validation - number is required
 Given the user opens the write off create page
 And the user logs in as 'departmentManager'

@@ -5,6 +5,10 @@ Narrative:
 Я хочу добавить в накладную данные о принятых товарах,
 Чтобы зафиксировать в системе факт прихода товара
 
+Meta:
+@sprint 5
+@us 8.3
+
 Scenario: Adding invoice products - 1 product with name autocomplete
 Given there is the product with 'Тестовое имя 25-3' name, 'SKU-AIP1PWNAU' sku, 'BARCode-AIP1PWNAU' barcode
 And the user is on the invoice list page

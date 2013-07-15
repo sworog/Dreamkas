@@ -3,6 +3,9 @@ Narrative:
 Я хочу создавать, редактировать и просматривать профили пользователей,
 Чтобы они могли работать с системой
 
+Meta:
+@sprint 12
+@us 19
 
 Scenario: Create user Commercial Manager type
 Given the user opens create new user page

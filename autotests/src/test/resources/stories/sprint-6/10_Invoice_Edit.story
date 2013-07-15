@@ -5,6 +5,10 @@ Narrative:
 Я хочу изменять данные накладной,
 Чтобы исправлять в ней ошибки
 
+Meta:
+@sprint 6
+@us 10
+
 Scenario: Invoice head edition
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'

@@ -5,6 +5,10 @@ Narrative:
 Я хочу просматривать плоский список списаний,
 Чтобы найти прежде оформленное списание
 
+Meta:
+@sprint 10
+@us 15
+
 Scenario: Write off list create
 Given there is the product with 'WriteOff-wolc' name, 'WriteOff-wolc' sku, 'WriteOff-wolc' barcode, 'liter' units, '15' purchasePrice
 And the user opens write off list page

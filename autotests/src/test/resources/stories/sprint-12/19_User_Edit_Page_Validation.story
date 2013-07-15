@@ -1,4 +1,6 @@
-
+Meta:
+@sprint 12
+@us 19
 
 Scenario: edit mode name field length validation 100 symbols
 Given there is the user with name 'User validation', position 'User validation', username 'emnf1', password 'password', role 'commercialManager'

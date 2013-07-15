@@ -6,6 +6,9 @@ Narrative:
 Система сообщала мне об ошибках в вводимых данных,
 Чтобы исключить возможность создать товар с заведомо некорректными данными.
 
+Meta:
+@sprint 3
+
 Scenario: Name field length validation
 Given the user is on the product list page
 And the user logs in as 'commercialManager'

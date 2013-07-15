@@ -5,6 +5,9 @@ Narrative:
 Я хочу просматривать накладную,
 Чтобы определять верно ли завфиксирована приемка
 
+Meta:
+@sprint 3
+
 Scenario: Invoice browsing verification
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'

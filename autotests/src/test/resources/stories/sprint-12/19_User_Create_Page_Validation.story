@@ -1,3 +1,6 @@
+Meta:
+@sprint 12
+@us 19
 
 Scenario: name field length validation 100 symbols
 Given the user opens create new user page
