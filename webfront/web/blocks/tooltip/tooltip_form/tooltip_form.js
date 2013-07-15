@@ -7,7 +7,7 @@ define(function(require) {
         model: null,
         collection: null,
         templates: {
-            content: require('tpl!blocks/tooltip/tooltip_catalogSubcategoryForm/templates/content.html')
+            content: require('tpl!blocks/tooltip/tooltip_catalogSubCategoryForm/templates/content.html')
         },
         show: function(opt) {
             var block = this;

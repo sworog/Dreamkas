@@ -36,6 +36,11 @@ define(function(require) {
 
                         block.renderBody();
                     },
+                    reset: function() {
+                        var block = this;
+
+                        block.renderBody();
+                    },
                     add: function(){
                         var block = this;
 

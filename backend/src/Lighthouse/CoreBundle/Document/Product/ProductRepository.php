@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Product;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 
@@ -18,6 +19,27 @@ class ProductRepository extends DocumentRepository
     public function searchEntry($property, $entry)
     {
         return $this->findBy(array($property => new \MongoRegex("/".preg_quote($entry, '/')."/i")));
+    }
+
+    public function findBySubCategory(SubCategory $subCategory)
+    {
+        $cursor = $this->findBy(array('subCategory' => $subCategory->id));
+        return new ProductCollection($cursor);
+    }
+
+    /**
+     * @param string $subCategoryId
+     * @return int
+     */
+    public function countBySubCategory($subCategoryId)
+    {
+        $query = $this
+            ->createQueryBuilder()
+            ->field('subCategory')->equals($subCategoryId)
+            ->count()
+            ->getQuery();
+        $count = $query->execute();
+        return $count;
     }
 
     /**

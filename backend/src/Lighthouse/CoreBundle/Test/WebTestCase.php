@@ -230,8 +230,12 @@ class WebTestCase extends BaseTestCase
      * @param string $extra
      * @return string
      */
-    protected function createProduct($extra = '')
+    protected function createProduct($extra = '', $subCategoryId = null)
     {
+        if ($subCategoryId == null) {
+            $subCategoryId = $this->createSubCategory();
+        }
+
         $productData = array(
             'name' => 'Кефир "Веселый Молочник" 1% 950гр' . $extra,
             'units' => 'gr',
@@ -242,7 +246,7 @@ class WebTestCase extends BaseTestCase
             'vendor' => 'Вимм-Билль-Данн',
             'vendorCountry' => 'Россия',
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
-            'subCategory' => $this->createSubCategory(),
+            'subCategory' => $subCategoryId,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -527,6 +531,8 @@ class WebTestCase extends BaseTestCase
                 'GET',
                 '/api/1/categories/'. $categoryId .'/subcategories'
             );
+
+            Assert::assertResponseCode(200, $this->client);
 
             if (count($postResponse)) {
                 foreach ($postResponse as $value) {

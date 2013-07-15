@@ -6,10 +6,10 @@ define(function(require) {
         return BaseCollection.extend({
             model: ProductModel,
             url: function(){
-                return LH.baseApiUrl + '/subcategories/' + this.subcategory + '/products'
+                return LH.baseApiUrl + '/subcategories/' + this.subCategory + '/products'
             },
             initialize: function(models, options){
-                this.subcategory = options.subcategory;
+                this.subCategory = options.subCategory;
             }
         });
     }

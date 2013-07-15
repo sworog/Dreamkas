@@ -3,7 +3,7 @@ define(function(require) {
         var BaseModel = require('models/baseModel');
 
         return BaseModel.extend({
-            modelName: 'catalogSubcategory',
+            modelName: 'catalogSubCategory',
             urlRoot: LH.baseApiUrl + '/subcategories',
             saveFields: [
                 'name',
@@ -22,7 +22,12 @@ define(function(require) {
                 }
             },
             parse: function(response, options) {
+
                 var data = BaseModel.prototype.parse.apply(this, arguments);
+
+                if (!options.parse){
+                    return data;
+                }
 
                 if (typeof data.category == 'object') {
                     data.group = data.category.group.id;
