@@ -1,8 +1,13 @@
 20 Авторизация пользователя в системе
 
 Narrative:
-Как пользователь, я хочу авторизироваться в системе,
-Чтобы работать
+As a пользователь, я хочу
+I want to авторизироваться в системе
+In order to работать
+
+Meta:
+@sprint 13
+@us 20
 
 Scenario: Authorization invalid password
 Given the user opens the authorization page

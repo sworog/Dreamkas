@@ -1,9 +1,11 @@
-Meta:
-
 Narrative:
 As a user
 I want to perform an action
 So that I can achieve a business goal
+
+Meta:
+@us 17
+@sprint 14
 
 Scenario: Can't delete not empty category from group page
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'

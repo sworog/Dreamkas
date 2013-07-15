@@ -1,11 +1,19 @@
 Просмотр и создание товаров в крайнем узле классификатора
 
 Narrative:
-Как комммерческий директор,
-Я хочу созлдать товар в крайнем узле классификатора,
-Чтобы вводимый в ассортимент товар сразу был создан в требуемой группе/категории/подкатегории
+As a комммерческий директор,
+I want to создать товар в крайнем узле классификатора,
+In order to вводимый в ассортимент товар сразу был создан в требуемой группе/категории/подкатегории
+
+Meta:
+@sprint 14
+@us 18
 
 Scenario: Subcategory page full product create/edit
+
+Meta:
+@debug
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
