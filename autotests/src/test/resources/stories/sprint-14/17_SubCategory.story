@@ -1,13 +1,13 @@
 17 Создание, редактирование, просмотр подкатегорий товарного классификатора
 
+Narrative:
+In order to управлять ассортиментом по подкатегориям
+As a коммерческий директор,
+I want to создавать, редактировать и просматривать структуру подкатегорий внутри категорий товарного классификатора,
+
 Meta:
 @us 17
 @sprint 14
-
-Narrative:
-asA коммерческий директор,
-iWantTo создавать, редактировать и просматривать структуру подкатегорий внутри категорий товарного классификатора,
-inOrderTo управлять ассортиментом по подкатегориям
 
 Scenario: subCategory create
 Given there is the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
