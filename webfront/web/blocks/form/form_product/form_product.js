@@ -6,8 +6,8 @@ define(function(require) {
         return Form.extend({
             defaultInputLinkText: 'Введите значение',
             model: null,
+            subCategoryModel: null,
             blockName: 'form_product',
-            redirectUrl: '/products',
             templates: {
                 index: require('tpl!blocks/form/form_product/templates/index.html')
             },
@@ -53,6 +53,8 @@ define(function(require) {
 
                 if (block.model.id){
                     block.redirectUrl = '/products/' + block.model.id
+                } else {
+                    block.redirectUrl = '/catalog/' + block.subCategoryModel.get('group') + '/' + block.subCategoryModel.get('category') + '/' + block.subCategoryModel.id
                 }
 
                 block.render();
