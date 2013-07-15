@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 public class Category {
 
+    static public String DEFAULT_NAME = "defaultCategory";
+
     JSONObject jsonObject;
 
     public Category(JSONObject jsonObject) {

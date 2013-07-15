@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 public class SubCategory {
 
+    static public String DEFAULT_NAME = "defaultSubCategory";
+
     JSONObject jsonObject;
 
     public SubCategory(JSONObject jsonObject) {
