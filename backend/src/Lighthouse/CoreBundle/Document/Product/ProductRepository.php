@@ -28,6 +28,21 @@ class ProductRepository extends DocumentRepository
     }
 
     /**
+     * @param string $subCategoryId
+     * @return int
+     */
+    public function countBySubCategory($subCategoryId)
+    {
+        $query = $this
+            ->createQueryBuilder()
+            ->field('subCategory')->equals($subCategoryId)
+            ->count()
+            ->getQuery();
+        $count = $query->execute();
+        return $count;
+    }
+
+    /**
      * @param Product $product
      * @param Money $purchasePrice
      */

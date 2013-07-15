@@ -391,6 +391,43 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertResponseCode(404, $this->client);
     }
 
+    public function testDeleteNotEmptyCategory()
+    {
+        $this->clearMongoDb();
+
+        $subCategoryId = $this->createSubCategory();
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+
+        $productId = $this->createProduct('', $subCategoryId);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId . '/products'
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathEquals($productId, '0.id', $response);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/subcategories/' . $subCategoryId
+        );
+
+        Assert::assertResponseCode(409, $this->client);
+        Assert::assertJsonHasPath('message', $response);
+    }
+
     public function testGetSubCategoryProducts()
     {
         $this->clearMongoDb();
