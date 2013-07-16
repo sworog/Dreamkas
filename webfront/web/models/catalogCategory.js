@@ -1,13 +1,13 @@
 define(function(require) {
         //requirements
         var BaseModel = require('models/baseModel'),
-            CatalogSubcategoriesCollection = require('collections/catalogSubcategories');
+            CatalogSubCategoriesCollection = require('collections/catalogSubCategories');
 
         return BaseModel.extend({
             modelName: 'catalogCategory',
             urlRoot: LH.baseApiUrl + '/categories',
             initData: {
-                subCategories: CatalogSubcategoriesCollection
+                subCategories: CatalogSubCategoriesCollection
             },
             saveFields: [
                 'name',

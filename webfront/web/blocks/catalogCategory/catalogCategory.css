@@ -20,6 +20,7 @@
     margin-bottom: -1px;
     text-decoration: none;
     position: relative;
+    transition: none !important;
     z-index: 1;
 }
 

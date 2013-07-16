@@ -31,13 +31,13 @@ define(function(require) {
             show: function(opt) {
                 var block = this;
 
-                $(document).on('click.tooltip', function(e) {
+                $(document).on('click.' + block.cid, function(e) {
                     if (block.$trigger && e.target != block.$trigger[0] && !$(e.target).closest(block.el).length) {
                         block.hide();
                     }
                 });
 
-                $(document).on('keyup.tooltip', function(e) {
+                $(document).on('keyup.' + block.cid, function(e) {
                     if (e.keyCode === 27) {
                         block.hide();
                     }
@@ -61,8 +61,8 @@ define(function(require) {
                 var block = this;
 
                 $(document)
-                    .off('click.tooltip')
-                    .off('keyup.tooltip');
+                    .off('click.' + block.cid)
+                    .off('keyup.' + block.cid);
 
                 block.$el.hide();
             }

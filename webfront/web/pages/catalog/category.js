@@ -41,14 +41,14 @@ define(function(require) {
             $.when(page.catalogGroupModel.fetch(), catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
 
                 page.catalogCategoryModel = page.catalogGroupModel.categories.get(catalogCategoryId);
-                page.catalogSubcategoriesCollection = page.catalogCategoryModel.subCategories;
+                page.catalogSubCategoriesCollection = page.catalogCategoryModel.subCategories;
 
                 page.render();
 
                 new CatalogCategoryBlock({
                     el: document.getElementById('catalogCategory'),
                     catalogCategoryModel: page.catalogCategoryModel,
-                    catalogSubcategoriesCollection: page.catalogSubcategoriesCollection,
+                    catalogSubCategoriesCollection: page.catalogSubCategoriesCollection,
                     catalogSubCategoryId: catalogSubCategoryId,
                     catalogProductsCollection: page.catalogProductsCollection,
                     editMode: pageParams.editMode

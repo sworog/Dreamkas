@@ -26,7 +26,7 @@ define(function(require) {
 
             page.storeModel = new StoreModel({
                 id: page.storeId,
-                subcategory: params.subcategory
+                subCategory: params.subCategory
             });
 
             $.when(storeId ? page.storeModel.fetch() : {}).then(function(){
