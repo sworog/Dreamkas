@@ -122,8 +122,6 @@ define(function(require) {
                 .find('.catalogCategory__subCategoryLink_active')
                 .removeClass('catalogCategory__subCategoryLink_active');
 
-            block.$productList.css('visibility', 'hidden');
-
             if (catalogSubCategoryId){
                 block.$productList.show();
                 block.$subCategoryLink_active = block.$el
@@ -140,7 +138,6 @@ define(function(require) {
                     block.$productListTitle.html(KIT.text('Нет товаров'));
                     block.$table_products.hide();
                 }
-                block.$productList.css('visibility', 'visible');
             }
 
             if (catalogSubCategoryId && block.catalogSubCategoryId !== catalogSubCategoryId) {
@@ -156,7 +153,6 @@ define(function(require) {
                         }
 
                         block.$subCategoryLink_active.removeClass('preloader_rows');
-                        block.$productList.css('visibility', 'visible');
                     }
                 });
             }
