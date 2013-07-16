@@ -302,4 +302,172 @@ class StoreControllerTest extends WebTestCase
             Assert::assertJsonPathEquals($value, $name, $response);
         }
     }
+
+    /**
+     * @param string    $url
+     * @param string    $method
+     * @param string    $role
+     * @param int       $responseCode
+     * @param array|null $requestData
+     *
+     * @dataProvider accessStoreProvider
+     */
+    public function testAccessStore($url, $method, $role, $responseCode, $requestData = null)
+    {
+        $this->clearMongoDb();
+
+        $storeId = $this->createStore();
+
+        $url = str_replace(
+            array(
+                '__STORE_ID__',
+            ),
+            array(
+                $storeId,
+            ),
+            $url
+        );
+        $accessToken = $this->authAsRole($role);
+        if (is_array($requestData)) {
+            $requestData = $requestData + array (
+                'number' => 'магазин_номер-32',
+                'address' => 'СПБ, профессора Попова пр., д. 37, пом 3А',
+                'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
+            );
+        }
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            $method,
+            $url,
+            $requestData
+        );
+
+        Assert::assertResponseCode($responseCode, $this->client);
+    }
+
+    public function accessStoreProvider()
+    {
+        return array(
+            /**************************************
+             * GET /api/1/stores
+             */
+            array(
+                '/api/1/stores',
+                'GET',                              // Method
+                'ROLE_COMMERCIAL_MANAGER',          // Role
+                '200',                              // Response Code
+            ),
+            array(
+                '/api/1/stores',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/stores',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/stores',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * GET /api/1/stores/__ID__
+             */
+            array(
+                '/api/1/stores/__STORE_ID__',
+                'GET',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/stores/__STORE_ID__',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/stores/__STORE_ID__',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/stores/__STORE_ID__',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * POST /api/1/stores
+             */
+            array(
+                '/api/1/stores',
+                'POST',
+                'ROLE_COMMERCIAL_MANAGER',
+                '201',
+                array(),
+            ),
+            array(
+                '/api/1/stores',
+                'POST',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/stores',
+                'POST',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/stores',
+                'POST',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+
+            /*************************************
+             * PUT /api/1/stores/__STORE_ID__
+             */
+            array(
+                '/api/1/stores/__STORE_ID__',
+                'PUT',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+                array(),
+            ),
+            array(
+                '/api/1/stores/__STORE_ID__',
+                'PUT',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/stores/__STORE_ID__',
+                'PUT',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/stores/__STORE_ID__',
+                'PUT',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+        );
+    }
 }

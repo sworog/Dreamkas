@@ -72,7 +72,7 @@ class StoreController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Store\Store $store
      * @return Store
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function getStoreAction(Store $store)
