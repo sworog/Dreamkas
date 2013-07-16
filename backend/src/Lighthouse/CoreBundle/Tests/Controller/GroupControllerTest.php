@@ -497,7 +497,7 @@ class GroupControllerTest extends WebTestCase
             ),
 
             /*************************************
-             * GET /api/1/groups/__ID__/categories
+             * GET /api/1/groups/__GROUP_ID__/categories
              */
             array(
                 '/api/1/groups/__GROUP_ID__/categories',

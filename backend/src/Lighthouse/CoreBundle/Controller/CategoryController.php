@@ -58,7 +58,7 @@ class CategoryController extends AbstractRestController
     /**
      * @param Category $category
      * @return Category
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getCategoryAction(Category $category)

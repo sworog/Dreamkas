@@ -70,7 +70,7 @@ class SubCategoryController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Category\Category $category
      * @return SubCategoryCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getCategorySubcategoriesAction(Category $category)
