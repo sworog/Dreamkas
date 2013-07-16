@@ -1,7 +1,7 @@
-<% if(!catalogSubcategoriesCollection || !catalogSubcategoriesCollection.length) { %>
+<% if(!catalogSubCategoriesCollection || !catalogSubCategoriesCollection.length) { %>
 <div><%t 'Нет подкатегорий' %></div>
 <% } else { %>
-<% catalogSubcategoriesCollection.each(function(catalogSubCategoryModel){ %>
+<% catalogSubCategoriesCollection.each(function(catalogSubCategoryModel){ %>
 <div class="catalogCategory__subCategoryItem" subCategory_id="<%= catalogSubCategoryModel.id %>">
     <%= templates.catalogCategory__subCategoryItem({
         catalogSubCategoryModel: catalogSubCategoryModel

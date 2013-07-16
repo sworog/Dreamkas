@@ -8,7 +8,7 @@ define(function(require) {
         blockName: 'table_writeOffs',
         templates: {
             head: require('tpl!blocks/table/table_writeOffs/templates/head.html'),
-            body: require('tpl!blocks/table/table_writeOffs/templates/body.html')
+            tr: require('tpl!blocks/table/table_writeOffs/templates/tr.html')
         }
     });
 });

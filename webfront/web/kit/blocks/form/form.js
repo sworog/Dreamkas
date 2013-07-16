@@ -4,6 +4,8 @@ define(function(require) {
         Backbone = require('backbone'),
         _ = require('underscore');
 
+    require('backbone.syphon');
+
     var router = new Backbone.Router();
 
     return Block.extend({
@@ -38,34 +40,36 @@ define(function(require) {
 
             block.model.save(data, {
                 success: function(model) {
-                    if (block.collection){
-                        block.collection.push(model);
-                    }
-                    block.submitSuccess(model);
+                    block.onSubmitSuccess(model);
+                    block.trigger('submit:success', model);
                 },
                 error: function(model, response) {
-                    block.submitError(JSON.parse(response.responseText));
+                    block.onSubmitError(JSON.parse(response.responseText));
+                    block.trigger('submit:error', data);
+                },
+                complete: function(){
+                    block.$submitButton.removeClass('preloader_rows');
                 }
             });
+
+            block.trigger('submit', data);
         },
-        submitSuccess: function(data){
+        onSubmitSuccess: function(model){
             var block = this;
 
-            block.trigger('submit:success', data);
+            if (block.collection){
+                block.collection.push(model);
+            }
 
             if (block.redirectUrl){
                 router.navigate(block.redirectUrl, {
                     trigger: true
                 });
             }
-
-            block.$submitButton.removeClass('preloader_rows');
         },
-        submitError: function(data){
+        onSubmitError: function(data){
             var block = this;
-            block.trigger('submit:error', data);
             block.showErrors(data);
-            block.$submitButton.removeClass('preloader_rows');
         },
         showErrors: function(errors) {
             var block = this;

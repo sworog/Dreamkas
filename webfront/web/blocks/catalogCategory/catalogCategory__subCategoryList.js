@@ -5,13 +5,13 @@ define(function(require) {
 
     return Block.extend({
         blockName: 'catalogCategory__subCategoryList',
-        catalogSubcategoriesCollection: null,
+        catalogSubCategoriesCollection: null,
         templates: {
             index: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryList.html'),
             catalogCategory__subCategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')
         },
         listeners: {
-            catalogSubcategoriesCollection: {
+            catalogSubCategoriesCollection: {
                 add: function(model, collection, options) {
                     var block = this,
                         catalogCategory__subCategoryItem = new CatalogCategory__subCategoryItem({
@@ -31,7 +31,7 @@ define(function(require) {
 
             Block.prototype.initialize.call(block);
 
-            block.catalogSubcategoriesCollection.each(function(catalogSubCategoryModel){
+            block.catalogSubCategoriesCollection.each(function(catalogSubCategoryModel){
                 new CatalogCategory__subCategoryItem({
                     catalogSubCategoryModel: catalogSubCategoryModel,
                     el: block.el.querySelectorAll('[subCategory_id="' + catalogSubCategoryModel.id + '"]')

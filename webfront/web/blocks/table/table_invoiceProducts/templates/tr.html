@@ -1,4 +1,3 @@
-<% collection.each(function(model){ %>
 <tr invoice-product-id="<%= model.id %>" name="invoiceProduct" class="invoice__dataRow" product-sku="<%e model.get('product').sku %>">
     <td>
         <span name="productName"
@@ -60,4 +59,3 @@
         <span class="invoice__removeLink"><%t 'удалить' %></span>
     </td>
 </tr>
-<% }) %>

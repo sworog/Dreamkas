@@ -7,7 +7,7 @@
 
 <h3>
     <span style="vertical-align: middle">
-        <%= LH.attr(catalogCategoryModel, 'name') %>
+        <%a catalogCategoryModel.name %>
     </span>
     <a class="editor__editLink catalog__editCategoryLink"></a>
     <a class="button button_color_blue catalog__addSubCategoryLink editor__control">
@@ -18,7 +18,7 @@
 <div id="catalogCategory__subCategoryList">
     <%= templates.catalogCategory__subCategoryList({
     templates: templates,
-    catalogSubcategoriesCollection: catalogSubcategoriesCollection
+    catalogSubCategoriesCollection: catalogSubCategoriesCollection
     }) %>
 </div>
 

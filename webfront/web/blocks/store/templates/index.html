@@ -1,0 +1,24 @@
+<% if(LH.isAllow('stores', 'PUT::{store}')) { %>
+<div class="page__controls">
+    <a href="/stores/edit/<%= model.id %>">
+        <%t 'Редактировать' %>
+    </a>
+</div>
+<% } %>
+
+<h3><%a model.number %></h3>
+
+<table class="table" style="width: 50%">
+    <tr>
+        <th><%t 'Адрес' %></th>
+        <td>
+            <%a model.address %>
+        </td>
+    </tr>
+    <tr>
+        <th><%t 'Контактная информация' %></th>
+        <td>
+            <%a model.contacts %>
+        </td>
+    </tr>
+</table>

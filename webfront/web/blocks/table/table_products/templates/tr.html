@@ -1,4 +1,3 @@
-<% collection.each(function(model){ %>
 <tr name="product" href="/products/<%= model.get('id') %>">
     <td name="sku">
         <%e model.get('sku') %>
@@ -16,4 +15,3 @@
         <%e LH.formatPrice(model.get('purchasePrice')) %> р.
     </td>
 </tr>
-<% }) %>

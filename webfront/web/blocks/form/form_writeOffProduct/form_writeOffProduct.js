@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Form = require('blocks/form/form'),
+        var Form = require('kit/blocks/form/form'),
             _ = require('underscore'),
             WriteOffProduct = require('models/writeOffProduct'),
             cookie = require('utils/cookie');
@@ -16,31 +16,28 @@ define(function(require) {
 
                 var block = this;
 
+                block.model = new WriteOffProduct({
+                    writeOff: {
+                        id: block.writeOffProductsCollection.writeOffId
+                    }
+                });
+
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='name']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='sku']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='barcode']"));
             },
-            submit: function(){
-                var block = this,
-                    deferred = $.Deferred(),
-                    newProduct = new WriteOffProduct({
-                        writeOff: {
-                            id: block.writeOffProductsCollection.writeOffId
-                        }
-                    });
+            onSubmitSuccess: function(model){
+                var block = this;
 
-                newProduct.save(block.data, {
-                    error: function(model, res) {
-                        deferred.reject(JSON.parse(res.responseText));
-                    },
-                    success: function(model) {
-                        block.writeOffProductsCollection.push(model);
-                        block.clear();
-                        deferred.resolve(model);
+                block.writeOffProductsCollection.push(model);
+
+                block.model = new WriteOffProduct({
+                    writeOff: {
+                        id: block.writeOffProductsCollection.writeOffId
                     }
                 });
 
-                return deferred.promise();
+                block.clear();
             },
             showErrors: function(data) {
                 var block = this;

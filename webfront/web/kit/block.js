@@ -9,7 +9,7 @@ define(function(require) {
     require('jquery.require');
 
     var Block = Backbone.View.extend({
-        templates: null,
+        templates: {},
 
         className: null,
         blockName: null,

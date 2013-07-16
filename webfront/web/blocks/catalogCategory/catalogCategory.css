@@ -1,7 +1,6 @@
 .catalogCategory__subCategoryList{
     float: left;
     width: 250px;
-    background-color: #fafafa;
     margin-right: 40px;
 }
 
@@ -20,6 +19,8 @@
     margin-bottom: -1px;
     text-decoration: none;
     position: relative;
+    transition: none !important;
+    background-color: #fafafa;
     z-index: 1;
 }
 

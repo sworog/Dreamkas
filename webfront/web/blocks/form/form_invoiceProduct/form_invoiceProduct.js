@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var _ = require('underscore'),
-            Form = require('blocks/form/form'),
+            Form = require('kit/blocks/form/form'),
             InvoiceProduct = require('models/invoiceProduct'),
             cookie = require('utils/cookie');
 
@@ -17,31 +17,28 @@ define(function(require) {
 
                 Form.prototype.initialize.call(this);
 
+                block.model = new InvoiceProduct({
+                    invoice: {
+                        id: block.invoiceProductsCollection.invoiceId
+                    }
+                });
+
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='name']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='sku']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='barcode']"));
             },
-            submit: function() {
-                var block = this,
-                    deferred = $.Deferred(),
-                    newProduct = new InvoiceProduct({
-                        invoice: {
-                            id: block.invoiceProductsCollection.invoiceId
-                        }
-                    });
+            onSubmitSuccess: function(model){
+                var block = this;
 
-                newProduct.save(block.data, {
-                    error: function(model, res) {
-                        deferred.reject(JSON.parse(res.responseText));
-                    },
-                    success: function(model) {
-                        deferred.resolve(model);
-                        block.invoiceProductsCollection.push(model);
-                        block.clear();
+                block.invoiceProductsCollection.push(model);
+
+                block.model = new InvoiceProduct({
+                    invoice: {
+                        id: block.invoiceProductsCollection.invoiceId
                     }
                 });
 
-                return deferred.promise();
+                block.clear();
             },
             showErrors: function(data) {
                 var block = this;

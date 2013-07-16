@@ -6,7 +6,7 @@ define(function(require) {
         blockName: 'table_writeOffProducts',
         templates: {
             head: require('tpl!blocks/table/table_writeOffProducts/templates/head.html'),
-            body: require('tpl!blocks/table/table_writeOffProducts/templates/body.html')
+            tr: require('tpl!blocks/table/table_writeOffProducts/templates/tr.html')
         }
     });
 });

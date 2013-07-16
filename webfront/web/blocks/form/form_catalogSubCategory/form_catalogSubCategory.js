@@ -20,10 +20,10 @@ define(function(require) {
 
             Form.prototype.initialize.call(block);
         },
-        submitSuccess: function(){
+        onSubmitSuccess: function(){
             var block = this;
 
-            Form.prototype.submitSuccess.call(block);
+            Form.prototype.onSubmitSuccess.call(block);
 
             if (block.isAddForm){
                 block.model = new CatalogSubCategoryModel({

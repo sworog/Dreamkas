@@ -17,7 +17,7 @@ define(function(require) {
 
         catalogCategoryModel: null,
         catalogSubCategoryId: null,
-        catalogSubcategoriesCollection: null,
+        catalogSubCategoriesCollection: null,
         catalogProductsCollection: null,
 
         templates: {
@@ -43,7 +43,7 @@ define(function(require) {
 
                 block.tooltip_catalogSubCategoryForm.show({
                     $trigger: $target,
-                    collection: block.catalogSubcategoriesCollection,
+                    collection: block.catalogSubCategoriesCollection,
                     model: new CatalogSubCategoryModel({
                         category: block.catalogCategoryModel.id,
                         group: block.catalogCategoryModel.get('group')
@@ -89,7 +89,7 @@ define(function(require) {
 
             new CatalogCategory__subCategoryList({
                 el: document.getElementById('catalogCategory__subCategoryList'),
-                catalogSubcategoriesCollection: block.catalogSubcategoriesCollection
+                catalogSubCategoriesCollection: block.catalogSubCategoriesCollection
             });
 
             block.set('catalogSubCategoryId', block.catalogSubCategoryId);
@@ -122,38 +122,43 @@ define(function(require) {
                 .find('.catalogCategory__subCategoryLink_active')
                 .removeClass('catalogCategory__subCategoryLink_active');
 
-            if (catalogSubCategoryId) {
+            block.$productList.css('visibility', 'hidden');
+
+            if (catalogSubCategoryId){
                 block.$productList.show();
-
-                block.$addProductLink.attr('href', '/products/create?subCategory=' + catalogSubCategoryId);
-
                 block.$subCategoryLink_active = block.$el
                     .find('.catalogCategory__subCategoryLink[subCategory_id="' + catalogSubCategoryId + '"]')
                     .addClass('catalogCategory__subCategoryLink_active');
+
+                block.$addProductLink.attr('href', '/products/create?subCategory=' + catalogSubCategoryId);
             } else {
                 block.$productList.hide();
             }
 
+            if (catalogSubCategoryId && block.catalogSubCategoryId === catalogSubCategoryId) {
+                if (!block.catalogProductsCollection.length){
+                    block.$productListTitle.html(KIT.text('Нет товаров'));
+                    block.$table_products.hide();
+                }
+                block.$productList.css('visibility', 'visible');
+            }
+
             if (catalogSubCategoryId && block.catalogSubCategoryId !== catalogSubCategoryId) {
                 block.catalogProductsCollection.subCategory = catalogSubCategoryId;
-                block.$table_products.hide();
                 block.$subCategoryLink_active.addClass('preloader_rows');
 
                 block.catalogProductsCollection.fetch({
                     success: function(collection) {
                         if (collection.length) {
                             block.$productListTitle.html(KIT.text('Список товаров'));
-                            block.$table_products.show();
                         } else {
                             block.$productListTitle.html(KIT.text('Нет товаров'));
                         }
 
                         block.$subCategoryLink_active.removeClass('preloader_rows');
+                        block.$productList.css('visibility', 'visible');
                     }
                 });
-            } else if (!block.catalogProductsCollection.length){
-                block.$productListTitle.html(KIT.text('Нет товаров'));
-                block.$table_products.hide();
             }
         }
     });

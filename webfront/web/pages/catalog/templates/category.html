@@ -1,8 +1,8 @@
 <div class="page__header">
     <a href="/catalog" class="page__backLink"><%t 'Товарный справочник' %></a>
-    <span style="vertical-align: middle">/</span>
+    <span class="page__backLinkSeparator">/</span>
     <a href="/catalog/<%= catalogGroupModel.id %>" class="page__backLink">
-        <%= LH.attr(catalogGroupModel, 'name') %>
+        <%a catalogGroupModel.name %>
     </a>
 </div>
 <div class="box" id="catalogCategory"></div>

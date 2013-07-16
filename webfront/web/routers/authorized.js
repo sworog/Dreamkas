@@ -39,6 +39,12 @@ define(function(require) {
             'catalog/:catalogGroupId(/)': require('pages/catalog/group'),
             'catalog/:catalogGroupId/:catalogCategoryId(/:catalogSubCategoryId)': require('pages/catalog/category'),
 
+            //stores
+            'stores(/)': require('pages/store/list'),
+            'stores/create(/)': require('pages/store/form'),
+            'stores/edit/:storeId(/)': require('pages/store/form'),
+            'stores/:storeId(/)': require('pages/store/view'),
+
             '*path': require('pages/common/404')
         },
         initialize: function(){

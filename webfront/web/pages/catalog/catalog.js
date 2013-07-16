@@ -17,7 +17,7 @@ define(function(require) {
         initialize: function(params){
             var page = this;
 
-            if (page.referer && page.referer.indexOf('page_catalog') >= 0){
+            if (page.referer && page.referer.pageName.indexOf('page_catalog') >= 0){
                 _.extend(pageParams, params);
             } else {
                 _.extend(pageParams, {
