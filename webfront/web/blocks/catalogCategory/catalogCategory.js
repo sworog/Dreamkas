@@ -125,11 +125,14 @@ define(function(require) {
             block.$productList.css('visibility', 'hidden');
 
             if (catalogSubCategoryId){
+                block.$productList.show();
                 block.$subCategoryLink_active = block.$el
                     .find('.catalogCategory__subCategoryLink[subCategory_id="' + catalogSubCategoryId + '"]')
                     .addClass('catalogCategory__subCategoryLink_active');
 
                 block.$addProductLink.attr('href', '/products/create?subCategory=' + catalogSubCategoryId);
+            } else {
+                block.$productList.hide();
             }
 
             if (catalogSubCategoryId && block.catalogSubCategoryId === catalogSubCategoryId) {

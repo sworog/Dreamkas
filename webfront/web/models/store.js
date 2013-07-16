@@ -12,7 +12,7 @@ define(function(require) {
             saveFields: [
                 'number',
                 'address',
-                'phone'
+                'contacts'
             ]
         });
     }
