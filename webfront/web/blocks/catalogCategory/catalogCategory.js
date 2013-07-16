@@ -113,27 +113,47 @@ define(function(require) {
             Editor.prototype['set:editMode'].apply(this, arguments);
             params.editMode = editMode;
         },
-        'set:catalogSubcategoryId': function(catalogSubcategoryId) {
+        'set:catalogSubcategoryId': function(catalogSubCategoryId) {
             var block = this;
 
             block.$el
                 .find('.catalogCategory__subcategoryLink_active')
                 .removeClass('catalogCategory__subcategoryLink_active');
 
-            if (catalogSubcategoryId){
-                block.catalogProductsCollection.subcategory = catalogSubcategoryId;
+            block.$productList.css('visibility', 'hidden');
 
-                block.catalogProductsCollection.fetch();
+            if (catalogSubCategoryId){
+                block.$subCategoryLink_active = block.$el
+                    .find('.catalogCategory__subCategoryLink[subCategory_id="' + catalogSubCategoryId + '"]')
+                    .addClass('catalogCategory__subCategoryLink_active');
 
-                block.$productList.show();
+                block.$addProductLink.attr('href', '/products/create?subCategory=' + catalogSubCategoryId);
+            }
 
-                block.$addProductLink.attr('href', '/products/create?subcategory=' + catalogSubcategoryId);
+            if (catalogSubCategoryId && block.catalogSubCategoryId === catalogSubCategoryId) {
+                if (!block.catalogProductsCollection.length){
+                    block.$productListTitle.html(KIT.text('Нет товаров'));
+                    block.$table_products.hide();
+                }
+                block.$productList.css('visibility', 'visible');
+            }
 
-                block.$el
-                    .find('.catalogCategory__subcategoryLink[subcategory_id="' + catalogSubcategoryId + '"]')
-                    .addClass('catalogCategory__subcategoryLink_active');
-            } else {
-                block.$productList.hide();
+            if (catalogSubCategoryId && block.catalogSubCategoryId !== catalogSubCategoryId) {
+                block.catalogProductsCollection.subCategory = catalogSubCategoryId;
+                block.$subCategoryLink_active.addClass('preloader_rows');
+
+                block.catalogProductsCollection.fetch({
+                    success: function(collection) {
+                        if (collection.length) {
+                            block.$productListTitle.html(KIT.text('Список товаров'));
+                        } else {
+                            block.$productListTitle.html(KIT.text('Нет товаров'));
+                        }
+
+                        block.$subCategoryLink_active.removeClass('preloader_rows');
+                        block.$productList.css('visibility', 'visible');
+                    }
+                });
             }
         }
     });
