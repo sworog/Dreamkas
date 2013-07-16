@@ -1,4 +1,3 @@
-<% collection.each(function(model){ %>
 <tr name="writeOff" href="/writeOffs/<%= model.id %>">
     <td>
         <span name="date"><%= moment(model.get('date')).format('DD.MM.YYYY') %></span>
@@ -11,4 +10,3 @@
         <span>р.</span>
     </td>
 </tr>
-<% }) %>
