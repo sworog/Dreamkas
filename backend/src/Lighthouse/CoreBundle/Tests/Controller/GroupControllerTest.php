@@ -303,4 +303,226 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($categoryId1, 'categories.*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($categoryId2, 'categories.*.id', $getResponse, 1);
     }
+
+    /**
+     * @param string    $url
+     * @param string    $method
+     * @param string    $role
+     * @param int       $responseCode
+     * @param array|null $requestData
+     *
+     * @dataProvider accessGroupProvider
+     */
+    public function testAccessGroup($url, $method, $role, $responseCode, $requestData = null)
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+
+        $url = str_replace(
+            array(
+                '__GROUP_ID__',
+            ),
+            array(
+                $groupId,
+            ),
+            $url
+        );
+        $accessToken = $this->authAsRole($role);
+        if (is_array($requestData)) {
+            $requestData = $requestData + array(
+                'name' => 'Алкоголь'
+            );
+        }
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            $method,
+            $url,
+            $requestData
+        );
+
+        Assert::assertResponseCode($responseCode, $this->client);
+    }
+
+    public function accessGroupProvider()
+    {
+        return array(
+            /**************************************
+             * GET /api/1/groups
+             */
+            array(
+                '/api/1/groups',
+                'GET',                              // Method
+                'ROLE_COMMERCIAL_MANAGER',          // Role
+                '200',                              // Response Code
+            ),
+            array(
+                '/api/1/groups',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/groups',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/groups',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * GET /api/1/groups/__ID__
+             */
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'GET',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * POST /api/1/groups
+             */
+            array(
+                '/api/1/groups',
+                'POST',
+                'ROLE_COMMERCIAL_MANAGER',
+                '201',
+                array(),
+            ),
+            array(
+                '/api/1/groups',
+                'POST',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/groups',
+                'POST',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/groups',
+                'POST',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+
+            /*************************************
+             * PUT /api/1/groups/__GROUP_ID__
+             */
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'PUT',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+                array(),
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'PUT',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'PUT',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'PUT',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+
+            /*************************************
+             * DELETE /api/1/groups/__GROUP_ID__
+             */
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'DELETE',
+                'ROLE_COMMERCIAL_MANAGER',
+                '204',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'DELETE',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'DELETE',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'DELETE',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * GET /api/1/groups/__ID__/categories
+             */
+            array(
+                '/api/1/groups/__GROUP_ID__/categories',
+                'GET',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__/categories',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__/categories',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__/categories',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+        );
+    }
 }
