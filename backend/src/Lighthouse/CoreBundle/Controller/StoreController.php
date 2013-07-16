@@ -52,7 +52,7 @@ class StoreController extends AbstractRestController
      */
     public function putStoresAction(Request $request, Store $store)
     {
-        return $this->processPost($request, $store);
+        return $this->processForm($request, $store);
     }
 
     /**
