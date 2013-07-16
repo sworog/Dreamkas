@@ -1,15 +1,15 @@
 define(function(require) {
     //requirements
     var Form = require('kit/blocks/form/form'),
-        CatalogSubcategoryModel = require('models/catalogSubcategory');
+        CatalogSubCategoryModel = require('models/catalogSubCategory');
 
     return Form.extend({
         blockName: 'form_catalogCategory',
-        model: new CatalogSubcategoryModel(),
+        model: new CatalogSubCategoryModel(),
         collection: null,
         isAddForm: true,
         templates: {
-            index: require('tpl!blocks/form/form_catalogSubcategory/templates/index.html')
+            index: require('tpl!blocks/form/form_catalogSubCategory/templates/index.html')
         },
         initialize: function(){
             var block = this;
@@ -26,7 +26,7 @@ define(function(require) {
             Form.prototype.submitSuccess.call(block);
 
             if (block.isAddForm){
-                block.model = new CatalogSubcategoryModel({
+                block.model = new CatalogSubCategoryModel({
                     category: block.model.get('category'),
                     group: block.model.get('group')
                 });

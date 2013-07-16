@@ -10,13 +10,13 @@
         <%a catalogCategoryModel.name %>
     </span>
     <a class="editor__editLink catalog__editCategoryLink"></a>
-    <a class="button button_color_blue catalog__addSubcategoryLink editor__control">
+    <a class="button button_color_blue catalog__addSubCategoryLink editor__control">
         <%t 'Добавить подкатегорию' %>
     </a>
 </h3>
 
-<div id="catalogCategory__subcategoryList">
-    <%= templates.catalogCategory__subcategoryList({
+<div id="catalogCategory__subCategoryList">
+    <%= templates.catalogCategory__subCategoryList({
     templates: templates,
     catalogSubcategoriesCollection: catalogSubcategoriesCollection
     }) %>
@@ -24,8 +24,8 @@
 
 <div class="catalogCategory__productList">
     <h4>
-        <%t 'Список товаров' %>
-        <a style="margin-left: 15px;" href="/products/create?subcategory=<%= catalogSubcategoryId %>" class="button button_color_blue catalogCategory__addProductLink editor__control">
+        <span class="catalogCategory__productListTitle"><%t 'Список товаров' %></span>
+        <a style="margin-left: 15px;" href="/products/create?subCategory=<%= catalogSubCategoryId %>" class="button button_color_blue catalogCategory__addProductLink editor__control">
             Добавить товар
         </a>
     </h4>

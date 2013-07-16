@@ -20,7 +20,7 @@ public class ProductListPage extends ProductCreatePage {
 
     public void createNewProductButtonClick() {
         String xpath = "//a[@class='button']";
-        findElement(By.xpath(xpath)).click();
+        findElement(By.cssSelector("a.catalogCategory__addProductLink")).click();
     }
 
     public void listItemClick(String skuValue) {

@@ -5,6 +5,10 @@ Narrative:
 Я хочу просматривать карточку товара,
 Чтобы определять насколько верные и полные данные там содержатся.
 
+Meta:
+@sprint 1
+@us 2
+
 Scenario: Viewing product card after creation 1
 Given the user is on the product list page
 And the user logs in as 'commercialManager'

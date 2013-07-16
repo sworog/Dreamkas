@@ -1,8 +1,13 @@
 20 Авторизация пользователя в системе
 
 Narrative:
-Как пользователь, я хочу авторизироваться в системе,
-Чтобы работать
+As a пользователь, я хочу
+I want to авторизироваться в системе
+In order to работать
+
+Meta:
+@sprint 13
+@us 20
 
 Scenario: Authorization invalid password
 Given the user opens the authorization page
@@ -136,7 +141,7 @@ Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-IFBKG-119' sku is present
 When the user open the invoice card with 'Invoice-IFBKG-119' sku
 Then the user checks invoice 'head' elements  values
-| elementName | expectedValue |
+| elementName | value |
 | sku | Invoice-IFBKG-119 |
 | supplier | Поставщик |
 | accepter | Иван Петрович Петрович |
@@ -145,7 +150,7 @@ Then the user checks invoice 'head' elements  values
 | supplierInvoiceDate | 01.04.2013 |
 | supplierInvoiceSku | 123456 |
 Then the user checks the product with 'IFBKG-119' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IFBKG-119 |
 | productSku | IFBKG-119 |
 | productBarcode | IFBKG-119 |
@@ -154,7 +159,7 @@ Then the user checks the product with 'IFBKG-119' sku has values
 | productPrice | 1 |
 | productSum | 1 |
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 1 |
 When the user logs out
@@ -174,12 +179,12 @@ And the user inputs 'Причина сдачи: Истек срок хранен
 And the user presses the add product button and add the product to write off
 And the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff number review | WriteOff Number-199 |
 | writeOff date review | 24.10.2012 |
 And the user checks the write off product with 'WriteOff-ProductSku99' sku is present
 And the user checks the product with 'WriteOff-ProductSku99' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product name review | WriteOff-ProductName99 |
 | writeOff product sku review | WriteOff-ProductSku99 |
 | writeOff product barCode review | WriteOff-ProductBarCode99 |
@@ -187,7 +192,7 @@ And the user checks the product with 'WriteOff-ProductSku99' sku has elements on
 | writeOff product price review | 15 |
 | writeOff cause review | Причина сдачи: Истек срок хранения |
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 150 |
 Given the user opens amount list page
@@ -199,7 +204,7 @@ Given the user is on the users list page
 When the user logs in using 'watchman' userName and 'lighthouse' password
 When the user clicks the create new user button from users list page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя11 |
 | position | Позиция22 |
 | username | createfromuserslistpage99 |

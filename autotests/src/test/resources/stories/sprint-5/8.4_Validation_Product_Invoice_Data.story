@@ -9,6 +9,10 @@ Narrative:
 3. Количество - положительное, целое число
 4. Цена приёмки - положительное, больше нуля.
 
+Meta:
+@sprint 5
+@us 8.4
+
 Scenario: Invoice product name is required
 Given there is the invoice with 'InvoiceProduct-IPNIR' sku
 And the user logs in as 'departmentManager'

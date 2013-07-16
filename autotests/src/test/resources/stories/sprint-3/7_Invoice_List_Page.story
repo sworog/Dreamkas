@@ -5,6 +5,10 @@ Narrative:
 Я хочу просматривать список накладных,
 Чтобы контролировать процесс приемки
 
+Meta:
+@sprint 3
+@us 7
+
 Scenario: Invoice list item check
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'

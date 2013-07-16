@@ -5,6 +5,10 @@ Narrative:
 Я хочу изменять данные накладной,
 Чтобы исправлять в ней ошибки
 
+Meta:
+@sprint 6
+@us 10
+
 Scenario: Invoice head edition
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -31,7 +35,7 @@ When the user edits 'supplierInvoiceSku' element with new value '654321' and ver
 When the user edits 'acceptanceDate' element with new value '03.03.2012 14:56' and verify the 'head' changes
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks invoice 'head' elements  values
-| elementName | expectedValue |
+| elementName | value |
 | sku | Invoice-IE-IH-Edited |
 | supplier | Другой поставщик |
 | accepter | Сидоров Иван Сидорович |
@@ -50,7 +54,7 @@ And the user clicks edit button and starts invoice edition
 When the user edits 'sku' element with new value 'Invoice-IE-IPE-SELC-Edited' and verify the 'head' changes
 And the user clicks finish edit link and ends the invoice edition
 Then the user checks invoice 'head' elements  values
-| elementName | expectedValue |
+| elementName | value |
 | sku | Invoice-IE-IPE-SELC-Edited |
 When the user logs out
 
@@ -72,7 +76,7 @@ When the user clicks on 'productName' element of invoice product with 'IE-IPE' s
 And the user inputs 'IE-IPE-1' in the invoice 'inline productName' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
@@ -80,17 +84,17 @@ When the user clicks on 'productAmount' element of invoice product with 'IE-IPE-
 And the user inputs '2' in the invoice 'inline quantity' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productAmount | 2 |
 When the user clicks on 'productPrice' element of invoice product with 'IE-IPE-1' sku
 And the user inputs '3' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productAmount | 2 |
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
@@ -99,7 +103,7 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productPrice | 3 |
 | productSum | 6 |
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 6 |
 When the user logs out
@@ -122,13 +126,13 @@ When the user clicks on 'productName' element of invoice product with 'IE-IPE' s
 And the user inputs 'IE-IPE-1' in the invoice 'inline productName' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
 When the user clicks finish edit link and ends the invoice edition
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
@@ -152,7 +156,7 @@ When the user clicks on 'productSku' element of invoice product with 'IE-IPE' sk
 And the user inputs 'IE-IPE-1' in the invoice 'inline productSku' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
@@ -160,17 +164,17 @@ When the user clicks on 'productAmount' element of invoice product with 'IE-IPE-
 And the user inputs '2' in the invoice 'inline quantity' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productAmount | 2 |
 When the user clicks on 'productPrice' element of invoice product with 'IE-IPE-1' sku
 And the user inputs '3' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productAmount | 2 |
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
@@ -179,7 +183,7 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productPrice | 3 |
 | productSum | 6 |
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 6 |
 When the user logs out
@@ -202,13 +206,13 @@ When the user clicks on 'productSku' element of invoice product with 'IE-IPE' sk
 And the user inputs 'IE-IPE-1' in the invoice 'inline productSku' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
 When the user clicks finish edit link and ends the invoice edition
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
@@ -232,7 +236,7 @@ When the user clicks on 'productBarcode' element of invoice product with 'IE-IPE
 And the user inputs 'IE-IPE-1' in the invoice 'inline productBarCode' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
@@ -240,17 +244,17 @@ When the user clicks on 'productAmount' element of invoice product with 'IE-IPE-
 And the user inputs '2' in the invoice 'inline quantity' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productAmount | 2 |
 When the user clicks on 'productPrice' element of invoice product with 'IE-IPE-1' sku
 And the user inputs '3' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productAmount | 2 |
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
@@ -259,7 +263,7 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productPrice | 3 |
 | productSum | 6 |
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 6 |
 When the user logs out
@@ -282,13 +286,13 @@ When the user clicks on 'productBarcode' element of invoice product with 'IE-IPE
 And the user inputs 'IE-IPE-1' in the invoice 'inline productBarCode' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
 When the user clicks finish edit link and ends the invoice edition
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
@@ -306,7 +310,7 @@ And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '3' in the invoice product 'invoiceCost' field
 And the user clicks the add invoice product button and adds the invoice product
 Then the user checks the product with 'IE-IPA-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPA-1 |
 | productSku | IE-IPA-1 |
 | productBarcode | IE-IPA-1 |
@@ -316,7 +320,7 @@ Then the user checks the product with 'IE-IPA-1' sku has values
 | productSum | 3 |
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the product with 'IE-IPA-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPA-1 |
 | productSku | IE-IPA-1 |
 | productBarcode | IE-IPA-1 |
@@ -338,7 +342,7 @@ And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '3' in the invoice product 'invoiceCost' field
 And the user clicks the add invoice product button and adds the invoice product
 Then the user checks the product with 'IE-IPA-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPA-1 |
 | productSku | IE-IPA-1 |
 | productBarcode | IE-IPA-1 |
@@ -348,7 +352,7 @@ Then the user checks the product with 'IE-IPA-1' sku has values
 | productSum | 3 |
 When the user clicks finish edit link and ends the invoice edition
 Then the user checks the product with 'IE-IPA-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPA-1 |
 | productSku | IE-IPA-1 |
 | productBarcode | IE-IPA-1 |
@@ -371,7 +375,7 @@ And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '3' in the invoice product 'invoiceCost' field
 And the user clicks the add invoice product button and adds the invoice product
 Then the user checks the product with 'IE-IPA-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPA-1 |
 | productSku | IE-IPA-1 |
 | productBarcode | IE-IPA-1 |
@@ -383,7 +387,7 @@ When the user clicks on 'productBarcode' element of invoice product with 'IE-IPA
 And the user inputs 'IE-IPA' in the invoice 'inline productBarCode' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPA' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPA |
 | productSku | IE-IPA |
 | productBarcode | IE-IPA |
@@ -391,17 +395,17 @@ When the user clicks on 'productAmount' element of invoice product with 'IE-IPA'
 And the user inputs '2' in the invoice 'inline quantity' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPA' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productAmount | 2 |
 When the user clicks on 'productPrice' element of invoice product with 'IE-IPA' sku
 And the user inputs '3' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user checks the product with 'IE-IPA' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productAmount | 2 |
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the product with 'IE-IPA' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPA |
 | productSku | IE-IPA |
 | productBarcode | IE-IPA |
@@ -410,7 +414,7 @@ Then the user checks the product with 'IE-IPA' sku has values
 | productPrice | 3 |
 | productSum | 6 |
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 6 |
 When the user logs out
@@ -457,12 +461,12 @@ And the user inputs '3' in the invoice product 'invoiceCost' field
 And the user clicks Cancel and discard changes
 And the user clicks the add invoice product button and adds the invoice product
 Then the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | productName |  |
 | productSku |  |
 | productBarCode |  |
 Then the user checks the product with 'IE-IPE-1' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |

@@ -1,20 +1,20 @@
 define(function(require) {
         //requirements
         var Tooltip_menu = require('blocks/tooltip/tooltip_menu/tooltip_menu'),
-            CatalogSubcategoryModel = require('models/catalogSubcategory'),
-            Tooltip_catalogSubcategoryForm = require('blocks/tooltip/tooltip_catalogSubcategoryForm/tooltip_catalogSubcategoryForm');
+            CatalogSubCategoryModel = require('models/catalogSubCategory'),
+            Tooltip_catalogSubCategoryForm = require('blocks/tooltip/tooltip_catalogSubCategoryForm/tooltip_catalogSubCategoryForm');
 
         return Tooltip_menu.extend({
-            blockName: 'tooltip_catalogSubcategoryMenu',
-            catalogSubcategoryModel: new CatalogSubcategoryModel(),
+            blockName: 'tooltip_catalogSubCategoryMenu',
+            catalogSubCategoryModel: new CatalogSubCategoryModel(),
             events: {
                 'click .tooltip__editLink': function(e) {
                     e.preventDefault();
                     var block = this,
                         $target = $(e.target);
 
-                    block.tooltip_catalogSubcategoryForm.show({
-                        model: block.catalogSubcategoryModel,
+                    block.tooltip_catalogSubCategoryForm.show({
+                        model: block.catalogSubCategoryModel,
                         collection: null,
                         $trigger: $target
                     });
@@ -31,7 +31,7 @@ define(function(require) {
                     }
 
                     $target.addClass('preloader_rows');
-                    block.catalogSubcategoryModel.destroy({
+                    block.catalogSubCategoryModel.destroy({
                         complete: function() {
                             $target.removeClass('preloader_rows');
                             block.hide();
@@ -47,14 +47,14 @@ define(function(require) {
 
                 Tooltip_menu.prototype.initialize.call(this);
 
-                block.tooltip_catalogSubcategoryForm = $('[block="tooltip_catalogSubcategoryForm"]').data('tooltip_catalogSubcategoryForm') || new Tooltip_catalogSubcategoryForm({
-                    model: block.catalogSubcategoryModel
+                block.tooltip_catalogSubCategoryForm = $('[block="tooltip_catalogSubCategoryForm"]').data('tooltip_catalogSubCategoryForm') || new Tooltip_catalogSubCategoryForm({
+                    model: block.catalogSubCategoryModel
                 });
             },
             remove: function() {
                 var block = this;
 
-                block.tooltip_catalogSubcategoryForm.remove();
+                block.tooltip_catalogSubCategoryForm.remove();
 
                 Tooltip_menu.prototype.remove.call(block);
             }

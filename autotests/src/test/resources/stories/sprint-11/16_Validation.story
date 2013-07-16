@@ -1,3 +1,6 @@
+Meta:
+@sprint 11
+@us 16
 
 Scenario: Can't delete not empty group from catalog page
 Given there is the category with name 'category cdnecfcp' related to group named 'group cdnecfcp'

@@ -809,6 +809,7 @@ class ProductControllerTest extends WebTestCase
     ) {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $postData['subCategory'] = $this->createSubCategory();
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -879,6 +880,7 @@ class ProductControllerTest extends WebTestCase
 
         $id = $postResponse['id'];
 
+        $putData['subCategory'] = $postData['subCategory'];
         $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -928,6 +930,7 @@ class ProductControllerTest extends WebTestCase
 
         $id = $postResponse['id'];
 
+        $putData['subCategory'] = $postData['subCategory'];
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -951,7 +954,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function validRetailPriceProvider()
     {
-        $productData = $this->getProductData();
+        $productData = $this->getProductData(false);
 
         return array(
             'prefer price, markup invalid' => array(
@@ -1153,7 +1156,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function invalidRetailPriceProvider()
     {
-        $postData = $this->getProductData();
+        $postData = $this->getProductData(false);
 
         return array(
             // Валидация цены закупки

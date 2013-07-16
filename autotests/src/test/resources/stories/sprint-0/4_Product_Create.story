@@ -1,9 +1,13 @@
-История создания продукта
+4 Создания продукта
 
 Narrative:
 Как коммерческий директор,
 Я хочу создавать новый товар в системе,
 Чтобы ввести товар в ассортимент
+
+Meta:
+@sprint 0
+@us 4
 
 Scenario: Creating new product 1
 Given the user is on the product create page

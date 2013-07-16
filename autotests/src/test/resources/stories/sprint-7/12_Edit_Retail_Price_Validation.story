@@ -1,4 +1,6 @@
-
+Meta:
+@sprint 7
+@us 12
 
 Scenario: Edit Retail price validation String+Symbols+Num
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice

@@ -5,6 +5,10 @@ Narrative:
 Я хочу создать накладную,
 Чтобы зафиксировать в системе факт начала приемки
 
+Meta:
+@sprint 3
+@us 8.1
+
 Scenario: Invoice Create
 Given the user is on the invoice create page
 And the user logs in as 'departmentManager'

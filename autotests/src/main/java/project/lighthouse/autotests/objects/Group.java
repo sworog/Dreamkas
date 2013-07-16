@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 public class Group {
 
+    static public String DEFAULT_NAME = "defaultGroup";
+
     JSONObject jsonObject;
 
     public Group(JSONObject jsonObject) {

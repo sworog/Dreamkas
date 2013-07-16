@@ -42,4 +42,8 @@ public class StaticData {
             return false;
         }
     }
+
+    public static Boolean hasSubCategory(String subCategoryName) {
+        return subCategories.containsKey(subCategoryName);
+    }
 }

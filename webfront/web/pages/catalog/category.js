@@ -15,7 +15,7 @@ define(function(require) {
         permissions: {
             categories: 'GET::{category}'
         },
-        initialize: function(catalogGroupId, catalogCategoryId, catalogSubcategoryId, params){
+        initialize: function(catalogGroupId, catalogCategoryId, catalogSubCategoryId, params){
             var page = this;
 
             if (page.referer && page.referer.pageName.indexOf('page_catalog') >= 0){
@@ -35,10 +35,10 @@ define(function(require) {
             });
 
             page.catalogProductsCollection = new CatalogProductsCollection([], {
-                subcategory: catalogSubcategoryId
+                subCategory: catalogSubCategoryId
             });
 
-            $.when(page.catalogGroupModel.fetch(), catalogSubcategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
+            $.when(page.catalogGroupModel.fetch(), catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
 
                 page.catalogCategoryModel = page.catalogGroupModel.categories.get(catalogCategoryId);
                 page.catalogSubcategoriesCollection = page.catalogCategoryModel.subCategories;
@@ -49,7 +49,7 @@ define(function(require) {
                     el: document.getElementById('catalogCategory'),
                     catalogCategoryModel: page.catalogCategoryModel,
                     catalogSubcategoriesCollection: page.catalogSubcategoriesCollection,
-                    catalogSubcategoryId: catalogSubcategoryId,
+                    catalogSubCategoryId: catalogSubCategoryId,
                     catalogProductsCollection: page.catalogProductsCollection,
                     editMode: pageParams.editMode
                 })

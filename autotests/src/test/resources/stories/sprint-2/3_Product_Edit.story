@@ -5,12 +5,16 @@ Narrative:
 Я хочу изменять данные товара,
 Чтобы актуализировать эти данные и исправлять в них ошибки
 
+Meta:
+@sprint 2
+@us 3
+
 Scenario: Product edit main
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs values in element fields
-| elementName | inputText |
+| elementName | value |
 | name | Наименование1688 |
 | vendor | Производитель1688 |
 | vendorCountry | Россия1688 |
@@ -35,7 +39,7 @@ Then the user checks the elements values
 | info | Info1688 |
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя23 56 |
 | vendor | Вендор45 |
 | vendorCountry | Вендоркантри56 |
@@ -65,7 +69,7 @@ Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs values in element fields
-| elementName | inputText |
+| elementName | value |
 | name | Наименование16888 |
 | vendor | Производитель16888 |
 | vendorCountry | Россия16888 |

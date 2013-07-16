@@ -1,4 +1,8 @@
 ﻿
+Meta:
+@sprint 10
+@us 14
+
 Scenario: Write off Edit Validation - number is required
 Given there is the write off with number 'WriteOff-Edit-Val-1'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-1'

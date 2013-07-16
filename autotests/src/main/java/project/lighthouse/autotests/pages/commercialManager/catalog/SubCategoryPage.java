@@ -8,7 +8,7 @@ import project.lighthouse.autotests.elements.InputOnlyVisible;
 
 public class SubCategoryPage extends GroupPage {
 
-    @FindBy(xpath = "//*[@class='button button_color_blue catalog__addSubcategoryLink editor__control']")
+    @FindBy(xpath = "//*[@class='button button_color_blue catalog__addSubCategoryLink editor__control']")
     WebElementFacade addNewSubCategoryButton;
 
     public SubCategoryPage(WebDriver driver) {
@@ -27,7 +27,7 @@ public class SubCategoryPage extends GroupPage {
 
     @Override
     public String getItemXpath(String name) {
-        String groupXpath = "//*[@model_name='catalogSubcategory' and text()='%s']";
+        String groupXpath = "//*[@model_name='catalogSubCategory' and text()='%s']";
         return String.format(groupXpath, name);
     }
 

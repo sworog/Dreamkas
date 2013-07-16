@@ -1,10 +1,13 @@
 21 Разграничение прав доступа пользователя
 
 Narrative:
-Как пользователь,
-Я хочу после авторизациии в системе работать только со своими данными и функционалом,
-Чтобы фокусироваться на достижении своих целей
+As a пользователь
+I want to после авторизациии в системе работать только со своими данными и функционалом,
+In order to фокусироваться на достижении своих целей
 
+Meta:
+@sprint 13
+@us 21
 
 Scenario: administrator role username checking
 Given the user opens the authorization page
@@ -162,7 +165,7 @@ And the user logs in as 'watchman'
 When user opens the dashboard 'users' section
 And the user clicks the create new user button from users list page
 And the user inputs values in the user page element fields
-| elementName | inputText |
+| elementName | value |
 | name | Имя11 |
 | position | Позиция22 |
 | username | createfromuserslistpage9999 |
@@ -226,7 +229,7 @@ When user opens the dashboard 'invoices' section
 Then the user checks the invoice with 'Invoice-IFBKG-1199' sku is present
 When the user open the invoice card with 'Invoice-IFBKG-1199' sku
 Then the user checks invoice 'head' elements  values
-| elementName | expectedValue |
+| elementName | value |
 | sku | Invoice-IFBKG-1199 |
 | supplier | Поставщик |
 | accepter | Иван Петрович Петрович |
@@ -235,7 +238,7 @@ Then the user checks invoice 'head' elements  values
 | supplierInvoiceDate | 01.04.2013 |
 | supplierInvoiceSku | 123456 |
 Then the user checks the product with 'IFBKG-1199' sku has values
-| elementName | expectedValue |
+| elementName | value |
 | productName | IFBKG-1199 |
 | productSku | IFBKG-1199 |
 | productBarcode | IFBKG-1199 |
@@ -244,7 +247,7 @@ Then the user checks the product with 'IFBKG-1199' sku has values
 | productPrice | 1 |
 | productSum | 1 |
 And the user checks invoice elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 1 |
 When the user logs out
@@ -266,12 +269,12 @@ And the user inputs 'Причина сдачи: Истек срок хранен
 And the user presses the add product button and add the product to write off
 And the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff number review | WriteOff Number-1999 |
 | writeOff date review | 24.10.2012 |
 And the user checks the write off product with 'WriteOff-ProductSku999' sku is present
 And the user checks the product with 'WriteOff-ProductSku999' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product name review | WriteOff-ProductName999 |
 | writeOff product sku review | WriteOff-ProductSku999 |
 | writeOff product barCode review | WriteOff-ProductBarCode999 |
@@ -279,7 +282,7 @@ And the user checks the product with 'WriteOff-ProductSku999' sku has elements o
 | writeOff product price review | 15 |
 | writeOff cause review | Причина сдачи: Истек срок хранения |
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 150 |
 When user opens the dashboard 'balance' section
@@ -600,7 +603,7 @@ Given the user opens the authorization page
 And the user logs in as 'watchman'
 When the user opens dashboard user card
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | name | watchman |
 | position | Системный администратор |
 | username | watchman |
@@ -626,7 +629,7 @@ Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 When the user opens dashboard user card
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | name | departmentManager |
 | position | Заведующий отделом |
 | username | departmentManager |
@@ -652,7 +655,7 @@ Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 When the user opens dashboard user card
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | name | commercialManager |
 | position | Коммерческий директор сети |
 | username | commercialManager |
@@ -678,7 +681,7 @@ Given the user opens the authorization page
 And the user logs in as 'storeManager'
 When the user opens dashboard user card
 Then the user checks the user page elements values
-| elementName | expectedValue |
+| elementName | value |
 | name | storeManager |
 | position | Директор магазина |
 | username | storeManager |

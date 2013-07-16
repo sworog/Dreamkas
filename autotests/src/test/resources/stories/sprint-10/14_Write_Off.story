@@ -1,5 +1,9 @@
 ﻿14 Списания
 
+Meta:
+@sprint 10
+@us 14
+
 Scenario: Write off creation
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductSku' sku, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
 And the user opens amount list page
@@ -15,12 +19,12 @@ And the user inputs 'Причина сдачи: Истек срок хранен
 And the user presses the add product button and add the product to write off
 And the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff number review | WriteOff Number-1 |
 | writeOff date review | 24.10.2012 |
 And the user checks the write off product with 'WriteOff-ProductSku' sku is present
 And the user checks the product with 'WriteOff-ProductSku' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product name review | WriteOff-ProductName |
 | writeOff product sku review | WriteOff-ProductSku |
 | writeOff product barCode review | WriteOff-ProductBarCode |
@@ -28,7 +32,7 @@ And the user checks the product with 'WriteOff-ProductSku' sku has elements on t
 | writeOff product price review | 15 |
 | writeOff cause review | Причина сдачи: Истек срок хранения |
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 150 |
 Given the user opens amount list page
@@ -85,7 +89,7 @@ And the user inputs 'todayDate' in the 'writeOff date' field on the write off pa
 And the user continues the write off creation
 When the user inputs 'WriteOff-ProductName-1' in the 'writeOff product name autocomplete' field on the write off page
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product price | 140 |
 When the user logs out
 
@@ -98,7 +102,7 @@ And the user inputs 'todayDate' in the 'writeOff date' field on the write off pa
 And the user continues the write off creation
 When the user inputs 'WriteOff-ProductName' in the 'writeOff product name autocomplete' field on the write off page
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product price | 15 |
 When the user logs out
 
@@ -117,12 +121,12 @@ And the user inputs 'Причина сдачи: Истек срок хранен
 And the user presses the add product button and add the product to write off
 And the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff number review | WriteOff Number-1 |
 | writeOff date review | 24.10.2012 |
 And the user checks the write off product with 'WriteOff-ProductSku-review1' sku is present
 And the user checks the product with 'WriteOff-ProductSku-review1' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product sku review | WriteOff-ProductSku-review1 |
 | writeOff product barCode review | WriteOff-ProductBarCode-review1 |
 | writeOff product quantity review | 10 |
@@ -130,7 +134,7 @@ And the user checks the product with 'WriteOff-ProductSku-review1' sku has eleme
 | writeOff cause review | Причина сдачи: Истек срок хранения |
 | writeOff product units | кг |
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 150 |
 Given the user opens amount list page
@@ -152,12 +156,12 @@ And the user inputs 'Причина сдачи: Истек срок хранен
 And the user presses the add product button and add the product to write off
 And the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff number review | WriteOff Number-1 |
 | writeOff date review | 24.10.2012 |
 And the user checks the write off product with 'WriteOff-ProductSku-review2' sku is present
 And the user checks the product with 'WriteOff-ProductSku-review2' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product sku review | WriteOff-ProductSku-review2 |
 | writeOff product barCode review | WriteOff-ProductBarCode-review2 |
 | writeOff product quantity review | 10 |
@@ -165,7 +169,7 @@ And the user checks the product with 'WriteOff-ProductSku-review2' sku has eleme
 | writeOff cause review | Причина сдачи: Истек срок хранения |
 | writeOff product units | л |
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 150 |
 Given the user opens amount list page
@@ -187,12 +191,12 @@ And the user inputs 'Причина сдачи: Истек срок хранен
 And the user presses the add product button and add the product to write off
 And the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff number review | WriteOff Number-1 |
 | writeOff date review | 24.10.2012 |
 And the user checks the write off product with 'WriteOff-ProductSku-review3' sku is present
 And the user checks the product with 'WriteOff-ProductSku-review3' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product sku review | WriteOff-ProductSku-review3 |
 | writeOff product barCode review | WriteOff-ProductBarCode-review3 |
 | writeOff product quantity review | 10 |
@@ -200,7 +204,7 @@ And the user checks the product with 'WriteOff-ProductSku-review3' sku has eleme
 | writeOff cause review | Причина сдачи: Истек срок хранения |
 | writeOff product units | шт |
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 1 |
 | totalSum | 150 |
 Given the user opens amount list page
@@ -234,14 +238,14 @@ And the user inputs 'Причина сдачи: Истек срок хранен
 And the user presses the add product button and add the product to write off
 And the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff number review | WriteOff Number-1 |
 | writeOff date review | 24.10.2012 |
 And the user checks the write off product with 'WriteOff-ProductSku-review1' sku is present
 And the user checks the write off product with 'WriteOff-ProductSku-review2' sku is present
 And the user checks the write off product with 'WriteOff-ProductSku-review3' sku is present
 And the user checks the product with 'WriteOff-ProductSku-review1' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product sku review | WriteOff-ProductSku-review1 |
 | writeOff product barCode review | WriteOff-ProductBarCode-review1 |
 | writeOff product quantity review | 10 |
@@ -249,7 +253,7 @@ And the user checks the product with 'WriteOff-ProductSku-review1' sku has eleme
 | writeOff cause review | Причина сдачи: Истек срок хранения |
 | writeOff product units | кг |
 And the user checks the product with 'WriteOff-ProductSku-review2' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product sku review | WriteOff-ProductSku-review2 |
 | writeOff product barCode review | WriteOff-ProductBarCode-review2 |
 | writeOff product quantity review | 10 |
@@ -257,7 +261,7 @@ And the user checks the product with 'WriteOff-ProductSku-review2' sku has eleme
 | writeOff cause review | Причина сдачи: Истек срок хранения |
 | writeOff product units | л |
 And the user checks the product with 'WriteOff-ProductSku-review3' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product sku review | WriteOff-ProductSku-review3 |
 | writeOff product barCode review | WriteOff-ProductBarCode-review3 |
 | writeOff product quantity review | 10 |
@@ -265,7 +269,7 @@ And the user checks the product with 'WriteOff-ProductSku-review3' sku has eleme
 | writeOff cause review | Причина сдачи: Истек срок хранения |
 | writeOff product units | шт |
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | totalProducts | 3 |
 | totalSum | 450 |
 Given the user opens amount list page
@@ -282,11 +286,11 @@ And the user clicks on 'writeOff number review' write off element to edit it
 And the user inputs 'WriteOff Number-1 edited' in the 'inline writeOff number' field on the write off page
 And the user clicks OK and accepts changes
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff number review | WriteOff Number-1 edited |
 When the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff number review | WriteOff Number-1 edited |
 When the user logs out
 
@@ -298,11 +302,11 @@ And the user clicks on 'writeOff date review' write off element to edit it
 And the user inputs '24.11.2012' in the 'inline writeOff date' field on the write off page
 And the user clicks OK and accepts changes
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff date review | 24.11.2012 |
 When the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
-| elementName | expectedValue |
+| elementName | value |
 | writeOff date review | 24.11.2012 |
 When the user logs out
 
@@ -319,11 +323,11 @@ And the user clicks on 'writeOff product name review' write off element to edit 
 And the user inputs 'WriteOff-WOE-PN' in the 'inline writeOff product name autocomplete' field on the write off page
 And the user clicks OK and accepts changes
 Then the user checks the product with 'WriteOff-WOE-PN' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product name review | WriteOff-WOE-PN |
 When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-WOE-PN' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product name review | WriteOff-WOE-PN |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-WOE-PN' sku has 'amounts amount' element equal to '-10' on amounts page
@@ -343,11 +347,11 @@ And the user clicks on 'writeOff product sku review' write off element to edit i
 And the user inputs 'WriteOff-WOE-PS' in the 'inline writeOff product sku autocomplete' field on the write off page
 And the user clicks OK and accepts changes
 Then the user checks the product with 'WriteOff-WOE-PS' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product sku review | WriteOff-WOE-PS |
 When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-WOE-PS' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product sku review | WriteOff-WOE-PS |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-WOE-PS' sku has 'amounts amount' element equal to '-10' on amounts page
@@ -367,11 +371,11 @@ And the user clicks on 'writeOff product barCode review' write off element to ed
 And the user inputs 'WriteOff-WOE-Pb' in the 'inline writeOff product barCode autocomplete' field on the write off page
 And the user clicks OK and accepts changes
 Then the user checks the product with 'WriteOff-WOE-Pb' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product barCode review | WriteOff-WOE-Pb |
 When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-WOE-Pb' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product barCode review | WriteOff-WOE-Pb |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-WOE-Pb' sku has 'amounts amount' element equal to '-10' on amounts page
@@ -389,11 +393,11 @@ And the user clicks on 'writeOff product quantity review' write off element to e
 And the user inputs '12' in the 'inline writeOff product quantity' field on the write off page
 And the user clicks OK and accepts changes
 Then the user checks the product with 'WriteOff-ProductQuantity' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product quantity review | 12 |
 When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-ProductQuantity' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product quantity review | 12 |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductQuantity' sku has 'amounts amount' element equal to '-12' on amounts page
@@ -408,11 +412,11 @@ And the user clicks on 'writeOff product price review' write off element to edit
 And the user inputs '6,25' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
 Then the user checks the product with 'WriteOff-ProductPrice' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product price review | 6,25 |
 When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-ProductPrice' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product price review | 6,25 |
 When the user logs out
 
@@ -425,11 +429,11 @@ And the user clicks on 'writeOff cause review' write off element to edit it
 And the user inputs 'Новая причина' in the 'inline writeOff cause' field on the write off page
 And the user clicks OK and accepts changes
 Then the user checks the product with 'WriteOff-ProductCause' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff cause review | Новая причина |
 When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-ProductCause' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff cause review | Новая причина |
 When the user logs out
 
@@ -446,7 +450,7 @@ And the user presses the add product button and add the product to write off
 And the user clicks finish edit button and ends the write off edition
 Then the user checks the write off product with 'WriteOff-WOE-ANP' sku is present
 And the user checks the product with 'WriteOff-WOE-ANP' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product sku review | WriteOff-WOE-ANP |
 | writeOff product barCode review | WriteOff-WOE-ANP |
 | writeOff product quantity review | 10 |
@@ -454,7 +458,7 @@ And the user checks the product with 'WriteOff-WOE-ANP' sku has elements on the 
 | writeOff cause review | Причина сдачи: Истек срок хранения |
 Then the user checks the write off product with 'WriteOff-WOE-ANP' sku is present
 And the user checks the product with 'WriteOff-WOE-ANP' sku has elements on the write off page
-| elementName | expectedValue |
+| elementName | value |
 | writeOff product sku review | WriteOff-WOE-ANP |
 | writeOff product barCode review | WriteOff-WOE-ANP |
 | writeOff product quantity review | 10 |
