@@ -192,7 +192,7 @@ class ProductControllerTest extends WebTestCase
             $putData
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        Assert::assertResponseCode(200, $this->client);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -931,7 +931,7 @@ class ProductControllerTest extends WebTestCase
             $putData
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        Assert::assertResponseCode(200, $this->client);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1417,5 +1417,176 @@ class ProductControllerTest extends WebTestCase
             $productData['milkman'][0]['subCategory'] = $subCategoryId;
         }
         return $productData['milkman'][0];
+    }
+
+
+
+    /**
+     * @param string    $url
+     * @param string    $method
+     * @param string    $role
+     * @param int       $responseCode
+     * @param array|null $requestData
+     *
+     * @dataProvider accessProductProvider
+     */
+    public function testAccessProduct($url, $method, $role, $responseCode, $requestData = null)
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+        $categoryId = $this->createCategory($groupId);
+        $subCategoryId = $this->createSubCategory($categoryId);
+        $productId = $this->createProduct('Старый мельник', $subCategoryId);
+
+        $url = str_replace(
+            array(
+                '__PRODUCT_ID__',
+                '__SUBCATEGORY_ID__',
+            ),
+            array(
+                $productId,
+                $subCategoryId,
+            ),
+            $url
+        );
+        $accessToken = $this->authAsRole($role);
+        if (is_array($requestData)) {
+            $requestData = $requestData + $this->getProductData();
+        }
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            $method,
+            $url,
+            $requestData
+        );
+
+        Assert::assertResponseCode($responseCode, $this->client);
+    }
+
+    public function accessProductProvider()
+    {
+        return array(
+            /*************************************
+             * GET /api/1/products/__PRODUCT_ID__
+             */
+            array(
+                '/api/1/products/__PRODUCT_ID__',
+                'GET',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/products/__PRODUCT_ID__',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/products/__PRODUCT_ID__',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/products/__PRODUCT_ID__',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * POST /api/1/products
+             */
+            array(
+                '/api/1/products',
+                'POST',
+                'ROLE_COMMERCIAL_MANAGER',
+                '201',
+                array(),
+            ),
+            array(
+                '/api/1/products',
+                'POST',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/products',
+                'POST',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/products',
+                'POST',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+
+            /*************************************
+             * PUT /api/1/products/__PRODUCT_ID__
+             */
+            array(
+                '/api/1/products/__PRODUCT_ID__',
+                'PUT',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+                array(),
+            ),
+            array(
+                '/api/1/products/__PRODUCT_ID__',
+                'PUT',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/products/__PRODUCT_ID__',
+                'PUT',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/products/__PRODUCT_ID__',
+                'PUT',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+
+            /*************************************
+             * GET /api/1/subcategories/__SUBCATEGORY_ID__/products
+             */
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__/products',
+                'GET',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__/products',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__/products',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__/products',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+        );
     }
 }

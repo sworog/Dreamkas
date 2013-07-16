@@ -51,7 +51,7 @@ class ProductController extends AbstractRestController
      * @param Product $product
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product\Product
      *
-     * @Rest\View(statusCode=204)
+     * @Rest\View(statusCode=200)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -114,7 +114,7 @@ class ProductController extends AbstractRestController
     /**
      * @param SubCategory $subCategory
      * @return ProductCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getSubcategoryProductsAction(SubCategory $subCategory)
