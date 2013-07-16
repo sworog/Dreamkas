@@ -36,6 +36,10 @@ lighthouse.core.subcategory:
     resource: Lighthouse\CoreBundle\Controller\SubCategoryController
     type:     rest
 
+lighthouse.core.store:
+    resource: Lighthouse\CoreBundle\Controller\StoreController
+    type:     rest
+
 lighthouse.core.user:
     resource: Lighthouse\CoreBundle\Controller\UserController
     type:     rest

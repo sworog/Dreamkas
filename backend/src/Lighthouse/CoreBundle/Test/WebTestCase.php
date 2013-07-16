@@ -556,6 +556,33 @@ class WebTestCase extends BaseTestCase
         return $postResponse['id'];
     }
 
+    public function createStore($number = 'номер_42', $address = 'адрес 42', $contacts = 'телефон 42')
+    {
+        $storeData = array(
+            'number' => $number,
+            'address' => $address,
+            'contacts' => $contacts,
+        );
+
+        $accessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores',
+            $storeData
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $response);
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, $name, $response);
+        }
+
+        return $response['id'];
+    }
+
     /**
      * @param string $secret
      * @return AuthClient
