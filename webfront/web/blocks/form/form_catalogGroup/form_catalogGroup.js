@@ -23,7 +23,7 @@ define(function(require) {
         onSubmitSuccess: function(){
             var block = this;
 
-            Form.prototype.onSubmitSuccess.call(block);
+            Form.prototype.onSubmitSuccess.apply(block, arguments);
 
             if (block.isAddForm){
                 block.model = new CatalogGroupModel();
