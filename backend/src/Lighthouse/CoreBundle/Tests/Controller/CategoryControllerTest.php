@@ -406,4 +406,202 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertResponseCode(409, $this->client);
         Assert::assertJsonHasPath('message', $response);
     }
+
+    /**
+     * @param string    $url
+     * @param string    $method
+     * @param string    $role
+     * @param int       $responseCode
+     * @param array|null $requestData
+     *
+     * @dataProvider accessCategoryProvider
+     */
+    public function testAccessCategory($url, $method, $role, $responseCode, $requestData = null)
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+        $categoryId = $this->createCategory($groupId);
+
+        $url = str_replace(
+            array(
+                '__CATEGORY_ID__',
+                '__GROUP_ID__'
+            ),
+            array(
+                $categoryId,
+                $groupId,
+            ),
+            $url
+        );
+        $accessToken = $this->authAsRole($role);
+        if (is_array($requestData)) {
+            $requestData = $requestData + array(
+                'name' => 'Пиво',
+                'group' => $groupId,
+            );
+        }
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            $method,
+            $url,
+            $requestData
+        );
+
+        Assert::assertResponseCode($responseCode, $this->client);
+    }
+
+    public function accessCategoryProvider()
+    {
+        return array(
+            /*************************************
+             * GET /api/1/categories/__ID__
+             */
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'GET',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * POST /api/1/categories
+             */
+            array(
+                '/api/1/categories',
+                'POST',
+                'ROLE_COMMERCIAL_MANAGER',
+                '201',
+                array(),
+            ),
+            array(
+                '/api/1/categories',
+                'POST',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/categories',
+                'POST',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/categories',
+                'POST',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+
+            /*************************************
+             * PUT /api/1/categories/__CATEGORY_ID__
+             */
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'PUT',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+                array(),
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'PUT',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'PUT',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'PUT',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+
+            /*************************************
+             * DELETE /api/1/categories/__CATEGORY_ID__
+             */
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'DELETE',
+                'ROLE_COMMERCIAL_MANAGER',
+                '204',
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'DELETE',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'DELETE',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__',
+                'DELETE',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * GET /api/1/groups/__GROUP_ID__/categories
+             */
+            array(
+                '/api/1/groups/__GROUP_ID__/categories',
+                'GET',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__/categories',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__/categories',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__/categories',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+        );
+    }
 }

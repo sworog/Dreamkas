@@ -428,46 +428,202 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertJsonHasPath('message', $response);
     }
 
-    public function testGetSubCategoryProducts()
+    /**
+     * @param string    $url
+     * @param string    $method
+     * @param string    $role
+     * @param int       $responseCode
+     * @param array|null $requestData
+     *
+     * @dataProvider accessSubCategoryProvider
+     */
+    public function testAccessSubCategory($url, $method, $role, $responseCode, $requestData = null)
     {
         $this->clearMongoDb();
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $groupId = $this->createGroup();
+        $categoryId = $this->createCategory($groupId);
+        $subCategoryId = $this->createSubCategory($categoryId);
 
-        $subCategoryId1 = $this->createSubCategory(null, 'Пиво');
-        $subCategoryId2 = $this->createSubCategory(null, 'Водка');
-
-        $productsSubCategory1 = array();
-        $productsSubCategory2 = array();
-
-        for ($i = 0; $i < 5; $i++) {
-            $productsSubCategory1[] = $this->createProduct("пиво ". $i, $subCategoryId1);
-            $productsSubCategory2[] = $this->createProduct("водка ". $i, $subCategoryId2);
+        $url = str_replace(
+            array(
+                '__SUBCATEGORY_ID__',
+                '__CATEGORY_ID__',
+            ),
+            array(
+                $subCategoryId,
+                $categoryId,
+            ),
+            $url
+        );
+        $accessToken = $this->authAsRole($role);
+        if (is_array($requestData)) {
+            $requestData = $requestData + array(
+                    'name' => 'Тёмное',
+                    'category' => $categoryId,
+                );
         }
 
-        $jsonResponse = $this->clientJsonRequest(
+        $response = $this->clientJsonRequest(
             $accessToken,
-            'GET',
-            '/api/1/subcategories/' . $subCategoryId1 . '/products'
+            $method,
+            $url,
+            $requestData
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        Assert::assertResponseCode($responseCode, $this->client);
+    }
 
-        foreach ($productsSubCategory1 as $productId) {
-            Assert::assertJsonPathEquals($productId, '*.id', $jsonResponse);
-        }
+    public function accessSubCategoryProvider()
+    {
+        return array(
+            /*************************************
+             * GET /api/1/subcategories/__SUBCATEGORY_ID__
+             */
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'GET',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
 
+            /*************************************
+             * POST /api/1/subcategories
+             */
+            array(
+                '/api/1/subcategories',
+                'POST',
+                'ROLE_COMMERCIAL_MANAGER',
+                '201',
+                array(),
+            ),
+            array(
+                '/api/1/subcategories',
+                'POST',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/subcategories',
+                'POST',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/subcategories',
+                'POST',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
 
-        $jsonResponse = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/subcategories/' . $subCategoryId2 . '/products'
+            /*************************************
+             * PUT /api/1/subcategories/__SUBCATEGORY_ID__
+             */
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'PUT',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+                array(),
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'PUT',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'PUT',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'PUT',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+
+            /*************************************
+             * DELETE /api/1/subcategories/__SUBCATEGORY_ID__
+             */
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'DELETE',
+                'ROLE_COMMERCIAL_MANAGER',
+                '204',
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'DELETE',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'DELETE',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/subcategories/__SUBCATEGORY_ID__',
+                'DELETE',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * GET /api/1/categories/__CATEGORY_ID__/subcategories
+             */
+            array(
+                '/api/1/categories/__CATEGORY_ID__/subcategories',
+                'GET',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__/subcategories',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__/subcategories',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/categories/__CATEGORY_ID__/subcategories',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
         );
-
-        Assert::assertResponseCode(200, $this->client);
-
-        foreach ($productsSubCategory2 as $productId) {
-            Assert::assertJsonPathEquals($productId, '*.id', $jsonResponse);
-        }
     }
 }

@@ -3,8 +3,6 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\Category\Category;
-use Lighthouse\CoreBundle\Document\Product\ProductCollection;
-use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategoryCollection;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategoryRepository;
@@ -23,12 +21,6 @@ class SubCategoryController extends AbstractRestController
      * @var SubCategoryRepository
      */
     protected $documentRepository;
-
-    /**
-     * @DI\Inject("lighthouse.core.document.repository.product")
-     * @var ProductRepository
-     */
-    protected $productRepository;
 
     /**
      * @return AbstractType
@@ -67,7 +59,7 @@ class SubCategoryController extends AbstractRestController
     /**
      * @param SubCategory $subCategory
      * @return SubCategory
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getSubcategoryAction(SubCategory $subCategory)
@@ -78,7 +70,7 @@ class SubCategoryController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Category\Category $category
      * @return SubCategoryCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getCategorySubcategoriesAction(Category $category)
@@ -97,16 +89,5 @@ class SubCategoryController extends AbstractRestController
     public function deleteSubcategoriesAction(SubCategory $subCategory)
     {
         return $this->processDelete($subCategory);
-    }
-
-    /**
-     * @param SubCategory $subCategory
-     * @return ProductCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
-     */
-    public function getSubcategoryProductsAction(SubCategory $subCategory)
-    {
-        return $this->productRepository->findBySubCategory($subCategory);
     }
 }

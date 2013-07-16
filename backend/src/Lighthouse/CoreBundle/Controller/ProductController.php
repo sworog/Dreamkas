@@ -9,6 +9,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductCollection;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +51,7 @@ class ProductController extends AbstractRestController
      * @param Product $product
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product\Product
      *
-     * @Rest\View(statusCode=204)
+     * @Rest\View(statusCode=200)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -108,5 +109,16 @@ class ProductController extends AbstractRestController
         $cursor = $this->getDocumentRepository()->findAll();
         $collection = new ProductCollection($cursor);
         return $collection;
+    }
+
+    /**
+     * @param SubCategory $subCategory
+     * @return ProductCollection
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
+     */
+    public function getSubcategoryProductsAction(SubCategory $subCategory)
+    {
+        return $this->documentRepository->findBySubCategory($subCategory);
     }
 }
