@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Page = require('pages/page'),
-        StoreModel = require('models/product'),
+        StoreModel = require('models/store'),
         Form_store = require('blocks/form/form_store/form_store');
 
     return Page.extend({
