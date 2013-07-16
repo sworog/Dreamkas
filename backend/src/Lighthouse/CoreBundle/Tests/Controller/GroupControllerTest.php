@@ -495,34 +495,6 @@ class GroupControllerTest extends WebTestCase
                 'ROLE_ADMINISTRATOR',
                 '403',
             ),
-
-            /*************************************
-             * GET /api/1/groups/__GROUP_ID__/categories
-             */
-            array(
-                '/api/1/groups/__GROUP_ID__/categories',
-                'GET',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
-            ),
-            array(
-                '/api/1/groups/__GROUP_ID__/categories',
-                'GET',
-                'ROLE_DEPARTMENT_MANAGER',
-                '200',
-            ),
-            array(
-                '/api/1/groups/__GROUP_ID__/categories',
-                'GET',
-                'ROLE_STORE_MANAGER',
-                '403',
-            ),
-            array(
-                '/api/1/groups/__GROUP_ID__/categories',
-                'GET',
-                'ROLE_ADMINISTRATOR',
-                '403',
-            ),
         );
     }
 }

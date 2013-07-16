@@ -59,7 +59,7 @@ class SubCategoryController extends AbstractRestController
     /**
      * @param SubCategory $subCategory
      * @return SubCategory
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getSubcategoryAction(SubCategory $subCategory)

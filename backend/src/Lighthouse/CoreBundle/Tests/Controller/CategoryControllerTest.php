@@ -426,9 +426,11 @@ class CategoryControllerTest extends WebTestCase
         $url = str_replace(
             array(
                 '__CATEGORY_ID__',
+                '__GROUP_ID__'
             ),
             array(
                 $categoryId,
+                $groupId,
             ),
             $url
         );
@@ -574,28 +576,28 @@ class CategoryControllerTest extends WebTestCase
             ),
 
             /*************************************
-             * GET /api/1/categories/__CATEGORY_ID__/subcategories
+             * GET /api/1/groups/__GROUP_ID__/categories
              */
             array(
-                '/api/1/categories/__CATEGORY_ID__/subcategories',
+                '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
                 'ROLE_COMMERCIAL_MANAGER',
                 '200',
             ),
             array(
-                '/api/1/categories/__CATEGORY_ID__/subcategories',
+                '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
                 'ROLE_DEPARTMENT_MANAGER',
                 '200',
             ),
             array(
-                '/api/1/categories/__CATEGORY_ID__/subcategories',
+                '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
                 'ROLE_STORE_MANAGER',
                 '403',
             ),
             array(
-                '/api/1/categories/__CATEGORY_ID__/subcategories',
+                '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
                 'ROLE_ADMINISTRATOR',
                 '403',
