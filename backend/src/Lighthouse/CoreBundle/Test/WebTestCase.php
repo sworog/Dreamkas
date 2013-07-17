@@ -647,9 +647,8 @@ class WebTestCase extends BaseTestCase
         Assert::assertResponseCode(201, $this->client);
 
         Assert::assertJsonHasPath('id', $response);
-        foreach ($storeData as $name => $value) {
-            Assert::assertJsonPathEquals($value, $name, $response);
-        }
+        Assert::assertJsonPathEquals($storeData['number'], 'number', $response);
+        Assert::assertJsonPathEquals($storeData['name'], 'name', $response);
 
         return $response['id'];
     }

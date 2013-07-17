@@ -40,6 +40,10 @@ lighthouse.core.store:
     resource: Lighthouse\CoreBundle\Controller\StoreController
     type:     rest
 
+lighthouse.core.department:
+    resource: Lighthouse\CoreBundle\Controller\DepartmentController
+    type:     rest
+
 lighthouse.core.user:
     resource: Lighthouse\CoreBundle\Controller\UserController
     type:     rest

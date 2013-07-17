@@ -278,7 +278,7 @@ class DepartmentControllerTest extends WebTestCase
         $this->clearMongoDb();
 
         $storeId1 = $this->createStore('1');
-        $this->createDepartment($storeId1, '1.1');
+        $this->createDepartment($storeId1, '1-1');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
@@ -297,12 +297,12 @@ class DepartmentControllerTest extends WebTestCase
         $storeId1 = $this->createStore('1');
         $storeId2 = $this->createStore('2');
 
-        $departmentId1 = $this->createDepartment($storeId1, '1.1');
-        $departmentId2 = $this->createDepartment($storeId1, '1.2');
-        $departmentId3 = $this->createDepartment($storeId1, '1.3');
+        $departmentId1 = $this->createDepartment($storeId1, '1-1');
+        $departmentId2 = $this->createDepartment($storeId1, '1-2');
+        $departmentId3 = $this->createDepartment($storeId1, '1-3');
 
-        $departmentId4 = $this->createDepartment($storeId2, '2.4');
-        $departmentId5 = $this->createDepartment($storeId2, '2.5');
+        $departmentId4 = $this->createDepartment($storeId2, '2-4');
+        $departmentId5 = $this->createDepartment($storeId2, '2-5');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
@@ -514,25 +514,25 @@ class DepartmentControllerTest extends WebTestCase
              * GET /api/1/groups/__GROUP_ID__/departments
              */
             array(
-                '/api/1/groups/__GROUP_ID__/departments',
+                '/api/1/stores/__STORE_ID__/departments',
                 'GET',
                 'ROLE_COMMERCIAL_MANAGER',
                 '200',
             ),
             array(
-                '/api/1/groups/__GROUP_ID__/departments',
+                '/api/1/stores/__STORE_ID__/departments',
                 'GET',
                 'ROLE_DEPARTMENT_MANAGER',
                 '403',
             ),
             array(
-                '/api/1/groups/__GROUP_ID__/departments',
+                '/api/1/stores/__STORE_ID__/departments',
                 'GET',
                 'ROLE_STORE_MANAGER',
                 '403',
             ),
             array(
-                '/api/1/groups/__GROUP_ID__/departments',
+                '/api/1/stores/__STORE_ID__/departments',
                 'GET',
                 'ROLE_ADMINISTRATOR',
                 '403',

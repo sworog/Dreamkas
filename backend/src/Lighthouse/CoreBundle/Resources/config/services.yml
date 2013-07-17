@@ -112,3 +112,9 @@ services:
         class: Lighthouse\CoreBundle\Document\Store\Store
         arguments:
             - LighthouseCoreBundle:Store\Store
+
+    lighthouse.core.document.repository.department:
+            parent: doctrine_mongodb.odm.repository
+            class: Lighthouse\CoreBundle\Document\Department\Department
+            arguments:
+                - LighthouseCoreBundle:Department\Department
