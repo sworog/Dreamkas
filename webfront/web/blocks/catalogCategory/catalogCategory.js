@@ -92,7 +92,7 @@ define(function(require) {
                 catalogSubCategoriesCollection: block.catalogSubCategoriesCollection
             });
 
-            block.renderProductsList();
+            block.renderProductList();
             block.set('catalogSubCategoryId', block.catalogSubCategoryId);
         },
         remove: function() {
@@ -112,7 +112,7 @@ define(function(require) {
             block.$productListTitle = block.$('.catalogCategory__productListTitle');
             block.$table_products = block.$('.table_products');
         },
-        renderProductsList: function(){
+        renderProductList: function(){
             var block = this;
 
             if (block.catalogProductsCollection.length) {
@@ -152,7 +152,7 @@ define(function(require) {
                 block.catalogProductsCollection.fetch({
                     success: function() {
 
-                        block.renderProductsList();
+                        block.renderProductList();
 
                         block.$subCategoryLink_active.removeClass('preloader_rows');
                     }
