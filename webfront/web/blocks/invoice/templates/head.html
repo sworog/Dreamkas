@@ -3,7 +3,7 @@
     <span class="invoice__editable">
         №
         <span name="sku" model-attr="sku">
-            <%e invoiceModel.get('sku') %>
+            <%= invoiceModel.get('sku') %>
         </span>
     </span>
     от
@@ -16,7 +16,7 @@
     <div>
         <div class="invoice__headItem">
         <span class="invoice__headItemData invoice__editable" name="supplier" model-attr="supplier">
-            <%t invoiceModel.get('supplier') %>
+            <%text invoiceModel.get('supplier') %>
         </span>
             <div class="invoice__headItemHint">
                 поставщик
@@ -24,7 +24,7 @@
         </div>
         <div class="invoice__headItem">
         <span class="invoice__headItemData invoice__editable" name="accepter" model-attr="accepter">
-            <%t invoiceModel.get('accepter') %>
+            <%text invoiceModel.get('accepter') %>
         </span>
             <div class="invoice__headItemHint">
                 приёмщик
@@ -32,7 +32,7 @@
         </div>
         <div class="invoice__headItem">
         <span class="invoice__headItemData invoice__editable" name="legalEntity" model-attr="legalEntity">
-            <%t invoiceModel.get('legalEntity') %>
+            <%text invoiceModel.get('legalEntity') %>
         </span>
             <div class="invoice__headItemHint">
                 получатель
@@ -45,7 +45,7 @@
     Входящая накладная
     <span class="invoice__editable <%= (!invoiceModel.get('supplierInvoiceSku')) ? 'invoice__hiddenData':'' %>">
         №
-        <span name="supplierInvoiceSku" model-attr="supplierInvoiceSku"><%e invoiceModel.get('supplierInvoiceSku') ? invoiceModel.get('supplierInvoiceSku') : KIT.text('Ввести номер') %></span>
+        <span name="supplierInvoiceSku" model-attr="supplierInvoiceSku"><%= invoiceModel.get('supplierInvoiceSku') ? invoiceModel.get('supplierInvoiceSku') : KIT.text('Ввести номер') %></span>
     </span>
     <span class="<%= (!invoiceModel.get('supplierInvoiceDate')) ? 'invoice__hiddenData' : '' %>">
         от <span name="supplierInvoiceDate" class="invoice__editable" model-attr="supplierInvoiceDate">

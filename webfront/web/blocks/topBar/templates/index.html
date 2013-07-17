@@ -6,26 +6,26 @@
     <% if(currentUserModel.get('id')) { %>
 
         <% if(LH.isAllow('groups')){ %>
-        <a href="/catalog"><%t 'Каталог' %></a>
+        <a href="/catalog"><%text 'Каталог' %></a>
         <% } %>
 
         <% if(LH.isAllow('invoices')){ %>
-        <a href="/invoices"><%t 'Накладные' %></a>
+        <a href="/invoices"><%text 'Накладные' %></a>
         <% } %>
 
         <% if(LH.isAllow('products')){ %>
-        <a href="/balance"><%t 'Остатки' %></a>
+        <a href="/balance"><%text 'Остатки' %></a>
         <% } %>
 
         <% if(LH.isAllow('writeoffs')){ %>
-        <a href="/writeOffs"><%t 'Списания' %></a>
+        <a href="/writeOffs"><%text 'Списания' %></a>
         <% } %>
 
         <% if(LH.isAllow('users')){ %>
-        <a href="/users"><%t 'Пользователи' %></a>
+        <a href="/users"><%text 'Пользователи' %></a>
         <% } %>
 
-        <a href="/stores"><%t 'Магазины' %></a>
+        <a href="/stores"><%text 'Магазины' %></a>
 
     <% } %>
 </div>
@@ -34,11 +34,11 @@
 <div class="topBar__userControls">
     <a href="/users/current" class="topBar__userName">
         <i style="vertical-align: middle; position: relative; left: -5px; top: -1px;" class="icon-user"></i>
-        <%e currentUserModel.get('username') %>
+        <%= currentUserModel.get('username') %>
     </a>
     <a class="topBar__logoutLink">
         <i class="icon-signout" style="margin-left: -5px;"></i>
-        <%t 'Выйти' %>
+        <%text 'Выйти' %>
     </a>
 </div>
 <% } %>

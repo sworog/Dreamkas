@@ -1,23 +1,23 @@
 <% if(LH.isAllow('stores', 'PUT::{store}')) { %>
 <div class="page__controls">
     <a href="/stores/edit/<%= storeModel.id %>">
-        <%t 'Редактировать' %>
+        <%text 'Редактировать' %>
     </a>
 </div>
 <% } %>
 
-<h3><%a storeModel.number %></h3>
+<h3><%attr storeModel:number %></h3>
 <table class="table store__info">
     <tr>
-        <th><%t 'Адрес' %></th>
+        <th><%text 'Адрес' %></th>
         <td>
-            <%a storeModel.address %>
+            <%attr storeModel:address %>
         </td>
     </tr>
     <tr>
-        <th><%t 'Контактная информация' %></th>
+        <th><%text 'Контактная информация' %></th>
         <td>
-            <%a storeModel.contacts %>
+            <%attr storeModel:contacts %>
         </td>
     </tr>
 </table>
@@ -25,7 +25,7 @@
     <h4>
         <span class="store__departmentsTitle"></span>
         <a style="margin-left: 10px;" class="button" href="/stores/<%= storeModel.id %>/departments/create">
-            <%t 'Создать отдел' %>
+            <%text 'Создать отдел' %>
         </a>
     </h4>
     <table class="table" id="table_departments"></table>

@@ -1,19 +1,19 @@
-<h3><%t model.id ? 'Редактирование магазина' : 'Добавление магазина' %></h3>
+<h3><%text model.id ? 'Редактирование магазина' : 'Добавление магазина' %></h3>
 <div class="form__field form__field_inline">
-    <label class="form__label"><%t 'Номер магазина' %></label>
-    <input value="<%e model.get('number') %>" class="inputText" type="text" name="number"/>
+    <label class="form__label"><%text 'Номер магазина' %></label>
+    <input value="<%= model.get('number') %>" class="inputText" type="text" name="number"/>
 </div>
 <div class="form__field form__field_inline">
-    <label class="form__label"><%t 'Адрес' %></label>
-    <input value="<%e model.get('address') %>" class="inputText" type="text" name="address"/>
+    <label class="form__label"><%text 'Адрес' %></label>
+    <input value="<%= model.get('address') %>" class="inputText" type="text" name="address"/>
 </div>
 <div class="form__field form__field_inline">
-    <label class="form__label"><%t 'Телефон' %></label>
-    <input value="<%e model.get('contacts') %>" class="inputText" type="text" name="contacts" />
+    <label class="form__label"><%text 'Телефон' %></label>
+    <input value="<%= model.get('contacts') %>" class="inputText" type="text" name="contacts" />
 </div>
 <div class="form__controls">
     <span class="button button_color_blue">
-        <%t model.id ? 'Сохранить' : 'Добавить' %>
+        <%text model.id ? 'Сохранить' : 'Добавить' %>
         <input type="submit"/>
     </span>
 </div>

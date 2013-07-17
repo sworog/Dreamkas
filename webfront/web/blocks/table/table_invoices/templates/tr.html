@@ -3,16 +3,16 @@
         <%= moment(model.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
     </td>
     <td name="sku">
-        <%e model.get('sku') %>
+        <%= model.get('sku') %>
     </td>
     <td name="supplier">
-        <%t model.get('supplier') %>
+        <%text model.get('supplier') %>
     </td>
     <td>
-        <span name="sumTotal"><%e LH.formatPrice(model.get('sumTotal')) %></span>
+        <span name="sumTotal"><%= LH.formatPrice(model.get('sumTotal')) %></span>
         <span>р.</span>
     </td>
     <td name="accepter">
-        <%t model.get('accepter') %>
+        <%text model.get('accepter') %>
     </td>
 </tr>

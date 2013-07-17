@@ -1,17 +1,17 @@
 <% if(LH.isAllow('stores', 'PUT::{store}')) { %>
 <div class="page__controls">
     <a href="/stores/<%= departmentModel.get('store') %>/departments/edit/<%= departmentModel.id %>">
-        <%t 'Редактировать' %>
+        <%text 'Редактировать' %>
     </a>
 </div>
 <% } %>
 
-<h3><%a departmentModel.name %></h3>
+<h3><%attr departmentModel:name %></h3>
 <table class="table" style="width: 50%;">
     <tr>
-        <th><%t 'Номер отдела' %></th>
+        <th><%text 'Номер отдела' %></th>
         <td>
-            <%a departmentModel.number %>
+            <%attr departmentModel:number %>
         </td>
     </tr>
 </table>

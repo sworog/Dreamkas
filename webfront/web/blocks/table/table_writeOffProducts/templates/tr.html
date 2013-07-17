@@ -1,16 +1,16 @@
-<tr writeOff-product-id="<%= model.id %>" name="writeOffProduct" class="writeOff__dataRow" product-sku="<%e model.get('product').sku %>">
+<tr writeOff-product-id="<%= model.id %>" name="writeOffProduct" class="writeOff__dataRow" product-sku="<%= model.get('product').sku %>">
     <td>
         <span name="productName"
               class="writeOff__editable"
               autocomplete-name="name"
               model-attr="product"
-              product-id="<%= model.get('product').id %>"><%t model.get('product').name %></span>
+              product-id="<%= model.get('product').id %>"><%text model.get('product').name %></span>
         <br />
         <span name="productSku"
               class="writeOff__editable"
               autocomplete-name="sku"
               model-attr="product"
-              product-id="<%= model.get('product').id %>"><%e model.get('product').sku %></span>
+              product-id="<%= model.get('product').id %>"><%= model.get('product').sku %></span>
     </td>
     <td>
         <span name="productBarcode"
@@ -18,16 +18,16 @@
               autocomplete-name="barcode"
               model-attr="product"
               product-id="<%= model.get('product').id %>">
-            <%e model.get('product').barcode ? model.get('product').barcode : KIT.text('Ввести штрихкод') %>
+            <%= model.get('product').barcode ? model.get('product').barcode : KIT.text('Ввести штрихкод') %>
         </span>
     </td>
     <td>
         <span class="writeOff__editable">
             <span name="productAmount" model-attr="quantity">
-                <%e model.get('quantity') %>
+                <%= model.get('quantity') %>
             </span>
             <span name="productUnits">
-                <%t LH.units(model.get('product').units, 'smallShort') %>
+                <%text LH.units(model.get('product').units, 'smallShort') %>
             </span>
         </span>
     </td>
@@ -37,7 +37,7 @@
                 по
             </span>
             <span name="productPrice" model-attr="price">
-                <%e LH.formatPrice(model.get('price')) %>
+                <%= LH.formatPrice(model.get('price')) %>
             </span>
             <span>
                 р.
@@ -46,10 +46,10 @@
     </td>
     <td>
         <span class="writeOff__editable" name="productCause" model-attr="cause">
-            <%e model.get('cause') %>
+            <%= model.get('cause') %>
         </span>
     </td>
     <td style="width: 1px;">
-        <span class="writeOff__removeLink"><%t 'удалить' %></span>
+        <span class="writeOff__removeLink"><%text 'удалить' %></span>
     </td>
 </tr>
