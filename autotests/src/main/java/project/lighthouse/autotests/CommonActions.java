@@ -31,10 +31,7 @@ public class CommonActions extends PageObject {
         try {
             items.get(elementName).setValue(inputText);
         } catch (Exception e) {
-            String getExceptionMessage = e.getCause() != null
-                    ? e.getCause().getMessage()
-                    : e.getMessage();
-            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2)) {
+            if (isSkippableException(e, false)) {
                 input(elementName, inputText);
             } else {
                 throw e;
@@ -56,10 +53,7 @@ public class CommonActions extends PageObject {
             }
             commonPage.shouldContainsText(elementName, element, expectedValue);
         } catch (Exception e) {
-            String getExceptionMessage = e.getCause() != null
-                    ? e.getCause().getMessage()
-                    : e.getMessage();
-            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2)) {
+            if (isSkippableException(e, false)) {
                 checkElementValue(checkType, elementName, expectedValue);
             } else {
                 throw e;
@@ -80,10 +74,7 @@ public class CommonActions extends PageObject {
         try {
             waiter.getVisibleWebElement(element);
         } catch (Exception e) {
-            String getExceptionMessage = e.getCause() != null
-                    ? e.getCause().getMessage()
-                    : e.getMessage();
-            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2) || getExceptionMessage.contains(errorMessage3)) {
+            if (isSkippableException(e)) {
                 elementShouldBeVisible(value, commonView);
             } else {
                 throw e;
@@ -100,10 +91,7 @@ public class CommonActions extends PageObject {
         try {
             waiter.getVisibleWebElement(findBy).click();
         } catch (Exception e) {
-            String getExceptionMessage = e.getCause() != null
-                    ? e.getCause().getMessage()
-                    : e.getMessage();
-            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2) || getExceptionMessage.contains(errorMessage3)) {
+            if (isSkippableException(e)) {
                 elementClick(findBy);
             } else {
                 throw e;
@@ -116,15 +104,27 @@ public class CommonActions extends PageObject {
             WebElement element = waiter.getVisibleWebElement(findBy);
             $(element).selectByValue(value);
         } catch (Exception e) {
-            String getExceptionMessage = e.getCause() != null
-                    ? e.getCause().getMessage()
-                    : e.getMessage();
-            if (getExceptionMessage.contains(errorMessage1) || getExceptionMessage.contains(errorMessage2) || getExceptionMessage.contains(errorMessage3)) {
+            if (isSkippableException(e)) {
                 elementSelect(value, findBy);
             } else {
                 throw e;
             }
         }
 
+    }
+
+    private String getExceptionMessage(Exception e) {
+        return e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
+    }
+
+    private boolean isSkippableException(Exception e, boolean checkThirdErrorMessage) {
+        String exceptionMessage = getExceptionMessage(e);
+        return exceptionMessage.contains(errorMessage1)
+                || exceptionMessage.contains(errorMessage2)
+                || (checkThirdErrorMessage && exceptionMessage.contains(errorMessage3));
+    }
+
+    private boolean isSkippableException(Exception e) {
+        return isSkippableException(e, true);
     }
 }
