@@ -1,9 +1,12 @@
 .store__info{
-    float: left;
     width: 50%;
+    margin-bottom: 30px;
 }
 
 .store__departments{
-    overflow: hidden;
-    padding-left: 40px;
+    width: 50%;
+}
+
+.store__departments thead{
+    display: none;
 }
