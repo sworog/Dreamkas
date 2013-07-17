@@ -1,6 +1,6 @@
 <% if(LH.isAllow('stores', 'PUT::{store}')) { %>
 <div class="page__controls">
-    <a href="/departments/edit/<%= departmentModel.id %>">
+    <a href="/stores/<%= departmentModel.get('store') %>/departments/edit/<%= departmentModel.id %>">
         <%t 'Редактировать' %>
     </a>
 </div>

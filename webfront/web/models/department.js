@@ -9,7 +9,17 @@ define(function(require) {
                 'number',
                 'name',
                 'store'
-            ]
+            ],
+            initialize: function(attrs, options) {
+
+                BaseModel.prototype.initialize.apply(this, arguments);
+
+                if (this.collection && this.collection.store) {
+                    this.set('store', this.collection.store);
+                }
+
+                console.log()
+            }
         });
     }
 );
