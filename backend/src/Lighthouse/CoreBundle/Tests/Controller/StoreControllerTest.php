@@ -303,6 +303,32 @@ class StoreControllerTest extends WebTestCase
         }
     }
 
+    public function testGetStoreWithDepartments()
+    {
+        $this->clearMongoDb();
+
+        $storeId = $this->createStore('1');
+
+        $departmentId1 = $this->createDepartment($storeId, '1-1');
+        $departmentId2 = $this->createDepartment($storeId, '1-2');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonHasPath('id', $getResponse);
+        Assert::assertJsonHasPath('departments', $getResponse);
+
+        Assert::assertJsonPathCount(2, 'departments.*.id', $getResponse);
+        Assert::assertJsonPathEquals($departmentId1, 'departments.*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($departmentId2, 'departments.*.id', $getResponse, 1);
+    }
+
     /**
      * @param string    $url
      * @param string    $method

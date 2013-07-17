@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Store;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Department\Department;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
@@ -48,4 +49,15 @@ class Store extends AbstractDocument
      * @var string
      */
     protected $contacts;
+
+    /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\Department\Department",
+     *      simple=true,
+     *      cascade="persist",
+     *      mappedBy="store"
+     * )
+     * @var Department[]
+     */
+    protected $departments;
 }
