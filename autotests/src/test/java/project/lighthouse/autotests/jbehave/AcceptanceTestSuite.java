@@ -1,36 +1,35 @@
 package project.lighthouse.autotests.jbehave;
 
-import net.thucydides.core.util.EnvironmentVariables;
+import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
 import project.lighthouse.autotests.StaticData;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
-    private static final String CURRENT_BRANCH = "lighthouse.autotests.branch";
-    private static final String IMPLICITLY_WAIT = "webdriver.timeouts.implicitlywait";
-    private static final String WEB_DRIVER_BASE_URL = "webdriver.base.url";
-
-    EnvironmentVariables environmentVariables = getEnvironmentVariables();
+    private static final String BRANCH = "lighthouse.autotests.branch";
+    private static final String THREADS = "lighthouse.threads";
 
     public AcceptanceTestSuite() {
         setImplicitlyWaitTimeOut();
         setWebDriverBaseUrl();
-        runTestSuite();
+        setThreads();
+        findStoriesByBranch();
     }
 
     private void setImplicitlyWaitTimeOut() {
-        String timeout = environmentVariables.getProperty(IMPLICITLY_WAIT, null);
-        if (timeout != null) {
-            StaticData.TIMEOUT = timeout;
-        }
+        StaticData.TIMEOUT = getEnvironmentVariables()
+                .getPropertyAsInteger(
+                        ThucydidesSystemProperty.TIMEOUTS_IMPLICIT_WAIT.getPropertyName(),
+                        StaticData.TIMEOUT
+                );
     }
 
     private void setWebDriverBaseUrl() {
-        StaticData.WEB_DRIVER_BASE_URL = environmentVariables.getProperty(WEB_DRIVER_BASE_URL, null);
+        StaticData.WEB_DRIVER_BASE_URL = getSystemConfiguration().getBaseUrl();
     }
 
-    private void runTestSuite() {
-        String branch = environmentVariables.getProperty(CURRENT_BRANCH, null);
+    private void findStoriesByBranch() {
+        String branch = getEnvironmentVariables().getProperty(BRANCH, null);
         if (branch != null) {
             if (branch.startsWith("us-")) {
                 findStoriesCalled(branch.substring(3) + "*");
@@ -39,5 +38,10 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
                 findStoriesIn("**/" + branch);
             }
         }
+    }
+
+    private void setThreads() {
+        Integer threads = getEnvironmentVariables().getPropertyAsInteger(THREADS, 1);
+        configuredEmbedder().embedderControls().useThreads(threads);
     }
 }

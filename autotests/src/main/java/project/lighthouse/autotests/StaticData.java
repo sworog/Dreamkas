@@ -15,7 +15,7 @@ public class StaticData {
     public static HashMap<String, SubCategory> subCategories = new HashMap<>();
     public static HashMap<String, User> users = new HashMap<>();
     public static HashMap<String, OauthAuthorizeData> userTokens = new HashMap<>();
-    public static String TIMEOUT = "5000";
+    public static Integer TIMEOUT = 5000;
     public static String WEB_DRIVER_BASE_URL;
 
     public static final String client_id = "autotests_autotests";
