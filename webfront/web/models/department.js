@@ -7,7 +7,8 @@ define(function(require) {
             urlRoot: LH.baseApiUrl + '/departments',
             saveFields: [
                 'number',
-                'name'
+                'name',
+                'store'
             ]
         });
     }

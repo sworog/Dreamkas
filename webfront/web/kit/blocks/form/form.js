@@ -62,7 +62,7 @@ define(function(require) {
             }
 
             if (block.redirectUrl){
-                router.navigate(block.redirectUrl, {
+                router.navigate(_.result(block, 'redirectUrl') , {
                     trigger: true
                 });
             }
