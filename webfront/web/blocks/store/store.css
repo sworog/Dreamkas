@@ -1,0 +1,9 @@
+.store__info{
+    float: left;
+    width: 50%;
+}
+
+.store__departments{
+    overflow: hidden;
+    padding-left: 40px;
+}

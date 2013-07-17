@@ -1,32 +1,36 @@
 define(function(require) {
     //requirements
     var Page = require('pages/page'),
-        Store = require('blocks/store/store'),
+        Department = require('blocks/department/department'),
         StoreModel = require('models/store');
 
     return Page.extend({
-        pageName: 'page_store_view',
+        pageName: 'page_department_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },
         permissions: {
             stores: 'GET::{store}'
         },
-        initialize: function(storeId) {
+        initialize: function(storeId, departmentId) {
             var page = this;
 
-            page.storeId = storeId;
+            page.departmentId = departmentId;
 
             page.storeModel = new StoreModel({
                 id: storeId
             });
 
             $.when(page.storeModel.fetch()).then(function(){
+
+                page.departmentModel = page.storeModel.departments.get(departmentId);
+
                 page.render();
 
-                new Store({
+                new Department({
                     storeModel: page.storeModel,
-                    el: document.getElementById('store')
+                    departmentModel: page.departmentModel,
+                    el: document.getElementById('department')
                 });
             });
         }

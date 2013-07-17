@@ -45,6 +45,11 @@ define(function(require) {
             'stores/edit/:storeId(/)': require('pages/store/form'),
             'stores/:storeId(/)': require('pages/store/view'),
 
+            //departments
+            'stores/:storeId/departments/create(/)': require('pages/department/form'),
+            'stores/:storeId/departments/edit/:departmentId(/)': require('pages/department/form'),
+            'stores/:storeId/departments/:departmentId(/)': require('pages/department/view'),
+
             '*path': require('pages/common/404')
         },
         initialize: function(){

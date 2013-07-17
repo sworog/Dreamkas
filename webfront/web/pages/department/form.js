@@ -5,36 +5,30 @@ define(function(require) {
         Form_store = require('blocks/form/form_store/form_store');
 
     return Page.extend({
-        pageName: 'page_store_form',
+        pageName: 'page_department_form',
         templates: {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {
             store: 'POST'
         },
-        initialize: function(storeId, params){
+        initialize: function(storeId, departmentId){
             var page = this;
 
-            if (storeId && typeof storeId !== 'string'){
-                params = storeId;
-                storeId = null;
-            }
-
-            params = params || {};
-
-            page.storeId = storeId;
-
             page.storeModel = new StoreModel({
-                id: page.storeId,
-                subCategory: params.subCategory
+                id: storeId
             });
 
-            $.when(storeId ? page.storeModel.fetch() : {}).then(function(){
+            $.when(page.storeModel.fetch()).then(function(){
+
+                page.departmentModel = page.storeModel.departments.get(departmentId);
+
                 page.render();
 
                 new Form_store({
-                    model: page.storeModel,
-                    el: document.getElementById('form_store')
+                    model: page.departmentModel,
+                    storeModel: page.storeModel,
+                    el: document.getElementById('form_department')
                 });
             })
         }
