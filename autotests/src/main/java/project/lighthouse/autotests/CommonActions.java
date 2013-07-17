@@ -9,6 +9,7 @@ import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonView;
 
+import java.util.List;
 import java.util.Map;
 
 public class CommonActions extends PageObject {
@@ -39,6 +40,18 @@ public class CommonActions extends PageObject {
         }
     }
 
+    public void inputTable(ExamplesTable fieldInputTable) {
+        for (Map<String, String> row : fieldInputTable.getRows()) {
+            String elementName = row.get("elementName");
+            String inputText = row.get("value");
+            input(elementName, inputText);
+        }
+    }
+
+    public void checkElementValue(String elementName, String expectedValue) {
+        checkElementValue("", elementName, expectedValue);
+    }
+
     public void checkElementValue(String checkType, String elementName, String expectedValue) {
         try {
             WebElement element;
@@ -61,12 +74,16 @@ public class CommonActions extends PageObject {
         }
     }
 
-    public void checkElementValue(String checkType, ExamplesTable checkValuesTable) {
-        for (Map<String, String> row : checkValuesTable.getRows()) {
+    public void checkElementValue(String checkType, List<Map<String, String>> checkValuesList) {
+        for (Map<String, String> row : checkValuesList) {
             String elementName = row.get("elementName");
             String expectedValue = row.get("value");
             checkElementValue(checkType, elementName, expectedValue);
         }
+    }
+
+    public void checkElementValue(String checkType, ExamplesTable examplesTable) {
+        checkElementValue(checkType, examplesTable.getRows());
     }
 
     public void elementShouldBeVisible(String value, CommonView commonView) {

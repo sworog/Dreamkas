@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.common;
 
 import net.thucydides.core.pages.PageObject;
+import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,7 +40,16 @@ abstract public class CommonPageObject extends PageObject {
         commonActions.input(elementName, inputText);
     }
 
+    public void inputTable(ExamplesTable inputTable) {
+        commonActions.inputTable(inputTable);
+    }
+
     public WebElement findOnlyVisibleWebElementFromTheWebElementsList(By findBy) {
         return waiter.getOnlyVisibleElementFromTheList(findBy);
+    }
+
+    public WebElement findModelFieldContaining(String modelName, String fieldName, String expectedValue) {
+        By by = By.xpath(String.format("//span[@model_name='%s' and @model_attr='%s' and contains(text(), '%s')]", modelName, fieldName, expectedValue));
+        return findVisibleElement(by);
     }
 }
