@@ -6,6 +6,7 @@ So that I can achieve a business goal
 Meta:
 @us 17
 @sprint 14
+@debug us:17:validation
 
 Scenario: Can't delete not empty category from group page
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
@@ -15,7 +16,7 @@ And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
-Then the user checks alert text is equal to 'Необходимо удалить все подкатегории из категории'
+Then the user checks alert text is equal to 'Категория не пуста. Сначала удалите из нее все подкатегории.'
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -27,11 +28,11 @@ And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
-Then the user checks alert text is equal to 'Необходимо удалить все подкатегории из категории'
+Then the user checks alert text is equal to 'Категория не пуста. Сначала удалите из нее все подкатегории'
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: Can't delete not empty subCategory from category page
+Scenario: Can't delete not empty сategory from category page
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'subCategoryTest12' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
@@ -39,7 +40,7 @@ And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
-Then the user checks alert text is equal to 'Необходимо удалить все подкатегории из категории'
+Then the user checks alert text is equal to 'Категория не пуста. Сначала удалите из нее все подкатегории'
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
