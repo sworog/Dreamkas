@@ -26,7 +26,11 @@ public class StoreCreatePage extends CommonPageObject {
         items.put("contacts", new Input(this, "contacts"));
     }
 
-    public WebElement submitButton() {
-        return findVisibleElement(By.cssSelector(".button_color_blue"));
+    public WebElement createButton() {
+        return findVisibleElement(By.xpath("//*[contains(@class, 'button_color_blue') and contains(., 'Добавить')]"));
+    }
+
+    public WebElement saveButton() {
+        return findVisibleElement(By.xpath("//*[contains(@class, 'button_color_blue') and contains(., 'Сохранить')]"));
     }
 }

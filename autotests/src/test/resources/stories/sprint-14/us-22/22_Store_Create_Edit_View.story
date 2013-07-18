@@ -18,7 +18,7 @@ And user fills store form with following data
 | number | store22 |
 | address | ул. Профессора Попова д.37б, 4 этаж |
 | contacts | тел.: +7 (812) 331-2255\nфакс: +7 (812) 331-2256  |
-And user clicks store form submit button
+And user clicks store form create button
 Then user checks store data in list
 When user clicks on store row in list
 Then user checks store card data
@@ -32,7 +32,7 @@ When user fills store form with following data
 | number | store221 |
 | address | ул. Профессора Попова д.37б, 4 этаж |
 | contacts | тел.: +7 (812) 331-2255\nфакс: +7 (812) 331-2256  |
-And user clicks store form submit button
+And user clicks store form create button
 Then user checks store data in list
 When user clicks on store row in list
 Then user checks store card data
@@ -52,6 +52,6 @@ And user fills store form with following data
 | number | store222 |
 | address | ул. Профессора Попова д.37б, 7 этаж |
 | contacts | факс: +7 (812) 331-2256  |
-And user clicks store form submit button
+And user clicks store form save button
 Then user checks store card data
 When the user logs out

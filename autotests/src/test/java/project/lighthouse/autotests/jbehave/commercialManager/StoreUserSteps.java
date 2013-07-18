@@ -34,9 +34,14 @@ public class StoreUserSteps {
         formSteps.clickCreateNewStoreButton();
     }
 
-    @When("user clicks store form submit button")
-    public void userClicksFormSubmitButton() {
+    @When("user clicks store form create button")
+    public void userClicksFormCreateButton() {
         formSteps.clickCreateStoreSubmitButton();
+    }
+
+    @When("user clicks store form save button")
+    public void userClicksFormSaveButton() {
+        formSteps.clickSaveStoreSubmitButton();
     }
 
     @When("user fills store form with following data $formData")
