@@ -43,7 +43,9 @@ public class AuthorizationPage extends UserCreatePage {
         String loginButtonXpath = "//*[@class='button button_color_blue']/input";
         findBy(loginButtonXpath).click();
         isAuthorized = true;
-        preloaderWait();
+        String toolbarUsernameXpath = String.format("//a[@class='topBar__userName' and contains(., '%s')]", userName);
+        findVisibleElement(By.xpath(toolbarUsernameXpath));
+        //preloaderWait();
     }
 
     public void logOut() {

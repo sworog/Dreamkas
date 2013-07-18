@@ -20,4 +20,8 @@ abstract public class AbstractObject {
     }
 
     abstract public String getApiUrl();
+
+    public String getId() throws JSONException {
+        return getPropertyAsString("id");
+    }
 }

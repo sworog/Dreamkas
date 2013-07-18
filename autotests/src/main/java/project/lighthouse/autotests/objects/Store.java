@@ -7,9 +7,9 @@ public class Store extends AbstractObject {
     final public static String NAME = "store";
     final public static String API_URL = "/stores";
 
-    final public static String DEFAULT_NUMBER = "store1";
-    final public static String DEFAULT_ADDRESS = "address1";
-    final public static String DEFAULT_CONTACTS = "contacts1";
+    final public static String DEFAULT_NUMBER = "store";
+    final public static String DEFAULT_ADDRESS = "address";
+    final public static String DEFAULT_CONTACTS = "contacts";
 
     public Store(JSONObject jsonObject) {
         super(jsonObject);
@@ -32,7 +32,7 @@ public class Store extends AbstractObject {
         return API_URL;
     }
 
-    public String getId() throws JSONException {
-        return getPropertyAsString("id");
+    public String getNumber() throws JSONException {
+        return getPropertyAsString("number");
     }
 }

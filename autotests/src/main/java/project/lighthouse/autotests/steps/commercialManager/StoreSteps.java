@@ -86,6 +86,11 @@ public class StoreSteps extends ScenarioSteps {
     }
 
     @Step
+    public Store createStore() throws IOException, JSONException {
+        return storeApi.createStoreThroughPost();
+    }
+
+    @Step
     public void navigateToStorePage(String id) {
         storeCardPage.navigateToStoreCardPage(id);
     }

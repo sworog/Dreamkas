@@ -15,8 +15,12 @@ public class Waiter {
     WebDriverWait waiter;
 
     public Waiter(WebDriver driver) {
+        this(driver, StaticData.TIMEOUT / 1000);
+    }
+
+    public Waiter(WebDriver driver, long timeout) {
         this.driver = driver;
-        waiter = new WebDriverWait(driver, StaticData.TIMEOUT / 1000);
+        waiter = new WebDriverWait(driver, timeout);
     }
 
     public WebElement getPresentWebElement(By findBy) {

@@ -44,6 +44,10 @@ public class CommonActions extends PageObject {
         for (Map<String, String> row : fieldInputTable.getRows()) {
             String elementName = row.get("elementName");
             String inputText = row.get("value");
+            if (row.containsKey("repeat")) {
+                Integer count = Integer.parseInt(row.get("repeat"));
+                inputText = commonPage.generateString(count, inputText);
+            }
             input(elementName, inputText);
         }
     }

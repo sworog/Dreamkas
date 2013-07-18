@@ -7,6 +7,7 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.objects.Store;
+import project.lighthouse.autotests.steps.AuthorizationSteps;
 import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
 
 import java.io.IOException;
@@ -18,6 +19,8 @@ public class StoreUserSteps {
 
     @Steps
     StoreSteps formSteps;
+    @Steps
+    AuthorizationSteps authorizationSteps;
 
     @Given("the user is on create store page")
     public void userIsOnCreateStorePage() {
@@ -79,5 +82,15 @@ public class StoreUserSteps {
     @When("user clicks edit button on store card page")
     public void userClicksEditButtonOnStoreCardPage() {
         formSteps.userClicksEditButtonOnStoreCardPage();
+    }
+
+    @Given("there is created store and user starts to edit it and fills form with $formData")
+    public void thereIsCreatedStoreAndUserStartsToEditIt(ExamplesTable formData) throws IOException, JSONException {
+        Store store = formSteps.createStore();
+        formSteps.navigateToStorePage(store.getId());
+        authorizationSteps.authorization("commercialManager");
+        formSteps.userClicksEditButtonOnStoreCardPage();
+        formSteps.fillStoreFormData(formData);
+        formSteps.clickSaveStoreSubmitButton();
     }
 }

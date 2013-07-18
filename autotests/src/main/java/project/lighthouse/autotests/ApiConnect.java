@@ -200,8 +200,14 @@ public class ApiConnect {
     }
 
     public Store createStoreThroughPost(Store store) throws JSONException, IOException {
-        String response = executePostRequest(store);
-        return new Store(new JSONObject(response));
+        if (!StaticData.stores.containsKey(store.getNumber())) {
+            String response = executePostRequest(store);
+            Store newStore = new Store(new JSONObject(response));
+            StaticData.stores.put(newStore.getNumber(), newStore);
+            return newStore;
+        } else {
+            return StaticData.stores.get(store.getNumber());
+        }
     }
 
     public Store createStoreThroughPost() throws JSONException, IOException {
