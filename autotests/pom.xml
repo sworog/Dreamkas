@@ -88,7 +88,7 @@
                         <thucydides.browser.width>${thucydides.browser.width}</thucydides.browser.width>
                         <thucydides.browser.height>${thucydides.browser.height}</thucydides.browser.height>
                         <thucydides.outputDirectory>${thucydides.outputDirectory}</thucydides.outputDirectory>
-                        <thucydides.capability.types>sprint</thucydides.capability.types>
+                        <thucydides.capability.types>sprint,user story</thucydides.capability.types>
                         <webdriver.driver>${webdriver.driver}</webdriver.driver>
                         <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}</webdriver.timeouts.implicitlywait>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
