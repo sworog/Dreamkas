@@ -44,7 +44,7 @@ public class AuthorizationPage extends UserCreatePage {
         findBy(loginButtonXpath).click();
         isAuthorized = true;
         String toolbarUsernameXpath = String.format("//a[@class='topBar__userName' and contains(., '%s')]", userName);
-        findVisibleElement(By.xpath(toolbarUsernameXpath));
+        waiter.getVisibleWebElement(By.xpath(toolbarUsernameXpath));
         //preloaderWait();
     }
 
