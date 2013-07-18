@@ -199,6 +199,20 @@ public class ApiConnect {
         }
     }
 
+    public Store createStoreThroughPost(Store store) throws JSONException, IOException {
+        String response = executePostRequest(store);
+        return new Store(new JSONObject(response));
+    }
+
+    public Store createStoreThroughPost() throws JSONException, IOException {
+        return createStoreThroughPost(new Store());
+    }
+
+    public Store createStoreThroughPost(String number, String address, String contacts) throws JSONException, IOException {
+        Store store = new Store(number, address, contacts);
+        return createStoreThroughPost(store);
+    }
+
     public String getUserPageUrl(String userName) throws JSONException {
         String userId = StaticData.users.get(userName).getId();
         return String.format("%s/users/%s", UrlHelper.getWebFrontUrl(), userId);
@@ -221,6 +235,16 @@ public class ApiConnect {
         String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
         validateResponseMessage(response, responseMessage);
         return responseMessage;
+    }
+
+    private String executePostRequest(String targetURL, JSONObject jsonObject) throws IOException, JSONException {
+        return executePostRequest(targetURL, jsonObject.toString());
+    }
+
+    private String executePostRequest(AbstractObject object) throws IOException, JSONException {
+        String targetUrl = UrlHelper.getApiUrl(object.getApiUrl());
+        JSONObject jsonObject = object.getJsonObject();
+        return executePostRequest(targetUrl, jsonObject);
     }
 
     private void validateResponseMessage(HttpResponse httpResponse, String responseMessage) {

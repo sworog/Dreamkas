@@ -4,11 +4,14 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.objects.Store;
+import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreCardPage;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreCreatePage;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreListPage;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class StoreSteps extends ScenarioSteps {
@@ -16,6 +19,7 @@ public class StoreSteps extends ScenarioSteps {
     StoreCreatePage storeCreatePage;
     StoreListPage storeListPage;
     StoreCardPage storeCardPage;
+    StoreApi storeApi;
 
     public StoreSteps(Pages pages) {
         super(pages);
@@ -69,5 +73,20 @@ public class StoreSteps extends ScenarioSteps {
             storeCardPage.checkStoreCardValue(columnName, columnValue);
         }
 
+    }
+
+    @Step
+    public Store createStore(String number, String address, String contacts) throws IOException, JSONException {
+        return storeApi.createStoreThroughPost(number, address, contacts);
+    }
+
+    @Step
+    public void navigateToStorePage(String id) {
+        storeCardPage.navigateToStoreCardPage(id);
+    }
+
+    @Step
+    public void userClicksEditButtonOnStoreCardPage() {
+        storeCardPage.editButton().click();
     }
 }
