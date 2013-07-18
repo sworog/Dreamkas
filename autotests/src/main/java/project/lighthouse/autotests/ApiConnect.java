@@ -28,6 +28,25 @@ public class ApiConnect {
         this.password = password;
     }
 
+    public void createStoreDepartmentThroughPost(String number, String name) throws JSONException, IOException {
+        if (!StaticData.hasStore(Store.DEFAULT_NUMBER)) {
+            createStoreThroughPost();
+        }
+        createStoreDepartmentThroughPost(number, name, Store.DEFAULT_NUMBER);
+    }
+
+    public void createStoreDepartmentThroughPost(String number, String name, String storeName) throws JSONException, IOException {
+        if (!StaticData.departments.containsKey(number)) {
+            String storeId = StaticData.stores.get(storeName).getId();
+            String getApiUrl = UrlHelper.getApiUrl() + "/api/1/departments";
+            String jsonData = Department.getJsonObject(number, name, storeId).toString();
+            String postResponse = executePostRequest(getApiUrl, jsonData);
+
+            Department department = new Department(new JSONObject(postResponse));
+            StaticData.departments.put(number, department);
+        }
+    }
+
     public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
         if (!StaticData.hasSubCategory(SubCategory.DEFAULT_NAME)) {
             createSubCategoryThroughPost();

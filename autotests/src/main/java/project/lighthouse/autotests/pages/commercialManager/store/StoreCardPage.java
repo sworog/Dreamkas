@@ -44,4 +44,12 @@ public class StoreCardPage extends CommonPageObject {
     public WebElement createNewDepartmentButton() {
         return findElement(By.xpath("//a[@class='button' and contains(text(), 'Создать отдел')]"));
     }
+
+    public WebElement findRowByDepartmentNumber(String departmentNumber){
+        return findVisibleElement(
+                By.xpath(
+                        String.format("//td[contains(text(), '%s')]/../tr", departmentNumber)
+                )
+        );
+    }
 }
