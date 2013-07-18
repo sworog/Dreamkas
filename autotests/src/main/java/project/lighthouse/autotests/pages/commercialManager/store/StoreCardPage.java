@@ -40,4 +40,8 @@ public class StoreCardPage extends CommonPageObject {
     public WebElement editButton() {
         return findVisibleElement(By.xpath("//*[@class='page__controls']/a[contains(., 'Редактировать')]"));
     }
+
+    public WebElement createNewDepartmentButton() {
+        return findElement(By.xpath("//a[@class='button' and contains(text(), 'Создать отдел')]"));
+    }
 }
