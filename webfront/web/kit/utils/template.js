@@ -1,14 +1,17 @@
 define(function(require) {
     //requirements
+    var _ = require('underscore'),
+        $ = require('jquery');
+
     require('kit/utils/text');
     require('kit/utils/attr');
 
     var settings = {
         evaluate: /<%([\s\S]+?)%>/g,
-        interpolate: /<%=([\s\S]+?)%>/g,
-        text: /<%t([\s\S]+?)%>/g,
-        attr: /<%a([\s\S]+?)%>/g,
-        escape: /<%e([\s\S]+?)%>/g
+        interpolate: /<%==([\s\S]+?)%>/g,
+        text: /<%text([\s\S]+?)%>/g,
+        attr: /<%attr ([\s\S]+?)%>/g,
+        escape: /<%=([\s\S]+?)%>/g
     };
 
     /**
@@ -32,9 +35,9 @@ define(function(require) {
                     return "',KIT.text(" + code.replace(/\\'/g, "'") + "),'";
                 })
                 .replace(settings.attr, function(match, code) {
-                    code = $.trim(code);
+                    code = $.trim(_.escape(code));
 
-                    var list = code.split('.'),
+                    var list = code.split(':'),
                         model = list[0],
                         attr = list[1];
 

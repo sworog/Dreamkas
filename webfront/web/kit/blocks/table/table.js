@@ -74,6 +74,14 @@ define(function(require) {
             'set:loading': function(loading){
                 var block = this;
                 block.$head.toggleClass('preloader_rows', loading);
+            },
+            findElements: function(){
+                var block = this;
+
+                Block.prototype.findElements.apply(block, arguments);
+
+                block.$body = block.$('tbody');
+                block.$head = block.$('thead');
             }
         })
     }

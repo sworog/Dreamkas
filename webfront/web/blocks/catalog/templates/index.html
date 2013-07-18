@@ -1,20 +1,20 @@
 <% if (LH.isAllow('groups', 'POST')) { %>
 <div class="page__controls">
-    <a class="page__controlsLink editor__on"><%t 'Редактировать' %></a>
-    <a class="page__controlsLink editor__off"><%t 'Завершить редактирование' %></a>
+    <a class="page__controlsLink editor__on"><%text 'Редактировать' %></a>
+    <a class="page__controlsLink editor__off"><%text 'Завершить редактирование' %></a>
 </div>
 <% } %>
 
 <h3>
     <span style="vertical-align: middle; margin-right: 10px;">
-        <%t 'Товарный справочник' %>
+        <%text 'Товарный справочник' %>
     </span>
     <a class="button button_color_blue catalog__addGroupLink editor__control">
-        <%t 'Добавить группу' %>
+        <%text 'Добавить группу' %>
     </a>
 </h3>
 <div id="catalog__groupList" class="catalog__groupList">
-    <%= templates.catalog__groupList({
+    <%== templates.catalog__groupList({
         templates: templates,
         catalogGroupsCollection: catalogGroupsCollection
     }) %>

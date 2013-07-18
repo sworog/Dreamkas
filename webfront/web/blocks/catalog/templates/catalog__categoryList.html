@@ -1,9 +1,9 @@
 <% if(!catalogCategoriesCollection || catalogCategoriesCollection.length === 0) { %>
-    <div><%t 'Нет категорий' %></div>
+    <div><%text 'Нет категорий' %></div>
 <% } else { %>
     <% catalogCategoriesCollection.each(function(catalogCategoryModel){ %>
         <div category_id="<%= catalogCategoryModel.id %>" class="catalog__categoryItem">
-            <%= templates.catalog__categoryItem({
+            <%== templates.catalog__categoryItem({
                 catalogCategoryModel: catalogCategoryModel
             }) %>
         </div>

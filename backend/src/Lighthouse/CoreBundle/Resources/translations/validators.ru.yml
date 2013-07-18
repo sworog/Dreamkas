@@ -50,6 +50,9 @@ lighthouse:
         username.unique: Пользователь с таким логином уже существует
       store:
         number.unique: Такой магазин уже есть
+      department:
+        number.unique: Отдел с таким названием уже существует в этом магазине
+        store.does_not_exists: Такого магазина не существует
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов

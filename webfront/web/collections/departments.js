@@ -5,7 +5,10 @@ define(function(require) {
 
         return BaseCollection.extend({
             model: DepartmentModel,
-            url: LH.baseApiUrl + '/departments'
+            url: LH.baseApiUrl + '/departments',
+            initialize: function(models, options){
+                this.store = options.store || options.parentModel.id;
+            }
         });
     }
 );

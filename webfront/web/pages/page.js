@@ -11,6 +11,7 @@ define(function(require) {
     var $page = $('body');
 
     var Page = function() {
+
         var page = this,
             previousPage = $page.data('page'),
             accessDenied = _.some(page.permissions, function(value, key) {
@@ -42,7 +43,6 @@ define(function(require) {
         permissions: {},
         initialize: function() {
             var page = this;
-
             page.render();
         },
         render: function() {

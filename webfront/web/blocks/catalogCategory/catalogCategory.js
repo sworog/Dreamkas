@@ -92,6 +92,7 @@ define(function(require) {
                 catalogSubCategoriesCollection: block.catalogSubCategoriesCollection
             });
 
+            block.renderProductList();
             block.set('catalogSubCategoryId', block.catalogSubCategoryId);
         },
         remove: function() {
@@ -110,6 +111,17 @@ define(function(require) {
             block.$addProductLink = block.$('.catalogCategory__addProductLink');
             block.$productListTitle = block.$('.catalogCategory__productListTitle');
             block.$table_products = block.$('.table_products');
+        },
+        renderProductList: function(){
+            var block = this;
+
+            if (block.catalogProductsCollection.length) {
+                block.$productListTitle.html(KIT.text('Список товаров'));
+                block.$table_products.show();
+            } else {
+                block.$productListTitle.html(KIT.text('Нет товаров'));
+                block.$table_products.hide();
+            }
         },
         'set:editMode': function(editMode) {
             Editor.prototype['set:editMode'].apply(this, arguments);
@@ -133,24 +145,14 @@ define(function(require) {
                 block.$productList.hide();
             }
 
-            if (catalogSubCategoryId && block.catalogSubCategoryId === catalogSubCategoryId) {
-                if (!block.catalogProductsCollection.length){
-                    block.$productListTitle.html(KIT.text('Нет товаров'));
-                    block.$table_products.hide();
-                }
-            }
-
             if (catalogSubCategoryId && block.catalogSubCategoryId !== catalogSubCategoryId) {
                 block.catalogProductsCollection.subCategory = catalogSubCategoryId;
                 block.$subCategoryLink_active.addClass('preloader_rows');
 
                 block.catalogProductsCollection.fetch({
-                    success: function(collection) {
-                        if (collection.length) {
-                            block.$productListTitle.html(KIT.text('Список товаров'));
-                        } else {
-                            block.$productListTitle.html(KIT.text('Нет товаров'));
-                        }
+                    success: function() {
+
+                        block.renderProductList();
 
                         block.$subCategoryLink_active.removeClass('preloader_rows');
                     }

@@ -1,0 +1,12 @@
+.store__info{
+    width: 50%;
+    margin-bottom: 30px;
+}
+
+.store__departments{
+    width: 50%;
+}
+
+.store__departments thead{
+    display: none;
+}

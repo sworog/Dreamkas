@@ -25,7 +25,7 @@ define(function(require) {
                 page.render();
 
                 new Store({
-                    model: page.storeModel,
+                    storeModel: page.storeModel,
                     el: document.getElementById('store')
                 });
             });

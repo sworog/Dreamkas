@@ -1,16 +1,16 @@
-<tr invoice-product-id="<%= model.id %>" name="invoiceProduct" class="invoice__dataRow" product-sku="<%e model.get('product').sku %>">
+<tr invoice-product-id="<%= model.id %>" name="invoiceProduct" class="invoice__dataRow" product-sku="<%= model.get('product').sku %>">
     <td>
         <span name="productName"
               class="invoice__editable"
               autocomplete-name="name"
               model-attr="product"
-              product-id="<%= model.get('product').id %>"><%t model.get('product').name %></span>
+              product-id="<%= model.get('product').id %>"><%text model.get('product').name %></span>
         <br />
         <span name="productSku"
               class="invoice__editable"
               autocomplete-name="sku"
               model-attr="product"
-              product-id="<%= model.get('product').id %>"><%e model.get('product').sku %></span>
+              product-id="<%= model.get('product').id %>"><%= model.get('product').sku %></span>
     </td>
     <td>
         <span name="productBarcode"
@@ -18,16 +18,16 @@
               autocomplete-name="barcode"
               model-attr="product"
               product-id="<%= model.get('product').id %>">
-            <%e model.get('product').barcode ? model.get('product').barcode : KIT.text('Ввести штрихкод') %>
+            <%= model.get('product').barcode ? model.get('product').barcode : KIT.text('Ввести штрихкод') %>
         </span>
     </td>
     <td>
         <span class="invoice__editable">
             <span name="productAmount" model-attr="quantity">
-                <%e model.get('quantity') %>
+                <%= model.get('quantity') %>
             </span>
             <span name="productUnits">
-                <%t LH.units(model.get('product').units, 'smallShort') %>
+                <%text LH.units(model.get('product').units, 'smallShort') %>
             </span>
         </span>
     </td>
@@ -37,7 +37,7 @@
                 по
             </span>
             <span name="productPrice" model-attr="price">
-                <%t LH.formatPrice(model.get('price')) %>
+                <%text LH.formatPrice(model.get('price')) %>
             </span>
             <span>
                 р.
@@ -49,13 +49,13 @@
             =
         </span>
         <span name="productSum">
-            <%t LH.formatPrice(model.get('totalPrice')) %>
+            <%text LH.formatPrice(model.get('totalPrice')) %>
         </span>
         <span>
             р.
         </span>
     </td>
     <td style="width: 1px;">
-        <span class="invoice__removeLink"><%t 'удалить' %></span>
+        <span class="invoice__removeLink"><%text 'удалить' %></span>
     </td>
 </tr>

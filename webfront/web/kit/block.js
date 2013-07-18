@@ -78,10 +78,10 @@ define(function(require) {
                 $context = arguments[0] || block.$el,
                 elements = [];
 
-            if (block.className) {
-                $context.find('[class*="' + block.className + '__"]').each(function() {
+            if (block.blockName) {
+                $context.find('[class*="' + block.blockName + '__"]').each(function() {
                     var classes = _.filter($(this).attr('class').split(' '), function(className) {
-                        return className.indexOf(block.className + '__') === 0;
+                        return className.indexOf(block.blockName + '__') === 0;
                     });
 
                     elements = _.union(elements, classes);

@@ -1,15 +1,15 @@
 <tr name="amountItem">
     <td name="sku">
-        <%e model.get('sku') %>
+        <%= model.get('sku') %>
     </td>
     <td name="name">
-        <%t model.get('name') %>
+        <%text model.get('name') %>
     </td>
     <td name="vendor">
-        <%t model.get('vendor') %>
+        <%text model.get('vendor') %>
     </td>
     <td name="vendorCountry">
-        <%t model.get('vendorCountry') %>
+        <%text model.get('vendorCountry') %>
     </td>
     <td name="averagePurchasePrice">
         <%= model.get('averagePurchasePrice') ? LH.formatPrice(model.get('averagePurchasePrice')) + 'р.' : '&mdash;' %>
@@ -18,7 +18,7 @@
         <%= model.get('lastPurchasePrice') ? LH.formatPrice(model.get('lastPurchasePrice')) : LH.formatPrice(model.get('purchasePrice')) %> р.
     </td>
     <td>
-        <span name="amount"><%e model.get('amount') || 0 %></span>
-        <span name="units"><%t LH.units(model.get('units'), 'smallShort') %></span>
+        <span name="amount"><%= model.get('amount') || 0 %></span>
+        <span name="units"><%text LH.units(model.get('units'), 'smallShort') %></span>
     </td>
 </tr>

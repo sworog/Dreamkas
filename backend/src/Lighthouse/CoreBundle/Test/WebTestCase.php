@@ -556,8 +556,12 @@ class WebTestCase extends BaseTestCase
         return $postResponse['id'];
     }
 
-    public function createStore($number = 'номер_42', $address = 'адрес 42', $contacts = 'телефон 42')
-    {
+    public function createStore(
+        $number = 'номер_42',
+        $address = 'адрес 42',
+        $contacts = 'телефон 42',
+        $ifNotExists = true
+    ) {
         $storeData = array(
             'number' => $number,
             'address' => $address,
@@ -565,6 +569,22 @@ class WebTestCase extends BaseTestCase
         );
 
         $accessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+
+        if ($ifNotExists) {
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/stores'
+            );
+
+            if (count($postResponse)) {
+                foreach ($postResponse as $value) {
+                    if (is_array($value) && array_key_exists('number', $value) && $value['number'] == $number) {
+                        return $value['id'];
+                    }
+                }
+            }
+        }
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -579,6 +599,56 @@ class WebTestCase extends BaseTestCase
         foreach ($storeData as $name => $value) {
             Assert::assertJsonPathEquals($value, $name, $response);
         }
+
+        return $response['id'];
+    }
+
+    public function createDepartment(
+        $storeId = null,
+        $number = 'отдел_42',
+        $name = 'название отдела 42',
+        $ifNotExists = true
+    ) {
+        if ($storeId == null) {
+            $storeId = $this->createStore();
+        }
+
+        $storeData = array(
+            'number' => $number,
+            'name' => $name,
+            'store' => $storeId,
+        );
+
+        $accessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+
+        if ($ifNotExists) {
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/stores/' . $storeId . '/departments'
+            );
+
+            if (count($postResponse)) {
+                foreach ($postResponse as $value) {
+                    if (is_array($value) && array_key_exists('number', $value) && $value['number'] == $number) {
+                        return $value['id'];
+                    }
+                }
+            }
+        }
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/departments',
+            $storeData
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals($storeData['number'], 'number', $response);
+        Assert::assertJsonPathEquals($storeData['name'], 'name', $response);
 
         return $response['id'];
     }
