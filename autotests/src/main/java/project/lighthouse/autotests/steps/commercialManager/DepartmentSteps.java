@@ -61,6 +61,11 @@ public class DepartmentSteps extends ScenarioSteps {
     }
 
     @Step
+    public Department createDepartmentInDefaultStore() throws IOException, JSONException {
+        return createDepartmentInDefaultStore(Department.DEFAULT_NUMBER, Department.DEFAULT_NAME);
+    }
+
+    @Step
     public Department createDepartmentInDefaultStore(String departmentNumber, String departmentName) throws IOException, JSONException {
         departmentApi.createStoreDepartmentThroughPost(departmentNumber, departmentName);
         return StaticData.departments.get(departmentNumber);

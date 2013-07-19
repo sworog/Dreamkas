@@ -32,8 +32,6 @@ Then user checks department card data
 When the user logs out
 
 Scenario: Edit a department
-Meta:
-@devdebug
 Given created default store with department 'departmentEdit1', 'Department for edit test'
 When user clicks edit department link
 And user fills department form with following data

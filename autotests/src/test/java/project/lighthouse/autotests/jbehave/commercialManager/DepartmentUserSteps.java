@@ -63,4 +63,14 @@ public class DepartmentUserSteps {
     public void userClicksEditDepartmentLink() {
         formSteps.clicksEditDepartmentLink();
     }
+
+    @Given("there is created department and user starts to edit it and fills form with $fieldsData")
+    public void thereIsCreatedDepartmentAndUserStartsToEditItAndFillsForm(ExamplesTable fieldsData) throws IOException, JSONException {
+        Department department = formSteps.createDepartmentInDefaultStore();
+        formSteps.navigateToDepartmentPage(department.getId(), department.getStoreID());
+        authorizationSteps.authorization("commercialManager");
+        formSteps.clicksEditDepartmentLink();
+        formSteps.fillStoreFormData(fieldsData);
+        formSteps.clickCreateDepartmentSubmitButton();
+    }
 }

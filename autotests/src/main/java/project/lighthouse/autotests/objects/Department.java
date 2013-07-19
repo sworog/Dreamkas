@@ -7,8 +7,8 @@ public class Department extends AbstractObject {
     final public static String NAME = "department";
     final public static String API_URL = "/departments";
 
-    final public static String DEFAULT_NUMBER = "department";
-    final public static String DEFAULT_NAME = "department name";
+    final public static String DEFAULT_NUMBER = "departmentDefaultNumber";
+    final public static String DEFAULT_NAME = "department default name";
 
     public Department(JSONObject jsonObject) {
         super(jsonObject);
