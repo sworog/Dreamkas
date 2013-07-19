@@ -1,6 +1,8 @@
 package project.lighthouse.autotests.pages.commercialManager.department;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.UrlHelper;
 import project.lighthouse.autotests.common.CommonPageObject;
 
@@ -23,5 +25,9 @@ public class DepartmentCardPage extends CommonPageObject {
 
     public void navigateToDepartmentCardPage(String departmentId, String storeId) {
         getDriver().navigate().to(getDepartmentUrl(departmentId, storeId));
+    }
+
+    public WebElement editButton() {
+        return findVisibleElement(By.xpath("//a[contains(text(), 'Редактировать')]"));
     }
 }

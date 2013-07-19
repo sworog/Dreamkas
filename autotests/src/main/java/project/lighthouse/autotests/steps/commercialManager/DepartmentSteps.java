@@ -70,4 +70,9 @@ public class DepartmentSteps extends ScenarioSteps {
     public void navigateToDepartmentPage(String departmentId, String storeId){
         departmentCardPage.navigateToDepartmentCardPage(departmentId, storeId);
     }
+
+    @Step
+    public void clicksEditDepartmentLink() {
+        departmentCardPage.editButton().click();
+    }
 }

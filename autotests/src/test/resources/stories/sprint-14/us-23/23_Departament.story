@@ -24,8 +24,6 @@ Then user checks department card data
 When the user logs out
 
 Scenario: View department in store
-Meta:
-@scenario viewdep
 Given created default store with department 'department1', 'departmentName1'
 Then user checks department card data
 | elementName | value |
@@ -33,3 +31,18 @@ Then user checks department card data
 | name | departmentName1 |
 When the user logs out
 
+Scenario: Edit a department
+Meta:
+@devdebug
+Given created default store with department 'departmentEdit1', 'Department for edit test'
+When user clicks edit department link
+And user fills department form with following data
+| elementName | value |
+| number | departmentEdited1 |
+| name | Department for edit test (status edited) |
+And user clicks department form submit button
+Then user checks department card data
+| elementName | value |
+| number | departmentEdited1 |
+| name | Department for edit test (status edited) |
+When the user logs out

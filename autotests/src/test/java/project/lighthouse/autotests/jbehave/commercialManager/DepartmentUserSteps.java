@@ -58,4 +58,9 @@ public class DepartmentUserSteps {
         authorizationSteps.authorization("commercialManager");
 
     }
+
+    @When("user clicks edit department link")
+    public void userClicksEditDepartmentLink() {
+        formSteps.clicksEditDepartmentLink();
+    }
 }
