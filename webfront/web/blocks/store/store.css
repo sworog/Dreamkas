@@ -26,3 +26,7 @@
     border-bottom: 1px solid #eee;
     margin-bottom: -1px;
 }
+
+.store__managerItemRemove{
+    cursor: pointer;
+}

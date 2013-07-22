@@ -8,6 +8,7 @@ define(function(require) {
             blockName: 'store',
             storeModel: null,
             $departmentsTitle: null,
+            storeManagerCandidatesCollection: null,
             storeManagersCollection: null,
             templates: {
                 index: require('tpl!blocks/store/templates/index.html')
@@ -23,6 +24,7 @@ define(function(require) {
                 });
 
                 block.store__managers = new Store__managers({
+                    storeManagerCandidatesCollection: block.storeManagerCandidatesCollection,
                     storeManagersCollection: block.storeManagersCollection,
                     storeModel: block.storeModel,
                     el: document.getElementById('store__managers')

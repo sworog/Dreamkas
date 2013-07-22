@@ -4,6 +4,7 @@ define(function(require) {
 
     return Collection.extend({
         model: require('models/user'),
-        url: '/fixtures/managers.json'
+        url: '/fixtures/users.json',
+        comparator: 'name'
     });
 });

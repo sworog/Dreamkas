@@ -5,6 +5,7 @@ define(function(require) {
 
     return Block.extend({
         blockName: 'store__managers',
+        storeManagerCandidatesCollection: null,
         storeManagersCollection: null,
         storeModel: null,
         templates: {
@@ -18,14 +19,37 @@ define(function(require) {
 
                 block.storeModel.linkManager($select.val()).done(function(){
                     var userId = $select.find(':selected').data('user_id'),
-                        userModel = block.storeManagersCollection.get(userId);
+                        userModel = block.storeManagerCandidatesCollection.get(userId);
+
+                    block.storeManagerCandidatesCollection.remove(userModel);
+                    block.storeManagersCollection.add(userModel);
+                });
+            },
+            'click .store__managerItemRemove': function(event) {
+                var block = this,
+                    $link = $(event.target),
+                    userModel = block.storeManagersCollection.get($link.data('user_id'));
+
+                block.storeModel.unlinkManager(userModel.url()).done(function(){
+                    block.storeManagersCollection.remove(userModel);
+                    block.storeManagerCandidatesCollection.add(userModel);
+                });
+            }
+        },
+        listeners: {
+            storeManagersCollection: {
+                'remove': function(storeManagerModel) {
+                    var block = this;
+
+                    block.$('span[model_id="' + storeManagerModel.id + '"]').closest(".store__managerItem").remove();
+                },
+                'add': function(storeManagerModel) {
+                    var block = this;
 
                     block.$managerList.append(block.templates.store__managerItem({
-                        storeManagerModel: userModel
+                        storeManagerModel: storeManagerModel
                     }));
-
-                    block.storeManagersCollection.remove(userModel);
-                });
+                }
             }
         },
         initialize: function(){
@@ -34,7 +58,7 @@ define(function(require) {
             Block.prototype.initialize.apply(block, arguments);
 
             block.select_storeManagers = new Select_storeManagers({
-                storeManagersCollection: block.storeManagersCollection,
+                storeManagerCandidatesCollection: block.storeManagerCandidatesCollection,
                 el: document.getElementById('select_storeManagers')
             });
         },

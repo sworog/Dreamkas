@@ -1,12 +1,5 @@
 [
     {
-        "id": "51ecfe70cc917eb40b000000",
-        "username": "watchman",
-        "name": "watchman",
-        "position": "ROLE_ADMINISTRATOR",
-        "role": "ROLE_ADMINISTRATOR"
-    },
-    {
         "id": "51ecfe70cc917ebb0b000000",
         "username": "administrator",
         "name": "administrator",

@@ -4,12 +4,12 @@ define(function(require) {
 
     return Select.extend({
         blockName: 'select_storeManagers',
-        storeManagersCollection: null,
+        storeManagerCandidatesCollection: null,
         templates: {
             index: require('tpl!blocks/select/select_storeManagers/templates/index.html')
         },
         listeners: {
-            storeManagersCollection: {
+            storeManagerCandidatesCollection: {
                 remove: function(model, collectoin, options){
                     var block = this;
 
@@ -19,6 +19,11 @@ define(function(require) {
                     if (!collectoin.length){
                         block.$el.hide();
                     }
+                },
+                'add': function(model, collectoin, options){
+                    var block = this;
+
+                    block.render();
                 }
             }
         }

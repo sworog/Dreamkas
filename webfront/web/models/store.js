@@ -17,9 +17,19 @@ define(function(require) {
                 return $.ajax({
                     url: '/fixtures/users.json',
                     dataType: 'json',
-                    type: 'GET',
+                    type: 'GET', // LINK
                     headers: {
                         Link: '<' + userUri + '>; rel="manager"'
+                    }
+                })
+            },
+            unlinkManager: function(userUri) {
+                return $.ajax({
+                    url: '/fixtures/users.json',
+                    dataType: 'json',
+                    type: 'GET', // UNLINK
+                    headers: {
+                        Unlink: '<' + userUri + '>; rel="manager"'
                     }
                 })
             }

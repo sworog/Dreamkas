@@ -1,5 +1,7 @@
 <h4><%text 'Управляющие' %></h4>
 <div class="store__managerList">
-
+    <% storeManagersCollection.each(function(storeManagerModel) { %>
+        <%== templates.store__managerItem({storeManagerModel: storeManagerModel}) %>
+    <% }) %>
 </div>
 <select id='select_storeManagers' class="select"></select>
