@@ -5,8 +5,10 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.objects.Category;
+import project.lighthouse.autotests.objects.Group;
+import project.lighthouse.autotests.objects.SubCategory;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.product.*;
 
@@ -38,14 +40,14 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void openProductCreatePage() throws JSONException, IOException {
-        catalogApi.createSubCategoryThroughPost(StaticData.NAME, StaticData.NAME, StaticData.NAME);
-        catalogApi.navigateToSubCategoryProductCreatePageUrl(StaticData.NAME);
+        catalogApi.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
+        catalogApi.navigateToSubCategoryProductCreatePageUrl(SubCategory.DEFAULT_NAME);
     }
 
     @Step
     public void openProductListPage() throws IOException, JSONException {
-        catalogApi.createSubCategoryThroughPost(StaticData.NAME, StaticData.NAME, StaticData.NAME);
-        catalogApi.navigateToSubCategoryProductListPageUrlWihEditModeOn(StaticData.NAME, StaticData.NAME, StaticData.NAME);
+        catalogApi.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
+        catalogApi.navigateToSubCategoryProductListPageUrlWihEditModeOn(SubCategory.DEFAULT_NAME, Category.DEFAULT_NAME, Group.DEFAULT_NAME);
     }
 
     @Step
