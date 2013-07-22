@@ -1,8 +1,8 @@
 define(function(require) {
-    var BaseModel = require('models/baseModel'),
-        Backbone = require('backbone');
+    //requirements
+    var Model = require('kit/model');
 
-    var TokenModel = BaseModel.extend({
+    var TokenModel = Model.extend({
         modelName: 'token',
         urlRoot: LH.baseUrl + '/oauth/v2/token',
         defaults: {

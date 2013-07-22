@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('pages/page'),
-        _ = require('underscore'),
+    var Page = require('kit/page'),
         pageParams = require('pages/catalog/params'),
         СatalogGroupModel = require('models/catalogGroup'),
         CatalogGroup = require('blocks/catalogGroup/catalogGroup');

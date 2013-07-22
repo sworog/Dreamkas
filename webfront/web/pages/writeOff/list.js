@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var $ = require('jquery'),
-        Page = require('pages/page'),
+    var Page = require('kit/page'),
         Table_writeOffs = require('blocks/table/table_writeOffs/table_writeOffs'),
         WriteOffsCollection = require('collections/writeOffs');
 

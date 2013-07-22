@@ -1,12 +1,10 @@
 define(function(require) {
     //requirements
-    var $ = require('jquery'),
-        Page = require('pages/page'),
+    var Page = require('kit/page'),
         User = require('blocks/user/user'),
         UserModel = require('models/user'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/403/403'),
-        LH = require('LH');
+        Page403 = require('pages/403/403');
 
     return Page.extend({
         pageName: 'page_user_view',

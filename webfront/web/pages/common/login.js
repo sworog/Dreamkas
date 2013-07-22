@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('pages/page'),
+    var Page = require('kit/page'),
         Form_login = require('blocks/form/form_login/form_login');
 
     return Page.extend({

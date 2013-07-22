@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var $ = require('jquery'),
-        Page = require('pages/page'),
+    var Page = require('kit/page'),
         Table_users = require('blocks/table/table_users/table_users'),
         UsersCollection = require('collections/users');
 

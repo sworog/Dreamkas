@@ -1,8 +1,8 @@
 define(function(require) {
         //requirements
-        var BaseModel = require('models/baseModel');
+        var Model = require('kit/model');
 
-        return BaseModel.extend({
+        return Model.extend({
             modelName: 'department',
             urlRoot: LH.baseApiUrl + '/departments',
             saveFields: [
@@ -12,7 +12,7 @@ define(function(require) {
             ],
             initialize: function(attrs, options) {
 
-                BaseModel.prototype.initialize.apply(this, arguments);
+                Model.prototype.initialize.apply(this, arguments);
 
                 if (this.collection && this.collection.store) {
                     this.set('store', this.collection.store);

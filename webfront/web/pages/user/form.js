@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var $ = require('jquery'),
-        Page = require('pages/page'),
+    var Page = require('kit/page'),
         Form_user = require('blocks/form/form_user/form_user'),
         UserModel = require('models/user');
 

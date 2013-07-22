@@ -1,10 +1,9 @@
 define(function(require) {
         //requirements
-        var BaseCollection = require('collections/baseCollection'),
-            writeOffModel = require('models/writeOff');
+        var Collection = require('kit/collection');
 
-        return BaseCollection.extend({
-            model: writeOffModel,
+        return Collection.extend({
+            model: require('models/writeOff'),
             url: LH.baseApiUrl + "/writeoffs"
         });
     }

@@ -14,7 +14,7 @@ files = [
     REQUIRE_ADAPTER,
     'libs/underscore.min.js',
     'libs/backbone.min.js',
-    'tests.js',
+    'spec.js',
     {
         pattern: '**/*.js',
         included: false

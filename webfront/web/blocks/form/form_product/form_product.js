@@ -1,13 +1,12 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/blocks/form/form'),
-            _ = require('underscore');
+        var Form = require('kit/blocks/form/form');
 
         return Form.extend({
+            blockName: 'form_product',
             defaultInputLinkText: 'Введите значение',
             model: null,
             subCategoryModel: null,
-            blockName: 'form_product',
             templates: {
                 index: require('tpl!blocks/form/form_product/templates/index.html')
             },
@@ -48,16 +47,17 @@ define(function(require) {
                     this.renderRetailPriceLink();
                 }
             },
-            initialize: function(){
-                var block = this;
+            redirectUrl: function(){
+                var block = this,
+                    redirectUrl;
 
                 if (block.model.id){
-                    block.redirectUrl = '/products/' + block.model.id
+                    redirectUrl = '/products/' + block.model.id
                 } else {
-                    block.redirectUrl = '/catalog/' + block.model.get('group').id + '/' + block.model.get('category').id + '/' + block.model.get('subCategory').id
+                    redirectUrl = '/catalog/' + block.model.get('group').id + '/' + block.model.get('category').id + '/' + block.model.get('subCategory').id
                 }
 
-                block.render();
+                return redirectUrl;
             },
             findElements: function(){
                 var block = this;

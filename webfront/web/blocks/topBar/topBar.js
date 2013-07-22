@@ -6,7 +6,6 @@ define(function(require) {
         userPermissions = require('models/userPermissions');
 
     var TopBar = Block.extend({
-        className: 'topBar',
         blockName: 'topBar',
         currentUserModel: currentUserModel,
         userPermissions: userPermissions,

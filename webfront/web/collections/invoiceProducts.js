@@ -1,13 +1,12 @@
 define(function(require) {
         //requirements
-        var BaseCollection = require('collections/baseCollection'),
-            invoiceProductModel = require('models/invoiceProduct');
+        var Collection = require('kit/collection');
 
-        return BaseCollection.extend({
+        return Collection.extend({
+            model: require('models/invoiceProduct'),
             initialize: function(opt) {
                 this.invoiceId = opt.invoiceId;
             },
-            model: invoiceProductModel,
             url: function() {
                 return LH.baseApiUrl + '/invoices/' + this.invoiceId + '/products'
             }

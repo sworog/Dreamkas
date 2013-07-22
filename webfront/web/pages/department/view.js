@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('pages/page'),
+    var Page = require('kit/page'),
         Department = require('blocks/department/department'),
         StoreModel = require('models/store');
 

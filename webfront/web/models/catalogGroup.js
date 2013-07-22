@@ -1,13 +1,12 @@
 define(function(require) {
         //requirements
-        var BaseModel = require('models/baseModel'),
-            CatalogCategoriesCollection = require('collections/catalogCategories');
+        var Model = require('kit/model');
 
-        return BaseModel.extend({
+        return Model.extend({
             modelName: 'catalogGroup',
             urlRoot: LH.baseApiUrl + '/groups',
             initData: {
-                categories: CatalogCategoriesCollection
+                categories: require('collections/catalogCategories')
             },
             saveFields: [
                 'name'

@@ -1,8 +1,8 @@
 define(function(require) {
     //requirements
-    var BaseModel = require('models/baseModel');
+    var Model = require('kit/model');
 
-    return BaseModel.extend({
+    return Model.extend({
         modelName: 'product',
         urlRoot: LH.baseApiUrl + '/products',
         defaults: {
@@ -25,7 +25,7 @@ define(function(require) {
             'subCategory'
         ],
         parse: function(response, options) {
-            var data = BaseModel.prototype.parse.apply(this, arguments);
+            var data = Model.prototype.parse.apply(this, arguments);
 
             if (typeof data.subCategory == 'object') {
                 data.group = data.subCategory.category.group;

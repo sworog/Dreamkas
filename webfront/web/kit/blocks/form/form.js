@@ -1,8 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
-        Backbone = require('backbone'),
-        _ = require('underscore');
+    var Block = require('kit/block');
 
     require('backbone.syphon');
 
@@ -38,19 +36,21 @@ define(function(require) {
         onSubmit: function(data){
             var block = this;
 
-            block.model.save(data, {
-                success: function(model) {
-                    block.onSubmitSuccess(model);
-                    block.trigger('submit:success', model);
-                },
-                error: function(model, response) {
-                    block.onSubmitError(JSON.parse(response.responseText));
-                    block.trigger('submit:error', data);
-                },
-                complete: function(){
-                    block.$submitButton.removeClass('preloader_rows');
-                }
-            });
+            if (block.model){
+                block.model.save(data, {
+                    success: function(model) {
+                        block.onSubmitSuccess(model);
+                        block.trigger('submit:success', model);
+                    },
+                    error: function(model, response) {
+                        block.onSubmitError(JSON.parse(response.responseText));
+                        block.trigger('submit:error', data);
+                    },
+                    complete: function(){
+                        block.$submitButton.removeClass('preloader_rows');
+                    }
+                });
+            }
 
             block.trigger('submit', data);
         },
@@ -83,13 +83,13 @@ define(function(require) {
 
                     if (data.errors) {
                         fieldErrors = data.errors.join('. ');
-                        block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", KIT.text(fieldErrors));
+                        block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", LH.text(fieldErrors));
                     }
                 });
             }
 
             if (errors.description){
-                block.$controls.attr("lh_field_error", KIT.text(errors.description));
+                block.$controls.attr("lh_field_error", LH.text(errors.description));
             }
 
         },

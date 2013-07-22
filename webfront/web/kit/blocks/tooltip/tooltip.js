@@ -1,7 +1,6 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
-            _ = require('underscore'),
             deepExtend = require('kit/utils/deepExtend');
 
         return Block.extend({

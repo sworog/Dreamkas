@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var Form = require('kit/blocks/form/form'),
-        Backbone = require('backbone');
+    var Form = require('kit/blocks/form/form');
 
     var router = new Backbone.Router();
 

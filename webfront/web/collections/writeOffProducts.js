@@ -1,11 +1,9 @@
 define(function(require) {
         //requirements
-        var BaseCollection = require('collections/baseCollection'),
-            writeOffProductModel = require('models/writeOffProduct');
+        var Collection = require('kit/collection');
 
-        return BaseCollection.extend({
-            model: writeOffProductModel,
-
+        return Collection.extend({
+            model: require('models/writeOffProduct'),
             initialize: function(opt) {
                 this.writeOffId = opt.writeOffId;
             },

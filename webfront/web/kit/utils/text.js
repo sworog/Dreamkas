@@ -1,10 +1,8 @@
 define(function(require) {
     //requirements
-    //requirements
-    var _ = require('underscore'),
-        dictionary = require('nls');
+    var dictionary = require('nls');
 
-    return KIT.text = function(text) {
+    return function(text) {
         var result = '';
 
         if (text && typeof text === 'string'){
@@ -13,5 +11,4 @@ define(function(require) {
 
         return result;
     };
-
 });

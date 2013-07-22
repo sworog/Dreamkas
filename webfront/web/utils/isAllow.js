@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var userPermissionsModel = require('models/userPermissions'),
-        _ = require('underscore');
+    var userPermissionsModel = require('models/userPermissions');
 
     return function(resource, method){
 

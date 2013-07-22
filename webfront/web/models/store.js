@@ -1,13 +1,12 @@
 define(function(require) {
         //requirements
-        var BaseModel = require('models/baseModel'),
-            DepartmentsCollection = require('collections/departments');
+        var Model = require('kit/model');
 
-        return BaseModel.extend({
+        return Model.extend({
             modelName: 'store',
             urlRoot: LH.baseApiUrl + '/stores',
             initData: {
-                departments: DepartmentsCollection
+                departments: require('collections/departments')
             },
             saveFields: [
                 'number',
