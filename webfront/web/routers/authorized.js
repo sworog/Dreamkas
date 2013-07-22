@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var BaseRouter = require('routers/baseRouter'),
+    var BaseRouter = require('kit/router'),
         topBar = require('blocks/topBar/topBar');
 
     var Router = BaseRouter.extend({

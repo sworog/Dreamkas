@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var Backbone = require('backbone'),
-        Editor = require('kit/blocks/editor/editor'),
+    var Editor = require('kit/blocks/editor/editor'),
         Catalog__categoryList = require('blocks/catalog/catalog__categoryList'),
         Tooltip_catalogGroupMenu = require('blocks/tooltip/tooltip_catalogGroupMenu/tooltip_catalogGroupMenu'),
         Tooltip_catalogCategoryForm = require('blocks/tooltip/tooltip_catalogCategoryForm/tooltip_catalogCategoryForm'),

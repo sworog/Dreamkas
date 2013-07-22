@@ -1,7 +1,6 @@
 define(function(require) {
         //requirements
-        var _ = require('underscore'),
-            Form = require('kit/blocks/form/form'),
+        var Form = require('kit/blocks/form/form'),
             InvoiceProduct = require('models/invoiceProduct'),
             cookie = require('utils/cookie');
 

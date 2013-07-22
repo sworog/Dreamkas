@@ -1,13 +1,12 @@
 define(function(require) {
         //requirements
-        var BaseModel = require('models/baseModel'),
-            CatalogSubCategoriesCollection = require('collections/catalogSubCategories');
+        var Model = require('kit/model');
 
-        return BaseModel.extend({
+        return Model.extend({
             modelName: 'catalogCategory',
             urlRoot: LH.baseApiUrl + '/categories',
             initData: {
-                subCategories: CatalogSubCategoriesCollection
+                subCategories: require('collections/catalogSubCategories')
             },
             saveFields: [
                 'name',
@@ -15,14 +14,14 @@ define(function(require) {
             ],
             initialize: function(attrs, options) {
 
-                BaseModel.prototype.initialize.apply(this, arguments);
+                Model.prototype.initialize.apply(this, arguments);
 
                 if (this.collection && this.collection.group) {
                     this.set('group', this.collection.group);
                 }
             },
             parse: function(response, options) {
-                var data = BaseModel.prototype.parse.apply(this, arguments);
+                var data = Model.prototype.parse.apply(this, arguments);
 
                 if (typeof data.group == 'object') {
                     data.group = data.group.id;

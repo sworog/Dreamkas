@@ -1,6 +1,6 @@
 define(function() {
 
-    describe('baseModel tests', function() {
+    describe('Lighthouse model specs', function() {
         it('Backbone', function() {
             expect(typeof Backbone).toEqual('object');
         });

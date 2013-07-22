@@ -1,9 +1,4 @@
 define(function(require) {
-    //requirements
-    var Backbone = require('backbone'),
-        _ = require('underscore'),
-        cookie = require('utils/cookie');
-
     return Backbone.Model.extend({
         saveFields: [],
         initData: {},
@@ -12,20 +7,39 @@ define(function(require) {
 
             Backbone.Model.apply(model, arguments);
 
+            this.listenTo(this, {
+                change: function(model){
+                    var changedAttributes = model.changed;
+
+                    _.each(changedAttributes, function(value, key) {
+                        $('body')
+                            .find('[model_id="' + model.id + '"][model_attr="' + key + '"]')
+                            .html(value);
+
+                        if (model.initData[key] && model[key]) {
+                            model[key].set(value);
+                        }
+                    });
+                }
+            });
+
             _.each(model.initData, function(Class, key) {
                 model[key] = new Class(model.get(key), {
                     parentModel: model,
                     parse: true
                 });
+
+                model.listenTo(model[key], {
+                    change: function(){
+                        model.set(key, model[key].toJSON());
+                    }
+                })
             });
 
         },
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({
-                wait: true,
-                error: function() {
-                    console.log(arguments)
-                }
+                wait: true
             }, options));
         },
         save: function(attributes, options) {
@@ -39,13 +53,6 @@ define(function(require) {
                 wait: true
             }, options))
         },
-        sync: function(method, model, options) {
-            return Backbone.Model.prototype.sync.call(this, method, model, _.extend({
-                headers: {
-                    Authorization: 'Bearer ' + cookie.get('token')
-                }
-            }, options));
-        },
         toJSON: function(options) {
             options = options || {};
 
@@ -56,29 +63,6 @@ define(function(require) {
             }
 
             return toJSON.apply(this, arguments);
-        },
-        set: function() {
-            if (!Backbone.Model.prototype.set.apply(this, arguments)) {
-                return false;
-            }
-
-            var model = this,
-                changedAttributes = this.changedAttributes();
-
-            if (changedAttributes) {
-                _.each(changedAttributes, function(value, key) {
-                    $('body')
-                        .find('[model_id="' + model.id + '"]')
-                        .filter('[model_attr="' + key + '"]')
-                        .html(value);
-
-                    if (model.initData[key] && model[key]) {
-                        model[key].set(value);
-                    }
-                });
-            }
-
-            return this;
         }
     })
 });

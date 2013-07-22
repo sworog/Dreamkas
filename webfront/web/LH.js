@@ -1,9 +1,7 @@
 define(function(require) {
-    //requirements
-    var _ = require('underscore');
-
-    return window.LH = _.extend({
+    window.LH = _.extend({
         isAllow: require('utils/isAllow'),
+        text: require('kit/utils/text'),
         formatPrice: require('utils/formatPrice'),
         isEmptyJSON: require('utils/isEmptyJSON'),
         normalizePrice: require('utils/normalizePrice'),

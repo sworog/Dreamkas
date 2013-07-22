@@ -1,10 +1,9 @@
 define(function(require) {
         //requirements
-        var BaseCollection = require('collections/baseCollection'),
-            DepartmentModel = require('models/department');
+        var Collection = require('kit/collection');
 
-        return BaseCollection.extend({
-            model: DepartmentModel,
+        return Collection.extend({
+            model: require('models/department'),
             url: LH.baseApiUrl + '/departments',
             initialize: function(models, options){
                 this.store = options.store || options.parentModel.id;

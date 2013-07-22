@@ -1,10 +1,7 @@
 define(function(require) {
     //requirements
-    var _ = require('underscore'),
-        $ = require('jquery');
-
-    require('kit/utils/text');
-    require('kit/utils/attr');
+    window.TEMPLATE_TEXT = require('kit/utils/text');
+    window.TEMPLATE_ATTR = require('kit/utils/attr');
 
     var settings = {
         evaluate: /<%([\s\S]+?)%>/g,
@@ -32,7 +29,7 @@ define(function(require) {
                     return "',_.escape(" + code.replace(/\\'/g, "'") + "),'";
                 })
                 .replace(settings.text, function(match, code) {
-                    return "',KIT.text(" + code.replace(/\\'/g, "'") + "),'";
+                    return "',TEMPLATE_TEXT(" + code.replace(/\\'/g, "'") + "),'";
                 })
                 .replace(settings.attr, function(match, code) {
                     code = $.trim(_.escape(code));
@@ -41,7 +38,7 @@ define(function(require) {
                         model = list[0],
                         attr = list[1];
 
-                    return "',KIT.attr(" + model.replace(/\\'/g, "'") + ", '" + attr.replace(/\\'/g, "'") + "'),'";
+                    return "',TEMPLATE_ATTR(" + model.replace(/\\'/g, "'") + ", '" + attr.replace(/\\'/g, "'") + "'),'";
                 })
                 .replace(settings.evaluate || null, function(match, code) {
                     return "');" + code.replace(/\\'/g, "'")

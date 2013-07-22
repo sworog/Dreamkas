@@ -45,11 +45,11 @@
     Входящая накладная
     <span class="invoice__editable <%= (!invoiceModel.get('supplierInvoiceSku')) ? 'invoice__hiddenData':'' %>">
         №
-        <span name="supplierInvoiceSku" model-attr="supplierInvoiceSku"><%= invoiceModel.get('supplierInvoiceSku') ? invoiceModel.get('supplierInvoiceSku') : KIT.text('Ввести номер') %></span>
+        <span name="supplierInvoiceSku" model-attr="supplierInvoiceSku"><%= invoiceModel.get('supplierInvoiceSku') ? invoiceModel.get('supplierInvoiceSku') : LH.text('Ввести номер') %></span>
     </span>
     <span class="<%= (!invoiceModel.get('supplierInvoiceDate')) ? 'invoice__hiddenData' : '' %>">
         от <span name="supplierInvoiceDate" class="invoice__editable" model-attr="supplierInvoiceDate">
-            <%= invoiceModel.get('supplierInvoiceDate') ? moment(invoiceModel.get('supplierInvoiceDate')).format('DD.MM.YYYY') : KIT.text('Ввести дату') %>
+            <%= invoiceModel.get('supplierInvoiceDate') ? moment(invoiceModel.get('supplierInvoiceDate')).format('DD.MM.YYYY') : LH.text('Ввести дату') %>
         </span>
     </span>
 </div>

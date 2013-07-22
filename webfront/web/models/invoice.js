@@ -1,8 +1,8 @@
 define(function(require) {
     //requirements
-    var BaseModel = require('models/baseModel');
+    var Model = require('kit/model');
 
-    return BaseModel.extend({
+    return Model.extend({
         modelName: 'invoice',
         urlRoot: LH.baseApiUrl + '/invoices',
 

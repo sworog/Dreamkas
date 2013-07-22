@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('pages/page');
+    var Page = require('kit/page');
 
     return Page.extend({
         pageName: 'page_common_dashboard',

@@ -1,11 +1,7 @@
 define(function(require) {
     //requirements
     var classExtend = require('kit/utils/classExtend'),
-        $ = require('jquery'),
-        Backbone = require('backbone'),
-        _ = require('underscore'),
         topBar = require('blocks/topBar/topBar'),
-        LH = require('LH'),
         Page403 = require('pages/403/403');
 
     var $page = $('body');

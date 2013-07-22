@@ -1,18 +1,15 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
-            _ = require('underscore'),
-            Backbone = require('backbone'),
             InputDate = require('kit/blocks/inputDate/inputDate'),
             Form_writeOffProduct = require('blocks/form/form_writeOffProduct/form_writeOffProduct'),
             Table_writeOffProducts = require('blocks/table/table_writeOffProducts/table_writeOffProducts'),
             cookie = require('utils/cookie');
 
         return Block.extend({
+            blockName: 'writeOff',
             editMode: false,
             dataEditing: false,
-            className: 'writeOff',
-            blockName: 'writeOff',
             templates: {
                 index: require('tpl!blocks/writeOff/templates/index.html'),
                 dataInput: require('tpl!blocks/writeOff/templates/dataInput.html'),

@@ -5,8 +5,8 @@ define(function(require) {
             CatalogGroupModel = require('models/catalogGroup');
 
         return Tooltip_menu.extend({
-            catalogGroupModel: new CatalogGroupModel(),
             blockName: 'tooltip_catalogGroupMenu',
+            catalogGroupModel: new CatalogGroupModel(),
             events: {
                 'click .tooltip__editLink': function(e) {
                     e.preventDefault();
@@ -38,7 +38,7 @@ define(function(require) {
                             block.hide();
                         },
                         error: function(model, response) {
-                            alert(KIT.text(response.responseJSON.message));
+                            alert(LH.text(response.responseJSON.message));
                         }
                     });
                 }

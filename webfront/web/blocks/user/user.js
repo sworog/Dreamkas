@@ -4,7 +4,6 @@ define(function(require) {
 
     return Block.extend({
         blockName: 'user',
-        className: 'user',
         model: null,
         userId: null,
         templates: {

@@ -1,8 +1,8 @@
 define(function(require) {
     //requirements
-    var BaseModel = require('models/baseModel');
+    var Model = require('kit/model');
 
-    var UserPermissionsModel = BaseModel.extend({
+    var UserPermissionsModel = Model.extend({
         modelName: 'userPermissions',
         url: LH.baseApiUrl + '/users/permissions'
     });

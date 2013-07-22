@@ -1,8 +1,8 @@
 define(function(require) {
         //requirements
-        var BaseModel = require('models/baseModel');
+        var Model = require('kit/model');
 
-        return BaseModel.extend({
+        return Model.extend({
             modelName: 'catalogSubCategory',
             urlRoot: LH.baseApiUrl + '/subcategories',
             saveFields: [
@@ -11,7 +11,7 @@ define(function(require) {
             ],
             initialize: function(attrs, options) {
 
-                BaseModel.prototype.initialize.apply(this, arguments);
+                Model.prototype.initialize.apply(this, arguments);
 
                 if (this.collection && this.collection.category) {
                     this.set('category', this.collection.category);
@@ -23,7 +23,7 @@ define(function(require) {
             },
             parse: function(response, options) {
 
-                var data = BaseModel.prototype.parse.apply(this, arguments);
+                var data = Model.prototype.parse.apply(this, arguments);
 
                 if (!options.parse){
                     return data;

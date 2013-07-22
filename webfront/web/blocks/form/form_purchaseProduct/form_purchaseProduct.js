@@ -8,11 +8,6 @@ define(function(require) {
             templates: {
                 index: require('tpl!blocks/form/form_purchaseProduct/templates/index.html')
             },
-            events: {
-                'submit': function(e){
-                    e.preventDefault();
-                }
-            },
             initialize: function(){
                 var block = this;
 

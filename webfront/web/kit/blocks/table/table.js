@@ -1,7 +1,6 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
-            _ = require('underscore'),
             DataCollection = require('kit/blocks/table/collections/data'),
             columnsCollection = require('kit/blocks/table/collections/columns');
 

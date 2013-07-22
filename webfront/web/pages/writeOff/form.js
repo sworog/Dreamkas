@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var $ = require('jquery'),
-        Page = require('pages/page'),
+    var Page = require('kit/page'),
         Form_writeOff = require('blocks/form/form_writeOff/form_writeOff'),
         WriteOffModel = require('models/writeOff');
 

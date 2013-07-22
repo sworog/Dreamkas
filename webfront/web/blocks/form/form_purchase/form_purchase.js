@@ -1,8 +1,7 @@
 define(function(require) {
         //requirements
         var Form = require('kit/blocks/form/form'),
-            PurchaseModel = require('models/purchase'),
-            _ = require('underscore');
+            PurchaseModel = require('models/purchase');
 
         return Form.extend({
             blockName: 'form_purchase',

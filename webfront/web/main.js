@@ -1,13 +1,37 @@
-require.config(
+require(
     {
         baseUrl: '/',
         paths: {
-            'backbone.queryparams': 'libs/backbone/backbone.queryparams'
+            'underscore': 'libs/underscore/underscore.min',
+
+            'backbone': 'libs/backbone/backbone.min',
+            'backbone.syphon': 'libs/backbone/backbone.syphon',
+            'backbone.queryparams': 'libs/backbone/backbone.queryparams',
+
+            'jquery': 'libs/jquery/jquery.min',
+            'jquery-ui': 'libs/jquery-ui/ui/minified/jquery-ui.min',
+            'jquery.require': 'libs/jquery/jquery.require',
+            'jquery.mod': 'libs/jquery/jquery.mod',
+            'jquery.maskedinput': 'libs/jquery/jquery.maskedinput',
+
+            'tpl': 'kit/utils/tpl',
+            'i18n': 'libs/require/i18n'
         },
         shim: {
-            'backbone.queryparams': ['backbone']
+            'backbone': ['underscore', 'jquery'],
+            'backbone.queryparams': ['backbone'],
+            'backbone.syphon': ['backbone'],
+
+            'jquery-ui': ['jquery'],
+            'jquery.maskedinput': ['jquery'],
+            'libs/lhAutocomplete': ['jquery-ui']
         },
         packages: [
+            {
+                name: 'moment',
+                location: 'libs/moment',
+                main: 'moment'
+            },
             {
                 name: 'nls',
                 location: 'nls'
@@ -20,44 +44,6 @@ require.config(
                 locale: LH.locale === 'auto' ? undefined : LH.locale
             }
         }
-    });
-
-require(
-    [
-        'jquery',
-        'backbone',
-        'models/currentUser',
-        'models/userPermissions'
-    ],
-    function($, Backbone, currentUserModel, userPermissionsModel) {
-
-        var loading = $.when(currentUserModel.fetch(), userPermissionsModel.fetch()),
-            routers;
-
-        $(function() {
-            var router = new Backbone.Router();
-
-            $(document).on('click', '[href]', function(e) {
-                e.preventDefault();
-                router.navigate($(this).attr('href'), {
-                    trigger: true
-                });
-            });
-        });
-
-        loading.done(function() {
-            routers = 'routers/authorized';
-        });
-
-        loading.fail(function() {
-            routers = 'routers/unauthorized';
-        });
-
-        loading.always(function() {
-            require([routers], function() {
-                Backbone.history.start({
-                    pushState: true
-                });
-            });
-        });
+    }, ['libs/libs'], function(){
+        require(['app']);
     });

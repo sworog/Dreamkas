@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var $ = require('jquery'),
-        template = require('tpl!./templates/403.html');
+    var template = require('tpl!./templates/403.html');
 
     var $page = $('body');
 

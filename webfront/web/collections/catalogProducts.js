@@ -1,10 +1,9 @@
 define(function(require) {
         //requirements
-        var BaseCollection = require('collections/baseCollection'),
-            ProductModel = require('models/product');
+        var Collection = require('kit/collection');
 
-        return BaseCollection.extend({
-            model: ProductModel,
+        return Collection.extend({
+            model: require('models/product'),
             url: function(){
                 return LH.baseApiUrl + '/subcategories/' + this.subCategory + '/products'
             },

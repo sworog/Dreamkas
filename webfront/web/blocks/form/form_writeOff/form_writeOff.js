@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var Form = require('kit/blocks/form/form'),
-        Backbone = require('backbone');
+    var Form = require('kit/blocks/form/form');
 
     var router = new Backbone.Router();
 
@@ -10,10 +9,10 @@ define(function(require) {
         templates: {
             index: require('tpl!blocks/form/form_writeOff/templates/index.html')
         },
-        onSubmitSuccess: function(model) {
-            router.navigate('/writeOffs/' + model.id + '?editMode=true', {
-                trigger: true
-            });
+        redirectUrl: function(){
+            var block = this;
+
+            return '/writeOffs/' + block.model.id + '?editMode=true';
         }
     });
 });

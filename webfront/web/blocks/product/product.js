@@ -3,14 +3,13 @@ define(function(require) {
         var Block = require('kit/block');
 
         return Block.extend({
-            className: 'product',
             blockName: 'product',
             templates: {
                 index: require('tpl!blocks/product/templates/index.html')
             },
             listeners: {
                 model: {
-                    change: function(){
+                    change: function() {
                         var block = this;
                         block.render();
                     }

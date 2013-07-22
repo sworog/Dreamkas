@@ -7,9 +7,9 @@ define(function(require) {
             cookie = require('utils/cookie');
 
         return Block.extend({
+            blockName: 'invoice',
             editMode: false,
             dataEditing: false,
-            className: 'invoice',
             templates: {
                 index: require('tpl!blocks/invoice/templates/index.html'),
                 dataInput: require('tpl!blocks/invoice/templates/dataInput.html'),
@@ -18,24 +18,6 @@ define(function(require) {
                 footer: require('tpl!blocks/invoice/templates/footer.html'),
                 head: require('tpl!blocks/invoice/templates/head.html'),
                 removeConfirm: require('tpl!blocks/invoice/templates/removeConfirm.html')
-            },
-
-            initialize: function() {
-                var block = this;
-
-                Block.prototype.initialize.call(block);
-
-                block.set('editMode', block.editMode);
-
-                block.productForm = new Form_invoiceProduct({
-                    invoiceProductsCollection: block.invoiceProductsCollection,
-                    el: block.el.getElementsByClassName('invoice__productForm')
-                });
-
-                block.productsTable = new Table_invoiceProducts({
-                    collection: block.invoiceProductsCollection,
-                    el: block.el.getElementsByClassName('invoice__productsTable')
-                });
             },
             listeners: {
                 invoiceModel: {
@@ -172,6 +154,23 @@ define(function(require) {
                     e.preventDefault();
                     block.removeDataInput();
                 }
+            },
+            initialize: function() {
+                var block = this;
+
+                Block.prototype.initialize.call(block);
+
+                block.set('editMode', block.editMode);
+
+                block.productForm = new Form_invoiceProduct({
+                    invoiceProductsCollection: block.invoiceProductsCollection,
+                    el: block.el.getElementsByClassName('invoice__productForm')
+                });
+
+                block.productsTable = new Table_invoiceProducts({
+                    collection: block.invoiceProductsCollection,
+                    el: block.el.getElementsByClassName('invoice__productsTable')
+                });
             },
             'set:editMode': function(val) {
                 var block = this;

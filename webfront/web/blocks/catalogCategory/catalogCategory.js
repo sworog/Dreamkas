@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var Backbone = require('backbone'),
-        Editor = require('kit/blocks/editor/editor'),
+    var Editor = require('kit/blocks/editor/editor'),
         CatalogSubCategoryModel = require('models/catalogSubCategory'),
         CatalogCategory__subCategoryList = require('blocks/catalogCategory/catalogCategory__subCategoryList'),
         Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
@@ -116,10 +115,10 @@ define(function(require) {
             var block = this;
 
             if (block.catalogProductsCollection.length) {
-                block.$productListTitle.html(KIT.text('Список товаров'));
+                block.$productListTitle.html(LH.text('Список товаров'));
                 block.$table_products.show();
             } else {
-                block.$productListTitle.html(KIT.text('Нет товаров'));
+                block.$productListTitle.html(LH.text('Нет товаров'));
                 block.$table_products.hide();
             }
         },

@@ -1,10 +1,9 @@
 define(function(require) {
     //requirements
-    var BaseCollection = require('collections/baseCollection'),
-        UserModel = require('models/user');
+    var Collection = require('kit/collection');
 
-    return BaseCollection.extend({
-        model: UserModel,
+    return Collection.extend({
+        model: require('models/user'),
         url: LH.baseApiUrl + "/users"
     });
 });
