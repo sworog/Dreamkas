@@ -13,6 +13,7 @@ lighthouse:
         units.blank: Выберите единицу измерения
         vat.blank: Выберите ставку НДС
         retailMarkup.range: Наценка должна быть больше -100%
+        subCategory.does_not_exists: Такой подкатегории не существует
       invoice:
         dates_compare: Дата накладной не должна быть старше даты приемки
       length: Не более {{ limit }} символа|Не более {{ limit }} символов|Не более {{ limit }} символов
@@ -35,15 +36,23 @@ lighthouse:
         decimals: Значение не должно содержать больше {{ decimals }} цифр после запятой
       purchase:
         product_empty: Должен присутствовать хотя бы один товар
-      klass:
-        name.unique: Такой класс уже есть
       group:
-        name.unique: Группа с таким названием уже существует в этом классе
-        klass.does_not_exists: Такого класса не существует
+        name.unique: Такая группа уже есть
+      category:
+        name.unique: Категория с таким названием уже существует в этой группе
+        group.does_not_exists: Такой группы не существует
+      subCategory:
+        name.unique: Подкатегория с таким названием уже существует в этой категории
+        category.does_not_exists: Такой категории не существует
       not_equals_field: Значение поля не должно совпадать с полем {{ field }}
       user:
         password.not_equals_login: Логин и пароль не должны совпадать
         username.unique: Пользователь с таким логином уже существует
+      store:
+        number.unique: Такой магазин уже есть
+      department:
+        number.unique: Отдел с таким названием уже существует в этом магазине
+        store.does_not_exists: Такого магазина не существует
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов

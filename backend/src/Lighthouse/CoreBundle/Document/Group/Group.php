@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Group;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\Klass\Klass;
+use Lighthouse\CoreBundle\Document\Category\Category;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
@@ -12,7 +12,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Group\GroupRepository"
  * )
- * @Unique(fields={"name", "klass"}, message="lighthouse.validation.errors.group.name.unique")
+ * @Unique(fields="name", message="lighthouse.validation.errors.group.name.unique")
  */
 class Group extends AbstractDocument
 {
@@ -32,12 +32,13 @@ class Group extends AbstractDocument
     protected $name;
 
     /**
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Klass\Klass",
-     *     simple=true,
-     *     cascade="persist"
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\Category\Category",
+     *      simple=true,
+     *      cascade="persist",
+     *      mappedBy="group"
      * )
-     * @var Klass
+     * @var Category[]
      */
-    protected $klass;
+    protected $categories;
 }

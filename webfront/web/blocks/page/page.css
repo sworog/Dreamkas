@@ -41,3 +41,11 @@
 .page.preloader_spinner .content {
     display: none;
 }
+
+.page__backLink{
+    vertical-align: middle;
+}
+
+.page__backLinkSeparator{
+    vertical-align: middle;
+}

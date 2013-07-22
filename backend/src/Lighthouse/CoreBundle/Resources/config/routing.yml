@@ -24,12 +24,24 @@ lighthouse.core.write-off.product:
     type:     rest
     parent:   lighthouse.core.write-off
 
-lighthouse.core.klass:
-    resource: Lighthouse\CoreBundle\Controller\KlassController
-    type:     rest
-
 lighthouse.core.group:
     resource: Lighthouse\CoreBundle\Controller\GroupController
+    type:     rest
+
+lighthouse.core.category:
+    resource: Lighthouse\CoreBundle\Controller\CategoryController
+    type:     rest
+
+lighthouse.core.subcategory:
+    resource: Lighthouse\CoreBundle\Controller\SubCategoryController
+    type:     rest
+
+lighthouse.core.store:
+    resource: Lighthouse\CoreBundle\Controller\StoreController
+    type:     rest
+
+lighthouse.core.department:
+    resource: Lighthouse\CoreBundle\Controller\DepartmentController
     type:     rest
 
 lighthouse.core.user:

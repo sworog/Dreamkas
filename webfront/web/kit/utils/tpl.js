@@ -14,8 +14,11 @@
  define: false, window: false, process: false, Packages: false,
  java: false */
 
-define(['underscore', 'kit/utils/text'],function() {
+define(function(require) {
 //>>excludeStart('excludeTpl', pragmas.excludeTpl)
+    //requirements
+    var template = require('kit/utils/template');
+
     var tpl,
         progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
 
@@ -23,51 +26,7 @@ define(['underscore', 'kit/utils/text'],function() {
 
         bodyRegExp = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im,
 
-        buildMap = [],
-
-        templateSettings = {
-            evaluate: /<%([\s\S]+?)%>/g,
-            interpolate: /<%=([\s\S]+?)%>/g,
-            text: /<%t([\s\S]+?)%>/g,
-            escape: /<%e([\s\S]+?)%>/g
-        },
-
-        /**
-         * JavaScript micro-templating, similar to John Resig's implementation.
-         * Underscore templating handles arbitrary delimiters, preserves whitespace,
-         * and correctly escapes quotes within interpolated code.
-         */
-            template = function(str, data) {
-
-            var c = templateSettings;
-            var tmpl = 'var __p=[],print=function(){__p.push.apply(__p,arguments);};' +
-                'with(obj||{}){__p.push(\'' +
-                str.replace(/\\/g, '\\\\')
-                    .replace(/'/g, "\\'")
-                    .replace(c.interpolate, function(match, code) {
-                        return "'," + code.replace(/\\'/g, "'") + ",'";
-                    })
-                    .replace(c.escape, function(match, code) {
-                        return "',_.escape(" + code.replace(/\\'/g, "'") + "),'";
-                    })
-                    .replace(c.text, function(match, code) {
-                        return "',KIT.text(" + code.replace(/\\'/g, "'") + "),'";
-                    })
-                    .replace(c.evaluate || null, function(match, code) {
-                        return "');" + code.replace(/\\'/g, "'")
-                            .replace(/[\r\n\t]/g, ' ') + "; __p.push('";
-                    })
-                    .replace(/\r/g, '')
-                    .replace(/\n/g, '')
-                    .replace(/\t/g, '')
-                + "');}return __p.join('');";
-            return tmpl;
-
-            /** /
-             var func = new Function('obj', tmpl);
-             return data ? func(data) : func;
-             /**/
-        };
+        buildMap = [];
 
     var get, fs;
     if (typeof window !== "undefined" && window.navigator && window.document) {

@@ -5,7 +5,9 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.product.*;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ public class ProductSteps extends ScenarioSteps {
     ProductListPage productListPage;
     CommonPage commonPage;
     ProductApi productApi;
+    CatalogApi catalogApi;
 
     public ProductSteps(Pages pages) {
         super(pages);
@@ -29,23 +32,20 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void isTheProductCreatePage() {
-        productCreatePage.open();
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
+        productApi.createProductThroughPost(name, sku, barcode, units, purchasePrice, subCategoryName);
     }
 
     @Step
-    public void isTheProductEditPage() {
-        productEditPage.open();
+    public void openProductCreatePage() throws JSONException, IOException {
+        catalogApi.createSubCategoryThroughPost(StaticData.NAME, StaticData.NAME, StaticData.NAME);
+        catalogApi.navigateToSubCategoryProductCreatePageUrl(StaticData.NAME);
     }
 
     @Step
-    public void isTheProductCardViewPage() {
-        productCardView.open();
-    }
-
-    @Step
-    public void isTheProductListPageOpen() {
-        productListPage.open();
+    public void openProductListPage() throws IOException, JSONException {
+        catalogApi.createSubCategoryThroughPost(StaticData.NAME, StaticData.NAME, StaticData.NAME);
+        catalogApi.navigateToSubCategoryProductListPageUrlWihEditModeOn(StaticData.NAME, StaticData.NAME, StaticData.NAME);
     }
 
     @Step

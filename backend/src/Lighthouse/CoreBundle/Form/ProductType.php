@@ -24,7 +24,15 @@ class ProductType extends AbstractType
             ->add('info', 'text')
             ->add('retailPrice', 'money')
             ->add('retailMarkup', 'markup')
-            ->add('retailPricePreference', 'choice', array('choices' => Product::$retailPricePreferences));
+            ->add('retailPricePreference', 'choice', array('choices' => Product::$retailPricePreferences))
+            ->add(
+                'subCategory',
+                'reference',
+                array(
+                    'class' => 'Lighthouse\\CoreBundle\\Document\\SubCategory\\SubCategory',
+                    'invalid_message' => 'lighthouse.validation.errors.product.subCategory.does_not_exists'
+                )
+            );
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

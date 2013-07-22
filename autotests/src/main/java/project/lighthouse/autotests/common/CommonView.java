@@ -24,6 +24,10 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
         this.listPageSkuName = listPageSkuName;
     }
 
+    public CommonView(WebDriver driver) {
+        this(driver, "", "");
+    }
+
     public String getCorrectXpathPattern() {
         switch (listPageName) {
             case InvoiceBrowsing.ITEM_NAME:
@@ -91,7 +95,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
     public void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable) {
         for (Map<String, String> row : checkValuesTable.getRows()) {
             String elementName = row.get("elementName");
-            String expectedValue = row.get("expectedValue");
+            String expectedValue = row.get("value");
             checkListItemWithSkuHasExpectedValue(value, elementName, expectedValue);
         }
     }

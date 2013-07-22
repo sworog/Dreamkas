@@ -43,7 +43,9 @@ public class AuthorizationPage extends UserCreatePage {
         String loginButtonXpath = "//*[@class='button button_color_blue']/input";
         findBy(loginButtonXpath).click();
         isAuthorized = true;
-        preloaderWait();
+        String toolbarUsernameXpath = String.format("//a[@class='topBar__userName' and contains(., '%s')]", userName);
+        waiter.getVisibleWebElement(By.xpath(toolbarUsernameXpath));
+        //preloaderWait();
     }
 
     public void logOut() {
@@ -90,8 +92,13 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void error403IsPresent() {
-        String error404Xpath = getError403Xpath();
-        findElement(By.xpath(error404Xpath));
+        try {
+            String error404Xpath = getError403Xpath();
+            findElement(By.xpath(error404Xpath));
+        } catch (Exception e) {
+            String errorMessage = "The error 403 is not present on the page!";
+            throw new AssertionError(errorMessage);
+        }
     }
 
     public String getError403Xpath() {
@@ -99,7 +106,13 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void error403IsNotPresent() {
-        String error404Xpath = getError403Xpath();
-        waiter.waitUntilIsNotVisible(By.xpath(error404Xpath));
+        try {
+            String error404Xpath = getError403Xpath();
+            waiter.waitUntilIsNotVisible(By.xpath(error404Xpath));
+
+        } catch (Exception e) {
+            String errorMessage = "The error 403 is present on the page!";
+            throw new AssertionError(errorMessage);
+        }
     }
 }

@@ -101,10 +101,10 @@ public class TeamCityStepListener implements StepListener {
     public void testFinished(TestOutcome result) {
         if (result.isFailure() || result.isError()) {
             printFailure(result);
-        } else if (result.isPending()) {
-            printPending(result);
         } else if (result.isSkipped()) {
             printSkipped(result);
+        } else if (result.isPending()) {
+            printPending(result);
         }
         printMessage("testFinished", result.getTitle());
     }

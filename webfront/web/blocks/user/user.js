@@ -8,7 +8,7 @@ define(function(require) {
         model: null,
         userId: null,
         templates: {
-            index: require('tpl!./templates/user.html')
+            index: require('tpl!blocks/user/templates/index.html')
         },
         listeners: {
             model: {

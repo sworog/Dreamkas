@@ -22,14 +22,42 @@ require.config(
         }
     });
 
-require(['jquery', 'models/currentUser', 'models/userPermissions'], function($, currentUserModel, userPermissionsModel) {
+require(
+    [
+        'jquery',
+        'backbone',
+        'models/currentUser',
+        'models/userPermissions'
+    ],
+    function($, Backbone, currentUserModel, userPermissionsModel) {
 
-    $.when(currentUserModel.fetch(), userPermissionsModel.fetch()).then(
-        function() {
-            require(['loaders/authorized']);
-        },
-        function() {
-            require(['loaders/unauthorized']);
+        var loading = $.when(currentUserModel.fetch(), userPermissionsModel.fetch()),
+            routers;
+
+        $(function() {
+            var router = new Backbone.Router();
+
+            $(document).on('click', '[href]', function(e) {
+                e.preventDefault();
+                router.navigate($(this).attr('href'), {
+                    trigger: true
+                });
+            });
         });
 
-});
+        loading.done(function() {
+            routers = 'routers/authorized';
+        });
+
+        loading.fail(function() {
+            routers = 'routers/unauthorized';
+        });
+
+        loading.always(function() {
+            require([routers], function() {
+                Backbone.history.start({
+                    pushState: true
+                });
+            });
+        });
+    });

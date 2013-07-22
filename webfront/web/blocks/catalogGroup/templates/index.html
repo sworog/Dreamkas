@@ -1,0 +1,22 @@
+<% if (LH.isAllow('categories', 'POST')) { %>
+<div class="page__controls">
+    <a class="page__controlsLink editor__on"><%text 'Редактировать' %></a>
+    <a class="page__controlsLink editor__off"><%text 'Завершить редактирование' %></a>
+</div>
+<% } %>
+
+<h3>
+    <span style="vertical-align: middle">
+        <%attr catalogGroupModel:name %>
+    </span>
+    <a class="editor__editLink catalog__editGroupLink"></a>
+    <a class="button button_color_blue catalog__addCategoryLink editor__control">
+        <%text 'Добавить категорию' %>
+    </a>
+</h3>
+<div id="catalog__categoryList" class="catalog__categoryList">
+    <%== templates.catalog__categoryList({
+        templates: templates,
+        catalogCategoriesCollection: catalogGroupModel.categories
+    }) %>
+</div>

@@ -1,6 +1,6 @@
-<% block.collection.each(function(rowData){ %>
-    <%= block.templates.tr({
-        block: block,
-        rowData: rowData
+<% collection.each(function(model){ %>
+    <%== templates.tr({
+        templates: templates,
+        model: model
     }) %>
 <% }) %>

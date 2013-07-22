@@ -1,0 +1,24 @@
+<div class="page__controls">
+    <a class="page__controlsLink invoice__editLink">Редактировать</a>
+    <a class="page__controlsLink invoice__stopEditLink">Завершить редактирование</a>
+</div>
+
+<div class="invoice__content">
+    <div class="invoice__head">
+        <%== templates.head({
+            invoiceModel: invoiceModel
+        }) %>
+    </div>
+
+    <table class="table invoice__productsTable"></table>
+
+    <div class="invoice__footer">
+        <%== templates.footer({
+            invoiceModel: invoiceModel
+        }) %>
+    </div>
+
+</div>
+<div class="page__clear"></div>
+
+<form class="form invoice__productForm"></form>

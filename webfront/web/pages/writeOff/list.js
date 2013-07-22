@@ -20,7 +20,6 @@ define(function(require) {
 
             $.when(page.writeOffsCollection.fetch()).then(function(){
                 page.render();
-
                 new Table_writeOffs({
                     collection: page.writeOffsCollection,
                     el: document.getElementById('table_writeOffs')

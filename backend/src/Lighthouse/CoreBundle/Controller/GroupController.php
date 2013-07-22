@@ -5,28 +5,20 @@ namespace Lighthouse\CoreBundle\Controller;
 use Lighthouse\CoreBundle\Document\Group\Group;
 use Lighthouse\CoreBundle\Document\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Group\GroupRepository;
-use Lighthouse\CoreBundle\Document\Klass\KlassRepository;
 use Lighthouse\CoreBundle\Form\GroupType;
-use Lighthouse\CoreBundle\Document\Klass\Klass;
-use JMS\DiExtraBundle\Annotation as DI;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class GroupController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.group")
-     * @var GroupRepository
+     * @var \Lighthouse\CoreBundle\Document\Group\GroupRepository
      */
     protected $documentRepository;
-
-    /**
-     * @DI\Inject("lighthouse.core.document.repository.klass")
-     * @var KlassRepository
-     */
-    protected $klassRepository;
 
     /**
      * @return GroupType
@@ -37,13 +29,12 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @param Request $request
-     * @return \FOS\RestBundle\View\View|Group
      * @Rest\View(statusCode=201)
+     *
+     * @param Request $request
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Group\Group
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @ApiDoc
      */
     public function postGroupsAction(Request $request)
     {
@@ -51,9 +42,11 @@ class GroupController extends AbstractRestController
     }
 
     /**
+     * @Rest\View(statusCode=200)
+     *
      * @param Request $request
      * @param Group $group
-     * @return \FOS\RestBundle\View\View|Group
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Group\Group
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -63,9 +56,20 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @param Group $group
-     * @return Group
+     * @param \Lighthouse\CoreBundle\Document\Group\Group $group
+     * @return null
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteGroupsAction(Group $group)
+    {
+        return $this->processDelete($group);
+    }
+
+    /**
+     * @param \Lighthouse\CoreBundle\Document\Group\Group $group
+     * @return Group
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getGroupAction(Group $group)
@@ -74,26 +78,16 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @param Klass $klass
-     * @return GroupCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
+     * @return \Lighthouse\CoreBundle\Document\Group\GroupCollection
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc(
+     *      resource=true
+     * )
      */
-    public function getKlassGroupsAction(Klass $klass)
+    public function getGroupsAction()
     {
-        $cursor = $this->getDocumentRepository()->findByKlass($klass->id);
+        $cursor = $this->documentRepository->findAll();
         $collection = new GroupCollection($cursor);
         return $collection;
-    }
-
-    /**
-     * @param Group $group
-     * @return null
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
-     */
-    public function deleteGroupsAction(Group $group)
-    {
-        return $this->processDelete($group);
     }
 }

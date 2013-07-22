@@ -6,24 +6,25 @@ define(function(require) {
         _ = require('underscore'),
         topBar = require('blocks/topBar/topBar'),
         LH = require('LH'),
-        Page403 = require('pages/403');
+        Page403 = require('pages/403/403');
 
     var $page = $('body');
 
     var Page = function() {
+
         var page = this,
             previousPage = $page.data('page'),
             accessDenied = _.some(page.permissions, function(value, key) {
                 return !LH.isAllow(key, value);
             });
 
-        if (accessDenied){
+        if (accessDenied) {
             new Page403();
             return;
         }
 
         if (previousPage) {
-            page.referer = previousPage.pageName;
+            page.referer = previousPage;
             previousPage.stopListening();
         }
 
@@ -35,7 +36,6 @@ define(function(require) {
             .addClass('preloader_spinner');
 
         page.initialize.apply(page, arguments);
-
     };
 
     _.extend(Page.prototype, Backbone.Events, {
@@ -43,35 +43,34 @@ define(function(require) {
         permissions: {},
         initialize: function() {
             var page = this;
-
             page.render();
         },
         render: function() {
             var page = this;
 
-            _.each(page.templates, function(template, name) {
-                var $renderContainer;
+            _.each(page.templates, function(template, selector) {
+                var $renderContainer = $(selector);
 
-                switch (name) {
-                    case '#content':
-                        $renderContainer = $('#content_main');
-                        break;
-                    default:
-                        $renderContainer = $(name);
-                        break;
-                }
+                page.removeBlocks($renderContainer);
 
-                $renderContainer.children('[block]').each(function() {
-                    var $block = $(this),
-                        blockName = $block.attr('block');
-
-                    $block.data(blockName).remove();
-                });
-
-                $renderContainer.html(template({page: page}));
+                $renderContainer.html(template(page));
             });
 
             $page.removeClass('preloader_spinner');
+        },
+        removeBlocks: function($container) {
+            var blocks = [];
+
+            $container.find('[block]').each(function() {
+                var $block = $(this),
+                    blockName = $block.attr('block');
+
+                blocks.push($block.data(blockName));
+            });
+
+            _.each(blocks, function(block) {
+                block.remove();
+            });
         }
     });
 

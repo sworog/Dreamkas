@@ -5,7 +5,7 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.StaticDataCollections;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductApi;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffApi;
@@ -48,7 +48,7 @@ public class WriteOffSteps extends ScenarioSteps {
     }
 
     public void createProduct(String productSku, String productName, String productBarCode, String productUnits, String purchasePrice) throws IOException, JSONException {
-        if (!StaticDataCollections.products.containsKey(productSku)) {
+        if (!StaticData.products.containsKey(productSku)) {
             productApi.сreateProductThroughPost(productSku, productName, productBarCode, productUnits, purchasePrice);
         }
     }

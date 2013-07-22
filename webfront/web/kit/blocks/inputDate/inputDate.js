@@ -7,12 +7,13 @@ define(function(require) {
         require('jquery.maskedinput');
 
         return Block.extend({
+            blockName: 'inputDate',
+            className: 'inputDate',
+            tagName: 'input',
             date: null,
             noTime: false,
-            tagName: 'input',
-            className: 'inputDate',
             templates: {
-                datepicker__controls: require('tpl!./templates/datepicker__controls.html')
+                datepicker__controls: require('tpl!kit/blocks/inputDate/templates/datepicker__controls.html')
             },
 
             initialize: function() {
@@ -88,6 +89,13 @@ define(function(require) {
                 var block = this;
 
                 block.tooltip.show();
+            },
+            remove: function(){
+                var block = this;
+
+                block.tooltip.remove();
+
+                Block.prototype.remove.call(block);
             }
         });
     }

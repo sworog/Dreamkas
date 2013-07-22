@@ -169,4 +169,26 @@ class UserProvider implements UserProviderInterface
     {
         return $this->userRepository->createNew();
     }
+
+    /**
+     * @param string $username
+     * @param string $password
+     * @param string $name
+     * @param string $role
+     * @param string $position
+     * @return User
+     */
+    public function createNewUser($username, $password, $name, $role, $position)
+    {
+        $user = $this->createUser();
+
+        $user->name = $name;
+        $user->username = $username;
+        $user->role = $role;
+        $user->position = $position;
+
+        $this->updateUserWithPassword($user, $password, true);
+
+        return $user;
+    }
 }

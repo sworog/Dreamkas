@@ -3,7 +3,8 @@ define(function(require) {
     var Page = require('pages/page'),
         _ = require('underscore'),
         pageParams = require('pages/catalog/params'),
-        Catalog = require('blocks/catalog/catalog');
+        Catalog = require('blocks/catalog/catalog'),
+        СatalogGroupsCollection = require('collections/catalogGroups');
 
     return Page.extend({
         pageName: 'page_catalog_catalog',
@@ -11,12 +12,12 @@ define(function(require) {
             '#content': require('tpl!./templates/catalog.html')
         },
         permissions: {
-            klasses: 'GET'
+            groups: 'GET'
         },
         initialize: function(params){
             var page = this;
 
-            if (page.referer && page.referer.indexOf('page_catalog') >= 0){
+            if (page.referer && page.referer.pageName.indexOf('page_catalog') >= 0){
                 _.extend(pageParams, params);
             } else {
                 _.extend(pageParams, {
@@ -24,11 +25,20 @@ define(function(require) {
                 }, params)
             }
 
-            page.render();
+            if (!LH.isAllow('groups', 'POST')) {
+                pageParams.editMode = false;
+            }
 
-            new Catalog({
-                editMode: pageParams.editMode,
-                el: document.getElementById('catalog')
+            page.catalogGroupsCollection = new СatalogGroupsCollection();
+
+            $.when(page.catalogGroupsCollection.fetch()).then(function(){
+                page.render();
+
+                new Catalog({
+                    editMode: pageParams.editMode,
+                    catalogGroupsCollection: page.catalogGroupsCollection,
+                    el: document.getElementById('catalog')
+                });
             });
         }
     });

@@ -16,6 +16,9 @@ services:
         tags:
             - { name: request.param_converter, converter: doctrine.orm }
 
+    doctrine:
+        alias: doctrine_mongodb
+
     doctrine_mongodb.odm.repository:
         abstract: true
         class: Doctrine\ODM\MongoDB\DocumentRepository
@@ -74,17 +77,23 @@ services:
         arguments:
             - LighthouseCoreBundle:WriteOff\Product\WriteOffProduct
 
-    lighthouse.core.document.repository.klass:
-        parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Klass\Klass
-        arguments:
-            - LighthouseCoreBundle:Klass\Klass
-
     lighthouse.core.document.repository.group:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\Group\Group
         arguments:
             - LighthouseCoreBundle:Group\Group
+
+    lighthouse.core.document.repository.category:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Category\Category
+        arguments:
+            - LighthouseCoreBundle:Category\Category
+
+    lighthouse.core.document.repository.subcategory:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\SubCategory\SubCategory
+        arguments:
+            - LighthouseCoreBundle:SubCategory\SubCategory
 
     lighthouse.core.document.repository.user:
         parent: doctrine_mongodb.odm.repository
@@ -97,3 +106,15 @@ services:
         class: Lighthouse\CoreBundle\Document\Auth\Client
         arguments:
             - LighthouseCoreBundle:Auth\Client
+
+    lighthouse.core.document.repository.store:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Store\Store
+        arguments:
+            - LighthouseCoreBundle:Store\Store
+
+    lighthouse.core.document.repository.department:
+            parent: doctrine_mongodb.odm.repository
+            class: Lighthouse\CoreBundle\Document\Department\Department
+            arguments:
+                - LighthouseCoreBundle:Department\Department

@@ -2,6 +2,7 @@ define(function(require) {
     //requirements
     var Page = require('pages/page'),
         ProductModel = require('models/product'),
+        SubCategoryModel = require('models/catalogSubCategory'),
         Form_product = require('blocks/form/form_product/form_product');
 
     return Page.extend({
@@ -12,16 +13,37 @@ define(function(require) {
         permissions: {
             products: 'POST'
         },
-        initialize: function(productId){
+        initialize: function(productId, params){
             var page = this;
+
+            if (productId && typeof productId !== 'string'){
+                params = productId;
+                productId = null;
+            }
+
+            params = params || {};
 
             page.productId = productId;
 
             page.productModel = new ProductModel({
-                id: page.productId
+                id: page.productId,
+                subCategory: params.subCategory
             });
 
-            $.when(productId ? page.productModel.fetch() : {}).then(function(){
+            page.subCategoryModel = new SubCategoryModel({
+                id: params.subCategory
+            });
+
+            $.when(productId ? page.productModel.fetch() : {}, page.subCategoryModel.id ? page.subCategoryModel.fetch({parse: false}) : {}).then(function(){
+
+                if (!productId){
+                    page.productModel = new ProductModel({
+                        subCategory: page.subCategoryModel.toJSON()
+                    }, {
+                        parse: true
+                    });
+                }
+
                 page.render();
 
                 new Form_product({

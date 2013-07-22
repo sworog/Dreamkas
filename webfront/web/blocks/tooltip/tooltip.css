@@ -1,15 +1,22 @@
-.tooltip_editMenu, .tooltip_editClass, .tooltip_editGroup{
-    margin-top: -33px;
+.tooltip_menu{
     min-width: 200px;
 }
 
-.tooltip_editMenu .tooltip__controls{
+.tooltip_catalogGroupMenu{
+    margin-top: -33px;
+}
+
+.tooltip_menu{
+    margin-top: -35px;
+}
+
+.tooltip_menu .tooltip__controls{
     list-style: none;
     margin: 0 -10px;
     padding: 0;
 }
 
-.tooltip_editMenu .tooltip__controlLink{
+.tooltip_menu .tooltip__controlLink{
     display: block;
     background: #fafafa;
     border-bottom: 1px solid #eee;
@@ -19,6 +26,11 @@
     text-decoration: none;
 }
 
-.tooltip_editMenu .tooltip__controlLink:hover{
+.tooltip_menu .tooltip__controlLink:hover{
     background: #f4f4f4;
+}
+
+.tooltip_form [lh_field_error]:after {
+    display: block;
+    padding: 10px 0 0 0;
 }

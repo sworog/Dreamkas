@@ -15,15 +15,7 @@ class GroupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text')
-            ->add(
-                'klass',
-                'reference',
-                array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Klass\\Klass',
-                    'invalid_message' => 'lighthouse.validation.errors.group.klass.does_not_exists'
-                )
-            );
+            ->add('name', 'text');
     }
 
     /**

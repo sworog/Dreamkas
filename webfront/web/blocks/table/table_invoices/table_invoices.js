@@ -7,8 +7,8 @@ define(function(require) {
     return Table.extend({
         blockName: 'table_invoices',
         templates: {
-            head: require('tpl!./templates/head.html'),
-            body: require('tpl!./templates/body.html')
+            head: require('tpl!blocks/table/table_invoices/templates/head.html'),
+            tr: require('tpl!blocks/table/table_invoices/templates/tr.html')
         }
     });
 });

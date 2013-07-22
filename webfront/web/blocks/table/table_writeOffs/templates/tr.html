@@ -1,0 +1,12 @@
+<tr name="writeOff" href="/writeOffs/<%= model.id %>">
+    <td>
+        <span name="date"><%= moment(model.get('date')).format('DD.MM.YYYY') %></span>
+    </td>
+    <td>
+        <span name="number"><%= model.get('number') %></span>
+    </td>
+    <td>
+        <span name="sumTotal"><%= LH.formatPrice(model.get('sumTotal')) %></span>
+        <span>р.</span>
+    </td>
+</tr>

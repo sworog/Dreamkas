@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 public class Group {
 
+    static public String DEFAULT_NAME = "defaultGroup";
+
     JSONObject jsonObject;
 
     public Group(JSONObject jsonObject) {
@@ -15,9 +17,12 @@ public class Group {
         return jsonObject.getString("id");
     }
 
-    public static JSONObject getJsonObject(String name, String klassId) throws JSONException {
+    public String getGroupName() throws JSONException {
+        return jsonObject.getString("name");
+    }
+
+    public static JSONObject getJsonObject(String name) throws JSONException {
         return new JSONObject()
-                .put("name", name)
-                .put("klass", klassId);
+                .put("name", name);
     }
 }

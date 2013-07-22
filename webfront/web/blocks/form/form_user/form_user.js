@@ -1,14 +1,14 @@
 define(function(require) {
     //requirements
-    var Form = require('blocks/form/form');
+    var Form = require('kit/blocks/form/form');
 
-    require('blocks/select/select_userRole');
+    require('blocks/select/select_userRole/select_userRole');
 
     return Form.extend({
         blockName: 'form_user',
         redirectUrl: '/users',
         templates: {
-            index: require('tpl!./templates/form_user.html')
+            index: require('tpl!blocks/form/form_user/templates/index.html')
         },
         initialize: function(){
             var block = this;

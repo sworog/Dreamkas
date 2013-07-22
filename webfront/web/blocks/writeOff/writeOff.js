@@ -1,10 +1,11 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
+            _ = require('underscore'),
+            Backbone = require('backbone'),
             InputDate = require('kit/blocks/inputDate/inputDate'),
-            WriteOffModel = require('models/writeOff'),
-            WriteOffProductCollection = require('collections/writeOffProducts'),
-            AddProductForm = require('blocks/writeOff/addProductForm'),
+            Form_writeOffProduct = require('blocks/form/form_writeOffProduct/form_writeOffProduct'),
+            Table_writeOffProducts = require('blocks/table/table_writeOffProducts/table_writeOffProducts'),
             cookie = require('utils/cookie');
 
         return Block.extend({
@@ -13,72 +14,37 @@ define(function(require) {
             className: 'writeOff',
             blockName: 'writeOff',
             templates: {
-                index: require('tpl!./templates/writeOff.html'),
-                dataInput: require('tpl!./templates/dataInput.html'),
-                dataInputAutocomplete: require('tpl!./templates/dataInputAutocomplete.html'),
-                dataInputControls: require('tpl!./templates/dataInputControls.html'),
-                footer: require('tpl!./templates/footer.html'),
-                head: require('tpl!./templates/head.html'),
-                removeConfirm: require('tpl!./templates/removeConfirm.html'),
-                row: require('tpl!./templates/row.html'),
-                table: require('tpl!./templates/table.html')
+                index: require('tpl!blocks/writeOff/templates/index.html'),
+                dataInput: require('tpl!blocks/writeOff/templates/dataInput.html'),
+                dataInputAutocomplete: require('tpl!blocks/writeOff/templates/dataInputAutocomplete.html'),
+                dataInputControls: require('tpl!blocks/writeOff/templates/dataInputControls.html'),
+                footer: require('tpl!blocks/writeOff/templates/footer.html'),
+                head: require('tpl!blocks/writeOff/templates/head.html'),
+                removeConfirm: require('tpl!blocks/writeOff/templates/removeConfirm.html')
             },
+            listeners: {
+                writeOffModel: {
+                    change: function(){
+                        var block = this;
 
-            initialize: function() {
-                var block = this;
-
-                block.writeOffProductCollection = new WriteOffProductCollection({
-                    writeOffId: block.writeOffId
-                });
-
-                block.writeOffModel = new WriteOffModel({
-                    id: block.writeOffId
-                });
-
-                block.writeOffModel.fetch();
-                block.writeOffProductCollection.fetch();
-
-                block.render();
-
-                block.set('editMode', block.editMode);
-
-                block.addForm = new AddProductForm({
-                    writeOffId: block.writeOffId,
-                    el: block.el.getElementsByClassName('writeOff__addProductForm')
-                });
-
-                block.listenTo(block.addForm, {
-                    successSubmit: function(model){
-                        block.writeOffProductCollection.push(model);
-                        block.addForm.clear();
+                        block.renderHead();
+                        block.renderFooter();
                     }
-                });
-
-                block.listenTo(block.writeOffModel, 'sync change', function() {
-                    block.$head.html(block.templates.head({
-                        block: block
-                    }));
-                    block.$footer.html(block.templates.footer({
-                        block: block
-                    }));
-                });
-
-                block.listenTo(block.writeOffProductCollection, {
-                    sync: function() {
-                        block.renderTable();
-                    },
+                },
+                writeOffProductsCollection: {
                     add: function(model) {
-                        block.renderTable();
+                        var block = this;
                         block.writeOffModel.set(model.toJSON().writeOff);
                     },
                     change: function(model) {
+                        var block = this;
                         block.writeOffModel.set(model.toJSON().writeOff);
                     },
                     destroy: function() {
-                        block.renderTable();
+                        var block = this;
                         block.writeOffModel.fetch();
                     }
-                });
+                }
             },
             events: {
                 'click .writeOff__removeLink': function(e) {
@@ -115,7 +81,7 @@ define(function(require) {
 
                     var notEmptyForm = false;
 
-                    block.addForm.$el.find('.inputText').each(function() {
+                    block.productForm.$el.find('.inputText').each(function() {
                         if ($(this).val()) {
                             notEmptyForm = true;
                         }
@@ -136,12 +102,12 @@ define(function(require) {
                         block.showDataInput($(e.currentTarget));
                     }
                 },
-                'submit .writeOff__table .writeOff__dataInput': function(e) {
+                'submit .writeOff__productsTable .writeOff__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
                         data = Backbone.Syphon.serialize(e.target),
                         writeOffProductId = $(e.target).closest('[writeOff-product-id]').attr('writeOff-product-id'),
-                        writeOffProduct = block.writeOffProductCollection.get(writeOffProductId),
+                        writeOffProduct = block.writeOffProductsCollection.get(writeOffProductId),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();
@@ -192,6 +158,23 @@ define(function(require) {
                     block.removeDataInput();
                 }
             },
+            initialize: function() {
+                var block = this;
+
+                Block.prototype.initialize.call(this);
+
+                block.set('editMode', block.editMode);
+
+                block.productForm = new Form_writeOffProduct({
+                    writeOffProductsCollection: block.writeOffProductsCollection,
+                    el: block.el.getElementsByClassName('writeOff__productForm')
+                });
+
+                block.productsTable = new Table_writeOffProducts({
+                    collection: block.writeOffProductsCollection,
+                    el: block.el.getElementsByClassName('writeOff__productsTable')
+                });
+            },
             'set:editMode': function(val) {
                 var block = this;
 
@@ -204,7 +187,7 @@ define(function(require) {
             'set:dataEditing': function(val) {
                 var block = this;
 
-                block.addForm.disable(val);
+                block.productForm.disable(val);
 
                 if (val) {
                     block.$el.addClass('writeOff_dataEditing');
@@ -214,7 +197,7 @@ define(function(require) {
             },
             showRemoveConfirm: function(writeOffProductId) {
                 var block = this,
-                    $writeOffProductRow = block.$table.find('.writeOff__dataRow[writeOff-product-id="' + writeOffProductId + '"]');
+                    $writeOffProductRow = block.$productsTable.find('.writeOff__dataRow[writeOff-product-id="' + writeOffProductId + '"]');
 
                 block.hideRemoveConfirms();
                 block.set('dataEditing', true);
@@ -227,8 +210,8 @@ define(function(require) {
             },
             hideRemoveConfirm: function(writeOffProductId) {
                 var block = this,
-                    $writeOffProductRow = block.$table.find('.writeOff__dataRow[writeOff-product-id="' + writeOffProductId + '"]'),
-                    $removeConfirmRow = block.$table.find('.writeOff__removeConfirmRow[writeOff-product-id="' + writeOffProductId + '"]');
+                    $writeOffProductRow = block.$productsTable.find('.writeOff__dataRow[writeOff-product-id="' + writeOffProductId + '"]'),
+                    $removeConfirmRow = block.$productsTable.find('.writeOff__removeConfirmRow[writeOff-product-id="' + writeOffProductId + '"]');
 
                 $removeConfirmRow.remove();
                 $writeOffProductRow.show();
@@ -236,26 +219,29 @@ define(function(require) {
             },
             hideRemoveConfirms: function() {
                 var block = this,
-                    $writeOffProductRow = block.$table.find('.writeOff__dataRow:hidden'),
-                    $removeConfirmRows = block.$table.find('.writeOff__removeConfirmRow');
+                    $writeOffProductRow = block.$productsTable.find('.writeOff__dataRow:hidden'),
+                    $removeConfirmRows = block.$productsTable.find('.writeOff__removeConfirmRow');
 
                 $writeOffProductRow.show();
                 $removeConfirmRows.remove();
             },
             removeWriteOffProduct: function(writeOffProductId) {
                 var block = this,
-                    writeOffProductModel = block.writeOffProductCollection.get(writeOffProductId);
+                    writeOffProductModel = block.writeOffProductsCollection.get(writeOffProductId);
 
                 writeOffProductModel.destroy({
                     wait: true
                 });
             },
-            renderTable: function() {
+            renderHead: function(){
                 var block = this;
 
-                block.$table.html(block.templates.table({
-                    block: block
-                }));
+                block.$head.html(block.templates.head(block));
+            },
+            renderFooter: function(){
+                var block = this;
+
+                block.$footer.html(block.templates.footer(block));
             },
             showInlineErrors: function(data) {
                 var block = this,

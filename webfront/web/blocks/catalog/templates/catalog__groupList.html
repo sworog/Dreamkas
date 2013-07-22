@@ -1,0 +1,9 @@
+<% catalogGroupsCollection.each(function(catalogGroupModel){ %>
+    <div group_id="<%= catalogGroupModel.id %>" class="catalog__groupItem">
+        <%== templates.catalog__groupItem({
+            templates: templates,
+            catalogGroupModel: catalogGroupModel
+        }) %>
+    </div>
+<% }) %>
+

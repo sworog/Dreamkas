@@ -12,3 +12,8 @@ fos_oauth_server_authorize:
 nelmio_api_doc:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /doc
+
+debug:
+    resource: Lighthouse\CoreBundle\Controller\DebugController
+    type:     annotation
+    prefix: /

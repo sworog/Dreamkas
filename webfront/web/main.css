@@ -1,7 +1,11 @@
+/* fonts */
+@import "/fonts/lobster/lobster.css";
+@import "/fonts/sansus/sansus.css";
+    /* libs */
 @import "./libs/jquery-ui/themes/base/minified/jquery-ui.min.css";
 @import "./kit/kit.css";
-
-/* blocks */
+@import "/icons/font-awesome/font-awesome.css";
+    /* blocks */
 @import "./blocks/content/content.css";
 @import "./blocks/page/page.css";
 @import "./blocks/invoice/invoice.css";
@@ -10,8 +14,27 @@
 @import "./blocks/saleBox/saleBox.css";
 @import "./blocks/writeOff/writeOff.css";
 @import "./blocks/catalog/catalog.css";
-@import "./blocks/catalogClass/catalogClass.css";
 @import "./blocks/tooltip/tooltip.css";
 @import "./blocks/form/form.css";
 @import "./blocks/topBar/topBar.css";
-/* /blocks */
+@import "./blocks/catalogCategory/catalogCategory.css";
+@import "./blocks/store/store.css";
+
+h3 {
+    font-family: 'Sansus Webissimo';
+    font-size: 28px;
+    font-weight: normal;
+}
+
+h4 {
+    font-family: 'Sansus Webissimo';
+    font-size: 22px;
+    font-weight: normal;
+}
+
+[href] {
+    transition:
+        all 0.4s,
+        visibility 0s;
+}
+

@@ -2,146 +2,64 @@ define(function(require) {
 
         //requirements
         var Editor = require('kit/blocks/editor/editor'),
-            Tooltip = require('kit/blocks/tooltip/tooltip'),
-            Form = require('blocks/form/form'),
-            Tooltip_editGroupMenu = require('blocks/tooltip/tooltip_editGroupMenu'),
-            Tooltip_editClassMenu = require('blocks/tooltip/tooltip_editClassMenu'),
-            params = require('pages/catalog/params'),
-            CatalogClassModel = require('models/catalogClass'),
-            СatalogClassesCollection = require('collections/catalogClasses');
+            CatalogGroupModel = require('models/catalogGroup'),
+            Catalog__groupList = require('blocks/catalog/catalog__groupList'),
+            Tooltip_catalogGroupForm = require('blocks/tooltip/tooltip_catalogGroupForm/tooltip_catalogGroupForm'),
+            Tooltip_catalogGroupMenu = require('blocks/tooltip/tooltip_catalogGroupMenu/tooltip_catalogGroupMenu'),
+            Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
+            params = require('pages/catalog/params');
 
         return Editor.extend({
-            className: 'catalog',
             blockName: 'catalog',
+            catalogGroupsCollection: null,
             templates: {
-                index: require('tpl!./templates/catalog.html'),
-                classList: require('tpl!./templates/classList.html'),
-                classItem: require('tpl!./templates/classItem.html'),
-                groupList: require('tpl!./templates/groupList.html'),
-                groupItem: require('tpl!./templates/groupItem.html'),
-                addClassForm: require('tpl!./templates/addClassForm.html')
+                index: require('tpl!blocks/catalog/templates/index.html'),
+                catalog__groupList: require('tpl!blocks/catalog/templates/catalog__groupList.html'),
+                catalog__groupItem: require('tpl!blocks/catalog/templates/catalog__groupItem.html'),
+                catalog__categoryList: require('tpl!blocks/catalog/templates/catalog__categoryList.html'),
+                catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
             },
-
             events: {
-                'click .catalog__addClassLink': function(e) {
+                'click .catalog__addGroupLink': function(e) {
                     e.preventDefault();
 
                     var block = this,
-                        $el = $(e.target);
+                        $target = $(e.target);
 
-                    block.addClassTooltip.show({
-                        $trigger: $el
+                    block.tooltip_catalogGroupForm.show({
+                        $trigger: $target,
+                        collection: block.catalogGroupsCollection,
+                        model: new CatalogGroupModel()
                     });
-
-                    block.addClassForm.$el.find('[name="name"]').focus();
-                },
-                'click .catalog__editClassLink': function(e){
-                    e.preventDefault();
-
-                    var block = this,
-                        $el = $(e.target);
-
-                    if (block.tooltip_editClassMenu){
-                        block.tooltip_editClassMenu.tooltip_editClass.remove();
-                        block.tooltip_editClassMenu.remove();
-                    }
-
-                    block.tooltip_editClassMenu = new Tooltip_editClassMenu({
-                        $trigger: $el,
-                        classModel: block.catalogClassesCollection.get($el.attr('classId'))
-                    });
-
-                    block.tooltip_editClassMenu.show();
-                },
-                'click .catalog__editGroupLink': function(e){
-                    e.preventDefault();
-
-                    var block = this,
-                        $el = $(e.target);
-
-                    //block.tooltip_editGroupMenu.tooltip_editGroup.remove();
-                    if (block.tooltip_editGroupMenu){
-                        block.tooltip_editGroupMenu.remove();
-                    }
-
-                    block.tooltip_editGroupMenu = new Tooltip_editGroupMenu({
-                        $trigger: $el,
-                        classModel: block.catalogClassesCollection.get($el.closest('.catalog__classItem').attr('id')),
-                        groupId: $el.attr('groupId')
-                    });
-
-                    block.tooltip_editGroupMenu.show();
                 }
             },
-
             initialize: function() {
                 var block = this;
 
                 Editor.prototype.initialize.call(block);
 
-                block.catalogClassesCollection = new СatalogClassesCollection();
+                block.tooltip_catalogGroupForm = new Tooltip_catalogGroupForm();
+                block.tooltip_catalogGroupMenu = new Tooltip_catalogGroupMenu();
+                block.tooltip_catalogCategoryMenu = new Tooltip_catalogCategoryMenu();
 
-                block.addClassTooltip = new Tooltip({
-                    addClass: 'catalog__addClassTooltip'
+                new Catalog__groupList({
+                    el: document.getElementById('catalog__groupList'),
+                    catalogGroupsCollection: block.catalogGroupsCollection
                 });
 
-                block.addClassForm = new Form({
-                    model: new CatalogClassModel(),
-                    templates: {
-                        index: block.templates.addClassForm
-                    },
-                    addClass: 'catalog__addClassForm'
-                });
-
-                block.addClassTooltip.$content.html(block.addClassForm.$el);
-
-                block.listenTo(block.catalogClassesCollection, {
-                    reset: function() {
-                        block.renderClassList();
-                    },
-                    add: function(model) {
-                        block.$classList.prepend(block.templates.classItem({
-                            block: block,
-                            catalogClass: model.toJSON()
-                        }));
-                    },
-                    remove: function(classModel){
-                        block.$el
-                            .find('#' + classModel.get('id'))
-                            .remove();
-                    },
-                    change: function(classModel){
-                        block.$el
-                            .find('#' + classModel.get('id'))
-                            .replaceWith(block.templates.classItem({
-                                block: block,
-                                catalogClass: classModel.toJSON()
-                            }));
-                    }
-                });
-
-                block.listenTo(block.addClassForm, {
-                    successSubmit: function(model) {
-                        block.catalogClassesCollection.push(model.toJSON());
-                        block.addClassForm.clear();
-                        block.addClassForm.$el.find('[name="name"]').focus();
-                    }
-                });
-
-                block.catalogClassesCollection.fetch();
             },
-            renderClassList: function() {
-                var block = this;
-
-                block.$classList
-                    .html(block.templates.classList({
-                        block: block,
-                        catalogClasses: block.catalogClassesCollection.toJSON()
-                    }));
-            },
-            'set:editMode': function(editMode){
+            'set:editMode': function(editMode) {
                 Editor.prototype['set:editMode'].apply(this, arguments);
                 params.editMode = editMode;
+            },
+            remove: function(){
+                var block = this;
+
+                block.tooltip_catalogGroupForm.remove();
+                block.tooltip_catalogGroupMenu.remove();
+                block.tooltip_catalogCategoryMenu.remove();
+
+                Editor.prototype.remove.call(block);
             }
         })
     }

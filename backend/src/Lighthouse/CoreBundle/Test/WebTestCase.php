@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
+use Lighthouse\CoreBundle\Util\JsonPath;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\Container;
@@ -229,8 +230,12 @@ class WebTestCase extends BaseTestCase
      * @param string $extra
      * @return string
      */
-    protected function createProduct($extra = '')
+    protected function createProduct($extra = '', $subCategoryId = null)
     {
+        if ($subCategoryId == null) {
+            $subCategoryId = $this->createSubCategory();
+        }
+
         $productData = array(
             'name' => 'Кефир "Веселый Молочник" 1% 950гр' . $extra,
             'units' => 'gr',
@@ -241,6 +246,7 @@ class WebTestCase extends BaseTestCase
             'vendor' => 'Вимм-Билль-Данн',
             'vendorCountry' => 'Россия',
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+            'subCategory' => $subCategoryId,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -381,7 +387,7 @@ class WebTestCase extends BaseTestCase
      * @param string $name
      * @return string
      */
-    protected function createKlass($name = 'Продовольственные товары')
+    protected function createGroup($name = 'Продовольственные товары', $ifNotExists = true)
     {
         $postData = array(
             'name' => $name,
@@ -389,10 +395,26 @@ class WebTestCase extends BaseTestCase
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        if ($ifNotExists) {
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/groups.json'
+            );
+
+            if (count($postResponse)) {
+                foreach ($postResponse as $value) {
+                    if ($value['name'] == $name) {
+                        return $value['id'];
+                    }
+                }
+            }
+        }
+
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/klasses.json',
+            '/api/1/groups.json',
             $postData
         );
 
@@ -440,30 +462,195 @@ class WebTestCase extends BaseTestCase
     }
 
     /**
-     * @param string $klassId
+     * @param string $groupId
      * @param string $name
      * @return string
      */
-    protected function createGroup($klassId, $name = 'Винно-водочные изделия')
+    protected function createCategory($groupId = null, $name = 'Винно-водочные изделия', $ifNotExists = true)
     {
-        $groupData = array(
+        if ($groupId == null) {
+            $groupId = $this->createGroup();
+        }
+        $categoryData = array(
             'name' => $name,
-            'klass' => $klassId,
+            'group' => $groupId,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        if ($ifNotExists) {
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/groups/'. $groupId .'/categories'
+            );
+
+            if (count($postResponse)) {
+                foreach ($postResponse as $value) {
+                    if ($value['name'] == $name) {
+                        return $value['id'];
+                    }
+                }
+            }
+        }
+
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/groups',
-            $groupData
+            '/api/1/categories',
+            $categoryData
         );
 
         Assert::assertResponseCode(201, $this->client);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
+    }
+
+
+    /**
+     * @param string $categoryId
+     * @param string $name
+     * @return string
+     */
+    protected function createSubCategory($categoryId = null, $name = 'Водка', $ifNotExists = true)
+    {
+        if ($categoryId == null) {
+            $categoryId = $this->createCategory();
+        }
+        $subCategoryData = array(
+            'name' => $name,
+            'category' => $categoryId,
+        );
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        if ($ifNotExists) {
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/categories/'. $categoryId .'/subcategories'
+            );
+
+            Assert::assertResponseCode(200, $this->client);
+
+            if (count($postResponse)) {
+                foreach ($postResponse as $value) {
+                    if ($value['name'] == $name) {
+                        return $value['id'];
+                    }
+                }
+            }
+        }
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/subcategories',
+            $subCategoryData
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
+
+    public function createStore(
+        $number = 'номер_42',
+        $address = 'адрес 42',
+        $contacts = 'телефон 42',
+        $ifNotExists = true
+    ) {
+        $storeData = array(
+            'number' => $number,
+            'address' => $address,
+            'contacts' => $contacts,
+        );
+
+        $accessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+
+        if ($ifNotExists) {
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/stores'
+            );
+
+            if (count($postResponse)) {
+                foreach ($postResponse as $value) {
+                    if (is_array($value) && array_key_exists('number', $value) && $value['number'] == $number) {
+                        return $value['id'];
+                    }
+                }
+            }
+        }
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores',
+            $storeData
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $response);
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, $name, $response);
+        }
+
+        return $response['id'];
+    }
+
+    public function createDepartment(
+        $storeId = null,
+        $number = 'отдел_42',
+        $name = 'название отдела 42',
+        $ifNotExists = true
+    ) {
+        if ($storeId == null) {
+            $storeId = $this->createStore();
+        }
+
+        $storeData = array(
+            'number' => $number,
+            'name' => $name,
+            'store' => $storeId,
+        );
+
+        $accessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+
+        if ($ifNotExists) {
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/stores/' . $storeId . '/departments'
+            );
+
+            if (count($postResponse)) {
+                foreach ($postResponse as $value) {
+                    if (is_array($value) && array_key_exists('number', $value) && $value['number'] == $number) {
+                        return $value['id'];
+                    }
+                }
+            }
+        }
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/departments',
+            $storeData
+        );
+
+        Assert::assertResponseCode(201, $this->client);
+
+        Assert::assertJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals($storeData['number'], 'number', $response);
+        Assert::assertJsonPathEquals($storeData['name'], 'name', $response);
+
+        return $response['id'];
     }
 
     /**
@@ -592,7 +779,7 @@ class WebTestCase extends BaseTestCase
         $json = json_decode($content, true);
 
         if (0 != json_last_error()) {
-            throw new \UnexpectedValueException('Failed to parse json: ' . $content);
+            throw new \PHPUnit_Framework_AssertionFailedError(sprintf('Failed asserting that response body is json. Response given: %s', $content));
         }
 
         return $json;

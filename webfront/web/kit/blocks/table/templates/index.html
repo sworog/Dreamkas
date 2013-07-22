@@ -1,10 +1,12 @@
-<thead class="table__head">
-<%= block.templates.head({
-    block: block
+<thead>
+<%== templates.head({
+    columns: columns,
+    templates: templates
 }) %>
 </thead>
-<tbody class="table__body">
-<%= block.templates.body({
-    block: block
+<tbody>
+<%== templates.body({
+    collection: collection,
+    templates: templates
 }) %>
 </tbody>

@@ -66,7 +66,10 @@ jms_di_extra:
 fos_rest:
     param_fetcher_listener: true
     body_listener: true
-    format_listener: true
+    format_listener:
+        default_priorities:
+            - json
+            - "*/*"
     routing_loader:
         default_format: json
     view:
@@ -79,9 +82,9 @@ fos_rest:
             html: false
     exception:
         codes:
-            'Lighthouse\CoreBundle\Document\Klass\KlassNotEmptyException': 409
+            'Lighthouse\CoreBundle\Exception\NotEmptyException': 409
         messages:
-            'Lighthouse\CoreBundle\Document\Klass\KlassNotEmptyException': true
+            'Lighthouse\CoreBundle\Exception\NotEmptyException': true
 
 nelmio_cors:
     paths:

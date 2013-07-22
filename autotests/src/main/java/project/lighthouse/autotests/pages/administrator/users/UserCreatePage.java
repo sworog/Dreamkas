@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.Select;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
@@ -63,7 +64,7 @@ public class UserCreatePage extends ProductCreatePage {
     public void fieldInput(ExamplesTable fieldInputTable) {
         for (Map<String, String> row : fieldInputTable.getRows()) {
             String elementName = row.get("elementName");
-            String inputText = row.get("inputText");
+            String inputText = row.get("value");
             String updatedText = (elementName.equals("role")) ? replaceSelectedValue(inputText) : inputText;
             input(elementName, updatedText);
         }

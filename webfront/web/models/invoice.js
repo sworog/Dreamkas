@@ -3,6 +3,7 @@ define(function(require) {
     var BaseModel = require('models/baseModel');
 
     return BaseModel.extend({
+        modelName: 'invoice',
         urlRoot: LH.baseApiUrl + '/invoices',
 
         dateFormat: 'dd.mm.yy',

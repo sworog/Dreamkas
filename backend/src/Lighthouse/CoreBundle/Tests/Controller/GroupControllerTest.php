@@ -7,15 +7,12 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class GroupControllerTest extends WebTestCase
 {
-    public function testPostGroupsAction()
+    public function testPostGroupAction()
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass('Продовольственные товары');
-
         $groupData = array(
-            'name' => 'Винно-водочные изделия',
-            'klass' => $klassId,
+            'name' => 'Продовольственные товары'
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -29,99 +26,27 @@ class GroupControllerTest extends WebTestCase
 
         Assert::assertResponseCode(201, $this->client);
 
+        Assert::assertJsonPathEquals('Продовольственные товары', 'name', $postResponse);
         Assert::assertJsonHasPath('id', $postResponse);
-        Assert::assertJsonPathEquals('Винно-водочные изделия', 'name', $postResponse);
-        Assert::assertJsonPathEquals($klassId, 'klass.id', $postResponse);
-        Assert::assertJsonPathEquals('Продовольственные товары', 'klass.name', $postResponse);
-    }
-
-    public function testUniqueGroupName()
-    {
-        $this->clearMongoDb();
-
-        $klassId1 = $this->createKlass('Алкоголь');
-        $klassId2 = $this->createKlass('Продовольственные товары');
-
-        $groupData = array(
-            'name' => 'Винно-водочные изделия',
-            'klass' => $klassId1,
-        );
-
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
-        // Create first group
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/groups',
-            $groupData
-        );
-
-        Assert::assertResponseCode(201, $this->client);
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        // Try to create second group with same name in klass 1
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/groups',
-            $groupData
-        );
-        Assert::assertResponseCode(400, $this->client);
-
-        Assert::assertJsonPathContains(
-            'Группа с таким названием уже существует в этом классе',
-            'children.name.errors',
-            $postResponse
-        );
-
-        $groupData2 = array('klass' => $klassId2) + $groupData;
-
-        // Create group with same name but in klass 2
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/groups',
-            $groupData2
-        );
-
-        Assert::assertResponseCode(201, $this->client);
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        // Create second group with same name in klass 2
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/groups',
-            $groupData2
-        );
-        Assert::assertResponseCode(400, $this->client);
-
-        Assert::assertJsonPathContains(
-            'Группа с таким названием уже существует в этом классе',
-            'children.name.errors',
-            $postResponse
-        );
     }
 
     /**
-     * @param int $expectedCode
+     * @param $expectedCode
      * @param array $data
      * @param array $assertions
      *
      * @dataProvider validationGroupProvider
      */
-    public function testPostGroupsValidation($expectedCode, array $data, array $assertions = array())
+    public function testPostGroupValidation($expectedCode, array $data, array $assertions = array())
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass('Продовольственные товары');
-
         $groupData = $data + array(
-            'name' => 'Винно-водочные изделия',
-            'klass' => $klassId,
+            'name' => 'Продовольственные товары'
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -131,12 +56,11 @@ class GroupControllerTest extends WebTestCase
 
         Assert::assertResponseCode($expectedCode, $this->client);
 
-        $this->performJsonAssertions($postResponse, $assertions, true);
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathContains($expected, $path, $postResponse);
+        }
     }
 
-    /**
-     * @return array
-     */
     public function validationGroupProvider()
     {
         return array(
@@ -158,15 +82,6 @@ class GroupControllerTest extends WebTestCase
                     'Не более 100 символов'
                 )
             ),
-            'not valid klass' => array(
-                400,
-                array('klass' => '1234'),
-                array(
-                    'children.klass.errors.0'
-                    =>
-                    'Такого класса не существует'
-                )
-            ),
             'valid long 100 name' => array(
                 201,
                 array('name' => str_repeat('z', 100)),
@@ -175,48 +90,78 @@ class GroupControllerTest extends WebTestCase
     }
 
     /**
-     * @param int $expectedCode
+     * @param $expectedCode
      * @param array $data
      * @param array $assertions
      *
      * @dataProvider validationGroupProvider
      */
-    public function testPutGroupsValidation($expectedCode, array $data, array $assertions = array())
+    public function testPutGroupValidation($expectedCode, array $data, array $assertions = array())
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass('Продовольственные товары');
+        $groupId = $this->createGroup('Прод тов');
 
-        $groupId = $this->createGroup($klassId);
-
-        $putData = $data + array(
-            'name' => 'Винно-водочные изделия',
-            'klass' => $klassId,
+        $groupData = $data + array(
+            'name' => 'Продовольственные товары'
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
-        $putResponse = $this->clientJsonRequest(
+
+        $postResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
             '/api/1/groups/' . $groupId,
-            $putData
+            $groupData
         );
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
 
         Assert::assertResponseCode($expectedCode, $this->client);
 
-        $this->performJsonAssertions($putResponse, $assertions, true);
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathContains($expected, $path, $postResponse);
+        }
     }
 
     public function testGetGroup()
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass();
-        $groupId = $this->createGroup($klassId);
+        $groupId = $this->createGroup('Прод Тов');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/groups/' . $groupId
+        );
+
+        Assert::assertJsonPathEquals($groupId, 'id', $postResponse);
+        Assert::assertJsonPathEquals('Прод Тов', 'name', $postResponse);
+    }
+
+    public function testGetGroupWithCategoriesAndSubCategories()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('1');
+
+        $categoryId1 = $this->createCategory($groupId, '1.1');
+        $categoryId2 = $this->createCategory($groupId, '1.2');
+
+        $subCategory1 = $this->createSubCategory($categoryId1, '1.1.1');
+        $subCategory2 = $this->createSubCategory($categoryId1, '1.1.2');
+        $subCategory3 = $this->createSubCategory($categoryId1, '1.1.3');
+
+        $subCategory4 = $this->createSubCategory($categoryId2, '1.2.1');
+        $subCategory5 = $this->createSubCategory($categoryId2, '1.2.2');
+        $subCategory6 = $this->createSubCategory($categoryId2, '1.2.3');
+        $subCategory7 = $this->createSubCategory($categoryId2, '1.2.4');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -224,115 +169,73 @@ class GroupControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonHasPath('id', $getResponse);
+        Assert::assertJsonHasPath('categories', $getResponse);
 
-        Assert::assertJsonPathEquals($groupId, 'id', $getResponse);
-        Assert::assertJsonPathEquals($klassId, 'klass.id', $getResponse);
-    }
+        Assert::assertJsonPathCount(2, 'categories.*.id', $getResponse);
+        Assert::assertJsonPathEquals($categoryId1, 'categories.*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId2, 'categories.*.id', $getResponse, 1);
 
-    public function testGetGroupNotFound()
-    {
-        $this->clearMongoDb();
-
-        $klassId1 = $this->createKlass('1');
-        $this->createGroup($klassId1, '1.1');
-
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
-        $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/groups/invalidId'
-        );
-
-        Assert::assertResponseCode(404, $this->client);
+        Assert::assertJsonPathCount(true, 'categories.0.subCategories.*.id', $getResponse);
+        Assert::assertJsonPathCount(true, 'categories.1.subCategories.*.id', $getResponse);
     }
 
     public function testGetGroups()
     {
         $this->clearMongoDb();
 
-        $klassId1 = $this->createKlass('1');
-        $klassId2 = $this->createKlass('2');
-
-        $groupId1 = $this->createGroup($klassId1, '1.1');
-        $groupId2 = $this->createGroup($klassId1, '1.2');
-        $groupId3 = $this->createGroup($klassId1, '1.3');
-
-        $groupId4 = $this->createGroup($klassId2, '2.4');
-        $groupId5 = $this->createGroup($klassId2, '2.5');
+        $groupIds = array();
+        for ($i = 0; $i < 5; $i++) {
+            $groupIds[$i] = $this->createGroup('Прод Тов' . $i);
+        }
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
-        $getResponse = $this->clientJsonRequest(
+
+        $postResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/klasses/' . $klassId1 . '/groups'
+            '/api/1/groups'
         );
 
         Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathCount(5, '*.id', $postResponse);
 
-        Assert::assertJsonPathCount(3, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($groupId1, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId2, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId3, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId4, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($groupId5, '*.id', $getResponse, false);
-
-
-        $getResponse = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/klasses/' . $klassId2 . '/groups'
-        );
-
-        Assert::assertResponseCode(200, $this->client);
-
-        Assert::assertJsonPathCount(2, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($groupId4, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId5, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId1, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($groupId2, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($groupId3, '*.id', $getResponse, false);
+        foreach ($groupIds as $id) {
+            Assert::assertJsonPathEquals($id, '*.id', $postResponse);
+        }
     }
 
-    public function testGetGroupsNotFound()
+    public function testGroupUnique()
     {
         $this->clearMongoDb();
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
-        $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/klasses/123484923423/groups'
+        $this->createGroup('Прод Тов');
+
+        $postData = array(
+            'name' => 'Прод Тов',
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/groups',
+            $postData
+        );
+
+        Assert::assertResponseCode(400, $this->client);
+        Assert::assertJsonPathEquals('Такая группа уже есть', 'children.name.errors.0', $postResponse);
     }
 
-    public function testGetGroupsEmptyCollection()
+    public function testDeleteGroupNoCategories()
     {
         $this->clearMongoDb();
 
-        $klassId = $this->createKlass();
+        $groupId = $this->createGroup();
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/klasses/' . $klassId . '/groups'
-        );
 
-        Assert::assertResponseCode(200, $this->client);
-
-        Assert::assertJsonPathCount(0, '*.id', $response);
-    }
-
-    public function testDeleteGroup()
-    {
-        $this->clearMongoDb();
-
-        $klassId = $this->createKlass();
-        $groupId = $this->createGroup($klassId);
-
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -348,5 +251,250 @@ class GroupControllerTest extends WebTestCase
         );
 
         Assert::assertResponseCode(204, $this->client);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/groups/' . $groupId
+        );
+
+        Assert::assertResponseCode(404, $this->client);
+    }
+
+    public function testDeleteGroupWithCategories()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+
+        $this->createCategory($groupId, '1');
+        $this->createCategory($groupId, '2');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/groups/' . $groupId
+        );
+
+        Assert::assertResponseCode(409, $this->client);
+    }
+
+    public function testGroupWithCategories()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+
+        $categoryId1 = $this->createCategory($groupId, '1');
+        $categoryId2 = $this->createCategory($groupId, '2');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/groups/' . $groupId
+        );
+
+        Assert::assertResponseCode(200, $this->client);
+        Assert::assertJsonPathCount(2, 'categories.*.id', $getResponse);
+        Assert::assertJsonPathEquals($categoryId1, 'categories.*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId2, 'categories.*.id', $getResponse, 1);
+    }
+
+    /**
+     * @param string    $url
+     * @param string    $method
+     * @param string    $role
+     * @param int       $responseCode
+     * @param array|null $requestData
+     *
+     * @dataProvider accessGroupProvider
+     */
+    public function testAccessGroup($url, $method, $role, $responseCode, $requestData = null)
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup();
+
+        $url = str_replace(
+            array(
+                '__GROUP_ID__',
+            ),
+            array(
+                $groupId,
+            ),
+            $url
+        );
+        $accessToken = $this->authAsRole($role);
+        if (is_array($requestData)) {
+            $requestData = $requestData + array(
+                'name' => 'Алкоголь'
+            );
+        }
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            $method,
+            $url,
+            $requestData
+        );
+
+        Assert::assertResponseCode($responseCode, $this->client);
+    }
+
+    public function accessGroupProvider()
+    {
+        return array(
+            /**************************************
+             * GET /api/1/groups
+             */
+            array(
+                '/api/1/groups',
+                'GET',                              // Method
+                'ROLE_COMMERCIAL_MANAGER',          // Role
+                '200',                              // Response Code
+            ),
+            array(
+                '/api/1/groups',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/groups',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/groups',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * GET /api/1/groups/__ID__
+             */
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'GET',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'GET',
+                'ROLE_DEPARTMENT_MANAGER',
+                '200',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'GET',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'GET',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+
+            /*************************************
+             * POST /api/1/groups
+             */
+            array(
+                '/api/1/groups',
+                'POST',
+                'ROLE_COMMERCIAL_MANAGER',
+                '201',
+                array(),
+            ),
+            array(
+                '/api/1/groups',
+                'POST',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/groups',
+                'POST',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/groups',
+                'POST',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+
+            /*************************************
+             * PUT /api/1/groups/__GROUP_ID__
+             */
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'PUT',
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+                array(),
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'PUT',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'PUT',
+                'ROLE_STORE_MANAGER',
+                '403',
+                array(),
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'PUT',
+                'ROLE_ADMINISTRATOR',
+                '403',
+                array(),
+            ),
+
+            /*************************************
+             * DELETE /api/1/groups/__GROUP_ID__
+             */
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'DELETE',
+                'ROLE_COMMERCIAL_MANAGER',
+                '204',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'DELETE',
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'DELETE',
+                'ROLE_STORE_MANAGER',
+                '403',
+            ),
+            array(
+                '/api/1/groups/__GROUP_ID__',
+                'DELETE',
+                'ROLE_ADMINISTRATOR',
+                '403',
+            ),
+        );
     }
 }

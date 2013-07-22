@@ -9,6 +9,7 @@ import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.NonType;
 import project.lighthouse.autotests.elements.Select;
 import project.lighthouse.autotests.elements.Textarea;
 
@@ -35,12 +36,15 @@ public class ProductCreatePage extends CommonPageObject {
         items.put("retailPrice", new Input(this, "retailPrice"));
         items.put("retailMarkupHint", new Input(this, "retailMarkupHint"));
         items.put("retailPriceHint", new Input(this, "retailPriceHint"));
+        items.put("group", new NonType(this, "group"));
+        items.put("category", new NonType(this, "category"));
+        items.put("subCategory", new NonType(this, "subCategory"));
     }
 
     public void fieldInput(ExamplesTable fieldInputTable) {
         for (Map<String, String> row : fieldInputTable.getRows()) {
             String elementName = row.get("elementName");
-            String inputText = row.get("inputText");
+            String inputText = row.get("value");
             input(elementName, inputText);
         }
     }

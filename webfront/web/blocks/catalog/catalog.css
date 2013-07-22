@@ -1,4 +1,4 @@
-.catalog__classItem{
+.catalog__groupItem{
     display: inline-block;
     vertical-align: top;
     width: 50%;
@@ -8,29 +8,59 @@
     margin-right: -5px;
 }
 
-.catalog__classLink{
+.catalog__groupLink{
     vertical-align: middle;
 }
 
-.catalog__classGroupList{
+.catalog__categoryList{
     padding: 0;
     margin: 0;
     overflow: hidden;
     list-style: none;
 }
 
-.catalog__classGroupItem{
+.catalog__categoryItem{
     margin: 0 10px 5px 0;
     display: inline-block;
     vertical-align: middle;
 }
 
-.catalog__classTitle{
+.catalog__categoryLink{
+    margin-right: 4px;
+}
+
+.catalog__groupTitle{
     font-size: 16px;
     padding-bottom: 10px;
     font-weight: bold;
 }
 
-.catalog__addClassTooltip, .catalog__addGroupTooltip{
-    margin-top: -40px;
+.catalog__groupNavigation{
+    float: right;
+    width: 200px;
+    padding-left: 40px;
+}
+
+.catalog__groupNavigationLink{
+    display: block;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    text-decoration: none;
+    margin-bottom: -1px;
+    padding: 5px 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.catalog__groupNavigationLink:hover{
+    background-color: #f4f4f4;
+}
+
+.catalog__groupNavigationLink_active{
+    background-color: #fafafa;
+    color: #000;
+    cursor: default;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    z-index: 10;
 }

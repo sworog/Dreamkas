@@ -41,24 +41,19 @@ public class ProductUserSteps {
         productSteps.createProductPostRequestSend(name, sku, barcode, units, purchasePrice);
     }
 
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice in the subcategory named '$subCategoryName'")
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
+        productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, subCategoryName);
+    }
+
     @Given("the user is on the product create page")
-    public void givenTheUserIsOnTheOrderCreatePage() {
-        productSteps.isTheProductCreatePage();
-    }
-
-    @Given("the user is on the order edit page")
-    public void givenTheUserIsOnTheOrderEditPage() {
-        productSteps.isTheProductEditPage();
-    }
-
-    @Given("the user is on the order card view")
-    public void givenTheUserIsOnTheOrderCardView() {
-        productSteps.isTheProductCardViewPage();
+    public void givenTheUserIsOnTheOrderCreatePage() throws JSONException, IOException {
+        productSteps.openProductCreatePage();
     }
 
     @Given("the user is on the product list page")
-    public void givenTheUserIsOnTheProductListPage() {
-        productSteps.isTheProductListPageOpen();
+    public void givenTheUserIsOnTheProductListPage() throws IOException, JSONException {
+        productSteps.openProductListPage();
     }
 
     @Given("the user is on the product card")

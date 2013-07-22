@@ -9,9 +9,7 @@ define(function(require) {
     require('jquery.require');
 
     var Block = Backbone.View.extend({
-        templates: {
-            index: null
-        },
+        templates: {},
 
         className: null,
         blockName: null,
@@ -19,52 +17,22 @@ define(function(require) {
         tagName: 'div',
 
         events: null,
-
-        listeners: {
-            collection: {
-                sync: function() {
-                    var block = this;
-                    console.log(arguments);
-                    block.render();
-                    block.set('loading', false);
-                },
-                request: function() {
-                    var block = this;
-                    console.log(arguments);
-                    block.set('loading', true);
-                }
-            },
-            model: {
-                sync: function() {
-                    var block = this;
-
-                    block.set('loading', false);
-                    block.render();
-                },
-                request: function(model, xhr, options) {
-                    var block = this;
-
-                    if (options.isFetch){
-                        block.set('loading', true);
-                    }
-                }
-            }
-        },
+        listeners: null,
 
         constructor: function(options) {
             var block = this;
 
-            block.defaults = _.clone(this);
+            block.defaults = _.clone(block);
 
             deepExtend(block, options);
 
             block.cid = _.uniqueId('block');
             block._ensureElement();
             block.findElements();
+            block.delegateEvents();
 
             block.initialize.apply(block, arguments);
 
-            block.delegateEvents();
             block.startListening();
 
             block.$el
@@ -73,15 +41,17 @@ define(function(require) {
                 .addClass(block.addClass)
                 .attr('block', block.blockName)
                 .data(block.blockName, block);
-
         },
         initialize: function() {
             var block = this;
-            block.render();
+
+            if (!$.trim(block.$el.html())) {
+                block.render();
+            }
         },
         render: function() {
             var block = this,
-                $template;
+                template;
 
             if (!block.templates.index) {
                 return block;
@@ -91,16 +61,12 @@ define(function(require) {
                 return block;
             }
 
-            $template = $(block.templates.index({
-                block: block
-            }));
+            template = block.templates.index(block);
 
-            block.$el.children('[block]').each(function() {
-                $(this).data('block').remove();
-            });
+            //block.removeBlocks();
 
             block.$el
-                .html($template)
+                .html(template)
                 .require();
 
             block.findElements();
@@ -112,10 +78,10 @@ define(function(require) {
                 $context = arguments[0] || block.$el,
                 elements = [];
 
-            if (block.className) {
-                $context.find('[class*="' + block.className + '__"]').each(function() {
+            if (block.blockName) {
+                $context.find('[class*="' + block.blockName + '__"]').each(function() {
                     var classes = _.filter($(this).attr('class').split(' '), function(className) {
-                        return className.indexOf(block.className + '__') === 0;
+                        return className.indexOf(block.blockName + '__') === 0;
                     });
 
                     elements = _.union(elements, classes);
@@ -134,22 +100,10 @@ define(function(require) {
             _.each(block.listeners, function(listener, property) {
                 if (typeof listener === 'function') {
                     block.listenTo(block, listener);
-                } else if (block[property]){
+                } else if (block[property]) {
                     block.listenTo(block[property], listener);
                 }
             });
-        },
-        remove: function() {
-            var block = this;
-
-            block.$el.find(['block']).each(function() {
-                var $block = $(this),
-                    blockName = $block.attr('block');
-
-                $block.data('blockName').remove();
-            });
-
-            Backbone.View.prototype.remove.call(this);
         },
         'set': function(path, value, extra) {
             var block = this,
@@ -203,7 +157,7 @@ define(function(require) {
 
             block.trigger('set:' + path, value);
         },
-        'set:loading': function(loading){
+        'set:loading': function(loading) {
             var block = this;
             block.$el.toggleClass('preloader_spinner', loading);
         }

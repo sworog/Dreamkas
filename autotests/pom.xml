@@ -19,7 +19,8 @@
         <thucydides.browser.height>1024</thucydides.browser.height>
         <thucydides.outputDirectory>${project.reporting.outputDirectory}/thucydides</thucydides.outputDirectory>
         <thucydides.sourceDirectory>${thucydides.outputDirectory}</thucydides.sourceDirectory>
-        <webdriver.base.url>http://test.autotests.webfront.lighthouse.cs</webdriver.base.url>
+        <init>test</init>
+        <webdriver.base.url>http://${init}.autotests.webfront.lighthouse.cs</webdriver.base.url>
         <webdriver.driver>firefox</webdriver.driver>
         <webdriver.timeouts.implicitlywait>10000</webdriver.timeouts.implicitlywait>
         <thucydides.take.screenshots>FOR_FAILURES</thucydides.take.screenshots>
@@ -88,9 +89,9 @@
                         <thucydides.browser.width>${thucydides.browser.width}</thucydides.browser.width>
                         <thucydides.browser.height>${thucydides.browser.height}</thucydides.browser.height>
                         <thucydides.outputDirectory>${thucydides.outputDirectory}</thucydides.outputDirectory>
+                        <thucydides.capability.types>sprint,user story</thucydides.capability.types>
                         <webdriver.driver>${webdriver.driver}</webdriver.driver>
-                        <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}
-                        </webdriver.timeouts.implicitlywait>
+                        <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}</webdriver.timeouts.implicitlywait>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
                     </systemPropertyVariables>
                 </configuration>
@@ -212,6 +213,42 @@
             </activation>
             <build>
                 <directory>target-iexplorer</directory>
+            </build>
+        </profile>
+        <profile>
+            <id>cap</id>
+            <activation>
+                <property>
+                    <name>init</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>Symfony env init</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>cap</executable>
+                                    <workingDirectory>../backend</workingDirectory>
+                                    <arguments>
+                                        <argument>autotests</argument>
+                                        <argument>symfony:env:init</argument>
+                                        <argument>-S</argument>
+                                        <argument>host=${init}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>

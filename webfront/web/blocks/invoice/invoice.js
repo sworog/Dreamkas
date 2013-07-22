@@ -2,9 +2,8 @@ define(function(require) {
         //requirements
         var Block = require('kit/block'),
             InputDate = require('kit/blocks/inputDate/inputDate'),
-            InvoiceModel = require('models/invoice'),
-            InvoiceProductCollection = require('collections/invoiceProducts'),
-            AddProductForm = require('blocks/invoice/addProductForm'),
+            Form_invoiceProduct = require('blocks/form/form_invoiceProduct/form_invoiceProduct'),
+            Table_invoiceProducts = require('blocks/table/table_invoiceProducts/table_invoiceProducts'),
             cookie = require('utils/cookie');
 
         return Block.extend({
@@ -12,72 +11,55 @@ define(function(require) {
             dataEditing: false,
             className: 'invoice',
             templates: {
-                index: require('tpl!./templates/invoice.html'),
-                dataInput: require('tpl!./templates/dataInput.html'),
-                dataInputAutocomplete: require('tpl!./templates/dataInputAutocomplete.html'),
-                dataInputControls: require('tpl!./templates/dataInputControls.html'),
-                footer: require('tpl!./templates/footer.html'),
-                head: require('tpl!./templates/head.html'),
-                removeConfirm: require('tpl!./templates/removeConfirm.html'),
-                row: require('tpl!./templates/row.html'),
-                table: require('tpl!./templates/table.html')
+                index: require('tpl!blocks/invoice/templates/index.html'),
+                dataInput: require('tpl!blocks/invoice/templates/dataInput.html'),
+                dataInputAutocomplete: require('tpl!blocks/invoice/templates/dataInputAutocomplete.html'),
+                dataInputControls: require('tpl!blocks/invoice/templates/dataInputControls.html'),
+                footer: require('tpl!blocks/invoice/templates/footer.html'),
+                head: require('tpl!blocks/invoice/templates/head.html'),
+                removeConfirm: require('tpl!blocks/invoice/templates/removeConfirm.html')
             },
 
             initialize: function() {
                 var block = this;
 
-                block.invoiceProductCollection = new InvoiceProductCollection({
-                    invoiceId: block.invoiceId
-                });
-
-                block.invoiceModel = new InvoiceModel({
-                    id: block.invoiceId
-                });
-
-                block.invoiceModel.fetch();
-                block.invoiceProductCollection.fetch();
-
-                block.render();
+                Block.prototype.initialize.call(block);
 
                 block.set('editMode', block.editMode);
 
-                block.addForm = new AddProductForm({
-                    invoiceId: block.invoiceId,
-                    el: block.el.getElementsByClassName('invoice__addProductForm')
+                block.productForm = new Form_invoiceProduct({
+                    invoiceProductsCollection: block.invoiceProductsCollection,
+                    el: block.el.getElementsByClassName('invoice__productForm')
                 });
 
-                block.listenTo(block.addForm, {
-                    successSubmit: function(model){
-                        block.invoiceProductCollection.push(model);
-                        block.addForm.clear();
+                block.productsTable = new Table_invoiceProducts({
+                    collection: block.invoiceProductsCollection,
+                    el: block.el.getElementsByClassName('invoice__productsTable')
+                });
+            },
+            listeners: {
+                invoiceModel: {
+                    change: function(){
+                        var block = this;
+
+                        block.renderHead();
+                        block.renderFooter();
                     }
-                });
-
-                block.listenTo(block.invoiceModel, 'sync change', function() {
-                        block.$head.html(block.templates.head({
-                            block: block
-                        }));
-                        block.$footer.html(block.templates.footer({
-                            block: block
-                        }));
-                    });
-
-                block.listenTo(block.invoiceProductCollection, {
-                        sync: function() {
-                            block.renderTable();
-                        },
-                        add: function(model) {
-                            block.renderTable();
-                            block.invoiceModel.set(model.toJSON().invoice);
-                        },
-                        change: function(model) {
-                            block.invoiceModel.set(model.toJSON().invoice);
-                        },
-                        destroy: function() {
-                            block.renderTable();
-                            block.invoiceModel.fetch();
-                        }
-                    });
+                },
+                invoiceProductsCollection: {
+                    add: function(model) {
+                        var block = this;
+                        block.invoiceModel.set(model.get('invoice'));
+                    },
+                    change: function(model) {
+                        var block = this;
+                        block.invoiceModel.set(model.get('invoice'));
+                    },
+                    destroy: function() {
+                        var block = this;
+                        block.invoiceModel.fetch();
+                    }
+                }
             },
             events: {
                 'click .invoice__removeLink': function(e) {
@@ -114,7 +96,7 @@ define(function(require) {
 
                     var notEmptyForm = false;
 
-                    block.addForm.$el.find("input").each(function() {
+                    block.productForm.$el.find("input").each(function() {
                         if ($(this).val()) {
                             notEmptyForm = true;
                         }
@@ -135,12 +117,12 @@ define(function(require) {
                         block.showDataInput($(e.currentTarget));
                     }
                 },
-                'submit .invoice__table .invoice__dataInput': function(e) {
+                'submit .invoice__productsTable .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
                         data = Backbone.Syphon.serialize(e.target),
                         invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
-                        invoiceProduct = block.invoiceProductCollection.get(invoiceProductId),
+                        invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();
@@ -203,7 +185,7 @@ define(function(require) {
             'set:dataEditing': function(val) {
                 var block = this;
 
-                block.addForm.disable(val);
+                block.productForm.disable(val);
 
                 if (val) {
                     block.$el.addClass('invoice_dataEditing');
@@ -213,7 +195,7 @@ define(function(require) {
             },
             showRemoveConfirm: function(invoiceProductId) {
                 var block = this,
-                    $invoiceProductRow = block.$table.find('.invoice__dataRow[invoice-product-id="' + invoiceProductId + '"]');
+                    $invoiceProductRow = block.$productsTable.find('.invoice__dataRow[invoice-product-id="' + invoiceProductId + '"]');
 
                 block.hideRemoveConfirms();
                 block.set('dataEditing', true);
@@ -226,8 +208,8 @@ define(function(require) {
             },
             hideRemoveConfirm: function(invoiceProductId) {
                 var block = this,
-                    $invoiceProductRow = block.$table.find('.invoice__dataRow[invoice-product-id="' + invoiceProductId + '"]'),
-                    $removeConfirmRow = block.$table.find('.invoice__removeConfirmRow[invoice-product-id="' + invoiceProductId + '"]');
+                    $invoiceProductRow = block.$productsTable.find('.invoice__dataRow[invoice-product-id="' + invoiceProductId + '"]'),
+                    $removeConfirmRow = block.$productsTable.find('.invoice__removeConfirmRow[invoice-product-id="' + invoiceProductId + '"]');
 
                 $removeConfirmRow.remove();
                 $invoiceProductRow.show();
@@ -235,26 +217,29 @@ define(function(require) {
             },
             hideRemoveConfirms: function() {
                 var block = this,
-                    $invoiceProductRow = block.$table.find('.invoice__dataRow:hidden'),
-                    $removeConfirmRows = block.$table.find('.invoice__removeConfirmRow');
+                    $invoiceProductRow = block.$productsTable.find('.invoice__dataRow:hidden'),
+                    $removeConfirmRows = block.$productsTable.find('.invoice__removeConfirmRow');
 
                 $invoiceProductRow.show();
                 $removeConfirmRows.remove();
             },
             removeInvoiceProduct: function(invoiceProductId) {
                 var block = this,
-                    invoiceProductModel = block.invoiceProductCollection.get(invoiceProductId);
+                    invoiceProductModel = block.invoiceProductsCollection.get(invoiceProductId);
 
                 invoiceProductModel.destroy({
                     wait: true
                 });
             },
-            renderTable: function() {
+            renderHead: function(){
                 var block = this;
 
-                block.$table.html(block.templates.table({
-                    block: block
-                }));
+                block.$head.html(block.templates.head(block));
+            },
+            renderFooter: function(){
+                var block = this;
+
+                block.$footer.html(block.templates.footer(block));
             },
             showInlineErrors: function(data) {
                 var block = this,

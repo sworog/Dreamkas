@@ -1,0 +1,48 @@
+<div class="datepicker__controlLinks">
+    <a class="datepicker__prevMonthLink">пред</a>
+    <a class="datepicker__nextMonthLink">след</a>
+</div>
+
+<div class="datepicker__header">
+    <%== templates.header({visibleDate: visibleDate}) %>
+</div>
+
+<div class="datepicker__daysOfWeek">
+    <div class="datepicker__dayOfWeek">
+        <%= moment().day(1).format('dd') %>
+    </div>
+    <div class="datepicker__dayOfWeek">
+        <%= moment().day(2).format('dd') %>
+    </div>
+    <div class="datepicker__dayOfWeek">
+        <%= moment().day(3).format('dd') %>
+    </div>
+    <div class="datepicker__dayOfWeek">
+        <%= moment().day(4).format('dd') %>
+    </div>
+    <div class="datepicker__dayOfWeek">
+        <%= moment().day(5).format('dd') %>
+    </div>
+    <div class="datepicker__dayOfWeek">
+        <%= moment().day(6).format('dd') %>
+    </div>
+    <div class="datepicker__dayOfWeek">
+        <%= moment().day(7).format('dd') %>
+    </div>
+</div>
+
+<div class="datepicker__dateList">
+    <%== templates.dateList({dateList: dateList}) %>
+</div>
+
+
+<div class="datepicker__timeControls">
+    <span class="datepicker__timeControlsLabel">Время:</span>
+    <input placeholder="часы" name="hours" type="text" class="inputText" value="<%= selectedDate ? moment(selectedDate).format('HH') : '' %>" <%= selectedDate ? '' : 'disabled' %> />
+    <span class="datepicker__timeControlsSpacer">:</span>
+    <input placeholder="мин" name="minutes" type="text" class="inputText" value="<%= selectedDate ? moment(selectedDate).format('mm') : '' %>" <%= selectedDate ? '' : 'disabled' %> />
+</div>
+
+<div class="datepicker__controls">
+    <%== templates.controls() %>
+</div>

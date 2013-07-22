@@ -24,7 +24,8 @@
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
         "friendsofsymfony/oauth-server-bundle": "1.3.*",
         "nelmio/api-doc-bundle": "2.3.*",
-        "ekino/newrelic-bundle": "1.0.*"
+        "ekino/newrelic-bundle": "1.0.*",
+        "doctrine/data-fixtures": "1.0.*@dev"
     },
     "scripts": {
         "post-install-cmd": [

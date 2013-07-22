@@ -15,4 +15,8 @@ public class ProductApi extends CommercialManagerApi {
     public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
         apiConnect.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
     }
+
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
+        apiConnect.createProductThroughPost(name, sku, barcode, units, purchasePrice, subCategoryName);
+    }
 }

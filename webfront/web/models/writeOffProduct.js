@@ -3,14 +3,15 @@ define(function(require) {
     var BaseModel = require('models/baseModel');
 
     return BaseModel.extend({
-            urlRoot: function(){
-                return LH.baseApiUrl + '/writeoffs/'+ this.get('writeOff').id  + '/products';
-            },
-            saveFields: [
-                'product',
-                'quantity',
-                'price',
-                'cause'
-            ]
-        });
+        modelName: 'writeOffProduct',
+        urlRoot: function() {
+            return LH.baseApiUrl + '/writeoffs/' + this.get('writeOff').id + '/products';
+        },
+        saveFields: [
+            'product',
+            'quantity',
+            'price',
+            'cause'
+        ]
     });
+});

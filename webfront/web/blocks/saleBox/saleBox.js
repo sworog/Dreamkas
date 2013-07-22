@@ -1,127 +1,46 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
-            Form = require('blocks/form/form'),
-            PurchaseModel = require('models/purchase'),
-            cookie = require('utils/cookie');
+            Form_purchase = require('blocks/form/form_purchase/form_purchase'),
+            Form_purchaseProduct = require('blocks/form/form_purchaseProduct/form_purchaseProduct');
 
         return Block.extend({
-            purchaseModel: new PurchaseModel(),
-            className: 'saleBox',
+            blockName: 'saleBox',
             templates: {
-                index: require('tpl!./templates/saleBox.html')
+                index: require('tpl!blocks/saleBox/templates/index.html'),
+                form_purchase: require('tpl!blocks/form/form_purchase/templates/index.html'),
+                form_purchaseProduct: require('tpl!blocks/form/form_purchaseProduct/templates/index.html')
             },
-
             events: {
-                'click .saleBox__removeProductLink': function(e) {
-                    var block = this,
-                        $link = $(e.target);
-
-                    $link.closest('.saleBox__productRow').remove();
-                },
-                'submit .saleBox__productForm': function(e) {
-                    e.preventDefault();
+                'submit #form_purchaseProduct': function(){
                     var block = this;
+                    block.$productRow.clone().appendTo(block.$purchaseTableBody);
+                    block.form_purchaseProduct.clear();
+                },
+                'click .saleBox__removeProductLink': function(e) {
+                    var $target = $(e.target);
 
-                    block.$productRow.clone().appendTo(block.$purchaseTable.find('tbody'));
-                    block.$productForm.find('input').val('');
+                    $target.closest('.saleBox__productRow').remove();
                 }
             },
-            autocompleteToInput: function($input) {
-                var name = $input.attr('lh_product_autocomplete');
-                $input.autocomplete({
-                    source: function(request, response) {
-                        $.ajax({
-                            url: LH.baseApiUrl + "/products/" + name + "/search.json",
-                            dataType: "json",
-                            data: {
-                                query: request.term
-                            },
-                            headers: {
-                                Authorization: 'Bearer ' + cookie.get('token')
-                            },
-                            success: function(data) {
-                                response($.map(data, function(item) {
-                                    return {
-                                        label: item[name],
-                                        product: item
-                                    }
-                                }));
-                            }
-                        })
-                    },
-                    minLength: 3,
-                    select: function(event, ui) {
-                        $(this).parents("form").find("[lh_product_autocomplete='name']").val(ui.item.product.name);
-                        $(this).parents("form").find("[name='product[]']").val(ui.item.product.id);
-
-                        $(this).parents("form").find("[name='quantity[]']").focus();
-                    }
-                });
-                $input.keyup(function(event) {
-                    var keyCode = $.ui.keyCode;
-                    switch (event.keyCode) {
-                        case keyCode.PAGE_UP:
-                        case keyCode.PAGE_DOWN:
-                        case keyCode.UP:
-                        case keyCode.DOWN:
-                        case keyCode.ENTER:
-                        case keyCode.NUMPAD_ENTER:
-                        case keyCode.TAB:
-                        case keyCode.LEFT:
-                        case keyCode.RIGHT:
-                        case keyCode.ESCAPE:
-                            return;
-                            break;
-                        default:
-                            var term = $(this).autocomplete('getTerm');
-                            if (term != $(this).val()) {
-                                $(this).parents("form").find("[name='product']").val('');
-                            }
-                    }
-                });
-            },
-            render: function() {
+            initialize: function(){
                 var block = this;
 
-                Block.prototype.render.call(this);
+                Block.prototype.initialize.call(block);
 
-                block.purchaseForm = new Form({
-                    el: block.$purchaseForm[0],
-                    submit: function() {
-                        var deferred = $.Deferred();
-                        var purchaseFormData = Backbone.Syphon.serialize(this),
-                            products = [];
-
-                        _.each(purchaseFormData.product, function(product, index) {
-                            products.push({
-                                product: product,
-                                quantity: purchaseFormData.quantity[index],
-                                sellingPrice: purchaseFormData.sellingPrice[index]
-                            });
-                        });
-
-                        block.purchaseModel.save({
-                            products: products
-                        }, {
-                            success: function() {
-                                alert('Продано!');
-                                document.location.reload();
-                                deferred.resolve();
-                            },
-                            error: function() {
-                                alert('Ошибка!');
-                                deferred.reject();
-                            }
-                        });
-
-                        return deferred.promise();
-                    }
+                block.form_purchase = new Form_purchase({
+                    el: document.getElementById('form_purchase')
                 });
 
-                block.purchaseForm.$submitButton = block.$el.find('[form="saleBox__purchaseForm"]').closest('.button');
+                block.form_purchaseProduct = new Form_purchaseProduct({
+                    el: document.getElementById('form_purchaseProduct')
+                });
+            },
+            findElements: function(){
+                var block = this;
 
-                block.autocompleteToInput(block.$productForm.find('[lh_product_autocomplete]'));
+                block.$productRow = block.$('#form_purchaseProduct').find('.saleBox__productRow');
+                block.$purchaseTableBody = block.$('.saleBox__purchaseTable').find('tbody');
             }
         });
     }

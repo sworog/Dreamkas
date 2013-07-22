@@ -1,0 +1,18 @@
+<tr name="invoice" href="/invoices/<%= model.id %>">
+    <td name="acceptanceDate">
+        <%= moment(model.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
+    </td>
+    <td name="sku">
+        <%= model.get('sku') %>
+    </td>
+    <td name="supplier">
+        <%text model.get('supplier') %>
+    </td>
+    <td>
+        <span name="sumTotal"><%= LH.formatPrice(model.get('sumTotal')) %></span>
+        <span>р.</span>
+    </td>
+    <td name="accepter">
+        <%text model.get('accepter') %>
+    </td>
+</tr>

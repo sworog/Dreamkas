@@ -57,5 +57,4 @@ public class CommonUserSteps {
     public void whenTheUserClicksCloseButtonInTheInvoiceCreatePage() {
         // PENDING
     }
-
 }

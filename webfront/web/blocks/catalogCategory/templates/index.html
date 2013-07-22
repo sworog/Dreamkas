@@ -1,0 +1,35 @@
+<% if (LH.isAllow('subcategories', 'POST')) { %>
+<div class="page__controls">
+    <a class="page__controlsLink editor__on"><%text 'Редактировать' %></a>
+    <a class="page__controlsLink editor__off"><%text 'Завершить редактирование' %></a>
+</div>
+<% } %>
+
+<h3>
+    <span style="vertical-align: middle">
+        <%attr catalogCategoryModel:name %>
+    </span>
+    <a class="editor__editLink catalog__editCategoryLink"></a>
+    <a class="button button_color_blue catalog__addSubCategoryLink editor__control">
+        <%text 'Добавить подкатегорию' %>
+    </a>
+</h3>
+
+<div id="catalogCategory__subCategoryList">
+    <%== templates.catalogCategory__subCategoryList({
+    templates: templates,
+    catalogSubCategoriesCollection: catalogSubCategoriesCollection
+    }) %>
+</div>
+
+<div class="catalogCategory__productList">
+    <h4>
+        <span class="catalogCategory__productListTitle"><%text 'Список товаров' %></span>
+        <a style="margin-left: 15px;" href="/products/create?subCategory=<%= catalogSubCategoryId %>" class="button button_color_blue catalogCategory__addProductLink editor__control">
+            Добавить товар
+        </a>
+    </h4>
+    <table class="table table_products"></table>
+</div>
+
+<div style="clear: both;"></div>
