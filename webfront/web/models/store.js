@@ -12,7 +12,10 @@ define(function(require) {
                 'number',
                 'address',
                 'contacts'
-            ]
+            ],
+            linkManager: function(userUri) {
+                $.aja
+            }
         });
     }
 );

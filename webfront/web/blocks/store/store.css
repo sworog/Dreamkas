@@ -10,3 +10,7 @@
 .store__departments thead{
     display: none;
 }
+
+.store__managers{
+    padding-bottom: 30px;
+}

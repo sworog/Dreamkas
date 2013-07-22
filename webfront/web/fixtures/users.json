@@ -1,0 +1,65 @@
+[
+    {
+        "id": "51ecfe70cc917eb40b000000",
+        "username": "watchman",
+        "name": "watchman",
+        "position": "ROLE_ADMINISTRATOR",
+        "role": "ROLE_ADMINISTRATOR"
+    },
+    {
+        "id": "51ecfe70cc917ebb0b000000",
+        "username": "administrator",
+        "name": "administrator",
+        "position": "ROLE_ADMINISTRATOR",
+        "role": "ROLE_ADMINISTRATOR"
+    },
+    {
+        "id": "51ecfe71cc917ec20b000000",
+        "username": "commercialManager",
+        "name": "commercialManager",
+        "position": "ROLE_COMMERCIAL_MANAGER",
+        "role": "ROLE_COMMERCIAL_MANAGER"
+    },
+    {
+        "id": "51ecfe71cc917ec90b000000",
+        "username": "storeManager",
+        "name": "storeManager",
+        "position": "ROLE_STORE_MANAGER",
+        "role": "ROLE_STORE_MANAGER"
+    },
+    {
+        "id": "51ecfe72cc917ed00b000000",
+        "username": "departmentManager",
+        "name": "departmentManager",
+        "position": "ROLE_DEPARTMENT_MANAGER",
+        "role": "ROLE_DEPARTMENT_MANAGER"
+    },
+    {
+        "id": "51ecfe72cc917ed70b000000",
+        "username": "administratorApi",
+        "name": "administratorApi",
+        "position": "ROLE_ADMINISTRATOR",
+        "role": "ROLE_ADMINISTRATOR"
+    },
+    {
+        "id": "51ecfe72cc917ede0b000000",
+        "username": "commercialManagerApi",
+        "name": "commercialManagerApi",
+        "position": "ROLE_COMMERCIAL_MANAGER",
+        "role": "ROLE_COMMERCIAL_MANAGER"
+    },
+    {
+        "id": "51ecfe73cc917ee50b000000",
+        "username": "storeManagerApi",
+        "name": "storeManagerApi",
+        "position": "ROLE_STORE_MANAGER",
+        "role": "ROLE_STORE_MANAGER"
+    },
+    {
+        "id": "51ecfe73cc917eec0b000000",
+        "username": "departmentManagerApi",
+        "name": "departmentManagerApi",
+        "position": "ROLE_DEPARTMENT_MANAGER",
+        "role": "ROLE_DEPARTMENT_MANAGER"
+    }
+]

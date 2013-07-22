@@ -2,6 +2,7 @@ define(function(require) {
     //requirements
     var Page = require('kit/page'),
         Store = require('blocks/store/store'),
+        StoreManagersCollection = require('collections/storeManagers'),
         StoreModel = require('models/store');
 
     return Page.extend({
@@ -21,11 +22,14 @@ define(function(require) {
                 id: storeId
             });
 
-            $.when(page.storeModel.fetch()).then(function(){
+            page.storeManagersCollection = new StoreManagersCollection();
+
+            $.when(page.storeModel.fetch(), page.storeManagersCollection.fetch()).then(function(){
                 page.render();
 
                 new Store({
                     storeModel: page.storeModel,
+                    storeManagersCollection: page.storeManagersCollection,
                     el: document.getElementById('store')
                 });
             });
