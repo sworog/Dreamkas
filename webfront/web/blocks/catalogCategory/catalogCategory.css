@@ -5,7 +5,7 @@
 }
 
 .catalogCategory .catalogCategory__productList{
-    overflow: hidden;
+    margin-left: 290px;
 }
 
 .catalogCategory__subCategoryLink{

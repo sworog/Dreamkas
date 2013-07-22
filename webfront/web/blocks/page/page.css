@@ -38,7 +38,7 @@
     visibility: visible;
 }
 
-.page.preloader_spinner .content {
+.page.preloader_spinner .page__content {
     display: none;
 }
 
@@ -48,4 +48,23 @@
 
 .page__backLinkSeparator{
     vertical-align: middle;
+}
+
+.page__contentWrapper{
+    text-align: center;
+    height: 100%;
+}
+
+.page__content {
+    min-width: 1000px;
+    margin: 0 auto;
+    text-align: left;
+    min-height: 100%;
+    padding: 60px 20px 20px;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    display: inline-block;
+    text-align: left;
 }

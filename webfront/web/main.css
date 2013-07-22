@@ -6,7 +6,6 @@
 @import "./kit/kit.css";
 @import "/icons/font-awesome/font-awesome.css";
     /* blocks */
-@import "./blocks/content/content.css";
 @import "./blocks/page/page.css";
 @import "./blocks/invoice/invoice.css";
 @import "./blocks/form/form_product/form_product.css";
