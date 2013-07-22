@@ -204,4 +204,13 @@ class User extends AbstractDocument implements UserInterface, EquatableInterface
     public function eraseCredentials()
     {
     }
+
+    /**
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return in_array($role, $this->getRoles());
+    }
 }

@@ -142,7 +142,7 @@ class UserController extends AbstractRestController
     /**
      * @param User $user
      * @return User
-     * @Secure(roles="ROLE_ADMINISTRATOR")
+     * @Secure(roles="ROLE_ADMINISTRATOR,ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(
      *      description="Get user"
      * )
@@ -154,7 +154,7 @@ class UserController extends AbstractRestController
 
     /**
      * @return \Lighthouse\CoreBundle\Document\User\UserCollection
-     * @Secure(roles="ROLE_ADMINISTRATOR")
+     * @Secure(roles="ROLE_ADMINISTRATOR,ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(
      *      description="Create users"
      * )

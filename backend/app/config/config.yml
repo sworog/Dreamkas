@@ -91,12 +91,12 @@ nelmio_cors:
         '^/api/':
             allow_origin: ['*']
             allow_headers: ['Content-Type', 'Authorization']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS', 'LINK', 'UNLINK']
             max_age: 3600
         '^/oauth/':
             allow_origin: ['*']
             allow_headers: ['Content-Type', 'Authorization']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS', 'LINK', 'UNLINK']
             max_age: 3600
 
 sensio_framework_extra:

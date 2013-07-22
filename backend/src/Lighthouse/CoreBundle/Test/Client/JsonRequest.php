@@ -99,4 +99,13 @@ class JsonRequest
         $header = 'HTTP_' . strtoupper($name);
         $this->server[$header] = $value;
     }
+
+    /**
+     * @param string $resourceUri
+     * @param string $rel
+     */
+    public function addLinkHeader($resourceUri, $rel)
+    {
+        $this->addHttpHeader('Link', sprintf('<%s>;rel=%s', $resourceUri, $rel));
+    }
 }

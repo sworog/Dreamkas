@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Store;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Department\Department;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,6 +10,13 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
+ * @property string $id
+ * @property string $number
+ * @property string $address
+ * @property string $contacts
+ * @property ArrayCollection|Department[] $departments
+ * @property ArrayCollection|User[] $managers
+ *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Store\StoreRepository"
  * )
@@ -60,4 +68,22 @@ class Store extends AbstractDocument
      * @var Department[]
      */
     protected $departments;
+
+    /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\User\User",
+     *      simple=true,
+     *      cascade="persist"
+     * )
+     * @var User[]
+     */
+    protected $managers;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->managers = new ArrayCollection();
+    }
 }

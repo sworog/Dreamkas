@@ -385,7 +385,8 @@ class WebTestCase extends BaseTestCase
 
     /**
      * @param string $name
-     * @return string
+     * @param bool $ifNotExists
+     * @return mixed
      */
     protected function createGroup($name = 'Продовольственные товары', $ifNotExists = true)
     {
@@ -556,6 +557,13 @@ class WebTestCase extends BaseTestCase
         return $postResponse['id'];
     }
 
+    /**
+     * @param string $number
+     * @param string $address
+     * @param string $contacts
+     * @param bool $ifNotExists
+     * @return string
+     */
     public function createStore(
         $number = 'номер_42',
         $address = 'адрес 42',
@@ -792,5 +800,13 @@ class WebTestCase extends BaseTestCase
     protected function getNowDate($format = 'Y-m-d\\TH:')
     {
         return date($format);
+    }
+
+    /**
+     * @param integer $expectedCode
+     */
+    public function assertResponseCode($expectedCode)
+    {
+        Assert::assertResponseCode($expectedCode, $this->client);
     }
 }

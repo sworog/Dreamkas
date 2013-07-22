@@ -4,13 +4,20 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreCollection;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Form\StoreType;
+use Lighthouse\CoreBundle\Request\Link;
+use Lighthouse\CoreBundle\Request\Links;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 class StoreController extends AbstractRestController
 {
@@ -78,5 +85,42 @@ class StoreController extends AbstractRestController
     public function getStoreAction(Store $store)
     {
         return $store;
+    }
+
+    /**
+     * @param Store $store
+     * @param Links|Link[] $links
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function linkStoreAction(Store $store, Links $links)
+    {
+        foreach ($links as $link) {
+            if (User::ROLE_STORE_MANAGER != $link->getRel()) {
+                throw new BadRequestHttpException(
+                    sprintf(
+                        'Invalid rel given: %s, only %s is valid',
+                        $link->getRel(),
+                        User::ROLE_STORE_MANAGER
+                    )
+                );
+            }
+            if (!$link->getResource() instanceof User) {
+                throw new BadRequestHttpException("Invalid resource given, should be User");
+            }
+            /* @var User $user */
+            $user = $link->getResource();
+            if (!$user->hasRole(User::ROLE_STORE_MANAGER)) {
+                throw new BadRequestHttpException(
+                    sprintf("User '%s' does not have store manager role", $link->getResource()->username)
+                );
+            }
+            if ($store->managers->contains($user)) {
+                throw new ConflictHttpException(sprintf("User '%s' is already store manager", $user->username));
+            }
+            $store->managers->add($user);
+        }
+        $this->documentRepository->getDocumentManager()->persist($store);
+        $this->documentRepository->getDocumentManager()->flush();
     }
 }
