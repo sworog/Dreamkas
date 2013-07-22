@@ -24,6 +24,7 @@ define(function(require) {
 
                 block.store__managers = new Store__managers({
                     storeManagersCollection: block.storeManagersCollection,
+                    storeModel: block.storeModel,
                     el: document.getElementById('store__managers')
                 });
 

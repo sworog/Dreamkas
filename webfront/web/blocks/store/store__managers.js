@@ -6,12 +6,26 @@ define(function(require) {
     return Block.extend({
         blockName: 'store__managers',
         storeManagersCollection: null,
+        storeModel: null,
         templates: {
-            index: require('tpl!blocks/store/templates/store__managers.html')
+            index: require('tpl!blocks/store/templates/store__managers.html'),
+            store__managerItem: require('tpl!blocks/store/templates/store__managerItem.html')
         },
         events: {
-            'change #select_storeManagers': function() {
+            'change #select_storeManagers': function(event) {
+                var block = this,
+                    $select = $(event.target);
 
+                block.storeModel.linkManager($select.val()).done(function(){
+                    var userId = $select.find(':selected').data('user_id'),
+                        userModel = block.storeManagersCollection.get(userId);
+
+                    block.$managerList.append(block.templates.store__managerItem({
+                        storeManagerModel: userModel
+                    }));
+
+                    block.storeManagersCollection.remove(userModel);
+                });
             }
         },
         initialize: function(){
@@ -23,8 +37,11 @@ define(function(require) {
                 storeManagersCollection: block.storeManagersCollection,
                 el: document.getElementById('select_storeManagers')
             });
+        },
+        findElements: function(){
+            var block = this;
 
-
+            block.$managerList = block.$('.store__managerList');
         }
     });
 });

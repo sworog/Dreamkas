@@ -14,7 +14,14 @@ define(function(require) {
                 'contacts'
             ],
             linkManager: function(userUri) {
-                $.aja
+                return $.ajax({
+                    url: '/fixtures/users.json',
+                    dataType: 'json',
+                    type: 'GET',
+                    headers: {
+                        Link: '<' + userUri + '>; rel="manager"'
+                    }
+                })
             }
         });
     }
