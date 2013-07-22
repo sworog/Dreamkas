@@ -27,7 +27,7 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 When the user open the product card with '1688' sku
 Then the user checks the elements values
-| elementName | expectedValue  |
+| elementName | value  |
 | sku | 1688 |
 | name | Наименование1688 |
 | vendor | Производитель1688 |
@@ -51,7 +51,7 @@ And the user selects 'liter' in 'unit' dropdown
 And the user selects '0' in 'vat' dropdown
 And the user clicks the create button
 Then the user checks the elements values
-| elementName | expectedValue  |
+| elementName | value  |
 | sku | 89489545DGF1 |
 | name | Имя23 56 |
 | vendor | Вендор45 |
@@ -87,7 +87,7 @@ And the user selects 'kg' in 'unit' dropdown
 And the user selects '18' in 'vat' dropdown
 And the user clicks the create button
 Then the user checks the elements values
-| elementName | expectedValue  |
+| elementName | value  |
 | unit | килограмм |
 | vat | 18 |
 When the user clicks the edit button on product card view page
@@ -95,7 +95,7 @@ And the user selects 'liter' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user checks the elements values
-| elementName | expectedValue  |
+| elementName | value  |
 | unit | литр |
 | vat | 10 |
 When the user clicks the edit button on product card view page
@@ -103,7 +103,7 @@ And the user selects 'unit' in 'unit' dropdown
 And the user selects '0' in 'vat' dropdown
 And the user clicks the create button
 Then the user checks the elements values
-| elementName | expectedValue  |
+| elementName | value  |
 | unit | штука |
 | vat | 0 |
 When the user logs out

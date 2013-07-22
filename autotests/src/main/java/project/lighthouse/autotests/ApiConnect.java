@@ -203,7 +203,7 @@ public class ApiConnect {
 
     public String getSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
         String subCategoryId = StaticData.subCategories.get(subCategoryName).getId();
-        String subCategoryProductCreatePageUrl = String.format("%s/products/create?subcategory=%s", UrlHelper.getWebFrontUrl(), subCategoryId);
+        String subCategoryProductCreatePageUrl = String.format("%s/products/create?subCategory=%s", UrlHelper.getWebFrontUrl(), subCategoryId);
         return subCategoryProductCreatePageUrl;
     }
 
