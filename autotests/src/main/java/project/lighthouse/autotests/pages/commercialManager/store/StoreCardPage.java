@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.UrlHelper;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.SelectByVisibleText;
 import project.lighthouse.autotests.objects.Store;
 
 public class StoreCardPage extends CommonPageObject {
@@ -17,7 +18,7 @@ public class StoreCardPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-
+        items.put("store manager select", new SelectByVisibleText(this, By.id("select_storeManagers")));
     }
 
     public void checkStoreCardValue(String fieldName, String value) {
@@ -45,10 +46,18 @@ public class StoreCardPage extends CommonPageObject {
         return findElement(By.xpath("//a[@class='button' and contains(text(), 'Создать отдел')]"));
     }
 
-    public WebElement findRowByDepartmentNumber(String departmentNumber){
+    public WebElement findRowByDepartmentNumber(String departmentNumber) {
         return findVisibleElement(
                 By.xpath(
                         String.format("//td[contains(text(), '%s')]/../tr", departmentNumber)
+                )
+        );
+    }
+
+    public WebElement findPromotedStoreManager(String value) {
+        return findVisibleElement(
+                By.xpath(
+                        String.format("//*[@model_attr='name' and @model_name='user' and text()='%s']", value)
                 )
         );
     }

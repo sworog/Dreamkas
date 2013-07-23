@@ -120,18 +120,30 @@ public class CommonActions extends PageObject {
         }
     }
 
-    public void elementSelect(String value, By findBy) {
+    public void selectByValue(String value, By findBy) {
         try {
             WebElement element = waiter.getVisibleWebElement(findBy);
             $(element).selectByValue(value);
         } catch (Exception e) {
             if (isSkippableException(e)) {
-                elementSelect(value, findBy);
+                selectByValue(value, findBy);
             } else {
                 throw e;
             }
         }
+    }
 
+    public void selectByVisibleText(String label, By findBy) {
+        try {
+            WebElement element = waiter.getVisibleWebElement(findBy);
+            $(element).selectByVisibleText(label);
+        } catch (Exception e) {
+            if (isSkippableException(e)) {
+                selectByVisibleText(label, findBy);
+            } else {
+                throw e;
+            }
+        }
     }
 
     private String getExceptionMessage(Exception e) {

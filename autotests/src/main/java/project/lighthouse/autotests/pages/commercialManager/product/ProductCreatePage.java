@@ -10,7 +10,7 @@ import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.NonType;
-import project.lighthouse.autotests.elements.Select;
+import project.lighthouse.autotests.elements.SelectByValue;
 import project.lighthouse.autotests.elements.Textarea;
 
 import java.util.Map;
@@ -25,9 +25,9 @@ public class ProductCreatePage extends CommonPageObject {
     public void createElements() {
         items.put("sku", new Input(this, "sku"));
         items.put("name", new Input(this, "name"));
-        items.put("unit", new Select(this, "units"));
+        items.put("unit", new SelectByValue(this, "units"));
         items.put("purchasePrice", new Input(this, "purchasePrice"));
-        items.put("vat", new Select(this, "vat"));
+        items.put("vat", new SelectByValue(this, "vat"));
         items.put("barcode", new Input(this, "barcode"));
         items.put("vendor", new Input(this, "vendor"));
         items.put("vendorCountry", new Input(this, "vendorCountry"));

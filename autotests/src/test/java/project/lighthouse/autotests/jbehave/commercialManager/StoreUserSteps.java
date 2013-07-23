@@ -93,4 +93,29 @@ public class StoreUserSteps {
         formSteps.fillStoreFormData(formData);
         formSteps.clickSaveStoreSubmitButton();
     }
+
+    @When("user promotes store manager named '$storeManager'")
+    public void whenUserPromotesStoreManager(String storeManager) {
+        formSteps.promoteStoreManager(storeManager);
+    }
+
+    @When("user unpromotes store manager named '$storeManager'")
+    public void whenUserUnPromotesStoreManager(String storeManager) {
+        formSteps.unPromoteStoreManager(storeManager);
+    }
+
+    @When("user try to promote not store manager named '$notStoreManager'")
+    public void whenUserTryToPromoteNotStoreManager(String notStoreManager) {
+        formSteps.promotedNotStoreManager(notStoreManager);
+    }
+
+    @Then("user checks the promoted store manager is '$storeManager'")
+    public void thenTheUserChecksThePromotedStoreManager(String storeManager) {
+        formSteps.checkPromotedStoreManager(storeManager);
+    }
+
+    @Then("user checks the promoted store manager is not '$storeManager'")
+    public void thenTheUserChecksThePromotedStoreManagerIsNot(String storeManager) {
+        formSteps.checkPromotedStoreManagerIsNotPresent(storeManager);
+    }
 }

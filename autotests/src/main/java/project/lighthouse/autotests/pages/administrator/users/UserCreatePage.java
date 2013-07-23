@@ -4,9 +4,8 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.elements.Input;
-import project.lighthouse.autotests.elements.Select;
+import project.lighthouse.autotests.elements.SelectByValue;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
 
 import java.util.HashMap;
@@ -34,7 +33,7 @@ public class UserCreatePage extends ProductCreatePage {
         items.put("position", new Input(this, By.xpath("//input[@name='position']")));
         items.put("username", new Input(this, By.xpath("//input[@name='username']")));
         items.put("password", new Input(this, By.xpath("//input[@name='password']")));
-        items.put("role", new Select(this, By.xpath("//select[@name='role']")));
+        items.put("role", new SelectByValue(this, By.xpath("//select[@name='role']")));
     }
 
     public void userCreateButtonClick() {
