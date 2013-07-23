@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Request;
+namespace Lighthouse\CoreBundle\Request\ParamConverter;
 
 class Link
 {

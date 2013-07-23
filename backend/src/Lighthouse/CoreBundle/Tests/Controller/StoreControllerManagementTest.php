@@ -25,6 +25,41 @@ class StoreControllerManagementTest extends WebTestCase
         $this->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
+
+        $storeJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId);
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, 'managers.*', $storeJson);
+        Assert::assertJsonPathEquals($storeUser1->id, 'managers.*.id', $storeJson);
+    }
+
+    public function testLinkTwoStoreManagers()
+    {
+        $this->clearMongoDb();
+
+        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->createStore('42', '42', '42', false);
+
+        $accessToken = $this->auth($commUser, 'password');
+
+        $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
+        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), User::ROLE_STORE_MANAGER);
+        $request->addLinkHeader($this->getUserResourceUri($storeUser2->id), User::ROLE_STORE_MANAGER);
+
+        $this->jsonRequest($request, $accessToken);
+
+        $this->assertResponseCode(204);
+
+        $storeJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId);
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, 'managers.*', $storeJson);
+        Assert::assertJsonPathEquals($storeUser1->id, 'managers.*.id', $storeJson);
+        Assert::assertJsonPathEquals($storeUser2->id, 'managers.*.id', $storeJson);
     }
 
     public function testLinkNotStoreManager()

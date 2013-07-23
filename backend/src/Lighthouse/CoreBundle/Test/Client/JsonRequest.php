@@ -93,19 +93,25 @@ class JsonRequest
     /**
      * @param string $name
      * @param string $value
+     * @param bool $append
      */
-    public function addHttpHeader($name, $value)
+    public function addHttpHeader($name, $value, $append = false)
     {
         $header = 'HTTP_' . strtoupper($name);
-        $this->server[$header] = $value;
+        if ($append && isset($this->server[$header])) {
+            $this->server[$header] .= ', ' . $value;
+        } else {
+            $this->server[$header] = $value;
+        }
     }
 
     /**
      * @param string $resourceUri
      * @param string $rel
+     * @param bool $append
      */
-    public function addLinkHeader($resourceUri, $rel)
+    public function addLinkHeader($resourceUri, $rel, $append = true)
     {
-        $this->addHttpHeader('Link', sprintf('<%s>;rel=%s', $resourceUri, $rel));
+        $this->addHttpHeader('Link', sprintf('<%s>;rel=%s', $resourceUri, $rel), $append);
     }
 }

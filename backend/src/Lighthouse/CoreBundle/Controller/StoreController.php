@@ -6,8 +6,8 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Form\StoreType;
-use Lighthouse\CoreBundle\Request\Link;
-use Lighthouse\CoreBundle\Request\Links;
+use Lighthouse\CoreBundle\Request\ParamConverter\Link;
+use Lighthouse\CoreBundle\Request\ParamConverter\Links;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -16,8 +16,6 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 class StoreController extends AbstractRestController
 {

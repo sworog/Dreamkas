@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Request;
+namespace Lighthouse\CoreBundle\Request\ParamConverter;
 
 use Lighthouse\CoreBundle\Response\DocumentResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
@@ -46,7 +46,8 @@ class LinksParamConverter implements ParamConverterInterface
         }
 
         $links = new Links();
-        $linkHeaders = $request->headers->get('Link', array(), false);
+        $linkHeader = $request->headers->get('Link');
+        $linkHeaders = explode(',', $linkHeader);
         foreach ($linkHeaders as $linkHeader) {
             $link = $this->parseLinkHeaders($linkHeader);
             $this->resolveResource($link, $request);
@@ -59,18 +60,18 @@ class LinksParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @param $linkHeader
+     * @param string $linkHeader
      * @return Link
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     protected function parseLinkHeaders($linkHeader)
     {
         $matches = null;
-        if (!preg_match('/^<(.+?)>;\s*rel=(.+)$/', $linkHeader, $matches)) {
+        if (!preg_match('/^\s*<(.+?)>;\s*rel\s*=\s*"?(.+)"?\s*$/', $linkHeader, $matches)) {
             throw new BadRequestHttpException(sprintf('Invalid Link header provided: %s', $linkHeader));
         }
 
-        $rel = trim($matches[2], '"');
+        $rel = trim($matches[2], '" ');
         $resourceUri = $matches[1];
 
         return new Link($rel, $resourceUri);
@@ -112,6 +113,6 @@ class LinksParamConverter implements ParamConverterInterface
      */
     public function supports(ConfigurationInterface $configuration)
     {
-        return 'Lighthouse\\CoreBundle\\Request\\Links' == $configuration->getClass();
+        return 'Lighthouse\\CoreBundle\\Request\\ParamConverter\\Links' == $configuration->getClass();
     }
 }

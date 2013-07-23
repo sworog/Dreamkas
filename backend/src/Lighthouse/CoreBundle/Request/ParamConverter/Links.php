@@ -1,8 +1,8 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Request;
+namespace Lighthouse\CoreBundle\Request\ParamConverter;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Lighthouse\CoreBundle\Request\ParamConverter\Link;
 use Traversable;
 
 class Links implements \IteratorAggregate
