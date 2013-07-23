@@ -42,7 +42,7 @@ public class CommonActions extends PageObject {
 
     public void type(By findBy, String inputText) {
         try {
-            find(findBy).type(inputText);
+            $(waiter.getVisibleWebElement(findBy)).type(inputText);
         } catch (Exception e) {
             if (isSkippableException(e, false)) {
                 type(findBy, inputText);
