@@ -28,6 +28,10 @@
     <% if(LH.isAllow('stores')){ %>
     <a href="/stores"><%text 'Магазины' %></a>
     <% } %>
+
+    <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
+        <a href="/stores/<%= currentUserModel.stores.at(0).id %>"><%text 'Мой магазин' %></a>
+    <% } %>
     <% } %>
 </div>
 

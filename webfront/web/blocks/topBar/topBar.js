@@ -2,13 +2,12 @@ define(function(require) {
     //requirements
     var Block = require('kit/block'),
         logout = require('utils/logout'),
-        currentUserModel = require('models/currentUser'),
-        userPermissions = require('models/userPermissions');
+        currentUserModel = require('models/currentUser');
 
     var TopBar = Block.extend({
         blockName: 'topBar',
         currentUserModel: currentUserModel,
-        userPermissions: userPermissions,
+        userPermissions: null,
         templates: {
             index: require('tpl!blocks/topBar/templates/index.html')
         },
@@ -34,6 +33,8 @@ define(function(require) {
         },
         initialize: function() {
             var block = this;
+
+            block.userPermissions = currentUserModel.permissions;
 
             block.$el.prependTo('body');
 

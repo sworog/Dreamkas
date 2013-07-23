@@ -4,7 +4,7 @@ require(
         paths: {
             'underscore': 'libs/underscore/underscore.min',
 
-            'backbone': 'libs/backbone/backbone.min',
+            'backbone': 'libs/backbone/backbone',
             'backbone.syphon': 'libs/backbone/backbone.syphon',
             'backbone.queryparams': 'libs/backbone/backbone.queryparams',
 

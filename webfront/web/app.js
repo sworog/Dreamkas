@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
     var currentUserModel = require('models/currentUser'),
-        userPermissionsModel = require('models/userPermissions'),
         cookie = require('utils/cookie');
 
     require('LH');
@@ -29,7 +28,8 @@ define(function(require) {
         return syncing;
     };
 
-    var loading = $.when(currentUserModel.fetch(), userPermissionsModel.fetch()),
+    var loading = currentUserModel.fetch(),
+        router = new Backbone.Router(),
         routers;
 
     $(function() {
@@ -56,6 +56,11 @@ define(function(require) {
             Backbone.history.start({
                 pushState: true
             });
+            if (currentUserModel.stores && currentUserModel.stores.length){
+                router.navigate('/stores/' + currentUserModel.stores.at(0).id, {
+                    trigger: true
+                });
+            }
             isAppStarted = true;
         });
     });
