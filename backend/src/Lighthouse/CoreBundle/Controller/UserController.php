@@ -4,6 +4,8 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\LoggableCursor;
 use FOS\Rest\Util\Codes;
+use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
@@ -24,6 +26,12 @@ class UserController extends AbstractRestController
      * @var UserRepository
      */
     protected $documentRepository;
+
+    /**
+     * @DI\Inject("lighthouse.core.document.repository.store")
+     * @var StoreRepository
+     */
+    protected $storeRepository;
 
     /**
      * @DI\Inject("lighthouse.core.user.provider")
@@ -165,5 +173,24 @@ class UserController extends AbstractRestController
         $cursor = $this->getDocumentRepository()->findAll();
         $collection = new UserCollection($cursor);
         return $collection;
+    }
+
+    /**
+     * @param Store $store
+     * @param Request $request
+     * @return UserCollection
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getStoreManagersAction(Store $store, Request $request)
+    {
+        $candidates = (bool) $request->query->get('candidates', false);
+        if ($candidates) {
+            $excludeIds = $this->storeRepository->findAllStoresManagerIds();
+            $users = $this->documentRepository->findAllByRole(User::ROLE_STORE_MANAGER, $excludeIds);
+            return new UserCollection($users);
+        } else {
+            return new UserCollection($store->managers);
+        }
     }
 }

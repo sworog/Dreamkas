@@ -293,6 +293,112 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathContains('object not found', 'message', $managersJson);
     }
 
+    public function testGetStoreManagersCandidates()
+    {
+        $this->clearMongoDb();
+
+        $depUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $depUser2 = $this->createUser('depUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser3 = $this->createUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
+
+        $storeId1 = $this->createStore('42', '42', '42', false);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/managers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($storeUser3->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+
+        $this->linkStoreManagers($storeId1, $storeUser1->id);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/managers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($storeUser3->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+
+        //
+        $storeId2 = $this->createStore('43', '43', '43', false);
+
+        $this->linkStoreManagers($storeId2, $storeUser3->id);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/managers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($storeUser3->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+
+        // Check that second store has same candidates
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/managers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($storeUser3->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+
+        //
+        $this->linkStoreManagers($storeId2, $storeUser2->id);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/managers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '*', $managersJson);
+    }
+
     /**
      * @param string $userId
      * @return string

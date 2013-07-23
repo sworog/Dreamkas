@@ -117,7 +117,7 @@ class UserProvider implements UserProviderInterface
     public function setPassword(User $user, $password)
     {
         $encoder = $this->encoderFactory->getEncoder($user);
-        $user->salt = md5(date('cr'));
+        $user->salt = md5(uniqid(true));
         $user->password = $encoder->encodePassword($password, $user->getSalt());
     }
 
