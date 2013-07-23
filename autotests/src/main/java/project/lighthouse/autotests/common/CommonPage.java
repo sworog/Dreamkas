@@ -7,7 +7,6 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.CommonPageInterface;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.elements.Autocomplete;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
@@ -16,7 +15,7 @@ import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceListP
 import java.util.List;
 import java.util.Map;
 
-public class CommonPage extends PageObject implements CommonPageInterface {
+public class CommonPage extends PageObject {
 
     public static final String ERROR_MESSAGE = "No such option for '%s'";
 
@@ -202,16 +201,10 @@ public class CommonPage extends PageObject implements CommonPageInterface {
     }
 
     public void NoAlertIsPresent() {
-//        try {
-//            String alertText = getAlert().getText();
-//            throw new AssertionError(String.format("Alert is present! Alert text: '%s'", alertText));
-//        } catch (Exception e) {
-//        }
         try {
             Alert alert = waiter.getAlert();
             throw new AssertionError(String.format("Alert is present! Alert text: '%s'", alert.getText()));
         } catch (Exception e) {
-
         }
     }
 }

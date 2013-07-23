@@ -24,10 +24,6 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
         this.listPageSkuName = listPageSkuName;
     }
 
-    public CommonView(WebDriver driver) {
-        this(driver, "", "");
-    }
-
     public String getCorrectXpathPattern() {
         switch (listPageName) {
             case InvoiceBrowsing.ITEM_NAME:
