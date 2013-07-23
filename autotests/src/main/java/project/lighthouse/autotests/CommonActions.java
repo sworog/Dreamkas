@@ -40,6 +40,18 @@ public class CommonActions extends PageObject {
         }
     }
 
+    public void type(By findBy, String inputText) {
+        try {
+            find(findBy).type(inputText);
+        } catch (Exception e) {
+            if (isSkippableException(e, false)) {
+                type(findBy, inputText);
+            } else {
+                throw e;
+            }
+        }
+    }
+
     public void inputTable(ExamplesTable fieldInputTable) {
         for (Map<String, String> row : fieldInputTable.getRows()) {
             String elementName = row.get("elementName");

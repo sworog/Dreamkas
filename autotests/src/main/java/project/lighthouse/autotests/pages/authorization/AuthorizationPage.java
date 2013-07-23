@@ -37,10 +37,10 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void authorization(String userName, String password) {
-        find(By.name("username")).type(userName);
-        find(By.name("password")).type(password);
+        type(By.name("username"), userName);
+        type(By.name("password"), password);
         String loginButtonXpath = "//*[@class='button button_color_blue']/input";
-        findBy(loginButtonXpath).click();
+        click(By.xpath(loginButtonXpath));
         checkUser(userName);
         isAuthorized = true;
     }
