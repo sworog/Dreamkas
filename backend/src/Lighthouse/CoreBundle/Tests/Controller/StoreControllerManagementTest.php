@@ -442,6 +442,45 @@ class StoreControllerManagementTest extends WebTestCase
         );
     }
 
+    public function testUnlinkStoreManager()
+    {
+        $this->clearMongoDb();
+        $storeId1 = $this->createStore('42', '42', '42', false);
+        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+
+        $this->linkStoreManagers($storeId1, $storeUser1->id);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/managers'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson);
+
+        $jsonRequest = new JsonRequest('/api/1/stores/' . $storeId1, 'UNLINK');
+        $jsonRequest->addLinkHeader($this->getUserResourceUri($storeUser1->id), User::ROLE_STORE_MANAGER);
+        $this->jsonRequest($jsonRequest, $accessToken);
+
+        $this->assertResponseCode(204);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/managers'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '*', $managersJson);
+    }
+
     /**
      * @param string $userId
      * @return string

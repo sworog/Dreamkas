@@ -96,25 +96,7 @@ class StoreController extends AbstractRestController
     public function linkStoreAction(Store $store, Links $links)
     {
         foreach ($links as $link) {
-            if (User::ROLE_STORE_MANAGER != $link->getRel()) {
-                throw new BadRequestHttpException(
-                    sprintf(
-                        'Invalid rel given: %s, only %s is valid',
-                        $link->getRel(),
-                        User::ROLE_STORE_MANAGER
-                    )
-                );
-            }
-            if (!$link->getResource() instanceof User) {
-                throw new BadRequestHttpException("Invalid resource given, should be User");
-            }
-            /* @var User $user */
-            $user = $link->getResource();
-            if (!in_array(User::ROLE_STORE_MANAGER, $user->getRoles())) {
-                throw new BadRequestHttpException(
-                    sprintf("User '%s' does not have store manager role", $link->getResource()->username)
-                );
-            }
+            $user = $this->validateLink($link);
             if ($store->managers->contains($user)) {
                 throw new ConflictHttpException(sprintf("User '%s' is already store manager", $user->username));
             }
@@ -122,5 +104,55 @@ class StoreController extends AbstractRestController
         }
         $this->documentRepository->getDocumentManager()->persist($store);
         $this->documentRepository->getDocumentManager()->flush();
+    }
+
+    /**
+     * @param Store $store
+     * @param Links|Link[] $links
+     * @throws BadRequestHttpException
+     * @throws ConflictHttpException
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function unlinkStoreAction(Store $store, Links $links)
+    {
+        foreach ($links as $link) {
+            $user = $this->validateLink($link);
+            if (!$store->managers->contains($user)) {
+                throw new ConflictHttpException(sprintf("User '%s' is not store manager", $user->username));
+            }
+            $store->managers->removeElement($user);
+        }
+        $this->documentRepository->getDocumentManager()->persist($store);
+        $this->documentRepository->getDocumentManager()->flush();
+    }
+
+    /**
+     * @param Link $link
+     * @return User
+     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     */
+    protected function validateLink(Link $link)
+    {
+        if (User::ROLE_STORE_MANAGER != $link->getRel()) {
+            throw new BadRequestHttpException(
+                sprintf(
+                    'Invalid rel given: %s, only %s is valid',
+                    $link->getRel(),
+                    User::ROLE_STORE_MANAGER
+                )
+            );
+        }
+        if (!$link->getResource() instanceof User) {
+            throw new BadRequestHttpException("Invalid resource given, should be User");
+        }
+        /* @var User $user */
+        $user = $link->getResource();
+        if (!in_array(User::ROLE_STORE_MANAGER, $user->getRoles())) {
+            throw new BadRequestHttpException(
+                sprintf("User '%s' does not have store manager role", $link->getResource()->username)
+            );
+        }
+        return $user;
     }
 }
