@@ -400,6 +400,49 @@ class StoreControllerManagementTest extends WebTestCase
     }
 
     /**
+     * @param string $role
+     * @dataProvider allRolesExceptCommercialManagerProvider
+     */
+    public function testGetStoreManagersPermissionForbidden($role)
+    {
+        $this->clearMongoDb();
+
+        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser3 = $this->createUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
+
+        $storeId1 = $this->createStore('42', '42', '42', false);
+
+        $accessToken = $this->authAsRole($role);
+
+        $this->linkStoreManagers($storeId1, $storeUser1->id);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/managers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(403);
+
+        Assert::assertJsonPathContains('Token does not have the required roles', 'message', $managersJson);
+    }
+
+    /**
+     * @return array
+     */
+    public function allRolesExceptCommercialManagerProvider()
+    {
+        return array(
+            array(User::ROLE_STORE_MANAGER),
+            array(User::ROLE_ADMINISTRATOR),
+            array(User::ROLE_DEPARTMENT_MANAGER),
+        );
+    }
+
+    /**
      * @param string $userId
      * @return string
      */
