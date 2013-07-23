@@ -13,11 +13,15 @@
 
 .store__managers{
     padding-bottom: 30px;
+    width: 300px;
 }
 
 .store__managerList{
     padding-bottom: 10px;
-    width: 50%;
+}
+
+.select_storeManagers{
+    width: 100%;
 }
 
 .store__managerItem{
@@ -25,8 +29,19 @@
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     margin-bottom: -1px;
+    position: relative;
 }
 
-.store__managerItemRemove{
+.store__managerItem:hover{
+    background-color: #fffee2;
+}
+
+.store__managerRemoveLink{
     cursor: pointer;
+    font-size: 20px;
+    vertical-align: middle;
+    float: right;
+    position: relative;
+    top: 50%;
+    margin-top: -1px;
 }

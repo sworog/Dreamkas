@@ -13,22 +13,11 @@ define(function(require) {
             store__managerItem: require('tpl!blocks/store/templates/store__managerItem.html')
         },
         events: {
-            'change #select_storeManagers': function(event) {
-                var block = this,
-                    $select = $(event.target);
-
-                block.storeModel.linkManager($select.val()).done(function(){
-                    var userId = $select.find(':selected').data('user_id'),
-                        userModel = block.storeManagerCandidatesCollection.get(userId);
-
-                    block.storeManagerCandidatesCollection.remove(userModel);
-                    block.storeManagersCollection.add(userModel);
-                });
-            },
-            'click .store__managerItemRemove': function(event) {
+            'click .store__managerRemoveLink': function(event) {
                 var block = this,
                     $link = $(event.target),
-                    userModel = block.storeManagersCollection.get($link.data('user_id'));
+                    userId = $link.data('user_id'),
+                    userModel = block.storeManagersCollection.get(userId);
 
                 block.storeModel.unlinkManager(userModel.url()).done(function(){
                     block.storeManagersCollection.remove(userModel);
@@ -59,6 +48,8 @@ define(function(require) {
 
             block.select_storeManagers = new Select_storeManagers({
                 storeManagerCandidatesCollection: block.storeManagerCandidatesCollection,
+                storeManagersCollection: block.storeManagersCollection,
+                storeModel: block.storeModel,
                 el: document.getElementById('select_storeManagers')
             });
         },
