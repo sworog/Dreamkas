@@ -29,7 +29,6 @@ public class AuthorizationPage extends UserCreatePage {
 
     @Override
     public void createElements() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void authorization(String userName) {
@@ -42,10 +41,8 @@ public class AuthorizationPage extends UserCreatePage {
         find(By.name("password")).type(password);
         String loginButtonXpath = "//*[@class='button button_color_blue']/input";
         findBy(loginButtonXpath).click();
+        checkUser(userName);
         isAuthorized = true;
-        String toolbarUsernameXpath = String.format("//a[@class='topBar__userName' and contains(., '%s')]", userName);
-        waiter.getVisibleWebElement(By.xpath(toolbarUsernameXpath));
-        //preloaderWait();
     }
 
     public void logOut() {
@@ -109,7 +106,6 @@ public class AuthorizationPage extends UserCreatePage {
         try {
             String error404Xpath = getError403Xpath();
             waiter.waitUntilIsNotVisible(By.xpath(error404Xpath));
-
         } catch (Exception e) {
             String errorMessage = "The error 403 is present on the page!";
             throw new AssertionError(errorMessage);

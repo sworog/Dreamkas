@@ -28,6 +28,8 @@ public class DepartmentCardPage extends CommonPageObject {
     }
 
     public WebElement editButton() {
-        return findVisibleElement(By.xpath("//a[contains(text(), 'Редактировать')]"));
+        return findVisibleElement(
+                By.xpath("//a[contains(text(), 'Редактировать')]")
+        );
     }
 }

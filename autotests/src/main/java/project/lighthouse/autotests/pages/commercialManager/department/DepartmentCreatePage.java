@@ -4,11 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Input;
 
 public class DepartmentCreatePage extends CommonPageObject {
-    CommonView commonView = new CommonView(getDriver());
 
     public DepartmentCreatePage(WebDriver driver) {
         super(driver);
@@ -21,6 +19,8 @@ public class DepartmentCreatePage extends CommonPageObject {
     }
 
     public WebElement submitButton() {
-        return findElement(By.cssSelector("input[type=submit]"));
+        return findElement(
+                By.cssSelector("input[type=submit]")
+        );
     }
 }

@@ -44,12 +44,12 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void clickCreateStoreSubmitButton() {
-        storeCreatePage.clickCreateButton();
+        storeCreatePage.createButton().click();
     }
 
     @Step
     public void clickSaveStoreSubmitButton() {
-        storeCreatePage.clickSaveButton();
+        storeCreatePage.saveButton().click();
     }
 
     @Step
