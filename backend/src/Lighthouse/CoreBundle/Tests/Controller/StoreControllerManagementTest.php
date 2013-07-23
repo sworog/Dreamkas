@@ -15,7 +15,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($commUser, 'password');
 
@@ -41,7 +41,7 @@ class StoreControllerManagementTest extends WebTestCase
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($commUser, 'password');
 
@@ -68,7 +68,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $depUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($commUser, 'password');
 
@@ -90,7 +90,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $storeUser0 = $this->createUser('commUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($storeUser0, 'password');
 
@@ -108,7 +108,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($commUser, 'password');
 
@@ -128,7 +128,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($commUser, 'password');
 
@@ -147,7 +147,7 @@ class StoreControllerManagementTest extends WebTestCase
         $this->clearMongoDb();
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($commUser, 'password');
 
@@ -166,7 +166,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($commUser, 'password');
 
@@ -187,7 +187,7 @@ class StoreControllerManagementTest extends WebTestCase
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $groupId = $this->createGroup();
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($commUser, 'password');
 
@@ -207,7 +207,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($commUser, 'password');
 
@@ -231,7 +231,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $accessToken = $this->auth($commUser, 'password');
 
@@ -249,7 +249,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
         $this->linkStoreManagers($storeId, array($storeUser1->id, $storeUser2->id));
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
@@ -268,7 +268,7 @@ class StoreControllerManagementTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $storeId = $this->createStore('42', '42', '42', false);
+        $storeId = $this->createStore();
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $accessToken = $this->auth($commUser, 'password');
@@ -303,7 +303,7 @@ class StoreControllerManagementTest extends WebTestCase
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
         $storeUser3 = $this->createUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
 
-        $storeId1 = $this->createStore('42', '42', '42', false);
+        $storeId1 = $this->createStore('42');
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -344,7 +344,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
 
         //
-        $storeId2 = $this->createStore('43', '43', '43', false);
+        $storeId2 = $this->createStore('43');
 
         $this->linkStoreManagers($storeId2, $storeUser3->id);
 
@@ -411,7 +411,7 @@ class StoreControllerManagementTest extends WebTestCase
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
         $storeUser3 = $this->createUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
 
-        $storeId1 = $this->createStore('42', '42', '42', false);
+        $storeId1 = $this->createStore();
 
         $accessToken = $this->authAsRole($role);
 
@@ -457,7 +457,7 @@ class StoreControllerManagementTest extends WebTestCase
     public function testUnlinkStoreManager()
     {
         $this->clearMongoDb();
-        $storeId1 = $this->createStore('42', '42', '42', false);
+        $storeId1 = $this->createStore();
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
 
@@ -496,7 +496,7 @@ class StoreControllerManagementTest extends WebTestCase
     public function testGetUserStore()
     {
         $this->clearMongoDb();
-        $storeId1 = $this->createStore('42', '42', '42', false);
+        $storeId1 = $this->createStore();
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
 
         $this->linkStoreManagers($storeId1, $storeUser1->id);
@@ -518,7 +518,7 @@ class StoreControllerManagementTest extends WebTestCase
     public function testGetUserStoreNotFound()
     {
         $this->clearMongoDb();
-        $storeId1 = $this->createStore('42', '42', '42', false);
+        $storeId1 = $this->createStore();
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
 
         $accessToken = $this->auth($storeUser1);
@@ -541,7 +541,7 @@ class StoreControllerManagementTest extends WebTestCase
     public function testGetUserStoreForbidden($role)
     {
         $this->clearMongoDb();
-        $storeId1 = $this->createStore('42', '42', '42', false);
+        $storeId1 = $this->createStore();
         $storeUser1 = $this->createUser('user1', 'password', $role);
 
         $accessToken = $this->auth($storeUser1);

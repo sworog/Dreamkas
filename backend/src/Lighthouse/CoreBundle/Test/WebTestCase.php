@@ -568,7 +568,7 @@ class WebTestCase extends BaseTestCase
         $number = 'номер_42',
         $address = 'адрес 42',
         $contacts = 'телефон 42',
-        $ifNotExists = true
+        $ifNotExists = false
     ) {
         $storeData = array(
             'number' => $number,
