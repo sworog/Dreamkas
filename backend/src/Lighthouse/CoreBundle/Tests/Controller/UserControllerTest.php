@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
@@ -490,6 +491,37 @@ class UserControllerTest extends WebTestCase
                 }
             }
         }
+    }
+
+    /**
+     * @dataProvider getUsersActionPermissionDeniedProvider
+     */
+    public function testGetUsersActionPermissionDenied($role)
+    {
+        $this->clearMongoDb();
+
+        $this->createUser('user1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $this->createUser('user2', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->createUser('user3', 'password', User::ROLE_STORE_MANAGER);
+        $this->createUser('user4', 'password', User::ROLE_ADMINISTRATOR);
+
+        $accessToken = $this->authAsRole($role);
+
+        $this->clientJsonRequest($accessToken, 'GET', '/api/1/users');
+
+        $this->assertResponseCode(403);
+    }
+
+    /**
+     * @return array
+     */
+    public function getUsersActionPermissionDeniedProvider()
+    {
+        return array(
+            array(User::ROLE_COMMERCIAL_MANAGER),
+            array(User::ROLE_STORE_MANAGER),
+            array(User::ROLE_DEPARTMENT_MANAGER),
+        );
     }
 
     /**
