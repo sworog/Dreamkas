@@ -442,6 +442,18 @@ class StoreControllerManagementTest extends WebTestCase
         );
     }
 
+    /**
+     * @return array
+     */
+    public function allRolesExceptStoreManagerProvider()
+    {
+        return array(
+            array(User::ROLE_COMMERCIAL_MANAGER),
+            array(User::ROLE_ADMINISTRATOR),
+            array(User::ROLE_DEPARTMENT_MANAGER),
+        );
+    }
+
     public function testUnlinkStoreManager()
     {
         $this->clearMongoDb();
@@ -479,6 +491,70 @@ class StoreControllerManagementTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(0, '*', $managersJson);
+    }
+
+    public function testGetUserStore()
+    {
+        $this->clearMongoDb();
+        $storeId1 = $this->createStore('42', '42', '42', false);
+        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+
+        $this->linkStoreManagers($storeId1, $storeUser1->id);
+
+        $accessToken = $this->auth($storeUser1);
+
+        $storesResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/users/' . $storeUser1->id . '/stores'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $storesResponse);
+        Assert::assertJsonPathEquals($storeId1, '*.id', $storesResponse);
+    }
+
+    public function testGetUserStoreNotFound()
+    {
+        $this->clearMongoDb();
+        $storeId1 = $this->createStore('42', '42', '42', false);
+        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+
+        $accessToken = $this->auth($storeUser1);
+
+        $storesResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/users/' . $storeUser1->id . '/stores'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '*', $storesResponse);
+    }
+
+    /**
+     * @param string $role
+     * @dataProvider allRolesExceptStoreManagerProvider
+     */
+    public function testGetUserStoreForbidden($role)
+    {
+        $this->clearMongoDb();
+        $storeId1 = $this->createStore('42', '42', '42', false);
+        $storeUser1 = $this->createUser('user1', 'password', $role);
+
+        $accessToken = $this->auth($storeUser1);
+
+        $storesResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/users/' . $storeUser1->id . '/stores'
+        );
+
+        $this->assertResponseCode(403);
+
+        Assert::assertJsonPathContains('Token does not have the required roles', 'message', $storesResponse);
     }
 
     /**

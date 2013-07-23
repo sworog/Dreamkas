@@ -155,4 +155,16 @@ class StoreController extends AbstractRestController
         }
         return $user;
     }
+
+    /**
+     * @param User $user
+     * @return StoreCollection|Store[]
+     * @Secure(roles="ROLE_STORE_MANAGER")
+     * @ApiDoc
+     */
+    public function getUserStoresAction(User $user)
+    {
+        $cursor = $this->documentRepository->findByManagers($user->id);
+        return new StoreCollection($cursor);
+    }
 }
