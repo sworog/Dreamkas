@@ -44,7 +44,7 @@ public class CommonActions extends PageObject {
         try {
             $(waiter.getVisibleWebElement(findBy)).type(inputText);
         } catch (Exception e) {
-            if (isSkippableException(e, false)) {
+            if (isSkippableException(e)) {
                 type(findBy, inputText);
             } else {
                 throw e;
