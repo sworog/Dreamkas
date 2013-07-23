@@ -401,7 +401,7 @@ And the user inputs '789,6' in 'purchasePrice' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
-And the user checks the product with 'FTY64' sku has 'purchasePrice' equal to '789,6'
+Then the user checks the product with 'FTY64' sku has 'purchasePrice' equal to '789,6'
 When the user logs out
 
 Scenario: Purchase price validation two digits
