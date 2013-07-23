@@ -2,26 +2,31 @@ define(function(require) {
     //requirements
     var Page = require('kit/page'),
         Department = require('blocks/department/department'),
-        StoreModel = require('models/store');
+        getUserStore = require('utils/getUserStore'),
+        StoreModel = require('models/store'),
+        Page403 = require('pages/403/403');
 
     return Page.extend({
         pageName: 'page_department_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },
-        permissions: {
-            departments: 'GET::{department}'
-        },
         initialize: function(storeId, departmentId) {
-            var page = this;
+            var page = this,
+                userStoreModel = getUserStore(storeId);
+
+            if (!(LH.isAllow('departments', 'GET::{department}') || userStoreModel)){
+                new Page403();
+                return;
+            }
 
             page.departmentId = departmentId;
 
-            page.storeModel = new StoreModel({
+            page.storeModel = userStoreModel || new StoreModel({
                 id: storeId
             });
 
-            $.when(page.storeModel.fetch()).then(function(){
+            $.when(userStoreModel || page.storeModel.fetch()).then(function(){
 
                 page.departmentModel = page.storeModel.departments.get(departmentId);
 

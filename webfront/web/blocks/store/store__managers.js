@@ -14,12 +14,17 @@ define(function(require) {
         },
         events: {
             'click .store__managerRemoveLink': function(event) {
+                event.stopPropagation();
                 var block = this,
                     $link = $(event.target),
+                    $item = $link.closest('.store__managerItem'),
                     userId = $link.data('user_id'),
                     userModel = block.storeManagersCollection.get(userId);
 
+                $item.addClass('preloader_rows');
+
                 block.storeModel.unlinkManager(userModel.url()).done(function(){
+                    $item.removeClass('preloader_rows');
                     block.storeManagersCollection.remove(userModel);
                     block.storeManagerCandidatesCollection.add(userModel);
                 });

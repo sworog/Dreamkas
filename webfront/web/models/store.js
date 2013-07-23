@@ -1,12 +1,14 @@
 define(function(require) {
         //requirements
-        var Model = require('kit/model');
+        var Model = require('kit/model'),
+            cookie = require('utils/cookie');
 
         return Model.extend({
             modelName: 'store',
             urlRoot: LH.baseApiUrl + '/stores',
             initData: {
-                departments: require('collections/departments')
+                departments: require('collections/departments'),
+                managers: require('collections/storeManagers')
             },
             saveFields: [
                 'number',
@@ -19,7 +21,8 @@ define(function(require) {
                     dataType: 'json',
                     type: 'LINK',
                     headers: {
-                        Link: '<' + userUrl + '>; rel="manager"'
+                        Link: '<' + userUrl + '>; rel="ROLE_STORE_MANAGER"',
+                        Authorization: 'Bearer ' + cookie.get('token')
                     }
                 })
             },
@@ -29,7 +32,8 @@ define(function(require) {
                     dataType: 'json',
                     type: 'UNLINK',
                     headers: {
-                        Unlink: '<' + userUrl + '>; rel="manager"'
+                        Link: '<' + userUrl + '>; rel="ROLE_STORE_MANAGER"',
+                        Authorization: 'Bearer ' + cookie.get('token')
                     }
                 })
             }

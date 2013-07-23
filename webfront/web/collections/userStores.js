@@ -6,7 +6,7 @@ define(function(require) {
     return Collection.extend({
         model: StoreModel,
         url: function(){
-            return '/fixtures/userStores.json'; //'/users/' + this.userId + '/stores'
+            return LH.baseApiUrl + '/users/' + this.userId + '/stores';
         },
         initialize: function(models, options){
             this.userId = options.userId;

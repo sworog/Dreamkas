@@ -15,7 +15,7 @@ define(function(require) {
             }
         }));
 
-        syncing.fail(function(res){
+        syncing.fail(function(res) {
             switch (res.status) {
                 case 401:
                     if (isAppStarted) {
@@ -29,7 +29,6 @@ define(function(require) {
     };
 
     var loading = currentUserModel.fetch(),
-        router = new Backbone.Router(),
         routers;
 
     $(function() {
@@ -52,15 +51,17 @@ define(function(require) {
     });
 
     loading.always(function() {
+
+        if (currentUserModel.stores && currentUserModel.stores.length) {
+            window.history.replaceState({}, document.title, '/stores/' + currentUserModel.stores.at(0).id);
+        }
+
         require([routers], function() {
+
             Backbone.history.start({
                 pushState: true
             });
-            if (currentUserModel.stores && currentUserModel.stores.length){
-                router.navigate('/stores/' + currentUserModel.stores.at(0).id, {
-                    trigger: true
-                });
-            }
+
             isAppStarted = true;
         });
     });

@@ -2,41 +2,49 @@ define(function (require) {
     //requirements
     var Page = require('kit/page'),
         Store = require('blocks/store/store'),
+        getUserStore = require('utils/getUserStore'),
         StoreManagerCandidatesCollection = require('collections/storeManagerCandidates'),
         StoreManagersCollection = require('collections/storeManagers'),
-        StoreModel = require('models/store');
+        StoreModel = require('models/store'),
+        Page403 = require('pages/403/403');
 
     return Page.extend({
         pageName: 'page_store_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },
-        permissions: {
-            stores: 'GET::{store}'
-        },
         initialize: function (storeId) {
-            var page = this;
+            var page = this,
+                userStoreModel = getUserStore(storeId);
+
+            if (!(LH.isAllow('stores', 'GET::{store}') || userStoreModel)){
+                new Page403();
+                return;
+            }
 
             page.storeId = storeId;
 
-            page.storeModel = new StoreModel({
+            page.storeModel = userStoreModel || new StoreModel({
                 id: storeId
             });
 
             page.storeManagerCandidatesCollection = new StoreManagerCandidatesCollection([], {
                 storeId: storeId
             });
+
             page.storeManagersCollection = new StoreManagersCollection([], {
                 storeId: storeId
             });
 
-            $.when(page.storeModel.fetch(), page.storeManagerCandidatesCollection.fetch(), page.storeManagersCollection.fetch()).then(function () {
+            $.when(userStoreModel || page.storeModel.fetch(), LH.isAllow('GET::{store}/managers') ? page.storeManagerCandidatesCollection.fetch() : {}).then(function () {
                 page.render();
+
+                console.log(page.storeModel);
 
                 new Store({
                     storeModel: page.storeModel,
                     storeManagerCandidatesCollection: page.storeManagerCandidatesCollection,
-                    storeManagersCollection: page.storeManagersCollection,
+                    storeManagersCollection: page.storeModel.managers,
                     el: document.getElementById('store')
                 });
             });

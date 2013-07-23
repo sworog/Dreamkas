@@ -16,7 +16,10 @@ define(function(require) {
                     userId = block.$el.find(':selected').data('user_id'),
                     userModel = block.storeManagerCandidatesCollection.get(userId);
 
+                block.$el.addClass('preloader_rows');
+
                 block.storeModel.linkManager(block.$el.val()).done(function(){
+                    block.$el.removeClass('preloader_rows');
                     block.storeManagerCandidatesCollection.remove(userModel);
                     block.storeManagersCollection.add(userModel);
                 });
@@ -41,6 +44,15 @@ define(function(require) {
                     block.$el.prop('selectedIndex',0);
                     block.$el.show();
                 }
+            }
+        },
+        initialize: function(){
+            var block = this;
+
+            Select.prototype.initialize.apply(block, arguments);
+
+            if (!block.storeManagerCandidatesCollection.length){
+                block.$el.hide();
             }
         }
     });
