@@ -47,17 +47,16 @@ define(function(require) {
                     this.renderRetailPriceLink();
                 }
             },
-            redirectUrl: function(){
-                var block = this,
-                    redirectUrl;
+            initialize: function(){
+                var block = this;
+
+                Form.prototype.initialize.apply(block, arguments);
 
                 if (block.model.id){
-                    redirectUrl = '/products/' + block.model.id
+                    block.redirectUrl = '/products/' + block.model.id
                 } else {
-                    redirectUrl = '/catalog/' + block.model.get('group').id + '/' + block.model.get('category').id + '/' + block.model.get('subCategory').id
+                    block.redirectUrl = '/catalog/' + block.model.get('group').id + '/' + block.model.get('category').id + '/' + block.model.get('subCategory').id
                 }
-
-                return redirectUrl;
             },
             findElements: function(){
                 var block = this;
