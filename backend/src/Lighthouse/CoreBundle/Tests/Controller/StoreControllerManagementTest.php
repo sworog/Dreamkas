@@ -243,6 +243,56 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathContains("object not found", 'message', $linkResponse);
     }
 
+    public function testGetStoreManagers()
+    {
+        $this->clearMongoDb();
+
+        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->createStore('42', '42', '42', false);
+        $this->linkStoreManagers($storeId, array($storeUser1->id, $storeUser2->id));
+
+        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->auth($commUser, 'password');
+
+        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId . '/managers');
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, 1);
+    }
+
+    public function testGetStoreManagersEmptyList()
+    {
+        $this->clearMongoDb();
+
+        $storeId = $this->createStore('42', '42', '42', false);
+
+        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->auth($commUser, 'password');
+
+        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId . '/managers');
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '*.id', $managersJson);
+    }
+
+    public function testGetStoreManagersNotFoundStore()
+    {
+        $this->clearMongoDb();
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notfoundstore/managers');
+
+        $this->assertResponseCode(404);
+
+        Assert::assertJsonPathContains('object not found', 'message', $managersJson);
+    }
+
     /**
      * @param string $userId
      * @return string

@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Controller;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Form\StoreType;
 use Lighthouse\CoreBundle\Request\ParamConverter\Link;
 use Lighthouse\CoreBundle\Request\ParamConverter\Links;
@@ -122,5 +123,16 @@ class StoreController extends AbstractRestController
         }
         $this->documentRepository->getDocumentManager()->persist($store);
         $this->documentRepository->getDocumentManager()->flush();
+    }
+
+    /**
+     * @param Store $store
+     * @return UserCollection
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getStoreManagersAction(Store $store)
+    {
+        return new UserCollection($store->managers);
     }
 }

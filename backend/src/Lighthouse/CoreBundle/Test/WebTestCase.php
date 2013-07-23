@@ -662,6 +662,27 @@ class WebTestCase extends BaseTestCase
     }
 
     /**
+     * @param string $storeId
+     * @param string|array $userIds
+     */
+    public function linkStoreManagers($storeId, $userIds)
+    {
+        $userIds = (array) $userIds;
+
+        $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
+        foreach ($userIds as $userId) {
+            $request->addLinkHeader('http://localhost/api/1/users/' . $userId, User::ROLE_STORE_MANAGER);
+        }
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $this->jsonRequest($request, $accessToken);
+
+        $this->assertResponseCode(204);
+    }
+
+
+
+    /**
      * @param string $secret
      * @return AuthClient
      */
