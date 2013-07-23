@@ -10,6 +10,7 @@ Meta:
 @us 4
 
 Scenario: Creating new product 1
+
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 When the user inputs 'Наименование1' in 'name' field
@@ -26,6 +27,7 @@ Then the user checks the product with '1122' sku is present
 When the user logs out
 
 Scenario: Creating new product 2
+
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 When the user inputs 'Наименование2' in 'name' field
@@ -42,6 +44,7 @@ Then the user checks the product with '9856' sku is present
 When the user logs out
 
 Scenario: Creating new product 3
+
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 When the user inputs 'Наименование3' in 'name' field

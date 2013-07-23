@@ -10,6 +10,7 @@ Meta:
 @us 2.1
 
 Scenario: Creating new product from product list
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page

@@ -10,6 +10,7 @@ Meta:
 @us 8.1
 
 Scenario: Invoice Create
+
 Given the user is on the invoice create page
 And the user logs in as 'departmentManager'
 When the user inputs '123456' in the invoice 'sku' field

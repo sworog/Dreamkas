@@ -11,6 +11,7 @@ Meta:
 @us 4.1
 
 Scenario: Create product validation - Name field length validation
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -25,6 +26,7 @@ And the user checks the product with 'NFLV-879' sku is present
 When the user logs out
 
 Scenario: Create product validation - Name field length validation negative
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -41,6 +43,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Name field length validation negative 2
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -57,6 +60,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Name field is required
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -71,6 +75,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Unit fiels is required
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -85,6 +90,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Vat field is required
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -99,6 +105,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Barcode field length validation
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -114,6 +121,7 @@ And the user checks the product with 'FTY6456789' sku is present
 When the user logs out
 
 Scenario: Create product validation - Barcode field length validation negative
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -131,6 +139,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Sku field validation good
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -153,6 +162,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Sku field negative
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -165,6 +175,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Sku field is required
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -179,6 +190,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Vendor,Barcode,VendorCountryInfo fields are not required
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -194,6 +206,7 @@ When the user logs out
 
 
 Scenario: Create product validation - Vendor field validation
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -209,6 +222,7 @@ And the user checks the product with 'VFV-01' sku is present
 When the user logs out
 
 Scenario: Create product validation - Vendor field validation lenght negative
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -227,6 +241,7 @@ When the user logs out
 
 
 Scenario: Create product validation - VendorCountry field validation
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -242,6 +257,7 @@ And the user checks the product with 'VCFV-01' sku is present
 When the user logs out
 
 Scenario: Create product validation - VendorCountry field validation lenght negative
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -259,6 +275,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Info field validation
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -274,6 +291,7 @@ And the user checks the product with 'IFV-01' sku is present
 When the user logs out
 
 Scenario: Create product validation - Info field validation lenght negative
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -291,6 +309,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Mixing 1
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -305,6 +324,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Mixing 2
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -321,6 +341,7 @@ When the user logs out
 
 
 Scenario: Create product validation - Purchase price validation String+Symbols+Num
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -336,6 +357,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation commma
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -350,6 +372,7 @@ Then the user checks the product with 'PPV-07' sku has 'purchasePrice' equal to 
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation dott
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -364,6 +387,7 @@ Then the user checks the product with 'PPV-08' sku has 'purchasePrice' equal to 
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation comma
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -378,6 +402,7 @@ Then the user checks the product with 'JFGE89075' sku has 'purchasePrice' equal 
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation dot
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -392,6 +417,7 @@ Then the user checks the product with 'JFGE89078' sku has 'purchasePrice' equal 
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation one digit
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -405,6 +431,7 @@ Then the user checks the product with 'FTY64' sku has 'purchasePrice' equal to '
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation two digits
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -418,6 +445,7 @@ Then the user checks the product with 'FTY645' sku has 'purchasePrice' equal to 
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation three digits
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -434,6 +462,7 @@ When the user logs out
 
 
 Scenario: Create product validation - Purchase price field is required
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -448,6 +477,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation sub zero
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -463,6 +493,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Purhase prise validation zero
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -478,6 +509,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation String en
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -493,6 +525,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation String rus
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -508,6 +541,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation symbols
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -523,6 +557,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation length good
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -536,6 +571,7 @@ Then the user checks the product with 'PPV-090' sku has 'purchasePrice' equal to
 When the user logs out
 
 Scenario: Create product validation - Purchase price validation length negative
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -551,6 +587,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Create product validation - Bugs fixing checking about price 10.12
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page

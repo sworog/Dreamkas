@@ -19,7 +19,7 @@ public class ProductListPage extends ProductCreatePage {
     }
 
     public void createNewProductButtonClick() {
-        findElement(By.cssSelector("a.catalogCategory__addProductLink")).click();
+        findVisibleElement(By.cssSelector("a.catalogCategory__addProductLink")).click();
     }
 
     public void listItemClick(String skuValue) {

@@ -10,6 +10,7 @@ Meta:
 @us 9
 
 Scenario: Invoice browsing verification
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page

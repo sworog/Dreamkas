@@ -10,6 +10,7 @@ Meta:
 @us 2
 
 Scenario: Viewing product card after creation 1
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -38,6 +39,7 @@ When the user logs out
 
 
 Scenario: Viewing product card after creation 2
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -65,6 +67,7 @@ And the user checks the 'info' value is 'Доп инфо: Тестовые су�
 When the user logs out
 
 Scenario: Viewing product card after creation 3
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
