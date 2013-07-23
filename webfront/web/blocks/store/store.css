@@ -13,7 +13,7 @@
 
 .store__managers{
     padding-bottom: 30px;
-    width: 300px;
+    width: 50%;
 }
 
 .store__managerList{
@@ -21,7 +21,7 @@
 }
 
 .select_storeManagers{
-    width: 100%;
+    width: 50%;
 }
 
 .store__managerItem{
