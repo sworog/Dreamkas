@@ -5,9 +5,9 @@ define(function(require) {
     return Collection.extend({
         model: require('models/user'),
         url: function(){
-            return '/stores/' + this.storeId + '/managers';
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/managers';
         },
-        initialize: function([], options){
+        initialize: function(models, options){
             this.storeId = options.storeId;
         }
     });

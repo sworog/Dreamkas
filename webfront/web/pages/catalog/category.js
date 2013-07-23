@@ -25,6 +25,10 @@ define(function(require) {
                 }, params)
             }
 
+            if (page.referer && page.referer.pageName === 'page_product_form'){
+                pageParams.editMode = true;
+            }
+
             if (!LH.isAllow('groups', 'POST')) {
                 pageParams.editMode = false;
             }

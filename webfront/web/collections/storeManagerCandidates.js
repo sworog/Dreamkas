@@ -6,9 +6,9 @@ define(function(require) {
         model: require('models/user'),
         comparator: 'name',
         url: function(){
-            return '/stores/' + this.storeId + '/managers?candidates=1';
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/managers?candidates=1';
         },
-        initialize: function([], options){
+        initialize: function(models, options){
             this.storeId = options.storeId;
         }
     });
