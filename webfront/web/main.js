@@ -23,6 +23,7 @@ require(
             'backbone.syphon': ['backbone'],
 
             'jquery-ui': ['jquery'],
+            'jquery.require': ['jquery'],
             'jquery.maskedinput': ['jquery'],
             'libs/lhAutocomplete': ['jquery-ui']
         },

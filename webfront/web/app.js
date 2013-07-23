@@ -10,20 +10,23 @@ define(function(require) {
         isAppStarted = false;
 
     Backbone.sync = function(method, model, options) {
-        return sync.call(this, method, model, _.extend({}, options, {
+        var syncing = sync.call(this, method, model, _.extend({}, options, {
             headers: {
                 Authorization: 'Bearer ' + cookie.get('token')
-            },
-            error: function(res) {
-                switch (res.status) {
-                    case 401:
-                        if (isAppStarted) {
-                            document.location.reload();
-                        }
-                        break;
-                }
             }
         }));
+
+        syncing.fail(function(res){
+            switch (res.status) {
+                case 401:
+                    if (isAppStarted) {
+                        document.location.reload();
+                    }
+                    break;
+            }
+        });
+
+        return syncing;
     };
 
     var loading = $.when(currentUserModel.fetch(), userPermissionsModel.fetch()),
