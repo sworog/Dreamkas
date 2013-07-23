@@ -90,6 +90,8 @@ class StoreController extends AbstractRestController
     /**
      * @param Store $store
      * @param Links|Link[] $links
+     * @throws BadRequestHttpException
+     * @throws ConflictHttpException
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -110,7 +112,7 @@ class StoreController extends AbstractRestController
             }
             /* @var User $user */
             $user = $link->getResource();
-            if (!$user->hasRole(User::ROLE_STORE_MANAGER)) {
+            if (!in_array(User::ROLE_STORE_MANAGER, $user->getRoles())) {
                 throw new BadRequestHttpException(
                     sprintf("User '%s' does not have store manager role", $link->getResource()->username)
                 );
