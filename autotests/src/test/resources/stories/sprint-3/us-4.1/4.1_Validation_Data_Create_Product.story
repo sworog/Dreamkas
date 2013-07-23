@@ -10,7 +10,7 @@ Meta:
 @sprint 3
 @us 4.1
 
-Scenario: Name field length validation
+Scenario: Create product validation - Name field length validation
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -24,7 +24,7 @@ Then the user sees no error messages
 And the user checks the product with 'NFLV-879' sku is present
 When the user logs out
 
-Scenario: Name field length validation negative
+Scenario: Create product validation - Name field length validation negative
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -40,7 +40,7 @@ Then the user sees error messages
 | Не более 300 символов |
 When the user logs out
 
-Scenario: Name field length validation negative 2
+Scenario: Create product validation - Name field length validation negative 2
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -56,7 +56,7 @@ Then the user sees error messages
 | Не более 300 символов |
 When the user logs out
 
-Scenario: Name field is required
+Scenario: Create product validation - Name field is required
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -70,7 +70,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: Unit fiels is required
+Scenario: Create product validation - Unit fiels is required
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -84,7 +84,7 @@ Then the user sees error messages
 | Выберите единицу измерения |
 When the user logs out
 
-Scenario: Vat field is required
+Scenario: Create product validation - Vat field is required
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -98,7 +98,7 @@ Then the user sees error messages
 | Выберите ставку НДС |
 When the user logs out
 
-Scenario: Barcode field length validation
+Scenario: Create product validation - Barcode field length validation
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -113,7 +113,7 @@ Then the user sees no error messages
 And the user checks the product with 'FTY6456789' sku is present
 When the user logs out
 
-Scenario: Barcode field length validation negative
+Scenario: Create product validation - Barcode field length validation negative
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -130,7 +130,7 @@ Then the user sees error messages
 | Не более 200 символов |
 When the user logs out
 
-Scenario: Sku field validation good
+Scenario: Create product validation - Sku field validation good
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -152,7 +152,7 @@ Then the user sees error messages
 | Такой артикул уже есть |
 When the user logs out
 
-Scenario: Sku field negative
+Scenario: Create product validation - Sku field negative
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -164,7 +164,7 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user logs out
 
-Scenario: Sku field is required
+Scenario: Create product validation - Sku field is required
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -178,7 +178,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: Vendor,Barcode,VendorCountryInfo fields are not required
+Scenario: Create product validation - Vendor,Barcode,VendorCountryInfo fields are not required
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -193,7 +193,7 @@ And the user checks the product with 'VBVCF678' sku is present
 When the user logs out
 
 
-Scenario: Vendor field validation
+Scenario: Create product validation - Vendor field validation
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -208,7 +208,7 @@ Then the user sees no error messages
 And the user checks the product with 'VFV-01' sku is present
 When the user logs out
 
-Scenario: Vendor field validation lenght negative
+Scenario: Create product validation - Vendor field validation lenght negative
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -226,7 +226,7 @@ Then the user sees error messages
 When the user logs out
 
 
-Scenario: VendorCountry field validation
+Scenario: Create product validation - VendorCountry field validation
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -241,7 +241,7 @@ Then the user sees no error messages
 And the user checks the product with 'VCFV-01' sku is present
 When the user logs out
 
-Scenario: VendorCountry field validation lenght negative
+Scenario: Create product validation - VendorCountry field validation lenght negative
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -258,7 +258,7 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user logs out
 
-Scenario: Info field validation
+Scenario: Create product validation - Info field validation
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -273,7 +273,7 @@ Then the user sees no error messages
 And the user checks the product with 'IFV-01' sku is present
 When the user logs out
 
-Scenario: Info field validation lenght negative
+Scenario: Create product validation - Info field validation lenght negative
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -290,7 +290,7 @@ Then the user sees error messages
 | Не более 2000 символов |
 When the user logs out
 
-Scenario: Mixing 1
+Scenario: Create product validation - Mixing 1
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -304,7 +304,7 @@ Then the user sees error messages
 | Выберите ставку НДС |
 When the user logs out
 
-Scenario: Mixing 2
+Scenario: Create product validation - Mixing 2
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -320,7 +320,7 @@ Then the user sees error messages
 When the user logs out
 
 
-Scenario: Purchase price validation String+Symbols+Num
+Scenario: Create product validation - Purchase price validation String+Symbols+Num
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -335,7 +335,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purchase price validation commma
+Scenario: Create product validation - Purchase price validation commma
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -349,7 +349,7 @@ Then the user sees no error messages
 Then the user checks the product with 'PPV-07' sku has 'purchasePrice' equal to '0,78'
 When the user logs out
 
-Scenario: Purchase price validation dott
+Scenario: Create product validation - Purchase price validation dott
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -363,7 +363,7 @@ Then the user sees no error messages
 Then the user checks the product with 'PPV-08' sku has 'purchasePrice' equal to '0,78'
 When the user logs out
 
-Scenario: Purchase price validation comma
+Scenario: Create product validation - Purchase price validation comma
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -377,7 +377,7 @@ Then the user sees no error messages
 Then the user checks the product with 'JFGE89075' sku has 'purchasePrice' equal to '123,25'
 When the user logs out
 
-Scenario: Purchase price validation dot
+Scenario: Create product validation - Purchase price validation dot
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -391,7 +391,7 @@ Then the user sees no error messages
 Then the user checks the product with 'JFGE89078' sku has 'purchasePrice' equal to '125,26'
 When the user logs out
 
-Scenario: Purchase price validation one digit
+Scenario: Create product validation - Purchase price validation one digit
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -404,7 +404,7 @@ And the user clicks the create button
 Then the user checks the product with 'FTY64' sku has 'purchasePrice' equal to '789,6'
 When the user logs out
 
-Scenario: Purchase price validation two digits
+Scenario: Create product validation - Purchase price validation two digits
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -417,7 +417,7 @@ And the user clicks the create button
 Then the user checks the product with 'FTY645' sku has 'purchasePrice' equal to '739,67'
 When the user logs out
 
-Scenario: Purchase price validation three digits
+Scenario: Create product validation - Purchase price validation three digits
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -433,7 +433,7 @@ Then the user sees error messages
 When the user logs out
 
 
-Scenario: Purchase price field is required
+Scenario: Create product validation - Purchase price field is required
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -447,7 +447,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: Purchase price validation sub zero
+Scenario: Create product validation - Purchase price validation sub zero
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -462,7 +462,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purhase prise validation zero
+Scenario: Create product validation - Purhase prise validation zero
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -477,7 +477,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purchase price validation String en
+Scenario: Create product validation - Purchase price validation String en
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -492,7 +492,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purchase price validation String rus
+Scenario: Create product validation - Purchase price validation String rus
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -507,7 +507,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purchase price validation symbols
+Scenario: Create product validation - Purchase price validation symbols
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -522,7 +522,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purchase price validation length good
+Scenario: Create product validation - Purchase price validation length good
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -535,7 +535,7 @@ And the user clicks the create button
 Then the user checks the product with 'PPV-090' sku has 'purchasePrice' equal to '10000000'
 When the user logs out
 
-Scenario: Purchase price validation length negative
+Scenario: Create product validation - Purchase price validation length negative
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -550,7 +550,7 @@ Then the user sees error messages
 | Цена не должна быть больше 10000000 |
 When the user logs out
 
-Scenario: Bugs fixing checking about price 10.12
+Scenario: Create product validation - Bugs fixing checking about price 10.12
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page

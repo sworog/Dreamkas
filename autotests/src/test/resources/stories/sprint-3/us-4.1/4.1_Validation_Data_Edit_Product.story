@@ -2,7 +2,7 @@ Meta:
 @sprint 3
 @us 4.1
 
-Scenario: Name field length validation
+Scenario: Edit product validation - Name field length validation
 Given there is created product with sku 'ED-NMLV'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -19,7 +19,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPNFLV-879' sku is present
 When the user logs out
 
-Scenario: Name field length validation negative
+Scenario: Edit product validation - Name field length validation negative
 Given there is created product with sku 'ED-NMLVN'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -37,7 +37,7 @@ Then the user sees error messages
 | Не более 300 символов |
 When the user logs out
 
-Scenario: Name field length validation negative 2
+Scenario: Edit product validation - Name field length validation negative 2
 Given there is created product with sku 'ED-NMLVN2'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -55,7 +55,7 @@ Then the user sees error messages
 | Не более 300 символов |
 When the user logs out
 
-Scenario: Name field is required
+Scenario: Edit product validation - Name field is required
 Given there is created product with sku 'ED-NFIR'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -73,7 +73,7 @@ Then the user sees error messages
 When the user logs out
 
 
-Scenario: Barcode field length validation
+Scenario: Edit product validation - Barcode field length validation
 Given there is created product with sku 'ED-BFLV'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -91,7 +91,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPFTY6456789' sku is present
 When the user logs out
 
-Scenario: Barcode field length validation negative
+Scenario: Edit product validation - Barcode field length validation negative
 Given there is created product with sku 'ED-BFLVN'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -111,7 +111,7 @@ Then the user sees error messages
 When the user logs out
 
 
-Scenario: Sku field validation good
+Scenario: Edit product validation - Sku field validation good
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -136,7 +136,7 @@ Then the user sees error messages
 | Такой артикул уже есть |
 When the user logs out
 
-Scenario: Sku field negative
+Scenario: Edit product validation - Sku field negative
 Given there is created product with sku 'ED-SFN'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -150,7 +150,7 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user logs out
 
-Scenario: Sku field is required
+Scenario: Edit product validation - Sku field is required
 Given there is created product with sku 'ED-SFIR'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -168,7 +168,7 @@ Then the user sees error messages
 When the user logs out
 
 
-Scenario: Vendor,Barcode,VendorCountryInfo fields are not required
+Scenario: Edit product validation - Vendor,Barcode,VendorCountryInfo fields are not required
 Given there is created product with sku 'ED-VBVCF'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -186,7 +186,7 @@ Then the user checks the product with 'EPVBVCF678' sku is present
 When the user logs out
 
 
-Scenario: Vendor field validation
+Scenario: Edit product validation - Vendor field validation
 Given there is created product with sku 'ED-VFV'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -204,7 +204,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPVFV-01' sku is present
 When the user logs out
 
-Scenario: Vendor field validation lenght negative
+Scenario: Edit product validation - Vendor field validation lenght negative
 Given there is created product with sku 'ED-VFVLN'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -224,7 +224,7 @@ Then the user sees error messages
 When the user logs out
 
 
-Scenario: VendorCountry field validation
+Scenario: Edit product validation - VendorCountry field validation
 Given there is created product with sku 'ED-VCFV'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -242,7 +242,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPVCFV-01' sku is present
 When the user logs out
 
-Scenario: VendorCountry field validation lenght negative
+Scenario: Edit product validation - VendorCountry field validation lenght negative
 Given there is created product with sku 'ED-VCFVN'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -261,7 +261,7 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user logs out
 
-Scenario: Info field validation
+Scenario: Edit product validation - Info field validation
 Given there is created product with sku 'ED-IFV'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -279,7 +279,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPIFV-01' sku is present
 When the user logs out
 
-Scenario: Info field validation lenght negative
+Scenario: Edit product validation - Info field validation lenght negative
 Given there is created product with sku 'ED-IFVN'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -299,7 +299,7 @@ Then the user sees error messages
 When the user logs out
 
 
-Scenario: Purchase price validation String+Symbols+Num
+Scenario: Edit product validation - Purchase price validation String+Symbols+Num
 Given there is created product with sku 'ED-PRVSSN'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -316,7 +316,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purchase price validation commma
+Scenario: Edit product validation - Purchase price validation commma
 Given there is created product with sku 'ED-PPVC'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -333,7 +333,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPPPV-07' sku has 'purchasePrice' equal to '0,78'
 When the user logs out
 
-Scenario: Purchase price validation dott
+Scenario: Edit product validation - Purchase price validation dott
 Given there is created product with sku 'ED-PPVD'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -350,7 +350,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPPPV-08' sku has 'purchasePrice' equal to '0,78'
 When the user logs out
 
-Scenario: Purchase price validation comma
+Scenario: Edit product validation - Purchase price validation comma
 Given there is created product with sku 'ED-PPVCC'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -367,7 +367,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPJFGE89075' sku has 'purchasePrice' equal to '123,25'
 When the user logs out
 
-Scenario: Purchase price validation dot
+Scenario: Edit product validation - Purchase price validation dot
 Given there is created product with sku 'ED-PPVDD'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -384,7 +384,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPJFGE89078' sku has 'purchasePrice' equal to '125,26'
 When the user logs out
 
-Scenario: Purchase price validation one digit
+Scenario: Edit product validation - Purchase price validation one digit
 Given there is created product with sku 'ED-PPCOD'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -401,7 +401,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPFTY64' sku has 'purchasePrice' equal to '789,6'
 When the user logs out
 
-Scenario: Purchase price validation two digits
+Scenario: Edit product validation - Purchase price validation two digits
 Given there is created product with sku 'ED-PPCTD'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -418,7 +418,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPFTY645' sku has 'purchasePrice' equal to '739,67'
 When the user logs out
 
-Scenario: Purchase price validation three digits
+Scenario: Edit product validation - Purchase price validation three digits
 Given there is created product with sku 'ED-PPC3D'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -435,7 +435,7 @@ Then the user sees error messages
 | Цена не должна содержать больше 2 цифр после запятой. |
 When the user logs out
 
-Scenario: Purchase price field is required
+Scenario: Edit product validation - Purchase price field is required
 Given there is created product with sku 'ED-PPFIR'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -452,7 +452,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: Purchase price validation sub zero
+Scenario: Edit product validation - Purchase price validation sub zero
 Given there is created product with sku 'ED-PPVSB'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -469,7 +469,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purhase prise validation zero
+Scenario: Edit product validation - Purhase prise validation zero
 Given there is created product with sku 'ED-PPVZ'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -486,7 +486,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purchase price validation String en
+Scenario: Edit product validation - Purchase price validation String en
 Given there is created product with sku 'ED-PPVSR'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -503,7 +503,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purchase price validation String rus
+Scenario: Edit product validation - Purchase price validation String rus
 Given there is created product with sku 'EDD-PPVSR'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -520,7 +520,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purchase price validation symbols
+Scenario: Edit product validation - Purchase price validation symbols
 Given there is created product with sku 'ED-PPCS'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -537,7 +537,7 @@ Then the user sees error messages
 | Цена не должна быть меньше или равна нулю. |
 When the user logs out
 
-Scenario: Purchase price validation length good
+Scenario: Edit product validation - Purchase price validation length good
 Given there is created product with sku 'ED-PPVLG'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -553,7 +553,7 @@ Given the user is on the product list page
 Then the user checks the product with 'EPPPV-090' sku has 'purchasePrice' equal to '10000000'
 When the user logs out
 
-Scenario: Purchase price validation length negative
+Scenario: Edit product validation - Purchase price validation length negative
 Given there is created product with sku 'ED-PPVLN'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
