@@ -4,6 +4,11 @@ define(function(require) {
 
     return Collection.extend({
         model: require('models/user'),
-        url: '/fixtures/managers.json'
+        url: function(){
+            return '/stores/' + this.storeId + '/managers';
+        },
+        initialize: function([], options){
+            this.storeId = options.storeId;
+        }
     });
 });

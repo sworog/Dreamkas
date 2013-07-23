@@ -4,7 +4,12 @@ define(function(require) {
 
     return Collection.extend({
         model: require('models/user'),
-        url: '/fixtures/users.json',
-        comparator: 'name'
+        comparator: 'name',
+        url: function(){
+            return '/stores/' + this.storeId + '/managers?candidates=1';
+        },
+        initialize: function([], options){
+            this.storeId = options.storeId;
+        }
     });
 });

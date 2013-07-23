@@ -13,23 +13,23 @@ define(function(require) {
                 'address',
                 'contacts'
             ],
-            linkManager: function(userUri) {
+            linkManager: function(userUrl) {
                 return $.ajax({
-                    url: '/fixtures/users.json',
+                    url: this.url(),
                     dataType: 'json',
-                    type: 'GET', // LINK
+                    type: 'LINK',
                     headers: {
-                        Link: '<' + userUri + '>; rel="manager"'
+                        Link: '<' + userUrl + '>; rel="manager"'
                     }
                 })
             },
-            unlinkManager: function(userUri) {
+            unlinkManager: function(userUrl) {
                 return $.ajax({
-                    url: '/fixtures/users.json',
+                    url: this.url(),
                     dataType: 'json',
-                    type: 'GET', // UNLINK
+                    type: 'UNLINK',
                     headers: {
-                        Unlink: '<' + userUri + '>; rel="manager"'
+                        Unlink: '<' + userUrl + '>; rel="manager"'
                     }
                 })
             }

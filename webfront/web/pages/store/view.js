@@ -23,8 +23,12 @@ define(function (require) {
                 id: storeId
             });
 
-            page.storeManagerCandidatesCollection = new StoreManagerCandidatesCollection();
-            page.storeManagersCollection = new StoreManagersCollection();
+            page.storeManagerCandidatesCollection = new StoreManagerCandidatesCollection([], {
+                storeId: storeId
+            });
+            page.storeManagersCollection = new StoreManagersCollection([], {
+                storeId: storeId
+            });
 
             $.when(page.storeModel.fetch(), page.storeManagerCandidatesCollection.fetch(), page.storeManagersCollection.fetch()).then(function () {
                 page.render();
