@@ -21,7 +21,7 @@ define(function(require) {
                     dataType: 'json',
                     type: 'POST',
                     headers: {
-                        Link: '<' + userUrl + '>; rel="ROLE_STORE_MANAGER"',
+                        Link: '<' + userUrl + '>; managers="ROLE_STORE_MANAGER"',
                         Authorization: 'Bearer ' + cookie.get('token')
                     },
                     data: {
@@ -35,7 +35,7 @@ define(function(require) {
                     dataType: 'json',
                     type: 'POST',
                     headers: {
-                        Link: '<' + userUrl + '>; rel="ROLE_STORE_MANAGER"',
+                        Link: '<' + userUrl + '>; managers="ROLE_STORE_MANAGER"',
                         Authorization: 'Bearer ' + cookie.get('token')
                     },
                     data: {
