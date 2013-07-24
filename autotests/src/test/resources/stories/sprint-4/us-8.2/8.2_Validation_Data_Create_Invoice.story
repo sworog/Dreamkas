@@ -17,6 +17,7 @@ Meta:
 @us 8.2
 
 Scenario: Invoice sku validation is required
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -31,6 +32,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice sku validation good
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -45,6 +47,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice sku validation negative
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -60,6 +63,7 @@ Then the user sees error messages
 | Не более 100 символов |When the user logs out
 
 Scenario: Invoice Supplier validation is required
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -74,6 +78,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice Supplier validation good
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -88,6 +93,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice Supplier validation negative
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -104,6 +110,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation is required
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -119,6 +126,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate autofilling
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -126,6 +134,7 @@ Then the user checks the 'acceptanceDate' is prefilled and equals NowDate
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation good manual
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -139,6 +148,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative1 numbers
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -152,6 +162,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative1 numbers 2
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -167,6 +178,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative2 eng symbols
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -182,6 +194,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative3 rus symbols
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -197,6 +210,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative symbols
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -212,6 +226,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative symbols mix
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -227,6 +242,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation through datepicker good
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -240,6 +256,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation through datepicker negative1
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -253,6 +270,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice acceptanceDate validation through datepicker negative2
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -266,6 +284,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice accepter validation is required
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -280,6 +299,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice accepter validation good
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -294,6 +314,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice accepter validation negative
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -310,6 +331,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice legalEntity validation is required
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -324,6 +346,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice legalEntity validation good
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -338,6 +361,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice legalEntity validation negative
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -354,6 +378,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice supplierInvoiceSku validation good
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -369,6 +394,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice supplierInvoiceSku validation negative
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -386,6 +412,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice supplierInvoiceSku, supplierInvoiceDate are not required
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -399,6 +426,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation good manual
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -413,6 +441,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative1 numbers
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -429,6 +458,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative2 eng symbols
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -443,6 +473,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative3 rus symbols
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -457,6 +488,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative symbols
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -471,6 +503,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative symbols mix
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -485,6 +518,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation through datepicker good
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -498,6 +532,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice supplier date cantbe older then acceptance date 1
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
