@@ -34,6 +34,32 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathEquals($storeUser1->id, 'managers.*.id', $storeJson);
     }
 
+    public function testLinkStoreManagerLinkMethodByQueryParam()
+    {
+        $this->clearMongoDb();
+
+        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->createStore();
+
+        $accessToken = $this->auth($commUser, 'password');
+
+        $request = new JsonRequest('/api/1/stores/' . $storeId, 'POST');
+        $request->parameters['_method'] = 'LINK';
+        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), User::ROLE_STORE_MANAGER);
+
+        $this->jsonRequest($request, $accessToken);
+
+        $this->assertResponseCode(204);
+
+        $storeJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId);
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, 'managers.*', $storeJson);
+        Assert::assertJsonPathEquals($storeUser1->id, 'managers.*.id', $storeJson);
+    }
+
     public function testLinkTwoStoreManagers()
     {
         $this->clearMongoDb();
