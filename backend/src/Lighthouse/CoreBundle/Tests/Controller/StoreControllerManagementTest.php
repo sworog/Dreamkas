@@ -84,7 +84,7 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerByNotCommercialManager()
     {
-        $this->markTestIncomplete('Need to move security check before param converter');
+        $this->markTestSkipped('Need to move security check before param converter');
 
         $this->clearMongoDb();
 
@@ -493,6 +493,23 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathCount(0, '*', $managersJson);
     }
 
+    public function testLinkStoreManagerOptionsCheck()
+    {
+        $this->clearMongoDb();
+
+        $storeId = $this->createStore();
+        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+
+        $request = new JsonRequest('/api/1/stores/' . $storeId, 'OPTIONS');
+        $request->addHttpHeader('Access-Control-Request-Method', 'Link');
+        $request->addHttpHeader('Access-Control-Request-Headers', 'authorization,link');
+        $request->addHttpHeader('Origin', 'http://localhost');
+
+        $optionsResponse = $this->jsonRequest($request, $accessToken);
+
+        $this->assertResponseCode(200);
+    }
+
     public function testGetUserStore()
     {
         $this->clearMongoDb();
@@ -550,6 +567,32 @@ class StoreControllerManagementTest extends WebTestCase
             $accessToken,
             'GET',
             '/api/1/users/' . $storeUser1->id . '/stores'
+        );
+
+        $this->assertResponseCode(403);
+
+        Assert::assertJsonPathContains('Token does not have the required roles', 'message', $storesResponse);
+    }
+
+    public function testGetUserStoreByAnotherUserForbidden()
+    {
+        $this->markTestSkipped('TODO Implement permission check');
+        $this->clearMongoDb();
+
+        $storeId1 = $this->createStore('1');
+        $storeId2 = $this->createStore('2');
+        $storeUser1 = $this->createUser('user1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->createUser('user2', 'password', User::ROLE_STORE_MANAGER);
+
+        $this->linkStoreManagers($storeId1, $storeUser1->id);
+        $this->linkStoreManagers($storeId2, $storeUser2->id);
+
+        $accessToken = $this->auth($storeUser1);
+
+        $storesResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/users/' . $storeUser2->id . '/stores'
         );
 
         $this->assertResponseCode(403);
