@@ -5,8 +5,6 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.Store;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreCardPage;
@@ -103,47 +101,33 @@ public class StoreSteps extends ScenarioSteps {
     }
 
     @Step
-    public WebElement checkPromotedStoreManager(String storeManager) {
-        try {
-            return storeCardPage.findPromotedStoreManager(storeManager);
-        } catch (Exception e) {
-            String errorMessage = String.format("Store manager '%s' should be promoted and selected!", storeManager);
-            throw new AssertionError(errorMessage);
-        }
+    public void checkPromotedStoreManager(String storeManager) {
+        storeCardPage.checkPromotedStoreManager(storeManager);
     }
 
     @Step
     public void checkPromotedStoreManagerIsNotPresent(String storeManager) {
-        try {
-            checkPromotedStoreManager(storeManager);
-            String errorMessage = String.format("Store manager named '%s' should be not promoted!", storeManager);
-            throw new AssertionError(errorMessage);
-        } catch (Exception e) {
-        }
+        storeCardPage.checkPromotedStoreManagerIsNotPresent(storeManager);
     }
 
     @Step
     public void unPromoteStoreManager(String storeManager) {
-        checkPromotedStoreManager(storeManager).findElement(By.xpath("/../i")).click();
+        storeCardPage.unPromoteStoreManager(storeManager);
     }
 
     @Step
     public void promoteStoreManager(String storeManager) {
-        try {
-            storeCardPage.items.get("store manager select").setValue(storeManager);
-        } catch (Exception e) {
-            String errorMessage = String.format("Can't promote store manager named '%s', he doesn't exist in drop down list", storeManager);
-            throw new AssertionError(errorMessage);
-        }
+        storeCardPage.promoteStoreManager(storeManager);
+    }
+
+
+    @Step
+    public void promoteNotStoreManager(String notStoreManager) {
+        storeCardPage.promoteNotStoreManager(notStoreManager);
     }
 
     @Step
-    public void promotedNotStoreManager(String notStoreManager) {
-        try {
-            promoteStoreManager(notStoreManager);
-            String errorMessage = String.format("The user named '%s' can't be promoted to store manager!", notStoreManager);
-            throw new AssertionError(errorMessage);
-        } catch (AssertionError e) {
-        }
+    public void checkStoreNumber(String number) {
+        storeCardPage.checkStoreCardHeader(number);
     }
 }

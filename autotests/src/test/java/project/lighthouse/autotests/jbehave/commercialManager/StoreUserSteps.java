@@ -106,7 +106,7 @@ public class StoreUserSteps {
 
     @When("user try to promote not store manager named '$notStoreManager'")
     public void whenUserTryToPromoteNotStoreManager(String notStoreManager) {
-        formSteps.promotedNotStoreManager(notStoreManager);
+        formSteps.promoteNotStoreManager(notStoreManager);
     }
 
     @Then("user checks the promoted store manager is '$storeManager'")
@@ -117,5 +117,10 @@ public class StoreUserSteps {
     @Then("user checks the promoted store manager is not '$storeManager'")
     public void thenTheUserChecksThePromotedStoreManagerIsNot(String storeManager) {
         formSteps.checkPromotedStoreManagerIsNotPresent(storeManager);
+    }
+
+    @Then("user checks the store number is eqaul to '$number'")
+    public void thenUserChecksTheStoreNumber(String number) {
+        formSteps.checkStoreNumber(number);
     }
 }

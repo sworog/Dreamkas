@@ -84,7 +84,7 @@ Then user checks the promoted store manager is 'promotedStoreManager4'
 Given there is created store with number 'SMMOOS-1', address 'SMMOOS-1', contacts 'SMMOOS-1'
 And user navigates to created store page
 When user try to promote not store manager named 'promotedStoreManager4'
-Then user checks the promoted store manager is 'promotedStoreManager4'
+Then user checks the promoted store manager is not 'promotedStoreManager4'
 When the user logs out
 
 Scenario: Store manager can view managed store card
@@ -98,7 +98,7 @@ Then user checks the promoted store manager is 'promotedStoreManager5'
 When the user logs out
 Given the user opens the authorization page
 When the user logs in using 'promotedStoreManager5' userName and 'lighthouse' password
-!--Check the managed store
+Then user checks the store number is eqaul to 'SMCVMSC'
 When the user logs out
 
 
