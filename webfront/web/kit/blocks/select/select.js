@@ -3,7 +3,7 @@ define(function(require) {
         var Block = require('kit/block');
 
         return Block.extend({
-            blockName: 'select',
+            __name__: 'select',
             className: 'select',
 
             initialize: function() {

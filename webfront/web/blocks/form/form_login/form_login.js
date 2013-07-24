@@ -5,7 +5,7 @@ define(function(require) {
         login = require('utils/login');
 
     return Form.extend({
-        blockName: 'form_invoice',
+        __name__: 'form_invoice',
         model: tokenModel,
         templates: {
             index: require('tpl!blocks/form/form_login/templates/index.html')

@@ -10,7 +10,7 @@ define(function(require) {
             collection: [],
             tagName: 'table',
             className: 'table',
-            blockName: 'table',
+            __name__: 'table',
             templates: {
                 index: require('tpl!kit/blocks/table/templates/index.html'),
                 head: require('tpl!kit/blocks/table/templates/head.html'),

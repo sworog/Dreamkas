@@ -5,7 +5,7 @@ define(function(require) {
     var router = new Backbone.Router();
 
     return Form.extend({
-        blockName: 'form_writeOff',
+        __name__: 'form_writeOff',
         templates: {
             index: require('tpl!blocks/form/form_writeOff/templates/index.html')
         },

@@ -6,7 +6,7 @@ define(function(require) {
         CatalogCategoriesCollection = require('collections/catalogCategories');
 
     return Block.extend({
-        blockName: 'catalog__groupItem',
+        __name__: 'catalog__groupItem',
         catalogGroupModel: null,
         templates: {
             index: require('tpl!blocks/catalog/templates/catalog__groupItem.html'),
@@ -14,16 +14,7 @@ define(function(require) {
             catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
         },
         events: {
-            'click .catalog__editGroupLink': function(e){
-                e.stopPropagation();
-                var block = this,
-                    $target = $(e.target);
-
-                block.tooltip_catalogGroupMenu.show({
-                    $trigger: $target,
-                    catalogGroupModel: block.catalogGroupModel
-                });
-            }
+            'click .catalog__editGroupLink': 'click .catalog__editGroupLink'
         },
         listeners: {
             catalogGroupModel: {
@@ -33,6 +24,16 @@ define(function(require) {
                     block.remove();
                 }
             }
+        },
+        'click .catalog__editGroupLink': function(e){
+            e.stopPropagation();
+            var block = this,
+                $target = $(e.target);
+
+            block.tooltip_catalogGroupMenu.show({
+                $trigger: $target,
+                catalogGroupModel: block.catalogGroupModel
+            });
         },
         initialize: function() {
             var block = this;

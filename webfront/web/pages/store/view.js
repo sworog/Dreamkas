@@ -39,8 +39,6 @@ define(function (require) {
             $.when(userStoreModel || page.storeModel.fetch(), LH.isAllow('stores', 'GET::{store}/managers') ? page.storeManagerCandidatesCollection.fetch() : {}).then(function () {
                 page.render();
 
-                console.log(page.storeModel);
-
                 new Store({
                     storeModel: page.storeModel,
                     storeManagerCandidatesCollection: page.storeManagerCandidatesCollection,

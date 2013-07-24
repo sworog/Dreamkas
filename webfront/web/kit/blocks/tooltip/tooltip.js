@@ -4,7 +4,7 @@ define(function(require) {
             deepExtend = require('kit/utils/deepExtend');
 
         return Block.extend({
-            blockName: 'tooltip',
+            __name__: 'tooltip',
             className: 'tooltip',
             $trigger: null,
             templates: {
@@ -19,13 +19,14 @@ define(function(require) {
                 block.render();
             },
             events: {
-                'click .tooltip__closeLink': function(e) {
-                    e.preventDefault();
+                'click .tooltip__closeLink': 'click .tooltip__closeLink'
+            },
+            'click .tooltip__closeLink': function(e) {
+                e.preventDefault();
 
-                    var block = this;
+                var block = this;
 
-                    block.hide();
-                }
+                block.hide();
             },
             show: function(opt) {
                 var block = this;

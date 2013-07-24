@@ -3,7 +3,7 @@ define(function(require) {
         var Form = require('kit/blocks/form/form');
 
         return Form.extend({
-            blockName: 'form_department',
+            __name__: 'form_department',
             storeModel: null,
             templates: {
                 index: require('tpl!blocks/form/form_department/templates/index.html')

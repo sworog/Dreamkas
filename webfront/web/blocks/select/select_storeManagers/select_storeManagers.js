@@ -3,7 +3,7 @@ define(function(require) {
     var Select = require('kit/blocks/select/select');
 
     return Select.extend({
-        blockName: 'select_storeManagers',
+        __name__: 'select_storeManagers',
         storeManagerCandidatesCollection: null,
         storeManagersCollection: null,
         storeModel: null,
@@ -11,19 +11,20 @@ define(function(require) {
             index: require('tpl!blocks/select/select_storeManagers/templates/index.html')
         },
         events: {
-            'change': function(event) {
-                var block = this,
-                    userId = block.$el.find(':selected').data('user_id'),
-                    userModel = block.storeManagerCandidatesCollection.get(userId);
+            'change': 'change'
+        },
+        'change': function(event) {
+            var block = this,
+                userId = block.$el.find(':selected').data('user_id'),
+                userModel = block.storeManagerCandidatesCollection.get(userId);
 
-                block.$el.addClass('preloader_rows');
+            block.$el.addClass('preloader_rows');
 
-                block.storeModel.linkManager(block.$el.val()).done(function(){
-                    block.$el.removeClass('preloader_rows');
-                    block.storeManagerCandidatesCollection.remove(userModel);
-                    block.storeManagersCollection.add(userModel);
-                });
-            }
+            block.storeModel.linkManager(block.$el.val()).done(function(){
+                block.$el.removeClass('preloader_rows');
+                block.storeManagerCandidatesCollection.remove(userModel);
+                block.storeManagersCollection.add(userModel);
+            });
         },
         listeners: {
             storeManagerCandidatesCollection: {

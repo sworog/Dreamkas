@@ -10,7 +10,7 @@ define(function(require) {
             params = require('pages/catalog/params');
 
         return Editor.extend({
-            blockName: 'catalog',
+            __name__: 'catalog',
             catalogGroupsCollection: null,
             templates: {
                 index: require('tpl!blocks/catalog/templates/index.html'),
@@ -20,18 +20,19 @@ define(function(require) {
                 catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
             },
             events: {
-                'click .catalog__addGroupLink': function(e) {
-                    e.preventDefault();
+                'click .catalog__addGroupLink': 'click .catalog__addGroupLink'
+            },
+            'click .catalog__addGroupLink': function(e) {
+                e.preventDefault();
 
-                    var block = this,
-                        $target = $(e.target);
+                var block = this,
+                    $target = $(e.target);
 
-                    block.tooltip_catalogGroupForm.show({
-                        $trigger: $target,
-                        collection: block.catalogGroupsCollection,
-                        model: new CatalogGroupModel()
-                    });
-                }
+                block.tooltip_catalogGroupForm.show({
+                    $trigger: $target,
+                    collection: block.catalogGroupsCollection,
+                    model: new CatalogGroupModel()
+                });
             },
             initialize: function() {
                 var block = this;

@@ -3,7 +3,7 @@ define(function(require) {
         var Select = require('kit/blocks/select/select');
 
         return Select.extend({
-            blockName: 'select_userRole',
+            __name__: 'select_userRole',
             templates: {
                 index: require('tpl!blocks/select/select_userRole/templates/index.html')
             }

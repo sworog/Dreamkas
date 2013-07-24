@@ -11,7 +11,7 @@ define(function(require) {
     var router = new Backbone.Router();
 
     return Editor.extend({
-        blockName: 'catalogGroup',
+        __name__: 'catalogGroup',
         catalogGroupModel: null,
         templates: {
             index: require('tpl!blocks/catalogGroup/templates/index.html'),
@@ -20,31 +20,8 @@ define(function(require) {
             catalog__groupNavigation: require('tpl!blocks/catalog/templates/catalog__groupNavigation.html')
         },
         events: {
-            'click .catalog__editGroupLink': function(e) {
-                e.preventDefault();
-
-                var block = this,
-                    $target = $(e.target);
-
-                block.tooltip_catalogGroupMenu.show({
-                    $trigger: $target,
-                    catalogGroupModel: block.catalogGroupModel
-                });
-            },
-            'click .catalog__addCategoryLink': function(e) {
-                e.preventDefault();
-
-                var block = this,
-                    $target = $(e.target);
-
-                block.tooltip_catalogCategoryForm.show({
-                    $trigger: $target,
-                    collection: block.catalogGroupModel.categories,
-                    model: new CatalogCategoryModel({
-                        group: block.catalogGroupModel.id
-                    })
-                });
-            }
+            'click .catalog__editGroupLink': 'click .catalog__editGroupLink',
+            'click .catalog__addCategoryLink': 'click .catalog__addCategoryLink'
         },
         listeners: {
             catalogGroupModel: {
@@ -56,6 +33,31 @@ define(function(require) {
                     });
                 }
             }
+        },
+        'click .catalog__editGroupLink': function(e) {
+            e.preventDefault();
+
+            var block = this,
+                $target = $(e.target);
+
+            block.tooltip_catalogGroupMenu.show({
+                $trigger: $target,
+                catalogGroupModel: block.catalogGroupModel
+            });
+        },
+        'click .catalog__addCategoryLink': function(e) {
+            e.preventDefault();
+
+            var block = this,
+                $target = $(e.target);
+
+            block.tooltip_catalogCategoryForm.show({
+                $trigger: $target,
+                collection: block.catalogGroupModel.categories,
+                model: new CatalogCategoryModel({
+                    group: block.catalogGroupModel.id
+                })
+            });
         },
         initialize: function() {
             var block = this;

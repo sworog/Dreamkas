@@ -7,24 +7,25 @@ define(function(require) {
     var router = new Backbone.Router();
 
     return Block.extend({
-        blockName: 'form',
+        __name__: 'form',
         className: 'form',
         tagName: 'form',
         model: null,
         collection: null,
         redirectUrl: null,
         events: {
-            'submit': function(e) {
-                e.preventDefault();
+            'submit': 'submit'
+        },
+        submit: function(e){
+            e.preventDefault();
 
-                var block = this,
-                    data = Backbone.Syphon.serialize(block);
+            var block = this,
+                data = Backbone.Syphon.serialize(block);
 
-                block.$submitButton.addClass('preloader_rows');
+            block.$submitButton.addClass('preloader_rows');
 
-                block.removeErrors();
-                block.onSubmit(data);
-            }
+            block.removeErrors();
+            block.onSubmit(data);
         },
         findElements: function() {
             var block = this;

@@ -5,7 +5,7 @@ define(function(require) {
             cookie = require('utils/cookie');
 
         return Form.extend({
-            blockName: 'form_writeOffProduct',
+            __name__: 'form_writeOffProduct',
             templates: {
                 index: require('tpl!blocks/form/form_writeOffProduct/templates/index.html')
             },

@@ -4,22 +4,13 @@ define(function(require) {
         Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu');
 
     return Block.extend({
-        blockName: 'catalog__categoryItem',
+        __name__: 'catalog__categoryItem',
         catalogCategoryModel: null,
         templates: {
             index: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
         },
         events: {
-            'click .catalog__editCategoryLink': function(e){
-                e.stopPropagation();
-                var block = this,
-                    $target = $(e.target);
-
-                block.tooltip_catalogCategoryMenu.show({
-                    $trigger: $target,
-                    catalogCategoryModel: block.catalogCategoryModel
-                });
-            }
+            'click .catalog__editCategoryLink': 'click .catalog__editCategoryLink'
         },
         listeners: {
             catalogCategoryModel: {
@@ -29,6 +20,16 @@ define(function(require) {
                     block.remove();
                 }
             }
+        },
+        'click .catalog__editCategoryLink': function(e){
+            e.stopPropagation();
+            var block = this,
+                $target = $(e.target);
+
+            block.tooltip_catalogCategoryMenu.show({
+                $trigger: $target,
+                catalogCategoryModel: block.catalogCategoryModel
+            });
         },
         initialize: function(){
             var block = this;

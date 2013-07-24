@@ -5,17 +5,14 @@ define(function(require) {
         currentUserModel = require('models/currentUser');
 
     var TopBar = Block.extend({
-        blockName: 'topBar',
+        __name__: 'topBar',
         currentUserModel: currentUserModel,
         userPermissions: null,
         templates: {
             index: require('tpl!blocks/topBar/templates/index.html')
         },
         events: {
-            'click .topBar__logoutLink': function(e) {
-                e.preventDefault();
-                logout();
-            }
+            'click .topBar__logoutLink': 'click .topBar__logoutLink'
         },
         listeners: {
             currentUserModel: {
@@ -30,6 +27,10 @@ define(function(require) {
                     block.render();
                 }
             }
+        },
+        'click .topBar__logoutLink': function(e) {
+            e.preventDefault();
+            logout();
         },
         initialize: function() {
             var block = this;

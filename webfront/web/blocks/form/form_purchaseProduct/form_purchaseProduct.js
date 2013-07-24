@@ -4,7 +4,7 @@ define(function(require) {
             cookie = require('utils/cookie');
 
         return Form.extend({
-            blockName: 'form_purchase',
+            __name__: 'form_purchase',
             templates: {
                 index: require('tpl!blocks/form/form_purchaseProduct/templates/index.html')
             },

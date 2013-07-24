@@ -5,7 +5,7 @@ define(function(require) {
             CatalogGroupModel = require('models/catalogGroup');
 
         return Tooltip_form.extend({
-            blockName: 'tooltip_catalogGroupForm',
+            __name__: 'tooltip_catalogGroupForm',
             model: new CatalogGroupModel(),
             collection: null,
             listeners: {

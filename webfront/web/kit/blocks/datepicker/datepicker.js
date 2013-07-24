@@ -8,7 +8,7 @@ define(function(require) {
         moment.lang('ru');
 
         return Block.extend({
-            blockName: 'datepicker',
+            __name__: 'datepicker',
             className: 'datepicker',
             visibleDate: moment().valueOf(),
             selectedDate: null,
@@ -34,72 +34,80 @@ define(function(require) {
             },
 
             events: {
-                'click .datepicker__saveLink': function(e){
-                    e.preventDefault();
+                'click .datepicker__saveLink': 'click .datepicker__saveLink',
+                'click .datepicker__closeLink': 'click .datepicker__closeLink',
+                'click .datepicker__setNowLink': 'click .datepicker__setNowLink',
+                'click .datepicker__nextMonthLink': 'click .datepicker__nextMonthLink',
+                'click .datepicker__prevMonthLink': 'click .datepicker__prevMonthLink',
+                'click .datepicker__showNowLink': 'click .datepicker__showNowLink',
+                'click .datepicker__dateItem': 'click .datepicker__dateItem',
+                'change .datepicker__timeControls .inputText': 'change .datepicker__timeControls .inputText'
+            },
+            'click .datepicker__saveLink': function(e){
+                e.preventDefault();
 
-                    var block = this;
+                var block = this;
 
-                    block.trigger('save');
-                },
-                'click .datepicker__closeLink': function(e){
-                    e.preventDefault();
+                block.trigger('save');
+            },
+            'click .datepicker__closeLink': function(e){
+                e.preventDefault();
 
-                    var block = this;
+                var block = this;
 
-                    block.trigger('close');
-                },
-                'click .datepicker__setNowLink': function(e){
-                    e.preventDefault();
+                block.trigger('close');
+            },
+            'click .datepicker__setNowLink': function(e){
+                e.preventDefault();
 
-                    var block = this;
+                var block = this;
 
-                    block.set('selectedDate', moment().valueOf());
-                },
-                'click .datepicker__nextMonthLink': function(e) {
-                    e.preventDefault();
+                block.set('selectedDate', moment().valueOf());
+            },
+            'click .datepicker__nextMonthLink': function(e) {
+                e.preventDefault();
 
-                    var block = this;
+                var block = this;
 
-                    block.showNextMonth();
-                },
-                'click .datepicker__prevMonthLink': function(e) {
-                    e.preventDefault();
+                block.showNextMonth();
+            },
+            'click .datepicker__prevMonthLink': function(e) {
+                e.preventDefault();
 
-                    var block = this;
+                var block = this;
 
-                    block.showPrevMonth();
-                },
-                'click .datepicker__showNowLink': function(e) {
-                    e.preventDefault();
+                block.showPrevMonth();
+            },
+            'click .datepicker__showNowLink': function(e) {
+                e.preventDefault();
 
-                    var block = this;
+                var block = this;
 
-                    block.showNow();
-                },
-                'click .datepicker__dateItem': function(e) {
-                    e.preventDefault();
+                block.showNow();
+            },
+            'click .datepicker__dateItem': function(e) {
+                e.preventDefault();
 
-                    var block = this,
-                        selectedMoment = moment(+$(e.target).data('date'));
+                var block = this,
+                    selectedMoment = moment(+$(e.target).data('date'));
 
-                    if (!block.noTime){
-                        block.$el.find('.datepicker__timeControls .inputText').each(function(){
-                            selectedMoment[$(this).attr('name')]($(this).val() || 0);
-                        });
-                    }
-
-                    block.set('selectedDate', selectedMoment.valueOf());
-                },
-                'change .datepicker__timeControls .inputText': function(e) {
-                    e.preventDefault();
-
-                    var block = this,
-                        date = moment(block.selectedDate)[$(e.target).attr('name')]($(e.target).val()).valueOf();
-
-                    block.set('selectedDate', date, {
-                        renderTimeControls: false
+                if (!block.noTime){
+                    block.$el.find('.datepicker__timeControls .inputText').each(function(){
+                        selectedMoment[$(this).attr('name')]($(this).val() || 0);
                     });
                 }
+
+                block.set('selectedDate', selectedMoment.valueOf());
+            },
+            'change .datepicker__timeControls .inputText': function(e) {
+                e.preventDefault();
+
+                var block = this,
+                    date = moment(block.selectedDate)[$(e.target).attr('name')]($(e.target).val()).valueOf();
+
+                block.set('selectedDate', date, {
+                    renderTimeControls: false
+                });
             },
             'set:noTime': function(val){
                 var block = this;

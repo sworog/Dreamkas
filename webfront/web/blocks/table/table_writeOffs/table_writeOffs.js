@@ -5,7 +5,7 @@ define(function(require) {
     require('moment');
 
     return Table.extend({
-        blockName: 'table_writeOffs',
+        __name__: 'table_writeOffs',
         templates: {
             head: require('tpl!blocks/table/table_writeOffs/templates/head.html'),
             tr: require('tpl!blocks/table/table_writeOffs/templates/tr.html')

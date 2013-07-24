@@ -5,7 +5,7 @@ define(function(require) {
             Store__managers = require('blocks/store/store__managers');
 
         return Block.extend({
-            blockName: 'store',
+            __name__: 'store',
             storeModel: null,
             $departmentsTitle: null,
             storeManagerCandidatesCollection: null,

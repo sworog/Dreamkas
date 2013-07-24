@@ -5,7 +5,7 @@ define(function(require) {
             Form_catalogCategory = require('blocks/form/form_catalogCategory/form_catalogCategory');
 
         return Tooltip_form.extend({
-            blockName: 'tooltip_catalogCategoryForm',
+            __name__: 'tooltip_catalogCategoryForm',
             model: new CatalogCategoryModel(),
             collection: null,
             listeners: {

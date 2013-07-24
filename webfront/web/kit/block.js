@@ -9,36 +9,42 @@ define(function(require) {
         templates: {},
 
         className: null,
-        blockName: null,
+        __name__: null,
         addClass: null,
         tagName: 'div',
 
         events: null,
         listeners: null,
 
-        constructor: function(options) {
+        _configure: function(options) {
             var block = this;
 
             block.defaults = _.clone(block);
-
-            deepExtend(block, options);
-
             block.cid = _.uniqueId('block');
-            block._ensureElement();
+            deepExtend(block, options);
+        },
+        _ensureElement: function() {
+            var block = this;
+
+            Backbone.View.prototype._ensureElement.apply(block, arguments);
+
             block.findElements();
-            block.delegateEvents();
-
-            block.initialize.apply(block, arguments);
-
-            block.startListening();
 
             block.$el
                 .addClass(block.className)
-                .addClass(block.blockName)
+                .addClass(block.__name__)
                 .addClass(block.addClass)
-                .attr('block', block.blockName)
-                .data(block.blockName, block);
+                .attr('block', block.__name__)
+                .data(block.__name__, block);
         },
+        delegateEvents: function() {
+            var block = this;
+
+            Backbone.View.prototype.delegateEvents.apply(block, arguments);
+
+            block.startListening();
+        },
+
         initialize: function() {
             var block = this;
 
@@ -62,9 +68,8 @@ define(function(require) {
 
             //block.removeBlocks();
 
-            block.$el
-                .html(template)
-                .require();
+            block.$el.html(template);
+            block.$el.require();
 
             block.findElements();
 
@@ -75,10 +80,10 @@ define(function(require) {
                 $context = arguments[0] || block.$el,
                 elements = [];
 
-            if (block.blockName) {
-                $context.find('[class*="' + block.blockName + '__"]').each(function() {
+            if (block.__name__) {
+                $context.find('[class*="' + block.__name__ + '__"]').each(function() {
                     var classes = _.filter($(this).attr('class').split(' '), function(className) {
-                        return className.indexOf(block.blockName + '__') === 0;
+                        return className.indexOf(block.__name__ + '__') === 0;
                     });
 
                     elements = _.union(elements, classes);

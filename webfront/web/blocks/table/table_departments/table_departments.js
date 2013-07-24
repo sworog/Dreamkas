@@ -3,7 +3,7 @@ define(function(require) {
     var Table = require('kit/blocks/table/table');
 
     return Table.extend({
-        blockName: 'table_stores',
+        __name__: 'table_stores',
         templates: {
             head: require('tpl!blocks/table/table_departments/templates/head.html'),
             tr: require('tpl!blocks/table/table_departments/templates/tr.html')

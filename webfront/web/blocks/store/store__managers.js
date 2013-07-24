@@ -4,7 +4,7 @@ define(function(require) {
         Select_storeManagers = require('blocks/select/select_storeManagers/select_storeManagers');
 
     return Block.extend({
-        blockName: 'store__managers',
+        __name__: 'store__managers',
         storeManagerCandidatesCollection: null,
         storeManagersCollection: null,
         storeModel: null,
@@ -13,22 +13,7 @@ define(function(require) {
             store__managerItem: require('tpl!blocks/store/templates/store__managerItem.html')
         },
         events: {
-            'click .store__managerRemoveLink': function(event) {
-                event.stopPropagation();
-                var block = this,
-                    $link = $(event.target),
-                    $item = $link.closest('.store__managerItem'),
-                    userId = $link.data('user_id'),
-                    userModel = block.storeManagersCollection.get(userId);
-
-                $item.addClass('preloader_rows');
-
-                block.storeModel.unlinkManager(userModel.url()).done(function(){
-                    $item.removeClass('preloader_rows');
-                    block.storeManagersCollection.remove(userModel);
-                    block.storeManagerCandidatesCollection.add(userModel);
-                });
-            }
+            'click .store__managerRemoveLink': 'click .store__managerRemoveLink'
         },
         listeners: {
             storeManagersCollection: {
@@ -45,6 +30,22 @@ define(function(require) {
                     }));
                 }
             }
+        },
+        'click .store__managerRemoveLink': function(event) {
+            event.stopPropagation();
+            var block = this,
+                $link = $(event.target),
+                $item = $link.closest('.store__managerItem'),
+                userId = $link.data('user_id'),
+                userModel = block.storeManagersCollection.get(userId);
+
+            $item.addClass('preloader_rows');
+
+            block.storeModel.unlinkManager(userModel.url()).done(function(){
+                $item.removeClass('preloader_rows');
+                block.storeManagersCollection.remove(userModel);
+                block.storeManagerCandidatesCollection.add(userModel);
+            });
         },
         initialize: function(){
             var block = this;

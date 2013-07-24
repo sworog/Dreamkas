@@ -4,7 +4,7 @@ define(function(require) {
         CatalogCategoryModel = require('models/catalogCategory');
 
     return Form.extend({
-        blockName: 'form_catalogCategory',
+        __name__: 'form_catalogCategory',
         model: new CatalogCategoryModel(),
         collection: null,
         isAddForm: true,

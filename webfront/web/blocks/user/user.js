@@ -3,7 +3,7 @@ define(function(require) {
     var Block = require('kit/block');
 
     return Block.extend({
-        blockName: 'user',
+        __name__: 'user',
         model: null,
         userId: null,
         templates: {

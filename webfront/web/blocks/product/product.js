@@ -3,7 +3,7 @@ define(function(require) {
         var Block = require('kit/block');
 
         return Block.extend({
-            blockName: 'product',
+            __name__: 'product',
             templates: {
                 index: require('tpl!blocks/product/templates/index.html')
             },

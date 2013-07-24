@@ -6,3 +6,10 @@ window.LH = {
     clientSecret: 'secret',
     locale: 'root'
 };
+
+window.Caliper = {
+    config: {
+        apiKey: "558dd0e7-1736-4d71-bdad-d8923af485b9",
+        debug: true
+    }
+};

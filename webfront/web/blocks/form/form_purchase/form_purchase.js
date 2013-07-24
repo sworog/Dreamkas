@@ -4,7 +4,7 @@ define(function(require) {
             PurchaseModel = require('models/purchase');
 
         return Form.extend({
-            blockName: 'form_purchase',
+            __name__: 'form_purchase',
             model: new PurchaseModel(),
             templates: {
                 index: require('tpl!blocks/form/form_purchase/templates/index.html')

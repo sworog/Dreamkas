@@ -3,7 +3,7 @@ define(function(require) {
         var Form = require('kit/blocks/form/form');
 
         return Form.extend({
-            blockName: 'form_product',
+            __name__: 'form_product',
             defaultInputLinkText: 'Введите значение',
             model: null,
             subCategoryModel: null,
@@ -11,41 +11,47 @@ define(function(require) {
                 index: require('tpl!blocks/form/form_product/templates/index.html')
             },
             events: {
-                'click .productForm__inputLink': function(e) {
-                    e.preventDefault;
-                    var $link = $(e.currentTarget),
-                        $linkedInput = $link.prev('.productForm__linkedInput');
+                'click .productForm__inputLink': 'click .productForm__inputLink',
+                'keyup [name="purchasePrice"]': 'keyup [name="purchasePrice"]',
+                'keyup [name="retailMarkup"]': 'keyup [name="retailMarkup"]',
+                'keyup [name="retailPrice"]': 'keyup [name="retailPrice"]',
+                'change [name="retailMarkup"]': 'change [name="retailMarkup"]',
+                'change [name="retailPrice"]': 'change [name="retailPrice"]'
+            },
+            'click .productForm__inputLink': function(e) {
+                e.preventDefault;
+                var $link = $(e.currentTarget),
+                    $linkedInput = $link.prev('.productForm__linkedInput');
 
-                    switch ($linkedInput.attr('name')) {
-                        case 'retailMarkup':
-                            this.showRetailMarkupInput();
-                            break;
-                        case 'retailPrice':
-                            this.showRetailPriceInput();
-                            break;
-                    }
-                },
-                'keyup [name="purchasePrice"]': function(e) {
-                    if (this.$retailPriceInput.is(':hidden')) {
-                        this.calculateRetailPrice();
-                    }
-
-                    if (this.$retailMarkupInput.is(':hidden')) {
-                        this.calculateRetailMarkup();
-                    }
-                },
-                'keyup [name="retailMarkup"]': function() {
-                    this.calculateRetailPrice();
-                },
-                'keyup [name="retailPrice"]': function() {
-                    this.calculateRetailMarkup();
-                },
-                'change [name="retailMarkup"]': function() {
-                    this.renderRetailMarkupLink();
-                },
-                'change [name="retailPrice"]': function() {
-                    this.renderRetailPriceLink();
+                switch ($linkedInput.attr('name')) {
+                    case 'retailMarkup':
+                        this.showRetailMarkupInput();
+                        break;
+                    case 'retailPrice':
+                        this.showRetailPriceInput();
+                        break;
                 }
+            },
+            'keyup [name="purchasePrice"]': function(e) {
+                if (this.$retailPriceInput.is(':hidden')) {
+                    this.calculateRetailPrice();
+                }
+
+                if (this.$retailMarkupInput.is(':hidden')) {
+                    this.calculateRetailMarkup();
+                }
+            },
+            'keyup [name="retailMarkup"]': function() {
+                this.calculateRetailPrice();
+            },
+            'keyup [name="retailPrice"]': function() {
+                this.calculateRetailMarkup();
+            },
+            'change [name="retailMarkup"]': function() {
+                this.renderRetailMarkupLink();
+            },
+            'change [name="retailPrice"]': function() {
+                this.renderRetailPriceLink();
             },
             initialize: function(){
                 var block = this;

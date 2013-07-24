@@ -12,7 +12,7 @@ define(function(require) {
     var router = new Backbone.Router();
 
     return Editor.extend({
-        blockName: 'catalogCategory',
+        __name__: 'catalogCategory',
 
         catalogCategoryModel: null,
         catalogSubCategoryId: null,
@@ -25,41 +25,9 @@ define(function(require) {
             catalogCategory__subCategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')
         },
         events: {
-            'click .catalog__editCategoryLink': function(e) {
-                var block = this,
-                    $target = $(e.target);
-
-                block.tooltip_catalogCategoryMenu.show({
-                    $trigger: $target,
-                    catalogCategoryModel: block.catalogCategoryModel
-                });
-            },
-            'click .catalog__addSubCategoryLink': function(e) {
-                e.preventDefault();
-
-                var block = this,
-                    $target = $(e.target);
-
-                block.tooltip_catalogSubCategoryForm.show({
-                    $trigger: $target,
-                    collection: block.catalogSubCategoriesCollection,
-                    model: new CatalogSubCategoryModel({
-                        category: block.catalogCategoryModel.id,
-                        group: block.catalogCategoryModel.get('group')
-                    })
-                });
-            },
-            'click .catalogCategory__subCategoryLink': function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-
-                var block = this,
-                    $target = $(e.currentTarget);
-
-                router.navigate($target.attr('href'));
-
-                block.set('catalogSubCategoryId', $target.attr('subCategory_id'));
-            }
+            'click .catalog__editCategoryLink': 'click .catalog__editCategoryLink',
+            'click .catalog__addSubCategoryLink': 'click .catalog__addSubCategoryLink',
+            'click .catalogCategory__subCategoryLink': 'click .catalogCategory__subCategoryLink'
         },
         listeners: {
             catalogCategoryModel: {
@@ -71,6 +39,41 @@ define(function(require) {
                     })
                 }
             }
+        },
+        'click .catalog__editCategoryLink': function(e) {
+            var block = this,
+                $target = $(e.target);
+
+            block.tooltip_catalogCategoryMenu.show({
+                $trigger: $target,
+                catalogCategoryModel: block.catalogCategoryModel
+            });
+        },
+        'click .catalog__addSubCategoryLink': function(e) {
+            e.preventDefault();
+
+            var block = this,
+                $target = $(e.target);
+
+            block.tooltip_catalogSubCategoryForm.show({
+                $trigger: $target,
+                collection: block.catalogSubCategoriesCollection,
+                model: new CatalogSubCategoryModel({
+                    category: block.catalogCategoryModel.id,
+                    group: block.catalogCategoryModel.get('group')
+                })
+            });
+        },
+        'click .catalogCategory__subCategoryLink': function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            var block = this,
+                $target = $(e.currentTarget);
+
+            router.navigate($target.attr('href'));
+
+            block.set('catalogSubCategoryId', $target.attr('subCategory_id'));
         },
         initialize: function() {
             var block = this;

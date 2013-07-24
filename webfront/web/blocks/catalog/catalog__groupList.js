@@ -4,7 +4,7 @@ define(function(require) {
         Catalog__groupItem = require('blocks/catalog/catalog__groupItem');
 
     return Block.extend({
-        blockName: 'catalog__groupList',
+        __name__: 'catalog__groupList',
         catalogGroupsCollection: null,
         templates: {
             index: require('tpl!blocks/catalog/templates/catalog__groupList.html'),

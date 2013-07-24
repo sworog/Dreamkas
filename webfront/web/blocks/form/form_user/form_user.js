@@ -5,7 +5,7 @@ define(function(require) {
     require('blocks/select/select_userRole/select_userRole');
 
     return Form.extend({
-        blockName: 'form_user',
+        __name__: 'form_user',
         redirectUrl: '/users',
         templates: {
             index: require('tpl!blocks/form/form_user/templates/index.html')

@@ -5,7 +5,7 @@ define(function(require) {
     require('moment');
 
     return Table.extend({
-        blockName: 'table_invoices',
+        __name__: 'table_invoices',
         templates: {
             head: require('tpl!blocks/table/table_invoices/templates/head.html'),
             tr: require('tpl!blocks/table/table_invoices/templates/tr.html')

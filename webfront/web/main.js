@@ -18,13 +18,6 @@ require(
             'i18n': 'libs/require/i18n'
         },
         shim: {
-            'backbone': ['underscore', 'jquery'],
-            'backbone.queryparams': ['backbone'],
-            'backbone.syphon': ['backbone'],
-
-            'jquery-ui': ['jquery'],
-            'jquery.require': ['jquery'],
-            'jquery.maskedinput': ['jquery'],
             'libs/lhAutocomplete': ['jquery-ui']
         },
         packages: [

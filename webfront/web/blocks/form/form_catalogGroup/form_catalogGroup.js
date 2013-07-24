@@ -4,7 +4,7 @@ define(function(require) {
         CatalogGroupModel = require('models/catalogGroup');
 
     return Form.extend({
-        blockName: 'form_catalogGroup',
+        __name__: 'form_catalogGroup',
         model: new CatalogGroupModel(),
         isAddForm: true,
         collection: null,

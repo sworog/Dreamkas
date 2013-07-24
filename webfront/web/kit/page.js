@@ -59,9 +59,9 @@ define(function(require) {
 
             $container.find('[block]').each(function() {
                 var $block = $(this),
-                    blockName = $block.attr('block');
+                    __name__ = $block.attr('block');
 
-                blocks.push($block.data(blockName));
+                blocks.push($block.data(__name__));
             });
 
             _.each(blocks, function(block) {
