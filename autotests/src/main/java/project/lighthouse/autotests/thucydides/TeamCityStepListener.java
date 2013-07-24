@@ -118,7 +118,7 @@ public class TeamCityStepListener implements StepListener {
     }
 
     public String failureStepMessage(TestOutcome result) {
-        return String.format("Failing step: %s.\n", getFailureStep(result));
+        return String.format("Failing step: %s\n", getFailureStep(result));
     }
 
     public String getFailureStep(TestOutcome result) {
