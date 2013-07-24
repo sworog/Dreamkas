@@ -19,10 +19,13 @@ define(function(require) {
                 return $.ajax({
                     url: this.url(),
                     dataType: 'json',
-                    type: 'LINK',
+                    type: 'POST',
                     headers: {
                         Link: '<' + userUrl + '>; rel="ROLE_STORE_MANAGER"',
                         Authorization: 'Bearer ' + cookie.get('token')
+                    },
+                    data: {
+                        _method: 'LINK'
                     }
                 })
             },
@@ -30,10 +33,13 @@ define(function(require) {
                 return $.ajax({
                     url: this.url(),
                     dataType: 'json',
-                    type: 'UNLINK',
+                    type: 'POST',
                     headers: {
                         Link: '<' + userUrl + '>; rel="ROLE_STORE_MANAGER"',
                         Authorization: 'Bearer ' + cookie.get('token')
+                    },
+                    data: {
+                        _method: 'UNLINK'
                     }
                 })
             }
