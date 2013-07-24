@@ -1,9 +1,9 @@
 package project.lighthouse.autotests.thucydides;
 
-import net.thucydides.core.Thucydides;
 import net.thucydides.core.model.DataTable;
 import net.thucydides.core.model.Story;
 import net.thucydides.core.model.TestOutcome;
+import net.thucydides.core.model.TestStep;
 import net.thucydides.core.steps.ExecutedStepDescription;
 import net.thucydides.core.steps.StepFailure;
 import net.thucydides.core.steps.StepListener;
@@ -18,7 +18,7 @@ public class TeamCityStepListener implements StepListener {
     private static final String messageTemplate = "##teamcity[%s %s]";
     private static final String propertyTemplate = " %s='%s'";
 
-    private static final HashMap<String,String> escapeChars = new LinkedHashMap(){
+    private static final HashMap<String, String> escapeChars = new LinkedHashMap() {
         {
             put("\\|", "||");
             put("\'", "|\'");
@@ -42,15 +42,15 @@ public class TeamCityStepListener implements StepListener {
     }
 
     private String escapeProperty(String value) {
-        for (Map.Entry<String, String> escapeChar: escapeChars.entrySet()) {
+        for (Map.Entry<String, String> escapeChar : escapeChars.entrySet()) {
             value = value.replaceAll(escapeChar.getKey(), escapeChar.getValue());
         }
         return value;
     }
 
-    private void printMessage(String messageName, Map<String,String> properties) {
+    private void printMessage(String messageName, Map<String, String> properties) {
         StringBuilder propertiesBuilder = new StringBuilder();
-        for (Map.Entry<String, String> property: properties.entrySet()) {
+        for (Map.Entry<String, String> property : properties.entrySet()) {
             propertiesBuilder.append(
                     String.format(
                             propertyTemplate,
@@ -64,13 +64,13 @@ public class TeamCityStepListener implements StepListener {
     }
 
     private void printMessage(String messageName, String description) {
-        Map<String,String> properties = new HashMap<>();
+        Map<String, String> properties = new HashMap<>();
         properties.put("name", description);
         printMessage(messageName, properties);
     }
 
     private void printMessage(String messageName) {
-        Map<String,String> properties = new HashMap<>();
+        Map<String, String> properties = new HashMap<>();
         printMessage(messageName, properties);
     }
 
@@ -110,11 +110,25 @@ public class TeamCityStepListener implements StepListener {
     }
 
     private void printFailure(TestOutcome result) {
-        HashMap<String,String> properties = new HashMap<String,String>();
+        HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("name", result.getTitle());
         properties.put("message", result.getTestFailureCause().getMessage());
-        properties.put("details", ExceptionUtils.getStackTrace(result.getTestFailureCause()));
+        properties.put("details", failureStepMessage(result) + ExceptionUtils.getStackTrace(result.getTestFailureCause()));
         printMessage("testFailed", properties);
+    }
+
+    public String failureStepMessage(TestOutcome result) {
+        return String.format("Failing step: %s. ", getFailureStep(result));
+    }
+
+    public String getFailureStep(TestOutcome result) {
+        List<TestStep> testSteps = result.getTestSteps();
+        for (int i = 0; i < testSteps.size(); i++) {
+            if (testSteps.get(i).isFailure() || testSteps.get(i).isError()) {
+                return testSteps.get(i).getDescription();
+            }
+        }
+        return "";
     }
 
     private void printPending(TestOutcome result) {

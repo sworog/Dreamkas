@@ -143,7 +143,7 @@ public class StoreSteps extends ScenarioSteps {
             promoteStoreManager(notStoreManager);
             String errorMessage = String.format("The user named '%s' can't be promoted to store manager!", notStoreManager);
             throw new AssertionError(errorMessage);
-        } catch (Exception e) {
+        } catch (AssertionError e) {
         }
     }
 }
