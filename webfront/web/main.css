@@ -3,7 +3,7 @@
 @import "/fonts/sansus/sansus.css";
     /* libs */
 @import "./libs/jquery-ui/themes/base/minified/jquery-ui.min.css";
-@import "./kit/kit.css";
+@import "./kit/main.css";
 @import "/icons/font-awesome/font-awesome.css";
     /* blocks */
 @import "./blocks/page/page.css";
