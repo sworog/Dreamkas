@@ -62,7 +62,7 @@ public class StoreCardPage extends CommonPageObject {
     public WebElement findPromotedStoreManager(String value) {
         return findVisibleElement(
                 By.xpath(
-                        String.format("//*[@model_attr='name' and @model_name='user' and text()='%s']", value)
+                        String.format("//*[not(contains(@class, 'store__managerItem preloader_rows'))]//*[@model_attr='name' and @model_name='user' and text()='%s']", value)
                 )
         );
     }
