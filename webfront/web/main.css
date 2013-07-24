@@ -33,7 +33,7 @@ h4 {
 
 [href] {
     transition:
-        all 0.4s,
+        background-color 0.4s,
         visibility 0s;
 }
 

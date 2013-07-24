@@ -32,6 +32,10 @@
     position: relative;
 }
 
+.store__managerItem.preloader_rows .store__managerRemoveLink{
+    visibility: hidden;
+}
+
 .store__managerItem:hover{
     background-color: #fffee2;
 }

@@ -36,7 +36,7 @@ define(function (require) {
                 storeId: storeId
             });
 
-            $.when(userStoreModel || page.storeModel.fetch(), LH.isAllow('GET::{store}/managers') ? page.storeManagerCandidatesCollection.fetch() : {}).then(function () {
+            $.when(userStoreModel || page.storeModel.fetch(), LH.isAllow('stores', 'GET::{store}/managers') ? page.storeManagerCandidatesCollection.fetch() : {}).then(function () {
                 page.render();
 
                 console.log(page.storeModel);
