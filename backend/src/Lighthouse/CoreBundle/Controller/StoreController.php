@@ -134,12 +134,12 @@ class StoreController extends AbstractRestController
      */
     protected function validateLink(Link $link)
     {
-        if (User::ROLE_STORE_MANAGER != $link->getRel()) {
+        if ('managers' != $link->getRel()) {
             throw new BadRequestHttpException(
                 sprintf(
-                    'Invalid rel given: %s, only %s is valid',
+                    'Invalid rel given: %s, should be %s',
                     $link->getRel(),
-                    User::ROLE_STORE_MANAGER
+                    'managers'
                 )
             );
         }

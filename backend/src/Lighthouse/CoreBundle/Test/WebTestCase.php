@@ -671,7 +671,7 @@ class WebTestCase extends BaseTestCase
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         foreach ($userIds as $userId) {
-            $request->addLinkHeader('http://localhost/api/1/users/' . $userId, User::ROLE_STORE_MANAGER);
+            $request->addLinkHeader('http://localhost/api/1/users/' . $userId, 'managers');
         }
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
