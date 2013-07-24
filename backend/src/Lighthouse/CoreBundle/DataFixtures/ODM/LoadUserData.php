@@ -49,5 +49,13 @@ class LoadUserData extends ContainerAware implements FixtureInterface
             User::ROLE_DEPARTMENT_MANAGER,
             'Зав. секции'
         );
+
+        $this->getUserProvider()->createNewUser(
+            'storeManager',
+            'lighthouse',
+            'Михаил Сергеевич',
+            User::ROLE_STORE_MANAGER,
+            'и.о. директора магазина'
+        );
     }
 }
