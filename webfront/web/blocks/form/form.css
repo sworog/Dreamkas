@@ -21,3 +21,7 @@
     padding: 15px;
     margin: 10px 0 0;
 }
+
+.form_product [name="purchasePrice"]{
+    text-align: right;
+}

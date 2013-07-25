@@ -120,20 +120,24 @@ define(function(require) {
             block.$addProductLink = block.$('.catalogCategory__addProductLink');
             block.$productListTitle = block.$('.catalogCategory__productListTitle');
             block.$table_products = block.$('.table_products');
+            block.$productListNotification = block.$('.catalogCategory__productListNotification');
         },
         renderProductList: function(){
             var block = this;
 
             if (block.catalogSubCategoryModel){
                 block.$productListTitle.html(LH.text(block.catalogSubCategoryModel.get('name')));
+                block.$productList.show();
             } else {
-                block.$productListTitle.html(LH.text('Выберите подкатегорию'));
+                block.$productList.hide();
             }
 
             if (block.catalogProductsCollection.length) {
                 block.$table_products.show();
+                block.$productListNotification.hide();
             } else {
                 block.$table_products.hide();
+                block.$productListNotification.show();
             }
         },
         'set:editMode': function(editMode) {
