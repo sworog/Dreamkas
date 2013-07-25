@@ -14,9 +14,28 @@
         <%text 'Добавить категорию' %>
     </a>
 </h3>
-<div id="catalog__categoryList" class="catalog__categoryList">
-    <%== templates.catalog__categoryList({
-        templates: templates,
-        catalogCategoriesCollection: catalogGroupModel.categories
-    }) %>
+<div class="page__tabs">
+    <div class="page__tabItem page__tabItem_active" rel="categoryList">
+        <%text 'Категории' %>
+    </div>
+    <% if(LH.isAllow('groups', 'PUT::{group}')) { %>
+    <div class="page__tabItem" rel="groupProperties">
+        <%text 'Свойства' %>
+    </div>
+    <% } %>
+</div>
+<div class="page__tabsContent">
+    <div class="page__tabContentItem" rel="categoryList">
+        <div id="catalog__categoryList" class="catalog__categoryList">
+            <%== templates.catalog__categoryList({
+            templates: templates,
+            catalogCategoriesCollection: catalogGroupModel.categories
+            }) %>
+        </div>
+    </div>
+    <% if(LH.isAllow('groups', 'PUT::{group}')) { %>
+    <div class="page__tabContentItem page__tabContentItem_hidden" rel="groupProperties">
+        <form id="form_groupProperties"></form>
+    </div>
+    <% } %>
 </div>
