@@ -10,6 +10,7 @@ Meta:
 @us 12
 
 Scenario: Retail price - product creation without retail price filling
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -29,6 +30,7 @@ Then the user checks the elements values
 When the user logs out
 
 Scenario: Retail price - product creation with markup filling
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -50,6 +52,7 @@ Then the user checks the elements values
 When the user logs out
 
 Scenario: Retail price - product creation with retailMarkup filling
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -71,6 +74,7 @@ Then the user checks the elements values
 When the user logs out
 
 Scenario: Retail price - product creation with retailPrice filling
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -97,6 +101,7 @@ Then the user checks the elements values
 When the user logs out
 
 Scenario: Retail price - retailMarkup - last used field is active in product edition
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -120,6 +125,7 @@ And the user checks 'retailMarkupHint' 'is not' avalaible
 When the user logs out
 
 Scenario: Retail price - retailPrice - last used field is active in product edition
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -144,6 +150,7 @@ And the user checks 'retailPriceHint' 'is not' avalaible
 When the user logs out
 
 Scenario: Retail price - retailMarkup - last used field is active in product edition all
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -178,6 +185,7 @@ And the user checks 'retailPriceHint' 'is not' avalaible
 When the user logs out
 
 Scenario: Retail price - retailPrice is active by default
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -188,6 +196,7 @@ And the user checks 'retailPriceHint' 'is' avalaible
 When the user logs out
 
 Scenario: Retail price - retail price hint text
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -197,6 +206,7 @@ Then the user checks the elements values
 When the user logs out
 
 Scenario: Retail price - retail markup hint text
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -207,6 +217,7 @@ Then the user checks the elements values
 When the user logs out
 
 Scenario: Retail price - retail price correct round testing
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -220,6 +231,7 @@ Then the user checks the 'retailPriceHint' value is '268,80'
 When the user logs out
 
 Scenario: Retail price - retail markup correct round testing
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -234,6 +246,7 @@ Then the user checks the 'retailMarkupHint' value is '140'
 When the user logs out
 
 Scenario: Retail price regress 1
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page

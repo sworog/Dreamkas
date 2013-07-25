@@ -11,6 +11,7 @@ Meta:
 @us 11.1
 
 Scenario: Average price is not changed in current day
+
 Given there is the product with 'Печенье Московское' name, 'Печенье-Московское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -53,6 +54,7 @@ And the user checks the product with 'Печенье-Московское-Арт
 When the user logs out
 
 Scenario: Average price is changed in 30 days
+
 Given there is the product with 'Печенье Питерское' name, 'Печенье-Питерское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -96,6 +98,7 @@ And the user checks the product with 'Печенье-Питерское-Арти
 When the user logs out
 
 Scenario: Average price is not changed above 30 days
+
 Given there is the product with 'Печенье Гламурное' name, 'Печенье-Гламурное-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -139,6 +142,7 @@ And the user checks the product with 'Печенье-Гламурное-Арти
 When the user logs out
 
 Scenario: Average price is changed in 1 days
+
 Given there is the product with 'Печенье Астраханское' name, 'Печенье-Астраханское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -182,6 +186,7 @@ And the user checks the product with 'Печенье-Астраханское-А
 When the user logs out
 
 Scenario: Average price round checking
+
 Given there is the product with 'Печенье Киевское' name, 'Печенье-Киевское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -225,6 +230,7 @@ And the user checks the product with 'Печенье-Киевское-Артик
 When the user logs out
 
 Scenario: Average price calculation
+
 Given there is the product with 'Печенье Юбилейное' name, 'Печенье-Юбилейное-Артикул' sku, '45695514566' barcode, 'liter' units, '25,50' purchasePrice
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'

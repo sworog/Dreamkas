@@ -10,6 +10,7 @@ Meta:
 @us 22
 
 Scenario: Create new store from stores list page
+
 Given user is on stores list page
 And the user logs in as 'commercialManager'
 When When user clicks create new store button
@@ -25,6 +26,7 @@ Then user checks store card data
 When the user logs out
 
 Scenario: Create new store direct from create new store page
+
 Given the user is on create store page
 And the user logs in as 'commercialManager'
 When user fills store form with following data

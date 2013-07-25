@@ -9,6 +9,7 @@ Meta:
 @debug us:17:validation
 
 Scenario: Can't delete not empty category from group page
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'subCategoryTest11' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
 And the user navigates to the group with name 'subCategoryTestGroup'
@@ -21,6 +22,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: Can't delete not empty category from catalog page
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'subCategoryTest10' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
 And the user opens catalog page
@@ -33,6 +35,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: Can't delete not empty сategory from category page
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'subCategoryTest12' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
@@ -45,6 +48,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: subCategory validation name good - 100 symbols
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
@@ -58,6 +62,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: subCategory validation name invalid - 101 symbols
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
@@ -73,6 +78,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: subCategory validation name is required
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
@@ -86,6 +92,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: subCategory validation - can't create group with equal name
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'subCategoryTestEqualName' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
@@ -102,6 +109,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: subCategory edit validation name good - 100 symbols
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'edit subCategoryTest' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
@@ -117,6 +125,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: subCategory edit validation name invalid - 101 symbols
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'edit subCategoryTest1' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
@@ -135,6 +144,7 @@ And the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: subCategory edit validation name is required
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'edit subCategoryTest1' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
@@ -152,6 +162,7 @@ And the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: subCategory edit validation - can't edit the group name to the group name already created
+
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'edit subCategoryTest2' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'

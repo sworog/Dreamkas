@@ -5,6 +5,7 @@ Meta:
 @us 14
 
 Scenario: Write off creation
+
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductSku' sku, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
 And the user opens amount list page
 And the user logs in as 'departmentManager'
@@ -40,6 +41,7 @@ Then the user checks the product with 'WriteOff-ProductSku' sku has 'amounts amo
 When the user logs out
 
 Scenario: Write Off product name autocomplete
+
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductSku' sku, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
 And the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -50,6 +52,7 @@ When the user inputs 'WriteOff-ProductName' in the 'writeOff product name autoco
 When the user logs out
 
 Scenario: Write Off product sku autocomplete
+
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductSku' sku, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
 And the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -60,6 +63,7 @@ When the user inputs 'WriteOff-ProductSku' in the 'writeOff product sku autocomp
 When the user logs out
 
 Scenario: Write Off product barcode autocomplete
+
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductSku' sku, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
 And the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -70,6 +74,7 @@ When the user inputs 'WriteOff-ProductBarCode' in the 'writeOff product barCode 
 When the user logs out
 
 Scenario: Write off price is filled by retail price
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -94,6 +99,7 @@ Then the user checks write off elements values
 When the user logs out
 
 Scenario: Write off price is filled by purchase price
+
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductSku' sku, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
 And the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -107,6 +113,7 @@ Then the user checks write off elements values
 When the user logs out
 
 Scenario: write off review kg
+
 Given there is the product with 'WriteOff-ProductName-review1' name, 'WriteOff-ProductSku-review1' sku, 'WriteOff-ProductBarCode-review1' barcode, 'kg' units, '15' purchasePrice
 And the user opens amount list page
 And the user logs in as 'departmentManager'
@@ -142,6 +149,7 @@ Then the user checks the product with 'WriteOff-ProductSku-review1' sku has 'amo
 When the user logs out
 
 Scenario: write off Review liter
+
 Given there is the product with 'WriteOff-ProductName-review2' name, 'WriteOff-ProductSku-review2' sku, 'WriteOff-ProductBarCode-review2' barcode, 'liter' units, '15' purchasePrice
 And the user opens amount list page
 And the user logs in as 'departmentManager'
@@ -177,6 +185,7 @@ Then the user checks the product with 'WriteOff-ProductSku-review2' sku has 'amo
 When the user logs out
 
 Scenario: write off Review units
+
 Given there is the product with 'WriteOff-ProductName-review3' name, 'WriteOff-ProductSku-review3' sku, 'WriteOff-ProductBarCode-review3' barcode, 'unit' units, '15' purchasePrice
 And the user opens amount list page
 And the user logs in as 'departmentManager'
@@ -212,6 +221,7 @@ Then the user checks the product with 'WriteOff-ProductSku-review3' sku has 'amo
 When the user logs out
 
 Scenario: Review 3 different products in one write off
+
 Given there is the product with 'WriteOff-ProductName-review1' name, 'WriteOff-ProductSku-review1' sku, 'WriteOff-ProductBarCode-review1' barcode, 'kg' units, '15' purchasePrice
 Given there is the product with 'WriteOff-ProductName-review2' name, 'WriteOff-ProductSku-review2' sku, 'WriteOff-ProductBarCode-review2' barcode, 'liter' units, '15' purchasePrice
 Given there is the product with 'WriteOff-ProductName-review3' name, 'WriteOff-ProductSku-review3' sku, 'WriteOff-ProductBarCode-review3' barcode, 'unit' units, '15' purchasePrice
@@ -279,6 +289,7 @@ Then the user checks the product with 'WriteOff-ProductSku-review3' sku has 'amo
 When the user logs out
 
 Scenario: Write off edition - number
+
 Given navigate to new write off with 'WriteOff-Edit-1' number
 And the user logs in as 'departmentManager'
 When the user clicks edit button and starts write off edition
@@ -295,6 +306,7 @@ Then the user checks write off elements values
 When the user logs out
 
 Scenario: Write off edition - date
+
 Given navigate to new write off with 'WriteOff-Edit-2' number
 And the user logs in as 'departmentManager'
 When the user clicks edit button and starts write off edition
@@ -311,6 +323,7 @@ Then the user checks write off elements values
 When the user logs out
 
 Scenario: Write off edition - product name
+
 Given there is the product with 'WriteOff-WOE-PN' name, 'WriteOff-WOE-PN' sku, 'WriteOff-WOE-PN' barcode, 'liter' units, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productName' number with product 'WriteOff-ProductName-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user opens amount list page
@@ -335,6 +348,7 @@ And the user checks the product with 'WriteOff-ProductName-autocomplete' sku has
 When the user logs out
 
 Scenario: Write off edition - product sku
+
 Given there is the product with 'WriteOff-WOE-PS' name, 'WriteOff-WOE-PS' sku, 'WriteOff-WOE-PS' barcode, 'liter' units, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productSku' number with product 'WriteOff-ProductSku-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user opens amount list page
@@ -359,6 +373,7 @@ And the user checks the product with 'WriteOff-ProductSku-autocomplete' sku has 
 When the user logs out
 
 Scenario: Write off edition - product barcode
+
 Given there is the product with 'WriteOff-WOE-Pb' name, 'WriteOff-WOE-Pb' sku, 'WriteOff-WOE-Pb' barcode, 'liter' units, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productBarCode' number with product 'WriteOff-ProductBarCode-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user opens amount list page
@@ -383,6 +398,7 @@ And the user checks the product with 'WriteOff-ProductBarCode-autocomplete' sku 
 When the user logs out
 
 Scenario: Write off edition - product quantity
+
 Given there is the write off with 'WriteOff-Edit-productQuantity' number with product 'WriteOff-ProductQuantity' with quantity '50', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user opens amount list page
 And the user logs in as 'departmentManager'
@@ -404,6 +420,7 @@ Then the user checks the product with 'WriteOff-ProductQuantity' sku has 'amount
 When the user logs out
 
 Scenario: Write off edition - product price
+
 Given there is the write off with 'WriteOff-Edit-productPrice' number with product 'WriteOff-ProductPrice' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the write off with number 'WriteOff-Edit-productPrice'
 And the user logs in as 'departmentManager'
@@ -421,6 +438,7 @@ Then the user checks the product with 'WriteOff-ProductPrice' sku has elements o
 When the user logs out
 
 Scenario: Write off edition - product cause
+
 Given there is the write off with 'WriteOff-Edit-productCause' number with product 'WriteOff-ProductCause' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the write off with number 'WriteOff-Edit-productCause'
 And the user logs in as 'departmentManager'
@@ -438,6 +456,7 @@ Then the user checks the product with 'WriteOff-ProductCause' sku has elements o
 When the user logs out
 
 Scenario: Write off edition - adding new product
+
 Given there is the product with 'WriteOff-WOE-ANP' name, 'WriteOff-WOE-ANP' sku, 'WriteOff-WOE-ANP' barcode, 'liter' units, '15' purchasePrice
 And navigate to new write off with 'WriteOff-Edit-productAdd' number
 And the user logs in as 'departmentManager'
@@ -467,6 +486,7 @@ And the user checks the product with 'WriteOff-WOE-ANP' sku has elements on the 
 When the user logs out
 
 Scenario: Write off edition - deleting product
+
 Given there is the write off with 'WriteOff-Edit-productDelete' number with product 'WriteOff-WOE-ANP-1' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user opens amount list page
 And the user logs in as 'departmentManager'
@@ -483,6 +503,7 @@ Then the user checks the product with 'WriteOff-WOE-ANP-1' sku has 'amounts amou
 When the user logs out
 
 Scenario: Write off edition - deleting product cancel
+
 Given there is the write off with 'WriteOff-Edit-productDelete-2' number with product 'WriteOff-WOE-ANP-2' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user opens amount list page
 And the user logs in as 'departmentManager'

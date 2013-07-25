@@ -8,6 +8,7 @@ Meta:
 @us 19
 
 Scenario: Create user Commercial Manager type
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -33,6 +34,7 @@ Then the user checks the user page elements values
 When the user logs out
 
 Scenario: Create user store Manager type
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -58,6 +60,7 @@ Then the user checks the user page elements values
 When the user logs out
 
 Scenario: Create user department Manager type
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -83,6 +86,7 @@ Then the user checks the user page elements values
 When the user logs out
 
 Scenario: Create user administrator type
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -108,6 +112,7 @@ Then the user checks the user page elements values
 When the user logs out
 
 Scenario: user create from users list page
+
 Given the user is on the users list page
 And the user logs in as 'watchman'
 When the user clicks the create new user button from users list page
@@ -123,6 +128,7 @@ Then the user checks the user with 'createfromuserslistpage' username is present
 When the user logs out
 
 Scenario: user edition
+
 Given there is the user with name 'Name1', position 'Position1', username 'Login1', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'Login1'
 And the user logs in as 'watchman'
@@ -150,6 +156,7 @@ And the user checks the user with 'Login_edited' username has 'role' element equ
 When the user logs out
 
 Scenario: user edition commercialManager type
+
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
 And the user navigates to the user page with username 'User-edition'
 And the user logs in as 'watchman'
@@ -167,6 +174,7 @@ And the user checks the user with 'User-edition' username has 'role' element equ
 When the user logs out
 
 Scenario: user edition storeManager type
+
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
 And the user navigates to the user page with username 'User-edition'
 And the user logs in as 'watchman'
@@ -184,6 +192,7 @@ And the user checks the user with 'User-edition' username has 'role' element equ
 When the user logs out
 
 Scenario: user edition section chief type
+
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
 And the user navigates to the user page with username 'User-edition'
 And the user logs in as 'watchman'
@@ -201,6 +210,7 @@ And the user checks the user with 'User-edition' username has 'role' element equ
 When the user logs out
 
 Scenario: user edition administrator type
+
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
 And the user navigates to the user page with username 'User-edition'
 And the user logs in as 'watchman'

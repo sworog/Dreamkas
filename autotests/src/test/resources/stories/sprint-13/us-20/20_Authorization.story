@@ -10,6 +10,7 @@ Meta:
 @us 20
 
 Scenario: Authorization invalid password
+
 Given the user opens the authorization page
 When the user logs in using 'watchman' userName and '123456' password to check validation
 Then the user sees error messages
@@ -17,6 +18,7 @@ Then the user sees error messages
 | Неверный логин или пароль |
 
 Scenario: Authorization invalid password, userName
+
 Given the user opens the authorization page
 When the user logs in using '123456' userName and '123456' password to check validation
 Then the user sees error messages
@@ -24,6 +26,7 @@ Then the user sees error messages
 | Неверный логин или пароль |
 
 Scenario: Authorization blank userName, password
+
 Given the user opens the authorization page
 When the user logs in using '' userName and '' password to check validation
 Then the user sees error messages
@@ -31,6 +34,7 @@ Then the user sees error messages
 | Пожалуйста заполните обязательные поля логин и пароль |
 
 Scenario: Authorization blank only userName
+
 Given the user opens the authorization page
 When the user logs in using '' userName and '123456' password to check validation
 Then the user sees error messages
@@ -38,6 +42,7 @@ Then the user sees error messages
 | Пожалуйста заполните обязательные поля логин и пароль |
 
 Scenario: Authorization blank only password
+
 Given the user opens the authorization page
 When the user logs in using 'watchman' userName and '' password to check validation
 Then the user sees error messages
@@ -45,52 +50,64 @@ Then the user sees error messages
 | Пожалуйста заполните обязательные поля логин и пароль |
 
 Scenario: Authorization, log out successfull
+
 Given the user opens the authorization page
 When the user logs in using 'watchman' userName and 'lighthouse' password
 And the user logs out
 Then the user checks the login form is present
 
 Scenario: Unathorization use - product create page
+
 Given the user is on the product create page
 Then the user checks the login form is present
 
 Scenario: Unathorization use - product list page
+
 Given the user is on the product list page
 Then the user checks the login form is present
 
 Scenario: Unathorization use - catalog page
+
 Given the user opens catalog page
 Then the user checks the login form is present
 
 Scenario: Unathorization use - users list page
+
 Given the user is on the users list page
 Then the user checks the login form is present
 
 Scenario: Unathorization use - users create page
+
 Given the user opens create new user page
 Then the user checks the login form is present
 
 Scenario: Unathorization use - users ivoice list page
+
 Given the user is on the invoice list page
 Then the user checks the login form is present
 
 Scenario: Unathorization use - users ivoice create page
+
 Given the user is on the invoice create page
 Then the user checks the login form is present
 
 Scenario: Unathorization use - amount list page
+
 Given the user opens amount list page
 Then the user checks the login form is present
 
 Scenario: Unathorization use - the write off create page
+
 Given the user opens the write off create page
 Then the user checks the login form is present
 
 Scenario: Unathorization use - the write off list page
+
 Given the user opens write off list page
 Then the user checks the login form is present
 
 Scenario: Authorization successfull - simple product scenarios
+
 Given the user is on the product list page
 When the user logs in using 'commercialManager' userName and 'lighthouse' password
 And the user creates new product from product list page
@@ -104,6 +121,7 @@ Then the user checks the product with 'assps' sku is present
 When the user logs out
 
 Scenario: Authorization successfull - simple group scenarios
+
 Given the user opens catalog page
 When the user logs in using 'commercialManager' userName and 'lighthouse' password
 When the user clicks on start edition link and starts the edition
@@ -120,6 +138,7 @@ Then the user checks the category with 'First category create123' name is relate
 When the user logs out
 
 Scenario: Authorization successfull - simple invoice scenarios
+
 Given there is the product with 'IFBKG-119' name, 'IFBKG-119' sku, 'IFBKG-119' barcode
 And the user is on the invoice list page
 When the user logs in using 'departmentManager' userName and 'lighthouse' password
@@ -165,6 +184,7 @@ And the user checks invoice elements values
 When the user logs out
 
 Scenario: Authorization successfull - simple write off scenarios
+
 Given there is the product with 'WriteOff-ProductName99' name, 'WriteOff-ProductSku99' sku, 'WriteOff-ProductBarCode99' barcode, 'liter' units, '15' purchasePrice
 And the user opens amount list page
 When the user logs in using 'departmentManager' userName and 'lighthouse' password
@@ -200,6 +220,7 @@ Then the user checks the product with 'WriteOff-ProductSku99' sku has 'amounts a
 When the user logs out
 
 Scenario: Authorization successfull - simple user scenarios
+
 Given the user is on the users list page
 When the user logs in using 'watchman' userName and 'lighthouse' password
 When the user clicks the create new user button from users list page

@@ -10,6 +10,7 @@ Meta:
 @us 8.3
 
 Scenario: Adding invoice products - 1 product with name autocomplete
+
 Given there is the product with 'Тестовое имя 25-3' name, 'SKU-AIP1PWNAU' sku, 'BARCode-AIP1PWNAU' barcode
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -49,6 +50,7 @@ Then the user checks the invoice with 'Invoice-AIP1PWNAU' sku is present
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete
+
 Given there is the product with 'Тестовое имя AIP1PWSA' name, 'SKU-AIP1PWSA' sku, 'BARCode-AIP1PWSA' barcode, 'liter' units
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -88,6 +90,7 @@ Then the user checks the invoice with 'Invoice-AIP1PWSA' sku is present
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete
+
 Given there is the product with 'Тестовое имя AIP1PWBA' name, 'SKU-AIP1PWBA' sku, 'BARCode-AIP1PWBA' barcode, 'unit' units
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -127,6 +130,7 @@ Then the user checks the invoice with 'Invoice-AIP1PWBA' sku is present
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation 0 symbols
+
 Given there is the product with 'N-AIP1PWNAV0S' name, 'SKU-AIP1PWNAV0S' sku, 'BARCode-AIP1PWNAV0S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV0S' sku
 And the user logs in as 'departmentManager'
@@ -135,6 +139,7 @@ Then the users checks no autocomplete results
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation 1 symbols
+
 Given there is the product with 'N-AIP1PWNAV1S' name, 'SKU-AIP1PWNAV1S' sku, 'BARCode-AIP1PWNAV1S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV1S' sku
 And the user logs in as 'departmentManager'
@@ -143,6 +148,7 @@ Then the users checks no autocomplete results
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation 2 symbols
+
 Given there is the product with 'N-AIP1PWNAV2S' name, 'SKU-AIP1PWNAV2S' sku, 'BARCode-AIP1PWNAV2S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV2S' sku
 And the user logs in as 'departmentManager'
@@ -151,6 +157,7 @@ Then the users checks no autocomplete results
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation 3 symbols
+
 Given there is the product with 'N-AIP1PWNAV3S' name, 'SKU-AIP1PWNAV3S' sku, 'BARCode-AIP1PWNAV3S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV3S' sku
 And the user logs in as 'departmentManager'
@@ -161,6 +168,7 @@ Then the users checks autocomplete results contains
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation 0 symbols
+
 Given there is the product with 'N-AIP1PWSAV0S' name, 'SKU-AIP1PWSAV0S' sku, 'BARCode-AIP1PWSAV0S' barcode
 And there is the invoice with 'Invoice-AIP1PWSAV0S' sku
 And the user logs in as 'departmentManager'
@@ -169,6 +177,7 @@ Then the users checks no autocomplete results
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation 1 symbols
+
 Given there is the product with 'N-AIP1PWSAV1S' name, 'SKU-AIP1PWSAV1S' sku, 'BARCode-AIP1PWSAV1S' barcode
 And there is the invoice with 'Invoice-AIP1PWSAV1S' sku
 And the user logs in as 'departmentManager'
@@ -177,6 +186,7 @@ Then the users checks no autocomplete results
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation 2 symbols
+
 Given there is the product with 'N-AIP1PWSAV2S' name, 'SKU-AIP1PWSAV2S' sku, 'BARCode-AIP1PWSAV2S' barcode
 And there is the invoice with 'Invoice-AIP1PWSAV2S' sku
 And the user logs in as 'departmentManager'
@@ -185,6 +195,7 @@ Then the users checks no autocomplete results
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation 3 symbols
+
 Given there is the product with 'N-AIP1PWSAV3S' name, 'SKU-AIP1PWSAV2S56' sku, 'BARCode-AIP1PWSAV2S' barcode
 And there is the invoice with 'Invoice-AIP1PWSAV3S' sku
 And the user logs in as 'departmentManager'
@@ -195,6 +206,7 @@ Then the users checks autocomplete results contains
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation 0 symbols
+
 Given there is the product with 'N-AIP1PWBAV0S' name, 'SKU-AIP1PWBAV0S' sku, 'BARCode-AIP1PWBAV0S' barcode
 And there is the invoice with 'Invoice-AIP1PWBAV0S' sku
 And the user logs in as 'departmentManager'
@@ -203,6 +215,7 @@ Then the users checks no autocomplete results
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation 1 symbols
+
 Given there is the product with 'N-AIP1PWBAV1S' name, 'SKU-AIP1PWBAV1S' sku, 'BARCode-AIP1PWBAV1S' barcode
 And there is the invoice with 'Invoice-AIP1PWBAV1S' sku
 And the user logs in as 'departmentManager'
@@ -211,6 +224,7 @@ Then the users checks no autocomplete results
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation 2 symbols
+
 Given there is the product with 'N-AIP1PWBAV2S' name, 'SKU-AIP1PWBAV2S' sku, 'BARCode-AIP1PWBAV2S' barcode
 And there is the invoice with 'Invoice-AIP1PWBAV2S' sku
 And the user logs in as 'departmentManager'
@@ -219,6 +233,7 @@ Then the users checks no autocomplete results
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation 3 symbols
+
 Given there is the product with 'N-AIP1PWBAV3S' name, 'SKU-AIP1PWBAV3S' sku, 'BARCode-AIP1PWBAV3S' barcode
 And there is the invoice with 'Invoice-AIP1PWBAV3S' sku
 And the user logs in as 'departmentManager'
@@ -229,6 +244,7 @@ Then the users checks autocomplete results contains
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation rus search
+
 Given there is the product with 'Имя-AIP1WNAVRS' name, 'Артикул-AIP1WNAVRS' sku, 'Баркод-AIP1WNAVRS' barcode
 And there is the invoice with 'Invoice-AIP1WNAVRS' sku
 And the user logs in as 'departmentManager'
@@ -241,6 +257,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation numbers search
+
 Given there is the product with '123-AIP1PWNAVNS' name, '123-AIP1PWNAVNS' sku, '123-AIP1PWNAVNS' barcode
 And there is the invoice with 'Invoice-AIP1PWNAVNS' sku
 And the user logs in as 'departmentManager'
@@ -253,6 +270,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation eng search
+
 Given there is the product with 'NAME-AIP1PWNAVES' name, 'SKU-AIP1PWNAVES' sku, 'BC-AIP1PWNAVES' barcode
 And there is the invoice with 'Invoice-AIP1PWNAVES' sku
 And the user logs in as 'departmentManager'
@@ -265,6 +283,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation symbols search
+
 Given there is the product with '@#$-AIP1PWNAWSS' name, '@#$-AIP1PWNAWSS' sku, '@#$-AIP1PWNAWSS' barcode
 And there is the invoice with 'Invoice-AIP1PWNAWSS' sku
 And the user logs in as 'departmentManager'
@@ -277,6 +296,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation small register search
+
 Given there is the product with 'name-AIP1PWBAVSRS' name, 'sku-AIP1PWBAVSRS' sku, 'barcode-AIP1PWBAVSRS' barcode
 And there is the invoice with 'Invoice-AIP1PWBAVSRS' sku
 And the user logs in as 'departmentManager'
@@ -289,6 +309,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with name autocomplete validation big register search
+
 Given there is the product with 'Name-AIP1PWBAVBRS' name, 'Sku-AIP1PWBAVBRS' sku, 'Barcode-AIP1PWBAVBRS' barcode
 And there is the invoice with 'Invoice-AIP1PWBAVBRS' sku
 And the user logs in as 'departmentManager'
@@ -301,6 +322,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation rus search
+
 Given there is the product with 'Имя-AIP1WSAVRS' name, 'Артикул-AIP1WSAVRS' sku, 'Баркод-AIP1WSAVRS' barcode
 And there is the invoice with 'Invoice-AIP1WSAVRS' sku
 And the user logs in as 'departmentManager'
@@ -313,6 +335,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation numbers search
+
 Given there is the product with '123-AIP1PWSAVNS' name, '123-AIP1PWSAVNS' sku, '123-AIP1PWSAVNS' barcode
 And there is the invoice with 'Invoice-AIP1PWSAVNS' sku
 And the user logs in as 'departmentManager'
@@ -325,6 +348,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation eng search
+
 Given there is the product with 'NAME-AIP1PWSAVES' name, 'SKU-AIP1PWSAVES' sku, 'BC-AIP1PWSAVES' barcode
 And there is the invoice with 'Invoice-AIP1PWSAVES' sku
 And the user logs in as 'departmentManager'
@@ -337,6 +361,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation symbols search
+
 Given there is the product with '%^*-AIP1PWSAVSS' name, '%^*-AIP1PWSAVSS' sku, '%^*-AIP1PWSAVSS' barcode
 And there is the invoice with 'Invoice-AIP1PWSAVSS' sku
 And the user logs in as 'departmentManager'
@@ -349,6 +374,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation small register search
+
 Given there is the product with 'name-AIP1PWSAVSS' name, 'sku-AIP1PWSAVSS' sku, 'barcode-AIP1PWSAVSS' barcode
 And there is the invoice with 'Invoice-AIP-1PWSAVSRS' sku
 And the user logs in as 'departmentManager'
@@ -361,6 +387,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete validation big register search
+
 Given there is the product with 'Name-AIP1PWSAVSS' name, 'Sku-AIP1PWSAVSS' sku, 'Barcode-AIP1PWSAVSS' barcode
 And there is the invoice with 'Invoice-AIP-1PWSAVBRS' sku
 And the user logs in as 'departmentManager'
@@ -373,6 +400,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation rus search
+
 Given there is the product with 'Имя-AIP1PWBAVRS' name, 'Артикул-AIP1PWBAVRS' sku, 'Баркод-AIP1PWBAVRS' barcode
 And there is the invoice with 'Invoice-AIP1PWBAVRS' sku
 And the user logs in as 'departmentManager'
@@ -385,6 +413,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation numbers search
+
 Given there is the product with '123-AIP1PWBAVNS' name, '123-AIP1PWBAVNS' sku, '123-AIP1PWBAVNS' barcode
 And there is the invoice with 'Invoice-AIP1PWBAVNS' sku
 And the user logs in as 'departmentManager'
@@ -397,6 +426,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation eng search
+
 Given there is the product with 'NAME-AIP1PWBAVES' name, 'SKU-AIP1PWBAVES' sku, 'BC-AIP1PWBAVES' barcode
 And there is the invoice with 'Invoice-AIP1PWBAVES' sku
 And the user logs in as 'departmentManager'
@@ -409,6 +439,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation symbols search
+
 Given there is the product with '()_+-AIP1PWBAVES' name, '()_+-AIP1PWBAVES' sku, '()_+-AIP1PWBAVES' barcode
 And there is the invoice with 'Invoice-AIP-1PWBAVSS' sku
 And the user logs in as 'departmentManager'
@@ -421,6 +452,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation small register search
+
 Given there is the product with 'name-AIP1PWBAVES' name, 'sku-AIP1PWBAVES' sku, 'barcode-AIP1PWBAVES' barcode
 And there is the invoice with 'Invoice-AIP-1PWBAVSRS' sku
 And the user logs in as 'departmentManager'
@@ -433,6 +465,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete validation big register search
+
 Given there is the product with 'Name-AIP1PWBAVES' name, 'Sku-AIP1PWBAVES' sku, 'Barcode-AIP1PWBAVES' barcode
 And there is the invoice with 'Invoice-AIP-1PWBAVBRS' sku
 And the user logs in as 'departmentManager'
@@ -445,6 +478,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Clearing the fields if another autocomplete is inputed - name
+
 Given there is the product with 'Name-CLTFIAAIIN' name, 'Sku-CLTFIAAIIN' sku, 'Barcode-CLTFIAAIIN' barcode
 And there is the invoice with 'Invoice-CLTFIAAIIN' sku
 And the user logs in as 'departmentManager'
@@ -463,6 +497,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Clearing the fields if another autocomplete is inputed - sku
+
 Given there is the product with 'Name-CLTFIAAIIS' name, 'Sku-CLTFIAAIIS' sku, 'Barcode-CLTFIAAIIS' barcode
 And there is the invoice with 'Invoice-CLTFIAAIIS' sku
 And the user logs in as 'departmentManager'
@@ -481,6 +516,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Clearing the fields if another autocomplete is inputed - barcode
+
 Given there is the product with 'Name-CLTFIAAIIB' name, 'Sku-CLTFIAAIIB' sku, 'Barcode-CLTFIAAIIB' barcode
 And there is the invoice with 'Invoice-CLTFIAAIIB' sku
 And the user logs in as 'departmentManager'
@@ -499,6 +535,7 @@ Then the user checks invoice elements values
 When the user logs out
 
 Scenario: Adding invoice products - 3 products with barcode, name, sku autocomplete
+
 Given there is the product with 'Тестовый продукт-1' name, 'Тестовый артикул-1' sku, 'Тестовый баркод-1' barcode
 And there is the product with 'Тестовый продукт-2' name, 'Тестовый артикул-2' sku, 'Тестовый баркод-2' barcode, 'liter' units
 And there is the product with 'Тестовый продукт-3' name, 'Тестовый артикул-3' sku, 'Тестовый баркод-3' barcode, 'unit' units

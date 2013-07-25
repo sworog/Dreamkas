@@ -3,6 +3,7 @@ Meta:
 @us 16
 
 Scenario: Can't delete not empty group from catalog page
+
 Given there is the category with name 'category cdnecfcp' related to group named 'group cdnecfcp'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -14,6 +15,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: Can't delete not empty group from group page
+
 Given there is the category with name 'category cdnecfcp1' related to group named 'group cdnecfcp1'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -26,6 +28,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group validation name good - 100 symbols
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -38,6 +41,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group validation name invalid - 101 symbols
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -52,6 +56,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group validation name is required
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -64,6 +69,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group validation - can't create group with equal name
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -78,6 +84,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group edit from catalog page - validation name good - 100 symbols
+
 Given there is the group with name 'group vng-100'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -92,6 +99,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group edit from catalog page -  validation name invalid - 101 symbols
+
 Given there is the group with name 'group vng-101'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -109,6 +117,7 @@ And the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group edit from catalog page - validation name is required
+
 Given there is the group with name 'group vng-101'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -125,6 +134,7 @@ And the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group edit from catalog page - validation - can't create group with equal name
+
 Given there is the group with name 'group vng-101'
 And there is the group with name 'group vng-102'
 And the user opens catalog page
@@ -142,6 +152,7 @@ And the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group edit from group page - validation name good - 100 symbols
+
 Given there is the group with name 'group vng-103'
 And the user navigates to the group with name 'group vng-103'
 And the user logs in as 'commercialManager'
@@ -156,6 +167,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group edit from group page - validation name invalid - 101 symbols
+
 Given there is the group with name 'group vng-104'
 And the user navigates to the group with name 'group vng-104'
 And the user logs in as 'commercialManager'
@@ -173,6 +185,7 @@ And the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group edit from group page - validation name is required
+
 Given there is the group with name 'group vng-105'
 And the user navigates to the group with name 'group vng-105'
 And the user logs in as 'commercialManager'
@@ -189,6 +202,7 @@ And the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: group edit from group page - validation - can't create group with equal name
+
 Given there is the group with name 'group vng-106'
 And there is the group with name 'group vng-107'
 And the user navigates to the group with name 'group vng-107'
@@ -206,6 +220,7 @@ And the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: category validation name good - 100 symbols
+
 Given there is the group with name 'GVNG group'
 And the user navigates to the group with name 'GVNG group'
 And the user logs in as 'commercialManager'
@@ -218,6 +233,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: category validation name invalid - 101 symbols
+
 Given there is the group with name 'GVNG group'
 And the user navigates to the group with name 'GVNG group'
 And the user logs in as 'commercialManager'
@@ -232,6 +248,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: category validation name is required
+
 Given there is the group with name 'GVNG group'
 And the user navigates to the group with name 'GVNG group'
 And the user logs in as 'commercialManager'
@@ -244,6 +261,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: category validation - can't create category with equal name
+
 Given there is the group with name 'GVNG group'
 And the user navigates to the group with name 'GVNG group'
 And the user logs in as 'commercialManager'
@@ -260,6 +278,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: category edit from catalog page - validation name good - 100 symbols
+
 Given there is the category with name 'category edit vng-100' related to group named 'category edit'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -274,6 +293,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: category edit from catalog page - validation name invalid - 101 symbols
+
 Given there is the category with name 'category edit vng-101' related to group named 'category edit'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -290,6 +310,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: category edit from catalog page - validation name is required
+
 Given there is the category with name 'category edit vng-102' related to group named 'category edit'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -305,6 +326,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: category edit from catalog page - validation - can't create category with equal name
+
 Given there is the category with name 'category edit vng-103' related to group named 'category edit'
 And there is the category with name 'category edit vng-104' related to group named 'category edit'
 And the user opens catalog page
@@ -321,6 +343,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: category edit from group page - validation name good - 100 symbols
+
 Given there is the category with name 'category edit vng-105' related to group named 'category edit'
 And the user navigates to the group with name 'category edit'
 And the user logs in as 'commercialManager'
@@ -335,6 +358,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: category edit from group page - validation name invalid - 101 symbols
+
 Given there is the category with name 'category edit vng-106' related to group named 'category edit'
 And the user navigates to the group with name 'category edit'
 And the user logs in as 'commercialManager'
@@ -351,6 +375,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: category edit from group page - validation name is required
+
 Given there is the category with name 'category edit vng-107' related to group named 'category edit'
 And the user navigates to the group with name 'category edit'
 And the user logs in as 'commercialManager'
@@ -366,6 +391,7 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: category edit from group page - validation - can't create category with equal name
+
 Given there is the category with name 'category edit vng-108' related to group named 'category edit'
 And there is the category with name 'category edit vng-109' related to group named 'category edit'
 And the user navigates to the group with name 'category edit'

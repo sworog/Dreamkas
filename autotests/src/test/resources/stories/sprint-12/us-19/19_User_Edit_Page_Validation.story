@@ -3,6 +3,7 @@ Meta:
 @us 19
 
 Scenario: edit mode name field length validation 100 symbols
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf1', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf1'
 And the user logs in as 'watchman'
@@ -14,6 +15,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode name field length validation negative 101 symbols
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf2', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf2'
 And the user logs in as 'watchman'
@@ -27,6 +29,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode name field is required
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf3', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf3'
 And the user logs in as 'watchman'
@@ -41,6 +44,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode position field length validation 100 symbols
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf4', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf4'
 And the user logs in as 'watchman'
@@ -52,6 +56,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode position field length validation negative 101 symbols
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf5', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf5'
 And the user logs in as 'watchman'
@@ -65,6 +70,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode position field is required
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf6', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf6'
 And the user logs in as 'watchman'
@@ -79,6 +85,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode role field is required
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf7', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf7'
 And the user logs in as 'watchman'
@@ -93,6 +100,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode password minimum length validation invalid
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf8', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf8'
 And the user logs in as 'watchman'
@@ -107,6 +115,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode password minimum length validation positive
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf9', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf9'
 And the user logs in as 'watchman'
@@ -119,6 +128,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode password must be not equal to username
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf10', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf10'
 And the user logs in as 'watchman'
@@ -134,6 +144,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode password validation positive
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf11', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf11'
 And the user logs in as 'watchman'
@@ -146,6 +157,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username field length validation 100 symbols
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf12', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf12'
 And the user logs in as 'watchman'
@@ -157,6 +169,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username field length validation negative 101 symbols
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf13', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf13'
 And the user logs in as 'watchman'
@@ -170,6 +183,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode username must be unique
+
 Given there is the user with name 'User validation lmbu', position 'User validation lmbu', username 'Uservalidationlmbu', password 'Uservalidationlmbu1', role 'commercialManager'
 And there is the user with name 'User validation', position 'User validation', username 'emnf14', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf14'
@@ -185,6 +199,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode username is required
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf15', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf15'
 And the user logs in as 'watchman'
@@ -199,6 +214,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode username validation positive Rus Big regiser
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf16', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf16'
 And the user logs in as 'watchman'
@@ -211,6 +227,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username validation positive Rus Small register
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf17', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf17'
 And the user logs in as 'watchman'
@@ -223,6 +240,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username validation positive Eng Small register
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf19', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf19'
 And the user logs in as 'watchman'
@@ -235,6 +253,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username validation positive Eng Big register
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf20', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf20'
 And the user logs in as 'watchman'
@@ -247,6 +266,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username validation positive digits 0-9
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf21', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf21'
 And the user logs in as 'watchman'
@@ -259,6 +279,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username validation positive symbols _
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf22', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf22'
 And the user logs in as 'watchman'
@@ -271,6 +292,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username validation positive symbols -
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf23', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf23'
 And the user logs in as 'watchman'
@@ -283,6 +305,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username validation positive symbols .
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf24', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf24'
 And the user logs in as 'watchman'
@@ -295,6 +318,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username validation positive symbols @
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf25', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf25'
 And the user logs in as 'watchman'
@@ -307,6 +331,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username validation positive symbols mix
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf26', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf26'
 And the user logs in as 'watchman'
@@ -319,6 +344,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: edit mode username validation negative symbols
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf27', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf27'
 And the user logs in as 'watchman'
@@ -333,6 +359,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: edit mode username validation negative symbols white space
+
 Given there is the user with name 'User validation', position 'User validation', username 'emnf28', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf28'
 And the user logs in as 'watchman'

@@ -3,6 +3,7 @@ Meta:
 @us 19
 
 Scenario: name field length validation 100 symbols
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -18,6 +19,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: name field length validation negative 101 symbols
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -35,6 +37,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: name field is required
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -50,6 +53,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: position field length validation 100 symbols
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -65,6 +69,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: position field length validation negative 101 symbols
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -82,6 +87,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: position field is required
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -97,6 +103,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: role field is required
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -112,6 +119,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: password minimum length validation invalid
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -128,6 +136,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: password minimum length validation positive
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -142,6 +151,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: password must be not equal to username
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -158,6 +168,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: password validation positive
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -172,6 +183,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username field length validation 100 symbols
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -188,6 +200,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username field length validation negative 101 symbols
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -206,6 +219,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: username must be unique
+
 Given there is the user with name 'User validation lmbu', position 'User validation lmbu', username 'Uservalidationlmbu', password 'Uservalidationlmbu1', role 'commercialManager'
 And the user opens create new user page
 And the user logs in as 'watchman'
@@ -223,6 +237,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: username is required
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -238,6 +253,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: username validation positive Rus Big regiser
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -252,6 +268,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username validation positive Rus Small register
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -266,6 +283,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username validation positive Eng Small register
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -280,6 +298,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username validation positive Eng Big register
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -294,6 +313,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username validation positive digits 0-9
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -308,6 +328,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username validation positive symbols _
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -322,6 +343,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username validation positive symbols -
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -336,6 +358,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username validation positive symbols .
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -350,6 +373,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username validation positive symbols @
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -364,6 +388,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username validation positive symbols mix
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -378,6 +403,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: username validation negative symbols
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields
@@ -394,6 +420,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: username validation negative symbols white space
+
 Given the user opens create new user page
 And the user logs in as 'watchman'
 When the user inputs values in the user page element fields

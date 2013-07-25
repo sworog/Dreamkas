@@ -3,6 +3,7 @@ Meta:
 @us 12
 
 Scenario: Retail price validation String+Symbols+Num
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -20,6 +21,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail price validation commma
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -35,6 +37,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail price validation dott
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -50,6 +53,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail price validation comma
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -65,6 +69,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail price validation dot
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -80,6 +85,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail price validation one digit
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -95,6 +101,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail price validation two digits
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -110,6 +117,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail price validation three digits
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -127,6 +135,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail price validation sub zero
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -144,6 +153,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Purhase prise validation zero
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -161,6 +171,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail price validation String en small register
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -178,6 +189,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail price validation String en big register
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -195,6 +207,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail price validation String rus small register
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -212,6 +225,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail price validation String rus big register
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -229,6 +243,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail price validation symbols
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -246,6 +261,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail price validation length good
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -261,6 +277,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail price validation length negative
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -278,6 +295,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail Price regress
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page

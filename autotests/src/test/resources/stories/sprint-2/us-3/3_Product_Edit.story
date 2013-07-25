@@ -10,6 +10,7 @@ Meta:
 @us 3
 
 Scenario: Product edit main
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -65,6 +66,7 @@ Then the user checks the elements values
 When the user logs out
 
 Scenario: Product edit check all dropdawn values
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page

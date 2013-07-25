@@ -3,6 +3,7 @@ Meta:
 @us 12
 
 Scenario: Retail Markup validation sub zero -105
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -19,6 +20,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail Markup validation sub zero -100
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -35,6 +37,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail Markup validation sub zero -99
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -49,6 +52,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail Markup validation sub zero -99.99
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -65,6 +69,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail Markup validation zero
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -79,6 +84,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail Markup validation one digit
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -93,6 +99,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail Markup validation two digits
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -107,6 +114,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Retail Markup validation three digits
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -123,6 +131,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail Markup validation String en small register
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -139,6 +148,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail Markup validation String en big register
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -155,6 +165,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail Markup validation String rus small register
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -171,6 +182,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail Markup validation String rus big register
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -187,6 +199,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail Markup validation symbols
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -203,6 +216,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Retail Markup regress
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page

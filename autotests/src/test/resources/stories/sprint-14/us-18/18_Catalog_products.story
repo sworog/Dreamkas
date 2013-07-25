@@ -122,24 +122,28 @@ Scenario: Product create from triangle menu
 !--When the user logs out
 
 Scenario: No products dashboard link for commercial manager
+
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the dashboard link to 'products' section is not present
 When the user logs out
 
 Scenario: No products dashboard link for department manager
+
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'products' section is not present
 When the user logs out
 
 Scenario: Catalog dashboard link is present for department manager
+
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'catalog' section is present
 When the user logs out
 
 Scenario: Catalog - no edit link for department manager
+
 Given the user opens catalog page
 And the user logs in as 'departmentManager'
 Then the user dont see the 403 error

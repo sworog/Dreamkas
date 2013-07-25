@@ -3,6 +3,7 @@ Meta:
 @us 12
 
 Scenario: Edit Retail Markup validation sub zero -105
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -16,6 +17,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation sub zero -100
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -29,6 +31,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation sub zero -99
+
 Given there is created product with sku 'ED-MVC-99' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -40,6 +43,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation sub zero -99.99
+
 Given there is created product with sku 'ED-MVC-99' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -53,6 +57,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation zero
+
 Given there is created product with sku 'ED-MVC-0' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -64,6 +69,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation one digit
+
 Given there is created product with sku 'ED-MVC-OD' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -75,6 +81,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation two digits
+
 Given there is created product with sku 'ED-MVC-TD' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -86,6 +93,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation three digits
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -99,6 +107,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation String en small register
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -112,6 +121,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation String en big register
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -125,6 +135,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation String rus small register
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -138,6 +149,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation String rus big register
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -151,6 +163,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail Markup validation symbols
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -164,6 +177,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail Markup regress
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'

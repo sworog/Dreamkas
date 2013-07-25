@@ -10,6 +10,7 @@ Meta:
 @sprint 14
 
 Scenario: subCategory create
+
 Given there is the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
@@ -21,6 +22,7 @@ Then the user checks the subCategory with 'First subCategory create' name is pre
 When the user logs out
 
 Scenario: subCategory delete
+
 Given there is the subCategory with name 'subCategoryTestDelete' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategory'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
@@ -34,6 +36,7 @@ Then the user checks the subCategory with 'subCategoryTestDelete' name is not pr
 When the user logs out
 
 Scenario: subCategory edit
+
 Given there is the subCategory with name 'subCategoryTestEdit' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategory'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
@@ -49,6 +52,7 @@ Then the user checks the subCategory with 'new subCategoryTestEdit' name is pres
 When the user logs out
 
 Scenario: subCategory edit cancel
+
 Given there is the subCategory with name 'subCategoryTestEditCancel' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategory'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'

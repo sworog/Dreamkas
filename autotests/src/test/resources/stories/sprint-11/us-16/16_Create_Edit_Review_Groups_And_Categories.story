@@ -10,6 +10,7 @@ Meta:
 @us 16
 
 Scenario: group create from catalog page
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -20,6 +21,7 @@ Then the user checks the group with 'First group create' name is present
 When the user logs out
 
 Scenario: group delete from catalog page
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -33,6 +35,7 @@ Then the user checks the group with 'group delete from catalog' name is not pres
 When the user logs out
 
 Scenario: group delete from group page
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -49,6 +52,7 @@ Then the user checks the group with 'group delete from group page' name is not p
 When the user logs out
 
 Scenario: group edit from catalog page
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -64,6 +68,7 @@ Then the user checks the group with 'new group edits from catalog' name is prese
 When the user logs out
 
 Scenario: group edit from group page
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -81,6 +86,7 @@ Then the user checks the group with 'new group edits from group page' name is pr
 When the user logs out
 
 Scenario: group edit cancel from catalog page
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -96,6 +102,7 @@ And the user checks the group with 'group edits from catalog cancel' name is pre
 When the user logs out
 
 Scenario: group edit cancel from group page
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -115,6 +122,7 @@ And the user checks the group with 'new group edits cancel from group page' name
 When the user logs out
 
 Scenario: category create from group page
+
 Given there is the group with name 'GcFcP'
 And the user navigates to the group with name 'GcFcP'
 And the user logs in as 'commercialManager'
@@ -129,6 +137,7 @@ Then the user checks the category with 'First category create' name is related t
 When the user logs out
 
 Scenario: category delete from catalog
+
 Given there is the category with name 'category delete from catalog' related to group named 'GDFC'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -143,6 +152,7 @@ Then the user checks the category with 'category delete from catalog' name is no
 When the user logs out
 
 Scenario: category delete from group page
+
 Given there is the category with name 'category delete from group page' related to group named 'GDFCP'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -155,6 +165,7 @@ Then the user checks the category with 'category delete from group page' name is
 When the user logs out
 
 Scenario: category edit from catalog
+
 Given there is the category with name 'category edit cancel from catalog' related to group named 'GEDC'
 And the user navigates to the group with name 'GEDC'
 And the user logs in as 'commercialManager'
@@ -170,6 +181,7 @@ Then the user checks the category with 'new category edit from catalog' name is 
 When the user logs out
 
 Scenario: category edit from group page
+
 Given there is the category with name 'category edit from catalog' related to group named 'GEFCP'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -184,6 +196,7 @@ Then the user checks the category with 'new category edit from catalog' name is 
 When the user logs out
 
 Scenario: category edit cancel from catalog
+
 Given there is the category with name 'category edit cancel from catalog' related to group named 'GECFC'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -202,6 +215,7 @@ Then the user checks the category with 'category edit cancel from catalog' name 
 When the user logs out
 
 Scenario: category edit cancel from group page
+
 Given there is the category with name 'category edit cancel from group page' related to group named 'GECFCP'
 And the user opens catalog page
 And the user logs in as 'commercialManager'

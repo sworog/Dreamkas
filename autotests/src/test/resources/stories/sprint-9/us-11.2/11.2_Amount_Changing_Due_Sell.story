@@ -10,6 +10,7 @@ Meta:
 @us 11.2
 
 Scenario: Selling more products amounts then had
+
 Given there is the product with 'Хлопья Питерские' name, 'Хлопья-Питерские-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'

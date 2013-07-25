@@ -3,6 +3,7 @@ Meta:
 @us 12
 
 Scenario: Edit Retail price validation String+Symbols+Num
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -17,6 +18,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail price validation commma
+
 Given there is created product with sku 'ED-MVC-VCC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -30,6 +32,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail price validation dott
+
 Given there is created product with sku 'ED-MVC-VDT' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -43,6 +46,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail price validation comma
+
 Given there is created product with sku 'ED-MVC-VC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -54,6 +58,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail price validation dot
+
 Given there is created product with sku 'ED-MVC-VD' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -66,6 +71,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail price validation one digit
+
 Given there is created product with sku 'ED-MVC-RPOD' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -78,6 +84,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail price validation two digits
+
 Given there is created product with sku 'ED-MVC-RPTW' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -90,6 +97,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail price validation three digits
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -104,6 +112,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail price validation sub zero
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -118,6 +127,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Purhase prise validation zero
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -132,6 +142,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail price validation String en small register
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -146,6 +157,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail price validation String en big register
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -160,6 +172,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail price validation String rus small register
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -174,6 +187,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail price validation String rus big register
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -188,6 +202,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail price validation symbols
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -202,6 +217,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail price validation length good
+
 Given there is created product with sku 'ED-MVC-RPVLG' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -214,6 +230,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Edit Retail price validation length negative
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -228,6 +245,7 @@ Then the user sees error messages
 When the user logs out
 
 Scenario: Edit Retail Price regress
+
 Given there is created product with sku 'ED-MVC' and '1' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
