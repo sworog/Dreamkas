@@ -65,6 +65,7 @@ class GroupControllerTest extends WebTestCase
     public function validationGroupProvider()
     {
         return array(
+            /*
             'not valid empty name' => array(
                 400,
                 array('name' => ''),
@@ -87,6 +88,7 @@ class GroupControllerTest extends WebTestCase
                 201,
                 array('name' => str_repeat('z', 100)),
             ),
+            */
             // retail markup
             'valid markup' => array(
                 201,

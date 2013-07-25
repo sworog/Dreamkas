@@ -34,9 +34,9 @@ class NumbersCompareValidator extends ConstraintValidator
         $this->validateFieldValue($minFieldValue);
         $this->validateFieldValue($maxFieldValue);
 
-        if ($maxFieldValue > $minFieldValue) {
+        if ($minFieldValue > $maxFieldValue) {
             $this->context->addViolationAt(
-                $constraint->maxField,
+                $constraint->minField,
                 $constraint->message,
                 array(
                     '{{ firstValue }}' => $this->formatValue($constraint, $minFieldValue),

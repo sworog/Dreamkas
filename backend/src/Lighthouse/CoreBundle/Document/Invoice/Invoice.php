@@ -14,8 +14,8 @@ use Lighthouse\CoreBundle\Validator\Constraints\DatesCompare;
  *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository"
  * )
  * @DatesCompare(
- *     minField="acceptanceDate",
- *     maxField="supplierInvoiceDate",
+ *     minField="supplierInvoiceDate",
+ *     maxField="acceptanceDate",
  *     message="lighthouse.validation.errors.invoice.dates_compare"
  * )
  */
