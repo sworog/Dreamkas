@@ -36,11 +36,32 @@ class LoadDataFixturesDoctrine extends DoctrineODMCommand
         $this
             ->setName('doctrine:fixtures:load')
             ->setDescription('Load data fixtures to your database.')
-            ->addOption('fixtures', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The directory or file to load data fixtures from.')
-            ->addOption('append', null, InputOption::VALUE_NONE, 'Append the data fixtures instead of deleting all data from the database first.')
-            ->addOption('dm', null, InputOption::VALUE_REQUIRED, 'The document manager to use for this command.')
-            ->addOption('purge-with-truncate', null, InputOption::VALUE_NONE, 'Purge data by using a database-level TRUNCATE statement')
-            ->setHelp(<<<EOT
+            ->addOption(
+                'fixtures',
+                null,
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'The directory or file to load data fixtures from.'
+            )
+            ->addOption(
+                'append',
+                null,
+                InputOption::VALUE_NONE,
+                'Append the data fixtures instead of deleting all data from the database first.'
+            )
+            ->addOption(
+                'dm',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The document manager to use for this command.'
+            )
+            ->addOption(
+                'purge-with-truncate',
+                null,
+                InputOption::VALUE_NONE,
+                'Purge data by using a database-level TRUNCATE statement'
+            )
+            ->setHelp(
+<<<EOT
 The <info>doctrine:fixtures:load</info> command loads data fixtures from your bundles:
 
   <info>./app/console doctrine:fixtures:load</info>
@@ -58,7 +79,7 @@ the database. If you want to use a TRUNCATE statement instead you can use the <i
 
   <info>./app/console doctrine:fixtures:load --purge-with-truncate</info>
 EOT
-        );
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -69,7 +90,11 @@ EOT
 
         if ($input->isInteractive() && !$input->getOption('append')) {
             $dialog = $this->getHelperSet()->get('dialog');
-            if (!$dialog->askConfirmation($output, '<question>Careful, database will be purged. Do you want to continue Y/N ?</question>', false)) {
+            if (!$dialog->askConfirmation(
+                $output,
+                '<question>Careful, database will be purged. Do you want to continue Y/N ?</question>',
+                false
+            )) {
                 return;
             }
         }
@@ -98,9 +123,11 @@ EOT
         }
         $purger = new MongoDBPurger($dm);
         $executor = new MongoDBExecutor($dm, $purger);
-        $executor->setLogger(function($message) use ($output) {
-            $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', $message));
-        });
+        $executor->setLogger(
+            function ($message) use ($output) {
+                $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', $message));
+            }
+        );
         $executor->execute($fixtures, $input->getOption('append'));
     }
 }

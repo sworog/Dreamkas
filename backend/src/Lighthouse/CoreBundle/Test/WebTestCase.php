@@ -800,7 +800,7 @@ class WebTestCase extends BaseTestCase
     /**
      * @param Client $client
      * @return mixed
-     * @throws \UnexpectedValueException
+     * @throws \PHPUnit_Framework_AssertionFailedError
      */
     protected function parseJsonResponse(Client $client)
     {
@@ -808,7 +808,9 @@ class WebTestCase extends BaseTestCase
         $json = json_decode($content, true);
 
         if (0 != json_last_error()) {
-            throw new \PHPUnit_Framework_AssertionFailedError(sprintf('Failed asserting that response body is json. Response given: %s', $content));
+            throw new \PHPUnit_Framework_AssertionFailedError(
+                sprintf('Failed asserting that response body is json. Response given: %s', $content)
+            );
         }
 
         return $json;

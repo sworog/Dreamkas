@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CategoryType extends AbstractType
+class CategoryType extends ClassifierNodeType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,8 +14,8 @@ class CategoryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-            ->add('name', 'text')
             ->add(
                 'group',
                 'reference',
@@ -27,25 +27,10 @@ class CategoryType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @return string
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    protected function getDataClass()
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\Category\\Category',
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return '';
+        return 'Lighthouse\\CoreBundle\\Document\\Classifier\\Category\\Category';
     }
 }

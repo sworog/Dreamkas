@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier\Group;
 
-use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -14,23 +14,8 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * )
  * @Unique(fields="name", message="lighthouse.validation.errors.group.name.unique")
  */
-class Group extends AbstractDocument
+class Group extends AbstractNode
 {
-    /**
-     * @MongoDB\Id
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * Наименование
-     * @MongoDB\String
-     * @Assert\NotBlank
-     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
-     * @var string
-     */
-    protected $name;
-
     /**
      * @MongoDB\ReferenceMany(
      *      targetDocument="Lighthouse\CoreBundle\Document\Classifier\Category\Category",

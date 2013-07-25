@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SubCategoryType extends AbstractType
+class SubCategoryType extends ClassifierNodeType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,8 +14,8 @@ class SubCategoryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-            ->add('name', 'text')
             ->add(
                 'category',
                 'reference',
@@ -27,25 +27,12 @@ class SubCategoryType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\SubCategory\\SubCategory',
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
      * Returns the name of this type.
      *
      * @return string The name of this type
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return 'Lighthouse\\CoreBundle\\Document\\Classifier\\SubCategory\\SubCategory';
     }
 }

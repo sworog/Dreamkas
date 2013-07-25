@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Classifier\SubCategory;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -14,23 +15,8 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * )
  * @Unique(fields={"name", "category"}, message="lighthouse.validation.errors.subCategory.name.unique")
  */
-class SubCategory extends AbstractDocument
+class SubCategory extends AbstractNode
 {
-    /**
-     * @MongoDB\Id
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * Наименование
-     * @MongoDB\String
-     * @Assert\NotBlank
-     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
-     * @var string
-     */
-    protected $name;
-
     /**
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Classifier\Category\Category",

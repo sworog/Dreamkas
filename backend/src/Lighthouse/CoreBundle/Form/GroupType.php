@@ -6,38 +6,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class GroupType extends AbstractType
+class GroupType extends ClassifierNodeType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * @return string
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    protected function getDataClass()
     {
-        $builder
-            ->add('name', 'text');
-    }
-
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\Group\\Group',
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return '';
+        return 'Lighthouse\\CoreBundle\\Document\\Classifier\\Group\\Group';
     }
 }
