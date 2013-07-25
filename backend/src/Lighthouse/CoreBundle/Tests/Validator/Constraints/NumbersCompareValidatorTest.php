@@ -201,7 +201,7 @@ class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
         );
         $constraint = new NumbersCompare($options);
 
-        $object = new NumbersCompareObjectFixture;
+        $object = new CompareObjectFixture;
         $object->fieldMin = $minValue;
         $object->fieldMax = $maxValue;
 

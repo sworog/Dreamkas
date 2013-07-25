@@ -42,18 +42,7 @@ class DatesCompareValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('addViolationAt');
 
-        $options = array(
-            'minField' => 'orderDate',
-            'maxField' => 'createdDate',
-            'message' => 'message'
-        );
-        $constraint = new DatesCompare($options);
-
-        $value = new Test();
-        $value->orderDate = $orderDate;
-        $value->createdDate = $createdDate;
-
-        $this->validator->validate($value, $constraint);
+        $this->doValidate($orderDate, $createdDate);
     }
 
     /**
@@ -95,18 +84,7 @@ class DatesCompareValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('addViolationAt');
 
-        $options = array(
-            'minField' => 'orderDate',
-            'maxField' => 'createdDate',
-            'message' => 'message'
-        );
-        $constraint = new DatesCompare($options);
-
-        $value = new Test();
-        $value->orderDate = $orderDate;
-        $value->createdDate = $createdDate;
-
-        $this->validator->validate($value, $constraint);
+        $this->doValidate($orderDate, $createdDate);
     }
 
     /**
@@ -162,17 +140,7 @@ class DatesCompareValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testFieldUnexpectedType($orderDate, $createdDate)
     {
-        $options = array(
-            'minField' => 'orderDate',
-            'maxField' => 'createdDate',
-        );
-        $constraint = new DatesCompare($options);
-
-        $value = new Test();
-        $value->orderDate = $orderDate;
-        $value->createdDate = $createdDate;
-
-        $this->validator->validate($value, $constraint);
+        $this->doValidate($orderDate, $createdDate);
     }
 
     /**
@@ -206,5 +174,25 @@ class DatesCompareValidatorTest extends \PHPUnit_Framework_TestCase
                 "2013-01-03 15:50:02",
             ),
         );
+    }
+
+    /**
+     * @param \DateTime $orderDate
+     * @param \DateTime $createdDate
+     */
+    protected function doValidate($orderDate = null, $createdDate = null)
+    {
+        $options = array(
+            'minField' => 'createdDate',
+            'maxField' => 'orderDate',
+            'message' => 'message'
+        );
+        $constraint = new DatesCompare($options);
+
+        $value = new CompareObjectFixture();
+        $value->orderDate = $orderDate;
+        $value->createdDate = $createdDate;
+
+        $this->validator->validate($value, $constraint);
     }
 }
