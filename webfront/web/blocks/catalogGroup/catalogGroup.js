@@ -6,6 +6,7 @@ define(function(require) {
         Tooltip_catalogCategoryForm = require('blocks/tooltip/tooltip_catalogCategoryForm/tooltip_catalogCategoryForm'),
         Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
         CatalogCategoryModel = require('models/catalogCategory'),
+        Form_catalogGroupProperties = require('blocks/form/form_catalogGroupProperties/form_catalogGroupProperties'),
         params = require('pages/catalog/params');
 
     var router = new Backbone.Router();
@@ -71,6 +72,11 @@ define(function(require) {
                 el: document.getElementById('catalog__categoryList'),
                 catalogCategoriesCollection: block.catalogGroupModel.categories
             });
+
+            new Form_catalogGroupProperties({
+                el: document.getElementById('form_groupProperties'),
+                model: block.catalogGroupModel
+            })
         },
         'set:editMode': function(editMode) {
             Editor.prototype['set:editMode'].apply(this, arguments);

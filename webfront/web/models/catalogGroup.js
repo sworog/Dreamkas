@@ -9,7 +9,9 @@ define(function(require) {
                 categories: require('collections/catalogCategories')
             },
             saveFields: [
-                'name'
+                'name',
+                'retailMarkupMax',
+                'retailMarkupMin'
             ]
         });
     }

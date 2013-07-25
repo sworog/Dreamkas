@@ -70,15 +70,26 @@
 }
 
 .page__tabs{
-
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
 }
 
 .page__tabItem{
+    float: left;
+    border-bottom: 4px solid transparent;
+    padding: 0 10px 5px;
+    white-space: nowrap;
+    cursor: pointer;
+    margin-right: 20px;
+}
 
+.page__tabItem_active{
+    border-bottom-color: #3b77b2;
+    color: #254c78;
 }
 
 .page__tabsContent{
-
 }
 
 .page__tabContentItem{

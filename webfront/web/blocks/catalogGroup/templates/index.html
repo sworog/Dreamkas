@@ -28,14 +28,16 @@
     <div class="page__tabContentItem page__tabContentItem_active" rel="categoryList">
         <div id="catalog__categoryList" class="catalog__categoryList">
             <%== templates.catalog__categoryList({
-            templates: templates,
-            catalogCategoriesCollection: catalogGroupModel.categories
+                templates: templates,
+                catalogCategoriesCollection: catalogGroupModel.categories
             }) %>
         </div>
     </div>
     <% if(LH.isAllow('groups', 'PUT::{group}')) { %>
     <div class="page__tabContentItem" rel="groupProperties">
-        <form id="form_groupProperties"></form>
+        <form id="form_groupProperties">
+
+        </form>
     </div>
     <% } %>
 </div>

@@ -5,3 +5,12 @@
     padding-left: 10px;
     vertical-align: middle;
 }
+
+.form_catalogGroupProperties .form__label{
+    white-space: nowrap;
+}
+
+.form_catalogGroupProperties input[name^="retailMarkup"] {
+    width: 100px;
+    text-align: right;
+}
