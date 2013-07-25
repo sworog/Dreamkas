@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Document\Category\Category;
 use Lighthouse\CoreBundle\Document\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Form\CategoryType;
-use Lighthouse\CoreBundle\Document\Group\Group;
+use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,7 +67,7 @@ class CategoryController extends AbstractRestController
     }
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\Group\Group $group
+     * @param \Lighthouse\CoreBundle\Document\Classifier\Group\Group $group
      * @return CategoryCollection
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc

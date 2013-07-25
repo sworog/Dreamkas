@@ -25,7 +25,7 @@ class GroupType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Group\\Group',
+                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\Group\\Group',
                 'csrf_protection' => false
             )
         );

@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Category;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\Group\Group;
+use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -34,11 +34,11 @@ class Category extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Group\Group",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Classifier\Group\Group",
      *     simple=true,
      *     cascade="persist"
      * )
-     * @var Group
+     * @var \Lighthouse\CoreBundle\Document\Classifier\Group\Group
      */
     protected $group;
 

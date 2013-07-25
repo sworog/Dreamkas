@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Group;
+namespace Lighthouse\CoreBundle\Document\Classifier\Group;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Category\Category;
@@ -10,7 +10,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\Group\GroupRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository"
  * )
  * @Unique(fields="name", message="lighthouse.validation.errors.group.name.unique")
  */

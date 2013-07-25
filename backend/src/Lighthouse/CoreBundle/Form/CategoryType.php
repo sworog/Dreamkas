@@ -20,7 +20,7 @@ class CategoryType extends AbstractType
                 'group',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Group\\Group',
+                    'class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\Group\\Group',
                     'invalid_message' => 'lighthouse.validation.errors.category.group.does_not_exists'
                 )
             );

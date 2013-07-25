@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Group;
+namespace Lighthouse\CoreBundle\Document\Classifier\Group;
 
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
