@@ -16,8 +16,7 @@ define(function(require) {
         templates: {
             index: require('tpl!blocks/catalogGroup/templates/index.html'),
             catalog__categoryList: require('tpl!blocks/catalog/templates/catalog__categoryList.html'),
-            catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html'),
-            catalog__groupNavigation: require('tpl!blocks/catalog/templates/catalog__groupNavigation.html')
+            catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
         },
         events: {
             'click .catalog__editGroupLink': 'click .catalog__editGroupLink',

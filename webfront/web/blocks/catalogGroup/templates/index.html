@@ -25,7 +25,7 @@
     <% } %>
 </div>
 <div class="page__tabsContent">
-    <div class="page__tabContentItem" rel="categoryList">
+    <div class="page__tabContentItem page__tabContentItem_active" rel="categoryList">
         <div id="catalog__categoryList" class="catalog__categoryList">
             <%== templates.catalog__categoryList({
             templates: templates,
@@ -34,7 +34,7 @@
         </div>
     </div>
     <% if(LH.isAllow('groups', 'PUT::{group}')) { %>
-    <div class="page__tabContentItem page__tabContentItem_hidden" rel="groupProperties">
+    <div class="page__tabContentItem" rel="groupProperties">
         <form id="form_groupProperties"></form>
     </div>
     <% } %>

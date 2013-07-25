@@ -82,9 +82,9 @@
 }
 
 .page__tabContentItem{
-
+    display: none;
 }
 
-.page__tabContentItem_hidden{
-    display: none;
+.page__tabContentItem_active{
+    display: block;
 }

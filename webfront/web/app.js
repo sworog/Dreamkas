@@ -1,7 +1,8 @@
 define(function(require) {
     //requirements
     var currentUserModel = require('models/currentUser'),
-        cookie = require('utils/cookie');
+        cookie = require('utils/cookie'),
+        Page = require('blocks/page/page');
 
     require('LH');
 
@@ -33,6 +34,10 @@ define(function(require) {
 
     $(function() {
         var router = new Backbone.Router();
+
+        new Page({
+            el: document.getElementById("page")
+        });
 
         $(document).on('click', '[href]', function(e) {
             e.preventDefault();
