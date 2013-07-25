@@ -1,10 +1,12 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\SubCategory;
+namespace Lighthouse\CoreBundle\Document\Classifier\SubCategory;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryNotEmptyException;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"preRemove"})

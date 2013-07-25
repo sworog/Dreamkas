@@ -9,7 +9,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductCollection;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
-use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

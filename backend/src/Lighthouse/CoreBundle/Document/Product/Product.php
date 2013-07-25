@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Product;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -29,7 +29,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property float  $retailMarkup
  * @property string $retailPricePreference
  * @property Money  $averagePurchasePrice
- * @property SubCategory $subCategory
+ * @property \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory $subCategory
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Product\ProductRepository",
@@ -159,7 +159,7 @@ class Product extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\SubCategory\SubCategory",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory",
      *     simple=true,
      *     cascade="persist"
      * )

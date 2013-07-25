@@ -29,7 +29,7 @@ class ProductType extends AbstractType
                 'subCategory',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\SubCategory\\SubCategory',
+                    'class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\SubCategory\\SubCategory',
                     'invalid_message' => 'lighthouse.validation.errors.product.subCategory.does_not_exists'
                 )
             );

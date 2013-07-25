@@ -3,9 +3,9 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
-use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\SubCategory\SubCategoryCollection;
-use Lighthouse\CoreBundle\Document\SubCategory\SubCategoryRepository;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Form\SubCategoryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +17,8 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class SubCategoryController extends AbstractRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.document.repository.subcategory")
-     * @var SubCategoryRepository
+     * @DI\Inject("lighthouse.core.document.repository.classifier.subcategory")
+     * @var \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository
      */
     protected $documentRepository;
 
@@ -46,8 +46,8 @@ class SubCategoryController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @param SubCategory $subCategory
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\SubCategory\SubCategory
+     * @param \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory $subCategory
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -57,8 +57,8 @@ class SubCategoryController extends AbstractRestController
     }
 
     /**
-     * @param SubCategory $subCategory
-     * @return SubCategory
+     * @param \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory $subCategory
+     * @return \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -69,7 +69,7 @@ class SubCategoryController extends AbstractRestController
 
     /**
      * @param \Lighthouse\CoreBundle\Document\Classifier\Category\Category $category
-     * @return SubCategoryCollection
+     * @return \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */

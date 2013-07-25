@@ -33,7 +33,7 @@ class SubCategoryType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\SubCategory\\SubCategory',
+                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\SubCategory\\SubCategory',
                 'csrf_protection' => false
             )
         );

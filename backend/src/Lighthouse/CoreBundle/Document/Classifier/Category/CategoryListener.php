@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Classifier\Category;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryNotEmptyException;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
-use Lighthouse\CoreBundle\Document\SubCategory\SubCategoryRepository;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -20,9 +20,9 @@ class CategoryListener
 
     /**
      * @DI\InjectParams({
-     *      "subCategoryRepository"=@DI\Inject("lighthouse.core.document.repository.subcategory")
+     *      "subCategoryRepository"=@DI\Inject("lighthouse.core.document.repository.classifier.subcategory")
      * })
-     * @param SubCategoryRepository $subCategoryRepository
+     * @param \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository $subCategoryRepository
      */
     public function __construct(SubCategoryRepository $subCategoryRepository)
     {

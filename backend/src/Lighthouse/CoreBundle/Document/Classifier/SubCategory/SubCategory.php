@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\SubCategory;
+namespace Lighthouse\CoreBundle\Document\Classifier\SubCategory;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
@@ -10,7 +10,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\SubCategory\SubCategoryRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository"
  * )
  * @Unique(fields={"name", "category"}, message="lighthouse.validation.errors.subCategory.name.unique")
  */

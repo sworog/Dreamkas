@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Product;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 
