@@ -3,6 +3,7 @@ Meta:
 @us 10
 
 Scenario: Invoice product edition - Invoice product amount is required
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -19,6 +20,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice product price is required
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -35,6 +37,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice no product name validation
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -51,6 +54,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice no product barcode validation
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -67,6 +71,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice no product sku validation
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -83,6 +88,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice product amount validation sub zero
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -99,6 +105,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice product amount validation zero
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -115,6 +122,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice product amount validation String en small register
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -131,6 +139,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice product amount validation String en big register
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -147,6 +156,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice product amount validation String rus small register
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -163,6 +173,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice product amount validation String rus big register
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -179,6 +190,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice product amount validation symbols
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -195,6 +207,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product edition - Invoice product Amount positive validation
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -208,6 +221,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation commma
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -221,6 +235,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation dott
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -234,6 +249,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation comma
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -247,6 +263,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation dot
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -260,6 +277,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation one digit
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -273,6 +291,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation two digits
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -286,6 +305,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation three digits
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -302,6 +322,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation sub zero
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -318,6 +339,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation zero
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -334,6 +356,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation String en small register
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -350,6 +373,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation String en big register
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -366,6 +390,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation String rus small register
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -382,6 +407,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation String rus big register
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -398,6 +424,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation symbols
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -414,6 +441,7 @@ And the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation length good
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -427,6 +455,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice product price validation length negative
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page

@@ -95,10 +95,25 @@ public class ApiConnect {
             throws JSONException, IOException {
         String productId = StaticData.products.get(productSku).getId();
         String invoiceId = StaticData.invoices.get(invoiceName).getId();
-        String apiUrl = String.format("%s/api/1/invoices/%s/products.json", UrlHelper.getApiUrl(), invoiceId);
+        if (!hasInvoiceProduct(invoiceId, productId)) {
+            String apiUrl = String.format("%s/api/1/invoices/%s/products.json", UrlHelper.getApiUrl(), invoiceId);
+            String productJsonData = InvoiceProduct.getJsonObject(productId, "1", "1").toString();
+            executePostRequest(apiUrl, productJsonData);
+        }
+    }
 
-        String productJsonData = InvoiceProduct.getJsonObject(productId, "1", "1").toString();
-        executePostRequest(apiUrl, productJsonData);
+    public Boolean hasInvoiceProduct(String invoiceId, String productId) throws IOException, JSONException {
+        JSONArray jsonArray = getInvoiceProducts(invoiceId);
+        for (int i = 0; i < jsonArray.length(); i++) {
+            return jsonArray.getJSONObject(0).getJSONObject("product").getString("id").equals(productId);
+        }
+        return false;
+    }
+
+    public JSONArray getInvoiceProducts(String invoiceId) throws IOException, JSONException {
+        String url = String.format("%s/api/1/invoices/%s/products", UrlHelper.getApiUrl(), invoiceId);
+        String response = executeSimpleGetRequest(url, true);
+        return new JSONArray(response);
     }
 
     public void averagePriceRecalculation() throws IOException, JSONException {
@@ -316,10 +331,13 @@ public class ApiConnect {
         }
     }
 
-    private String executeSimpleGetRequest(String targetUrl) throws IOException {
+    private String executeSimpleGetRequest(String targetUrl, boolean forAccessToken) throws IOException, JSONException {
 
         //TODO Work around for token expiration 401 : The access token provided has expired.
         HttpGet request = new HttpGet(targetUrl);
+        if (forAccessToken) {
+            request.setHeader("Authorization", "Bearer " + getAccessToken());
+        }
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpResponse response = httpClient.execute(request);
         HttpEntity httpEntity = response.getEntity();
@@ -338,7 +356,7 @@ public class ApiConnect {
             String url = String.format("%s/oauth/v2/token", UrlHelper.getApiUrl());
             String parameters = String.format("?grant_type=password&username=%s&password=%s&client_id=%s&client_secret=%s",
                     userName, password, StaticData.client_id, StaticData.client_secret);
-            String response = executeSimpleGetRequest(url + parameters);
+            String response = executeSimpleGetRequest(url + parameters, false);
             OauthAuthorizeData oauthAuthorize = new OauthAuthorizeData(new JSONObject(response));
             StaticData.userTokens.put(userName, oauthAuthorize);
         }

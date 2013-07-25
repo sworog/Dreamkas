@@ -10,6 +10,7 @@ Meta:
 @us 11
 
 Scenario: Amounts increase kg
+
 Given there is the product with 'ADADAD-11' name, 'ADADAD-11' sku, 'BARCode-11' barcode
 And there is the invoice with 'Invoice-ADADAD-11' sku
 And the user logs in as 'departmentManager'
@@ -41,6 +42,7 @@ And the user checks the product with 'ADADAD-11' sku has 'amounts purchasePrice'
 When the user logs out
 
 Scenario: Amounts increase units
+
 Given there is the product with 'ADADAD-22' name, 'ADADAD-22' sku, 'BARCode-22' barcode, 'unit' units
 And there is the invoice with 'Invoice-ADADAD-22' sku
 And the user logs in as 'departmentManager'
@@ -72,6 +74,7 @@ And the user checks the product with 'ADADAD-22' sku has 'amounts purchasePrice'
 When the user logs out
 
 Scenario: Amount increase liter
+
 Given there is the product with 'ADADAD-33' name, 'ADADAD-33' sku, 'BARCode-33' barcode, 'liter' units
 And there is the invoice with 'Invoice-ADADAD-33' sku
 And the user logs in as 'departmentManager'

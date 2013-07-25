@@ -10,6 +10,7 @@ Meta:
 @us 10
 
 Scenario: Invoice head edition
+
 Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
@@ -46,6 +47,7 @@ Then the user checks invoice 'head' elements  values
 When the user logs out
 
 Scenario: Invoice head edition stop edit link click
+
 Given there is the invoice with 'Invoice-IE-IPE-SELC' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -59,6 +61,7 @@ Then the user checks invoice 'head' elements  values
 When the user logs out
 
 Scenario: Invoice product edition name autocomplete
+
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE' sku
@@ -109,6 +112,7 @@ And the user checks invoice elements values
 When the user logs out
 
 Scenario: Invoice product edition name autocomplete stop edit link click
+
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-ASELC' sku
@@ -139,6 +143,7 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 When the user logs out
 
 Scenario: Invoice product edition sku autocomplete
+
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-999' sku
@@ -189,6 +194,7 @@ And the user checks invoice elements values
 When the user logs out
 
 Scenario: Invoice product edition sku autocomplete stop edit link click
+
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-ASSELC' sku
@@ -219,6 +225,7 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 When the user logs out
 
 Scenario: Invoice product edition barcode autocomplete
+
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-1012' sku
@@ -269,6 +276,7 @@ And the user checks invoice elements values
 When the user logs out
 
 Scenario: Invoice product edition barcode autocomplete stop edit link click
+
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-ASBELC' sku
@@ -299,6 +307,7 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 When the user logs out
 
 Scenario: Invoice product adding
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPA' sku
 And the user is on the invoice list page
@@ -331,6 +340,7 @@ Then the user checks the product with 'IE-IPA-1' sku has values
 When the user logs out
 
 Scenario: Invoice product adding stop edit link click
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPA-EBC' sku
 And the user is on the invoice list page
@@ -363,6 +373,7 @@ Then the user checks the product with 'IE-IPA-1' sku has values
 When the user logs out
 
 Scenario: Invoice product adding and edition
+
 Given there is the product with 'IE-IPA' name, 'IE-IPA' sku, 'IE-IPA' barcode
 And there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPA1' sku
@@ -420,6 +431,7 @@ And the user checks invoice elements values
 When the user logs out
 
 Scenario: issue 9 regresssion
+
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
@@ -443,6 +455,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: issue 8 regresssion
+
 Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice 'InvoiceProduct-IPE-Common-regress' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user is on the invoice list page

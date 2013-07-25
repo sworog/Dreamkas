@@ -3,6 +3,7 @@ Meta:
 @us 10
 
 Scenario: Invoice edition - Invoice sku validation is required
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -19,6 +20,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice sku validation good
+
 Given there is the invoice with 'Invoice-IE-ISVG' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -32,6 +34,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice edition - Invoice sku negative length validation
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -49,6 +52,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice Supplier validation is required
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -65,6 +69,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice Supplier validation good
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -78,6 +83,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice edition - Invoice Supplier negative length validation
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -95,6 +101,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation is required
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -111,6 +118,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation good manual
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -124,6 +132,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative1 numbers
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -137,6 +146,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative1 numbers 2
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -153,6 +163,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative2 eng symbols
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -169,6 +180,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative3 rus symbols
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -185,6 +197,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative symbols
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -201,6 +214,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative symbols mix
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -217,6 +231,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation through datepicker good
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -230,6 +245,7 @@ When the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation through datepicker negative1
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -243,6 +259,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation through datepicker negative2
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -256,6 +273,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice edition - Invoice accepter validation is required
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -272,6 +290,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice accepter validation good
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -285,6 +304,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice edition - Invoice accepter negative length validation
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -302,6 +322,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice legalEntity validation is required
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -318,6 +339,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice legalEntity validation good
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -331,6 +353,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice edition - Invoice legalEntity negative length validation
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -348,6 +371,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceSku validation good
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -361,6 +385,7 @@ Then the user sees no error messages
 When the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceSku negative length validation
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -378,6 +403,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceDate validation good manual
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -391,6 +417,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceDate validation manual negative1 numbers
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -407,6 +434,7 @@ And the user clicks finish edit link and ends the invoice edition
 When the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceDate validation manual negative2 eng symbols
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -420,6 +448,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceDate validation manual negative3 rus symbols
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -433,6 +462,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceDate validation manual negative symbols
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -446,6 +476,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceDate validation manual negative symbols mix
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -459,6 +490,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceDate validation through datepicker good
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
@@ -472,6 +504,7 @@ When the user clicks finish edit link and ends the invoice edition
 And the user logs out
 
 Scenario: Invoice edition - Invoice supplier date cantbe older then acceptance date
+
 Given there is the invoice with 'Invoice-IE-ISVIR' sku
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page

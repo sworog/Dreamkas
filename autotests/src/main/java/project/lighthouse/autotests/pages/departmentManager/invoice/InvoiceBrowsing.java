@@ -17,9 +17,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     @FindBy(xpath = "//*[@class='addMoreProduct']")
     private WebElement addOneMoreProductLink;
 
-//    @FindBy(xpath = "//*[@class='page__controlsLink invoice__editLink']")
-//    public WebElement editButtonLink;
-
     @FindBy(xpath = "//*[@class='page__controlsLink invoice__stopEditLink']")
     public WebElement invoiceStopEditLink;
 
@@ -69,7 +66,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         findVisibleElement(
                 By.xpath("//*[@class='page__controlsLink invoice__editLink']")
         ).click();
-        //$(editButtonLink).click();
     }
 
     public void goToTheaAdditionOfProductsLinkClick() {

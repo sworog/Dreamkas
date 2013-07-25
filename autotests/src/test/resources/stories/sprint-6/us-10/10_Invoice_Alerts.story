@@ -3,6 +3,7 @@ Meta:
 @us 10
 
 Scenario: alert productSku changesVerification stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user inputs '!неттакого' in the invoice product 'productSku' field
@@ -14,6 +15,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert productSku changesVerification stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user inputs '!неттакого' in the invoice product 'productSku' field
@@ -25,6 +27,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert productName changesVerification stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user inputs '!неттакого' in the invoice product 'productName' field
@@ -36,6 +39,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert productName changesVerification stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user inputs '!неттакого' in the invoice product 'productName' field
@@ -47,6 +51,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert productBarCode changesVerification stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user inputs '!неттакого' in the invoice product 'productBarCode' field
@@ -58,6 +63,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert productBarCode changesVerification stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user inputs '!неттакого' in the invoice product 'productBarCode' field
@@ -69,6 +75,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert productAmount changesVerification stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'неттакого' in the invoice product 'productAmount' field
@@ -80,6 +87,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert productAmount changesVerification stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user inputs 'неттакого' in the invoice product 'productAmount' field
@@ -91,6 +99,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification sku stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'sku' element to edit it
@@ -103,6 +112,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification sku stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'sku' element to edit it
@@ -115,6 +125,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification supplier stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'supplier' element to edit it
@@ -127,6 +138,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification supplier stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'supplier' element to edit it
@@ -139,6 +151,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification accepter stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'accepter' element to edit it
@@ -151,6 +164,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification accepter stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'accepter' element to edit it
@@ -163,6 +177,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification legalEntity stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'legalEntity' element to edit it
@@ -175,6 +190,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification legalEntity stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'legalEntity' element to edit it
@@ -187,6 +203,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification acceptanceDate stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'acceptanceDate' element to edit it
@@ -199,6 +216,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification acceptanceDate stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'acceptanceDate' element to edit it
@@ -211,6 +229,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification supplierInvoiceDate stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'supplierInvoiceDate' element to edit it
@@ -223,6 +242,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification supplierInvoiceDate stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'supplierInvoiceDate' element to edit it
@@ -235,6 +255,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification supplierInvoiceSku stop edit button
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'supplierInvoiceSku' element to edit it
@@ -247,6 +268,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice head verification supplierInvoiceSku stop edit link
+
 Given there is the invoice with 'Invoice-IE-APCVSE' sku
 And the user logs in as 'departmentManager'
 When the user clicks on 'supplierInvoiceSku' element to edit it
@@ -259,6 +281,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice product verification ProductBarCode stop edit button
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice 'Invoice-IE-AIOVOSSEEE1' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
@@ -272,6 +295,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice product verification ProductName stop edit button
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice 'Invoice-IE-AIOVOSSEEE2' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
@@ -285,6 +309,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice product verification ProductSku stop edit button
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice 'Invoice-IE-AIOVOSSEEE3' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
@@ -298,6 +323,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice product verification productAmount stop edit button
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice 'Invoice-IE-AIOVOSSEEE4' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
@@ -311,6 +337,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice product verification ProductPrice stop edit button
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice 'Invoice-IE-AIOVOSSEEE5' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
@@ -324,6 +351,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice product verification ProductBarCode stop edit link
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice 'Invoice-IE-AIOVOSSEEE6' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
@@ -337,6 +365,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice product verification ProductName stop edit link
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice 'Invoice-IE-AIOVOSSEEE7' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
@@ -350,6 +379,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice product verification ProductSku stop edit link
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice 'Invoice-IE-AIOVOSSEEE8' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
@@ -363,6 +393,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice product verification productAmount stop edit link
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice 'Invoice-IE-AIOVOSSEEE9' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
@@ -376,6 +407,7 @@ Then the user checks there is no alert on the page
 When the user logs out
 
 Scenario: alert invoice product verification ProductPrice stop edit link
+
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the invoice 'Invoice-IE-AIOVOSSEEE10' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user logs in as 'departmentManager'
