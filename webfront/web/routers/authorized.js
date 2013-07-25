@@ -37,7 +37,7 @@ define(function(require) {
             //catalog
             'catalog(/)': require('pages/catalog/catalog'),
             'catalog/:catalogGroupId(/)': require('pages/catalog/group'),
-            'catalog/:catalogGroupId/:catalogCategoryId(/:catalogSubCategoryId)': require('pages/catalog/category'),
+            'catalog/:catalogGroupId/:catalogCategoryId(/)(:catalogSubCategoryId)': require('pages/catalog/category'),
 
             //stores
             'stores(/)': require('pages/store/list'),
