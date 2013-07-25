@@ -67,6 +67,8 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
 
     public void itemClick(String value) {
         WebElement listItem = getWebElementItem(value);
+        String scrollScript = String.format("window.scrollTo(%s, %s)", listItem.getLocation().getX(), listItem.getLocation().getY() - 30);
+        evaluateJavascript(scrollScript);
         listItem.click();
     }
 
