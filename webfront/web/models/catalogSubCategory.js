@@ -7,7 +7,9 @@ define(function(require) {
             urlRoot: LH.baseApiUrl + '/subcategories',
             saveFields: [
                 'name',
-                'category'
+                'category',
+                'retailMarkupMax',
+                'retailMarkupMin'
             ],
             initialize: function(attrs, options) {
 

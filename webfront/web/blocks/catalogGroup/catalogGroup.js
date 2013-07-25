@@ -74,7 +74,7 @@ define(function(require) {
             });
 
             new Form_catalogGroupProperties({
-                el: document.getElementById('form_groupProperties'),
+                el: document.getElementById('form_catalogGroupProperties'),
                 model: block.catalogGroupModel
             })
         },

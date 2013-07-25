@@ -9,21 +9,18 @@ define(function(require) {
             e.preventDefault();
             var block = this,
                 $target = $(e.target),
-                rel = $target.attr('rel');
+                rel = $target.attr('rel'),
+                $targetContent = $('.page__tabContentItem[rel="' + rel + '"]');
 
-            var $targetContent = $(".page__tabContentItem[rel='" + rel + "']");
             $targetContent
-                .closest(".page__tabsContent")
-                .find(".page__tabContentItem")
-                .removeClass("page__tabContentItem_active");
+                .addClass('page__tabContentItem_active')
+                .siblings('.page__tabContentItem')
+                .removeClass('page__tabContentItem_active');
+
             $target
-                .closest(".page__tabs")
-                .find(".page__tabItem")
-                .removeClass("page__tabItem_active");
-            $target
-                .addClass("page__tabItem_active");
-            $targetContent
-                .addClass("page__tabContentItem_active");
-        }
+                .addClass('page__tabItem_active')
+                .siblings('.page__tabItem')
+                .removeClass('page__tabItem_active');
+            }
     });
 });

@@ -6,11 +6,18 @@
     vertical-align: middle;
 }
 
-.form_catalogGroupProperties .form__label{
+.form_catalogGroupProperties .form__label,
+.form_catalogCategoryProperties .form__label,
+.form_catalogSubCategoryProperties .form__label{
     white-space: nowrap;
 }
 
-.form_catalogGroupProperties input[name^="retailMarkup"] {
+.form input[name^="retailMarkup"] {
     width: 100px;
     text-align: right;
+}
+
+.form_catalogSubCategoryProperties .form__controls{
+    padding: 15px;
+    margin: 10px 0 0;
 }

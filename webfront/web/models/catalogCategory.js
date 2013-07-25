@@ -10,7 +10,9 @@ define(function(require) {
             },
             saveFields: [
                 'name',
-                'group'
+                'group',
+                'retailMarkupMax',
+                'retailMarkupMin'
             ],
             initialize: function(attrs, options) {
 

@@ -7,6 +7,8 @@ define(function(require) {
         Tooltip_catalogSubCategoryMenu = require('blocks/tooltip/tooltip_catalogSubCategoryMenu/tooltip_catalogSubCategoryMenu'),
         Tooltip_catalogSubCategoryForm = require('blocks/tooltip/tooltip_catalogSubCategoryForm/tooltip_catalogSubCategoryForm'),
         Table_products = require('blocks/table/table_products/table_products'),
+        Form_catalogCategoryProperties = require('blocks/form/form_catalogCategoryProperties/form_catalogCategoryProperties'),
+        Form_catalogSubCategoryProperties = require('blocks/form/form_catalogSubCategoryProperties/form_catalogSubCategoryProperties'),
         params = require('pages/catalog/params');
 
     var router = new Backbone.Router();
@@ -16,6 +18,7 @@ define(function(require) {
 
         catalogCategoryModel: null,
         catalogSubCategoryId: null,
+        catalogSubCategoryModel: null,
         catalogSubCategoriesCollection: null,
         catalogProductsCollection: null,
 
@@ -89,12 +92,16 @@ define(function(require) {
                 collection: block.catalogProductsCollection
             });
 
+            new Form_catalogCategoryProperties({
+                model: block.catalogCategoryModel,
+                el: document.getElementById('form_catalogCategoryProperties')
+            });
+
             new CatalogCategory__subCategoryList({
                 el: document.getElementById('catalogCategory__subCategoryList'),
                 catalogSubCategoriesCollection: block.catalogSubCategoriesCollection
             });
 
-            block.renderProductList();
             block.set('catalogSubCategoryId', block.catalogSubCategoryId);
         },
         remove: function() {
@@ -117,11 +124,15 @@ define(function(require) {
         renderProductList: function(){
             var block = this;
 
+            if (block.catalogSubCategoryModel){
+                block.$productListTitle.html(LH.text(block.catalogSubCategoryModel.get('name')));
+            } else {
+                block.$productListTitle.html(LH.text('Выберите подкатегорию'));
+            }
+
             if (block.catalogProductsCollection.length) {
-                block.$productListTitle.html(LH.text('Список товаров'));
                 block.$table_products.show();
             } else {
-                block.$productListTitle.html(LH.text('Нет товаров'));
                 block.$table_products.hide();
             }
         },
@@ -132,19 +143,24 @@ define(function(require) {
         'set:catalogSubCategoryId': function(catalogSubCategoryId) {
             var block = this;
 
+            block.catalogSubCategoryModel = block.catalogSubCategoriesCollection.get(catalogSubCategoryId);
+            block.renderProductList();
+
             block.$el
                 .find('.catalogCategory__subCategoryLink_active')
                 .removeClass('catalogCategory__subCategoryLink_active');
 
             if (catalogSubCategoryId){
-                block.$productList.show();
                 block.$subCategoryLink_active = block.$el
                     .find('.catalogCategory__subCategoryLink[subCategory_id="' + catalogSubCategoryId + '"]')
                     .addClass('catalogCategory__subCategoryLink_active');
 
                 block.$addProductLink.attr('href', '/products/create?subCategory=' + catalogSubCategoryId);
-            } else {
-                block.$productList.hide();
+
+                block.form_catalogSubCategoryProperties = block.form_catalogSubCategoryProperties || new Form_catalogSubCategoryProperties({
+                    model: block.catalogSubCategoryModel,
+                    el: document.getElementById('form_catalogSubCategoryProperties')
+                });
             }
 
             if (catalogSubCategoryId && block.catalogSubCategoryId !== catalogSubCategoryId) {
@@ -153,12 +169,13 @@ define(function(require) {
 
                 block.catalogProductsCollection.fetch({
                     success: function() {
-
                         block.renderProductList();
-
                         block.$subCategoryLink_active.removeClass('preloader_rows');
                     }
                 });
+
+                block.form_catalogSubCategoryProperties.model = block.catalogSubCategoryModel;
+                block.form_catalogSubCategoryProperties.render();
             }
         }
     });

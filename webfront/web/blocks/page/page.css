@@ -78,7 +78,7 @@
 .page__tabItem{
     float: left;
     border-bottom: 4px solid transparent;
-    padding: 0 10px 5px;
+    padding: 0 8px 5px;
     white-space: nowrap;
     cursor: pointer;
     margin-right: 20px;

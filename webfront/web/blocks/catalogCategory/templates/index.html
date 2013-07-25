@@ -14,22 +14,60 @@
         <%text 'Добавить подкатегорию' %>
     </a>
 </h3>
+<div class="page__tabs">
+    <div class="page__tabItem page__tabItem_active" rel="subCategoryList">
+        <%text 'Подкатегории' %>
+    </div>
+    <% if(LH.isAllow('categories', 'PUT::{category}')) { %>
+    <div class="page__tabItem" rel="categoryProperties">
+        <%text 'Свойства' %>
+    </div>
+    <% } %>
+</div>
+<div class="page__tabsContent">
+    <div class="page__tabContentItem page__tabContentItem_active" rel="subCategoryList">
+        <div id="catalogCategory__subCategoryList">
+            <%== templates.catalogCategory__subCategoryList({
+            templates: templates,
+            catalogSubCategoriesCollection: catalogSubCategoriesCollection
+            }) %>
+        </div>
 
-<div id="catalogCategory__subCategoryList">
-    <%== templates.catalogCategory__subCategoryList({
-    templates: templates,
-    catalogSubCategoriesCollection: catalogSubCategoriesCollection
-    }) %>
+        <div class="catalogCategory__productList">
+            <h4>
+                <span class="catalogCategory__productListTitle"><%text 'Список товаров' %></span>
+                <a style="margin-left: 15px;" href="/products/create?subCategory=<%= catalogSubCategoryId %>"
+                   class="button button_color_blue catalogCategory__addProductLink editor__control">
+                    Добавить товар
+                </a>
+            </h4>
+            <div class="page__tabs">
+                <div class="page__tabItem page__tabItem_active" rel="productList">
+                    <%text 'Продукты' %>
+                </div>
+                <% if(LH.isAllow('subcategories', 'PUT::{subCategory}')) { %>
+                <div class="page__tabItem" rel="subCategoryProperties">
+                    <%text 'Свойства' %>
+                </div>
+                <% } %>
+            </div>
+            <div class="page__tabsContent">
+                <div class="page__tabContentItem page__tabContentItem_active" rel="productList">
+                    <table class="table table_products"></table>
+                </div>
+                <% if(LH.isAllow('subcategories', 'PUT::{subCategory}')) { %>
+                <div class="page__tabContentItem" rel="subCategoryProperties">
+                    <form id="form_catalogSubCategoryProperties" class="form"></form>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <% if(LH.isAllow('categories', 'PUT::{category}')) { %>
+    <div class="page__tabContentItem" rel="categoryProperties">
+        <form id="form_catalogCategoryProperties" class="form"></form>
+    </div>
+    <% } %>
 </div>
 
-<div class="catalogCategory__productList">
-    <h4>
-        <span class="catalogCategory__productListTitle"><%text 'Список товаров' %></span>
-        <a style="margin-left: 15px;" href="/products/create?subCategory=<%= catalogSubCategoryId %>" class="button button_color_blue catalogCategory__addProductLink editor__control">
-            Добавить товар
-        </a>
-    </h4>
-    <table class="table table_products"></table>
-</div>
-
-<div style="clear: both;"></div>

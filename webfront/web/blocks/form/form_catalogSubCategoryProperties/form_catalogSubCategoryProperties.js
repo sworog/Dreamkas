@@ -3,7 +3,7 @@ define(function(require) {
     var Form = require('kit/blocks/form/form');
 
     return Form.extend({
-        __name__: 'form_catalogGroupProperties',
+        __name__: 'form_catalogSubCategoryProperties',
         model: null,
         templates: {
             index: require('tpl!blocks/form/form_catalogGroupProperties/templates/index.html')
