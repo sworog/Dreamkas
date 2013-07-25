@@ -17,17 +17,31 @@ define(function(require) {
         },
         listeners: {
             storeManagersCollection: {
-                'remove': function(storeManagerModel) {
+                remove: function(storeManagerModel) {
                     var block = this;
 
                     block.$('span[model_id="' + storeManagerModel.id + '"]').closest(".store__managerItem").remove();
                 },
-                'add': function(storeManagerModel) {
+                add: function(storeManagerModel) {
                     var block = this;
 
                     block.$managerList.append(block.templates.store__managerItem({
                         storeManagerModel: storeManagerModel
                     }));
+                }
+            },
+            storeManagerCandidatesCollection: {
+                remove: function(){
+                    var block = this;
+
+                    if (!block.storeManagerCandidatesCollection.length){
+                        block.$managersNotification.show();
+                    }
+                },
+                add: function(){
+                    var block = this;
+
+                    block.$managersNotification.hide();
                 }
             }
         },
@@ -58,11 +72,16 @@ define(function(require) {
                 storeModel: block.storeModel,
                 el: document.getElementById('select_storeManagers')
             });
+
+            if (!block.storeManagerCandidatesCollection.length){
+                block.$managersNotification.show();
+            }
         },
         findElements: function(){
             var block = this;
 
             block.$managerList = block.$('.store__managerList');
+            block.$managersNotification = block.$('.store__managersNotification');
         }
     });
 });

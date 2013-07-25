@@ -49,3 +49,7 @@
     top: 50%;
     margin-top: -1px;
 }
+
+.store__managersNotification{
+    display: none;
+}
