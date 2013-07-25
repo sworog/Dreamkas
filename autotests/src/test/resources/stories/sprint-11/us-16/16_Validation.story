@@ -10,7 +10,7 @@ And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of 'group cdnecfcp' element
 And the user deletes element through pop up menu
-Then the user checks alert text is equal to 'Необходимо удалить все категории из группы'
+Then the user checks alert text is equal to 'Группа не пуста. Сначала удалите из нее все категории'
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -23,7 +23,7 @@ When the user clicks on start edition link and starts the edition
 And the user clicks on the group name 'group cdnecfcp1'
 And the user opens pop up menu of 'group cdnecfcp1' element
 And the user deletes element through pop up menu
-Then the user checks alert text is equal to 'Необходимо удалить все категории из группы'
+Then the user checks alert text is equal to 'Группа не пуста. Сначала удалите из нее все категории'
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -79,7 +79,7 @@ When the user inputs 'CV-CCCWEN group' in 'name' field of pop up
 And the user clicks the create new group button in pop up
 Then the user sees error messages
 | error message |
-| Такой класс уже есть |
+| Такая группа уже есть |
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -146,7 +146,7 @@ When the user inputs 'group vng-101' in 'name' field of pop up
 And the user accept pop up menu changes
 Then the user sees error messages
 | error message |
-| Такой класс уже есть |
+| Такая группа уже есть |
 When the user discards pop up menu changes
 And the user clicks on end edition link and ends the edition
 And the user logs out
@@ -214,7 +214,7 @@ When the user inputs 'group vng-106' in 'name' field of pop up
 And the user accept pop up menu changes
 Then the user sees error messages
 | error message |
-| Такой класс уже есть |
+| Такая группа уже есть |
 When the user discards pop up menu changes
 And the user clicks on end edition link and ends the edition
 And the user logs out
@@ -274,7 +274,7 @@ When the user inputs 'GVHDT45' in 'name' field of pop up
 When the user clicks the create new group button in pop up
 Then the user sees error messages
 | error message |
-| Группа с таким названием уже существует в этом классе |
+| Категория с таким названием уже существует в этой группе |
 When the user logs out
 
 Scenario: category edit from catalog page - validation name good - 100 symbols
@@ -338,7 +338,7 @@ When the user inputs 'category edit vng-103' in 'name' field of pop up
 When the user accept pop up menu changes
 Then the user sees error messages
 | error message |
-| Группа с таким названием уже существует в этом классе |
+| Категория с таким названием уже существует в этой группе |
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -403,6 +403,6 @@ When the user inputs 'category edit vng-108' in 'name' field of pop up
 When the user accept pop up menu changes
 Then the user sees error messages
 | error message |
-| Группа с таким названием уже существует в этом классе |
+| Категория с таким названием уже существует в этой группе |
 When the user clicks on end edition link and ends the edition
 When the user logs out

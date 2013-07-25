@@ -195,7 +195,7 @@ public class CommonPage extends PageObject {
         String alertText = alert.getText();
         alert.accept();
         if (!alertText.contains(expectedText)) {
-            String errorMessage = String.format("Alert text is '%s'. Should be '%s'.", alert, expectedText);
+            String errorMessage = String.format("Alert text is '%s'. Should be '%s'.", alertText, expectedText);
             throw new AssertionError(errorMessage);
         }
     }
