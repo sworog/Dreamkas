@@ -33,7 +33,7 @@ class CategoryType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Category\\Category',
+                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\Category\\Category',
                 'csrf_protection' => false
             )
         );

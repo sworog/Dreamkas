@@ -1,8 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Category;
+namespace Lighthouse\CoreBundle\Document\Classifier\Category;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryNotEmptyException;
+use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategoryRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 

@@ -2,9 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Lighthouse\CoreBundle\Document\Category\Category;
-use Lighthouse\CoreBundle\Document\Category\CategoryCollection;
-use Lighthouse\CoreBundle\Document\Category\CategoryRepository;
+use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
+use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
+use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Form\CategoryType;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -16,8 +16,8 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class CategoryController extends AbstractRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.document.repository.category")
-     * @var CategoryRepository
+     * @DI\Inject("lighthouse.core.document.repository.classifier.category")
+     * @var \Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository
      */
     protected $documentRepository;
 
@@ -45,8 +45,8 @@ class CategoryController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @param \Lighthouse\CoreBundle\Document\Category\Category $category
-     * @return \FOS\RestBundle\View\View|Category
+     * @param \Lighthouse\CoreBundle\Document\Classifier\Category\Category $category
+     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Classifier\Category\Category
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -80,7 +80,7 @@ class CategoryController extends AbstractRestController
     }
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\Category\Category $category
+     * @param \Lighthouse\CoreBundle\Document\Classifier\Category\Category $category
      * @return null
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc

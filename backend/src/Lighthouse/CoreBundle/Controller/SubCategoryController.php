@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Lighthouse\CoreBundle\Document\Category\Category;
+use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategoryCollection;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategoryRepository;
@@ -68,7 +68,7 @@ class SubCategoryController extends AbstractRestController
     }
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\Category\Category $category
+     * @param \Lighthouse\CoreBundle\Document\Classifier\Category\Category $category
      * @return SubCategoryCollection
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc

@@ -20,7 +20,7 @@ class SubCategoryType extends AbstractType
                 'category',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Category\\Category',
+                    'class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\Category\\Category',
                     'invalid_message' => 'lighthouse.validation.errors.subCategory.category.does_not_exists'
                 )
             );

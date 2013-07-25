@@ -83,7 +83,7 @@ services:
         arguments:
             - LighthouseCoreBundle:Classifier\Group\Group
 
-    lighthouse.core.document.repository.category:
+    lighthouse.core.document.repository.classifier.category:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\Category\Category
         arguments:

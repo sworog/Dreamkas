@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\SubCategory;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\Category\Category;
+use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
@@ -33,7 +33,7 @@ class SubCategory extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Category\Category",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Classifier\Category\Category",
      *     simple=true,
      *     cascade="persist"
      * )

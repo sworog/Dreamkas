@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\DataFixtures\ODM;
 use Doctrine\Common\DataFixtures\Doctrine;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Lighthouse\CoreBundle\Document\Category\Category;
+use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\SubCategory\SubCategory;
 

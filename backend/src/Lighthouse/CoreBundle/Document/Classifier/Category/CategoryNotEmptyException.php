@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Category;
+namespace Lighthouse\CoreBundle\Document\Classifier\Category;
 
 use Lighthouse\CoreBundle\Exception\NotEmptyException;
 
