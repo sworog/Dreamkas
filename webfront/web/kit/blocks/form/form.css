@@ -50,3 +50,9 @@ textarea.inputText ~ .form__label{
 .form__controlLink{
     vertical-align: middle;
 }
+
+.form__successMessage{
+    vertical-align: middle;
+    color: darkgreen;
+    margin-left: 10px;
+}

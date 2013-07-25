@@ -14,7 +14,13 @@ define(function(require) {
         collection: null,
         redirectUrl: null,
         events: {
-            'submit': 'submit'
+            'submit': 'submit',
+            'change :input': 'change :input'
+        },
+        'change :input': function(){
+            var block = this;
+
+            block.removeSuccessMessage();
         },
         submit: function(e){
             e.preventDefault();
@@ -25,6 +31,7 @@ define(function(require) {
             block.$submitButton.addClass('preloader_rows');
 
             block.removeErrors();
+            block.removeSuccessMessage();
             block.onSubmit(data);
         },
         findElements: function() {
@@ -67,6 +74,10 @@ define(function(require) {
                     trigger: true
                 });
             }
+
+            if (block.successMessage){
+                block.showSuccessMessage();
+            }
         },
         onSubmitError: function(data){
             var block = this;
@@ -93,6 +104,16 @@ define(function(require) {
                 block.$controls.attr("lh_field_error", LH.text(errors.description));
             }
 
+        },
+        showSuccessMessage: function(){
+            var block = this;
+
+            block.$submitButton.after('<span class="form__successMessage">' + LH.text(_.result(block, 'successMessage')) + '</span>')
+        },
+        removeSuccessMessage: function(){
+            var block = this;
+
+            block.$('.form__successMessage').remove();
         },
         removeErrors: function() {
             var block = this;

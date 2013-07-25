@@ -5,6 +5,7 @@ define(function(require) {
     return Form.extend({
         __name__: 'form_catalogCategoryProperties',
         model: null,
+        successMessage: 'Свойства успешно сохранены',
         templates: {
             index: require('tpl!blocks/form/form_catalogGroupProperties/templates/index.html')
         }
