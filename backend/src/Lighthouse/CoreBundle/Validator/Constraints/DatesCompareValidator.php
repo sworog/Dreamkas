@@ -4,46 +4,28 @@ namespace Lighthouse\CoreBundle\Validator\Constraints;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class DatesCompareValidator extends ConstraintValidator
+class DatesCompareValidator extends NumbersCompareValidator
 {
     /**
-     * @param mixed $value
-     * @param \Symfony\Component\Validator\Constraint|DatesCompare $constraint
+     * @param $value
      * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
      */
-    public function validate($value, Constraint $constraint)
+    protected function validateFieldValue($value)
     {
-        if (!$value instanceof AbstractDocument) {
-            throw new UnexpectedTypeException($value, 'Lighthouse\CoreBundle\Document\AbstractDocument');
+        if (!$value instanceof \DateTime) {
+            throw new UnexpectedTypeException($value, '\DateTime');
         }
+    }
 
-        $firstValue = $value->{$constraint->firstField};
-        $secondValue = $value->{$constraint->secondField};
-
-        if (null === $secondValue || null === $firstValue) {
-            return;
-        }
-
-        if (!$secondValue instanceof \DateTime) {
-            throw new UnexpectedTypeException($secondValue, '\DateTime');
-        }
-
-        if (!$firstValue instanceof \DateTime) {
-            throw new UnexpectedTypeException($firstValue, '\DateTime');
-        }
-
-        if ($secondValue > $firstValue) {
-            $this->context->addViolationAt(
-                $constraint->secondField,
-                $constraint->message,
-                array(
-                    '{{ firstValue }}' => $firstValue->format($constraint->dateFormat),
-                    '{{ secondValue }}' => $secondValue->format($constraint->dateFormat),
-                )
-            );
-        }
+    /**
+     * @param Constraint $constraint
+     * @param $value
+     * @return mixed
+     */
+    protected function formatValue(Constraint $constraint, $value)
+    {
+        return $value->format($constraint->dateFormat);
     }
 }

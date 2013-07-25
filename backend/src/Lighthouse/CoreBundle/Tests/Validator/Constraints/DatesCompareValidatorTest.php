@@ -43,8 +43,8 @@ class DatesCompareValidatorTest extends \PHPUnit_Framework_TestCase
             ->method('addViolationAt');
 
         $options = array(
-            'firstField' => 'orderDate',
-            'secondField' => 'createdDate',
+            'minField' => 'orderDate',
+            'maxField' => 'createdDate',
             'message' => 'message'
         );
         $constraint = new DatesCompare($options);
@@ -96,8 +96,8 @@ class DatesCompareValidatorTest extends \PHPUnit_Framework_TestCase
             ->method('addViolationAt');
 
         $options = array(
-            'firstField' => 'orderDate',
-            'secondField' => 'createdDate',
+            'minField' => 'orderDate',
+            'maxField' => 'createdDate',
             'message' => 'message'
         );
         $constraint = new DatesCompare($options);
@@ -134,8 +134,8 @@ class DatesCompareValidatorTest extends \PHPUnit_Framework_TestCase
     public function testValueUnexpectedType($value)
     {
         $options = array(
-            'firstField' => 'orderDate',
-            'secondField' => 'createdDate',
+            'minField' => 'orderDate',
+            'maxField' => 'createdDate',
             'message' => 'message'
         );
         $constraint = new DatesCompare($options);
@@ -163,8 +163,8 @@ class DatesCompareValidatorTest extends \PHPUnit_Framework_TestCase
     public function testFieldUnexpectedType($orderDate, $createdDate)
     {
         $options = array(
-            'firstField' => 'orderDate',
-            'secondField' => 'createdDate',
+            'minField' => 'orderDate',
+            'maxField' => 'createdDate',
         );
         $constraint = new DatesCompare($options);
 
