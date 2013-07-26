@@ -40,6 +40,7 @@ define(function(require) {
             Block.prototype.findElements.apply(block, arguments);
 
             block.$submitButton = block.$el.find('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
+            block.$controls = block.$submitButton.closest(".form__controls");
         },
         onSubmit: function(data){
             var block = this;
@@ -102,6 +103,15 @@ define(function(require) {
 
             if (errors.description){
                 block.$controls.attr("lh_field_error", LH.text(errors.description));
+            }
+
+            // TODO: Спросить не говнокод ли это? =)
+            if (errors.error){
+                if (errors.error_description){
+                    block.$controls.attr("lh_field_error", LH.text(errors.error_description));
+                } else {
+                    block.$controls.attr("lh_field_error", LH.text(errors.error));
+                }
             }
 
         },
