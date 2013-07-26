@@ -90,6 +90,19 @@ public class CommonActions extends PageObject {
         }
     }
 
+    public void checkElementText(String elementName, String expectedValue) {
+        try {
+            WebElement element = items.get(elementName).getOnlyVisibleWebElement();
+            commonPage.shouldContainsText(elementName, element, expectedValue);
+        } catch (Exception e) {
+            if (isSkippableException(e, false)) {
+                checkElementText(elementName, expectedValue);
+            } else {
+                throw e;
+            }
+        }
+    }
+
     public void checkElementValue(String checkType, List<Map<String, String>> checkValuesList) {
         for (Map<String, String> row : checkValuesList) {
             String elementName = row.get("elementName");

@@ -5,10 +5,7 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
-import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
-import project.lighthouse.autotests.pages.commercialManager.catalog.CategoryPage;
-import project.lighthouse.autotests.pages.commercialManager.catalog.GroupPage;
-import project.lighthouse.autotests.pages.commercialManager.catalog.SubCategoryPage;
+import project.lighthouse.autotests.pages.commercialManager.catalog.*;
 
 import java.io.IOException;
 
@@ -19,6 +16,7 @@ public class CatalogSteps extends ScenarioSteps {
     CommonPage commonPage;
     CatalogApi catalogApi;
     SubCategoryPage subCategoryPage;
+    MarkUpTab markUpTab;
 
     public CatalogSteps(Pages pages) {
         super(pages);
@@ -229,5 +227,47 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void addNewSubCategoryConfirmClick() {
         subCategoryPage.addNewButtonConfirmClick();
+    }
+
+    //-34-34-3-43-4-34-3-43-4
+
+    @Step
+    public void mainTabClick(String mainTabType) {
+        groupPage.mainTab(mainTabType).click();
+    }
+
+    @Step
+    public void propertiesTabClick(String propertiesTabType) {
+        groupPage.propertiesTab(propertiesTabType).click();
+    }
+
+    @Step
+    public void saveMarkUpButtonClick() {
+        markUpTab.saveMarkUpButton().click();
+    }
+
+    @Step
+    public void retailMarkupMinSet(String value) {
+        markUpTab.input("retailMarkupMin", value);
+    }
+
+    @Step
+    public void retailMarkupMaxSet(String value) {
+        markUpTab.input("retailMarkupMax", value);
+    }
+
+    @Step
+    public void retailMarkupMinCheck(String value) {
+        markUpTab.check("retailMarkupMin", value);
+    }
+
+    @Step
+    public void retailMarkupMaxCheck(String value) {
+        markUpTab.check("retailMarkupMax", value);
+    }
+
+    @Step
+    public void checkSuccessMessage(String expectedMessage) {
+        markUpTab.checkSuccessMessage(expectedMessage);
     }
 }

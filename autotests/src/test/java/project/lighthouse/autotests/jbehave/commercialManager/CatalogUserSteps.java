@@ -15,6 +15,9 @@ public class CatalogUserSteps {
     @Steps
     CatalogSteps catalogSteps;
 
+    String retailMarkupMinValue, retailMarkupMaxValue;
+    String newRetailMarkupMinValue, newRetailMarkupMaxValue;
+
     @Given("the user opens catalog page")
     public void givenTheUSerOpensCatalogPage() {
         catalogSteps.openPage();
@@ -214,5 +217,76 @@ public class CatalogUserSteps {
     @Then("the user checks the edit button is not present")
     public void whenTheUserChecksTheEditIsNotPresent() {
         catalogSteps.startEditButtonLinkClickIsNotPresent();
+    }
+
+    //-21-2-12-12-1-21-2-12-
+
+    @When("the user switches to '$propertiesTypeTab' properties tab")
+    public void whenTheUserSwitchesToPropertiesTab(String propertiesTypeTab) {
+        catalogSteps.propertiesTabClick(propertiesTypeTab);
+    }
+
+    @When("the user switches to '$mainTypeTab' main tab")
+    public void whenTheUserSwitchesToMainTab(String mainTypeTab) {
+        catalogSteps.mainTabClick(mainTypeTab);
+    }
+
+    @When("the user clicks save mark up button")
+    public void whenTheUserClicksSaveMarkUpButton() {
+        catalogSteps.saveMarkUpButtonClick();
+    }
+
+    @When("the user sets min mark up value to '$value'")
+    public void whenTheUserSetsMinMarkUpValue(String value) {
+        catalogSteps.retailMarkupMinSet(value);
+        retailMarkupMinValue = value;
+    }
+
+    @When("the user sets max mark up value to '$value'")
+    public void whenTheUserSetsMaxMarkUpValue(String value) {
+        catalogSteps.retailMarkupMaxSet(value);
+        retailMarkupMaxValue = value;
+    }
+
+    @When("the user resets min mark up value to '$value'")
+    @Alias("the user sets new min mark up value to '$value'")
+    public void whenTheUserReSetsMinMarkUpValue(String value) {
+        catalogSteps.retailMarkupMinSet(value);
+        newRetailMarkupMinValue = value;
+    }
+
+    @When("the user resets max mark up value to '$value'")
+    @Alias("the user sets new max mark up value to '$value'")
+    public void whenTheUserReSetsMaxMarkUpValue(String value) {
+        catalogSteps.retailMarkupMaxSet(value);
+        newRetailMarkupMaxValue = value;
+    }
+
+    @Then("the user checks the stored min mark up value")
+    public void thenTheUSerChecksTheStoredMinMarkUpValue() {
+        catalogSteps.retailMarkupMinCheck(retailMarkupMinValue);
+    }
+
+    @Then("the user checks the stored max mark up value")
+    public void thenTheUSerChecksTheStoredMaxMarkUpValue() {
+        catalogSteps.retailMarkupMaxCheck(retailMarkupMaxValue);
+    }
+
+    @Then("the user checks the stored mark up values")
+    @Alias("the user checks the stored mark up values are not changed")
+    public void thenTheUserChecksTheStoredMarkUpValues() {
+        catalogSteps.retailMarkupMinCheck(retailMarkupMinValue);
+        catalogSteps.retailMarkupMaxCheck(retailMarkupMaxValue);
+    }
+
+    @Then("the user checks the stored mark up values are new ones")
+    public void thenTheUserChecksTheStoredMarkUpValuesAreNewOnes() {
+        catalogSteps.retailMarkupMinCheck(newRetailMarkupMinValue);
+        catalogSteps.retailMarkupMaxCheck(newRetailMarkupMaxValue);
+    }
+
+    @Then("the user sees success message '$expectedMessage'")
+    public void thenTheUserSeesSuccessMessage(String expectedMessage) {
+        catalogSteps.checkSuccessMessage(expectedMessage);
     }
 }

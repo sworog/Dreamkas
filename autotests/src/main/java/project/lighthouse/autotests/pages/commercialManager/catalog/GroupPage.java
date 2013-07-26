@@ -20,6 +20,11 @@ public class GroupPage extends CommonPageObject {
     @FindBy(xpath = "//*[@class='page__controlsLink editor__on']")
     WebElementFacade startEditionButtonLink;
 
+    public static final String GROUP = "group";
+    public static final String CATEGORY = "category";
+    public static final String SUBCATEGORY = "subCategory";
+
+
     public GroupPage(WebDriver driver) {
         super(driver);
     }
@@ -143,39 +148,43 @@ public class GroupPage extends CommonPageObject {
         waiter.waitUntilIsNotVisible(By.xpath(preloaderXpath));
     }
 
-    public WebElement categoryListTab() {
-        return findVisibleElement(
-                By.xpath("//*[@rel='categoryList']")
-        );
+    public WebElement mainTab(String mainTabType) {
+        switch (mainTabType) {
+            case GROUP:
+                return findOnlyVisibleWebElementFromTheWebElementsList(
+                        By.xpath("//*[@rel='categoryList']")
+                );
+            case CATEGORY:
+                return findOnlyVisibleWebElementFromTheWebElementsList(
+                        By.xpath("//*[@rel='subCategoryList']")
+                );
+            case SUBCATEGORY:
+                return findOnlyVisibleWebElementFromTheWebElementsList(
+                        By.xpath("//*[@rel='productList']")
+                );
+            default:
+                String errorMessage = String.format("No such value '%s'", mainTabType);
+                throw new AssertionError(errorMessage);
+        }
     }
 
-    public WebElement subCategoryListTab() {
-        return findVisibleElement(
-                By.xpath("//*[@rel='subCategoryList']")
-        );
-    }
-
-    public WebElement productListTab() {
-        return findVisibleElement(
-                By.xpath("//*[@rel='productList']")
-        );
-    }
-
-    public WebElement groupPropertiesTab() {
-        return findVisibleElement(
-                By.xpath("//*[@class='groupProperties']")
-        );
-    }
-
-    public WebElement categoryPropertiesTab() {
-        return findVisibleElement(
-                By.xpath("//*[@class='categoryProperties']")
-        );
-    }
-
-    public WebElement subCategoryPropertiesTab() {
-        return findVisibleElement(
-                By.xpath("//*[@class='subCategoryProperties']")
-        );
+    public WebElement propertiesTab(String propertiesTabType) {
+        switch (propertiesTabType) {
+            case GROUP:
+                return findVisibleElement(
+                        By.xpath("//*[@rel='groupProperties']")
+                );
+            case CATEGORY:
+                return findVisibleElement(
+                        By.xpath("//*[@rel='categoryProperties']")
+                );
+            case SUBCATEGORY:
+                return findVisibleElement(
+                        By.xpath("//*[@rel='subCategoryProperties']")
+                );
+            default:
+                String errorMessage = String.format("No such value '%s'", propertiesTabType);
+                throw new AssertionError(errorMessage);
+        }
     }
 }

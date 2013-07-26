@@ -40,6 +40,10 @@ abstract public class CommonPageObject extends PageObject {
         commonActions.input(elementName, inputText);
     }
 
+    public void check(String elementName, String expectedValue) {
+        commonActions.checkElementText(elementName, expectedValue);
+    }
+
     public void type(By findBy, String inputText) {
         commonActions.type(findBy, inputText);
     }
