@@ -106,4 +106,17 @@ class AuthControllerTest extends WebTestCase
         self::assertNotEquals($refreshToken, $jsonResponse['refresh_token']);
         self::assertNotEquals($accessToken, $jsonResponse['access_token']);
     }
+
+    public function testInvalidPassword()
+    {
+        $this->clearMongoDb();
+        $user = $this->createUser('test', 'password');
+
+        $response = $this->auth($user, 'qwerty');
+
+        $this->assertResponseCode(400);
+
+        $this->assertObjectHasAttribute('error', $response);
+        $this->assertEquals('invalid_grant', $response->error);
+    }
 }
