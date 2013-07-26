@@ -76,11 +76,9 @@ class UserControllerTest extends WebTestCase
             $userData
         );
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
-        foreach ($assertions as $path => $expected) {
-            Assert::assertJsonPathContains($expected, $path, $response);
-        }
+        $this->performJsonAssertions($response, $assertions, true);
     }
 
     /**
