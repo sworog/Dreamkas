@@ -5,6 +5,7 @@ import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
@@ -18,9 +19,6 @@ public class GroupPage extends CommonPageObject {
 
     @FindBy(xpath = "//*[@class='page__controlsLink editor__on']")
     WebElementFacade startEditionButtonLink;
-
-    @FindBy(xpath = "//*[@class='page__controlsLink editor__off']")
-    WebElementFacade stopEditionButtonLink;
 
     public GroupPage(WebDriver driver) {
         super(driver);
@@ -45,7 +43,12 @@ public class GroupPage extends CommonPageObject {
 
     public void stopEditionButtonLinkClick() {
         try {
-            stopEditionButtonLink.click();
+            WebElement stopEditionButton = findVisibleElement(By.xpath("//*[@class='page__controlsLink editor__off']"));
+            evaluateJavascript(
+                    String.format("window.scrollTo(%s, %s)",
+                            stopEditionButton.getLocation().getX(), stopEditionButton.getLocation().getY() - 50)
+            );
+            stopEditionButton.click();
         } catch (Exception e) {
             if (e.getMessage().contains("Element is not clickable at point")) {
                 withAction().sendKeys(Keys.ESCAPE).build().perform();
@@ -138,5 +141,41 @@ public class GroupPage extends CommonPageObject {
     public void preloaderWait() {
         String preloaderXpath = "//*[contains(@class, 'preloader')]";
         waiter.waitUntilIsNotVisible(By.xpath(preloaderXpath));
+    }
+
+    public WebElement categoryListTab() {
+        return findVisibleElement(
+                By.xpath("//*[@rel='categoryList']")
+        );
+    }
+
+    public WebElement subCategoryListTab() {
+        return findVisibleElement(
+                By.xpath("//*[@rel='subCategoryList']")
+        );
+    }
+
+    public WebElement productListTab() {
+        return findVisibleElement(
+                By.xpath("//*[@rel='productList']")
+        );
+    }
+
+    public WebElement groupPropertiesTab() {
+        return findVisibleElement(
+                By.xpath("//*[@class='groupProperties']")
+        );
+    }
+
+    public WebElement categoryPropertiesTab() {
+        return findVisibleElement(
+                By.xpath("//*[@class='categoryProperties']")
+        );
+    }
+
+    public WebElement subCategoryPropertiesTab() {
+        return findVisibleElement(
+                By.xpath("//*[@class='subCategoryProperties']")
+        );
     }
 }
