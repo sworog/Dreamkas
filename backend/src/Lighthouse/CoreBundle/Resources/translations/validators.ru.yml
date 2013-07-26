@@ -54,7 +54,7 @@ lighthouse:
                 decimals: Значение не должно содержать больше {{ decimals }} цифр после запятой
             not_equals_field: Значение поля не должно совпадать с полем {{ field }}
             markup:
-                compare: Минимальной наценка не может быть больше максимальной
+                compare: Минимальная наценка не может быть больше максимальной
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов

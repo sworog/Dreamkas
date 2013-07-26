@@ -108,7 +108,7 @@ class GroupControllerTest extends WebTestCase
             'not valid markup min is more than max' => array(
                 400,
                 array('retailMarkupMin' => 0, 'retailMarkupMax' => -10),
-                array('children.retailMarkupMin.errors.0' => 'Минимальной наценка не может быть больше максимальной')
+                array('children.retailMarkupMin.errors.0' => 'Минимальная наценка не может быть больше максимальной')
             ),
             'not valid markup not float' => array(
                 400,
