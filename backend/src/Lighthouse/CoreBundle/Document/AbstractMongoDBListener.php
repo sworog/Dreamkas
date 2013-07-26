@@ -54,10 +54,14 @@ abstract class AbstractMongoDBListener
      * @param DocumentManager $dm
      * @param $document
      */
-    protected function computeChangeSet(DocumentManager $dm, $document)
+    protected function computeChangeSet(DocumentManager $dm, $document, $recompute = false)
     {
         $uow = $dm->getUnitOfWork();
         $class = $dm->getClassMetadata(get_class($document));
-        $uow->computeChangeSet($class, $document);
+        if ($recompute) {
+            $uow->recomputeSingleDocumentChangeSet($class, $document);
+        } else {
+            $uow->computeChangeSet($class, $document);
+        }
     }
 }

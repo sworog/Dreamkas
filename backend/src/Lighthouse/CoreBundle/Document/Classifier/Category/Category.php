@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier\Category;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
@@ -38,4 +39,34 @@ class Category extends AbstractNode
      * @var SubCategory[]
      */
     protected $subCategories;
+
+    public function __construct()
+    {
+        $this->subCategories = new ArrayCollection();
+    }
+
+    /**
+     * @return Group
+     */
+    public function getParent()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @return AbstractNode[]|SubCategory
+     */
+    public function getChildren()
+    {
+        return $this->subCategories;
+    }
+
+    /**
+     * @MongoDB\PrePersist
+     * @MongoDB\PreUpdate
+     */
+    public function updateMarkup()
+    {
+        parent::updateMarkup();
+    }
 }

@@ -9,6 +9,12 @@ use Lighthouse\CoreBundle\Validator\Constraints\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\NumbersCompare as AssertMarkupCompare;
 
 /**
+ * @property string $id
+ * @property string $name
+ * @property float  $retailMarkupMin
+ * @property float  $retailMarkupMax
+ * @property float  $retailMarkupInherited
+ *
  * @MongoDB\MappedSuperclass
  * @AssertMarkupCompare(
  *      minField="retailMarkupMin",
@@ -16,7 +22,7 @@ use Lighthouse\CoreBundle\Validator\Constraints\NumbersCompare as AssertMarkupCo
  *      message="lighthouse.validation.errors.markup.compare"
  * )
  */
-class AbstractNode extends AbstractDocument
+abstract class AbstractNode extends AbstractDocument
 {
     /**
      * @MongoDB\Id
@@ -47,4 +53,33 @@ class AbstractNode extends AbstractDocument
      * @var float
      */
     protected $retailMarkupMax;
+
+    /**
+     * @MongoDB\Boolean
+     * @var boolean
+     */
+    protected $retailMarkupInherited = true;
+
+    /**
+     * @return AbstractNode
+     */
+    abstract public function getParent();
+
+    /**
+     * @return AbstractNode[]
+     */
+    abstract public function getChildren();
+
+    public function updateMarkup()
+    {
+        $parent = $this->getParent();
+        if (null !== $this->retailMarkupMin || null !== $this->retailMarkupMax) {
+            $this->retailMarkupInherited = false;
+        } elseif ($parent) {
+            // if min and max is null, then inherit from parent
+            $this->retailMarkupMin = $parent->retailMarkupMin;
+            $this->retailMarkupMax = $parent->retailMarkupMax;
+            $this->retailMarkupInherited = true;
+        }
+    }
 }

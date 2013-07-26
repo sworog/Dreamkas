@@ -386,12 +386,20 @@ class WebTestCase extends BaseTestCase
     /**
      * @param string $name
      * @param bool $ifNotExists
-     * @return mixed
+     * @param null $retailMarkupMin
+     * @param null $retailMarkupMax
+     * @return string
      */
-    protected function createGroup($name = 'Продовольственные товары', $ifNotExists = true)
-    {
+    protected function createGroup(
+        $name = 'Продовольственные товары',
+        $ifNotExists = true,
+        $retailMarkupMin = null,
+        $retailMarkupMax = null
+    ) {
         $postData = array(
             'name' => $name,
+            'retailMarkupMin' => $retailMarkupMin,
+            'retailMarkupMax' => $retailMarkupMax,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');

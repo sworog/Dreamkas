@@ -26,4 +26,29 @@ class SubCategory extends AbstractNode
      * @var Category
      */
     protected $category;
+
+    /**
+     * @return Category
+     */
+    public function getParent()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @return array|\Lighthouse\CoreBundle\Document\Classifier\AbstractNode[]
+     */
+    public function getChildren()
+    {
+        return array();
+    }
+
+    /**
+     * @MongoDB\PrePersist
+     * @MongoDB\PreUpdate
+     */
+    public function updateMarkup()
+    {
+        parent::updateMarkup();
+    }
 }

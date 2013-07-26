@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier\Group;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,4 +27,34 @@ class Group extends AbstractNode
      * @var \Lighthouse\CoreBundle\Document\Classifier\Category\Category[]
      */
     protected $categories;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
+
+    /**
+     * @return null
+     */
+    public function getParent()
+    {
+        return null;
+    }
+
+    /**
+     * @return Categories[]|ArrayCollection
+     */
+    public function getChildren()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @MongoDB\PrePersist
+     * @MongoDB\PreUpdate
+     */
+    public function updateMarkup()
+    {
+        parent::updateMarkup();
+    }
 }
