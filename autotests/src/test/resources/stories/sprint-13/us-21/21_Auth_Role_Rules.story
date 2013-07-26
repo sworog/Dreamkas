@@ -177,13 +177,6 @@ And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'users' section is not present
 When the user logs out
 
-Scenario: departmentManager role invalid rules - dashboard links - catalog
-
-Given the user opens the authorization page
-And the user logs in as 'departmentManager'
-Then the user checks the dashboard link to 'catalog' section is not present
-When the user logs out
-
 Scenario: administrator role valid rules - simple user scenario from dashboard - user creation
 
 Given the user opens the authorization page
@@ -199,21 +192,6 @@ And the user inputs values in the user page element fields
 | role | administrator |
 And the user clicks the create new user button
 Then the user checks the user with 'createfromuserslistpage9999' username is present
-When the user logs out
-
-Scenario: commercialManager role valid rules - simple user scenario from dashboard - product creation
-
-Given the user opens the authorization page
-And the user logs in as 'commercialManager'
-When user opens the dashboard 'products' section
-And the user creates new product from product list page
-And the user inputs 'assps' in 'name' field
-And the user inputs '12356' in 'purchasePrice' field
-And the user selects 'unit' in 'unit' dropdown
-And the user selects '10' in 'vat' dropdown
-And the user inputs 'assps123' in 'sku' field
-And the user clicks the create button
-Then the user checks the product with 'assps123' sku is present
 When the user logs out
 
 Scenario: commercialManager role valid rules - simple user scenario from dashboard - group creation
@@ -543,32 +521,6 @@ And the user is on the product create page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: departmentManager role invalid rules - unauthorised access from catalog link
-
-Given the user opens the authorization page
-And the user logs in as 'departmentManager'
-And the user opens catalog page
-Then the user sees the 403 error
-When the user logs out
-
-Scenario: departmentManager role valid rules - authorised access to products list
-
-Given the user opens the authorization page
-And the user logs in as 'departmentManager'
-When user opens the dashboard 'products' section
-Then the user dont see the 403 error
-When the user logs out
-
-Scenario: departmentManager role valid rules - authorised access to products card
-
-Given there is the product with 'IFBKG-119999' name, 'IFBKG-119999' sku, 'IFBKG-119999' barcode
-And the user opens the authorization page
-And the user logs in as 'departmentManager'
-When user opens the dashboard 'products' section
-When the user open the product card with 'IFBKG-119999' sku
-Then the user dont see the 403 error
-When the user logs out
-
 Scenario: departmentManager role valid rules - authorised access to balance
 
 Given the user opens the authorization page
@@ -611,23 +563,6 @@ And the user creates write off from write off list page
 Then the user dont see the 403 error
 When the user logs out
 
-Scenario: commercialManager role valid rules - authorised access to product list
-
-Given the user opens the authorization page
-And the user logs in as 'commercialManager'
-When user opens the dashboard 'products' section
-Then the user dont see the 403 error
-When the user logs out
-
-Scenario: commercialManager role valid rules - authorised access to product create
-
-Given the user opens the authorization page
-And the user logs in as 'commercialManager'
-When user opens the dashboard 'products' section
-And the user creates new product from product list page
-Then the user dont see the 403 error
-When the user logs out
-
 Scenario: commercialManager role valid rules - authorised access to catalog
 
 Given the user opens the authorization page
@@ -656,18 +591,16 @@ When the user logs out
 Scenario: departmentManager - no edit button for products card
 
 Given there is the product with 'IFBKG-119999' name, 'IFBKG-119999' sku, 'IFBKG-119999' barcode
-And the user opens the authorization page
+And the user is on the product list page
 And the user logs in as 'departmentManager'
-When user opens the dashboard 'products' section
 When the user open the product card with 'IFBKG-119999' sku
 Then the user sees no edit product button
 When the user logs out
 
 Scenario: departmentManager - no create button for products list
 
-Given the user opens the authorization page
+Given the user is on the product list page
 And the user logs in as 'departmentManager'
-When user opens the dashboard 'products' section
 Then the user sees no create new product button
 When the user logs out
 

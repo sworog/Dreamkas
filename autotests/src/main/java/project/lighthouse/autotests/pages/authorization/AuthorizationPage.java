@@ -37,11 +37,17 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void authorization(String userName, String password) {
+        authorization(userName, password, false);
+    }
+
+    public void authorization(String userName, String password, Boolean isFalse) {
         type(By.name("username"), userName);
         type(By.name("password"), password);
         String loginButtonXpath = "//*[@class='button button_color_blue']";
         click(By.xpath(loginButtonXpath));
-        checkUser(userName);
+        if (!isFalse) {
+            checkUser(userName);
+        }
         isAuthorized = true;
     }
 
@@ -84,7 +90,7 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void authorizationFalse(String userName, String password) {
-        authorization(userName, password);
+        authorization(userName, password, true);
         isAuthorized = false;
     }
 
