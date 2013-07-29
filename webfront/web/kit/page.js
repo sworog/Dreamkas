@@ -19,7 +19,7 @@ define(function(require) {
             return;
         }
 
-        if (previousPage) {
+        if (previousPage && previousPage.pageName) {
             page.referer = previousPage;
             previousPage.stopListening();
         }
