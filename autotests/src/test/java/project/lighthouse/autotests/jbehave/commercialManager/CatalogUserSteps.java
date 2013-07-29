@@ -5,7 +5,10 @@ import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.steps.AuthorizationSteps;
+import project.lighthouse.autotests.steps.CommonSteps;
 import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
 
 import java.io.IOException;
@@ -14,6 +17,12 @@ public class CatalogUserSteps {
 
     @Steps
     CatalogSteps catalogSteps;
+
+    @Steps
+    AuthorizationSteps authorizationSteps;
+
+    @Steps
+    CommonSteps commonSteps;
 
     String retailMarkupMinValue, retailMarkupMaxValue;
     String newRetailMarkupMinValue, newRetailMarkupMaxValue;
@@ -24,17 +33,17 @@ public class CatalogUserSteps {
     }
 
     @Given("there is the group with name '$groupName'")
-    public void givenThereIsTheClassWithName(String groupName) throws IOException, JSONException {
+    public void givenThereIsTheGroupWithName(String groupName) throws IOException, JSONException {
         catalogSteps.createGroupThroughPost(groupName);
     }
 
     @Given("there is the category with name '$categoryName' related to group named '$groupName'")
-    public void givenThereIsTheGroupWithNameRelatedToKlass(String categoryName, String groupName) throws IOException, JSONException {
+    public void givenThereIsTheCategoryWithNameRelatedToGroup(String categoryName, String groupName) throws IOException, JSONException {
         catalogSteps.createCategoryThroughPost(categoryName, groupName);
     }
 
     @Given("the user navigates to the group with name '$groupName'")
-    public void givenTheUserNavigatesToTheKlassName(String groupName) throws JSONException {
+    public void givenTheUserNavigatesToTheGroup(String groupName) throws JSONException {
         catalogSteps.navigateToGroupPage(groupName);
     }
 
@@ -288,5 +297,100 @@ public class CatalogUserSteps {
     @Then("the user sees success message '$expectedMessage'")
     public void thenTheUserSeesSuccessMessage(String expectedMessage) {
         catalogSteps.checkSuccessMessage(expectedMessage);
+    }
+
+    @Given("the user validates min mark up with '$value' value of the group with name '$groupName'")
+    public void givenTheUserValidatesMinMarkUpValueWithValueOfTheGroup(String value, String groupName) throws IOException, JSONException {
+        givenThereIsTheGroupWithName(groupName);
+        givenTheUserNavigatesToTheGroup(groupName);
+        authorizationSteps.authorization("commercialManager");
+        whenTheUserStartsTheEdition();
+        whenTheUserSwitchesToPropertiesTab("group");
+        whenTheUserSetsMinMarkUpValue(value);
+        whenTheUserSetsMaxMarkUpValue("");
+        whenTheUserClicksSaveMarkUpButton();
+    }
+
+    @Given("the user validates max mark up with '$value' value of the group with name '$groupName'")
+    public void givenTheUserValidatesMaxMarkUpValueWithValueOfTheGroup(String value, String groupName) throws IOException, JSONException {
+        givenThereIsTheGroupWithName(groupName);
+        givenTheUserNavigatesToTheGroup(groupName);
+        authorizationSteps.authorization("commercialManager");
+        whenTheUserStartsTheEdition();
+        whenTheUserSwitchesToPropertiesTab("group");
+        whenTheUserSetsMinMarkUpValue("");
+        whenTheUserSetsMaxMarkUpValue(value);
+        whenTheUserClicksSaveMarkUpButton();
+    }
+
+    @Given("the user validates '$markUpType' mark up with '$value' value of category with name '$categoryName' of group with name '$groupName'")
+    public void GivenTheUserValidatesMarkupOfTheCategory(String markUpType, String value, String categoryName, String groupName) throws IOException, JSONException {
+        givenThereIsTheCategoryWithNameRelatedToGroup(categoryName, groupName);
+        givenTheUserNavigatesToTheCategoryPage(categoryName, groupName);
+        authorizationSteps.authorization("commercialManager");
+        whenTheUserStartsTheEdition();
+        whenTheUserSwitchesToPropertiesTab("category");
+        switch (markUpType) {
+            case "max":
+                validateMaxMarkUpValue(value);
+                break;
+            case "min":
+                validateMinMarkUpValue(value);
+                break;
+            default:
+                throw new AssertionError(
+                        String.format("No such value '%s'", markUpType)
+                );
+        }
+        whenTheUserClicksSaveMarkUpButton();
+    }
+
+    @Given("the user validates '$markUpType' mark up with '$value' value of subCategory with name '$subCategory' of category with name '$categoryName' of group with name '$groupName'")
+    public void GivenTheUserValidatesMarkupOfTheSubCategory(String markUpType, String value, String subCategory, String categoryName, String groupName) throws IOException, JSONException {
+        givenThereIsTheSubCategory(groupName, categoryName, subCategory);
+        navigateToSubCategoryProductListPageUrl(subCategory, categoryName, groupName);
+        authorizationSteps.authorization("commercialManager");
+        whenTheUserStartsTheEdition();
+        whenTheUserSwitchesToPropertiesTab("subCategory");
+        switch (markUpType) {
+            case "max":
+                validateMaxMarkUpValue(value);
+                break;
+            case "min":
+                validateMinMarkUpValue(value);
+                break;
+            default:
+                throw new AssertionError(
+                        String.format("No such value '%s'", markUpType)
+                );
+        }
+        whenTheUserClicksSaveMarkUpButton();
+    }
+
+    public void validateMaxMarkUpValue(String value) {
+        whenTheUserSetsMinMarkUpValue("");
+        whenTheUserSetsMaxMarkUpValue(value);
+    }
+
+    public void validateMinMarkUpValue(String value) {
+        whenTheUserSetsMinMarkUpValue(value);
+        whenTheUserSetsMaxMarkUpValue("");
+    }
+
+    @Then("the user sees success message '$succesMessage' and logs out")
+    public void thenTheUSerSeesSuccessMessageAndLogsOut(String succesMessage) {
+        thenTheUserSeesSuccessMessage(succesMessage);
+        endTheEditionAndLogsOut();
+    }
+
+    @Then("the user sees error message and logs out $errorMessageTable")
+    public void thenTheUserSeesErrorMessageAndLogsOut(ExamplesTable errorMessageTable) {
+        commonSteps.checkErrorMessages(errorMessageTable);
+        endTheEditionAndLogsOut();
+    }
+
+    public void endTheEditionAndLogsOut() {
+        whenTheUserEndsTheEdition();
+        authorizationSteps.logOut();
     }
 }
