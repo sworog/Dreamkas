@@ -113,22 +113,18 @@ public class TeamCityStepListener implements StepListener {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("name", result.getTitle());
         properties.put("message", result.getTestFailureCause().getMessage());
-        properties.put("details", failureStepMessage(result) + ExceptionUtils.getStackTrace(result.getTestFailureCause()));
+        properties.put("details", getStepsInfo(result) + ExceptionUtils.getStackTrace(result.getTestFailureCause()));
         printMessage("testFailed", properties);
     }
 
-    public String failureStepMessage(TestOutcome result) {
-        return String.format("Failing step: %s\n", getFailureStep(result));
-    }
-
-    public String getFailureStep(TestOutcome result) {
+    public String getStepsInfo(TestOutcome result) {
         List<TestStep> testSteps = result.getTestSteps();
+        StringBuilder builder = new StringBuilder("Steps:\r\n");
         for (int i = 0; i < testSteps.size(); i++) {
-            if (testSteps.get(i).isFailure() || testSteps.get(i).isError()) {
-                return testSteps.get(i).getDescription();
-            }
+            String stepMessage = String.format("%s (%s) -> %s\r\n", testSteps.get(i).getDescription(), testSteps.get(i).getDurationInSeconds(), testSteps.get(i).getResult().toString());
+            builder.append(stepMessage);
         }
-        return "";
+        return builder.append("\r\n").toString();
     }
 
     private void printPending(TestOutcome result) {
