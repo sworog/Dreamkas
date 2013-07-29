@@ -31,7 +31,7 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void startEditionButtonLinkClick() {
-        findElement(By.xpath("//*[@class='page__controlsLink editor__on']")).click();
+        findVisibleElement(By.xpath("//*[@class='page__controlsLink editor__on']")).click();
     }
 
     public void startEditButtonLinkClickIsNotPresent() {
