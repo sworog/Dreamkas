@@ -2,6 +2,7 @@ define(function(require) {
     var Block = require("kit/block");
 
     return Block.extend({
+        __name__: 'page',
         events: {
             'click .page__tabItem': 'click .page__tabItem'
         },
