@@ -17,9 +17,6 @@ public class GroupPage extends CommonPageObject {
     @FindBy(xpath = "//*[@class='button button_color_blue catalog__addGroupLink editor__control']")
     WebElementFacade addNewGroupButton;
 
-    @FindBy(xpath = "//*[@class='page__controlsLink editor__on']")
-    WebElementFacade startEditionButtonLink;
-
     public static final String GROUP = "group";
     public static final String CATEGORY = "category";
     public static final String SUBCATEGORY = "subCategory";
@@ -34,7 +31,7 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void startEditionButtonLinkClick() {
-        startEditionButtonLink.click();
+        findElement(By.xpath("//*[@class='page__controlsLink editor__on']")).click();
     }
 
     public void startEditButtonLinkClickIsNotPresent() {
