@@ -24,13 +24,13 @@ public class StoreCreatePage extends CommonPageObject {
 
     public WebElement createButton() {
         return findVisibleElement(
-                By.xpath("//span[@class='button button_color_blue' and contains(text(), 'Добавить')]/input")
+                By.xpath("//*[@class='button button_color_blue']")
         );
     }
 
     public WebElement saveButton() {
         return findVisibleElement(
-                By.xpath("//span[@class='button button_color_blue' and contains(text(), 'Сохранить')]/input")
+                By.xpath("//*[@class='button button_color_blue']")
         );
     }
 }
