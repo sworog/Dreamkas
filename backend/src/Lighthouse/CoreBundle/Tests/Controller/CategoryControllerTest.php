@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -642,5 +643,171 @@ class CategoryControllerTest extends WebTestCase
                 '403',
             ),
         );
+    }
+
+    public function testRetailMarkupIsNullOnCategoryCreateWithEmptyMarkup()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь', false, 10, 20);
+        $categoryId = $this->createCategory($groupId, 'Вино', false);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $categoryResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertNotJsonHasPath('retailMarkupMin', $categoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $categoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupInherited', $categoryResponse);
+    }
+
+    public function testRetailMarkupIsNotInheritedFromGroupAfterGroupUpdate()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь', false, 10, 20);
+        $categoryId = $this->createCategory($groupId, 'Вино', false);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $categoryResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertNotJsonHasPath('retailMarkupMin', $categoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $categoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupInherited', $categoryResponse);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/groups/' . $groupId,
+            array(
+                'name' => 'Алкоголь',
+                'retailMarkupMin' => 15,
+                'retailMarkupMax' => 25,
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        $categoryResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertNotJsonHasPath('retailMarkupMin', $categoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $categoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupInherited', $categoryResponse);
+    }
+
+    public function testRetailMarkupBecomesNullIfNullMarkupPassed()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь', false, 10, 20);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postData = array(
+            'name' => 'Сухое вино',
+            'group' => $groupId,
+            'retailMarkupMin' => 5,
+            'retailMarkupMax' => 25,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/categories',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals(5, 'retailMarkupMin', $postResponse);
+        Assert::assertJsonPathEquals(25, 'retailMarkupMax', $postResponse);
+
+        $categoryId = $postResponse['id'];
+
+        $putData = array(
+            'name' => 'Сладкое вино',
+            'group' => $groupId,
+            'retailMarkupMin' => null,
+            'retailMarkupMax' => null,
+        );
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/categories/' . $categoryId,
+            $putData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertNotJsonHasPath('retailMarkupMin', $putResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $putResponse);
+        Assert::assertNotJsonHasPath('retailMarkupInherited', $putResponse);
+    }
+
+    public function testRetailMarkupBecomesNullIfNoMarkupPassed()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь', false, 10, 20);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postData = array(
+            'name' => 'Божоле нуво',
+            'group' => $groupId,
+            'retailMarkupMin' => 5,
+            'retailMarkupMax' => 25,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/categories',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals(5, 'retailMarkupMin', $postResponse);
+        Assert::assertJsonPathEquals(25, 'retailMarkupMax', $postResponse);
+
+        $subCategoryId = $postResponse['id'];
+
+        $putData = array(
+            'name' => 'Бужуле ново',
+            'group' => $groupId,
+        );
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/categories/' . $subCategoryId,
+            $putData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertNotJsonHasPath('retailMarkupMin', $putResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $putResponse);
     }
 }
