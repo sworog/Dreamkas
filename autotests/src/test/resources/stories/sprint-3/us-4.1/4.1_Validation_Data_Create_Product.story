@@ -149,7 +149,6 @@ And the user inputs '58967' in 'purchasePrice' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
-When the user clicks on start edition link and starts the edition
 And the user creates new product from product list page
 And the user inputs 'Sku field validation good' in 'name' field
 And the user inputs '1001DS' in 'sku' field
