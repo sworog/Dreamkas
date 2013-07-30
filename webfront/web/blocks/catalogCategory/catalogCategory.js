@@ -63,7 +63,9 @@ define(function(require) {
                 collection: block.catalogSubCategoriesCollection,
                 model: new CatalogSubCategoryModel({
                     category: block.catalogCategoryModel.id,
-                    group: block.catalogCategoryModel.get('group')
+                    group: block.catalogCategoryModel.get('group'),
+                    retailMarkupMax: block.catalogCategoryModel.get('retailMarkupMax'),
+                    retailMarkupMin: block.catalogCategoryModel.get('retailMarkupMin')
                 })
             });
         },

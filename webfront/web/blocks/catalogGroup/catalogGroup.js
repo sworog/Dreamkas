@@ -55,7 +55,9 @@ define(function(require) {
                 $trigger: $target,
                 collection: block.catalogGroupModel.categories,
                 model: new CatalogCategoryModel({
-                    group: block.catalogGroupModel.id
+                    group: block.catalogGroupModel.id,
+                    retailMarkupMax: block.catalogGroupModel.get('retailMarkupMax'),
+                    retailMarkupMin: block.catalogGroupModel.get('retailMarkupMin')
                 })
             });
         },
