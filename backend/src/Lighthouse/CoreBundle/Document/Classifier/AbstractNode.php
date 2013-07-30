@@ -55,12 +55,6 @@ abstract class AbstractNode extends AbstractDocument
     protected $retailMarkupMax;
 
     /**
-     * @MongoDB\Boolean
-     * @var boolean
-     */
-    protected $retailMarkupInherited = true;
-
-    /**
      * @return AbstractNode
      */
     abstract public function getParent();
@@ -69,17 +63,4 @@ abstract class AbstractNode extends AbstractDocument
      * @return AbstractNode[]
      */
     abstract public function getChildren();
-
-    public function updateMarkup()
-    {
-        $parent = $this->getParent();
-        if (null !== $this->retailMarkupMin || null !== $this->retailMarkupMax) {
-            $this->retailMarkupInherited = false;
-        } elseif ($parent) {
-            // if min and max is null, then inherit from parent
-            $this->retailMarkupMin = $parent->retailMarkupMin;
-            $this->retailMarkupMax = $parent->retailMarkupMax;
-            $this->retailMarkupInherited = true;
-        }
-    }
 }

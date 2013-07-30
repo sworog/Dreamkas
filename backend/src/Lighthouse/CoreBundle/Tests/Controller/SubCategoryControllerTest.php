@@ -667,7 +667,7 @@ class SubCategoryControllerTest extends WebTestCase
         );
     }
 
-    public function testRetailMarkupIsInheritedFromGroupAfterGroupUpdate()
+    public function testRetailMarkupIsNullOnSubCategoryCreateWithEmptyMarkup()
     {
         $this->clearMongoDb();
 
@@ -685,9 +685,32 @@ class SubCategoryControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals(10, 'retailMarkupMin', $subCategoryResponse);
-        Assert::assertJsonPathEquals(20, 'retailMarkupMax', $subCategoryResponse);
-        Assert::assertJsonPathEquals(true, 'retailMarkupInherited', $subCategoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMin', $subCategoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $subCategoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupInherited', $subCategoryResponse);
+    }
+
+    public function testRetailMarkupIsNotInheritedFromGroupAfterGroupUpdate()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь', false, 10, 20);
+        $categoryId = $this->createCategory($groupId, 'Вино', false);
+        $subCategoryId = $this->createSubCategory($categoryId, 'Сухое красное божоле', false);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $subCategoryResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertNotJsonHasPath('retailMarkupMin', $subCategoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $subCategoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupInherited', $subCategoryResponse);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -710,35 +733,12 @@ class SubCategoryControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals(15, 'retailMarkupMin', $subCategoryResponse);
-        Assert::assertJsonPathEquals(25, 'retailMarkupMax', $subCategoryResponse);
-        Assert::assertJsonPathEquals(true, 'retailMarkupInherited', $subCategoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMin', $subCategoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $subCategoryResponse);
+        Assert::assertNotJsonHasPath('retailMarkupInherited', $subCategoryResponse);
     }
 
-    public function testRetailMarkupIsInheritedFromGroupOnSubCategoryCreate()
-    {
-        $this->clearMongoDb();
-
-        $groupId = $this->createGroup('Алкоголь', false, 10, 20);
-        $categoryId = $this->createCategory($groupId, 'Вино', false);
-        $subCategoryId = $this->createSubCategory($categoryId, 'Сухое красное божоле', false);
-
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-
-        $subCategoryResponse = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/subcategories/' . $subCategoryId
-        );
-
-        $this->assertResponseCode(200);
-
-        Assert::assertJsonPathEquals(10, 'retailMarkupMin', $subCategoryResponse);
-        Assert::assertJsonPathEquals(20, 'retailMarkupMax', $subCategoryResponse);
-        Assert::assertJsonPathEquals(true, 'retailMarkupInherited', $subCategoryResponse);
-    }
-
-    public function testRetailMarkupBecomesInheritedIfNullMarkupPassed()
+    public function testRetailMarkupBecomesNullIfNullMarkupPassed()
     {
         $this->clearMongoDb();
 
@@ -765,11 +765,6 @@ class SubCategoryControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals(5, 'retailMarkupMin', $postResponse);
         Assert::assertJsonPathEquals(25, 'retailMarkupMax', $postResponse);
-        Assert::assertJsonPathEquals(false, 'retailMarkupInherited', $postResponse);
-
-        Assert::assertJsonPathEquals(10, 'category.retailMarkupMin', $postResponse);
-        Assert::assertJsonPathEquals(20, 'category.retailMarkupMax', $postResponse);
-        Assert::assertJsonPathEquals(true, 'category.retailMarkupInherited', $postResponse);
 
         $subCategoryId = $postResponse['id'];
 
@@ -789,14 +784,13 @@ class SubCategoryControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals(10, 'retailMarkupMin', $putResponse);
-        Assert::assertJsonPathEquals(20, 'retailMarkupMax', $putResponse);
-        Assert::assertJsonPathEquals(true, 'retailMarkupInherited', $putResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMin', $putResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $putResponse);
+        Assert::assertNotJsonHasPath('retailMarkupInherited', $putResponse);
     }
 
-    public function testRetailMarkupStaysNotInheritedIfNoMarkupPassedOnPut()
+    public function testRetailMarkupBecomesNullIfNoMarkupPassed()
     {
-        $this->markTestSkipped('Cant figure out logic of markup inheritance');
         $this->clearMongoDb();
 
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
@@ -822,7 +816,6 @@ class SubCategoryControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals(5, 'retailMarkupMin', $postResponse);
         Assert::assertJsonPathEquals(25, 'retailMarkupMax', $postResponse);
-        Assert::assertJsonPathEquals(false, 'retailMarkupInherited', $postResponse);
 
         $subCategoryId = $postResponse['id'];
 
@@ -840,8 +833,7 @@ class SubCategoryControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals(5, 'retailMarkupMin', $putResponse);
-        Assert::assertJsonPathEquals(25, 'retailMarkupMax', $putResponse);
-        Assert::assertJsonPathEquals(false, 'retailMarkupInherited', $putResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMin', $putResponse);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $putResponse);
     }
 }

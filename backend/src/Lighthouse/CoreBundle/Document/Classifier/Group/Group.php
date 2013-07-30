@@ -48,13 +48,4 @@ class Group extends AbstractNode
     {
         return $this->categories;
     }
-
-    /**
-     * @MongoDB\PrePersist
-     * @MongoDB\PreUpdate
-     */
-    public function updateMarkup()
-    {
-        parent::updateMarkup();
-    }
 }

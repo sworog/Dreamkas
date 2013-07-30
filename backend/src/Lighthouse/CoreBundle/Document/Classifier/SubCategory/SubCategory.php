@@ -42,13 +42,4 @@ class SubCategory extends AbstractNode
     {
         return array();
     }
-
-    /**
-     * @MongoDB\PrePersist
-     * @MongoDB\PreUpdate
-     */
-    public function updateMarkup()
-    {
-        parent::updateMarkup();
-    }
 }

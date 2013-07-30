@@ -60,13 +60,4 @@ class Category extends AbstractNode
     {
         return $this->subCategories;
     }
-
-    /**
-     * @MongoDB\PrePersist
-     * @MongoDB\PreUpdate
-     */
-    public function updateMarkup()
-    {
-        parent::updateMarkup();
-    }
 }
