@@ -113,7 +113,7 @@ public class TeamCityStepListener implements StepListener {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("name", result.getTitle());
         properties.put("message", result.getTestFailureCause().getMessage());
-        properties.put("details", getStepsInfo(result) + ExceptionUtils.getStackTrace(result.getTestFailureCause()));
+        properties.put("details", getStepsInfo(result));
         printMessage("testFailed", properties);
     }
 
@@ -121,10 +121,21 @@ public class TeamCityStepListener implements StepListener {
         List<TestStep> testSteps = result.getTestSteps();
         StringBuilder builder = new StringBuilder("Steps:\r\n");
         for (int i = 0; i < testSteps.size(); i++) {
-            String stepMessage = String.format("%s (%s) -> %s\r\n", testSteps.get(i).getDescription(), testSteps.get(i).getDurationInSeconds(), testSteps.get(i).getResult().toString());
+            String stepMessage = String.format("%s (%s) -> %s\r\n", testSteps.get(i).getDescription(), testSteps.get(i).getDurationInSeconds(), getResultMessage(testSteps.get(i)));
             builder.append(stepMessage);
         }
         return builder.append("\r\n").toString();
+    }
+
+    public String getResultMessage(TestStep testStep) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(testStep.getResult().toString());
+        if (testStep.isFailure() || testStep.isError()) {
+            builder.append(
+                    String.format("\r\n%s", ExceptionUtils.getStackTrace(testStep.getException().getCause()))
+            );
+        }
+        return builder.toString();
     }
 
     private void printPending(TestOutcome result) {
