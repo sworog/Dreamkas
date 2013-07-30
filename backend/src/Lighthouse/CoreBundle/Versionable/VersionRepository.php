@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Versionable;
 
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use JMS\DiExtraBundle\Annotation as DI;
 
 class VersionRepository extends DocumentRepository
 {
@@ -12,6 +13,9 @@ class VersionRepository extends DocumentRepository
     protected $versionFactory;
 
     /**
+     * @DI\InjectParams({
+     *      "versionFactory" = @DI\Inject("lighthouse.core.versionable.factory")
+     * })
      * @param VersionFactory $versionFactory
      */
     public function setVersionFactory(VersionFactory $versionFactory)
@@ -25,8 +29,22 @@ class VersionRepository extends DocumentRepository
      */
     public function findOrCreateByDocument($document)
     {
-        $documentVersion = $this->versionFactory->getDocumentVersion($document);
+        $documentVersion = $this->versionFactory->createVersion($document);
         return $this->findByDocumentVersion($documentVersion);
+    }
+
+    /**
+     * @param string $id
+     * @return VersionInterface|null
+     */
+    public function findOrCreateByDocumentId($id)
+    {
+        $document = $this->getObjectRepository()->find($id);
+        if ($document) {
+            return $this->findOrCreateByDocument($document);
+        } else {
+            return null;
+        }
     }
 
     public function findByDocumentVersion(VersionInterface $documentVersion)
@@ -39,5 +57,14 @@ class VersionRepository extends DocumentRepository
             $foundDocumentVersion = $documentVersion;
         }
         return $foundDocumentVersion;
+    }
+
+    /**
+     * @return \Doctrine\ODM\MongoDB\DocumentRepository
+     */
+    public function getObjectRepository()
+    {
+        $parentClass = $this->class->parentClasses[0];
+        return $this->dm->getRepository($parentClass);
     }
 }

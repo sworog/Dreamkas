@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Form\Types;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\DataTransformer\DocumentToIdTransformer;
+use Lighthouse\CoreBundle\Versionable\VersionFactory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -21,14 +22,21 @@ class ReferenceType extends AbstractType
     protected $odm;
 
     /**
+     * @var VersionFactory
+     */
+    protected $versionFactory;
+
+    /**
      * @DI\InjectParams({
-     *     "odm"=@DI\Inject("doctrine_mongodb.odm.document_manager")
+     *     "odm"=@DI\Inject("doctrine_mongodb.odm.document_manager"),
+     *     "versionFactory"=@DI\Inject("lighthouse.core.versionable.factory")
      * })
      * @param DocumentManager $odm
      */
-    public function __construct(DocumentManager $odm)
+    public function __construct(DocumentManager $odm, VersionFactory $versionFactory)
     {
         $this->odm = $odm;
+        $this->versionFactory = $versionFactory;
     }
 
     /**
@@ -37,7 +45,7 @@ class ReferenceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $viewTransformer = new DocumentToIdTransformer($this->odm, $options['class']);
+        $viewTransformer = new DocumentToIdTransformer($this->odm, $options['class'], $this->versionFactory);
         $builder->addViewTransformer($viewTransformer);
     }
 

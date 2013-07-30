@@ -124,5 +124,5 @@ services:
             class: Lighthouse\CoreBundle\Versionable\VersionRepository
             arguments:
                 - LighthouseCoreBundle:Product\ProductVersion
-            calls:
-                - [setVersionFactory, ["@lighthouse.core.versionable.factory"]]
+            #calls:
+            #    - [setVersionFactory, ["@lighthouse.core.versionable.factory"]]

@@ -20,7 +20,7 @@ class InvoiceProductType extends AbstractType
                 'product',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Product\\Product',
+                    'class' => 'Lighthouse\\CoreBundle\\Document\\Product\\ProductVersion',
                     'invalid_message' => 'lighthouse.validation.errors.invoice_product.product.does_not_exists'
                 )
             )

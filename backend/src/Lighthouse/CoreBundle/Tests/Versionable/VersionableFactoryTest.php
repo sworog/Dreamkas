@@ -2,24 +2,92 @@
 
 namespace Lighthouse\CoreBundle\Tests\Versionable;
 
+use Doctrine\ODM\MongoDB\UnitOfWork;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Versionable\VersionRepository;
 
 class VersionableFactoryTest extends ContainerAwareTestCase
 {
+    /**
+     * @var DocumentManager
+     */
+    protected $dm;
+
+    /**
+     * @var VersionFactory
+     */
+    protected $versionFactory;
+
+    protected function setUp()
+    {
+        $this->versionFactory = $this->getContainer()->get('lighthouse.core.versionable.factory');
+        $this->dm = $this->getContainer()->get('doctrine_mongodb.odm.document_manager');
+    }
+
     public function testCreateVersionable()
     {
         $this->clearMongoDb();
 
-        /* @var VersionFactory $factory */
-        $factory = $this->getContainer()->get('lighthouse.core.versionable.factory');
-        /* @var DocumentManager $dm */
-        $dm = $this->getContainer()->get('doctrine_mongodb.odm.document_manager');
+        $product = $this->createProduct();
 
+        $this->dm->persist($product);
+        $this->dm->flush();
+
+        $productVersion = $this->versionFactory->createVersion($product);
+
+        $version = $productVersion->getVersion();
+
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Product\\ProductVersion', $productVersion);
+        $this->assertEquals($product->name, $productVersion->name);
+        $this->assertEquals($product->units, $productVersion->units);
+        $this->assertEquals($product->barcode, $productVersion->barcode);
+        $this->assertNotNull($productVersion->getVersion());
+        $this->assertSame($product, $productVersion->getObject());
+
+        $this->dm->persist($productVersion);
+        $this->dm->flush();
+
+        $this->assertEquals($version, $productVersion->getVersion());
+    }
+
+    public function testFindByDocument()
+    {
+        $this->clearMongoDb();
+
+        $product = $this->createProduct();
+
+        $this->dm->persist($product);
+        $this->dm->flush();
+
+        /* @var VersionRepository $productVersionRepo */
+        $productVersionRepo = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
+        $productVersion = $productVersionRepo->findOrCreateByDocument($product);
+
+        $state = $this->dm->getUnitOfWork()->getDocumentState($productVersion);
+        $this->assertEquals(UnitOfWork::STATE_NEW, $state);
+
+        $this->dm->persist($productVersion);
+        $this->dm->flush();
+
+        $state = $this->dm->getUnitOfWork()->getDocumentState($productVersion);
+        $this->assertEquals(UnitOfWork::STATE_MANAGED, $state);
+
+        $foundProductVersion = $productVersionRepo->findOrCreateByDocument($product);
+
+        $this->assertEquals($productVersion->getVersion(), $foundProductVersion->getVersion());
+        $this->assertNotSame($productVersion, $foundProductVersion);
+    }
+
+    /**
+     * @return Product
+     */
+    protected function createProduct()
+    {
         $product = new Product();
         $product->name = 'Кефир "Веселый Молочник" 1% 950гр';
         $product->units = 'gr';
@@ -35,20 +103,6 @@ class VersionableFactoryTest extends ContainerAwareTestCase
         $subCategory->name = 'Кефир 1%';
 
         $product->subCategory = $subCategory;
-
-        $dm->persist($product);
-        $dm->flush();
-
-        $productVersion = $factory->createVersion($product);
-
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Product\\ProductVersion', $productVersion);
-        $this->assertEquals($product->name, $productVersion->name);
-        $this->assertEquals($product->units, $productVersion->units);
-        $this->assertEquals($product->barcode, $productVersion->barcode);
-        $this->assertNotNull($productVersion->getVersion());
-        $this->assertSame($product, $productVersion->getObject());
-
-        $dm->persist($productVersion);
-        $dm->flush();
+        return $product;
     }
 }

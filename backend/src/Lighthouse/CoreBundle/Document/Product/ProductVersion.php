@@ -6,9 +6,9 @@ use Lighthouse\CoreBundle\Versionable\VersionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @MongoDB\Document({
- *      repositoryClass="Lighthouse\CoreBundle\Versionable\VersionRepository",
- * })
+ * @MongoDB\Document(
+ *      repositoryClass="Lighthouse\CoreBundle\Versionable\VersionRepository"
+ * )
  */
 class ProductVersion extends Product implements VersionInterface
 {
