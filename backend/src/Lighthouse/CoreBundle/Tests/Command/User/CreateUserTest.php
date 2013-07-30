@@ -4,10 +4,10 @@ namespace Lighthouse\CoreBundle\Tests\Command\User;
 
 use Lighthouse\CoreBundle\Command\User\CreateUser;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class CreateUserTest extends WebTestCase
+class CreateUserTest extends ContainerAwareTestCase
 {
     /**
      * @var UserProvider

@@ -9,10 +9,10 @@ use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Purchase\Purchase;
 use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
-class InvoiceProductTest extends WebTestCase
+class InvoiceProductTest extends ContainerAwareTestCase
 {
     /**
      * @return ManagerRegistry
