@@ -118,3 +118,11 @@ services:
             class: Lighthouse\CoreBundle\Document\Department\Department
             arguments:
                 - LighthouseCoreBundle:Department\Department
+
+    lighthouse.core.document.repository.product_version:
+            parent: doctrine_mongodb.odm.repository
+            class: Lighthouse\CoreBundle\Versionable\VersionRepository
+            arguments:
+                - LighthouseCoreBundle:Product\ProductVersion
+            calls:
+                - [setVersionFactory, ["@lighthouse.core.versionable.factory"]]

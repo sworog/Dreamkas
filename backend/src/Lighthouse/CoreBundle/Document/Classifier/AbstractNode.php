@@ -13,7 +13,6 @@ use Lighthouse\CoreBundle\Validator\Constraints\NumbersCompare as AssertMarkupCo
  * @property string $name
  * @property float  $retailMarkupMin
  * @property float  $retailMarkupMax
- * @property float  $retailMarkupInherited
  *
  * @MongoDB\MappedSuperclass
  * @AssertMarkupCompare(
