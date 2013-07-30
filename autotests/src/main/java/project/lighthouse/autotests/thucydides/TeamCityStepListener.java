@@ -132,7 +132,7 @@ public class TeamCityStepListener implements StepListener {
         builder.append(testStep.getResult().toString());
         if (testStep.isFailure() || testStep.isError()) {
             builder.append(
-                    String.format("\r\n%s", ExceptionUtils.getStackTrace(testStep.getException().getCause()))
+                    String.format("\r\n\n%s", ExceptionUtils.getStackTrace(testStep.getException().getCause()))
             );
         }
         return builder.toString();
