@@ -66,6 +66,11 @@ public class ApiConnect {
         }
     }
 
+    public String getProductPageUrl(String productSku) throws JSONException {
+        String productId = StaticData.products.get(productSku).getId();
+        return String.format("%s/products/%s", UrlHelper.getWebFrontUrl(), productId);
+    }
+
     public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
         createInvoiceThroughPostWithoutNavigation(invoiceName);
     }

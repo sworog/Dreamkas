@@ -39,6 +39,11 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void navigateToTheProductPage(String productSku) throws JSONException {
+        productApi.navigateToTheProductPage(productSku);
+    }
+
+    @Step
     public void openProductCreatePage() throws JSONException, IOException {
         catalogApi.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
         catalogApi.navigateToSubCategoryProductCreatePageUrl(SubCategory.DEFAULT_NAME);
