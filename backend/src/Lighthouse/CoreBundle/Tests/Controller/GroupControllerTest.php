@@ -94,20 +94,20 @@ class GroupControllerTest extends WebTestCase
             ),
             'valid markup lower boundary' => array(
                 201,
-                array('retailMarkupMin' => -99.99, 'retailMarkupMax' => 1000),
+                array('retailMarkupMin' => 0, 'retailMarkupMax' => 1000),
             ),
             'valid markup min equals max' => array(
                 201,
                 array('retailMarkupMin' => 10.12, 'retailMarkupMax' => 10.12),
             ),
-            'not valid markup -100' => array(
+            'not valid markup -0.01' => array(
                 400,
-                array('retailMarkupMin' => -100, 'retailMarkupMax' => 100),
-                array('children.retailMarkupMin.errors.0' => 'Значение должно быть больше -100')
+                array('retailMarkupMin' => -0.01, 'retailMarkupMax' => 100),
+                array('children.retailMarkupMin.errors.0' => 'Значение должно быть больше или равно 0')
             ),
             'not valid markup min is more than max' => array(
                 400,
-                array('retailMarkupMin' => 0, 'retailMarkupMax' => -10),
+                array('retailMarkupMin' => 10, 'retailMarkupMax' => 0),
                 array('children.retailMarkupMin.errors.0' => 'Минимальная наценка не может быть больше максимальной')
             ),
             'not valid markup not float' => array(
@@ -118,12 +118,12 @@ class GroupControllerTest extends WebTestCase
             ),
             'not valid markup min not float' => array(
                 400,
-                array('retailMarkupMin' => 'aaa', 'retailMarkupMax' => -10),
+                array('retailMarkupMin' => 'aaa', 'retailMarkupMax' => 10),
                 array('children.retailMarkupMin.errors.*' => 'Значение должно быть числом'),
             ),
             'not valid markup max not float' => array(
                 400,
-                array('retailMarkupMin' => -10, 'retailMarkupMax' => 'bbb'),
+                array('retailMarkupMin' => 10, 'retailMarkupMax' => 'bbb'),
                 array('children.retailMarkupMax.errors.*' => 'Значение должно быть числом'),
             ),
         );

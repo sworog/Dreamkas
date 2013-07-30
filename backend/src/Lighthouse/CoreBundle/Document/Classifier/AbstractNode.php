@@ -42,14 +42,14 @@ abstract class AbstractNode extends AbstractDocument
 
     /**
      * @MongoDB\Float
-     * @Range(gt=-100)
+     * @Range(gte=0)
      * @var float
      */
     protected $retailMarkupMin;
 
     /**
      * @MongoDB\Float
-     * @Range(gt=-100)
+     * @Range(gte=0)
      * @var float
      */
     protected $retailMarkupMax;
