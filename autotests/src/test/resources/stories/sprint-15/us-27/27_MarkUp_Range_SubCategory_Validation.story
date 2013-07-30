@@ -42,29 +42,19 @@ Then the user sees error message and logs out
 | error message|
 | Значение должно быть числом |
 
-Scenario: subCategory mark up properties validation - min mark up validation - Boundary-value analysis -99
+Scenario: subCategory mark up properties validation - min mark up validation - Boundary-value analysis -0.01
 
-Given the user validates 'min' mark up with '-99' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees success message 'Свойства успешно сохранены' and logs out
-
-Scenario: subCategory mark up properties validation - min mark up validation - Boundary-value analysis -99.99
-
-Given the user validates 'min' mark up with '-99.99' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees success message 'Свойства успешно сохранены' and logs out
-
-Scenario: subCategory mark up properties validation - min mark up validation - Boundary-value analysis -100
-
-Given the user validates 'min' mark up with '-100' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
+Given the user validates 'min' mark up with '-0.01' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
 Then the user sees error message and logs out
 | error message|
-| Значение должно быть больше -100 |
+| Значение должно быть больше или равно 0 |
 
-Scenario: subCategory mark up properties validation - min mark up validation - Boundary-value analysis -101
+Scenario: subCategory mark up properties validation - min mark up validation - Boundary-value analysis -1
 
-Given the user validates 'min' mark up with '-101' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
+Given the user validates 'min' mark up with '-1' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
 Then the user sees error message and logs out
 | error message|
-| Значение должно быть больше -100 |
+| Значение должно быть больше или равно 0 |
 
 Scenario: subCategory mark up properties validation - max mark up validation good
 
@@ -106,29 +96,19 @@ Then the user sees error message and logs out
 | error message|
 | Значение должно быть числом |
 
-Scenario: subCategory mark up properties validation - max mark up validation - Boundary-value analysis -99
+Scenario: subCategory mark up properties validation - max mark up validation - Boundary-value analysis -0.01
 
-Given the user validates 'max' mark up with '-99' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees success message 'Свойства успешно сохранены' and logs out
-
-Scenario: subCategory mark up properties validation - max mark up validation - Boundary-value analysis -99.99
-
-Given the user validates 'max' mark up with '-99.99' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees success message 'Свойства успешно сохранены' and logs out
-
-Scenario: subCategory mark up properties validation - max mark up validation - Boundary-value analysis -100
-
-Given the user validates 'max' mark up with '-100' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
+Given the user validates 'max' mark up with '-0.01' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
 Then the user sees error message and logs out
 | error message|
-| Значение должно быть больше -100 |
+| Значение должно быть больше или равно 0 |
 
-Scenario: subCategory mark up properties validation - max mark up validation - Boundary-value analysis -101
+Scenario: subCategory mark up properties validation - max mark up validation - Boundary-value analysis -1
 
-Given the user validates 'max' mark up with '-101' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
+Given the user validates 'max' mark up with '-1' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
 Then the user sees error message and logs out
 | error message|
-| Значение должно быть больше -100 |
+| Значение должно быть больше или равно 0 |
 
 Scenario: subCategory mark up properties validation - min mark up cant be more than max mark up
 

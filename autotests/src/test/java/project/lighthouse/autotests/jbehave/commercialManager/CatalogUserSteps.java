@@ -288,6 +288,12 @@ public class CatalogUserSteps {
         catalogSteps.retailMarkupMaxCheck(retailMarkupMaxValue);
     }
 
+    @Then("the user checks mark up values are empty")
+    public void thenTheUserChecksMarkUpValuesAreEmpty() {
+        catalogSteps.retailMarkupMinCheck("");
+        catalogSteps.retailMarkupMaxCheck("");
+    }
+
     @Then("the user checks the stored mark up values are new ones")
     public void thenTheUserChecksTheStoredMarkUpValuesAreNewOnes() {
         catalogSteps.retailMarkupMinCheck(newRetailMarkupMinValue);

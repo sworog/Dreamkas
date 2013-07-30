@@ -1,6 +1,7 @@
 Meta:
 @sprint 15
 @us 27
+@test
 
 Narrative:
 As a Коммерческий директор
@@ -22,7 +23,7 @@ And the user checks the stored mark up values
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: Group mark up set - checks inheritance
+Scenario: Group mark up set - checks no inheritance
 
 Given there is the subCategory with name 'subCategorymarkUp-2' related to group named 'groupMarkUp-2' and category named 'categoryMarkUp-2'
 And the user navigates to the group with name 'groupMarkUp-2'
@@ -36,47 +37,11 @@ Then the user checks the stored mark up values
 When the user switches to 'group' main tab
 And the user clicks on the category name 'categoryMarkUp-2'
 And the user switches to 'category' properties tab
-Then the user checks the stored mark up values
+Then the user checks mark up values are empty
 When the user switches to 'category' main tab
 And the user clicks on the subCategory name 'subCategorymarkUp-2'
 And the user switches to 'subCategory' properties tab
-Then the user checks the stored mark up values
-When the user clicks on end edition link and ends the edition
-And the user logs out
-
-Scenario: Group mark up set - reset
-
-Given there is the subCategory with name 'subCategorymarkUp-3' related to group named 'groupMarkUp-3' and category named 'categoryMarkUp-3'
-And the user navigates to the group with name 'groupMarkUp-3'
-And the user logs in as 'commercialManager'
-When the user clicks on start edition link and starts the edition
-And the user switches to 'group' properties tab
-And the user sets min mark up value to '1'
-And the user sets max mark up value to '1'
-And the user clicks save mark up button
-Then the user checks the stored mark up values
-When the user switches to 'group' main tab
-And the user clicks on the category name 'categoryMarkUp-3'
-And the user switches to 'category' properties tab
-Then the user checks the stored mark up values
-When the user switches to 'category' main tab
-And the user clicks on the subCategory name 'subCategorymarkUp-3'
-And the user switches to 'subCategory' properties tab
-Then the user checks the stored mark up values
-When the user clicks on the group name 'groupMarkUp-3'
-And the user switches to 'group' properties tab
-And the user sets min mark up value to '2'
-And the user sets max mark up value to '2'
-And the user clicks save mark up button
-Then the user checks the stored mark up values
-When the user switches to 'group' main tab
-And the user clicks on the category name 'categoryMarkUp-3'
-And the user switches to 'category' properties tab
-Then the user checks the stored mark up values
-When the user switches to 'category' main tab
-And the user clicks on the subCategory name 'subCategorymarkUp-3'
-And the user switches to 'subCategory' properties tab
-Then the user checks the stored mark up values
+Then the user checks mark up values are empty
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -95,7 +60,7 @@ And the user checks the stored mark up values
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: Category mark up range set - inheritance
+Scenario: Category mark up range set - no inheritance
 
 Given there is the subCategory with name 'subCategorymarkUp-5' related to group named 'groupMarkUp-5' and category named 'categoryMarkUp-5'
 And the user navigates to the category with name 'categoryMarkUp-5' related to group named 'groupMarkUp-5'
@@ -109,32 +74,7 @@ Then the user checks the stored mark up values
 When the user switches to 'category' main tab
 And the user clicks on the subCategory name 'subCategorymarkUp-5'
 And the user switches to 'subCategory' properties tab
-Then the user checks the stored mark up values
-When the user clicks on end edition link and ends the edition
-And the user logs out
-
-Scenario: Category mark up range set - reset
-
-Given there is the subCategory with name 'subCategorymarkUp-6' related to group named 'groupMarkUp-6' and category named 'categoryMarkUp-6'
-And the user navigates to the category with name 'categoryMarkUp-6' related to group named 'groupMarkUp-6'
-And the user logs in as 'commercialManager'
-When the user clicks on start edition link and starts the edition
-And the user switches to 'category' properties tab
-And the user sets min mark up value to '1'
-And the user sets max mark up value to '1'
-And the user clicks save mark up button
-Then the user checks the stored mark up values
-When the user switches to 'category' main tab
-And the user clicks on the subCategory name 'subCategorymarkUp-6'
-And the user switches to 'subCategory' properties tab
-Then the user checks the stored mark up values
-When the user switches to 'category' properties tab
-And the user sets min mark up value to '1'
-And the user sets max mark up value to '1'
-And the user clicks save mark up button
-Then the user checks the stored mark up values
-When the user switches to 'category' main tab
-Then the user checks the stored mark up values
+Then the user checks mark up values are empty
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -174,7 +114,7 @@ Then the user checks the stored mark up values are new ones
 When the user switches to 'category' main tab
 And the user clicks on the subCategory name 'subCategorymarkUp-8'
 And the user switches to 'subCategory' properties tab
-Then the user checks the stored mark up values are new ones
+Then the user checks mark up values are empty
 When the user clicks on the group name 'groupMarkUp-8'
 And the user switches to 'group' properties tab
 Then the user checks the stored mark up values are not changed
@@ -200,7 +140,7 @@ And the user resets max mark up value to '12'
 And the user clicks save mark up button
 Then the user checks the stored mark up values are new ones
 When the user switches to 'category' properties tab
-Then the user checks the stored mark up values are not changed
+Then the user checks mark up values are empty
 When the user clicks on the group name 'groupMarkUp-9'
 And the user switches to 'group' properties tab
 Then the user checks the stored mark up values are not changed
