@@ -45,8 +45,8 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
                 $sign = ($document->increaseAmount()) ? 1 : -1;
 
-                $trialBalance->price = $document->getReasonPrice();
-                $trialBalance->quantity = $document->getReasonQuantity() * $sign;
+                $trialBalance->price = $document->getProductPrice();
+                $trialBalance->quantity = $document->getProductQuantity() * $sign;
                 $trialBalance->product = $document->getReasonProduct();
                 $trialBalance->reason = $document;
                 $trialBalance->createdDate = $document->getReasonDate();
@@ -63,8 +63,8 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
                 $sign = ($document->increaseAmount()) ? 1 : -1;
 
-                $trialBalance->price = $document->getReasonPrice();
-                $trialBalance->quantity = $document->getReasonQuantity() * $sign;
+                $trialBalance->price = $document->getProductPrice();
+                $trialBalance->quantity = $document->getProductQuantity() * $sign;
                 $trialBalance->product = $document->getReasonProduct();
 
                 $dm->persist($trialBalance);

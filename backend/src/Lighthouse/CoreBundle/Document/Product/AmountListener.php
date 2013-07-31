@@ -27,7 +27,7 @@ class AmountListener extends AbstractMongoDBListener
         if ($document instanceof Productable) {
             $product = $document->getReasonProduct();
             $sign = ($document->increaseAmount()) ? 1 : -1;
-            $product->amount = $product->amount + ($document->getReasonQuantity() * $sign);
+            $product->amount = $product->amount + ($document->getProductQuantity() * $sign);
         }
     }
 
@@ -41,7 +41,7 @@ class AmountListener extends AbstractMongoDBListener
         if ($document instanceof Productable) {
             $product = $document->getReasonProduct();
             $sign = ($document->increaseAmount()) ? 1 : -1;
-            $product->amount = $product->amount - ($document->getReasonQuantity() * $sign);
+            $product->amount = $product->amount - ($document->getProductQuantity() * $sign);
         }
     }
 
@@ -84,8 +84,8 @@ class AmountListener extends AbstractMongoDBListener
                 $newProduct = $newProduct->getObject();
             }
 
-            $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $productDocument->getReasonQuantity();
-            $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $productDocument->getReasonQuantity();
+            $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $productDocument->getProductQuantity();
+            $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $productDocument->getProductQuantity();
 
             $oldProduct->amount = $oldProduct->amount + $oldQuantity * $sign;
             $this->computeChangeSet($dm, $oldProduct);

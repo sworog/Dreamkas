@@ -12,12 +12,12 @@ interface Productable
     /**
      * @return float
      */
-    public function getReasonQuantity();
+    public function getProductQuantity();
 
     /**
      * @return Money
      */
-    public function getReasonPrice();
+    public function getProductPrice();
 
     /**
      * @return boolean
