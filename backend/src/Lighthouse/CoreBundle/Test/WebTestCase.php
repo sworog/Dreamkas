@@ -421,7 +421,7 @@ class WebTestCase extends ContainerAwareTestCase
 
         $productJson = $this->jsonRequest($request);
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $this->performJsonAssertions($productJson, $assertions);
     }
