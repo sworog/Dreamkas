@@ -183,21 +183,23 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param string $extra
-     * @return string
+     * @param string|array $extra
+     * @param null|string $subCategoryId
+     * @param bool|string $putProductId string id of product to be updated
+     * @return mixed
      */
-    protected function createProduct($extra = '', $subCategoryId = null)
+    protected function createProduct($extra = '', $subCategoryId = null, $putProductId = false)
     {
         if ($subCategoryId == null) {
             $subCategoryId = $this->createSubCategory();
         }
 
         $productData = array(
-            'name' => 'Кефир "Веселый Молочник" 1% 950гр' . $extra,
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
             'units' => 'gr',
             'barcode' => '4607025392408',
             'purchasePrice' => 3048,
-            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР' . $extra,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
             'vat' => 10,
             'vendor' => 'Вимм-Билль-Данн',
             'vendorCountry' => 'Россия',
@@ -205,14 +207,33 @@ class WebTestCase extends ContainerAwareTestCase
             'subCategory' => $subCategoryId,
         );
 
+        if (is_array($extra)) {
+            $productData = $extra + $productData;
+        } else {
+            $productData['name'].= $extra;
+            $productData['sku'].= $extra;
+        }
+
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
-        $request = new JsonRequest('/api/1/products', 'POST', $productData);
+        $method = ($putProductId) ? 'PUT' : 'POST';
+        $url = '/api/1/products' . (($putProductId) ? '/' . $putProductId : '');
+        $request = new JsonRequest($url, $method, $productData);
         $postResponse = $this->jsonRequest($request, $accessToken);
 
-        $this->assertResponseCode(201);
+        $responseCode = ($putProductId) ? 200 : 201;
+        $this->assertResponseCode($responseCode);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
+    }
+
+    /**
+     * @param string $productId
+     * @param array $data
+     */
+    protected function updateProduct($productId, array $data)
+    {
+        $this->createProduct($data, null, $productId);
     }
 
     /**

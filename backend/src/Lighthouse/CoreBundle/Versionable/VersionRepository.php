@@ -47,6 +47,10 @@ class VersionRepository extends DocumentRepository
         }
     }
 
+    /**
+     * @param VersionInterface $documentVersion
+     * @return VersionInterface
+     */
     public function findByDocumentVersion(VersionInterface $documentVersion)
     {
         $criteria = array(
@@ -57,6 +61,15 @@ class VersionRepository extends DocumentRepository
             $foundDocumentVersion = $documentVersion;
         }
         return $foundDocumentVersion;
+    }
+
+    /**
+     * @param string $documentId
+     * @return \Doctrine\ODM\MongoDB\Cursor
+     */
+    public function findAllByDocumentId($documentId)
+    {
+        return $this->findBy(array('object' => $documentId), array('version' => -1));
     }
 
     /**

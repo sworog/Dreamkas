@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Service\AveragePriceService;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -1232,5 +1233,81 @@ class InvoiceProductControllerTest extends WebTestCase
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertProduct($productId, array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26));
+    }
+
+    public function testProductDataDoesNotChangeInInvoiceAfterProductUpdate()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+
+        $this->assertProduct($productId, array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+
+        $invoiceId = $this->createInvoice();
+        $this->createInvoiceProduct($invoiceId, $productId, 10, 10.12);
+
+        $accessToken = $this->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $invoiceProductsResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($productId, '0.product.id', $invoiceProductsResponse);
+        Assert::assertJsonPathEquals('Кефир 1%', '0.product.name', $invoiceProductsResponse);
+        Assert::assertJsonPathEquals('кефир_1%', '0.product.sku', $invoiceProductsResponse);
+
+        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+
+        $invoiceProductsResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($productId, '0.product.id', $invoiceProductsResponse);
+        Assert::assertJsonPathEquals('Кефир 1%', '0.product.name', $invoiceProductsResponse);
+        Assert::assertJsonPathEquals('кефир_1%', '0.product.sku', $invoiceProductsResponse);
+
+        $this->assertProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+    }
+
+    public function testTwoProductDataBeforeAndAfterUpdate()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $invoiceId = $this->createInvoice();
+        $this->createInvoiceProduct($invoiceId, $productId, 10, 10.12);
+
+        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+
+        $this->createInvoiceProduct($invoiceId, $productId, 10, 10.12);
+
+        $accessToken = $this->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $invoiceProductsResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/invoices/' . $invoiceId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $invoiceProductsResponse);
+        Assert::assertJsonPathEquals($productId, '*.product.id', $invoiceProductsResponse, 2);
+        Assert::assertJsonPathEquals('Кефир 1%', '*.product.name', $invoiceProductsResponse, 1);
+        Assert::assertJsonPathEquals('кефир_1%', '*.product.sku', $invoiceProductsResponse, 1);
+        Assert::assertJsonPathEquals('Кефир 5%', '*.product.name', $invoiceProductsResponse, 1);
+        Assert::assertJsonPathEquals('кефир_5%', '*.product.sku', $invoiceProductsResponse, 1);
+
+        $productVersionRepository = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+
+        $this->assertCount(2, $productVersions);
     }
 }
