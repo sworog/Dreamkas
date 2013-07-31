@@ -9,7 +9,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
-use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
+use Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 
 /**

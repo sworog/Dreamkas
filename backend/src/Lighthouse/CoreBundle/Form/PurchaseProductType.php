@@ -34,7 +34,7 @@ class PurchaseProductType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\PurchaseProduct\\PurchaseProduct',
+                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Purchase\\Product\\PurchaseProduct',
                 'csrf_protection' => false
             )
         );
