@@ -31,7 +31,7 @@ class UserControllerTest extends WebTestCase
             $userData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -40,7 +40,7 @@ class UserControllerTest extends WebTestCase
             $userData
         );
 
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
             'Пользователь с таким логином уже существует',
@@ -108,7 +108,7 @@ class UserControllerTest extends WebTestCase
             $userData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $response);
         $id = $response['id'];
 
@@ -127,7 +127,7 @@ class UserControllerTest extends WebTestCase
         );
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathContains($expected, $path, $response);
@@ -155,7 +155,7 @@ class UserControllerTest extends WebTestCase
             $userData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $response);
         $id = $response['id'];
 
@@ -180,7 +180,7 @@ class UserControllerTest extends WebTestCase
             $newUserData
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         $userRepository->clear();
         $userModel = $userRepository->find($id);
 
@@ -470,7 +470,7 @@ class UserControllerTest extends WebTestCase
                 '/api/1/users',
                 $postData
             );
-            Assert::assertResponseCode(201, $this->client);
+            $this->assertResponseCode(201);
             $postDataArray[] = $postData;
         }
 
@@ -479,7 +479,7 @@ class UserControllerTest extends WebTestCase
             'GET',
             '/api/1/users'
         );
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonPathCount(6, '*.username', $postResponse);
 
         foreach ($postDataArray as $postData) {
@@ -537,7 +537,7 @@ class UserControllerTest extends WebTestCase
             '/api/1/users',
             $postData
         );
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
         $id = $postResponse['id'];
 
@@ -546,7 +546,7 @@ class UserControllerTest extends WebTestCase
             'GET',
             '/api/1/users/' . $id
         );
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         foreach ($postData as $key => $value) {
             if ($key != 'password') {
                 Assert::assertJsonPathEquals($value, $key, $postResponse);
@@ -568,7 +568,7 @@ class UserControllerTest extends WebTestCase
 
         $getResponse = $this->jsonRequest($request);
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathEquals('user', 'username', $getResponse);
     }
@@ -585,7 +585,7 @@ class UserControllerTest extends WebTestCase
             '/api/1/users/permissions'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathContains('GET::{user}', 'users', $response);
     }

@@ -490,7 +490,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 $invoiceProductData
             );
 
-            Assert::assertResponseCode(201, $this->client);
+            $this->assertResponseCode(201);
             Assert::assertJsonHasPath('id', $response);
 
             $providerData[$i]['id'] = $response['id'];
@@ -522,7 +522,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/123484923423/products'
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testGetInvoiceProductActionNotFound()
@@ -542,7 +542,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -550,7 +550,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId2 . '/products/' . $invoiceProductId
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testGetInvoiceProductsActionEmptyCollection()
@@ -567,7 +567,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId . '/products'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         $this->assertInternalType('array', $response);
         $this->assertCount(0, $response);
     }
@@ -586,7 +586,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId . '/products/1'
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -594,7 +594,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/2/products/1'
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testGetInvoiceProductNotFoundInvalidInvoiceId()
@@ -619,7 +619,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceProductData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postJson);
         $invoiceProductId = $postJson['id'];
 
@@ -842,7 +842,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $assertions = array(
             'sumTotal' => $sumTotal,
@@ -910,7 +910,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId . '/products/' . $productsData[1]['id']
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        $this->assertResponseCode(204);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -918,7 +918,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId . '/products'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
 
@@ -957,7 +957,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId . '/products'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
 
@@ -990,7 +990,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[2]['id']
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        $this->assertResponseCode(204);
 
         $this->assertProductTotals($productId, 15, $invoiceProducts[1]['price']);
 
@@ -1000,7 +1000,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[0]['id']
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        $this->assertResponseCode(204);
 
         $this->assertProductTotals($productId, 5, $invoiceProducts[1]['price']);
 
@@ -1010,7 +1010,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId . '/products/' . $invoiceProducts[1]['id']
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        $this->assertResponseCode(204);
 
         $this->assertProductTotals($productId, 0, null);
     }
@@ -1039,7 +1039,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $newInvoiceProductData
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $this->assertProductTotals($productId, 16, $invoiceProducts[2]['price']);
 
@@ -1054,7 +1054,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $newInvoiceProductDataNewProduct
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $this->assertProductTotals($productId, 15, $newInvoiceProductData['price']);
         $this->assertProductTotals($newProductId, 1, $newInvoiceProductDataNewProduct['price']);
@@ -1127,7 +1127,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId3 . '/products/' . $invoiceProductId3
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        $this->assertResponseCode(204);
 
         $averagePriceService->recalculateAveragePrice();
 
@@ -1139,7 +1139,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId2 . '/products/' . $invoiceProductId2
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        $this->assertResponseCode(204);
 
         $averagePriceService->recalculateAveragePrice();
 
@@ -1151,7 +1151,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/invoices/' . $invoiceId1. '/products/' . $invoiceProductId1
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        $this->assertResponseCode(204);
 
         $averagePriceService->recalculateAveragePrice();
 
@@ -1227,7 +1227,7 @@ class InvoiceProductControllerTest extends WebTestCase
             ) + $invoiceData
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $averagePriceService->recalculateAveragePrice();
 

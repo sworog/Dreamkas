@@ -121,7 +121,7 @@ class WebTestCase extends ContainerAwareTestCase
             $invoiceData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
@@ -151,7 +151,7 @@ class WebTestCase extends ContainerAwareTestCase
             $invoiceProductData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         return $postResponse['id'];
     }
@@ -176,7 +176,7 @@ class WebTestCase extends ContainerAwareTestCase
             )
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
@@ -209,7 +209,7 @@ class WebTestCase extends ContainerAwareTestCase
         $request = new JsonRequest('/api/1/products', 'POST', $productData);
         $postResponse = $this->jsonRequest($request, $accessToken);
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
@@ -260,7 +260,7 @@ class WebTestCase extends ContainerAwareTestCase
                 $invoiceProductData
             );
 
-            Assert::assertResponseCode(201, $this->client);
+            $this->assertResponseCode(201);
             $productsData[$i]['id'] = $response['id'];
         }
 
@@ -270,7 +270,7 @@ class WebTestCase extends ContainerAwareTestCase
             '/api/1/invoices/' . $invoiceId . '/products.json'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(3, "*.id", $getResponse);
 
@@ -304,7 +304,7 @@ class WebTestCase extends ContainerAwareTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
 
@@ -332,7 +332,7 @@ class WebTestCase extends ContainerAwareTestCase
         $request = new JsonRequest('/api/1/writeoffs/' . $writeOffId . '/products', 'POST', $postData);
         $postResponse = $this->jsonRequest($request, $accessToken);
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
 
@@ -383,7 +383,7 @@ class WebTestCase extends ContainerAwareTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
 
@@ -466,7 +466,7 @@ class WebTestCase extends ContainerAwareTestCase
             $categoryData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
@@ -497,7 +497,7 @@ class WebTestCase extends ContainerAwareTestCase
                 '/api/1/categories/'. $categoryId .'/subcategories'
             );
 
-            Assert::assertResponseCode(200, $this->client);
+            $this->assertResponseCode(200);
 
             if (count($postResponse)) {
                 foreach ($postResponse as $value) {
@@ -515,7 +515,7 @@ class WebTestCase extends ContainerAwareTestCase
             $subCategoryData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
@@ -565,7 +565,7 @@ class WebTestCase extends ContainerAwareTestCase
             $storeData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $response);
         foreach ($storeData as $name => $value) {
@@ -616,7 +616,7 @@ class WebTestCase extends ContainerAwareTestCase
             $storeData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $response);
         Assert::assertJsonPathEquals($storeData['number'], 'number', $response);

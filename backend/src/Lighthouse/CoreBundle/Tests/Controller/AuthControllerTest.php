@@ -33,7 +33,7 @@ class AuthControllerTest extends WebTestCase
         $response = $this->client->getResponse()->getContent();
         $jsonResponse = json_decode($response, true);
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         self::assertNotNull($jsonResponse);
 
         Assert::assertJsonHasPath('access_token', $jsonResponse);
@@ -70,7 +70,7 @@ class AuthControllerTest extends WebTestCase
         $response = $this->client->getResponse()->getContent();
         $jsonResponse = json_decode($response, true);
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         self::assertNotNull($jsonResponse);
 
         Assert::assertJsonHasPath('access_token', $jsonResponse);
@@ -97,7 +97,7 @@ class AuthControllerTest extends WebTestCase
         $response = $this->client->getResponse()->getContent();
         $jsonResponse = json_decode($response, true);
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         self::assertNotNull($jsonResponse);
 
         Assert::assertJsonHasPath('access_token', $jsonResponse);

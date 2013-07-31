@@ -26,7 +26,7 @@ class StoreControllerTest extends WebTestCase
             $storeData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $response);
         foreach ($storeData as $name => $value) {
@@ -55,7 +55,7 @@ class StoreControllerTest extends WebTestCase
             $storeData
         );
 
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Такой магазин уже есть', 'children.number.errors.0', $response);
     }
 
@@ -85,7 +85,7 @@ class StoreControllerTest extends WebTestCase
             $storeData
         );
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathContains($expected, $path, $response);
@@ -122,7 +122,7 @@ class StoreControllerTest extends WebTestCase
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathContains($expected, $path, $response);
@@ -254,7 +254,7 @@ class StoreControllerTest extends WebTestCase
             '/api/1/stores'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonPathCount(5, '*.id', $response);
 
         foreach ($storesIds as $id) {
@@ -281,7 +281,7 @@ class StoreControllerTest extends WebTestCase
             $storeData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $response);
         foreach ($storeData as $name => $value) {
@@ -296,7 +296,7 @@ class StoreControllerTest extends WebTestCase
             '/api/1/stores/' . $id
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         foreach ($storeData as $name => $value) {
             Assert::assertJsonPathEquals($value, $name, $response);
@@ -320,7 +320,7 @@ class StoreControllerTest extends WebTestCase
             '/api/1/stores/' . $storeId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonHasPath('id', $getResponse);
         Assert::assertJsonHasPath('departments', $getResponse);
 
@@ -369,7 +369,7 @@ class StoreControllerTest extends WebTestCase
             $requestData
         );
 
-        Assert::assertResponseCode($responseCode, $this->client);
+        $this->assertResponseCode($responseCode);
     }
 
     public function accessStoreProvider()

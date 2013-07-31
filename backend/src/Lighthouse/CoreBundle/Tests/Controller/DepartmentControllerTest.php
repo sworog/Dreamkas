@@ -28,7 +28,7 @@ class DepartmentControllerTest extends WebTestCase
             $departmentData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
         Assert::assertJsonPathEquals('42', 'number', $postResponse);
@@ -59,7 +59,7 @@ class DepartmentControllerTest extends WebTestCase
             $departmentData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         // Try to create second department with same name in store 1
@@ -69,7 +69,7 @@ class DepartmentControllerTest extends WebTestCase
             '/api/1/departments',
             $departmentData
         );
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
             'Отдел с таким названием уже существует в этом магазине',
@@ -87,7 +87,7 @@ class DepartmentControllerTest extends WebTestCase
             $departmentData2
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         // Create second department with same name in store 2
@@ -97,7 +97,7 @@ class DepartmentControllerTest extends WebTestCase
             '/api/1/departments',
             $departmentData2
         );
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
             'Отдел с таким названием уже существует в этом магазине',
@@ -133,7 +133,7 @@ class DepartmentControllerTest extends WebTestCase
             $categoryData
         );
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         $this->performJsonAssertions($postResponse, $assertions, true);
     }
@@ -248,7 +248,7 @@ class DepartmentControllerTest extends WebTestCase
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         $this->performJsonAssertions($putResponse, $assertions, true);
     }
@@ -267,7 +267,7 @@ class DepartmentControllerTest extends WebTestCase
             '/api/1/departments/' . $departmentId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathEquals($departmentId, 'id', $getResponse);
         Assert::assertJsonPathEquals($storeId, 'store.id', $getResponse);
@@ -287,7 +287,7 @@ class DepartmentControllerTest extends WebTestCase
             '/api/1/departments/invalidId'
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testGetDepartments()
@@ -311,7 +311,7 @@ class DepartmentControllerTest extends WebTestCase
             '/api/1/stores/' . $storeId1 . '/departments'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(3, '*.id', $getResponse);
         Assert::assertJsonPathEquals($departmentId1, '*.id', $getResponse, 1);
@@ -327,7 +327,7 @@ class DepartmentControllerTest extends WebTestCase
             '/api/1/stores/' . $storeId2 . '/departments'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
         Assert::assertJsonPathEquals($departmentId4, '*.id', $getResponse, 1);
@@ -348,7 +348,7 @@ class DepartmentControllerTest extends WebTestCase
             '/api/1/stores/123484923423/departments'
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testGetDepartmentsEmptyCollection()
@@ -364,7 +364,7 @@ class DepartmentControllerTest extends WebTestCase
             '/api/1/stores/' . $storeId . '/departments'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(0, '*.id', $response);
     }
@@ -412,7 +412,7 @@ class DepartmentControllerTest extends WebTestCase
             $requestData
         );
 
-        Assert::assertResponseCode($responseCode, $this->client);
+        $this->assertResponseCode($responseCode);
     }
 
     public function accessCategoryProvider()
