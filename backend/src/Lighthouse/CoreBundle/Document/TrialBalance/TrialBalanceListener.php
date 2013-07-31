@@ -43,8 +43,10 @@ class TrialBalanceListener extends AbstractMongoDBListener
             if ($document instanceof Reasonable) {
                 $trialBalance = new TrialBalance();
 
+                $sign = ($document->increaseAmount()) ? 1 : -1;
+
                 $trialBalance->price = $document->getReasonPrice();
-                $trialBalance->quantity = $document->getReasonQuantity();
+                $trialBalance->quantity = $document->getReasonQuantity() * $sign;
                 $trialBalance->product = $document->getReasonProduct();
                 $trialBalance->reason = $document;
                 $trialBalance->createdDate = $document->getReasonDate();
@@ -59,8 +61,10 @@ class TrialBalanceListener extends AbstractMongoDBListener
             if ($document instanceof Reasonable) {
                 $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
 
+                $sign = ($document->increaseAmount()) ? 1 : -1;
+
                 $trialBalance->price = $document->getReasonPrice();
-                $trialBalance->quantity = $document->getReasonQuantity();
+                $trialBalance->quantity = $document->getReasonQuantity() * $sign;
                 $trialBalance->product = $document->getReasonProduct();
 
                 $dm->persist($trialBalance);

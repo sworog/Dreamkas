@@ -45,7 +45,7 @@ class PurchaseControllerTest extends WebTestCase
             $purchaseData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
 
@@ -102,7 +102,7 @@ class PurchaseControllerTest extends WebTestCase
             $purchaseData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
 
@@ -151,7 +151,7 @@ class PurchaseControllerTest extends WebTestCase
             $purchaseData
         );
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathContains($expected, $path, $postResponse);
@@ -220,7 +220,7 @@ class PurchaseControllerTest extends WebTestCase
             )
         );
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathContains($expected, $path, $postResponse);
@@ -419,7 +419,7 @@ class PurchaseControllerTest extends WebTestCase
             $invoiceProductData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         $this->assertProduct($productId, array('amount' => 10));
 
@@ -479,7 +479,7 @@ class PurchaseControllerTest extends WebTestCase
             $purchaseData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('products.*.id', $purchaseResponse);
         Assert::assertJsonHasPath('id', $purchaseResponse);

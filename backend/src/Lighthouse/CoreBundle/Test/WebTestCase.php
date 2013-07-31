@@ -9,7 +9,6 @@ use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Util\JsonPath;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -18,14 +17,8 @@ use AppKernel;
 /**
  * @codeCoverageIgnore
  */
-class WebTestCase extends BaseTestCase
+class WebTestCase extends ContainerAwareTestCase
 {
-    /**
-     * Init app with debug
-     * @var bool
-     */
-    static protected $appDebug = false;
-
     /**
      * @var Client
      */
@@ -41,43 +34,6 @@ class WebTestCase extends BaseTestCase
     protected function setUp()
     {
         $this->client = static::createClient();
-    }
-
-    /**
-     * @return AppKernel
-     */
-    protected static function initKernel()
-    {
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
-        return static::$kernel;
-    }
-
-    /**
-     * @param array $options
-     * @return AppKernel
-     */
-    protected static function createKernel(array $options = array())
-    {
-        $options['debug'] = isset($options['debug']) ? $options['debug'] : static::$appDebug;
-        return parent::createKernel($options);
-    }
-
-    /**
-     * @return Container
-     */
-    protected function getContainer()
-    {
-        return static::initKernel()->getContainer();
-    }
-
-    protected function clearMongoDb()
-    {
-        /* @var DocumentManager $mongoDb */
-        $mongoDb = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
-        $mongoDb->getSchemaManager()->dropCollections();
-        $mongoDb->getSchemaManager()->createCollections();
-        $mongoDb->getSchemaManager()->ensureIndexes();
     }
 
     /**
@@ -165,7 +121,7 @@ class WebTestCase extends BaseTestCase
             $invoiceData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
@@ -195,7 +151,7 @@ class WebTestCase extends BaseTestCase
             $invoiceProductData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         return $postResponse['id'];
     }
@@ -220,28 +176,30 @@ class WebTestCase extends BaseTestCase
             )
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
     }
 
     /**
-     * @param string $extra
-     * @return string
+     * @param string|array $extra
+     * @param null|string $subCategoryId
+     * @param bool|string $putProductId string id of product to be updated
+     * @return mixed
      */
-    protected function createProduct($extra = '', $subCategoryId = null)
+    protected function createProduct($extra = '', $subCategoryId = null, $putProductId = false)
     {
         if ($subCategoryId == null) {
             $subCategoryId = $this->createSubCategory();
         }
 
         $productData = array(
-            'name' => 'Кефир "Веселый Молочник" 1% 950гр' . $extra,
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
             'units' => 'gr',
             'barcode' => '4607025392408',
             'purchasePrice' => 3048,
-            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР' . $extra,
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
             'vat' => 10,
             'vendor' => 'Вимм-Билль-Данн',
             'vendorCountry' => 'Россия',
@@ -249,14 +207,33 @@ class WebTestCase extends BaseTestCase
             'subCategory' => $subCategoryId,
         );
 
+        if (is_array($extra)) {
+            $productData = $extra + $productData;
+        } else {
+            $productData['name'].= $extra;
+            $productData['sku'].= $extra;
+        }
+
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
-        $request = new JsonRequest('/api/1/products', 'POST', $productData);
+        $method = ($putProductId) ? 'PUT' : 'POST';
+        $url = '/api/1/products' . (($putProductId) ? '/' . $putProductId : '');
+        $request = new JsonRequest($url, $method, $productData);
         $postResponse = $this->jsonRequest($request, $accessToken);
 
-        Assert::assertResponseCode(201, $this->client);
+        $responseCode = ($putProductId) ? 200 : 201;
+        $this->assertResponseCode($responseCode);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
+    }
+
+    /**
+     * @param string $productId
+     * @param array $data
+     */
+    protected function updateProduct($productId, array $data)
+    {
+        $this->createProduct($data, null, $productId);
     }
 
     /**
@@ -304,7 +281,7 @@ class WebTestCase extends BaseTestCase
                 $invoiceProductData
             );
 
-            Assert::assertResponseCode(201, $this->client);
+            $this->assertResponseCode(201);
             $productsData[$i]['id'] = $response['id'];
         }
 
@@ -314,7 +291,7 @@ class WebTestCase extends BaseTestCase
             '/api/1/invoices/' . $invoiceId . '/products.json'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(3, "*.id", $getResponse);
 
@@ -348,7 +325,7 @@ class WebTestCase extends BaseTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
 
@@ -376,7 +353,7 @@ class WebTestCase extends BaseTestCase
         $request = new JsonRequest('/api/1/writeoffs/' . $writeOffId . '/products', 'POST', $postData);
         $postResponse = $this->jsonRequest($request, $accessToken);
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
 
@@ -427,7 +404,7 @@ class WebTestCase extends BaseTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
 
@@ -465,7 +442,7 @@ class WebTestCase extends BaseTestCase
 
         $productJson = $this->jsonRequest($request);
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $this->performJsonAssertions($productJson, $assertions);
     }
@@ -510,7 +487,7 @@ class WebTestCase extends BaseTestCase
             $categoryData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
@@ -541,7 +518,7 @@ class WebTestCase extends BaseTestCase
                 '/api/1/categories/'. $categoryId .'/subcategories'
             );
 
-            Assert::assertResponseCode(200, $this->client);
+            $this->assertResponseCode(200);
 
             if (count($postResponse)) {
                 foreach ($postResponse as $value) {
@@ -559,7 +536,7 @@ class WebTestCase extends BaseTestCase
             $subCategoryData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
@@ -609,7 +586,7 @@ class WebTestCase extends BaseTestCase
             $storeData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $response);
         foreach ($storeData as $name => $value) {
@@ -660,7 +637,7 @@ class WebTestCase extends BaseTestCase
             $storeData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $response);
         Assert::assertJsonPathEquals($storeData['number'], 'number', $response);

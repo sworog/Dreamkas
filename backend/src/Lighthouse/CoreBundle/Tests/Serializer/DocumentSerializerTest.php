@@ -2,12 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Tests\Serializer;
 
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\Test;
 use JMS\Serializer\Serializer;
 use Lighthouse\CoreBundle\Types\Money;
 
-class DocumentSerializerTest extends WebTestCase
+class DocumentSerializerTest extends ContainerAwareTestCase
 {
     public function testDocumentSerializeXml()
     {

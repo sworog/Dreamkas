@@ -28,7 +28,7 @@ class InvoiceControllerTest extends WebTestCase
             $invoiceData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         $this->performJsonAssertions($postResponse, $assertions, true);
     }
@@ -51,7 +51,7 @@ class InvoiceControllerTest extends WebTestCase
             '/api/1/invoices'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonPathCount(5, '*.id', $getResponse);
     }
 
@@ -71,7 +71,7 @@ class InvoiceControllerTest extends WebTestCase
             '/api/1/invoices/' . $id
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $this->performJsonAssertions($getResponse, $assertions, true);
     }
@@ -116,7 +116,7 @@ class InvoiceControllerTest extends WebTestCase
             '/api/1/invoices/' . $id
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     /**
@@ -137,7 +137,7 @@ class InvoiceControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathContains($expected, $path, $postResponse);
@@ -162,7 +162,7 @@ class InvoiceControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains('Вы ввели неверную дату', 'children.acceptanceDate.errors.0', $postResponse);
         Assert::assertNotJsonHasPath('children.supplierInvoiceDate.errors.0', $postResponse);
@@ -214,7 +214,7 @@ class InvoiceControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postJson);
         $invoiceId = $postJson['id'];
         foreach ($postAssertions as $jsonPath => $expected) {
@@ -229,7 +229,7 @@ class InvoiceControllerTest extends WebTestCase
             $putData
         );
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
         Assert::assertJsonPathEquals($invoiceId, 'id', $postJson);
         foreach ($putAssertions as $jsonPath => $expected) {
             Assert::assertJsonPathContains($expected, $jsonPath, $putJson);

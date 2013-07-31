@@ -19,7 +19,7 @@ class ServiceControllerTest extends WebTestCase
             '/api/1/service/recalculate-average-purchase-price'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonPathEquals(true, 'ok', $response);
     }
 
@@ -35,7 +35,7 @@ class ServiceControllerTest extends WebTestCase
             '/api/1/service/permissions'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonPathEquals('ROLE_ADMINISTRATOR', 'users.GET::{user}.*', $response);
         Assert::assertJsonPathEquals('ROLE_ADMINISTRATOR', 'users.POST.*', $response);
     }

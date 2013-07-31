@@ -29,7 +29,7 @@ class SubCategoryControllerTest extends WebTestCase
             $subCategoryData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
         Assert::assertJsonPathEquals('Водка', 'name', $postResponse);
@@ -67,7 +67,7 @@ class SubCategoryControllerTest extends WebTestCase
             $subCategoryData
         );
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         $this->performJsonAssertions($postResponse, $assertions, true);
     }
@@ -174,7 +174,7 @@ class SubCategoryControllerTest extends WebTestCase
             $subCategoryData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         // Try to create second category with same name in group 1
@@ -184,7 +184,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories',
             $subCategoryData
         );
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
             'Подкатегория с таким названием уже существует в этой категории',
@@ -202,7 +202,7 @@ class SubCategoryControllerTest extends WebTestCase
             $subCategoryData2
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         // Create second category with same name in category 2
@@ -212,7 +212,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories',
             $subCategoryData2
         );
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
             'Подкатегория с таким названием уже существует в этой категории',
@@ -249,7 +249,7 @@ class SubCategoryControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         $subCategoryId = $postResponse['id'];
@@ -265,7 +265,7 @@ class SubCategoryControllerTest extends WebTestCase
 
         $expectedCode = (201 == $expectedCode) ? 200 : $expectedCode;
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         $this->performJsonAssertions($putResponse, $assertions, true);
     }
@@ -285,7 +285,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories/' . $subCategoryId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathEquals($subCategoryId, 'id', $getResponse);
         Assert::assertJsonPathEquals($categoryId, 'category.id', $getResponse);
@@ -308,7 +308,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories/invalidId'
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testGetCategories()
@@ -335,7 +335,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/categories/' . $categoryId1 . '/subcategories'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(3, '*.id', $getResponse);
         Assert::assertJsonPathEquals($subCategoryId1, '*.id', $getResponse, 1);
@@ -351,7 +351,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/categories/' . $categoryId2 . '/subcategories'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
         Assert::assertJsonPathEquals($subCategoryId4, '*.id', $getResponse, 1);
@@ -373,7 +373,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/categories/123484923423/subcategories'
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testGetCategoriesEmptyCollection()
@@ -391,7 +391,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/categories/' . $categoryId . '/subcategories'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(0, '*.id', $response);
     }
@@ -412,7 +412,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories/' . $subCategoryId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -420,7 +420,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories/' . $subCategoryId
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        $this->assertResponseCode(204);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -428,7 +428,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories/' . $subCategoryId
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testDeleteNotEmptyCategory()
@@ -445,7 +445,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories/' . $subCategoryId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $productId = $this->createProduct('', $subCategoryId);
 
@@ -455,7 +455,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories/' . $subCategoryId . '/products'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($productId, '0.id', $response);
 
         $response = $this->clientJsonRequest(
@@ -464,7 +464,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories/' . $subCategoryId
         );
 
-        Assert::assertResponseCode(409, $this->client);
+        $this->assertResponseCode(409);
         Assert::assertJsonHasPath('message', $response);
     }
 
@@ -511,7 +511,7 @@ class SubCategoryControllerTest extends WebTestCase
             $requestData
         );
 
-        Assert::assertResponseCode($responseCode, $this->client);
+        $this->assertResponseCode($responseCode);
     }
 
     public function accessSubCategoryProvider()

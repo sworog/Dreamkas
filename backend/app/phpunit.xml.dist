@@ -23,6 +23,7 @@
         <whitelist>
             <directory>../src</directory>
             <exclude>
+                <directory>../src/Lighthouse/CoreBundle/Test</directory>
                 <directory>../src/Lighthouse/CoreBundle/Tests</directory>
             </exclude>
         </whitelist>
@@ -37,8 +38,8 @@
         <log type="coverage-clover" target="../build/codeCoverage/codeCoverage.xml"/>
         <log type="metrics-xml" target="../build/metrics/metrics.xml"/>
         <log type="test-xml" target="../build/testResults/logfile.xml" logIncompleteSkipped="false"/>
-	<log type="json" target="../build/logs/phpunit.json"/>
-	<log type="junit" target="../build/logs/phpunit.xml" logIncompleteSkipped="true"/>
+	    <log type="json" target="../build/logs/phpunit.json"/>
+	    <log type="junit" target="../build/logs/phpunit.xml" logIncompleteSkipped="true"/>
     </logging>
 
 </phpunit>

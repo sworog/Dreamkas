@@ -9,10 +9,10 @@ use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Purchase\Purchase;
 use Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct;
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
-class InvoiceProductTest extends WebTestCase
+class InvoiceProductTest extends ContainerAwareTestCase
 {
     /**
      * @return ManagerRegistry
@@ -58,10 +58,13 @@ class InvoiceProductTest extends WebTestCase
         $product->vendorCountry = 'Россия';
         $product->info = 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса';
 
+        $versionFactory = $this->getContainer()->get('lighthouse.core.versionable.factory');
+        $productVersion = $versionFactory->createDocumentVersion($product);
+
         $invoiceProduct = new InvoiceProduct();
         $invoiceProduct->price = new Money(1010);
         $invoiceProduct->invoice = $invoice;
-        $invoiceProduct->product = $product;
+        $invoiceProduct->product = $productVersion;
         $invoiceProduct->quantity = 10;
 
         $manager->persist($product);
@@ -94,13 +97,13 @@ class InvoiceProductTest extends WebTestCase
         $invoiceProduct1 = new InvoiceProduct();
         $invoiceProduct1->price = new Money(1111);
         $invoiceProduct1->invoice = $invoice;
-        $invoiceProduct1->product = $product;
+        $invoiceProduct1->product = $productVersion;
         $invoiceProduct1->quantity = 10;
 
         $invoiceProduct2 = new InvoiceProduct();
         $invoiceProduct2->price = new Money(2222);
         $invoiceProduct2->invoice = $invoice;
-        $invoiceProduct2->product = $product;
+        $invoiceProduct2->product = $productVersion;
         $invoiceProduct2->quantity = 5;
 
         $manager->persist($invoiceProduct1);

@@ -30,7 +30,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonPathEquals(30.48, 'purchasePrice', $postResponse);
         Assert::assertNotJsonHasPath('lastPurchasePrice', $postResponse);
@@ -56,7 +56,7 @@ class ProductControllerTest extends WebTestCase
             $productData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertNotJsonHasPath('retailMarkup', $responseJson);
         Assert::assertNotJsonHasPath('retailPrice', $responseJson);
 
@@ -66,7 +66,7 @@ class ProductControllerTest extends WebTestCase
             '/api/1/products/' .$responseJson['id']
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertNotJsonHasPath('retailMarkup', $responseJson);
         Assert::assertNotJsonHasPath('retailPrice', $responseJson);
     }
@@ -87,7 +87,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         $this->performJsonAssertions($postResponse, $assertions);
     }
@@ -108,7 +108,7 @@ class ProductControllerTest extends WebTestCase
         );
 
 
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathCount(1, 'children.purchasePrice.errors.*', $response);
         Assert::assertJsonPathCount(1, 'children.units.errors.*', $response);
@@ -123,7 +123,7 @@ class ProductControllerTest extends WebTestCase
             'POST',
             '/api/1/products'
         );
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
     }
 
     /**
@@ -142,7 +142,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -151,7 +151,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains('уже есть', 'children.sku.errors.0', $response);
     }
@@ -172,7 +172,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonPathEquals($postData['barcode'], 'barcode', $response);
         Assert::assertJsonPathEquals($postData['vat'], 'vat', $response);
@@ -192,7 +192,7 @@ class ProductControllerTest extends WebTestCase
             $putData
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -200,7 +200,7 @@ class ProductControllerTest extends WebTestCase
             '/api/1/products/' . $id
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathEquals($putData['barcode'], 'barcode', $response);
         Assert::assertJsonPathEquals($putData['vat'], 'vat', $response);
@@ -224,7 +224,7 @@ class ProductControllerTest extends WebTestCase
             $putData
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     /**
@@ -243,7 +243,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonPathEquals($postData['barcode'], 'barcode', $response);
         Assert::assertJsonPathEquals($postData['vat'], 'vat', $response);
@@ -262,7 +262,7 @@ class ProductControllerTest extends WebTestCase
             $putData
         );
 
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains('Заполните это поле', 'children.name.errors.0', $response);
     }
@@ -283,7 +283,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $response);
         $id = $response['id'];
@@ -300,7 +300,7 @@ class ProductControllerTest extends WebTestCase
             $putData
         );
 
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
         Assert::assertJsonPathContains('Эта форма не должна содержать дополнительных полей', 'errors.0', $response);
 
         $response = $this->clientJsonRequest(
@@ -309,7 +309,7 @@ class ProductControllerTest extends WebTestCase
             '/api/1/products/' . $newId
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -317,7 +317,7 @@ class ProductControllerTest extends WebTestCase
             '/api/1/products/' . $id
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
     }
 
     public function testCorsHeader()
@@ -374,7 +374,7 @@ class ProductControllerTest extends WebTestCase
                 '/api/1/products',
                 $postData
             );
-            Assert::assertResponseCode(201, $this->client);
+            $this->assertResponseCode(201);
         }
 
         $response = $this->clientJsonRequest(
@@ -383,7 +383,7 @@ class ProductControllerTest extends WebTestCase
             '/api/1/products'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonPathCount(5, '*.id', $response);
     }
 
@@ -403,7 +403,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
         $id = $postResponse['id'];
 
@@ -412,7 +412,7 @@ class ProductControllerTest extends WebTestCase
             'GET',
             '/api/1/products/' . $id
         );
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', 'name', $getResponse);
         Assert::assertNotJsonHasPath('retailPricePreferences', $getResponse);
     }
@@ -426,7 +426,7 @@ class ProductControllerTest extends WebTestCase
             'GET',
             '/api/1/products/1111'
         );
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testGetSubCategoryProducts()
@@ -452,7 +452,7 @@ class ProductControllerTest extends WebTestCase
             '/api/1/subcategories/' . $subCategoryId1 . '/products'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         foreach ($productsSubCategory1 as $productId) {
             Assert::assertJsonPathEquals($productId, '*.id', $jsonResponse);
@@ -465,7 +465,7 @@ class ProductControllerTest extends WebTestCase
             '/api/1/subcategories/' . $subCategoryId2 . '/products'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         foreach ($productsSubCategory2 as $productId) {
             Assert::assertJsonPathEquals($productId, '*.id', $jsonResponse);
@@ -490,7 +490,7 @@ class ProductControllerTest extends WebTestCase
                 '/api/1/products',
                 $postData
             );
-            Assert::assertResponseCode(201, $this->client);
+            $this->assertResponseCode(201);
         }
 
         $response = $this->clientJsonRequest(
@@ -513,7 +513,7 @@ class ProductControllerTest extends WebTestCase
             '/api/1/products/invalid/search'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $this->assertInternalType('array', $response);
         $this->assertCount(0, $response);
@@ -860,7 +860,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathEquals($expected, $path, $response);
@@ -888,7 +888,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathEquals($expected, $path, $response);
@@ -918,7 +918,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         $id = $postResponse['id'];
@@ -931,14 +931,14 @@ class ProductControllerTest extends WebTestCase
             $putData
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/products/' . $id
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathEquals($expected, $path, $getResponse);
@@ -968,7 +968,7 @@ class ProductControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         $id = $postResponse['id'];
@@ -981,7 +981,7 @@ class ProductControllerTest extends WebTestCase
             $putData
         );
 
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathEquals($expected, $path, $putResponse);
@@ -1462,7 +1462,7 @@ class ProductControllerTest extends WebTestCase
             $requestData
         );
 
-        Assert::assertResponseCode($responseCode, $this->client);
+        $this->assertResponseCode($responseCode);
     }
 
     public function accessProductProvider()

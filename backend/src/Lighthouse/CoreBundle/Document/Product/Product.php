@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Versionable\VersionableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
@@ -32,15 +33,13 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory $subCategory
  *
  * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Document\Product\ProductRepository",
- *      indexes={
- *          @MongoDB\Index(keys={"sku"="desc"}, options={"unique"=true})
- *      }
+ *      repositoryClass="Lighthouse\CoreBundle\Document\Product\ProductRepository"
  * )
+ * @MongoDB\InheritanceType("COLLECTION_PER_CLASS")
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
  * @LighthouseAssert\Product\RetailPrice
  */
-class Product extends AbstractDocument
+class Product extends AbstractDocument implements VersionableInterface
 {
     const RETAIL_PRICE_PREFERENCE_PRICE = 'retailPrice';
     const RETAIL_PRICE_PREFERENCE_MARKUP = 'retailMarkup';
@@ -103,6 +102,7 @@ class Product extends AbstractDocument
 
     /**
      * @MongoDB\String
+     * @MongoDB\UniqueIndex()
      * @Assert\NotBlank
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      */
@@ -186,5 +186,13 @@ class Product extends AbstractDocument
                 $this->retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
                 break;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersionClass()
+    {
+        return 'Lighthouse\\CoreBundle\\Document\\Product\\ProductVersion';
     }
 }

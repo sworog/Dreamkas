@@ -6,6 +6,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\Product\Productable;
+use Lighthouse\CoreBundle\Document\Product\ProductVersion;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
@@ -18,7 +20,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property Money  $price
  * @property Money  $totalPrice
  * @property Invoice $invoice
- * @property Product $product
+ * @property ProductVersion $product
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository"
@@ -72,12 +74,12 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\ProductVersion",
      *     simple=true,
      *     cascade={"persist"}
      * )
      * @Assert\NotBlank
-     * @var Product
+     * @var ProductVersion
      */
     protected $product;
 
@@ -128,7 +130,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonProduct()
     {
-        return $this->product;
+        return $this->product->getObject();
     }
 
     /**
@@ -137,5 +139,13 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     public function getReasonPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function increaseAmount()
+    {
+        return true;
     }
 }

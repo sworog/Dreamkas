@@ -29,7 +29,7 @@ class CategoryControllerTest extends WebTestCase
             $categoryData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
         Assert::assertJsonPathEquals('Винно-водочные изделия', 'name', $postResponse);
@@ -58,7 +58,7 @@ class CategoryControllerTest extends WebTestCase
             $categoryData
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         // Try to create second category with same name in group 1
@@ -68,7 +68,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/categories',
             $categoryData
         );
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
             'Категория с таким названием уже существует в этой группе',
@@ -86,7 +86,7 @@ class CategoryControllerTest extends WebTestCase
             $categoryData2
         );
 
-        Assert::assertResponseCode(201, $this->client);
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         // Create second category with same name in group 2
@@ -96,7 +96,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/categories',
             $categoryData2
         );
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
             'Категория с таким названием уже существует в этой группе',
@@ -131,7 +131,7 @@ class CategoryControllerTest extends WebTestCase
             $categoryData
         );
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         $this->performJsonAssertions($postResponse, $assertions, true);
     }
@@ -245,7 +245,7 @@ class CategoryControllerTest extends WebTestCase
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         $this->performJsonAssertions($putResponse, $assertions, true);
     }
@@ -264,7 +264,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/categories/' . $categoryId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathEquals($categoryId, 'id', $getResponse);
         Assert::assertJsonPathEquals($groupId, 'group.id', $getResponse);
@@ -284,7 +284,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/categories/invalidId'
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testGetCategoryWithSubcategories()
@@ -305,7 +305,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/categories/' . $categoryId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonHasPath('id', $getResponse);
         Assert::assertJsonHasPath('subCategories', $getResponse);
         Assert::assertJsonPathCount(2, 'subCategories.*.id', $getResponse);
@@ -334,7 +334,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId1 . '/categories'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(3, '*.id', $getResponse);
         Assert::assertJsonPathEquals($categoryId1, '*.id', $getResponse, 1);
@@ -350,7 +350,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId2 . '/categories'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
         Assert::assertJsonPathEquals($categoryId4, '*.id', $getResponse, 1);
@@ -371,7 +371,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/groups/123484923423/categories'
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testGetCategoriesEmptyCollection()
@@ -387,7 +387,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId . '/categories'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(0, '*.id', $response);
     }
@@ -406,7 +406,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/categories/' . $categoryId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -414,7 +414,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/categories/' . $categoryId
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        $this->assertResponseCode(204);
     }
 
     public function testDeleteCategoryWithSubcategories()
@@ -435,7 +435,7 @@ class CategoryControllerTest extends WebTestCase
             '/api/1/categories/' . $categoryId
         );
 
-        Assert::assertResponseCode(409, $this->client);
+        $this->assertResponseCode(409);
 
         $request = new JsonRequest('/api/1/categories/' . $categoryId, 'DELETE');
         $request->setAccessToken($accessToken);
@@ -443,7 +443,7 @@ class CategoryControllerTest extends WebTestCase
 
         $response = $this->jsonRequest($request);
 
-        Assert::assertResponseCode(409, $this->client);
+        $this->assertResponseCode(409);
         Assert::assertJsonHasPath('message', $response);
     }
 
@@ -489,7 +489,7 @@ class CategoryControllerTest extends WebTestCase
             $requestData
         );
 
-        Assert::assertResponseCode($responseCode, $this->client);
+        $this->assertResponseCode($responseCode);
     }
 
     public function accessCategoryProvider()

@@ -36,6 +36,11 @@ public class InvoiceUserSteps {
         invoiceSteps.openInvoiceListPage();
     }
 
+    @Given("the user navigates to the invoice page with name '$invoiceName'")
+    public void givenTheUserNavigatesToTheInvoicePage(String invoiceName) throws JSONException {
+        invoiceSteps.navigateToTheInvoicePage(invoiceName);
+    }
+
     @When("the user inputs '$inputText' in the invoice '$elementName' field")
     public void whenTheUserInputsTextInTheInvoiceField(String elementName, String inputText) {
         invoiceSteps.input(elementName, inputText);

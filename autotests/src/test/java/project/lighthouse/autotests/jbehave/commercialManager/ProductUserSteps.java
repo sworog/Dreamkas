@@ -16,6 +16,8 @@ public class ProductUserSteps {
     @Steps
     ProductSteps productSteps;
 
+    ExamplesTable fieldInputTable;
+
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode")
     public void givenTheUserCreatesProductWithParams(String name, String sku, String barcode) throws JSONException, IOException {
         productSteps.createProductPostRequestSend(name, sku, barcode, "kg", "123");
@@ -61,6 +63,11 @@ public class ProductUserSteps {
         productSteps.isTheProductCardOpen();
     }
 
+    @Given("the user navigates to the product with sku '$productSku'")
+    public void givenTheUserNavigatesToTheProduct(String productSku) throws JSONException {
+        productSteps.navigateToTheProductPage(productSku);
+    }
+
     @When("the user inputs '$inputText' in '$elementName' field")
     public void whenTheUserInputsTextInTheField(String inputText, String elementName) {
         productSteps.fieldInput(elementName, inputText);
@@ -69,6 +76,12 @@ public class ProductUserSteps {
     @When("the user inputs values in element fields $fieldInputTable")
     public void whenTheUserInputsInElementFields(ExamplesTable fieldInputTable) {
         productSteps.fieldType(fieldInputTable);
+        this.fieldInputTable = fieldInputTable;
+    }
+
+    @Then("the user checks the stored input values")
+    public void thenTheUserChecksTheStoredInputValues() {
+        thenTheUserChecksTheElementValues(fieldInputTable);
     }
 
     @When("the user selects '$value' in '$elementName' dropdown")

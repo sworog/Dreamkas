@@ -157,7 +157,7 @@ class GroupControllerTest extends WebTestCase
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
 
-        Assert::assertResponseCode($expectedCode, $this->client);
+        $this->assertResponseCode($expectedCode);
 
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathContains($expected, $path, $postResponse);
@@ -208,7 +208,7 @@ class GroupControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonHasPath('id', $getResponse);
         Assert::assertJsonHasPath('categories', $getResponse);
 
@@ -237,7 +237,7 @@ class GroupControllerTest extends WebTestCase
             '/api/1/groups'
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonPathCount(5, '*.id', $postResponse);
 
         foreach ($groupIds as $id) {
@@ -264,7 +264,7 @@ class GroupControllerTest extends WebTestCase
             $postData
         );
 
-        Assert::assertResponseCode(400, $this->client);
+        $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Такая группа уже есть', 'children.name.errors.0', $postResponse);
     }
 
@@ -282,7 +282,7 @@ class GroupControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -290,7 +290,7 @@ class GroupControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId
         );
 
-        Assert::assertResponseCode(204, $this->client);
+        $this->assertResponseCode(204);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -298,7 +298,7 @@ class GroupControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId
         );
 
-        Assert::assertResponseCode(404, $this->client);
+        $this->assertResponseCode(404);
     }
 
     public function testDeleteGroupWithCategories()
@@ -318,7 +318,7 @@ class GroupControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId
         );
 
-        Assert::assertResponseCode(409, $this->client);
+        $this->assertResponseCode(409);
     }
 
     public function testGroupWithCategories()
@@ -338,7 +338,7 @@ class GroupControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId
         );
 
-        Assert::assertResponseCode(200, $this->client);
+        $this->assertResponseCode(200);
         Assert::assertJsonPathCount(2, 'categories.*.id', $getResponse);
         Assert::assertJsonPathEquals($categoryId1, 'categories.*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($categoryId2, 'categories.*.id', $getResponse, 1);
@@ -382,7 +382,7 @@ class GroupControllerTest extends WebTestCase
             $requestData
         );
 
-        Assert::assertResponseCode($responseCode, $this->client);
+        $this->assertResponseCode($responseCode);
     }
 
     public function accessGroupProvider()
