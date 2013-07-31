@@ -23,6 +23,7 @@
         <whitelist>
             <directory>../src</directory>
             <exclude>
+                <directory>../src/Lighthouse/CoreBundle/Test</directory>
                 <directory>../src/Lighthouse/CoreBundle/Tests</directory>
             </exclude>
         </whitelist>
