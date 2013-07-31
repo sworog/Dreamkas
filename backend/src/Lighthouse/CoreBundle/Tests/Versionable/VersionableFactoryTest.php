@@ -38,7 +38,7 @@ class VersionableFactoryTest extends ContainerAwareTestCase
         $this->dm->persist($product);
         $this->dm->flush();
 
-        $productVersion = $this->versionFactory->createVersion($product);
+        $productVersion = $this->versionFactory->createDocumentVersion($product);
 
         $version = $productVersion->getVersion();
 

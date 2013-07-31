@@ -29,7 +29,7 @@ class VersionRepository extends DocumentRepository
      */
     public function findOrCreateByDocument($document)
     {
-        $documentVersion = $this->versionFactory->createVersion($document);
+        $documentVersion = $this->versionFactory->createDocumentVersion($document);
         return $this->findByDocumentVersion($documentVersion);
     }
 

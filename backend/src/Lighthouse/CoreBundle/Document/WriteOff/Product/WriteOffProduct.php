@@ -133,7 +133,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonQuantity()
     {
-        return - $this->quantity;
+        return $this->quantity;
     }
 
     /**

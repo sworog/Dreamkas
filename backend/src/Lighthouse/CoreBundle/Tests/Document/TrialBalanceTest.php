@@ -37,6 +37,14 @@ class TrialBalanceTest extends WebTestCase
         return $this->getManagerRegistry()->getManager();
     }
 
+    /**
+     * @return \Lighthouse\CoreBundle\Versionable\VersionFactory
+     */
+    protected function getVersionFactory()
+    {
+        return $this->getContainer()->get('lighthouse.core.versionable.factory');
+    }
+
     public function testConstruct()
     {
         $trialBalance = new TrialBalance();
@@ -145,9 +153,10 @@ class TrialBalanceTest extends WebTestCase
 
         $this->assertCount(0, $startTrialBalance);
 
+        $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
 
         $invoiceProduct = new InvoiceProduct();
-        $invoiceProduct->product = $product;
+        $invoiceProduct->product = $productVersion;
         $invoiceProduct->invoice = $invoice;
         $invoiceProduct->price = new Money(99.99);
         $invoiceProduct->quantity = 9;

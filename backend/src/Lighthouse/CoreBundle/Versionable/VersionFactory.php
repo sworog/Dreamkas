@@ -33,7 +33,7 @@ class VersionFactory
      * @param VersionableInterface $document
      * @return VersionInterface
      */
-    public function createVersion(VersionableInterface $document)
+    public function createDocumentVersion(VersionableInterface $document)
     {
         $classMetadata = $this->getClassMetadata($document);
         $versionableMetadata = $this->getClassVersionable($document);
@@ -52,16 +52,6 @@ class VersionFactory
         $versionable->setVersion($version);
 
         return $versionable;
-    }
-
-    /**
-     * @param VersionableInterface $document
-     * @return string
-     */
-    public function getDocumentVersion(VersionableInterface $document)
-    {
-        $versionable = $this->createVersion($document);
-        return $versionable->getVersion();
     }
 
     /**

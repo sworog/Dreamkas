@@ -33,10 +33,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory $subCategory
  *
  * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Document\Product\ProductRepository",
- *      indexes={
- *          @MongoDB\Index(keys={"sku"="desc"}, options={"unique"=true})
- *      }
+ *      repositoryClass="Lighthouse\CoreBundle\Document\Product\ProductRepository"
  * )
  * @MongoDB\InheritanceType("COLLECTION_PER_CLASS")
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
@@ -105,6 +102,7 @@ class Product extends AbstractDocument implements VersionableInterface
 
     /**
      * @MongoDB\String
+     * @MongoDB\UniqueIndex()
      * @Assert\NotBlank
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      */

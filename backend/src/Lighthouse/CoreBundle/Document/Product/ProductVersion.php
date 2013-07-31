@@ -19,6 +19,12 @@ class ProductVersion extends Product implements VersionInterface
     protected $id;
 
     /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $sku;
+
+    /**
      * @MongoDB\Id(strategy="NONE")
      * @var string
      */
