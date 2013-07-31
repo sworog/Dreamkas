@@ -42,7 +42,7 @@ class VersionableFactoryTest extends ContainerAwareTestCase
 
         $version = $productVersion->getVersion();
 
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Product\\ProductVersion', $productVersion);
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Product\\Version\\ProductVersion', $productVersion);
         $this->assertEquals($product->name, $productVersion->name);
         $this->assertEquals($product->units, $productVersion->units);
         $this->assertEquals($product->barcode, $productVersion->barcode);

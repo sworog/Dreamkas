@@ -193,6 +193,6 @@ class Product extends AbstractDocument implements VersionableInterface
      */
     public function getVersionClass()
     {
-        return 'Lighthouse\\CoreBundle\\Document\\Product\\ProductVersion';
+        return 'Lighthouse\\CoreBundle\\Document\\Product\\Version\\ProductVersion';
     }
 }

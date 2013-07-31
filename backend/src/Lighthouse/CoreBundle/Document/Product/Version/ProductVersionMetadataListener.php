@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Product;
+namespace Lighthouse\CoreBundle\Document\Product\Version;
 
 use Doctrine\ODM\MongoDB\Event\LoadClassMetadataEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -17,7 +17,7 @@ class ProductVersionMetadataListener
     {
         $classMetadata = $eventArgs->getClassMetadata();
         // TODO Dummy workaround to remove product unique index on sku
-        if ('Lighthouse\\CoreBundle\\Document\\Product\\ProductVersion' === $classMetadata->getName()) {
+        if ('Lighthouse\\CoreBundle\\Document\\Product\\Version\\ProductVersion' === $classMetadata->getName()) {
             foreach ($classMetadata->indexes as $i => $index) {
                 if (isset($index['keys']['sku']) && 1 == count($index['keys'])) {
                     unset($classMetadata->indexes[$i]);

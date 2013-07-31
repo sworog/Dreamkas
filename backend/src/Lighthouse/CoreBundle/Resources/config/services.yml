@@ -123,6 +123,6 @@ services:
             parent: doctrine_mongodb.odm.repository
             class: Lighthouse\CoreBundle\Versionable\VersionRepository
             arguments:
-                - LighthouseCoreBundle:Product\ProductVersion
+                - LighthouseCoreBundle:Product\Version\ProductVersion
             calls:
                 - [setVersionFactory, ["@lighthouse.core.versionable.factory"]]
