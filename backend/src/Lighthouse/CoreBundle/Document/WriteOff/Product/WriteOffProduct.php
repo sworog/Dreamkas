@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\WriteOff\Product;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Productable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Types\Money;
@@ -149,5 +150,13 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     public function getReasonPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function increaseAmount()
+    {
+        return false;
     }
 }
