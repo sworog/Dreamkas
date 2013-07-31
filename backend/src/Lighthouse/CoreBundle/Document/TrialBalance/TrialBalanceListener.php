@@ -8,8 +8,8 @@ use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
-use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 
 /**
  * Class TrialBalanceListener
@@ -26,7 +26,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
     /**
      * @DI\Inject("lighthouse.core.document.repository.invoice_product")
-     * @var InvoiceProductRepository
+     * @var \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository
      */
     public $invoiceProductRepository;
 
@@ -100,7 +100,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         }
         $newAcceptanceDate = $changeSet['acceptanceDate'][1];
 
-        /* @var InvoiceProduct[] $invoiceProducts */
+        /* @var \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct[] $invoiceProducts */
         $invoiceProducts = $this->invoiceProductRepository->findByInvoice($invoice->id);
         $trailBalances = $this->trialBalanceRepository->findByReasons($invoiceProducts);
 

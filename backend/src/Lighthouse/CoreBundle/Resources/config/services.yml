@@ -49,9 +49,9 @@ services:
 
     lighthouse.core.document.repository.invoice_product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository
+        class: Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository
         arguments:
-            - LighthouseCoreBundle:InvoiceProduct\InvoiceProduct
+            - LighthouseCoreBundle:Invoice\Product\InvoiceProduct
 
     lighthouse.core.document.repository.trial_balance:
         parent: doctrine_mongodb.odm.repository

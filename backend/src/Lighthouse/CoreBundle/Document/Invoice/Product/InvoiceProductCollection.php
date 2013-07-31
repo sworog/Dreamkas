@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\InvoiceProduct;
+namespace Lighthouse\CoreBundle\Document\Invoice\Product;
 
 use Lighthouse\CoreBundle\Document\AbstractCollection;
 

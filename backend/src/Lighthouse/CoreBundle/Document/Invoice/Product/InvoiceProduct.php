@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\InvoiceProduct;
+namespace Lighthouse\CoreBundle\Document\Invoice\Product;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
@@ -23,7 +23,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property ProductVersion $product
  *
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository"
  * )
  */
 class InvoiceProduct extends AbstractDocument implements Reasonable

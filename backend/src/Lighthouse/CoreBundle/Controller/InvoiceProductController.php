@@ -5,9 +5,9 @@ namespace Lighthouse\CoreBundle\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct;
-use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductCollection;
-use Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Form\InvoiceProductType;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ class InvoiceProductController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.invoice_product")
-     * @var InvoiceProductRepository
+     * @var \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository
      */
     protected $documentRepository;
 
@@ -72,8 +72,8 @@ class InvoiceProductController extends AbstractRestController
 
     /**
      * @param Invoice $invoice
-     * @param InvoiceProduct $invoiceProduct
-     * @return InvoiceProductCollection
+     * @param \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct $invoiceProduct
+     * @return \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */

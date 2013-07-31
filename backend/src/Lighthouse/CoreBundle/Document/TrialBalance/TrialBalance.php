@@ -103,7 +103,7 @@ class TrialBalance extends AbstractDocument
      * @MongoDB\ReferenceOne(
      *      discriminatorField="reasonType",
      *      discriminatorMap={
-     *          "invoiceProduct"="Lighthouse\CoreBundle\Document\InvoiceProduct\InvoiceProduct",
+     *          "invoiceProduct"="Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct",
      *          "purchaseProduct"="Lighthouse\CoreBundle\Document\PurchaseProduct\PurchaseProduct",
      *          "writeOffProduct"="Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct"
      *      }
