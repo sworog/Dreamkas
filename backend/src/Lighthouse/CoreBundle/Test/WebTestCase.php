@@ -447,6 +447,22 @@ class WebTestCase extends ContainerAwareTestCase
         $this->performJsonAssertions($productJson, $assertions);
     }
 
+
+    /**
+     * @param string $productId
+     * @param int $amount
+     * @param float $lastPurchasePrice
+     */
+    protected function assertProductTotals($productId, $amount, $lastPurchasePrice)
+    {
+        $assertions = array(
+            'amount' => $amount,
+            'lastPurchasePrice' => $lastPurchasePrice,
+        );
+
+        $this->assertProduct($productId, $assertions);
+    }
+
     /**
      * @param string $groupId
      * @param string $name

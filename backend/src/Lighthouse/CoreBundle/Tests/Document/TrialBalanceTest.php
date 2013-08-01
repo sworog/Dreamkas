@@ -220,12 +220,13 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
 
         $product = $this->createProduct();
+        $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
 
         $writeOff = new WriteOff();
 
         $writeOffProduct = new WriteOffProduct();
         $writeOffProduct->writeOff = $writeOff;
-        $writeOffProduct->product = $product;
+        $writeOffProduct->product = $productVersion;
         $writeOffProduct->quantity = 3;
         $writeOffProduct->price = new Money(79.99);
         $writeOffProduct->cause = 'Плохой товар';

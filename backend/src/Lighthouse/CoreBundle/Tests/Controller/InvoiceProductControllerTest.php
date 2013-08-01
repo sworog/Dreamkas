@@ -814,21 +814,6 @@ class InvoiceProductControllerTest extends WebTestCase
     }
 
     /**
-     * @param string $productId
-     * @param int $amount
-     * @param float $lastPurchasePrice
-     */
-    protected function assertProductTotals($productId, $amount, $lastPurchasePrice)
-    {
-        $assertions = array(
-            'amount' => $amount,
-            'lastPurchasePrice' => $lastPurchasePrice,
-        );
-
-        $this->assertProduct($productId, $assertions);
-    }
-
-    /**
      * @param string $invoiceId
      * @param string $sumTotal
      * @param int $itemsCount
@@ -1276,7 +1261,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
     }
 
-    public function testTwoProductDataBeforeAndAfterUpdate()
+    public function testTwoProductVersionsInInvoice()
     {
         $this->clearMongoDb();
 
@@ -1303,11 +1288,32 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('кефир_1%', '*.product.sku', $invoiceProductsResponse, 1);
         Assert::assertJsonPathEquals('Кефир 5%', '*.product.name', $invoiceProductsResponse, 1);
         Assert::assertJsonPathEquals('кефир_5%', '*.product.sku', $invoiceProductsResponse, 1);
+    }
+
+    public function testTwoProductVersionsCreated()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $invoiceId = $this->createInvoice();
+        $this->createInvoiceProduct($invoiceId, $productId, 10, 10.12);
+
+        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+
+        $this->createInvoiceProduct($invoiceId, $productId, 10, 10.12);
 
         $productVersionRepository = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
 
         $productVersions = $productVersionRepository->findAllByDocumentId($productId);
 
         $this->assertCount(2, $productVersions);
+
+        $firstProduct = $productVersions->getNext();
+
+        $this->assertEquals('Кефир 5%', $firstProduct->name);
+
+        $secondProduct = $productVersions->getNext();
+
+        $this->assertEquals('Кефир 1%', $secondProduct->name);
     }
 }

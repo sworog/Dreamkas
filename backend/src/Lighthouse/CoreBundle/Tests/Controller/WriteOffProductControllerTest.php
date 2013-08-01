@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Document\User\User;
 
 class WriteOffProductControllerTest extends WebTestCase
 {
@@ -465,10 +466,8 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $writeOffProductId1 = $postResponse['id'];
 
-        Assert::assertJsonPathEquals(5, 'product.amount', $postResponse);
-
-        $this->assertProduct($productId1, array('amount' => 5));
-        $this->assertProduct($productId2, array('amount' => 20));
+        $this->assertProductTotals($productId1, 5, 4.99);
+        $this->assertProductTotals($productId2, 20, 6.99);
 
         // change product 1 write off quantity
 
@@ -489,7 +488,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($writeOffProductId1, 'id', $putResponse);
 
-        Assert::assertJsonPathEquals(3, 'product.amount', $putResponse);
+        //Assert::assertJsonPathEquals(3, 'product.amount', $putResponse);
         $this->assertProduct($productId1, array('amount' => 3));
 
         // write off product 2
@@ -505,11 +504,10 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $putResponse);
-        Assert::assertJsonPathEquals(16, 'product.amount', $putResponse);
 
         $writeOffProductId2 = $putResponse['id'];
 
-        $this->assertProduct($productId2, array('amount' => 16));
+        $this->assertProductTotals($productId2, 16, 6.99);
 
         // Change product id
 
@@ -529,10 +527,9 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($productId1, 'product.id', $putResponse);
-        Assert::assertJsonPathEquals(-1, 'product.amount', $putResponse);
 
-        $this->assertProduct($productId1, array('amount' => -1));
-        $this->assertProduct($productId2, array('amount' => 20));
+        $this->assertProductTotals($productId1, -1, 4.99);
+        $this->assertProductTotals($productId2, 20, 6.99);
 
         // remove 2nd write off
         $request = new JsonRequest('/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2, 'DELETE');
@@ -540,8 +537,8 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->assertProduct($productId1, array('amount' => 3));
-        $this->assertProduct($productId2, array('amount' => 20));
+        $this->assertProductTotals($productId1, 3, 4.99);
+        $this->assertProductTotals($productId2, 20, 6.99);
 
         // remove 1st write off
         $request = new JsonRequest('/api/1/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1, 'DELETE');
@@ -549,8 +546,8 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->assertProduct($productId1, array('amount' => 10));
-        $this->assertProduct($productId2, array('amount' => 20));
+        $this->assertProductTotals($productId1, 10, 4.99);
+        $this->assertProductTotals($productId2, 20, 6.99);
     }
 
     public function testGetWriteOffProductsAction()
@@ -626,5 +623,90 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(0, '*.id', $response);
+    }
+
+    public function testProductDataDoesNotChangeInWriteOffAfterProductUpdate()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $writeOffId = $this->createWriteOff();
+        $this->createWriteOffProduct($writeOffId, $productId);
+
+        $accessToken = $this->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+
+        $writeoffProducts = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('Кефир 1%', '*.product.name', $writeoffProducts, 1);
+        Assert::assertJsonPathEquals('кефир_1%', '*.product.sku', $writeoffProducts, 1);
+
+        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+
+        $writeoffProducts = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('Кефир 1%', '*.product.name', $writeoffProducts, 1);
+        Assert::assertJsonPathEquals('кефир_1%', '*.product.sku', $writeoffProducts, 1);
+
+        $this->assertProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+    }
+
+    public function testTwoProductVersionsInWriteoff()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $writeOffId = $this->createWriteOff();
+        $this->createWriteOffProduct($writeOffId, $productId);
+
+        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+
+        $this->createWriteOffProduct($writeOffId, $productId);
+
+        $accessToken = $this->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $writeOffProductsResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/writeoffs/' . $writeOffId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $writeOffProductsResponse);
+        Assert::assertJsonPathEquals($productId, '*.product.id', $writeOffProductsResponse, 2);
+        Assert::assertJsonPathEquals('Кефир 1%', '*.product.name', $writeOffProductsResponse, 1);
+        Assert::assertJsonPathEquals('кефир_1%', '*.product.sku', $writeOffProductsResponse, 1);
+        Assert::assertJsonPathEquals('Кефир 5%', '*.product.name', $writeOffProductsResponse, 1);
+        Assert::assertJsonPathEquals('кефир_5%', '*.product.sku', $writeOffProductsResponse, 1);
+    }
+
+    public function testTwoProductVersionsCreated()
+    {
+        $this->clearMongoDb();
+
+        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $writeOffId = $this->createWriteOff();
+        $this->createWriteOffProduct($writeOffId, $productId);
+
+        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+
+        $this->createWriteOffProduct($writeOffId, $productId);
+
+        $productVersionRepository = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+
+        $this->assertCount(2, $productVersions);
     }
 }

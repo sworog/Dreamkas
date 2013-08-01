@@ -6,9 +6,11 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Productable;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Versionable\VersionableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 
@@ -22,7 +24,7 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  * @property Money      $totalPrice
  * @property \DateTime  $createdDate
  * @property string     $cause
- * @property Product    $product
+ * @property ProductVersion    $product
  * @property WriteOff   $writeOff
  */
 class WriteOffProduct extends AbstractDocument implements Reasonable
@@ -75,11 +77,11 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,
      *     cascade="persist"
      * )
-     * @var Product
+     * @var ProductVersion
      */
     protected $product;
 
@@ -141,7 +143,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonProduct()
     {
-        return $this->product;
+        return $this->product->getObject();
     }
 
     /**
