@@ -1,7 +1,6 @@
 Meta:
 @sprint 15
 @us 25
-@test
 
 Narrative:
 As заведующим отделом,
