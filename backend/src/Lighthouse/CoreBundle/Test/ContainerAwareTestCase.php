@@ -15,6 +15,11 @@ class ContainerAwareTestCase extends WebTestCase
      */
     protected static $appDebug = false;
 
+    public static function setUpBeforeClass()
+    {
+        self::$appDebug = (boolean) getenv('SYMFONY_DEBUG') ?: false;
+    }
+
     /**
      * @return AppKernel
      */
