@@ -14,10 +14,10 @@ use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceCollection;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
-class TrialBalanceTest extends WebTestCase
+class TrialBalanceTest extends ContainerAwareTestCase
 {
     /**
      * @return ManagerRegistry
@@ -121,27 +121,12 @@ class TrialBalanceTest extends WebTestCase
             'supplierInvoiceDate' => '17.03.2013',
         );
 
-        $productData = array(
-            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
-            'units' => 'gr',
-            'barcode' => '4607025392408',
-            'purchasePrice' => new Money(30.48),
-            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
-            'vat' => 10,
-            'vendor' => 'Вимм-Билль-Данн',
-            'vendorCountry' => 'Россия',
-            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
-        );
-
-        $manager = $this->getManager();
-
-        $product = new Product();
-        $product->populate($productData);
+        $product = $this->createProduct();
 
         $invoice = new Invoice();
         $invoice->populate($invoiceData);
 
-        $manager->persist($product);
+        $manager = $this->getManager();
         $manager->persist($invoice);
         $manager->flush();
 
@@ -204,8 +189,7 @@ class TrialBalanceTest extends WebTestCase
         /** @var \Lighthouse\CoreBundle\Document\Product\ProductRepository $productRepository */
         $productRepository = $this->getContainer()->get('lighthouse.core.document.repository.product');
 
-        $productId = $this->createProduct();
-        $product = $productRepository->findOneBy(array('id' => $productId));
+        $product = $this->createProduct();
 
         $purchase = new Purchase();
 
@@ -234,10 +218,8 @@ class TrialBalanceTest extends WebTestCase
 
         $manager = $this->getManager();
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
-        $productRepository = $this->getContainer()->get('lighthouse.core.document.repository.product');
 
-        $productId = $this->createProduct();
-        $product = $productRepository->findOneBy(array('id' => $productId));
+        $product = $this->createProduct();
 
         $writeOff = new WriteOff();
 
@@ -277,5 +259,32 @@ class TrialBalanceTest extends WebTestCase
 
         $afterDeleteTrialBalance = $trialBalanceRepository->findOneByProduct($product);
         $this->assertTrue(null === $afterDeleteTrialBalance);
+    }
+
+    /**
+     * @return Product
+     */
+    protected function createProduct()
+    {
+        $productData = array(
+            'name' => 'Кефир "Веселый Молочник" 1% 950гр',
+            'units' => 'gr',
+            'barcode' => '4607025392408',
+            'purchasePrice' => new Money(30.48),
+            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
+            'vat' => 10,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
+        );
+
+        $product = new Product();
+        $product->populate($productData);
+
+        $manager = $this->getManager();
+        $manager->persist($product);
+        $manager->flush();
+
+        return $product;
     }
 }
