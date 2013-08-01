@@ -22,9 +22,9 @@ Then the user checks the stored input values
 When the user logs out
 Given the user navigates to the write off with number 'WriteOff-DI-Test'
 And the user logs in as 'departmentManager'
-Then the user checks the write off product with 'WriteOff-DI-Test edited' sku is not present
+Then the user checks the write off product with 'WriteOff-DI-Test sku edited' sku is not present
 And the user checks the product with 'WriteOff-DI-Test' sku has elements on the write off page
 | elementName | value |
-| productName | WriteOff-DI-Test |
-| productBarcode | WriteOff-DI-Test |
-| productSku | WriteOff-DI-Test |
+| writeOff product name review | WriteOff-DI-Test |
+| writeOff product barCode review | WriteOff-DI-Test |
+| writeOff product sku review | WriteOff-DI-Test |
