@@ -33,6 +33,10 @@ public class TeamCityStepListener implements StepListener {
 
     private Stack<String> suiteStack = new Stack<String>();
 
+    private String description;
+    private Integer examplesTestCount = 0;
+    private HashMap<Integer, String> exampleTestNames = new HashMap<>();
+
     public TeamCityStepListener(Logger logger) {
         this.logger = logger;
     }
@@ -83,42 +87,64 @@ public class TeamCityStepListener implements StepListener {
     public void testSuiteStarted(Story story) {
         String storyName = story.getName();
         suiteStack.push(storyName);
-        printMessage("testSuiteStarted", storyName);
+        printTestSuiteStarted(storyName);
     }
 
     @Override
     public void testSuiteFinished() {
         String suiteName = suiteStack.pop();
-        printMessage("testSuiteFinished", suiteName);
+        printTestSuiteFinished(suiteName);
     }
 
     @Override
     public void testStarted(String description) {
-        printMessage("testStarted", description);
+        printTestStarted(description);
+        this.description = description;
     }
 
     @Override
     public void testFinished(TestOutcome result) {
-        if (result.isFailure() || result.isError()) {
+        if (result.isDataDriven() && (result.isFailure() || result.isError())) {
+            printExampleResults(result);
+        } else if (!result.isDataDriven() && (result.isFailure() || result.isError())) {
             printFailure(result);
-        } else if (result.isSkipped()) {
-            printSkipped(result);
-        } else if (result.isPending()) {
-            printPending(result);
+            printTestFinished(result);
+        } else if (result.isSkipped() || result.isPending()) {
+            printTestIgnored(result);
+            printTestFinished(result);
         }
-        printMessage("testFinished", result.getTitle());
     }
 
     private void printFailure(TestOutcome result) {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("name", result.getTitle());
         properties.put("message", result.getTestFailureCause().getMessage());
-        properties.put("details", getStepsInfo(result));
+        properties.put("details", getStepsInfo(result.getTestSteps()));
         printMessage("testFailed", properties);
     }
 
-    public String getStepsInfo(TestOutcome result) {
+    private void printExampleResults(TestOutcome result) {
         List<TestStep> testSteps = result.getTestSteps();
+        for (int i = 0; i < testSteps.size(); i++) {
+            if (!testSteps.get(i).getChildren().isEmpty()) {
+                List<TestStep> childrenTestSteps = result.getTestSteps().get(i).getChildren();
+                String testName = exampleTestNames.get(i - 1);
+                printMessage("testStarted", testName);
+                if (hasFailureStep(childrenTestSteps)) {
+                    String getStepsInfo = getStepsInfo(childrenTestSteps);
+                    HashMap<String, String> properties = new HashMap<String, String>();
+                    properties.put("name", testName);
+                    properties.put("details", getStepsInfo);
+                    printMessage("testFailed", properties);
+                }
+                printMessage("testFinished", testName);
+            }
+        }
+        examplesTestCount = 0;
+        exampleTestNames.clear();
+    }
+
+    private String getStepsInfo(List<TestStep> testSteps) {
         StringBuilder builder = new StringBuilder("Steps:\r\n");
         for (int i = 0; i < testSteps.size(); i++) {
             String stepMessage = String.format("%s (%s) -> %s\r\n", testSteps.get(i).getDescription(), testSteps.get(i).getDurationInSeconds(), getResultMessage(testSteps.get(i)));
@@ -127,7 +153,16 @@ public class TeamCityStepListener implements StepListener {
         return builder.append("\r\n").toString();
     }
 
-    public String getResultMessage(TestStep testStep) {
+    private Boolean hasFailureStep(List<TestStep> testSteps) {
+        for (int i = 0; i < testSteps.size(); i++) {
+            if (testSteps.get(i).isError() || testSteps.get(i).isFailure()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String getResultMessage(TestStep testStep) {
         StringBuilder builder = new StringBuilder();
         builder.append(testStep.getResult().toString());
         if (testStep.isFailure() || testStep.isError()) {
@@ -138,12 +173,24 @@ public class TeamCityStepListener implements StepListener {
         return builder.toString();
     }
 
-    private void printPending(TestOutcome result) {
-        printMessage("testPending", result.getTitle());
+    private void printTestStarted(String name) {
+        printMessage("testStarted", name);
     }
 
-    private void printSkipped(TestOutcome result) {
-        printMessage("testSkipped", result.getTitle());
+    private void printTestIgnored(TestOutcome result) {
+        printMessage("testIgnored", result.getTitle());
+    }
+
+    private void printTestFinished(TestOutcome result) {
+        printMessage("testFinished", result.getTitle());
+    }
+
+    private void printTestSuiteFinished(String name) {
+        printMessage("testSuiteFinished", name);
+    }
+
+    private void printTestSuiteStarted(String name) {
+        printMessage("testSuiteStarted", name);
     }
 
     @Override
@@ -206,12 +253,15 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void useExamplesFrom(DataTable table) {
+        //TODO run examples test in test suite
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void exampleStarted(Map<String, String> data) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        String testName = String.format("%s - %s", description, data.toString());
+        exampleTestNames.put(examplesTestCount, testName);
+        examplesTestCount++;
     }
 
     @Override
