@@ -98,19 +98,20 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void testStarted(String description) {
-        printTestStarted(description);
         this.description = description;
     }
 
     @Override
     public void testFinished(TestOutcome result) {
-        if (result.isDataDriven() && (result.isFailure() || result.isError())) {
+        if (result.isDataDriven()) {
             printExampleResults(result);
-        } else if (!result.isDataDriven() && (result.isFailure() || result.isError())) {
-            printFailure(result);
-            printTestFinished(result);
-        } else if (result.isSkipped() || result.isPending()) {
-            printTestIgnored(result);
+        } else if (!result.isDataDriven()) {
+            printTestStarted(result);
+            if (result.isFailure() || result.isError()) {
+                printFailure(result);
+            } else if (result.isSkipped() || result.isPending()) {
+                printTestIgnored(result);
+            }
             printTestFinished(result);
         }
     }
@@ -129,7 +130,7 @@ public class TeamCityStepListener implements StepListener {
             if (!testSteps.get(i).getChildren().isEmpty()) {
                 List<TestStep> childrenTestSteps = result.getTestSteps().get(i).getChildren();
                 String testName = exampleTestNames.get(i - 1);
-                printMessage("testStarted", testName);
+                printTestStarted(testName);
                 if (hasFailureStep(childrenTestSteps)) {
                     String getStepsInfo = getStepsInfo(childrenTestSteps);
                     HashMap<String, String> properties = new HashMap<String, String>();
@@ -175,6 +176,10 @@ public class TeamCityStepListener implements StepListener {
 
     private void printTestStarted(String name) {
         printMessage("testStarted", name);
+    }
+
+    private void printTestStarted(TestOutcome result) {
+        printMessage("testStarted", result.getTitle());
     }
 
     private void printTestIgnored(TestOutcome result) {
