@@ -1,7 +1,6 @@
 Meta:
 @sprint 15
 @us 27
-@test
 
 Scenario: group - mark up validation good
 

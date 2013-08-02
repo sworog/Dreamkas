@@ -1,7 +1,6 @@
 Meta:
 @sprint 15
 @us 27
-@test
 
 Scenario: Category - mark up validation good
 
