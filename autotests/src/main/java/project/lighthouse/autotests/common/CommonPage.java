@@ -112,17 +112,21 @@ public class CommonPage extends PageObject {
     public void checkErrorMessages(ExamplesTable errorMessageTable) {
         for (Map<String, String> row : errorMessageTable.getRows()) {
             String expectedErrorMessage = row.get("error message");
-            String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
-            if (!isPresent(xpath)) {
-                String errorXpath = "//*[@lh_field_error]";
-                String errorMessage;
-                if (isPresent(errorXpath)) {
-                    errorMessage = getErrorMessages(errorXpath);
-                } else {
-                    errorMessage = "There are no error field validation messages on the page!";
-                }
-                throw new AssertionError(errorMessage);
+            checkErrorMessage(expectedErrorMessage);
+        }
+    }
+
+    public void checkErrorMessage(String expectedErrorMessage) {
+        String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
+        if (!isPresent(xpath)) {
+            String errorXpath = "//*[@lh_field_error]";
+            String errorMessage;
+            if (isPresent(errorXpath)) {
+                errorMessage = getErrorMessages(errorXpath);
+            } else {
+                errorMessage = "There are no error field validation messages on the page!";
             }
+            throw new AssertionError(errorMessage);
         }
     }
 

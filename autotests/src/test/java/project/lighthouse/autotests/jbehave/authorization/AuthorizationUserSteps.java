@@ -14,6 +14,11 @@ public class AuthorizationUserSteps {
         authorizationSteps.beforeScenario();
     }
 
+    @BeforeScenario(uponType = ScenarioType.EXAMPLE)
+    public void beforeExample() {
+        beforeScenario();
+    }
+
     @Given("the user logs in as '$userName'")
     @Alias("the user logs in as <userName>")
     public void givenTheUSerLogsInAsUserName(String userName) {

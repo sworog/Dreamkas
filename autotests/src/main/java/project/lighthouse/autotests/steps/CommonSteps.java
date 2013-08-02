@@ -25,6 +25,11 @@ public class CommonSteps extends ScenarioSteps {
     }
 
     @Step
+    public void checkErrorMessage(String message) {
+        commonPage.checkErrorMessage(message);
+    }
+
+    @Step
     public void checkNoErrorMessages() {
         commonPage.checkNoErrorMessages();
     }

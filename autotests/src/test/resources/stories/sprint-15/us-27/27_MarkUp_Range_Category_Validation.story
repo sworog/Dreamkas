@@ -1,116 +1,55 @@
 Meta:
 @sprint 15
 @us 27
+@test
 
-Scenario: category mark up properties validation - min mark up validation good
+Scenario: Category - mark up validation good
 
-Given the user validates 'min' mark up with '1' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees success message 'Свойства успешно сохранены' and logs out
+Given there is the category with name 'CategoryMarkUp-valid' related to group named 'GroupMarkUp-valid'
+And the user navigates to the category with name 'CategoryMarkUp-valid' related to group named 'GroupMarkUp-valid'
+And the user logs in as 'commercialManager'
+When the user clicks on start edition link and starts the edition
+And the user switches to 'category' properties tab
+And the user sets <markUpType> with <value>
+And the user clicks save mark up button
+Then the user sees success message 'Свойства успешно сохранены'
+When the user logs out
 
-Scenario: category mark up properties validation - min mark up validation eng small register
+Examples:
+| markUpType | value |
+| min | 1 |
+| max | 1 |
 
-Given the user validates 'min' mark up with 'abc' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
+Scenario: Category - mark up validation negative
 
-Scenario: category mark up properties validation - min mark up validation eng big register
+Given there is the category with name 'CategoryMarkUp-valid' related to group named 'GroupMarkUp-valid'
+And the user navigates to the category with name 'CategoryMarkUp-valid' related to group named 'GroupMarkUp-valid'
+And the user logs in as 'commercialManager'
+When the user clicks on start edition link and starts the edition
+And the user switches to 'category' properties tab
+And the user sets <markUpType> with <value>
+And the user clicks save mark up button
+Then the user user sees <errorMessage>
+When the user logs out
 
-Given the user validates 'min' mark up with 'ABC' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
+Examples:
+| markUpType | value | errorMessage |
+| min | abc | Значение должно быть числом |
+| min | ABC | Значение должно быть числом |
+| min | абв | Значение должно быть числом |
+| min | АБВ | Значение должно быть числом |
+| min | !"№;%:?*() | Значение должно быть числом |
+| min | -0.01 | Значение должно быть больше или равно 0 |
+| min | -1 | Значение должно быть больше или равно 0 |
+| max | abc | Значение должно быть числом |
+| max | ABC | Значение должно быть числом |
+| max | абв | Значение должно быть числом |
+| max | АБВ | Значение должно быть числом |
+| max | !"№;%:?*() | Значение должно быть числом |
+| max | -0.01 | Значение должно быть больше или равно 0 |
+| max | -1 | Значение должно быть больше или равно 0 |
 
-Scenario: category mark up properties validation - min mark up validation rus small register
-
-Given the user validates 'min' mark up with 'абв' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: category mark up properties validation - min mark up validation rus big register
-
-Given the user validates 'min' mark up with 'АБВ' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: category mark up properties validation - min mark up validation symbols
-
-Given the user validates 'min' mark up with '!"№;%:?*()' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: category mark up properties validation - min mark up validation - Boundary-value analysis -0.01
-
-Given the user validates 'min' mark up with '-0.01' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть больше или равно 0 |
-
-Scenario: category mark up properties validation - min mark up validation - Boundary-value analysis -1
-
-Given the user validates 'min' mark up with '-1' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть больше или равно 0 |
-
-Scenario: category mark up properties validation - max mark up validation good
-
-Given the user validates 'max' mark up with '1' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees success message 'Свойства успешно сохранены' and logs out
-
-Scenario: category mark up properties validation - max mark up validation eng small register
-
-Given the user validates 'max' mark up with 'abc' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: category mark up properties validation - max mark up validation eng big register
-
-Given the user validates 'max' mark up with 'ABC' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: category mark up properties validation - max mark up validation rus small register
-
-Given the user validates 'max' mark up with 'абв' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: category mark up properties validation - max mark up validation rus big register
-
-Given the user validates 'max' mark up with 'АБВ' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: category mark up properties validation - max mark up validation symbols
-
-Given the user validates 'max' mark up with '!"№;%:?*()' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: category mark up properties validation - max mark up validation - Boundary-value analysis -0.01
-
-Given the user validates 'max' mark up with '-0.01' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть больше или равно 0 |
-
-Scenario: category mark up properties validation - max mark up validation - Boundary-value analysis -1
-
-Given the user validates 'max' mark up with '-1' value of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть больше или равно 0 |
-
-Scenario: category mark up properties validation - min mark up cant be more than max mark up
+Scenario: Category - min mark up cant be more than max mark up
 
 Given there is the category with name 'CategoryMarkUp-valid' related to group named 'GroupMarkUp-valid'
 And the user navigates to the category with name 'CategoryMarkUp-valid' related to group named 'GroupMarkUp-valid'

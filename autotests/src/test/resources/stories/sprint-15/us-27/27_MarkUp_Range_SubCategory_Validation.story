@@ -1,116 +1,55 @@
 Meta:
 @sprint 15
 @us 27
+@test
 
-Scenario: subCategory mark up properties validation - min mark up validation good
+Scenario: SubCategory - mark up validation good
 
-Given the user validates 'min' mark up with '1' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees success message 'Свойства успешно сохранены' and logs out
+Given there is the subCategory with name 'subCategoryMarkUp-valid' related to group named 'GroupMarkUp-valid' and category named 'CategoryMarkUp-valid'
+And the user navigates to the subCategory 'subCategoryMarkUp-valid', category 'CategoryMarkUp-valid', group 'GroupMarkUp-valid' product list page
+And the user logs in as 'commercialManager'
+When the user clicks on start edition link and starts the edition
+And the user switches to 'subCategory' properties tab
+And the user sets <markUpType> with <value>
+And the user clicks save mark up button
+Then the user sees success message 'Свойства успешно сохранены'
+When the user logs out
 
-Scenario: subCategory mark up properties validation - min mark up validation eng small register
+Examples:
+| markUpType | value |
+| min | 1 |
+| max | 1 |
 
-Given the user validates 'min' mark up with 'abc' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
+Scenario: SubCategory - mark up validation
 
-Scenario: subCategory mark up properties validation - min mark up validation eng big register
+Given there is the subCategory with name 'subCategoryMarkUp-valid' related to group named 'GroupMarkUp-valid' and category named 'CategoryMarkUp-valid'
+And the user navigates to the subCategory 'subCategoryMarkUp-valid', category 'CategoryMarkUp-valid', group 'GroupMarkUp-valid' product list page
+And the user logs in as 'commercialManager'
+When the user clicks on start edition link and starts the edition
+And the user switches to 'subCategory' properties tab
+And the user sets <markUpType> with <value>
+And the user clicks save mark up button
+Then the user user sees <errorMessage>
+When the user logs out
 
-Given the user validates 'min' mark up with 'ABC' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
+Examples:
+| markUpType | value | errorMessage |
+| min | abc | Значение должно быть числом |
+| min | ABC | Значение должно быть числом |
+| min | абв | Значение должно быть числом |
+| min | АБВ | Значение должно быть числом |
+| min | !"№;%:?*() | Значение должно быть числом |
+| min | -0.01 | Значение должно быть больше или равно 0 |
+| min | -1 | Значение должно быть больше или равно 0 |
+| max | abc | Значение должно быть числом |
+| max | ABC | Значение должно быть числом |
+| max | абв | Значение должно быть числом |
+| max | АБВ | Значение должно быть числом |
+| max | !"№;%:?*() | Значение должно быть числом |
+| max | -0.01 | Значение должно быть больше или равно 0 |
+| max | -1 | Значение должно быть больше или равно 0 |
 
-Scenario: subCategory mark up properties validation - min mark up validation rus small register
-
-Given the user validates 'min' mark up with 'абв' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: subCategory mark up properties validation - min mark up validation rus big register
-
-Given the user validates 'min' mark up with 'АБВ' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: subCategory mark up properties validation - min mark up validation symbols
-
-Given the user validates 'min' mark up with '!"№;%:?*()' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: subCategory mark up properties validation - min mark up validation - Boundary-value analysis -0.01
-
-Given the user validates 'min' mark up with '-0.01' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть больше или равно 0 |
-
-Scenario: subCategory mark up properties validation - min mark up validation - Boundary-value analysis -1
-
-Given the user validates 'min' mark up with '-1' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть больше или равно 0 |
-
-Scenario: subCategory mark up properties validation - max mark up validation good
-
-Given the user validates 'max' mark up with '1' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees success message 'Свойства успешно сохранены' and logs out
-
-Scenario: subCategory mark up properties validation - max mark up validation eng small register
-
-Given the user validates 'max' mark up with 'abc' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: subCategory mark up properties validation - max mark up validation eng big register
-
-Given the user validates 'max' mark up with 'ABC' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: subCategory mark up properties validation - max mark up validation rus small register
-
-Given the user validates 'max' mark up with 'абв' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: subCategory mark up properties validation - max mark up validation rus big register
-
-Given the user validates 'max' mark up with 'АБВ' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: subCategory mark up properties validation - max mark up validation symbols
-
-Given the user validates 'max' mark up with 'Ё!"№;%:?*()_' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть числом |
-
-Scenario: subCategory mark up properties validation - max mark up validation - Boundary-value analysis -0.01
-
-Given the user validates 'max' mark up with '-0.01' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть больше или равно 0 |
-
-Scenario: subCategory mark up properties validation - max mark up validation - Boundary-value analysis -1
-
-Given the user validates 'max' mark up with '-1' value of subCategory with name 'subCategoryMarkUp-valid' of category with name 'CategoryMarkUp-valid' of group with name 'GroupMarkUp-valid'
-Then the user sees error message and logs out
-| error message|
-| Значение должно быть больше или равно 0 |
-
-Scenario: subCategory mark up properties validation - min mark up cant be more than max mark up
+Scenario: SubCategory - min mark up cant be more than max mark up
 
 Given there is the subCategory with name 'subCategoryMarkUp-valid' related to group named 'GroupMarkUp-valid' and category named 'CategoryMarkUp-valid'
 And the user navigates to the subCategory 'subCategoryMarkUp-valid', category 'CategoryMarkUp-valid', group 'GroupMarkUp-valid' product list page

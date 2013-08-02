@@ -5,7 +5,6 @@ import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
-import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
 import project.lighthouse.autotests.steps.CommonSteps;
@@ -305,37 +304,8 @@ public class CatalogUserSteps {
         catalogSteps.checkSuccessMessage(expectedMessage);
     }
 
-    @Given("the user validates min mark up with '$value' value of the group with name '$groupName'")
-    public void givenTheUserValidatesMinMarkUpValueWithValueOfTheGroup(String value, String groupName) throws IOException, JSONException {
-        givenThereIsTheGroupWithName(groupName);
-        givenTheUserNavigatesToTheGroup(groupName);
-        authorizationSteps.authorization("commercialManager");
-        whenTheUserStartsTheEdition();
-        whenTheUserSwitchesToPropertiesTab("group");
-        whenTheUserSetsMinMarkUpValue(value);
-        whenTheUserSetsMaxMarkUpValue("");
-        whenTheUserClicksSaveMarkUpButton();
-    }
-
-    @Given("the user validates max mark up with '$value' value of the group with name '$groupName'")
-    public void givenTheUserValidatesMaxMarkUpValueWithValueOfTheGroup(String value, String groupName) throws IOException, JSONException {
-        givenThereIsTheGroupWithName(groupName);
-        givenTheUserNavigatesToTheGroup(groupName);
-        authorizationSteps.authorization("commercialManager");
-        whenTheUserStartsTheEdition();
-        whenTheUserSwitchesToPropertiesTab("group");
-        whenTheUserSetsMinMarkUpValue("");
-        whenTheUserSetsMaxMarkUpValue(value);
-        whenTheUserClicksSaveMarkUpButton();
-    }
-
-    @Given("the user validates '$markUpType' mark up with '$value' value of category with name '$categoryName' of group with name '$groupName'")
-    public void GivenTheUserValidatesMarkupOfTheCategory(String markUpType, String value, String categoryName, String groupName) throws IOException, JSONException {
-        givenThereIsTheCategoryWithNameRelatedToGroup(categoryName, groupName);
-        givenTheUserNavigatesToTheCategoryPage(categoryName, groupName);
-        authorizationSteps.authorization("commercialManager");
-        whenTheUserStartsTheEdition();
-        whenTheUserSwitchesToPropertiesTab("category");
+    @When("the user sets <markUpType> with <value>")
+    public void setMarkUpValue(String markUpType, String value) {
         switch (markUpType) {
             case "max":
                 validateMaxMarkUpValue(value);
@@ -348,29 +318,6 @@ public class CatalogUserSteps {
                         String.format("No such value '%s'", markUpType)
                 );
         }
-        whenTheUserClicksSaveMarkUpButton();
-    }
-
-    @Given("the user validates '$markUpType' mark up with '$value' value of subCategory with name '$subCategory' of category with name '$categoryName' of group with name '$groupName'")
-    public void GivenTheUserValidatesMarkupOfTheSubCategory(String markUpType, String value, String subCategory, String categoryName, String groupName) throws IOException, JSONException {
-        givenThereIsTheSubCategory(groupName, categoryName, subCategory);
-        navigateToSubCategoryProductListPageUrl(subCategory, categoryName, groupName);
-        authorizationSteps.authorization("commercialManager");
-        whenTheUserStartsTheEdition();
-        whenTheUserSwitchesToPropertiesTab("subCategory");
-        switch (markUpType) {
-            case "max":
-                validateMaxMarkUpValue(value);
-                break;
-            case "min":
-                validateMinMarkUpValue(value);
-                break;
-            default:
-                throw new AssertionError(
-                        String.format("No such value '%s'", markUpType)
-                );
-        }
-        whenTheUserClicksSaveMarkUpButton();
     }
 
     public void validateMaxMarkUpValue(String value) {
@@ -383,20 +330,8 @@ public class CatalogUserSteps {
         whenTheUserSetsMaxMarkUpValue("");
     }
 
-    @Then("the user sees success message '$succesMessage' and logs out")
-    public void thenTheUSerSeesSuccessMessageAndLogsOut(String succesMessage) {
-        thenTheUserSeesSuccessMessage(succesMessage);
-        endTheEditionAndLogsOut();
-    }
-
-    @Then("the user sees error message and logs out $errorMessageTable")
-    public void thenTheUserSeesErrorMessageAndLogsOut(ExamplesTable errorMessageTable) {
-        commonSteps.checkErrorMessages(errorMessageTable);
-        endTheEditionAndLogsOut();
-    }
-
-    public void endTheEditionAndLogsOut() {
-        whenTheUserEndsTheEdition();
-        authorizationSteps.logOut();
+    @Then("the user user sees <errorMessage>")
+    public void thenTheUserSeesErrorMessage(String errorMessage) {
+        commonSteps.checkErrorMessage(errorMessage);
     }
 }
