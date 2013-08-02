@@ -69,6 +69,7 @@ public class ProductUserSteps {
     }
 
     @When("the user inputs '$inputText' in '$elementName' field")
+    @Alias("the user inputs <inputText> in <elementName> field")
     public void whenTheUserInputsTextInTheField(String inputText, String elementName) {
         productSteps.fieldInput(elementName, inputText);
     }
@@ -120,6 +121,7 @@ public class ProductUserSteps {
     }
 
     @When("the user generates charData with '$charNumber' number in the '$elementName' field")
+    @Alias("the user generates charData with <charNumber> number in the <elementName> field")
     public void whenTheUserGeneratesCharData(String elementName, int charNumber) {
         productSteps.generateTestCharData(elementName, charNumber);
     }
@@ -131,6 +133,7 @@ public class ProductUserSteps {
     }
 
     @Then("the user checks the '$elementName' value is '$expectedValue'")
+    @Alias("the user checks the <elementName> value is <expectedValue>")
     public void thenTheUserChecksValue(String elementName, String expectedValue) {
         productSteps.checkCardValue(elementName, expectedValue);
     }
@@ -160,9 +163,10 @@ public class ProductUserSteps {
         productSteps.checkDropDownDefaultValue(dropDownType, expectedValue);
     }
 
-    @Then("the user checks '$elementName' field contains only '$fieldLength' symbols")
-    public void thenTheUserChecksNameFieldContainsOnlyExactSymbols(String elementName, int fieldLength) {
-        productSteps.checkFieldLength(elementName, fieldLength);
+    @Then("the user checks '$elementName' field contains only '$charNumber' symbols")
+    @Alias("the user checks <elementName> field contains only <charNumber> symbols")
+    public void thenTheUserChecksNameFieldContainsOnlyExactSymbols(String elementName, int charNumber) {
+        productSteps.checkFieldLength(elementName, charNumber);
     }
 
     @Then("the user checks '$elementName' '$action' avalaible")
