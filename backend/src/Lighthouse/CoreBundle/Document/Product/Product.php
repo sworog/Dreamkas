@@ -26,8 +26,10 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $vendor
  * @property string $info
  * @property int    $amount
- * @property Money  $retailPrice
- * @property float  $retailMarkup
+ * @property Money  $retailPriceMin
+ * @property Money  $retailPriceMax
+ * @property float  $retailMarkupMin
+ * @property float  $retailMarkupMax
  * @property string $retailPricePreference
  * @property Money  $averagePurchasePrice
  * @property \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory $subCategory
@@ -137,13 +139,25 @@ class Product extends AbstractDocument implements VersionableInterface
      * @MongoDB\Field(type="money")
      * @var Money
      */
-    protected $retailPrice;
+    protected $retailPriceMin;
+
+    /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $retailPriceMax;
 
     /**
      * @MongoDB\Float
      * @var float
      */
-    protected $retailMarkup;
+    protected $retailMarkupMin;
+
+    /**
+     * @MongoDB\Float
+     * @var float
+     */
+    protected $retailMarkupMax;
 
     /**
      * @MongoDB\String
@@ -171,21 +185,46 @@ class Product extends AbstractDocument implements VersionableInterface
     {
         switch ($this->retailPricePreference) {
             case self::RETAIL_PRICE_PREFERENCE_PRICE:
-                if (null !== $this->retailPrice && !$this->retailPrice->isEmpty()) {
-                    $markup = (($this->retailPrice->getCount() / $this->purchasePrice->getCount()) * 100) - 100;
-                    $this->retailMarkup = RoundService::round($markup, 2);
-                }
+                $this->retailMarkupMin = $this->calcMarkup($this->retailPriceMin, $this->purchasePrice);
+                $this->retailMarkupMax = $this->calcMarkup($this->retailPriceMax, $this->purchasePrice);
                 break;
             case self::RETAIL_PRICE_PREFERENCE_MARKUP:
             default:
-                if (null !== $this->retailMarkup && '' !== $this->retailMarkup) {
-                    $percent = 1 + ($this->retailMarkup / 100);
-                    $this->retailPrice = new Money();
-                    $this->retailPrice->setCountByQuantity($this->purchasePrice, $percent, true);
-                }
+                $this->retailPriceMin = $this->calcRetailPrice($this->retailMarkupMin, $this->purchasePrice);
+                $this->retailPriceMax = $this->calcRetailPrice($this->retailMarkupMax, $this->purchasePrice);
                 $this->retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
                 break;
         }
+    }
+
+    /**
+     * @param Money $retailPrice
+     * @param Money $purchasePrice
+     * @return float|null
+     */
+    protected function calcMarkup(Money $retailPrice = null, Money $purchasePrice)
+    {
+        $roundedMarkup = null;
+        if (null !== $retailPrice && !$retailPrice->isEmpty()) {
+            $markup = (($retailPrice->getCount() / $purchasePrice->getCount()) * 100) - 100;
+            $roundedMarkup = RoundService::round($markup, 2);
+        }
+        return $roundedMarkup;
+    }
+
+    /**
+     * @param float $retailMarkup
+     * @param Money $purchasePrice
+     * @return Money
+     */
+    protected function calcRetailPrice($retailMarkup, Money $purchasePrice)
+    {
+        $retailPrice = new Money();
+        if (null !== $retailMarkup && '' !== $retailMarkup) {
+            $percent = 1 + ($retailMarkup / 100);
+            $retailPrice->setCountByQuantity($purchasePrice, $percent, true);
+        }
+        return $retailPrice;
     }
 
     /**

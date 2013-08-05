@@ -22,8 +22,10 @@ class ProductType extends AbstractType
             ->add('vendorCountry', 'text')
             ->add('vendor', 'text')
             ->add('info', 'text')
-            ->add('retailPrice', 'money')
-            ->add('retailMarkup', 'markup')
+            ->add('retailPriceMin', 'money')
+            ->add('retailPriceMax', 'money')
+            ->add('retailMarkupMin', 'markup')
+            ->add('retailMarkupMax', 'markup')
             ->add('retailPricePreference', 'choice', array('choices' => Product::$retailPricePreferences))
             ->add(
                 'subCategory',

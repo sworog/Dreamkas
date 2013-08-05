@@ -902,11 +902,8 @@ class ProductControllerTest extends WebTestCase
     /**
      * @dataProvider validRetailPriceProvider
      */
-    public function testPutProductActionSetRetailPriceValid(
-        array $putData,
-        array $assertions = array(),
-        array $emptyAssertions = array()
-    ) {
+    public function testPutProductActionSetRetailPriceValid(array $putData, array $assertions = array())
+    {
         $postData = $this->getProductData();
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -924,6 +921,7 @@ class ProductControllerTest extends WebTestCase
         $id = $postResponse['id'];
 
         $putData['subCategory'] = $postData['subCategory'];
+
         $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -932,6 +930,7 @@ class ProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -940,13 +939,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        foreach ($assertions as $path => $expected) {
-            Assert::assertJsonPathEquals($expected, $path, $getResponse);
-        }
-
-        foreach ($emptyAssertions as $path) {
-            Assert::assertNotJsonHasPath($path, $getResponse);
-        }
+        $this->performJsonAssertions($getResponse, $assertions);
     }
 
     /**
@@ -1002,73 +995,97 @@ class ProductControllerTest extends WebTestCase
         return array(
             'prefer price, markup invalid' => array(
                 array(
-                    'retailPrice' => 33.53,
-                    'retailMarkup' => 12,
+                    'retailPriceMin' => 32.03,
+                    'retailMarkupMin' => 5.09,
+                    'retailPriceMax' => 33.53,
+                    'retailMarkupMax' => 12,
                     'retailPricePreference' => 'retailPrice',
                 ) + $productData,
                 array(
-                    'retailPrice' => '33.53',
-                    'retailMarkup' => '10.01',
+                    'retailPriceMin' => '32.03',
+                    'retailMarkupMin' => '5.09',
+                    'retailPriceMax' => '33.53',
+                    'retailMarkupMax' => '10.01',
                     'retailPricePreference' => 'retailPrice',
                 )
             ),
             'prefer markup, price invalid' => array(
                 array(
-                    'retailPrice' => 34.00,
-                    'retailMarkup' => 10.01,
+                    'retailPriceMin' => 32.03,
+                    'retailMarkupMin' => 5.09,
+                    'retailPriceMax' => 34.00,
+                    'retailMarkupMax' => 10.01,
                     'retailPricePreference' => 'retailMarkup',
                 ) + $productData,
                 array(
-                    'retailPrice' => '33.53',
-                    'retailMarkup' => '10.01',
+                    'retailPriceMin' => '32.03',
+                    'retailMarkupMin' => '5.09',
+                    'retailPriceMax' => '33.53',
+                    'retailMarkupMax' => '10.01',
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
             'prefer price, markup valid' => array(
                 array(
-                    'retailPrice' => 33.53,
-                    'retailMarkup' => 10.01,
+                    'retailPriceMin' => 32.03,
+                    'retailMarkupMin' => 5.09,
+                    'retailPriceMax' => 33.53,
+                    'retailMarkupMax' => 10.01,
                     'retailPricePreference' => 'retailPrice',
                 ) + $productData,
                 array(
-                    'retailPrice' => '33.53',
-                    'retailMarkup' => '10.01',
+                    'retailPriceMin' => '32.03',
+                    'retailMarkupMin' => '5.09',
+                    'retailPriceMax' => '33.53',
+                    'retailMarkupMax' => '10.01',
                     'retailPricePreference' => 'retailPrice',
                 )
             ),
             'prefer markup, price valid' => array(
                 array(
-                    'retailPrice' => 33.53,
-                    'retailMarkup' => 10.01,
+                    'retailPriceMin' => 32.03,
+                    'retailMarkupMin' => 5.09,
+                    'retailPriceMax' => 33.53,
+                    'retailMarkupMax' => 10.01,
                     'retailPricePreference' => 'retailMarkup',
                 ) + $productData,
                 array(
-                    'retailPrice' => '33.53',
-                    'retailMarkup' => '10.01',
+                    'retailPriceMin' => '32.03',
+                    'retailMarkupMin' => '5.09',
+                    'retailPriceMax' => '33.53',
+                    'retailMarkupMax' => '10.01',
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
             'prefer markup, price not entered' => array(
                 array(
-                    'retailPrice' => '',
-                    'retailMarkup' => 10.01,
+                    'retailPriceMin' => '',
+                    'retailMarkupMin' => 5.09,
+                    'retailPriceMax' => '',
+                    'retailMarkupMax' => 10.01,
                     'retailPricePreference' => 'retailMarkup',
                 ) + $productData,
                 array(
-                    'retailPrice' => '33.53',
-                    'retailMarkup' => '10.01',
+                    'retailPriceMin' => '32.03',
+                    'retailMarkupMin' => '5.09',
+                    'retailPriceMax' => '33.53',
+                    'retailMarkupMax' => '10.01',
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
             'prefer price, markup not entered' => array(
                 array(
-                    'retailPrice' => 33.53,
-                    'retailMarkup' => '',
+                    'retailPriceMin' => 32.03,
+                    'retailMarkupMin' => '',
+                    'retailPriceMax' => 33.53,
+                    'retailMarkupMax' => '',
                     'retailPricePreference' => 'retailPrice',
                 ) + $productData,
                 array(
-                    'retailPrice' => '33.53',
-                    'retailMarkup' => '10.01',
+                    'retailPriceMin' => '32.03',
+                    'retailMarkupMin' => '5.09',
+                    'retailPriceMax' => '33.53',
+                    'retailMarkupMax' => '10.01',
                     'retailPricePreference' => 'retailPrice',
                 )
             ),
@@ -1078,13 +1095,11 @@ class ProductControllerTest extends WebTestCase
                 ) + $productData,
                 array(
                     'retailPricePreference' => 'retailPrice',
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
                 ),
-                /*
-                array(
-                    'retailPrice',
-                    'retailMarkup',
-                )
-                */
             ),
             'prefer markup, no price and markup entered' => array(
                 array(
@@ -1092,13 +1107,11 @@ class ProductControllerTest extends WebTestCase
                 ) + $productData,
                 array(
                     'retailPricePreference' => 'retailMarkup',
-                ),
-                /*
-                array(
-                    'retailPrice',
-                    'retailMarkup',
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
                 )
-                */
             ),
             'prefer markup, price valid, valid markup: -10' => array(
                 array(
@@ -1142,51 +1155,65 @@ class ProductControllerTest extends WebTestCase
             'prefer markup, price valid, valid markup: 0' => array(
                 array(
                     'purchasePrice' => 30.48,
-                    'retailPrice' => 30.48,
-                    'retailMarkup' => 0,
+                    'retailPriceMin' => 30.48,
+                    'retailMarkupMin' => 0,
+                    'retailPriceMax' => 30.48,
+                    'retailMarkupMax' => 0,
                     'retailPricePreference' => 'retailMarkup',
                 ) + $productData,
                 array(
-                    'retailPrice' => '30.48',
-                    'retailMarkup' => '0',
+                    'retailPriceMin' => '30.48',
+                    'retailMarkupMin' => '0',
+                    'retailPriceMax' => '30.48',
+                    'retailMarkupMax' => '0',
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
             'prefer markup, valid markup: 0, price: 0' => array(
                 array(
                     'purchasePrice' => 30.48,
-                    'retailPrice' => 0,
-                    'retailMarkup' => 0,
+                    'retailPriceMin' => 0,
+                    'retailMarkupMin' => 0,
+                    'retailPriceMax' => 0,
+                    'retailMarkupMax' => 10,
                     'retailPricePreference' => 'retailMarkup',
                 ) + $productData,
                 array(
-                    'retailPrice' => '30.48',
-                    'retailMarkup' => '0',
+                    'retailPriceMin' => '30.48',
+                    'retailMarkupMin' => '0',
+                    'retailPriceMax' => '33.53',
+                    'retailMarkupMax' => '10',
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
-            'prefer empty, valid markup: 10, price: empty' => array(
+            'prefer empty, valid min markup: 10, max markup: empty, min & max price: empty' => array(
                 array(
                     'purchasePrice' => 30.48,
-                    'retailPrice' => '',
-                    'retailMarkup' => 10,
+                    'retailPriceMin' => '',
+                    'retailMarkupMin' => 10,
                 ) + $productData,
                 array(
-                    'retailPrice' => '33.53',
-                    'retailMarkup' => '10',
+                    'retailPriceMin' => '33.53',
+                    'retailMarkupMin' => '10',
+                    'retailPriceMax' => null,
+                    'retailMarkupMax' => null,
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
             'prefer retailMarkup, valid markup: 9.3, price: 11.54' => array(
                 array(
                     'purchasePrice' => '10.56',
-                    'retailPrice' => '11.54',
-                    'retailMarkup' => '9.3',
+                    'retailPriceMin' => 11.10,
+                    'retailMarkupMin' => 5.09,
+                    'retailPriceMax' => '11.54',
+                    'retailMarkupMax' => '9.3',
                     'retailPricePreference' => 'retailMarkup',
                 ) + $productData,
                 array(
-                    'retailPrice' => '11.54',
-                    'retailMarkup' => '9.3',
+                    'retailPriceMin' => '11.1',
+                    'retailMarkupMin' => '5.09',
+                    'retailPriceMax' => '11.54',
+                    'retailMarkupMax' => '9.3',
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
