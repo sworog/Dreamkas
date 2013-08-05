@@ -1,13 +1,14 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
  */
-class DatesCompare extends NumbersCompare
+class DatesCompare extends Compare
 {
     /**
      * @var string

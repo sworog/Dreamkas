@@ -1,13 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
  */
-class NumbersCompare extends Constraint
+abstract class Compare extends Constraint
 {
     /**
      * @var string
@@ -22,7 +22,7 @@ class NumbersCompare extends Constraint
     /**
      * @var string
      */
-    public $message = 'lighthouse.validation.errors.numbers_compare.not_valid';
+    public $message = 'lighthouse.validation.errors.compare';
 
     /**
      * @return array

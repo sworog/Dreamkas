@@ -1,15 +1,16 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class NumbersCompareValidator extends ConstraintValidator
+abstract class CompareValidator extends ConstraintValidator
 {
     /**
      * @param mixed $value
@@ -31,39 +32,42 @@ class NumbersCompareValidator extends ConstraintValidator
             return;
         }
 
-        $this->validateFieldValue($minFieldValue);
-        $this->validateFieldValue($maxFieldValue);
+        $normalizedMinFieldValue = $this->normalizeFieldValue($minFieldValue);
+        $normalizedMaxFieldValue = $this->normalizeFieldValue($maxFieldValue);
 
-        if ($minFieldValue > $maxFieldValue) {
+        if ($this->doCompare($normalizedMinFieldValue, $normalizedMaxFieldValue)) {
             $this->context->addViolationAt(
                 $constraint->minField,
                 $constraint->message,
                 array(
-                    '{{ firstValue }}' => $this->formatValue($constraint, $minFieldValue),
-                    '{{ secondValue }}' => $this->formatValue($constraint, $maxFieldValue),
+                    '{{ firstValue }}' => $this->formatMessageValue($constraint, $minFieldValue),
+                    '{{ secondValue }}' => $this->formatMessageValue($constraint, $maxFieldValue),
                 )
             );
         }
     }
 
     /**
+     * @param mixed $minValue
+     * @param mixed $maxValue
+     * @return bool
+     */
+    protected function doCompare($minValue, $maxValue)
+    {
+        return $minValue > $maxValue;
+    }
+
+    /**
      * @param $value
+     * @return integer|float
      * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
      */
-    protected function validateFieldValue($value)
-    {
-        if (!is_numeric($value)) {
-            throw new UnexpectedTypeException($value, 'numeric');
-        }
-    }
+    abstract protected function normalizeFieldValue($value);
 
     /**
      * @param Constraint $constraint
      * @param $value
      * @return mixed
      */
-    protected function formatValue(Constraint $constraint, $value)
-    {
-        return $value;
-    }
+    abstract protected function formatMessageValue(Constraint $constraint, $value);
 }

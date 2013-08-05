@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Range;
-use Lighthouse\CoreBundle\Validator\Constraints\NumbersCompare as AssertMarkupCompare;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare as AssertMarkupCompare;
 
 /**
  * @property string $id

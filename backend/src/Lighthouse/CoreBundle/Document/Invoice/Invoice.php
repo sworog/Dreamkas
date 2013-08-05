@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
-use Lighthouse\CoreBundle\Validator\Constraints\DatesCompare;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompare;
 
 /**
  * @MongoDB\Document(

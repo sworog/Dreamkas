@@ -1,13 +1,14 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Compare;
 
-use Lighthouse\CoreBundle\Validator\Constraints\NumbersCompare;
-use Lighthouse\CoreBundle\Validator\Constraints\NumbersCompareValidator;
-use Symfony\Component\Validator\Constraint;
+use DateTime;
+use Lighthouse\CoreBundle\Tests\Validator\Constraints\CompareObjectFixture;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompare;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompareValidator;
 use Symfony\Component\Validator\ExecutionContext;
 
-class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
+class DatesCompareValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ExecutionContext
@@ -15,14 +16,14 @@ class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
     protected $context;
 
     /**
-     * @var NumbersCompareValidator
+     * @var DatesCompareValidator
      */
     protected $validator;
 
     public function setUp()
     {
         $this->context = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
-        $this->validator = new NumbersCompareValidator();
+        $this->validator = new DatesCompareValidator();
         $this->validator->initialize($this->context);
     }
 
@@ -35,14 +36,14 @@ class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider validValuesProvider
      */
-    public function testValidValues($minValue = null, $maxValue = null)
+    public function testValidValues(DateTime $orderDate = null, DateTime $createdDate = null)
     {
         $this
             ->context
             ->expects($this->never())
             ->method('addViolationAt');
 
-        $this->doValidate($minValue, $maxValue);
+        $this->doValidate($orderDate, $createdDate);
     }
 
     /**
@@ -52,23 +53,23 @@ class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                10,
-                11,
+                new \DateTime('2013-01-04'),
+                new \DateTime('2013-01-03'),
             ),
             array(
-                10.12,
-                10.13,
+                new \DateTime('2013-01-03 15:50:03'),
+                new \DateTime('2013-01-03 15:50:02'),
             ),
             array(
-                10,
-                10,
+                new \DateTime('2013-01-03 15:50:02'),
+                new \DateTime('2013-01-03 15:50:02'),
             ),
             array(
                 null,
-                10,
+                new \DateTime('2013-01-03 15:50:02'),
             ),
             array(
-                10,
+                new \DateTime('2013-01-03 15:50:02'),
                 null,
             ),
         );
@@ -77,14 +78,14 @@ class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider invalidValuesProvider
      */
-    public function testInvalidValues($minValue, $maxValue)
+    public function testInvalidValues(DateTime $orderDate, DateTime $createdDate)
     {
         $this
             ->context
             ->expects($this->once())
             ->method('addViolationAt');
 
-        $this->doValidate($minValue, $maxValue);
+        $this->doValidate($orderDate, $createdDate);
     }
 
     /**
@@ -94,12 +95,12 @@ class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                11,
-                10,
+                new \DateTime('2013-01-03'),
+                new \DateTime('2013-01-04'),
             ),
             array(
-                11.12,
-                11.11,
+                new \DateTime('2013-01-03 15:50:02'),
+                new \DateTime('2013-01-03 15:50:03'),
             ),
         );
     }
@@ -112,11 +113,11 @@ class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
     public function testValueUnexpectedType($value)
     {
         $options = array(
-            'minField' => 'fieldMin',
-            'maxField' => 'fieldMax',
+            'minField' => 'orderDate',
+            'maxField' => 'createdDate',
             'message' => 'message'
         );
-        $constraint = new NumbersCompare($options);
+        $constraint = new DatesCompare($options);
 
         $this->validator->validate($value, $constraint);
     }
@@ -135,12 +136,12 @@ class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type numeric
+     * @expectedExceptionMessage Expected argument of type \DateTime
      * @dataProvider fieldUnexpectedTypesProvider
      */
-    public function testFieldUnexpectedType($minValue, $maxValue)
+    public function testFieldUnexpectedType($orderDate, $createdDate)
     {
-        $this->doValidate($minValue, $maxValue);
+        $this->doValidate($orderDate, $createdDate);
     }
 
     /**
@@ -150,61 +151,49 @@ class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                'aaa',
                 123,
+                new \DateTime('2013-01-04'),
             ),
             array(
-                123,
-                'aaa',
+                new \DateTime('2013-01-03 15:50:02'),
+                564564,
             ),
             array(
-                new \stdClass,
-                123,
+                "test",
+                new \DateTime('2013-01-04'),
             ),
             array(
-                123,
-                new \stdClass,
+                new \DateTime('2013-01-03 15:50:02'),
+                "test",
             ),
             array(
-                123.2,
-                array(),
+                "2013-01-04",
+                new \DateTime('2013-01-04'),
             ),
             array(
-                array(),
-                12.67,
+                new \DateTime('2013-01-03 15:50:02'),
+                "2013-01-03 15:50:02",
             ),
         );
-    }
-
-    public function testConstraint()
-    {
-        $options = array(
-            'minField' => 'fieldMin',
-            'maxField' => 'fieldMax',
-            'message' => 'message'
-        );
-
-        $constraint = new NumbersCompare($options);
-        $this->assertEquals(Constraint::CLASS_CONSTRAINT, $constraint->getTargets());
     }
 
     /**
-     * @param $minValue
-     * @param $maxValue
+     * @param \DateTime $orderDate
+     * @param \DateTime $createdDate
      */
-    protected function doValidate($minValue, $maxValue)
+    protected function doValidate($orderDate = null, $createdDate = null)
     {
         $options = array(
-            'minField' => 'fieldMin',
-            'maxField' => 'fieldMax',
+            'minField' => 'createdDate',
+            'maxField' => 'orderDate',
             'message' => 'message'
         );
-        $constraint = new NumbersCompare($options);
+        $constraint = new DatesCompare($options);
 
-        $object = new CompareObjectFixture;
-        $object->fieldMin = $minValue;
-        $object->fieldMax = $maxValue;
+        $value = new CompareObjectFixture();
+        $value->orderDate = $orderDate;
+        $value->createdDate = $createdDate;
 
-        $this->validator->validate($object, $constraint);
+        $this->validator->validate($value, $constraint);
     }
 }
