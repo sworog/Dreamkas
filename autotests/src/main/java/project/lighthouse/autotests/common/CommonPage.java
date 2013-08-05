@@ -173,9 +173,13 @@ public class CommonPage extends PageObject {
     public void checkAutoCompleteResults(ExamplesTable checkValuesTable) {
         for (Map<String, String> row : checkValuesTable.getRows()) {
             String autoCompleteValue = row.get("autocomlete result");
-            String xpathPattern = String.format(Autocomplete.AUTOCOMPLETE_XPATH_PATTERN, autoCompleteValue);
-            findBy(xpathPattern).shouldBePresent();
+            checkAutoCompleteResult(autoCompleteValue);
         }
+    }
+
+    public void checkAutoCompleteResult(String autoCompleteValue) {
+        String xpathPattern = String.format(Autocomplete.AUTOCOMPLETE_XPATH_PATTERN, autoCompleteValue);
+        findBy(xpathPattern).shouldBePresent();
     }
 
     public void shouldContainsText(String elementName, WebElement element, String expectedValue) {

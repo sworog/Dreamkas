@@ -42,6 +42,11 @@ public class CommonUserSteps {
         commonSteps.checkAutoCompleteResults(checkValuesTable);
     }
 
+    @Then("the user checks <autoCompleteResult>")
+    public void thenTheUserChecksAutoCompleteResult(String autoCompleteResult) {
+        commonSteps.checkAutoCompleteResult(autoCompleteResult);
+    }
+
     @Then("the user checks alert text is equal to '$expectedText'")
     public void thenTheUserChecksAlertTextIsEqualTo(String expectedText) {
         commonSteps.checkAlertText(expectedText);

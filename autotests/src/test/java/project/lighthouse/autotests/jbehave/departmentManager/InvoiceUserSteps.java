@@ -1,10 +1,7 @@
 package project.lighthouse.autotests.jbehave.departmentManager;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Pending;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.steps.departmentManager.InvoiceSteps;
@@ -78,6 +75,7 @@ public class InvoiceUserSteps {
     }
 
     @When("the user inputs '$value' in the invoice product '$elementName' field")
+    @Alias("the user inputs <value> in the invoice product <elementName> field")
     public void whenTheUserInputsValueInTheInvoiceProductElementNameField(String value, String elementName) {
         whenTheUserInputsTextInTheInvoiceField(elementName, value);
     }

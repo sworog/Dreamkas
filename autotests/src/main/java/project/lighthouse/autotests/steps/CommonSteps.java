@@ -50,6 +50,11 @@ public class CommonSteps extends ScenarioSteps {
     }
 
     @Step
+    public void checkAutoCompleteResult(String autoCompleteValue) {
+        commonPage.checkAutoCompleteResult(autoCompleteValue);
+    }
+
+    @Step
     public void checkAlertText(String expectedText) {
         commonPage.checkAlertText(expectedText);
     }
