@@ -22,7 +22,7 @@
         <span class="inputText__postfix">руб.</span>
     </div>
     <div class="form__field form__field_inline">
-        <label class="form__label">Наценка</label>
+        <label class="form__label">Диапазон наценки</label>
         <span name="retailMarkup" class="retailMarkup productForm__linkedInput <%text model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>">
             <input
                    style="width: 100px;"
@@ -44,7 +44,7 @@
         <span class="inputText__postfix">%</span>
     </div>
     <div class="form__field form__field_inline">
-        <label class="form__label">Цена продажи</label>
+        <label class="form__label">Диапазон цены продажи</label>
         <span name="retailPrice" class="retailPrice productForm__linkedInput <%= model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>">
             <input
                     style="width: 100px;"

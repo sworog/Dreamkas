@@ -79,11 +79,13 @@
         </td>
     </tr>
     <tr>
-        <th>Наценка</th>
+        <th>Диапазон наценка</th>
         <td>
-            <% if(model.get('retailMarkup')) { %>
+            <% if(model.get('retailMarkupMin') && model.get('retailMarkupMax')) { %>
                 <span name="retailMarkup">
-                    <%= model.get('retailMarkup') %>
+                    <%= model.get('retailMarkupMin') %>
+                    -
+                    <%= model.get('retailMarkupMax') %>
                 </span>
             %
             <% } else { %>
@@ -94,11 +96,13 @@
         </td>
     </tr>
     <tr>
-        <th>Цена продажи</th>
+        <th>Диапазон цены продажи</th>
         <td>
-            <% if(model.get('retailPrice')){ %>
+            <% if(model.get('retailPriceMin') && model.get('retailPriceMax')){ %>
                 <span name="retailPrice">
-                    <%= LH.formatPrice(model.get('retailPrice')) %>
+                    <%= LH.formatPrice(model.get('retailPriceMin')) %>
+                    -
+                    <%= LH.formatPrice(model.get('retailPriceMax')) %>
                 </span>
             руб.
             <% } else { %>
