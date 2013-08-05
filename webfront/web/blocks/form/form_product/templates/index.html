@@ -23,7 +23,21 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Наценка</label>
-        <input style="width: 150px;" value="<%= model.get('retailMarkup') %>" class="inputText productForm__linkedInput <%text model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>" type="text" name="retailMarkup"/>
+        <span name="retailMarkup" class="retailMarkup productForm__linkedInput <%text model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>">
+            <input
+                   style="width: 100px;"
+                   value="<%= model.get('retailMarkupMin') %>"
+                   class="inputText"
+                   type="text"
+                   name="retailMarkupMin"/>
+            -
+            <input
+                    style="width: 100px;"
+                    value="<%= model.get('retailMarkupMax') %>"
+                    class="inputText"
+                    type="text"
+                    name="retailMarkupMax"/>
+        </span>
         <span class="productForm__inputLink">
             <span class="productForm__inputLinkText" name="retailMarkupHint"></span>
         </span>
@@ -31,7 +45,21 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена продажи</label>
-        <input style="width: 150px;" value="<%= model.get('retailPrice') ? LH.formatPrice(model.get('retailPrice')) : '' %>" class="inputText productForm__linkedInput <%= model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>" type="text" name="retailPrice"/>
+        <span name="retailPrice" class="retailPrice productForm__linkedInput <%= model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>">
+            <input
+                    style="width: 100px;"
+                    value="<%= model.get('retailPrice') ? LH.formatPrice(model.get('retailPriceMin')) : '' %>"
+                    class="inputText"
+                    type="text"
+                    name="retailPriceMin"/>
+            -
+            <input
+                    style="width: 100px;"
+                    value="<%= model.get('retailPrice') ? LH.formatPrice(model.get('retailPriceMax')) : '' %>"
+                    class="inputText"
+                    type="text"
+                    name="retailPriceMax"/>
+        </span>
         <span class="productForm__inputLink">
             <span class="productForm__inputLinkText" name="retailPriceHint"></span>
         </span>

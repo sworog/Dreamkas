@@ -13,10 +13,10 @@ define(function(require) {
             events: {
                 'click .productForm__inputLink': 'click .productForm__inputLink',
                 'keyup [name="purchasePrice"]': 'keyup [name="purchasePrice"]',
-                'keyup [name="retailMarkup"]': 'keyup [name="retailMarkup"]',
-                'keyup [name="retailPrice"]': 'keyup [name="retailPrice"]',
-                'change [name="retailMarkup"]': 'change [name="retailMarkup"]',
-                'change [name="retailPrice"]': 'change [name="retailPrice"]'
+                'keyup [name="retailMarkupMin"], [name="retailMarkupMax"]': 'keyup [name="retailMarkupMin"], [name="retailMarkupMax"]',
+                'keyup [name="retailPriceMin"], [name="retailPriceMax"]': 'keyup [name="retailPriceMin"], [name="retailPriceMax"]',
+                'change [name="retailMarkupMin"], [name="retailMarkupMax"]': 'change [name="retailMarkupMin"], [name="retailMarkupMax"]',
+                'change [name="retailPriceMin"], [name="retailPriceMax"]': 'change [name="retailPriceMin"], [name="retailPriceMax"]'
             },
             'click .productForm__inputLink': function(e) {
                 e.preventDefault;
@@ -33,24 +33,24 @@ define(function(require) {
                 }
             },
             'keyup [name="purchasePrice"]': function(e) {
-                if (this.$retailPriceInput.is(':hidden')) {
+                if (this.$retailPriceSpan.is(':hidden')) {
                     this.calculateRetailPrice();
                 }
 
-                if (this.$retailMarkupInput.is(':hidden')) {
+                if (this.$retailMarkupSpan.is(':hidden')) {
                     this.calculateRetailMarkup();
                 }
             },
-            'keyup [name="retailMarkup"]': function() {
+            'keyup [name="retailMarkupMin"], [name="retailMarkupMax"]': function() {
                 this.calculateRetailPrice();
             },
-            'keyup [name="retailPrice"]': function() {
+            'keyup [name="retailPriceMin"], [name="retailPriceMax"]': function() {
                 this.calculateRetailMarkup();
             },
-            'change [name="retailMarkup"]': function() {
+            'change [name="retailMarkupMin"], [name="retailMarkupMax"]': function() {
                 this.renderRetailMarkupLink();
             },
-            'change [name="retailPrice"]': function() {
+            'change [name="retailPriceMin"], [name="retailPriceMax"]': function() {
                 this.renderRetailPriceLink();
             },
             initialize: function(){
@@ -69,12 +69,16 @@ define(function(require) {
                 Form.prototype.findElements.apply(block, arguments);
 
                 block.$retailPricePreferenceInput = block.$el.find('[name="retailPricePreference"]');
-                block.$retailPriceInput = block.$el.find('[name="retailPrice"]');
-                block.$retailMarkupInput = block.$el.find('[name="retailMarkup"]');
+                block.$retailPriceMinInput = block.$el.find('[name="retailPriceMin"]');
+                block.$retailPriceMaxInput = block.$el.find('[name="retailPriceMax"]');
+                block.$retailMarkupMinInput = block.$el.find('[name="retailMarkupMin"]');
+                block.$retailMarkupMaxInput = block.$el.find('[name="retailMarkupMax"]');
+                block.$retailPriceSpan = block.$el.find('span.retailPrice');
+                block.$retailMarkupSpan = block.$el.find('span.retailMarkup');
                 block.$purchasePriceInput = block.$el.find('[name="purchasePrice"]');
 
-                block.$retailPriceLink = block.$retailPriceInput.next('.productForm__inputLink');
-                block.$retailMarkupLink = block.$retailMarkupInput.next('.productForm__inputLink');
+                block.$retailPriceLink = block.$retailPriceSpan.next('.productForm__inputLink');
+                block.$retailMarkupLink = block.$retailMarkupSpan.next('.productForm__inputLink');
             },
             render: function(){
                 var block = this;
@@ -85,16 +89,16 @@ define(function(require) {
                 block.renderRetailPriceLink();
             },
             showRetailMarkupInput: function() {
-                this.$retailPriceInput.addClass('productForm__hiddenInput');
-                this.$retailMarkupInput
+                this.$retailPriceSpan.addClass('productForm__hiddenInput');
+                this.$retailMarkupSpan
                     .removeClass('productForm__hiddenInput')
                     .focus();
 
                 this.$retailPricePreferenceInput.val('retailMarkup');
             },
             showRetailPriceInput: function() {
-                this.$retailMarkupInput.addClass('productForm__hiddenInput');
-                this.$retailPriceInput
+                this.$retailMarkupSpan.addClass('productForm__hiddenInput');
+                this.$retailPriceSpan
                     .removeClass('productForm__hiddenInput')
                     .focus();
 
@@ -102,40 +106,61 @@ define(function(require) {
             },
             calculateRetailPrice: function() {
                 var purchasePrice = LH.normalizePrice(this.$purchasePriceInput.val()),
-                    retailMarkup = LH.normalizePrice(this.$retailMarkupInput.val()),
-                    calculatedVal;
+                    retailMarkupMin = LH.normalizePrice(this.$retailMarkupMinInput.val()),
+                    retailMarkupMax = LH.normalizePrice(this.$retailMarkupMaxInput.val()),
+                    calculatedMinVal, calculatedMaxVal;
 
-                if (!purchasePrice || !retailMarkup || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
-                    calculatedVal = '';
+                if (!purchasePrice || !retailMarkupMin || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMin)) {
+                    calculatedMinVal = '';
                 } else {
-                    calculatedVal = LH.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedMinVal = LH.formatPrice(+(retailMarkupMin / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
-                this.$retailPriceInput
-                    .val(calculatedVal)
+                if (!purchasePrice || !retailMarkupMax || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMax)) {
+                    calculatedMaxVal = '';
+                } else {
+                    calculatedMaxVal = LH.formatPrice(+(retailMarkupMax / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                }
+
+                this.$retailPriceMinInput
+                    .val(calculatedMinVal)
+                    .change();
+                this.$retailPriceMaxInput
+                    .val(calculatedMaxVal)
                     .change();
             },
             calculateRetailMarkup: function() {
-                var retailPrice = LH.normalizePrice(this.$retailPriceInput.val()),
+                var retailPriceMin = LH.normalizePrice(this.$retailPriceMinInput.val()),
+                    retailPriceMax = LH.normalizePrice(this.$retailPriceMaxInput.val()),
                     purchasePrice = LH.normalizePrice(this.$purchasePriceInput.val()),
-                    calculatedVal;
+                    calculatedMinVal, calculatedMaxVal;
 
-                if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
-                    calculatedVal = '';
+                if (!purchasePrice || !retailPriceMin || _.isNaN(purchasePrice) || _.isNaN(retailPriceMin)){
+                    calculatedMinVal = '';
                 } else {
-                    calculatedVal = LH.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedMinVal = LH.formatPrice(+(retailPriceMin * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
-                this.$retailMarkupInput
-                    .val(calculatedVal)
+                if (!purchasePrice || !retailPriceMax || _.isNaN(purchasePrice) || _.isNaN(retailPriceMax)){
+                    calculatedMaxVal = '';
+                } else {
+                    calculatedMaxVal = LH.formatPrice(+(retailPriceMax * 100 / purchasePrice).toFixed(2) - 100);
+                }
+
+                this.$retailMarkupMinInput
+                    .val(calculatedMinVal)
+                    .change();
+                this.$retailMarkupMaxInput
+                    .val(calculatedMaxVal)
                     .change();
             },
             renderRetailPriceLink: function() {
-                var price = $.trim(this.$retailPriceInput.val()),
+                var priceMin = $.trim(this.$retailPriceMinInput.val()),
+                    priceMax = $.trim(this.$retailPriceMaxInput.val()),
                     text;
 
-                if (price){
-                    text = LH.formatPrice(price) + ' руб.'
+                if (priceMin && priceMax){
+                    text = LH.formatPrice(priceMin) + " - " + LH.formatPrice(priceMax) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -145,11 +170,12 @@ define(function(require) {
                     .html(text);
             },
             renderRetailMarkupLink: function() {
-                var markup = $.trim(this.$retailMarkupInput.val()),
+                var markupMin = $.trim(this.$retailMarkupMinInput.val()),
+                    markupMax = $.trim(this.$retailMarkupMaxInput.val()),
                     text;
 
-                if (markup){
-                    text = LH.formatPrice(markup) + '%'
+                if (markupMin && markupMax) {
+                    text = LH.formatPrice(markupMin) + " - " + LH.formatPrice(markupMax) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }
