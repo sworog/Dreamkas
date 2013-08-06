@@ -48,14 +48,14 @@
         <span name="retailPrice" class="retailPrice productForm__linkedInput <%= model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>">
             <input
                     style="width: 100px;"
-                    value="<%= model.get('retailPrice') ? LH.formatPrice(model.get('retailPriceMin')) : '' %>"
+                    value="<%= model.get('retailPriceMin') ? LH.formatPrice(model.get('retailPriceMin')) : '' %>"
                     class="inputText"
                     type="text"
                     name="retailPriceMin"/>
             -
             <input
                     style="width: 100px;"
-                    value="<%= model.get('retailPrice') ? LH.formatPrice(model.get('retailPriceMax')) : '' %>"
+                    value="<%= model.get('retailPriceMax') ? LH.formatPrice(model.get('retailPriceMax')) : '' %>"
                     class="inputText"
                     type="text"
                     name="retailPriceMax"/>
