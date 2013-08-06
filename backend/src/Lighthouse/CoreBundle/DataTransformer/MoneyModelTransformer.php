@@ -15,11 +15,6 @@ class MoneyModelTransformer implements DataTransformerInterface
     /**
      * @var int
      */
-    protected $divider;
-
-    /**
-     * @var int
-     */
     protected $digits = 2;
 
     /**
@@ -33,23 +28,43 @@ class MoneyModelTransformer implements DataTransformerInterface
         if (null !== $digits) {
             $this->digits = (int) $digits;
         }
-        $this->divider = pow(10, $this->digits);
+    }
+
+    /**
+     * @param int $digits
+     * @return number
+     */
+    protected function getDivider($digits)
+    {
+        return pow(10, $digits);
+    }
+
+    /**
+     * @param int $digits
+     * @return int
+     */
+    protected function getDigits($digits = null)
+    {
+        return ($digits) ? (int) $digits : $this->digits;
     }
 
     /**
      * @param Money $value
+     * @param int $digits
      * @return int
      * @throws TransformationFailedException
      */
-    public function transform($value)
+    public function transform($value, $digits = null)
     {
         if (null === $value) {
             $value = null;
         } elseif ($value instanceof Money) {
-            if ($value->isEmpty()) {
+            if ($value->isNull()) {
                 return null;
             } else {
-                $value = $value->getCount() / $this->divider;
+                $digits = $this->getDigits($digits);
+                $divider = $this->getDivider($digits);
+                $value = $value->getCount() / $divider;
             }
         } else {
             throw new TransformationFailedException(
@@ -60,13 +75,16 @@ class MoneyModelTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param int $value
-     * @return Money
+     * @param mixed $value
+     * @param int $digits
+     * @return Money|mixed
      */
-    public function reverseTransform($value)
+    public function reverseTransform($value, $digits = null)
     {
         if (null !== $value && '' !== $value) {
-            $value = $value * $this->divider;
+            $digits = $this->getDigits($digits);
+            $divider = $this->getDivider($digits);
+            $value = $value * $divider;
             $value = (float) (string) $value;
         }
         return new Money($value);

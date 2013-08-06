@@ -12,8 +12,13 @@ lighthouse:
                 sku.unique: Такой артикул уже есть
                 units.blank: Выберите единицу измерения
                 vat.blank: Выберите ставку НДС
-                retailMarkup.range: Наценка должна быть больше -100%
+                retailMarkup.range: Наценка должна быть равна или больше 0%
                 subCategory.does_not_exists: Такой подкатегории не существует
+                retailPrice.compare: Минимальная цена продажи не должна быть больше максимальной
+                retailPrice.purchasePrice: Цена продажи должна быть больше или равна цене закупки.
+                retailPrice.not_blank: Заполните это поле
+                retailMarkup.compare: Минимальная наценка не должна быть больше максимальной
+                retailMarkup.not_blank: Заполните это поле
             invoice:
                 dates_compare: Дата накладной не должна быть старше даты приемки
             purchase:

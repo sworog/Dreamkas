@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class RangeValidator extends ConstraintValidator
 {
@@ -17,7 +17,9 @@ class RangeValidator extends ConstraintValidator
             return;
         }
 
-        if (!is_numeric($value)) {
+        try {
+            $normalizedValue = $this->normalizeValue($value, $constraint);
+        } catch (UnexpectedTypeException $e) {
             $this->context->addViolation(
                 $constraint->notNumericMessage,
                 array(
@@ -27,44 +29,68 @@ class RangeValidator extends ConstraintValidator
             return;
         }
 
-        if (null !== $constraint->gt && $value <= $constraint->gt) {
+        if (null !== $constraint->gt && $normalizedValue <= $constraint->gt) {
             $this->context->addViolation(
                 $constraint->gtMessage,
                 array(
-                    '{{ value }}' => $value,
+                    '{{ value }}' => $this->formatMessageValue($value, $constraint),
                     '{{ limit }}' => $constraint->gt,
                 )
             );
             return;
-        } elseif (null !== $constraint->gte && $value < $constraint->gte) {
+        } elseif (null !== $constraint->gte && $normalizedValue < $constraint->gte) {
             $this->context->addViolation(
                 $constraint->gteMessage,
                 array(
-                    '{{ value }}' => $value,
+                    '{{ value }}' => $this->formatMessageValue($value, $constraint),
                     '{{ limit }}' => $constraint->gte,
                 )
             );
             return;
         }
 
-        if (null !== $constraint->lt && $value >= $constraint->lt) {
+        if (null !== $constraint->lt && $normalizedValue >= $constraint->lt) {
             $this->context->addViolation(
                 $constraint->ltMessage,
                 array(
-                    '{{ value }}' => $value,
+                    '{{ value }}' => $this->formatMessageValue($value, $constraint),
                     '{{ limit }}' => $constraint->lt,
                 )
             );
             return;
-        } elseif (null !== $constraint->lte && $value > $constraint->lte) {
+        } elseif (null !== $constraint->lte && $normalizedValue > $constraint->lte) {
             $this->context->addViolation(
                 $constraint->lteMessage,
                 array(
-                    '{{ value }}' => $value,
+                    '{{ value }}' => $this->formatMessageValue($value, $constraint),
                     '{{ limit }}' => $constraint->lte,
                 )
             );
             return;
         }
+    }
+
+    /**
+     * @param mixed $value
+     * @param Constraint $constraint
+     * @return int|string
+     * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    protected function normalizeValue($value, Constraint $constraint)
+    {
+        if (!is_numeric($value)) {
+            throw new UnexpectedTypeException($value, 'numeric');
+        }
+        return $value;
+    }
+
+    /**
+     * @param int|float $value
+     * @param Constraint $constraint
+     * @return string
+     */
+    protected function formatMessageValue($value, Constraint $constraint)
+    {
+        return $value;
     }
 }

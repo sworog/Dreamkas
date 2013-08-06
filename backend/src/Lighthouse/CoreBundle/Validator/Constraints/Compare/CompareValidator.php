@@ -3,11 +3,10 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
+use Lighthouse\CoreBundle\Validator\Constraints\ConstraintValidator;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 abstract class CompareValidator extends ConstraintValidator
@@ -28,20 +27,20 @@ abstract class CompareValidator extends ConstraintValidator
         $minFieldValue = $accessor->getValue($value, $constraint->minField);
         $maxFieldValue = $accessor->getValue($value, $constraint->maxField);
 
-        if (null === $maxFieldValue || null === $minFieldValue) {
+        if ($this->isNull($minFieldValue) || $this->isNull($maxFieldValue)) {
             return;
         }
 
         $normalizedMinFieldValue = $this->normalizeFieldValue($minFieldValue);
         $normalizedMaxFieldValue = $this->normalizeFieldValue($maxFieldValue);
 
-        if ($this->doCompare($normalizedMinFieldValue, $normalizedMaxFieldValue)) {
+        if ($this->doCompare($normalizedMinFieldValue, $normalizedMaxFieldValue, $constraint)) {
             $this->context->addViolationAt(
                 $constraint->minField,
                 $constraint->message,
                 array(
-                    '{{ firstValue }}' => $this->formatMessageValue($constraint, $minFieldValue),
-                    '{{ secondValue }}' => $this->formatMessageValue($constraint, $maxFieldValue),
+                    '{{ firstValue }}' => $this->formatMessageValue($minFieldValue, $constraint),
+                    '{{ secondValue }}' => $this->formatMessageValue($maxFieldValue, $constraint),
                 )
             );
         }
@@ -69,5 +68,5 @@ abstract class CompareValidator extends ConstraintValidator
      * @param $value
      * @return mixed
      */
-    abstract protected function formatMessageValue(Constraint $constraint, $value);
+    abstract protected function formatMessageValue($value, Constraint $constraint);
 }

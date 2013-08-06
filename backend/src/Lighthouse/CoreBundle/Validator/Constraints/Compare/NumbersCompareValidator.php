@@ -2,12 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
-use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class NumbersCompareValidator extends CompareValidator
@@ -26,11 +23,11 @@ class NumbersCompareValidator extends CompareValidator
     }
 
     /**
-     * @param Constraint $constraint
-     * @param $value
+     * @param int|float $value
+     * @param Constraint|NumbersCompare $constraint
      * @return mixed
      */
-    protected function formatMessageValue(Constraint $constraint, $value)
+    protected function formatMessageValue($value, Constraint $constraint)
     {
         return $value;
     }

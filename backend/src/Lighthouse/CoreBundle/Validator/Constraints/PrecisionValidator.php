@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
 
 class PrecisionValidator extends ConstraintValidator
 {

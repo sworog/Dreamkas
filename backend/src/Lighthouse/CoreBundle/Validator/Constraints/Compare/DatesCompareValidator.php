@@ -22,11 +22,11 @@ class DatesCompareValidator extends CompareValidator
     }
 
     /**
+     * @param DateTime $value
      * @param Constraint $constraint
-     * @param $value
      * @return mixed
      */
-    protected function formatMessageValue(Constraint $constraint, $value)
+    protected function formatMessageValue($value, Constraint $constraint)
     {
         return $value->format($constraint->dateFormat);
     }

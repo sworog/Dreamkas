@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class MoneyCompareValidator extends CompareValidator
 {
     /**
-     * @param $value
-     * @return DateTime
+     * @param Money $value
+     * @return int
      * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
      */
     protected function normalizeFieldValue($value)
@@ -20,15 +20,16 @@ class MoneyCompareValidator extends CompareValidator
         if (!$value instanceof Money) {
             throw new UnexpectedTypeException($value, 'Money');
         }
+
         return $value->getCount();
     }
 
     /**
-     * @param Constraint|MoneyCompare $constraint
      * @param Money $value
+     * @param Constraint|MoneyCompare $constraint
      * @return mixed
      */
-    protected function formatMessageValue(Constraint $constraint, $value)
+    protected function formatMessageValue($value, Constraint $constraint)
     {
         $digits = (int) $constraint->digits;
         $divider = pow(10, $digits);

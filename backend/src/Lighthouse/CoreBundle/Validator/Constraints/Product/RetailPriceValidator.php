@@ -4,41 +4,76 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\Product;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Validator\Constraints\Money;
+use Lighthouse\CoreBundle\Validator\Constraints\MoneyRange;
+use Lighthouse\CoreBundle\Validator\Constraints\NotBlankFields;
 use Lighthouse\CoreBundle\Validator\Constraints\Precision;
 use Lighthouse\CoreBundle\Validator\Constraints\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
+use Lighthouse\CoreBundle\Validator\Constraints\ConstraintValidator;
 
 class RetailPriceValidator extends ConstraintValidator
 {
-    /*****
+    /**
      * @param Product $value
      * @param Constraint $constraint
      */
     public function validate($value, Constraint $constraint)
     {
         $retailPriceConstraints = array(
-            new Money()
+            new Money(),
         );
+
+        if (!$this->isNull($value->purchasePrice)) {
+            $retailPriceConstraints[] = new MoneyRange(
+                array(
+                    'gte' => $value->purchasePrice->getCount(),
+                    'gteMessage' => 'lighthouse.validation.errors.product.retailPrice.purchasePrice'
+                )
+            );
+        }
 
         $retailMarkupConstrains = array(
             new Precision(),
             new Range(
                 array(
                     'gte' => 0,
-                    'gtMessage' => 'lighthouse.validation.errors.product.retailMarkup.range'
+                    'gteMessage' => 'lighthouse.validation.errors.product.retailMarkup.range'
                 )
             )
         );
 
         $comparePriceConstraints = array(
-            new MoneyCompare(array('minField' => 'retailPriceMin', 'maxField' => 'retailPriceMax')),
+            new NotBlankFields(
+                array(
+                    'fields' => array('retailPriceMin', 'retailPriceMax'),
+                    'message' => 'lighthouse.validation.errors.product.retailPrice.not_blank'
+                )
+            ),
+            new MoneyCompare(
+                array(
+                    'minField' => 'retailPriceMin',
+                    'maxField' => 'retailPriceMax',
+                    'message' => 'lighthouse.validation.errors.product.retailPrice.compare'
+                )
+            ),
         );
 
         $compareMarkupConstraints = array(
-            new NumbersCompare(array('minField' => 'retailMarkupMin', 'maxField' => 'retailMarkupMax')),
+            new NotBlankFields(
+                array(
+                    'fields' => array('retailMarkupMin', 'retailMarkupMax'),
+                    'message' => 'lighthouse.validation.errors.product.retailMarkup.not_blank'
+                )
+            ),
+            new NumbersCompare(
+                array(
+                    'minField' => 'retailMarkupMin',
+                    'maxField' => 'retailMarkupMax',
+                    'message' => 'lighthouse.validation.errors.product.retailMarkup.compare'
+                )
+            ),
         );
 
         $value->updateRetails();
@@ -103,24 +138,6 @@ class RetailPriceValidator extends ConstraintValidator
                     $this->context->validateValue($value, $compareMarkupConstraints);
                 }
                 break;
-        }
-    }
-
-    /**
-     * @param $value
-     * @param Constraint|Constraint[] $constraints
-     * @param string $subPath
-     * @param null|string|string[] $groups
-     * @return bool
-     */
-    protected function validateValue($value, $constraints, $subPath = '', $groups = null)
-    {
-        $countViolations = count($this->context->getViolations());
-        $this->context->validateValue($value, $constraints, $subPath, $groups);
-        if (count($this->context->getViolations()) == $countViolations) {
-            return true;
-        } else {
-            return false;
         }
     }
 }

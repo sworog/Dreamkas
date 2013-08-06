@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
 

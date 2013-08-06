@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Types;
 
 use Lighthouse\CoreBundle\Service\RoundService;
 
-class Money
+class Money implements Nullable
 {
     /**
      * @var int
@@ -47,7 +47,7 @@ class Money
     /**
      * @return bool
      */
-    public function isEmpty()
+    public function isNull()
     {
         return '' === $this->count || null === $this->count;
     }

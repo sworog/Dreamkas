@@ -205,7 +205,7 @@ class Product extends AbstractDocument implements VersionableInterface
     protected function calcMarkup(Money $retailPrice = null, Money $purchasePrice = null)
     {
         $roundedMarkup = null;
-        if (null !== $retailPrice && !$retailPrice->isEmpty() && null !== $purchasePrice) {
+        if (null !== $retailPrice && !$retailPrice->isNull() && null !== $purchasePrice) {
             $markup = (($retailPrice->getCount() / $purchasePrice->getCount()) * 100) - 100;
             $roundedMarkup = RoundService::round($markup, 2);
         }
