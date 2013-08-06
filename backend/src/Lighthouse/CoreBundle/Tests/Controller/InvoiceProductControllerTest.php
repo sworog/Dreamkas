@@ -1309,11 +1309,9 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertCount(2, $productVersions);
 
         $firstProduct = $productVersions->getNext();
-
-        $this->assertEquals('Кефир 5%', $firstProduct->name);
-
         $secondProduct = $productVersions->getNext();
 
+        $this->assertEquals('Кефир 5%', $firstProduct->name);
         $this->assertEquals('Кефир 1%', $secondProduct->name);
     }
 }

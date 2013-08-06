@@ -69,7 +69,10 @@ class VersionRepository extends DocumentRepository
      */
     public function findAllByDocumentId($documentId)
     {
-        return $this->findBy(array('object' => $documentId), array('version' => -1));
+        return $this->findBy(
+            array('object' => $documentId),
+            array('createdDate' => -1)
+        );
     }
 
     /**

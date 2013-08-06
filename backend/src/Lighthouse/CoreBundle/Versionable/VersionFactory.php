@@ -39,7 +39,7 @@ class VersionFactory
         $versionableMetadata = $this->getClassVersionable($document);
 
         /* @var VersionInterface $versionable */
-        $versionable = $versionableMetadata->newInstance();
+        $versionable = $versionableMetadata->getReflectionClass()->newInstance();
 
         foreach ($versionable->getVersionFields() as $field) {
             $value = $classMetadata->getFieldValue($document, $field);

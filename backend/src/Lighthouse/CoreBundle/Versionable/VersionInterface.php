@@ -24,7 +24,7 @@ interface VersionInterface
      * @param $object
      * @return mixed
      */
-    public function setObject($object);
+    public function setObject(VersionableInterface $object);
 
     /**
      * @return mixed

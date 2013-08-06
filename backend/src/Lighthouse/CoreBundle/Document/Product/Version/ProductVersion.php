@@ -3,8 +3,10 @@
 namespace Lighthouse\CoreBundle\Document\Product\Version;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Versionable\VersionableInterface;
 use Lighthouse\CoreBundle\Versionable\VersionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use DateTime;
 
 /**
  * @MongoDB\Document(
@@ -42,6 +44,17 @@ class ProductVersion extends Product implements VersionInterface
     protected $object;
 
     /**
+     * @MongoDB\Date
+     * @var DateTime
+     */
+    protected $createdDate;
+
+    public function __construct()
+    {
+        $this->createdDate = new DateTime();
+    }
+
+    /**
      * @param string $version
      * @return void
      */
@@ -59,9 +72,9 @@ class ProductVersion extends Product implements VersionInterface
     }
 
     /**
-     * @param Product $object
+     * @param Product|VersionableInterface $object
      */
-    public function setObject($object)
+    public function setObject(VersionableInterface $object)
     {
         $this->object = $object;
     }
