@@ -5,11 +5,10 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\DateTime;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyCompare;
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompareValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class DatesCompareValidator extends CompareValidator
+class MoneyCompareValidator extends CompareValidator
 {
     /**
      * @param $value

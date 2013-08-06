@@ -43,8 +43,10 @@ class ProductControllerTest extends WebTestCase
     public function testPostRetailPriceEmpty()
     {
         $productData = $this->getProductData();
-        $productData['retailMarkup'] = '';
-        $productData['retailPrice'] = '';
+        $productData['retailMarkupMin'] = '';
+        $productData['retailMarkupMax'] = '';
+        $productData['retailPriceMin'] = '';
+        $productData['retailPriceMax'] = '';
         $productData['retailPricePreference'] = 'retailMarkup';
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -57,8 +59,11 @@ class ProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(201);
-        Assert::assertNotJsonHasPath('retailMarkup', $responseJson);
-        Assert::assertNotJsonHasPath('retailPrice', $responseJson);
+
+        Assert::assertNotJsonHasPath('retailMarkupMin', $responseJson);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $responseJson);
+        Assert::assertNotJsonHasPath('retailPriceMin', $responseJson);
+        Assert::assertNotJsonHasPath('retailPriceMax', $responseJson);
 
         $responseJson = $this->clientJsonRequest(
             $accessToken,
@@ -67,8 +72,11 @@ class ProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
-        Assert::assertNotJsonHasPath('retailMarkup', $responseJson);
-        Assert::assertNotJsonHasPath('retailPrice', $responseJson);
+
+        Assert::assertNotJsonHasPath('retailMarkupMin', $responseJson);
+        Assert::assertNotJsonHasPath('retailMarkupMax', $responseJson);
+        Assert::assertNotJsonHasPath('retailPriceMin', $responseJson);
+        Assert::assertNotJsonHasPath('retailPriceMax', $responseJson);
     }
 
     /**
@@ -845,14 +853,12 @@ class ProductControllerTest extends WebTestCase
     /**
      * @dataProvider validRetailPriceProvider
      */
-    public function testPostProductActionSetRetailsPriceValid(
-        array $postData,
-        array $assertions = array(),
-        array $emptyAssertions = array()
-    ) {
+    public function testPostProductActionSetRetailsPriceValid(array $postData,  array $assertions = array())
+    {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData['subCategory'] = $this->createSubCategory();
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -862,13 +868,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(201);
 
-        foreach ($assertions as $path => $expected) {
-            Assert::assertJsonPathEquals($expected, $path, $response);
-        }
-
-        foreach ($emptyAssertions as $path) {
-            Assert::assertNotJsonHasPath($path, $response);
-        }
+        $this->performJsonAssertions($response, $assertions);
     }
 
     /**

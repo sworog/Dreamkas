@@ -4,9 +4,10 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\Product;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Validator\Constraints\Money;
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\Precision;
 use Lighthouse\CoreBundle\Validator\Constraints\Range;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyCompare;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -33,7 +34,7 @@ class RetailPriceValidator extends ConstraintValidator
         );
 
         $comparePriceConstraints = array(
-            new NumbersCompare(array('minField' => 'retailPriceMin', 'maxField' => 'retailPriceMax')),
+            new MoneyCompare(array('minField' => 'retailPriceMin', 'maxField' => 'retailPriceMax')),
         );
 
         $compareMarkupConstraints = array(
