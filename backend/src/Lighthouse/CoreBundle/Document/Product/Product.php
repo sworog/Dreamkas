@@ -202,10 +202,10 @@ class Product extends AbstractDocument implements VersionableInterface
      * @param Money $purchasePrice
      * @return float|null
      */
-    protected function calcMarkup(Money $retailPrice = null, Money $purchasePrice)
+    protected function calcMarkup(Money $retailPrice = null, Money $purchasePrice = null)
     {
         $roundedMarkup = null;
-        if (null !== $retailPrice && !$retailPrice->isEmpty()) {
+        if (null !== $retailPrice && !$retailPrice->isEmpty() && null !== $purchasePrice) {
             $markup = (($retailPrice->getCount() / $purchasePrice->getCount()) * 100) - 100;
             $roundedMarkup = RoundService::round($markup, 2);
         }
@@ -217,10 +217,10 @@ class Product extends AbstractDocument implements VersionableInterface
      * @param Money $purchasePrice
      * @return Money
      */
-    protected function calcRetailPrice($retailMarkup, Money $purchasePrice)
+    protected function calcRetailPrice($retailMarkup, Money $purchasePrice = null)
     {
         $retailPrice = new Money();
-        if (null !== $retailMarkup && '' !== $retailMarkup) {
+        if (null !== $retailMarkup && '' !== $retailMarkup && null !== $purchasePrice) {
             $percent = 1 + ($retailMarkup / 100);
             $retailPrice->setCountByQuantity($purchasePrice, $percent, true);
         }

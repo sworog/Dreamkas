@@ -1113,42 +1113,37 @@ class ProductControllerTest extends WebTestCase
                     'retailMarkupMax' => null,
                 )
             ),
-            'prefer markup, price valid, valid markup: -10' => array(
+            'prefer markup, price valid, valid markup with comma: 10,11' => array(
                 array(
                     'purchasePrice' => 30.48,
-                    'retailPrice' => 27.42,
-                    'retailMarkup' => -10,
+                    'retailPriceMin' => 33.56,
+                    'retailMarkupMin' => '10,11',
+                    'retailPriceMax' => 33.70,
+                    'retailMarkupMax' => '10,56',
                     'retailPricePreference' => 'retailMarkup',
                 ) + $productData,
                 array(
-                    'retailPrice' => '27.43',
-                    'retailMarkup' => '-10',
+                    'retailPriceMin' => '33.56',
+                    'retailMarkupMin' => '10.11',
+                    'retailPriceMax' => '33.70',
+                    'retailMarkupMax' => '10.56',
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
-            'prefer markup, price valid, valid markup with comma: -10,11' => array(
+            'prefer price, valid price with comma, valid markup with comma' => array(
                 array(
                     'purchasePrice' => 30.48,
-                    'retailPrice' => 27.40,
-                    'retailMarkup' => "-10,11",
+                    'retailPriceMin' => "33,56",
+                    'retailMarkupMin' => "10,11",
+                    'retailPriceMax' => "33,70",
+                    'retailMarkupMax' => "10,56",
                     'retailPricePreference' => 'retailMarkup',
                 ) + $productData,
                 array(
-                    'retailPrice' => '27.40',
-                    'retailMarkup' => '-10.11',
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            'prefer price, valid price with comma: 27,40' => array(
-                array(
-                    'purchasePrice' => 30.48,
-                    'retailPrice' => "27,40",
-                    'retailMarkup' => "-10,11",
-                    'retailPricePreference' => 'retailMarkup',
-                ) + $productData,
-                array(
-                    'retailPrice' => '27.40',
-                    'retailMarkup' => '-10.11',
+                    'retailPriceMin' => '33.56',
+                    'retailMarkupMin' => '10.11',
+                    'retailPriceMax' => '33.70',
+                    'retailMarkupMax' => '10.56',
                     'retailPricePreference' => 'retailMarkup',
                 )
             ),
