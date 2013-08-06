@@ -68,10 +68,25 @@ public class ProductUserSteps {
         productSteps.navigateToTheProductPage(productSku);
     }
 
-    @When("the user inputs '$inputText' in '$elementName' field")
-    @Alias("the user inputs <inputText> in <elementName> field")
-    public void whenTheUserInputsTextInTheField(String inputText, String elementName) {
+    @Given("the user navigates to the product with <sku>")
+    public void givenTheUserNavigatesToTheProdcutWithSku(String sku) throws JSONException, IOException {
+        givenThereIsCreatedProductWithSkuValue(sku, "0,01");
+        givenTheUserNavigatesToTheProduct(sku);
+    }
+
+    @When("the user inputs '$value' in '$elementName' field")
+    public void whenTheUserInputsTextInTheField(String value, String elementName) {
+        productSteps.fieldInput(elementName, value);
+    }
+
+    @When("the user inputs <inputText> in <elementName> field")
+    public void aliasTheUserInputsTextInTheField(String inputText, String elementName) {
         productSteps.fieldInput(elementName, inputText);
+    }
+
+    @When("the user inputs <value> in sku field")
+    public void whenTheUserInputsValueInSkuField(String value) {
+        productSteps.fieldInput("sku", value);
     }
 
     @When("the user inputs values in element fields $fieldInputTable")
@@ -126,10 +141,10 @@ public class ProductUserSteps {
         productSteps.generateTestCharData(elementName, charNumber);
     }
 
-    @When("the user clicks '$elementName' to make it avalaible")
-    @Alias("the user clicks '$elementName' element")
-    public void whenTheUserClicksElement(String elementName) {
-        productSteps.elementClick(elementName);
+    @When("the user clicks '$elementNameToClick' to make it avalaible")
+    @Alias("the user clicks '$elementNameToClick' element")
+    public void whenTheUserClicksElement(String elementNameToClick) {
+        productSteps.elementClick(elementNameToClick);
     }
 
     @Then("the user checks the '$elementName' value is '$expectedValue'")

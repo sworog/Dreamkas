@@ -33,7 +33,11 @@ public class ProductCreatePage extends CommonPageObject {
         items.put("vendorCountry", new Input(this, "vendorCountry"));
         items.put("info", new Textarea(this, "info"));
         items.put("retailMarkup", new Input(this, "retailMarkup"));
+        items.put("retailMarkupMin", new Input(this, "retailMarkupMin"));
+        items.put("retailMarkupMax", new Input(this, "retailMarkupMax"));
         items.put("retailPrice", new Input(this, "retailPrice"));
+        items.put("retailPriceMin", new Input(this, "retailPriceMin"));
+        items.put("retailPriceMax", new Input(this, "retailPriceMax"));
         items.put("retailMarkupHint", new Input(this, "retailMarkupHint"));
         items.put("retailPriceHint", new Input(this, "retailPriceHint"));
         items.put("group", new NonType(this, "group"));
