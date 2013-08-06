@@ -79,13 +79,13 @@
         </td>
     </tr>
     <tr>
-        <th>Диапазон наценка</th>
+        <th>Диапазон наценки</th>
         <td>
             <% if(model.get('retailMarkupMin') && model.get('retailMarkupMax')) { %>
                 <span name="retailMarkup">
-                    <%= model.get('retailMarkupMin') %>
+                    <%= LH.formatPrice(model.get('retailMarkupMin')) %>
                     -
-                    <%= model.get('retailMarkupMax') %>
+                    <%= LH.formatPrice(model.get('retailMarkupMax')) %>
                 </span>
             %
             <% } else { %>
