@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Thu Apr 25 2013 15:49:48 GMT+0400 (MSK)
+// Generated on Wed Aug 07 2013 21:58:33 GMT+0400 (MSK)
 
 
 // base path, that will be used to resolve files and exclude
@@ -12,20 +12,19 @@ files = [
     JASMINE_ADAPTER,
     REQUIRE,
     REQUIRE_ADAPTER,
-    'libs/underscore.min.js',
-    'libs/backbone.min.js',
-    'spec.js',
-    {
-        pattern: '**/*.js',
-        included: false
-    }
+    'web/config.js',
+    'web/libs/jquery/jquery.min.js',
+    'web/libs/jquery-ui/ui/minified/jquery-ui.min.js',
+    'web/libs/underscore/underscore.min.js',
+    'web/libs/backbone/backbone.min.js',
+    'karma.main.js',
+
+    {pattern: 'web/**/*.spec.js', included: false}
 ];
 
 
 // list of files to exclude
-exclude = [
-
-];
+exclude = [];
 
 
 // test results reporter to use
@@ -51,7 +50,7 @@ logLevel = LOG_INFO;
 
 
 // enable / disable watching file and executing tests whenever any file changes
-autoWatch = true;
+autoWatch = false;
 
 
 // Start these browsers, currently available:
