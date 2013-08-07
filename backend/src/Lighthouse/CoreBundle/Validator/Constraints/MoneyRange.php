@@ -14,7 +14,6 @@ class MoneyRange extends Range
      */
     public $notNumericMessage = 'lighthouse.validation.errors.money_range.not_numeric';
 
-
     /**
      * @return string
      */

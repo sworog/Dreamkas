@@ -65,13 +65,13 @@ class RangeValidator extends ConstraintValidator
         $limit = $constraint->getLimit($operator);
 
         if (!$this->isNull($limit)) {
-            $normalizedLimit = $this->normalizeLimit($limit, $constraint, $operator);
+            $normalizedLimit = $this->normalizeLimit($limit, $constraint, $operator, $value);
             if (!$this->comparator->compare($normalizedValue, $normalizedLimit, $operator)) {
                 $this->context->addViolation(
                     $constraint->getMessage($operator),
                     array(
                         '{{ value }}' => $this->formatValueMessage($value, $constraint, $operator),
-                        '{{ limit }}' => $this->formatLimitMessage($limit, $constraint, $operator),
+                        '{{ limit }}' => $this->formatLimitMessage($limit, $constraint, $operator, $value),
                     )
                 );
                 return false;
@@ -95,18 +95,18 @@ class RangeValidator extends ConstraintValidator
     }
 
     /**
-     * @param $value
+     * @param $limit
      * @param Range $constraint
      * @param $operator
      * @return int|string
      * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
      */
-    protected function normalizeLimit($value, Range $constraint, $operator)
+    protected function normalizeLimit($limit, Range $constraint, $operator)
     {
-        if (!is_numeric($value)) {
-            throw new UnexpectedTypeException($value, 'numeric');
+        if (!is_numeric($limit)) {
+            throw new UnexpectedTypeException($limit, 'numeric');
         }
-        return $value;
+        return $limit;
     }
 
     /**

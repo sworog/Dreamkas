@@ -27,6 +27,7 @@ class MoneyRangeValidator extends RangeValidator
      */
     public function __construct(MoneyModelTransformer $moneyTransformer)
     {
+        parent::__construct();
         $this->transformer = $moneyTransformer;
     }
 
@@ -43,14 +44,13 @@ class MoneyRangeValidator extends RangeValidator
         return parent::validate($value, $constraint);
     }
 
-
     /**
      * @param Money $value
      * @param Constraint $constraint
      * @return int|string
      * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
      */
-    protected function normalizeValue($value, Constraint $constraint)
+    protected function normalizeValue($value, Range $constraint)
     {
         if (!$value instanceof MoneyType) {
             throw new UnexpectedTypeException($value, 'Money');
@@ -63,7 +63,7 @@ class MoneyRangeValidator extends RangeValidator
      * @param Constraint|MoneyRange $constraint
      * @return string|void
      */
-    protected function formatMessageValue($value, Constraint $constraint)
+    protected function formatValueMessage($value, Range $constraint)
     {
         return $this->transformer->transform($value, $constraint->digits);
     }
