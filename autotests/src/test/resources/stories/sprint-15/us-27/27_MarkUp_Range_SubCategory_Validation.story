@@ -13,7 +13,6 @@ And the user switches to 'subCategory' properties tab
 And the user sets <markUpType> with <value>
 And the user clicks save mark up button
 Then the user sees success message 'Свойства успешно сохранены'
-When the user logs out
 
 Examples:
 | markUpType | value |
@@ -32,7 +31,6 @@ And the user clicks save mark up button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Examples:
 | markUpType | value |
@@ -49,7 +47,6 @@ And the user switches to 'subCategory' properties tab
 And the user sets <markUpType> with <value>
 And the user clicks save mark up button
 Then the user user sees <errorMessage>
-When the user logs out
 
 Examples:
 | markUpType | value | errorMessage |
@@ -81,5 +78,3 @@ And the user clicks save mark up button
 Then the user sees error messages
 | error message|
 | Минимальная наценка не может быть больше максимальной |
-When the user clicks on end edition link and ends the edition
-And the user logs out
