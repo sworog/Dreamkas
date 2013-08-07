@@ -12,12 +12,29 @@ And the user switches to 'category' properties tab
 And the user sets <markUpType> with <value>
 And the user clicks save mark up button
 Then the user sees success message 'Свойства успешно сохранены'
-When the user logs out
 
 Examples:
 | markUpType | value |
 | min | 1 |
 | max | 1 |
+
+Scenario: Category - mark up validation required fields
+
+Given there is the category with name 'CategoryMarkUp-valid' related to group named 'GroupMarkUp-valid'
+And the user navigates to the category with name 'CategoryMarkUp-valid' related to group named 'GroupMarkUp-valid'
+And the user logs in as 'commercialManager'
+When the user clicks on start edition link and starts the edition
+And the user switches to 'category' properties tab
+And the user sets <markUpType> with <value>
+And the user clicks save mark up button
+Then the user sees error messages
+| error message |
+| Заполните это поле |
+
+Examples:
+| markUpType | value |
+| min |  |
+| max |  |
 
 Scenario: Category - mark up validation negative
 
@@ -29,7 +46,6 @@ And the user switches to 'category' properties tab
 And the user sets <markUpType> with <value>
 And the user clicks save mark up button
 Then the user user sees <errorMessage>
-When the user logs out
 
 Examples:
 | markUpType | value | errorMessage |
@@ -61,5 +77,3 @@ And the user clicks save mark up button
 Then the user sees error messages
 | error message|
 | Минимальная наценка не может быть больше максимальной |
-When the user clicks on end edition link and ends the edition
-And the user logs out

@@ -1,6 +1,7 @@
 Meta:
 @sprint 15
 @us 27
+@test
 
 Scenario: SubCategory - mark up validation good
 
@@ -12,14 +13,31 @@ And the user switches to 'subCategory' properties tab
 And the user sets <markUpType> with <value>
 And the user clicks save mark up button
 Then the user sees success message 'Свойства успешно сохранены'
-When the user logs out
 
 Examples:
 | markUpType | value |
 | min | 1 |
 | max | 1 |
 
-Scenario: SubCategory - mark up validation
+Scenario: SubCategory - mark up validation required fields
+
+Given there is the subCategory with name 'subCategoryMarkUp-valid' related to group named 'GroupMarkUp-valid' and category named 'CategoryMarkUp-valid'
+And the user navigates to the subCategory 'subCategoryMarkUp-valid', category 'CategoryMarkUp-valid', group 'GroupMarkUp-valid' product list page
+And the user logs in as 'commercialManager'
+When the user clicks on start edition link and starts the edition
+And the user switches to 'subCategory' properties tab
+And the user sets <markUpType> with <value>
+And the user clicks save mark up button
+Then the user sees error messages
+| error message |
+| Заполните это поле |
+
+Examples:
+| markUpType | value |
+| min |  |
+| max |  |
+
+Scenario: SubCategory - mark up validation negative
 
 Given there is the subCategory with name 'subCategoryMarkUp-valid' related to group named 'GroupMarkUp-valid' and category named 'CategoryMarkUp-valid'
 And the user navigates to the subCategory 'subCategoryMarkUp-valid', category 'CategoryMarkUp-valid', group 'GroupMarkUp-valid' product list page
@@ -29,7 +47,6 @@ And the user switches to 'subCategory' properties tab
 And the user sets <markUpType> with <value>
 And the user clicks save mark up button
 Then the user user sees <errorMessage>
-When the user logs out
 
 Examples:
 | markUpType | value | errorMessage |
@@ -61,5 +78,3 @@ And the user clicks save mark up button
 Then the user sees error messages
 | error message|
 | Минимальная наценка не может быть больше максимальной |
-When the user clicks on end edition link and ends the edition
-And the user logs out
