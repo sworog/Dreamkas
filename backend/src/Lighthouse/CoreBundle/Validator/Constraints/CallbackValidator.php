@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Validator\Constraint;
 
 class CallbackValidator extends ConstraintValidator
@@ -15,9 +16,10 @@ class CallbackValidator extends ConstraintValidator
         // TODO check method can be executed
         call_user_func(array($value, $constraint->method));
 
+        $accessor = PropertyAccess::createPropertyAccessor();
+
         foreach ($constraint->constraints as $field => $constraints) {
-            // TODO check entity has field
-            $fieldValue = $value->$field;
+            $fieldValue = $accessor->getValue($value, $field);
             $this->context->validateValue($fieldValue, $constraints, $field);
         }
     }

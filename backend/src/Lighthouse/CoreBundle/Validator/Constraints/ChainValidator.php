@@ -13,12 +13,7 @@ class ChainValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         foreach ($constraint->constraints as $chainConstraint) {
-            $violations = $this->context->getViolations();
-            $violationsCountPre = $violations->count();
-            $this->context->validateValue($value, $chainConstraint);
-            $violationsCountPost = $violations->count();
-            // stop validate chain if new violation was added
-            if ($violationsCountPost > $violationsCountPre) {
+            if (!$this->validateValue($value, $chainConstraint)) {
                 return;
             }
         }
