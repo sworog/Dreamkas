@@ -83,7 +83,7 @@ And the user inputs '2' in 'retailMarkupMin' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Минимальная наценка не может быть больше максимальной |
+| Минимальная наценка не должна быть больше максимальной |
 
 Scenario: edit product mark up validation negative
 
