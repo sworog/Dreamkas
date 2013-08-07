@@ -18,6 +18,15 @@ abstract class ConstraintValidator extends BaseConstraintValidator
     }
 
     /**
+     * @param mixed $value
+     * @return bool
+     */
+    protected function isEmpty($value)
+    {
+        return $this->isNull($value) || '' === $value;
+    }
+
+    /**
      * @param $value
      * @param Constraint|Constraint[] $constraints
      * @param string $subPath

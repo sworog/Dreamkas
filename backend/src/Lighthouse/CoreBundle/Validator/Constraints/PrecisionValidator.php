@@ -12,7 +12,7 @@ class PrecisionValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if (null === $value || "" === $value) {
+        if ($this->isEmpty($value)) {
             return;
         }
 
