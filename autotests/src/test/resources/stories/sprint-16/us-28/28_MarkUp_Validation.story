@@ -18,24 +18,23 @@ When the user inputs values in element fields
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
 Then the user user sees <errorMessage>
-When the user logs out
 
 Examples:
 | inputText | elementName | errorMessage |
-|-1 | retailMarkupMin | Значение должно быть больше или равно 0 |
-|-0.01 | retailMarkupMin | Значение должно быть больше или равно 0 |
+|-1 | retailMarkupMin | Наценка должна быть равна или больше 0% |
+|-0.01 | retailMarkupMin | Наценка должна быть равна или больше 0% |
 | 12,678 | retailMarkupMin | Значение не должно содержать больше 2 цифр после запятой |
-| -12,678 | retailMarkupMin | Значение не должно содержать больше 2 цифр после запятой. Значение должно быть больше или равно 0 |
+| -12,678 | retailMarkupMin | Значение не должно содержать больше 2 цифр после запятой. Наценка должна быть равна или больше 0% |
 | big price | retailMarkupMin | Значение должно быть числом |
 | BIG PRICE | retailMarkupMin | Значение должно быть числом |
 | большая цена | retailMarkupMin | Значение должно быть числом |
 | БОЛЬШАЯ ЦЕНА | retailMarkupMin | Значение должно быть числом |
 | !@#$%^&*() | retailMarkupMin | Значение должно быть числом |
-| 120 | retailMarkupMin | Минимальная наценка не может быть больше максимальной |
-|-1 | retailMarkupMax | Значение должно быть больше или равно 0 |
-|-0.01 | retailMarkupMax | Значение должно быть больше или равно 0 |
+| 120 | retailMarkupMin | Минимальная наценка не должна быть больше максимальной |
+|-1 | retailMarkupMax | Наценка должна быть равна или больше 0% |
+|-0.01 | retailMarkupMax | Наценка должна быть равна или больше 0% |
 | 12,678 | retailMarkupMax | Значение не должно содержать больше 2 цифр после запятой |
-| -12,678 | retailMarkupMax | Значение не должно содержать больше 2 цифр после запятой. Значение должно быть больше или равно 0 |
+| -12,678 | retailMarkupMax | Значение не должно содержать больше 2 цифр после запятой. Наценка должна быть равна или больше 0% |
 | big price | retailMarkupMax | Значение должно быть числом |
 | BIG PRICE | retailMarkupMax | Значение должно быть числом |
 | большая цена | retailMarkupMax | Значение должно быть числом |
@@ -60,7 +59,6 @@ And the user inputs values in element fields
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
 Then the user sees no error messages
-When the user logs out
 
 Examples:
 | value | inputText | elementName |
@@ -89,8 +87,8 @@ Then the user sees error messages
 
 Scenario: edit product mark up validation negative
 
-Given there is the product with 'RMU-PPV-02' name, 'RMU-PPV-02' sku, 'RMU-PPV-02' barcode
-And the user navigates to the product with sku 'RMU-PPV-02'
+Given there is the product with 'RMU-PPV-0211' name, 'RMU-PPV-0211' sku, 'RMU-PPV-0211' barcode
+And the user navigates to the product with sku 'RMU-PPV-0211'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
@@ -100,18 +98,17 @@ And the user inputs values in element fields
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
 Then the user user sees <errorMessage>
-When the user logs out
 
 Examples:
 | inputText | elementName | errorMessage |
-|-1 | retailMarkupMin | Значение должно быть больше или равно 0 |
-|-0.01 | retailMarkupMin | Значение должно быть больше или равно 0 |
-|-1 | retailMarkupMax | Значение должно быть больше или равно 0 |
-|-0.01 | retailMarkupMax | Значение должно быть больше или равно 0 |
+|-1 | retailMarkupMin | Наценка должна быть равна или больше 0% |
+|-0.01 | retailMarkupMin | Наценка должна быть равна или больше 0% |
+|-1 | retailMarkupMax | Наценка должна быть равна или больше 0% |
+|-0.01 | retailMarkupMax | Наценка должна быть равна или больше 0% |
 | 12,678 | retailMarkupMin | Значение не должно содержать больше 2 цифр после запятой |
 | 12,678 | retailMarkupMax | Значение не должно содержать больше 2 цифр после запятой |
-| -12,678 | retailMarkupMax | Значение не должно содержать больше 2 цифр после запятой. Значение должно быть больше или равно 0 |
-| -12,678 | retailMarkupMin | Значение не должно содержать больше 2 цифр после запятой. Значение должно быть больше или равно 0 |
+| -12,678 | retailMarkupMax | Значение не должно содержать больше 2 цифр после запятой. Наценка должна быть равна или больше 0% |
+| -12,678 | retailMarkupMin | Значение не должно содержать больше 2 цифр после запятой. Наценка должна быть равна или больше 0% |
 | big price | retailMarkupMax | Значение должно быть числом |
 | BIG PRICE | retailMarkupMax | Значение должно быть числом |
 | большая цена | retailMarkupMax | Значение должно быть числом |
@@ -137,7 +134,6 @@ And the user inputs values in element fields
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
 Then the user sees no error messages
-When the user logs out
 
 Examples:
 | sku | inputText | elementName |
@@ -159,5 +155,5 @@ And the user inputs '2' in 'retailMarkupMin' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Минимальная наценка не может быть больше максимальной |
+| Минимальная наценка не должна быть больше максимальной |
 

@@ -19,7 +19,6 @@ And the user inputs values in element fields
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
 Then the user sees no error messages
-When the user logs out
 
 Examples:
 | value | inputText | elementName |
@@ -54,11 +53,10 @@ And the user inputs values in element fields
 | vat | 10 |
 | purchasePrice | 0,01 |
 | retailPriceMax | 100 |
-| retailPriceMin | 0 |
+| retailPriceMin | 0,01 |
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
 Then the user user sees <errorMessage>
-When the user logs out
 
 Examples:
 | inputText | elementName | errorMessage |
@@ -98,8 +96,7 @@ And the user inputs '2' in 'retailPriceMin' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Минимальная цена не может быть больше максимальной |
-When the user logs out
+| Минимальная цена продажи не должна быть больше максимальной |
 
 Scenario: Create product retail price make retail mark up below zero
 
@@ -116,8 +113,7 @@ And the user inputs '0,5' in 'retailPriceMin' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Значение должно быть больше или равно 0 |
-When the user logs out
+| Цена продажи должна быть больше или равна цене закупки. |
 
 Scenario: Edit product retail price range validation positive
 
@@ -132,7 +128,6 @@ And the user inputs values in element fields
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
 Then the user sees no error messages
-When the user logs out
 
 Examples:
 | sku | inputText | elementName |
@@ -151,7 +146,6 @@ Examples:
 | RP1-PPV-21 | 739,67 | retailPriceMax |
 | RP1-PPV-23 | 10000000 | retailPriceMax |
 
-
 Scenario: Edit product retail price range validation negative
 
 Given there is the product with 'RMU12-PPV-02' name, 'RMU12-PPV-02' sku, 'RMU12-PPV-02' barcode, 'kg' units, '0,01' purchasePrice
@@ -166,7 +160,6 @@ And the user inputs values in element fields
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
 Then the user user sees <errorMessage>
-When the user logs out
 
 Examples:
 | inputText | elementName | errorMessage |
@@ -203,5 +196,4 @@ And the user inputs '2' in 'retailPriceMin' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Минимальная цена не может быть больше максимальной |
-When the user logs out
+| Минимальная цена продажи не должна быть больше максимальной |
