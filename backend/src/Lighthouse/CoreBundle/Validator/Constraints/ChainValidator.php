@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-
 class ChainValidator extends ConstraintValidator
 {
     /**

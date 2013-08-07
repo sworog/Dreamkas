@@ -23,4 +23,3 @@ class MoneyRange extends Range
         return 'money_range_validator';
     }
 }
- 

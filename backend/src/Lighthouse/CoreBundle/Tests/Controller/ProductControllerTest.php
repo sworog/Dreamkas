@@ -853,7 +853,7 @@ class ProductControllerTest extends WebTestCase
     /**
      * @dataProvider validRetailPriceProvider
      */
-    public function testPostProductActionSetRetailsPriceValid(array $postData,  array $assertions = array())
+    public function testPostProductActionSetRetailsPriceValid(array $postData, array $assertions = array())
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 

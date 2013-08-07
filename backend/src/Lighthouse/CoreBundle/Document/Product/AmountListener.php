@@ -64,15 +64,15 @@ class AmountListener extends AbstractMongoDBListener
 
     /**
      * @param DocumentManager $dm
-     * @param Productable $productDocument
+     * @param Productable $document
      */
-    public function updateProductOnFlush(DocumentManager $dm, Productable $productDocument)
+    public function updateProductOnFlush(DocumentManager $dm, Productable $document)
     {
-        $sign = ($productDocument->increaseAmount()) ? -1 : 1;
+        $sign = ($document->increaseAmount()) ? -1 : 1;
 
         $uow = $dm->getUnitOfWork();
 
-        $changeSet = $uow->getDocumentChangeSet($productDocument);
+        $changeSet = $uow->getDocumentChangeSet($document);
 
         if ($this->isProductChanged($changeSet)) {
             $oldProduct = $changeSet['product'][0];
@@ -85,8 +85,8 @@ class AmountListener extends AbstractMongoDBListener
                 $newProduct = $newProduct->getObject();
             }
 
-            $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $productDocument->getProductQuantity();
-            $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $productDocument->getProductQuantity();
+            $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $document->getProductQuantity();
+            $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $document->getProductQuantity();
 
             $oldProduct->amount = $oldProduct->amount + $oldQuantity * $sign;
             $this->computeChangeSet($dm, $oldProduct);
@@ -100,7 +100,7 @@ class AmountListener extends AbstractMongoDBListener
                 $quantityDiff = 0;
             }
 
-            $product = $productDocument->getReasonProduct();
+            $product = $document->getReasonProduct();
             $product->amount = $product->amount + $quantityDiff;
             $this->computeChangeSet($dm, $product);
         }

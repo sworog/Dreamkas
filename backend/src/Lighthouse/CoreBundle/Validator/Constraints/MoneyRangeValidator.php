@@ -68,4 +68,3 @@ class MoneyRangeValidator extends RangeValidator
         return $this->transformer->transform($value, $constraint->digits);
     }
 }
- 
