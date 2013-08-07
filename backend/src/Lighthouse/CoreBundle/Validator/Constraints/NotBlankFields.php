@@ -5,6 +5,9 @@ namespace Lighthouse\CoreBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * @Annotation
+ */
 class NotBlankFields extends Constraint
 {
     /**
@@ -15,7 +18,7 @@ class NotBlankFields extends Constraint
     /**
      * @var string
      */
-    public $message;
+    public $message = 'This value should not be blank.';
 
     /**
      * @var bool
@@ -33,6 +36,14 @@ class NotBlankFields extends Constraint
         if (!is_array($this->fields)) {
             throw new UnexpectedTypeException($this->constraints, 'array');
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultOption()
+    {
+        return 'fields';
     }
 
     /**

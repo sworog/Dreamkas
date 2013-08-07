@@ -141,12 +141,29 @@ class SubCategoryControllerTest extends WebTestCase
             'not valid markup min not float' => array(
                 400,
                 array('retailMarkupMin' => 'aaa', 'retailMarkupMax' => 10),
-                array('children.retailMarkupMin.errors.*' => 'Значение должно быть числом'),
+                array(
+                    'children.retailMarkupMin.errors.0' => 'Значение должно быть числом',
+                    'children.retailMarkupMin.errors.1' => null,
+                ),
             ),
             'not valid markup max not float' => array(
                 400,
                 array('retailMarkupMin' => 10, 'retailMarkupMax' => 'bbb'),
-                array('children.retailMarkupMax.errors.*' => 'Значение должно быть числом'),
+                array(
+                    'children.retailMarkupMax.errors.0' => 'Значение должно быть числом',
+                    'children.retailMarkupMin.errors.1' => null,
+                    'children.retailMarkupMin.errors' => null,
+                ),
+            ),
+            'not valid markup, min entered, max not' => array(
+                400,
+                array('retailMarkupMin' => 10, 'retailMarkupMax' => ''),
+                array('children.retailMarkupMax.errors.0' => 'Заполните это поле'),
+            ),
+            'not valid markup, max entered, min not' => array(
+                400,
+                array('retailMarkupMin' => '', 'retailMarkupMax' => 10),
+                array('children.retailMarkupMin.errors.0' => 'Заполните это поле'),
             ),
         );
     }

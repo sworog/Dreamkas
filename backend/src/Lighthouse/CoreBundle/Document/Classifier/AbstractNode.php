@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare as AssertMarkupCompare;
+use Lighthouse\CoreBundle\Validator\Constraints\NotBlankFields as AssertNotBlankFields;
 
 /**
  * @property string $id
@@ -19,6 +20,9 @@ use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare as Assert
  *      minField="retailMarkupMin",
  *      maxField="retailMarkupMax",
  *      message="lighthouse.validation.errors.markup.compare"
+ * )
+ * @AssertNotBlankFields(
+ *      {"retailMarkupMin","retailMarkupMax"}
  * )
  */
 abstract class AbstractNode extends AbstractDocument
