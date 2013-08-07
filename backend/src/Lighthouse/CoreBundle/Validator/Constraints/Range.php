@@ -36,4 +36,23 @@ class Range extends Constraint
             );
         }
     }
+
+    /**
+     * @param stirng $operator
+     * @return mixed
+     */
+    public function getLimit($operator)
+    {
+        return $this->$operator;
+    }
+
+    /**
+     * @param string $operator
+     * @return mixed
+     */
+    public function getMessage($operator)
+    {
+        $property = $operator . 'Message';
+        return $this->$property;
+    }
 }
