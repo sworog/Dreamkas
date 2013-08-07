@@ -196,4 +196,4 @@ And the user inputs '2' in 'retailPriceMin' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Минимальная цена продажи не должна быть больше максимальной |
+| Цена продажи должна быть больше или равна цене закупки. |
