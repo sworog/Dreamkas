@@ -19,7 +19,26 @@ Examples:
 | min | 1 |
 | max | 1 |
 
-Scenario: Group - mark up validation
+Scenario: group - mark up validation required fields
+
+Given there is the group with name 'GroupMarkUp-valid'
+And the user navigates to the group with name 'GroupMarkUp-valid'
+And the user logs in as 'commercialManager'
+When the user clicks on start edition link and starts the edition
+And the user switches to 'group' properties tab
+And the user sets <markUpType> with <value>
+And the user clicks save mark up button
+Then the user sees error messages
+| error message |
+| Заполните это поле |
+When the user logs out
+
+Examples:
+| markUpType | value |
+| min |  |
+| max |  |
+
+Scenario: Group - mark up validation negative
 
 Given there is the group with name 'GroupMarkUp-valid'
 And the user navigates to the group with name 'GroupMarkUp-valid'

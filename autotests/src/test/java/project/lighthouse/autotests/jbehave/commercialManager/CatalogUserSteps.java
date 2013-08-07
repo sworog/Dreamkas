@@ -321,13 +321,13 @@ public class CatalogUserSteps {
     }
 
     public void validateMaxMarkUpValue(String value) {
-        whenTheUserSetsMinMarkUpValue("");
+        whenTheUserSetsMinMarkUpValue("0");
         whenTheUserSetsMaxMarkUpValue(value);
     }
 
     public void validateMinMarkUpValue(String value) {
         whenTheUserSetsMinMarkUpValue(value);
-        whenTheUserSetsMaxMarkUpValue("");
+        whenTheUserSetsMaxMarkUpValue("100");
     }
 
     @Then("the user user sees <errorMessage>")
