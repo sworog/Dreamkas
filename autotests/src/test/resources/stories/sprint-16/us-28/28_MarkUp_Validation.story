@@ -2,7 +2,7 @@ Meta:
 @sprint 16
 @us 28
 
-Scenario: create product mark up validation negative
+Scenario: Create product mark up validation negative
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
@@ -43,7 +43,7 @@ Examples:
 |  | retailMarkupMin | Заполните это поле |
 |  | retailMarkupMax | Заполните это поле |
 
-Scenario: create product mark up validation positive
+Scenario: Create product mark up validation positive
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
@@ -69,7 +69,7 @@ Examples:
 | RMU-PPV-06 | 12,67 | retailMarkupMin |
 | RMU-PPV-07 | 12,67 | retailMarkupMax |
 
-Scenario: create product min mark up can't be more than max
+Scenario: Create product min mark up can't be more than max
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
@@ -85,7 +85,7 @@ Then the user sees error messages
 | error message |
 | Минимальная наценка не должна быть больше максимальной |
 
-Scenario: edit product mark up validation negative
+Scenario: Edit product mark up validation negative
 
 Given there is the product with 'RMU-PPV-0211' name, 'RMU-PPV-0211' sku, 'RMU-PPV-0211' barcode
 And the user navigates to the product with sku 'RMU-PPV-0211'
@@ -122,7 +122,7 @@ Examples:
 |  | retailMarkupMin | Заполните это поле |
 |  | retailMarkupMax | Заполните это поле |
 
-Scenario: edit product mark up validation positive
+Scenario: Edit product mark up validation positive
 
 Given the user navigates to the product with <sku>
 And the user logs in as 'commercialManager'
@@ -144,7 +144,7 @@ Examples:
 | RMU1-PPV-06 | 12,67 | retailMarkupMin |
 | RMU1-PPV-07 | 12,67 | retailMarkupMax |
 
-Scenario: create product min mark up can't be more than max
+Scenario: Edit product min mark up can't be more than max
 
 Given there is the product with 'RMU-PPV1-02' name, 'RMU-PPV1-02' sku, 'RMU-PPV1-02' barcode
 And the user navigates to the product with sku 'RMU-PPV1-02'
