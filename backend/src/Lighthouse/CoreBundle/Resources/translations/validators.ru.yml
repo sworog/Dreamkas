@@ -19,6 +19,7 @@ lighthouse:
                 retailPrice.not_blank: Заполните это поле
                 retailMarkup.compare: Минимальная наценка не должна быть больше максимальной
                 retailMarkup.not_blank: Заполните это поле
+                does_not_exist: Такого товара не существует
             invoice:
                 dates_compare: Дата накладной не должна быть старше даты приемки
             purchase:
@@ -36,6 +37,7 @@ lighthouse:
                 username.unique: Пользователь с таким логином уже существует
             store:
                 number.unique: Такой магазин уже есть
+                does_not_exist: Такого магазина не существует
             department:
                 number.unique: Отдел с таким названием уже существует в этом магазине
                 store.does_not_exists: Такого магазина не существует
