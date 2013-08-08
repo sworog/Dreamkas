@@ -208,10 +208,8 @@ class RangeValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('addViolation')
             ->with(
-                'lighthouse.validation.errors.range.not_numeric',
-                array(
-                    '{{ value }}' => $value
-                )
+                'lighthouse.validation.errors.range.invalid',
+                array()
             );
 
         $this->validator->validate($value, $constraint);

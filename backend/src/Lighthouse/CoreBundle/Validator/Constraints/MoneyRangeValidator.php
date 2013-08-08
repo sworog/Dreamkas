@@ -4,6 +4,8 @@ namespace Lighthouse\CoreBundle\Validator\Constraints;
 
 use Lighthouse\CoreBundle\Types\Money as MoneyType;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyComparison;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -32,39 +34,35 @@ class MoneyRangeValidator extends RangeValidator
     }
 
     /**
-     * @param Money $value
-     * @param Constraint|MoneyRange $constraint
+     * @param numeric $value
+     * @param Range $constraint
+     * @return Comparison|MoneyComparison
      */
-    public function validate($value, Constraint $constraint)
+    protected function createComparison($value, Range $constraint)
     {
-        if ($value instanceof MoneyType && $value->isNull()) {
-            return;
-        }
-
-        return parent::validate($value, $constraint);
+        return new MoneyComparison($value, $this->comparator);
     }
 
     /**
-     * @param Money $value
-     * @param Constraint $constraint
-     * @return int|string
-     * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @param Comparison|MoneyComparison $comparison
+     * @param Constraint|MoneyRange $constraint
+     * @return string
      */
-    protected function normalizeValue($value, Range $constraint)
+    protected function formatValueMessage(Comparison $comparison, Range $constraint)
     {
-        if (!$value instanceof MoneyType) {
-            throw new UnexpectedTypeException($value, 'Money');
-        }
-        return $value->getCount();
+        return $this->transformer->transform($comparison->getMoneyValue(), $constraint->digits);
     }
 
     /**
-     * @param Money $value
-     * @param Constraint|MoneyRange $constraint
-     * @return string|void
+     * @param numeric $limit
+     * @param Range $constraint
+     * @param $operator
+     * @param Comparison $comparison
+     * @return string
      */
-    protected function formatValueMessage($value, Range $constraint)
+    protected function formatLimitMessage($limit, Range $constraint, $operator, Comparison $comparison)
     {
-        return $this->transformer->transform($value, $constraint->digits);
+        $limitValue = $this->transformer->transform($limit, $constraint->digits);
+        return parent::formatLimitMessage($limitValue, $constraint, $operator, $comparison);
     }
 }

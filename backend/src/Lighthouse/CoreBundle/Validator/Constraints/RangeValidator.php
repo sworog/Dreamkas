@@ -2,6 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
+use Lighthouse\CoreBundle\Exception\NullValueException;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparator;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -23,19 +26,12 @@ class RangeValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if ($this->isEmpty($value)) {
-            return;
-        }
-
         try {
-            $normalizedValue = $this->normalizeValue($value, $constraint);
+            $comparison = $this->createComparison($value, $constraint);
+        } catch (NullValueException $e) {
+            return;
         } catch (UnexpectedTypeException $e) {
-            $this->context->addViolation(
-                $constraint->notNumericMessage,
-                array(
-                    '{{ value }}' => $value,
-                )
-            );
+            $this->context->addViolation($constraint->invalidValue);
             return;
         }
 
@@ -47,87 +43,71 @@ class RangeValidator extends ConstraintValidator
         );
 
         foreach ($operators as $operator) {
-            if (false === $this->compare($constraint, $operator, $value, $normalizedValue)) {
+            if (false === $this->compare($constraint, $operator, $comparison)) {
                 return;
             }
         }
     }
 
     /**
+     * @param numeric $value
+     * @param Range $constraint
+     * @return Comparison
+     */
+    protected function createComparison($value, Range $constraint)
+    {
+        return new Comparison($value, $this->comparator);
+    }
+
+    /**
      * @param Range $constraint
      * @param string $operator
-     * @param $value
-     * @param $normalizedValue
+     * @param Comparison $comparison
      * @return bool
+     * @throws \Exception|\Symfony\Component\Validator\Exception\UnexpectedTypeException
      */
-    protected function compare(Range $constraint, $operator, $value, $normalizedValue)
+    protected function compare(Range $constraint, $operator, Comparison $comparison)
     {
         $limit = $constraint->getLimit($operator);
 
-        if (!$this->isNull($limit)) {
-            $normalizedLimit = $this->normalizeLimit($limit, $constraint, $operator, $value);
-            if (!$this->comparator->compare($normalizedValue, $normalizedLimit, $operator)) {
+        try {
+            if (!$comparison->compare($limit, $operator)) {
                 $this->context->addViolation(
                     $constraint->getMessage($operator),
                     array(
-                        '{{ value }}' => $this->formatValueMessage($value, $constraint, $operator),
-                        '{{ limit }}' => $this->formatLimitMessage($limit, $constraint, $operator, $value),
+                        '{{ value }}' => $this->formatValueMessage($comparison, $constraint, $operator),
+                        '{{ limit }}' => $this->formatLimitMessage($limit, $constraint, $operator, $comparison),
                     )
                 );
                 return false;
             }
+        } catch (UnexpectedTypeException $e) {
+            throw $e;
+        } catch (NullValueException $e) {
+
         }
         return true;
     }
 
     /**
-     * @param $value
+     * @param numeric $value
      * @param Range $constraint
-     * @return int|string
-     * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @param string $operator
+     * @return string
      */
-    protected function normalizeValue($value, Range $constraint)
+    protected function formatValueMessage(Comparison $comparison, Range $constraint, $operator)
     {
-        if (!is_numeric($value)) {
-            throw new UnexpectedTypeException($value, 'numeric');
-        }
-        return $value;
+        return (string) $comparison->getValue();
     }
 
     /**
-     * @param $limit
+     * @param numeric $limit
      * @param Range $constraint
-     * @param $operator
-     * @return int|string
-     * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @param string $operator
+     * @return string
      */
-    protected function normalizeLimit($limit, Range $constraint, $operator)
+    protected function formatLimitMessage($limit, Range $constraint, $operator, Comparison $comparison)
     {
-        if (!is_numeric($limit)) {
-            throw new UnexpectedTypeException($limit, 'numeric');
-        }
-        return $limit;
-    }
-
-    /**
-     * @param $value
-     * @param Range $constraint
-     * @param $operator
-     * @return mixed
-     */
-    protected function formatValueMessage($value, Range $constraint, $operator)
-    {
-        return $value;
-    }
-
-    /**
-     * @param $limit
-     * @param Range $constraint
-     * @param $operator
-     * @return mixed
-     */
-    protected function formatLimitMessage($limit, Range $constraint, $operator)
-    {
-        return $limit;
+        return (string) $limit;
     }
 }

@@ -28,7 +28,7 @@ class RetailPriceValidator extends ConstraintValidator
         if (!$this->isNull($value->purchasePrice)) {
             $retailPriceConstraints[] = new MoneyRange(
                 array(
-                    'gte' => $value->purchasePrice->getCount(),
+                    'gte' => $value->purchasePrice,
                     'gteMessage' => 'lighthouse.validation.errors.product.retailPrice.purchasePrice'
                 )
             );

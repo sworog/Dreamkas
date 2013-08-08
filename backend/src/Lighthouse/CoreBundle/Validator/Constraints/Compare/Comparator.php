@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 class Comparator
 {

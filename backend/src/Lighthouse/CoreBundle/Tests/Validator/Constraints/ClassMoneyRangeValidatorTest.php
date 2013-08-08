@@ -140,9 +140,6 @@ class ClassMoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator->validate($value, $constraint);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     */
     public function testValueIsNotMoney()
     {
         $value = new stdClass;
@@ -153,6 +150,15 @@ class ClassMoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
             'field' => 'price',
             'gt' => 'minPrice',
         );
+
+        $this
+            ->context
+            ->expects($this->once())
+            ->method('addViolation')
+            ->with(
+                'lighthouse.validation.errors.money_range.not_numeric',
+                array()
+            );
 
         $constraint = new ClassMoneyRange($options);
         $this->validator->validate($value, $constraint);

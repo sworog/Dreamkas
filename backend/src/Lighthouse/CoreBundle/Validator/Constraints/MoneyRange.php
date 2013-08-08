@@ -12,7 +12,7 @@ class MoneyRange extends Range
     /**
      * @var string
      */
-    public $notNumericMessage = 'lighthouse.validation.errors.money_range.not_numeric';
+    public $invalidValue = 'lighthouse.validation.errors.money_range.not_numeric';
 
     /**
      * @return string
