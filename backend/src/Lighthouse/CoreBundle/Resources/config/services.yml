@@ -126,3 +126,9 @@ services:
                 - LighthouseCoreBundle:Product\Version\ProductVersion
             calls:
                 - [setVersionFactory, ["@lighthouse.core.versionable.factory"]]
+
+    lighthouse.core.document.repository.store_product:
+            parent: doctrine_mongodb.odm.repository
+            class: Lighthouse\CoreBundle\Document\Product\Store\StoreProduct
+            arguments:
+                - LighthouseCoreBundle:Product\Store\StoreProduct

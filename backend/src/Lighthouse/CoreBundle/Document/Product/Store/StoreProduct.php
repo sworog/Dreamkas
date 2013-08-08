@@ -8,6 +8,12 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 
 /**
+ * @property Money $retailPrice
+ * @property float $retailMarkup
+ * @property string $retailPricePreference
+ * @property Product $product
+ * @property Store $store
+ *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository"
  * )
@@ -26,6 +32,18 @@ class StoreProduct extends AbstractDocument
      * @var Money
      */
     protected $retailPrice;
+
+    /**
+     * @MongoDB\Float
+     * @var float
+     */
+    protected $retailMarkup;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $retailPricePreference = Product::RETAIL_PRICE_PREFERENCE_MARKUP;
 
     /**
      * @MongoDB\ReferenceOne(
