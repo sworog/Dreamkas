@@ -6,9 +6,11 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.json.JSONException;
+import project.lighthouse.autotests.objects.Store;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
 import project.lighthouse.autotests.steps.CommonSteps;
 import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
+import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
 
 import java.io.IOException;
 
@@ -16,6 +18,9 @@ public class CatalogUserSteps {
 
     @Steps
     CatalogSteps catalogSteps;
+
+    @Steps
+    StoreSteps storeSteps;
 
     @Steps
     AuthorizationSteps authorizationSteps;
@@ -59,6 +64,17 @@ public class CatalogUserSteps {
     @Given("the user navigates to the subCategory '$subCategoryName', category '$categoryName', group '$groupName' product list page")
     public void navigateToSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
         catalogSteps.navigateToSubCategoryProductListPageUrl(subCategoryName, categoryName, groupName);
+    }
+
+    @Given("the user sets subCategory '$subCategoryName' mark up with max '$maxValue' and min '$minValue' values")
+    public void givenTheUSerSetsSubCategoryMarkUp(String subCategoryName, String maxValue, String minValue) throws IOException, JSONException {
+        catalogSteps.setSubCategoryMarkUp(maxValue, minValue, subCategoryName);
+    }
+
+    @Given("there is the store with number '$storeNumber' managed by '$storeManager'")
+    public void givenThereIsTheStoreManagedBy(String storeNumber, String storeManager) throws IOException, JSONException {
+        Store store = storeSteps.createStore(storeNumber, storeManager, storeManager);
+        catalogSteps.promoteStoreManager(store, storeManager);
     }
 
     @When("the user clicks on start edition link and starts the edition")
@@ -226,8 +242,6 @@ public class CatalogUserSteps {
     public void whenTheUserChecksTheEditIsNotPresent() {
         catalogSteps.startEditButtonLinkClickIsNotPresent();
     }
-
-    //-21-2-12-12-1-21-2-12-
 
     @When("the user switches to '$propertiesTypeTab' properties tab")
     public void whenTheUserSwitchesToPropertiesTab(String propertiesTypeTab) {

@@ -79,6 +79,11 @@ public class ProductUserSteps {
         productSteps.fieldInput(elementName, value);
     }
 
+    @When("the user inputs <value> in retailPrice")
+    public void whenTheUserInputsValueInRetailPrice(String value) {
+        productSteps.fieldInput("retailPrice", value);
+    }
+
     @When("the user inputs <inputText> in <elementName> field")
     public void aliasTheUserInputsTextInTheField(String inputText, String elementName) {
         productSteps.fieldInput(elementName, inputText);

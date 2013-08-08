@@ -2,8 +2,10 @@ package project.lighthouse.autotests;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
@@ -16,6 +18,7 @@ import project.lighthouse.autotests.elements.DateTime;
 import project.lighthouse.autotests.objects.*;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 
 public class ApiConnect {
@@ -223,8 +226,7 @@ public class ApiConnect {
 
     public String getSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
         String subCategoryId = StaticData.subCategories.get(subCategoryName).getId();
-        String subCategoryProductCreatePageUrl = String.format("%s/products/create?subCategory=%s", UrlHelper.getWebFrontUrl(), subCategoryId);
-        return subCategoryProductCreatePageUrl;
+        return String.format("%s/products/create?subCategory=%s", UrlHelper.getWebFrontUrl(), subCategoryId);
     }
 
     public void createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
@@ -263,23 +265,94 @@ public class ApiConnect {
         return String.format("%s/users/%s", UrlHelper.getWebFrontUrl(), userId);
     }
 
-    private String executePostRequest(String targetURL, String urlParameters) throws IOException, JSONException {
-        HttpPost request = new HttpPost(targetURL);
-        StringEntity entity = new StringEntity(urlParameters, "UTF-8");
+    public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, String subCategoryName) throws IOException, JSONException {
+        setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, StaticData.subCategories.get(subCategoryName));
+    }
+
+    public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, SubCategory subCategory) throws JSONException, IOException {
+        String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategory.getId());
+        executePutRequest(apiUrl, new JSONObject()
+                .put("category", subCategory.getCategory().getId())
+                .put("name", subCategory.getName())
+                .put("retailMarkupMax", retailMarkupMax)
+                .put("retailMarkupMin", retailMarkupMin)
+        );
+    }
+
+    public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
+        promoteStoreManager(store, StaticData.users.get(userName));
+    }
+
+    public void promoteStoreManager(Store store, User user) throws JSONException, IOException {
+        String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/stores"), store.getId());
+        String data = "_method=LINK";
+        HttpPost httpPost = getHttpPost(apiUrl);
+        httpPost.setHeader("Link", getLinkHeaderValue(user));
+        StringEntity entity = new StringEntity(data, "UTF-8");
+        entity.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
+        httpPost.setEntity(entity);
+        executeHttpMethod(httpPost);
+    }
+
+    private void setHeaders(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) throws IOException, JSONException {
+        httpEntityEnclosingRequestBase.setHeader("Accept", "application/json");
+        httpEntityEnclosingRequestBase.setHeader("Authorization", "Bearer " + getAccessToken());
+    }
+
+    private HttpPost getHttpPost(String url) throws IOException, JSONException {
+        HttpPost httpPost = new HttpPost(url);
+        setHeaders(httpPost);
+        return httpPost;
+    }
+
+    private HttpPut getHttpPut(String url) throws IOException, JSONException {
+        HttpPut httpPut = new HttpPut(url);
+        setHeaders(httpPut);
+        return httpPut;
+    }
+
+    private StringEntity getStringEntity(String data) throws UnsupportedEncodingException {
+        StringEntity entity = new StringEntity(data, "UTF-8");
         entity.setContentType("application/json;charset=UTF-8");
         entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-        request.setHeader("Accept", "application/json");
-        request.setHeader("Authorization", "Bearer " + getAccessToken());
-        request.setEntity(entity);
+        return entity;
+    }
 
+    private String executeHttpMethod(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) throws IOException {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         httpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
-        HttpResponse response = httpClient.execute(request);
+        HttpResponse response = httpClient.execute(httpEntityEnclosingRequestBase);
 
         HttpEntity httpEntity = response.getEntity();
-        String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
-        validateResponseMessage(response, responseMessage);
-        return responseMessage;
+        if (httpEntity != null) {
+            String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
+            validateResponseMessage(response, responseMessage);
+            return responseMessage;
+        } else {
+            return "";
+        }
+    }
+
+    private String getLinkHeaderValue(User user) throws JSONException {
+        return String.format("<%s/%s>; rel=\"managers\"", UrlHelper.getApiUrl("/users"), user.getId());
+    }
+
+    private String executePutRequest(String targetURL, String urlParameters) throws IOException, JSONException {
+        HttpPut httpPut = getHttpPut(targetURL);
+        StringEntity stringEntity = getStringEntity(urlParameters);
+        httpPut.setEntity(stringEntity);
+        return executeHttpMethod(httpPut);
+    }
+
+    private String executePutRequest(String targetUrl, JSONObject jsonObject) throws IOException, JSONException {
+        return executePutRequest(targetUrl, jsonObject.toString());
+    }
+
+    private String executePostRequest(String targetURL, String urlParameters) throws IOException, JSONException {
+        HttpPost httpPost = getHttpPost(targetURL);
+        StringEntity stringEntity = getStringEntity(urlParameters);
+        httpPost.setEntity(stringEntity);
+        return executeHttpMethod(httpPost);
     }
 
     private String executePostRequest(String targetURL, JSONObject jsonObject) throws IOException, JSONException {

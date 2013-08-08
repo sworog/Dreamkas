@@ -5,6 +5,7 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.objects.Store;
 import project.lighthouse.autotests.pages.commercialManager.catalog.*;
 
 import java.io.IOException;
@@ -229,8 +230,6 @@ public class CatalogSteps extends ScenarioSteps {
         subCategoryPage.addNewButtonConfirmClick();
     }
 
-    //-34-34-3-43-4-34-3-43-4
-
     @Step
     public void mainTabClick(String mainTabType) {
         groupPage.mainTab(mainTabType).click();
@@ -269,5 +268,15 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void checkSuccessMessage(String expectedMessage) {
         markUpTab.checkSuccessMessage(expectedMessage);
+    }
+
+    @Step
+    public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, String subCategoryName) throws IOException, JSONException {
+        catalogApi.setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, subCategoryName);
+    }
+
+    @Step
+    public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
+        catalogApi.promoteStoreManager(store, userName);
     }
 }

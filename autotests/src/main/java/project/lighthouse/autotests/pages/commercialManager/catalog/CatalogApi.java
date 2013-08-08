@@ -2,6 +2,7 @@ package project.lighthouse.autotests.pages.commercialManager.catalog;
 
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.objects.Store;
 import project.lighthouse.autotests.pages.commercialManager.api.CommercialManagerApi;
 
 import java.io.IOException;
@@ -47,5 +48,13 @@ public class CatalogApi extends CommercialManagerApi {
     public void navigateToSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
         String subCategoryProductCreatePageUrl = apiConnect.getSubCategoryProductCreatePageUrl(subCategoryName);
         getDriver().navigate().to(subCategoryProductCreatePageUrl);
+    }
+
+    public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, String subCategoryName) throws IOException, JSONException {
+        apiConnect.setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, subCategoryName);
+    }
+
+    public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
+        apiConnect.promoteStoreManager(store, userName);
     }
 }

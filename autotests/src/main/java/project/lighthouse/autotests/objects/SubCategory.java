@@ -17,6 +17,10 @@ public class SubCategory {
         return jsonObject.getString("id");
     }
 
+    public String getName() throws JSONException {
+        return jsonObject.getString("name");
+    }
+
     public Category getCategory() throws JSONException {
         return new Category(jsonObject.getJSONObject("category"));
     }
