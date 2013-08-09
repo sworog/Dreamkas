@@ -118,7 +118,7 @@
             <td>
                 <% if(storeProductModel.get('retailMarkup')) { %>
                     <span name="retailMarkup">
-                        <%= LH.formatPrice(model.get('retailMarkup')) %>
+                        <%= LH.formatPrice(storeProductModel.get('retailMarkup')) %>
                     </span>
                 %
                 <% } else { %>
@@ -133,7 +133,7 @@
             <td>
                 <% if(storeProductModel.get('retailPrice')) { %>
                     <span name="retailPrice">
-                        <%= LH.formatPrice(model.get('retailPrice')) %>
+                        <%= LH.formatPrice(storeProductModel.get('retailPrice')) %>
                     </span>
                 %
                 <% } else { %>
