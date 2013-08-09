@@ -181,52 +181,6 @@ class Product extends AbstractDocument implements VersionableInterface
      */
     protected $subCategory;
 
-    public function updateRetails()
-    {
-        switch ($this->retailPricePreference) {
-            case self::RETAIL_PRICE_PREFERENCE_PRICE:
-                $this->retailMarkupMin = $this->calcMarkup($this->retailPriceMin, $this->purchasePrice);
-                $this->retailMarkupMax = $this->calcMarkup($this->retailPriceMax, $this->purchasePrice);
-                break;
-            case self::RETAIL_PRICE_PREFERENCE_MARKUP:
-            default:
-                $this->retailPriceMin = $this->calcRetailPrice($this->retailMarkupMin, $this->purchasePrice);
-                $this->retailPriceMax = $this->calcRetailPrice($this->retailMarkupMax, $this->purchasePrice);
-                $this->retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
-                break;
-        }
-    }
-
-    /**
-     * @param Money $retailPrice
-     * @param Money $purchasePrice
-     * @return float|null
-     */
-    protected function calcMarkup(Money $retailPrice = null, Money $purchasePrice = null)
-    {
-        $roundedMarkup = null;
-        if (null !== $retailPrice && !$retailPrice->isNull() && null !== $purchasePrice) {
-            $markup = (($retailPrice->getCount() / $purchasePrice->getCount()) * 100) - 100;
-            $roundedMarkup = RoundService::round($markup, 2);
-        }
-        return $roundedMarkup;
-    }
-
-    /**
-     * @param float $retailMarkup
-     * @param Money $purchasePrice
-     * @return Money
-     */
-    protected function calcRetailPrice($retailMarkup, Money $purchasePrice = null)
-    {
-        $retailPrice = new Money();
-        if (null !== $retailMarkup && '' !== $retailMarkup && null !== $purchasePrice) {
-            $percent = 1 + ($retailMarkup / 100);
-            $retailPrice->setCountByQuantity($purchasePrice, $percent, true);
-        }
-        return $retailPrice;
-    }
-
     /**
      * @return string
      */

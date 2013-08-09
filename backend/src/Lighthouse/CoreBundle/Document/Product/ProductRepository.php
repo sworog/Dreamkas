@@ -100,4 +100,53 @@ class ProductRepository extends DocumentRepository
 
         $query->getQuery()->execute();
     }
+
+    /**
+     * @param Product $product
+     */
+    public function updateRetails(Product $product)
+    {
+        switch ($product->retailPricePreference) {
+            case Product::RETAIL_PRICE_PREFERENCE_PRICE:
+                $product->retailMarkupMin = $this->calcMarkup($product->retailPriceMin, $product->purchasePrice);
+                $product->retailMarkupMax = $this->calcMarkup($product->retailPriceMax, $product->purchasePrice);
+                break;
+            case Product::RETAIL_PRICE_PREFERENCE_MARKUP:
+            default:
+            $product->retailPriceMin = $this->calcRetailPrice($product->retailMarkupMin, $product->purchasePrice);
+                $product->retailPriceMax = $this->calcRetailPrice($product->retailMarkupMax, $product->purchasePrice);
+                $product->retailPricePreference = Product::RETAIL_PRICE_PREFERENCE_MARKUP;
+                break;
+        }
+    }
+
+    /**
+     * @param Money $retailPrice
+     * @param Money $purchasePrice
+     * @return float|null
+     */
+    protected function calcMarkup(Money $retailPrice = null, Money $purchasePrice = null)
+    {
+        $roundedMarkup = null;
+        if (null !== $retailPrice && !$retailPrice->isNull() && null !== $purchasePrice) {
+            $markup = (($retailPrice->getCount() / $purchasePrice->getCount()) * 100) - 100;
+            $roundedMarkup = RoundService::round($markup, 2);
+        }
+        return $roundedMarkup;
+    }
+
+    /**
+     * @param float $retailMarkup
+     * @param Money $purchasePrice
+     * @return Money
+     */
+    protected function calcRetailPrice($retailMarkup, Money $purchasePrice = null)
+    {
+        $retailPrice = new Money();
+        if (null !== $retailMarkup && '' !== $retailMarkup && null !== $purchasePrice) {
+            $percent = 1 + ($retailMarkup / 100);
+            $retailPrice->setCountByQuantity($purchasePrice, $percent, true);
+        }
+        return $retailPrice;
+    }
 }

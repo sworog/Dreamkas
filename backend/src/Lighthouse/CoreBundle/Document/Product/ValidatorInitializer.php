@@ -1,27 +1,29 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Product\Store;
+namespace Lighthouse\CoreBundle\Document\Product;
+
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Versionable\VersionInterface;
 use Symfony\Component\Validator\ObjectInitializerInterface;
 
 /**
- * @DI\Service("lighthouse.core.document.store_product.document_initializer")
+ * @DI\Service("lighthouse.core.document.product.document_initializer")
  * @DI\Tag("validator.initializer")
  */
 class ValidatorInitializer implements ObjectInitializerInterface
 {
     /**
-     * @var StoreProductRepository
+     * @var ProductRepository
      */
     protected $repository;
 
     /**
      * @DI\InjectParams({
-     *      "repository" = @DI\Inject("lighthouse.core.document.repository.store_product")
+     *      "repository" = @DI\Inject("lighthouse.core.document.repository.product")
      * })
-     * @param StoreProductRepository $repository
+     * @param ProductRepository $repository
      */
-    public function __construct(StoreProductRepository $repository)
+    public function __construct(ProductRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -31,7 +33,7 @@ class ValidatorInitializer implements ObjectInitializerInterface
      */
     public function initialize($object)
     {
-        if ($object instanceof StoreProduct) {
+        if ($object instanceof Product && !$object instanceof VersionInterface) {
             $this->repository->updateRetails($object);
         }
     }

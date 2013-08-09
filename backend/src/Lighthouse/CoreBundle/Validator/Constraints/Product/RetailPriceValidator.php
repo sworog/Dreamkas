@@ -76,8 +76,6 @@ class RetailPriceValidator extends ConstraintValidator
             ),
         );
 
-        $value->updateRetails();
-
         switch ($value->retailPricePreference) {
             case $value::RETAIL_PRICE_PREFERENCE_PRICE:
                 $retailPriceMinValid = $this->validateValue(
