@@ -63,10 +63,6 @@ class StoreProductController extends AbstractRestController
      */
     protected function findStoreProduct(Store $store, Product $product)
     {
-        $storeProduct = $this->documentRepository->findOrCreateByStoreProduct($store, $product);
-        if (!$storeProduct) {
-            throw new NotFoundHttpException(sprintf('%s object not found.', 'StoreProduct'));
-        }
-        return $storeProduct;
+        return $this->documentRepository->findOrCreateByStoreProduct($store, $product);
     }
 }
