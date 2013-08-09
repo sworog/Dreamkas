@@ -1,7 +1,12 @@
 <h3><%text 'Редактирование наценки/цены' %></h3>
 <fieldset class="form__fieldset">
     <div class="form__field form__field_inline">
-        <label class="form__label">Наценка</label>
+        <label class="form__label">
+            Наценка<br />
+            <% if (model.get('product').retailMarkupMin) { %>
+                (<span name="retailMarkupRange"><%= LH.formatPrice(model.get('product').retailMarkupMin) %> - <%= LH.formatPrice(model.get('product').retailMarkupMax) %></span> %)
+            <% } %>
+        </label>
         <input
                 style="width: 100px;"
                 value="<%= model.get('retailMarkup') ? model.get('retailMarkup') : model.get('product').retailMarkupMax %>"
@@ -14,7 +19,12 @@
         <span class="inputText__postfix">%</span>
     </div>
     <div class="form__field form__field_inline">
-        <label class="form__label">Цена продажи</label>
+        <label class="form__label">
+            Цена продажи<br />
+            <% if (model.get('product').retailPriceMin) { %>
+                (<span name="retailPriceRange"><%= LH.formatPrice(model.get('product').retailPriceMin) %> - <%= LH.formatPrice(model.get('product').retailPriceMax) %></span> руб.)
+            <% } %>
+        </label>
         <input
                 style="width: 100px;"
                 value="<%= model.get('retailPrice') ? LH.formatPrice(model.get('retailPrice')) : model.get('product').retailPriceMax %>"

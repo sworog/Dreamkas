@@ -8,6 +8,8 @@
     <a href="/catalog/<%= storeProductModel.get('product').subCategory.category.group.id %>/<%= storeProductModel.get('product').subCategory.category.id %>" class="page__backLink"><%text storeProductModel.get('product').subCategory.category.name %></a>
     <span class="page__backLinkSeparator">/</span>
     <a href="/catalog/<%= storeProductModel.get('product').subCategory.category.group.id %>/<%= storeProductModel.get('product').subCategory.category.id %>/<%= storeProductModel.get('product').subCategory.id %>" class="page__backLink"><%text storeProductModel.get('product').subCategory.name %></a>
+    <span class="page__backLinkSeparator">/</span>
+    <a href="/products/<%= storeProductModel.id %>"><%text storeProductModel.get('product').name %></a>
 </div>
 <div class="box">
     <form id="form_storeProduct"></form>
