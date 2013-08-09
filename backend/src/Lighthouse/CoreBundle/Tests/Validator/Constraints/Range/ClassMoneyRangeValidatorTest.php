@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Range;
 
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Types\Money;
@@ -53,7 +53,7 @@ class ClassMoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
         $this
             ->context
             ->expects($this->never())
-            ->method('addViolation');
+            ->method('addViolationAt');
 
         $constraint = new ClassMoneyRange($options);
         $this->validator->validate($value, $constraint);
@@ -76,7 +76,7 @@ class ClassMoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
         $this
             ->context
             ->expects($this->never())
-            ->method('addViolation');
+            ->method('addViolationAt');
 
         $constraint = new ClassMoneyRange($options);
         $this->validator->validate($value, $constraint);
@@ -96,7 +96,7 @@ class ClassMoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
         $this
             ->context
             ->expects($this->never())
-            ->method('addViolation');
+            ->method('addViolationAt');
 
         $constraint = new ClassMoneyRange($options);
         $this->validator->validate($value, $constraint);
@@ -116,7 +116,7 @@ class ClassMoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
         $this
             ->context
             ->expects($this->never())
-            ->method('addViolation');
+            ->method('addViolationAt');
 
         $constraint = new ClassMoneyRange($options);
         $this->validator->validate($value, $constraint);
@@ -153,9 +153,15 @@ class ClassMoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
 
         $this
             ->context
+            ->expects($this->never())
+            ->method('addViolation');
+
+        $this
+            ->context
             ->expects($this->once())
-            ->method('addViolation')
+            ->method('addViolationAt')
             ->with(
+                'price',
                 'lighthouse.validation.errors.money_range.not_numeric',
                 array()
             );
@@ -178,8 +184,9 @@ class ClassMoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
         $this
             ->context
             ->expects($this->once())
-            ->method('addViolation')
+            ->method('addViolationAt')
             ->with(
+                'price',
                 'lighthouse.validation.errors.range.gt',
                 array(
                     '{{ value }}' => '10.11',
@@ -201,5 +208,17 @@ class ClassMoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
         $constraint = new ClassMoneyRange($options);
 
         $this->assertEquals(Constraint::CLASS_CONSTRAINT, $constraint->getTargets());
+    }
+
+    public function testConstraintValidatedBy()
+    {
+        $options = array(
+            'field' => 'price',
+            'lt' => 'minPrice',
+        );
+
+        $constraint = new ClassMoneyRange($options);
+
+        $this->assertNotContains('Validator', $constraint->validatedBy());
     }
 }

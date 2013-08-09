@@ -35,7 +35,7 @@ class RangeValidator extends ConstraintValidator
         } catch (NullValueException $e) {
             return;
         } catch (UnexpectedTypeException $e) {
-            $this->context->addViolation($constraint->invalidValue);
+            $this->addViolation($constraint, $constraint->invalidValue);
             return;
         }
 
@@ -76,16 +76,14 @@ class RangeValidator extends ConstraintValidator
 
         try {
             if (!$comparison->compare($limit, $operator)) {
-                $message = $constraint->getMessage($operator);
-                $params = array(
-                    '{{ value }}' => $this->formatValueMessage($comparison, $constraint, $operator),
-                    '{{ limit }}' => $this->formatLimitMessage($limit, $constraint, $operator, $comparison),
+                $this->addViolation(
+                    $constraint,
+                    $constraint->getMessage($operator),
+                    $params = array(
+                        '{{ value }}' => $this->formatValueMessage($comparison, $constraint, $operator),
+                        '{{ limit }}' => $this->formatLimitMessage($limit, $constraint, $operator, $comparison),
+                    )
                 );
-                if ($constraint instanceof ClassConstraintInterface) {
-                    $this->context->addViolationAt($constraint->getField(), $message, $params);
-                } else {
-                    $this->context->addViolation($message, $params);
-                }
                 return false;
             }
         } catch (UnexpectedTypeException $e) {
@@ -116,5 +114,41 @@ class RangeValidator extends ConstraintValidator
     protected function formatLimitMessage($limit, Range $constraint, $operator, Comparison $comparison)
     {
         return (string) $limit;
+    }
+
+    /**
+     * @param Range $constraint
+     * @param $message
+     * @param array $params
+     * @param null $invalidValue
+     * @param null $pluralization
+     * @param null $code
+     */
+    protected function addViolation(
+        Range $constraint,
+        $message,
+        array $params = array(),
+        $invalidValue = null,
+        $pluralization = null,
+        $code = null
+    ) {
+        if ($constraint instanceof ClassConstraintInterface) {
+            $this->context->addViolationAt(
+                $constraint->getField(),
+                $message,
+                $params,
+                $invalidValue,
+                $pluralization,
+                $code
+            );
+        } else {
+            $this->context->addViolation(
+                $message,
+                $params,
+                $invalidValue,
+                $pluralization,
+                $code
+            );
+        }
     }
 }

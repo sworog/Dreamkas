@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Range;
 
 use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\RangeValidator;
