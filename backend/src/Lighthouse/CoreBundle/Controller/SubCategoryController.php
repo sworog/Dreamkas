@@ -59,7 +59,7 @@ class SubCategoryController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory $subCategory
      * @return \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
      * @ApiDoc
      */
     public function getSubcategoryAction(SubCategory $subCategory)
@@ -70,7 +70,7 @@ class SubCategoryController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Classifier\Category\Category $category
      * @return \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
      * @ApiDoc
      */
     public function getCategorySubcategoriesAction(Category $category)

@@ -64,7 +64,7 @@ class ProductController extends AbstractRestController
      * @param Product $product
      * @return \Lighthouse\CoreBundle\Document\Product\Product
      * @ApiDoc
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
+     * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER")
      */
     public function getProductAction(Product $product)
     {
@@ -114,7 +114,7 @@ class ProductController extends AbstractRestController
     /**
      * @param SubCategory $subCategory
      * @return ProductCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
      * @ApiDoc
      */
     public function getSubcategoryProductsAction(SubCategory $subCategory)

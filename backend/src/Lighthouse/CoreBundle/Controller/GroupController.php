@@ -69,7 +69,7 @@ class GroupController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Classifier\Group\Group $group
      * @return Group
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
      * @ApiDoc
      */
     public function getGroupAction(Group $group)
@@ -79,7 +79,7 @@ class GroupController extends AbstractRestController
 
     /**
      * @return \Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )

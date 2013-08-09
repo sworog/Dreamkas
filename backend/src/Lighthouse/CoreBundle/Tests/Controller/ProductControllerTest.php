@@ -1545,7 +1545,7 @@ class ProductControllerTest extends WebTestCase
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
                 'ROLE_STORE_MANAGER',
-                '403',
+                '200',
             ),
             array(
                 '/api/1/products/__PRODUCT_ID__',
@@ -1637,7 +1637,7 @@ class ProductControllerTest extends WebTestCase
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
                 'ROLE_STORE_MANAGER',
-                '403',
+                '200',
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',

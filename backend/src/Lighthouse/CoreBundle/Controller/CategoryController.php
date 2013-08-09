@@ -58,7 +58,7 @@ class CategoryController extends AbstractRestController
     /**
      * @param Category $category
      * @return Category
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
      * @ApiDoc
      */
     public function getCategoryAction(Category $category)
@@ -69,7 +69,7 @@ class CategoryController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Classifier\Group\Group $group
      * @return CategoryCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
      * @ApiDoc
      */
     public function getGroupCategoriesAction(Group $group)

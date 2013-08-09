@@ -553,7 +553,7 @@ class SubCategoryControllerTest extends WebTestCase
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'GET',
                 'ROLE_STORE_MANAGER',
-                '403',
+                '200',
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
@@ -673,7 +673,7 @@ class SubCategoryControllerTest extends WebTestCase
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
                 'GET',
                 'ROLE_STORE_MANAGER',
-                '403',
+                '200',
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__/subcategories',

@@ -514,7 +514,7 @@ class CategoryControllerTest extends WebTestCase
                 '/api/1/categories/__CATEGORY_ID__',
                 'GET',
                 'ROLE_STORE_MANAGER',
-                '403',
+                '200',
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
@@ -634,7 +634,7 @@ class CategoryControllerTest extends WebTestCase
                 '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
                 'ROLE_STORE_MANAGER',
-                '403',
+                '200',
             ),
             array(
                 '/api/1/groups/__GROUP_ID__/categories',
