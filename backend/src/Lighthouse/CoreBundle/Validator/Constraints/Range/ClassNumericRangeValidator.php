@@ -1,32 +1,29 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\ClassMoneyComparison;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\ClassNumericComparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Lighthouse\CoreBundle\Types\Money as MoneyType;
 
-class ClassMoneyRangeValidator extends MoneyRangeValidator
+class ClassNumericRangeValidator extends RangeValidator
 {
     /**
      * @param object $value
-     * @param Constraint|ClassMoneyRange $constraint
-     * @return ClassMoneyComparison|Compare\Comparison
+     * @param Constraint|ClassNumericRange $constraint
+     * @return ClassMoneyComparison|Comparison
      */
     protected function createComparison($value, Constraint $constraint)
     {
-        return new ClassMoneyComparison($value, $constraint->field, $this->comparator);
+        return new ClassNumericComparison($value, $constraint->field, $this->comparator);
     }
 
     /**
      * @param string $limit
-     * @param Range|ClassMoneyRange $constraint
+     * @param Range|ClassNumericRange $constraint
      * @param string $operator
-     * @param Comparison|ClassMoneyComparison $comparison
+     * @param Comparison|ClassNumericComparison $comparison
      * @return string
      */
     protected function formatLimitMessage($limit, Range $constraint, $operator, Comparison $comparison)
@@ -35,3 +32,4 @@ class ClassMoneyRangeValidator extends MoneyRangeValidator
         return parent::formatLimitMessage($limitValue, $constraint, $operator, $comparison);
     }
 }
+ 

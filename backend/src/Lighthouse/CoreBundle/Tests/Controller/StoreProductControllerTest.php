@@ -150,7 +150,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => '*',
+                    'children.retailPrice.errors.0' => 'Значение должно быть больше или равно 31',
                 )
             ),
             'invalid price mare than max' => array(
@@ -160,7 +160,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => '*',
+                    'children.retailPrice.errors.0' => 'Значение должно быть меньше или равно 40',
                 )
             ),
         );

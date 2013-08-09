@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Validator\Constraints\StoreProduct\RetailPrice as AssertRetailPrice;
 
 /**
  * @property Money $retailPrice
@@ -18,6 +19,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
  *      repositoryClass="Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository"
  * )
  * @MongoDB\UniqueIndex(keys={"product"="asc", "store"="asc"})
+ * @AssertRetailPrice
  */
 class StoreProduct extends AbstractDocument
 {

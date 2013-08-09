@@ -1,7 +1,8 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
+use Lighthouse\CoreBundle\Validator\Constraints\stirng;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
 

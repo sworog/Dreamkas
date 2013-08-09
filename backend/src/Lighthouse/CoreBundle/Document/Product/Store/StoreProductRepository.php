@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Product\Store;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 
 class StoreProductRepository extends DocumentRepository

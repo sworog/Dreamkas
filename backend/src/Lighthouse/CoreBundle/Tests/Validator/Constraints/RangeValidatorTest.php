@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
-use Lighthouse\CoreBundle\Validator\Constraints\Range;
-use Lighthouse\CoreBundle\Validator\Constraints\RangeValidator;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\RangeValidator;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use stdClass;
 

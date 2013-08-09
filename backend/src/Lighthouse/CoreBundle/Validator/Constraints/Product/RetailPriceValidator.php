@@ -4,10 +4,10 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\Product;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Validator\Constraints\Money;
-use Lighthouse\CoreBundle\Validator\Constraints\MoneyRange;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\MoneyRange;
 use Lighthouse\CoreBundle\Validator\Constraints\NotBlankFields;
 use Lighthouse\CoreBundle\Validator\Constraints\Precision;
-use Lighthouse\CoreBundle\Validator\Constraints\Range;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Symfony\Component\Validator\Constraint;

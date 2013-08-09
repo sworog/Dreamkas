@@ -1,11 +1,15 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
 use Lighthouse\CoreBundle\Types\Money as MoneyType;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyComparison;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\MoneyRange;
+use Lighthouse\CoreBundle\Validator\Constraints\numeric;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\RangeValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use JMS\DiExtraBundle\Annotation as DI;

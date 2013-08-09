@@ -46,7 +46,7 @@ class PurchaseProduct extends AbstractDocument implements Reasonable
      * @Assert\NotBlank
      * @LighthouseAssert\Chain({
      *   @LighthouseAssert\NotFloat,
-     *   @LighthouseAssert\Range(gt=0)
+     *   @LighthouseAssert\Range\Range(gt=0)
      * })
      * @var int
      */

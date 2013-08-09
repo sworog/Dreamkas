@@ -1,10 +1,14 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Validator\Constraints;
+namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
 use Lighthouse\CoreBundle\Exception\NullValueException;
+use Lighthouse\CoreBundle\Validator\Constraints\ClassConstraintInterface;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparator;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
+use Lighthouse\CoreBundle\Validator\Constraints\ConstraintValidator;
+use Lighthouse\CoreBundle\Validator\Constraints\numeric;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -72,13 +76,16 @@ class RangeValidator extends ConstraintValidator
 
         try {
             if (!$comparison->compare($limit, $operator)) {
-                $this->context->addViolation(
-                    $constraint->getMessage($operator),
-                    array(
-                        '{{ value }}' => $this->formatValueMessage($comparison, $constraint, $operator),
-                        '{{ limit }}' => $this->formatLimitMessage($limit, $constraint, $operator, $comparison),
-                    )
+                $message = $constraint->getMessage($operator);
+                $params = array(
+                    '{{ value }}' => $this->formatValueMessage($comparison, $constraint, $operator),
+                    '{{ limit }}' => $this->formatLimitMessage($limit, $constraint, $operator, $comparison),
                 );
+                if ($constraint instanceof ClassConstraintInterface) {
+                    $this->context->addViolationAt($constraint->getField(), $message, $params);
+                } else {
+                    $this->context->addViolation($message, $params);
+                }
                 return false;
             }
         } catch (UnexpectedTypeException $e) {
