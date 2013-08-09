@@ -3,7 +3,8 @@ define(function(require) {
     var Page = require('kit/page'),
         Product = require('blocks/product/product'),
         ProductModel = require('models/product'),
-        StoreProduct = require('models/storeProduct');
+        StoreProduct = require('models/storeProduct'),
+        currentUserModel = require('models/currentUser');
 
     return Page.extend({
         pageName: 'page_product_view',
@@ -22,7 +23,7 @@ define(function(require) {
                 id: page.productId
             });
 
-            if (LH.isAllow('stores/{store}/products/{product}', 'GET')) {
+            if (LH.isAllow('stores/{store}/products/{product}', 'GET') && currentUserModel.stores) {
                 page.storeProductModel = new StoreProduct({
                     id: page.productId
                 });
