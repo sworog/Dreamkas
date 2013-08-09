@@ -17,22 +17,6 @@ class StoreProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'product',
-                'reference',
-                array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Product\\Product',
-                    'invalid_message' => 'lighthouse.validation.errors.product.does_not_exist'
-                )
-            )
-            ->add(
-                'store',
-                'reference',
-                array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Store\\Store',
-                    'invalid_message' => 'lighthouse.validation.errors.store.does_not_exist'
-                )
-            )
             ->add('retailPrice', 'money')
             ->add('retailMarkup', 'markup')
             ->add('retailPricePreference', 'choice', array('choices' => Product::$retailPricePreferences))

@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Validator\Constraints\StoreProduct\RetailPrice as AssertRetailPrice;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @property Money $retailPrice
@@ -26,6 +27,7 @@ class StoreProduct extends AbstractDocument
     /**
      * @MongoDB\Id
      * @var string
+     * @Exclude
      */
     protected $id;
 

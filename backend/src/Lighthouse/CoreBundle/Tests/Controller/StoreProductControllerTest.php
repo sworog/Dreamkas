@@ -90,7 +90,7 @@ class StoreProductControllerTest extends WebTestCase
 
         $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
 
-        $putData = $data + array('product' => $productId, 'store' => $storeId);
+        $putData = $data;
 
         $putResponse = $this->clientJsonRequest(
             $accessToken,
@@ -117,6 +117,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
+                    'id' => null,
                     'retailPrice' => 35,
                     'retailMarkup' => 14.83
                 )
@@ -128,6 +129,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
+                    'id' => null,
                     'retailPrice' => 31,
                     'retailMarkup' => 1.71
                 )
@@ -139,6 +141,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
+                    'id' => null,
                     'retailPrice' => 40,
                     'retailMarkup' => 31.23
                 )

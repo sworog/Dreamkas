@@ -11,10 +11,10 @@ class ClassNumericRangeValidator extends RangeValidator
 {
     /**
      * @param object $value
-     * @param Constraint|ClassNumericRange $constraint
+     * @param Range|ClassNumericRange $constraint
      * @return ClassMoneyComparison|Comparison
      */
-    protected function createComparison($value, Constraint $constraint)
+    protected function createComparison($value, Range $constraint)
     {
         return new ClassNumericComparison($value, $constraint->field, $this->comparator);
     }
