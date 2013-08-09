@@ -22,4 +22,10 @@ public class ProductCardView extends ProductCreatePage {
         String editButtonXpath = "//*[@class='user__editLink']";
         findVisibleElement(By.xpath(editButtonXpath)).click();
     }
+
+    public void editProductButtonClick() {
+        findVisibleElement(
+                By.xpath("//*[normalize-space(text())='Изменить наценку/цену']")
+        ).click();
+    }
 }

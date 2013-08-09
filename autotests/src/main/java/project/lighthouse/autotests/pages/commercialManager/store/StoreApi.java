@@ -20,4 +20,8 @@ public class StoreApi extends CommercialManagerApi {
     public Store createStoreThroughPost(String number, String address, String contacts) throws IOException, JSONException {
         return apiConnect.createStoreThroughPost(number, address, contacts);
     }
+
+    public String getStoreId(String storeNumber) throws JSONException {
+        return apiConnect.getStoreId(storeNumber);
+    }
 }

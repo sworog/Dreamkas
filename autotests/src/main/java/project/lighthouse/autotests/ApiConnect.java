@@ -26,6 +26,9 @@ public class ApiConnect {
     String userName;
     String password;
 
+    String retailMarkupMax;
+    String retailMarkupMin;
+
     public ApiConnect(String userName, String password) throws JSONException {
         this.userName = userName;
         this.password = password;
@@ -60,13 +63,26 @@ public class ApiConnect {
     public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
         if (!StaticData.products.containsKey(sku)) {
             String subCategoryId = StaticData.subCategories.get(subCategoryName).getId();
+            getSubCategoryMarkUp(subCategoryId);
             String getApiUrl = UrlHelper.getApiUrl() + "/api/1/products.json";
-            String jsonData = Product.getJsonObject(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategoryId).toString();
+            String jsonData = Product.getJsonObject(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategoryId, retailMarkupMax, retailMarkupMin).toString();
             String postResponse = executePostRequest(getApiUrl, jsonData);
 
             Product product = new Product(new JSONObject(postResponse));
             StaticData.products.put(sku, product);
         }
+    }
+
+    private void getSubCategoryMarkUp(String subCategoryId) throws IOException, JSONException {
+        String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategoryId);
+        String response = executeSimpleGetRequest(apiUrl, true);
+        JSONObject jsonObject = new JSONObject(response);
+        retailMarkupMax = (!jsonObject.isNull("retailMarkupMax"))
+                ? jsonObject.getString("retailMarkupMax")
+                : null;
+        retailMarkupMin = (!jsonObject.isNull("retailMarkupMin"))
+                ? jsonObject.getString("retailMarkupMin")
+                : null;
     }
 
     public String getProductPageUrl(String productSku) throws JSONException {
@@ -113,7 +129,7 @@ public class ApiConnect {
     public Boolean hasInvoiceProduct(String invoiceId, String productId) throws IOException, JSONException {
         JSONArray jsonArray = getInvoiceProducts(invoiceId);
         for (int i = 0; i < jsonArray.length(); i++) {
-            return jsonArray.getJSONObject(0).getJSONObject("product").getString("id").equals(productId);
+            return jsonArray.getJSONObject(i).getJSONObject("product").getString("id").equals(productId);
         }
         return false;
     }
@@ -260,6 +276,10 @@ public class ApiConnect {
         return createStoreThroughPost(store);
     }
 
+    public String getStoreId(String storeNumber) throws JSONException {
+        return StaticData.stores.get(storeNumber).getId();
+    }
+
     public String getUserPageUrl(String userName) throws JSONException {
         String userId = StaticData.users.get(userName).getId();
         return String.format("%s/users/%s", UrlHelper.getWebFrontUrl(), userId);
@@ -284,14 +304,26 @@ public class ApiConnect {
     }
 
     public void promoteStoreManager(Store store, User user) throws JSONException, IOException {
-        String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/stores"), store.getId());
-        String data = "_method=LINK";
-        HttpPost httpPost = getHttpPost(apiUrl);
-        httpPost.setHeader("Link", getLinkHeaderValue(user));
-        StringEntity entity = new StringEntity(data, "UTF-8");
-        entity.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
-        httpPost.setEntity(entity);
-        executeHttpMethod(httpPost);
+        if (!hasStoreManager(store, user)) {
+            String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/stores"), store.getId());
+            String data = "_method=LINK";
+            HttpPost httpPost = getHttpPost(apiUrl);
+            httpPost.setHeader("Link", getLinkHeaderValue(user));
+            StringEntity entity = new StringEntity(data, "UTF-8");
+            entity.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
+            httpPost.setEntity(entity);
+            executeHttpMethod(httpPost);
+        }
+    }
+
+    private Boolean hasStoreManager(Store store, User user) throws JSONException, IOException {
+        String apiUrl = String.format("%s/%s/managers", UrlHelper.getApiUrl("/stores"), store.getId());
+        String responce = executeSimpleGetRequest(apiUrl, true);
+        JSONArray jsonArray = new JSONArray(responce);
+        for (int i = 0; i < jsonArray.length(); i++) {
+            return jsonArray.getJSONObject(i).getString("id").equals(user.getId());
+        }
+        return false;
     }
 
     private void setHeaders(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) throws IOException, JSONException {

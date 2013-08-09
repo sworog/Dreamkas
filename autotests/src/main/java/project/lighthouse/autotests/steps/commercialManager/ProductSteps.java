@@ -126,6 +126,11 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void editProductButtonClick() {
+        productCardView.editProductButtonClick();
+    }
+
+    @Step
     public void fieldType(ExamplesTable fieldInputTable) {
         productCreatePage.fieldInput(fieldInputTable);
     }

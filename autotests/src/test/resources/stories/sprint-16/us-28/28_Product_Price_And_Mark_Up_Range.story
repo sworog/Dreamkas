@@ -22,8 +22,8 @@ When the user open the product card with 'Retail price - PCWRPR-1' sku
 Then the user checks the elements values
 | elementName | value |
 | purchasePrice | 12356 |
-| retailMarkup | отсутствует |
-| retailPrice | отсутствует |
+| retailMarkupRange | отсутствует |
+| retailPriceRange | отсутствует |
 When the user logs out
 
 Scenario: Product creation with markup range filling
@@ -44,11 +44,11 @@ When the user open the product card with 'Retail price - PCWMF' sku
 Then the user checks the elements values
 | elementName | value |
 | purchasePrice | 112 |
-| retailMarkup | 10,00 - 15,00 |
-| retailPrice | 123,20 - 128,80 |
+| retailMarkupRange | 10,00 - 15,00 |
+| retailPriceRange | 123,20 - 128,80 |
 When the user logs out
 
-Scenario: Product creation with retailPrice range filling
+Scenario: Product creation with retailPriceRange range filling
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
@@ -67,8 +67,8 @@ When the user open the product card with 'Retail price - PCWRPF' sku
 Then the user checks the elements values
 | elementName | value |
 | purchasePrice | 100 |
-| retailMarkup | 40,00 - 45,00 |
-| retailPrice | 140,00 - 145,00 |
+| retailMarkupRange | 40,00 - 45,00 |
+| retailPriceRange | 140,00 - 145,00 |
 When the user logs out
 
 Scenario: Retail mark up last used field is active in product edition

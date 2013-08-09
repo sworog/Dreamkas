@@ -96,6 +96,12 @@ public class StoreSteps extends ScenarioSteps {
     }
 
     @Step
+    public void navigateToStorePageByNumber(String storeNumber) throws JSONException {
+        String storeId = storeApi.getStoreId(storeNumber);
+        navigateToStorePage(storeId);
+    }
+
+    @Step
     public void userClicksEditButtonOnStoreCardPage() {
         storeCardPage.editButton().click();
     }

@@ -96,9 +96,10 @@ And the user logs in as 'commercialManager'
 When user promotes store manager named 'promotedStoreManager5'
 Then user checks the promoted store manager is 'promotedStoreManager5'
 When the user logs out
-Given the user opens the authorization page
+Given the user navigates to the store with number 'SMCVMSC'
 When the user logs in using 'promotedStoreManager5' userName and 'lighthouse' password
 Then user checks the store number is eqaul to 'SMCVMSC'
+And user checks the promoted store manager is 'promotedStoreManager5'
 When the user logs out
 
 

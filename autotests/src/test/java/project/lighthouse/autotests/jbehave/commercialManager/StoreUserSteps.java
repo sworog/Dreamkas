@@ -79,6 +79,11 @@ public class StoreUserSteps {
         formSteps.navigateToStorePage(createdStore.getId());
     }
 
+    @Given("the user navigates to the store with number '$storeNumber'")
+    public void givenTheUserNavigatesToTheStore(String storeNumber) throws JSONException {
+        formSteps.navigateToStorePageByNumber(storeNumber);
+    }
+
     @When("user clicks edit button on store card page")
     public void userClicksEditButtonOnStoreCardPage() {
         formSteps.userClicksEditButtonOnStoreCardPage();
