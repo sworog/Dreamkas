@@ -44,6 +44,7 @@ define(function(require) {
             'stores/create(/)': require('pages/store/form'),
             'stores/edit/:storeId(/)': require('pages/store/form'),
             'stores/:storeId(/)': require('pages/store/view'),
+            'stores/:storeId/products/edit/:productId(/)': require('pages/storeProduct/from'),
 
             //departments
             'stores/:storeId/departments/create(/)': require('pages/department/form'),

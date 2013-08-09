@@ -58,7 +58,7 @@ define(function(require) {
     loading.always(function() {
 
         if (currentUserModel.stores && currentUserModel.stores.length) {
-            window.history.replaceState({}, document.title, '/stores/' + currentUserModel.stores.at(0).id);
+//            window.history.replaceState({}, document.title, '/stores/' + currentUserModel.stores.at(0).id);
         }
 
         require([routers], function() {
