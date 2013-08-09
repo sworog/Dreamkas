@@ -52,7 +52,7 @@ class MoneyRangeValidator extends RangeValidator
      * @param Constraint|MoneyRange $constraint
      * @return string
      */
-    protected function formatValueMessage(Comparison $comparison, Range $constraint)
+    protected function formatValueMessage(Comparison $comparison, Range $constraint, $operator)
     {
         return $this->transformer->transform($comparison->getMoneyValue(), $constraint->digits);
     }

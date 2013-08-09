@@ -22,7 +22,7 @@ class ClassMoneyRangeValidator extends MoneyRangeValidator
      * @param Constraint|ClassMoneyRange $constraint
      * @return ClassMoneyComparison|Compare\Comparison
      */
-    protected function createComparison($value, Constraint $constraint)
+    protected function createComparison($value, Range $constraint)
     {
         return new ClassMoneyComparison($value, $constraint->field, $this->comparator);
     }
