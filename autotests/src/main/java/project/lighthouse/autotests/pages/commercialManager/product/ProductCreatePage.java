@@ -94,4 +94,12 @@ public class ProductCreatePage extends CommonPageObject {
                 throw new AssertionError(CommonPage.ERROR_MESSAGE);
         }
     }
+
+    public void retailPriceHintClick() {
+        By retailPriceHintFindBy = items.get("retailPriceHint").getFindBy();
+        By retailMarkupHintFindBy = items.get("retailMarkupHint").getFindBy();
+        if (isElementVisible(retailPriceHintFindBy) && !isElementVisible(retailMarkupHintFindBy)) {
+            findVisibleElement(retailPriceHintFindBy).click();
+        }
+    }
 }

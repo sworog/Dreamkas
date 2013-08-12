@@ -152,6 +152,11 @@ public class ProductUserSteps {
         productSteps.elementClick(elementNameToClick);
     }
 
+    @When("the user clicks retailPriceHint to make retailPrice available")
+    public void whenTheUserClicksHintToMakeOtherHintAvailable() {
+        productSteps.retailPriceHintClick();
+    }
+
     @Then("the user checks the '$elementName' value is '$expectedValue'")
     @Alias("the user checks the <elementName> value is <expectedValue>")
     public void thenTheUserChecksValue(String elementName, String expectedValue) {

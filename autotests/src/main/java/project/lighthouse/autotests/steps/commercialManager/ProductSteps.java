@@ -155,4 +155,9 @@ public class ProductSteps extends ScenarioSteps {
     public void checkElementPresence(String elementName, String action) {
         productCreatePage.checkElementPresence(elementName, action);
     }
+
+    @Step
+    public void retailPriceHintClick() {
+        productCreatePage.retailPriceHintClick();
+    }
 }
