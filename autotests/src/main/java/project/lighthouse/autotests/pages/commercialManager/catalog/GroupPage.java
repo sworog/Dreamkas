@@ -125,7 +125,7 @@ public class GroupPage extends CommonPageObject {
 
     public void itemClick(String name) {
         String itemXpath = getItemXpath(name);
-        findElement(By.xpath(itemXpath)).click();
+        findVisibleElement(By.xpath(itemXpath)).click();
     }
 
     public void checkItemParent(String item, String parent) {
