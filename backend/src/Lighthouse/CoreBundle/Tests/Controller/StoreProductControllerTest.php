@@ -8,41 +8,63 @@ use Lighthouse\CoreBundle\Document\User\User;
 
 class StoreProductControllerTest extends WebTestCase
 {
-    public function testGetActionNoStoreProductCreated()
+    /**
+     * @var User
+     */
+    protected $storeManager;
+
+    /**
+     * @var string
+     */
+    protected $productId;
+
+    /**
+     * @var string
+     */
+    protected $storeId;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->initStoreProduct();
+    }
+
+    protected function initStoreProduct()
     {
         $this->clearMongoDb();
+        $this->storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
 
-        $productId = $this->createProduct();
-        $storeId = $this->createStore();
+        $this->productId = $this->createProduct();
+        $this->storeId = $this->createStore();
 
-        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+        $this->linkStoreManagers($this->storeId, $this->storeManager->id);
+    }
+
+    public function testGetActionNoStoreProductCreated()
+    {
+        $accessToken = $this->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/products/' . $productId
+            '/api/1/stores/' . $this->storeId . '/products/' . $this->productId
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($productId, 'product.id', $getResponse);
-        Assert::assertJsonPathEquals($storeId, 'store.id', $getResponse);
+        Assert::assertJsonPathEquals($this->productId, 'product.id', $getResponse);
+        Assert::assertJsonPathEquals($this->storeId, 'store.id', $getResponse);
         Assert::assertNotJsonHasPath('id', $getResponse);
     }
 
     public function testGetActionProductDoesNotExist()
     {
-        $this->clearMongoDb();
-
-        $productId = $this->createProduct();
-        $storeId = $this->createStore();
-
-        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+        $accessToken = $this->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/products/aaaa'
+            '/api/1/stores/' . $this->storeId . '/products/aaaa'
         );
 
         $this->assertResponseCode(404);
@@ -51,17 +73,12 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testGetActionProductExistsStoreNotExists()
     {
-        $this->clearMongoDb();
-
-        $productId = $this->createProduct();
-        $storeId = $this->createStore();
-
-        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+        $accessToken = $this->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/aaa/products/' . $productId
+            '/api/1/stores/aaa/products/' . $this->productId
         );
 
         $this->assertResponseCode(404);
@@ -76,9 +93,8 @@ class StoreProductControllerTest extends WebTestCase
      */
     public function testPutActionRetailPriceValidate($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $productData = array(
+            'sku' => 'Водка селедка',
             'purchasePrice' => 30.48,
             'retailPriceMin' => 31,
             'retailPriceMax' => 40,
@@ -86,16 +102,15 @@ class StoreProductControllerTest extends WebTestCase
         );
 
         $productId = $this->createProduct($productData);
-        $storeId = $this->createStore();
 
-        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+        $accessToken = $this->auth($this->storeManager, 'password');
 
         $putData = $data;
 
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $storeId . '/products/' . $productId,
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId,
             $putData
         );
 
@@ -293,5 +308,33 @@ class StoreProductControllerTest extends WebTestCase
                 )
             ),
         );
+    }
+
+    public function testStoreManagerAccessHasNoStore()
+    {
+        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $this->productId
+        );
+
+        $this->assertResponseCode(403);
+
+        Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
+    }
+
+    public function testStoreManagerAccessHasStore()
+    {
+        $accessToken = $this->auth($this->storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $this->productId
+        );
+
+        $this->assertResponseCode(200);
     }
 }

@@ -682,7 +682,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
 
-
     /**
      * @param string $secret
      * @return AuthClient

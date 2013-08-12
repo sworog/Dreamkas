@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use JMS\SecurityExtraBundle\Annotation\SecureParam;
 
 class StoreProductController extends AbstractRestController
 {
@@ -32,7 +33,7 @@ class StoreProductController extends AbstractRestController
     /**
      * @param Store $store
      * @param Product $product
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )
@@ -47,7 +48,7 @@ class StoreProductController extends AbstractRestController
      * @param Product $product
      * @param Request $request
      * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\AbstractDocument
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @ApiDoc
      */
     public function putStoreProductAction(Store $store, Product $product, Request $request)
