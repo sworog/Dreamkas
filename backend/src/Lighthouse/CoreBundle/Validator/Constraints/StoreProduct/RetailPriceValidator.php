@@ -36,7 +36,9 @@ class RetailPriceValidator extends ConstraintValidator
             new ClassNumericRange(array(
                 'field' => 'retailMarkup',
                 'gte' => 'product.retailMarkupMin',
-                'lte' => 'product.retailMarkupMax'
+                'lte' => 'product.retailMarkupMax',
+                'gteMessage' => 'lighthouse.validation.errors.store_product.retail_markup.min',
+                'lteMessage' => 'lighthouse.validation.errors.store_product.retail_markup.max',
             ))
         );
 

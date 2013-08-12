@@ -226,7 +226,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0' => 'Значение должно быть больше или равно 1.71',
+                    'children.retailMarkup.errors.0' => 'Наценка должна быть больше или равна 1.71',
                     'children.retailPrice.errors' => null,
                 )
             ),
@@ -237,7 +237,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0' => 'Значение должно быть меньше или равно 31.23',
+                    'children.retailMarkup.errors.0' => 'Наценка должна быть меньше или равна 31.23',
                     'children.retailPrice.errors' => null,
                 )
             ),
@@ -248,7 +248,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0' => 'Значение должно быть больше или равно 1.71',
+                    'children.retailMarkup.errors.0' => 'Наценка должна быть больше или равна 1.71',
                     'children.retailPrice.errors' => null,
                 )
             ),
@@ -259,7 +259,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0' => 'Значение должно быть меньше или равно 31.23',
+                    'children.retailMarkup.errors.0' => 'Наценка должна быть меньше или равна 31.23',
                     'children.retailPrice.errors' => null,
                 )
             ),
