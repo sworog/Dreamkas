@@ -810,4 +810,74 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('retailMarkupMin', $putResponse);
         Assert::assertNotJsonHasPath('retailMarkupMax', $putResponse);
     }
+
+    public function testGetStoreCategoryStoreManagerHasStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $categoryId = $this->createCategory();
+        $storeId = $this->createStore();
+
+        $this->linkStoreManagers($storeId, $storeManager->id);
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/categories/' . $categoryId
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($categoryId, 'id', $getResponse);
+    }
+
+    public function testGetStoreCategoryStoreManagerFromAnotherStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $categoryId = $this->createCategory();
+        $storeId1 = $this->createStore('42');
+        $storeId2 = $this->createStore('43');
+
+        $this->linkStoreManagers($storeId1, $storeManager->id);
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/categories/' . $categoryId
+        );
+
+        $this->assertResponseCode(403);
+
+        Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
+    }
+
+    public function testGetStoreCategoryStoreManagerHasNoStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $categoryId = $this->createCategory();
+        $storeId = $this->createStore();
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/categories/' . $categoryId
+        );
+
+        $this->assertResponseCode(403);
+
+        Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
+    }
 }

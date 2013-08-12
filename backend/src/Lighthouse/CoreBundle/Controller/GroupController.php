@@ -5,11 +5,13 @@ namespace Lighthouse\CoreBundle\Controller;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\GroupType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use JMS\SecurityExtraBundle\Annotation\SecureParam;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class GroupController extends AbstractRestController
@@ -89,5 +91,17 @@ class GroupController extends AbstractRestController
         $cursor = $this->documentRepository->findAll();
         $collection = new GroupCollection($cursor);
         return $collection;
+    }
+
+    /**
+     * @param Store $store
+     * @param Group $group
+     * @return Group
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @ApiDoc
+     */
+    public function getStoreGroupAction(Store $store, Group $group)
+    {
+        return $group;
     }
 }

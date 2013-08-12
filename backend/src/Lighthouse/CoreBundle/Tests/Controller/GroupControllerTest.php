@@ -537,4 +537,74 @@ class GroupControllerTest extends WebTestCase
             ),
         );
     }
+
+    public function testGetStoreGroupStoreManagerHasStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $groupId = $this->createGroup();
+        $storeId = $this->createStore();
+
+        $this->linkStoreManagers($storeId, $storeManager->id);
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/groups/' . $groupId
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($groupId, 'id', $getResponse);
+    }
+
+    public function testGetStoreGroupStoreManagerFromAnotherStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $groupId = $this->createGroup();
+        $storeId1 = $this->createStore('42');
+        $storeId2 = $this->createStore('43');
+
+        $this->linkStoreManagers($storeId1, $storeManager->id);
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/groups/' . $groupId
+        );
+
+        $this->assertResponseCode(403);
+
+        Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
+    }
+
+    public function testGetStoreGroupStoreManagerHasNoStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $groupId = $this->createGroup();
+        $storeId = $this->createStore();
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/groups/' . $groupId
+        );
+
+        $this->assertResponseCode(403);
+
+        Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
+    }
 }
