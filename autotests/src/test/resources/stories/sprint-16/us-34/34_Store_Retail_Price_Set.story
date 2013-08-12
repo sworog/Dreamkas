@@ -28,7 +28,7 @@ And the user checks the <elementName> value is <expectedValue>
 
 Examples:
 | inputText | elementName | expectedValue |
-| 0 | retailMarkup | 0 |
+| 0 | retailMarkup | отсутствует |
 | 50 | retailMarkup | 50,00 |
 | 35 | retailMarkup | 35,00 |
 
