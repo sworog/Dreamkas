@@ -110,13 +110,13 @@ define(function(require) {
                     retailMarkupMax = LH.normalizePrice(this.$retailMarkupMaxInput.val()),
                     calculatedMinVal, calculatedMaxVal;
 
-                if (!purchasePrice || !retailMarkupMin || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMin)) {
+                if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMin)) {
                     calculatedMinVal = '';
                 } else {
                     calculatedMinVal = LH.formatPrice(+(retailMarkupMin / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
-                if (!purchasePrice || !retailMarkupMax || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMax)) {
+                if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMax)) {
                     calculatedMaxVal = '';
                 } else {
                     calculatedMaxVal = LH.formatPrice(+(retailMarkupMax / 100 * purchasePrice).toFixed(2) + purchasePrice);
@@ -135,13 +135,13 @@ define(function(require) {
                     purchasePrice = LH.normalizePrice(this.$purchasePriceInput.val()),
                     calculatedMinVal, calculatedMaxVal;
 
-                if (!purchasePrice || !retailPriceMin || _.isNaN(purchasePrice) || _.isNaN(retailPriceMin)){
+                if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailPriceMin)){
                     calculatedMinVal = '';
                 } else {
                     calculatedMinVal = LH.formatPrice(+(retailPriceMin * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
-                if (!purchasePrice || !retailPriceMax || _.isNaN(purchasePrice) || _.isNaN(retailPriceMax)){
+                if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailPriceMax)){
                     calculatedMaxVal = '';
                 } else {
                     calculatedMaxVal = LH.formatPrice(+(retailPriceMax * 100 / purchasePrice).toFixed(2) - 100);
