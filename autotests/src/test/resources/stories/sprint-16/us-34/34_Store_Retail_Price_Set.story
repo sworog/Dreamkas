@@ -137,3 +137,18 @@ Examples:
 | БОЛЬШАЯ | retailPrice | Цена не должна быть меньше или равна нулю. |
 | 10000001 | retailPrice | Цена не должна быть больше 10000000 |
 
+Scenario: store manager cant view catalog if he dont manage any store through link
+
+Given there is the user with name 'testName1', position 'testName1', username 'testName1', password 'lighthouse', role 'storeManager'
+And the user opens catalog page
+When the user logs in using 'testName1' userName and 'lighthouse' password
+Then the user sees the 403 error
+
+Scenario: store manager cant view catalog if he dont manage any store through dashboard link click
+
+Given there is the user with name 'testName1', position 'testName1', username 'testName1', password 'lighthouse', role 'storeManager'
+And the user opens the authorization page
+When the user logs in using 'testName1' userName and 'lighthouse' password
+Then the user checks the dashboard link to 'catalog' section is not present
+
+
