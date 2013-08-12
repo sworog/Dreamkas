@@ -81,7 +81,7 @@
     <tr>
         <th>Диапазон наценки</th>
         <td>
-            <% if(model.get('retailMarkupMin') && model.get('retailMarkupMax')) { %>
+            <% if(_.isNumber(model.get('retailMarkupMin')) && _.isNumber(model.get('retailMarkupMax'))) { %>
                 <span name="retailMarkupRange">
                     <%= LH.formatPrice(model.get('retailMarkupMin')) %>
                     -
