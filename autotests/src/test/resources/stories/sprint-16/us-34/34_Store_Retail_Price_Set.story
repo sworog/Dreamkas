@@ -99,18 +99,20 @@ Then the user user sees <errorMessage>
 
 Examples:
 | inputText | elementName | errorMessage |
-|-1 | retailMarkup | Наценка должна быть равна или больше 0% |
-|-0.01 | retailMarkup | Наценка должна быть равна или больше 0% |
+|-1 | retailMarkup | Наценка должна быть больше или равна 0 |
+|-0.01 | retailMarkup | Наценка должна быть больше или равна 0 |
 | 12,678 | retailMarkup | Значение не должно содержать больше 2 цифр после запятой |
-| -12,678 | retailMarkup | Значение не должно содержать больше 2 цифр после запятой. Наценка должна быть равна или больше 0% |
+| -12,678 | retailMarkup | Значение не должно содержать больше 2 цифр после запятой. Наценка должна быть больше или равна 0 |
 | big price | retailMarkup | Значение должно быть числом |
 | BIG PRICE | retailMarkup | Значение должно быть числом |
 | большая цена | retailMarkup | Значение должно быть числом |
 | БОЛЬШАЯ ЦЕНА | retailMarkup | Значение должно быть числом |
 | !@#$%^&*() | retailMarkup | Значение должно быть числом |
-| 60 | retailMarkup | Минимальная наценка не должна быть больше максимальной |
+| 60 | retailMarkup | Наценка должна быть меньше или равна 50 |
 
 Scenario: Retail store product price negative
+Meta:
+@test
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
@@ -136,6 +138,11 @@ Examples:
 | большая цена | retailPrice | Цена не должна быть меньше или равна нулю. |
 | БОЛЬШАЯ | retailPrice | Цена не должна быть меньше или равна нулю. |
 | 10000001 | retailPrice | Цена не должна быть больше 10000000 |
+| 9 | retailPrice | Значение должно быть больше или равно 10 |
+| 9.99 | retailPrice | Значение должно быть больше или равно 10 |
+| 15.01 | retailPrice | Значение должно быть меньше или равно 15 |
+| 16.00 | retailPrice | Значение должно быть меньше или равно 15 |
+
 
 Scenario: Store manager cant view catalog if he dont manage any store through link
 
