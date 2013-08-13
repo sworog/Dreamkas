@@ -61,7 +61,7 @@ class SubCategoryController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory $subCategory
      * @return \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getSubcategoryAction(SubCategory $subCategory)
@@ -74,7 +74,9 @@ class SubCategoryController extends AbstractRestController
      * @param SubCategory $subCategory
      * @return SubCategory
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(
+     *      resource = true
+     * )
      */
     public function getStoreSubcategoryAction(Store $store, SubCategory $subCategory)
     {
@@ -84,14 +86,28 @@ class SubCategoryController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Classifier\Category\Category $category
      * @return \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
-     * @ApiDoc
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc(
+     *      resource = true
+     * )
      */
     public function getCategorySubcategoriesAction(Category $category)
     {
         $cursor = $this->getDocumentRepository()->findByCategory($category->id);
-        $collection = new SubCategoryCollection($cursor);
-        return $collection;
+        return new SubCategoryCollection($cursor);
+    }
+
+    /**
+     * @param Store $store
+     * @param Category $category
+     * @return SubCategoryCollection
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @ApiDoc
+     */
+    public function getStoreCategorySubcategoriesAction(Store $store, Category $category)
+    {
+        $cursor = $this->getDocumentRepository()->findByCategory($category->id);
+        return new SubCategoryCollection($cursor);
     }
 
     /**
