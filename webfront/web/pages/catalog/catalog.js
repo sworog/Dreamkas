@@ -28,7 +28,9 @@ define(function(require) {
                 pageParams.editMode = false;
             }
 
-            page.catalogGroupsCollection = new СatalogGroupsCollection();
+            page.catalogGroupsCollection = new СatalogGroupsCollection([], {
+                storeId: pageParams.storeId
+            });
 
             $.when(page.catalogGroupsCollection.fetch()).then(function(){
                 page.render();

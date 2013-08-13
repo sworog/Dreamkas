@@ -34,11 +34,13 @@ define(function(require) {
             }
 
             page.catalogGroupModel = new СatalogGroupModel({
-                id: catalogGroupId
+                id: catalogGroupId,
+                storeId: pageParams.storeId
             });
 
             page.catalogProductsCollection = new CatalogProductsCollection([], {
-                subCategory: catalogSubCategoryId
+                subCategory: catalogSubCategoryId,
+                storeId: pageParams.storeId
             });
 
             $.when(page.catalogGroupModel.fetch(), catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){

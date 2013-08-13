@@ -9,6 +9,10 @@
     <a href="/catalog"><%text 'Каталог' %></a>
     <% } %>
 
+    <% if(LH.isAllow('stores', 'GET::{store}/groups/{group}') && currentUserModel.stores && currentUserModel.stores.length){ %>
+    <a href="/catalog?storeId=<%= currentUserModel.stores.at(0).id %>"><%text 'Каталог' %></a>
+    <% } %>
+
     <% if(LH.isAllow('invoices')){ %>
     <a href="/invoices"><%text 'Накладные' %></a>
     <% } %>
