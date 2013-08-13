@@ -112,7 +112,7 @@ Then the user checks write off elements values
 | writeOff product price | 15 |
 When the user logs out
 
-Scenario: write off review kg
+Scenario: Write off review kg
 
 Given there is the product with 'WriteOff-ProductName-review1' name, 'WriteOff-ProductSku-review1' sku, 'WriteOff-ProductBarCode-review1' barcode, 'kg' units, '15' purchasePrice
 And the user opens amount list page
@@ -148,7 +148,7 @@ Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductSku-review1' sku has 'amounts amount' element equal to '-10' on amounts page
 When the user logs out
 
-Scenario: write off Review liter
+Scenario: Write off Review liter
 
 Given there is the product with 'WriteOff-ProductName-review2' name, 'WriteOff-ProductSku-review2' sku, 'WriteOff-ProductBarCode-review2' barcode, 'liter' units, '15' purchasePrice
 And the user opens amount list page
@@ -184,7 +184,7 @@ Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductSku-review2' sku has 'amounts amount' element equal to '-10' on amounts page
 When the user logs out
 
-Scenario: write off Review units
+Scenario: Write off Review units
 
 Given there is the product with 'WriteOff-ProductName-review3' name, 'WriteOff-ProductSku-review3' sku, 'WriteOff-ProductBarCode-review3' barcode, 'unit' units, '15' purchasePrice
 And the user opens amount list page

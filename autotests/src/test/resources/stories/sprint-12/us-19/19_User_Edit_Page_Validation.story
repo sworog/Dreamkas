@@ -2,7 +2,7 @@ Meta:
 @sprint 12
 @us 19
 
-Scenario: edit mode name field length validation 100 symbols
+Scenario: Edit mode name field length validation 100 symbols
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf1', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf1'
@@ -14,7 +14,7 @@ When the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode name field length validation negative 101 symbols
+Scenario: Edit mode name field length validation negative 101 symbols
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf2', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf2'
@@ -28,7 +28,7 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user logs out
 
-Scenario: edit mode name field is required
+Scenario: Edit mode name field is required
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf3', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf3'
@@ -43,7 +43,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: edit mode position field length validation 100 symbols
+Scenario: Edit mode position field length validation 100 symbols
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf4', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf4'
@@ -55,7 +55,7 @@ When the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode position field length validation negative 101 symbols
+Scenario: Edit mode position field length validation negative 101 symbols
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf5', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf5'
@@ -69,7 +69,7 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user logs out
 
-Scenario: edit mode position field is required
+Scenario: Edit mode position field is required
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf6', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf6'
@@ -84,7 +84,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: edit mode role field is required
+Scenario: Edit mode role field is required
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf7', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf7'
@@ -99,7 +99,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: edit mode password minimum length validation invalid
+Scenario: Edit mode password minimum length validation invalid
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf8', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf8'
@@ -114,7 +114,7 @@ Then the user sees error messages
 | Значение слишком короткое. Должно быть равно 6 символам или больше. |
 When the user logs out
 
-Scenario: edit mode password minimum length validation positive
+Scenario: Edit mode password minimum length validation positive
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf9', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf9'
@@ -127,7 +127,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode password must be not equal to username
+Scenario: Edit mode password must be not equal to username
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf10', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf10'
@@ -143,7 +143,7 @@ Then the user sees error messages
 | Логин и пароль не должны совпадать |
 When the user logs out
 
-Scenario: edit mode password validation positive
+Scenario: Edit mode password validation positive
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf11', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf11'
@@ -156,7 +156,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username field length validation 100 symbols
+Scenario: Edit mode username field length validation 100 symbols
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf12', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf12'
@@ -168,7 +168,7 @@ When the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username field length validation negative 101 symbols
+Scenario: Edit mode username field length validation negative 101 symbols
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf13', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf13'
@@ -182,7 +182,7 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user logs out
 
-Scenario: edit mode username must be unique
+Scenario: Edit mode username must be unique
 
 Given there is the user with name 'User validation lmbu', position 'User validation lmbu', username 'Uservalidationlmbu', password 'Uservalidationlmbu1', role 'commercialManager'
 And there is the user with name 'User validation', position 'User validation', username 'emnf14', password 'password', role 'commercialManager'
@@ -198,7 +198,7 @@ Then the user sees error messages
 | Пользователь с таким логином уже существует |
 When the user logs out
 
-Scenario: edit mode username is required
+Scenario: Edit mode username is required
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf15', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf15'
@@ -213,7 +213,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: edit mode username validation positive Rus Big regiser
+Scenario: Edit mode username validation positive Rus Big regiser
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf16', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf16'
@@ -226,7 +226,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username validation positive Rus Small register
+Scenario: Edit mode username validation positive Rus Small register
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf17', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf17'
@@ -239,7 +239,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username validation positive Eng Small register
+Scenario: Edit mode username validation positive Eng Small register
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf19', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf19'
@@ -252,7 +252,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username validation positive Eng Big register
+Scenario: Edit mode username validation positive Eng Big register
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf20', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf20'
@@ -265,7 +265,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username validation positive digits 0-9
+Scenario: Edit mode username validation positive digits 0-9
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf21', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf21'
@@ -278,7 +278,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username validation positive symbols _
+Scenario: Edit mode username validation positive symbols _
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf22', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf22'
@@ -291,7 +291,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username validation positive symbols -
+Scenario: Edit mode username validation positive symbols -
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf23', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf23'
@@ -304,7 +304,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username validation positive symbols .
+Scenario: Edit mode username validation positive symbols .
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf24', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf24'
@@ -317,7 +317,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username validation positive symbols @
+Scenario: Edit mode username validation positive symbols @
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf25', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf25'
@@ -330,7 +330,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username validation positive symbols mix
+Scenario: Edit mode username validation positive symbols mix
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf26', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf26'
@@ -343,7 +343,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: edit mode username validation negative symbols
+Scenario: Edit mode username validation negative symbols
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf27', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf27'
@@ -358,7 +358,7 @@ Then the user sees error messages
 | Значение недопустимо |
 When the user logs out
 
-Scenario: edit mode username validation negative symbols white space
+Scenario: Edit mode username validation negative symbols white space
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf28', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf28'

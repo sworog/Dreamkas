@@ -9,7 +9,7 @@ Meta:
 @sprint 6
 @us 9.1
 
-Scenario: invoice full browsing kg
+Scenario: Invoice full browsing kg
 
 Given there is the product with 'IFBKG-11' name, 'IFBKG-11' sku, 'IFBKG-11' barcode
 And the user is on the invoice list page
@@ -55,7 +55,7 @@ And the user checks invoice elements values
 | totalSum | 1 |
 When the user logs out
 
-Scenario: invoice full browsing units
+Scenario: Invoice full browsing units
 
 Given there is the product with 'IFBUNITS-11' name, 'IFBUNITS-11' sku, 'IFBUNITS-11' barcode, 'unit' units
 And the user is on the invoice list page
@@ -101,7 +101,7 @@ And the user checks invoice elements values
 | totalSum | 1 |
 When the user logs out
 
-Scenario: invoice full browsing liter
+Scenario: Invoice full browsing liter
 
 Given there is the product with 'IFBLITER-11' name, 'IFBLITER-11' sku, 'IFBLITER-11' barcode, 'liter' units
 And the user is on the invoice list page
@@ -147,7 +147,7 @@ And the user checks invoice elements values
 | totalSum | 1 |
 When the user logs out
 
-Scenario: invoice full browsing 3 products kg liter unit
+Scenario: Invoice full browsing 3 products kg liter unit
 
 Given there is the product with 'IFBKG-111' name, 'IFBKG-111' sku, 'IFBKG-111' barcode
 Given there is the product with 'IFBUNITS-112' name, 'IFBUNITS-112' sku, 'IFBUNITS-112' barcode, 'unit' units

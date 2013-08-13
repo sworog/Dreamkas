@@ -111,7 +111,7 @@ Then the user checks the user page elements values
 | role | Системный администратор |
 When the user logs out
 
-Scenario: user create from users list page
+Scenario: User create from users list page
 
 Given the user is on the users list page
 And the user logs in as 'watchman'
@@ -127,7 +127,7 @@ And the user clicks the create new user button
 Then the user checks the user with 'createfromuserslistpage' username is present
 When the user logs out
 
-Scenario: user edition
+Scenario: User edition
 
 Given there is the user with name 'Name1', position 'Position1', username 'Login1', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'Login1'
@@ -155,7 +155,7 @@ And the user checks the user with 'Login_edited' username has 'username' element
 And the user checks the user with 'Login_edited' username has 'role' element equal to 'Системный администратор' on users page
 When the user logs out
 
-Scenario: user edition commercialManager type
+Scenario: User edition commercialManager type
 
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
 And the user navigates to the user page with username 'User-edition'
@@ -173,7 +173,7 @@ Then the user checks the user with 'User-edition' username is present
 And the user checks the user with 'User-edition' username has 'role' element equal to 'Коммерческий директор сети' on users page
 When the user logs out
 
-Scenario: user edition storeManager type
+Scenario: User edition storeManager type
 
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
 And the user navigates to the user page with username 'User-edition'
@@ -191,7 +191,7 @@ Then the user checks the user with 'User-edition' username is present
 And the user checks the user with 'User-edition' username has 'role' element equal to 'Директор магазина' on users page
 When the user logs out
 
-Scenario: user edition section chief type
+Scenario: User edition section chief type
 
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
 And the user navigates to the user page with username 'User-edition'
@@ -209,7 +209,7 @@ Then the user checks the user with 'User-edition' username is present
 And the user checks the user with 'User-edition' username has 'role' element equal to 'Заведующий отделом' on users page
 When the user logs out
 
-Scenario: user edition administrator type
+Scenario: User edition administrator type
 
 Given there is the user with name 'User edition', position 'User edition', username 'User-edition', password 'User edition', role 'commercialManager'
 And the user navigates to the user page with username 'User-edition'

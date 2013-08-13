@@ -129,7 +129,7 @@ Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-AIP1PWBA' sku is present
 When the user logs out
 
-Scenario: autocomplete validation 0/1/2 symbols
+Scenario: Autocomplete validation 0/1/2 symbols
 
 Given there is the product with 'N-AIP1PWNAV0S' name, 'SKU-AIP1PWNAV0S' sku, 'BARCode-AIP1PWNAV0S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV0S' sku

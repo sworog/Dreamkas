@@ -9,7 +9,7 @@ Meta:
 @us 17
 @sprint 14
 
-Scenario: subCategory create
+Scenario: SubCategory create
 
 Given there is the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
@@ -21,7 +21,7 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the subCategory with 'First subCategory create' name is present
 When the user logs out
 
-Scenario: subCategory delete
+Scenario: SubCategory delete
 
 Given there is the subCategory with name 'subCategoryTestDelete' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategory'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
@@ -35,7 +35,7 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the subCategory with 'subCategoryTestDelete' name is not present
 When the user logs out
 
-Scenario: subCategory edit
+Scenario: SubCategory edit
 
 Given there is the subCategory with name 'subCategoryTestEdit' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategory'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
@@ -51,7 +51,7 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the subCategory with 'new subCategoryTestEdit' name is present
 When the user logs out
 
-Scenario: subCategory edit cancel
+Scenario: SubCategory edit cancel
 
 Given there is the subCategory with name 'subCategoryTestEditCancel' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategory'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'

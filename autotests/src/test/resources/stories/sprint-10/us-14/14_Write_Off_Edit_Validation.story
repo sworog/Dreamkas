@@ -66,7 +66,7 @@ When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
 
-Scenario: writeOff date Edit validation good manual
+Scenario: WriteOff date Edit validation good manual
 
 Given there is the write off with number 'WriteOff-Edit-Val-5'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-5'
@@ -79,7 +79,7 @@ Then the user sees no error messages
 When the user clicks finish edit button and ends the write off edition
 And the user logs out
 
-Scenario: writeOff date Edit validation manual negative1 numbers
+Scenario: WriteOff date Edit validation manual negative1 numbers
 
 Given there is the write off with number 'WriteOff-Edit-Val-6'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-6'
@@ -92,7 +92,7 @@ Then the user sees no error messages
 When the user clicks finish edit button and ends the write off edition
 And the user logs out
 
-Scenario: writeOff date Edit validation manual negative1 numbers 2
+Scenario: WriteOff date Edit validation manual negative1 numbers 2
 
 Given there is the write off with number 'WriteOff-Edit-Val-7'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-7'
@@ -121,7 +121,7 @@ When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
 
-Scenario: riteOff date Edit validation manual negative3 rus symbols
+Scenario: WriteOff date Edit validation manual negative3 rus symbols
 
 Given there is the write off with number 'WriteOff-Edit-Val-9'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-9'
@@ -137,7 +137,7 @@ When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
 
-Scenario: writeOff date Edit validation manual negative symbols
+Scenario: WriteOff date Edit validation manual negative symbols
 
 Given there is the write off with number 'WriteOff-Edit-Val-10'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-10'
@@ -153,7 +153,7 @@ When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
 
-Scenario: writeOff date Edit validation manual negative symbols mix
+Scenario: WriteOff date Edit validation manual negative symbols mix
 
 Given there is the write off with number 'WriteOff-Edit-Val-11'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-11'
@@ -169,7 +169,7 @@ When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
 
-Scenario: writeOff date Edit validation through datepicker good
+Scenario: WriteOff date Edit validation through datepicker good
 
 Given there is the write off with number 'WriteOff-Edit-Val-12'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-12'
@@ -182,7 +182,7 @@ Then the user sees no error messages
 When the user clicks finish edit button and ends the write off edition
 And the user logs out
 
-Scenario: write off edit - no product name validation
+Scenario: WriteOff edit - no product name validation
 
 Given there is the write off with 'WriteOff-Edit-Val-13' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-13'
@@ -198,7 +198,7 @@ When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
 
-Scenario: write off edit - no product barcode validation
+Scenario: WriteOff edit - no product barcode validation
 
 Given there is the write off with 'WriteOff-Edit-Val-14' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-14'
@@ -214,7 +214,7 @@ When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
 
-Scenario: write off edit - no product sku validation
+Scenario: WriteOff edit - no product sku validation
 
 Given there is the write off with 'WriteOff-Edit-Val-15' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-15'

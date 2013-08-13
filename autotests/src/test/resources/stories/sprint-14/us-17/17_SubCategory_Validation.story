@@ -47,7 +47,7 @@ Then the user checks alert text is equal to 'Категория не пуста.
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: subCategory validation name good - 100 symbols
+Scenario: SubCategory validation name good - 100 symbols
 
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
@@ -61,7 +61,7 @@ Then the user sees no error messages
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: subCategory validation name invalid - 101 symbols
+Scenario: SubCategory validation name invalid - 101 symbols
 
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
@@ -77,7 +77,7 @@ Then the user sees error messages
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: subCategory validation name is required
+Scenario: SubCategory validation name is required
 
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And the user navigates to the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
@@ -91,7 +91,7 @@ Then the user sees error messages
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: subCategory validation - can't create group with equal name
+Scenario: SubCategory validation - can't create group with equal name
 
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'subCategoryTestEqualName' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
@@ -108,7 +108,7 @@ Then the user sees error messages
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: subCategory edit validation name good - 100 symbols
+Scenario: SubCategory edit validation name good - 100 symbols
 
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'edit subCategoryTest' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
@@ -124,7 +124,7 @@ Then the user sees no error messages
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: subCategory edit validation name invalid - 101 symbols
+Scenario: SubCategory edit validation name invalid - 101 symbols
 
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'edit subCategoryTest1' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
@@ -143,7 +143,7 @@ When the user discards pop up menu changes
 And the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: subCategory edit validation name is required
+Scenario: SubCategory edit validation name is required
 
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'edit subCategoryTest1' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'
@@ -161,7 +161,7 @@ When the user discards pop up menu changes
 And the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: subCategory edit validation - can't edit the group name to the group name already created
+Scenario: SubCategory edit validation - can't edit the group name to the group name already created
 
 Given there is the category with name 'subCategoryTestCategoryValidation' related to group named 'subCategoryTestGroup'
 And there is the subCategory with name 'edit subCategoryTest2' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategoryValidation'

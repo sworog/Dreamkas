@@ -2,7 +2,7 @@ Meta:
 @sprint 15
 @us 27
 
-Scenario: group - mark up validation good
+Scenario: Group - mark up validation good
 
 Given there is the group with name 'GroupMarkUp-valid'
 And the user navigates to the group with name 'GroupMarkUp-valid'
@@ -18,7 +18,7 @@ Examples:
 | min | 1 |
 | max | 1 |
 
-Scenario: group - mark up validation required fields
+Scenario: Group - mark up validation required fields
 
 Given there is the group with name 'GroupMarkUp-valid'
 And the user navigates to the group with name 'GroupMarkUp-valid'

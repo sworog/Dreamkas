@@ -2,7 +2,7 @@ Meta:
 @sprint 10
 @us 14
 
-Scenario: alert number changesVerification stop edit button
+Scenario: Alert number changesVerification stop edit button
 
 Given there is the write off with number 'WriteOff-Alerts-1'
 And the user navigates to the write off with number 'WriteOff-Alerts-1'
@@ -17,7 +17,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert number changesVerification stop edit link
+Scenario: Alert number changesVerification stop edit link
 
 Given there is the write off with number 'WriteOff-Alerts-1'
 And the user navigates to the write off with number 'WriteOff-Alerts-1'
@@ -32,7 +32,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert date changesVerification stop edit button
+Scenario: Alert date changesVerification stop edit button
 
 Given there is the write off with number 'WriteOff-Alerts-1'
 And the user navigates to the write off with number 'WriteOff-Alerts-1'
@@ -47,7 +47,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert date changesVerification stop edit link
+Scenario: Alert date changesVerification stop edit link
 
 Given there is the write off with number 'WriteOff-Alerts-1'
 And the user navigates to the write off with number 'WriteOff-Alerts-1'
@@ -62,7 +62,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert productSku changesVerification stop edit button
+Scenario: Alert productSku changesVerification stop edit button
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -76,7 +76,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert productSku changesVerification stop edit link
+Scenario: Alert productSku changesVerification stop edit link
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -90,7 +90,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert productName changesVerification stop edit button
+Scenario: Alert productName changesVerification stop edit button
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -104,7 +104,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert productName changesVerification stop edit link
+Scenario: Alert productName changesVerification stop edit link
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -118,7 +118,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert productBarCode changesVerification stop edit button
+Scenario: Alert productBarCode changesVerification stop edit button
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -132,7 +132,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert productBarCode changesVerification stop edit link
+Scenario: Alert productBarCode changesVerification stop edit link
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -146,7 +146,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert productAmount changesVerification stop edit button
+Scenario: Alert productAmount changesVerification stop edit button
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -160,7 +160,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert productAmount changesVerification stop edit link
+Scenario: Alert productAmount changesVerification stop edit link
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -174,7 +174,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert productPrice changesVerification stop edit button
+Scenario: Alert productPrice changesVerification stop edit button
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -188,7 +188,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert ProductPrice changesVerification stop edit link
+Scenario: Alert ProductPrice changesVerification stop edit link
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -202,7 +202,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert productCause changesVerification stop edit button
+Scenario: Alert productCause changesVerification stop edit button
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -216,7 +216,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert ProductCause changesVerification stop edit link
+Scenario: Alert ProductCause changesVerification stop edit link
 
 Given there is the write off with number 'WriteOff-Alerts-2'
 And the user navigates to the write off with number 'WriteOff-Alerts-2'
@@ -230,7 +230,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification ProductBarCode stop edit button
+Scenario: Alert writeOff product verification ProductBarCode stop edit button
 
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-10' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
@@ -246,7 +246,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification ProductBarCode stop edit link
+Scenario: Alert writeOff product verification ProductBarCode stop edit link
 
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-11' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
@@ -262,7 +262,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification ProductName stop edit button
+Scenario: Alert writeOff product verification ProductName stop edit button
 
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-12' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
@@ -278,7 +278,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification ProductName stop edit link
+Scenario: Alert writeOff product verification ProductName stop edit link
 
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-13' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
@@ -294,7 +294,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification ProductSku stop edit button
+Scenario: Alert writeOff product verification ProductSku stop edit button
 
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-14' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
@@ -310,7 +310,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification ProductSku stop edit link
+Scenario: Alert writeOff product verification ProductSku stop edit link
 
 Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-15' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
@@ -326,7 +326,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification productAmount stop edit button
+Scenario: Alert writeOff product verification productAmount stop edit button
 
 Given there is the write off with 'WriteOff-Alerts-16' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-16'
@@ -341,7 +341,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification productAmount stop edit link
+Scenario: Alert writeOff product verification productAmount stop edit link
 
 Given there is the write off with 'WriteOff-Alerts-17' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-17'
@@ -356,7 +356,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification ProductPrice stop edit button
+Scenario: Alert writeOff product verification ProductPrice stop edit button
 
 Given there is the write off with 'WriteOff-Alerts-18' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-18'
@@ -371,7 +371,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification ProductPrice stop edit link
+Scenario: Alert writeOff product verification ProductPrice stop edit link
 
 Given there is the write off with 'WriteOff-Alerts-19' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-19'
@@ -386,7 +386,7 @@ And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification ProductCause stop edit button
+Scenario: Alert writeOff product verification ProductCause stop edit button
 
 Given there is the write off with 'WriteOff-Alerts-20' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-20'
@@ -401,7 +401,7 @@ And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
 When the user logs out
 
-Scenario: alert writeOff product verification ProductCause stop edit link
+Scenario: Alert writeOff product verification ProductCause stop edit link
 
 Given there is the write off with 'WriteOff-Alerts-21' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-21'

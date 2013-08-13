@@ -2,7 +2,7 @@ Meta:
 @sprint 12
 @us 19
 
-Scenario: name field length validation 100 symbols
+Scenario: Name field length validation 100 symbols
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -18,7 +18,7 @@ When the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: name field length validation negative 101 symbols
+Scenario: Name field length validation negative 101 symbols
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -36,7 +36,7 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user logs out
 
-Scenario: name field is required
+Scenario: Name field is required
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -52,7 +52,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: position field length validation 100 symbols
+Scenario: Position field length validation 100 symbols
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -68,7 +68,7 @@ When the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: position field length validation negative 101 symbols
+Scenario: Position field length validation negative 101 symbols
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -86,7 +86,7 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user logs out
 
-Scenario: position field is required
+Scenario: Position field is required
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -102,7 +102,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: role field is required
+Scenario: Role field is required
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -118,7 +118,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: password minimum length validation invalid
+Scenario: Position minimum length validation invalid
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -135,7 +135,7 @@ Then the user sees error messages
 | Значение слишком короткое. Должно быть равно 6 символам или больше. |
 When the user logs out
 
-Scenario: password minimum length validation positive
+Scenario: Position minimum length validation positive
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -150,7 +150,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: password must be not equal to username
+Scenario: Position must be not equal to username
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -167,7 +167,7 @@ Then the user sees error messages
 | Логин и пароль не должны совпадать |
 When the user logs out
 
-Scenario: password validation positive
+Scenario: Position validation positive
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -182,7 +182,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username field length validation 100 symbols
+Scenario: UserName field length validation 100 symbols
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -199,7 +199,7 @@ When the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username field length validation negative 101 symbols
+Scenario: UserName field length validation negative 101 symbols
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -218,7 +218,7 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user logs out
 
-Scenario: username must be unique
+Scenario: UserName must be unique
 
 Given there is the user with name 'User validation lmbu', position 'User validation lmbu', username 'Uservalidationlmbu', password 'Uservalidationlmbu1', role 'commercialManager'
 And the user opens create new user page
@@ -236,7 +236,7 @@ Then the user sees error messages
 | Пользователь с таким логином уже существует |
 When the user logs out
 
-Scenario: username is required
+Scenario: UserName is required
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -252,7 +252,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: username validation positive Rus Big regiser
+Scenario: UserName validation positive Rus Big regiser
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -267,7 +267,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username validation positive Rus Small register
+Scenario: UserName validation positive Rus Small register
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -282,7 +282,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username validation positive Eng Small register
+Scenario: UserName validation positive Eng Small register
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -297,7 +297,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username validation positive Eng Big register
+Scenario: UserName validation positive Eng Big register
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -312,7 +312,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username validation positive digits 0-9
+Scenario: UserName validation positive digits 0-9
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -327,7 +327,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username validation positive symbols _
+Scenario: UserName validation positive symbols _
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -342,7 +342,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username validation positive symbols -
+Scenario: UserName validation positive symbols -
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -357,7 +357,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username validation positive symbols .
+Scenario: UserName validation positive symbols .
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -372,7 +372,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username validation positive symbols @
+Scenario: UserName validation positive symbols @
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -387,7 +387,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username validation positive symbols mix
+Scenario: UserName validation positive symbols mix
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -402,7 +402,7 @@ And the user clicks the create new user button
 Then the user sees no error messages
 When the user logs out
 
-Scenario: username validation negative symbols
+Scenario: UserName validation negative symbols
 
 Given the user opens create new user page
 And the user logs in as 'watchman'
@@ -419,7 +419,7 @@ Then the user sees error messages
 | Значение недопустимо |
 When the user logs out
 
-Scenario: username validation negative symbols white space
+Scenario: UserName validation negative symbols white space
 
 Given the user opens create new user page
 And the user logs in as 'watchman'

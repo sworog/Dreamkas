@@ -58,7 +58,7 @@ Examples:
 | 15 | retailPrice | 15,00 |
 | 12,45 | retailPrice | 12,45 |
 
-Scenario: check mark up range
+Scenario: Check mark up range
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '49' and min '12' values
@@ -70,7 +70,7 @@ When the user logs in using 'storeManagerProducts' userName and 'lighthouse' pas
 And the user clicks the edit price button
 Then the user checks the 'retailMarkupRange' value is '12,00 - 49,00'
 
-Scenario: check retail price range
+Scenario: Check retail price range
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
@@ -137,14 +137,14 @@ Examples:
 | БОЛЬШАЯ | retailPrice | Цена не должна быть меньше или равна нулю. |
 | 10000001 | retailPrice | Цена не должна быть больше 10000000 |
 
-Scenario: store manager cant view catalog if he dont manage any store through link
+Scenario: Store manager cant view catalog if he dont manage any store through link
 
 Given there is the user with name 'testName1', position 'testName1', username 'testName1', password 'lighthouse', role 'storeManager'
 And the user opens catalog page
 When the user logs in using 'testName1' userName and 'lighthouse' password
 Then the user sees the 403 error
 
-Scenario: store manager cant view catalog if he dont manage any store through dashboard link click
+Scenario: Store manager cant view catalog if he dont manage any store through dashboard link click
 
 Given there is the user with name 'testName1', position 'testName1', username 'testName1', password 'lighthouse', role 'storeManager'
 And the user opens the authorization page

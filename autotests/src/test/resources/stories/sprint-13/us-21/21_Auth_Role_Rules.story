@@ -9,175 +9,175 @@ Meta:
 @sprint 13
 @us 21
 
-Scenario: administrator role username checking
+Scenario: Administrator role username checking
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
 Then the user checks that authorized is 'watchman' user
 When the user logs out
 
-Scenario: commercialManager role username checking
+Scenario: CommercialManager role username checking
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks that authorized is 'commercialManager' user
 When the user logs out
 
-Scenario: storeManager role username checking
+Scenario: StoreManager role username checking
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 Then the user checks that authorized is 'storeManager' user
 When the user logs out
 
-Scenario: departmentManager role username checking
+Scenario: DepartmentManager role username checking
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks that authorized is 'departmentManager' user
 When the user logs out
 
-Scenario: administrator role valid rules - dashboard links - users
+Scenario: Administrator role valid rules - dashboard links - users
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
 Then the user checks the dashboard link to 'users' section is present
 When the user logs out
 
-Scenario: commercialManager role valid rules - dashboard links - catalog
+Scenario: CommercialManager role valid rules - dashboard links - catalog
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the dashboard link to 'catalog' section is present
 When the user logs out
 
-Scenario: departmentManager role valid rules - dashboard links - invoices
+Scenario: DepartmentManager role valid rules - dashboard links - invoices
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'invoices' section is present
 When the user logs out
 
-Scenario: departmentManager role valid rules - dashboard links - balance
+Scenario: DepartmentManager role valid rules - dashboard links - balance
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'balance' section is present
 When the user logs out
 
-Scenario: departmentManager role valid rules - dashboard links - writeOffs
+Scenario: DepartmentManager role valid rules - dashboard links - writeOffs
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'writeOffs' section is present
 When the user logs out
 
-Scenario: administrator role invalid rules - dashboard links - catalog
+Scenario: Administrator role invalid rules - dashboard links - catalog
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
 Then the user checks the dashboard link to 'catalog' section is not present
 When the user logs out
 
-Scenario: administrator role invalid rules - dashboard links - invoices
+Scenario: Administrator role invalid rules - dashboard links - invoices
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
 Then the user checks the dashboard link to 'invoices' section is not present
 When the user logs out
 
-Scenario: administrator role invalid rules - dashboard links - balance
+Scenario: Administrator role invalid rules - dashboard links - balance
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
 Then the user checks the dashboard link to 'balance' section is not present
 When the user logs out
 
-Scenario: administrator role invalid rules - dashboard links - writeOffs
+Scenario: Administrator role invalid rules - dashboard links - writeOffs
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
 Then the user checks the dashboard link to 'writeOffs' section is not present
 When the user logs out
 
-Scenario: commercial manager role invalid rules - dashboard links - invoices
+Scenario: Commercial manager role invalid rules - dashboard links - invoices
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the dashboard link to 'invoices' section is not present
 When the user logs out
 
-Scenario: commercial manager role invalid rules - dashboard links - balance
+Scenario: Commercial manager role invalid rules - dashboard links - balance
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the dashboard link to 'balance' section is present
 When the user logs out
 
-Scenario: commercial manager role invalid rules - dashboard links - writeOffs
+Scenario: Commercial manager role invalid rules - dashboard links - writeOffs
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the dashboard link to 'writeOffs' section is not present
 When the user logs out
 
-Scenario: commercial manager role invalid rules - dashboard links - users
+Scenario: Commercial manager role invalid rules - dashboard links - users
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the dashboard link to 'users' section is not present
 When the user logs out
 
-Scenario: storeManager role invalid rules - dashboard links - users
+Scenario: StoreManager role invalid rules - dashboard links - users
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 Then the user checks the dashboard link to 'users' section is not present
 When the user logs out
 
-Scenario: storeManager role invalid rules - dashboard links - users
+Scenario: StoreManager role invalid rules - dashboard links - users
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 Then the user checks the dashboard link to 'users' section is not present
 When the user logs out
 
-Scenario: storeManager role invalid rules - dashboard links - catalog
+Scenario: StoreManager role invalid rules - dashboard links - catalog
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 Then the user checks the dashboard link to 'catalog' section is not present
 When the user logs out
 
-Scenario: storeManager role invalid rules - dashboard links - invoices
+Scenario: StoreManager role invalid rules - dashboard links - invoices
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 Then the user checks the dashboard link to 'invoices' section is not present
 When the user logs out
 
-Scenario: storeManager role invalid rules - dashboard links - balance
+Scenario: StoreManager role invalid rules - dashboard links - balance
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 Then the user checks the dashboard link to 'balance' section is not present
 When the user logs out
 
-Scenario: storeManager role invalid rules - dashboard links - writeOffs
+Scenario: StoreManager role invalid rules - dashboard links - writeOffs
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 Then the user checks the dashboard link to 'writeOffs' section is not present
 When the user logs out
 
-Scenario: departmentManager role invalid rules - dashboard links - users
+Scenario: DepartmentManager role invalid rules - dashboard links - users
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'users' section is not present
 When the user logs out
 
-Scenario: administrator role valid rules - simple user scenario from dashboard - user creation
+Scenario: Administrator role valid rules - simple user scenario from dashboard - user creation
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -194,7 +194,7 @@ And the user clicks the create new user button
 Then the user checks the user with 'createfromuserslistpage9999' username is present
 When the user logs out
 
-Scenario: commercialManager role valid rules - simple user scenario from dashboard - group creation
+Scenario: CommercialManager role valid rules - simple user scenario from dashboard - group creation
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -212,7 +212,7 @@ When user opens the dashboard 'catalog' section
 Then the user checks the category with 'First category create1234567' name is related to group 'GcFcP1234567'
 When the user logs out
 
-Scenario: departmentManager role valid rules - simple user scenario from dashboard - invoice
+Scenario: DepartmentManager role valid rules - simple user scenario from dashboard - invoice
 
 Given there is the product with 'IFBKG-1199' name, 'IFBKG-1199' sku, 'IFBKG-1199' barcode
 And the user opens the authorization page
@@ -259,7 +259,7 @@ And the user checks invoice elements values
 | totalSum | 1 |
 When the user logs out
 
-Scenario: departmentManager role valid rules - simple user scenario from dashboard - writeOff
+Scenario: DepartmentManager role valid rules - simple user scenario from dashboard - writeOff
 
 Given there is the product with 'WriteOff-ProductName999' name, 'WriteOff-ProductSku999' sku, 'WriteOff-ProductBarCode999' barcode, 'liter' units, '15' purchasePrice
 And the user opens the authorization page
@@ -297,7 +297,7 @@ When user opens the dashboard 'balance' section
 Then the user checks the product with 'WriteOff-ProductSku999' sku has 'amounts amount' element equal to '-10' on amounts page
 When the user logs out
 
-Scenario: administrator role invalid rules - unauthorised access from product create page link
+Scenario: Administrator role invalid rules - unauthorised access from product create page link
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -305,7 +305,7 @@ And the user is on the product create page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: administrator role invalid rules - unauthorised access from product list page link
+Scenario: Administrator role invalid rules - unauthorised access from product list page link
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -313,7 +313,7 @@ And the user is on the product list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: administrator role invalid rules - unauthorised access from catalog page link
+Scenario: Administrator role invalid rules - unauthorised access from catalog page link
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -321,7 +321,7 @@ And the user opens catalog page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: administrator role invalid rules - unauthorised access from ivoice list page link
+Scenario: Administrator role invalid rules - unauthorised access from ivoice list page link
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -329,7 +329,7 @@ And the user is on the invoice list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: administrator role invalid rules - unauthorised access from ivoice create page link
+Scenario: Administrator role invalid rules - unauthorised access from ivoice create page link
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -337,7 +337,7 @@ And the user is on the invoice create page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: administrator role invalid rules - unauthorised access from amount list page link
+Scenario: Administrator role invalid rules - unauthorised access from amount list page link
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -345,7 +345,7 @@ And the user opens amount list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: administrator role invalid rules - unauthorised access from write off create page link
+Scenario: Administrator role invalid rules - unauthorised access from write off create page link
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -353,7 +353,7 @@ And the user opens the write off create page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: administrator role invalid rules - unauthorised access from write off list page link
+Scenario: Administrator role invalid rules - unauthorised access from write off list page link
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -361,7 +361,7 @@ And the user opens write off list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: commercialManager role invalid rules - unauthorised access from users page link
+Scenario: CommercialManager role invalid rules - unauthorised access from users page link
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -369,7 +369,7 @@ And the user opens create new user page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: commercialManager role invalid rules - unauthorised access from users create page link
+Scenario: CommercialManager role invalid rules - unauthorised access from users create page link
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -377,7 +377,7 @@ And the user is on the users list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: commercialManager role invalid rules - unauthorised access from invoices link
+Scenario: CommercialManager role invalid rules - unauthorised access from invoices link
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -385,7 +385,7 @@ And the user is on the invoice list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: commercialManager role invalid rules - unauthorised access from invoices create page link
+Scenario: CommercialManager role invalid rules - unauthorised access from invoices create page link
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -393,7 +393,7 @@ And the user is on the invoice create page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: commercialManager role invalid rules - unauthorised access from balance link
+Scenario: CommercialManager role invalid rules - unauthorised access from balance link
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -401,7 +401,7 @@ And the user opens amount list page
 Then the user dont see the 403 error
 When the user logs out
 
-Scenario: commercialManager role invalid rules - unauthorised access from writeOffs link
+Scenario: CommercialManager role invalid rules - unauthorised access from writeOffs link
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -409,7 +409,7 @@ And the user opens write off list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: commercialManager role invalid rules - unauthorised access from writeOffs create page link
+Scenario: CommercialManager role invalid rules - unauthorised access from writeOffs create page link
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -417,7 +417,7 @@ And the user opens the write off create page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: storeManager role invalid rules - unauthorised access from users page link
+Scenario: StoreManager role invalid rules - unauthorised access from users page link
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -425,7 +425,7 @@ And the user opens create new user page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: storeManager role invalid rules - unauthorised access from users create page link
+Scenario: StoreManager role invalid rules - unauthorised access from users create page link
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -433,7 +433,7 @@ And the user is on the users list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: storeManager role invalid rules - unauthorised access from products page link
+Scenario: StoreManager role invalid rules - unauthorised access from products page link
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -441,7 +441,7 @@ And the user is on the product list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: storeManager role invalid rules - unauthorised access from products create page link
+Scenario: StoreManager role invalid rules - unauthorised access from products create page link
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -449,7 +449,7 @@ And the user is on the product create page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: storeManager role invalid rules - unauthorised access from invoices link
+Scenario: StoreManager role invalid rules - unauthorised access from invoices link
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -457,7 +457,7 @@ And the user is on the invoice list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: storeManager role invalid rules - unauthorised access from invoices create page link
+Scenario: StoreManager role invalid rules - unauthorised access from invoices create page link
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -465,7 +465,7 @@ And the user is on the invoice create page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: storeManager role invalid rules - unauthorised access from balance link
+Scenario: StoreManager role invalid rules - unauthorised access from balance link
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -473,7 +473,7 @@ And the user opens amount list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: storeManager role invalid rules - unauthorised access from writeOffs link
+Scenario: StoreManager role invalid rules - unauthorised access from writeOffs link
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -481,7 +481,7 @@ And the user opens write off list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: storeManager role invalid rules - unauthorised access from writeOffs create page link
+Scenario: StoreManager role invalid rules - unauthorised access from writeOffs create page link
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -489,7 +489,7 @@ And the user opens the write off create page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: storeManager role invalid rules - unauthorised access from catalog link
+Scenario: StoreManager role invalid rules - unauthorised access from catalog link
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -497,7 +497,7 @@ And the user opens catalog page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: departmentManager role invalid rules - unauthorised access from users page link
+Scenario: DepartmentManager role invalid rules - unauthorised access from users page link
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -505,7 +505,7 @@ And the user opens create new user page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: departmentManager role invalid rules - unauthorised access from users create page link
+Scenario: DepartmentManager role invalid rules - unauthorised access from users create page link
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -513,7 +513,7 @@ And the user is on the users list page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: departmentManager role invalid rules - unauthorised access from products create page link
+Scenario: DepartmentManager role invalid rules - unauthorised access from products create page link
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -521,7 +521,7 @@ And the user is on the product create page
 Then the user sees the 403 error
 When the user logs out
 
-Scenario: departmentManager role valid rules - authorised access to balance
+Scenario: DepartmentManager role valid rules - authorised access to balance
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -529,7 +529,7 @@ When user opens the dashboard 'balance' section
 Then the user dont see the 403 error
 When the user logs out
 
-Scenario: departmentManager role valid rules - authorised access to invoice list
+Scenario: DepartmentManager role valid rules - authorised access to invoice list
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -537,7 +537,7 @@ When user opens the dashboard 'invoices' section
 Then the user dont see the 403 error
 When the user logs out
 
-Scenario: departmentManager role valid rules - authorised access to invoice create
+Scenario: DepartmentManager role valid rules - authorised access to invoice create
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -546,7 +546,7 @@ And the user clicks the create button on the invoice list page
 Then the user dont see the 403 error
 When the user logs out
 
-Scenario: departmentManager role valid rules - authorised access to writeOffs list
+Scenario: DepartmentManager role valid rules - authorised access to writeOffs list
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -554,7 +554,7 @@ When user opens the dashboard 'writeOffs' section
 Then the user dont see the 403 error
 When the user logs out
 
-Scenario: departmentManager role valid rules - authorised access to writeOffs create
+Scenario: DepartmentManager role valid rules - authorised access to writeOffs create
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -563,7 +563,7 @@ And the user creates write off from write off list page
 Then the user dont see the 403 error
 When the user logs out
 
-Scenario: commercialManager role valid rules - authorised access to catalog
+Scenario: CommercialManager role valid rules - authorised access to catalog
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -571,7 +571,7 @@ When user opens the dashboard 'catalog' section
 Then the user dont see the 403 error
 When the user logs out
 
-Scenario: administrator role valid rules - authorised access to users list
+Scenario: Administrator role valid rules - authorised access to users list
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -579,7 +579,7 @@ When user opens the dashboard 'users' section
 Then the user dont see the 403 error
 When the user logs out
 
-Scenario: administrator role valid rules - authorised access to users create
+Scenario: Administrator role valid rules - authorised access to users create
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -588,7 +588,7 @@ And the user clicks the create new user button from users list page
 Then the user dont see the 403 error
 When the user logs out
 
-Scenario: departmentManager - no edit button for products card
+Scenario: DepartmentManager - no edit button for products card
 
 Given there is the product with 'IFBKG-119999' name, 'IFBKG-119999' sku, 'IFBKG-119999' barcode
 And the user is on the product list page
@@ -597,14 +597,14 @@ When the user open the product card with 'IFBKG-119999' sku
 Then the user sees no edit product button
 When the user logs out
 
-Scenario: departmentManager - no create button for products list
+Scenario: DepartmentManager - no create button for products list
 
 Given the user is on the product list page
 And the user logs in as 'departmentManager'
 Then the user sees no create new product button
 When the user logs out
 
-Scenario: administrator role - user card view from dashboard
+Scenario: Administrator role - user card view from dashboard
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -617,7 +617,7 @@ Then the user checks the user page elements values
 | role | Системный администратор |
 When the user logs out
 
-Scenario: administrator role - user card view from dashboard - edit button is present
+Scenario: Administrator role - user card view from dashboard - edit button is present
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -625,7 +625,7 @@ When the user opens dashboard user card
 Then the user sees user card edit button
 When the user logs out
 
-Scenario: administrator role - user card view from dashboard - users list link is present
+Scenario: Administrator role - user card view from dashboard - users list link is present
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -633,7 +633,7 @@ When the user opens dashboard user card
 Then the user sees user card link to users list
 When the user logs out
 
-Scenario: departmentManager role - user card view from dashboard
+Scenario: DepartmentManager role - user card view from dashboard
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -646,7 +646,7 @@ Then the user checks the user page elements values
 | role | Заведующий отделом |
 When the user logs out
 
-Scenario: departmentManager role - user card view from dashboard - edit button is not present
+Scenario: DepartmentManager role - user card view from dashboard - edit button is not present
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -654,7 +654,7 @@ When the user opens dashboard user card
 Then the user sees no user card edit button
 When the user logs out
 
-Scenario: departmentManager role - user card view from dashboard - users list link is not present
+Scenario: DepartmentManager role - user card view from dashboard - users list link is not present
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -662,7 +662,7 @@ When the user opens dashboard user card
 Then the user sees no user card link to users list
 When the user logs out
 
-Scenario: commercialManager role - user card view from dashboard
+Scenario: CommercialManager role - user card view from dashboard
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -675,7 +675,7 @@ Then the user checks the user page elements values
 | role | Коммерческий директор сети |
 When the user logs out
 
-Scenario: commercialManager role - user card view from dashboard - edit button is not present
+Scenario: CommercialManager role - user card view from dashboard - edit button is not present
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -683,7 +683,7 @@ When the user opens dashboard user card
 Then the user sees no user card edit button
 When the user logs out
 
-Scenario: commercialManager role - user card view from dashboard - users list link is not present
+Scenario: CommercialManager role - user card view from dashboard - users list link is not present
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -691,7 +691,7 @@ When the user opens dashboard user card
 Then the user sees no user card link to users list
 When the user logs out
 
-Scenario: storeManager role - user card view from dashboard
+Scenario: StoreManager role - user card view from dashboard
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -704,7 +704,7 @@ Then the user checks the user page elements values
 | role | Директор магазина |
 When the user logs out
 
-Scenario: storeManager role - user card view from dashboard - edit button is not present
+Scenario: StoreManager role - user card view from dashboard - edit button is not present
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -712,7 +712,7 @@ When the user opens dashboard user card
 Then the user sees no user card edit button
 When the user logs out
 
-Scenario: storeManager role - user card view from dashboard - users list link is not present
+Scenario: StoreManager role - user card view from dashboard - users list link is not present
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'

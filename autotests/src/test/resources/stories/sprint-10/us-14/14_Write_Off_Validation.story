@@ -51,7 +51,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: writeOff date validation good manual
+Scenario: Write Off date validation good manual
 
 Given the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -61,7 +61,7 @@ When the user continues the write off creation
 Then the user sees no error messages
 When the user logs out
 
-Scenario: writeOff date validation manual negative1 numbers
+Scenario: Write Off date validation manual negative1 numbers
 
 Given the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -71,7 +71,7 @@ When the user continues the write off creation
 Then the user sees no error messages
 When the user logs out
 
-Scenario: writeOff date validation manual negative1 numbers 2
+Scenario: Write Off date validation manual negative1 numbers 2
 
 Given the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -93,7 +93,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: riteOff date validation manual negative3 rus symbols
+Scenario: WriteOff date validation manual negative3 rus symbols
 
 Given the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -105,7 +105,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: writeOff date validation manual negative symbols
+Scenario: WriteOff date validation manual negative symbols
 
 Given the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -117,7 +117,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: writeOff date validation manual negative symbols mix
+Scenario: WriteOff date validation manual negative symbols mix
 
 Given the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -129,7 +129,7 @@ Then the user sees error messages
 | Заполните это поле |
 When the user logs out
 
-Scenario: writeOff date validation through datepicker good
+Scenario: WriteOff date validation through datepicker good
 
 Given the user opens the write off create page
 And the user logs in as 'departmentManager'
@@ -139,7 +139,7 @@ When the user continues the write off creation
 Then the user sees no error messages
 When the user logs out
 
-Scenario: write off autocomplete is required
+Scenario: WriteOff autocomplete is required
 
 Given there is the write off with number 'WriteOff test-10'
 And the user navigates to the write off with number 'WriteOff test-10'
@@ -151,7 +151,7 @@ Then the user sees error messages
 | Такого товара не существует |
 When the user logs out
 
-Scenario: write off no product name validation
+Scenario: WriteOff no product name validation
 
 Given there is the write off with number 'WriteOff test-11'
 And the user navigates to the write off with number 'WriteOff test-11'
@@ -164,7 +164,7 @@ Then the user sees error messages
 | Такого товара не существует |
 When the user logs out
 
-Scenario: write off no product barcode validation
+Scenario: WriteOff no product barcode validation
 
 Given there is the write off with number 'WriteOff test-12'
 And the user navigates to the write off with number 'WriteOff test-12'
@@ -177,7 +177,7 @@ Then the user sees error messages
 | Такого товара не существует |
 When the user logs out
 
-Scenario: write off no product sku validation
+Scenario: WriteOff no product sku validation
 
 Given there is the write off with number 'WriteOff test-13'
 And the user navigates to the write off with number 'WriteOff test-13'
