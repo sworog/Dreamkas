@@ -215,4 +215,12 @@ public class CommonPage extends PageObject {
         } catch (Exception e) {
         }
     }
+
+    public void checkDropDownDefaultValue(WebElement dropDownElement, String expectedValue) {
+        String selectedValue = $(dropDownElement).getSelectedValue();
+        if (!selectedValue.equals(expectedValue)) {
+            String errorMessage = String.format("The default value for dropDown is not '%s'. The selected value is '%s'", expectedValue, selectedValue);
+            throw new AssertionError(errorMessage);
+        }
+    }
 }

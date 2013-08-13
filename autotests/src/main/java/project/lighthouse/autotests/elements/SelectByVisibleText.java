@@ -10,6 +10,10 @@ public class SelectByVisibleText extends CommonItem {
         super(pageObject, findBy);
     }
 
+    public SelectByVisibleText(CommonPageObject pageObject, String name) {
+        super(pageObject, name);
+    }
+
     @Override
     public void setValue(String label) {
         selectByVisibleText(label);

@@ -348,4 +348,15 @@ public class CatalogUserSteps {
     public void thenTheUserSeesErrorMessage(String errorMessage) {
         commonSteps.checkErrorMessage(errorMessage);
     }
+
+    @When("the user set price roundings to <value>")
+    @Alias("the user set price roundings to '$value'")
+    public void setRoundings(String value) {
+        catalogSteps.setRoundings(value);
+    }
+
+    @Then("the user checks the price roundings dropdawn default selected value is '$expectedValue'")
+    public void thenTheUserChecksThePriceRoundingsDropDawnDefaultValue(String expectedValue) {
+        catalogSteps.checkDropDownDefaultValue(expectedValue);
+    }
 }

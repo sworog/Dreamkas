@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.InputOnlyVisible;
+import project.lighthouse.autotests.elements.SelectByVisibleText;
 
 public class MarkUpTab extends CommonPageObject {
 
@@ -16,6 +17,7 @@ public class MarkUpTab extends CommonPageObject {
     public void createElements() {
         items.put("retailMarkupMin", new InputOnlyVisible(this, "retailMarkupMin"));
         items.put("retailMarkupMax", new InputOnlyVisible(this, "retailMarkupMax"));
+        items.put("priceRoundings", new SelectByVisibleText(this, "priceRoundings"));
     }
 
     public WebElement saveMarkUpButton() {
@@ -36,5 +38,10 @@ public class MarkUpTab extends CommonPageObject {
             String errorMessage = String.format("Success message is not expected. Actual: '%s', Expected: '%s'", actualSuccessMessage, expectedMessage);
             throw new AssertionError(errorMessage);
         }
+    }
+
+    public void checkDropDownDefaultValue(String expectedValue) {
+        WebElement element = items.get("priceRoundings").getVisibleWebElement();
+        commonPage.checkDropDownDefaultValue(element, expectedValue);
     }
 }
