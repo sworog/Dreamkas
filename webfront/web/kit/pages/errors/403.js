@@ -3,9 +3,9 @@ define(function(require) {
     var Page = require('kit/page');
 
     return Page.extend({
-        pageName: 'page_common_404',
+        pageName: 'page_error_403',
         templates: {
-            '#content': require('tpl!./templates/404.html')
+            '#content': require('tpl!./templates/403.html')
         }
     });
 });

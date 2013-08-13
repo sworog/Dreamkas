@@ -8,16 +8,15 @@ define(function(require) {
 
     return Page.extend({
         pageName: 'page_product_view',
+        productId: null,
         templates: {
             '#content': require('tpl!./templates/view.html')
         },
         permissions: {
             products: 'GET::{product}'
         },
-        initialize: function(productId) {
+        initialize: function() {
             var page = this;
-
-            page.productId = productId;
 
             page.productModel = new ProductModel({
                 id: page.productId

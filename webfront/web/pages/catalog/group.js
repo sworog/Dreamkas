@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
     var Page = require('kit/page'),
-        pageParams = require('pages/catalog/params'),
         СatalogGroupModel = require('models/catalogGroup'),
         CatalogGroup = require('blocks/catalogGroup/catalogGroup');
 
@@ -13,24 +12,20 @@ define(function(require) {
         permissions: {
             groups: 'GET'
         },
-        initialize: function(catalogGroupId, params){
+        initialize: function(){
             var page = this;
 
             if (page.referer && page.referer.pageName.indexOf('page_catalog') >= 0){
-                _.extend(pageParams, params);
-            } else {
-                _.extend(pageParams, {
-                    editMode: false
-                }, params)
+                page.editMode = page.referer.editMode;
             }
 
             if (!LH.isAllow('groups', 'POST')) {
-                pageParams.editMode = false;
+                page.editMode = false;
             }
 
             page.catalogGroupModel = new СatalogGroupModel({
-                id: catalogGroupId,
-                storeId: pageParams.storeId
+                id: page.catalogGroupId,
+                storeId: page.storeId
             });
 
             $.when(page.catalogGroupModel.fetch()).then(function(){
@@ -38,7 +33,7 @@ define(function(require) {
 
                 new CatalogGroup({
                     el: document.getElementById('catalogGroup'),
-                    editMode: pageParams.editMode,
+                    editMode: page.editMode,
                     catalogGroupModel: page.catalogGroupModel
                 });
             });

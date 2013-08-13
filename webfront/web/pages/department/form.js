@@ -13,17 +13,17 @@ define(function(require) {
         permissions: {
             departments: 'POST'
         },
-        initialize: function(storeId, departmentId){
+        initialize: function(){
             var page = this;
 
             page.storeModel = new StoreModel({
-                id: storeId
+                id: page.storeId
             });
 
             $.when(page.storeModel.fetch()).then(function(){
 
-                page.departmentModel = page.storeModel.departments.get(departmentId) || new DepartmentModel({
-                    store: storeId
+                page.departmentModel = page.storeModel.departments.get(page.departmentId) || new DepartmentModel({
+                    store: page.storeId
                 });
 
                 page.render();

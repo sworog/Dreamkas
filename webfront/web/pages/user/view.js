@@ -11,16 +11,16 @@ define(function(require) {
         templates: {
             '#content': require('tpl!./templates/view.html')
         },
-        initialize: function(userId) {
+        initialize: function() {
             var page = this;
 
-            if (!(LH.isAllow('users', 'GET::{user}') || userId === 'current')){
+            if (!(LH.isAllow('users', 'GET::{user}') || page.userId === 'current')){
                 new Page403();
                 return;
             }
 
-            page.userModel = userId === 'current' ? currentUserModel : new UserModel({
-                id: userId
+            page.userModel = page.userId === 'current' ? currentUserModel : new UserModel({
+                id: page.userId
             });
 
             $.when(page.userModel.fetch()).then(function(){

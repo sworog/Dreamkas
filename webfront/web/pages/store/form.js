@@ -12,24 +12,15 @@ define(function(require) {
         permissions: {
             stores: 'POST'
         },
-        initialize: function(storeId, params){
+        initialize: function(){
             var page = this;
-
-            if (storeId && typeof storeId !== 'string'){
-                params = storeId;
-                storeId = null;
-            }
-
-            params = params || {};
-
-            page.storeId = storeId;
 
             page.storeModel = new StoreModel({
                 id: page.storeId,
-                subCategory: params.subCategory
+                subCategory: page.subCategory
             });
 
-            $.when(storeId ? page.storeModel.fetch() : {}).then(function(){
+            $.when(page.storeId ? page.storeModel.fetch() : {}).then(function(){
                 page.render();
 
                 new Form_store({

@@ -13,11 +13,8 @@ define(function(require) {
         permissions: {
             invoices: 'GET::{invoice}'
         },
-        initialize: function(invoiceId, params) {
+        initialize: function() {
             var page = this;
-
-            page.invoiceId = invoiceId;
-            page.params = params || {};
 
             page.invoiceModel = new InvoiceModel({
                 id: page.invoiceId
@@ -33,7 +30,7 @@ define(function(require) {
                 new Invoice({
                     invoiceModel: page.invoiceModel,
                     invoiceProductsCollection: page.invoiceProductsCollection,
-                    editMode: page.params.editMode,
+                    editMode: page.editMode,
                     el: document.getElementById('invoice')
                 });
             });

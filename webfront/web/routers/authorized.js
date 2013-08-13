@@ -51,7 +51,7 @@ define(function(require) {
             'stores/:storeId/departments/edit/:departmentId(/)': require('pages/department/form'),
             'stores/:storeId/departments/:departmentId(/)': require('pages/department/view'),
 
-            '*path': require('pages/common/404')
+            '*path': require('kit/pages/errors/404')
         },
         initialize: function(){
             var router = this;

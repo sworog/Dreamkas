@@ -12,16 +12,14 @@ define(function(require) {
         permissions: {
             users: 'POST'
         },
-        initialize: function(userId, params) {
+        initialize: function() {
             var page = this;
-
-            page.userId = userId;
 
             page.userModel = new UserModel({
                 id: page.userId
             });
 
-            $.when(userId ? page.userModel.fetch() : {}).then(function(){
+            $.when(page.userId ? page.userModel.fetch() : {}).then(function(){
                 page.render();
 
                 new Form_user({

@@ -4,8 +4,12 @@ define(function(require) {
 
     require('backbone.queryparams');
 
+    Backbone.Router.namedParameters = true;
+
     var BaseRouter = Backbone.Router.extend({
-        routers: {}
+        routers: {
+            '403(/)': require('kit/pages/errors/403')
+        }
     });
 
     BaseRouter.extend = classExtend;

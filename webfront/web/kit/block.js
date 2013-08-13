@@ -1,7 +1,8 @@
 define(function(require) {
     //requirements
     var deepExtend = require('kit/utils/deepExtend'),
-        classExtend = require('kit/utils/classExtend');
+        classExtend = require('kit/utils/classExtend'),
+        setter = require('kit/utils/setter');
 
     require('jquery.require');
 
@@ -16,12 +17,14 @@ define(function(require) {
         events: null,
         listeners: null,
 
+        'set': setter,
         _configure: function(options) {
             var block = this;
 
             block.defaults = _.clone(block);
-            block.cid = _.uniqueId('block');
             deepExtend(block, options);
+
+            block.cid = _.uniqueId('block');
         },
         _ensureElement: function() {
             var block = this;
@@ -106,58 +109,6 @@ define(function(require) {
                     block.listenTo(block[property], listener);
                 }
             });
-        },
-        'set': function(path, value, extra) {
-            var block = this,
-                keyPath = this,
-                setValue;
-
-            extra = deepExtend({
-                canceled: false,
-                cancel: function() {
-                    this.canceled = true;
-                }
-            }, extra);
-
-            if (_.isObject(path)) {
-                _.each(path, function(value, key) {
-                    block.set(key, value, extra);
-                });
-                return;
-            }
-
-            if (_.isFunction(block['set:' + path])) {
-                setValue = block['set:' + path](value, extra);
-            }
-
-            if (extra.canceled) {
-                extra.canceled = false;
-                return;
-            }
-
-            if (setValue !== undefined) {
-                value = setValue;
-            }
-
-            if (_.isObject(value) && !_.isElement(value) && !_.isArray(value)) {
-                _.each(value, function(value, pathPart) {
-                    block.set(path + '.' + pathPart, value, extra);
-                });
-            } else {
-                _.each(path.split('.'), function(pathPart, index, path) {
-                    if (typeof keyPath[pathPart] == 'undefined') {
-                        keyPath[pathPart] = {};
-                    }
-
-                    if (index == (path.length - 1)) {
-                        keyPath[pathPart] = value;
-                    } else {
-                        keyPath = keyPath[pathPart];
-                    }
-                });
-            }
-
-            block.trigger('set:' + path, value);
         },
         'set:loading': function(loading) {
             var block = this;

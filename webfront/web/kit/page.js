@@ -1,42 +1,57 @@
 define(function(require) {
     //requirements
-    var classExtend = require('kit/utils/classExtend'),
-        topBar = require('blocks/topBar/topBar'),
-        Page403 = require('pages/403/403');
+    var Block = require('kit/block');
 
-    var $page = $('body');
+    var router = new Backbone.Router();
 
-    var Page = function() {
+    return Block.extend({
+        el: document.body,
+        permissions: {},
+        constructor: function() {
+            var page = this;
+            
+            page._configure();
+            page._ensureElement();
 
-        var page = this,
-            previousPage = $page.data('page'),
-            accessDenied = _.some(page.permissions, function(value, key) {
+            if (page.accessDenied) {
+                router.navigate('/403', {
+                    trigger: true
+                });
+            } else {
+                page.initialize.apply(page, arguments);
+            }
+        },
+        _configure: function() {
+
+            Block.prototype._configure.apply(this, arguments);
+
+            var page = this,
+                previousPage = $(page.el).data('page');
+
+            page.accessDenied = _.some(page.permissions, function(value, key) {
                 return !LH.isAllow(key, value);
             });
 
-        if (accessDenied) {
-            new Page403();
-            return;
-        }
+            page.cid = _.uniqueId('page');
 
-        if (previousPage && previousPage.pageName) {
-            page.referer = previousPage;
-            previousPage.stopListening();
-        }
+            if (previousPage) {
+                page.referer = previousPage;
+                previousPage.stopListening();
+            }
+        },
+        _ensureElement: function() {
 
-        $page.data('page', page);
+            Backbone.View.prototype._ensureElement.apply(this, arguments);
 
-        $page
-            .removeAttr('class')
-            .addClass('page ' + page.pageName)
-            .addClass('preloader_spinner');
+            var page = this;
 
-        page.initialize.apply(page, arguments);
-    };
-
-    _.extend(Page.prototype, Backbone.Events, {
-        templates: {},
-        permissions: {},
+            page.$el
+                .data('page', page)
+                .removeAttr('class')
+                .addClass('page ' + page.pageName);
+            
+            page.set('loading', true);
+        },
         initialize: function() {
             var page = this;
             page.render();
@@ -52,7 +67,7 @@ define(function(require) {
                 $renderContainer.html(template(page));
             });
 
-            $page.removeClass('preloader_spinner');
+            page.set('loading', false);
         },
         removeBlocks: function($container) {
             var blocks = [];
@@ -69,8 +84,4 @@ define(function(require) {
             });
         }
     });
-
-    Page.extend = classExtend;
-
-    return Page;
 });
