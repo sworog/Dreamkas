@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Util;
+namespace Lighthouse\CoreBundle\Test;
 
 class JsonPath
 {

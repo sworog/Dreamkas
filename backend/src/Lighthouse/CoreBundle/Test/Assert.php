@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Lighthouse\CoreBundle\Test\Constraint\ResponseCode;
-use Lighthouse\CoreBundle\Util\JsonPath;
+use Lighthouse\CoreBundle\Test\JsonPath;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Response;
 
