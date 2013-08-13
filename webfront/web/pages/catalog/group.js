@@ -29,7 +29,8 @@ define(function(require) {
             }
 
             page.catalogGroupModel = new СatalogGroupModel({
-                id: catalogGroupId
+                id: catalogGroupId,
+                storeId: pageParams.storeId
             });
 
             $.when(page.catalogGroupModel.fetch()).then(function(){

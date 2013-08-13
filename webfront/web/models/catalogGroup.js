@@ -4,7 +4,13 @@ define(function(require) {
 
         return Model.extend({
             modelName: 'catalogGroup',
-            urlRoot: LH.baseApiUrl + '/groups',
+            urlRoot: function(){
+                if (this.get('storeId')){
+                    return LH.baseApiUrl + '/stores/' + this.get('storeId') + '/groups';
+                } else {
+                    return LH.baseApiUrl + '/groups';
+                }
+            },
             initData: {
                 categories: require('collections/catalogCategories')
             },
