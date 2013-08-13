@@ -607,4 +607,103 @@ class GroupControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
+
+    /**
+     * @param string $roundingName
+     * @param string $roundingTitle
+     * @dataProvider setRoundingIsValidDataProvider
+     */
+    public function testSetRoundingIsValid($roundingName, $roundingTitle)
+    {
+        $this->clearMongoDb();
+
+        $postData = array(
+            'name' => 'Алкоголь',
+            'rounding' => $roundingName,
+        );
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/groups',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+        Assert::assertJsonPathEquals($roundingName, 'rounding.name', $postResponse);
+        Assert::assertJsonPathEquals($roundingTitle, 'rounding.title', $postResponse);
+    }
+
+    /**
+     * @return array
+     */
+    public function setRoundingIsValidDataProvider()
+    {
+        return array(
+            array('nearest1', 'до копеек'),
+            array('nearest10', 'до 10 копеек'),
+            array('nearest50', 'до 50 копеек'),
+            array('nearest100', 'до рублей'),
+            array('fixed99', 'до 99 копеек'),
+        );
+    }
+
+    /**
+     * @param string $roundingName
+     * @param array $assertions
+     * @dataProvider setRoundingIsInvalidDataProvider
+     */
+    public function testSetRoundingIsInvalid($roundingName, array $assertions)
+    {
+        $this->clearMongoDb();
+
+        $postData = array(
+            'name' => 'Алкоголь',
+            'rounding' => $roundingName,
+        );
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/groups',
+            $postData
+        );
+
+        $this->assertResponseCode(400);
+
+        $this->performJsonAssertions($postResponse, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function setRoundingIsInvalidDataProvider()
+    {
+        return array(
+            array(
+                'aaaa',
+                array(
+                    'children.rounding.errors.*' => 'Значение недопустимо.',
+                )
+            ),
+            array(
+                null,
+                array(
+                    'children.rounding.errors.*' => 'Значение недопустимо.',
+                )
+            ),
+            array(
+                '',
+                array(
+                    'children.rounding.errors.*' => 'Значение недопустимо.',
+                )
+            )
+        );
+    }
 }

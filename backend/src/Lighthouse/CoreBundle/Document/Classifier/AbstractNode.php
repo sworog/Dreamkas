@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Classifier;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare as AssertMarkupCompare;
@@ -14,6 +15,7 @@ use Lighthouse\CoreBundle\Validator\Constraints\NotBlankFields as AssertNotBlank
  * @property string $name
  * @property float  $retailMarkupMin
  * @property float  $retailMarkupMax
+ * @property AbstractRounding $rounding
  *
  * @MongoDB\MappedSuperclass
  * @AssertMarkupCompare(
@@ -56,6 +58,18 @@ abstract class AbstractNode extends AbstractDocument
      * @var float
      */
     protected $retailMarkupMax;
+
+    /**
+     * @Assert\NotBlank
+     * @var AbstractRounding
+     */
+    protected $rounding;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $roundingId;
 
     /**
      * @return AbstractNode

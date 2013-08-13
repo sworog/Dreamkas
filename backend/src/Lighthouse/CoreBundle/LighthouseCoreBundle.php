@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle;
 
 use Lighthouse\CoreBundle\Command\CommandManager;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddCommandAsServicePass;
+use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddReferenceProvidersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddRoundingsToManagerPass;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -28,6 +29,7 @@ class LighthouseCoreBundle extends Bundle
 
         $container->addCompilerPass(new AddCommandAsServicePass());
         $container->addCompilerPass(new AddRoundingsToManagerPass());
+        $container->addCompilerPass(new AddReferenceProvidersPass());
     }
 
     /**
