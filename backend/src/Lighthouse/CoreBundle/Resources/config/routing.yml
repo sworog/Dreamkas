@@ -52,6 +52,10 @@ lighthouse.core.user:
     resource: Lighthouse\CoreBundle\Controller\UserController
     type:     rest
 
+lighthouse.core.rounding:
+    resource: Lighthouse\CoreBundle\Controller\RoundingController
+    type:     rest
+
 lighthouse.core.service:
     resource: Lighthouse\CoreBundle\Controller\ServiceController
     type:     annotation
