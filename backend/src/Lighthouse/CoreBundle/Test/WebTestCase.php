@@ -377,6 +377,7 @@ class WebTestCase extends ContainerAwareTestCase
             'name' => $name,
             'retailMarkupMin' => $retailMarkupMin,
             'retailMarkupMax' => $retailMarkupMax,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -476,6 +477,7 @@ class WebTestCase extends ContainerAwareTestCase
         $categoryData = array(
             'name' => $name,
             'group' => $groupId,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -523,6 +525,7 @@ class WebTestCase extends ContainerAwareTestCase
         $subCategoryData = array(
             'name' => $name,
             'category' => $categoryId,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');

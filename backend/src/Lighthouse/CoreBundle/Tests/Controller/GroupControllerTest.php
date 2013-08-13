@@ -13,7 +13,8 @@ class GroupControllerTest extends WebTestCase
         $this->clearMongoDb();
 
         $groupData = array(
-            'name' => 'Продовольственные товары'
+            'name' => 'Продовольственные товары',
+            'rounding' => 'nearest1'
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -43,7 +44,8 @@ class GroupControllerTest extends WebTestCase
         $this->clearMongoDb();
 
         $groupData = $data + array(
-            'name' => 'Продовольственные товары'
+            'name' => 'Продовольственные товары',
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -126,6 +128,53 @@ class GroupControllerTest extends WebTestCase
                 array('retailMarkupMin' => 10, 'retailMarkupMax' => 'bbb'),
                 array('children.retailMarkupMax.errors.*' => 'Значение должно быть числом'),
             ),
+            // rounding
+            'valid rounding nearest1' => array(
+                201,
+                array('rounding' => 'nearest1'),
+                array('rounding.name' => 'nearest1', 'rounding.title' => 'до копеек')
+            ),
+            'valid rounding nearest10' => array(
+                201,
+                array('rounding' => 'nearest10'),
+                array('rounding.name' => 'nearest10', 'rounding.title' => 'до 10 копеек')
+            ),
+            'valid rounding nearest50' => array(
+                201,
+                array('rounding' => 'nearest50'),
+                array('rounding.name' => 'nearest50', 'rounding.title' => 'до 50 копеек')
+            ),
+            'valid rounding nearest100' => array(
+                201,
+                array('rounding' => 'nearest100'),
+                array('rounding.name' => 'nearest100', 'rounding.title' => 'до рублей')
+            ),
+            'valid rounding nearest100' => array(
+                201,
+                array('rounding' => 'fixed99'),
+                array('rounding.name' => 'fixed99', 'rounding.title' => 'до 99 копеек')
+            ),
+            'invalid rounding aaaa' => array(
+                400,
+                array('rounding' => 'aaaa'),
+                array(
+                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                )
+            ),
+            'invalid rounding no value' => array(
+                400,
+                array('rounding' => null),
+                array(
+                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                )
+            ),
+            'invalid rounding empty value' => array(
+                400,
+                array('rounding' => ''),
+                array(
+                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                )
+            ),
         );
     }
 
@@ -143,7 +192,8 @@ class GroupControllerTest extends WebTestCase
         $groupId = $this->createGroup('Прод тов');
 
         $groupData = $data + array(
-            'name' => 'Продовольственные товары'
+            'name' => 'Продовольственные товары',
+             'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -371,7 +421,8 @@ class GroupControllerTest extends WebTestCase
         $accessToken = $this->authAsRole($role);
         if (is_array($requestData)) {
             $requestData = $requestData + array(
-                'name' => 'Алкоголь'
+                'name' => 'Алкоголь',
+                'rounding' => 'nearest1',
             );
         }
 
@@ -606,104 +657,5 @@ class GroupControllerTest extends WebTestCase
         $this->assertResponseCode(403);
 
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
-    }
-
-    /**
-     * @param string $roundingName
-     * @param string $roundingTitle
-     * @dataProvider setRoundingIsValidDataProvider
-     */
-    public function testSetRoundingIsValid($roundingName, $roundingTitle)
-    {
-        $this->clearMongoDb();
-
-        $postData = array(
-            'name' => 'Алкоголь',
-            'rounding' => $roundingName,
-        );
-
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/groups',
-            $postData
-        );
-
-        $this->assertResponseCode(201);
-
-        Assert::assertJsonHasPath('id', $postResponse);
-        Assert::assertJsonPathEquals($roundingName, 'rounding.name', $postResponse);
-        Assert::assertJsonPathEquals($roundingTitle, 'rounding.title', $postResponse);
-    }
-
-    /**
-     * @return array
-     */
-    public function setRoundingIsValidDataProvider()
-    {
-        return array(
-            array('nearest1', 'до копеек'),
-            array('nearest10', 'до 10 копеек'),
-            array('nearest50', 'до 50 копеек'),
-            array('nearest100', 'до рублей'),
-            array('fixed99', 'до 99 копеек'),
-        );
-    }
-
-    /**
-     * @param string $roundingName
-     * @param array $assertions
-     * @dataProvider setRoundingIsInvalidDataProvider
-     */
-    public function testSetRoundingIsInvalid($roundingName, array $assertions)
-    {
-        $this->clearMongoDb();
-
-        $postData = array(
-            'name' => 'Алкоголь',
-            'rounding' => $roundingName,
-        );
-
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/groups',
-            $postData
-        );
-
-        $this->assertResponseCode(400);
-
-        $this->performJsonAssertions($postResponse, $assertions);
-    }
-
-    /**
-     * @return array
-     */
-    public function setRoundingIsInvalidDataProvider()
-    {
-        return array(
-            array(
-                'aaaa',
-                array(
-                    'children.rounding.errors.*' => 'Значение недопустимо.',
-                )
-            ),
-            array(
-                null,
-                array(
-                    'children.rounding.errors.*' => 'Значение недопустимо.',
-                )
-            ),
-            array(
-                '',
-                array(
-                    'children.rounding.errors.*' => 'Значение недопустимо.',
-                )
-            )
-        );
     }
 }

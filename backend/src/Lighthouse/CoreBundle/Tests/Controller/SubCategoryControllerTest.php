@@ -18,6 +18,7 @@ class SubCategoryControllerTest extends WebTestCase
         $subCategoryData = array(
             'name' => 'Водка',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -56,6 +57,7 @@ class SubCategoryControllerTest extends WebTestCase
         $subCategoryData = $data + array(
             'name' => 'Водка',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -165,6 +167,53 @@ class SubCategoryControllerTest extends WebTestCase
                 array('retailMarkupMin' => '', 'retailMarkupMax' => 10),
                 array('children.retailMarkupMin.errors.0' => 'Заполните это поле'),
             ),
+            // rounding
+            'valid rounding nearest1' => array(
+                201,
+                array('rounding' => 'nearest1'),
+                array('rounding.name' => 'nearest1', 'rounding.title' => 'до копеек')
+            ),
+            'valid rounding nearest10' => array(
+                201,
+                array('rounding' => 'nearest10'),
+                array('rounding.name' => 'nearest10', 'rounding.title' => 'до 10 копеек')
+            ),
+            'valid rounding nearest50' => array(
+                201,
+                array('rounding' => 'nearest50'),
+                array('rounding.name' => 'nearest50', 'rounding.title' => 'до 50 копеек')
+            ),
+            'valid rounding nearest100' => array(
+                201,
+                array('rounding' => 'nearest100'),
+                array('rounding.name' => 'nearest100', 'rounding.title' => 'до рублей')
+            ),
+            'valid rounding nearest100' => array(
+                201,
+                array('rounding' => 'fixed99'),
+                array('rounding.name' => 'fixed99', 'rounding.title' => 'до 99 копеек')
+            ),
+            'invalid rounding aaaa' => array(
+                400,
+                array('rounding' => 'aaaa'),
+                array(
+                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                )
+            ),
+            'invalid rounding no value' => array(
+                400,
+                array('rounding' => null),
+                array(
+                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                )
+            ),
+            'invalid rounding empty value' => array(
+                400,
+                array('rounding' => ''),
+                array(
+                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                )
+            ),
         );
     }
 
@@ -180,6 +229,7 @@ class SubCategoryControllerTest extends WebTestCase
         $subCategoryData = array(
             'name' => 'Водка',
             'category' => $categoryId1,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -255,6 +305,7 @@ class SubCategoryControllerTest extends WebTestCase
         $postData = array(
             'name' => 'Водка',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -518,6 +569,7 @@ class SubCategoryControllerTest extends WebTestCase
             $requestData = $requestData + array(
                     'name' => 'Тёмное',
                     'category' => $categoryId,
+                    'rounding' => 'nearest1',
                 );
         }
 
@@ -735,6 +787,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId,
             array(
                 'name' => 'Алкоголь',
+                'rounding' => 'nearest1',
                 'retailMarkupMin' => 15,
                 'retailMarkupMax' => 25,
             )
@@ -767,6 +820,7 @@ class SubCategoryControllerTest extends WebTestCase
         $postData = array(
             'name' => 'Божоле нуво',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
             'retailMarkupMin' => 5,
             'retailMarkupMax' => 25,
         );
@@ -788,6 +842,7 @@ class SubCategoryControllerTest extends WebTestCase
         $putData = array(
             'name' => 'Бужуле ново',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
             'retailMarkupMin' => null,
             'retailMarkupMax' => null,
         );
@@ -818,6 +873,7 @@ class SubCategoryControllerTest extends WebTestCase
         $postData = array(
             'name' => 'Божоле нуво',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
             'retailMarkupMin' => 5,
             'retailMarkupMax' => 25,
         );
@@ -839,6 +895,7 @@ class SubCategoryControllerTest extends WebTestCase
         $putData = array(
             'name' => 'Бужуле ново',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
         );
 
         $putResponse = $this->clientJsonRequest(
