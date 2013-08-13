@@ -519,6 +519,23 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathCount(0, '*', $managersJson);
     }
 
+    public function testUnlinkStoreManagerNotFromStore()
+    {
+        $this->clearMongoDb();
+        $storeId = $this->createStore();
+        $storeUser = $this->createUser('storeUser', 'password', User::ROLE_STORE_MANAGER);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $jsonRequest = new JsonRequest('/api/1/stores/' . $storeId, 'UNLINK');
+        $jsonRequest->addLinkHeader($this->getUserResourceUri($storeUser->id), 'managers');
+        $unlinkResponse = $this->jsonRequest($jsonRequest, $accessToken);
+
+        $this->assertResponseCode(409);
+
+        Assert::assertJsonPathContains('is not store manager', 'message', $unlinkResponse);
+    }
+
     public function testLinkStoreManagerOptionsCheck()
     {
         $this->clearMongoDb();
