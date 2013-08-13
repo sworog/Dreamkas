@@ -607,4 +607,32 @@ class GroupControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
+
+    public function testGetStoreGroupsStoreManagerHasStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $groupId1 = $this->createGroup('1');
+        $groupId2 = $this->createGroup('2');
+        $groupId3 = $this->createGroup('3');
+        $storeId = $this->createStore();
+
+        $this->linkStoreManagers($storeId, $storeManager->id);
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/groups'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(3, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($groupId1, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId2, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId3, '*.id', $getResponse, 1);
+    }
 }
