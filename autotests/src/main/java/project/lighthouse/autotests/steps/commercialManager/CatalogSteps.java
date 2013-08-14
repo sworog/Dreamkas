@@ -287,6 +287,11 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void checkDropDownDefaultValue(String expectedValue) {
+        onMarkUpTab().checkDropDownDefaultValue(expectedValue);
         markUpTab.checkDropDownDefaultValue(expectedValue);
+    }
+
+    public MarkUpTab onMarkUpTab() {
+        return pages().get(MarkUpTab.class);
     }
 }

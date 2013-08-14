@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
 public class ApiConnect {
 
     String userName;
@@ -143,9 +146,10 @@ public class ApiConnect {
     public void averagePriceRecalculation() throws IOException, JSONException {
         String url = UrlHelper.getApiUrl() + "/api/1/service/recalculate-average-purchase-price";
         String response = executePostRequest(url, "");
-        if (!response.contains("{\"ok\":true}")) {
-            throw new AssertionError("Average price recalculation failed!\nResponse: " + response);
-        }
+        assertEquals(
+                String.format("Average price recalculation failed!\nResponse: %s", response),
+                response, "{\"ok\":true}"
+        );
     }
 
     public void createWriteOffThroughPost(String writeOffNumber, String productSku, String quantity, String price, String cause)
@@ -433,11 +437,16 @@ public class ApiConnect {
                     builder.append(message);
                 }
             } catch (JSONException e) {
-                String errorMessage = String.format("Exception message: %s. Json: %s", e.getMessage(), mainJsonObject != null ? mainJsonObject.toString() : null);
-                throw new AssertionError(errorMessage);
+                fail(
+                        String.format("Exception message: %s. Json: %s", e.getMessage(),
+                                mainJsonObject != null
+                                        ? mainJsonObject.toString()
+                                        : null)
+                );
             }
-            String errorMessage = String.format("Responce json error: '%s'", builder.toString());
-            throw new AssertionError(errorMessage);
+            fail(
+                    String.format("Responce json error: '%s'", builder.toString())
+            );
         }
     }
 

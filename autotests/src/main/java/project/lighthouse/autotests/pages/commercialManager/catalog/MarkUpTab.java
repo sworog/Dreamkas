@@ -7,6 +7,8 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.InputOnlyVisible;
 import project.lighthouse.autotests.elements.SelectByVisibleText;
 
+import static junit.framework.Assert.assertEquals;
+
 public class MarkUpTab extends CommonPageObject {
 
     public MarkUpTab(WebDriver driver) {
@@ -33,11 +35,10 @@ public class MarkUpTab extends CommonPageObject {
     }
 
     public void checkSuccessMessage(String expectedMessage) {
-        String actualSuccessMessage = getSuccessMessage().getText();
-        if (!actualSuccessMessage.contains(expectedMessage)) {
-            String errorMessage = String.format("Success message is not expected. Actual: '%s', Expected: '%s'", actualSuccessMessage, expectedMessage);
-            throw new AssertionError(errorMessage);
-        }
+        assertEquals(
+                String.format("Success message is not expected. Actual: '%s', Expected: '%s'", getSuccessMessage().getText(), expectedMessage),
+                getSuccessMessage().getText(), expectedMessage
+        );
     }
 
     public void checkDropDownDefaultValue(String expectedValue) {

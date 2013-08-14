@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
 
+import static junit.framework.Assert.fail;
+
 public class Autocomplete extends CommonItem {
 
     public static final String AUTOCOMPLETE_XPATH_PATTERN = "//*[@role='presentation']/*[text()='%s']";
@@ -23,9 +25,9 @@ public class Autocomplete extends CommonItem {
             try {
                 pageObject.findVisibleElement(By.xpath(xpath)).click();
             } catch (Exception e) {
-                e.printStackTrace();
-                String errorMessage = String.format("Can't find '%s' value in autoComplete results", value);
-                throw new AssertionError(errorMessage);
+                fail(
+                        String.format("Can't find '%s' value in autoComplete results", value)
+                );
             }
         }
     }

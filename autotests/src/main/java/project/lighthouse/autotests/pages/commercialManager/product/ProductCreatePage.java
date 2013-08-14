@@ -15,6 +15,9 @@ import project.lighthouse.autotests.elements.Textarea;
 
 import java.util.Map;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
 @DefaultUrl("/products/create")
 public class ProductCreatePage extends CommonPageObject {
 
@@ -67,10 +70,10 @@ public class ProductCreatePage extends CommonPageObject {
     public void checkDropDownDefaultValue(String dropDownType, String expectedValue) {
         WebElement element = items.get(dropDownType).getWebElement();
         String selectedValue = $(element).getSelectedValue();
-        if (!selectedValue.equals(expectedValue)) {
-            String errorMessage = String.format("The default value for '%s' dropDown is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue);
-            throw new AssertionError(errorMessage);
-        }
+        assertEquals(
+                String.format("The default value for '%s' dropDown is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue),
+                selectedValue, expectedValue
+        );
     }
 
     public void checkFieldLength(String elementName, int fieldLength) {
@@ -91,7 +94,7 @@ public class ProductCreatePage extends CommonPageObject {
                 $(items.get(elementName).getWebElement()).shouldNotBeVisible();
                 break;
             default:
-                throw new AssertionError(CommonPage.ERROR_MESSAGE);
+                fail(CommonPage.ERROR_MESSAGE);
         }
     }
 

@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 
+import static junit.framework.Assert.fail;
+
 public class DashBoardPage extends CommonPageObject {
 
     public DashBoardPage(WebDriver driver) {
@@ -29,8 +31,9 @@ public class DashBoardPage extends CommonPageObject {
             String buttonXpath = getButtonXpath(name);
             waiter.waitUntilIsNotVisible(By.xpath(buttonXpath));
         } catch (Exception e) {
-            String errorMessage = String.format("The dashboard '%s' link is present on the page", name);
-            throw new AssertionError(errorMessage);
+            fail(
+                    String.format("The dashboard '%s' link is present on the page", name)
+            );
         }
     }
 
@@ -39,8 +42,9 @@ public class DashBoardPage extends CommonPageObject {
             String buttonXpath = getButtonXpath(name);
             waiter.getVisibleWebElement(By.xpath(buttonXpath));
         } catch (Exception e) {
-            String errorMessage = String.format("The dashboard '%s' link is not present on the page", name);
-            throw new AssertionError(errorMessage);
+            fail(
+                    String.format("The dashboard '%s' link is not present on the page", name)
+            );
         }
     }
 

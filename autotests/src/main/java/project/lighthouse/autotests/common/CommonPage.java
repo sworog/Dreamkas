@@ -3,6 +3,7 @@ package project.lighthouse.autotests.common;
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.pages.WebElementFacade;
 import org.jbehave.core.model.ExamplesTable;
+import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,8 @@ import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceListP
 
 import java.util.List;
 import java.util.Map;
+
+import static junit.framework.Assert.*;
 
 public class CommonPage extends PageObject {
 
@@ -28,10 +31,10 @@ public class CommonPage extends PageObject {
     public void isRequiredPageOpen(String pageObjectName) {
         String defaultUrl = getPageObjectDefaultUrl(pageObjectName).replaceFirst(".*\\(value=(.*)\\)", "$1");
         String actualUrl = getDriver().getCurrentUrl();
-        if (!actualUrl.contains(defaultUrl)) {
-            String errorMessage = String.format("The %s is not open!\nActual url: %s\nExpected url: %s", pageObjectName, actualUrl, defaultUrl);
-            throw new AssertionError(errorMessage);
-        }
+        assertTrue(
+                String.format("The %s is not open!\nActual url: %s\nExpected url: %s", pageObjectName, actualUrl, defaultUrl),
+                actualUrl.contains(defaultUrl)
+        );
     }
 
     public String getPageObjectDefaultUrl(String pageObjectName) {
@@ -41,9 +44,9 @@ public class CommonPage extends PageObject {
             case "InvoiceListPage":
                 return InvoiceListPage.class.getAnnotations()[0].toString();
             default:
-                String errorMessage = String.format(ERROR_MESSAGE, pageObjectName);
-                throw new AssertionError(errorMessage);
+                fail("dfdfdf");
         }
+        return null;
     }
 
     public String generateTestData(int n) {
@@ -83,10 +86,9 @@ public class CommonPage extends PageObject {
     }
 
     public void checkFieldLength(String elementName, int fieldLength, int actualLength) {
-        if (actualLength != fieldLength) {
-            String errorMessage = String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.", elementName, fieldLength, actualLength);
-            throw new AssertionError(errorMessage);
-        }
+        assertEquals(
+                String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.", elementName, fieldLength, actualLength),
+                actualLength, fieldLength);
     }
 
     public void checkFieldLength(String elementName, int fieldLength, CommonItem item) {
@@ -126,7 +128,7 @@ public class CommonPage extends PageObject {
             } else {
                 errorMessage = "There are no error field validation messages on the page!";
             }
-            throw new AssertionError(errorMessage);
+            fail(errorMessage);
         }
     }
 
@@ -143,19 +145,13 @@ public class CommonPage extends PageObject {
         for (Map<String, String> row : errorMessageTable.getRows()) {
             String expectedErrorMessage = row.get("error message");
             String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
-            if (isPresent(xpath)) {
-                String errorMessage = getErrorMessages(xpath);
-                throw new AssertionError(errorMessage);
-            }
+            assertFalse(getErrorMessages(xpath), isPresent(xpath));
         }
     }
 
     public void checkNoErrorMessages() {
         String xpath = "//*[@lh_field_error]";
-        if (isPresent(xpath)) {
-            String errorMessage = getErrorMessages(xpath);
-            throw new AssertionError(errorMessage);
-        }
+        assertFalse(getErrorMessages(xpath), isPresent(xpath));
     }
 
     public void setValue(CommonItem item, String value) {
@@ -164,10 +160,7 @@ public class CommonPage extends PageObject {
 
     public void checkAutoCompleteNoResults() {
         String xpath = "//*[@role='presentation']/*[text()]";
-        if (isPresent(xpath)) {
-            String errorMessage = "There are autocomplete results on the page";
-            throw new AssertionError(errorMessage);
-        }
+        Assert.assertFalse("There are autocomplete results on the page", isPresent(xpath));
     }
 
     public void checkAutoCompleteResults(ExamplesTable checkValuesTable) {
@@ -192,35 +185,35 @@ public class CommonPage extends PageObject {
                 actualValue = $(element).getText();
                 break;
         }
-        if (!actualValue.contains(expectedValue)) {
-            String errorMessage = String.format("Element '%s' doesnt contain '%s'. It contains '%s'", elementName, expectedValue, actualValue);
-            throw new AssertionError(errorMessage);
-        }
+        assertTrue(
+                String.format("Element '%s' doesnt contain '%s'. It contains '%s'", elementName, expectedValue, actualValue),
+                actualValue.contains(expectedValue)
+        );
     }
 
     public void checkAlertText(String expectedText) {
         Alert alert = waiter.getAlert();
         String alertText = alert.getText();
         alert.accept();
-        if (!alertText.contains(expectedText)) {
-            String errorMessage = String.format("Alert text is '%s'. Should be '%s'.", alertText, expectedText);
-            throw new AssertionError(errorMessage);
-        }
+        Assert.assertEquals(
+                String.format("Alert text is '%s'. Should be '%s'.", alertText, expectedText),
+                alertText, expectedText);
     }
 
     public void NoAlertIsPresent() {
         try {
             Alert alert = waiter.getAlert();
-            throw new AssertionError(String.format("Alert is present! Alert text: '%s'", alert.getText()));
+            fail(
+                    String.format("Alert is present! Alert text: '%s'", alert.getText())
+            );
         } catch (Exception e) {
         }
     }
 
     public void checkDropDownDefaultValue(WebElement dropDownElement, String expectedValue) {
         String selectedValue = $(dropDownElement).getSelectedValue();
-        if (!selectedValue.equals(expectedValue)) {
-            String errorMessage = String.format("The default value for dropDown is not '%s'. The selected value is '%s'", expectedValue, selectedValue);
-            throw new AssertionError(errorMessage);
-        }
+        Assert.assertEquals(
+                String.format("The default value for dropDown is not '%s'. The selected value is '%s'", expectedValue, selectedValue),
+                selectedValue, expectedValue);
     }
 }

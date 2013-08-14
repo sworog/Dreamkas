@@ -6,6 +6,7 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.json.JSONException;
+import org.junit.Assert;
 import project.lighthouse.autotests.objects.Store;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
 import project.lighthouse.autotests.steps.CommonSteps;
@@ -328,7 +329,7 @@ public class CatalogUserSteps {
                 validateMinMarkUpValue(value);
                 break;
             default:
-                throw new AssertionError(
+                Assert.fail(
                         String.format("No such value '%s'", markUpType)
                 );
         }
