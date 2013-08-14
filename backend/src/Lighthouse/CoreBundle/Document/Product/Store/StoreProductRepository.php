@@ -2,8 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Document\Product\Store;
 
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\ProductCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
@@ -30,6 +32,7 @@ class StoreProductRepository extends DocumentRepository
         $storeProduct = new StoreProduct();
         $storeProduct->store = $store;
         $storeProduct->product = $product;
+        $storeProduct->subCategory = $product->subCategory;
 
         return $storeProduct;
     }
@@ -45,6 +48,16 @@ class StoreProductRepository extends DocumentRepository
             $storeProduct = $this->createByStoreProduct($store, $product);
         }
         return $storeProduct;
+    }
+
+    /**
+     * @param SubCategory $subCategory
+     * @return StoreProductCollection
+     */
+    public function findBySubCategory(SubCategory $subCategory)
+    {
+        $cursor = $this->findBy(array('subCategory' => $subCategory->id));
+        return new StoreProductCollection($cursor);
     }
 
     /**
