@@ -25,6 +25,7 @@ class Fixed99 extends AbstractRounding
      */
     public function round(Money $value)
     {
-        return new Money($value);
+        $rounded = round($value->getCount(), -2) - 1;
+        return new Money($rounded);
     }
 }

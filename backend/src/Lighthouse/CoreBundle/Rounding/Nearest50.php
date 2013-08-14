@@ -25,6 +25,7 @@ class Nearest50 extends AbstractRounding
      */
     public function round(Money $value)
     {
-        return new Money($value);
+        $rounded = round($value->getCount() / 5, -1) * 5;
+        return new Money($rounded);
     }
 }

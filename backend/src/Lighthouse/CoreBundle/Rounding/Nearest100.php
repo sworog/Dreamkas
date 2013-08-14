@@ -25,6 +25,7 @@ class Nearest100 extends AbstractRounding
      */
     public function round(Money $value)
     {
-        return new Money($value);
+        $rounded = round($value->getCount(), -2);
+        return new Money($rounded);
     }
 }
