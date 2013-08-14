@@ -456,7 +456,7 @@ class CategoryControllerTest extends WebTestCase
      *
      * @dataProvider accessCategoryProvider
      */
-    public function testAccessCategory($url, $method, $role, $responseCode, $requestData = null)
+    public function testAccessCategory($url, $method, $role, $responseCode, array $requestData = array())
     {
         $this->clearMongoDb();
 
@@ -474,15 +474,15 @@ class CategoryControllerTest extends WebTestCase
             ),
             $url
         );
-        $accessToken = $this->authAsRole($role);
-        if (is_array($requestData)) {
-            $requestData = $requestData + array(
-                'name' => 'Пиво',
-                'group' => $groupId,
-            );
-        }
 
-        $response = $this->clientJsonRequest(
+        $accessToken = $this->authAsRole($role);
+
+        $requestData += array(
+            'name' => 'Пиво',
+            'group' => $groupId,
+        );
+
+        $this->clientJsonRequest(
             $accessToken,
             $method,
             $url,
@@ -501,26 +501,26 @@ class CategoryControllerTest extends WebTestCase
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'GET',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'GET',
-                'ROLE_DEPARTMENT_MANAGER',
-                '200',
+                User::ROLE_DEPARTMENT_MANAGER,
+                200,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'GET',
-                'ROLE_STORE_MANAGER',
-                '200',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'GET',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -529,30 +529,26 @@ class CategoryControllerTest extends WebTestCase
             array(
                 '/api/1/categories',
                 'POST',
-                'ROLE_COMMERCIAL_MANAGER',
-                '201',
-                array(),
+                User::ROLE_COMMERCIAL_MANAGER,
+                201,
             ),
             array(
                 '/api/1/categories',
                 'POST',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
-                array(),
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/categories',
                 'POST',
-                'ROLE_STORE_MANAGER',
-                '403',
-                array(),
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/categories',
                 'POST',
-                'ROLE_ADMINISTRATOR',
-                '403',
-                array(),
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -561,30 +557,26 @@ class CategoryControllerTest extends WebTestCase
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
-                array(),
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
-                array(),
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
-                'ROLE_STORE_MANAGER',
-                '403',
-                array(),
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
-                'ROLE_ADMINISTRATOR',
-                '403',
-                array(),
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -593,26 +585,26 @@ class CategoryControllerTest extends WebTestCase
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'DELETE',
-                'ROLE_COMMERCIAL_MANAGER',
-                '204',
+                User::ROLE_COMMERCIAL_MANAGER,
+                204,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'DELETE',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'DELETE',
-                'ROLE_STORE_MANAGER',
-                '403',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'DELETE',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -621,26 +613,26 @@ class CategoryControllerTest extends WebTestCase
             array(
                 '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
-                'ROLE_DEPARTMENT_MANAGER',
-                '200',
+                User::ROLE_DEPARTMENT_MANAGER,
+                200,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
-                'ROLE_STORE_MANAGER',
-                '200',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
         );
     }
