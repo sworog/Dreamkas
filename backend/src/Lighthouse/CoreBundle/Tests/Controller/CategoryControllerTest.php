@@ -872,4 +872,55 @@ class CategoryControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
+
+    public function testGetStoreGroupCategoriesStoreManagerHasStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $storeId = $this->createStore();
+
+        $this->linkStoreManagers($storeId, $storeManager->id);
+
+        $groupId1 = $this->createGroup('1');
+        $groupId2 = $this->createGroup('2');
+
+        $categoryId1 = $this->createCategory($groupId1, '1.1');
+        $categoryId2 = $this->createCategory($groupId1, '1.2');
+        $categoryId3 = $this->createCategory($groupId1, '1.3');
+        $categoryId4 = $this->createCategory($groupId1, '1.4');
+        $categoryId5 = $this->createCategory($groupId2, '2.1');
+        $categoryId6 = $this->createCategory($groupId2, '2.2');
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/groups/' .  $groupId1 . '/categories'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(4, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($categoryId1, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId2, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId3, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId4, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId1, '*.group.id', $getResponse, 4);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/groups/' .  $groupId2 . '/categories'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($categoryId5, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId6, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId2, '*.group.id', $getResponse, 2);
+    }
 }
