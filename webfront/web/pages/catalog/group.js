@@ -3,15 +3,14 @@ define(function(require) {
     var Page = require('kit/page'),
         pageParams = require('pages/catalog/params'),
         СatalogGroupModel = require('models/catalogGroup'),
-        CatalogGroup = require('blocks/catalogGroup/catalogGroup');
+        CatalogGroup = require('blocks/catalogGroup/catalogGroup'),
+        currentUserModel = require('models/currentUser'),
+        Page403 = require('pages/403/403');
 
     return Page.extend({
         pageName: 'page_catalog_group',
         templates: {
             '#content': require('tpl!./templates/group.html')
-        },
-        permissions: {
-            groups: 'GET'
         },
         initialize: function(catalogGroupId, params){
             var page = this;
@@ -22,6 +21,16 @@ define(function(require) {
                 _.extend(pageParams, {
                     editMode: false
                 }, params)
+            }
+
+            if (!pageParams.storeId && !LH.isAllow('groups')){
+                new Page403();
+                return;
+            }
+
+            if (pageParams.storeId === currentUserModel.stores.at(0).id && !LH.isAllow('stores/{store}/groups')){
+                new Page403();
+                return;
             }
 
             if (!LH.isAllow('groups', 'POST')) {
