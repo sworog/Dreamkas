@@ -29,7 +29,7 @@ define(function(require) {
                 return;
             }
 
-            if (pageParams.storeId === currentUserModel.stores.at(0).id && !LH.isAllow('stores/{store}/categories/{category}')){
+            if (pageParams.storeId && !LH.isAllow('stores/{store}/categories/{category}')){
                 new Page403();
                 return;
             }

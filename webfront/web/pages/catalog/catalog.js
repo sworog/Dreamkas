@@ -28,7 +28,7 @@ define(function(require) {
                 return;
             }
 
-            if (pageParams.storeId === currentUserModel.stores.at(0).id && !LH.isAllow('stores/{store}/groups')){
+            if (pageParams.storeId && !LH.isAllow('stores/{store}/groups')){
                 new Page403();
                 return;
             }
