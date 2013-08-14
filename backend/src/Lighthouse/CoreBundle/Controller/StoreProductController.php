@@ -13,7 +13,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
 
 class StoreProductController extends AbstractRestController
@@ -68,7 +67,7 @@ class StoreProductController extends AbstractRestController
      */
     public function getStoreSubcategoryProductsAction(Store $store, SubCategory $subCategory)
     {
-        return $this->documentRepository->findBySubCategory($subCategory);
+        return $this->documentRepository->findByStoreSubCategory($store, $subCategory);
     }
 
     /**

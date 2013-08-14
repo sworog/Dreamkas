@@ -337,4 +337,28 @@ class StoreProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
     }
+
+    public function testGetStoreSubCategoryProductsStoreManagerHasStore()
+    {
+        $accessToken = $this->auth($this->storeManager, 'password');
+
+        $subCategoryId = $this->createSubCategory(null, 'Вино сухое');
+
+        $productId1 = $this->createProduct('1', $subCategoryId);
+        $productId2 = $this->createProduct('2', $subCategoryId);
+        $productId3 = $this->createProduct('3', $subCategoryId);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/subcategories/'  . $subCategoryId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.product', $getResponse);
+        Assert::assertJsonPathEquals($productId1, '*.product.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($productId2, '*.product.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($productId3, '*.product.id', $getResponse, 1);
+    }
 }
