@@ -69,20 +69,46 @@ class RoundingControllerTest extends WebTestCase
         );
     }
 
-    public function testGetRoundingActionNotFound()
+    /**
+     * @param string $name
+     * @param string $price
+     * @param string $roundedPrice
+     *
+     * @dataProvider postRoundingRoundActionDataProvider
+     */
+    public function testPostRoundingRoundAction($name, $price, $roundedPrice)
     {
         $this->clearMongoDb();
 
         $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
 
-        $getResponse = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/roundings/fixed'
+        $postData = array(
+            'price' => $price,
         );
 
-        $this->assertResponseCode(404);
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/roundings/' . $name . '/round',
+            $postData
+        );
 
-        Assert::assertJsonPathContains('not found', 'message', $getResponse);
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathContains($roundedPrice, 'price', $postResponse);
+    }
+
+    /**
+     * @return array
+     */
+    public function postRoundingRoundActionDataProvider()
+    {
+        return array(
+            array('nearest1', '23.657', '23.66'),
+            array('nearest1', '23.655', '23.66'),
+            array('nearest1', '23.654', '23.65'),
+            array('nearest10', '23.654', '23.70'),
+            array('nearest10', '23.644', '23.60'),
+        );
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Rounding;
 
+use Lighthouse\CoreBundle\Types\Money;
+
 abstract class AbstractRounding
 {
     /**
@@ -17,5 +19,9 @@ abstract class AbstractRounding
         return 'lighthouse.rounding.' . $this->getName();
     }
 
-    abstract public function round($value);
+    /**
+     * @param Money $value
+     * @return Money
+     */
+    abstract public function round(Money $value);
 }

@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Rounding;
 
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Types\Money;
 
 /**
  * @DI\Service("lighthouse.core.rounding.nearest1")
@@ -10,13 +11,21 @@ use JMS\DiExtraBundle\Annotation as DI;
  */
 class Nearest1 extends AbstractRounding
 {
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'nearest1';
     }
 
-    public function round($value)
+    /**
+     * @param Money $value
+     * @return Money
+     */
+    public function round(Money $value)
     {
-        // TODO: Implement round() method.
+        $rounded = round($value->getCount());
+        return new Money($rounded);
     }
 }
