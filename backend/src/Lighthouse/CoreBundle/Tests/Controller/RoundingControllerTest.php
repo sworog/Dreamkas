@@ -61,12 +61,29 @@ class RoundingControllerTest extends WebTestCase
     public function getRoundingActionDataProvider()
     {
         return array(
-            array('nearest1', 'до копеек'),
-            array('nearest10', 'до 10 копеек'),
-            array('nearest50', 'до 50 копеек'),
-            array('nearest100', 'до рублей'),
-            array('fixed99', 'до 99 копеек'),
+            'nearest1' => array('nearest1', 'до копеек'),
+            'nearest10' => array('nearest10', 'до 10 копеек'),
+            'nearest50' => array('nearest50', 'до 50 копеек'),
+            'nearest100' => array('nearest100', 'до рублей'),
+            'fixed99' => array('fixed99', 'до 99 копеек'),
         );
+    }
+
+    public function testGetRoundingActionNotFound()
+    {
+        $this->clearMongoDb();
+
+        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/roundings/aaaa'
+        );
+
+        $this->assertResponseCode(404);
+
+        Assert::assertJsonPathContains('not found', 'message', $getResponse);
     }
 
     /**
