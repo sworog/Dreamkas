@@ -386,7 +386,7 @@ class WebTestCase extends ContainerAwareTestCase
             $postResponse = $this->clientJsonRequest(
                 $accessToken,
                 'GET',
-                '/api/1/groups.json'
+                '/api/1/groups'
             );
 
             if (count($postResponse)) {
@@ -401,7 +401,7 @@ class WebTestCase extends ContainerAwareTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/groups.json',
+            '/api/1/groups',
             $postData
         );
 

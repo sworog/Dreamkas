@@ -307,6 +307,31 @@ class StoreProductControllerTest extends WebTestCase
                     'children.retailPrice.errors' => null,
                 )
             ),
+            'valid subcategory is not exposed' => array(
+                200,
+                array(
+                ),
+                array(
+                    'id' => null,
+                    'subCategory' => null,
+                )
+            ),
+            // roundings
+            'valid nearest1 price set' => array(
+                200,
+                array(
+                    'retailPricePreference' => 'retailPrice',
+                    'retailPrice' => '31',
+                    'rounding' => 'nearest1',
+                ),
+                array(
+                    'id' => null,
+                    'retailPrice' => '31.00',
+                    'retailMarkup' => '1.71',
+                    'roundedRetailPrice' => '31.00',
+                    'rounding.name' => 'nearest1',
+                )
+            )
         );
     }
 
