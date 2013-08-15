@@ -10,9 +10,25 @@ use JMS\DiExtraBundle\Annotation as DI;
 class RoundingManager
 {
     /**
+     * @var string
+     */
+    protected $defaultName;
+
+    /**
      * @var AbstractRounding[]
      */
     protected $roundings = array();
+
+    /**
+     * @DI\InjectParams({
+     *      "defaultName" = @DI\Inject("%rounding.default%")
+     * })
+     * @param string $defaultName
+     */
+    public function __construct($defaultName)
+    {
+        $this->defaultName = $defaultName;
+    }
 
     /**
      * @param AbstractRounding $rounding
@@ -48,6 +64,6 @@ class RoundingManager
      */
     public function findDefault()
     {
-        return reset($this->roundings);
+        return $this->findDefault($this->defaultName);
     }
 }
