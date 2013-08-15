@@ -29,7 +29,19 @@ exclude = [];
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['dots'];
+reporters = ['dots', 'coverage'];
+
+preprocessors = {
+    // source files, that you wanna generate coverage for
+    // do not include tests or libraries
+    // (these files will be instrumented by Istanbul)
+    '**/utils/*.js': ['coverage']
+};
+
+coverageReporter = {
+    type : 'html',
+    dir : 'coverage/'
+};
 
 
 // web server port
