@@ -248,18 +248,18 @@ class CategoryControllerTest extends WebTestCase
                     'children.rounding.errors.0' => 'Значение недопустимо.',
                 )
             ),
-            'invalid rounding no value' => array(
-                400,
+            'valid rounding no value, should inherit group value' => array(
+                201,
                 array('rounding' => null),
                 array(
-                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                    'rounding.name' => 'nearest1',
                 )
             ),
-            'invalid rounding empty value' => array(
-                400,
+            'valid rounding empty value, should inherit group value' => array(
+                201,
                 array('rounding' => ''),
                 array(
-                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                    'rounding.name' => 'nearest1',
                 )
             ),
         );
