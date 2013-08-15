@@ -66,6 +66,18 @@ abstract class AbstractNode extends AbstractDocument
     protected $rounding;
 
     /**
+     * @param AbstractRounding $rounding
+     */
+    public function setRounding(AbstractRounding $rounding = null)
+    {
+        $this->rounding = $rounding;
+
+        if (null !== $rounding) {
+            $this->roundingId = $rounding;
+        }
+    }
+
+    /**
      * @Exclude
      * @MongoDB\String
      * @var string

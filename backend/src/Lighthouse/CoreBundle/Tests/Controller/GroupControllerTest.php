@@ -60,7 +60,7 @@ class GroupControllerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $groupId = $this->createGroup();
+        $groupId = $this->createGroup('Алкоголь');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
@@ -75,7 +75,7 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('nearest1', 'rounding.name', $getResponse);
 
         $groupData = array(
-            'name' => 'new name',
+            'name' => 'Алкоголь',
             'rounding' => 'nearest50',
         );
 
@@ -99,6 +99,16 @@ class GroupControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathEquals('nearest50', 'rounding.name', $getResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/groups'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', '0.rounding.name', $getResponse);
     }
 
     /**
