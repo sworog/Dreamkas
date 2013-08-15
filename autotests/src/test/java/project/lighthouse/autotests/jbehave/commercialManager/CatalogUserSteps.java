@@ -361,8 +361,9 @@ public class CatalogUserSteps {
         catalogSteps.setRoundings(value);
     }
 
-    @Then("the user checks the price roundings dropdawn default selected value is '$expectedValue'")
-    public void thenTheUserChecksThePriceRoundingsDropDawnDefaultValue(String expectedValue) {
-        catalogSteps.checkDropDownDefaultValue(expectedValue);
+    @Then("the user checks the price roundings dropdawn default selected value is '$value'")
+    @Alias("the user checks the price rounding selected value is <value>")
+    public void thenTheUserChecksThePriceRoundingsDropDawnDefaultValue(String value) {
+        catalogSteps.checkDropDownDefaultValue(value);
     }
 }

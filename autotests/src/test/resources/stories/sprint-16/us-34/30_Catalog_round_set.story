@@ -131,3 +131,76 @@ Examples:
 | до 10 копеек |
 | до 50 копеек |
 | до 99 копеек |
+
+Scenario: Group round checks after refresh
+Meta:
+@test
+
+Given there is the group with name 'Group-roundings'
+And the user navigates to the group with name 'Group-roundings'
+And the user logs in as 'commercialManager'
+When the user clicks on start edition link and starts the edition
+And the user switches to 'group' properties tab
+And the user set price roundings to <value>
+And the user clicks save mark up button
+Then the user sees success message 'Свойства успешно сохранены'
+When the user refreshes the current page
+And the user switches to 'group' properties tab
+Then the user checks the price rounding selected value is <value>
+
+Examples:
+| value |
+| до копеек |
+| до рублей |
+| до 10 копеек |
+| до 50 копеек |
+| до 99 копеек |
+
+
+Scenario: Category round checks after refresh
+Meta:
+@test
+
+Given there is the category with name 'Category-roundings' related to group named 'Group-roundings'
+And the user navigates to the category with name 'Category-roundings' related to group named 'Group-roundings'
+And the user logs in as 'commercialManager'
+When the user clicks on start edition link and starts the edition
+And the user switches to 'category' properties tab
+And the user set price roundings to <value>
+And the user clicks save mark up button
+Then the user sees success message 'Свойства успешно сохранены'
+When the user refreshes the current page
+And the user switches to 'category' properties tab
+Then the user checks the price rounding selected value is <value>
+
+Examples:
+| value |
+| до копеек |
+| до рублей |
+| до 10 копеек |
+| до 50 копеек |
+| до 99 копеек |
+
+Scenario: SubCategory round checks after refresh
+Meta:
+@test
+
+Given there is the subCategory with name 'subCategory-roundings' related to group named 'Group-roundings' and category named 'Category-roundings'
+And the user navigates to the subCategory 'subCategory-roundings', category 'Category-roundings', group 'Group-roundings' product list page
+And the user logs in as 'commercialManager'
+When the user clicks on start edition link and starts the edition
+And the user switches to 'subCategory' properties tab
+And the user set price roundings to <value>
+And the user clicks save mark up button
+Then the user sees success message 'Свойства успешно сохранены'
+When the user refreshes the current page
+And the user switches to 'subCategory' properties tab
+Then the user checks the price rounding selected value is <value>
+
+Examples:
+| value |
+| до копеек |
+| до рублей |
+| до 10 копеек |
+| до 50 копеек |
+| до 99 копеек |
