@@ -9,28 +9,33 @@ In order to управлять политикой цен торговой сет
 
 Scenario: Default values group
 
-Given there is the group with name 'Group-roundings'
-And the user navigates to the group with name ''Group-roundings'
+Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
+And the user creates new group with name 'Group-roundings'
+And the user clicks on the group name 'Group-roundings'
 And the user switches to 'group' properties tab
 Then the user checks the price roundings dropdawn default selected value is 'до копеек'
 
 Scenario: Default values category
 
-Given there is the category with name 'Category-roundings' related to group named 'Category-roundings'
-And the user navigates to the category with name 'Category-roundings' related to group named 'Group-roundings'
+Given there is the group with name ''Group-roundings'
+And the user navigates to the group with name ''Group-roundings'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
+And the user clicks create new category button
+And the user inputs 'Category-roundings' in 'name' field of pop up
+And the user clicks the create new category button in pop up
 And the user switches to 'category' properties tab
 Then the user checks the price roundings dropdawn default selected value is 'до копеек'
 
 Scenario: Default values subCategory
 
-Given there is the subCategory with name 'subCategory-roundings' related to group named 'Group-roundings' and category named 'Category-roundings'
-And the user navigates to the subCategory 'subCategory-roundings', category 'Category-roundings', group 'Group-roundings' product list page
+Given there is the category with name 'Category-roundings' related to group named 'Group-roundings'
+And the user navigates to the category with name 'Category-roundings' related to group named 'Group-roundings'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
+And the user creates new subCategory with name 'subCategory-roundings'
 And the user switches to 'subCategory' properties tab
 Then the user checks the price roundings dropdawn default selected value is 'до копеек'
 
@@ -85,7 +90,7 @@ Examples:
 | до рублей |
 | до 10 копеек |
 | до 50 копеек |
-| до рубля минус 1 копейка |
+| до 99 копеек |
 
 Scenario: Category round set
 
@@ -104,7 +109,7 @@ Examples:
 | до рублей |
 | до 10 копеек |
 | до 50 копеек |
-| до рубля минус 1 копейка |
+| до 99 копеек |
 
 Scenario: SubCategory round set
 
@@ -123,4 +128,4 @@ Examples:
 | до рублей |
 | до 10 копеек |
 | до 50 копеек |
-| до рубля минус 1 копейка |
+| до 99 копеек |
