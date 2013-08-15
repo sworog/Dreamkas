@@ -4,6 +4,9 @@ define(function(require) {
 
         return Model.extend({
             modelName: 'catalogGroup',
+            defaults: {
+                rounding: 'nearest1'
+            },
             urlRoot: function(){
                 if (this.get('storeId')){
                     return LH.baseApiUrl + '/stores/' + this.get('storeId') + '/groups';
