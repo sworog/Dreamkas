@@ -30,6 +30,10 @@ define(function(require) {
                     data.group = data.group.id;
                 }
 
+                if (typeof data.rounding == 'object') {
+                    data.rounding = data.rounding.name;
+                }
+
                 return data;
             }
         });
