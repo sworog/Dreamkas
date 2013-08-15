@@ -2,14 +2,30 @@
 
 namespace Lighthouse\CoreBundle\Document\Product\Store;
 
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
+use JMS\DiExtraBundle\Annotation as DI;
 
 class StoreProductRepository extends DocumentRepository
 {
+    /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
+
+    /**
+     * @param ProductRepository $productRepository
+     */
+    public function setProductRepository(ProductRepository $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
     /**
      * @param string $storeId
      * @param string $productId
@@ -30,6 +46,7 @@ class StoreProductRepository extends DocumentRepository
         $storeProduct = new StoreProduct();
         $storeProduct->store = $store;
         $storeProduct->product = $product;
+        $storeProduct->subCategory = $product->subCategory;
 
         return $storeProduct;
     }
@@ -45,6 +62,41 @@ class StoreProductRepository extends DocumentRepository
             $storeProduct = $this->createByStoreProduct($store, $product);
         }
         return $storeProduct;
+    }
+
+    /**
+     * @param SubCategory $subCategory
+     * @param Store $store
+     * @return StoreProductCollection
+     */
+    public function findByStoreSubCategory(Store $store, SubCategory $subCategory)
+    {
+        $productCollection = $this->productRepository->findBySubCategory($subCategory);
+        $products = array();
+        foreach ($productCollection as $product) {
+            $products[$product->id] = $product;
+        }
+
+        $cursor = $this->findBy(
+            array(
+                'product' => array('$in' => array_keys($products)),
+                'store' => $store->id
+            )
+        );
+
+        foreach ($cursor as $storeProduct) {
+            if (isset($products[$storeProduct->product->id])) {
+                $products[$storeProduct->product->id] = $storeProduct;
+            }
+        }
+
+        foreach ($products as $productId => $product) {
+            if ($product instanceof Product) {
+                $products[$productId] = $this->createByStoreProduct($store, $product);
+            }
+        }
+
+        return new StoreProductCollection(array_values($products));
     }
 
     /**

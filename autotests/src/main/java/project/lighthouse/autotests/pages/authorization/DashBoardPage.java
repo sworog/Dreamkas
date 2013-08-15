@@ -21,6 +21,10 @@ public class DashBoardPage extends CommonPageObject {
         return String.format("//*[@href='/%s']", name);
     }
 
+    public void dashboardLinkWebElementLinkClick() {
+        findVisibleElement(By.xpath("//a[text()='Каталог']")).click();
+    }
+
     public void buttonClick(String name) {
         String buttonXpath = getButtonXpath(name);
         findVisibleElement(By.xpath(buttonXpath)).click();

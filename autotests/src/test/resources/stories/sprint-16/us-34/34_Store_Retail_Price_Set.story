@@ -14,8 +14,9 @@ And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' a
 And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice in the subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user opens catalog page
+And the user opens the authorization page
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
+And the user clicks on catalog page
 And the user clicks on the group name 'storeProductsCategory'
 And the user clicks on the category name 'storeProductsGroup'
 And the user clicks on the subCategory name 'storeProductsSubCategory'
@@ -39,8 +40,9 @@ And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' a
 And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice in the subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user opens catalog page
+And the user opens the authorization page
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
+And the user clicks on catalog page
 And the user clicks on the group name 'storeProductsCategory'
 And the user clicks on the category name 'storeProductsGroup'
 And the user clicks on the subCategory name 'storeProductsSubCategory'

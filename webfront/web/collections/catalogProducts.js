@@ -5,10 +5,15 @@ define(function(require) {
         return Collection.extend({
             model: require('models/product'),
             url: function(){
-                return LH.baseApiUrl + '/subcategories/' + this.subCategory + '/products'
+                if (this.storeId){
+                    return LH.baseApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subCategory + '/products'
+                } else {
+                    return LH.baseApiUrl + '/subcategories/' + this.subCategory + '/products'
+                }
             },
             initialize: function(models, options){
                 this.subCategory = options.subCategory;
+                this.storeId = options.storeId;
             }
         });
     }

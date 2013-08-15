@@ -60,7 +60,7 @@ class CategoryController extends AbstractRestController
     /**
      * @param Category $category
      * @return Category
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getCategoryAction(Category $category)
@@ -73,7 +73,9 @@ class CategoryController extends AbstractRestController
      * @param Category $category
      * @return Category
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(
+     *      resource=true
+     * )
      */
     public function getStoreCategoryAction(Store $store, Category $category)
     {
@@ -83,14 +85,27 @@ class CategoryController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Classifier\Group\Group $group
      * @return CategoryCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getGroupCategoriesAction(Group $group)
     {
         $cursor = $this->getDocumentRepository()->findByGroup($group->id);
-        $collection = new CategoryCollection($cursor);
-        return $collection;
+        return new CategoryCollection($cursor);
+    }
+
+
+    /**
+     * @param Store $store
+     * @param Group $group
+     * @return CategoryCollection
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @ApiDoc
+     */
+    public function getStoreGroupCategoriesAction(Store $store, Group $group)
+    {
+        $cursor = $this->getDocumentRepository()->findByGroup($group->id);
+        return new CategoryCollection($cursor);
     }
 
     /**

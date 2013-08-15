@@ -132,3 +132,5 @@ services:
             class: Lighthouse\CoreBundle\Document\Product\Store\StoreProduct
             arguments:
                 - LighthouseCoreBundle:Product\Store\StoreProduct
+            calls:
+                - [setProductRepository, ["@lighthouse.core.document.repository.product"]]

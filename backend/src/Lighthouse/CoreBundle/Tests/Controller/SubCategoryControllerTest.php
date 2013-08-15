@@ -541,11 +541,11 @@ class SubCategoryControllerTest extends WebTestCase
      * @param string    $method
      * @param string    $role
      * @param int       $responseCode
-     * @param array|null $requestData
+     * @param array     $requestData
      *
      * @dataProvider accessSubCategoryProvider
      */
-    public function testAccessSubCategory($url, $method, $role, $responseCode, $requestData = null)
+    public function testAccessSubCategory($url, $method, $role, $responseCode, array $requestData = array())
     {
         $this->clearMongoDb();
 
@@ -564,16 +564,16 @@ class SubCategoryControllerTest extends WebTestCase
             ),
             $url
         );
-        $accessToken = $this->authAsRole($role);
-        if (is_array($requestData)) {
-            $requestData = $requestData + array(
-                    'name' => 'Тёмное',
-                    'category' => $categoryId,
-                    'rounding' => 'nearest1',
-                );
-        }
 
-        $response = $this->clientJsonRequest(
+        $accessToken = $this->authAsRole($role);
+
+        $requestData += array(
+            'name' => 'Тёмное',
+            'category' => $categoryId,
+            'rounding' => 'nearest1',
+        );
+
+        $this->clientJsonRequest(
             $accessToken,
             $method,
             $url,
@@ -592,26 +592,26 @@ class SubCategoryControllerTest extends WebTestCase
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'GET',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'GET',
-                'ROLE_DEPARTMENT_MANAGER',
-                '200',
+                User::ROLE_DEPARTMENT_MANAGER,
+                200,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'GET',
-                'ROLE_STORE_MANAGER',
-                '200',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'GET',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -620,30 +620,26 @@ class SubCategoryControllerTest extends WebTestCase
             array(
                 '/api/1/subcategories',
                 'POST',
-                'ROLE_COMMERCIAL_MANAGER',
-                '201',
-                array(),
+                User::ROLE_COMMERCIAL_MANAGER,
+                201,
             ),
             array(
                 '/api/1/subcategories',
                 'POST',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
-                array(),
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories',
                 'POST',
-                'ROLE_STORE_MANAGER',
-                '403',
-                array(),
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories',
                 'POST',
-                'ROLE_ADMINISTRATOR',
-                '403',
-                array(),
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -652,30 +648,26 @@ class SubCategoryControllerTest extends WebTestCase
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'PUT',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
-                array(),
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'PUT',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
-                array(),
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'PUT',
-                'ROLE_STORE_MANAGER',
-                '403',
-                array(),
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'PUT',
-                'ROLE_ADMINISTRATOR',
-                '403',
-                array(),
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -684,26 +676,26 @@ class SubCategoryControllerTest extends WebTestCase
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'DELETE',
-                'ROLE_COMMERCIAL_MANAGER',
-                '204',
+                User::ROLE_COMMERCIAL_MANAGER,
+                204,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'DELETE',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'DELETE',
-                'ROLE_STORE_MANAGER',
-                '403',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'DELETE',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -712,26 +704,26 @@ class SubCategoryControllerTest extends WebTestCase
             array(
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
                 'GET',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
                 'GET',
-                'ROLE_DEPARTMENT_MANAGER',
-                '200',
+                User::ROLE_DEPARTMENT_MANAGER,
+                200,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
                 'GET',
-                'ROLE_STORE_MANAGER',
-                '200',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
                 'GET',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
         );
     }
@@ -979,5 +971,73 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertResponseCode(403);
 
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
+    }
+
+    public function testGetStoreCategorySubCategoriesStoreManagerHasStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $storeId = $this->createStore();
+
+        $this->linkStoreManagers($storeId, $storeManager->id);
+
+        $groupId1 = $this->createGroup('1');
+        $groupId2 = $this->createGroup('2');
+
+        $categoryId1 = $this->createCategory($groupId1, '1.1');
+        $categoryId2 = $this->createCategory($groupId1, '1.2');
+
+        $categoryId3 = $this->createCategory($groupId2, '2.1');
+        $categoryId4 = $this->createCategory($groupId2, '2.2');
+
+        $subCategory1 = $this->createSubCategory($categoryId1, '1.1.1');
+        $subCategory2 = $this->createSubCategory($categoryId1, '1.1.2');
+        $subCategory3 = $this->createSubCategory($categoryId1, '1.1.3');
+
+        $subCategory4 = $this->createSubCategory($categoryId4, '2.2.1');
+        $subCategory5 = $this->createSubCategory($categoryId4, '2.2.2');
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/categories/' .  $categoryId1 . '/subcategories'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($subCategory1, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategory2, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategory3, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId1, '*.category.id', $getResponse, 3);
+        Assert::assertJsonPathEquals($groupId1, '*.category.group.id', $getResponse, 3);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/categories/' .  $categoryId4 . '/subcategories'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($subCategory4, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategory5, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId4, '*.category.id', $getResponse, 2);
+        Assert::assertJsonPathEquals($groupId2, '*.category.group.id', $getResponse, 2);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/categories/' .  $categoryId3 . '/subcategories'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '*.id', $getResponse);
     }
 }
