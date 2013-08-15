@@ -15,6 +15,7 @@ use JMS\Serializer\Annotation\Exclude;
  * @property Money $retailPrice
  * @property float $retailMarkup
  * @property string $retailPricePreference
+ * @property Money $roundedRetailPrice
  * @property Product $product
  * @property SubCategory $subCategory
  * @property Store $store
@@ -53,6 +54,12 @@ class StoreProduct extends AbstractDocument
     protected $retailPricePreference = Product::RETAIL_PRICE_PREFERENCE_MARKUP;
 
     /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $roundedRetailPrice;
+
+    /**
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
      *     simple=true,
@@ -69,6 +76,7 @@ class StoreProduct extends AbstractDocument
      *     cascade="persist"
      * )
      * @var SubCategory
+     * @Exclude
      */
     protected $subCategory;
 

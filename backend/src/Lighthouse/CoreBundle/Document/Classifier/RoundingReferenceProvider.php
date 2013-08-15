@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier;
 
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\MongoDB\Reference\ReferenceProviderInterface;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Lighthouse\CoreBundle\Rounding\RoundingManager;
@@ -53,7 +54,7 @@ class RoundingReferenceProvider implements ReferenceProviderInterface
      */
     public function supports($document)
     {
-        if ($document instanceof AbstractNode) {
+        if ($document instanceof AbstractNode || $document instanceof Product) {
             return true;
         } else {
             return false;
