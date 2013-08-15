@@ -4,4 +4,4 @@ lighthouse:
     nearest10: до 10 копеек
     nearest100: до рублей
     nearest50: до 50 копеек
-    fixed99: до 99 копеек
+    nearest99: до 99 копеек

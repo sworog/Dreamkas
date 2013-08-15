@@ -65,7 +65,7 @@ class RoundingControllerTest extends WebTestCase
             'nearest10' => array('nearest10', 'до 10 копеек'),
             'nearest50' => array('nearest50', 'до 50 копеек'),
             'nearest100' => array('nearest100', 'до рублей'),
-            'fixed99' => array('fixed99', 'до 99 копеек'),
+            'nearest99' => array('nearest99', 'до 99 копеек'),
         );
     }
 
@@ -130,8 +130,8 @@ class RoundingControllerTest extends WebTestCase
             'nearest50 up' => array('nearest50', '23.751', '24.00'),
             'nearest100 down' => array('nearest100', '23.744', '24.00'),
             'nearest100 up' => array('nearest100', '23.455', '23.00'),
-            'fixed99 down' => array('fixed99', '23.744', '23.99'),
-            'fixed99 up' => array('fixed99', '23.455', '22.99'),
+            'nearest99 down' => array('nearest99', '23.744', '23.99'),
+            'nearest99 up' => array('nearest99', '23.455', '22.99'),
         );
     }
 

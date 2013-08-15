@@ -238,8 +238,8 @@ class CategoryControllerTest extends WebTestCase
             ),
             'valid rounding nearest100' => array(
                 201,
-                array('rounding' => 'fixed99'),
-                array('rounding.name' => 'fixed99', 'rounding.title' => 'до 99 копеек')
+                array('rounding' => 'nearest99'),
+                array('rounding.name' => 'nearest99', 'rounding.title' => 'до 99 копеек')
             ),
             'invalid rounding aaaa' => array(
                 400,
