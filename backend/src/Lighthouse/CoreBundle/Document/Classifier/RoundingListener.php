@@ -67,12 +67,6 @@ class RoundingListener
                 $document->setRounding($rounding);
             }
             return true;
-        } elseif ($document instanceof Product) {
-            if (null === $document->rounding) {
-                $rounding = $document->subCategory->rounding ?: $rounding = $this->roundingManager->findDefault();
-                $document->setRounding($rounding);
-            }
-            return true;
         }
         return false;
     }
