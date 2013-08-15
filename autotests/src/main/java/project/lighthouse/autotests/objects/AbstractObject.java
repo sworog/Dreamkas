@@ -11,6 +11,10 @@ abstract public class AbstractObject {
         this.jsonObject = jsonObject;
     }
 
+    public AbstractObject() {
+        this.jsonObject = new JSONObject();
+    }
+
     public String getPropertyAsString(String key) throws JSONException {
         return jsonObject.getString(key);
     }
@@ -19,9 +23,17 @@ abstract public class AbstractObject {
         return jsonObject;
     }
 
+    public void setJsonObject(JSONObject jsonObject) {
+        this.jsonObject = jsonObject;
+    }
+
     abstract public String getApiUrl();
 
     public String getId() throws JSONException {
         return getPropertyAsString("id");
+    }
+
+    public String getName() throws JSONException {
+        return getPropertyAsString("name");
     }
 }
