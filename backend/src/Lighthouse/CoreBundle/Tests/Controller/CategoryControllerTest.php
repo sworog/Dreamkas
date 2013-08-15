@@ -581,35 +581,20 @@ class CategoryControllerTest extends WebTestCase
             array(
                 '/api/1/categories',
                 'POST',
-<<<<<<< Temporary merge branch 1
-                'ROLE_COMMERCIAL_MANAGER',
-                '201',
-=======
                 User::ROLE_COMMERCIAL_MANAGER,
                 201,
->>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories',
                 'POST',
-<<<<<<< Temporary merge branch 1
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
-=======
                 User::ROLE_DEPARTMENT_MANAGER,
                 403,
->>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories',
                 'POST',
-<<<<<<< Temporary merge branch 1
-                'ROLE_STORE_MANAGER',
-                '403',
-=======
                 User::ROLE_STORE_MANAGER,
                 403,
->>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories',
@@ -624,46 +609,26 @@ class CategoryControllerTest extends WebTestCase
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
-<<<<<<< Temporary merge branch 1
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
-=======
                 User::ROLE_COMMERCIAL_MANAGER,
                 200,
->>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
-<<<<<<< Temporary merge branch 1
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
-=======
                 User::ROLE_DEPARTMENT_MANAGER,
                 403,
->>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
-<<<<<<< Temporary merge branch 1
-                'ROLE_STORE_MANAGER',
-                '403',
-=======
                 User::ROLE_STORE_MANAGER,
                 403,
->>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
-<<<<<<< Temporary merge branch 1
-                'ROLE_ADMINISTRATOR',
-                '403',
-=======
                 User::ROLE_ADMINISTRATOR,
                 403,
->>>>>>> Temporary merge branch 2
             ),
 
             /*************************************
