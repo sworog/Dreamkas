@@ -980,4 +980,44 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($categoryId6, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($groupId2, '*.group.id', $getResponse, 2);
     }
+
+    public function testRoundingIsInheritedFromGroup()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь', true, null, null, 'nearest50');
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postData = array(
+            'name' => 'Водка',
+            'group' => $groupId,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/categories',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+        $categoryId = $postResponse['id'];
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId,
+            $postData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
+        Assert::assertJsonPathEquals('nearest50', 'group.rounding.name', $postResponse);
+    }
 }
