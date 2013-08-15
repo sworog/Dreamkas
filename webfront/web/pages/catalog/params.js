@@ -1,3 +1,4 @@
 define({
-    editMode: false
+    editMode: false,
+    storeId: null
 });

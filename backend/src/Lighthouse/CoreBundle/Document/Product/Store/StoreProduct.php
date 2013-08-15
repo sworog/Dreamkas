@@ -3,10 +3,12 @@
 namespace Lighthouse\CoreBundle\Document\Product\Store;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\StoreProduct\RetailPrice as AssertRetailPrice;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation\Exclude;
 
 /**
@@ -14,6 +16,7 @@ use JMS\Serializer\Annotation\Exclude;
  * @property float $retailMarkup
  * @property string $retailPricePreference
  * @property Product $product
+ * @property SubCategory $subCategory
  * @property Store $store
  *
  * @MongoDB\Document(
@@ -58,6 +61,16 @@ class StoreProduct extends AbstractDocument
      * @var Product
      */
     protected $product;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory",
+     *     simple=true,
+     *     cascade="persist"
+     * )
+     * @var SubCategory
+     */
+    protected $subCategory;
 
     /**
      * @MongoDB\ReferenceOne(

@@ -3,15 +3,16 @@ define(function(require) {
     var Page = require('kit/page'),
         pageParams = require('pages/catalog/params'),
         Catalog = require('blocks/catalog/catalog'),
-        СatalogGroupsCollection = require('collections/catalogGroups');
+        СatalogGroupsCollection = require('collections/catalogGroups'),
+        currentUserModel = require('models/currentUser'),
+        Page403 = require('pages/403/403');
+
+    var router = new Backbone.Router();
 
     return Page.extend({
         pageName: 'page_catalog_catalog',
         templates: {
             '#content': require('tpl!./templates/catalog.html')
-        },
-        permissions: {
-            groups: 'GET'
         },
         initialize: function(params){
             var page = this;
@@ -24,11 +25,30 @@ define(function(require) {
                 }, params)
             }
 
+            if (!pageParams.storeId && !LH.isAllow('groups')){
+                new Page403();
+                return;
+            }
+
+            if (pageParams.storeId && !LH.isAllow('stores/{store}/groups')){
+                new Page403();
+                return;
+            }
+
             if (!LH.isAllow('groups', 'POST')) {
                 pageParams.editMode = false;
             }
 
-            page.catalogGroupsCollection = new СatalogGroupsCollection();
+            var route = router.toFragment(document.location.pathname, {
+                editMode: pageParams.editMode,
+                storeId: pageParams.storeId
+            });
+
+            router.navigate(route);
+
+            page.catalogGroupsCollection = new СatalogGroupsCollection([], {
+                storeId: pageParams.storeId
+            });
 
             $.when(page.catalogGroupsCollection.fetch()).then(function(){
                 page.render();

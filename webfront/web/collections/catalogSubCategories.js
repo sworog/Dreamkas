@@ -7,9 +7,14 @@ define(function(require) {
             initialize: function(models, options){
                 this.category = options.category || options.parentModel.id;
                 this.group = options.group || options.parentModel.get('group');
+                this.storeId = options.storeId || options.parentModel.get('storeId');
             },
             url: function() {
-                return LH.baseApiUrl + '/categories/' + this.category + '/subcategories'
+                if (this.storeId){
+                    return LH.baseApiUrl + '/stores/' + this.storeId + '/categories/' + this.category + '/subcategories'
+                } else {
+                    return LH.baseApiUrl + '/categories/' + this.category + '/subcategories'
+                }
             }
         });
     }

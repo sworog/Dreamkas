@@ -401,34 +401,26 @@ class GroupControllerTest extends WebTestCase
      * @param string    $method
      * @param string    $role
      * @param int       $responseCode
-     * @param array|null $requestData
+     * @param array     $requestData
      *
      * @dataProvider accessGroupProvider
      */
-    public function testAccessGroup($url, $method, $role, $responseCode, $requestData = null)
+    public function testAccessGroup($url, $method, $role, $responseCode, array $requestData = array())
     {
         $this->clearMongoDb();
 
         $groupId = $this->createGroup();
 
-        $url = str_replace(
-            array(
-                '__GROUP_ID__',
-            ),
-            array(
-                $groupId,
-            ),
-            $url
-        );
-        $accessToken = $this->authAsRole($role);
-        if (is_array($requestData)) {
-            $requestData = $requestData + array(
-                'name' => 'Алкоголь',
-                'rounding' => 'nearest1',
-            );
-        }
+        $url = str_replace('__GROUP_ID__', $groupId, $url);
 
-        $response = $this->clientJsonRequest(
+        $accessToken = $this->authAsRole($role);
+
+        $requestData += array(
+            'name' => 'Алкоголь',
+            'rounding' => 'nearest1',
+        );
+
+        $this->clientJsonRequest(
             $accessToken,
             $method,
             $url,
@@ -448,25 +440,25 @@ class GroupControllerTest extends WebTestCase
                 '/api/1/groups',
                 'GET',                              // Method
                 'ROLE_COMMERCIAL_MANAGER',          // Role
-                '200',                              // Response Code
+                200,                              // Response Code
             ),
             array(
                 '/api/1/groups',
                 'GET',
                 'ROLE_DEPARTMENT_MANAGER',
-                '200',
+                200,
             ),
             array(
                 '/api/1/groups',
                 'GET',
                 'ROLE_STORE_MANAGER',
-                '200',
+                403,
             ),
             array(
                 '/api/1/groups',
                 'GET',
                 'ROLE_ADMINISTRATOR',
-                '403',
+                403,
             ),
 
             /*************************************
@@ -476,25 +468,25 @@ class GroupControllerTest extends WebTestCase
                 '/api/1/groups/__GROUP_ID__',
                 'GET',
                 'ROLE_COMMERCIAL_MANAGER',
-                '200',
+                200,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'GET',
                 'ROLE_DEPARTMENT_MANAGER',
-                '200',
+                200,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'GET',
                 'ROLE_STORE_MANAGER',
-                '200',
+                403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'GET',
                 'ROLE_ADMINISTRATOR',
-                '403',
+                403,
             ),
 
             /*************************************
@@ -504,29 +496,25 @@ class GroupControllerTest extends WebTestCase
                 '/api/1/groups',
                 'POST',
                 'ROLE_COMMERCIAL_MANAGER',
-                '201',
-                array(),
+                201,
             ),
             array(
                 '/api/1/groups',
                 'POST',
                 'ROLE_DEPARTMENT_MANAGER',
-                '403',
-                array(),
+                403,
             ),
             array(
                 '/api/1/groups',
                 'POST',
                 'ROLE_STORE_MANAGER',
-                '403',
-                array(),
+                403,
             ),
             array(
                 '/api/1/groups',
                 'POST',
                 'ROLE_ADMINISTRATOR',
-                '403',
-                array(),
+                403,
             ),
 
             /*************************************
@@ -536,29 +524,25 @@ class GroupControllerTest extends WebTestCase
                 '/api/1/groups/__GROUP_ID__',
                 'PUT',
                 'ROLE_COMMERCIAL_MANAGER',
-                '200',
-                array(),
+                200,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'PUT',
                 'ROLE_DEPARTMENT_MANAGER',
-                '403',
-                array(),
+                403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'PUT',
                 'ROLE_STORE_MANAGER',
-                '403',
-                array(),
+                403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'PUT',
                 'ROLE_ADMINISTRATOR',
-                '403',
-                array(),
+                403,
             ),
 
             /*************************************
@@ -568,25 +552,25 @@ class GroupControllerTest extends WebTestCase
                 '/api/1/groups/__GROUP_ID__',
                 'DELETE',
                 'ROLE_COMMERCIAL_MANAGER',
-                '204',
+                204,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'DELETE',
                 'ROLE_DEPARTMENT_MANAGER',
-                '403',
+                403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'DELETE',
                 'ROLE_STORE_MANAGER',
-                '403',
+                403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'DELETE',
                 'ROLE_ADMINISTRATOR',
-                '403',
+                403,
             ),
         );
     }
@@ -660,5 +644,33 @@ class GroupControllerTest extends WebTestCase
         $this->assertResponseCode(403);
 
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
+    }
+
+    public function testGetStoreGroupsStoreManagerHasStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $groupId1 = $this->createGroup('1');
+        $groupId2 = $this->createGroup('2');
+        $groupId3 = $this->createGroup('3');
+        $storeId = $this->createStore();
+
+        $this->linkStoreManagers($storeId, $storeManager->id);
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/groups'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(3, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($groupId1, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId2, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($groupId3, '*.id', $getResponse, 1);
     }
 }

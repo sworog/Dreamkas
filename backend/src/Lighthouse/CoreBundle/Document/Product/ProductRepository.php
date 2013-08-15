@@ -21,6 +21,10 @@ class ProductRepository extends DocumentRepository
         return $this->findBy(array($property => new \MongoRegex("/".preg_quote($entry, '/')."/i")));
     }
 
+    /**
+     * @param SubCategory $subCategory
+     * @return ProductCollection
+     */
     public function findBySubCategory(SubCategory $subCategory)
     {
         $cursor = $this->findBy(array('subCategory' => $subCategory->id));

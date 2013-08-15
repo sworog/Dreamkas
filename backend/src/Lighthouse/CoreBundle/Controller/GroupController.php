@@ -71,7 +71,7 @@ class GroupController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Classifier\Group\Group $group
      * @return Group
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getGroupAction(Group $group)
@@ -80,8 +80,19 @@ class GroupController extends AbstractRestController
     }
 
     /**
+     * @param Store $store
+     * @param Group $group
+     * @return Group
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     */
+    public function getStoreGroupAction(Store $store, Group $group)
+    {
+        return $group;
+    }
+
+    /**
      * @return \Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )
@@ -89,19 +100,20 @@ class GroupController extends AbstractRestController
     public function getGroupsAction()
     {
         $cursor = $this->documentRepository->findAll();
-        $collection = new GroupCollection($cursor);
-        return $collection;
+        return new GroupCollection($cursor);
     }
 
     /**
      * @param Store $store
-     * @param Group $group
-     * @return Group
+     * @return GroupCollection
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(
+     *      resource=true
+     * )
      */
-    public function getStoreGroupAction(Store $store, Group $group)
+    public function getStoreGroupsAction(Store $store)
     {
-        return $group;
+        $cursor = $this->documentRepository->findAll();
+        return new GroupCollection($cursor);
     }
 }
