@@ -168,7 +168,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Значение должно быть больше или равно 31',
+                    'children.retailPrice.errors.0' => 'Значение должно быть больше или равно 31.00',
                     'children.retailMarkup.errors' => null,
                 )
             ),
@@ -179,7 +179,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Значение должно быть меньше или равно 40',
+                    'children.retailPrice.errors.0' => 'Значение должно быть меньше или равно 40.00',
                     'children.retailMarkup.errors' => null,
                 )
             ),
