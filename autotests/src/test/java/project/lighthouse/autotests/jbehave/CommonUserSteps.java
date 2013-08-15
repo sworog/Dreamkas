@@ -62,4 +62,9 @@ public class CommonUserSteps {
     public void whenTheUserClicksCloseButtonInTheInvoiceCreatePage() {
         // PENDING
     }
+
+    @When("the user refreshes the current page")
+    public void whenTheUserRefreshesTheCurrentPage() {
+        commonSteps.pageRefresh();
+    }
 }

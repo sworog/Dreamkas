@@ -63,4 +63,9 @@ public class CommonSteps extends ScenarioSteps {
     public void NoAlertIsPresent() {
         commonPage.NoAlertIsPresent();
     }
+
+    @Step
+    public void pageRefresh() {
+        getDriver().navigate().refresh();
+    }
 }

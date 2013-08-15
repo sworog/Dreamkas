@@ -214,7 +214,7 @@ public class CommonPage extends PageObject {
     public void checkDropDownDefaultValue(WebElement dropDownElement, String expectedValue) {
         String selectedValue = $(dropDownElement).getSelectedVisibleTextValue();
         assertThat(
-                String.format("The default value for dropDown is not '%s'. The selected value is '%s'", expectedValue, selectedValue),
+                "The dropDawn value:",
                 selectedValue, Matchers.containsString(expectedValue)
         );
     }
