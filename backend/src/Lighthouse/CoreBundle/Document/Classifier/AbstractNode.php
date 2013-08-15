@@ -73,7 +73,9 @@ abstract class AbstractNode extends AbstractDocument
         $this->rounding = $rounding;
 
         if (null !== $rounding) {
-            $this->roundingId = $rounding;
+            $this->roundingId = $rounding->getName();
+        } else {
+            $this->roundingId = null;
         }
     }
 

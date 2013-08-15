@@ -3,11 +3,12 @@
 namespace Lighthouse\CoreBundle\Document\Classifier;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Rounding\RoundingManager;
 
 /**
- * @DI\DoctrineMongoDBListener(events={"prePersist"}, priority = 255)
+ * @DI\DoctrineMongoDBListener(events={"prePersist", "preUpdate"}, priority = 255)
  */
 class RoundingListener
 {
@@ -33,15 +34,36 @@ class RoundingListener
     public function prePersist(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
+        $this->updateRounding($document);
+    }
+
+    /**
+     * @param PreUpdateEventArgs $eventArgs
+     */
+    public function preUpdate(PreUpdateEventArgs $eventArgs)
+    {
+        $document = $eventArgs->getDocument();
+        $this->updateRounding($document);
+        $dm = $eventArgs->getDocumentManager();
+        $classMeta = $dm->getClassMetadata(get_class($document));
+        $dm->getUnitOfWork()->recomputeSingleDocumentChangeSet($classMeta, $document);
+    }
+
+    /**
+     * @param AbstractNode $document
+     */
+    protected function updateRounding($document)
+    {
         if ($document instanceof AbstractNode) {
             if (null === $document->rounding) {
+                $rounding = null;
                 if ($document->getParent()) {
                     $rounding = $document->getParent()->rounding;
                 }
                 if (null === $rounding) {
                     $rounding = $this->roundingManager->findDefault();
                 }
-                $document->rounding = $rounding;
+                $document->setRounding($rounding);
             }
         }
     }
