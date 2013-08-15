@@ -42,4 +42,12 @@ class RoundingManager
     {
         return $this->roundings;
     }
+
+    /**
+     * @return AbstractRounding
+     */
+    public function findDefault()
+    {
+        return reset($this->roundings);
+    }
 }
