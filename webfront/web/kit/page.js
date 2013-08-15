@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block');
+    var Block = require('kit/block'),
+        currentPage = require('kit/currentPage');
 
     var router = new Backbone.Router();
 
@@ -25,8 +26,7 @@ define(function(require) {
 
             Block.prototype._configure.apply(this, arguments);
 
-            var page = this,
-                previousPage = $(page.el).data('page');
+            var page = this;
 
             page.accessDenied = _.some(page.permissions, function(value, key) {
                 return !LH.isAllow(key, value);
@@ -34,10 +34,12 @@ define(function(require) {
 
             page.cid = _.uniqueId('page');
 
-            if (previousPage) {
-                page.referer = previousPage;
-                previousPage.stopListening();
+            if (currentPage) {
+                page.referer = _.clone(currentPage);
+                currentPage.stopListening();
             }
+
+            currentPage = page;
         },
         _ensureElement: function() {
 
@@ -46,7 +48,6 @@ define(function(require) {
             var page = this;
 
             page.$el
-                .data('page', page)
                 .removeAttr('class')
                 .addClass('page ' + page.pageName);
             
