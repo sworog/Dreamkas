@@ -78,6 +78,11 @@ public class CatalogUserSteps {
         catalogSteps.promoteStoreManager(store, storeManager);
     }
 
+    @Given("the user navigates to the store '$storeName' catalog page")
+    public void givenTheUserNaviagtesToTheStoreCatalogPage(String storeName) throws JSONException {
+        storeSteps.navigatesToTheStoreCatalogPage(storeName);
+    }
+
     @When("the user clicks on start edition link and starts the edition")
     public void whenTheUserStartsTheEdition() {
         catalogSteps.startEditionButtonLinkClick();

@@ -8,6 +8,8 @@ define(function(require) {
         currentUserModel = require('models/currentUser'),
         Page403 = require('pages/403/403');
 
+    var router = new Backbone.Router();
+
     return Page.extend({
         pageName: 'page_catalog_category',
         templates: {
@@ -41,6 +43,11 @@ define(function(require) {
             if (!LH.isAllow('groups', 'POST')) {
                 pageParams.editMode = false;
             }
+
+            router.navigate(router.toFragment(document.location.pathname, {
+                editMode: pageParams.editMode,
+                storeId: pageParams.storeId
+            }));
 
             page.catalogGroupModel = new СatalogGroupModel({
                 id: catalogGroupId,
