@@ -61,7 +61,7 @@ class ValidatorInitializer implements ObjectInitializerInterface
      */
     protected function initRounding(Product $product)
     {
-        if (null === $product->rounding) {
+        if (null === $product->rounding && null !== $product->subCategory) {
             $rounding = $product->subCategory->rounding ?: $rounding = $this->roundingManager->findDefault();
             $product->setRounding($rounding);
         }
