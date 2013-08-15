@@ -4,9 +4,6 @@ define(function(require) {
 
         return Model.extend({
             modelName: 'catalogCategory',
-            defaults: {
-                rounding: 'nearest1'
-            },
             urlRoot: LH.baseApiUrl + '/categories',
             initData: {
                 subCategories: require('collections/catalogSubCategories')
