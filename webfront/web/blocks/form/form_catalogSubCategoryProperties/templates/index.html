@@ -8,6 +8,10 @@
     <input value="<%= model.get('retailMarkupMax') %>" class="inputText" type="text" name="retailMarkupMax"/>
     <span class="inputText__postfix">%</span>
 </div>
+<div class="form__field form__field_inline">
+    <label class="form__label"><%text 'Округление' %></label>
+    <select class="select" value="<%= model.get('rounding') %>" name="rounding" require="blocks/select/select_priceRoundings/select_priceRoundings"></select>
+</div>
 <div class="form__controls">
     <span class="button button_color_blue">
         <%text 'Сохранить' %>

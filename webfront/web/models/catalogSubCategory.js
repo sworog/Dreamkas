@@ -9,7 +9,8 @@ define(function(require) {
                 'name',
                 'category',
                 'retailMarkupMax',
-                'retailMarkupMin'
+                'retailMarkupMin',
+                'rounding'
             ],
             initialize: function(attrs, options) {
 

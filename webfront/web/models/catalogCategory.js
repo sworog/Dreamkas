@@ -12,7 +12,8 @@ define(function(require) {
                 'name',
                 'group',
                 'retailMarkupMax',
-                'retailMarkupMin'
+                'retailMarkupMin',
+                'rounding'
             ],
             initialize: function(attrs, options) {
 
