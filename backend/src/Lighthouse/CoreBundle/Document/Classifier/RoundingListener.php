@@ -35,7 +35,13 @@ class RoundingListener
         $document = $eventArgs->getDocument();
         if ($document instanceof AbstractNode) {
             if (null === $document->rounding) {
-                $document->rounding = $this->roundingManager->findDefault();
+                if ($document->getParent()) {
+                    $rounding = $document->getParent()->rounding;
+                }
+                if (null === $rounding) {
+                    $rounding = $this->roundingManager->findDefault();
+                }
+                $document->rounding = $rounding;
             }
         }
     }
