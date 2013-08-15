@@ -32,6 +32,30 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonHasPath('id', $postResponse);
     }
 
+    public function testPostGroupActionWithoutRounding()
+    {
+        $this->clearMongoDb();
+
+        $groupData = array(
+            'name' => 'Продовольственные товары',
+        );
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/groups',
+            $groupData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals('Продовольственные товары', 'name', $postResponse);
+        Assert::assertJsonHasPath('id', $postResponse);
+        Assert::assertJsonHasPath('rounding.name', $postResponse);
+    }
+
     /**
      * @param $expectedCode
      * @param array $data

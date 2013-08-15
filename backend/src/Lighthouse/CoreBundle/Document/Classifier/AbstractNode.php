@@ -60,7 +60,6 @@ abstract class AbstractNode extends AbstractDocument
     protected $retailMarkupMax;
 
     /**
-     * @Assert\NotBlank
      * @var AbstractRounding
      */
     protected $rounding;
