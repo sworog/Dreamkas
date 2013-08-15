@@ -9,7 +9,7 @@ define(function(require) {
         Table_products = require('blocks/table/table_products/table_products'),
         Form_catalogCategoryProperties = require('blocks/form/form_catalogCategoryProperties/form_catalogCategoryProperties'),
         Form_catalogSubCategoryProperties = require('blocks/form/form_catalogSubCategoryProperties/form_catalogSubCategoryProperties'),
-        params = require('pages/catalog/params');
+        pageParams = require('pages/catalog/params');
 
     var router = new Backbone.Router();
 
@@ -76,7 +76,10 @@ define(function(require) {
             var block = this,
                 $target = $(e.currentTarget);
 
-            router.navigate($target.attr('href'));
+            router.navigate(router.toFragment($target.attr('href'), {
+                editMode: pageParams.editMode,
+                storeId: pageParams.storeId
+            }));
 
             block.set('catalogSubCategoryId', $target.attr('subCategory_id'));
         },
@@ -144,7 +147,7 @@ define(function(require) {
         },
         'set:editMode': function(editMode) {
             Editor.prototype['set:editMode'].apply(this, arguments);
-            params.editMode = editMode;
+            pageParams.editMode = editMode;
         },
         'set:catalogSubCategoryId': function(catalogSubCategoryId) {
             var block = this;
