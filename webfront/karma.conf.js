@@ -19,7 +19,7 @@ files = [
     'web/libs/backbone/backbone.min.js',
     'karma.main.js',
 
-    {pattern: 'web/**/*.spec.js', included: false}
+    {pattern: 'web/**/*.js', included: false}
 ];
 
 
@@ -35,7 +35,7 @@ preprocessors = {
     // source files, that you wanna generate coverage for
     // do not include tests or libraries
     // (these files will be instrumented by Istanbul)
-    '**/utils/*.js': ['coverage']
+    '**/kit/*.js': 'coverage'
 };
 
 coverageReporter = {
