@@ -28,3 +28,25 @@
 .productForm__hiddenInput ~ .inputText__postfix{
     display: none;
 }
+
+.productForm__rounding{
+    vertical-align: middle;
+    color: #555;
+    font-size: 11px;
+    margin-left: 10px;
+    display: inline-block;
+    position: relative;
+}
+
+.productForm__rounding.preloader_spinner:after{
+    width: 10px;
+    height: 10px;
+    border-width: 2px;
+    left: auto;
+    right: -20px;
+    margin: -7px 0 0 0;
+}
+
+.productForm__rounding.preloader_spinner{
+    min-height: 0;
+}

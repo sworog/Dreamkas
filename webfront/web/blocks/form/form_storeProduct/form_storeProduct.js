@@ -1,6 +1,7 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/blocks/form/form');
+        var Form = require('kit/blocks/form/form'),
+            roundPrice = require('utils/roundPrice');
 
         return Form.extend({
             __name__: 'form_storeProduct',
@@ -40,6 +41,7 @@ define(function(require) {
             },
             'change [name="retailPrice"]': function() {
                 this.renderRetailPriceLink();
+                this.renderRounding();
             },
             initialize: function(){
                 var block = this;
@@ -54,9 +56,10 @@ define(function(require) {
                 var block = this;
                 Form.prototype.findElements.apply(block, arguments);
 
-                block.$retailPricePreferenceInput = block.$el.find('[name="retailPricePreference"]');
-                block.$retailPriceInput = block.$el.find('[name="retailPrice"]');
-                block.$retailMarkupInput = block.$el.find('[name="retailMarkup"]');
+                block.$retailPricePreferenceInput = block.$('[name="retailPricePreference"]');
+                block.$retailPriceInput = block.$('[name="retailPrice"]');
+                block.$retailMarkupInput = block.$('[name="retailMarkup"]');
+                block.$rounding = block.$('.productForm__rounding');
 
                 block.$retailPriceLink = block.$retailPriceInput.next('.productForm__inputLink');
                 block.$retailMarkupLink = block.$retailMarkupInput.next('.productForm__inputLink');
@@ -68,6 +71,7 @@ define(function(require) {
 
                 block.renderRetailMarkupLink();
                 block.renderRetailPriceLink();
+                block.renderRounding()
             },
             showRetailMarkupInput: function() {
                 this.$retailPriceInput.addClass('productForm__hiddenInput');
@@ -143,6 +147,22 @@ define(function(require) {
                 this.$retailMarkupLink
                     .find('.productForm__inputLinkText')
                     .html(text);
+            },
+            renderRounding: function(){
+                var block = this,
+                    price = $.trim(block.$retailPriceInput.val()),
+                    rounding = block.model.get('product').rounding.name;
+
+                if (price){
+                    block.$rounding.show();
+                    block.$rounding.addClass('preloader_spinner');
+                    roundPrice(price, rounding).done(function(data){
+                        block.$rounding.removeClass('preloader_spinner');
+                        block.$rounding.html('(' + data.price + ' руб.)');
+                    });
+                } else {
+                    block.$rounding.hide();
+                }
             }
         });
     }
