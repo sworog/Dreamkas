@@ -3,24 +3,30 @@ package project.lighthouse.autotests.objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User {
+public class User extends AbstractObject {
 
-    JSONObject jsonObject;
+    private static final String API_URL = "/users";
 
     public User(JSONObject jsonObject) {
-        this.jsonObject = jsonObject;
+        super(jsonObject);
     }
 
-    public String getId() throws JSONException {
-        return jsonObject.getString("id");
-    }
-
-    public static JSONObject getJsonObject(String name, String position, String login, String password, String role) throws JSONException {
-        return new JSONObject()
+    public User(String name, String position, String login, String password, String role) throws JSONException {
+        this(new JSONObject()
                 .put("name", name)
                 .put("position", position)
                 .put("username", login)
                 .put("password", password)
-                .put("role", role);
+                .put("role", role)
+        );
+    }
+
+    @Override
+    public String getApiUrl() {
+        return API_URL;
+    }
+
+    public String getUserName() throws JSONException {
+        return getPropertyAsString("username");
     }
 }

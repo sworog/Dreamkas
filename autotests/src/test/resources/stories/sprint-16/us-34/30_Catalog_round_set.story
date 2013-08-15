@@ -12,20 +12,21 @@ Scenario: Default values group
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user creates new group with name 'Group-roundings'
-And the user clicks on the group name 'Group-roundings'
+And the user creates new group with name 'Group-roundings0'
+And the user clicks on the group name 'Group-roundings0'
 And the user switches to 'group' properties tab
 Then the user checks the price roundings dropdawn default selected value is 'до копеек'
 
 Scenario: Default values category
 
-Given there is the group with name ''Group-roundings'
-And the user navigates to the group with name ''Group-roundings'
+Given there is the group with name 'Group-roundings'
+And the user navigates to the group with name 'Group-roundings'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user clicks create new category button
-And the user inputs 'Category-roundings' in 'name' field of pop up
+And the user inputs 'Category-roundings0' in 'name' field of pop up
 And the user clicks the create new category button in pop up
+And the user clicks on the category name 'Category-roundings0'
 And the user switches to 'category' properties tab
 Then the user checks the price roundings dropdawn default selected value is 'до копеек'
 
@@ -35,7 +36,8 @@ Given there is the category with name 'Category-roundings' related to group name
 And the user navigates to the category with name 'Category-roundings' related to group named 'Group-roundings'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
-And the user creates new subCategory with name 'subCategory-roundings'
+And the user creates new subCategory with name 'subCategory-roundings0'
+And the user clicks on the subCategory name 'subCategory-roundings0'
 And the user switches to 'subCategory' properties tab
 Then the user checks the price roundings dropdawn default selected value is 'до копеек'
 
@@ -46,15 +48,15 @@ And the user navigates to the group with name 'Group-roundings1'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'group' properties tab
-And the user set price roundings to 'до копеек'
+And the user set price roundings to 'до рублей'
 And the user clicks save mark up button
 When the user switches to 'group' main tab
 And the user clicks create new category button
 And the user inputs 'Category-roundings1' in 'name' field of pop up
 And the user clicks the create new category button in pop up
-And the user clicks on the category name 'categoryMarkUp-11'
+And the user clicks on the category name 'Category-roundings1'
 When the user switches to 'category' properties tab
-Then the user checks the price roundings dropdawn default selected value is 'до копеек'
+Then the user checks the price roundings dropdawn default selected value is 'до рублей'
 When the user clicks on end edition link and ends the edition
 
 Scenario: Create new subCategory from category with setted roundings
@@ -64,19 +66,19 @@ And the user navigates to the category with name 'Category-roundings2' related t
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'category' properties tab
-And the user set price roundings to 'до копеек'
+And the user set price roundings to 'до рублей'
 And the user clicks save mark up button
 When the user switches to 'category' main tab
 And the user creates new subCategory with name 'subCategory-roundings2'
 And the user clicks on the subCategory name 'subCategory-roundings2'
 And the user switches to 'subCategory' properties tab
-Then the user checks the price roundings dropdawn default selected value is 'до копеек'
+Then the user checks the price roundings dropdawn default selected value is 'до рублей'
 When the user clicks on end edition link and ends the edition
 
 Scenario: Group round set
 
 Given there is the group with name 'Group-roundings'
-And the user navigates to the group with name ''Group-roundings'
+And the user navigates to the group with name 'Group-roundings'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'group' properties tab
@@ -94,7 +96,7 @@ Examples:
 
 Scenario: Category round set
 
-Given there is the category with name 'Category-roundings' related to group named 'Category-roundings'
+Given there is the category with name 'Category-roundings' related to group named 'Group-roundings'
 And the user navigates to the category with name 'Category-roundings' related to group named 'Group-roundings'
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition

@@ -2,8 +2,8 @@ package project.lighthouse.autotests.common;
 
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.pages.WebElementFacade;
+import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
-import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class CommonPage extends PageObject {
 
@@ -160,7 +161,7 @@ public class CommonPage extends PageObject {
 
     public void checkAutoCompleteNoResults() {
         String xpath = "//*[@role='presentation']/*[text()]";
-        Assert.assertFalse("There are autocomplete results on the page", isPresent(xpath));
+        assertFalse("There are autocomplete results on the page", isPresent(xpath));
     }
 
     public void checkAutoCompleteResults(ExamplesTable checkValuesTable) {
@@ -195,7 +196,7 @@ public class CommonPage extends PageObject {
         Alert alert = waiter.getAlert();
         String alertText = alert.getText();
         alert.accept();
-        Assert.assertEquals(
+        assertEquals(
                 String.format("Alert text is '%s'. Should be '%s'.", alertText, expectedText),
                 alertText, expectedText);
     }
@@ -211,9 +212,10 @@ public class CommonPage extends PageObject {
     }
 
     public void checkDropDownDefaultValue(WebElement dropDownElement, String expectedValue) {
-        String selectedValue = $(dropDownElement).getSelectedValue();
-        Assert.assertEquals(
+        String selectedValue = $(dropDownElement).getSelectedVisibleTextValue();
+        assertThat(
                 String.format("The default value for dropDown is not '%s'. The selected value is '%s'", expectedValue, selectedValue),
-                selectedValue, expectedValue);
+                selectedValue, Matchers.containsString(expectedValue)
+        );
     }
 }

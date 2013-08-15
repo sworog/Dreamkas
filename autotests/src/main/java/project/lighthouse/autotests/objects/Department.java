@@ -21,6 +21,14 @@ public class Department extends AbstractObject {
         );
     }
 
+    public Department(String number, String name, String storeId) throws JSONException {
+        this(new JSONObject()
+                .put("number", number)
+                .put("name", name)
+                .put("store", storeId)
+        );
+    }
+
     public Department() throws JSONException {
         this(DEFAULT_NUMBER, DEFAULT_NAME);
     }
