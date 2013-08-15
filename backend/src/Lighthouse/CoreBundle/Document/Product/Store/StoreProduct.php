@@ -61,6 +61,17 @@ class StoreProduct extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory",
+     *     simple=true,
+     *     cascade="persist"
+     * )
+     * @Exclude
+     * @var SubCategory
+     */
+    protected $subCategory;
+
+    /**
+     * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
      *     simple=true,
      *     cascade={"persist"}

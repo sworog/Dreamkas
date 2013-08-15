@@ -230,6 +230,8 @@ class GroupControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($groupId, 'id', $postResponse);
         Assert::assertJsonPathEquals('Прод Тов', 'name', $postResponse);
+        Assert::assertJsonHasPath('rounding.name', $postResponse);
+        Assert::assertJsonHasPath('rounding.title', $postResponse);
     }
 
     public function testGetGroupWithCategoriesAndSubCategories()
@@ -610,6 +612,7 @@ class GroupControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($groupId, 'id', $getResponse);
+        Assert::assertJsonHasPath('rounding.name', $getResponse);
     }
 
     public function testGetStoreGroupStoreManagerFromAnotherStore()
