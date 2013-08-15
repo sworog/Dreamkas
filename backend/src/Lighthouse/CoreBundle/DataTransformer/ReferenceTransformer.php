@@ -41,6 +41,10 @@ class ReferenceTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
+        if ('' === $value || null === $value) {
+            return null;
+        }
+
         $document = $this->referenceProvider->getRefObject($value);
 
         if (null === $document) {

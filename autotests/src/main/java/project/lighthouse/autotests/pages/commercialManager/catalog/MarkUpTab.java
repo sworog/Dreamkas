@@ -19,7 +19,7 @@ public class MarkUpTab extends CommonPageObject {
     public void createElements() {
         items.put("retailMarkupMin", new InputOnlyVisible(this, "retailMarkupMin"));
         items.put("retailMarkupMax", new InputOnlyVisible(this, "retailMarkupMax"));
-        items.put("priceRoundings", new SelectByVisibleText(this, "priceRoundings"));
+        items.put("rounding", new SelectByVisibleText(this, "rounding"));
     }
 
     public WebElement saveMarkUpButton() {
@@ -42,7 +42,7 @@ public class MarkUpTab extends CommonPageObject {
     }
 
     public void checkDropDownDefaultValue(String expectedValue) {
-        WebElement element = items.get("priceRoundings").getVisibleWebElement();
+        WebElement element = items.get("rounding").getVisibleWebElement();
         commonPage.checkDropDownDefaultValue(element, expectedValue);
     }
 }

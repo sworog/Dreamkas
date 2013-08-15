@@ -3,23 +3,19 @@ package project.lighthouse.autotests.objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Product {
+public class Product extends AbstractObject {
 
-    JSONObject jsonObject;
+    private static final String API_URL = "/products";
 
     public Product(JSONObject jsonObject) {
         this.jsonObject = jsonObject;
     }
 
-    public String getId() throws JSONException {
-        return jsonObject.getString("id");
-    }
-
-    public static JSONObject getJsonObject(String name, String units, String vat, String purchasePrice, String barcode,
-                                           String sku, String vendorCountry, String vendor, String info,
-                                           String subCategory, String retailMarkupMax,
-                                           String retailMarkupMin) throws JSONException {
-        return new JSONObject()
+    public Product(String name, String units, String vat, String purchasePrice, String barcode,
+                   String sku, String vendorCountry, String vendor, String info,
+                   String subCategory, String retailMarkupMax,
+                   String retailMarkupMin) throws JSONException {
+        this(new JSONObject()
                 .put("name", name)
                 .put("units", units)
                 .put("vat", vat)
@@ -31,6 +27,16 @@ public class Product {
                 .put("info", info)
                 .put("subCategory", subCategory)
                 .put("retailMarkupMax", retailMarkupMax)
-                .put("retailMarkupMin", retailMarkupMin);
+                .put("retailMarkupMin", retailMarkupMin)
+        );
+    }
+
+    public String getSku() throws JSONException {
+        return getPropertyAsString("sku");
+    }
+
+    @Override
+    public String getApiUrl() {
+        return API_URL;
     }
 }

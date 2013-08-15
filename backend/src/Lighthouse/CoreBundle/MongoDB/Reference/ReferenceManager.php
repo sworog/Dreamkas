@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\MongoDB\Reference;
 
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -76,7 +77,7 @@ class ReferenceManager
      */
     public function prePersist(LifecycleEventArgs $eventArgs)
     {
-        $this->updateReference($eventArgs->getDocument(), $eventArgs->getDocumentManager());
+        $this->updateReference($eventArgs->getDocument(), $eventArgs->getDocumentManager(), false);
     }
 
     /**
@@ -84,7 +85,7 @@ class ReferenceManager
      */
     public function preUpdate(LifecycleEventArgs $eventArgs)
     {
-        $this->updateReference($eventArgs->getDocument(), $eventArgs->getDocumentManager());
+        $this->updateReference($eventArgs->getDocument(), $eventArgs->getDocumentManager(), true);
     }
 
     /**
@@ -112,9 +113,9 @@ class ReferenceManager
 
     /**
      * @param $document
-     * @param ObjectManager $manager
+     * @param ObjectManager|DocumentManager $manager
      */
-    protected function updateReference($document, ObjectManager $manager)
+    protected function updateReference($document, ObjectManager $manager, $recompute = false)
     {
         foreach ($this->referenceProviders as $referenceProvider) {
             if ($referenceProvider->supports($document)) {
@@ -131,6 +132,10 @@ class ReferenceManager
                 $refObjectId = $referenceProvider->getRefObjectId($refObject);
 
                 $metadata->setFieldValue($document, $identifier, $refObjectId);
+
+                if ($recompute) {
+                    $manager->getUnitOfWork()->recomputeSingleDocumentChangeSet($metadata, $document);
+                }
             }
         }
     }

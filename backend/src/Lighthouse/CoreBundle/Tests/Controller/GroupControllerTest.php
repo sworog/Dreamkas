@@ -32,6 +32,85 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonHasPath('id', $postResponse);
     }
 
+    public function testPostGroupActionWithoutRounding()
+    {
+        $this->clearMongoDb();
+
+        $groupData = array(
+            'name' => 'Продовольственные товары',
+        );
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/groups',
+            $groupData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals('Продовольственные товары', 'name', $postResponse);
+        Assert::assertJsonHasPath('id', $postResponse);
+        Assert::assertJsonHasPath('rounding.name', $postResponse);
+    }
+
+    public function testPutGroupActionRoundingUpdated()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/groups/' . $groupId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest1', 'rounding.name', $getResponse);
+
+        $groupData = array(
+            'name' => 'Алкоголь',
+            'rounding' => 'nearest50',
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/groups/' . $groupId,
+            $groupData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/groups/' . $groupId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $getResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/groups'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', '0.rounding.name', $getResponse);
+    }
+
     /**
      * @param $expectedCode
      * @param array $data
@@ -161,18 +240,18 @@ class GroupControllerTest extends WebTestCase
                     'children.rounding.errors.0' => 'Значение недопустимо.',
                 )
             ),
-            'invalid rounding no value' => array(
-                400,
+            'valid rounding no value, should be default rounding' => array(
+                201,
                 array('rounding' => null),
                 array(
-                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                    'rounding.name' => 'nearest1',
                 )
             ),
-            'invalid rounding empty value' => array(
-                400,
+            'valid rounding empty value, should be default rounding' => array(
+                201,
                 array('rounding' => ''),
                 array(
-                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                    'rounding.name' => 'nearest1',
                 )
             ),
         );
@@ -193,7 +272,7 @@ class GroupControllerTest extends WebTestCase
 
         $groupData = $data + array(
             'name' => 'Продовольственные товары',
-             'rounding' => 'nearest1',
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -230,6 +309,8 @@ class GroupControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($groupId, 'id', $postResponse);
         Assert::assertJsonPathEquals('Прод Тов', 'name', $postResponse);
+        Assert::assertJsonHasPath('rounding.name', $postResponse);
+        Assert::assertJsonHasPath('rounding.title', $postResponse);
     }
 
     public function testGetGroupWithCategoriesAndSubCategories()
@@ -594,6 +675,7 @@ class GroupControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($groupId, 'id', $getResponse);
+        Assert::assertJsonHasPath('rounding.name', $getResponse);
     }
 
     public function testGetStoreGroupStoreManagerFromAnotherStore()

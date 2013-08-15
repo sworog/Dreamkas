@@ -282,16 +282,11 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void setRoundings(String value) {
-        markUpTab.input("priceRoundings", value);
+        markUpTab.input("rounding", value);
     }
 
     @Step
     public void checkDropDownDefaultValue(String expectedValue) {
-        onMarkUpTab().checkDropDownDefaultValue(expectedValue);
         markUpTab.checkDropDownDefaultValue(expectedValue);
-    }
-
-    public MarkUpTab onMarkUpTab() {
-        return pages().get(MarkUpTab.class);
     }
 }

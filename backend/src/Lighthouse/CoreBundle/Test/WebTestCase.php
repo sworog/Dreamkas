@@ -371,13 +371,14 @@ class WebTestCase extends ContainerAwareTestCase
         $name = 'Продовольственные товары',
         $ifNotExists = true,
         $retailMarkupMin = null,
-        $retailMarkupMax = null
+        $retailMarkupMax = null,
+        $rounding = 'nearest1'
     ) {
         $postData = array(
             'name' => $name,
             'retailMarkupMin' => $retailMarkupMin,
             'retailMarkupMax' => $retailMarkupMax,
-            'rounding' => 'nearest1',
+            'rounding' => $rounding,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -469,15 +470,19 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createCategory($groupId = null, $name = 'Винно-водочные изделия', $ifNotExists = true)
-    {
+    protected function createCategory(
+        $groupId = null,
+        $name = 'Винно-водочные изделия',
+        $ifNotExists = true,
+        $rounding = 'nearest1'
+    ) {
         if ($groupId == null) {
             $groupId = $this->createGroup();
         }
         $categoryData = array(
             'name' => $name,
             'group' => $groupId,
-            'rounding' => 'nearest1',
+            'rounding' => $rounding,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');

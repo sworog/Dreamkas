@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare as AssertMarkupCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\NotBlankFields as AssertNotBlankFields;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @property string $id
@@ -60,12 +61,26 @@ abstract class AbstractNode extends AbstractDocument
     protected $retailMarkupMax;
 
     /**
-     * @Assert\NotBlank
      * @var AbstractRounding
      */
     protected $rounding;
 
     /**
+     * @param AbstractRounding $rounding
+     */
+    public function setRounding(AbstractRounding $rounding = null)
+    {
+        $this->rounding = $rounding;
+
+        if (null !== $rounding) {
+            $this->roundingId = $rounding->getName();
+        } else {
+            $this->roundingId = null;
+        }
+    }
+
+    /**
+     * @Exclude
      * @MongoDB\String
      * @var string
      */

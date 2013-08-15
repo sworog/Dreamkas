@@ -248,18 +248,18 @@ class CategoryControllerTest extends WebTestCase
                     'children.rounding.errors.0' => 'Значение недопустимо.',
                 )
             ),
-            'invalid rounding no value' => array(
-                400,
+            'valid rounding no value, should inherit group value' => array(
+                201,
                 array('rounding' => null),
                 array(
-                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                    'rounding.name' => 'nearest1',
                 )
             ),
-            'invalid rounding empty value' => array(
-                400,
+            'valid rounding empty value, should inherit group value' => array(
+                201,
                 array('rounding' => ''),
                 array(
-                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                    'rounding.name' => 'nearest1',
                 )
             ),
         );
@@ -527,6 +527,7 @@ class CategoryControllerTest extends WebTestCase
         );
 
         $accessToken = $this->authAsRole($role);
+
         $requestData += array(
             'name' => 'Пиво',
             'group' => $groupId,
@@ -580,20 +581,35 @@ class CategoryControllerTest extends WebTestCase
             array(
                 '/api/1/categories',
                 'POST',
+<<<<<<< Temporary merge branch 1
+                'ROLE_COMMERCIAL_MANAGER',
+                '201',
+=======
                 User::ROLE_COMMERCIAL_MANAGER,
                 201,
+>>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories',
                 'POST',
+<<<<<<< Temporary merge branch 1
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+=======
                 User::ROLE_DEPARTMENT_MANAGER,
                 403,
+>>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories',
                 'POST',
+<<<<<<< Temporary merge branch 1
+                'ROLE_STORE_MANAGER',
+                '403',
+=======
                 User::ROLE_STORE_MANAGER,
                 403,
+>>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories',
@@ -608,26 +624,46 @@ class CategoryControllerTest extends WebTestCase
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
+<<<<<<< Temporary merge branch 1
+                'ROLE_COMMERCIAL_MANAGER',
+                '200',
+=======
                 User::ROLE_COMMERCIAL_MANAGER,
                 200,
+>>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
+<<<<<<< Temporary merge branch 1
+                'ROLE_DEPARTMENT_MANAGER',
+                '403',
+=======
                 User::ROLE_DEPARTMENT_MANAGER,
                 403,
+>>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
+<<<<<<< Temporary merge branch 1
+                'ROLE_STORE_MANAGER',
+                '403',
+=======
                 User::ROLE_STORE_MANAGER,
                 403,
+>>>>>>> Temporary merge branch 2
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
                 'PUT',
+<<<<<<< Temporary merge branch 1
+                'ROLE_ADMINISTRATOR',
+                '403',
+=======
                 User::ROLE_ADMINISTRATOR,
                 403,
+>>>>>>> Temporary merge branch 2
             ),
 
             /*************************************
@@ -978,5 +1014,45 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($categoryId5, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($categoryId6, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($groupId2, '*.group.id', $getResponse, 2);
+    }
+
+    public function testRoundingIsInheritedFromGroup()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь', true, null, null, 'nearest50');
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postData = array(
+            'name' => 'Водка',
+            'group' => $groupId,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/categories',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+        $categoryId = $postResponse['id'];
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId,
+            $postData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
+        Assert::assertJsonPathEquals('nearest50', 'group.rounding.name', $postResponse);
     }
 }

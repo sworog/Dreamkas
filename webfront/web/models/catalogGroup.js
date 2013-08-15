@@ -17,7 +17,8 @@ define(function(require) {
             saveFields: [
                 'name',
                 'retailMarkupMax',
-                'retailMarkupMin'
+                'retailMarkupMin',
+                'rounding'
             ]
         });
     }

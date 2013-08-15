@@ -1,5 +1,6 @@
 parameters:
     money.precision: 2
+    rounding.default: nearest1
 
 services:
     jms_serializer.serialized_name_annotation_strategy:

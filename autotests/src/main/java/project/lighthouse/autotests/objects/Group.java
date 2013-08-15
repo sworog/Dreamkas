@@ -3,26 +3,22 @@ package project.lighthouse.autotests.objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Group {
+public class Group extends AbstractClassifierNode {
+
+    private static final String API_URL = "/groups";
 
     static public String DEFAULT_NAME = "defaultGroup";
 
-    JSONObject jsonObject;
-
     public Group(JSONObject jsonObject) {
-        this.jsonObject = jsonObject;
+        super(jsonObject);
     }
 
-    public String getId() throws JSONException {
-        return jsonObject.getString("id");
+    public Group(String name) throws JSONException {
+        super(name);
     }
 
-    public String getGroupName() throws JSONException {
-        return jsonObject.getString("name");
-    }
-
-    public static JSONObject getJsonObject(String name) throws JSONException {
-        return new JSONObject()
-                .put("name", name);
+    @Override
+    public String getApiUrl() {
+        return API_URL;
     }
 }
