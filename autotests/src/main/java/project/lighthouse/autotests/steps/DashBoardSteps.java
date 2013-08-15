@@ -32,9 +32,4 @@ public class DashBoardSteps extends ScenarioSteps {
     public void openUserCard() {
         dashBoardPage.openUserCard();
     }
-
-    @Step
-    public void dashboardLinkWebElementLinkClick() {
-        dashBoardPage.dashboardLinkWebElementLinkClick();
-    }
 }

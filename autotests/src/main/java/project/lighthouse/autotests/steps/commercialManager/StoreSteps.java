@@ -5,6 +5,8 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.UrlHelper;
 import project.lighthouse.autotests.objects.Store;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreCardPage;
@@ -135,5 +137,11 @@ public class StoreSteps extends ScenarioSteps {
     @Step
     public void checkStoreNumber(String number) {
         storeCardPage.checkStoreCardHeader(number);
+    }
+
+    @Step
+    public void navigatesToTheStoreCatalogPage(String storeName) throws JSONException {
+        String url = String.format("%s/catalog?editMode=false&storeId=%s", UrlHelper.getWebFrontUrl(), StaticData.stores.get(storeName).getId());
+        getDriver().navigate().to(url);
     }
 }

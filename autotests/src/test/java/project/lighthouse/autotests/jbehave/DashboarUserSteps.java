@@ -21,11 +21,6 @@ public class DashboarUserSteps {
         dashBoardSteps.openUserCard();
     }
 
-    @When("the user clicks on catalog page")
-    public void whenTheUserClicksOnCatalogPage() {
-        dashBoardSteps.dashboardLinkWebElementLinkClick();
-    }
-
     @Then("the user checks the dashboard link to '$sectionName' section is present")
     @Alias("the user checks the dashboard link to <sectionName> section is present")
     public void thenTheUserChecksTheLinkToSectionIsPresent(String sectionName) {
