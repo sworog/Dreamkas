@@ -31,12 +31,12 @@ public class Product extends AbstractObject {
         );
     }
 
-    public String getSku() throws JSONException {
-        return getPropertyAsString("sku");
-    }
-
     @Override
     public String getApiUrl() {
         return API_URL;
+    }
+
+    public String getSku() throws JSONException {
+        return getPropertyAsString("sku");
     }
 }

@@ -107,15 +107,19 @@ public class ApiConnect {
         createInvoiceThroughPostWithoutNavigation(invoiceName);
     }
 
-    public void createInvoiceThroughPostWithoutNavigation(String invoiceName) throws JSONException, IOException {
-        if (!StaticData.invoices.containsKey(invoiceName)) {
-            String getApiUrl = String.format("%s/api/1/invoices.json", UrlHelper.getApiUrl());
-            String jsonData = Invoice.getJsonObject(invoiceName, "supplier", DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "accepter", "legalEntity", "", "").toString();
-            String postResponse = executePostRequest(getApiUrl, jsonData);
-
-            Invoice invoice = new Invoice(new JSONObject(postResponse));
-            StaticData.invoices.put(invoiceName, invoice);
+    public Invoice createInvoiceThroughPost(Invoice invoice) throws JSONException, IOException {
+        if (!StaticData.invoices.containsKey(invoice.getSku())) {
+            executePostRequest(invoice);
+            StaticData.invoices.put(invoice.getSku(), invoice);
+            return invoice;
+        } else {
+            return StaticData.invoices.get(invoice.getSku());
         }
+    }
+
+    public Invoice createInvoiceThroughPostWithoutNavigation(String invoiceSku) throws JSONException, IOException {
+        Invoice invoice = new Invoice(invoiceSku, "supplier", DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "accepter", "legalEntity", "", "");
+        return createInvoiceThroughPost(invoice);
     }
 
     public String getInvoicePageUrl(String invoiceName) throws JSONException {
@@ -169,15 +173,19 @@ public class ApiConnect {
         addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause);
     }
 
-    public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
-        if (!StaticData.writeOffs.containsKey(writeOffNumber)) {
-            String getApiUrl = String.format("%s/api/1/writeoffs.json", UrlHelper.getApiUrl());
-            String jsonData = WriteOff.getJsonObject(writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN)).toString();
-            String postResponse = executePostRequest(getApiUrl, jsonData);
-
-            WriteOff writeOff = new WriteOff(new JSONObject(postResponse));
-            StaticData.writeOffs.put(writeOffNumber, writeOff);
+    public WriteOff createWriteOffThroughPost(WriteOff writeOff) throws JSONException, IOException {
+        if (!StaticData.writeOffs.containsKey(writeOff.getNumber())) {
+            executePostRequest(writeOff);
+            StaticData.writeOffs.put(writeOff.getNumber(), writeOff);
+            return writeOff;
+        } else {
+            return StaticData.writeOffs.get(writeOff.getNumber());
         }
+    }
+
+    public WriteOff createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
+        WriteOff writeOff = new WriteOff(writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN));
+        return createWriteOffThroughPost(writeOff);
     }
 
     public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause)

@@ -42,13 +42,6 @@ public class Department extends AbstractObject {
         return getPropertyAsString("number");
     }
 
-    public static JSONObject getJsonObject(String number, String name, String storeId) throws JSONException {
-        return new JSONObject()
-                .put("number", number)
-                .put("name", name)
-                .put("store", storeId);
-    }
-
     public String getStoreID() throws JSONException {
         return jsonObject.getJSONObject("store").getString("id");
     }

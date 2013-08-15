@@ -3,21 +3,27 @@ package project.lighthouse.autotests.objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WriteOff {
+public class WriteOff extends AbstractObject {
 
-    JSONObject productJsonObject;
+    private static final String API_URL = "/writeoffs";
 
-    public WriteOff(JSONObject productJsonObject) {
-        this.productJsonObject = productJsonObject;
+    public WriteOff(JSONObject jsonObject) {
+        super(jsonObject);
     }
 
-    public String getId() throws JSONException {
-        return productJsonObject.getString("id");
-    }
-
-    public static JSONObject getJsonObject(String number, String date) throws JSONException {
-        return new JSONObject()
+    public WriteOff(String number, String date) throws JSONException {
+        this(new JSONObject()
                 .put("number", number)
-                .put("date", date);
+                .put("date", date)
+        );
+    }
+
+    @Override
+    public String getApiUrl() {
+        return API_URL;
+    }
+
+    public String getNumber() throws JSONException {
+        return getPropertyAsString("number");
     }
 }

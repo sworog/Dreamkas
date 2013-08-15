@@ -3,26 +3,33 @@ package project.lighthouse.autotests.objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Invoice {
+public class Invoice extends AbstractObject {
 
-    private JSONObject jsonObject;
+    private static final String API_URL = "/invoices";
 
     public Invoice(JSONObject jsonObject) throws JSONException {
-        this.jsonObject = jsonObject;
+        super(jsonObject);
     }
 
-    public String getId() throws JSONException {
-        return (String) jsonObject.get("id");
-    }
-
-    public static JSONObject getJsonObject(String sku, String supplier, String acceptanceDate, String accepter, String legalEntity, String supplierInvoiceSku, String supplierInvoiceDate) throws JSONException {
-        return new JSONObject()
+    public Invoice(String sku, String supplier, String acceptanceDate, String accepter, String legalEntity,
+                   String supplierInvoiceSku, String supplierInvoiceDate) throws JSONException {
+        this(new JSONObject()
                 .put("sku", sku)
                 .put("supplier", supplier)
                 .put("acceptanceDate", acceptanceDate)
                 .put("accepter", accepter)
                 .put("legalEntity", legalEntity)
                 .put("supplierInvoiceSku", supplierInvoiceSku)
-                .put("supplierInvoiceDate", supplierInvoiceDate);
+                .put("supplierInvoiceDate", supplierInvoiceDate)
+        );
+    }
+
+    @Override
+    public String getApiUrl() {
+        return API_URL;
+    }
+
+    public String getSku() throws JSONException {
+        return getPropertyAsString("sku");
     }
 }
