@@ -185,6 +185,7 @@ class GroupControllerTest extends WebTestCase
                     'children.rounding.errors.0' => 'Значение недопустимо.',
                 )
             ),
+            /*
             'invalid rounding no value' => array(
                 400,
                 array('rounding' => null),
@@ -199,6 +200,7 @@ class GroupControllerTest extends WebTestCase
                     'children.rounding.errors.0' => 'Значение недопустимо.',
                 )
             ),
+            */
         );
     }
 

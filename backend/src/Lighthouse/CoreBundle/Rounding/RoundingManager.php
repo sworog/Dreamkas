@@ -64,6 +64,6 @@ class RoundingManager
      */
     public function findDefault()
     {
-        return $this->findDefault($this->defaultName);
+        return $this->findByName($this->defaultName);
     }
 }
