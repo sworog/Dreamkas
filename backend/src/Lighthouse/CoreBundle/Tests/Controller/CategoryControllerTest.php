@@ -127,7 +127,7 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('nearest1', 'rounding.name', $getResponse);
 
         $categoryData = array(
-            'name' => 'Алкоголь',
+            'name' => 'Водка',
             'group' => $groupId,
             'rounding' => 'nearest50',
         );
