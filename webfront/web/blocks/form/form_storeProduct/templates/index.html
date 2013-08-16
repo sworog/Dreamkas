@@ -3,7 +3,7 @@
     <div class="form__field form__field_inline">
         <label class="form__label">
             Наценка<br />
-            <% if (model.get('product').retailMarkupMin) { %>
+            <% if (model.get('product').retailMarkupMin >= 0) { %>
                 (<span name="retailMarkupRange"><%= LH.formatPrice(model.get('product').retailMarkupMin) %> - <%= LH.formatPrice(model.get('product').retailMarkupMax) %></span> %)
             <% } %>
         </label>

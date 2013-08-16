@@ -67,7 +67,7 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label"><%text 'Округление' %></label>
-        <select class="select" value="<%= model.get('rounding') %>" name="rounding" require="blocks/select/select_priceRoundings/select_priceRoundings"></select>
+        <select class="select" value="nearest1" name="rounding" require="blocks/select/select_priceRoundings/select_priceRoundings"></select>
     </div>
     <input type="hidden" value="<%= model.get('retailPricePreference') %>" name="retailPricePreference" />
 </fieldset>
