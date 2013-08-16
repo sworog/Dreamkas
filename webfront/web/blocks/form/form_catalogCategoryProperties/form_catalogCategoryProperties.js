@@ -7,7 +7,7 @@ define(function(require) {
         model: null,
         successMessage: 'Свойства успешно сохранены',
         templates: {
-            index: require('tpl!blocks/form/form_catalogGroupProperties/templates/index.html')
+            index: require('tpl!blocks/form/form_catalogCategoryProperties/templates/index.html')
         }
     });
 });
