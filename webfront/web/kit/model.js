@@ -24,7 +24,6 @@ define(function(require) {
             });
 
             _.each(model.initData, function(Class, key) {
-                console.log(Class, key);
                 model[key] = new Class(model.get(key), {
                     parentModel: model,
                     parse: true

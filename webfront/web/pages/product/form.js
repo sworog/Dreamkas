@@ -44,6 +44,8 @@ define(function(require) {
                     }, {
                         parse: true
                     });
+                } else {
+                    page.subCategoryModel = new SubCategoryModel(page.productModel.get('subCategory'));
                 }
 
                 page.render();
