@@ -175,7 +175,7 @@ class MoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
         $options = array(
             'gt' => new Money(10),
             'lt' => new Money(20),
-            'invalidValue' => 'invalidValue',
+            'invalidMessage' => 'invalidMessage',
         );
 
         $this
@@ -188,7 +188,7 @@ class MoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('addViolation')
             ->with(
-                'invalidValue'
+                'invalidMessage'
             );
 
         $constraint = new MoneyRange($options);
