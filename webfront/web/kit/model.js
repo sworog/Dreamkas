@@ -24,7 +24,6 @@ define(function(require) {
             });
 
             _.each(model.initData, function(Class, key) {
-                console.log(Class, key);
                 model[key] = new Class(model.get(key), {
                     parentModel: model,
                     parse: true
@@ -37,6 +36,20 @@ define(function(require) {
                 })
             });
 
+        },
+        get: function(path){
+            var model = this,
+                segments = path.split('.'),
+                segment,
+                attr;
+
+            _.every(segments, function(i){
+                segment = segments[i];
+                attr = model.attributes[segment];
+                return attr;
+            });
+
+            return attr;
         },
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({
