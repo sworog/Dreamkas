@@ -28,6 +28,11 @@ class RetailPriceValidator extends ConstraintValidator
                 'field' => 'retailPrice',
                 'gte' => 'product.retailPriceMin',
                 'lte' => 'product.retailPriceMax'
+            )),
+            new ClassMoneyRange(array(
+                'field' => 'retailPrice',
+                'gte' => 'product.purchasePrice',
+                'gteMessage' => 'lighthouse.validation.errors.product.retailPrice.purchasePrice'
             ))
         );
         $retailMarkupConstraints = array(
