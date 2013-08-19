@@ -103,7 +103,7 @@ Examples:
 |-0.01 | retailMarkup | Наценка должна быть больше или равна 0 |
 | 12,678 | retailMarkup | Наценка не должна содержать больше 2 цифр после запятой |
 | -12,678 | retailMarkup | Наценка не должна содержать больше 2 цифр после запятой. Наценка должна быть больше или равна 0 |
-| big price | retailMarkup | Наценка должна быть быть числом |
+| big price | retailMarkup | Наценка должна быть числом |
 | BIG PRICE | retailMarkup | Наценка должна быть числом |
 | большая цена | retailMarkup | Наценка должна быть числом |
 | БОЛЬШАЯ ЦЕНА | retailMarkup | Наценка должна быть числом |
@@ -136,10 +136,10 @@ Examples:
 | большая цена | retailPrice | Цена не должна быть меньше или равна нулю. |
 | БОЛЬШАЯ | retailPrice | Цена не должна быть меньше или равна нулю. |
 | 10000001 | retailPrice | Цена не должна быть больше 10000000 |
-| 9 | retailPrice | Цена должна быть больше или равно 10 |
-| 9.99 | retailPrice | Цена должна быть больше или равно 10 |
-| 15.01 | retailPrice | Цена должна быть меньше или равно 15 |
-| 16.00 | retailPrice | Цена должна быть меньше или равно 15 |
+| 9 | retailPrice | Цена должна быть больше или равна 10.00 |
+| 9.99 | retailPrice | Цена должна быть больше или равна 10.00 |
+| 15.01 | retailPrice | Цена должна быть меньше или равна 15.00 |
+| 16.00 | retailPrice | Цена должна быть меньше или равна 15.00 |
 
 
 Scenario: Store manager cant view catalog if he dont manage any store through link
@@ -156,7 +156,7 @@ And the user opens the authorization page
 When the user logs in using 'testName1' userName and 'lighthouse' password
 Then the user checks the dashboard link to 'catalog' section is not present
 
-Scenario: if mark up dont set - check mark up under the zero
+Scenario: If mark up dont set - check mark up under the zero
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And there is the product with 'storeProductName6' name, 'storeProductSku6' sku, 'storeProductBarCode6' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
@@ -169,9 +169,9 @@ And the user inputs '-1' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Наценка должна быть равна или больше 0% |
+| Наценка должна быть больше или равна 0%. Наценка должна быть больше или равна 0% |
 
-Scenario: if mark up dont set - check retail price under the purchase price
+Scenario: If mark up dont set - check retail price under the purchase price
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
@@ -186,9 +186,9 @@ And the user inputs '1' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Ошибка! |
+|  Цена должна быть больше или равна 10.00 |
 
-Scenario: check default values are set
+Scenario: Check default values are set
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
