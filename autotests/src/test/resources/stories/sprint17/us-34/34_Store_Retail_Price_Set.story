@@ -1,5 +1,5 @@
 Meta:
-@sprint 16
+@sprint 17
 @us 34
 
 Narrative:
@@ -11,7 +11,7 @@ Scenario: Product store mark up set positive
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice in the subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the store 'StoreProduct123' catalog page
@@ -36,7 +36,7 @@ Scenario: Product stote retail price set positive
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice in the subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the store 'StoreProduct123' catalog page
@@ -62,7 +62,7 @@ Scenario: Check mark up range
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '49' and min '12' values
-And there is the product with 'storeProductName3' name, 'storeProductSku3' sku, 'storeProductBarCode3' barcode, 'kg' units, '10' purchasePrice in the subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName3' name, 'storeProductSku3' sku, 'storeProductBarCode3' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the product with sku 'storeProductSku3'
@@ -74,7 +74,7 @@ Scenario: Check retail price range
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName2' name, 'storeProductSku2' sku, 'storeProductBarCode2' barcode, 'kg' units, '10' purchasePrice in the subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName2' name, 'storeProductSku2' sku, 'storeProductBarCode2' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the product with sku 'storeProductSku2'
@@ -85,9 +85,9 @@ Then the user checks the 'retailPriceRange' value is '10,00 - 15,00'
 
 Scenario: Mark up store product price negative
 
-Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
+Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName1' name, 'storeProductSku1' sku, 'storeProductBarCode1' barcode, 'kg' units, '10' purchasePrice in the subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName1' name, 'storeProductSku1' sku, 'storeProductBarCode1' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the product with sku 'storeProductSku1'
@@ -101,20 +101,20 @@ Examples:
 | inputText | elementName | errorMessage |
 |-1 | retailMarkup | Наценка должна быть больше или равна 0 |
 |-0.01 | retailMarkup | Наценка должна быть больше или равна 0 |
-| 12,678 | retailMarkup | Значение не должно содержать больше 2 цифр после запятой |
-| -12,678 | retailMarkup | Значение не должно содержать больше 2 цифр после запятой. Наценка должна быть больше или равна 0 |
-| big price | retailMarkup | Значение должно быть числом |
-| BIG PRICE | retailMarkup | Значение должно быть числом |
-| большая цена | retailMarkup | Значение должно быть числом |
-| БОЛЬШАЯ ЦЕНА | retailMarkup | Значение должно быть числом |
-| !@#$%^&*() | retailMarkup | Значение должно быть числом |
+| 12,678 | retailMarkup | Наценка не должна содержать больше 2 цифр после запятой |
+| -12,678 | retailMarkup | Наценка не должна содержать больше 2 цифр после запятой. Наценка должна быть больше или равна 0 |
+| big price | retailMarkup | Наценка должна быть быть числом |
+| BIG PRICE | retailMarkup | Наценка должна быть числом |
+| большая цена | retailMarkup | Наценка должна быть числом |
+| БОЛЬШАЯ ЦЕНА | retailMarkup | Наценка должна быть числом |
+| !@#$%^&*() | retailMarkup | Наценка должна быть числом |
 | 60 | retailMarkup | Наценка должна быть меньше или равна 50 |
 
 Scenario: Retail store product price negative
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName2' name, 'storeProductSku2' sku, 'storeProductBarCode2' barcode, 'kg' units, '10' purchasePrice in the subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName2' name, 'storeProductSku2' sku, 'storeProductBarCode2' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the product with sku 'storeProductSku2'
@@ -136,10 +136,10 @@ Examples:
 | большая цена | retailPrice | Цена не должна быть меньше или равна нулю. |
 | БОЛЬШАЯ | retailPrice | Цена не должна быть меньше или равна нулю. |
 | 10000001 | retailPrice | Цена не должна быть больше 10000000 |
-| 9 | retailPrice | Значение должно быть больше или равно 10 |
-| 9.99 | retailPrice | Значение должно быть больше или равно 10 |
-| 15.01 | retailPrice | Значение должно быть меньше или равно 15 |
-| 16.00 | retailPrice | Значение должно быть меньше или равно 15 |
+| 9 | retailPrice | Цена должна быть больше или равно 10 |
+| 9.99 | retailPrice | Цена должна быть больше или равно 10 |
+| 15.01 | retailPrice | Цена должна быть меньше или равно 15 |
+| 16.00 | retailPrice | Цена должна быть меньше или равно 15 |
 
 
 Scenario: Store manager cant view catalog if he dont manage any store through link
@@ -155,5 +155,50 @@ Given there is the user with name 'testName1', position 'testName1', username 't
 And the user opens the authorization page
 When the user logs in using 'testName1' userName and 'lighthouse' password
 Then the user checks the dashboard link to 'catalog' section is not present
+
+Scenario: if mark up dont set - check mark up under the zero
+
+Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
+And there is the product with 'storeProductName6' name, 'storeProductSku6' sku, 'storeProductBarCode6' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
+And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
+And the user navigates to the product with sku 'storeProductSku6'
+When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
+And the user clicks the edit price button
+And the user inputs '-1' in 'retailMarkup' field
+And the user clicks the create button
+Then the user sees error messages
+| error message |
+| Наценка должна быть равна или больше 0% |
+
+Scenario: if mark up dont set - check retail price under the purchase price
+
+Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
+And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
+And there is the product with 'storeProductName7' name, 'storeProductSku7' sku, 'storeProductBarCode7' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
+And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
+And the user navigates to the product with sku 'storeProductSku7'
+When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
+And the user clicks the edit price button
+And the user clicks retailPriceHint to make retailPrice available
+And the user inputs '1' in 'retailPrice' field
+And the user clicks the create button
+Then the user sees error messages
+| error message |
+| Ошибка! |
+
+Scenario: check default values are set
+
+Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
+And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
+And there is the product with 'storeProductName5' name, 'storeProductSku5' sku, 'storeProductBarCode5' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
+And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
+And the user navigates to the product with sku 'storeProductSku5'
+When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
+Then the user checks the 'retailMarkupRange' value is '0,00 - 50,00'
+And the user checks the 'retailPriceRange' value is '10,00 - 15,00'
+
 
 

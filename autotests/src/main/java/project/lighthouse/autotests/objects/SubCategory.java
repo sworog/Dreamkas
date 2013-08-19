@@ -31,8 +31,4 @@ public class SubCategory extends AbstractClassifierNode {
     public Category getCategory() throws JSONException {
         return new Category(jsonObject.getJSONObject("category"));
     }
-
-    public Boolean hasCategory(String categoryName) throws JSONException {
-        return getCategory().getName().equals(categoryName);
-    }
 }
