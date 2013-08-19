@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Validator\Constraints\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Precision;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassMoneyRange;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassNumericRange;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Symfony\Component\Validator\Constraint;
 
 class RetailPriceValidator extends ConstraintValidator
@@ -31,6 +32,12 @@ class RetailPriceValidator extends ConstraintValidator
         );
         $retailMarkupConstraints = array(
             new Precision(),
+            new Range(
+                array(
+                    'gte' => 0,
+                    'gteMessage' => 'lighthouse.validation.errors.product.retailMarkup.range'
+                )
+            )
         );
         $retailMarkupClassConstraints = array(
             new ClassNumericRange(array(

@@ -89,11 +89,16 @@ class StoreProductControllerTest extends WebTestCase
      * @param array $data
      * @param $expectedCode
      * @param array $assertions
+     * @param array $productData
      * @dataProvider retailPriceValidateDataProvider
      */
-    public function testPutActionRetailPriceValidate($expectedCode, array $data, array $assertions = array())
-    {
-        $productData = array(
+    public function testPutActionRetailPriceValidate(
+        $expectedCode,
+        array $data,
+        array $assertions = array(),
+        array $productData = array()
+    ) {
+        $productData += array(
             'sku' => 'Водка селедка',
             'purchasePrice' => 30.48,
             'retailPriceMin' => 31,
@@ -316,6 +321,23 @@ class StoreProductControllerTest extends WebTestCase
                     'subCategory' => null,
                 )
             ),
+            'invalid markup less than 0 when no min/max product markup provided' => array(
+                400,
+                array(
+                    'retailMarkup' => -2,
+                    'retailPricePreference' => 'retailMarkup',
+                ),
+                array(
+                    'children.retailMarkup.errors.0' => 'Наценка должна быть равна или больше 0%',
+                    'children.retailMarkup.errors.1' => null,
+                    'children.retailPrice.errors' => null,
+                ),
+                array(
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            )
         );
     }
 
