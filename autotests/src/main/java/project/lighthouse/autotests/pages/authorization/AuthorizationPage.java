@@ -9,6 +9,8 @@ import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
 import java.util.HashMap;
 import java.util.Map;
 
+import static junit.framework.Assert.*;
+
 @DefaultUrl("/")
 public class AuthorizationPage extends UserCreatePage {
 
@@ -73,10 +75,10 @@ public class AuthorizationPage extends UserCreatePage {
     public void checkUser(String userName) {
         String userXpath = "//*[@class='topBar__userName']";
         String actualUserName = find(By.xpath(userXpath)).getText();
-        if (!userName.equals(actualUserName)) {
-            String errorMessage = String.format("The user name is '%s'. Should be '%s'.", actualUserName, userName);
-            throw new AssertionError(errorMessage);
-        }
+        assertEquals(
+                String.format("The user name is '%s'. Should be '%s'.", actualUserName, userName),
+                userName, actualUserName
+        );
     }
 
     public boolean loginFormIsVisible() {
@@ -84,9 +86,7 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void loginFormIsPresent() {
-        if (!loginFormIsVisible()) {
-            throw new AssertionError("The log out is not successful!");
-        }
+        assertTrue("The log out is not successful!", loginFormIsVisible());
     }
 
     public void authorizationFalse(String userName, String password) {
@@ -99,8 +99,7 @@ public class AuthorizationPage extends UserCreatePage {
             String error404Xpath = getError403Xpath();
             findElement(By.xpath(error404Xpath));
         } catch (Exception e) {
-            String errorMessage = "The error 403 is not present on the page!";
-            throw new AssertionError(errorMessage);
+            fail("The error 403 is not present on the page!");
         }
     }
 
@@ -113,8 +112,7 @@ public class AuthorizationPage extends UserCreatePage {
             String error404Xpath = getError403Xpath();
             waiter.waitUntilIsNotVisible(By.xpath(error404Xpath));
         } catch (Exception e) {
-            String errorMessage = "The error 403 is present on the page!";
-            throw new AssertionError(errorMessage);
+            fail("The error 403 is present on the page!");
         }
     }
 }

@@ -13,7 +13,6 @@ define(function(require) {
             },
             initialize: function(models, options){
                 this.storeId = options.storeId;
-                console.log(this.storeId);
             }
         });
     }

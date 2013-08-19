@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static junit.framework.Assert.fail;
+
 public class DateTime extends CommonItem {
 
     public static final String DATE_PATTERN = "dd.MM.yyyy";
@@ -156,8 +158,9 @@ public class DateTime extends CommonItem {
                 actualYearValue = getActualDatePickerYear();
             }
         } else if (yearValue > actualYear) {
-            String errorMessage = String.format("Year '%s' cantbe older than current year '%s'", yearValue, actualYear);
-            throw new AssertionError(errorMessage);
+            fail(
+                    String.format("Year '%s' cantbe older than current year '%s'", yearValue, actualYear)
+            );
         }
     }
 
@@ -166,13 +169,14 @@ public class DateTime extends CommonItem {
     }
 
     public int getMonthNumber(String monthName) {
-        Date date;
+        Date date = null;
         try {
             date = new SimpleDateFormat("MMM", locale).parse(monthName);
 
         } catch (ParseException e) {
-            String errorMessage = String.format("SimpleDateFormat parse error! Error message: '%s'", e.getMessage());
-            throw new AssertionError(errorMessage);
+            fail(
+                    String.format("SimpleDateFormat parse error! Error message: '%s'", e.getMessage())
+            );
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);

@@ -17,7 +17,8 @@ abstract class ClassifierNodeType extends AbstractType
         $builder
             ->add('name', 'text')
             ->add('retailMarkupMin', 'markup')
-            ->add('retailMarkupMax', 'markup');
+            ->add('retailMarkupMax', 'markup')
+            ->add('rounding', 'custom_reference', array('reference_provider_alias' => 'rounding'));
     }
 
     /**

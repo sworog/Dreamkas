@@ -3,6 +3,9 @@
 namespace Lighthouse\CoreBundle\Serializer\Handler;
 
 use JMS\Serializer\Context;
+use JMS\Serializer\EventDispatcher\Events;
+use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
+use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonSerializationVisitor;
@@ -15,8 +18,9 @@ use Metadata\MetadataFactoryInterface;
 /**
  * @DI\Service("lighthouse.core.serializer.handler.collection")
  * @DI\Tag("jms_serializer.subscribing_handler")
+ * @DI\Tag("jms_serializer.event_subscriber")
  */
-class CollectionHandler implements SubscribingHandlerInterface
+class CollectionHandler implements SubscribingHandlerInterface, EventSubscriberInterface
 {
     /**
      * @DI\Inject("jms_serializer.metadata_factory")
@@ -85,5 +89,28 @@ class CollectionHandler implements SubscribingHandlerInterface
         Context $context
     ) {
         $visitor->visitArray($collection->toArray(), $type, $context);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getSubscribedEvents()
+    {
+        return array(
+            array(
+                'event' => Events::PRE_SERIALIZE,
+                'method' => 'onPreSerialize'
+            ),
+        );
+    }
+
+    /**
+     * @param PreSerializeEvent $event
+     */
+    public function onPreSerialize(PreSerializeEvent $event)
+    {
+        if ($event->getObject() instanceof AbstractCollection) {
+            $event->setType('Collection');
+        }
     }
 }

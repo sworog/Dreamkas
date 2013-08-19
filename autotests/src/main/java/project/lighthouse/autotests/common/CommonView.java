@@ -12,6 +12,8 @@ import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffPag
 
 import java.util.Map;
 
+import static junit.framework.Assert.fail;
+
 public class CommonView extends CommonPageObject implements CommonViewInterface {
 
     String listPageName;
@@ -52,8 +54,9 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
         try {
             commonActions.elementShouldBeVisible(value, this);
         } catch (AssertionError e) {
-            String errorMessage = String.format("The element with value '%s' is not present\nException message: %s", value, e.getMessage());
-            throw new AssertionError(errorMessage);
+            fail(
+                    String.format("The element with value '%s' is not present\nException message: %s", value, e.getMessage())
+            );
         }
     }
 

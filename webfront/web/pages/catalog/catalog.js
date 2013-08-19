@@ -1,37 +1,60 @@
 define(function(require) {
     //requirements
     var Page = require('kit/page'),
+        pageParams = require('pages/catalog/params'),
         Catalog = require('blocks/catalog/catalog'),
-        СatalogGroupsCollection = require('collections/catalogGroups');
+        СatalogGroupsCollection = require('collections/catalogGroups'),
+        currentUserModel = require('models/currentUser'),
+        Page403 = require('pages/403/403');
+
+    var router = new Backbone.Router();
 
     return Page.extend({
         pageName: 'page_catalog_catalog',
         templates: {
             '#content': require('tpl!./templates/catalog.html')
         },
-        permissions: {
-            groups: 'GET'
-        },
-        initialize: function(){
+        initialize: function(params){
             var page = this;
 
             if (page.referer && page.referer.pageName.indexOf('page_catalog') >= 0){
-                page.editMode = page.referer.editMode;
+                _.extend(pageParams, params);
+            } else {
+                _.extend(pageParams, {
+                    editMode: false
+                }, params)
+            }
+
+            if (!pageParams.storeId && !LH.isAllow('groups')){
+                new Page403();
+                return;
+            }
+
+            if (pageParams.storeId && !LH.isAllow('stores/{store}/groups')){
+                new Page403();
+                return;
             }
 
             if (!LH.isAllow('groups', 'POST')) {
-                page.editMode = false;
+                pageParams.editMode = false;
             }
 
+            var route = router.toFragment(document.location.pathname, {
+                editMode: pageParams.editMode,
+                storeId: pageParams.storeId
+            });
+
+            router.navigate(route);
+
             page.catalogGroupsCollection = new СatalogGroupsCollection([], {
-                storeId: page.storeId
+                storeId: pageParams.storeId
             });
 
             $.when(page.catalogGroupsCollection.fetch()).then(function(){
                 page.render();
 
                 new Catalog({
-                    editMode: page.editMode,
+                    editMode: pageParams.editMode,
                     catalogGroupsCollection: page.catalogGroupsCollection,
                     el: document.getElementById('catalog')
                 });

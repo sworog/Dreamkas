@@ -168,7 +168,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Значение должно быть больше или равно 31',
+                    'children.retailPrice.errors.0' => 'Значение должно быть больше или равно 31.00',
                     'children.retailMarkup.errors' => null,
                 )
             ),
@@ -179,7 +179,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Значение должно быть меньше или равно 40',
+                    'children.retailPrice.errors.0' => 'Значение должно быть меньше или равно 40.00',
                     'children.retailMarkup.errors' => null,
                 )
             ),
@@ -307,6 +307,15 @@ class StoreProductControllerTest extends WebTestCase
                     'children.retailPrice.errors' => null,
                 )
             ),
+            'valid subcategory is not exposed' => array(
+                200,
+                array(
+                ),
+                array(
+                    'id' => null,
+                    'subCategory' => null,
+                )
+            ),
         );
     }
 
@@ -336,5 +345,167 @@ class StoreProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+    }
+
+    public function testGetStoreSubCategoryProductsStoreManagerHasStore()
+    {
+        $accessToken = $this->auth($this->storeManager, 'password');
+
+        $subCategoryId = $this->createSubCategory(null, 'Вино сухое');
+
+        $productId1 = $this->createProduct('1', $subCategoryId);
+        $productId2 = $this->createProduct('2', $subCategoryId);
+        $productId3 = $this->createProduct('3', $subCategoryId);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/subcategories/'  . $subCategoryId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.product', $getResponse);
+        Assert::assertJsonPathEquals($productId1, '*.product.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($productId2, '*.product.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($productId3, '*.product.id', $getResponse, 1);
+    }
+
+    /**
+     * @param $expectedCode
+     * @param $productRounding
+     * @param array $data
+     * @param array $assertions
+     *
+     * @dataProvider roundingsProvider
+     */
+    public function testRoundings($expectedCode, $productRounding, array $data, array $assertions)
+    {
+        $productData = array(
+            'sku' => 'Водка селедка',
+            'purchasePrice' => 30.48,
+            'retailPriceMin' => 31,
+            'retailPriceMax' => 40,
+            'retailPricePreference' => 'retailPrice',
+            'rounding' => $productRounding,
+        );
+
+        $productId = $this->createProduct($productData);
+
+        $accessToken = $this->auth($this->storeManager, 'password');
+
+        $putData = $data + array('retailPricePreference' => 'retailPrice');
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId,
+            $putData
+        );
+
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($putResponse, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function roundingsProvider()
+    {
+        return array(
+            // roundings
+            'valid nearest1 price set' => array(
+                200,
+                'nearest1',
+                array(
+                    'retailPrice' => '31.54',
+                ),
+                array(
+                    'retailPrice' => '31.54',
+                    'retailMarkup' => '3.48',
+                    'roundedRetailPrice' => '31.54',
+                    'product.rounding.name' => 'nearest1',
+                )
+            ),
+            'valid nearest1 price set up' => array(
+                200,
+                'nearest1',
+                array(
+                    'retailPrice' => '31.55',
+                ),
+                array(
+                    'retailPrice' => '31.55',
+                    'retailMarkup' => '3.51',
+                    'roundedRetailPrice' => '31.55',
+                    'product.rounding.name' => 'nearest1',
+                )
+            ),
+            'valid nearest10 price set' => array(
+                200,
+                'nearest10',
+                array(
+                    'retailPrice' => '31.54',
+                ),
+                array(
+                    'retailPrice' => '31.54',
+                    'retailMarkup' => '3.48',
+                    'roundedRetailPrice' => '31.50',
+                    'product.rounding.name' => 'nearest10',
+                )
+            ),
+            'valid nearest10 price set up' => array(
+                200,
+                'nearest10',
+                array(
+                    'retailPrice' => '31.55',
+                ),
+                array(
+                    'retailPrice' => '31.55',
+                    'retailMarkup' => '3.51',
+                    'roundedRetailPrice' => '31.60',
+                    'product.rounding.name' => 'nearest10',
+                )
+            ),
+            'valid nearest50 price set' => array(
+                200,
+                'nearest50',
+                array(
+                    'retailPrice' => '31.54',
+                ),
+                array(
+                    'retailPrice' => '31.54',
+                    'retailMarkup' => '3.48',
+                    'roundedRetailPrice' => '31.50',
+                    'product.rounding.name' => 'nearest50',
+                )
+            ),
+            'valid nearest100 price set' => array(
+                200,
+                'nearest100',
+                array(
+                    'retailPrice' => '31.54',
+                ),
+                array(
+                    'retailPrice' => '31.54',
+                    'retailMarkup' => '3.48',
+                    'roundedRetailPrice' => '32.00',
+                    'product.rounding.name' => 'nearest100',
+                )
+            ),
+            'valid nearest99 price set' => array(
+                200,
+                'nearest99',
+                array(
+                    'retailPrice' => '31.54',
+                ),
+                array(
+                    'retailPrice' => '31.54',
+                    'retailMarkup' => '3.48',
+                    'roundedRetailPrice' => '31.99',
+                    'product.rounding.name' => 'nearest99',
+                )
+            ),
+        );
     }
 }

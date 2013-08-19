@@ -34,7 +34,8 @@ class ProductType extends AbstractType
                     'class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\SubCategory\\SubCategory',
                     'invalid_message' => 'lighthouse.validation.errors.product.subCategory.does_not_exists'
                 )
-            );
+            )
+            ->add('rounding', 'custom_reference', array('reference_provider_alias' => 'rounding'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

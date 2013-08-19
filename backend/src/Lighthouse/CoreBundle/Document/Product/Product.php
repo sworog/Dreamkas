@@ -6,12 +6,14 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Versionable\VersionableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  *
@@ -31,6 +33,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property float  $retailMarkupMin
  * @property float  $retailMarkupMax
  * @property string $retailPricePreference
+ * @property AbstractRounding $rounding
  * @property Money  $averagePurchasePrice
  * @property \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory $subCategory
  *
@@ -166,6 +169,18 @@ class Product extends AbstractDocument implements VersionableInterface
     protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
 
     /**
+     * @var AbstractRounding
+     */
+    protected $rounding;
+
+    /**
+     * @Exclude
+     * @MongoDB\String
+     * @var string
+     */
+    protected $roundingId;
+
+    /**
      * @MongoDB\Field(type="money")
      * @var Money
      */
@@ -180,6 +195,20 @@ class Product extends AbstractDocument implements VersionableInterface
      * @var SubCategory
      */
     protected $subCategory;
+
+    /**
+     * @param AbstractRounding $rounding
+     */
+    public function setRounding(AbstractRounding $rounding = null)
+    {
+        $this->rounding = $rounding;
+
+        if (null !== $rounding) {
+            $this->roundingId = $rounding->getName();
+        } else {
+            $this->roundingId = null;
+        }
+    }
 
     /**
      * @return string

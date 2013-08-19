@@ -371,12 +371,14 @@ class WebTestCase extends ContainerAwareTestCase
         $name = 'Продовольственные товары',
         $ifNotExists = true,
         $retailMarkupMin = null,
-        $retailMarkupMax = null
+        $retailMarkupMax = null,
+        $rounding = 'nearest1'
     ) {
         $postData = array(
             'name' => $name,
             'retailMarkupMin' => $retailMarkupMin,
             'retailMarkupMax' => $retailMarkupMax,
+            'rounding' => $rounding,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -385,7 +387,7 @@ class WebTestCase extends ContainerAwareTestCase
             $postResponse = $this->clientJsonRequest(
                 $accessToken,
                 'GET',
-                '/api/1/groups.json'
+                '/api/1/groups'
             );
 
             if (count($postResponse)) {
@@ -400,7 +402,7 @@ class WebTestCase extends ContainerAwareTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/groups.json',
+            '/api/1/groups',
             $postData
         );
 
@@ -468,14 +470,19 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createCategory($groupId = null, $name = 'Винно-водочные изделия', $ifNotExists = true)
-    {
+    protected function createCategory(
+        $groupId = null,
+        $name = 'Винно-водочные изделия',
+        $ifNotExists = true,
+        $rounding = 'nearest1'
+    ) {
         if ($groupId == null) {
             $groupId = $this->createGroup();
         }
         $categoryData = array(
             'name' => $name,
             'group' => $groupId,
+            'rounding' => $rounding,
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -523,6 +530,7 @@ class WebTestCase extends ContainerAwareTestCase
         $subCategoryData = array(
             'name' => $name,
             'category' => $categoryId,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');

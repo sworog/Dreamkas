@@ -41,6 +41,7 @@ define(function(require) {
                 page.render();
 
                 new Form_product({
+                    subCategoryModel: page.subCategoryModel,
                     model: page.productModel,
                     el: document.getElementById('form_product')
                 });

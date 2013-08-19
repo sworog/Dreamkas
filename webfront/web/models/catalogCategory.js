@@ -12,7 +12,8 @@ define(function(require) {
                 'name',
                 'group',
                 'retailMarkupMax',
-                'retailMarkupMin'
+                'retailMarkupMin',
+                'rounding'
             ],
             initialize: function(attrs, options) {
 
@@ -27,6 +28,10 @@ define(function(require) {
 
                 if (typeof data.group == 'object') {
                     data.group = data.group.id;
+                }
+
+                if (typeof data.rounding == 'object') {
+                    data.rounding = data.rounding.name;
                 }
 
                 return data;

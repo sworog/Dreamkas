@@ -1,9 +1,12 @@
 package project.lighthouse.autotests.elements;
 
+
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
+
+import static junit.framework.Assert.fail;
 
 public class NonType extends CommonItem {
 
@@ -17,7 +20,8 @@ public class NonType extends CommonItem {
 
     @Override
     public void setValue(String value) {
-        String errorMessage = String.format(CommonPage.ERROR_MESSAGE, "NonType");
-        throw new AssertionError(errorMessage);
+        fail(
+                String.format(CommonPage.ERROR_MESSAGE, "NonType")
+        );
     }
 }

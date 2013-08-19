@@ -18,6 +18,7 @@ class SubCategoryControllerTest extends WebTestCase
         $subCategoryData = array(
             'name' => 'Водка',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -39,6 +40,64 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Алкоголь', 'category.group.name', $postResponse);
     }
 
+    public function testPutSubCategoryActionRoundingUpdated()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь');
+        $categoryId = $this->createCategory($groupId, 'Водка');
+        $subCategoryId = $this->createSubCategory($categoryId, 'Безалкогольная водка');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest1', 'rounding.name', $getResponse);
+
+        $subCategoryData = array(
+            'name' => 'Алкоголь',
+            'category' => $categoryId,
+            'rounding' => 'nearest50',
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/subcategories/' . $subCategoryId,
+            $subCategoryData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $getResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId . '/subcategories'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', '0.rounding.name', $getResponse);
+    }
+
     /**
      * @param int $expectedCode
      * @param array $data
@@ -56,6 +115,7 @@ class SubCategoryControllerTest extends WebTestCase
         $subCategoryData = $data + array(
             'name' => 'Водка',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -165,6 +225,53 @@ class SubCategoryControllerTest extends WebTestCase
                 array('retailMarkupMin' => '', 'retailMarkupMax' => 10),
                 array('children.retailMarkupMin.errors.0' => 'Заполните это поле'),
             ),
+            // rounding
+            'valid rounding nearest1' => array(
+                201,
+                array('rounding' => 'nearest1'),
+                array('rounding.name' => 'nearest1', 'rounding.title' => 'до копеек')
+            ),
+            'valid rounding nearest10' => array(
+                201,
+                array('rounding' => 'nearest10'),
+                array('rounding.name' => 'nearest10', 'rounding.title' => 'до 10 копеек')
+            ),
+            'valid rounding nearest50' => array(
+                201,
+                array('rounding' => 'nearest50'),
+                array('rounding.name' => 'nearest50', 'rounding.title' => 'до 50 копеек')
+            ),
+            'valid rounding nearest100' => array(
+                201,
+                array('rounding' => 'nearest100'),
+                array('rounding.name' => 'nearest100', 'rounding.title' => 'до рублей')
+            ),
+            'valid rounding nearest100' => array(
+                201,
+                array('rounding' => 'nearest99'),
+                array('rounding.name' => 'nearest99', 'rounding.title' => 'до 99 копеек')
+            ),
+            'invalid rounding aaaa' => array(
+                400,
+                array('rounding' => 'aaaa'),
+                array(
+                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                )
+            ),
+            'valid rounding no value, should inherit group value' => array(
+                201,
+                array('rounding' => null),
+                array(
+                    'rounding.name' => 'nearest1',
+                )
+            ),
+            'valid rounding empty value, should inherit group value' => array(
+                201,
+                array('rounding' => ''),
+                array(
+                    'rounding.name' => 'nearest1',
+                )
+            ),
         );
     }
 
@@ -180,6 +287,7 @@ class SubCategoryControllerTest extends WebTestCase
         $subCategoryData = array(
             'name' => 'Водка',
             'category' => $categoryId1,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -255,6 +363,7 @@ class SubCategoryControllerTest extends WebTestCase
         $postData = array(
             'name' => 'Водка',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
         );
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -490,11 +599,11 @@ class SubCategoryControllerTest extends WebTestCase
      * @param string    $method
      * @param string    $role
      * @param int       $responseCode
-     * @param array|null $requestData
+     * @param array     $requestData
      *
      * @dataProvider accessSubCategoryProvider
      */
-    public function testAccessSubCategory($url, $method, $role, $responseCode, $requestData = null)
+    public function testAccessSubCategory($url, $method, $role, $responseCode, array $requestData = array())
     {
         $this->clearMongoDb();
 
@@ -513,15 +622,16 @@ class SubCategoryControllerTest extends WebTestCase
             ),
             $url
         );
-        $accessToken = $this->authAsRole($role);
-        if (is_array($requestData)) {
-            $requestData = $requestData + array(
-                    'name' => 'Тёмное',
-                    'category' => $categoryId,
-                );
-        }
 
-        $response = $this->clientJsonRequest(
+        $accessToken = $this->authAsRole($role);
+
+        $requestData += array(
+            'name' => 'Тёмное',
+            'category' => $categoryId,
+            'rounding' => 'nearest1',
+        );
+
+        $this->clientJsonRequest(
             $accessToken,
             $method,
             $url,
@@ -540,26 +650,26 @@ class SubCategoryControllerTest extends WebTestCase
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'GET',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'GET',
-                'ROLE_DEPARTMENT_MANAGER',
-                '200',
+                User::ROLE_DEPARTMENT_MANAGER,
+                200,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'GET',
-                'ROLE_STORE_MANAGER',
-                '200',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'GET',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -568,30 +678,26 @@ class SubCategoryControllerTest extends WebTestCase
             array(
                 '/api/1/subcategories',
                 'POST',
-                'ROLE_COMMERCIAL_MANAGER',
-                '201',
-                array(),
+                User::ROLE_COMMERCIAL_MANAGER,
+                201,
             ),
             array(
                 '/api/1/subcategories',
                 'POST',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
-                array(),
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories',
                 'POST',
-                'ROLE_STORE_MANAGER',
-                '403',
-                array(),
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories',
                 'POST',
-                'ROLE_ADMINISTRATOR',
-                '403',
-                array(),
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -600,30 +706,26 @@ class SubCategoryControllerTest extends WebTestCase
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'PUT',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
-                array(),
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'PUT',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
-                array(),
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'PUT',
-                'ROLE_STORE_MANAGER',
-                '403',
-                array(),
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'PUT',
-                'ROLE_ADMINISTRATOR',
-                '403',
-                array(),
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -632,26 +734,26 @@ class SubCategoryControllerTest extends WebTestCase
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'DELETE',
-                'ROLE_COMMERCIAL_MANAGER',
-                '204',
+                User::ROLE_COMMERCIAL_MANAGER,
+                204,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'DELETE',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'DELETE',
-                'ROLE_STORE_MANAGER',
-                '403',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'DELETE',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
 
             /*************************************
@@ -660,26 +762,26 @@ class SubCategoryControllerTest extends WebTestCase
             array(
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
                 'GET',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
                 'GET',
-                'ROLE_DEPARTMENT_MANAGER',
-                '200',
+                User::ROLE_DEPARTMENT_MANAGER,
+                200,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
                 'GET',
-                'ROLE_STORE_MANAGER',
-                '200',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
                 'GET',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
         );
     }
@@ -735,6 +837,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/groups/' . $groupId,
             array(
                 'name' => 'Алкоголь',
+                'rounding' => 'nearest1',
                 'retailMarkupMin' => 15,
                 'retailMarkupMax' => 25,
             )
@@ -767,6 +870,7 @@ class SubCategoryControllerTest extends WebTestCase
         $postData = array(
             'name' => 'Божоле нуво',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
             'retailMarkupMin' => 5,
             'retailMarkupMax' => 25,
         );
@@ -788,6 +892,7 @@ class SubCategoryControllerTest extends WebTestCase
         $putData = array(
             'name' => 'Бужуле ново',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
             'retailMarkupMin' => null,
             'retailMarkupMax' => null,
         );
@@ -818,6 +923,7 @@ class SubCategoryControllerTest extends WebTestCase
         $postData = array(
             'name' => 'Божоле нуво',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
             'retailMarkupMin' => 5,
             'retailMarkupMax' => 25,
         );
@@ -839,6 +945,7 @@ class SubCategoryControllerTest extends WebTestCase
         $putData = array(
             'name' => 'Бужуле ново',
             'category' => $categoryId,
+            'rounding' => 'nearest1',
         );
 
         $putResponse = $this->clientJsonRequest(
@@ -922,5 +1029,115 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertResponseCode(403);
 
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
+    }
+
+    public function testGetStoreCategorySubCategoriesStoreManagerHasStore()
+    {
+        $this->clearMongoDb();
+
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+
+        $storeId = $this->createStore();
+
+        $this->linkStoreManagers($storeId, $storeManager->id);
+
+        $groupId1 = $this->createGroup('1');
+        $groupId2 = $this->createGroup('2');
+
+        $categoryId1 = $this->createCategory($groupId1, '1.1');
+        $categoryId2 = $this->createCategory($groupId1, '1.2');
+
+        $categoryId3 = $this->createCategory($groupId2, '2.1');
+        $categoryId4 = $this->createCategory($groupId2, '2.2');
+
+        $subCategory1 = $this->createSubCategory($categoryId1, '1.1.1');
+        $subCategory2 = $this->createSubCategory($categoryId1, '1.1.2');
+        $subCategory3 = $this->createSubCategory($categoryId1, '1.1.3');
+
+        $subCategory4 = $this->createSubCategory($categoryId4, '2.2.1');
+        $subCategory5 = $this->createSubCategory($categoryId4, '2.2.2');
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/categories/' .  $categoryId1 . '/subcategories'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($subCategory1, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategory2, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategory3, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId1, '*.category.id', $getResponse, 3);
+        Assert::assertJsonPathEquals($groupId1, '*.category.group.id', $getResponse, 3);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/categories/' .  $categoryId4 . '/subcategories'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($subCategory4, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($subCategory5, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($categoryId4, '*.category.id', $getResponse, 2);
+        Assert::assertJsonPathEquals($groupId2, '*.category.group.id', $getResponse, 2);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/categories/' .  $categoryId3 . '/subcategories'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '*.id', $getResponse);
+    }
+
+    public function testRoundingIsInheritedFromGroup()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь', true, null, null, 'nearest50');
+        $categoryId = $this->createCategory($groupId, 'Водка', true, 'nearest50');
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postData = array(
+            'name' => 'Водка',
+            'category' => $categoryId,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/subcategories',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+        $subCategoryId = $postResponse['id'];
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId,
+            $postData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
+        Assert::assertJsonPathEquals('nearest50', 'category.rounding.name', $postResponse);
+        Assert::assertJsonPathEquals('nearest50', 'category.group.rounding.name', $postResponse);
     }
 }

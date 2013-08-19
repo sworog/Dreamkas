@@ -112,6 +112,12 @@
             <% } %>
         </td>
     </tr>
+    <tr>
+        <th>Округление</th>
+        <td>
+            <%attr model:rounding %>
+        </td>
+    </tr>
     <% if(storeProductModel) { %>
         <tr>
             <th>Наценка</th>
@@ -131,9 +137,9 @@
         <tr>
             <th>Цена продажи</th>
             <td>
-                <% if(storeProductModel.get('retailPrice')) { %>
+                <% if(storeProductModel.get('roundedRetailPrice')) { %>
                     <span name="retailPrice">
-                        <%= LH.formatPrice(storeProductModel.get('retailPrice')) %>
+                        <%= LH.formatPrice(storeProductModel.get('roundedRetailPrice')) %>
                     </span>
                     руб.
                 <% } else { %>

@@ -11,6 +11,8 @@ import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.InputOnlyVisible;
 
+import static junit.framework.Assert.fail;
+
 @DefaultUrl("/catalog")
 public class GroupPage extends CommonPageObject {
 
@@ -37,8 +39,7 @@ public class GroupPage extends CommonPageObject {
     public void startEditButtonLinkClickIsNotPresent() {
         try {
             startEditionButtonLinkClick();
-            String errorMessage = "The edit button is present on catalog page!";
-            throw new AssertionError(errorMessage);
+            fail("The edit button is present on catalog page!");
         } catch (Exception e) {
         }
     }
@@ -160,9 +161,11 @@ public class GroupPage extends CommonPageObject {
                         By.xpath("//*[@rel='productList']")
                 );
             default:
-                String errorMessage = String.format("No such value '%s'", mainTabType);
-                throw new AssertionError(errorMessage);
+                fail(
+                        String.format("No such value '%s'", mainTabType)
+                );
         }
+        return null;
     }
 
     public WebElement propertiesTab(String propertiesTabType) {
@@ -180,8 +183,10 @@ public class GroupPage extends CommonPageObject {
                         By.xpath("//*[@rel='subCategoryProperties']")
                 );
             default:
-                String errorMessage = String.format("No such value '%s'", propertiesTabType);
-                throw new AssertionError(errorMessage);
+                fail(
+                        String.format("No such value '%s'", propertiesTabType)
+                );
         }
+        return null;
     }
 }

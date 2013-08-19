@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.InputOnlyVisible;
+import project.lighthouse.autotests.elements.SelectByVisibleText;
+
+import static junit.framework.Assert.assertEquals;
 
 public class MarkUpTab extends CommonPageObject {
 
@@ -16,6 +19,7 @@ public class MarkUpTab extends CommonPageObject {
     public void createElements() {
         items.put("retailMarkupMin", new InputOnlyVisible(this, "retailMarkupMin"));
         items.put("retailMarkupMax", new InputOnlyVisible(this, "retailMarkupMax"));
+        items.put("rounding", new SelectByVisibleText(this, "rounding"));
     }
 
     public WebElement saveMarkUpButton() {
@@ -31,10 +35,14 @@ public class MarkUpTab extends CommonPageObject {
     }
 
     public void checkSuccessMessage(String expectedMessage) {
-        String actualSuccessMessage = getSuccessMessage().getText();
-        if (!actualSuccessMessage.contains(expectedMessage)) {
-            String errorMessage = String.format("Success message is not expected. Actual: '%s', Expected: '%s'", actualSuccessMessage, expectedMessage);
-            throw new AssertionError(errorMessage);
-        }
+        assertEquals(
+                String.format("Success message is not expected. Actual: '%s', Expected: '%s'", getSuccessMessage().getText(), expectedMessage),
+                getSuccessMessage().getText(), expectedMessage
+        );
+    }
+
+    public void checkDropDownDefaultValue(String expectedValue) {
+        WebElement element = items.get("rounding").getVisibleWebElement();
+        commonPage.checkDropDownDefaultValue(element, expectedValue);
     }
 }

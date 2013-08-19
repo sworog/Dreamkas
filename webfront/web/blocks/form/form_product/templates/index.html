@@ -65,6 +65,10 @@
         </span>
         <span class="inputText__postfix">руб.</span>
     </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label"><%text 'Округление' %></label>
+        <select class="select" value="<%= subCategoryModel.get('rounding').name || 'nearest1' %>" name="rounding" require="blocks/select/select_priceRoundings/select_priceRoundings"></select>
+    </div>
     <input type="hidden" value="<%= model.get('retailPricePreference') %>" name="retailPricePreference" />
 </fieldset>
 <fieldset class="form__fieldset">

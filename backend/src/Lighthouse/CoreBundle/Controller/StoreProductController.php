@@ -2,7 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\StoreProductType;
@@ -11,7 +13,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
 
 class StoreProductController extends AbstractRestController
@@ -55,6 +56,18 @@ class StoreProductController extends AbstractRestController
     {
         $storeProduct = $this->findStoreProduct($store, $product);
         return $this->processForm($request, $storeProduct);
+    }
+
+
+    /**
+     * @param SubCategory $subCategory
+     * @return StoreProductCollection
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @ApiDoc
+     */
+    public function getStoreSubcategoryProductsAction(Store $store, SubCategory $subCategory)
+    {
+        return $this->documentRepository->findByStoreSubCategory($store, $subCategory);
     }
 
     /**

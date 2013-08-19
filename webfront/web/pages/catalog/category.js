@@ -1,49 +1,67 @@
 define(function(require) {
     //requirements
     var Page = require('kit/page'),
+        pageParams = require('pages/catalog/params'),
         CatalogCategoryBlock = require('blocks/catalogCategory/catalogCategory'),
         CatalogProductsCollection = require('collections/catalogProducts'),
-        СatalogGroupModel = require('models/catalogGroup');
+        СatalogGroupModel = require('models/catalogGroup'),
+        currentUserModel = require('models/currentUser'),
+        Page403 = require('pages/403/403');
+
+    var router = new Backbone.Router();
 
     return Page.extend({
         pageName: 'page_catalog_category',
-        catalogGroupId: null,
-        catalogCategoryId: null,
-        catalogSubCategoryId: null,
         templates: {
             '#content': require('tpl!./templates/category.html')
         },
-        permissions: {
-            categories: 'GET::{category}'
-        },
-        initialize: function(){
+        initialize: function(catalogGroupId, catalogCategoryId, catalogSubCategoryId, params){
             var page = this;
 
             if (page.referer && page.referer.pageName.indexOf('page_catalog') >= 0){
-                page.editMode = page.referer.editMode;
+                _.extend(pageParams, params);
+            } else {
+                _.extend(pageParams, {
+                    editMode: false
+                }, params)
+            }
+
+            if (!pageParams.storeId && !LH.isAllow('categories', 'GET::{category}')){
+                new Page403();
+                return;
+            }
+
+            if (pageParams.storeId && !LH.isAllow('stores/{store}/categories/{category}')){
+                new Page403();
+                return;
             }
 
             if (page.referer && page.referer.pageName === 'page_product_form'){
-                page.editMode = true;
+                pageParams.editMode = true;
             }
 
             if (!LH.isAllow('groups', 'POST')) {
-                page.editMode = false;
+                pageParams.editMode = false;
             }
 
+            router.navigate(router.toFragment(document.location.pathname, {
+                editMode: pageParams.editMode,
+                storeId: pageParams.storeId
+            }));
+
             page.catalogGroupModel = new СatalogGroupModel({
-                id: page.catalogGroupId,
-                storeId: page.storeId
+                id: catalogGroupId,
+                storeId: pageParams.storeId
             });
 
             page.catalogProductsCollection = new CatalogProductsCollection([], {
-                subCategory: page.catalogSubCategoryId,
-                storeId: page.storeId
+                subCategory: catalogSubCategoryId,
+                storeId: pageParams.storeId
             });
 
-            $.when(page.catalogGroupModel.fetch(), page.catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
+            $.when(page.catalogGroupModel.fetch(), catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
 
-                page.catalogCategoryModel = page.catalogGroupModel.categories.get(page.catalogCategoryId);
+                page.catalogCategoryModel = page.catalogGroupModel.categories.get(catalogCategoryId);
                 page.catalogSubCategoriesCollection = page.catalogCategoryModel.subCategories;
 
                 page.render();
@@ -52,9 +70,9 @@ define(function(require) {
                     el: document.getElementById('catalogCategory'),
                     catalogCategoryModel: page.catalogCategoryModel,
                     catalogSubCategoriesCollection: page.catalogSubCategoriesCollection,
-                    catalogSubCategoryId: page.catalogSubCategoryId,
+                    catalogSubCategoryId: catalogSubCategoryId,
                     catalogProductsCollection: page.catalogProductsCollection,
-                    editMode: page.editMode
+                    editMode: pageParams.editMode
                 })
             });
         }

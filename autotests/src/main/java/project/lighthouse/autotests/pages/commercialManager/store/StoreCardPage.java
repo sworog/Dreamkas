@@ -8,6 +8,9 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.SelectByVisibleText;
 import project.lighthouse.autotests.objects.Store;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
 public class StoreCardPage extends CommonPageObject {
 
     final static String STORE_CARD_URL_PATTERN = "%s/stores/%s";
@@ -29,10 +32,10 @@ public class StoreCardPage extends CommonPageObject {
         String storeNumber = findVisibleElement(
                 By.xpath("//*[@model_attr='number' and @model_name='store']")
         ).getText();
-        if (!header.equals(storeNumber)) {
-            String errorMessage = String.format("Store number should be '%s', but it's '%s'", header, storeNumber);
-            throw new AssertionError(errorMessage);
-        }
+        assertEquals(
+                String.format("Store number should be '%s', but it's '%s'", header, storeNumber),
+                header, storeNumber
+        );
     }
 
     public String getStoryUrl(String id) {
@@ -71,8 +74,9 @@ public class StoreCardPage extends CommonPageObject {
         try {
             setStoreManager(storeManager);
         } catch (Exception e) {
-            String errorMessage = String.format("Can't promote store manager named '%s', he doesn't exist in drop down list", storeManager);
-            throw new AssertionError(errorMessage);
+            fail(
+                    String.format("Can't promote store manager named '%s', he doesn't exist in drop down list", storeManager)
+            );
         }
     }
 
@@ -83,8 +87,9 @@ public class StoreCardPage extends CommonPageObject {
     public void promoteNotStoreManager(String notStoreManager) {
         try {
             setStoreManager(notStoreManager);
-            String errorMessage = String.format("The user named '%s' can't be promoted to store manager!", notStoreManager);
-            throw new AssertionError(errorMessage);
+            fail(
+                    String.format("The user named '%s' can't be promoted to store manager!", notStoreManager)
+            );
         } catch (Exception e) {
         }
     }
@@ -93,16 +98,19 @@ public class StoreCardPage extends CommonPageObject {
         try {
             return findPromotedStoreManager(storeManager);
         } catch (Exception e) {
-            String errorMessage = String.format("Store manager '%s' should be promoted and selected!", storeManager);
-            throw new AssertionError(errorMessage);
+            fail(
+                    String.format("Store manager '%s' should be promoted and selected!", storeManager)
+            );
         }
+        return null;
     }
 
     public void checkPromotedStoreManagerIsNotPresent(String storeManager) {
         try {
             findPromotedStoreManager(storeManager);
-            String errorMessage = String.format("Store manager named '%s' should be not promoted!", storeManager);
-            throw new AssertionError(errorMessage);
+            fail(
+                    String.format("Store manager named '%s' should be not promoted!", storeManager)
+            );
         } catch (Exception e) {
         }
     }

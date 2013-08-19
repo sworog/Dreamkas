@@ -15,46 +15,46 @@ class MoneyModelTransformer implements DataTransformerInterface
     /**
      * @var int
      */
-    protected $digits = 2;
+    protected $precision = 2;
 
     /**
      * @DI\InjectParams({
-     *      "digits"=@DI\Inject("%money.digits%")
+     *      "precision"=@DI\Inject("%money.precision%")
      * })
-     * @param int $digits
+     * @param int $precision
      */
-    public function __construct($digits = null)
+    public function __construct($precision = null)
     {
-        if (null !== $digits) {
-            $this->digits = (int) $digits;
+        if (null !== $precision) {
+            $this->precision = (int) $precision;
         }
     }
 
     /**
-     * @param int $digits
+     * @param int $precision
      * @return number
      */
-    protected function getDivider($digits)
+    protected function getDivider($precision)
     {
-        return pow(10, $digits);
+        return pow(10, $precision);
     }
 
     /**
-     * @param int $digits
+     * @param int $precision
      * @return int
      */
-    protected function getDigits($digits = null)
+    protected function getPrecision($precision = null)
     {
-        return ($digits) ? (int) $digits : $this->digits;
+        return ($precision) ? (int) $precision : $this->precision;
     }
 
     /**
      * @param Money $value
-     * @param int $digits
-     * @return int
+     * @param int $precision
+     * @return string
      * @throws TransformationFailedException
      */
-    public function transform($value, $digits = null)
+    public function transform($value, $precision = null)
     {
         if (null === $value) {
             $value = null;
@@ -62,9 +62,10 @@ class MoneyModelTransformer implements DataTransformerInterface
             if ($value->isNull()) {
                 return null;
             } else {
-                $digits = $this->getDigits($digits);
-                $divider = $this->getDivider($digits);
+                $precision = $this->getPrecision($precision);
+                $divider = $this->getDivider($precision);
                 $value = $value->getCount() / $divider;
+                $value = sprintf("%.{$precision}f", $value);
             }
         } else {
             throw new TransformationFailedException(
@@ -76,14 +77,14 @@ class MoneyModelTransformer implements DataTransformerInterface
 
     /**
      * @param mixed $value
-     * @param int $digits
+     * @param int $precision
      * @return Money|mixed
      */
-    public function reverseTransform($value, $digits = null)
+    public function reverseTransform($value, $precision = null)
     {
         if (null !== $value && '' !== $value) {
-            $digits = $this->getDigits($digits);
-            $divider = $this->getDivider($digits);
+            $precision = $this->getPrecision($precision);
+            $divider = $this->getDivider($precision);
             $value = $value * $divider;
             $value = (float) (string) $value;
         }

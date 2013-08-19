@@ -8,6 +8,8 @@ import project.lighthouse.autotests.pages.authorization.AuthorizationPage;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCardView;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
 
+import static junit.framework.Assert.fail;
+
 public class AuthorizationSteps extends ScenarioSteps {
 
     AuthorizationPage authorizationPage;
@@ -73,7 +75,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void editProductButtonIsNotPresent() {
         try {
             productCardView.editButtonClick();
-            throw new AssertionError("Edit product link is present!");
+            fail("Edit product link is present!");
         } catch (Exception e) {
         }
     }
@@ -82,7 +84,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void newProductCreateButtonIsNotPresent() {
         try {
             productListPage.createNewProductButtonClick();
-            throw new AssertionError("Create new product button is present on product list page!");
+            fail("Create new product button is present on product list page!");
         } catch (Exception e) {
         }
     }

@@ -6,6 +6,7 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.json.JSONException;
+import org.junit.Assert;
 import project.lighthouse.autotests.objects.Store;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
 import project.lighthouse.autotests.steps.CommonSteps;
@@ -75,6 +76,11 @@ public class CatalogUserSteps {
     public void givenThereIsTheStoreManagedBy(String storeNumber, String storeManager) throws IOException, JSONException {
         Store store = storeSteps.createStore(storeNumber, storeManager, storeManager);
         catalogSteps.promoteStoreManager(store, storeManager);
+    }
+
+    @Given("the user navigates to the store '$storeName' catalog page")
+    public void givenTheUserNaviagtesToTheStoreCatalogPage(String storeName) throws JSONException {
+        storeSteps.navigatesToTheStoreCatalogPage(storeName);
     }
 
     @When("the user clicks on start edition link and starts the edition")
@@ -328,7 +334,7 @@ public class CatalogUserSteps {
                 validateMinMarkUpValue(value);
                 break;
             default:
-                throw new AssertionError(
+                Assert.fail(
                         String.format("No such value '%s'", markUpType)
                 );
         }
@@ -347,5 +353,17 @@ public class CatalogUserSteps {
     @Then("the user user sees <errorMessage>")
     public void thenTheUserSeesErrorMessage(String errorMessage) {
         commonSteps.checkErrorMessage(errorMessage);
+    }
+
+    @When("the user set price roundings to <value>")
+    @Alias("the user set price roundings to '$value'")
+    public void setRoundings(String value) {
+        catalogSteps.setRoundings(value);
+    }
+
+    @Then("the user checks the price roundings dropdawn default selected value is '$value'")
+    @Alias("the user checks the price rounding selected value is <value>")
+    public void thenTheUserChecksThePriceRoundingsDropDawnDefaultValue(String value) {
+        catalogSteps.checkDropDownDefaultValue(value);
     }
 }
