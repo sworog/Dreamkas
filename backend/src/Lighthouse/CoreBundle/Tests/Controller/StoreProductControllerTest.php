@@ -508,4 +508,32 @@ class StoreProductControllerTest extends WebTestCase
             ),
         );
     }
+
+    public function testRetailMarkupOfNotUpdatedStoreProduct()
+    {
+        $productData = array(
+            'sku' => 'Водка селедка',
+            'purchasePrice' => 30.48,
+            'retailPriceMin' => 31,
+            'retailPriceMax' => 40,
+            'retailPricePreference' => 'retailPrice',
+        );
+
+        $productId = $this->createProduct($productData);
+
+        $accessToken = $this->auth($this->storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($productId, 'product.id', $getResponse);
+        Assert::assertJsonPathEquals($this->storeId, 'store.id', $getResponse);
+        Assert::assertJsonPathEquals('40.00', 'retailPrice', $getResponse);
+        Assert::assertJsonPathEquals('31.23', 'retailMarkup', $getResponse);
+    }
 }

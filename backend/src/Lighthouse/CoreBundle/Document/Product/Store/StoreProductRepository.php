@@ -48,6 +48,9 @@ class StoreProductRepository extends DocumentRepository
         $storeProduct->product = $product;
         $storeProduct->subCategory = $product->subCategory;
 
+        $storeProduct->retailMarkup = $product->retailMarkupMax;
+        $this->updateRetails($storeProduct);
+
         return $storeProduct;
     }
 
