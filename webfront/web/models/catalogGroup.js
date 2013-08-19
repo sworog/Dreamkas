@@ -19,7 +19,16 @@ define(function(require) {
                 'retailMarkupMax',
                 'retailMarkupMin',
                 'rounding'
-            ]
+            ],
+            parse: function(response, options) {
+                var data = Model.prototype.parse.apply(this, arguments);
+
+                if (typeof data.rounding == 'object') {
+                    data.rounding = data.rounding.name;
+                }
+
+                return data;
+            }
         });
     }
 );

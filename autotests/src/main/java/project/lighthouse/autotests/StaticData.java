@@ -1,6 +1,5 @@
 package project.lighthouse.autotests;
 
-import org.json.JSONException;
 import project.lighthouse.autotests.objects.*;
 
 import java.util.HashMap;
@@ -25,22 +24,6 @@ public class StaticData {
 
     public static Boolean isGroupCreated(String groupName) {
         return groups.containsKey(groupName);
-    }
-
-    public static Boolean hasGroup(String categoryName, String groupName) throws JSONException {
-        try {
-            return categories.get(categoryName).hasGroup(groupName);
-        } catch (NullPointerException e) {
-            return false;
-        }
-    }
-
-    public static Boolean hasCategory(String categoryName, String subCategoryName) throws JSONException {
-        try {
-            return subCategories.get(subCategoryName).hasCategory(categoryName);
-        } catch (NullPointerException e) {
-            return false;
-        }
     }
 
     public static Boolean hasSubCategory(String subCategoryName) {

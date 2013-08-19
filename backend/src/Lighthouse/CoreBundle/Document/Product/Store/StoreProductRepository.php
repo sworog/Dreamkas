@@ -48,6 +48,9 @@ class StoreProductRepository extends DocumentRepository
         $storeProduct->product = $product;
         $storeProduct->subCategory = $product->subCategory;
 
+        $storeProduct->retailMarkup = $product->retailMarkupMax;
+        $this->updateRetails($storeProduct);
+
         return $storeProduct;
     }
 
@@ -120,7 +123,9 @@ class StoreProductRepository extends DocumentRepository
                 $storeProduct->retailPricePreference = Product::RETAIL_PRICE_PREFERENCE_MARKUP;
                 break;
         }
-        $storeProduct->roundedRetailPrice = $storeProduct->product->rounding->round($storeProduct->retailPrice);
+        if (null !== $storeProduct->retailPrice) {
+            $storeProduct->roundedRetailPrice = $storeProduct->product->rounding->round($storeProduct->retailPrice);
+        }
     }
 
     /**

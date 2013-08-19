@@ -48,6 +48,12 @@ public class ProductUserSteps {
         productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, subCategoryName);
     }
 
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+                                         String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName);
+    }
+
     @Given("the user is on the product create page")
     public void givenTheUserIsOnTheOrderCreatePage() throws JSONException, IOException {
         productSteps.openProductCreatePage();

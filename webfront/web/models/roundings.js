@@ -9,7 +9,11 @@ define(function(require) {
 
     var roundingsModel = new RoundingsModel();
 
-    roundingsModel.fetch();
+    roundingsModel.fetch({
+        success: function(){
+            console.log(roundingsModel);
+        }
+    });
 
     return roundingsModel;
 });

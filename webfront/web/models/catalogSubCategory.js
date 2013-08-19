@@ -37,6 +37,10 @@ define(function(require) {
                     data.category = data.category.id;
                 }
 
+                if (typeof data.rounding == 'object') {
+                    data.rounding = data.rounding.name;
+                }
+
                 return data;
             }
         });

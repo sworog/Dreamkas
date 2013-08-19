@@ -2,6 +2,8 @@ define(function(require) {
     //requirements
     var Model = require('kit/model');
 
+    require('models/roundings');
+
     return Model.extend({
         modelName: 'product',
         urlRoot: LH.baseApiUrl + '/products',
@@ -24,7 +26,8 @@ define(function(require) {
             'vendorCountry',
             'vendor',
             'info',
-            'subCategory'
+            'subCategory',
+            'rounding'
         ],
         parse: function(response, options) {
             var data = Model.prototype.parse.apply(this, arguments);
@@ -36,6 +39,10 @@ define(function(require) {
             if (typeof data.subCategory == 'object') {
                 data.group = data.subCategory.category.group;
                 data.category = data.subCategory.category;
+            }
+
+            if (typeof data.rounding == 'object') {
+                data.rounding = data.rounding.name;
             }
 
             return data;

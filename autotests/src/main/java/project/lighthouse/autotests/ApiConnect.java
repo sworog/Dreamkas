@@ -79,11 +79,15 @@ public class ApiConnect {
     }
 
     public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
-        Category category = createDefaultCategoryThroughPost();
-        SubCategory subCategory = createSubCategoryThroughPost(category.getGroup().getName(), category.getName(), subCategoryName);
+        createProductThroughPost(name, sku, barcode, units, purchasePrice, Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName);
+    }
+
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String groupName, String categoryName, String subCategoryName) throws JSONException, IOException {
+        SubCategory subCategory = createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
         getSubCategoryMarkUp(subCategory.getId());
         Product product = new Product(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), retailMarkupMax, retailMarkupMin);
         createProductThroughPost(product, subCategory);
+
     }
 
     private void getSubCategoryMarkUp(String subCategoryId) throws IOException, JSONException {
@@ -209,8 +213,20 @@ public class ApiConnect {
             StaticData.groups.put(group.getName(), group);
             return group;
         } else {
-            return StaticData.groups.get(group.getName());
+            return getUpdatedGroup(group);
         }
+    }
+
+    private Group getUpdatedGroup(Group group) throws IOException, JSONException {
+        group = StaticData.groups.get(group.getName());
+        return updatedGroup(group);
+    }
+
+    private Group updatedGroup(Group group) throws JSONException, IOException {
+        String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl(group.getApiUrl()), group.getId());
+        Group updatedGroup = new Group(new JSONObject(executeSimpleGetRequest(apiUrl, true)));
+        StaticData.groups.put(group.getName(), updatedGroup);
+        return updatedGroup;
     }
 
     public Group createGroupThroughPost(String groupName) throws IOException, JSONException {
@@ -219,13 +235,15 @@ public class ApiConnect {
     }
 
     public Category createCategoryThroughPost(Category category, Group group) throws IOException, JSONException {
-        if (!(StaticData.hasGroup(category.getName(), group.getName()))) {
+        if (!(group.hasCategory(category))) {
             createGroupThroughPost(group);
             executePostRequest(category);
             StaticData.categories.put(category.getName(), category);
             return category;
         } else {
-            return StaticData.categories.get(category.getName());
+            Category updatedCategory = updatedGroup(group).getCategory(category);
+            StaticData.categories.put(category.getName(), updatedCategory);
+            return updatedCategory;
         }
     }
 
@@ -247,8 +265,8 @@ public class ApiConnect {
     }
 
     public SubCategory createSubCategoryThroughPost(SubCategory subCategory, Category category, Group group) throws JSONException, IOException {
-        if (!StaticData.hasCategory(category.getName(), subCategory.getName())) {
-            createGroupThroughPost(group);
+        if (!category.hasSubCategory(subCategory)) {
+            group = createGroupThroughPost(group);
             createCategoryThroughPost(category, group);
             executePostRequest(subCategory);
             StaticData.subCategories.put(subCategory.getName(), subCategory);
@@ -263,10 +281,6 @@ public class ApiConnect {
         Category category = createCategoryThroughPost(categoryName, groupName);
         SubCategory subCategory = new SubCategory(subCategoryName, category.getId());
         return createSubCategoryThroughPost(subCategory, category, group);
-    }
-
-    public Category createDefaultCategoryThroughPost() throws IOException, JSONException {
-        return createCategoryThroughPost(Category.DEFAULT_NAME, Group.DEFAULT_NAME);
     }
 
     public SubCategory createDefaultSubCategoryThroughPost() throws IOException, JSONException {

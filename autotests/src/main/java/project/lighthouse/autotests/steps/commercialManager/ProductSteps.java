@@ -39,6 +39,12 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+                                         String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        productApi.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName);
+    }
+
+    @Step
     public void navigateToTheProductPage(String productSku) throws JSONException {
         productApi.navigateToTheProductPage(productSku);
     }

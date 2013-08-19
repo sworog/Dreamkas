@@ -133,8 +133,6 @@ Examples:
 | до 99 копеек |
 
 Scenario: Group round checks after refresh
-Meta:
-@test
 
 Given there is the group with name 'Group-roundings'
 And the user navigates to the group with name 'Group-roundings'
@@ -158,8 +156,6 @@ Examples:
 
 
 Scenario: Category round checks after refresh
-Meta:
-@test
 
 Given there is the category with name 'Category-roundings' related to group named 'Group-roundings'
 And the user navigates to the category with name 'Category-roundings' related to group named 'Group-roundings'
@@ -182,8 +178,6 @@ Examples:
 | до 99 копеек |
 
 Scenario: SubCategory round checks after refresh
-Meta:
-@test
 
 Given there is the subCategory with name 'subCategory-roundings' related to group named 'Group-roundings' and category named 'Category-roundings'
 And the user navigates to the subCategory 'subCategory-roundings', category 'Category-roundings', group 'Group-roundings' product list page

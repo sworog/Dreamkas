@@ -107,6 +107,63 @@ class CategoryControllerTest extends WebTestCase
         );
     }
 
+    public function testPutCategoryActionRoundingUpdated()
+    {
+        $this->clearMongoDb();
+
+        $groupId = $this->createGroup('Алкоголь');
+        $categoryId = $this->createCategory($groupId, 'Водка');
+
+        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest1', 'rounding.name', $getResponse);
+
+        $categoryData = array(
+            'name' => 'Водка',
+            'group' => $groupId,
+            'rounding' => 'nearest50',
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/categories/' . $categoryId,
+            $categoryData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/categories/' . $categoryId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $getResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/groups/' . $groupId . '/categories'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('nearest50', '0.rounding.name', $getResponse);
+    }
+
     /**
      * @param int $expectedCode
      * @param array $data

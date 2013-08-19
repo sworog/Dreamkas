@@ -44,11 +44,14 @@ define(function(require) {
                     }, {
                         parse: true
                     });
+                } else {
+                    page.subCategoryModel = new SubCategoryModel(page.productModel.get('subCategory'));
                 }
 
                 page.render();
 
                 new Form_product({
+                    subCategoryModel: page.subCategoryModel,
                     model: page.productModel,
                     el: document.getElementById('form_product')
                 });

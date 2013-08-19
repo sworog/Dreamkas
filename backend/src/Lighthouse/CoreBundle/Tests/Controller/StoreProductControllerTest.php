@@ -89,11 +89,16 @@ class StoreProductControllerTest extends WebTestCase
      * @param array $data
      * @param $expectedCode
      * @param array $assertions
+     * @param array $productData
      * @dataProvider retailPriceValidateDataProvider
      */
-    public function testPutActionRetailPriceValidate($expectedCode, array $data, array $assertions = array())
-    {
-        $productData = array(
+    public function testPutActionRetailPriceValidate(
+        $expectedCode,
+        array $data,
+        array $assertions = array(),
+        array $productData = array()
+    ) {
+        $productData += array(
             'sku' => 'Водка селедка',
             'purchasePrice' => 30.48,
             'retailPriceMin' => 31,
@@ -316,6 +321,76 @@ class StoreProductControllerTest extends WebTestCase
                     'subCategory' => null,
                 )
             ),
+            'invalid markup less than 0 when no min max product markup provided' => array(
+                400,
+                array(
+                    'retailMarkup' => -2,
+                    'retailPricePreference' => 'retailMarkup',
+                ),
+                array(
+                    'children.retailMarkup.errors.0' => 'Наценка должна быть равна или больше 0%',
+                    'children.retailMarkup.errors.1' => null,
+                    'children.retailPrice.errors' => null,
+                ),
+                array(
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
+            'valid markup equals 0 when no min max product markup provided' => array(
+                200,
+                array(
+                    'retailMarkup' => 0,
+                    'retailPricePreference' => 'retailMarkup',
+                ),
+                array(
+                    'retailMarkup' => 0,
+                    'retailPrice' => '30.48',
+                    'children' => null,
+                ),
+                array(
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
+            'invalid price less than purchasePrice when no min max product markup provided' => array(
+                400,
+                array(
+                    'retailPrice' => 30.45,
+                    'retailPricePreference' => 'retailPrice',
+                ),
+                array(
+                    'children.retailPrice.errors.0' => 'Цена продажи должна быть больше или равна цене закупки.',
+                    'children.retailPrice.errors.1' => null,
+                    'children.retailMarkup.errors' => null,
+                ),
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
+            'valid price equals purchasePrice when no min max product markup provided' => array(
+                200,
+                array(
+                    'retailPrice' => 30.48,
+                    'retailPricePreference' => 'retailPrice',
+                ),
+                array(
+                    'retailPrice' => '30.48',
+                    'retailMarkup' => '0',
+                    'children' => null,
+                ),
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            )
         );
     }
 
@@ -507,5 +582,33 @@ class StoreProductControllerTest extends WebTestCase
                 )
             ),
         );
+    }
+
+    public function testRetailMarkupOfNotUpdatedStoreProduct()
+    {
+        $productData = array(
+            'sku' => 'Водка селедка',
+            'purchasePrice' => 30.48,
+            'retailPriceMin' => 31,
+            'retailPriceMax' => 40,
+            'retailPricePreference' => 'retailPrice',
+        );
+
+        $productId = $this->createProduct($productData);
+
+        $accessToken = $this->auth($this->storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($productId, 'product.id', $getResponse);
+        Assert::assertJsonPathEquals($this->storeId, 'store.id', $getResponse);
+        Assert::assertJsonPathEquals('40.00', 'retailPrice', $getResponse);
+        Assert::assertJsonPathEquals('31.23', 'retailMarkup', $getResponse);
     }
 }
