@@ -35,7 +35,7 @@ class RangeValidator extends ConstraintValidator
         } catch (NullValueException $e) {
             return;
         } catch (UnexpectedTypeException $e) {
-            $this->addViolation($constraint, $constraint->invalidValue);
+            $this->addViolation($constraint, $constraint->invalidMessage);
             return;
         }
 

@@ -15,7 +15,7 @@ class Range extends Constraint
     public $lteMessage          = 'lighthouse.validation.errors.range.lte';
     public $gtMessage           = 'lighthouse.validation.errors.range.gt';
     public $gteMessage          = 'lighthouse.validation.errors.range.gte';
-    public $invalidValue        = 'lighthouse.validation.errors.range.invalid';
+    public $invalidMessage      = 'lighthouse.validation.errors.range.invalid';
 
     public $lt;
     public $lte;

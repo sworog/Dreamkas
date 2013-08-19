@@ -46,4 +46,21 @@ abstract class ConstraintValidator extends BaseConstraintValidator
             return false;
         }
     }
+
+    /**
+     * @param $value
+     * @param array|Constraint[] $constraints
+     * @param string $subPath
+     * @param null|string|string[] $groups
+     * @return bool
+     */
+    protected function chainValidateValue($value, array $constraints, $subPath = '', $groups = null)
+    {
+        foreach ($constraints as $constraint) {
+            if (!$this->validateValue($value, $constraint, $subPath, $groups)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

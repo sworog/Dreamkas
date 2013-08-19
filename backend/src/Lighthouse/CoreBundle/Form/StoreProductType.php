@@ -17,10 +17,20 @@ class StoreProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('retailPrice', 'money')
-            ->add('retailMarkup', 'markup')
-            ->add('retailPricePreference', 'choice', array('choices' => Product::$retailPricePreferences))
-            ;
+            ->add(
+                'retailPrice',
+                'money'
+            )
+            ->add(
+                'retailMarkup',
+                'markup',
+                array('invalid_message' => 'lighthouse.validation.errors.store_product.retail_markup.invalid')
+            )
+            ->add(
+                'retailPricePreference',
+                'choice',
+                array('choices' => Product::$retailPricePreferences)
+            );
     }
 
     /**

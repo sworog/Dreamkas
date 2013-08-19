@@ -63,8 +63,15 @@ lighthouse:
             invoice_product:
                 product.does_not_exists: Такого товара не существует
             store_product:
-                retail_markup.min: Наценка должна быть больше или равна {{ limit }}
-                retail_markup.max: Наценка должна быть меньше или равна {{ limit }}
+                retail_markup:
+                    min: Наценка должна быть больше или равна {{ limit }}%
+                    max: Наценка должна быть меньше или равна {{ limit }}%
+                    invalid: Наценка должна быть числом
+                retail_price:
+                    precision: Наценка не должна содержать больше {{ decimals }} цифр после запятой
+                    min: Цена должна быть больше или равна {{ limit }}
+                    max: Цена должна быть меньше или равна {{ limit }}
+                    invalid: Цена должна быть числом
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов

@@ -27,7 +27,10 @@ class RetailPriceValidator extends ConstraintValidator
             new ClassMoneyRange(array(
                 'field' => 'retailPrice',
                 'gte' => 'product.retailPriceMin',
-                'lte' => 'product.retailPriceMax'
+                'lte' => 'product.retailPriceMax',
+                'gteMessage' => 'lighthouse.validation.errors.store_product.retail_price.min',
+                'lteMessage' => 'lighthouse.validation.errors.store_product.retail_price.max',
+                'invalidMessage' => 'lighthouse.validation.errors.store_product.retail_price.invalid',
             )),
             new ClassMoneyRange(array(
                 'field' => 'retailPrice',
@@ -36,11 +39,13 @@ class RetailPriceValidator extends ConstraintValidator
             ))
         );
         $retailMarkupConstraints = array(
-            new Precision(),
+            new Precision(array(
+                'message' => 'lighthouse.validation.errors.store_product.retail_price.precision',
+            )),
             new Range(
                 array(
                     'gte' => 0,
-                    'gteMessage' => 'lighthouse.validation.errors.product.retailMarkup.range'
+                    'gteMessage' => 'lighthouse.validation.errors.store_product.retail_markup.min'
                 )
             )
         );
@@ -61,7 +66,7 @@ class RetailPriceValidator extends ConstraintValidator
                     $retailPriceConstraints,
                     'retailPrice'
                 );
-                $retailPriceClassValid = $this->validateValue(
+                $retailPriceClassValid = $this->chainValidateValue(
                     $value,
                     $retailPriceClassConstraints
                 );
@@ -94,7 +99,7 @@ class RetailPriceValidator extends ConstraintValidator
                         $retailPriceConstraints,
                         'retailPrice'
                     );
-                    $this->context->validateValue(
+                    $this->chainValidateValue(
                         $value,
                         $retailPriceClassConstraints
                     );
