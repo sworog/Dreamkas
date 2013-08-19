@@ -49,7 +49,7 @@ define(function(require) {
 
             page.$el
                 .removeAttr('class')
-                .addClass('page ' + page.pageName);
+                .addClass('page ' + page.__name__);
             
             page.set('loading', true);
         },
