@@ -9,15 +9,15 @@ In order to определить цену на товар для своего м
 
 Scenario: Product store mark up set positive
 
-Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
+Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
 And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the store 'StoreProduct123' catalog page
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
-And the user clicks on the group name 'storeProductsCategory'
-And the user clicks on the category name 'storeProductsGroup'
+And the user clicks on the group name 'storeProductsGroup'
+And the user clicks on the category name 'storeProductsCategory'
 And the user clicks on the subCategory name 'storeProductsSubCategory'
 And the user open the product card with 'storeProductSku' sku
 And the user clicks the edit price button
@@ -34,15 +34,15 @@ Examples:
 
 Scenario: Product stote retail price set positive
 
-Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
+Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
 And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the store 'StoreProduct123' catalog page
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
-And the user clicks on the group name 'storeProductsCategory'
-And the user clicks on the category name 'storeProductsGroup'
+And the user clicks on the group name 'storeProductsGroup'
+And the user clicks on the category name 'storeProductsCategory'
 And the user clicks on the subCategory name 'storeProductsSubCategory'
 And the user open the product card with 'storeProductSku' sku
 And the user clicks the edit price button
