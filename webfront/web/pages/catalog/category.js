@@ -26,6 +26,10 @@ define(function(require) {
                 }, params)
             }
 
+            if (currentUserModel.stores){
+                pageParams.storeId = currentUserModel.stores.at(0).id;
+            }
+
             if (!pageParams.storeId && !LH.isAllow('categories', 'GET::{category}')){
                 new Page403();
                 return;
