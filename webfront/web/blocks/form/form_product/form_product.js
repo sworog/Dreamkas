@@ -110,13 +110,13 @@ define(function(require) {
                     retailMarkupMax = LH.normalizePrice(this.$retailMarkupMaxInput.val()),
                     calculatedMinVal, calculatedMaxVal;
 
-                if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMin)) {
+                if (retailMarkupMin === null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMin)) {
                     calculatedMinVal = '';
                 } else {
                     calculatedMinVal = LH.formatPrice(+(retailMarkupMin / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
-                if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMax)) {
+                if (retailMarkupMax == null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMax)) {
                     calculatedMaxVal = '';
                 } else {
                     calculatedMaxVal = LH.formatPrice(+(retailMarkupMax / 100 * purchasePrice).toFixed(2) + purchasePrice);

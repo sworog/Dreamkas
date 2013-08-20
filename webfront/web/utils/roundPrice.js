@@ -3,7 +3,6 @@ define(function(require) {
     var cookie = require('utils/cookie');
 
     return function(price, rounding){
-        console.log(rounding);
         return $.ajax({
             url: LH.baseApiUrl + '/roundings/' + rounding + '/round',
             dataType: "json",

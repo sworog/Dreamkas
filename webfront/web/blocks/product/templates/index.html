@@ -155,9 +155,14 @@
             <tr>
                 <td/>
                 <td>
-                    <a href="/stores/<%= storeProductModel.get('store').id %>/products/edit/<%= storeProductModel.id %>">
-                        Изменить наценку/цену
-                    </a>
+                    <% if(model.get('retailPriceMin') && model.get('retailPriceMax')){ %>
+                        <a href="/stores/<%= storeProductModel.get('store').id %>/products/edit/<%= storeProductModel.id %>">
+                            Изменить наценку/цену
+                        </a>
+                    <% } else { %>
+                        <span><%text 'Изменить наценку/цену нельзя. Нет диапазона наценки' %></span>
+                    <% } %>
+
                 </td>
             </tr>
         <% } %>
