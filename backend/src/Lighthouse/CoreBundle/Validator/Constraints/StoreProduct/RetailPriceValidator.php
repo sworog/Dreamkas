@@ -20,6 +20,10 @@ class RetailPriceValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
+        if (!$this->validateNoProductRetails($value, $constraint)) {
+            return;
+        }
+
         $retailPriceConstraints = array(
             new Money(),
         );
@@ -31,23 +35,12 @@ class RetailPriceValidator extends ConstraintValidator
                 'gteMessage' => 'lighthouse.validation.errors.store_product.retail_price.min',
                 'lteMessage' => 'lighthouse.validation.errors.store_product.retail_price.max',
                 'invalidMessage' => 'lighthouse.validation.errors.store_product.retail_price.invalid',
-            )),
-            new ClassMoneyRange(array(
-                'field' => 'retailPrice',
-                'gte' => 'product.purchasePrice',
-                'gteMessage' => 'lighthouse.validation.errors.product.retailPrice.purchasePrice'
             ))
         );
         $retailMarkupConstraints = array(
             new Precision(array(
                 'message' => 'lighthouse.validation.errors.store_product.retail_price.precision',
-            )),
-            new Range(
-                array(
-                    'gte' => 0,
-                    'gteMessage' => 'lighthouse.validation.errors.store_product.retail_markup.min'
-                )
-            )
+            ))
         );
         $retailMarkupClassConstraints = array(
             new ClassNumericRange(array(
@@ -107,13 +100,58 @@ class RetailPriceValidator extends ConstraintValidator
                 break;
         }
 
-        if (!$this->isEmpty($value->roundedRetailPrice)) {
-            if ($value->roundedRetailPrice->getCount() <= 0) {
+        $this->validateRoundedRetailPrice($value, $constraint);
+    }
+
+    /**
+     * @param StoreProduct $storeProduct
+     * @param RetailPrice $constraint
+     * @return bool
+     */
+    protected function validateNoProductRetails(StoreProduct $storeProduct, RetailPrice $constraint)
+    {
+        if ($this->isNull($storeProduct->product->retailPriceMin)
+            || $this->isNull($storeProduct->product->retailPriceMax)
+        ) {
+            switch ($storeProduct->retailPricePreference) {
+                case Product::RETAIL_PRICE_PREFERENCE_PRICE:
+                    if (!$this->isNull($storeProduct->retailPrice)) {
+                        $this->context->addViolationAt(
+                            'retailPrice',
+                            $constraint->retailPriceForbiddenMessage
+                        );
+                        return false;
+                    }
+                case Product::RETAIL_PRICE_PREFERENCE_MARKUP:
+                default:
+                    if (!$this->isNull($storeProduct->retailMarkup)) {
+                        $this->context->addViolationAt(
+                            'retailMarkup',
+                            $constraint->retailMarkupForbiddenMessage
+                        );
+                        return false;
+                    }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param StoreProduct $storeProduct
+     * @param RetailPrice $constraint
+     * @return bool
+     */
+    protected function validateRoundedRetailPrice(StoreProduct $storeProduct, RetailPrice $constraint)
+    {
+        if (!$this->isEmpty($storeProduct->roundedRetailPrice)) {
+            if ($storeProduct->roundedRetailPrice->getCount() <= 0) {
                 $this->context->addViolationAt(
                     'retailPrice',
                     $constraint->invalidRoundedRetailPriceMessage
                 );
+                return false;
             }
         }
+        return true;
     }
 }

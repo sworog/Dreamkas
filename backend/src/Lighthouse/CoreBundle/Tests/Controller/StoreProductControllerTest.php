@@ -343,6 +343,7 @@ class StoreProductControllerTest extends WebTestCase
                     'subCategory' => null,
                 )
             ),
+            /*
             'invalid markup less than 0 when no min max product markup provided' => array(
                 400,
                 array(
@@ -412,7 +413,74 @@ class StoreProductControllerTest extends WebTestCase
                     'retailMarkupMax' => null,
                     'retailPricePreference' => 'retailMarkup',
                 )
-            )
+            ),
+            */
+            'invalid retail price entered when no min max product markup provided' => array(
+                400,
+                array(
+                    'retailPrice' => 30.48,
+                    'retailPricePreference' => 'retailPrice',
+                ),
+                array(
+                    'children.retailPrice.errors.0'
+                    =>
+                    'Нельзя установить цену продажи, если не установлен диапозон цены продажи',
+                    'children.retailPrice.errors.1' => null,
+                    'children.retailMarkup.errors'  => null,
+                ),
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
+            'invalid retail markup entered when no min max product markup provided' => array(
+                400,
+                array(
+                    'retailMarkup' => 10.11,
+                    'retailPricePreference' => 'retailMarkup',
+                ),
+                array(
+                    'children.retailMarkup.errors.0'
+                    =>
+                    'Нельзя установить наценку, если не установлен диапозон наценки',
+                    'children.retailMarkup.errors.1' => null,
+                    'children.retailPrice.errors' => null,
+                ),
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
+            'invalid retail markup entered preference not entered when no min max product markup provided' => array(
+                400,
+                array(
+                    'retailMarkup' => 10.11,
+                    'retailPricePreference' => null,
+                ),
+                array(
+                    'children.retailMarkup.errors.0'
+                    =>
+                    'Нельзя установить наценку, если не установлен диапозон наценки',
+                    'children.retailMarkup.errors.1' => null,
+                    'children.retailPrice.errors' => null,
+                ),
+                array(
+                    'purchasePrice' => 30.48,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailPricePreference' => 'retailMarkup',
+                )
+            ),
         );
     }
 
@@ -675,7 +743,7 @@ class StoreProductControllerTest extends WebTestCase
                     'purchasePrice' => 0.40,
                     'retailPriceMin' => 0.40,
                 )
-            ),
+            )
         );
     }
 
