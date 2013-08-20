@@ -26,6 +26,9 @@ class Nearest99 extends AbstractRounding
     public function round(Money $value)
     {
         $rounded = round($value->getCount(), -2) - 1;
+        if ($rounded < 0) {
+            $rounded = 0;
+        }
         return new Money($rounded);
     }
 }

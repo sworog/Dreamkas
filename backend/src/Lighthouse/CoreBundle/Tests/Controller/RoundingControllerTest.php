@@ -124,14 +124,19 @@ class RoundingControllerTest extends WebTestCase
             'nearest1 up' => array('nearest1', '23.657', '23.66'),
             'nearest1 up #2' => array('nearest1', '23.655', '23.66'),
             'nearest1 down' => array('nearest1', '23.654', '23.65'),
+            'nearest10 down to 0.01' => array('nearest1', '0.01', '0.01'),
             'nearest10 up' => array('nearest10', '23.654', '23.70'),
             'nearest10 down' => array('nearest10', '23.644', '23.60'),
+            'nearest10 down to 0' => array('nearest10', '0.04', '0.00'),
             'nearest50 down' => array('nearest50', '23.744', '23.50'),
             'nearest50 up' => array('nearest50', '23.751', '24.00'),
+            'nearest50 down to 0' => array('nearest50', '0.24', '0.00'),
             'nearest100 down' => array('nearest100', '23.744', '24.00'),
             'nearest100 up' => array('nearest100', '23.455', '23.00'),
+            'nearest100 down to 0' => array('nearest100', '0.45', '0.00'),
             'nearest99 down' => array('nearest99', '23.744', '23.99'),
             'nearest99 up' => array('nearest99', '23.455', '22.99'),
+            'nearest99 down to 0' => array('nearest99', '0.45', '0.00'),
         );
     }
 
