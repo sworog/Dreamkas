@@ -123,7 +123,7 @@ class StoreProductRepository extends DocumentRepository
                 $storeProduct->retailPricePreference = Product::RETAIL_PRICE_PREFERENCE_MARKUP;
                 break;
         }
-        if (null !== $storeProduct->retailPrice) {
+        if (null !== $storeProduct->retailPrice && !$storeProduct->retailPrice->isNull()) {
             $storeProduct->roundedRetailPrice = $storeProduct->product->rounding->round($storeProduct->retailPrice);
         }
     }

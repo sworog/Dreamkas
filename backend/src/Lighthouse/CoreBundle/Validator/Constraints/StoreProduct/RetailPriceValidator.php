@@ -106,5 +106,14 @@ class RetailPriceValidator extends ConstraintValidator
                 }
                 break;
         }
+
+        if (!$this->isEmpty($value->roundedRetailPrice)) {
+            if ($value->roundedRetailPrice->getCount() <= 0) {
+                $this->context->addViolationAt(
+                    'retailPrice',
+                    $constraint->invalidRoundedRetailPriceMessage
+                );
+            }
+        }
     }
 }

@@ -72,6 +72,8 @@ lighthouse:
                     min: Цена должна быть больше или равна {{ limit }}
                     max: Цена должна быть меньше или равна {{ limit }}
                     invalid: Цена должна быть числом
+                rounded_retail_price:
+                    invalid: Цена после округления должна быть больше 0
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов

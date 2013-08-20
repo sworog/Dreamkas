@@ -473,12 +473,18 @@ class StoreProductControllerTest extends WebTestCase
      * @param $productRounding
      * @param array $data
      * @param array $assertions
+     * @param array $productData
      *
      * @dataProvider roundingsProvider
      */
-    public function testRoundings($expectedCode, $productRounding, array $data, array $assertions)
-    {
-        $productData = array(
+    public function testRoundings(
+        $expectedCode,
+        $productRounding,
+        array $data,
+        array $assertions,
+        array $productData = array()
+    ) {
+        $productData += array(
             'sku' => 'Водка селедка',
             'purchasePrice' => 30.48,
             'retailPriceMin' => 31,
@@ -503,6 +509,16 @@ class StoreProductControllerTest extends WebTestCase
         $this->assertResponseCode($expectedCode);
 
         $this->performJsonAssertions($putResponse, $assertions);
+
+        if (200 == $expectedCode) {
+            $getResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/stores/' . $this->storeId . '/products/' . $productId
+            );
+
+            $this->assertEquals($putResponse, $getResponse, 'PUT and GET responses should be same');
+        }
     }
 
     /**
@@ -603,12 +619,75 @@ class StoreProductControllerTest extends WebTestCase
                     'product.rounding.name' => 'nearest99',
                 )
             ),
+            // 0 rounding
+            'invalid price rounds to 0 with nearest10' => array(
+                400,
+                'nearest10',
+                array(
+                    'retailPrice' => 0.04,
+                ),
+                array(
+                    'children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
+                ),
+                array(
+                    'purchasePrice' => 0.02,
+                    'retailPriceMin' => 0.03,
+                )
+            ),
+            'invalid price rounds to 0 with nearest50' => array(
+                400,
+                'nearest50',
+                array(
+                    'retailPrice' => 0.24,
+                ),
+                array(
+                    'children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
+                ),
+                array(
+                    'purchasePrice' => 0.20,
+                    'retailPriceMin' => 0.21,
+                )
+            ),
+            'invalid price rounds to 0 with nearest100' => array(
+                400,
+                'nearest100',
+                array(
+                    'retailPrice' => 0.44,
+                ),
+                array(
+                    'children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
+                ),
+                array(
+                    'purchasePrice' => 0.40,
+                    'retailPriceMin' => 0.41,
+                )
+            ),
+            'invalid price rounds to 0 with nearest99' => array(
+                400,
+                'nearest100',
+                array(
+                    'retailPrice' => 0.44,
+                ),
+                array(
+                    'children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
+                ),
+                array(
+                    'purchasePrice' => 0.40,
+                    'retailPriceMin' => 0.40,
+                )
+            ),
         );
     }
 
-    public function testRetailMarkupOfNotUpdatedStoreProduct()
+    /**
+     * @param array $productData
+     * @param array $assertions
+     *
+     * @dataProvider notUpdatedStoreProductProvider
+     */
+    public function testNotUpdatedStoreProduct(array $productData, array $assertions)
     {
-        $productData = array(
+        $productData += array(
             'sku' => 'Водка селедка',
             'purchasePrice' => 30.48,
             'retailPriceMin' => 31,
@@ -628,9 +707,58 @@ class StoreProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
+        Assert::assertNotJsonHasPath('id', $getResponse);
         Assert::assertJsonPathEquals($productId, 'product.id', $getResponse);
         Assert::assertJsonPathEquals($this->storeId, 'store.id', $getResponse);
-        Assert::assertJsonPathEquals('40.00', 'retailPrice', $getResponse);
-        Assert::assertJsonPathEquals('31.23', 'retailMarkup', $getResponse);
+
+        $this->performJsonAssertions($getResponse, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function notUpdatedStoreProductProvider()
+    {
+        return array(
+            'retail price provided' => array(
+                array(
+                    'retailPriceMin' => 31,
+                    'retailPriceMax' => 40,
+                    'retailPricePreference' => 'retailPrice',
+                ),
+                array(
+                    'retailPrice' => '40.00',
+                    'retailMarkup' => '31.23'
+                )
+            ),
+            'no retail price and price prefer' => array(
+                array(
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                    'retailPricePreference' => 'retailPrice',
+                ),
+                array(
+                    'retailPrice' => null,
+                    'retailMarkup' => null,
+                    'roundedRetailPrice' => null,
+                )
+            ),
+            'no retail markup and markup prefer' => array(
+                array(
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                    'retailPricePreference' => 'retailMarkup',
+                ),
+                array(
+                    'retailPrice' => null,
+                    'retailMarkup' => null,
+                    'roundedRetailPrice' => null
+                )
+            ),
+        );
     }
 }

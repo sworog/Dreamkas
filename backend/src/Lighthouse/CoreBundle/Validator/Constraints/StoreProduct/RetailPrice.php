@@ -10,6 +10,10 @@ use Symfony\Component\Validator\Constraint;
 class RetailPrice extends Constraint
 {
     /**
+     * @var string
+     */
+    public $invalidRoundedRetailPriceMessage = 'lighthouse.validation.errors.store_product.rounded_retail_price.invalid';
+    /**
      * @return array|string
      */
     public function getTargets()
