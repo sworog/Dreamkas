@@ -108,26 +108,6 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathContains('does not have store manager role', 'message', $linkResponse);
     }
 
-    public function testLinkStoreManagerByNotCommercialManager()
-    {
-        $this->markTestSkipped('Need to move security check before param converter');
-
-        $this->clearMongoDb();
-
-        $storeUser0 = $this->createUser('commUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore();
-
-        $accessToken = $this->auth($storeUser0, 'password');
-
-        $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'managers');
-
-        $this->jsonRequest($request, $accessToken);
-
-        $this->assertResponseCode(403);
-    }
-
     public function testLinkStoreManagerInvalidRel()
     {
         $this->clearMongoDb();
@@ -627,7 +607,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetUserStoreByAnotherUserForbidden()
     {
-        $this->markTestSkipped('TODO Implement permission check');
         $this->clearMongoDb();
 
         $storeId1 = $this->createStore('1');
@@ -648,7 +627,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $this->assertResponseCode(403);
 
-        Assert::assertJsonPathContains('Token does not have the required roles', 'message', $storesResponse);
+        Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $storesResponse);
     }
 
     /**

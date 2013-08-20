@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use JMS\SecurityExtraBundle\Annotation\SecureParam;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -160,6 +161,7 @@ class StoreController extends AbstractRestController
      * @param User $user
      * @return StoreCollection|Store[]
      * @Secure(roles="ROLE_STORE_MANAGER")
+     * @SecureParam(name="user", permissions="ACL_CURRENT_USER")
      * @ApiDoc
      */
     public function getUserStoresAction(User $user)
