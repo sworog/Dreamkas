@@ -95,7 +95,7 @@ define(function(require) {
                     retailMarkup = LH.normalizePrice(this.$retailMarkupInput.val()),
                     calculatedVal;
 
-                if (!purchasePrice || !retailMarkup || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
+                if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
                     calculatedVal = '';
                 } else {
                     calculatedVal = LH.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
