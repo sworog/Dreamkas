@@ -7,12 +7,18 @@ define(function(require) {
         deepExtend = require('kit/utils/deepExtend'),
         classExtend = require('kit/utils/classExtend');
 
-    var App = function(options){
+    require('moment');
+
+    var App = function(options) {
         this.initialize.apply(this, arguments);
     };
 
     _.extend(App.prototype, {
-        initialize: function(){}
+        initialize: function() {
+            $(function() {
+                new Page();
+            });
+        }
     });
 
     App.extend = classExtend();

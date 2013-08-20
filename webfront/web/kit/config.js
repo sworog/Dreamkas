@@ -8,11 +8,18 @@ require({
         'backbone.queryparams': 'kit/libs/backbone/backbone.queryparams',
 
         'jquery': 'kit/libs/jquery/jquery',
-        'jquery.require': 'libs/jquery/jquery.require',
+        'jquery.require': 'kit/libs/jquery/jquery.require',
 
         'tpl': 'kit/utils/tpl',
         'i18n': 'kit/libs/require/i18n'
     },
+    packages: [
+        {
+            name: 'moment',
+            location: 'kit/libs/moment',
+            main: 'moment'
+        }
+    ],
     shim: {
         underscore: {
             exports: '_'

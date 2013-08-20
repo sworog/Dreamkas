@@ -1,11 +1,14 @@
 define(function(require) {
     //requirements
-    var App = require('kit/app'),
+    var KitApp = require('kit/app'),
+        Backbone = require('backbone'),
+        _ = require('underscore'),
         currentUserModel = require('models/currentUser'),
         cookie = require('utils/cookie'),
         Page = require('blocks/page/page');
 
     require('LH');
+    require('libs/lhAutocomplete');
 
     var sync = Backbone.sync,
         isAppStarted = false;
@@ -30,34 +33,36 @@ define(function(require) {
         return syncing;
     };
 
-    var loading = currentUserModel.fetch(),
-        routers;
+    var App = KitApp.extend({
+        initialize: function(){
+            var loading = currentUserModel.fetch(),
+                routers;
 
-    $(function() {
-        new Page();
-    });
-
-    loading.done(function() {
-        routers = 'routers/authorized';
-    });
-
-    loading.fail(function() {
-        routers = 'routers/unauthorized';
-    });
-
-    loading.always(function() {
-
-        if (currentUserModel.stores && currentUserModel.stores.length) {
-//            window.history.replaceState({}, document.title, '/stores/' + currentUserModel.stores.at(0).id);
-        }
-
-        require([routers], function() {
-
-            Backbone.history.start({
-                pushState: true
+            $(function() {
+                new Page();
             });
 
-            isAppStarted = true;
-        });
+            loading.done(function() {
+                routers = 'routers/authorized';
+            });
+
+            loading.fail(function() {
+                routers = 'routers/unauthorized';
+            });
+
+            loading.always(function() {
+
+                require([routers], function() {
+
+                    Backbone.history.start({
+                        pushState: true
+                    });
+
+                    isAppStarted = true;
+                });
+            });
+        }
     });
+
+    return new App();
 });
