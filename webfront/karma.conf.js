@@ -13,10 +13,7 @@ files = [
     REQUIRE,
     REQUIRE_ADAPTER,
     'web/config.js',
-    'web/libs/jquery/jquery.min.js',
-    'web/libs/jquery-ui/ui/minified/jquery-ui.min.js',
-    'web/libs/underscore/underscore.min.js',
-    'web/libs/backbone/backbone.min.js',
+    'web/kit/config.js',
     'karma.main.js',
 
     {pattern: 'web/**/*.js', included: false}

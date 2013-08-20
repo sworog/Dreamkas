@@ -1,4 +1,8 @@
 define(function(require) {
+    //requirements
+    var Backbone = require('backbone'),
+        _ = require('underscore');
+
     return Backbone.Model.extend({
         saveFields: [],
         initData: {},
@@ -40,13 +44,10 @@ define(function(require) {
         get: function(path){
             var model = this,
                 segments = path.split('.'),
-                segment,
-                attr;
+                attr = model.attributes;
 
-            _.every(segments, function(i){
-                segment = segments[i];
-                attr = model.attributes[segment];
-                return attr;
+            _.every(segments, function(segment){
+                return attr = attr[segment];
             });
 
             return attr;

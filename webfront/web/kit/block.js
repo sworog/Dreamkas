@@ -1,6 +1,8 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('kit/utils/deepExtend'),
+    var Backbone = require('backbone'),
+        _ = require('underscore'),
+        deepExtend = require('kit/utils/deepExtend'),
         classExtend = require('kit/utils/classExtend'),
         setter = require('kit/utils/setter');
 

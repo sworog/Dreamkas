@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
-    var classExtend = require('kit/utils/classExtend');
+    var Backbone = require('backbone'),
+        classExtend = require('kit/utils/classExtend');
 
     require('backbone.queryparams');
 

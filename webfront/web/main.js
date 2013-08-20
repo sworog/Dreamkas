@@ -30,6 +30,6 @@ require(
                 locale: LH.locale === 'auto' ? undefined : LH.locale
             }
         }
-    }, ['libs/libs'], function(){
-        require(['app']);
+    }, ['app'], function(App){
+        new App();
     });

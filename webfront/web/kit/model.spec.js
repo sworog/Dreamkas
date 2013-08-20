@@ -3,6 +3,7 @@ define(function(require) {
     var Model = require('kit/model');
 
     var model = new Model({
+        string: 'test',
         a: {
             b: {
                 c: 'test'
@@ -12,9 +13,9 @@ define(function(require) {
 
     describe('Lighthouse model', function() {
         it('get method', function() {
-            expect(typeof model.get('a')).toEqual('object');
-//            expect(model.get('a.b.c')).toEqual('test');
-//            expect(model.get('c.a.b')).toEqual(undefined);
+            expect(model.get('string')).toEqual('test');
+            expect(model.get('a.b.c')).toEqual('test');
+            expect(model.get('c.a.b')).toEqual(undefined);
         });
     });
 

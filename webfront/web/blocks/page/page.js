@@ -1,8 +1,7 @@
 define(function(require) {
-    var Block = require("kit/block");
+    var Page = require("kit/blocks/page/page");
 
-    return Block.extend({
-        __name__: 'page',
+    return Page.extend({
         events: {
             'click .page__tabItem': 'click .page__tabItem'
         },

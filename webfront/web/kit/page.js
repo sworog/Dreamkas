@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block'),
-        currentPage = require('kit/currentPage');
+        currentPage = require('kit/pages/currentPage');
 
     var router = new Backbone.Router();
 
