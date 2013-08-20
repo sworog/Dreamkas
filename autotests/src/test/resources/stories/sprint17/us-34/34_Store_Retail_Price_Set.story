@@ -199,6 +199,8 @@ And the user navigates to the product with sku 'storeProductSku5'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 Then the user checks the 'retailMarkupRange' value is '0,00 - 50,00'
 And the user checks the 'retailPriceRange' value is '10,00 - 15,00'
+And the user checks the 'retailMarkup' value is '50,00'
+And the user checks the 'retailPrice' value is '15,00'
 
 
 

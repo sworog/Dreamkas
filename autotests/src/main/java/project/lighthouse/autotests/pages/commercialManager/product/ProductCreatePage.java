@@ -8,10 +8,7 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.elements.Input;
-import project.lighthouse.autotests.elements.NonType;
-import project.lighthouse.autotests.elements.SelectByValue;
-import project.lighthouse.autotests.elements.Textarea;
+import project.lighthouse.autotests.elements.*;
 
 import java.util.Map;
 
@@ -48,6 +45,8 @@ public class ProductCreatePage extends CommonPageObject {
         items.put("group", new NonType(this, "group"));
         items.put("category", new NonType(this, "category"));
         items.put("subCategory", new NonType(this, "subCategory"));
+        items.put("rounding", new SelectByVisibleText(this, "rounding"));
+        items.put("rounding price", new NonType(this, By.xpath("//*[@class='productForm__rounding']")));
     }
 
     public void fieldInput(ExamplesTable fieldInputTable) {

@@ -218,4 +218,12 @@ public class CommonPage extends PageObject {
                 selectedValue, Matchers.containsString(expectedValue)
         );
     }
+
+    public void pageContainsText(String text) {
+        waiter.getVisibleWebElement(
+                By.xpath(
+                        String.format("//*[contains(normalize-space(text()), '%s')]", text)
+                )
+        );
+    }
 }

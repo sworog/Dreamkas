@@ -14,7 +14,7 @@ public class Product extends AbstractObject {
     public Product(String name, String units, String vat, String purchasePrice, String barcode,
                    String sku, String vendorCountry, String vendor, String info,
                    String subCategory, String retailMarkupMax,
-                   String retailMarkupMin) throws JSONException {
+                   String retailMarkupMin, String rounding) throws JSONException {
         this(new JSONObject()
                 .put("name", name)
                 .put("units", units)
@@ -28,6 +28,7 @@ public class Product extends AbstractObject {
                 .put("subCategory", subCategory)
                 .put("retailMarkupMax", retailMarkupMax)
                 .put("retailMarkupMin", retailMarkupMin)
+                .put("rounding", rounding)
         );
     }
 

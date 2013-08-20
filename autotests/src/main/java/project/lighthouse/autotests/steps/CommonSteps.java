@@ -68,4 +68,9 @@ public class CommonSteps extends ScenarioSteps {
     public void pageRefresh() {
         getDriver().navigate().refresh();
     }
+
+    @Step
+    public void pageContainsText(String text) {
+        commonPage.pageContainsText(text);
+    }
 }

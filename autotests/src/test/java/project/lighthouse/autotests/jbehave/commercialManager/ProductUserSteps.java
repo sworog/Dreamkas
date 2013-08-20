@@ -7,6 +7,8 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.objects.Category;
+import project.lighthouse.autotests.objects.Group;
 import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
 
 import java.io.IOException;
@@ -54,6 +56,24 @@ public class ProductUserSteps {
         productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName);
     }
 
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+                                         String rounding, String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
+    }
+
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice, '$rounding' rounding in the subcategory named '$subCategoryName'")
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+                                         String rounding, String subCategoryName) throws IOException, JSONException {
+        productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName, rounding);
+    }
+
+    @Given("there is the product with <productSku> and <rounding> in the subcategory named '$subCategoryName'")
+    public void createProductThroughPost(String rounding, String productSku, String subCategoryName) throws IOException, JSONException {
+        createProductThroughPost(productSku, productSku, productSku, "kg", "1", rounding, subCategoryName);
+    }
+
+
     @Given("the user is on the product create page")
     public void givenTheUserIsOnTheOrderCreatePage() throws JSONException, IOException {
         productSteps.openProductCreatePage();
@@ -70,6 +90,7 @@ public class ProductUserSteps {
     }
 
     @Given("the user navigates to the product with sku '$productSku'")
+    @Alias("the user navigates to the product with <productSku>")
     public void givenTheUserNavigatesToTheProduct(String productSku) throws JSONException {
         productSteps.navigateToTheProductPage(productSku);
     }
@@ -146,6 +167,11 @@ public class ProductUserSteps {
         productSteps.editProductButtonClick();
     }
 
+    @Then("the user checks the edit price button is not present")
+    public void thenUserChecksTheEditPriceButtonIsNotPresent() {
+        productSteps.editProductButtonIsNotPresent();
+    }
+
     @When("the user generates charData with '$charNumber' number in the '$elementName' field")
     @Alias("the user generates charData with <charNumber> number in the <elementName> field")
     public void whenTheUserGeneratesCharData(String elementName, int charNumber) {
@@ -168,6 +194,17 @@ public class ProductUserSteps {
     public void thenTheUserChecksValue(String elementName, String expectedValue) {
         productSteps.checkCardValue(elementName, expectedValue);
     }
+
+    @Then("the user checks the rounding value is <expectedValue>")
+    public void AliasTheUserChecksValue(String expectedValue) {
+        productSteps.checkCardValue("rounding", expectedValue);
+    }
+
+    @Then("the user checks the '$elementNameToCheck' is <expectedValue>")
+    public void AliastTheUserChecksValue(String elementNameToCheck, String expectedValue) {
+        productSteps.checkCardValue(elementNameToCheck, expectedValue);
+    }
+
 
     @Then("the user checks the elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {

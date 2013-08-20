@@ -49,6 +49,11 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
+        catalogApi.createSubCategoryThroughPost(groupName, categoryName, subCategoryName, rounding);
+    }
+
+    @Step
     public void navigateToSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
         catalogApi.navigateToSubCategoryProductListPageUrl(subCategoryName, categoryName, groupName);
     }

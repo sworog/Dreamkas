@@ -62,6 +62,11 @@ public class CatalogUserSteps {
         catalogSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
     }
 
+    @Given("there is the subCategory with rounding set to '$rounding' with name '$subCategoryName' related to group named '$groupName' and category named '$categoryName'")
+    public void createSubCategoryThroughPost(String rounding, String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        catalogSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName, rounding);
+    }
+
     @Given("the user navigates to the subCategory '$subCategoryName', category '$categoryName', group '$groupName' product list page")
     public void navigateToSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
         catalogSteps.navigateToSubCategoryProductListPageUrl(subCategoryName, categoryName, groupName);

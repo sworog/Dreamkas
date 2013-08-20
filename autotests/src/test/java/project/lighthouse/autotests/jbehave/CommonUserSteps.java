@@ -67,4 +67,9 @@ public class CommonUserSteps {
     public void whenTheUserRefreshesTheCurrentPage() {
         commonSteps.pageRefresh();
     }
+
+    @Then("the user checks page contains text '$text'")
+    public void pageContainsText(String text) {
+        commonSteps.pageContainsText(text);
+    }
 }

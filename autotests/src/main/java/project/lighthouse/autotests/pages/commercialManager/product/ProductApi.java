@@ -23,7 +23,12 @@ public class ProductApi extends CommercialManagerApi {
 
     public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
                                          String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
-        apiConnect.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName);
+        apiConnect.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, null);
+    }
+
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+                                         String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
+        apiConnect.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
     }
 
     public void navigateToTheProductPage(String productSku) throws JSONException {

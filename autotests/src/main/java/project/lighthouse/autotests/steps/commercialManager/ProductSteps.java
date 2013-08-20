@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.steps.commercialManager;
 
+import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -42,6 +43,12 @@ public class ProductSteps extends ScenarioSteps {
     public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
                                          String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
         productApi.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName);
+    }
+
+    @Step
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+                                         String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
+        productApi.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
     }
 
     @Step
@@ -134,6 +141,15 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void editProductButtonClick() {
         productCardView.editProductButtonClick();
+    }
+
+    @Step
+    public void editProductButtonIsNotPresent() {
+        try {
+            productCardView.editProductButtonClick();
+            Assert.fail("Edit product button is clicked and present!");
+        } catch (Exception e) {
+        }
     }
 
     @Step

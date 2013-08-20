@@ -23,6 +23,11 @@ public class SubCategory extends AbstractClassifierNode {
         jsonObject.put("category", categoryId);
     }
 
+    public SubCategory(String name, String categoryId, String rounding) throws JSONException {
+        this(name, categoryId);
+        jsonObject.put("rounding", rounding);
+    }
+
     @Override
     public String getApiUrl() {
         return API_URL;

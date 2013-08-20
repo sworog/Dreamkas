@@ -79,13 +79,13 @@ public class ApiConnect {
     }
 
     public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
-        createProductThroughPost(name, sku, barcode, units, purchasePrice, Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName);
+        createProductThroughPost(name, sku, barcode, units, purchasePrice, Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName, null);
     }
 
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String groupName, String categoryName, String subCategoryName) throws JSONException, IOException {
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String groupName, String categoryName, String subCategoryName, String rounding) throws JSONException, IOException {
         SubCategory subCategory = createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
         getSubCategoryMarkUp(subCategory.getId());
-        Product product = new Product(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), retailMarkupMax, retailMarkupMin);
+        Product product = new Product(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), retailMarkupMax, retailMarkupMin, rounding);
         createProductThroughPost(product, subCategory);
 
     }
@@ -280,6 +280,13 @@ public class ApiConnect {
         Group group = createGroupThroughPost(groupName);
         Category category = createCategoryThroughPost(categoryName, groupName);
         SubCategory subCategory = new SubCategory(subCategoryName, category.getId());
+        return createSubCategoryThroughPost(subCategory, category, group);
+    }
+
+    public SubCategory createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
+        Group group = createGroupThroughPost(groupName);
+        Category category = createCategoryThroughPost(categoryName, groupName);
+        SubCategory subCategory = new SubCategory(subCategoryName, category.getId(), rounding);
         return createSubCategoryThroughPost(subCategory, category, group);
     }
 
