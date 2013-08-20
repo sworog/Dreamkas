@@ -16,7 +16,7 @@ class ProductVersionMetadataListener
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
         $classMetadata = $eventArgs->getClassMetadata();
-        // TODO Dummy workaround to remove product unique index on sku
+        // FIXME Dummy workaround to remove product unique index on sku
         if ('Lighthouse\\CoreBundle\\Document\\Product\\Version\\ProductVersion' === $classMetadata->getName()) {
             foreach ($classMetadata->indexes as $i => $index) {
                 if (isset($index['keys']['sku']) && 1 == count($index['keys'])) {

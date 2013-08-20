@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -1443,6 +1444,135 @@ class ProductControllerTest extends WebTestCase
     }
 
     /**
+     * @param $expectedCode
+     * @param array $putData
+     * @param array $assertions
+     *
+     * @dataProvider putProductActionSetRoundingProvider
+     */
+    public function testPutProductActionSetRounding($expectedCode, array $putData, array $assertions)
+    {
+        $postData = $this->getProductData();
+
+        $productId = $this->createProduct($postData);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $putData += $postData;
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/products/' . $productId,
+            $putData
+        );
+
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($putResponse, $assertions);
+
+        if (200 == $expectedCode) {
+            $getResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/products/' . $productId
+            );
+
+            $this->assertEquals($putResponse, $getResponse, 'PUT and GET responses should be equal');
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function putProductActionSetRoundingProvider()
+    {
+        return array(
+            'nearest1' => array(
+                200,
+                array(
+                    'rounding' => 'nearest1',
+                ),
+                array(
+                    'rounding.name' => 'nearest1',
+                )
+            ),
+            'nearest10' => array(
+                200,
+                array(
+                    'rounding' => 'nearest10',
+                ),
+                array(
+                    'rounding.name' => 'nearest10',
+                )
+            ),
+            'nearest50' => array(
+                200,
+                array(
+                    'rounding' => 'nearest50',
+                ),
+                array(
+                    'rounding.name' => 'nearest50',
+                )
+            ),
+            'nearest100' => array(
+                200,
+                array(
+                    'rounding' => 'nearest100',
+                ),
+                array(
+                    'rounding.name' => 'nearest100',
+                )
+            ),
+            'nearest99' => array(
+                200,
+                array(
+                    'rounding' => 'nearest99',
+                ),
+                array(
+                    'rounding.name' => 'nearest99',
+                )
+            ),
+            'invalid rounding name' => array(
+                400,
+                array(
+                    'rounding' => 'invalid10',
+                ),
+                array(
+                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                )
+            ),
+            'invalid 0 rounding' => array(
+                400,
+                array(
+                    'rounding' => 0,
+                ),
+                array(
+                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                )
+            ),
+            'null rounding becomes default nearest1' => array(
+                200,
+                array(
+                    'rounding' => null,
+                ),
+                array(
+                    'rounding.name' => 'nearest1',
+                )
+            ),
+            'empty rounding becomes default nearest1' => array(
+                200,
+                array(
+                    'rounding' => '',
+                ),
+                array(
+                    'rounding.name' => 'nearest1',
+                )
+            ),
+        );
+    }
+
+    /**
      * @return array
      */
     public function productProvider()
@@ -1465,7 +1595,8 @@ class ProductControllerTest extends WebTestCase
     }
 
     /**
-     * @return array
+     * @param bool $withSubCategory
+     * @return mixed
      */
     public function getProductData($withSubCategory = true)
     {
