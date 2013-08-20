@@ -1,6 +1,8 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block'),
+        Backbone = require('backbone'),
+        _ = require('underscore'),
         currentPage = require('kit/pages/currentPage');
 
     var router = new Backbone.Router();
@@ -83,6 +85,9 @@ define(function(require) {
             _.each(blocks, function(block) {
                 block.remove();
             });
+        },
+        save: function(data){
+            var page = this;
         }
     });
 });
