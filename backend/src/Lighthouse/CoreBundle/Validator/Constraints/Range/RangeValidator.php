@@ -7,8 +7,6 @@ use Lighthouse\CoreBundle\Validator\Constraints\ClassConstraintInterface;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparator;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
 use Lighthouse\CoreBundle\Validator\Constraints\ConstraintValidator;
-use Lighthouse\CoreBundle\Validator\Constraints\numeric;
-use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -54,7 +52,7 @@ class RangeValidator extends ConstraintValidator
     }
 
     /**
-     * @param numeric $value
+     * @param int|float $value
      * @param Range $constraint
      * @return Comparison
      */
@@ -95,7 +93,7 @@ class RangeValidator extends ConstraintValidator
     }
 
     /**
-     * @param numeric $value
+     * @param Comparison $comparison
      * @param Range $constraint
      * @param string $operator
      * @return string
@@ -106,9 +104,10 @@ class RangeValidator extends ConstraintValidator
     }
 
     /**
-     * @param numeric $limit
+     * @param int|float $limit
      * @param Range $constraint
      * @param string $operator
+     * @param Comparison $comparison
      * @return string
      */
     protected function formatLimitMessage($limit, Range $constraint, $operator, Comparison $comparison)

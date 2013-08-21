@@ -9,14 +9,13 @@ use Lighthouse\CoreBundle\Validator\Constraints\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Precision;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassMoneyRange;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassNumericRange;
-use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Symfony\Component\Validator\Constraint;
 
 class RetailPriceValidator extends ConstraintValidator
 {
     /**
      * @param StoreProduct $value
-     * @param Constraint $constraint
+     * @param Constraint|RetailPrice $constraint
      */
     public function validate($value, Constraint $constraint)
     {
@@ -128,6 +127,7 @@ class RetailPriceValidator extends ConstraintValidator
                         );
                         return false;
                     }
+                    break;
                 case Product::RETAIL_PRICE_PREFERENCE_MARKUP:
                 default:
                     if (!$this->isNull($storeProduct->retailMarkup)) {

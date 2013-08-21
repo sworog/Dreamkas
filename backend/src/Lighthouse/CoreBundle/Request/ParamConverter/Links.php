@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Request\ParamConverter;
 
-use Lighthouse\CoreBundle\Request\ParamConverter\Link;
 use Traversable;
 
 class Links implements \IteratorAggregate

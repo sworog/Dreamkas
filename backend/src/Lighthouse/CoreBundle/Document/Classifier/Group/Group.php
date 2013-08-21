@@ -42,7 +42,7 @@ class Group extends AbstractNode
     }
 
     /**
-     * @return Categories[]|ArrayCollection
+     * @return Category[]|ArrayCollection
      */
     public function getChildren()
     {

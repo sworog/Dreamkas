@@ -12,7 +12,8 @@ class RetailPrice extends Constraint
     /**
      * @var string
      */
-    public $invalidRoundedRetailPriceMessage = 'lighthouse.validation.errors.store_product.rounded_retail_price.invalid';
+    public $invalidRoundedRetailPriceMessage
+        = 'lighthouse.validation.errors.store_product.rounded_retail_price.invalid';
 
     /**
      * @var string

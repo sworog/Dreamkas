@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Test\Client;
 
+use stdClass;
+
 class JsonRequest
 {
     /**
@@ -79,15 +81,17 @@ class JsonRequest
     }
 
     /**
-     * @param \stdClass|string $accessToken
+     * @param stdClass|string $accessToken
      */
     public function setAccessToken($accessToken)
     {
-        if ($accessToken instanceof \stdClass) {
-            $accessToken = $accessToken->access_token;
+        if ($accessToken instanceof stdClass) {
+            $token = (string) $accessToken->access_token;
+        } else {
+            $token = (string) $accessToken;
         }
 
-        $this->addHttpHeader('Authorization', 'Bearer ' . $accessToken);
+        $this->addHttpHeader('Authorization', 'Bearer ' . $token);
     }
 
     /**

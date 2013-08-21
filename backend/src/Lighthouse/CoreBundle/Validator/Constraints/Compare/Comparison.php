@@ -3,8 +3,6 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Exception\NullValueException;
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparator;
-use Lighthouse\CoreBundle\Validator\Constraints\numeric;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class Comparison
@@ -15,12 +13,12 @@ class Comparison
     protected $comparator;
 
     /**
-     * @var numeric
+     * @var int|float
      */
     protected $value;
 
     /**
-     * @param numeric $value
+     * @param mixed $value
      * @param Comparator $comparator
      * @throws NullValueException
      */
@@ -31,7 +29,7 @@ class Comparison
     }
 
     /**
-     * @param numeric $test
+     * @param int|float $test
      * @param string $operator
      * @return bool
      * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
@@ -60,7 +58,7 @@ class Comparison
     }
 
     /**
-     * @return numeric
+     * @return int|float
      */
     public function getValue()
     {

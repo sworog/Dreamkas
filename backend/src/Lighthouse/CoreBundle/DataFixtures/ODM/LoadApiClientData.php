@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\DataFixtures\ODM;
 
-use Doctrine\Common\DataFixtures\Doctrine;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\OAuthServerBundle\Model\ClientInterface;

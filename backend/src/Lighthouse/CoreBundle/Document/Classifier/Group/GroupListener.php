@@ -5,8 +5,6 @@ namespace Lighthouse\CoreBundle\Document\Classifier\Group;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
-use Lighthouse\CoreBundle\Document\Classifier\Group\GroupNotEmptyException;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"preRemove"})

@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier\SubCategory;
 
-use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Symfony\Component\Validator\Constraints as Assert;

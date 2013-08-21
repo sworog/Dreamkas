@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
+use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\ClassMoneyComparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare;
@@ -18,9 +19,9 @@ use JMS\DiExtraBundle\Annotation as DI;
 class ClassMoneyRangeValidator extends MoneyRangeValidator
 {
     /**
-     * @param object $value
-     * @param Constraint|ClassMoneyRange $constraint
-     * @return ClassMoneyComparison|Compare\Comparison
+     * @param object|Money $value
+     * @param ClassMoneyRange|Range $constraint
+     * @return ClassMoneyComparison
      */
     protected function createComparison($value, Range $constraint)
     {

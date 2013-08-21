@@ -3,8 +3,6 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Types\Money;
-use Lighthouse\CoreBundle\Validator\Constraints\DateTime;
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyCompare;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 

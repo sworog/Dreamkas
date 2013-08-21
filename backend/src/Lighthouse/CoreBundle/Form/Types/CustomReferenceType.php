@@ -24,7 +24,7 @@ class CustomReferenceType extends AbstractType
      * @DI\InjectParams({
      *     "referenceManager" = @DI\Inject("lighthouse.core.mongodb.reference.manager")
      * })
-     * @param ReferenceManager $odm
+     * @param ReferenceManager $referenceManager
      */
     public function __construct(ReferenceManager $referenceManager)
     {

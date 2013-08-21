@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Document\Product;
 
+use Lighthouse\CoreBundle\Types\Money;
+
 interface Productable
 {
     /**

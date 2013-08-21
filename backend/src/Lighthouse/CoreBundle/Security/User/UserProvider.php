@@ -148,7 +148,7 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * @param UserInterface $user
+     * @param UserInterface|User $user
      * @param string $password
      * @param bool $validate
      */

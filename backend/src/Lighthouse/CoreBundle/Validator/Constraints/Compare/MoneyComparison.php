@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Exception\NullValueException;
 use Lighthouse\CoreBundle\Types\Money;
-use Lighthouse\CoreBundle\Validator\Constraints\numeric;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class MoneyComparison extends Comparison
@@ -15,7 +14,7 @@ class MoneyComparison extends Comparison
     protected $moneyValue;
 
     /**
-     * @param Money $value
+     * @param Money|mixed $value
      * @param Comparator $comparator
      * @throws UnexpectedTypeException
      */
@@ -27,8 +26,8 @@ class MoneyComparison extends Comparison
 
     /**
      * @param mixed $value
-     * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @throws \Lighthouse\CoreBundle\Exception\NullValueException
+     * @throws UnexpectedTypeException
+     * @throws NullValueException
      * @return int
      */
     protected function normalizeValue($value)
@@ -44,7 +43,7 @@ class MoneyComparison extends Comparison
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Types\Money
+     * @return Money
      */
     public function getMoneyValue()
     {

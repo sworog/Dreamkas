@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Product;
 
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Rounding\RoundingManager;
 use Lighthouse\CoreBundle\Versionable\VersionInterface;
 use Symfony\Component\Validator\ObjectInitializerInterface;

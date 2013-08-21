@@ -9,7 +9,7 @@ class CallbackValidator extends ConstraintValidator
 {
     /**
      * @param mixed $value
-     * @param Constraint|Callback $constraint
+     * @param Constraint|\Lighthouse\CoreBundle\Validator\Constraints\Callback $constraint
      */
     public function validate($value, Constraint $constraint)
     {

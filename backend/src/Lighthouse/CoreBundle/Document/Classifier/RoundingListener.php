@@ -51,7 +51,7 @@ class RoundingListener
     }
 
     /**
-     * @param AbstractNode $document
+     * @param AbstractNode|object $document
      * @return boolean
      */
     protected function updateRounding($document)

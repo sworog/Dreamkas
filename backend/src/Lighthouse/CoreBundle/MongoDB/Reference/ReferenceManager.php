@@ -114,6 +114,7 @@ class ReferenceManager
     /**
      * @param $document
      * @param ObjectManager|DocumentManager $manager
+     * @param bool $recompute
      */
     protected function updateReference($document, ObjectManager $manager, $recompute = false)
     {
@@ -143,7 +144,7 @@ class ReferenceManager
     /**
      * @param $document
      * @param ObjectManager $manager
-     * @return ClassMetadata
+     * @return ClassMetadata|\Doctrine\ODM\MongoDB\Mapping\ClassMetadata
      */
     protected function getClassMetadata($document, ObjectManager $manager)
     {

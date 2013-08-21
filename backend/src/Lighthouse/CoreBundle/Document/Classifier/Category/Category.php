@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Document\Classifier\Category;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;

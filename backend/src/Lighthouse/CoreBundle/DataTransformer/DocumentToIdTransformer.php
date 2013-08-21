@@ -29,6 +29,7 @@ class DocumentToIdTransformer implements DataTransformerInterface
     /**
      * @param DocumentManager $documentManager
      * @param string $class
+     * @param VersionFactory $versionFactory
      */
     public function __construct(DocumentManager $documentManager, $class, VersionFactory $versionFactory)
     {

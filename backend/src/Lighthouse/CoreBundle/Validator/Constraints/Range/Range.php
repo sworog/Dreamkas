@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
-use Lighthouse\CoreBundle\Validator\Constraints\stirng;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
 
@@ -44,7 +43,7 @@ class Range extends Constraint
      */
     public function getLimit($operator)
     {
-        return $this->$operator;
+        return $this->{$operator};
     }
 
     /**
@@ -54,6 +53,6 @@ class Range extends Constraint
     public function getMessage($operator)
     {
         $property = $operator . 'Message';
-        return $this->$property;
+        return $this->{$property};
     }
 }

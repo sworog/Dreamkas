@@ -19,7 +19,7 @@ class CategoryController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.classifier.category")
-     * @var \Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository
+     * @var CategoryRepository
      */
     protected $documentRepository;
 
@@ -90,7 +90,7 @@ class CategoryController extends AbstractRestController
      */
     public function getGroupCategoriesAction(Group $group)
     {
-        $cursor = $this->getDocumentRepository()->findByGroup($group->id);
+        $cursor = $this->documentRepository->findByGroup($group->id);
         return new CategoryCollection($cursor);
     }
 
@@ -104,7 +104,7 @@ class CategoryController extends AbstractRestController
      */
     public function getStoreGroupCategoriesAction(Store $store, Group $group)
     {
-        $cursor = $this->getDocumentRepository()->findByGroup($group->id);
+        $cursor = $this->documentRepository->findByGroup($group->id);
         return new CategoryCollection($cursor);
     }
 

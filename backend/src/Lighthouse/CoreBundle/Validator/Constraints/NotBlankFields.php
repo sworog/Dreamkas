@@ -34,7 +34,7 @@ class NotBlankFields extends Constraint
         parent::__construct($options);
 
         if (!is_array($this->fields)) {
-            throw new UnexpectedTypeException($this->constraints, 'array');
+            throw new UnexpectedTypeException($this->fields, 'array');
         }
     }
 

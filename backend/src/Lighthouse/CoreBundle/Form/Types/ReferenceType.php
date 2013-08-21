@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class ReferenceType extends AbstractType
 {
     /**
-     * @var \Doctrine\ODM\MongoDB\DocumentManager
+     * @var DocumentManager
      */
     protected $odm;
 
@@ -32,6 +32,7 @@ class ReferenceType extends AbstractType
      *     "versionFactory"=@DI\Inject("lighthouse.core.versionable.factory")
      * })
      * @param DocumentManager $odm
+     * @param VersionFactory $versionFactory
      */
     public function __construct(DocumentManager $odm, VersionFactory $versionFactory)
     {

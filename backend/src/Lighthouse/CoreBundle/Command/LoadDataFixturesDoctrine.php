@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Command;
 use Doctrine\Bundle\MongoDBBundle\Command\DoctrineODMCommand;
 use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor;
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -74,6 +75,7 @@ EOT
     {
         /** @var $doctrine \Doctrine\Common\Persistence\ManagerRegistry */
         $doctrine = $this->getContainer()->get('doctrine_mongodb');
+        /** @var DocumentManager $dm */
         $dm = $doctrine->getManager($input->getOption('dm'));
 
         if ($input->isInteractive() && !$input->getOption('append')) {

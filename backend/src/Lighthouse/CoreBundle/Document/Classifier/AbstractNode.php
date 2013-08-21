@@ -6,7 +6,6 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Symfony\Component\Validator\Constraints as Assert;
-use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare as AssertMarkupCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\NotBlankFields as AssertNotBlankFields;
 use JMS\Serializer\Annotation\Exclude;

@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Exception\NullValueException;
 use Lighthouse\CoreBundle\Types\Money as MoneyType;
+use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -21,9 +22,8 @@ class ClassNumericComparison extends Comparison
     protected $accessor;
 
     /**
-     * @param Money $value
+     * @param object $value
      * @param string $field
-     * @param string $limitField
      * @param Comparator $comparator
      */
     public function __construct($value, $field, Comparator $comparator = null)

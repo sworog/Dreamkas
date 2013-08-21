@@ -96,7 +96,7 @@ class WriteOffProductController extends AbstractRestController
      */
     public function getProductsAction(WriteOff $writeOff)
     {
-        return $this->getDocumentRepository()->findAllByWriteOff($writeOff);
+        return $this->documentRepository->findAllByWriteOff($writeOff);
     }
 
     /**

@@ -2,8 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
-use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
-
 class MoneyRange extends Range
 {
     /**

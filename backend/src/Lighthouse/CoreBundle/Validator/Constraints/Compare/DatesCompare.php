@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Symfony\Component\Validator\Constraint;
+use DateTime;
 
 /**
  * @Annotation
@@ -18,5 +18,5 @@ class DatesCompare extends Compare
     /**
      * @var string
      */
-    public $dateFormat = \DateTime::RFC3339;
+    public $dateFormat = DateTime::RFC3339;
 }

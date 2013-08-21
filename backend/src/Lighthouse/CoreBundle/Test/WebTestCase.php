@@ -2,17 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
-use Lighthouse\CoreBundle\Test\JsonPath;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use AppKernel;
 
 /**
  * @codeCoverageIgnore
@@ -363,8 +360,9 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $name
      * @param bool $ifNotExists
-     * @param null $retailMarkupMin
-     * @param null $retailMarkupMax
+     * @param mixed $retailMarkupMin
+     * @param mixed $retailMarkupMax
+     * @param string $rounding
      * @return string
      */
     protected function createGroup(
@@ -468,6 +466,8 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $groupId
      * @param string $name
+     * @param bool $ifNotExists
+     * @param string $rounding
      * @return string
      */
     protected function createCategory(
@@ -520,6 +520,7 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $categoryId
      * @param string $name
+     * @param bool $ifNotExists
      * @return string
      */
     protected function createSubCategory($categoryId = null, $name = 'Водка', $ifNotExists = true)
