@@ -122,3 +122,10 @@ nelmio_api_doc:
 ekino_new_relic:
     application_name: Lighthouse API
     api_key: 8e0222b451067be5425cf910998d1cc80412e63275b69d1
+
+leezy_pheanstalk:
+    enabled: true
+    pheanstalks:
+        primary:
+            server: %beanstalkd_server%
+            default: true

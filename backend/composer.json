@@ -25,7 +25,8 @@
         "friendsofsymfony/oauth-server-bundle": "~1.3",
         "nelmio/api-doc-bundle": "~2.3",
         "ekino/newrelic-bundle": "~1.0",
-        "doctrine/data-fixtures": "~1.0@dev"
+        "doctrine/data-fixtures": "~1.0@dev",
+        "leezy/pheanstalk-bundle": "~2.1"
     },
     "scripts": {
         "post-install-cmd": [
