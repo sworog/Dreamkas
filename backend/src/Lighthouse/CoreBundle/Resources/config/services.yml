@@ -1,6 +1,7 @@
 parameters:
     money.precision: 2
     rounding.default: nearest1
+    test.client.class: Lighthouse\CoreBundle\Test\Client\Client
 
 services:
     jms_serializer.serialized_name_annotation_strategy:
@@ -25,16 +26,6 @@ services:
         class: Doctrine\ODM\MongoDB\DocumentRepository
         factory_service: doctrine_mongodb.odm.document_manager
         factory_method: getRepository
-
-    #test.client:
-    #    class: Lighthouse\CoreBundle\Test\Client\Client
-    #    scope: prototype
-    #    arguments:
-    #        - @kernel
-    #        - %test.client.parameters%
-    #        - @test.client.history
-    #        - @test.client.cookiejar
-
 
     lighthouse.core.document.repository.product:
         parent: doctrine_mongodb.odm.repository
