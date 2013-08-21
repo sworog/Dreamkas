@@ -104,4 +104,10 @@ public class ProductCreatePage extends CommonPageObject {
             findVisibleElement(retailPriceHintFindBy).click();
         }
     }
+
+    public void roundingPreloaderSpinnerWait() {
+        waiter.waitUntilIsNotVisible(
+                By.xpath("//*[@class='productForm__rounding preloader_spinner']")
+        );
+    }
 }

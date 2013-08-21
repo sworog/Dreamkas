@@ -241,4 +241,9 @@ public class ProductUserSteps {
     public void thenUSerChecksElementAvalaiblity(String elementName, String action) {
         productSteps.checkElementPresence(elementName, action);
     }
+
+    @Then("the user waits untill rounding preloader spinner is not visible")
+    public void thenTheUserWaitsUntillRoundingPreloaderSpinnerIsNotVisible() {
+        productSteps.roundingPreloaderSpinnerWait();
+    }
 }
