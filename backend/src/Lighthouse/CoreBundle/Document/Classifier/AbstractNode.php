@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare as AssertMarkupCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\NotBlankFields as AssertNotBlankFields;
 use JMS\Serializer\Annotation\Exclude;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\Range as AssertRange;
 
 /**
  * @property string $id
@@ -47,14 +48,14 @@ abstract class AbstractNode extends AbstractDocument
 
     /**
      * @MongoDB\Float
-     * @Range(gte=0)
+     * @AssertRange(gte=0)
      * @var float
      */
     protected $retailMarkupMin;
 
     /**
      * @MongoDB\Float
-     * @Range(gte=0)
+     * @AssertRange(gte=0)
      * @var float
      */
     protected $retailMarkupMax;
