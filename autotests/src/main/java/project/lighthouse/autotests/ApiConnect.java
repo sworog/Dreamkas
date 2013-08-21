@@ -14,7 +14,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.elements.DateTime;
 import project.lighthouse.autotests.objects.*;
 
 import java.io.IOException;
@@ -29,19 +28,9 @@ public class ApiConnect {
     String userName;
     String password;
 
-    String retailMarkupMax;
-    String retailMarkupMin;
-
     public ApiConnect(String userName, String password) throws JSONException {
         this.userName = userName;
         this.password = password;
-    }
-
-    public void createStoreDepartmentThroughPost(String number, String name) throws JSONException, IOException {
-        if (!StaticData.hasStore(Store.DEFAULT_NUMBER)) {
-            createStoreThroughPost();
-        }
-        createStoreDepartmentThroughPost(number, name, Store.DEFAULT_NUMBER);
     }
 
     public Department createStoreDepartmentThroughPost(Department department) throws JSONException, IOException {
@@ -54,22 +43,9 @@ public class ApiConnect {
         }
     }
 
-    public Department createStoreDepartmentThroughPost(String number, String name, String storeName) throws JSONException, IOException {
-        String storeId = StaticData.stores.get(storeName).getId();
-        Department department = new Department(number, name, storeId);
-        return createStoreDepartmentThroughPost(department);
-    }
-
-    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
-        if (!StaticData.hasSubCategory(SubCategory.DEFAULT_NAME)) {
-            createDefaultSubCategoryThroughPost();
-        }
-        createProductThroughPost(name, sku, barcode, units, purchasePrice, SubCategory.DEFAULT_NAME);
-    }
-
     public Product createProductThroughPost(Product product, SubCategory subCategory) throws JSONException, IOException {
         if (!subCategory.hasProduct(product)) {
-            getSubCategoryMarkUp(subCategory.getId());
+            getSubCategoryMarkUp(subCategory);
             executePostRequest(product);
             subCategory.addProduct(product);
             StaticData.products.put(product.getSku(), product);
@@ -79,25 +55,14 @@ public class ApiConnect {
         }
     }
 
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
-        createProductThroughPost(name, sku, barcode, units, purchasePrice, Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName, null);
-    }
-
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String groupName, String categoryName, String subCategoryName, String rounding) throws JSONException, IOException {
-        SubCategory subCategory = createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
-        getSubCategoryMarkUp(subCategory.getId());
-        Product product = new Product(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), retailMarkupMax, retailMarkupMin, rounding);
-        createProductThroughPost(product, subCategory);
-    }
-
-    private void getSubCategoryMarkUp(String subCategoryId) throws IOException, JSONException {
-        String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategoryId);
+    public void getSubCategoryMarkUp(SubCategory subCategory) throws IOException, JSONException {
+        String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategory.getId());
         String response = executeSimpleGetRequest(apiUrl, true);
         JSONObject jsonObject = new JSONObject(response);
-        retailMarkupMax = (!jsonObject.isNull("retailMarkupMax"))
+        StaticData.retailMarkupMax = (!jsonObject.isNull("retailMarkupMax"))
                 ? jsonObject.getString("retailMarkupMax")
                 : null;
-        retailMarkupMin = (!jsonObject.isNull("retailMarkupMin"))
+        StaticData.retailMarkupMin = (!jsonObject.isNull("retailMarkupMin"))
                 ? jsonObject.getString("retailMarkupMin")
                 : null;
     }
@@ -105,10 +70,6 @@ public class ApiConnect {
     public String getProductPageUrl(String productSku) throws JSONException {
         String productId = StaticData.products.get(productSku).getId();
         return String.format("%s/products/%s", UrlHelper.getWebFrontUrl(), productId);
-    }
-
-    public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
-        createInvoiceThroughPostWithoutNavigation(invoiceName);
     }
 
     public Invoice createInvoiceThroughPost(Invoice invoice) throws JSONException, IOException {
@@ -121,19 +82,9 @@ public class ApiConnect {
         }
     }
 
-    public Invoice createInvoiceThroughPostWithoutNavigation(String invoiceSku) throws JSONException, IOException {
-        Invoice invoice = new Invoice(invoiceSku, "supplier", DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "accepter", "legalEntity", "", "");
-        return createInvoiceThroughPost(invoice);
-    }
-
     public String getInvoicePageUrl(String invoiceName) throws JSONException {
         String invoiceId = StaticData.invoices.get(invoiceName).getId();
         return String.format("%s/invoices/%s?editMode=true", UrlHelper.getWebFrontUrl(), invoiceId);
-    }
-
-    public void createInvoiceThroughPost(String invoiceName, String productSku) throws IOException, JSONException {
-        createInvoiceThroughPostWithoutNavigation(invoiceName);
-        addProductToInvoice(invoiceName, productSku);
     }
 
     public void addProductToInvoice(String invoiceName, String productSku)
@@ -170,13 +121,6 @@ public class ApiConnect {
         );
     }
 
-    public void createWriteOffThroughPost(String writeOffNumber, String productSku, String quantity, String price, String cause)
-            throws JSONException, IOException {
-
-        createWriteOffThroughPost(writeOffNumber);
-        addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause);
-    }
-
     public WriteOff createWriteOffThroughPost(WriteOff writeOff) throws JSONException, IOException {
         if (!StaticData.writeOffs.containsKey(writeOff.getNumber())) {
             executePostRequest(writeOff);
@@ -185,11 +129,6 @@ public class ApiConnect {
         } else {
             return StaticData.writeOffs.get(writeOff.getNumber());
         }
-    }
-
-    public WriteOff createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
-        WriteOff writeOff = new WriteOff(writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN));
-        return createWriteOffThroughPost(writeOff);
     }
 
     public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause)
@@ -229,11 +168,6 @@ public class ApiConnect {
         return updatedGroup;
     }
 
-    public Group createGroupThroughPost(String groupName) throws IOException, JSONException {
-        Group group = new Group(groupName);
-        return createGroupThroughPost(group);
-    }
-
     public Category createCategoryThroughPost(Category category, Group group) throws IOException, JSONException {
         if (!(group.hasCategory(category))) {
             createGroupThroughPost(group);
@@ -245,12 +179,6 @@ public class ApiConnect {
             StaticData.categories.put(category.getName(), updatedCategory);
             return updatedCategory;
         }
-    }
-
-    public Category createCategoryThroughPost(String categoryName, String groupName) throws IOException, JSONException {
-        Group group = createGroupThroughPost(groupName);
-        Category category = new Category(categoryName, group.getId());
-        return createCategoryThroughPost(category, group);
     }
 
     public String getGroupPageUrl(String groupName) throws JSONException {
@@ -274,24 +202,6 @@ public class ApiConnect {
         } else {
             return StaticData.subCategories.get(subCategory.getName());
         }
-    }
-
-    public SubCategory createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
-        Group group = createGroupThroughPost(groupName);
-        Category category = createCategoryThroughPost(categoryName, groupName);
-        SubCategory subCategory = new SubCategory(subCategoryName, category.getId());
-        return createSubCategoryThroughPost(subCategory, category, group);
-    }
-
-    public SubCategory createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
-        Group group = createGroupThroughPost(groupName);
-        Category category = createCategoryThroughPost(categoryName, groupName);
-        SubCategory subCategory = new SubCategory(subCategoryName, category.getId(), rounding);
-        return createSubCategoryThroughPost(subCategory, category, group);
-    }
-
-    public SubCategory createDefaultSubCategoryThroughPost() throws IOException, JSONException {
-        return createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
     }
 
     public String getSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
@@ -330,15 +240,6 @@ public class ApiConnect {
         }
     }
 
-    public Store createStoreThroughPost() throws JSONException, IOException {
-        return createStoreThroughPost(new Store());
-    }
-
-    public Store createStoreThroughPost(String number, String address, String contacts) throws JSONException, IOException {
-        Store store = new Store(number, address, contacts);
-        return createStoreThroughPost(store);
-    }
-
     public String getStoreId(String storeNumber) throws JSONException {
         return StaticData.stores.get(storeNumber).getId();
     }
@@ -346,10 +247,6 @@ public class ApiConnect {
     public String getUserPageUrl(String userName) throws JSONException {
         String userId = StaticData.users.get(userName).getId();
         return String.format("%s/users/%s", UrlHelper.getWebFrontUrl(), userId);
-    }
-
-    public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, String subCategoryName) throws IOException, JSONException {
-        setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, StaticData.subCategories.get(subCategoryName));
     }
 
     public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, SubCategory subCategory) throws JSONException, IOException {
@@ -360,10 +257,6 @@ public class ApiConnect {
                 .put("retailMarkupMax", retailMarkupMax)
                 .put("retailMarkupMin", retailMarkupMin)
         );
-    }
-
-    public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
-        promoteStoreManager(store, StaticData.users.get(userName));
     }
 
     public void promoteStoreManager(Store store, User user) throws JSONException, IOException {

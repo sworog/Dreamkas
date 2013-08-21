@@ -2,6 +2,8 @@ package project.lighthouse.autotests.pages.departmentManager.invoice;
 
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.elements.DateTime;
+import project.lighthouse.autotests.objects.Invoice;
 import project.lighthouse.autotests.pages.departmentManager.api.DepartmentManagerApi;
 
 import java.io.IOException;
@@ -12,13 +14,19 @@ public class InvoiceApi extends DepartmentManagerApi {
         super(driver);
     }
 
-    public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
-        apiConnect.createInvoiceThroughPost(invoiceName);
+    public Invoice createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
+        Invoice invoice = new Invoice(invoiceName, "supplier", DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "accepter", "legalEntity", "", "");
+        return apiConnect.createInvoiceThroughPost(invoice);
+    }
+
+    public void createInvoiceThroughPostAndNavigateToIt(String invoiceName) throws JSONException, IOException {
+        createInvoiceThroughPost(invoiceName);
         navigateToTheInvoicePage(invoiceName);
     }
 
-    public void createInvoiceThroughPost(String invoiceName, String productSku) throws IOException, JSONException {
-        apiConnect.createInvoiceThroughPost(invoiceName, productSku);
+    public void createInvoiceThroughPostWithProductAndNavigateToIt(String invoiceName, String productSku) throws IOException, JSONException {
+        createInvoiceThroughPost(invoiceName);
+        apiConnect.addProductToInvoice(invoiceName, productSku);
         navigateToTheInvoicePage(invoiceName);
     }
 

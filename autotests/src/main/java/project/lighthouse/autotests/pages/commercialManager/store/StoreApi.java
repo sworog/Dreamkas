@@ -14,11 +14,12 @@ public class StoreApi extends CommercialManagerApi {
     }
 
     public Store createStoreThroughPost() throws IOException, JSONException {
-        return apiConnect.createStoreThroughPost();
+        return apiConnect.createStoreThroughPost(new Store());
     }
 
     public Store createStoreThroughPost(String number, String address, String contacts) throws IOException, JSONException {
-        return apiConnect.createStoreThroughPost(number, address, contacts);
+        Store store = new Store(number, address, contacts);
+        return apiConnect.createStoreThroughPost(store);
     }
 
     public String getStoreId(String storeNumber) throws JSONException {

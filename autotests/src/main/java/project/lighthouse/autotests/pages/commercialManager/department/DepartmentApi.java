@@ -2,6 +2,8 @@ package project.lighthouse.autotests.pages.commercialManager.department;
 
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.objects.Department;
 import project.lighthouse.autotests.objects.Store;
 import project.lighthouse.autotests.pages.commercialManager.api.CommercialManagerApi;
 
@@ -13,12 +15,17 @@ public class DepartmentApi extends CommercialManagerApi {
         super(driver);
     }
 
-    public void createStoreDepartmentThroughPost(String number, String name, String store) throws IOException, JSONException {
-        apiConnect.createStoreDepartmentThroughPost(number, name, store);
+    public Department createStoreDepartmentThroughPost(String number, String name, String storeName) throws IOException, JSONException {
+        String storeId = StaticData.stores.get(storeName).getId();
+        Department department = new Department(number, name, storeId);
+        return apiConnect.createStoreDepartmentThroughPost(department);
     }
 
-    public void createStoreDepartmentThroughPost(String number, String name) throws IOException, JSONException {
-        apiConnect.createStoreDepartmentThroughPost(number, name);
+    public Department createStoreDepartmentThroughPost(String number, String name) throws IOException, JSONException {
+        if (!StaticData.hasStore(Store.DEFAULT_NUMBER)) {
+            apiConnect.createStoreThroughPost(new Store());
+        }
+        return createStoreDepartmentThroughPost(number, name, Store.DEFAULT_NUMBER);
     }
 }
 

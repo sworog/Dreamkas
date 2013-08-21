@@ -30,13 +30,13 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
-        invoiceApi.createInvoiceThroughPost(invoiceName);
+        invoiceApi.createInvoiceThroughPostAndNavigateToIt(invoiceName);
     }
 
     @Step
     public void createInvoiceThroughPostWithData(String invoiceName, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
         productApi.сreateProductThroughPost(productName, productSku, productBarCode, productUnits, "123");
-        invoiceApi.createInvoiceThroughPost(invoiceName, productSku);
+        invoiceApi.createInvoiceThroughPostWithProductAndNavigateToIt(invoiceName, productSku);
     }
 
     @Step

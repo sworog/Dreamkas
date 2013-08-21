@@ -21,6 +21,9 @@ public class StaticData {
     public static Integer TIMEOUT = 5000;
     public static String WEB_DRIVER_BASE_URL;
 
+    public static String retailMarkupMax;
+    public static String retailMarkupMin;
+
     public static final String client_id = "autotests_autotests";
     public static final String client_secret = "secret";
 

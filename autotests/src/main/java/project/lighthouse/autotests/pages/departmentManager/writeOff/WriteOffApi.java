@@ -2,6 +2,8 @@ package project.lighthouse.autotests.pages.departmentManager.writeOff;
 
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.elements.DateTime;
+import project.lighthouse.autotests.objects.WriteOff;
 import project.lighthouse.autotests.pages.departmentManager.api.DepartmentManagerApi;
 
 import java.io.IOException;
@@ -12,24 +14,27 @@ public class WriteOffApi extends DepartmentManagerApi {
         super(driver);
     }
 
-    public void createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
-        apiConnect.createWriteOffThroughPost(writeOffNumber);
+    public WriteOff createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
+        WriteOff writeOff = new WriteOff(writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN));
+        return apiConnect.createWriteOffThroughPost(writeOff);
     }
 
-    public void createWriteOffThroughPost(String writeOffNumber, String productSku, String quantity, String price, String cause)
+    public WriteOff createWriteOffThroughPost(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws IOException, JSONException {
-        apiConnect.createWriteOffThroughPost(writeOffNumber, productSku, quantity, price, cause);
+        WriteOff writeOff = createWriteOffThroughPost(writeOffNumber);
+        apiConnect.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause);
+        return writeOff;
     }
 
     public void createWriteOffAndNavigateToIt(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws JSONException, IOException {
-        apiConnect.createWriteOffThroughPost(writeOffNumber, productSku, quantity, price, cause);
+        createWriteOffThroughPost(writeOffNumber, productSku, quantity, price, cause);
         navigatoToWriteOffPage(writeOffNumber);
     }
 
     public void createWriteOffAndNavigateToIt(String writeOffNumber)
             throws JSONException, IOException {
-        apiConnect.createWriteOffThroughPost(writeOffNumber);
+        createWriteOffThroughPost(writeOffNumber);
         navigatoToWriteOffPage(writeOffNumber);
     }
 

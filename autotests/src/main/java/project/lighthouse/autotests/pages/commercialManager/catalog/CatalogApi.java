@@ -2,7 +2,11 @@ package project.lighthouse.autotests.pages.commercialManager.catalog;
 
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.objects.Category;
+import project.lighthouse.autotests.objects.Group;
 import project.lighthouse.autotests.objects.Store;
+import project.lighthouse.autotests.objects.SubCategory;
 import project.lighthouse.autotests.pages.commercialManager.api.CommercialManagerApi;
 
 import java.io.IOException;
@@ -13,12 +17,15 @@ public class CatalogApi extends CommercialManagerApi {
         super(driver);
     }
 
-    public void createGroupThroughPost(String groupName) throws IOException, JSONException {
-        apiConnect.createGroupThroughPost(groupName);
+    public Group createGroupThroughPost(String groupName) throws IOException, JSONException {
+        Group group = new Group(groupName);
+        return apiConnect.createGroupThroughPost(group);
     }
 
-    public void createCategoryThroughPost(String categoryName, String groupName) throws IOException, JSONException {
-        apiConnect.createCategoryThroughPost(categoryName, groupName);
+    public Category createCategoryThroughPost(String categoryName, String groupName) throws IOException, JSONException {
+        Group group = createGroupThroughPost(groupName);
+        Category category = new Category(categoryName, group.getId());
+        return apiConnect.createCategoryThroughPost(category, group);
     }
 
     public void navigateToGroupPage(String groupName) throws JSONException {
@@ -31,12 +38,18 @@ public class CatalogApi extends CommercialManagerApi {
         getDriver().navigate().to(categoryPageUrl);
     }
 
-    public void createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
-        apiConnect.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
+    public SubCategory createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        Group group = createGroupThroughPost(groupName);
+        Category category = createCategoryThroughPost(categoryName, groupName);
+        SubCategory subCategory = new SubCategory(subCategoryName, category.getId());
+        return apiConnect.createSubCategoryThroughPost(subCategory, category, group);
     }
 
-    public void createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
-        apiConnect.createSubCategoryThroughPost(groupName, categoryName, subCategoryName, rounding);
+    public SubCategory createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
+        Group group = createGroupThroughPost(groupName);
+        Category category = createCategoryThroughPost(categoryName, groupName);
+        SubCategory subCategory = new SubCategory(subCategoryName, category.getId(), rounding);
+        return apiConnect.createSubCategoryThroughPost(subCategory, category, group);
     }
 
     public void navigateToSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
@@ -55,10 +68,14 @@ public class CatalogApi extends CommercialManagerApi {
     }
 
     public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, String subCategoryName) throws IOException, JSONException {
-        apiConnect.setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, subCategoryName);
+        apiConnect.setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, StaticData.subCategories.get(subCategoryName));
     }
 
     public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
-        apiConnect.promoteStoreManager(store, userName);
+        apiConnect.promoteStoreManager(store, StaticData.users.get(userName));
+    }
+
+    public SubCategory createDefaultSubCategoryThroughPost() throws IOException, JSONException {
+        return createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
     }
 }
