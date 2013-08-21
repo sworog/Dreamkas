@@ -182,4 +182,9 @@ public class ProductSteps extends ScenarioSteps {
     public void retailPriceHintClick() {
         productCreatePage.retailPriceHintClick();
     }
+
+    @Step
+    public void roundingPreloaderSpinnerWait() {
+        productCreatePage.roundingPreloaderSpinnerWait();
+    }
 }

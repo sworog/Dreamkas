@@ -103,7 +103,6 @@ And the user navigates to the product with sku 'storeProductSku'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
-Then the user checks the 'rounding price' is <expectedValue>
 When the user clicks the create button
 Then the user checks the 'retailPrice' is <expectedValue>
 
@@ -125,7 +124,6 @@ And the user navigates to the product with sku 'storeProductSku1'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
-Then the user checks the 'rounding price' is <expectedValue>
 When the user clicks the create button
 Then the user checks the 'retailPrice' is <expectedValue>
 
@@ -146,7 +144,6 @@ And the user navigates to the product with sku 'storeProductSku2'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
-Then the user checks the 'rounding price' is <expectedValue>
 When the user clicks the create button
 Then the user checks the 'retailPrice' is <expectedValue>
 
@@ -168,7 +165,6 @@ And the user navigates to the product with sku 'storeProductSku3'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
-Then the user checks the 'rounding price' is <expectedValue>
 When the user clicks the create button
 Then the user checks the 'retailPrice' is <expectedValue>
 
@@ -189,7 +185,6 @@ And the user navigates to the product with sku 'storeProductSku4'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
-Then the user checks the 'rounding price' is <expectedValue>
 When the user clicks the create button
 Then the user checks the 'retailPrice' is <expectedValue>
 
@@ -197,6 +192,120 @@ Examples:
 | inputText | elementName | expectedValue |
 | 100 | retailMarkup | 1,99 |
 | 49 | retailMarkup | 0,99 |
-| 50 | retailMarkup | 1.99 |
+| 50 | retailMarkup | 1,99 |
 
+Scenario: Retail price rounding price check nearest99
 
+Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
+And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
+And there is the product with 'storeProductName11' name, 'storeProductSku11' sku, 'storeProductBarCode11' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest99' rounding
+And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
+And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
+And the user navigates to the product with sku 'storeProductSku11'
+When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
+And the user clicks the edit price button
+And the user clicks retailPriceHint to make retailPrice available
+And the user inputs <inputText> in <elementName> field
+And the user clicks 'rounding price' element
+Then the user checks the 'rounding price' is <expectedValue>
+When the user clicks the create button
+Then the user checks the 'retailPrice' is <expectedValue>
+
+Examples:
+| inputText | elementName | expectedValue |
+| 10,00 | retailPrice | 9,99 |
+| 20 | retailPrice | 19,99 |
+| 19,50 | retailPrice | 19,99 |
+| 19,49 | retailPrice | 18,99 |
+
+Scenario: Retail price rounding price check nearest99 negative
+
+Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
+And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
+And there is the product with 'storeProductName12' name, 'storeProductSku12' sku, 'storeProductBarCode12' barcode, 'kg' units, '0,40' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest99' rounding
+And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
+And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
+And the user navigates to the product with sku 'storeProductSku12'
+When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
+And the user clicks the edit price button
+And the user clicks retailPriceHint to make retailPrice available
+And the user inputs <inputText> in <elementName> field
+And the user clicks 'rounding price' element
+Then the user checks the 'rounding price' is <expectedValue>
+When the user clicks the create button
+Then the user user sees <errorMessage>
+
+Examples:
+| inputText | elementName | expectedValue | errorMessage |
+| 0,49 | retailPrice | 0,00 | Цена после округления должна быть больше 0 |
+| 0,4 | retailPrice | 0,00 | Цена после округления должна быть больше 0 |
+
+Scenario: Retail price rounding price check nearest50
+
+Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
+And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
+And there is the product with 'storeProductName13' name, 'storeProductSku13' sku, 'storeProductBarCode13' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest50' rounding
+And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
+And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
+And the user navigates to the product with sku 'storeProductSku13'
+When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
+And the user clicks the edit price button
+And the user clicks retailPriceHint to make retailPrice available
+And the user inputs <inputText> in <elementName> field
+And the user clicks 'rounding price' element
+Then the user checks the 'rounding price' is <expectedValue>
+When the user clicks the create button
+Then the user checks the 'retailPrice' is <expectedValue>
+
+Examples:
+| inputText | elementName | expectedValue |
+| 1,24 | retailPrice | 1,00 |
+| 1,25 | retailPrice | 1,50 |
+| 1,74 | retailPrice | 1,50 |
+| 1,75 | retailPrice | 2,00 |
+
+Scenario: Retail price rounding price check nearest100
+
+Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
+And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
+And there is the product with 'storeProductName14' name, 'storeProductSku14' sku, 'storeProductBarCode14' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest100' rounding
+And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
+And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
+And the user navigates to the product with sku 'storeProductSku14'
+When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
+And the user clicks the edit price button
+And the user clicks retailPriceHint to make retailPrice available
+And the user inputs <inputText> in <elementName> field
+And the user clicks 'rounding price' element
+Then the user checks the 'rounding price' is <expectedValue>
+When the user clicks the create button
+Then the user checks the 'retailPrice' is <expectedValue>
+
+Examples:
+| inputText | elementName | expectedValue |
+| 10,49 | retailPrice | 10,00 |
+| 10,50 | retailPrice | 11,00 |
+| 10,99 | retailPrice | 11,00 |
+
+Scenario: Retail price rounding price check nearest10
+
+Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
+And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
+And there is the product with 'storeProductName15' name, 'storeProductSku15' sku, 'storeProductBarCode15' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest10' rounding
+And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
+And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
+And the user navigates to the product with sku 'storeProductSku15'
+When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
+And the user clicks the edit price button
+And the user clicks retailPriceHint to make retailPrice available
+And the user inputs <inputText> in <elementName> field
+And the user clicks 'rounding price' element
+Then the user checks the 'rounding price' is <expectedValue>
+When the user clicks the create button
+Then the user checks the 'retailPrice' is <expectedValue>
+
+Examples:
+| inputText | elementName | expectedValue |
+| 10,49 | retailPrice | 10,50 |
+| 10,54 | retailPrice | 10,50 |
+| 10,55 | retailPrice | 10,60 |
