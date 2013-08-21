@@ -73,6 +73,7 @@ class ProductVersion extends Product implements VersionInterface
 
     /**
      * @param Product|VersionableInterface $object
+     * @return void
      */
     public function setObject(VersionableInterface $object)
     {

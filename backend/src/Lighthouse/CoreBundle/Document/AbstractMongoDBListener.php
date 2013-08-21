@@ -53,6 +53,7 @@ abstract class AbstractMongoDBListener
      *
      * @param DocumentManager $dm
      * @param $document
+     * @param bool $recompute
      */
     protected function computeChangeSet(DocumentManager $dm, $document, $recompute = false)
     {

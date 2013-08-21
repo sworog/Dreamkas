@@ -105,7 +105,7 @@ class WebTestCase extends ContainerAwareTestCase
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $invoiceData = $modifiedData + array(
-            'sku' => 'sdfwfsf232',
+            'sku' => 'sku232',
             'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',

@@ -11,11 +11,9 @@ use Symfony\Component\DependencyInjection\Reference;
 class AddReferenceProvidersPass implements CompilerPassInterface
 {
     /**
-     * You can modify the container here before it is dumped to PHP code.
-     *
      * @param ContainerBuilder $container
-     * @throws ServiceNotFoundException
-     * @api
+     * @throws \Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException
+     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException
      */
     public function process(ContainerBuilder $container)
     {

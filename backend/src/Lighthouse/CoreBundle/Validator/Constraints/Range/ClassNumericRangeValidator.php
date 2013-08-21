@@ -32,4 +32,3 @@ class ClassNumericRangeValidator extends RangeValidator
         return parent::formatLimitMessage($limitValue, $constraint, $operator, $comparison);
     }
 }
- 

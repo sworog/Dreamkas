@@ -9,4 +9,3 @@ interface ClassConstraintInterface
      */
     public function getField();
 }
- 

@@ -46,8 +46,9 @@ class ClassMoneyComparison extends MoneyComparison
 
     /**
      * @param string $field
-     * @return Money|null
      * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @throws \Lighthouse\CoreBundle\Exception\NullValueException
+     * @return Money|null
      */
     public function getObjectValue($field)
     {

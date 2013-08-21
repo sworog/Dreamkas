@@ -39,7 +39,7 @@ class Range extends Constraint
     }
 
     /**
-     * @param stirng $operator
+     * @param string $operator
      * @return mixed
      */
     public function getLimit($operator)

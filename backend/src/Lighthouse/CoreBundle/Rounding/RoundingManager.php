@@ -49,6 +49,7 @@ class RoundingManager
                 return $rounding;
             }
         }
+        return null;
     }
 
     /**

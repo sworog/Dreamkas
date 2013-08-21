@@ -1,6 +1,7 @@
 <?php
 
 namespace Lighthouse\CoreBundle\Document\Product\Store;
+
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Validator\ObjectInitializerInterface;
 

@@ -39,4 +39,3 @@ class RoundingRoundType extends AbstractType
         return '';
     }
 }
- 

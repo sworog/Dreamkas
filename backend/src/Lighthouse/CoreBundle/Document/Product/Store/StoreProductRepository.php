@@ -57,6 +57,7 @@ class StoreProductRepository extends DocumentRepository
     /**
      * @param Store $store
      * @param Product $product
+     * @return StoreProduct
      */
     public function findOrCreateByStoreProduct(Store $store, Product $product)
     {

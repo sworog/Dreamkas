@@ -117,7 +117,7 @@ class ProductRepository extends DocumentRepository
                 break;
             case Product::RETAIL_PRICE_PREFERENCE_MARKUP:
             default:
-            $product->retailPriceMin = $this->calcRetailPrice($product->retailMarkupMin, $product->purchasePrice);
+                $product->retailPriceMin = $this->calcRetailPrice($product->retailMarkupMin, $product->purchasePrice);
                 $product->retailPriceMax = $this->calcRetailPrice($product->retailMarkupMax, $product->purchasePrice);
                 $product->retailPricePreference = Product::RETAIL_PRICE_PREFERENCE_MARKUP;
                 break;

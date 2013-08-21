@@ -28,28 +28,34 @@ class RetailPriceValidator extends ConstraintValidator
             new Money(),
         );
         $retailPriceClassConstraints = array(
-            new ClassMoneyRange(array(
-                'field' => 'retailPrice',
-                'gte' => 'product.retailPriceMin',
-                'lte' => 'product.retailPriceMax',
-                'gteMessage' => 'lighthouse.validation.errors.store_product.retail_price.min',
-                'lteMessage' => 'lighthouse.validation.errors.store_product.retail_price.max',
-                'invalidMessage' => 'lighthouse.validation.errors.store_product.retail_price.invalid',
-            ))
+            new ClassMoneyRange(
+                array(
+                    'field' => 'retailPrice',
+                    'gte' => 'product.retailPriceMin',
+                    'lte' => 'product.retailPriceMax',
+                    'gteMessage' => 'lighthouse.validation.errors.store_product.retail_price.min',
+                    'lteMessage' => 'lighthouse.validation.errors.store_product.retail_price.max',
+                    'invalidMessage' => 'lighthouse.validation.errors.store_product.retail_price.invalid',
+                )
+            )
         );
         $retailMarkupConstraints = array(
-            new Precision(array(
-                'message' => 'lighthouse.validation.errors.store_product.retail_price.precision',
-            ))
+            new Precision(
+                array(
+                    'message' => 'lighthouse.validation.errors.store_product.retail_price.precision',
+                )
+            )
         );
         $retailMarkupClassConstraints = array(
-            new ClassNumericRange(array(
-                'field' => 'retailMarkup',
-                'gte' => 'product.retailMarkupMin',
-                'lte' => 'product.retailMarkupMax',
-                'gteMessage' => 'lighthouse.validation.errors.store_product.retail_markup.min',
-                'lteMessage' => 'lighthouse.validation.errors.store_product.retail_markup.max',
-            ))
+            new ClassNumericRange(
+                array(
+                    'field' => 'retailMarkup',
+                    'gte' => 'product.retailMarkupMin',
+                    'lte' => 'product.retailMarkupMax',
+                    'gteMessage' => 'lighthouse.validation.errors.store_product.retail_markup.min',
+                    'lteMessage' => 'lighthouse.validation.errors.store_product.retail_markup.max',
+                )
+            )
         );
 
         switch ($value->retailPricePreference) {

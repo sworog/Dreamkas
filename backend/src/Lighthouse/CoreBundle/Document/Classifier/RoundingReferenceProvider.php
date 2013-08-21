@@ -85,4 +85,3 @@ class RoundingReferenceProvider implements ReferenceProviderInterface
         return $this->roundingManager->findByName($refObjectId);
     }
 }
- 

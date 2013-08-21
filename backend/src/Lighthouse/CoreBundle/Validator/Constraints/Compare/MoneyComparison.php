@@ -26,9 +26,10 @@ class MoneyComparison extends Comparison
     }
 
     /**
-     * @param $value
-     * @return int
+     * @param mixed $value
      * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @throws \Lighthouse\CoreBundle\Exception\NullValueException
+     * @return int
      */
     protected function normalizeValue($value)
     {

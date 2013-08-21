@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -34,6 +35,7 @@ class StoreProductController extends AbstractRestController
     /**
      * @param Store $store
      * @param Product $product
+     * @return StoreProduct
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @ApiDoc(
      *      resource=true
@@ -60,6 +62,7 @@ class StoreProductController extends AbstractRestController
 
 
     /**
+     * @param Store $store
      * @param SubCategory $subCategory
      * @return StoreProductCollection
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
