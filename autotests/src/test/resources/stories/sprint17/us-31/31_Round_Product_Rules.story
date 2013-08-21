@@ -103,6 +103,7 @@ And the user navigates to the product with sku 'storeProductSku'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
+And the user clicks 'rounding price' element
 Then the user checks the 'rounding price' is <expectedValue>
 When the user clicks the create button
 Then the user checks the 'retailPrice' is <expectedValue>
@@ -125,6 +126,7 @@ And the user navigates to the product with sku 'storeProductSku1'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
+And the user clicks 'rounding price' element
 Then the user checks the 'rounding price' is <expectedValue>
 When the user clicks the create button
 Then the user checks the 'retailPrice' is <expectedValue>
@@ -146,6 +148,7 @@ And the user navigates to the product with sku 'storeProductSku2'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
+And the user clicks 'rounding price' element
 Then the user checks the 'rounding price' is <expectedValue>
 When the user clicks the create button
 Then the user checks the 'retailPrice' is <expectedValue>
@@ -168,6 +171,7 @@ And the user navigates to the product with sku 'storeProductSku3'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
+And the user clicks 'rounding price' element
 Then the user checks the 'rounding price' is <expectedValue>
 When the user clicks the create button
 Then the user checks the 'retailPrice' is <expectedValue>
@@ -189,6 +193,7 @@ And the user navigates to the product with sku 'storeProductSku4'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
+And the user clicks 'rounding price' element
 Then the user checks the 'rounding price' is <expectedValue>
 When the user clicks the create button
 Then the user checks the 'retailPrice' is <expectedValue>
