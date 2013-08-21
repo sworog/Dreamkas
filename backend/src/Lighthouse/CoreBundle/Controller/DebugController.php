@@ -17,7 +17,11 @@ class DebugController
      */
     public function indexAction()
     {
+        ob_start();
         phpinfo();
-        return new Response();
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        return new Response($content);
     }
 }
