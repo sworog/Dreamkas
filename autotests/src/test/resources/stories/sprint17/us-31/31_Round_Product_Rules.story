@@ -199,14 +199,4 @@ Examples:
 | 49 | retailMarkup | 0,99 |
 | 50 | retailMarkup | 1.99 |
 
-Scenario: Retail price rounding price check nearest99
-!--написать метод кликающий в пустоту для обновления цены прелоадера
 
-Scenario: Retail price rounding price check nearest99 negative
-0,40
-0 - 100
-
-
-Scenario: Retail price rounding price check nearest50
-Scenario: Retail price rounding price check nearest100
-Scenario: Retail price rounding price check nearest10
