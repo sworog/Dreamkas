@@ -80,10 +80,10 @@ Then the user checks the elements values
 Scenario: Regress - if mark up is not set store product price should be equal purchase price
 
 Given there is the subCategory with name 'storeProductsSubCategoryRegress' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
-And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryRegress'
+And there is the product with 'storeProductName' name, 'storeProductSku10' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryRegress'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku'
+And the user navigates to the product with sku 'storeProductSku10'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 Then the user checks the 'retailMarkupRange' value is 'отсутствует'
 And the user checks the 'retailPriceRange' value is 'отсутствует'
@@ -109,7 +109,7 @@ Then the user checks the 'retailPrice' is <expectedValue>
 
 Examples:
 | inputText | elementName | expectedValue |
-| 0 | retailMarkup | 10,10 |
+| 0 | retailMarkup | 10,00 |
 | 5 | retailMarkup | 10,50 |
 | 43,45 | retailMarkup | 14,35 |
 | 99,91 | retailMarkup | 19,99 |
@@ -199,3 +199,14 @@ Examples:
 | 49 | retailMarkup | 0,99 |
 | 50 | retailMarkup | 1.99 |
 
+Scenario: Retail price rounding price check nearest99
+!--написать метод кликающий в пустоту для обновления цены прелоадера
+
+Scenario: Retail price rounding price check nearest99 negative
+0,40
+0 - 100
+
+
+Scenario: Retail price rounding price check nearest50
+Scenario: Retail price rounding price check nearest100
+Scenario: Retail price rounding price check nearest10

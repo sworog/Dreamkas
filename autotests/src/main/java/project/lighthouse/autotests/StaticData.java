@@ -2,6 +2,7 @@ package project.lighthouse.autotests;
 
 import project.lighthouse.autotests.objects.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class StaticData {
@@ -16,6 +17,7 @@ public class StaticData {
     public static HashMap<String, Store> stores = new HashMap<>();
     public static HashMap<String, Department> departments = new HashMap<>();
     public static HashMap<String, OauthAuthorizeData> userTokens = new HashMap<>();
+    public static HashMap<String, ArrayList<Product>> subCategoryProducts = new HashMap<>();
     public static Integer TIMEOUT = 5000;
     public static String WEB_DRIVER_BASE_URL;
 

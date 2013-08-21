@@ -2,6 +2,9 @@ package project.lighthouse.autotests.objects;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.lighthouse.autotests.StaticData;
+
+import java.util.ArrayList;
 
 public class SubCategory extends AbstractClassifierNode {
 
@@ -35,5 +38,38 @@ public class SubCategory extends AbstractClassifierNode {
 
     public Category getCategory() throws JSONException {
         return new Category(jsonObject.getJSONObject("category"));
+    }
+
+    public Boolean hasProduct(Product product) throws JSONException {
+        if (StaticData.subCategoryProducts.containsKey(getId())) {
+            ArrayList<Product> products = StaticData.subCategoryProducts.get(getId());
+            for (int i = 0; i < products.size(); i++) {
+                if (products.get(i).getSku().equals(product.getSku())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Product getProduct(Product product) throws JSONException {
+        ArrayList<Product> products = StaticData.subCategoryProducts.get(getId());
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getSku().equals(product.getSku())) {
+                return products.get(i);
+            }
+        }
+        return product;
+    }
+
+    public void addProduct(Product product) throws JSONException {
+        ArrayList<Product> products;
+        if (!StaticData.subCategoryProducts.containsKey(getId())) {
+            products = new ArrayList<>();
+        } else {
+            products = StaticData.subCategoryProducts.get(getId());
+        }
+        products.add(product);
+        StaticData.subCategoryProducts.put(getId(), products);
     }
 }

@@ -68,13 +68,14 @@ public class ApiConnect {
     }
 
     public Product createProductThroughPost(Product product, SubCategory subCategory) throws JSONException, IOException {
-        if (!StaticData.products.containsKey(product.getSku())) {
+        if (!subCategory.hasProduct(product)) {
             getSubCategoryMarkUp(subCategory.getId());
             executePostRequest(product);
+            subCategory.addProduct(product);
             StaticData.products.put(product.getSku(), product);
             return product;
         } else {
-            return StaticData.products.get(product.getSku());
+            return subCategory.getProduct(product);
         }
     }
 
@@ -87,7 +88,6 @@ public class ApiConnect {
         getSubCategoryMarkUp(subCategory.getId());
         Product product = new Product(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), retailMarkupMax, retailMarkupMin, rounding);
         createProductThroughPost(product, subCategory);
-
     }
 
     private void getSubCategoryMarkUp(String subCategoryId) throws IOException, JSONException {

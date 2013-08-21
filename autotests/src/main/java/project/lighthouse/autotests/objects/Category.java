@@ -34,7 +34,9 @@ public class Category extends AbstractClassifierNode {
         if (jsonArray.length() != 0) {
             for (int i = 0; i < jsonArray.length(); i++) {
                 SubCategory subCategory = new SubCategory(jsonArray.getJSONObject(i));
-                return subCategory.getName().equals(expectedSubCategory.getName());
+                if (subCategory.getName().equals(expectedSubCategory.getName())) {
+                    return true;
+                }
             }
         }
         return false;
