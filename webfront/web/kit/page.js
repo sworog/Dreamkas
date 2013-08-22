@@ -2,6 +2,7 @@ define(function(require) {
     //requirements
     var Block = require('kit/block'),
         Backbone = require('backbone'),
+        Router = require('kit/router'),
         isAllow = require('kit/utils/isAllow'),
         _ = require('underscore');
 
@@ -9,7 +10,7 @@ define(function(require) {
 
     var Page = Block.extend({
         el: document.body,
-        permissions: {},
+        permissions: null,
         referrer: {},
         constructor: function(params, route) {
             var page = this;

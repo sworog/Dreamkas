@@ -8,6 +8,7 @@ define(function(require) {
         cookie = require('kit/utils/cookie');
 
     app.locale = 'root';
+
     app.set('apiUrl', 'http://borovin.staging.api.lh.cs/api/1');
 
     var sync = Backbone.sync;

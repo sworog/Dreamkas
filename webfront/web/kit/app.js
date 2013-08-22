@@ -18,11 +18,7 @@ define(function(require) {
                 var app = this;
 
                 req({
-                    config: {
-                        i18n: {
-                            locale: app.locale
-                        }
-                    }
+                    locale: app.locale
                 }, deps, function() {
 
                     Backbone.history.start({

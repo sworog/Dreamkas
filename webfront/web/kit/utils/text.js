@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var dictionary = require('nls');
+    var dictionary = require('dictionary');
 
     return function(text) {
         var result = '';

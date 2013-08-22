@@ -1,9 +1,9 @@
-var tests = Object.keys(window.__karma__.files).filter(function (file) {
+var specs = Object.keys(window.__karma__.files).filter(function (file) {
     return /spec\.js$/.test(file);
 });
 
 require({
     baseUrl: '/base/web',
-    deps: tests,
+    deps: specs,
     callback: window.__karma__.start
 });

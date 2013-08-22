@@ -11,11 +11,5 @@ require(
         shim: {
             'libs/lhAutocomplete': ['jquery.ui'],
             'jquery.ui': ['jquery']
-        },
-        packages: [
-            {
-                name: 'nls',
-                location: 'nls'
-            }
-        ]
+        }
     }, ['app']);

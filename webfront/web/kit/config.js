@@ -27,6 +27,7 @@ require({
         backbone: {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
-        }
+        },
+        'backbone.queryparams': ['backbone']
     }
 });

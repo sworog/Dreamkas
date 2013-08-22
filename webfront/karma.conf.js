@@ -26,7 +26,7 @@ exclude = [];
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['dots', 'coverage'];
+reporters = ['dots'];
 
 preprocessors = {
     // source files, that you wanna generate coverage for
