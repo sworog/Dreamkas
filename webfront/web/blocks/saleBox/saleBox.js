@@ -28,8 +28,6 @@ define(function(require) {
             initialize: function(){
                 var block = this;
 
-                Block.prototype.initialize.call(block);
-
                 block.form_purchase = new Form_purchase({
                     el: document.getElementById('form_purchase')
                 });

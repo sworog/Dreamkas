@@ -64,8 +64,6 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            Block.prototype.initialize.apply(block, arguments);
-
             block.select_storeManagers = new Select_storeManagers({
                 storeManagerCandidatesCollection: block.storeManagerCandidatesCollection,
                 storeManagersCollection: block.storeManagersCollection,

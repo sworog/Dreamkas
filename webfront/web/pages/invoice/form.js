@@ -5,7 +5,7 @@ define(function(require) {
         Form_invoice = require('blocks/form/form_invoice/form_invoice');
 
     return Page.extend({
-        pageName: 'page_invoice_form',
+        __name__: 'page_invoice_form',
         templates: {
             '#content': require('tpl!./templates/form.html')
         },

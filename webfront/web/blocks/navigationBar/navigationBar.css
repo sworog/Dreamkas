@@ -1,4 +1,4 @@
-.topBar{
+.navigationBar{
     border-bottom: 1px solid #ccc;
     background: #fff;
     height: 40px;
@@ -11,12 +11,12 @@
     z-index: 100;
 }
 
-.topBar__userControls{
+.navigationBar__userControls{
     float: right;
     height: 100%;
 }
 
-.topBar a{
+.navigationBar a{
     height: 100%;
     line-height: 37px;
     vertical-align: top;
@@ -27,11 +27,11 @@
     text-decoration: none;
 }
 
-.topBar a:hover{
+.navigationBar a:hover{
     background-color: #f4f4f4;
 }
 
-.topBar__logo{
+.navigationBar__logo{
     background: url("/img/logo1.png") 10px center no-repeat;
     background-size: auto 100%;
     padding: 0 20px 0 50px !important;
@@ -40,16 +40,16 @@
     font-family: 'Lobster';
 }
 
-.topBar__userName{
+.navigationBar__userName{
     border-right: 1px solid #eee;
     font-weight: bold;
 }
 
-.topBar__navigation{
+.navigationBar__links {
     float: left;
     height: 100%;
 }
 
-.topBar__active{
+.navigationBar__active{
     background-color: #e5e5e5;
 }

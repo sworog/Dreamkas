@@ -5,7 +5,7 @@ define(function(require) {
         WriteOffModel = require('models/writeOff');
 
     return Page.extend({
-        pageName: 'page_writeOff_form',
+        __name__: 'page_writeOff_form',
         templates: {
             '#content': require('tpl!./templates/form.html')
         },

@@ -42,8 +42,6 @@ define(function(require) {
                 parentGroupModel: block.catalogGroupModel
             });
 
-            Block.prototype.initialize.call(block);
-
             block.tooltip_catalogGroupMenu = $('[block="tooltip_catalogGroupMenu"]').data('tooltip_catalogGroupMenu') || new Tooltip_catalogGroupMenu();
 
             new Catalog__categoryList({

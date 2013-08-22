@@ -15,10 +15,7 @@ define(function(require) {
                 'retailMarkupMin',
                 'rounding'
             ],
-            initialize: function(attrs, options) {
-
-                Model.prototype.initialize.apply(this, arguments);
-
+            initialize: function() {
                 if (this.collection && this.collection.group) {
                     this.set('group', this.collection.group);
                 }

@@ -4,15 +4,15 @@ define(function(require) {
         logout = require('utils/logout'),
         currentUserModel = require('models/currentUser');
 
-    var TopBar = Block.extend({
-        __name__: 'topBar',
+    return new (Block.extend({
+        __name__: 'navigationBar',
         currentUserModel: currentUserModel,
         userPermissions: null,
         templates: {
-            index: require('tpl!blocks/topBar/templates/index.html')
+            index: require('tpl!blocks/navigationBar/templates/index.html')
         },
         events: {
-            'click .topBar__logoutLink': 'click .topBar__logoutLink'
+            'click .navigationBar__logoutLink': 'click .navigationBar__logoutLink'
         },
         listeners: {
             currentUserModel: {
@@ -28,7 +28,7 @@ define(function(require) {
                 }
             }
         },
-        'click .topBar__logoutLink': function(e) {
+        'click .navigationBar__logoutLink': function(e) {
             e.preventDefault();
             logout();
         },
@@ -39,20 +39,18 @@ define(function(require) {
 
             block.$el.prependTo('body');
 
-            Block.prototype.initialize.call(this);
+            block.render();
         },
         'set:active': function(pathName) {
             var block = this;
 
             block.$navigation
-                .find('.topBar__active')
-                .removeClass('topBar__active');
+                .find('.navigationBar__active')
+                .removeClass('navigationBar__active');
 
             block.$navigation.
                 find('[href="' + pathName + '"]')
-                .addClass('topBar__active');
+                .addClass('navigationBar__active');
         }
-    });
-
-    return new TopBar();
+    }));
 });

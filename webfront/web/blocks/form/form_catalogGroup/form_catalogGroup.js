@@ -14,8 +14,6 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            Form.prototype.initialize.call(block);
-
             if (block.model.id){
                 block.isAddForm = false;
             }

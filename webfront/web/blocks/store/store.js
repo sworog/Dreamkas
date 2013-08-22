@@ -16,8 +16,6 @@ define(function(require) {
             initialize: function(){
                 var block = this;
 
-                Block.prototype.initialize.apply(block, arguments);
-
                 block.table_departments = new Table_departments({
                     collection: block.storeModel.departments,
                     el: document.getElementById('table_departments')

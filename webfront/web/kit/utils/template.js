@@ -1,7 +1,9 @@
 define(function(require) {
     //requirements
-    window.TEMPLATE_TEXT = require('kit/utils/text');
-    window.TEMPLATE_ATTR = require('kit/utils/attr');
+    window.LH = window.Lighthouse = _.extend({
+        isAllow: require('kit/utils/isAllow'),
+        text: require('kit/utils/text')
+    }, window.LH, window.Lighthouse);
 
     var settings = {
         evaluate: /<%([\s\S]+?)%>/g,
@@ -29,7 +31,7 @@ define(function(require) {
                     return "',_.escape(" + code.replace(/\\'/g, "'") + "),'";
                 })
                 .replace(settings.text, function(match, code) {
-                    return "',TEMPLATE_TEXT(" + code.replace(/\\'/g, "'") + "),'";
+                    return "',LH.text(" + code.replace(/\\'/g, "'") + "),'";
                 })
                 .replace(settings.attr, function(match, code) {
                     code = $.trim(_.escape(code));
@@ -38,7 +40,7 @@ define(function(require) {
                         model = list[0],
                         attr = list[1];
 
-                    return "',TEMPLATE_ATTR(" + model.replace(/\\'/g, "'") + ", '" + attr.replace(/\\'/g, "'") + "'),'";
+                    return "',LH.attr(" + model.replace(/\\'/g, "'") + ", '" + attr.replace(/\\'/g, "'") + "'),'";
                 })
                 .replace(settings.evaluate || null, function(match, code) {
                     return "');" + code.replace(/\\'/g, "'")

@@ -1,17 +1,16 @@
 define(function(require) {
     //requirements
-    var KitApp = require('kit/app'),
+    var app = require('kit/app'),
+        $ = require('jquery'),
         Backbone = require('backbone'),
         _ = require('underscore'),
         currentUserModel = require('models/currentUser'),
-        cookie = require('utils/cookie'),
-        Page = require('blocks/page/page');
+        cookie = require('kit/utils/cookie');
 
-    require('LH');
-    require('libs/lhAutocomplete');
+    app.locale = 'root';
+    app.set('apiUrl', 'http://borovin.staging.api.lh.cs/api/1');
 
-    var sync = Backbone.sync,
-        isAppStarted = false;
+    var sync = Backbone.sync;
 
     Backbone.sync = function(method, model, options) {
         var syncing = sync.call(this, method, model, _.extend({}, options, {
@@ -23,7 +22,7 @@ define(function(require) {
         syncing.fail(function(res) {
             switch (res.status) {
                 case 401:
-                    if (isAppStarted) {
+                    if (app.isStarted) {
                         document.location.reload();
                     }
                     break;
@@ -33,36 +32,25 @@ define(function(require) {
         return syncing;
     };
 
-    var App = KitApp.extend({
-        initialize: function(){
-            var loading = currentUserModel.fetch(),
-                routers;
+    var loading = currentUserModel.fetch(),
+        routers;
 
-            $(function() {
-                new Page();
-            });
-
-            loading.done(function() {
-                routers = 'routers/authorized';
-            });
-
-            loading.fail(function() {
-                routers = 'routers/unauthorized';
-            });
-
-            loading.always(function() {
-
-                require([routers], function() {
-
-                    Backbone.history.start({
-                        pushState: true
-                    });
-
-                    isAppStarted = true;
-                });
-            });
-        }
+    loading.done(function() {
+        app.set('permissions', currentUserModel.permissions.toJSON());
+        routers = 'routers/authorized';
     });
 
-    return new App();
+    loading.fail(function() {
+        routers = 'routers/unauthorized';
+    });
+
+    loading.always(function() {
+        app.start([
+            'LH',
+            'blocks/navigationBar/navigationBar',
+            'blocks/page/page',
+            'libs/lhAutocomplete',
+            routers
+        ]);
+    });
 });

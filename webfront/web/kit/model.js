@@ -1,7 +1,8 @@
 define(function(require) {
     //requirements
     var Backbone = require('backbone'),
-        _ = require('underscore');
+        _ = require('underscore'),
+        getters = require('kit/utils/getters');
 
     return Backbone.Model.extend({
         saveFields: [],
@@ -42,15 +43,9 @@ define(function(require) {
 
         },
         get: function(path){
-            var model = this,
-                segments = path.split('.'),
-                attr = model.attributes;
+            var model = this;
 
-            _.every(segments, function(segment){
-                return attr = attr[segment];
-            });
-
-            return attr;
+            return getters.get.apply(model.attributes, arguments);
         },
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({

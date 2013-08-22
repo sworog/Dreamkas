@@ -6,10 +6,10 @@ define(function (require) {
         StoreManagerCandidatesCollection = require('collections/storeManagerCandidates'),
         StoreManagersCollection = require('collections/storeManagers'),
         StoreModel = require('models/store'),
-        Page403 = require('kit/pages/errors/403');
+        Page403 = require('pages/errors/403');
 
     return Page.extend({
-        pageName: 'page_store_view',
+        __name__: 'page_store_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },

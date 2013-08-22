@@ -1,8 +1,8 @@
-<a href="/" class="topBar__logo">
+<a href="/" class="navigationBar__logo">
     Lighthouse
 </a>
 
-<div class="topBar__navigation">
+<div class="navigationBar__links">
     <% if(currentUserModel.get('id')) { %>
 
     <% if(LH.isAllow('groups')){ %>
@@ -40,12 +40,12 @@
 </div>
 
 <% if(currentUserModel.get('id')) { %>
-<div class="topBar__userControls">
-    <a href="/users/current" class="topBar__userName">
+<div class="navigationBar__userControls">
+    <a href="/users/current" class="navigationBar__userName">
         <i style="vertical-align: middle; position: relative; left: -5px; top: -1px;" class="icon-user"></i>
         <%= currentUserModel.get('username') %>
     </a>
-    <a class="topBar__logoutLink">
+    <a class="navigationBar__logoutLink">
         <i class="icon-signout" style="margin-left: -5px;"></i>
         <%text 'Выйти' %>
     </a>

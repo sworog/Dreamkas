@@ -35,8 +35,6 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            Block.prototype.initialize.call(block);
-
             block.tooltip_catalogSubCategoryMenu = $('[block="tooltip_catalogSubCategoryMenu"]').data('tooltip_catalogSubCategoryMenu') || new Tooltip_catalogSubCategoryMenu()
         }
     });

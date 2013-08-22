@@ -4,10 +4,10 @@ define(function(require) {
         User = require('blocks/user/user'),
         UserModel = require('models/user'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/403/403');
+        Page403 = require('pages/errors/403');
 
     return Page.extend({
-        pageName: 'page_user_view',
+        __name__: 'page_user_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },

@@ -6,19 +6,19 @@ define(function(require) {
         CatalogProductsCollection = require('collections/catalogProducts'),
         СatalogGroupModel = require('models/catalogGroup'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/403/403');
+        Page403 = require('pages/errors/403');
 
     var router = new Backbone.Router();
 
     return Page.extend({
-        pageName: 'page_catalog_category',
+        __name__: 'page_catalog_category',
         templates: {
             '#content': require('tpl!./templates/category.html')
         },
         initialize: function(catalogGroupId, catalogCategoryId, catalogSubCategoryId, params){
             var page = this;
 
-            if (page.referer && page.referer.pageName.indexOf('page_catalog') >= 0){
+            if (page.referrer && page.referrer.__name__.indexOf('page_catalog') >= 0){
                 _.extend(pageParams, params);
             } else {
                 _.extend(pageParams, {
@@ -36,7 +36,7 @@ define(function(require) {
                 return;
             }
 
-            if (page.referer && page.referer.pageName === 'page_product_form'){
+            if (page.referrer && page.referrer.__name__ === 'page_product_form'){
                 pageParams.editMode = true;
             }
 

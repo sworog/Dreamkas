@@ -28,8 +28,6 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                Block.prototype.initialize.call(block);
-
                 block.set('editMode', block.editMode);
             },
             'set:editMode': function(editMode) {

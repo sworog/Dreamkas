@@ -4,7 +4,7 @@ define(function(require) {
             InputDate = require('kit/blocks/inputDate/inputDate'),
             Form_invoiceProduct = require('blocks/form/form_invoiceProduct/form_invoiceProduct'),
             Table_invoiceProducts = require('blocks/table/table_invoiceProducts/table_invoiceProducts'),
-            cookie = require('utils/cookie');
+            cookie = require('kit/utils/cookie');
 
         return Block.extend({
             __name__: 'invoice',
@@ -167,8 +167,6 @@ define(function(require) {
             },
             initialize: function() {
                 var block = this;
-
-                Block.prototype.initialize.call(block);
 
                 block.set('editMode', block.editMode);
 

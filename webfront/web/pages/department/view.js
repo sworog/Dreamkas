@@ -4,10 +4,10 @@ define(function(require) {
         Department = require('blocks/department/department'),
         getUserStore = require('utils/getUserStore'),
         StoreModel = require('models/store'),
-        Page403 = require('pages/403/403');
+        Page403 = require('pages/errors/403');
 
     return Page.extend({
-        pageName: 'page_department_view',
+        __name__: 'page_department_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },

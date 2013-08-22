@@ -27,8 +27,6 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            Block.prototype.initialize.call(block);
-
             block.catalogGroupsCollection.each(function(catalogGroupModel){
                 new Catalog__groupItem({
                     catalogGroupModel: catalogGroupModel,

@@ -4,7 +4,7 @@ define(function(require) {
         Form_login = require('blocks/form/form_login/form_login');
 
     return Page.extend({
-        pageName: 'page_common_login',
+        __name__: 'page_common_login',
         templates: {
             '#content': require('tpl!./templates/login.html')
         },

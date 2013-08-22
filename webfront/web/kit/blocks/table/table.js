@@ -5,12 +5,12 @@ define(function(require) {
             columnsCollection = require('kit/blocks/table/collections/columns');
 
         return Block.extend({
+            __name__: 'table',
             loading: false,
             columns: [],
             collection: [],
             tagName: 'table',
             className: 'table',
-            __name__: 'table',
             templates: {
                 index: require('tpl!kit/blocks/table/templates/index.html'),
                 head: require('tpl!kit/blocks/table/templates/head.html'),
@@ -62,8 +62,6 @@ define(function(require) {
                 if (_.isArray(block.collection)){
                     block.collection = new DataCollection(block.collection);
                 }
-
-                Block.prototype.initialize.call(block);
             },
             renderBody: function(){
                 var block = this;

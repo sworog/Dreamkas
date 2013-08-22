@@ -12,10 +12,7 @@ define(function(require) {
                 'retailMarkupMin',
                 'rounding'
             ],
-            initialize: function(attrs, options) {
-
-                Model.prototype.initialize.apply(this, arguments);
-
+            initialize: function() {
                 if (this.collection && this.collection.category) {
                     this.set('category', this.collection.category);
                 }

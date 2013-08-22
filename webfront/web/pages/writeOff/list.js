@@ -5,7 +5,7 @@ define(function(require) {
         WriteOffsCollection = require('collections/writeOffs');
 
     return Page.extend({
-        pageName: 'page_writeOffs_list',
+        __name__: 'page_writeOffs_list',
         templates: {
             '#content': require('tpl!./templates/list.html')
         },

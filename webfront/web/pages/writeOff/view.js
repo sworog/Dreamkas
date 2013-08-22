@@ -6,7 +6,7 @@ define(function(require) {
         WriteOffProductsCollection = require('collections/writeOffProducts');
 
     return Page.extend({
-        pageName: 'page_writeOff_view',
+        __name__: 'page_writeOff_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },

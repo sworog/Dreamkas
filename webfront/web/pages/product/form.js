@@ -6,7 +6,7 @@ define(function(require) {
         Form_product = require('blocks/form/form_product/form_product');
 
     return Page.extend({
-        pageName: 'page_product_form',
+        __name__: 'page_product_form',
         productId: null,
         templates: {
             '#content': require('tpl!./templates/form.html')

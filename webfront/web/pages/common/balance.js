@@ -5,7 +5,7 @@ define(function(require) {
         ProductsCollection = require('collections/products');
 
     return Page.extend({
-        pageName: 'page_common_balance',
+        __name__: 'page_common_balance',
         templates: {
             '#content': require('tpl!./templates/balance.html')
         },

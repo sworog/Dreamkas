@@ -5,7 +5,7 @@ define(function(require) {
         UserModel = require('models/user');
 
     return Page.extend({
-        pageName: 'page_user_form',
+        __name__: 'page_user_form',
         templates: {
             '#content': require('tpl!./templates/form.html')
         },

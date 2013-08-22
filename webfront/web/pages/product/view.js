@@ -7,7 +7,7 @@ define(function(require) {
         currentUserModel = require('models/currentUser');
 
     return Page.extend({
-        pageName: 'page_product_view',
+        __name__: 'page_product_view',
         productId: null,
         templates: {
             '#content': require('tpl!./templates/view.html')

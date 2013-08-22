@@ -36,8 +36,6 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            Block.prototype.initialize.call(block);
-
             block.catalogCategoriesCollection.each(function(catalogCategoryModel){
                 new Catalog__categoryItem({
                     catalogCategoryModel: catalogCategoryModel,

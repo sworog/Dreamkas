@@ -16,8 +16,6 @@ define(function(require) {
             if (block.model.id){
                 block.redirectUrl = '/users/' + block.model.id
             }
-
-            Form.prototype.initialize.call(this);
         }
     });
 });

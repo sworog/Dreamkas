@@ -5,7 +5,7 @@ define(function(require) {
         UsersCollection = require('collections/users');
 
     return Page.extend({
-        pageName: 'page_user_list',
+        __name__: 'page_user_list',
         templates: {
             '#content': require('tpl!./templates/list.html')
         },

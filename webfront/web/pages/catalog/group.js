@@ -5,19 +5,19 @@ define(function(require) {
         СatalogGroupModel = require('models/catalogGroup'),
         CatalogGroup = require('blocks/catalogGroup/catalogGroup'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/403/403');
+        Page403 = require('pages/errors/403');
 
     var router = new Backbone.Router();
 
     return Page.extend({
-        pageName: 'page_catalog_group',
+        __name__: 'page_catalog_group',
         templates: {
             '#content': require('tpl!./templates/group.html')
         },
         initialize: function(catalogGroupId, params){
             var page = this;
 
-            if (page.referer && page.referer.pageName.indexOf('page_catalog') >= 0){
+            if (page.referrer && page.referrer.__name__.indexOf('page_catalog') >= 0){
                 _.extend(pageParams, params);
             } else {
                 _.extend(pageParams, {

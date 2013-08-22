@@ -2,18 +2,19 @@ define(function(require) {
     //requirements
     var Block = require('kit/block'),
         Backbone = require('backbone'),
-        _ = require('underscore'),
-        currentPage = require('kit/pages/currentPage');
+        isAllow = require('kit/utils/isAllow'),
+        _ = require('underscore');
 
     var router = new Backbone.Router();
 
-    return Block.extend({
+    var Page = Block.extend({
         el: document.body,
         permissions: {},
-        constructor: function() {
+        referrer: {},
+        constructor: function(params, route) {
             var page = this;
-            
-            page._configure();
+
+            page._configure.apply(page, arguments);
             page._ensureElement();
 
             if (page.accessDenied) {
@@ -24,24 +25,26 @@ define(function(require) {
                 page.initialize.apply(page, arguments);
             }
         },
-        _configure: function() {
+        _configure: function(params, route) {
 
             Block.prototype._configure.apply(this, arguments);
 
             var page = this;
 
+            page.route = route;
+
             page.accessDenied = _.some(page.permissions, function(value, key) {
-                return !LH.isAllow(key, value);
+                return !isAllow(key, value);
             });
 
             page.cid = _.uniqueId('page');
 
-            if (currentPage) {
-                page.referer = _.clone(currentPage);
-                currentPage.stopListening();
+            if (Page.current) {
+                page.referrer = _.clone(Page.current);
+                Page.current.stopListening();
             }
 
-            currentPage = page;
+            Page.current = page;
         },
         _ensureElement: function() {
 
@@ -50,8 +53,8 @@ define(function(require) {
             var page = this;
 
             page.$el
-                .removeAttr('class')
-                .addClass('page ' + page.__name__);
+                .removeAttr(page.referrer.__name__)
+                .addClass(page.__name__);
             
             page.set('loading', true);
         },
@@ -87,7 +90,27 @@ define(function(require) {
             });
         },
         save: function(data){
-            var page = this;
+            var page = this,
+                route = page.route.replace(/:\w+/g, function(placeholder) {
+                    var key = placeholder.replace(':', ''),
+                        string = data[key];
+
+                    delete data[key];
+
+                    return string || placeholder;
+                });
+
+            _.each(data, function(value, key){
+                if (page.defaults[key] === value){
+                    delete data[key];
+                }
+            });
+
+            router.navigate(router.toFragment(route, data));
         }
     });
+
+    Page.extend = require('kit/utils/classExtend');
+
+    return Page;
 });

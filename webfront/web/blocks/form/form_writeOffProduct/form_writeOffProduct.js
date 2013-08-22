@@ -2,7 +2,7 @@ define(function(require) {
         //requirements
         var Form = require('kit/blocks/form/form'),
             WriteOffProduct = require('models/writeOffProduct'),
-            cookie = require('utils/cookie');
+            cookie = require('kit/utils/cookie');
 
         return Form.extend({
             __name__: 'form_writeOffProduct',
@@ -11,8 +11,6 @@ define(function(require) {
             },
 
             initialize: function(){
-                Form.prototype.initialize.apply(this, arguments);
-
                 var block = this;
 
                 block.model = new WriteOffProduct({

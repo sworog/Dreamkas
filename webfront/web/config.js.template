@@ -3,12 +3,5 @@ window.LH = {
     baseApiUrl: 'http://%api_url%/api/1',
     mainJsFile: '/main.js',
     clientId: 'webfront_webfront',
-    clientSecret: 'secret',
-    locale: 'root'
-};
-
-window.Caliper = {
-    config: {
-        apiKey: 'e2d20e06-11f1-42a9-a1a3-afec27ab1db8'
-    }
+    clientSecret: 'secret'
 };

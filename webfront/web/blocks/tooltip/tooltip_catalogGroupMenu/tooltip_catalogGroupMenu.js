@@ -48,8 +48,6 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                Tooltip_menu.prototype.initialize.call(this);
-
                 block.tooltip_catalogGroupForm = $('[block="tooltip_catalogGroupForm"]').data('tooltip_catalogGroupForm') || new Tooltip_catalogGroupForm({
                     $trigger: block.$trigger,
                     model: block.catalogGroupModel

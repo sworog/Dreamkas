@@ -5,7 +5,7 @@ define(function(require) {
         StoresCollection = require('collections/stores');
 
     return Page.extend({
-        pageName: 'page_store_list',
+        __name__: 'page_store_list',
         templates: {
             '#content': require('tpl!./templates/list.html')
         },

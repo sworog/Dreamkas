@@ -1,9 +1,15 @@
 define(function(require) {
-    var Page = require("kit/blocks/page/page");
+    var Block = require('kit/block'),
+        Backbone = require('backbone');
 
-    return Page.extend({
+    var router = new Backbone.Router();
+
+    return new (Block.extend({
+        __name__: 'page',
+        el: document.body,
         events: {
-            'click .page__tabItem': 'click .page__tabItem'
+            'click .page__tabItem': 'click .page__tabItem',
+            'click [href]': 'click [href]'
         },
         'click .page__tabItem': function(e) {
             e.preventDefault();
@@ -21,6 +27,15 @@ define(function(require) {
                 .addClass('page__tabItem_active')
                 .siblings('.page__tabItem')
                 .removeClass('page__tabItem_active');
-            }
-    });
+        },
+        'click [href]': function(e) {
+            e.preventDefault();
+            var block = this,
+                $target = $(e.target);
+
+            router.navigate($target.attr('href'), {
+                trigger: true
+            });
+        }
+    }));
 });

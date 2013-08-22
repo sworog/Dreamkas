@@ -6,7 +6,7 @@ define(function(require) {
         Form_department = require('blocks/form/form_department/form_department');
 
     return Page.extend({
-        pageName: 'page_department_form',
+        __name__: 'page_department_form',
         templates: {
             '#content': require('tpl!./templates/form.html')
         },

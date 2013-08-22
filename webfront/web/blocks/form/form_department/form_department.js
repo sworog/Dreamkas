@@ -11,8 +11,6 @@ define(function(require) {
             initialize: function(){
                 var block = this;
 
-                Form.prototype.initialize.apply(this, arguments);
-
                 block.redirectUrl = '/stores/' + block.storeModel.id;
 
                 if (block.model.id){

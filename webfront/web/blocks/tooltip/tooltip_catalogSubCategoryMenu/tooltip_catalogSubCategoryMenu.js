@@ -47,8 +47,6 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                Tooltip_menu.prototype.initialize.call(this);
-
                 block.tooltip_catalogSubCategoryForm = $('[block="tooltip_catalogSubCategoryForm"]').data('tooltip_catalogSubCategoryForm') || new Tooltip_catalogSubCategoryForm({
                     model: block.catalogSubCategoryModel
                 });

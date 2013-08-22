@@ -12,11 +12,10 @@ require(
             'libs/lhAutocomplete': ['jquery.ui'],
             'jquery.ui': ['jquery']
         },
-        config: {
-            //Set the config for the i18n
-            //module ID
-            i18n: {
-                locale: LH.locale
+        packages: [
+            {
+                name: 'nls',
+                location: 'nls'
             }
-        }
+        ]
     }, ['app']);

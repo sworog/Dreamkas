@@ -6,7 +6,7 @@ define(function(require) {
         InvoiceProductsCollection = require('collections/invoiceProducts');
 
     return Page.extend({
-        pageName: 'page_invoice_view',
+        __name__: 'page_invoice_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },

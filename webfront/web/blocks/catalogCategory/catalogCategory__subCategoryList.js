@@ -29,8 +29,6 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            Block.prototype.initialize.call(block);
-
             block.catalogSubCategoriesCollection.each(function(catalogSubCategoryModel){
                 new CatalogCategory__subCategoryItem({
                     catalogSubCategoryModel: catalogSubCategoryModel,
