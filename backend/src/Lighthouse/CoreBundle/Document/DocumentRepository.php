@@ -13,4 +13,13 @@ class DocumentRepository extends BaseRepository
     {
         return new $this->documentName;
     }
+
+    /**
+     * @param $document
+     */
+    public function save($document)
+    {
+        $this->getDocumentManager()->persist($document);
+        $this->getDocumentManager()->flush($document);
+    }
 }

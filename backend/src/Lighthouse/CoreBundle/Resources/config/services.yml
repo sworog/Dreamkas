@@ -126,3 +126,9 @@ services:
                 - LighthouseCoreBundle:Product\Store\StoreProduct
             calls:
                 - [setProductRepository, ["@lighthouse.core.document.repository.product"]]
+
+    lighthouse.core.job.repository:
+            parent: doctrine_mongodb.odm.repository
+            class: Lighthouse\CoreBundle\Document\Job\Job
+            arguments:
+                - LighthouseCoreBundle:Job\Job
