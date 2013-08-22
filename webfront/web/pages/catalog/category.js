@@ -26,7 +26,7 @@ define(function(require) {
                 }, params)
             }
 
-            if (currentUserModel.stores){
+            if (currentUserModel.stores && currentUserModel.stores.length){
                 pageParams.storeId = currentUserModel.stores.at(0).id;
             }
 

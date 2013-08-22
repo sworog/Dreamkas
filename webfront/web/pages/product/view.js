@@ -4,7 +4,8 @@ define(function(require) {
         Product = require('blocks/product/product'),
         ProductModel = require('models/product'),
         StoreProduct = require('models/storeProduct'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser'),
+        Page403 = require('pages/403/403');
 
     return Page.extend({
         pageName: 'page_product_view',
@@ -18,6 +19,11 @@ define(function(require) {
             var page = this;
 
             page.productId = productId;
+
+            if (!currentUserModel.stores || !currentUserModel.stores.length){
+                new Page403();
+                return;
+            }
 
             page.productModel = new ProductModel({
                 id: page.productId

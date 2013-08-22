@@ -6,10 +6,10 @@ define(function(require) {
     return Model.extend({
         modelName: 'storeProduct',
         urlRoot: function() {
-            if (currentUserModel.stores) {
+            if (currentUserModel.stores && currentUserModel.stores.length) {
                 return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/products'
             }
-            return ''
+            return LH.baseApiUrl + '/products'
         },
         defaults: {
             retailPricePreference: 'retailMarkup'
