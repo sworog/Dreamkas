@@ -49,7 +49,7 @@ And the user fills form with following data
 | vendorCountry | Вендоркантри56 |
 | purchasePrice | 8922174 |
 | barcode | 102454 |
-| sku | 89489545DGF1 |
+| sku | 89489545DGF2 |
 | info | Info1689 |
 | unit | liter |
 | vat | 0 |
@@ -61,7 +61,7 @@ Then the user checks the elements values
 | vendorCountry | Вендоркантри56 |
 | purchasePrice | 8922174 |
 | barcode | 102454 |
-| sku | 89489545DGF1 |
+| sku | 89489545DGF2 |
 | info | Info1689 |
 | unit | литр |
 | vat | 0 |
