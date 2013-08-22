@@ -641,3 +641,10 @@ Given the user opens the authorization page
 And the user logs in as 'storeManager'
 When the user opens dashboard user card
 Then the user sees no user card link to users list
+
+Scenario: Regress - No store storeManager get 403 after try to open product page url
+
+Given there is the product with 'storeProductName14' name, 'storeProductSku14' sku, 'storeProductBarCode14' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest100' rounding
+And the user navigates to the product with sku 'storeProductSku14'
+And the user logs in as 'storeManager'
+Then the user sees the 403 error
