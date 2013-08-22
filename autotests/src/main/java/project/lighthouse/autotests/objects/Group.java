@@ -28,7 +28,9 @@ public class Group extends AbstractClassifierNode {
         if (jsonArray.length() != 0) {
             for (int i = 0; i < jsonArray.length(); i++) {
                 Category category = new Category(jsonArray.getJSONObject(i));
-                return category.getName().equals(expectedCategory.getName());
+                if (category.getName().equals(expectedCategory.getName())) {
+                    return true;
+                }
             }
         }
         return false;
