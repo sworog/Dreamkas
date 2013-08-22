@@ -12,7 +12,6 @@ And the user generates charData with <charNumber> number in the <elementName> fi
 Then the user checks <elementName> field contains only <charNumber> symbols
 When the user clicks the create button
 Then the user sees no error messages
-When the user logs out
 
 Examples:
 | charNumber | elementName |
@@ -33,7 +32,6 @@ And the user generates charData with <charNumber> number in the <elementName> fi
 Then the user checks <elementName> field contains only <charNumber> symbols
 When the user clicks the create button
 Then the user user sees <errorMessage>
-When the user logs out
 
 Examples:
 | charNumber | elementName | errorMessage |
@@ -56,7 +54,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Examples:
 | inputText | elementName |
@@ -89,7 +86,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Такой артикул уже есть |
-When the user logs out
 
 Scenario: Edit product validation - Vendor,Barcode,VendorCountryInfo fields are not required
 
@@ -107,7 +103,6 @@ And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
 Then the user checks the product with 'EPVBVCF678' sku is present
-When the user logs out
 
 Scenario: Edit product validation - Purchase price validation good
 
@@ -119,7 +114,6 @@ And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the <elementName> value is <expectedValue>
-When the user logs out
 
 Examples:
 | inputText | elementName | expectedValue |
@@ -140,7 +134,6 @@ When the user clicks the edit button on product card view page
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
 Then the user user sees <errorMessage>
-When the user logs out
 
 Examples:
 | inputText | elementName | errorMessage |

@@ -21,7 +21,6 @@ When the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user logs out
 
 Scenario: Invoice product amount is required
 
@@ -34,7 +33,6 @@ When the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice product price is required
 
@@ -47,7 +45,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice no product name validation
 
@@ -58,7 +55,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user logs out
 
 Scenario: Invoice no product barcode validation
 
@@ -69,7 +65,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user logs out
 
 Scenario: Invoice no product sku validation
 
@@ -80,7 +75,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user logs out
 
 Scenario: Invoice product amount validation sub zero
 
@@ -94,7 +88,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Значение должно быть больше 0 |
-When the user logs out
 
 Scenario: Invoice product amount validation zero
 
@@ -108,7 +101,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Значение должно быть больше 0 |
-When the user logs out
 
 Scenario: Invoice product amount validation String en small register
 
@@ -122,7 +114,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user logs out
 
 Scenario: Invoice product amount validation String en big register
 
@@ -136,7 +127,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user logs out
 
 Scenario: Invoice product amount validation String rus small register
 
@@ -150,7 +140,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user logs out
 
 Scenario: Invoice product amount validation String rus big register\
 
@@ -164,7 +153,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user logs out
 
 Scenario: Invoice product amount validation symbols
 
@@ -178,7 +166,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user logs out
 
 Scenario: Invoice product Amount positive validation
 
@@ -190,7 +177,6 @@ And the user inputs '12' in the invoice product 'invoiceCost' field
 When the user inputs '1' in the invoice product 'productAmount' field
 And the user clicks the add more product button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice product price validation commma
 
@@ -202,7 +188,6 @@ And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs ',78' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice product price validation dott
 
@@ -214,7 +199,6 @@ And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '.78' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice product price validation comma
 
@@ -226,7 +210,6 @@ And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '123.25' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice product price validation dot
 
@@ -238,7 +221,6 @@ And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '12.56' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice product price validation one digit
 
@@ -250,7 +232,6 @@ And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '2' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice product price validation two digits
 
@@ -262,7 +243,6 @@ And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '99' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice product price validation three digits
 
@@ -276,7 +256,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Цена не должна содержать больше 2 цифр после запятой. |
-When the user logs out
 
 Scenario: Invoice product price validation sub zero
 
@@ -290,7 +269,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Invoice product price validation zero
 
@@ -304,7 +282,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Invoice product price validation String en small register
 
@@ -318,7 +295,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Invoice product price validation String en big register
 
@@ -332,7 +308,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Invoice product price validation String rus small register
 
@@ -346,7 +321,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Invoice product price validation String rus big register
 
@@ -360,7 +334,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Invoice product price validation symbols
 
@@ -374,7 +347,6 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Invoice product price validation length good
 
@@ -388,7 +360,6 @@ And the user clicks the add more product button
 Then the user sees no error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Invoice product price validation length negative
 
@@ -402,6 +373,5 @@ And the user clicks the add more product button
 Then the user sees error messages
 | error message |
 | Цена не должна быть больше 10000000 |
-When the user logs out
 
 

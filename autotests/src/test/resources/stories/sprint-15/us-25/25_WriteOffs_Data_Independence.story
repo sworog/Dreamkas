@@ -28,7 +28,6 @@ And the user checks the product with 'WriteOff-DI-Test' sku has elements on the 
 | writeOff product name review | WriteOff-DI-Test |
 | writeOff product barCode review | WriteOff-DI-Test |
 | writeOff product sku review | WriteOff-DI-Test |
-When the user logs out
 
 Scenario: Edited product can be added again to write off
 Given there is the write off with 'WriteOff-DI-Test1' number with product 'WriteOff-DI-Test1' with quantity '1', price '1' and cause 'cause'
@@ -56,4 +55,3 @@ Then the user checks the product with 'WriteOff-DI-Test sku1 edited' sku has ele
 | writeOff product name review | WriteOff-DI-Test1 name edited |
 | writeOff product barCode review | WriteOff-DI-Test1 barcode edited |
 | writeOff product sku review | WriteOff-DI-Test sku1 edited |
-When the user logs out

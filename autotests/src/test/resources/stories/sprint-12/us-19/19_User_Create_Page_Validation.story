@@ -16,7 +16,6 @@ And the user generates charData with '100' number in the 'name' user page field
 Then the user checks 'name' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Name field length validation negative 101 symbols
 
@@ -34,7 +33,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: Name field is required
 
@@ -50,7 +48,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Position field length validation 100 symbols
 
@@ -66,7 +63,6 @@ And the user generates charData with '100' number in the 'position' user page fi
 Then the user checks 'position' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Position field length validation negative 101 symbols
 
@@ -84,7 +80,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: Position field is required
 
@@ -100,7 +95,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Role field is required
 
@@ -116,7 +110,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Position minimum length validation invalid
 
@@ -133,7 +126,6 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Значение слишком короткое. Должно быть равно 6 символам или больше. |
-When the user logs out
 
 Scenario: Position minimum length validation positive
 
@@ -148,7 +140,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Position must be not equal to username
 
@@ -165,7 +156,6 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Логин и пароль не должны совпадать |
-When the user logs out
 
 Scenario: Position validation positive
 
@@ -180,7 +170,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName field length validation 100 symbols
 
@@ -197,7 +186,6 @@ And the user generates charData with '100' number without spaces  in the 'userna
 Then the user checks 'username' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName field length validation negative 101 symbols
 
@@ -216,7 +204,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: UserName must be unique
 
@@ -234,7 +221,6 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Пользователь с таким логином уже существует |
-When the user logs out
 
 Scenario: UserName is required
 
@@ -250,7 +236,6 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: UserName validation positive Rus Big regiser
 
@@ -265,7 +250,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName validation positive Rus Small register
 
@@ -280,7 +264,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName validation positive Eng Small register
 
@@ -295,7 +278,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName validation positive Eng Big register
 
@@ -310,7 +292,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName validation positive digits 0-9
 
@@ -325,7 +306,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName validation positive symbols _
 
@@ -340,7 +320,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName validation positive symbols -
 
@@ -355,7 +334,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName validation positive symbols .
 
@@ -370,7 +348,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName validation positive symbols @
 
@@ -385,7 +362,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName validation positive symbols mix
 
@@ -400,7 +376,6 @@ When the user inputs values in the user page element fields
 | role | commercialManager |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: UserName validation negative symbols
 
@@ -417,7 +392,6 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Значение недопустимо |
-When the user logs out
 
 Scenario: UserName validation negative symbols white space
 
@@ -434,5 +408,4 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Значение недопустимо |
-When the user logs out
 

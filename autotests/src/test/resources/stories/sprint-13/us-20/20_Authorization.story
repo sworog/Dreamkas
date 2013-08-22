@@ -118,7 +118,6 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs 'assps' in 'sku' field
 And the user clicks the create button
 Then the user checks the product with 'assps' sku is present
-When the user logs out
 
 Scenario: Authorization successfull - simple group scenarios
 
@@ -135,7 +134,6 @@ And the user clicks on end edition link and ends the edition
 Then the user checks the category with 'First category create123' name is present
 Given the user opens catalog page
 Then the user checks the category with 'First category create123' name is related to group 'GcFcP123'
-When the user logs out
 
 Scenario: Authorization successfull - simple invoice scenarios
 
@@ -181,7 +179,6 @@ And the user checks invoice elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 1 |
-When the user logs out
 
 Scenario: Authorization successfull - simple write off scenarios
 
@@ -217,7 +214,6 @@ Then the user checks write off elements values
 | totalSum | 150 |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductSku99' sku has 'amounts amount' element equal to '-10' on amounts page
-When the user logs out
 
 Scenario: Authorization successfull - simple user scenarios
 
@@ -233,6 +229,5 @@ And the user inputs values in the user page element fields
 | role | administrator |
 And the user clicks the create new user button
 Then the user checks the user with 'createfromuserslistpage99' username is present
-When the user logs out
 
 

@@ -23,7 +23,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'NFLV-879' sku is present
-When the user logs out
 
 Scenario: Create product validation - Name field length validation negative
 
@@ -40,7 +39,6 @@ When the user clicks the create button
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
-When the user logs out
 
 Scenario: Create product validation - Name field length validation negative 2
 
@@ -57,7 +55,6 @@ When the user clicks the create button
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
-When the user logs out
 
 Scenario: Create product validation - Name field is required
 
@@ -72,7 +69,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Create product validation - Unit fiels is required
 
@@ -87,7 +83,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Выберите единицу измерения |
-When the user logs out
 
 Scenario: Create product validation - Vat field is required
 
@@ -102,7 +97,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Выберите ставку НДС |
-When the user logs out
 
 Scenario: Create product validation - Barcode field length validation
 
@@ -118,7 +112,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'FTY6456789' sku is present
-When the user logs out
 
 Scenario: Create product validation - Barcode field length validation negative
 
@@ -136,7 +129,6 @@ When the user clicks the create button
 Then the user sees error messages
 | error message |
 | Не более 200 символов |
-When the user logs out
 
 Scenario: Create product validation - Sku field validation good
 
@@ -159,7 +151,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Такой артикул уже есть |
-When the user logs out
 
 Scenario: Create product validation - Sku field negative
 
@@ -172,7 +163,6 @@ When the user clicks the create button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: Create product validation - Sku field is required
 
@@ -187,7 +177,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Create product validation - Vendor,Barcode,VendorCountryInfo fields are not required
 
@@ -202,7 +191,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'VBVCF678' sku is present
-When the user logs out
 
 
 Scenario: Create product validation - Vendor field validation
@@ -219,7 +207,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'VFV-01' sku is present
-When the user logs out
 
 Scenario: Create product validation - Vendor field validation lenght negative
 
@@ -237,7 +224,6 @@ When the user clicks the create button
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
-When the user logs out
 
 
 Scenario: Create product validation - VendorCountry field validation
@@ -254,7 +240,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'VCFV-01' sku is present
-When the user logs out
 
 Scenario: Create product validation - VendorCountry field validation lenght negative
 
@@ -272,7 +257,6 @@ When the user clicks the create button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: Create product validation - Info field validation
 
@@ -288,7 +272,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'IFV-01' sku is present
-When the user logs out
 
 Scenario: Create product validation - Info field validation lenght negative
 
@@ -306,7 +289,6 @@ When the user clicks the create button
 Then the user sees error messages
 | error message |
 | Не более 2000 символов |
-When the user logs out
 
 Scenario: Create product validation - Mixing 1
 
@@ -321,7 +303,6 @@ Then the user sees error messages
 | Выберите единицу измерения |
 | Заполните это поле |
 | Выберите ставку НДС |
-When the user logs out
 
 Scenario: Create product validation - Mixing 2
 
@@ -337,7 +318,6 @@ Then the user sees error messages
 | Выберите единицу измерения |
 | Цена не должна быть меньше или равна нулю. |
 | Выберите ставку НДС |
-When the user logs out
 
 
 Scenario: Create product validation - Purchase price validation String+Symbols+Num
@@ -354,7 +334,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation commma
 
@@ -369,7 +348,6 @@ And the user inputs ',78' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees no error messages
 Then the user checks the product with 'PPV-07' sku has 'purchasePrice' equal to '0,78'
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation dott
 
@@ -384,7 +362,6 @@ And the user inputs ',78' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees no error messages
 Then the user checks the product with 'PPV-08' sku has 'purchasePrice' equal to '0,78'
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation comma
 
@@ -399,7 +376,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 Then the user checks the product with 'JFGE89075' sku has 'purchasePrice' equal to '123,25'
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation dot
 
@@ -414,7 +390,6 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 Then the user checks the product with 'JFGE89078' sku has 'purchasePrice' equal to '125,26'
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation one digit
 
@@ -428,7 +403,6 @@ And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user checks the product with 'FTY64' sku has 'purchasePrice' equal to '789,6'
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation two digits
 
@@ -442,7 +416,6 @@ And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user checks the product with 'FTY645' sku has 'purchasePrice' equal to '739,67'
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation three digits
 
@@ -458,7 +431,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна содержать больше 2 цифр после запятой. |
-When the user logs out
 
 
 Scenario: Create product validation - Purchase price field is required
@@ -474,7 +446,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation sub zero
 
@@ -490,7 +461,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Create product validation - Purhase prise validation zero
 
@@ -506,7 +476,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation String en
 
@@ -522,7 +491,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation String rus
 
@@ -538,7 +506,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation symbols
 
@@ -554,7 +521,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation length good
 
@@ -568,7 +534,6 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs '10000000' in 'purchasePrice' field
 And the user clicks the create button
 Then the user checks the product with 'PPV-090' sku has 'purchasePrice' equal to '10000000'
-When the user logs out
 
 Scenario: Create product validation - Purchase price validation length negative
 
@@ -584,7 +549,6 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Цена не должна быть больше 10000000 |
-When the user logs out
 
 Scenario: Create product validation - Bugs fixing checking about price 10.12
 
@@ -598,4 +562,3 @@ And the user selects '10' in 'vat' dropdown
 And the user inputs '10.12' in 'purchasePrice' field
 And the user clicks the create button
 Then the user checks the product with 'PPV-0903456' sku has 'purchasePrice' equal to '10,12'
-When the user logs out

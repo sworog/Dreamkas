@@ -24,7 +24,6 @@ Then the user checks the elements values
 | purchasePrice | 12356 |
 | retailMarkupRange | отсутствует |
 | retailPriceRange | отсутствует |
-When the user logs out
 
 Scenario: Product creation with markup range filling
 
@@ -46,7 +45,6 @@ Then the user checks the elements values
 | purchasePrice | 112 |
 | retailMarkupRange | 10,00 - 15,00 |
 | retailPriceRange | 123,20 - 128,80 |
-When the user logs out
 
 Scenario: Product creation with retailPriceRange range filling
 
@@ -69,7 +67,6 @@ Then the user checks the elements values
 | purchasePrice | 100 |
 | retailMarkupRange | 40,00 - 45,00 |
 | retailPriceRange | 140,00 - 145,00 |
-When the user logs out
 
 Scenario: Retail mark up last used field is active in product edition
 
@@ -95,7 +92,6 @@ And the user checks 'retailMarkupMin' 'is' avalaible
 And the user checks 'retailMarkupMax' 'is' avalaible
 And the user checks 'retailPriceHint' 'is' avalaible
 And the user checks 'retailMarkupHint' 'is not' avalaible
-When the user logs out
 
 Scenario: Retail price last used field is active in product edition
 
@@ -122,7 +118,6 @@ And the user checks 'retailMarkupMin' 'is not' avalaible
 And the user checks 'retailMarkupMax' 'is not' avalaible
 And the user checks 'retailMarkupHint' 'is' avalaible
 And the user checks 'retailPriceHint' 'is not' avalaible
-When the user logs out
 
 Scenario: Retail price is active by default
 
@@ -134,7 +129,6 @@ And the user checks 'retailPriceMin' 'is not' avalaible
 And the user checks 'retailPriceMax' 'is not' avalaible
 And the user checks 'retailMarkupHint' 'is not' avalaible
 And the user checks 'retailPriceHint' 'is' avalaible
-When the user logs out
 
 Scenario: Retail price hint text
 
@@ -143,7 +137,6 @@ And the user logs in as 'commercialManager'
 Then the user checks the elements values
 | elementName | value |
 | retailPriceHint | Введите значение |
-When the user logs out
 
 Scenario: Retail markup hint text
 
@@ -153,7 +146,6 @@ When the user clicks 'retailPriceHint' to make it avalaible
 Then the user checks the elements values
 | elementName | value |
 | retailMarkupHint | Введите значение |
-When the user logs out
 
 Scenario: Retail mark up range inheritance
 
@@ -171,5 +163,4 @@ Then the user checks the elements values
 | elementName | value |
 | retailMarkupMin | 1 |
 | retailMarkupMax | 1 |
-When the user logs out
 

@@ -29,7 +29,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice sku validation good
 
@@ -44,7 +43,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice sku validation negative
 
@@ -60,8 +58,7 @@ And the user inputs 'Валидация получатель' in the invoice 'le
 And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
-| Не более 100 символов |When the user logs out
-
+| Не более 100 символов |
 Scenario: Invoice Supplier validation is required
 
 Given the user is on the invoice list page
@@ -75,7 +72,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice Supplier validation good
 
@@ -90,7 +86,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice Supplier validation negative
 
@@ -107,7 +102,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation is required
 
@@ -123,7 +117,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice acceptanceDate autofilling
 
@@ -131,7 +124,6 @@ Given the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user clicks the create button on the invoice list page
 Then the user checks the 'acceptanceDate' is prefilled and equals NowDate
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation good manual
 
@@ -145,7 +137,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative1 numbers
 
@@ -159,7 +150,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative1 numbers 2
 
@@ -175,7 +165,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative2 eng symbols
 
@@ -191,7 +180,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative3 rus symbols
 
@@ -207,7 +195,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative symbols
 
@@ -223,7 +210,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation manual negative symbols mix
 
@@ -239,7 +225,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation through datepicker good
 
@@ -253,7 +238,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation through datepicker negative1
 
@@ -267,7 +251,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice acceptanceDate validation through datepicker negative2
 
@@ -281,7 +264,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice accepter validation is required
 
@@ -296,7 +278,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice accepter validation good
 
@@ -311,7 +292,6 @@ And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice accepter validation negative
 
@@ -328,7 +308,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: Invoice legalEntity validation is required
 
@@ -343,7 +322,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Invoice legalEntity validation good
 
@@ -358,7 +336,6 @@ And the user inputs '!todayDateAndTime' in the invoice 'acceptanceDate' field
 And the user inputs 'Валидация кто принял' in the invoice 'accepter' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice legalEntity validation negative
 
@@ -375,7 +352,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
-When the user logs out
 
 Scenario: Invoice supplierInvoiceSku validation good
 
@@ -391,7 +367,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice supplierInvoiceSku validation negative
 
@@ -409,7 +384,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: Invoice supplierInvoiceSku, supplierInvoiceDate are not required
 
@@ -423,7 +397,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation good manual
 
@@ -438,7 +411,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative1 numbers
 
@@ -455,7 +427,6 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Дата накладной не должна быть старше даты приемки |
-When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative2 eng symbols
 
@@ -470,7 +441,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative3 rus symbols
 
@@ -485,7 +455,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative symbols
 
@@ -500,7 +469,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation manual negative symbols mix
 
@@ -515,7 +483,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice supplierInvoiceDate validation through datepicker good
 
@@ -529,7 +496,6 @@ And the user inputs 'Валидация кто принял' in the invoice 'acc
 And the user inputs 'Валидация получатель' in the invoice 'legalEntity' field
 And the user navigates to invoice product addition
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice supplier date cantbe older then acceptance date 1
 
@@ -546,6 +512,5 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Дата накладной не должна быть старше даты приемки |
-When the user logs out
 
 

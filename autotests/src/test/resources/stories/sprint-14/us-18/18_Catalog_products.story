@@ -65,7 +65,6 @@ Then the user checks the elements values
 | info | Info1689 |
 | unit | литр |
 | vat | 0 |
-When the user logs out
 
 Scenario: Check product is related to group/category/subcategory
 
@@ -82,7 +81,6 @@ Then the user checks the elements values
 | group | productListPage |
 | category | productListPage |
 | subCategory | productListPage |
-When the user logs out
 
 Scenario: Delete subcategory with products
 
@@ -119,28 +117,24 @@ Scenario: Product create from triangle menu
 !--| vat | 10 |
 !--And the user clicks the create button
 !--Then the user checks the product with 'PCFTM-999' sku is present
-!--When the user logs out
-
+!--
 Scenario: No products dashboard link for commercial manager
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the dashboard link to 'products' section is not present
-When the user logs out
 
 Scenario: No products dashboard link for department manager
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'products' section is not present
-When the user logs out
 
 Scenario: Catalog dashboard link is present for department manager
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'catalog' section is present
-When the user logs out
 
 Scenario: Catalog - no edit link for department manager
 
@@ -148,7 +142,6 @@ Given the user opens catalog page
 And the user logs in as 'departmentManager'
 Then the user dont see the 403 error
 And the user checks the edit button is not present
-When the user logs out
 
 Scenario: Catalog - products list view by department manager
 
@@ -162,4 +155,4 @@ Scenario: Catalog - products list view by department manager
 !--| group | productListPage |
 !--| category | productListPage |
 !--| subCategory | productListPage |
-!--When the user logs out
+!--

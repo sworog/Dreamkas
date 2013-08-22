@@ -13,7 +13,6 @@ And the user continues the write off creation
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Write off Validation - valid number 100 symbols
 
@@ -24,7 +23,6 @@ And the user generates charData with '100' number in the 'writeOff number' write
 Then the user checks 'writeOff number' write off field contains only '100' symbols
 When the user continues the write off creation
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off Validation - invalid 101 symbols
 
@@ -37,7 +35,6 @@ When the user continues the write off creation
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: Write off Validation - date is required
 
@@ -49,7 +46,6 @@ When the user continues the write off creation
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Write Off date validation good manual
 
@@ -59,7 +55,6 @@ When the user inputs 'WriteOff test-1' in the 'writeOff number' field on the wri
 And the user inputs '!03.12.2012' in the write off 'writeOff date' field
 When the user continues the write off creation
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write Off date validation manual negative1 numbers
 
@@ -69,7 +64,6 @@ When the user inputs 'WriteOff test-2' in the 'writeOff number' field on the wri
 And the user inputs '!123454567890' in the write off 'writeOff date' field
 When the user continues the write off creation
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write Off date validation manual negative1 numbers 2
 
@@ -79,7 +73,6 @@ When the user inputs 'WriteOff test-3' in the 'writeOff number' field on the wri
 And the user inputs '!12345456789' in the write off 'writeOff date' field
 When the user continues the write off creation
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off writeOff date validation manual negative2 eng symbols
 
@@ -91,7 +84,6 @@ When the user continues the write off creation
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: WriteOff date validation manual negative3 rus symbols
 
@@ -103,7 +95,6 @@ When the user continues the write off creation
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: WriteOff date validation manual negative symbols
 
@@ -115,7 +106,6 @@ When the user continues the write off creation
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: WriteOff date validation manual negative symbols mix
 
@@ -127,7 +117,6 @@ When the user continues the write off creation
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: WriteOff date validation through datepicker good
 
@@ -137,7 +126,6 @@ When the user inputs 'WriteOff test-7' in the 'writeOff number' field on the wri
 And the user inputs 'todayDate' in the write off 'writeOff date' field
 When the user continues the write off creation
 Then the user sees no error messages
-When the user logs out
 
 Scenario: WriteOff autocomplete is required
 
@@ -149,7 +137,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user logs out
 
 Scenario: WriteOff no product name validation
 
@@ -162,7 +149,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user logs out
 
 Scenario: WriteOff no product barcode validation
 
@@ -175,7 +161,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user logs out
 
 Scenario: WriteOff no product sku validation
 
@@ -188,7 +173,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user logs out
 
 Scenario: Write off Validation - quantity is required
 
@@ -204,7 +188,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Write off product quantity validation sub zero
 
@@ -221,7 +204,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Значение должно быть больше 0 |
-When the user logs out
 
 Scenario: Write off product quantity validation zero
 
@@ -238,7 +220,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Значение должно быть больше 0 |
-When the user logs out
 
 Scenario: Write off product quantity validation String en small register
 
@@ -255,7 +236,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user logs out
 
 Scenario: Write off product quantity validation String en big register
 
@@ -272,7 +252,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user logs out
 
 Scenario: Write off product quantity validation String rus small register
 
@@ -289,7 +268,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user logs out
 
 Scenario: Write off product quantity validation String rus big register\
 
@@ -306,7 +284,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user logs out
 
 Scenario: Write off product quantity validation symbols
 
@@ -324,7 +301,6 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user logs out
 
 Scenario: Write off product quantity positive validation
 
@@ -339,7 +315,6 @@ And the user inputs 'writeOff cause' in the 'writeOff cause' field on the write 
 And the user inputs '1' in the write off product 'writeOff product quantity' field
 And the user presses the add product button and add the product to write off
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off price validation - price is required
 
@@ -356,7 +331,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Write off product price validation commma
 
@@ -371,7 +345,6 @@ And the user inputs '1' in the 'writeOff product quantity' field on the write of
 And the user inputs ',78' in the 'writeOff product price' field on the write off page
 When the user presses the add product button and add the product to write off
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off product price validation dott
 
@@ -386,7 +359,6 @@ And the user inputs '1' in the 'writeOff product quantity' field on the write of
 And the user inputs '.78' in the 'writeOff product price' field on the write off page
 When the user presses the add product button and add the product to write off
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off product price validation comma
 
@@ -401,7 +373,6 @@ And the user inputs '1' in the 'writeOff product quantity' field on the write of
 And the user inputs '123.25' in the 'writeOff product price' field on the write off page
 When the user presses the add product button and add the product to write off
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off product price validation dot
 
@@ -416,7 +387,6 @@ And the user inputs '1' in the 'writeOff product quantity' field on the write of
 And the user inputs '12.56' in the 'writeOff product price' field on the write off page
 When the user presses the add product button and add the product to write off
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off product price validation one digit
 
@@ -431,7 +401,6 @@ And the user inputs '1' in the 'writeOff product quantity' field on the write of
 And the user inputs '2' in the 'writeOff product price' field on the write off page
 When the user presses the add product button and add the product to write off
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off product price validation two digits
 
@@ -446,7 +415,6 @@ And the user inputs '1' in the 'writeOff product quantity' field on the write of
 And the user inputs '99' in the 'writeOff product price' field on the write off page
 When the user presses the add product button and add the product to write off
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off product price validation three digits
 
@@ -463,7 +431,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Цена не должна содержать больше 2 цифр после запятой. |
-When the user logs out
 
 Scenario: Write off product price validation sub zero
 
@@ -480,7 +447,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Write off product price validation zero
 
@@ -497,7 +463,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Write off product price validation String en small register
 
@@ -514,7 +479,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Write off product price validation String en big register
 
@@ -531,7 +495,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Write off product price validation String rus small register
 
@@ -548,7 +511,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Write off product price validation String rus big register
 
@@ -565,7 +527,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Write off product price validation symbols
 
@@ -582,7 +543,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю. |
-When the user logs out
 
 Scenario: Write off product price validation length good
 
@@ -597,7 +557,6 @@ And the user inputs '1' in the 'writeOff product quantity' field on the write of
 And the user inputs '10000000' in the 'writeOff product price' field on the write off page
 When the user presses the add product button and add the product to write off
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off product price validation length negative
 
@@ -614,7 +573,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Цена не должна быть больше 10000000 |
-When the user logs out
 
 Scenario: Write off Validation - cause is required
 
@@ -631,7 +589,6 @@ When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Write off Validation - cause 1000 symbols
 
@@ -647,7 +604,6 @@ Then the user checks 'writeOff cause' write off field contains only '1000' symbo
 When the user inputs '1' in the 'writeOff product quantity' field on the write off page
 And the user presses the add product button and add the product to write off
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Write off Validation - cause 1001 symbols
 
@@ -665,4 +621,3 @@ And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
 | Не более 1000 |
-When the user logs out

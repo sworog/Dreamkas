@@ -12,7 +12,6 @@ And the user generates charData with '100' number in the 'name' user page field
 Then the user checks 'name' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode name field length validation negative 101 symbols
 
@@ -26,7 +25,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: Edit mode name field is required
 
@@ -41,7 +39,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Edit mode position field length validation 100 symbols
 
@@ -53,7 +50,6 @@ And the user generates charData with '100' number in the 'position' user page fi
 Then the user checks 'position' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode position field length validation negative 101 symbols
 
@@ -67,7 +63,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: Edit mode position field is required
 
@@ -82,7 +77,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Edit mode role field is required
 
@@ -97,7 +91,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Edit mode password minimum length validation invalid
 
@@ -112,7 +105,6 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Значение слишком короткое. Должно быть равно 6 символам или больше. |
-When the user logs out
 
 Scenario: Edit mode password minimum length validation positive
 
@@ -125,7 +117,6 @@ When the user inputs values in the user page element fields
 | password | 123456 |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode password must be not equal to username
 
@@ -141,7 +132,6 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Логин и пароль не должны совпадать |
-When the user logs out
 
 Scenario: Edit mode password validation positive
 
@@ -154,7 +144,6 @@ When the user inputs values in the user page element fields
 | password | ФыEf3!@$#$$%() |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username field length validation 100 symbols
 
@@ -166,7 +155,6 @@ And the user generates charData with '100' number without spaces and 'c' char in
 Then the user checks 'username' user page field contains only '100' symbols
 When the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username field length validation negative 101 symbols
 
@@ -180,7 +168,6 @@ When the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out
 
 Scenario: Edit mode username must be unique
 
@@ -196,7 +183,6 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Пользователь с таким логином уже существует |
-When the user logs out
 
 Scenario: Edit mode username is required
 
@@ -211,7 +197,6 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Edit mode username validation positive Rus Big regiser
 
@@ -224,7 +209,6 @@ And the user inputs values in the user page element fields
 | username | РУССКИЙЙ |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username validation positive Rus Small register
 
@@ -237,7 +221,6 @@ And the user inputs values in the user page element fields
 | username | руссскийй |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username validation positive Eng Small register
 
@@ -250,7 +233,6 @@ And the user inputs values in the user page element fields
 | username | ENGLISHHH |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username validation positive Eng Big register
 
@@ -263,7 +245,6 @@ And the user inputs values in the user page element fields
 | username | englishhh |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username validation positive digits 0-9
 
@@ -276,7 +257,6 @@ When the user inputs values in the user page element fields
 | username | 12345678901 |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username validation positive symbols _
 
@@ -289,7 +269,6 @@ And the user inputs values in the user page element fields
 | username | username_usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username validation positive symbols -
 
@@ -302,7 +281,6 @@ And the user inputs values in the user page element fields
 | username | username-usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username validation positive symbols .
 
@@ -315,7 +293,6 @@ And the user inputs values in the user page element fields
 | username | username.usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username validation positive symbols @
 
@@ -328,7 +305,6 @@ And the user inputs values in the user page element fields
 | username | username@usernamee |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username validation positive symbols mix
 
@@ -341,7 +317,6 @@ And the user inputs values in the user page element fields
 | username | username_username-username@gmaik.comm |
 And the user clicks the create new user button
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Edit mode username validation negative symbols
 
@@ -356,7 +331,6 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Значение недопустимо |
-When the user logs out
 
 Scenario: Edit mode username validation negative symbols white space
 
@@ -371,5 +345,4 @@ And the user clicks the create new user button
 Then the user sees error messages
 | error message |
 | Значение недопустимо |
-When the user logs out
 

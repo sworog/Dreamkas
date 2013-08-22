@@ -18,7 +18,6 @@ Given there is created department and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Значение недопустимо |
-When the user logs out
 
 Scenario: Empty department number
 
@@ -28,7 +27,6 @@ Given there is created department and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Too long department number
 
@@ -38,7 +36,6 @@ Given there is created department and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Не более 50 символов |
-When the user logs out
 
 Scenario: Duplicate department number
 
@@ -50,7 +47,6 @@ Given there is created department and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Отдел с таким названием уже существует в этом магазине |
-When the user logs out
 
 Scenario: Empty department name
 
@@ -60,7 +56,6 @@ Given there is created department and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Too long department name
 
@@ -70,4 +65,3 @@ Given there is created department and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out

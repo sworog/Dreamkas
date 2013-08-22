@@ -44,7 +44,6 @@ Then the user checks invoice 'head' elements  values
 | acceptanceDate | 03.03.2012 14:56 |
 | supplierInvoiceDate | 02.03.2012 |
 | supplierInvoiceSku | 654321 |
-When the user logs out
 
 Scenario: Invoice head edition stop edit link click
 
@@ -58,7 +57,6 @@ And the user clicks finish edit link and ends the invoice edition
 Then the user checks invoice 'head' elements  values
 | elementName | value |
 | sku | Invoice-IE-IPE-SELC-Edited |
-When the user logs out
 
 Scenario: Invoice product edition name autocomplete
 
@@ -109,7 +107,6 @@ And the user checks invoice elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 6 |
-When the user logs out
 
 Scenario: Invoice product edition name autocomplete stop edit link click
 
@@ -140,7 +137,6 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
-When the user logs out
 
 Scenario: Invoice product edition sku autocomplete
 
@@ -191,7 +187,6 @@ And the user checks invoice elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 6 |
-When the user logs out
 
 Scenario: Invoice product edition sku autocomplete stop edit link click
 
@@ -222,7 +217,6 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
-When the user logs out
 
 Scenario: Invoice product edition barcode autocomplete
 
@@ -273,7 +267,6 @@ And the user checks invoice elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 6 |
-When the user logs out
 
 Scenario: Invoice product edition barcode autocomplete stop edit link click
 
@@ -304,7 +297,6 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productName | IE-IPE-1 |
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
-When the user logs out
 
 Scenario: Invoice product adding
 
@@ -337,7 +329,6 @@ Then the user checks the product with 'IE-IPA-1' sku has values
 | productAmount | 1 |
 | productPrice | 3 |
 | productSum | 3 |
-When the user logs out
 
 Scenario: Invoice product adding stop edit link click
 
@@ -370,7 +361,6 @@ Then the user checks the product with 'IE-IPA-1' sku has values
 | productAmount | 1 |
 | productPrice | 3 |
 | productSum | 3 |
-When the user logs out
 
 Scenario: Invoice product adding and edition
 
@@ -428,7 +418,6 @@ And the user checks invoice elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 6 |
-When the user logs out
 
 Scenario: Issue 9 regresssion
 
@@ -452,7 +441,6 @@ Then the user sees error messages
 | Значение должно быть целым числом |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Issue 8 regresssion
 
@@ -484,5 +472,4 @@ Then the user checks the product with 'IE-IPE-1' sku has values
 | productSku | IE-IPE-1 |
 | productBarcode | IE-IPE-1 |
 When the user clicks finish edit link and ends the invoice edition
-When the user logs out
 

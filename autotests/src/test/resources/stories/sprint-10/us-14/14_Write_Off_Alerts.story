@@ -15,7 +15,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert number changesVerification stop edit link
 
@@ -30,7 +29,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert date changesVerification stop edit button
 
@@ -45,7 +43,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert date changesVerification stop edit link
 
@@ -60,7 +57,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productSku changesVerification stop edit button
 
@@ -74,7 +70,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the 'writeOff product sku autocomplete' field on the write off page
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productSku changesVerification stop edit link
 
@@ -88,7 +83,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the 'writeOff product sku autocomplete' field on the write off page
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productName changesVerification stop edit button
 
@@ -102,7 +96,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the 'writeOff product name autocomplete' field on the write off page
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productName changesVerification stop edit link
 
@@ -116,7 +109,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the 'writeOff product name autocomplete' field on the write off page
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productBarCode changesVerification stop edit button
 
@@ -130,7 +122,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the 'writeOff product barCode autocomplete' field on the write off page
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productBarCode changesVerification stop edit link
 
@@ -144,7 +135,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the 'writeOff product barCode autocomplete' field on the write off page
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productAmount changesVerification stop edit button
 
@@ -158,7 +148,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '' in the 'writeOff product quantity' field on the write off page
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productAmount changesVerification stop edit link
 
@@ -172,7 +161,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '' in the 'writeOff product quantity' field on the write off page
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productPrice changesVerification stop edit button
 
@@ -186,7 +174,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '' in the 'writeOff product price' field on the write off page
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert ProductPrice changesVerification stop edit link
 
@@ -200,7 +187,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '' in the 'writeOff product price' field on the write off page
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productCause changesVerification stop edit button
 
@@ -214,7 +200,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '' in the 'writeOff cause' field on the write off page
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert ProductCause changesVerification stop edit link
 
@@ -228,7 +213,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '' in the 'writeOff cause' field on the write off page
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification ProductBarCode stop edit button
 
@@ -244,7 +228,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification ProductBarCode stop edit link
 
@@ -260,7 +243,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification ProductName stop edit button
 
@@ -276,7 +258,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification ProductName stop edit link
 
@@ -292,7 +273,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification ProductSku stop edit button
 
@@ -308,7 +288,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification ProductSku stop edit link
 
@@ -324,7 +303,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification productAmount stop edit button
 
@@ -339,7 +317,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification productAmount stop edit link
 
@@ -354,7 +331,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification ProductPrice stop edit button
 
@@ -369,7 +345,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification ProductPrice stop edit link
 
@@ -384,7 +359,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification ProductCause stop edit button
 
@@ -399,7 +373,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert writeOff product verification ProductCause stop edit link
 
@@ -414,4 +387,3 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the write off edition
 Then the user checks there is no alert on the page
-When the user logs out

@@ -47,7 +47,6 @@ Then the user checks invoice elements values
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-AIP1PWNAU' sku is present
-When the user logs out
 
 Scenario: Adding invoice products - 1 product with sku autocomplete
 
@@ -87,7 +86,6 @@ Then the user checks invoice elements values
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-AIP1PWSA' sku is present
-When the user logs out
 
 Scenario: Adding invoice products - 1 product with barcode autocomplete
 
@@ -127,7 +125,6 @@ Then the user checks invoice elements values
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-AIP1PWBA' sku is present
-When the user logs out
 
 Scenario: Autocomplete validation 0/1/2 symbols
 
@@ -136,7 +133,6 @@ And there is the invoice with 'Invoice-AIP1PWNAV0S' sku
 And the user logs in as 'departmentManager'
 When the user inputs <value> in the invoice product <elementName> field
 Then the users checks no autocomplete results
-When the user logs out
 
 Examples:
 | value | elementName |
@@ -157,7 +153,6 @@ And there is the invoice with 'Invoice-AIP1PWNAV3S' sku
 And the user logs in as 'departmentManager'
 When the user inputs <value> in the invoice product <elementName> field
 Then the user checks <autoCompleteResult>
-When the user logs out
 
 Examples:
 | value | elementName | autoCompleteResult |
@@ -176,7 +171,6 @@ Then the user checks invoice elements values
 | productName | Имя-AIP1WNAVRS |
 | productSku | Артикул-AIP1WNAVRS |
 | productBarCode | Баркод-AIP1WNAVRS |
-When the user logs out
 
 Examples:
 | value | elementName |
@@ -195,7 +189,6 @@ Then the user checks invoice elements values
 | productName | 123-AIP1PWNAVNS |
 | productSku | 123-AIP1PWNAVNS |
 | productBarCode | 123-AIP1PWNAVNS |
-When the user logs out
 
 Examples:
 | value | elementName |
@@ -214,7 +207,6 @@ Then the user checks invoice elements values
 | productName | NAME-AIP1PWNAVES |
 | productSku | SKU-AIP1PWNAVES |
 | productBarCode | BC-AIP1PWNAVES |
-When the user logs out
 
 Examples:
 | value | elementName |
@@ -233,7 +225,6 @@ Then the user checks invoice elements values
 | productName | @#$-AIP1PWNAWSS |
 | productSku | @#$-AIP1PWNAWSS |
 | productBarCode | @#$-AIP1PWNAWSS |
-When the user logs out
 
 Examples:
 | value | elementName |
@@ -252,7 +243,6 @@ Then the user checks invoice elements values
 | productName | name-AIP1PWBAVSRS |
 | productSku | sku-AIP1PWBAVSRS |
 | productBarCode | barcode-AIP1PWBAVSRS |
-When the user logs out
 
 Examples:
 | value | elementName |
@@ -271,7 +261,6 @@ Then the user checks invoice elements values
 | productName | Name-AIP1PWBAVBRS |
 | productSku | Sku-AIP1PWBAVBRS |
 | productBarCode | Barcode-AIP1PWBAVBRS |
-When the user logs out
 
 Examples:
 | value | elementName |
@@ -296,7 +285,6 @@ Then the user checks invoice elements values
 | productName |  |
 | productSku |  |
 | productBarCode |  |
-When the user logs out
 
 Scenario: Clearing the fields if another autocomplete is inputed - sku
 
@@ -315,7 +303,6 @@ Then the user checks invoice elements values
 | productName |  |
 | productSku |  |
 | productBarCode |  |
-When the user logs out
 
 Scenario: Clearing the fields if another autocomplete is inputed - barcode
 
@@ -334,7 +321,6 @@ Then the user checks invoice elements values
 | productName |  |
 | productSku |  |
 | productBarCode |  |
-When the user logs out
 
 Scenario: Adding invoice products - 3 products with barcode, name, sku autocomplete
 
@@ -395,7 +381,6 @@ And the user checks invoice elements values
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-AIP2PWBNA-1' sku is present
-When the user logs out
 
 
 

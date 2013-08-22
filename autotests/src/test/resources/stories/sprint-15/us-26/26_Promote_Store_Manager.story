@@ -15,7 +15,6 @@ And user navigates to created store page
 And the user logs in as 'commercialManager'
 When user promotes store manager named 'promotedStoreManager'
 Then user checks the promoted store manager is 'promotedStoreManager'
-When the user logs out
 
 Scenario: Unpromote store manager
 
@@ -27,7 +26,6 @@ When user promotes store manager named 'promotedStoreManager1'
 Then user checks the promoted store manager is 'promotedStoreManager1'
 When user unpromotes store manager named 'promotedStoreManager1'
 Then user checks the promoted store manager is not 'promotedStoreManager1'
-When the user logs out
 
 Scenario: Promote several store managers
 
@@ -41,7 +39,6 @@ Then user checks the promoted store manager is 'promotedStoreManager2'
 When user promotes store manager named 'promotedStoreManager3'
 Then user checks the promoted store manager is 'promotedStoreManager3'
 Then user checks the promoted store manager is 'promotedStoreManager2'
-When the user logs out
 
 Scenario: Can't promote not store manager - admin
 
@@ -51,7 +48,6 @@ And user navigates to created store page
 And the user logs in as 'commercialManager'
 When user try to promote not store manager named 'promotedAdministrator'
 Then user checks the promoted store manager is not 'promotedAdministrator'
-When the user logs out
 
 Scenario: Can't promote not store manager - commercialManager
 
@@ -61,7 +57,6 @@ And user navigates to created store page
 And the user logs in as 'commercialManager'
 When user try to promote not store manager named 'promotedCommercialManager'
 Then user checks the promoted store manager is not 'promotedCommercialManager'
-When the user logs out
 
 Scenario: Can't promote not store manager - departmentManager
 
@@ -71,7 +66,6 @@ And user navigates to created store page
 And the user logs in as 'commercialManager'
 When user try to promote not store manager named 'promotedDepartmentManager'
 Then user checks the promoted store manager is not 'promotedDepartmentManager'
-When the user logs out
 
 Scenario: Store manager manage only one store
 
@@ -85,7 +79,6 @@ Given there is created store with number 'SMMOOS-1', address 'SMMOOS-1', contact
 And user navigates to created store page
 When user try to promote not store manager named 'promotedStoreManager4'
 Then user checks the promoted store manager is not 'promotedStoreManager4'
-When the user logs out
 
 Scenario: Store manager can view managed store card
 
@@ -100,7 +93,6 @@ Given the user navigates to the store with number 'SMCVMSC'
 When the user logs in using 'promotedStoreManager5' userName and 'lighthouse' password
 Then user checks the store number is eqaul to 'SMCVMSC'
 And user checks the promoted store manager is 'promotedStoreManager5'
-When the user logs out
 
 
 

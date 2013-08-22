@@ -33,4 +33,3 @@ When the user adds the product with 'Хлопья Питерские' name, '100
 And the user makes the purchase
 Given the user opens amount list page
 Then the user checks the product with 'Хлопья-Питерские-Артикул' sku has 'amounts amount' element equal to '-99' on amounts page
-When the user logs out

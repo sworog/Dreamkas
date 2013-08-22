@@ -23,7 +23,6 @@ And the user clicks OK and accepts deletion
 Then the user checks the invoice product with 'IE-IPD' sku is not present
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the invoice product with 'IE-IPD' sku is not present
-When the user logs out
 
 Scenario:Invoice product deletion cancel
 
@@ -38,7 +37,6 @@ And the user clicks Cancel and discard deletion
 Then the user checks the invoice product with 'IE-IPD' sku is present
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the invoice product with 'IE-IPD' sku is present
-When the user logs out
 
 Scenario: Invoice product adding and deletion
 
@@ -57,7 +55,6 @@ And the user clicks OK and accepts deletion
 Then the user checks the invoice product with 'IE-IPD' sku is not present
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the invoice product with 'IE-IPD' sku is not present
-When the user logs out
 
 Scenario: Checking amountlist after invoice product deletion
 
@@ -86,7 +83,6 @@ And the user clicks OK and accepts deletion
 When the user clicks finish edit button and ends the invoice edition
 Given the user opens amount list page
 Then the user checks the product with 'IE-IPD-AM' sku has 'amount' equal to '0' on amounts page
-When the user logs out
 
 Scenario: Checks users cant delete product invoice in not edit mode - regress
 
@@ -95,4 +91,3 @@ And the user logs in as 'departmentManager'
 And the user is on the invoice list page
 When the user open the invoice card with 'InvoiceProductdeletion-6' sku
 And the user try to delete the invoice product with 'IE-IPD' sku
-And the user logs out

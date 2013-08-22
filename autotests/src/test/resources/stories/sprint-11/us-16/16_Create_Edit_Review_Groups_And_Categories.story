@@ -18,7 +18,6 @@ And the user creates new group with name 'First group create'
 Then the user checks the group with 'First group create' name is present
 When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'First group create' name is present
-When the user logs out
 
 Scenario: Group delete from catalog page
 
@@ -32,7 +31,6 @@ And the user deletes element through pop up menu
 Then the user checks the group with 'group delete from catalog' name is not present
 When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'group delete from catalog' name is not present
-When the user logs out
 
 Scenario: Group delete from group page
 
@@ -49,7 +47,6 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'group delete from group page' name is not present
 Given the user opens catalog page
 Then the user checks the group with 'group delete from group page' name is not present
-When the user logs out
 
 Scenario: Group edit from catalog page
 
@@ -65,7 +62,6 @@ And the user accept pop up menu changes
 Then the user checks the group with 'new group edits from catalog' name is present
 When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'new group edits from catalog' name is present
-When the user logs out
 
 Scenario: Group edit from group page
 
@@ -83,7 +79,6 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'new group edits from group page' name is present
 Given the user opens catalog page
 Then the user checks the group with 'new group edits from group page' name is present
-When the user logs out
 
 Scenario: Group edit cancel from catalog page
 
@@ -99,7 +94,6 @@ And the user discards pop up menu changes
 When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'new group edits from catalog cancel' name is not present
 And the user checks the group with 'group edits from catalog cancel' name is present
-When the user logs out
 
 Scenario: Group edit cancel from group page
 
@@ -119,7 +113,6 @@ And the user checks the group with 'new group edits cancel from group page' name
 Given the user opens catalog page
 Then the user checks the group with 'group edits cancel from group page' name is present
 And the user checks the group with 'new group edits cancel from group page' name is not present
-When the user logs out
 
 Scenario: Category create from group page
 
@@ -134,7 +127,6 @@ And the user clicks on end edition link and ends the edition
 Then the user checks the category with 'First category create' name is present
 Given the user opens catalog page
 Then the user checks the category with 'First category create' name is related to group 'GcFcP'
-When the user logs out
 
 Scenario: Category delete from catalog
 
@@ -149,7 +141,6 @@ Then the user checks the category with 'category delete from catalog' name is no
 When the user clicks on end edition link and ends the edition
 Given the user opens catalog page
 Then the user checks the category with 'category delete from catalog' name is not present
-When the user logs out
 
 Scenario: Category delete from group page
 
@@ -162,7 +153,6 @@ And the user deletes element through pop up menu
 Then the user checks the category with 'category delete from group page' name is not present
 When the user clicks on end edition link and ends the edition
 Then the user checks the category with 'category delete from group page' name is not present
-When the user logs out
 
 Scenario: Category edit from catalog
 
@@ -178,7 +168,6 @@ Then the user checks the category with 'new category edit from catalog' name is 
 When the user clicks on end edition link and ends the edition
 Given the user opens catalog page
 Then the user checks the category with 'new category edit from catalog' name is present
-When the user logs out
 
 Scenario: Category edit from group page
 
@@ -193,7 +182,6 @@ And the user accept pop up menu changes
 Then the user checks the category with 'new category edit from catalog' name is present
 When the user clicks on end edition link and ends the edition
 Then the user checks the category with 'new category edit from catalog' name is present
-When the user logs out
 
 Scenario: Category edit cancel from catalog
 
@@ -212,7 +200,6 @@ When the user clicks on end edition link and ends the edition
 Given the user opens catalog page
 Then the user checks the category with 'new category edit cancel from catalog' name is not present
 Then the user checks the category with 'category edit cancel from catalog' name is present
-When the user logs out
 
 Scenario: Category edit cancel from group page
 
@@ -229,4 +216,3 @@ Then the user checks the category with 'category edit cancel from group page' na
 When the user clicks on end edition link and ends the edition
 Then the user checks the category with 'new category edit cancel from group page' name is not present
 Then the user checks the category with 'category edit cancel from group page' name is present
-When the user logs out

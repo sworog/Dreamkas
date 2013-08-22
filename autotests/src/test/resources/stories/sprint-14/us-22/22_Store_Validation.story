@@ -18,7 +18,6 @@ Given there is created store and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Значение недопустимо |
-When the user logs out
 
 Scenario: Empty store number
 
@@ -28,7 +27,6 @@ Given there is created store and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Too long store number
 
@@ -38,7 +36,6 @@ Given there is created store and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Не более 50 символов |
-When the user logs out
 
 Scenario: Duplicate store number
 
@@ -49,7 +46,6 @@ And there is created store and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Такой магазин уже есть |
-When the user logs out
 
 Scenario: Empty store address
 
@@ -59,7 +55,6 @@ Given there is created store and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Too long store address
 
@@ -69,7 +64,6 @@ Given there is created store and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
-When the user logs out
 
 Scenario: Empty store contacts
 
@@ -79,7 +73,6 @@ Given there is created store and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Too long store contacts
 
@@ -89,4 +82,3 @@ Given there is created store and user starts to edit it and fills form with
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user logs out

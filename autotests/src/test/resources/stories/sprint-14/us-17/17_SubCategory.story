@@ -19,7 +19,6 @@ And the user creates new subCategory with name 'First subCategory create'
 Then the user checks the subCategory with 'First subCategory create' name is present
 When the user clicks on end edition link and ends the edition
 Then the user checks the subCategory with 'First subCategory create' name is present
-When the user logs out
 
 Scenario: SubCategory delete
 
@@ -33,7 +32,6 @@ And the user deletes element through pop up menu
 Then the user checks the subCategory with 'subCategoryTestDelete' name is not present
 When the user clicks on end edition link and ends the edition
 Then the user checks the subCategory with 'subCategoryTestDelete' name is not present
-When the user logs out
 
 Scenario: SubCategory edit
 
@@ -49,7 +47,6 @@ And the user accept pop up menu changes
 Then the user checks the subCategory with 'new subCategoryTestEdit' name is present
 When the user clicks on end edition link and ends the edition
 Then the user checks the subCategory with 'new subCategoryTestEdit' name is present
-When the user logs out
 
 Scenario: SubCategory edit cancel
 
@@ -67,4 +64,3 @@ And the user checks the subCategory with 'subCategoryTestEditCancel' name is pre
 When the user clicks on end edition link and ends the edition
 Then the user checks the subCategory with 'new subCategoryTestEditCancel' name is not present
 And the user checks the subCategory with 'subCategoryTestEditCancel' name is present
-When the user logs out

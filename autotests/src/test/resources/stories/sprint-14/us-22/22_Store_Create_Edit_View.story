@@ -23,7 +23,6 @@ And user clicks store form create button
 Then user checks store data in list
 When user clicks on store row in list
 Then user checks store card data
-When the user logs out
 
 Scenario: Create new store direct from create new store page
 
@@ -38,7 +37,6 @@ And user clicks store form create button
 Then user checks store data in list
 When user clicks on store row in list
 Then user checks store card data
-When the user logs out
 
 Scenario: Edit store
 
@@ -56,4 +54,3 @@ And user fills store form with following data
 | contacts | факс: +7 (812) 331-2256  |
 And user clicks store form save button
 Then user checks store card data
-When the user logs out

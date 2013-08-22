@@ -39,7 +39,6 @@ And the user checks the product with 'ADADAD-11' sku has 'amounts name' element 
 And the user checks the product with 'ADADAD-11' sku has 'amounts vendor' element equal to 'Тестовый производитель' on amounts page
 And the user checks the product with 'ADADAD-11' sku has 'amounts vendorCountry' element equal to 'Тестовая страна' on amounts page
 And the user checks the product with 'ADADAD-11' sku has 'amounts purchasePrice' element equal to '111,34' on amounts page
-When the user logs out
 
 Scenario: Amounts increase units
 
@@ -71,7 +70,6 @@ And the user checks the product with 'ADADAD-22' sku has 'amounts name' element 
 And the user checks the product with 'ADADAD-22' sku has 'amounts vendor' element equal to 'Тестовый производитель' on amounts page
 And the user checks the product with 'ADADAD-22' sku has 'amounts vendorCountry' element equal to 'Тестовая страна' on amounts page
 And the user checks the product with 'ADADAD-22' sku has 'amounts purchasePrice' element equal to '45,6' on amounts page
-When the user logs out
 
 Scenario: Amount increase liter
 
@@ -103,7 +101,6 @@ And the user checks the product with 'ADADAD-33' sku has 'amounts name' element 
 And the user checks the product with 'ADADAD-33' sku has 'amounts vendor' element equal to 'Тестовый производитель' on amounts page
 And the user checks the product with 'ADADAD-33' sku has 'amounts vendorCountry' element equal to 'Тестовая страна' on amounts page
 And the user checks the product with 'ADADAD-33' sku has 'amounts purchasePrice' element equal to '34' on amounts page
-When the user logs out
 
 
 

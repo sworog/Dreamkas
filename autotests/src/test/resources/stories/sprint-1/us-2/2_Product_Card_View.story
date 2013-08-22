@@ -35,7 +35,6 @@ And the user checks the 'barcode' value is '8954'
 And the user checks the 'unit' value is 'штука'
 And the user checks the 'vat' value is '10'
 And the user checks the 'info' value is 'Доп инфо: Текст двадцать пять'
-When the user logs out
 
 
 Scenario: Viewing product card after creation 2
@@ -64,7 +63,6 @@ And the user checks the 'barcode' value is '8988854'
 And the user checks the 'unit' value is 'литр'
 And the user checks the 'vat' value is '0'
 And the user checks the 'info' value is 'Доп инфо: Тестовые сущности'
-When the user logs out
 
 Scenario: Viewing product card after creation 3
 
@@ -92,6 +90,5 @@ And the user checks the 'barcode' value is '0000000'
 And the user checks the 'unit' value is 'килограмм'
 And the user checks the 'vat' value is '18'
 And the user checks the 'info' value is 'Доп инфо: Тестовые сущности 3434'
-When the user logs out
 
 

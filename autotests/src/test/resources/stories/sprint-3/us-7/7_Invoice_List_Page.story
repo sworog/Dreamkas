@@ -29,5 +29,4 @@ And the user checks the invoice with '654321' sku has 'acceptanceDate' equal to 
 And the user checks the invoice with '654321' sku has 'supplier' equal to 'ОАЭ Поставщик'
 And the user checks the invoice with '654321' sku has 'sumTotal' equal to ''
 And the user checks the invoice with '654321' sku has 'accepter' equal to 'Иван Петрович Васильев'
-When the user logs out
 

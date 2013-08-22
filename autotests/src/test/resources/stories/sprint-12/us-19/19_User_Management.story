@@ -31,7 +31,6 @@ Then the user checks the user page elements values
 | position | Позиция2 |
 | username | CommercialManager9 |
 | role | Коммерческий директор сети |
-When the user logs out
 
 Scenario: Create user store Manager type
 
@@ -57,7 +56,6 @@ Then the user checks the user page elements values
 | position | Позиция2 |
 | username | storeManager9 |
 | role | Директор магазина |
-When the user logs out
 
 Scenario: Create user department Manager type
 
@@ -83,7 +81,6 @@ Then the user checks the user page elements values
 | position | Позиция2 |
 | username | departmentManager9 |
 | role | Заведующий отделом |
-When the user logs out
 
 Scenario: Create user administrator type
 
@@ -109,7 +106,6 @@ Then the user checks the user page elements values
 | position | Позиция2 |
 | username | administrator9 |
 | role | Системный администратор |
-When the user logs out
 
 Scenario: User create from users list page
 
@@ -125,7 +121,6 @@ And the user inputs values in the user page element fields
 | role | administrator |
 And the user clicks the create new user button
 Then the user checks the user with 'createfromuserslistpage' username is present
-When the user logs out
 
 Scenario: User edition
 
@@ -153,7 +148,6 @@ And the user checks the user with 'Login_edited' username has 'name' element equ
 And the user checks the user with 'Login_edited' username has 'position' element equal to 'Position_edited' on users page
 And the user checks the user with 'Login_edited' username has 'username' element equal to 'Login_edited' on users page
 And the user checks the user with 'Login_edited' username has 'role' element equal to 'Системный администратор' on users page
-When the user logs out
 
 Scenario: User edition commercialManager type
 
@@ -171,7 +165,6 @@ Then the user checks the user page elements values
 When the user clicks on the users list page link
 Then the user checks the user with 'User-edition' username is present
 And the user checks the user with 'User-edition' username has 'role' element equal to 'Коммерческий директор сети' on users page
-When the user logs out
 
 Scenario: User edition storeManager type
 
@@ -189,7 +182,6 @@ Then the user checks the user page elements values
 When the user clicks on the users list page link
 Then the user checks the user with 'User-edition' username is present
 And the user checks the user with 'User-edition' username has 'role' element equal to 'Директор магазина' on users page
-When the user logs out
 
 Scenario: User edition section chief type
 
@@ -207,7 +199,6 @@ Then the user checks the user page elements values
 When the user clicks on the users list page link
 Then the user checks the user with 'User-edition' username is present
 And the user checks the user with 'User-edition' username has 'role' element equal to 'Заведующий отделом' on users page
-When the user logs out
 
 Scenario: User edition administrator type
 
@@ -225,5 +216,4 @@ Then the user checks the user page elements values
 When the user clicks on the users list page link
 Then the user checks the user with 'User-edition' username is present
 And the user checks the user with 'User-edition' username has 'role' element equal to 'Системный администратор' on users page
-When the user logs out
 

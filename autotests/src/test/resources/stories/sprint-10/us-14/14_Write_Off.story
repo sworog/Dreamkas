@@ -38,7 +38,6 @@ Then the user checks write off elements values
 | totalSum | 150 |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductSku' sku has 'amounts amount' element equal to '-10' on amounts page
-When the user logs out
 
 Scenario: Write Off product name autocomplete
 
@@ -49,7 +48,6 @@ When the user inputs 'WriteOff pna' in the 'writeOff number' field on the write 
 And the user inputs 'todayDate' in the 'writeOff date' field on the write off page
 And the user continues the write off creation
 When the user inputs 'WriteOff-ProductName' in the 'writeOff product name autocomplete' field on the write off page
-When the user logs out
 
 Scenario: Write Off product sku autocomplete
 
@@ -60,7 +58,6 @@ When the user inputs 'WriteOff psa' in the 'writeOff number' field on the write 
 And the user inputs 'todayDate' in the 'writeOff date' field on the write off page
 And the user continues the write off creation
 When the user inputs 'WriteOff-ProductSku' in the 'writeOff product sku autocomplete' field on the write off page
-When the user logs out
 
 Scenario: Write Off product barcode autocomplete
 
@@ -71,7 +68,6 @@ When the user inputs 'WriteOff pba' in the 'writeOff number' field on the write 
 And the user inputs 'todayDate' in the 'writeOff date' field on the write off page
 And the user continues the write off creation
 When the user inputs 'WriteOff-ProductBarCode' in the 'writeOff product barCode autocomplete' field on the write off page
-When the user logs out
 
 Scenario: Write off price is filled by retail price
 
@@ -96,7 +92,6 @@ When the user inputs 'WriteOff-ProductName-1' in the 'writeOff product name auto
 Then the user checks write off elements values
 | elementName | value |
 | writeOff product price | 140 |
-When the user logs out
 
 Scenario: Write off price is filled by purchase price
 
@@ -110,7 +105,6 @@ When the user inputs 'WriteOff-ProductName' in the 'writeOff product name autoco
 Then the user checks write off elements values
 | elementName | value |
 | writeOff product price | 15 |
-When the user logs out
 
 Scenario: Write off review kg
 
@@ -146,7 +140,6 @@ Then the user checks write off elements values
 | totalSum | 150 |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductSku-review1' sku has 'amounts amount' element equal to '-10' on amounts page
-When the user logs out
 
 Scenario: Write off Review liter
 
@@ -182,7 +175,6 @@ Then the user checks write off elements values
 | totalSum | 150 |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductSku-review2' sku has 'amounts amount' element equal to '-10' on amounts page
-When the user logs out
 
 Scenario: Write off Review units
 
@@ -218,7 +210,6 @@ Then the user checks write off elements values
 | totalSum | 150 |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductSku-review3' sku has 'amounts amount' element equal to '-10' on amounts page
-When the user logs out
 
 Scenario: Review 3 different products in one write off
 
@@ -286,7 +277,6 @@ Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductSku-review1' sku has 'amounts amount' element equal to '-20' on amounts page
 Then the user checks the product with 'WriteOff-ProductSku-review2' sku has 'amounts amount' element equal to '-20' on amounts page
 Then the user checks the product with 'WriteOff-ProductSku-review3' sku has 'amounts amount' element equal to '-20' on amounts page
-When the user logs out
 
 Scenario: Write off edition - number
 
@@ -303,7 +293,6 @@ When the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
 | elementName | value |
 | writeOff number review | WriteOff Number-1 edited |
-When the user logs out
 
 Scenario: Write off edition - date
 
@@ -320,7 +309,6 @@ When the user clicks finish edit button and ends the write off edition
 Then the user checks write off elements values
 | elementName | value |
 | writeOff date review | 24.11.2012 |
-When the user logs out
 
 Scenario: Write off edition - product name
 
@@ -345,7 +333,6 @@ Then the user checks the product with 'WriteOff-WOE-PN' sku has elements on the 
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-WOE-PN' sku has 'amounts amount' element equal to '-10' on amounts page
 And the user checks the product with 'WriteOff-ProductName-autocomplete' sku has 'amounts amount' element equal to '0' on amounts page
-When the user logs out
 
 Scenario: Write off edition - product sku
 
@@ -370,7 +357,6 @@ Then the user checks the product with 'WriteOff-WOE-PS' sku has elements on the 
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-WOE-PS' sku has 'amounts amount' element equal to '-10' on amounts page
 And the user checks the product with 'WriteOff-ProductSku-autocomplete' sku has 'amounts amount' element equal to '0' on amounts page
-When the user logs out
 
 Scenario: Write off edition - product barcode
 
@@ -395,7 +381,6 @@ Then the user checks the product with 'WriteOff-WOE-Pb' sku has elements on the 
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-WOE-Pb' sku has 'amounts amount' element equal to '-10' on amounts page
 And the user checks the product with 'WriteOff-ProductBarCode-autocomplete' sku has 'amounts amount' element equal to '0' on amounts page
-When the user logs out
 
 Scenario: Write off edition - product quantity
 
@@ -417,7 +402,6 @@ Then the user checks the product with 'WriteOff-ProductQuantity' sku has element
 | writeOff product quantity review | 12 |
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-ProductQuantity' sku has 'amounts amount' element equal to '-12' on amounts page
-When the user logs out
 
 Scenario: Write off edition - product price
 
@@ -435,7 +419,6 @@ When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-ProductPrice' sku has elements on the write off page
 | elementName | value |
 | writeOff product price review | 6,25 |
-When the user logs out
 
 Scenario: Write off edition - product cause
 
@@ -453,7 +436,6 @@ When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-ProductCause' sku has elements on the write off page
 | elementName | value |
 | writeOff cause review | Новая причина |
-When the user logs out
 
 Scenario: Write off edition - adding new product
 
@@ -483,7 +465,6 @@ And the user checks the product with 'WriteOff-WOE-ANP' sku has elements on the 
 | writeOff product quantity review | 10 |
 | writeOff product price review | 10 |
 | writeOff cause review | Причина сдачи: Истек срок хранения |
-When the user logs out
 
 Scenario: Write off edition - deleting product
 
@@ -500,7 +481,6 @@ When the user clicks finish edit button and ends the write off edition
 Then the user checks the write off product with 'WriteOff-WOE-ANP-1' sku is not present
 Given the user opens amount list page
 Then the user checks the product with 'WriteOff-WOE-ANP-1' sku has 'amounts amount' element equal to '0' on amounts page
-When the user logs out
 
 Scenario: Write off edition - deleting product cancel
 
@@ -515,7 +495,6 @@ And the user clicks Cancel and discard deletion
 Then the user checks the write off product with 'WriteOff-WOE-ANP-2' sku is present
 When the user clicks finish edit button and ends the write off edition
 Then the user checks the write off product with 'WriteOff-WOE-ANP-2' sku is present
-When the user logs out
 
 
 

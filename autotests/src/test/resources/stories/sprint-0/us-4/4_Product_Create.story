@@ -24,7 +24,6 @@ And the user inputs '1122' in 'sku' field
 And the user inputs 'Info1' in 'info' field
 And the user clicks the create button
 Then the user checks the product with '1122' sku is present
-When the user logs out
 
 Scenario: Creating new product 2
 
@@ -41,7 +40,6 @@ And the user inputs '9856' in 'sku' field
 And the user inputs 'Info2' in 'info' field
 And the user clicks the create button
 Then the user checks the product with '9856' sku is present
-When the user logs out
 
 Scenario: Creating new product 3
 
@@ -58,4 +56,3 @@ And the user inputs '798' in 'sku' field
 And the user inputs 'Info3' in 'info' field
 And the user clicks the create button
 Then the user checks the product with '798' sku is present
-When the user logs out

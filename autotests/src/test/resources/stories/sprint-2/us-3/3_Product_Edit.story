@@ -63,7 +63,6 @@ Then the user checks the elements values
 | unit | литр |
 | vat | 0 |
 | info | Info1688 |
-When the user logs out
 
 Scenario: Product edit check all dropdawn values
 
@@ -108,5 +107,4 @@ Then the user checks the elements values
 | elementName | value  |
 | unit | штука |
 | vat | 0 |
-When the user logs out
 

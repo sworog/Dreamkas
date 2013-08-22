@@ -12,7 +12,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the invoice product 'productSku' field
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productSku changesVerification stop edit link
 
@@ -24,7 +23,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the invoice product 'productSku' field
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productName changesVerification stop edit button
 
@@ -36,7 +34,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the invoice product 'productName' field
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productName changesVerification stop edit link
 
@@ -48,7 +45,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the invoice product 'productName' field
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productBarCode changesVerification stop edit button
 
@@ -60,7 +56,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the invoice product 'productBarCode' field
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productBarCode changesVerification stop edit link
 
@@ -72,7 +67,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '!' in the invoice product 'productBarCode' field
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productAmount changesVerification stop edit button
 
@@ -84,7 +78,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '' in the invoice product 'productAmount' field
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert productAmount changesVerification stop edit link
 
@@ -96,7 +89,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user inputs '' in the invoice product 'productAmount' field
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification sku stop edit button
 
@@ -109,7 +101,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification sku stop edit link
 
@@ -122,7 +113,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification supplier stop edit button
 
@@ -135,7 +125,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification supplier stop edit link
 
@@ -148,7 +137,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification accepter stop edit button
 
@@ -161,7 +149,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification accepter stop edit link
 
@@ -174,7 +161,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification legalEntity stop edit button
 
@@ -187,7 +173,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification legalEntity stop edit link
 
@@ -200,7 +185,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification acceptanceDate stop edit button
 
@@ -213,7 +197,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification acceptanceDate stop edit link
 
@@ -226,7 +209,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification supplierInvoiceDate stop edit button
 
@@ -239,7 +221,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification supplierInvoiceDate stop edit link
 
@@ -252,7 +233,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification supplierInvoiceSku stop edit button
 
@@ -265,7 +245,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice head verification supplierInvoiceSku stop edit link
 
@@ -278,7 +257,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice product verification ProductBarCode stop edit button
 
@@ -292,7 +270,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice product verification ProductName stop edit button
 
@@ -306,7 +283,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice product verification ProductSku stop edit button
 
@@ -320,7 +296,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice product verification productAmount stop edit button
 
@@ -334,7 +309,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice product verification ProductPrice stop edit button
 
@@ -348,7 +322,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice product verification ProductBarCode stop edit link
 
@@ -362,7 +335,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice product verification ProductName stop edit link
 
@@ -376,7 +348,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice product verification ProductSku stop edit link
 
@@ -390,7 +361,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice product verification productAmount stop edit link
 
@@ -404,7 +374,6 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out
 
 Scenario: Alert invoice product verification ProductPrice stop edit link
 
@@ -418,4 +387,3 @@ Then the user checks alert text is equal to 'У вас есть несохран
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 Then the user checks there is no alert on the page
-When the user logs out

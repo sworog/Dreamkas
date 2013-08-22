@@ -35,4 +35,3 @@ Then the user checks invoice elements values
 | acceptanceDate | 02.04.2013 16:23 |
 | supplierInvoiceDate | 01.04.2013 |
 | supplierInvoiceSku | 8659 |
-When the user logs out

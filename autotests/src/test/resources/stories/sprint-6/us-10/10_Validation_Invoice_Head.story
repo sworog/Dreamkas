@@ -17,7 +17,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice sku validation good
 
@@ -31,7 +30,6 @@ And the user generates charData with '100' number in the 'inline sku' invoice fi
 Then the user checks 'inline sku' invoice field contains only '100' symbols
 When the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice edition - Invoice sku negative length validation
 
@@ -49,7 +47,6 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice Supplier validation is required
 
@@ -66,7 +63,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice Supplier validation good
 
@@ -80,7 +76,6 @@ And the user generates charData with '300' number in the 'inline supplier' invoi
 Then the user checks 'inline supplier' invoice field contains only '300' symbols
 When the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice edition - Invoice Supplier negative length validation
 
@@ -98,7 +93,6 @@ Then the user sees error messages
 | Не более 300 символов |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation is required
 
@@ -115,7 +109,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation good manual
 
@@ -160,7 +153,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative2 eng symbols
 
@@ -177,7 +169,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative3 rus symbols
 
@@ -194,7 +185,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative symbols
 
@@ -211,7 +201,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation manual negative symbols mix
 
@@ -228,7 +217,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation through datepicker good
 
@@ -242,7 +230,6 @@ And the user inputs 'todayDateAndTime' in the invoice 'inline acceptanceDate' fi
 And the user clicks OK and accepts changes
 Then the user sees no error messages
 When the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice acceptanceDate validation through datepicker negative1
 
@@ -287,7 +274,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice accepter validation good
 
@@ -301,7 +287,6 @@ And the user generates charData with '100' number in the 'inline accepter' invoi
 Then the user checks 'inline accepter' invoice field contains only '100' symbols
 When the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice edition - Invoice accepter negative length validation
 
@@ -319,7 +304,6 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice legalEntity validation is required
 
@@ -336,7 +320,6 @@ Then the user sees error messages
 | Заполните это поле |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice legalEntity validation good
 
@@ -350,7 +333,6 @@ And the user generates charData with '300' number in the 'inline legalEntity' in
 Then the user checks 'inline legalEntity' invoice field contains only '300' symbols
 When the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice edition - Invoice legalEntity negative length validation
 
@@ -368,7 +350,6 @@ Then the user sees error messages
 | Не более 300 символов |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceSku validation good
 
@@ -382,7 +363,6 @@ And the user generates charData with '100' number in the 'inline supplierInvoice
 Then the user checks 'inline supplierInvoiceSku' invoice field contains only '100' symbols
 When the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceSku negative length validation
 
@@ -400,7 +380,6 @@ Then the user sees error messages
 | Не более 100 символов |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceDate validation good manual
 
@@ -431,7 +410,6 @@ Then the user sees error messages
 | Дата накладной не должна быть старше даты приемки |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 Scenario: Invoice edition - Invoice supplierInvoiceDate validation manual negative2 eng symbols
 
@@ -521,7 +499,6 @@ Then the user sees error messages
 | Дата накладной не должна быть старше даты приемки |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
-When the user logs out
 
 
 

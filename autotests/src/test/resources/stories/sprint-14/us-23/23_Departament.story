@@ -22,7 +22,6 @@ And user fills department form with following data
 | name | department |
 And user clicks department form submit button
 Then user checks department card data
-When the user logs out
 
 Scenario: View department in store
 
@@ -31,7 +30,6 @@ Then user checks department card data
 | elementName | value |
 | number | department1 |
 | name | departmentName1 |
-When the user logs out
 
 Scenario: Edit a department
 
@@ -46,4 +44,3 @@ Then user checks department card data
 | elementName | value |
 | number | departmentEdited1 |
 | name | Department for edit test (status edited) |
-When the user logs out

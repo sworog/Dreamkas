@@ -28,4 +28,3 @@ Then the user checks the write off with 'WriteOff-wolc' is present on write off 
 And the user checks the product with 'WriteOff-wolc' sku has 'writeOff list page date' element equal to '24.10.2012' on write off list page
 And the user checks the product with 'WriteOff-wolc' sku has 'writeOff list page number' element equal to 'WriteOff-wolc' on write off list page
 And the user checks the product with 'WriteOff-wolc' sku has 'writeOff list page sumTotal' element equal to '150' on write off list page
-When the user logs out

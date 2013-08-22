@@ -53,7 +53,6 @@ And the user checks invoice elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 1 |
-When the user logs out
 
 Scenario: Invoice full browsing units
 
@@ -99,7 +98,6 @@ And the user checks invoice elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 1 |
-When the user logs out
 
 Scenario: Invoice full browsing liter
 
@@ -145,7 +143,6 @@ And the user checks invoice elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 1 |
-When the user logs out
 
 Scenario: Invoice full browsing 3 products kg liter unit
 
@@ -219,6 +216,5 @@ And the user checks invoice elements values
 | elementName | value |
 | totalProducts | 3 |
 | totalSum | 3 |
-When the user logs out
 
 

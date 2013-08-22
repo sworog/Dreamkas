@@ -230,7 +230,6 @@ And the user generates charData with '100' number in the 'name' pop up field
 Then the user checks 'name' pop up field contains only '100' symbols
 When the user clicks the create new group button in pop up
 Then the user sees no error messages
-When the user logs out
 
 Scenario: Category validation name invalid - 101 symbols
 
@@ -245,7 +244,6 @@ When the user clicks the create new group button in pop up
 Then the user sees error messages
 | error message |
 | Не более 100 |
-When the user logs out
 
 Scenario: Category validation name is required
 
@@ -258,7 +256,6 @@ When the user clicks the create new group button in pop up
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user logs out
 
 Scenario: Category validation - can't create category with equal name
 
@@ -275,7 +272,6 @@ When the user clicks the create new group button in pop up
 Then the user sees error messages
 | error message |
 | Категория с таким названием уже существует в этой группе |
-When the user logs out
 
 Scenario: Category edit from catalog page - validation name good - 100 symbols
 
@@ -405,4 +401,3 @@ Then the user sees error messages
 | error message |
 | Категория с таким названием уже существует в этой группе |
 When the user clicks on end edition link and ends the edition
-When the user logs out
