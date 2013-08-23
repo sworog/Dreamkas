@@ -1,7 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Job;
+namespace Lighthouse\CoreBundle\Document\Job\Worker;
 
+use Lighthouse\CoreBundle\Document\Job\Job;
+use Lighthouse\CoreBundle\Document\Job\JobRepository;
+use Lighthouse\CoreBundle\Document\Job\Worker\WorkerManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,7 +15,7 @@ use Leezy\PheanstalkBundle\Proxy\PheanstalkProxy;
 use Exception;
 
 /**
- * @DI\Service("lighthouse.core.job.worker_command")
+ * @DI\Service("lighthouse.core.job.worker.command")
  * @DI\Tag("console.command")
  * @DI\Tag("monolog.logger", attributes={"channel"="worker"})
  */
@@ -41,7 +44,7 @@ class WorkerCommand extends Command
     /**
      * @DI\InjectParams({
      *      "pheanstalk" = @DI\Inject("leezy.pheanstalk"),
-     *      "workerManager" = @DI\Inject("lighthouse.core.job.worker_manager"),
+     *      "workerManager" = @DI\Inject("lighthouse.core.job.worker.manager"),
      *      "jobRepository" = @DI\Inject("lighthouse.core.job.repository"),
      *      "logger" = @DI\Inject("logger")
      * })

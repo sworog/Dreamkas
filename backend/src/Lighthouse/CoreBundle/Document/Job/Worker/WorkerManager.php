@@ -1,12 +1,14 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Job;
+namespace Lighthouse\CoreBundle\Document\Job\Worker;
 
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
+use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
 
 /**
- * @DI\Service("lighthouse.core.job.worker_manager");
+ * @DI\Service("lighthouse.core.job.worker.manager");
  */
 class WorkerManager
 {
@@ -63,6 +65,6 @@ class WorkerManager
             }
         }
 
-        throw new RuntimeException('No worker found for job %s', get_class($job));
+        throw new RuntimeException(sprintf('No worker found for job %s', get_class($job)));
     }
 }

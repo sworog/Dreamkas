@@ -1,6 +1,8 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Job;
+namespace Lighthouse\CoreBundle\Document\Job\Worker;
+
+use Lighthouse\CoreBundle\Document\Job\Job;
 
 interface WorkerInterface
 {

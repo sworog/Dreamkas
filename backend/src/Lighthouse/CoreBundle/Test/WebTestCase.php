@@ -33,6 +33,15 @@ class WebTestCase extends ContainerAwareTestCase
         $this->client = static::createClient();
     }
 
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        $this->oauthUsers = array();
+        $this->client = null;
+        $this->oauthClient = null;
+    }
+
     /**
      * @param \stdClass|string $token
      * @param string $method
@@ -690,6 +699,35 @@ class WebTestCase extends ContainerAwareTestCase
         $this->assertResponseCode(204);
     }
 
+    /**
+     * @param string $storeId
+     * @param string $productId
+     * @param array $productData
+     * @param User $storeManager
+     * @param string $password
+     */
+    public function updateStoreProduct(
+        $storeId,
+        $productId,
+        array $productData = array(),
+        User $storeManager = null,
+        $password = 'password'
+    ) {
+        if (null === $storeManager) {
+            $storeManager = $this->getStoreManager($storeId);
+        }
+
+        $accessToken = $this->auth($storeManager, $password);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $storeId . '/products/' . $productId,
+            $productData
+        );
+
+        $this->assertResponseCode(200);
+    }
 
     /**
      * @param string $secret
@@ -763,6 +801,21 @@ class WebTestCase extends ContainerAwareTestCase
         }
 
         return $this->oauthUsers[$role];
+    }
+
+    /**
+     * @param string $storeId
+     * @return User
+     */
+    protected function getStoreManager($storeId)
+    {
+        $username = 'storeManagerStore' . $storeId;
+        if (!isset($this->oauthUsers[$username])) {
+            $storeManager = $this->createUser($username, 'password', User::ROLE_STORE_MANAGER);
+            $this->linkStoreManagers($storeId, $storeManager->id);
+            $this->oauthUsers[$username] = $storeManager;
+        }
+        return $this->oauthUsers[$username];
     }
 
     /**

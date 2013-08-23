@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Job\RecalcProductPrice;
 
 use Lighthouse\CoreBundle\Document\Job\Job;
-use Lighthouse\CoreBundle\Document\Job\WorkerInterface;
+use Lighthouse\CoreBundle\Document\Job\Worker\WorkerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -18,7 +18,7 @@ class RecalcProductPriceWorker implements WorkerInterface
      */
     public function supports(Job $job)
     {
-        if ($job instanceof RecalcProductPriceWorker) {
+        if ($job instanceof RecalcProductPriceJob) {
             return true;
         } else {
             return false;
