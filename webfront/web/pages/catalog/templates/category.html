@@ -1,7 +1,7 @@
 <div class="page__header">
     <a href="/catalog" class="page__backLink"><%text 'Товарный справочник' %></a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%= catalogGroupModel.id %>" class="page__backLink">
+    <a href="/catalog/<%- catalogGroupModel.id %>" class="page__backLink">
         <%attr catalogGroupModel:name %>
     </a>
 </div>

@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
-    var Backbone = require('backbone'),
+    var app = require('kit/app'),
+        Backbone = require('backbone'),
         _ = require('underscore'),
         deepExtend = require('kit/utils/deepExtend'),
         classExtend = require('kit/utils/classExtend'),
@@ -21,6 +22,7 @@ define(function(require) {
 
             events: null,
             listeners: null,
+            page: null,
 
             _configure: function(options) {
                 var block = this;
@@ -29,6 +31,7 @@ define(function(require) {
                 deepExtend(block, options);
 
                 block.cid = _.uniqueId('block');
+                block.page = app.currentPage;
             },
             _ensureElement: function() {
                 var block = this;

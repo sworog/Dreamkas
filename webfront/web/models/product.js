@@ -11,7 +11,7 @@ define(function(require) {
             amount: 0,
             retailPricePreference: 'retailMarkup'
         },
-        saveFields: [
+        saveData: [
             'name',
             'units',
             'vat',

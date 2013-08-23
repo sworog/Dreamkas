@@ -1,6 +1,6 @@
-<tr name="product" href="/products/<%= model.get('id') %>">
+<tr name="product" href="/products/<%- model.get('id') %>">
     <td name="sku">
-        <%= model.get('sku') %>
+        <%- model.get('sku') %>
     </td>
     <td name="name">
         <%text model.get('name') %>
@@ -12,6 +12,6 @@
         <%text model.get('vendorCountry') %>
     </td>
     <td name="purchasePrice">
-        <%= LH.formatPrice(model.get('purchasePrice')) %> р.
+        <%- LH.formatPrice(model.get('purchasePrice')) %> р.
     </td>
 </tr>

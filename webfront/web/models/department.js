@@ -5,7 +5,7 @@ define(function(require) {
         return Model.extend({
             modelName: 'department',
             urlRoot: LH.baseApiUrl + '/departments',
-            saveFields: [
+            saveData: [
                 'number',
                 'name',
                 'store'

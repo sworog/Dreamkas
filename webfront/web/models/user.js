@@ -4,7 +4,7 @@ define(function(require) {
 
     return Model.extend({
         modelName: 'user',
-        saveFields: [
+        saveData: [
             'name',
             'position',
             'username',

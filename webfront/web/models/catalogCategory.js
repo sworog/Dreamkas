@@ -8,7 +8,7 @@ define(function(require) {
             initData: {
                 subCategories: require('collections/catalogSubCategories')
             },
-            saveFields: [
+            saveData: [
                 'name',
                 'group',
                 'retailMarkupMax',

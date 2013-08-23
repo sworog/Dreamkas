@@ -1,5 +1,5 @@
 <div class="form__field" style="white-space: nowrap; padding-bottom: 0;">
-    <input value="<%= model.get('name') %>" style="width: 250px;" class="inputText" type="text" name="name" placeholder="<%text 'Название группы' %>">
+    <input value="<%- model.get('name') %>" style="width: 250px;" class="inputText" type="text" name="name" placeholder="<%text 'Название группы' %>">
         <span class="button button_color_blue">
             <%text 'Подтвердить' %>
             <input type="submit" />

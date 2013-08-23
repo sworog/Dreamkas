@@ -1,59 +1,39 @@
 define(function(require) {
     //requirements
-    window.LH = window.Lighthouse = _.extend({
-        isAllow: require('kit/utils/isAllow'),
-        text: require('kit/utils/text')
-    }, window.LH, window.Lighthouse);
+    var app = require('kit/app'),
+        $ = require('jquery'),
+        _ = require('underscore');
 
-    var settings = {
-        evaluate: /<%([\s\S]+?)%>/g,
-        interpolate: /<%==([\s\S]+?)%>/g,
-        text: /<%text([\s\S]+?)%>/g,
-        attr: /<%attr ([\s\S]+?)%>/g,
-        escape: /<%=([\s\S]+?)%>/g
-    };
+    var reText = /<%text([\s\S]+?)%>/g,
+        reAttr = /<%attr([\s\S]+?)%>/g;
 
-    /**
-     * JavaScript micro-templating, similar to John Resig's implementation.
-     * Underscore templating handles arbitrary delimiters, preserves whitespace,
-     * and correctly escapes quotes within interpolated code.
-     */
-    return function(str, data) {
+    _.extend(_.templateSettings.imports, {
+        app: {
+            isAllow: require('kit/utils/isAllow'),
+            text: require('kit/utils/text'),
+            attr: require('kit/utils/attr'),
+            templates: app.templates
+        }
+    });
 
-        return 'var __p=[],print=function(){__p.push.apply(__p,arguments);};' +
-            'with(obj||{}){__p.push(\'' +
-            str.replace(/\\/g, '\\\\')
-                .replace(/'/g, "\\'")
-                .replace(settings.interpolate, function(match, code) {
-                    return "'," + code.replace(/\\'/g, "'") + ",'";
-                })
-                .replace(settings.escape, function(match, code) {
-                    return "',_.escape(" + code.replace(/\\'/g, "'") + "),'";
-                })
-                .replace(settings.text, function(match, code) {
-                    return "',LH.text(" + code.replace(/\\'/g, "'") + "),'";
-                })
-                .replace(settings.attr, function(match, code) {
-                    code = $.trim(_.escape(code));
+    _.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
 
-                    var list = code.split(':'),
-                        model = list[0],
-                        attr = list[1];
+    return function(template, data, options) {
 
-                    return "',LH.attr(" + model.replace(/\\'/g, "'") + ", '" + attr.replace(/\\'/g, "'") + "'),'";
-                })
-                .replace(settings.evaluate || null, function(match, code) {
-                    return "');" + code.replace(/\\'/g, "'")
-                        .replace(/[\r\n\t]/g, ' ') + "; __p.push('";
-                })
-                .replace(/\r/g, '')
-                .replace(/\n/g, '')
-                .replace(/\t/g, '')
-            + "');}return __p.join('');";
+        template = template
+            .replace(reAttr, function(match, code) {
+                code = $.trim(code);
 
-        /** /
-         var func = new Function('obj', tmpl);
-         return data ? func(data) : func;
-         /**/
+                var list = code.split(':'),
+                    model = list[0],
+                    attr = list[1];
+
+                return '<%- app.attr(' + model + ', "' + attr + '") %>';
+            })
+            .replace(reText, function(match, code) {
+                return '<%- app.text(' + code + ') %>';
+            });
+
+        return _.template(template, data, options);
     };
 });

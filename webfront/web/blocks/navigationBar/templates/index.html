@@ -10,7 +10,7 @@
     <% } %>
 
     <% if(LH.isAllow('stores/{store}/groups') && currentUserModel.stores && currentUserModel.stores.length){ %>
-    <a href="/catalog?storeId=<%= currentUserModel.stores.at(0).id %>"><%text 'Каталог' %></a>
+    <a href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>"><%text 'Каталог' %></a>
     <% } %>
 
     <% if(LH.isAllow('invoices')){ %>
@@ -34,7 +34,7 @@
     <% } %>
 
     <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
-        <a href="/stores/<%= currentUserModel.stores.at(0).id %>"><%text 'Мой магазин' %></a>
+        <a href="/stores/<%- currentUserModel.stores.at(0).id %>"><%text 'Мой магазин' %></a>
     <% } %>
     <% } %>
 </div>
@@ -43,7 +43,7 @@
 <div class="navigationBar__userControls">
     <a href="/users/current" class="navigationBar__userName">
         <i style="vertical-align: middle; position: relative; left: -5px; top: -1px;" class="icon-user"></i>
-        <%= currentUserModel.get('username') %>
+        <%- currentUserModel.get('username') %>
     </a>
     <a class="navigationBar__logoutLink">
         <i class="icon-signout" style="margin-left: -5px;"></i>

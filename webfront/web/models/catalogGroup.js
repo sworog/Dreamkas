@@ -14,7 +14,7 @@ define(function(require) {
             initData: {
                 categories: require('collections/catalogCategories')
             },
-            saveFields: [
+            saveData: [
                 'name',
                 'retailMarkupMax',
                 'retailMarkupMin',

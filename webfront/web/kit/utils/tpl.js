@@ -17,7 +17,7 @@
 define(function(require) {
 //>>excludeStart('excludeTpl', pragmas.excludeTpl)
     //requirements
-    var template = require('kit/utils/template');
+    var template = require('templateEngine');
 
     var tpl,
         progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
@@ -140,7 +140,7 @@ define(function(require) {
 
                 if (!config.isBuild) {
                     //if(typeof window !== "undefined" && window.navigator && window.document) {
-                    content = new Function('obj', content);
+                    //content = new Function('obj', content);
                 }
                 content = strip ? tpl.strip(content) : content;
 

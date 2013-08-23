@@ -1,6 +1,6 @@
 <% if(LH.isAllow('stores', 'PUT::{store}')) { %>
 <div class="page__controls">
-    <a href="/stores/edit/<%= storeModel.id %>">
+    <a href="/stores/edit/<%- storeModel.id %>">
         <%text 'Редактировать' %>
     </a>
 </div>
@@ -26,7 +26,7 @@
     <h4>
         <span class="store__departmentsTitle"></span>
         <% if(LH.isAllow('departments', 'POST')) { %>
-        <a style="margin-left: 10px;" class="button" href="/stores/<%= storeModel.id %>/departments/create">
+        <a style="margin-left: 10px;" class="button" href="/stores/<%- storeModel.id %>/departments/create">
             <%text 'Создать отдел' %>
         </a>
         <% } %>

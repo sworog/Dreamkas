@@ -11,6 +11,7 @@ define(function(require) {
             permissions: {},
             templates: {},
             apiUrl: null,
+            currentPage: null,
             locale: cookie.get('locale'),
             isStarted: false,
 
@@ -36,10 +37,6 @@ define(function(require) {
         getters,
         setters,
         Backbone.Events);
-
-    window.LH = window.Lighthouse = _.extend({
-        templates: app.templates
-    }, window.LH, window.Lighthouse);
 
     return app;
 });

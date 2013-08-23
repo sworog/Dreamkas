@@ -1,51 +1,56 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
+    var app = require('kit/app'),
+        Block = require('kit/block'),
         Backbone = require('backbone'),
         Router = require('kit/router'),
         isAllow = require('kit/utils/isAllow'),
         _ = require('underscore');
 
-    var router = new Backbone.Router();
+    var router = new Router();
 
     var Page = Block.extend({
         el: document.body,
         permissions: null,
         referrer: {},
-        constructor: function(params, route) {
-            var page = this;
-
-            page._configure.apply(page, arguments);
-            page._ensureElement();
-
-            if (page.accessDenied) {
-                router.navigate('/403', {
-                    trigger: true
-                });
-            } else {
-                page.initialize.apply(page, arguments);
-            }
-        },
         _configure: function(params, route) {
 
             Block.prototype._configure.apply(this, arguments);
 
-            var page = this;
+            var page = this,
+                accessDenied;
 
             page.route = route;
 
-            page.accessDenied = _.some(page.permissions, function(value, key) {
-                return !isAllow(key, value);
-            });
-
             page.cid = _.uniqueId('page');
 
-            if (Page.current) {
-                page.referrer = _.clone(Page.current);
-                Page.current.stopListening();
+            if (app.currentPage) {
+                page.referrer = _.clone(app.currentPage);
+                app.currentPage.stopListening();
             }
 
-            Page.current = page;
+            app.currentPage = page;
+
+            switch (typeof page.permissions) {
+                case 'object':
+                    accessDenied = _.some(page.permissions, function(value, key) {
+                        return !isAllow(key, value);
+                    });
+                    break;
+                case 'function':
+                    accessDenied = page.permissions();
+                    break;
+                case 'string':
+                    accessDenied = isAllow(page.permissions);
+                    break;
+            }
+
+            if (accessDenied){
+                router.navigate('/403', {
+                    trigger: true
+                });
+            }
+
         },
         _ensureElement: function() {
 

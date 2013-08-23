@@ -4,12 +4,12 @@
         <label class="form__label">
             Наценка<br />
             <% if (model.get('product').retailMarkupMin >= 0) { %>
-                (<span name="retailMarkupRange"><%= LH.formatPrice(model.get('product').retailMarkupMin) %> - <%= LH.formatPrice(model.get('product').retailMarkupMax) %></span> %)
+                (<span name="retailMarkupRange"><%- LH.formatPrice(model.get('product').retailMarkupMin) %> - <%- LH.formatPrice(model.get('product').retailMarkupMax) %></span> %)
             <% } %>
         </label>
         <input
                 style="width: 100px;"
-                value="<%= model.get('retailMarkup') ? model.get('retailMarkup') : model.get('product').retailMarkupMax %>"
+                value="<%- model.get('retailMarkup') ? model.get('retailMarkup') : model.get('product').retailMarkupMax %>"
                 class="inputText retailMarkup productForm__linkedInput <%text model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>"
                 type="text"
                 name="retailMarkup"/>
@@ -22,13 +22,13 @@
         <label class="form__label">
             Цена продажи<br />
             <% if (model.get('product').retailPriceMin) { %>
-                (<span name="retailPriceRange"><%= LH.formatPrice(model.get('product').retailPriceMin) %> - <%= LH.formatPrice(model.get('product').retailPriceMax) %></span> руб.)
+                (<span name="retailPriceRange"><%- LH.formatPrice(model.get('product').retailPriceMin) %> - <%- LH.formatPrice(model.get('product').retailPriceMax) %></span> руб.)
             <% } %>
         </label>
         <input
                 style="width: 100px;"
-                value="<%= model.get('retailPrice') ? LH.formatPrice(model.get('retailPrice')) : model.get('product').retailPriceMax %>"
-                class="inputText retailPrice productForm__linkedInput <%= model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>"
+                value="<%- model.get('retailPrice') ? LH.formatPrice(model.get('retailPrice')) : model.get('product').retailPriceMax %>"
+                class="inputText retailPrice productForm__linkedInput <%- model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>"
                 type="text"
                 name="retailPrice"/>
         <span class="productForm__inputLink">
@@ -37,7 +37,7 @@
         <span class="inputText__postfix">руб.</span>
         <span class="productForm__rounding"></span>
     </div>
-    <input type="hidden" value="<%= model.get('retailPricePreference') %>" name="retailPricePreference" />
+    <input type="hidden" value="<%- model.get('retailPricePreference') %>" name="retailPricePreference" />
 </fieldset>
 <div class="form__controls">
     <span class="button button_color_blue">

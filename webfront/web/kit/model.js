@@ -5,7 +5,7 @@ define(function(require) {
         getters = require('kit/utils/getters');
 
     return Backbone.Model.extend({
-        saveFields: [],
+        saveData: null,
         initData: {},
         constructor: function() {
             var model = this;
@@ -66,13 +66,24 @@ define(function(require) {
         toJSON: function(options) {
             options = options || {};
 
-            var toJSON = Backbone.Model.prototype.toJSON;
-
             if (options.isSave) {
-                return _.pick(toJSON.apply(this, arguments), this.saveFields);
+                return this.getSaveData();
             }
 
-            return toJSON.apply(this, arguments);
+            return Backbone.Model.prototype.toJSON.apply(this, arguments);
+        },
+        getSaveData: function(){
+            var saveData;
+
+            if (_.isFunction(this.saveData)){
+                saveData = this.saveData();
+            }
+
+            if (_.isArray(this.saveData)){
+                saveData = _.pick(this.toJSON(), this.saveData);
+            }
+
+            return saveData;
         }
     })
 });

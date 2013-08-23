@@ -11,7 +11,7 @@ define(function(require) {
             grant_type: 'password'
         },
         sync: Backbone.Model.prototype.sync,
-        saveFields: [
+        saveData: [
             'client_id',
             'client_secret',
             'grant_type',

@@ -7,7 +7,7 @@ define(function(require) {
         urlRoot: function() {
             return LH.baseApiUrl + '/writeoffs/' + this.get('writeOff').id + '/products';
         },
-        saveFields: [
+        saveData: [
             'product',
             'quantity',
             'price',

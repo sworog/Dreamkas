@@ -2,7 +2,8 @@ require({
     baseUrl: '/',
     //urlArgs: 'bust=' +  (new Date()).getTime(),
     paths: {
-        'underscore': 'kit/libs/underscore/underscore',
+        'underscore': 'kit/libs/lodash/lodash',
+        'templateEngine': 'kit/utils/template',
 
         'backbone': 'kit/libs/backbone/backbone',
         'backbone.queryparams': 'kit/libs/backbone/backbone.queryparams',
@@ -21,9 +22,6 @@ require({
         }
     ],
     shim: {
-        underscore: {
-            exports: '_'
-        },
         backbone: {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'

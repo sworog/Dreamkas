@@ -5,7 +5,7 @@ define(function(require) {
         return Model.extend({
             modelName: 'catalogSubCategory',
             urlRoot: LH.baseApiUrl + '/subcategories',
-            saveFields: [
+            saveData: [
                 'name',
                 'category',
                 'retailMarkupMax',

@@ -14,7 +14,7 @@ define(function(require) {
         defaults: {
             retailPricePreference: 'retailMarkup'
         },
-        saveFields: [
+        saveData: [
             'retailPrice',
             'retailMarkup',
             'retailPricePreference',

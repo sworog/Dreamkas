@@ -11,7 +11,7 @@ define(function(require) {
         timeFormat: 'HH:mm',
         invalidMessage: 'Вы ввели неверную дату',
 
-        saveFields: [
+        saveData: [
             'sku',
             'supplier',
             'acceptanceDate',

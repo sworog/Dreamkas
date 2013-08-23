@@ -10,7 +10,7 @@ define(function(require) {
                 departments: require('collections/departments'),
                 managers: require('collections/storeManagers')
             },
-            saveFields: [
+            saveData: [
                 'number',
                 'address',
                 'contacts'

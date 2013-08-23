@@ -8,7 +8,7 @@ define(function(require) {
         defaults: {
             products: []
         },
-        saveFields: [
+        saveData: [
             'products'
         ]
     });
