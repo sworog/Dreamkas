@@ -9,6 +9,7 @@ use DateTime;
 
 /**
  * @property string $id
+ * @property string $jobId
  * @property string $status
  * @property string $title
  * @property string $finalMessage
@@ -51,6 +52,12 @@ abstract class Job extends AbstractDocument
      * @var string
      */
     protected $id;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $jobId;
 
     /**
      * @MongoDB\String
@@ -104,6 +111,9 @@ abstract class Job extends AbstractDocument
         $this->setNewStatus();
     }
 
+    /**
+     *
+     */
     public function setNewStatus()
     {
         $this->status = self::STATUS_NEW;
@@ -111,13 +121,17 @@ abstract class Job extends AbstractDocument
     }
 
     /**
-     *
+     * @param string $jobId job id in tube
      */
-    public function setPendingStatus()
+    public function setPendingStatus($jobId)
     {
+        $this->jobId = $jobId;
         $this->status = self::STATUS_PENDING;
     }
 
+    /**
+     *
+     */
     public function setProcessingStatus()
     {
         $this->status = self::STATUS_PROCESSING;
@@ -153,4 +167,10 @@ abstract class Job extends AbstractDocument
             $this->finalMessage = $message;
         }
     }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @return string
+     */
+    abstract public function getType();
 }

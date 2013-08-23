@@ -13,6 +13,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  */
 class RecalcProductPriceJob extends Job
 {
+    const TYPE = 'recalc_product_price';
+
     /**
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
@@ -22,4 +24,12 @@ class RecalcProductPriceJob extends Job
      * @var ProductVersion
      */
     protected $productVersion;
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return RecalcProductPriceJob::TYPE;
+    }
 }

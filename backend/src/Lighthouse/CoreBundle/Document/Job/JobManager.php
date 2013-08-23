@@ -30,7 +30,7 @@ class JobManager
      * @DI\InjectParams({
      *      "pheanstalk" = @DI\Inject("leezy.pheanstalk"),
      *      "jobRepository" = @DI\Inject("lighthouse.core.job.repository"),
-     *      "workerManager" = @DI\Inject("lighthouse.core.job.worker.manager"),
+     *      "workerManager" = @DI\Inject("lighthouse.core.job.worker.manager")
      * })
      * @param PheanstalkInterface $pheanstalk
      * @param JobRepository $jobRepository
@@ -54,9 +54,9 @@ class JobManager
         // save job if it was not saved before
         $this->jobRepository->save($job);
 
-        $this->putJobInTube($job);
+        $jobId = $this->putJobInTube($job);
 
-        $job->setPendingStatus();
+        $job->setPendingStatus($jobId);
         $this->jobRepository->save($job);
     }
 

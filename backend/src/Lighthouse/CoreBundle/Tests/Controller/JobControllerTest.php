@@ -76,5 +76,6 @@ class JobControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals('recalc_product_price', '*.type', $getResponse);
     }
 }
