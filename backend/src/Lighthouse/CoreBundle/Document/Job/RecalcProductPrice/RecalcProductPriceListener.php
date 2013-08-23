@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Job\RecalcProductPrice;
 
-use Doctrine\MongoDB\Event\EventArgs;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -10,12 +10,12 @@ use JMS\DiExtraBundle\Annotation as DI;
  */
 class RecalcProductPriceListener
 {
-    public function postPersist(EventArgs $eventArgs)
+    public function postPersist(LifecycleEventArgs $eventArgs)
     {
 
     }
 
-    public function postUpdate(EventArgs $eventArgs)
+    public function postUpdate(LifecycleEventArgs $eventArgs)
     {
 
     }
