@@ -9,7 +9,7 @@
     <a href="/catalog"><%text 'Каталог' %></a>
     <% } %>
 
-    <% if(LH.isAllow('stores/{store}/groups') && currentUserModel.stores && currentUserModel.stores.length){ %>
+    <% if(LH.isAllow('stores/{store}/groups') && currentUserModel.stores.length){ %>
     <a href="/catalog?storeId=<%= currentUserModel.stores.at(0).id %>"><%text 'Каталог' %></a>
     <% } %>
 
@@ -33,7 +33,7 @@
     <a href="/stores"><%text 'Магазины' %></a>
     <% } %>
 
-    <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
+    <% if(currentUserModel.stores.length) { %>
         <a href="/stores/<%= currentUserModel.stores.at(0).id %>"><%text 'Мой магазин' %></a>
     <% } %>
     <% } %>

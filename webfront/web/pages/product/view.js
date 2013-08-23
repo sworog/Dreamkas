@@ -12,15 +12,17 @@ define(function(require) {
         templates: {
             '#content': require('tpl!./templates/view.html')
         },
-        permissions: {
-            products: 'GET::{product}'
-        },
         initialize: function(productId) {
             var page = this;
 
             page.productId = productId;
 
-            if (!currentUserModel.stores || !currentUserModel.stores.length){
+            if (!LH.isAllow('stores/{store}/products/{product}')){
+                new Page403();
+                return;
+            }
+
+            if (!LH.isAllow('products', 'GET::{product}') && !currentUserModel.stores.length){
                 new Page403();
                 return;
             }
@@ -29,7 +31,7 @@ define(function(require) {
                 id: page.productId
             });
 
-            if (LH.isAllow('stores/{store}/products/{product}', 'GET') && currentUserModel.stores) {
+            if (LH.isAllow('stores/{store}/products/{product}', 'GET') && currentUserModel.stores.length) {
                 page.storeProductModel = new StoreProduct({
                     id: page.productId
                 });

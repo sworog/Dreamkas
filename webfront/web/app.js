@@ -57,7 +57,7 @@ define(function(require) {
 
     loading.always(function() {
 
-        if (currentUserModel.stores && currentUserModel.stores.length) {
+        if (currentUserModel.stores.length) {
 //            window.history.replaceState({}, document.title, '/stores/' + currentUserModel.stores.at(0).id);
         }
 

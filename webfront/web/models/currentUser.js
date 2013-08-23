@@ -8,7 +8,7 @@ define(function(require) {
         modelName: 'currentUser',
         url: LH.baseApiUrl + '/users/current',
         permissions: new UserPermissionsModel(),
-        stores: null,
+        stores: [],
         fetch: function(){
             var model = this;
             return Model.prototype.fetch.apply(model, arguments).then(function(){
