@@ -57,9 +57,16 @@ public class ProductUserSteps {
     }
 
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
+    @Alias("there is the product with '$name' name, <productSku> sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
     public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
                                          String rounding, String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
         productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
+    }
+
+    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding, retailMarkUpMax '$retailMarkupMax' and retailMarkUpmin '$retailMarkupMin'")
+    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+                                         String rounding, String groupName, String categoryName, String subCategoryName, String retailMarkupMax, String retailMarkupMin) throws IOException, JSONException {
+        productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, retailMarkupMax, retailMarkupMin, rounding);
     }
 
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice, '$rounding' rounding in the subcategory named '$subCategoryName'")
@@ -67,6 +74,7 @@ public class ProductUserSteps {
                                          String rounding, String subCategoryName) throws IOException, JSONException {
         productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName, rounding);
     }
+
 
     @Given("there is the product with <productSku> and <rounding> in the subcategory named '$subCategoryName'")
     public void createProductThroughPost(String rounding, String productSku, String subCategoryName) throws IOException, JSONException {
@@ -109,6 +117,11 @@ public class ProductUserSteps {
     @When("the user inputs <inputText> in <elementName> field")
     public void aliasTheUserInputsTextInTheField(String inputText, String elementName) {
         productSteps.fieldInput(elementName, inputText);
+    }
+
+    @When("the user inputs <value> in <elementName> field")
+    public void aliasTheUserInputsValueInTheField(String value, String elementName) {
+        productSteps.fieldInput(elementName, value);
     }
 
     @When("the user inputs <value> in sku field")
@@ -193,6 +206,11 @@ public class ProductUserSteps {
     @Alias("the user checks the <elementName> value is <expectedValue>")
     public void thenTheUserChecksValue(String elementName, String expectedValue) {
         productSteps.checkCardValue(elementName, expectedValue);
+    }
+
+    @Then("the user checks the <elementName> value is <value>")
+    public void thenAliasTheUserChecksValue(String elementName, String value) {
+        productSteps.checkCardValue(elementName, value);
     }
 
     @Then("the user checks the rounding value is <expectedValue>")

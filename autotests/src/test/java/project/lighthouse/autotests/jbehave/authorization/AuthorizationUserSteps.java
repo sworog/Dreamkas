@@ -31,6 +31,7 @@ public class AuthorizationUserSteps {
     }
 
     @When("the user logs in using '$userName' userName and '$password' password")
+    @Alias("the user logs in using <userName> and '$password' password")
     public void givenTheUserLogsInUsingUserNameAndPassword(String userName, String password) {
         authorizationSteps.authorization(userName, password);
     }

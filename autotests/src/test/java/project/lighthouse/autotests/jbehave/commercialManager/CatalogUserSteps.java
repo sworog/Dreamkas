@@ -78,6 +78,7 @@ public class CatalogUserSteps {
     }
 
     @Given("there is the store with number '$storeNumber' managed by '$storeManager'")
+    @Alias("there is the store with <storeNumber> managed by <storeManager>")
     public void givenThereIsTheStoreManagedBy(String storeNumber, String storeManager) throws IOException, JSONException {
         Store store = storeSteps.createStore(storeNumber, storeManager, storeManager);
         catalogSteps.promoteStoreManager(store, storeManager);

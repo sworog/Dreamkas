@@ -9,6 +9,9 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
@@ -319,6 +322,16 @@ public class ApiConnect {
         } else {
             return "";
         }
+    }
+
+    //Fix for the connection time out problem?
+    private DefaultHttpClient getDefaultHttpClienWithHttpParams() {
+        HttpParams httpParams = new BasicHttpParams();
+        int timeoutConnection = 3000;
+        HttpConnectionParams.setConnectionTimeout(httpParams, timeoutConnection);
+        int timeoutSocket = 5000;
+        HttpConnectionParams.setSoTimeout(httpParams, timeoutSocket);
+        return new DefaultHttpClient(httpParams);
     }
 
     private String getLinkHeaderValue(User user) throws JSONException {

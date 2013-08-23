@@ -20,33 +20,39 @@ public class ProductApi extends CommercialManagerApi {
 
     CatalogApi catalogApi = new CatalogApi(getDriver());
 
-    public void сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
+    public Product сreateProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
         if (!StaticData.hasSubCategory(SubCategory.DEFAULT_NAME)) {
             catalogApi.createDefaultSubCategoryThroughPost();
         }
-        createProductThroughPost(name, sku, barcode, units, purchasePrice, SubCategory.DEFAULT_NAME);
+        return createProductThroughPost(name, sku, barcode, units, purchasePrice, SubCategory.DEFAULT_NAME);
     }
 
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
-                                         String subCategoryName) throws JSONException, IOException {
-        createProductThroughPostDefault(name, sku, barcode, units, purchasePrice, Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName, null);
+    public Product createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+                                            String subCategoryName) throws JSONException, IOException {
+        return createProductThroughPostDefault(name, sku, barcode, units, purchasePrice, Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName, null);
     }
 
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
-                                         String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
-        createProductThroughPostDefault(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, null);
+    public Product createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+                                            String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        return createProductThroughPostDefault(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, null);
     }
 
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
-                                         String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
-        createProductThroughPostDefault(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
+    public Product createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+                                            String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
+        return createProductThroughPostDefault(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
     }
 
-    public void createProductThroughPostDefault(String name, String sku, String barcode, String units, String purchasePrice, String groupName, String categoryName, String subCategoryName, String rounding) throws JSONException, IOException {
+    public Product createProductThroughPostDefault(String name, String sku, String barcode, String units, String purchasePrice, String groupName, String categoryName, String subCategoryName, String rounding) throws JSONException, IOException {
         SubCategory subCategory = catalogApi.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
         apiConnect.getSubCategoryMarkUp(subCategory);
         Product product = new Product(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), StaticData.retailMarkupMax, StaticData.retailMarkupMin, rounding);
-        apiConnect.createProductThroughPost(product, subCategory);
+        return apiConnect.createProductThroughPost(product, subCategory);
+    }
+
+    public Product createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String groupName, String categoryName, String subCategoryName, String retailMarkupMax, String retailMarkupMin, String rounding) throws JSONException, IOException {
+        SubCategory subCategory = catalogApi.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
+        Product product = new Product(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), retailMarkupMax, retailMarkupMin, rounding);
+        return apiConnect.createProductThroughPost(product, subCategory);
     }
 
     public void navigateToTheProductPage(String productSku) throws JSONException {
