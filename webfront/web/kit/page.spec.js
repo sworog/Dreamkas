@@ -4,7 +4,7 @@ define(function(require) {
 
     var TestPage = Page.extend({
         __name__: 'page_test',
-        string: 'test',
+        string: 'testString',
         a: {
             b: {
                 c: 'test'
@@ -15,8 +15,12 @@ define(function(require) {
     var page = new TestPage({}, '/test/:string');
 
     describe('Lighthouse page', function() {
-        it('save method', function() {
+        it('toUrl method', function() {
             expect(page.route).toEqual('/test/:string');
+        });
+
+        it('toUrl method', function() {
+            expect(page.toUrl()).toEqual('/test/testString');
         });
     });
 

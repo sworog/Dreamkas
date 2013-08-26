@@ -24,13 +24,17 @@ define(function(require) {
             listeners: null,
             page: null,
 
+            constructor: function() {
+                this.cid = _.uniqueId('cid');
+                this._configure.apply(this, arguments);
+                this._ensureElement();
+                this.initialize.apply(this, arguments);
+                this.delegateEvents();
+            },
             _configure: function(options) {
                 var block = this;
 
-                block.defaults = _.clone(block);
                 deepExtend(block, options);
-
-                block.cid = _.uniqueId('block');
             },
             _ensureElement: function() {
                 var block = this;

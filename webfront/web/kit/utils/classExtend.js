@@ -47,6 +47,7 @@ define(function(require) {
             // Set a convenience property in case the parent's prototype is needed
             // later.
             child.__super__ = parent.prototype;
+            child.defaults = _.clone(child);
 
             return child;
         };

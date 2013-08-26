@@ -21,8 +21,6 @@ define(function(require) {
 
             page.route = route;
 
-            page.cid = _.uniqueId('page');
-
             if (Page.current) {
                 page.referrer = _.clone(Page.current);
                 Page.current.stopListening();
@@ -94,7 +92,38 @@ define(function(require) {
                 block.remove();
             });
         },
+        toUrl: function(){
+            var page = this,
+                pageParams = {},
+                pathname;
+
+            _.each(page, function(prop, key){
+                if (!(key==='defaults' || key==='route' || _.isFunction(prop) || (_.isObject(prop) && !_.isPlainObject(prop)))){
+                    pageParams[key] = prop;
+                }
+            });
+
+            pathname = page.route.replace(/:\w+/g, function(placeholder) {
+                var key = placeholder.replace(':', ''),
+                    string = pageParams[key];
+
+                delete pageParams[key];
+
+                return _.isObject(string) ? placeholder : string;
+            });
+
+            _.each(pageParams, function(value, key){
+                if (page.defaults[key] === value){
+                    delete pageParams[key];
+                }
+            });
+
+            return router.toFragment(pathname, pageParams);
+        },
         save: function(data){
+
+            data = data || this;
+
             var page = this,
                 route = page.route.replace(/:\w+/g, function(placeholder) {
                     var key = placeholder.replace(':', ''),
