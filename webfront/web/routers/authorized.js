@@ -11,6 +11,7 @@ define(function(require) {
             'dashboard(/)': require('pages/common/dashboard'),
             'sale(/)': require('pages/common/sale'),
             'balance(/)': require('pages/common/balance'),
+            'jobs(/)': require('pages/common/jobs'),
 
             //invoices
             'invoices(/)': require('pages/invoice/list'),

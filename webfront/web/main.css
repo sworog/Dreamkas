@@ -18,6 +18,7 @@
 @import "./blocks/topBar/topBar.css";
 @import "./blocks/catalogCategory/catalogCategory.css";
 @import "./blocks/store/store.css";
+@import "./blocks/jobs/jobs.css";
 
 h3 {
     font-family: 'Sansus Webissimo';
