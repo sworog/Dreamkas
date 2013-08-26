@@ -18,15 +18,15 @@ public class LogPageSteps extends ScenarioSteps {
     }
 
     public String getLastLogStatus() {
-        return logPage.getLastLogMessage().getStatus();
+        return logPage.getLastRecalcProductLogMessage().getStatus();
     }
 
     public String getLastLogFinalMessage() {
-        return logPage.getLastLogMessage().getFinalMessage();
+        return logPage.getLastRecalcProductLogMessage().getFinalMessage();
     }
 
     public String getLastLogTitle() {
-        return logPage.getLastLogMessage().getTitle();
+        return logPage.getLastRecalcProductLogMessage().getTitle();
     }
 
     public void waitStatusForSuccess() {
