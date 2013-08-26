@@ -5,6 +5,10 @@ define(function(require) {
 
     return Model.extend({
         modelName: 'storeProduct',
+        initData: {
+            product: require('models/product'),
+            store: require('models/store')
+        },
         urlRoot: function() {
             if (currentUserModel.stores.length) {
                 return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/products'

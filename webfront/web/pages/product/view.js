@@ -3,7 +3,7 @@ define(function(require) {
     var Page = require('kit/page'),
         Product = require('blocks/product/product'),
         ProductModel = require('models/product'),
-        StoreProduct = require('models/storeProduct'),
+        StoreProductModel = require('models/storeProduct'),
         currentUserModel = require('models/currentUser'),
         Page403 = require('pages/403/403');
 
@@ -27,21 +27,27 @@ define(function(require) {
                 return;
             }
 
-            page.productModel = new ProductModel({
-                id: page.productId
-            });
-
-            if (LH.isAllow('stores/{store}/products/{product}', 'GET') && currentUserModel.stores.length) {
-                page.storeProductModel = new StoreProduct({
+            if (LH.isAllow('products', 'GET::{product}')){
+                page.model = new ProductModel({
                     id: page.productId
                 });
             }
 
-            $.when(page.productModel.fetch(), page.storeProductModel ? page.storeProductModel.fetch() : {}).then(function(){
+            if (LH.isAllow('stores/{store}/products/{product}', 'GET') && currentUserModel.stores.length) {
+                page.model = new StoreProductModel({
+                    id: page.productId
+                });
+            }
+
+            $.when(page.model.fetch()).then(function(){
+
+                page.productModel = page.model.product || page.model;
+                page.storeProductModel = page.model.store ? page.model : null;
+
                 page.render();
 
                 new Product({
-                    model: page.productModel,
+                    productModel: page.productModel,
                     storeProductModel: page.storeProductModel,
                     el: document.getElementById('product')
                 });
