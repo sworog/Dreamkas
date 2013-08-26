@@ -3,16 +3,13 @@
 namespace Lighthouse\CoreBundle\Document\Job\Worker;
 
 use Lighthouse\CoreBundle\Document\Job\Job;
-use Lighthouse\CoreBundle\Document\Job\JobRepository;
-use Lighthouse\CoreBundle\Document\Job\Worker\WorkerManager;
-use Psr\Log\LoggerInterface;
+use Lighthouse\CoreBundle\Document\Job\JobManager;
+use Lighthouse\CoreBundle\Exception\Job\NotFoundJobException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
-use Leezy\PheanstalkBundle\Proxy\PheanstalkProxy;
-use Exception;
 
 /**
  * @DI\Service("lighthouse.core.job.worker.command")
@@ -22,49 +19,21 @@ use Exception;
 class WorkerCommand extends Command
 {
     /**
-     * @var PheanstalkProxy
+     * @var JobManager
      */
-    protected $pheanstalk;
-
-    /**
-     * @var WorkerManager
-     */
-    protected $workerManager;
-
-    /**
-     * @var JobRepository
-     */
-    protected $jobRepository;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
+    protected $jobManager;
 
     /**
      * @DI\InjectParams({
-     *      "pheanstalk" = @DI\Inject("leezy.pheanstalk"),
-     *      "workerManager" = @DI\Inject("lighthouse.core.job.worker.manager"),
-     *      "jobRepository" = @DI\Inject("lighthouse.core.job.repository"),
-     *      "logger" = @DI\Inject("logger")
+     *      "jobManager" = @DI\Inject("lighthouse.core.job.manager")
      * })
-     * @param PheanstalkProxy $pheanstalk
-     * @param WorkerManager $workerManager
-     * @param JobRepository $jobRepository
-     * @param LoggerInterface $logger
+     * @param JobManager $jobManager
      */
-    public function __construct(
-        PheanstalkProxy $pheanstalk,
-        WorkerManager $workerManager,
-        JobRepository $jobRepository,
-        LoggerInterface $logger
-    ) {
+    public function __construct(JobManager $jobManager)
+    {
         parent::__construct();
 
-        $this->pheanstalk = $pheanstalk;
-        $this->workerManager = $workerManager;
-        $this->jobRepository = $jobRepository;
-        $this->logger = $logger;
+        $this->jobManager = $jobManager;
     }
 
     protected function configure()
@@ -83,55 +52,31 @@ class WorkerCommand extends Command
         $maxRunDuration = $input->getOption('max-run-duration');
         $runtimeDeadline = time() + $maxRunDuration;
 
-        $this->startWatchingTubes();
+        $this->jobManager->startWatchingTubes();
 
         while ($runtimeDeadline > time()) {
-            $this->processJob($output);
+
+            $output->writeln('<info>Waiting for the job..</info>');
+
+            try {
+                $job = $this->jobManager->reserveJob();
+
+                if ($job) {
+                    $output->writeln(sprintf('<info>Reserved job #%s</info>', $job->id));
+
+                    $this->jobManager->processJob($job);
+
+                    $output->writeln(sprintf('<info>Processed job #%s</info>', $job->id));
+                } else {
+                    $output->writeln('<info>No jobs reserved. Trying one more time.</info>');
+                }
+            } catch (NotFoundJobException $e) {
+                $output->writeln((string) $e);
+            }
         }
+
+        $output->writeln('<info>Max execution time exceeded. Quiting.</info>');
 
         return 0;
-    }
-
-    protected function startWatchingTubes()
-    {
-        foreach ($this->workerManager->getNames() as $tubeName) {
-            $this->pheanstalk->watch($tubeName);
-        }
-    }
-
-    protected function processJob(OutputInterface $output)
-    {
-        $output->writeln('<info>Waiting for the job..</info>');
-
-        $tubeJob = $this->pheanstalk->reserve(10);
-        if (!$tubeJob) {
-            return;
-        }
-        $output->writeln(sprintf('<info>Reserved job #%s</info>', $tubeJob->getId()));
-
-        $jobId = $tubeJob->getData();
-
-        /* @var Job $job */
-        $job = $this->jobRepository->find($jobId);
-        $job->setProcessingStatus();
-        $this->jobRepository->save($job);
-
-        try {
-            $worker = $this->workerManager->getByJob($job);
-            $worker->work($job);
-
-            $this->pheanstalk->delete($tubeJob);
-
-            $job->setSuccessStatus();
-            $this->jobRepository->save($job);
-
-        } catch (Exception $e) {
-            $this->logger->emergency($e);
-
-            $this->pheanstalk->delete($tubeJob);
-
-            $job->setFailStatus($e->getMessage());
-            $this->jobRepository->save($job);
-        }
     }
 }

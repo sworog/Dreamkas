@@ -104,6 +104,12 @@ abstract class Job extends AbstractDocument
     protected $duration;
 
     /**
+     * @Serializer\Exclude
+     * @var \Pheanstalk_Job
+     */
+    protected $tubeJob;
+
+    /**
      *
      */
     public function __construct()
@@ -173,4 +179,20 @@ abstract class Job extends AbstractDocument
      * @return string
      */
     abstract public function getType();
+
+    /**
+     * @param \Pheanstalk_Job $tubeJob
+     */
+    public function setTubeJob(\Pheanstalk_Job $tubeJob)
+    {
+        $this->tubeJob = $tubeJob;
+    }
+
+    /**
+     * @return \Pheanstalk_Job
+     */
+    public function getTubeJob()
+    {
+        return $this->tubeJob;
+    }
 }
