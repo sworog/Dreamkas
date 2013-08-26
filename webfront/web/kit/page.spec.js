@@ -15,12 +15,8 @@ define(function(require) {
     var page = new TestPage({}, '/test/:string');
 
     describe('Lighthouse page', function() {
-        it('toUrl method', function() {
-            expect(page.route).toEqual('/test/:string');
-        });
-
-        it('toUrl method', function() {
-            expect(page.toUrl()).toEqual('/test/testString');
+        it('save method', function() {
+            expect(typeof page.save).toEqual('function');
         });
     });
 

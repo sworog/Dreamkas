@@ -12,6 +12,7 @@ define(function(require) {
         el: document.body,
         permissions: null,
         referrer: {},
+        loading: false,
         _configure: function(params, route) {
 
             Block.prototype._configure.apply(this, arguments);
@@ -58,7 +59,7 @@ define(function(require) {
             page.$el
                 .removeAttr(page.referrer.__name__)
                 .addClass(page.__name__);
-            
+
             page.set('loading', true);
         },
         initialize: function() {
@@ -92,59 +93,35 @@ define(function(require) {
                 block.remove();
             });
         },
-        toUrl: function(){
+        save: function(params){
             var page = this,
-                pageParams = {},
+                queryParams = Backbone.history.getQueryParameters(),
                 pathname;
 
-            _.each(page, function(prop, key){
-                if (!(key==='defaults' || key==='route' || _.isFunction(prop) || (_.isObject(prop) && !_.isPlainObject(prop)))){
-                    pageParams[key] = prop;
-                }
-            });
+            page.set(params);
 
-            pathname = page.route.replace(/:\w+/g, function(placeholder) {
+            pathname = page.route
+                .replace(/[\(\)]/g, '')
+                .replace(/:\w+/g, function(placeholder) {
                 var key = placeholder.replace(':', ''),
-                    string = pageParams[key];
+                    string = page[key];
 
-                delete pageParams[key];
+                delete params[key];
 
-                return _.isObject(string) ? placeholder : string;
+                return _.isObject(string) ? placeholder : string.toString();
             });
 
-            _.each(pageParams, function(value, key){
+            _.each(_.extend(queryParams, params), function(value, key){
                 if (page.defaults[key] === value){
-                    delete pageParams[key];
+                    delete queryParams[key];
                 }
             });
 
-            return router.toFragment(pathname, pageParams);
-        },
-        save: function(data){
+            router.navigate(router.toFragment(pathname, queryParams));
 
-            data = data || this;
-
-            var page = this,
-                route = page.route.replace(/:\w+/g, function(placeholder) {
-                    var key = placeholder.replace(':', ''),
-                        string = data[key];
-
-                    delete data[key];
-
-                    return string || placeholder;
-                });
-
-            _.each(data, function(value, key){
-                if (page.defaults[key] === value){
-                    delete data[key];
-                }
-            });
-
-            router.navigate(router.toFragment(route, data));
+            return page;
         }
     });
-
-    Page.extend = require('kit/utils/classExtend');
 
     return Page;
 });

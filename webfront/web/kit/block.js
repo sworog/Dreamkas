@@ -34,6 +34,7 @@ define(function(require) {
             _configure: function(options) {
                 var block = this;
 
+                block.defaults = _.clone(block);
                 deepExtend(block, options);
             },
             _ensureElement: function() {

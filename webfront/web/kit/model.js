@@ -67,12 +67,12 @@ define(function(require) {
             options = options || {};
 
             if (options.isSave) {
-                return this.getSaveData();
+                return this.getData();
             }
 
             return Backbone.Model.prototype.toJSON.apply(this, arguments);
         },
-        getSaveData: function(){
+        getData: function(){
             var saveData;
 
             if (_.isFunction(this.saveData)){
