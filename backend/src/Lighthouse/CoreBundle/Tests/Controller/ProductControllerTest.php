@@ -1619,7 +1619,7 @@ class ProductControllerTest extends WebTestCase
      *
      * @dataProvider accessProductProvider
      */
-    public function testAccessProduct($url, $method, $role, $responseCode, $requestData = null)
+    public function testAccessProduct($url, $method, $role, $responseCode, array $requestData = array())
     {
         $this->clearMongoDb();
 
@@ -1640,11 +1640,9 @@ class ProductControllerTest extends WebTestCase
             $url
         );
         $accessToken = $this->authAsRole($role);
-        if (is_array($requestData)) {
-            $requestData = $requestData + $this->getProductData();
-        }
+        $requestData += $this->getProductData();
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             $method,
             $url,
@@ -1663,118 +1661,107 @@ class ProductControllerTest extends WebTestCase
             array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
-                'ROLE_DEPARTMENT_MANAGER',
-                '200',
+                User::ROLE_DEPARTMENT_MANAGER,
+                200,
             ),
             array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
-                'ROLE_STORE_MANAGER',
-                '200',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
-
             /*************************************
              * POST /api/1/products
              */
             array(
                 '/api/1/products',
                 'POST',
-                'ROLE_COMMERCIAL_MANAGER',
-                '201',
-                array(),
+                User::ROLE_COMMERCIAL_MANAGER,
+                201,
             ),
             array(
                 '/api/1/products',
                 'POST',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
-                array(),
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/products',
                 'POST',
-                'ROLE_STORE_MANAGER',
-                '403',
-                array(),
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/products',
                 'POST',
-                'ROLE_ADMINISTRATOR',
-                '403',
-                array(),
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
-
             /*************************************
              * PUT /api/1/products/__PRODUCT_ID__
              */
             array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
-                array(),
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
-                'ROLE_DEPARTMENT_MANAGER',
-                '403',
-                array(),
+                User::ROLE_DEPARTMENT_MANAGER,
+                403,
             ),
             array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
-                'ROLE_STORE_MANAGER',
-                '403',
-                array(),
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
-                'ROLE_ADMINISTRATOR',
-                '403',
-                array(),
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
-
             /*************************************
              * GET /api/1/subcategories/__SUBCATEGORY_ID__/products
              */
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
-                'ROLE_COMMERCIAL_MANAGER',
-                '200',
+                User::ROLE_COMMERCIAL_MANAGER,
+                200,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
-                'ROLE_DEPARTMENT_MANAGER',
-                '200',
+                User::ROLE_DEPARTMENT_MANAGER,
+                200,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
-                'ROLE_STORE_MANAGER',
-                '200',
+                User::ROLE_STORE_MANAGER,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
-                'ROLE_ADMINISTRATOR',
-                '403',
+                User::ROLE_ADMINISTRATOR,
+                403,
             ),
         );
     }
