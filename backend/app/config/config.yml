@@ -130,3 +130,11 @@ leezy_pheanstalk:
             server: %beanstalkd_server%
             default: true
             proxy: lighthouse.core.job.pheanstalk
+
+lighthouse_core:
+    job:
+        tube_prefix: "%kernel.environment%_%database_name%_"
+    rounding:
+        default: nearest1
+    money:
+        precision: 2

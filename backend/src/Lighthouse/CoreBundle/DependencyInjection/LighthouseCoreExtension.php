@@ -21,5 +21,12 @@ class LighthouseCoreExtension extends Extension
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('lighthouse.core.job.tube.prefix', $config['job']['tube_prefix']);
+        $container->setParameter('lighthouse.core.money.precision', $config['money']['precision']);
+        $container->setParameter('lighthouse.core.rounding.default', $config['rounding']['default']);
     }
 }

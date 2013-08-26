@@ -21,7 +21,7 @@ class RoundingManager
 
     /**
      * @DI\InjectParams({
-     *      "defaultName" = @DI\Inject("%rounding.default%")
+     *      "defaultName" = @DI\Inject("%lighthouse.core.rounding.default%")
      * })
      * @param string $defaultName
      */

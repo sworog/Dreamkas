@@ -19,7 +19,7 @@ class MoneyModelTransformer implements DataTransformerInterface
 
     /**
      * @DI\InjectParams({
-     *      "precision"=@DI\Inject("%money.precision%")
+     *      "precision"=@DI\Inject("%lighthouse.core.money.precision%")
      * })
      * @param int $precision
      */

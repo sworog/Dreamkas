@@ -14,8 +14,6 @@ use Doctrine\ODM\MongoDB\Types\Type;
 
 class LighthouseCoreBundle extends Bundle
 {
-    protected $commands = array();
-
     public function __construct()
     {
         Type::registerType('money', 'Lighthouse\CoreBundle\Types\MongoDB\MoneyType');
