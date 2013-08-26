@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Job\RecalcProductPrice;
 use Lighthouse\CoreBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Document\Job\Worker\WorkerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 
 /**
  * @DI\Service("lighthouse.core.job.retail_product_price.worker")
@@ -12,6 +13,22 @@ use JMS\DiExtraBundle\Annotation as DI;
  */
 class RecalcProductPriceWorker implements WorkerInterface
 {
+    /**
+     * @var StoreProductRepository
+     */
+    protected $storeProductRepository;
+
+    /**
+     * @DI\InjectParams({
+     *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product")
+     * })
+     * @param StoreProductRepository $storeProductRepository
+     */
+    public function __construct(StoreProductRepository $storeProductRepository)
+    {
+        $this->storeProductRepository = $storeProductRepository;
+    }
+
     /**
      * @param Job $job
      * @return boolean
@@ -32,6 +49,14 @@ class RecalcProductPriceWorker implements WorkerInterface
     public function work(Job $job)
     {
         $productVersion = $job->productVersion;
+        $product = $productVersion->getObject();
+        $storeProducts = $this->storeProductRepository->findByProduct($product);
+        $dm = $this->storeProductRepository->getDocumentManager();
+        foreach ($storeProducts as $storeProduct) {
+            $this->storeProductRepository->updateRetailPriceByProduct($storeProduct, $productVersion);
+            $dm->persist($storeProduct);
+        }
+        $dm->flush();
     }
 
     /**

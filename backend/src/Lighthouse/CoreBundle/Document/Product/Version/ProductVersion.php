@@ -105,7 +105,12 @@ class ProductVersion extends Product implements VersionInterface
             "vendorCountry",
             "info",
             "amount",
-            "subCategory"
+            "subCategory",
+            "retailMarkupMin",
+            "retailMarkupMax",
+            "retailPriceMin",
+            "retailPriceMax",
+            "roundingId"
         );
     }
 }

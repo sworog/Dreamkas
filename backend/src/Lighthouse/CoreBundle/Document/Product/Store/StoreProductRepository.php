@@ -7,9 +7,12 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Document\Store\StoreCollection;
+use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyComparison;
 
 class StoreProductRepository extends DocumentRepository
 {
@@ -19,11 +22,24 @@ class StoreProductRepository extends DocumentRepository
     protected $productRepository;
 
     /**
+     * @var StoreRepository
+     */
+    protected $storeRepository;
+
+    /**
      * @param ProductRepository $productRepository
      */
     public function setProductRepository(ProductRepository $productRepository)
     {
         $this->productRepository = $productRepository;
+    }
+
+    /**
+     * @param StoreRepository $storeRepository
+     */
+    public function setStoreRepository(StoreRepository $storeRepository)
+    {
+        $this->storeRepository = $storeRepository;
     }
 
     /**
@@ -104,28 +120,85 @@ class StoreProductRepository extends DocumentRepository
     }
 
     /**
-     * @param StoreProduct $storeProduct
+     * @param Product $product
+     * @return StoreProduct[]|StoreProductCollection
      */
-    public function updateRetails(StoreProduct $storeProduct)
+    public function findByProduct(Product $product)
     {
+        /* @var StoreProduct[]|StoreProductCollection $storeProducts */
+        $cursor = $this->findBy(array('product' => $product->id));
+        $storeProducts = new StoreProductCollection($cursor);
+
+        /* @var Store[]|StoreCollection $stores */
+        $stores = new StoreCollection($this->storeRepository->findAll());
+
+        // filter found stores
+        foreach ($storeProducts as $storeProduct) {
+            $stores->removeElement($storeProduct->store);
+        }
+
+        foreach ($stores as $store) {
+            $storeProduct = $this->createByStoreProduct($store, $product);
+            $storeProducts->add($storeProduct);
+        }
+
+        return $storeProducts;
+    }
+
+    /**
+     * @param StoreProduct $storeProduct
+     * @param Product $product
+     */
+    public function updateRetailPriceByProduct(StoreProduct $storeProduct, Product $product)
+    {
+        switch ($storeProduct->retailPricePreference) {
+            case Product::RETAIL_PRICE_PREFERENCE_MARKUP:
+                if (null === $storeProduct->retailMarkup) {
+                    $storeProduct->retailMarkup = $product->retailMarkupMax;
+                } elseif ($storeProduct->retailMarkup < $product->retailMarkupMin) {
+                    $storeProduct->retailMarkup = $product->retailMarkupMin;
+                } elseif ($storeProduct->retailMarkup > $product->retailMarkupMax) {
+                    $storeProduct->retailMarkup = $product->retailMarkupMax;
+                }
+                break;
+            case Product::RETAIL_PRICE_PREFERENCE_PRICE:
+                if ($storeProduct->retailPrice->isNull()) {
+                    $storeProduct->retailPrice = $product->retailPriceMax;
+                } elseif ($storeProduct->retailPrice->getCount() < $product->retailPriceMin->getCount()) {
+                    $storeProduct->retailPrice = $product->retailPriceMin;
+                } elseif ($storeProduct->retailPrice->getCount() > $product->retailPriceMax->getCount()) {
+                    $storeProduct->retailPrice = $product->retailPriceMax;
+                }
+                break;
+        }
+        $this->updateRetails($storeProduct, $product);
+    }
+
+    /**
+     * @param StoreProduct $storeProduct
+     * @param Product $product
+     */
+    public function updateRetails(StoreProduct $storeProduct, Product $product = null)
+    {
+        $product = ($product) ?: $storeProduct->product;
         switch ($storeProduct->retailPricePreference) {
             case Product::RETAIL_PRICE_PREFERENCE_PRICE:
                 $storeProduct->retailMarkup = $this->calcMarkup(
                     $storeProduct->retailPrice,
-                    $storeProduct->product->purchasePrice
+                    $product->purchasePrice
                 );
                 break;
             case Product::RETAIL_PRICE_PREFERENCE_MARKUP:
             default:
                 $storeProduct->retailPrice = $this->calcRetailPrice(
                     $storeProduct->retailMarkup,
-                    $storeProduct->product->purchasePrice
+                    $product->purchasePrice
                 );
                 $storeProduct->retailPricePreference = Product::RETAIL_PRICE_PREFERENCE_MARKUP;
                 break;
         }
         if (null !== $storeProduct->retailPrice && !$storeProduct->retailPrice->isNull()) {
-            $storeProduct->roundedRetailPrice = $storeProduct->product->rounding->round($storeProduct->retailPrice);
+            $storeProduct->roundedRetailPrice = $product->rounding->round($storeProduct->retailPrice);
         }
     }
 

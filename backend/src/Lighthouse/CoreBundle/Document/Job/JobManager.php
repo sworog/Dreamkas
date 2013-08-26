@@ -89,12 +89,81 @@ class JobManager
     }
 
     /**
-     *
+     * @return $this
      */
     public function startWatchingTubes()
     {
         foreach ($this->workerManager->getNames() as $tubeName) {
             $this->pheanstalk->watch($tubeName);
+        }
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function stopWatchingTubes()
+    {
+        foreach ($this->workerManager->getNames() as $tubeName) {
+            $this->pheanstalk->ignore($tubeName);
+        }
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function purgeTubes()
+    {
+        $this->purgeReserved();
+        $this->purgeReady();
+        $this->purgeDelayed();
+        $this->purgeBuried();
+
+        return $this;
+    }
+
+    protected function purgeReserved()
+    {
+        while (true) {
+            $job = $this->pheanstalk->reserve(0);
+            if (false === $job) {
+                break;
+            }
+            $this->pheanstalk->delete($job);
+        }
+    }
+
+    protected function purgeReady()
+    {
+        try {
+            while (true) {
+                $job = $this->pheanstalk->peekReady();
+                $this->pheanstalk->delete($job);
+            }
+        } catch (\Pheanstalk_Exception_ServerException $e) {
+        }
+    }
+
+    protected function purgeDelayed()
+    {
+        try {
+            while (true) {
+                $job = $this->pheanstalk->peekDelayed();
+                $this->pheanstalk->delete($job);
+            }
+        } catch (\Pheanstalk_Exception_ServerException $e) {
+        }
+    }
+
+    protected function purgeBuried()
+    {
+        try {
+            while (true) {
+                $job = $this->pheanstalk->peekBuried();
+                $this->pheanstalk->delete($job);
+            }
+        } catch (\Pheanstalk_Exception_ServerException $e) {
         }
     }
 
@@ -124,7 +193,7 @@ class JobManager
                 )
             );
             $this->pheanstalk->delete($tubeJob);
-            throw new NotFoundJobException($jobId);
+            throw new NotFoundJobException($jobId, $tubeJob->getId());
         }
         $job->setTubeJob($tubeJob);
 
@@ -156,5 +225,16 @@ class JobManager
             $job->setFailStatus($e->getMessage());
             $this->jobRepository->save($job);
         }
+    }
+
+    /**
+     * @return Job
+     */
+    public function processOneJob()
+    {
+        $this->startWatchingTubes();
+        $job = $this->reserveJob();
+        $this->processJob($job);
+        return $job;
     }
 }

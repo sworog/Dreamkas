@@ -129,3 +129,4 @@ leezy_pheanstalk:
         primary:
             server: %beanstalkd_server%
             default: true
+            proxy: lighthouse.core.job.pheanstalk

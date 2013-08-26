@@ -1,6 +1,7 @@
 parameters:
     money.precision: 2
     rounding.default: nearest1
+    job.tube.prefix: prod_
     test.client.class: Lighthouse\CoreBundle\Test\Client\Client
 
 services:
@@ -126,6 +127,7 @@ services:
                 - LighthouseCoreBundle:Product\Store\StoreProduct
             calls:
                 - [setProductRepository, ["@lighthouse.core.document.repository.product"]]
+                - [setStoreRepository, ["@lighthouse.core.document.repository.store"]]
 
     lighthouse.core.job.repository:
             parent: doctrine_mongodb.odm.repository

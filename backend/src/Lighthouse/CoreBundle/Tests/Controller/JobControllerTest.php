@@ -2,12 +2,23 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\Job\JobManager;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class JobControllerTest extends WebTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+
+        /* @var JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+        $jobManager->startWatchingTubes()->purgeTubes()->stopWatchingTubes();
+    }
+
     public function testRecalcProductProductPrice()
     {
         $this->clearMongoDb();
@@ -61,7 +72,7 @@ class JobControllerTest extends WebTestCase
 
         $updateProductData = array(
             'retailPriceMin' => 23,
-            'retailPriceMax' => 34,
+            'retailPriceMax' => 24,
             'retailPricePreference' => 'retailPrice',
         ) + $productData;
 
@@ -77,5 +88,90 @@ class JobControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(1, '*.id', $getResponse);
         Assert::assertJsonPathEquals('recalc_product_price', '*.type', $getResponse);
+        Assert::assertJsonPathEquals('pending', '*.status', $getResponse);
+
+        /* @var DocumentManager $dm */
+        $dm = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
+        $dm->clear();
+
+        /* @var JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+
+        $jobManager->startWatchingTubes();
+        $job = $jobManager->reserveJob(0);
+        $jobManager->stopWatchingTubes();
+
+        $getResponse = $this->clientJsonRequest(
+            $commercialAccessToken,
+            'GET',
+            '/api/1/jobs'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals('recalc_product_price', '*.type', $getResponse);
+        Assert::assertJsonPathEquals('processing', '*.status', $getResponse);
+
+        $jobManager->startWatchingTubes();
+        $jobManager->processJob($job);
+        $jobManager->stopWatchingTubes();
+
+        $getResponse = $this->clientJsonRequest(
+            $commercialAccessToken,
+            'GET',
+            '/api/1/jobs'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals('recalc_product_price', '*.type', $getResponse);
+        Assert::assertJsonPathEquals('success', '*.status', $getResponse);
+
+        $this->assertStoreProduct(
+            $storeId1,
+            $productId,
+            array(
+                'retailPrice' => '23.00',
+            )
+        );
+
+        $this->assertStoreProduct(
+            $storeId2,
+            $productId,
+            array(
+                'retailPrice' => '24.00',
+            )
+        );
+
+        $this->assertStoreProduct(
+            $storeId3,
+            $productId,
+            array(
+                'retailPrice' => '23.00',
+            )
+        );
+    }
+
+    /**
+     * @param $storeId
+     * @param $productId
+     * @param array $assertions
+     */
+    protected function assertStoreProduct($storeId, $productId, array $assertions)
+    {
+        $storeManager = $this->getStoreManager($storeId);
+
+        $accessToken = $this->auth($storeManager, 'password');
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products/' . $productId
+        );
+
+        $this->assertResponseCode(200);
+        $this->performJsonAssertions($getResponse, $assertions);
     }
 }

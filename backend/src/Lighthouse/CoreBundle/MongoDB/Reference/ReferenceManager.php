@@ -130,9 +130,11 @@ class ReferenceManager
                 $property->setAccessible(true);
 
                 $refObject = $property->getValue($document);
-                $refObjectId = $referenceProvider->getRefObjectId($refObject);
 
-                $metadata->setFieldValue($document, $identifier, $refObjectId);
+                if (null !== $refObject) {
+                    $refObjectId = $referenceProvider->getRefObjectId($refObject);
+                    $metadata->setFieldValue($document, $identifier, $refObjectId);
+                }
 
                 if ($recompute) {
                     $manager->getUnitOfWork()->recomputeSingleDocumentChangeSet($metadata, $document);
