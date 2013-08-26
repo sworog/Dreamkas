@@ -43,7 +43,7 @@ define(function(require) {
                     break;
             }
 
-            if (accessDenied){
+            if (accessDenied) {
                 router.navigate('/403', {
                     trigger: true
                 });
@@ -93,7 +93,7 @@ define(function(require) {
                 block.remove();
             });
         },
-        save: function(params){
+        save: function(params) {
             var page = this,
                 queryParams = Backbone.history.getQueryParameters(),
                 pathname;
@@ -102,17 +102,19 @@ define(function(require) {
 
             pathname = page.route
                 .replace(/[\(\)]/g, '')
-                .replace(/:\w+/g, function(placeholder) {
-                var key = placeholder.replace(':', ''),
-                    string = page[key];
+                .replace(/[\:\*]\w+/g, function(placeholder) {
 
-                delete params[key];
+                    var key = placeholder.replace(/[\:\*]/g, ''),
+                        string = page[key];
 
-                return _.isObject(string) ? placeholder : string.toString();
-            });
+                    delete params[key];
+                    delete queryParams[key];
 
-            _.each(_.extend(queryParams, params), function(value, key){
-                if (page.defaults[key] === value){
+                    return _.isObject(string) ? placeholder : string.toString();
+                });
+
+            _.each(_.extend(queryParams, params), function(value, key) {
+                if (page.defaults[key] === value) {
                     delete queryParams[key];
                 }
             });

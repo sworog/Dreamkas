@@ -13,6 +13,11 @@ define(function(require) {
 
             page.render();
 
+            page.save({
+                a: 1,
+                test: 'title'
+            });
+
             new Form_login({
                 el: document.getElementById('form_login')
             });
