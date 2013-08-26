@@ -54,10 +54,14 @@ set  :keep_releases,  5
 logger.level = Logger::IMPORTANT
 
 after "deploy:setup", "symfony:parameters:setup"
+after "deploy:setup", "symfony:worker:setup"
 
 before "deploy", "deploy:vpn"
 
 before "deploy:restart", "deploy:php:reload"
+before "deploy:restart", "deploy:supervisor:restart"
+
+after "deploy:remove", "symfony:worker:remove_symlink"
 
 after "deploy:restart" do
     puts "--> API was successfully deployed to ".green + "#{application_url}".yellow

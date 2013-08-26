@@ -38,6 +38,22 @@ namespace :deploy do
         end
     end
 
+    namespace :supervisor do
+        [:start, :stop].each do |action|
+            desc "#{action.to_s.capitalize} supervisor"
+            task action, :roles => :app do
+                run "#{sudo} service supervisor #{action.to_s}"
+                capifony_pretty_print "--> Supervisor #{action}"
+                capifony_puts_ok
+            end
+        end
+
+        task :restart, :roles => :app do
+            stop
+            start
+        end
+    end
+
     namespace :vpn do
         desc "Check VPN"
         task :check, :roles => :app, :except => { :no_release => true } do

@@ -63,6 +63,65 @@ namespace :symfony do
         end
     end
 
+    namespace :worker do
+
+        set(:worker_conf_file) {"#{shared_path}/supervisord/lighthouse.worker.conf"}
+        set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
+
+        task :setup, :roles => :app, :except => { :no_release => true } do
+            upload
+            sed
+            symlink
+        end
+
+        task :init do
+
+        end
+
+        task :upload, :roles => :app, :except => { :no_release => true } do
+            init
+            puts "--> Upload worker conf".yellow
+            origin_file = "../deploy/supervisord/lighthouse.worker.conf"
+
+            try_sudo "mkdir -p #{File.dirname(worker_conf_file)}"
+            top.upload(origin_file, worker_conf_file)
+        end
+
+        desc "Rename %host% and %env% params in supervisor worker conf"
+        task :sed, :roles => :app, :except => { :no_release => true } do
+            init
+            puts "--> Rename params in worker conf".yellow
+            run "sed -i 's/%application%/#{application}/g' #{worker_conf_file}"
+            run "sed -i 's/%env%/#{symfony_env_prod}/g' #{worker_conf_file}"
+        end
+
+        task :symlink, :roles => :app, :except => { :no_release => true } do
+            init
+            remove_symlink
+            puts "--> Symlink worker conf to supervisor conf.d".yellow
+            run "sudo ln -s #{worker_conf_file} #{worker_symlink_file}"
+        end
+
+        task :remove_symlink, :roles => :app, :except => { :no_release => true } do
+            init
+            puts "--> Remove worker conf symlink from supervisor conf.d".yellow
+            symlink_file = "/etc/supervisor/conf.d/#{application}.conf"
+            run "sudo sh -c 'if [ -f #{worker_symlink_file} ] ; then rm -f #{worker_symlink_file}; fi'"
+        end
+
+        desc "Tail worker log"
+        task :log, :roles => :app, :except => { :no_release => true } do
+            init
+            try_sudo "tail -n 10 -f #{shared_path}/app/logs/lighthouse.worker.out.log" do |channel, stream, data|
+              trap("INT") { puts 'Interrupted'; exit 0; }
+              puts
+              puts "#{channel[:host]}: #{data}"
+              break if stream == :err
+            end
+        end
+
+    end
+
     namespace :auth do
         namespace :client do
 
@@ -134,3 +193,5 @@ namespace :symfony do
         end
     end
 end
+
+before "deploy:worker", "deploy:worker:init"
