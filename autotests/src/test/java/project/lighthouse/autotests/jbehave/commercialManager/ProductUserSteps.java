@@ -56,11 +56,11 @@ public class ProductUserSteps {
         productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName);
     }
 
-    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
+    @Given("there is the product with '$name' name, '$productSku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
     @Alias("there is the product with '$name' name, <productSku> sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
+    public void createProductThroughPost(String name, String productSku, String barcode, String units, String purchasePrice,
                                          String rounding, String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
-        productSteps.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
+        productSteps.createProductThroughPost(name, productSku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
     }
 
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding, retailMarkUpMax '$retailMarkupMax' and retailMarkUpmin '$retailMarkupMin'")

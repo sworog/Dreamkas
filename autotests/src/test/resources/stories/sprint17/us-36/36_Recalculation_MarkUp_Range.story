@@ -20,7 +20,7 @@ Given there is the subCategory with name 'ReCalcSubCategory' related to group na
 And the user sets subCategory 'ReCalcSubCategory' mark up with max '30' and min '10' values
 And there is the product with 'ReCalcProduct' name, <productSku> sku, 'ReCalcProduct' barcode, 'kg' units, '20' purchasePrice of group named 'ReCalcGroup', category named 'ReCalcCategory', subcategory named 'ReCalcSubCategory' with 'nearest1' rounding
 And there is the user with name 'ReCalcStoreManager', position 'ReCalcStoreManager', <userName>, password 'lighthouse', role 'storeManager'
-And there is the store with <storeNumber> managed by <storeManager>
+And there is the store with <storeNumber> managed by <userName>
 And the user navigates to the product with <productSku>
 When the user logs in using <userName> and 'lighthouse' password
 And the user clicks the edit price button

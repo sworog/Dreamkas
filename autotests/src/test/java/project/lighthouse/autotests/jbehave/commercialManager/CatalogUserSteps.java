@@ -77,11 +77,11 @@ public class CatalogUserSteps {
         catalogSteps.setSubCategoryMarkUp(maxValue, minValue, subCategoryName);
     }
 
-    @Given("there is the store with number '$storeNumber' managed by '$storeManager'")
-    @Alias("there is the store with <storeNumber> managed by <storeManager>")
-    public void givenThereIsTheStoreManagedBy(String storeNumber, String storeManager) throws IOException, JSONException {
-        Store store = storeSteps.createStore(storeNumber, storeManager, storeManager);
-        catalogSteps.promoteStoreManager(store, storeManager);
+    @Given("there is the store with number '$storeNumber' managed by '$userName'")
+    @Alias("there is the store with <storeNumber> managed by <userName>")
+    public void givenThereIsTheStoreManagedBy(String storeNumber, String userName) throws IOException, JSONException {
+        Store store = storeSteps.createStore(storeNumber, userName, userName);
+        catalogSteps.promoteStoreManager(store, userName);
     }
 
     @Given("the user navigates to the store '$storeName' catalog page")

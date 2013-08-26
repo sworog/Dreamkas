@@ -116,6 +116,11 @@ public class TeamCityStepListener implements StepListener {
         }
     }
 
+    @Override
+    public void testRetried() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     private void printFailure(TestOutcome result) {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("name", result.getTitle());
@@ -232,11 +237,6 @@ public class TeamCityStepListener implements StepListener {
     }
 
     @Override
-    public void stepIgnored(String message) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
     public void stepPending() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -271,6 +271,11 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void exampleFinished() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void assumptionViolated(String message) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }
