@@ -10,10 +10,10 @@ import project.lighthouse.autotests.objects.LogObject;
 import java.util.ArrayList;
 import java.util.List;
 
-@DefaultUrl("/logPage")
+@DefaultUrl("/jobs")
 public class LogPage extends CommonPageObject {
 
-    private static final String RECALC_PRODUCT_MESSAGE_TYPE = "recalc_product_type";
+    private static final String RECALC_PRODUCT_MESSAGE_TYPE = "recalc_product_price";
 
     public LogPage(WebDriver driver) {
         super(driver);
@@ -24,7 +24,7 @@ public class LogPage extends CommonPageObject {
     }
 
     public List<WebElement> getLogMessageWebElements() {
-        return waiter.getPresentWebElements(By.xpath("//*[@class='jobs_item']"));
+        return waiter.getPresentWebElements(By.xpath("//*[@class='jobs__item']"));
     }
 
     public List<LogObject> getLogMessages() {
@@ -34,10 +34,10 @@ public class LogPage extends CommonPageObject {
             String id = logMessageWebElement.getAttribute("id");
             String type = logMessageWebElement.getAttribute("type");
             String status = logMessageWebElement.getAttribute("status");
-            String title = logMessageWebElement.findElement(By.xpath("title")).getText();
-            String finalMessage = logMessageWebElement.findElement(By.xpath("finalMessage")).getText();
-            String product = logMessageWebElement.findElement(By.xpath("finalMessage")).getText();
-            LogObject logObject = new LogObject(id, type, status, title, finalMessage, product);
+            String title = logMessageWebElement.findElement(By.xpath("//*[@class='jobs__title']")).getText();
+            String product = logMessageWebElement.findElement(By.xpath("//*[@class='jobs__productName']")).getText();
+            String statusText = logMessageWebElement.findElement(By.xpath("//*[@class='jobs__status']")).getText();
+            LogObject logObject = new LogObject(id, type, status, title, product, statusText);
             logMessages.add(logObject);
         }
         return logMessages;
@@ -56,7 +56,7 @@ public class LogPage extends CommonPageObject {
 
     public LogObject getLastLogMessageByType(String type) {
         List<LogObject> logMessagesByType = getLogMessagesByType(type);
-        return logMessagesByType.get(logMessagesByType.size() - 1);
+        return logMessagesByType.get(0);
     }
 
     public LogObject getLastRecalcProductLogMessage() {

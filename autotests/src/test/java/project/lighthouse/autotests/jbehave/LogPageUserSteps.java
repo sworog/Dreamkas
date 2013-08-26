@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import project.lighthouse.autotests.steps.logSteps.LogSteps;
@@ -15,14 +16,20 @@ public class LogPageUserSteps {
         logSteps.open();
     }
 
-    @Then("the user checks the last log final message is '$expectedMessage'")
-    public void thenTheUSerChecksTheLastLogFinalMessage(String expectedMessage) {
-        logSteps.assertLastLogFinalMessage(expectedMessage);
+    @Then("the user checks the last log product is '$productName'")
+    @Alias("the user checks the last log product is <productName>")
+    public void thenTheUSerChecksTheLastLogFinalMessage(String productName) {
+        logSteps.assertLastLogProduct(productName);
     }
 
     @Then("the user checks the last log title is '$expectedTitle'")
     public void thenTheUserChecksTheLastLogTitle(String expectedTitle) {
         logSteps.assertLastLogTitle(expectedTitle);
+    }
+
+    @Then("the user checks the last log status text is '$expectedStatusText'")
+    public void thenTheUserChecksTheLastLogStatusText(String expectedStatusText) {
+        logSteps.assertLastLogStatusText(expectedStatusText);
     }
 
     @Then("the user waits for the last log message success status")

@@ -21,8 +21,12 @@ public class LogSteps extends ScenarioSteps {
         return logPage.getLastRecalcProductLogMessage().getStatus();
     }
 
-    public String getLastLogFinalMessage() {
-        return logPage.getLastRecalcProductLogMessage().getFinalMessage();
+    public String getLastLogStatusText() {
+        return logPage.getLastRecalcProductLogMessage().getStatusText();
+    }
+
+    public String getLastLogProduct() {
+        return logPage.getLastRecalcProductLogMessage().getProduct();
     }
 
     public String getLastLogTitle() {
@@ -30,18 +34,22 @@ public class LogSteps extends ScenarioSteps {
     }
 
     public void waitStatusForSuccess() {
-        String statusText = getLastLogStatus();
-        while (!statusText.equals("Success")) {
-            statusText = getLastLogStatus();
+        String status = getLastLogStatus();
+        while (!status.equals("success")) {
+            status = getLastLogStatus();
             getDriver().navigate().refresh();
         }
     }
 
-    public void assertLastLogFinalMessage(String expectedMessage) {
-        Assert.assertEquals(expectedMessage, getLastLogFinalMessage());
+    public void assertLastLogProduct(String expectedMessage) {
+        Assert.assertEquals(expectedMessage, getLastLogProduct());
     }
 
     public void assertLastLogTitle(String expectedTitle) {
         Assert.assertEquals(expectedTitle, getLastLogTitle());
+    }
+
+    public void assertLastLogStatusText(String expectedStatusText) {
+        Assert.assertEquals(expectedStatusText, getLastLogStatusText());
     }
 }

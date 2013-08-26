@@ -6,20 +6,20 @@ public class LogObject {
     String type;
     String status;
     String title;
-    String finalMessage;
+    String statusText;
     String product;
     String dateCreated;
     String dateStarted;
     String dateFinished;
     String duration;
 
-    public LogObject(String id, String type, String status, String title, String finalMessage, String product) {
+    public LogObject(String id, String type, String status, String title, String product, String statusText) {
         this.id = id;
         this.type = type;
         this.status = status;
         this.title = title;
-        this.finalMessage = finalMessage;
         this.product = product;
+        this.statusText = statusText;
     }
 
     public String getType() {
@@ -38,7 +38,7 @@ public class LogObject {
         return this.title;
     }
 
-    public String getFinalMessage() {
-        return this.finalMessage;
+    public String getStatusText() {
+        return this.statusText;
     }
 }
