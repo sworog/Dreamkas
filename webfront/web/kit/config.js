@@ -3,7 +3,7 @@ require({
     //urlArgs: 'bust=' +  (new Date()).getTime(),
     paths: {
         'underscore': 'kit/libs/lodash/lodash',
-        'templateEngine': 'kit/utils/template',
+        'templateCompiler': 'kit/utils/template',
 
         'backbone': 'kit/libs/backbone/backbone',
         'backbone.queryparams': 'kit/libs/backbone/backbone.queryparams',

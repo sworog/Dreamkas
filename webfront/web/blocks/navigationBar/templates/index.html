@@ -1,3 +1,7 @@
+<% var isAllow = require('kit/utils/isAllow') %>
+<% var text = require ('kit/utils/text') %>
+<% var text1 = require ('kit/utils/text1') %>
+
 <a href="/" class="navigationBar__logo">
     Lighthouse
 </a>
@@ -5,36 +9,36 @@
 <div class="navigationBar__links">
     <% if(currentUserModel.get('id')) { %>
 
-    <% if(LH.isAllow('groups')){ %>
-    <a href="/catalog"><%text 'Каталог' %></a>
+    <% if(isAllow('groups')){ %>
+    <a href="/catalog"><%- text('Каталог') %></a>
     <% } %>
 
-    <% if(LH.isAllow('stores/{store}/groups') && currentUserModel.stores && currentUserModel.stores.length){ %>
-    <a href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>"><%text 'Каталог' %></a>
+    <% if(isAllow('stores/{store}/groups') && currentUserModel.stores && currentUserModel.stores.length){ %>
+    <a href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>"><%- text('Каталог') %></a>
     <% } %>
 
-    <% if(LH.isAllow('invoices')){ %>
-    <a href="/invoices"><%text 'Накладные' %></a>
+    <% if(isAllow('invoices')){ %>
+    <a href="/invoices"><%- text('Накладные') %></a>
     <% } %>
 
-    <% if(LH.isAllow('products')){ %>
-    <a href="/balance"><%text 'Остатки' %></a>
+    <% if(isAllow('products')){ %>
+    <a href="/balance"><%- text('Остатки') %></a>
     <% } %>
 
-    <% if(LH.isAllow('writeoffs')){ %>
-    <a href="/writeOffs"><%text 'Списания' %></a>
+    <% if(isAllow('writeoffs')){ %>
+    <a href="/writeOffs"><%- text('Списания') %></a>
     <% } %>
 
-    <% if(LH.isAllow('users')){ %>
-    <a href="/users"><%text 'Пользователи' %></a>
+    <% if(isAllow('users')){ %>
+    <a href="/users"><%- text('Пользователи') %></a>
     <% } %>
 
-    <% if(LH.isAllow('stores')){ %>
-    <a href="/stores"><%text 'Магазины' %></a>
+    <% if(isAllow('stores')){ %>
+    <a href="/stores"><%- text('Магазины') %></a>
     <% } %>
 
     <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
-        <a href="/stores/<%- currentUserModel.stores.at(0).id %>"><%text 'Мой магазин' %></a>
+    <a href="/stores/<%- currentUserModel.stores.at(0).id %>"><%- text('Мой магазин') %></a>
     <% } %>
     <% } %>
 </div>
@@ -47,7 +51,7 @@
     </a>
     <a class="navigationBar__logoutLink">
         <i class="icon-signout" style="margin-left: -5px;"></i>
-        <%text 'Выйти' %>
+        <%- text('Выйти') %>
     </a>
 </div>
 <% } %>

@@ -7,7 +7,7 @@ define(function(require) {
         cookie = require('kit/utils/cookie'),
         req = require('kit/utils/require');
 
-    var app = _.extend({
+    return _.extend({
             permissions: {},
             templates: {},
             apiUrl: null,
@@ -37,6 +37,4 @@ define(function(require) {
         getters,
         setters,
         Backbone.Events);
-
-    return app;
 });

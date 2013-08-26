@@ -11,7 +11,9 @@ define(function(require) {
 
     app.set('apiUrl', 'http://borovin.staging.api.lh.cs/api/1');
 
-    var sync = Backbone.sync;
+    var sync = Backbone.sync,
+        loading = currentUserModel.fetch(),
+        routers;
 
     Backbone.sync = function(method, model, options) {
         var syncing = sync.call(this, method, model, _.extend({}, options, {
@@ -32,9 +34,6 @@ define(function(require) {
 
         return syncing;
     };
-
-    var loading = currentUserModel.fetch(),
-        routers;
 
     loading.done(function() {
         app.set('permissions', currentUserModel.permissions.toJSON());

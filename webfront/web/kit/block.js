@@ -1,17 +1,17 @@
 define(function(require) {
     //requirements
-    var app = require('kit/app'),
-        Backbone = require('backbone'),
+    var Backbone = require('backbone'),
         _ = require('underscore'),
         deepExtend = require('kit/utils/deepExtend'),
         classExtend = require('kit/utils/classExtend'),
         setters = require('kit/utils/setters'),
-        app = require('kit/app');
+        getters = require('kit/utils/getters');
 
     require('jquery.require');
 
     var Block = Backbone.View
         .extend(setters)
+        .extend(getters)
         .extend({
             __name__: null,
             templates: {},
@@ -31,7 +31,6 @@ define(function(require) {
                 deepExtend(block, options);
 
                 block.cid = _.uniqueId('block');
-                block.page = app.currentPage;
             },
             _ensureElement: function() {
                 var block = this;
@@ -118,17 +117,7 @@ define(function(require) {
             }
         });
 
-    Block.extend = function(protoProps, staticProps) {
-        var child = classExtend.apply(this, arguments),
-            blockName = child.prototype.__name__,
-            blockTemplates = child.prototype.templates;
-
-        if (blockName && blockTemplates) {
-            app.templates[blockName] = blockTemplates;
-        }
-
-        return child;
-    };
+    Block.extend = classExtend;
 
     return Block;
 });

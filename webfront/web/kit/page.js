@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var app = require('kit/app'),
-        Block = require('kit/block'),
+    var Block = require('kit/block'),
         Backbone = require('backbone'),
         Router = require('kit/router'),
         isAllow = require('kit/utils/isAllow'),
@@ -24,12 +23,12 @@ define(function(require) {
 
             page.cid = _.uniqueId('page');
 
-            if (app.currentPage) {
-                page.referrer = _.clone(app.currentPage);
-                app.currentPage.stopListening();
+            if (Page.current) {
+                page.referrer = _.clone(Page.current);
+                Page.current.stopListening();
             }
 
-            app.currentPage = page;
+            Page.current = page;
 
             switch (typeof page.permissions) {
                 case 'object':
