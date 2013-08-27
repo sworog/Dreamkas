@@ -5,7 +5,6 @@ define(function(require) {
     return new Router({
         routes: {
             //common
-            'login/:test/:testId(/)': require('pages/common/login'),
             '*path': require('pages/common/login')
         }
     });
