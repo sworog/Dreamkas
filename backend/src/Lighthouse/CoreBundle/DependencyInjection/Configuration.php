@@ -32,8 +32,10 @@ class Configuration implements ConfigurationInterface
     {
         $nodeBuilder
             ->arrayNode('job')
+                ->addDefaultsIfNotSet()
                 ->children()
                     ->arrayNode('worker')
+                        ->addDefaultsIfNotSet()
                         ->children()
                             ->integerNode('max_runtime')
                                 ->info('Worker max runtime in seconds')
@@ -63,6 +65,7 @@ class Configuration implements ConfigurationInterface
     {
         $nodeBuilder
             ->arrayNode('money')
+                ->addDefaultsIfNotSet()
                 ->children()
                     ->integerNode('precision')
                         ->defaultValue(2)
@@ -76,6 +79,7 @@ class Configuration implements ConfigurationInterface
     {
         $nodeBuilder
             ->arrayNode('rounding')
+                ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('default')
                         ->info('Default rounding used in system')
