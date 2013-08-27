@@ -39,6 +39,8 @@ namespace :symfony do
 
     namespace :parameters do
 
+        after "deploy:setup", "symfony:parameters:setup"
+
         set(:parameters_file) {shared_path + "/app/config/parameters.yml"}
 
         desc "Setup parameters: upload parameters.yml and rename database"
@@ -65,6 +67,10 @@ namespace :symfony do
 
     namespace :worker do
 
+        after "deploy:setup", "symfony:worker:setup"
+        after "deploy:update", "symfony:worker:symlink"
+        after "deploy:remove", "symfony:worker:remove_symlink"
+
         set(:worker_conf_file) {"#{shared_path}/app/config/supervisor.worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
 
@@ -72,7 +78,6 @@ namespace :symfony do
         task :setup, :roles => :app, :except => { :no_release => true } do
             upload
             sed
-            symlink
         end
 
         desc "Upload local worker conf to remote host"
@@ -90,19 +95,6 @@ namespace :symfony do
             run "sed -i 's/%env%/#{symfony_env_prod}/g' #{worker_conf_file}"
         end
 
-        desc "Symlink worker conf to supervisor conf.d"
-        task :symlink, :roles => :app, :except => { :no_release => true } do
-            remove_symlink
-            puts "--> Symlink worker conf to supervisor conf.d".yellow
-            run "sudo ln -s #{worker_conf_file} #{worker_symlink_file}"
-        end
-
-        desc "Remove worker symlink from supervisor conf.d"
-        task :remove_symlink, :roles => :app, :except => { :no_release => true } do
-            puts "--> Remove worker conf symlink ".yellow + worker_symlink_file.red + " from supervisor conf.d".yellow
-            run "sudo sh -c 'if [ -f #{worker_symlink_file} ] ; then rm -f #{worker_symlink_file}; fi'"
-        end
-
         desc "Tail worker log"
         task :log, :roles => :app, :except => { :no_release => true } do
             try_sudo "tail -n10 -f #{shared_path}/app/logs/lighthouse.worker.out.log" do |channel, stream, data|
@@ -111,6 +103,28 @@ namespace :symfony do
               puts "#{channel[:host]}: #{data}"
               break if stream == :err
             end
+        end
+
+        namespace :symlink do
+
+            desc "Symlink worker conf to supervisor conf.d"
+            task :default, :roles => :app, :except => { :no_release => true } do
+                remove
+                create
+            end
+
+            desc "Create worker symlink in supervisor conf.d"
+            task :create, :roles => :app, :except => { :no_release => true } do
+                puts "--> Symlink worker conf to supervisor conf.d".yellow
+                run "sudo ln -s #{worker_conf_file} #{worker_symlink_file}"
+            end
+
+            desc "Remove worker symlink from supervisor conf.d"
+            task :remove, :roles => :app, :except => { :no_release => true } do
+                puts "--> Remove worker conf symlink ".yellow + worker_symlink_file.red + " from supervisor conf.d".yellow
+                run "sudo sh -c 'if [ -f #{worker_symlink_file} ] ; then rm -f #{worker_symlink_file}; fi'"
+            end
+
         end
 
     end
