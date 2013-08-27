@@ -1,3 +1,4 @@
 define({
-    'pending': 'в очереди'
+    'pending': 'в очереди',
+    'success': 'выполнено'
 });
