@@ -47,6 +47,10 @@ public class Waiter {
         return waiter.until(ExpectedConditions.presenceOfAllElementsLocatedBy(findBy));
     }
 
+    public List<WebElement> getVisibleWebElements(By findBy) {
+        return waiter.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(findBy));
+    }
+
     public WebElement getOnlyVisibleElementFromTheList(By findBy) {
         for (WebElement element : getPresentWebElements(findBy)) {
             if (element.isDisplayed()) {

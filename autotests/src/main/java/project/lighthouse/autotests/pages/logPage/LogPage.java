@@ -24,7 +24,7 @@ public class LogPage extends CommonPageObject {
     }
 
     public List<WebElement> getLogMessageWebElements() {
-        return waiter.getPresentWebElements(By.xpath("//*[@class='jobs__item']"));
+        return waiter.getVisibleWebElements(By.xpath("//*[@class='jobs__item']"));
     }
 
     public List<LogObject> getLogMessages() {
