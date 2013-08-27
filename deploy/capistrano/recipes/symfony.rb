@@ -39,6 +39,8 @@ namespace :symfony do
 
     namespace :parameters do
 
+        set(:parameters_file) {shared_path + "/app/config/parameters.yml"}
+
         desc "Setup parameters: upload parameters.yml and rename database"
         task :setup, :roles => :app, :except => { :no_release => true } do
             upload
@@ -48,32 +50,32 @@ namespace :symfony do
         desc "Upload current parameters.yml to shared folder"
         task :upload, :roles => :app, :except => { :no_release => true } do
             origin_file = "app/config/parameters.yml"
-            destination_file = shared_path + "/app/config/parameters.yml"
 
-            try_sudo "mkdir -p #{File.dirname(destination_file)}"
-            top.upload(origin_file, destination_file)
+            try_sudo "mkdir -p #{File.dirname(parameters_file)}"
+            top.upload(origin_file, parameters_file)
         end
 
         desc "Rename database_name in app/config/parameters.yml. Application name will be used (%branch.stage.env%) unless -S database_name=%database_name% argument is provided"
         task :rename_database_name, :roles => :app, :except => { :no_release => true } do
             set :database_name, application.gsub(/\./, '_') unless exists?(:database_name)
             puts "--> Database name in ".yellow + "parameters.yml".bold.yellow + " will be set to ".yellow + "#{database_name}".red
-            destination_file = shared_path + "/app/config/parameters.yml"
-            run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{destination_file}"
+            run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{parameters_file}"
         end
     end
 
     namespace :worker do
 
-        set(:worker_conf_file) {"#{shared_path}/supervisord/lighthouse.worker.conf"}
+        set(:worker_conf_file) {"#{shared_path}/app/config/supervisor.worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
 
+        desc "Setup worker"
         task :setup, :roles => :app, :except => { :no_release => true } do
             upload
             sed
             symlink
         end
 
+        desc "Upload local worker conf to remote host"
         task :upload, :roles => :app, :except => { :no_release => true } do
             puts "--> Upload worker conf".yellow
             origin_file = "../deploy/supervisord/lighthouse.worker.conf"
@@ -88,14 +90,16 @@ namespace :symfony do
             run "sed -i 's/%env%/#{symfony_env_prod}/g' #{worker_conf_file}"
         end
 
+        desc "Symlink worker conf to supervisor conf.d"
         task :symlink, :roles => :app, :except => { :no_release => true } do
             remove_symlink
             puts "--> Symlink worker conf to supervisor conf.d".yellow
             run "sudo ln -s #{worker_conf_file} #{worker_symlink_file}"
         end
 
+        desc "Remove worker symlink from supervisor conf.d"
         task :remove_symlink, :roles => :app, :except => { :no_release => true } do
-            puts "--> Remove worker conf symlink " + worker_symlink_file.red + " from supervisor conf.d".yellow
+            puts "--> Remove worker conf symlink ".yellow + worker_symlink_file.red + " from supervisor conf.d".yellow
             run "sudo sh -c 'if [ -f #{worker_symlink_file} ] ; then rm -f #{worker_symlink_file}; fi'"
         end
 
@@ -182,5 +186,3 @@ namespace :symfony do
         end
     end
 end
-
-before "deploy:worker", "deploy:worker:init"
