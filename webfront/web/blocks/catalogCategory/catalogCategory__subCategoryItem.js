@@ -10,7 +10,17 @@ define(function(require) {
             index: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')
         },
         events: {
-            'click .catalog__editSubCategoryLink': 'click .catalog__editSubCategoryLink'
+            'click .catalog__editSubCategoryLink': function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                var block = this,
+                    $target = $(e.target);
+
+                block.tooltip_catalogSubCategoryMenu.show({
+                    $trigger: $target,
+                    catalogSubCategoryModel: block.catalogSubCategoryModel
+                });
+            }
         },
         listeners: {
             catalogSubCategoryModel: {
@@ -20,17 +30,6 @@ define(function(require) {
                     block.remove();
                 }
             }
-        },
-        'click .catalog__editSubCategoryLink': function(e){
-            e.stopPropagation();
-            e.preventDefault();
-            var block = this,
-                $target = $(e.target);
-
-            block.tooltip_catalogSubCategoryMenu.show({
-                $trigger: $target,
-                catalogSubCategoryModel: block.catalogSubCategoryModel
-            });
         },
         initialize: function(){
             var block = this;

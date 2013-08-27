@@ -14,7 +14,16 @@ define(function(require) {
             catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
         },
         events: {
-            'click .catalog__editGroupLink': 'click .catalog__editGroupLink'
+            'click .catalog__editGroupLink': function(e){
+                e.stopPropagation();
+                var block = this,
+                    $target = $(e.target);
+
+                block.tooltip_catalogGroupMenu.show({
+                    $trigger: $target,
+                    catalogGroupModel: block.catalogGroupModel
+                });
+            }
         },
         listeners: {
             catalogGroupModel: {
@@ -24,16 +33,6 @@ define(function(require) {
                     block.remove();
                 }
             }
-        },
-        'click .catalog__editGroupLink': function(e){
-            e.stopPropagation();
-            var block = this,
-                $target = $(e.target);
-
-            block.tooltip_catalogGroupMenu.show({
-                $trigger: $target,
-                catalogGroupModel: block.catalogGroupModel
-            });
         },
         initialize: function() {
             var block = this;

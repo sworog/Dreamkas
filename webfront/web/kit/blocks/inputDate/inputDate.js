@@ -69,22 +69,20 @@ define(function(require) {
                 }
             },
             events: {
-                'focus': 'focus',
-                'change': 'change'
-            },
-            'focus': function(e) {
-                var block = this;
+                'focus': function(e) {
+                    var block = this;
 
-                block.showDatePicker();
-            },
-            'change': function(e){
-                var block = this,
-                    date = moment(block.$el.val(), block.dateFormat);
+                    block.showDatePicker();
+                },
+                'change': function(e){
+                    var block = this,
+                        date = moment(block.$el.val(), block.dateFormat);
 
-                if (date){
-                    block.set('date', date.valueOf(), {
-                        updateInput: false
-                    });
+                    if (date){
+                        block.set('date', date.valueOf(), {
+                            updateInput: false
+                        });
+                    }
                 }
             },
             showDatePicker: function() {

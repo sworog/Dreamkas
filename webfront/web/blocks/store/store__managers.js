@@ -13,7 +13,22 @@ define(function(require) {
             store__managerItem: require('tpl!blocks/store/templates/store__managerItem.html')
         },
         events: {
-            'click .store__managerRemoveLink': 'click .store__managerRemoveLink'
+            'click .store__managerRemoveLink': function(event) {
+                event.stopPropagation();
+                var block = this,
+                    $link = $(event.target),
+                    $item = $link.closest('.store__managerItem'),
+                    userId = $link.data('user_id'),
+                    userModel = block.storeManagersCollection.get(userId);
+
+                $item.addClass('preloader_rows');
+
+                block.storeModel.unlinkManager(userModel.url()).done(function(){
+                    $item.removeClass('preloader_rows');
+                    block.storeManagersCollection.remove(userModel);
+                    block.storeManagerCandidatesCollection.add(userModel);
+                });
+            }
         },
         listeners: {
             storeManagersCollection: {
@@ -44,22 +59,6 @@ define(function(require) {
                     block.$managersNotification.hide();
                 }
             }
-        },
-        'click .store__managerRemoveLink': function(event) {
-            event.stopPropagation();
-            var block = this,
-                $link = $(event.target),
-                $item = $link.closest('.store__managerItem'),
-                userId = $link.data('user_id'),
-                userModel = block.storeManagersCollection.get(userId);
-
-            $item.addClass('preloader_rows');
-
-            block.storeModel.unlinkManager(userModel.url()).done(function(){
-                $item.removeClass('preloader_rows');
-                block.storeManagersCollection.remove(userModel);
-                block.storeManagerCandidatesCollection.add(userModel);
-            });
         },
         initialize: function(){
             var block = this;

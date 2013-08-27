@@ -28,17 +28,17 @@ exclude = [];
 // possible values: 'dots', 'progress', 'junit'
 reporters = ['dots'];
 
-preprocessors = {
-    // source files, that you wanna generate coverage for
-    // do not include tests or libraries
-    // (these files will be instrumented by Istanbul)
-    '**/kit/*.js': 'coverage'
-};
-
-coverageReporter = {
-    type : 'html',
-    dir : 'coverage/'
-};
+//preprocessors = {
+//    // source files, that you wanna generate coverage for
+//    // do not include tests or libraries
+//    // (these files will be instrumented by Istanbul)
+//    '**/kit/*.js': 'coverage'
+//};
+//
+//coverageReporter = {
+//    type : 'html',
+//    dir : 'coverage/'
+//};
 
 
 // web server port

@@ -12,18 +12,16 @@ define(function(require) {
                 form_purchaseProduct: require('tpl!blocks/form/form_purchaseProduct/templates/index.html')
             },
             events: {
-                'submit #form_purchaseProduct': 'submit #form_purchaseProduct',
-                'click .saleBox__removeProductLink': 'click .saleBox__removeProductLink'
-            },
-            'submit #form_purchaseProduct': function(){
-                var block = this;
-                block.$productRow.clone().appendTo(block.$purchaseTableBody);
-                block.form_purchaseProduct.clear();
-            },
-            'click .saleBox__removeProductLink': function(e) {
-                var $target = $(e.target);
+                'submit #form_purchaseProduct': function(){
+                    var block = this;
+                    block.$productRow.clone().appendTo(block.$purchaseTableBody);
+                    block.form_purchaseProduct.clear();
+                },
+                'click .saleBox__removeProductLink': function(e) {
+                    var $target = $(e.target);
 
-                $target.closest('.saleBox__productRow').remove();
+                    $target.closest('.saleBox__productRow').remove();
+                }
             },
             initialize: function(){
                 var block = this;

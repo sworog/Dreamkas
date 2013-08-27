@@ -7,9 +7,6 @@ define(function(require) {
     return Form.extend({
         __name__: 'form_login',
         model: tokenModel,
-        templates: {
-            index: require('tpl!blocks/form/form_login/templates/index.html')
-        },
         onSubmitSuccess: function(model) {
             login(model.get('access_token'));
         }

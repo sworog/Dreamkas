@@ -10,20 +10,18 @@ define(function(require) {
             editMode: false,
 
             events: {
-                'click .editor__on': 'click .editor__on',
-                'click .editor__off': 'click .editor__off'
-            },
-            'click .editor__on': function(e) {
-                e.preventDefault();
-                var block = this;
+                'click .editor__on': function(e) {
+                    e.preventDefault();
+                    var block = this;
 
-                block.set('editMode', true);
-            },
-            'click .editor__off': function(e) {
-                e.preventDefault();
-                var block = this;
+                    block.set('editMode', true);
+                },
+                'click .editor__off': function(e) {
+                    e.preventDefault();
+                    var block = this;
 
-                block.set('editMode', false);
+                    block.set('editMode', false);
+                }
             },
             initialize: function() {
                 var block = this;

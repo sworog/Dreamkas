@@ -11,48 +11,43 @@ define(function(require) {
                 index: require('tpl!blocks/form/form_product/templates/index.html')
             },
             events: {
-                'click .productForm__inputLink': 'click .productForm__inputLink',
-                'keyup [name="purchasePrice"]': 'keyup [name="purchasePrice"]',
-                'keyup [name="retailMarkupMin"], [name="retailMarkupMax"]': 'keyup [name="retailMarkupMin"], [name="retailMarkupMax"]',
-                'keyup [name="retailPriceMin"], [name="retailPriceMax"]': 'keyup [name="retailPriceMin"], [name="retailPriceMax"]',
-                'change [name="retailMarkupMin"], [name="retailMarkupMax"]': 'change [name="retailMarkupMin"], [name="retailMarkupMax"]',
-                'change [name="retailPriceMin"], [name="retailPriceMax"]': 'change [name="retailPriceMin"], [name="retailPriceMax"]'
-            },
-            'click .productForm__inputLink': function(e) {
-                e.preventDefault;
-                var $link = $(e.currentTarget),
-                    $linkedInput = $link.prev('.productForm__linkedInput');
+                'click .productForm__inputLink': function(e) {
+                    e.preventDefault;
+                    var $link = $(e.currentTarget),
+                        $linkedInput = $link.prev('.productForm__linkedInput');
 
-                switch ($linkedInput.attr('name')) {
-                    case 'retailMarkup':
-                        this.showRetailMarkupInput();
-                        break;
-                    case 'retailPrice':
-                        this.showRetailPriceInput();
-                        break;
-                }
-            },
-            'keyup [name="purchasePrice"]': function(e) {
-                if (this.$retailPriceSpan.is(':hidden')) {
+                    switch ($linkedInput.attr('name')) {
+                        case 'retailMarkup':
+                            this.showRetailMarkupInput();
+                            break;
+                        case 'retailPrice':
+                            this.showRetailPriceInput();
+                            break;
+                    }
+                },
+                'keyup [name="purchasePrice"]': function(e) {
+                    if (this.$retailPriceSpan.is(':hidden')) {
+                        this.calculateRetailPrice();
+                    }
+
+                    if (this.$retailMarkupSpan.is(':hidden')) {
+                        this.calculateRetailMarkup();
+                    }
+                },
+                'keyup [name="retailMarkupMin"], [name="retailMarkupMax"]': function() {
                     this.calculateRetailPrice();
-                }
-
-                if (this.$retailMarkupSpan.is(':hidden')) {
+                },
+                'keyup [name="retailPriceMin"], [name="retailPriceMax"]': function() {
                     this.calculateRetailMarkup();
+                },
+                'change [name="retailMarkupMin"], [name="retailMarkupMax"]': function() {
+                    this.renderRetailMarkupLink();
+                },
+                'change [name="retailPriceMin"], [name="retailPriceMax"]': function() {
+                    this.renderRetailPriceLink();
                 }
             },
-            'keyup [name="retailMarkupMin"], [name="retailMarkupMax"]': function() {
-                this.calculateRetailPrice();
-            },
-            'keyup [name="retailPriceMin"], [name="retailPriceMax"]': function() {
-                this.calculateRetailMarkup();
-            },
-            'change [name="retailMarkupMin"], [name="retailMarkupMax"]': function() {
-                this.renderRetailMarkupLink();
-            },
-            'change [name="retailPriceMin"], [name="retailPriceMax"]': function() {
-                this.renderRetailPriceLink();
-            },
+
             initialize: function(){
                 var block = this;
 

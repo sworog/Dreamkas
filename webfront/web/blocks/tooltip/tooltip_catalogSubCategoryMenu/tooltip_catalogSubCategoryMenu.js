@@ -8,41 +8,39 @@ define(function(require) {
             __name__: 'tooltip_catalogSubCategoryMenu',
             catalogSubCategoryModel: new CatalogSubCategoryModel(),
             events: {
-                'click .tooltip__editLink': 'click .tooltip__editLink',
-                'click .tooltip__removeLink': 'click .tooltip__removeLink'
-            },
-            'click .tooltip__editLink': function(e) {
-                e.preventDefault();
-                var block = this,
-                    $target = $(e.target);
+                'click .tooltip__editLink': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        $target = $(e.target);
 
-                block.tooltip_catalogSubCategoryForm.show({
-                    model: block.catalogSubCategoryModel,
-                    collection: null,
-                    $trigger: $target
-                });
+                    block.tooltip_catalogSubCategoryForm.show({
+                        model: block.catalogSubCategoryModel,
+                        collection: null,
+                        $trigger: $target
+                    });
 
-                block.hide();
-            },
-            'click .tooltip__removeLink': function(e) {
-                e.preventDefault();
-                var block = this,
-                    $target = $(e.target);
+                    block.hide();
+                },
+                'click .tooltip__removeLink': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        $target = $(e.target);
 
-                if ($target.hasClass('preloader_rows')) {
-                    return;
-                }
-
-                $target.addClass('preloader_rows');
-                block.catalogSubCategoryModel.destroy({
-                    complete: function() {
-                        $target.removeClass('preloader_rows');
-                        block.hide();
-                    },
-                    error: function(model, response) {
-                        alert(LH.text(response.responseJSON.message));
+                    if ($target.hasClass('preloader_rows')) {
+                        return;
                     }
-                });
+
+                    $target.addClass('preloader_rows');
+                    block.catalogSubCategoryModel.destroy({
+                        complete: function() {
+                            $target.removeClass('preloader_rows');
+                            block.hide();
+                        },
+                        error: function(model, response) {
+                            alert(LH.text(response.responseJSON.message));
+                        }
+                    });
+                }
             },
             initialize: function() {
                 var block = this;
