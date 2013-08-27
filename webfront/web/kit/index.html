@@ -4,8 +4,18 @@
     <title>Lighthouse</title>
 </head>
 <body>
-    Welcome to Lighthouse!
-    <script src="/kit/libs/require/require.min.js"></script>
-    <script src="/kit/config.js"></script>
+Welcome to Lighthouse!
+<script src="/kit/libs/require/require.min.js"></script>
+<script src="/kit/config.js"></script>
+<script>
+    require.config({
+        packages: [
+            {
+                name: 'kit',
+                location: '/base'
+            }
+        ]
+    });
+</script>
 </body>
 </html>

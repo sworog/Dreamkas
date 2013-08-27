@@ -4,6 +4,13 @@ define(function(require) {
         _ = require('underscore'),
         getters = require('kit/utils/getters');
 
+    /**
+     * Расширение <a target="blank" href="http://backbonejs.org/#Model">Backbone.Model</a><br />
+     * Содержит дополнительные свойства и методы
+     *
+     * @class model
+     * @constructor
+     */
     return Backbone.Model.extend({
         saveData: null,
         initData: {},

@@ -1,0 +1,38 @@
+{
+    "project": {
+        "name": "The Lighthouse API",
+        "description": "The Lighthouse API: a library for doing single page applications",
+        "version": "0.1",
+        "url": "http://example1.com/",
+        "logo": "../img/logo1.png"
+    },
+    "files": {
+        "model.js": {
+            "name": "model.js",
+            "modules": {},
+            "classes": {
+                "model": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "model": {
+            "name": "model",
+            "shortname": "model",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "model.js",
+            "line": 7,
+            "description": "Расширение <a target=\"blank\" href=\"http://backbonejs.org/#Model\">Backbone.Model</a><br />\nСодержит дополнительные свойства и методы",
+            "is_constructor": 1
+        }
+    },
+    "classitems": [],
+    "warnings": []
+}
