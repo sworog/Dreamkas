@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Job;
+namespace Lighthouse\CoreBundle\Job;
 
 use Lighthouse\CoreBundle\Document\AbstractCollection;
 

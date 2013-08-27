@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Job;
+namespace Lighthouse\CoreBundle\Job;
 
 use Leezy\PheanstalkBundle\Proxy\PheanstalkProxy;
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;

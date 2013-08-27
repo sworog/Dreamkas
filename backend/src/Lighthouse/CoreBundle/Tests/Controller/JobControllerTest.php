@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Lighthouse\CoreBundle\Document\Job\JobManager;
+use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -14,7 +14,7 @@ class JobControllerTest extends WebTestCase
     {
         parent::setUp();
 
-        /* @var JobManager $jobManager */
+        /* @var \Lighthouse\CoreBundle\Job\JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
         $jobManager->startWatchingTubes()->purgeTubes()->stopWatchingTubes();
     }
@@ -94,7 +94,7 @@ class JobControllerTest extends WebTestCase
         $dm = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
         $dm->clear();
 
-        /* @var JobManager $jobManager */
+        /* @var \Lighthouse\CoreBundle\Job\JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
 
         $jobManager->startWatchingTubes();

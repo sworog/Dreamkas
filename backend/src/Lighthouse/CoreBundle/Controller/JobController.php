@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Lighthouse\CoreBundle\Document\Job\JobCollection;
-use Lighthouse\CoreBundle\Document\Job\JobRepository;
+use Lighthouse\CoreBundle\Job\JobCollection;
+use Lighthouse\CoreBundle\Job\JobRepository;
 use Symfony\Component\Form\AbstractType;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;

@@ -1,12 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Job\RecalcProductPrice;
+namespace Lighthouse\CoreBundle\Document\Product\RecalcProductPrice;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
-use Lighthouse\CoreBundle\Document\Job\JobManager;
-use Lighthouse\CoreBundle\Document\Job\Worker\WorkerManager;
+use Lighthouse\CoreBundle\Document\Product\RecalcProductPrice\RecalcProductPriceFactory;
+use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\CoreBundle\Job\Worker\WorkerManager;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 
@@ -21,7 +22,7 @@ class RecalcProductPriceListener extends AbstractMongoDBListener
     protected $factory;
 
     /**
-     * @var JobManager
+     * @var \Lighthouse\CoreBundle\Job\JobManager
      */
     protected $jobManager;
 
@@ -31,7 +32,7 @@ class RecalcProductPriceListener extends AbstractMongoDBListener
      *      "jobManager" = @DI\Inject("lighthouse.core.job.manager")
      * })
      * @param RecalcProductPriceFactory $factory
-     * @param JobManager $jobManager
+     * @param \Lighthouse\CoreBundle\Job\JobManager $jobManager
      */
     public function __construct(RecalcProductPriceFactory $factory, JobManager $jobManager)
     {

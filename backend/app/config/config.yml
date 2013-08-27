@@ -134,6 +134,9 @@ leezy_pheanstalk:
 lighthouse_core:
     job:
         tube_prefix: "%kernel.environment%_%database_name%_"
+        worker:
+            max_runtime: 600
+            reserve_timeout: 60
     rounding:
         default: nearest1
     money:

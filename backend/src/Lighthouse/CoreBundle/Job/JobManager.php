@@ -1,12 +1,15 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Job;
+namespace Lighthouse\CoreBundle\Job;
 
-use Lighthouse\CoreBundle\Document\Job\Worker\WorkerManager;
+use Lighthouse\CoreBundle\Job\JobRepository;
+use Lighthouse\CoreBundle\Job\Worker\WorkerManager;
 use Lighthouse\CoreBundle\Exception\Job\NotFoundJobException;
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
+use Pheanstalk_Exception_ServerException as PheanstalkServerException;
 use JMS\DiExtraBundle\Annotation as DI;
 use Psr\Log\LoggerInterface;
+use Exception;
 
 /**
  * @DI\Service("lighthouse.core.job.manager")
@@ -15,7 +18,7 @@ use Psr\Log\LoggerInterface;
 class JobManager
 {
     /**
-     * @var WorkerManager
+     * @var \Lighthouse\CoreBundle\Job\Worker\WorkerManager
      */
     protected $workerManager;
 
@@ -33,11 +36,6 @@ class JobManager
      * @var LoggerInterface
      */
     protected $logger;
-
-    /**
-     * @var int
-     */
-    protected $reserveTimeout = 10;
 
     /**
      * @DI\InjectParams({
@@ -123,6 +121,9 @@ class JobManager
         return $this;
     }
 
+    /**
+     *
+     */
     protected function purgeReserved()
     {
         while (true) {
@@ -134,6 +135,9 @@ class JobManager
         }
     }
 
+    /**
+     *
+     */
     protected function purgeReady()
     {
         try {
@@ -141,10 +145,13 @@ class JobManager
                 $job = $this->pheanstalk->peekReady();
                 $this->pheanstalk->delete($job);
             }
-        } catch (\Pheanstalk_Exception_ServerException $e) {
+        } catch (PheanstalkServerException $e) {
         }
     }
 
+    /**
+     *
+     */
     protected function purgeDelayed()
     {
         try {
@@ -152,10 +159,13 @@ class JobManager
                 $job = $this->pheanstalk->peekDelayed();
                 $this->pheanstalk->delete($job);
             }
-        } catch (\Pheanstalk_Exception_ServerException $e) {
+        } catch (PheanstalkServerException $e) {
         }
     }
 
+    /**
+     *
+     */
     protected function purgeBuried()
     {
         try {
@@ -163,18 +173,17 @@ class JobManager
                 $job = $this->pheanstalk->peekBuried();
                 $this->pheanstalk->delete($job);
             }
-        } catch (\Pheanstalk_Exception_ServerException $e) {
+        } catch (PheanstalkServerException $e) {
         }
     }
 
     /**
-     * @param null $timeout
+     * @param int|null $timeout
      * @return Job
-     * @throws \Lighthouse\CoreBundle\Exception\Job\NotFoundJobException
+     * @throws NotFoundJobException
      */
     public function reserveJob($timeout = null)
     {
-        $timeout = ($timeout) ?: $this->reserveTimeout;
         $tubeJob = $this->pheanstalk->reserve($timeout);
         if (!$tubeJob) {
             return;
@@ -225,16 +234,5 @@ class JobManager
             $job->setFailStatus($e->getMessage());
             $this->jobRepository->save($job);
         }
-    }
-
-    /**
-     * @return Job
-     */
-    public function processOneJob()
-    {
-        $this->startWatchingTubes();
-        $job = $this->reserveJob();
-        $this->processJob($job);
-        return $job;
     }
 }

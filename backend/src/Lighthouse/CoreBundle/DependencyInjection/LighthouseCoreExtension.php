@@ -25,7 +25,20 @@ class LighthouseCoreExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('lighthouse.core.job.tube.prefix', $config['job']['tube_prefix']);
+        // job params
+        $container->setParameter(
+            'lighthouse.core.job.tube.prefix',
+            $config['job']['tube_prefix']
+        );
+        $container->setParameter(
+            'lighthouse.core.job.worker.max_runtime',
+            $config['job']['worker']['max_runtime']
+        );
+        $container->setParameter(
+            'lighthouse.core.job.worker.reserve_timeout',
+            $config['job']['worker']['reserve_timeout']
+        );
+
         $container->setParameter('lighthouse.core.money.precision', $config['money']['precision']);
         $container->setParameter('lighthouse.core.rounding.default', $config['rounding']['default']);
     }

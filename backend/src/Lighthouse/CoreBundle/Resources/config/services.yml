@@ -69,49 +69,41 @@ services:
 
     lighthouse.core.document.repository.classifier.group:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Classifier\Group\Group
         arguments:
             - LighthouseCoreBundle:Classifier\Group\Group
 
     lighthouse.core.document.repository.classifier.category:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Classifier\Category\Category
         arguments:
             - LighthouseCoreBundle:Classifier\Category\Category
 
     lighthouse.core.document.repository.classifier.subcategory:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory
         arguments:
             - LighthouseCoreBundle:Classifier\SubCategory\SubCategory
 
     lighthouse.core.document.repository.user:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\User\User
         arguments:
             - LighthouseCoreBundle:User\User
 
     lighthouse.core.document.repository.client:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Auth\Client
         arguments:
             - LighthouseCoreBundle:Auth\Client
 
     lighthouse.core.document.repository.store:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Store\Store
         arguments:
             - LighthouseCoreBundle:Store\Store
 
     lighthouse.core.document.repository.department:
             parent: doctrine_mongodb.odm.repository
-            class: Lighthouse\CoreBundle\Document\Department\Department
             arguments:
                 - LighthouseCoreBundle:Department\Department
 
     lighthouse.core.document.repository.product_version:
             parent: doctrine_mongodb.odm.repository
-            class: Lighthouse\CoreBundle\Versionable\VersionRepository
             arguments:
                 - LighthouseCoreBundle:Product\Version\ProductVersion
             calls:
@@ -119,7 +111,6 @@ services:
 
     lighthouse.core.document.repository.store_product:
             parent: doctrine_mongodb.odm.repository
-            class: Lighthouse\CoreBundle\Document\Product\Store\StoreProduct
             arguments:
                 - LighthouseCoreBundle:Product\Store\StoreProduct
             calls:
@@ -128,6 +119,5 @@ services:
 
     lighthouse.core.job.repository:
             parent: doctrine_mongodb.odm.repository
-            class: Lighthouse\CoreBundle\Document\Job\Job
             arguments:
-                - LighthouseCoreBundle:Job\Job
+                - LighthouseCoreBundle:Product\RecalcProductPrice\RecalcProductPriceJob

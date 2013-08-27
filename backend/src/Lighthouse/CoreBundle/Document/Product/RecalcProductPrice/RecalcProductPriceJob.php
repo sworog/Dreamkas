@@ -1,15 +1,17 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Job\RecalcProductPrice;
+namespace Lighthouse\CoreBundle\Document\Product\RecalcProductPrice;
 
-use Lighthouse\CoreBundle\Document\Job\Job;
+use Lighthouse\CoreBundle\Job\Job;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @property ProductVersion $productVersion
  *
- * @MongoDB\Document
+ * @MongoDB\Document(
+ *      repositoryClass="Lighthouse\CoreBundle\Job\JobRepository"
+ * )
  */
 class RecalcProductPriceJob extends Job
 {

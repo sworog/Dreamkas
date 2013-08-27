@@ -1,9 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Job\RecalcProductPrice;
+namespace Lighthouse\CoreBundle\Document\Product\RecalcProductPrice;
 
-use Lighthouse\CoreBundle\Document\Job\Job;
-use Lighthouse\CoreBundle\Document\Job\Worker\WorkerInterface;
+use Lighthouse\CoreBundle\Document\Product\RecalcProductPrice\RecalcProductPriceJob;
+use Lighthouse\CoreBundle\Job\Job;
+use Lighthouse\CoreBundle\Job\Worker\WorkerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 
