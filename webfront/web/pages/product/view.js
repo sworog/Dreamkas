@@ -46,6 +46,8 @@ define(function(require) {
 
                 page.render();
 
+                console.log(page.productModel);
+
                 new Product({
                     productModel: page.productModel,
                     storeProductModel: page.storeProductModel,
