@@ -69,9 +69,9 @@ namespace :symfony do
 
         after "deploy:setup", "symfony:worker:setup"
         after "deploy:update", "symfony:worker:symlink"
-        after "deploy:remove", "symfony:worker:remove_symlink"
+        after "deploy:remove", "symfony:worker:symlink:remove"
 
-        set(:worker_conf_file) {"#{shared_path}/app/config/supervisor.worker.conf"}
+        set(:worker_conf_file) {"#{shared_path}/app/shared/supervisor/worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
 
         desc "Setup worker"
@@ -121,8 +121,12 @@ namespace :symfony do
 
             desc "Remove worker symlink from supervisor conf.d"
             task :remove, :roles => :app, :except => { :no_release => true } do
-                puts "--> Remove worker conf symlink ".yellow + worker_symlink_file.red + " from supervisor conf.d".yellow
-                run "sudo sh -c 'if [ -f #{worker_symlink_file} ] ; then rm -f #{worker_symlink_file}; fi'"
+                print "--> Remove worker conf symlink ".yellow + worker_symlink_file.red + " from supervisor conf.d...".yellow
+                if 'true' == capture("sudo sh -c 'if [ -h #{worker_symlink_file} ] ; then rm -f #{worker_symlink_file}; echo \"true\"; fi'").strip
+                    print '✔'.green << "\n"
+                else
+                    print '✘'.red << "\n"
+                end
             end
 
         end
