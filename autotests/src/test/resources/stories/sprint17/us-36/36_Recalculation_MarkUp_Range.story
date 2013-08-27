@@ -42,7 +42,7 @@ Given the user opens the log page
 Then the user checks the last log title is 'Перерасчет цен продукта'
 And the user checks the last log product is <productName>
 And the user waits for the last log message success status
-And the user checks the last log status text is 'Готово!'
+And the user checks the last log status text is 'выполнено'
 When the user logs out
 Given the user navigates to the product with <productSku>
 When the user logs in using <userName> and 'lighthouse' password
