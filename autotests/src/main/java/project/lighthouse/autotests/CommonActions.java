@@ -1,10 +1,13 @@
 package project.lighthouse.autotests;
 
 import net.thucydides.core.pages.PageObject;
+import net.thucydides.core.webdriver.WebDriverFacade;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonView;
@@ -131,6 +134,36 @@ public class CommonActions extends PageObject {
     public void elementClick(String elementName) {
         By findBy = items.get(elementName).getFindBy();
         elementClick(findBy);
+    }
+
+    private Capabilities getCapabilities() {
+        WebDriverFacade webDriverFacade = (WebDriverFacade) getDriver();
+        RemoteWebDriver remoteWebDriver = (RemoteWebDriver) webDriverFacade.getProxiedDriver();
+        return remoteWebDriver.getCapabilities();
+    }
+
+    public void spanElementClick(String xpath) {
+        switch (getCapabilities().getBrowserName()) {
+            case "firefox":
+                elementClickByFirefox(By.xpath(xpath + "/input"));
+                break;
+            case "chrome":
+            default:
+                elementClick(By.xpath(xpath));
+                break;
+        }
+    }
+
+    public void elementClickByFirefox(By findBy) {
+        try {
+            waiter.getPresentWebElement(findBy).click();
+        } catch (Exception e) {
+            if (isSkippableException(e)) {
+                elementClick(findBy);
+            } else {
+                throw e;
+            }
+        }
     }
 
     public void elementClick(By findBy) {

@@ -46,7 +46,7 @@ public class AuthorizationPage extends UserCreatePage {
         type(By.name("username"), userName);
         type(By.name("password"), password);
         String loginButtonXpath = "//*[@class='button button_color_blue']";
-        click(By.xpath(loginButtonXpath));
+        spanElementClick(loginButtonXpath);
         if (!isFalse) {
             checkUser(userName);
         }

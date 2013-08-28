@@ -62,7 +62,7 @@ public class ProductCreatePage extends CommonPageObject {
     }
 
     public void createButtonClick() {
-        findVisibleElement(By.xpath("//*[@class='button button_color_blue']")).click();
+        spanElementClick("//*[@class='button button_color_blue']");
         waiter.waitUntilIsNotVisible(By.xpath("//*[@class='button button_color_blue preloader']"));
     }
 
