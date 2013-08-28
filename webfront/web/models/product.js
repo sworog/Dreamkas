@@ -41,10 +41,6 @@ define(function(require) {
                 data.category = data.subCategory.category;
             }
 
-            if (typeof data.rounding == 'object') {
-                data.rounding = data.rounding.name;
-            }
-
             return data;
         }
     });
