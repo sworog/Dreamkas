@@ -96,10 +96,10 @@ Scenario: Mark up rounding price check nearest1
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
-And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest1' rounding
+And there is the product with 'storeProductName99' name, 'storeProductSku99' sku, 'storeProductBarCode99' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest1' rounding
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku'
+And the user navigates to the product with sku 'storeProductSku99'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
@@ -117,10 +117,10 @@ Scenario: Mark up rounding price check nearest10
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
-And there is the product with 'storeProductName1' name, 'storeProductSku1' sku, 'storeProductBarCode1' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest10' rounding
+And there is the product with 'storeProductName991' name, 'storeProductSku991' sku, 'storeProductBarCode991' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest10' rounding
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku1'
+And the user navigates to the product with sku 'storeProductSku991'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
@@ -137,10 +137,10 @@ Scenario: Mark up rounding price check nearest100
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
-And there is the product with 'storeProductName2' name, 'storeProductSku2' sku, 'storeProductBarCode2' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest100' rounding
+And there is the product with 'storeProductName992' name, 'storeProductSku992' sku, 'storeProductBarCode992' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest100' rounding
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku2'
+And the user navigates to the product with sku 'storeProductSku992'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
@@ -158,10 +158,10 @@ Scenario: Mark up rounding price check nearest50
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
-And there is the product with 'storeProductName2' name, 'storeProductSku3' sku, 'storeProductBarCode2' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest50' rounding
+And there is the product with 'storeProductName993' name, 'storeProductSku993' sku, 'storeProductBarCode993' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest50' rounding
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku3'
+And the user navigates to the product with sku 'storeProductSku993'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
@@ -178,10 +178,10 @@ Scenario: Mark up rounding price check nearest99
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
-And there is the product with 'storeProductName2' name, 'storeProductSku4' sku, 'storeProductBarCode2' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest99' rounding
+And there is the product with 'storeProductName994' name, 'storeProductSku994' sku, 'storeProductBarCode994' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest99' rounding
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku4'
+And the user navigates to the product with sku 'storeProductSku994'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
@@ -198,10 +198,10 @@ Scenario: Retail price rounding price check nearest99
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
-And there is the product with 'storeProductName11' name, 'storeProductSku11' sku, 'storeProductBarCode11' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest99' rounding
+And there is the product with 'storeProductName9911' name, 'storeProductSku9911' sku, 'storeProductBarCode9911' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest99' rounding
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku11'
+And the user navigates to the product with sku 'storeProductSku9911'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -222,10 +222,10 @@ Scenario: Retail price rounding price check nearest99 negative
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
-And there is the product with 'storeProductName12' name, 'storeProductSku12' sku, 'storeProductBarCode12' barcode, 'kg' units, '0,40' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest99' rounding
+And there is the product with 'storeProductName9912' name, 'storeProductSku9912' sku, 'storeProductBarCode9912' barcode, 'kg' units, '0,40' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest99' rounding
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku12'
+And the user navigates to the product with sku 'storeProductSku9912'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -244,10 +244,10 @@ Scenario: Retail price rounding price check nearest50
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
-And there is the product with 'storeProductName13' name, 'storeProductSku13' sku, 'storeProductBarCode13' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest50' rounding
+And there is the product with 'storeProductName9913' name, 'storeProductSku9913' sku, 'storeProductBarCode9913' barcode, 'kg' units, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest50' rounding
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku13'
+And the user navigates to the product with sku 'storeProductSku9913'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -268,10 +268,10 @@ Scenario: Retail price rounding price check nearest100
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
-And there is the product with 'storeProductName14' name, 'storeProductSku14' sku, 'storeProductBarCode14' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest100' rounding
+And there is the product with 'storeProductName9914' name, 'storeProductSku9914' sku, 'storeProductBarCode9914' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest100' rounding
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku14'
+And the user navigates to the product with sku 'storeProductSku9914'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -291,10 +291,10 @@ Scenario: Retail price rounding price check nearest10
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
-And there is the product with 'storeProductName15' name, 'storeProductSku15' sku, 'storeProductBarCode15' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest10' rounding
+And there is the product with 'storeProductName9915' name, 'storeProductSku9915' sku, 'storeProductBarCode9915' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest10' rounding
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku15'
+And the user navigates to the product with sku 'storeProductSku9915'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
