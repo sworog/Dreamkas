@@ -41,6 +41,7 @@ public class LogSteps extends ScenarioSteps {
             getDriver().navigate().refresh();
             retriesCount++;
         }
+        Assert.assertEquals("success", status);
     }
 
     public void assertLastLogProduct(String expectedMessage) {
