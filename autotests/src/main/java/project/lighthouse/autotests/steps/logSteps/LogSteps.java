@@ -1,9 +1,10 @@
 package project.lighthouse.autotests.steps.logSteps;
 
-import junit.framework.Assert;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.pages.logPage.LogPage;
+
+import static junit.framework.Assert.assertEquals;
 
 public class LogSteps extends ScenarioSteps {
 
@@ -36,23 +37,23 @@ public class LogSteps extends ScenarioSteps {
     public void waitStatusForSuccess() {
         String status = getLastLogStatus();
         int retriesCount = 0;
-        while (!status.equals("success") && retriesCount < 10) {
+        while (!status.equals(LogPage.SUCCESS_STATUS) && retriesCount < 10) {
             status = getLastLogStatus();
             getDriver().navigate().refresh();
             retriesCount++;
         }
-        Assert.assertEquals("success", status);
+        assertEquals(LogPage.SUCCESS_STATUS, status);
     }
 
     public void assertLastLogProduct(String expectedMessage) {
-        Assert.assertEquals(expectedMessage, getLastLogProduct());
+        assertEquals(expectedMessage, getLastLogProduct());
     }
 
     public void assertLastLogTitle(String expectedTitle) {
-        Assert.assertEquals(expectedTitle, getLastLogTitle());
+        assertEquals(expectedTitle, getLastLogTitle());
     }
 
     public void assertLastLogStatusText(String expectedStatusText) {
-        Assert.assertEquals(expectedStatusText, getLastLogStatusText());
+        assertEquals(expectedStatusText, getLastLogStatusText());
     }
 }

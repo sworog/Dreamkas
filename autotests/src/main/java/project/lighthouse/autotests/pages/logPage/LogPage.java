@@ -14,6 +14,7 @@ import java.util.List;
 public class LogPage extends CommonPageObject {
 
     private static final String RECALC_PRODUCT_MESSAGE_TYPE = "recalc_product_price";
+    public static final String SUCCESS_STATUS = "success";
 
     public LogPage(WebDriver driver) {
         super(driver);
