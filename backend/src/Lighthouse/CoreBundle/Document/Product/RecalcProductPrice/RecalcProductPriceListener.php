@@ -5,9 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Product\RecalcProductPrice;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
-use Lighthouse\CoreBundle\Document\Product\RecalcProductPrice\RecalcProductPriceFactory;
 use Lighthouse\CoreBundle\Job\JobManager;
-use Lighthouse\CoreBundle\Job\Worker\WorkerManager;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 
@@ -22,7 +20,7 @@ class RecalcProductPriceListener extends AbstractMongoDBListener
     protected $factory;
 
     /**
-     * @var \Lighthouse\CoreBundle\Job\JobManager
+     * @var JobManager
      */
     protected $jobManager;
 
@@ -47,11 +45,44 @@ class RecalcProductPriceListener extends AbstractMongoDBListener
     {
         $document = $eventArgs->getDocument();
         if ($document instanceof Product && !$document instanceof ProductVersion) {
-            $retailPriceMinDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'retailPriceMin');
-            $retailPriceMaxDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'retailPriceMax');
-            if (0 <> $retailPriceMinDiff || 0 <> $retailPriceMaxDiff) {
+            if ($this->isRetailPriceMinChanged($eventArgs)
+                || $this->isRetailPriceMaxChanged($eventArgs)
+                || $this->isRoundingChanged($eventArgs)
+            ) {
                 $this->createRecalcProductPriceJob($document);
             }
+        }
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     * @return bool
+     */
+    protected function isRetailPriceMinChanged(LifecycleEventArgs $eventArgs)
+    {
+        return 0 <> $this->getChangeSetIntPropertyDiff($eventArgs, 'retailPriceMin');
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     * @return bool
+     */
+    protected function isRetailPriceMaxChanged(LifecycleEventArgs $eventArgs)
+    {
+        return 0 <> $this->getChangeSetIntPropertyDiff($eventArgs, 'retailPriceMax');
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     * @return bool
+     */
+    protected function isRoundingChanged(LifecycleEventArgs $eventArgs)
+    {
+        $changeSet = $this->getDocumentChangesSet($eventArgs);
+        if (isset($changeSet['roundingId'])) {
+            return true;
+        } else {
+            return false;
         }
     }
 

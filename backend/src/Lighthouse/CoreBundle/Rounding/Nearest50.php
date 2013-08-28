@@ -11,12 +11,13 @@ use Lighthouse\CoreBundle\Types\Money;
  */
 class Nearest50 extends AbstractRounding
 {
+    const NAME = 'nearest50';
     /**
      * @return string
      */
     public function getName()
     {
-        return 'nearest50';
+        return self::NAME;
     }
 
     /**

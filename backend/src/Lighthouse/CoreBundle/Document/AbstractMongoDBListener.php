@@ -15,10 +15,19 @@ abstract class AbstractMongoDBListener
      */
     protected function getChangeSetIntPropertyDiff(LifecycleEventArgs $eventArgs, $propertyName)
     {
+        $changeSet = $this->getDocumentChangesSet($eventArgs);
+        return $this->computeDiff($changeSet, $propertyName);
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     * @return array
+     */
+    protected function getDocumentChangesSet(LifecycleEventArgs $eventArgs)
+    {
         $document = $eventArgs->getDocument();
         $uow = $eventArgs->getDocumentManager()->getUnitOfWork();
-        $changeSet = $uow->getDocumentChangeSet($document);
-        return $this->computeDiff($changeSet, $propertyName);
+        return $uow->getDocumentChangeSet($document);
     }
 
     /**
