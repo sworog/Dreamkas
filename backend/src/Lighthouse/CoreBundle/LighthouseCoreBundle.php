@@ -16,7 +16,13 @@ class LighthouseCoreBundle extends Bundle
 {
     public function __construct()
     {
+        $this->registerMongoTypes();
+    }
+
+    protected function registerMongoTypes()
+    {
         Type::registerType('money', 'Lighthouse\CoreBundle\Types\MongoDB\MoneyType');
+        Type::registerType('timestamp', 'Lighthouse\CoreBundle\Types\MongoDB\TimestampType');
     }
 
     /**
