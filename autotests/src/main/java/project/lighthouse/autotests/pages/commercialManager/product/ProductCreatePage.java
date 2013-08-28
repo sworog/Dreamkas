@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.*;
 
 import java.util.Map;
@@ -62,7 +63,7 @@ public class ProductCreatePage extends CommonPageObject {
     }
 
     public void createButtonClick() {
-        spanElementClick("//*[@class='button button_color_blue']");
+        new ButtonFacade(getDriver()).click();
         waiter.waitUntilIsNotVisible(By.xpath("//*[@class='button button_color_blue preloader']"));
     }
 

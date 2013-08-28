@@ -31,6 +31,10 @@ public class CommonActions extends PageObject {
         this.items = items;
     }
 
+    public CommonActions(WebDriver driver) {
+        super(driver);
+    }
+
     public void input(String elementName, String inputText) {
         try {
             items.get(elementName).setValue(inputText);
@@ -193,15 +197,21 @@ public class CommonActions extends PageObject {
 
     public void selectByVisibleText(String label, By findBy) {
         try {
-            WebElement element = waiter.getVisibleWebElement(findBy);
-            $(element).selectByVisibleText(label);
+            selectByVisibleTextByFindBy(label, findBy);
         } catch (Exception e) {
             if (isSkippableException(e)) {
                 selectByVisibleText(label, findBy);
+            } else if (isUnknownFirefoxException(e)) {
+                selectByVisibleTextByFindBy(label, findBy);
             } else {
                 throw e;
             }
         }
+    }
+
+    public void selectByVisibleTextByFindBy(String label, By findBy) {
+        WebElement element = waiter.getVisibleWebElement(findBy);
+        $(element).selectByVisibleText(label);
     }
 
     private String getExceptionMessage(Exception e) {
@@ -217,5 +227,11 @@ public class CommonActions extends PageObject {
 
     private boolean isSkippableException(Exception e) {
         return isSkippableException(e, true);
+    }
+
+    private Boolean isUnknownFirefoxException(Exception e) {
+        String exceptionMessage = getExceptionMessage(e);
+        return getCapabilities().getBrowserName().equals("firefox")
+                && exceptionMessage.contains("Timed out after");
     }
 }

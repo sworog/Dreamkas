@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
 
 import java.util.HashMap;
@@ -45,8 +46,7 @@ public class AuthorizationPage extends UserCreatePage {
     public void authorization(String userName, String password, Boolean isFalse) {
         type(By.name("username"), userName);
         type(By.name("password"), password);
-        String loginButtonXpath = "//*[@class='button button_color_blue']";
-        spanElementClick(loginButtonXpath);
+        new ButtonFacade(getDriver()).click();
         if (!isFalse) {
             checkUser(userName);
         }

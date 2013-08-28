@@ -52,10 +52,6 @@ abstract public class CommonPageObject extends PageObject {
         commonActions.elementClick(findBy);
     }
 
-    public void spanElementClick(String xpath) {
-        commonActions.spanElementClick(xpath);
-    }
-
     public void inputTable(ExamplesTable inputTable) {
         commonActions.inputTable(inputTable);
     }
