@@ -2,26 +2,19 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use FOS\RestBundle\Controller\FOSRestController;
 use Lighthouse\CoreBundle\Job\JobCollection;
 use Lighthouse\CoreBundle\Job\JobRepository;
-use Symfony\Component\Form\AbstractType;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
-class JobController extends AbstractRestController
+class JobController extends FOSRestController
 {
     /**
      * @DI\Inject("lighthouse.core.job.repository")
      * @var JobRepository
      */
     protected $documentRepository;
-
-    /**
-     * @return AbstractType
-     */
-    protected function getDocumentFormType()
-    {
-    }
 
     /**
      * @return JobCollection
