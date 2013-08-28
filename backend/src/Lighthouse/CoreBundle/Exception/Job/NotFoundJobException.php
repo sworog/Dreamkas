@@ -6,6 +6,7 @@ class NotFoundJobException extends JobException
 {
     /**
      * @param string $jobId
+     * @param string $tubeJobId
      */
     public function __construct($jobId, $tubeJobId)
     {

@@ -7,4 +7,3 @@ use Lighthouse\CoreBundle\Exception\RuntimeException;
 class JobException extends RuntimeException
 {
 }
- 

@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\Reference;
 
 class AddJobWorkersPass implements CompilerPassInterface
@@ -25,4 +26,3 @@ class AddJobWorkersPass implements CompilerPassInterface
         }
     }
 }
- 

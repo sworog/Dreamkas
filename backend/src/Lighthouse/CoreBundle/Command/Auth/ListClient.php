@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Command\Auth;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ODM\MongoDB\DocumentRepository;
+use FOS\OAuthServerBundle\Model\ClientInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -37,6 +38,7 @@ class ListClient extends Command
     {
         $clients = $this->clientRepository->findAll();
 
+        /* @var ClientInterface $client */
         foreach ($clients as $client) {
             $output->writeln(
                 sprintf(

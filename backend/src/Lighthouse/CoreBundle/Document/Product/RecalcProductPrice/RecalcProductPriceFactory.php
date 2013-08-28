@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Document\Product\RecalcProductPrice;
 
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Document\Product\RecalcProductPrice\RecalcProductPriceJob;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
 

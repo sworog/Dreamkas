@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\DataFixtures\ODM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\OAuthServerBundle\Model\ClientInterface;
+use Lighthouse\CoreBundle\Document\Auth\Client;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class LoadApiClientData extends ContainerAware implements FixtureInterface
@@ -38,6 +39,7 @@ class LoadApiClientData extends ContainerAware implements FixtureInterface
     {
         $id = ($id) ?: $randomId;
 
+        /* @var ClientInterface|Client $client */
         $client = $this->getClientManager()->createClient();
 
         $client->setSecret($secret);

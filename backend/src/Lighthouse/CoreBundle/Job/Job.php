@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Job;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
+use Pheanstalk_Job as PheanstalkJob;
 use DateTime;
 
 /**
@@ -105,7 +106,7 @@ abstract class Job extends AbstractDocument
 
     /**
      * @Serializer\Exclude
-     * @var \Pheanstalk_Job
+     * @var PheanstalkJob
      */
     protected $tubeJob;
 
@@ -181,15 +182,15 @@ abstract class Job extends AbstractDocument
     abstract public function getType();
 
     /**
-     * @param \Pheanstalk_Job $tubeJob
+     * @param PheanstalkJob $tubeJob
      */
-    public function setTubeJob(\Pheanstalk_Job $tubeJob)
+    public function setTubeJob(PheanstalkJob $tubeJob)
     {
         $this->tubeJob = $tubeJob;
     }
 
     /**
-     * @return \Pheanstalk_Job
+     * @return PheanstalkJob
      */
     public function getTubeJob()
     {

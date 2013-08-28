@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Job;
 
-use Lighthouse\CoreBundle\Job\JobRepository;
 use Lighthouse\CoreBundle\Job\Worker\WorkerManager;
 use Lighthouse\CoreBundle\Exception\Job\NotFoundJobException;
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
@@ -179,14 +178,15 @@ class JobManager
 
     /**
      * @param int|null $timeout
-     * @return Job
+     * @return Job|null
      * @throws NotFoundJobException
      */
     public function reserveJob($timeout = null)
     {
+        /* @var \Pheanstalk_Job $tubeJob */
         $tubeJob = $this->pheanstalk->reserve($timeout);
         if (!$tubeJob) {
-            return;
+            return null;
         }
 
         $jobId = $tubeJob->getData();
