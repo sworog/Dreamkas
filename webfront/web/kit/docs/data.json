@@ -7,6 +7,15 @@
         "logo": "../img/logo1.png"
     },
     "files": {
+        "utils/getter.js": {
+            "name": "utils/getter.js",
+            "modules": {},
+            "classes": {
+                "getter": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "model.js": {
             "name": "model.js",
             "modules": {},
@@ -19,6 +28,19 @@
     },
     "modules": {},
     "classes": {
+        "getter": {
+            "name": "getter",
+            "shortname": "getter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "utils/getter.js",
+            "line": 5,
+            "description": "Примесь для добавления к объекту get-методов",
+            "static": 1
+        },
         "model": {
             "name": "model",
             "shortname": "model",
@@ -33,6 +55,15 @@
             "is_constructor": 1
         }
     },
-    "classitems": [],
+    "classitems": [
+        {
+            "file": "utils/getter.js",
+            "line": 12,
+            "description": "Get-метод\n\n    var c = object.get('a.b.c');",
+            "itemtype": "method",
+            "name": "get",
+            "class": "getter"
+        }
+    ],
     "warnings": []
 }

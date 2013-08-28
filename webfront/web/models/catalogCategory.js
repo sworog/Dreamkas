@@ -5,7 +5,7 @@ define(function(require) {
         return Model.extend({
             modelName: 'catalogCategory',
             urlRoot: LH.baseApiUrl + '/categories',
-            initData: {
+            nestedData: {
                 subCategories: require('collections/catalogSubCategories')
             },
             saveData: [

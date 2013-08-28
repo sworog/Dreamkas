@@ -1,50 +1,37 @@
 define(function(require) {
     //requirements
     var getter = require('kit/utils/getter'),
-        _ = require('underscore');
+        _ = require('underscore'),
+        objectMock = require('kit/mocks/object');
 
     var object = _.extend({
-        string: 'test string level 1',
-        number: 'test number level 1',
-        array: ['a1 level 1', 'a2 level 1', 'a3 level 1', 'a4 level 1'],
-        bool: false,
-        func: function() {
-            return 'test function level 1';
-        },
-        object: {
-            string: 'test string level 2',
-            number: 'test number level 2',
-            array: ['a1 level 2', 'a2 level 2', 'a3 level 2', 'a4 level 2'],
-            bool: false,
-            func: function() {
-                return 'test function level 2';
-            },
-            object: {
-                string: 'test string level 3',
-                number: 'test number level 3',
-                array: ['a1 level 3', 'a2 level 3', 'a3 level 3', 'a4 level 3'],
-                bool: false,
-                func: function() {
-                    return 'test function level 3';
-                },
-                object: {
-                    string: 'test string level 4',
-                    number: 'test number level 4',
-                    array: ['a1 level 4', 'a2 level 4', 'a3 level 4', 'a4 level 4'],
-                    bool: false,
-                    func: function() {
-                        return 'test function level 4';
-                    }
+        a: {
+            b: {
+                func: function(){
+                    return this.string + this.number
                 }
             }
         }
-    }, getter);
+    }, objectMock, getter);
 
     describe('getter', function() {
         it('get method', function() {
-            expect(model_1.get('string')).toEqual('test');
-            expect(model_1.get('a.b.c')).toEqual('test');
-            expect(model_1.get('c.a.b')).toEqual(undefined);
+            expect(object.get('string')).toEqual('test string level 1');
+            expect(object.get('number')).toEqual(1);
+            expect(object.get('array')).toEqual(['a1 level 1', 'a2 level 1', 'a3 level 1', 'a4 level 1']);
+            expect(object.get('bool')).toEqual(false);
+            expect(object.get('func')).toEqual('test function level 1');
+            expect(object.get('value')).toEqual(undefined);
+
+            expect(object.get('object.object.object.string')).toEqual('test string level 4');
+            expect(object.get('object.object.object.number')).toEqual(4);
+            expect(object.get('object.object.object.array')).toEqual(['a1 level 4', 'a2 level 4', 'a3 level 4', 'a4 level 4']);
+            expect(object.get('object.object.object.bool')).toEqual(true);
+            expect(object.get('object.object.object.func')).toEqual('test function level 4');
+            expect(object.get('object.object.object.value')).toEqual(undefined);
+            expect(object.get('object.value.object.value')).toEqual(undefined);
+
+            expect(object.get('a.b.func')).toEqual('test string level 11');
         });
     });
 });

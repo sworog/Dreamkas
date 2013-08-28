@@ -13,7 +13,7 @@ define(function(require) {
      */
     return Backbone.Model.extend({
         saveData: null,
-        initData: {},
+        nestedData: {},
         constructor: function() {
             var model = this;
 
@@ -23,19 +23,27 @@ define(function(require) {
                 change: function(model){
                     var changedAttributes = model.changed;
 
-                    _.each(changedAttributes, function(value, key) {
+                    _.each(changedAttributes, function(changedAttrValue, changedAttrKey) {
                         $('body')
-                            .find('[model_id="' + model.id + '"][model_attr="' + key + '"]')
-                            .html(value);
+                            .find('[model_id="' + model.id + '"][model_attr="' + changedAttrKey + '"]')
+                            .html(changedAttrValue);
 
-                        if (model.initData[key] && model[key]) {
-                            model[key].set(value);
+                        if (model.nestedData[changedAttrKey] && model[changedAttrKey]) {
+                            model[changedAttrKey].set(changedAttrValue);
                         }
+
+                        _.each(model.attributes, function(attrValue, attrKey){
+                            var deps = attrValue.__dependencies__;
+
+                            if (_.contains(deps, changedAttrKey)){
+                                model.trigger('change:' + attrKey, model, model.get(attrKey));
+                            }
+                        });
                     });
                 }
             });
 
-            _.each(model.initData, function(Class, key) {
+            _.each(model.nestedData, function(Class, key) {
                 model[key] = new Class(model.get(key), {
                     parentModel: model,
                     parse: true

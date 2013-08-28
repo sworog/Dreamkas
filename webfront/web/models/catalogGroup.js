@@ -11,7 +11,7 @@ define(function(require) {
                     return LH.baseApiUrl + '/groups';
                 }
             },
-            initData: {
+            nestedData: {
                 categories: require('collections/catalogCategories')
             },
             saveData: [

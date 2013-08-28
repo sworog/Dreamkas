@@ -6,7 +6,7 @@ define(function(require) {
         return Model.extend({
             modelName: 'store',
             urlRoot: LH.baseApiUrl + '/stores',
-            initData: {
+            nestedData: {
                 departments: require('collections/departments'),
                 managers: require('collections/storeManagers')
             },

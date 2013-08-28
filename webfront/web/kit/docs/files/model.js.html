@@ -41,6 +41,8 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
+                <li><a href="../classes/getter.html">getter</a></li>
+            
                 <li><a href="../classes/model.html">model</a></li>
             
             </ul>
@@ -90,7 +92,7 @@ define(function(require) {
     //requirements
     var Backbone = require(&#x27;backbone&#x27;),
         _ = require(&#x27;underscore&#x27;),
-        getters = require(&#x27;kit/utils/getters&#x27;);
+        getter = require(&#x27;kit/utils/getter&#x27;);
 
     /**
      * Расширение &lt;a target=&quot;blank&quot; href=&quot;http://backbonejs.org/#Model&quot;&gt;Backbone.Model&lt;/a&gt;&lt;br /&gt;
@@ -140,7 +142,7 @@ define(function(require) {
         get: function(path){
             var model = this;
 
-            return getters.get.apply(model.attributes, arguments);
+            return getter.get.apply(model.attributes, arguments);
         },
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({
