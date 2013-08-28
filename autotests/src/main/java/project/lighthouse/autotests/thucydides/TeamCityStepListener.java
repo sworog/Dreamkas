@@ -18,7 +18,7 @@ public class TeamCityStepListener implements StepListener {
     private static final String messageTemplate = "##teamcity[%s %s]";
     private static final String propertyTemplate = " %s='%s'";
 
-    private static final HashMap<String, String> escapeChars = new LinkedHashMap() {
+    private static final HashMap<String, String> escapeChars = new LinkedHashMap<String, String>() {
         {
             put("\\|", "||");
             put("\'", "|\'");
@@ -31,7 +31,7 @@ public class TeamCityStepListener implements StepListener {
 
     private Logger logger;
 
-    private Stack<String> suiteStack = new Stack<String>();
+    private Stack<String> suiteStack = new Stack<>();
 
     private String description;
     private Integer examplesTestCount = 0;
@@ -70,11 +70,6 @@ public class TeamCityStepListener implements StepListener {
     private void printMessage(String messageName, String description) {
         Map<String, String> properties = new HashMap<>();
         properties.put("name", description);
-        printMessage(messageName, properties);
-    }
-
-    private void printMessage(String messageName) {
-        Map<String, String> properties = new HashMap<>();
         printMessage(messageName, properties);
     }
 
@@ -118,11 +113,10 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void testRetried() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     private void printFailure(TestOutcome result) {
-        HashMap<String, String> properties = new HashMap<String, String>();
+        HashMap<String, String> properties = new HashMap<>();
         properties.put("name", result.getTitle());
         properties.put("message", result.getTestFailureCause().getMessage());
         properties.put("details", getStepsInfo(result.getTestSteps()));
@@ -138,7 +132,7 @@ public class TeamCityStepListener implements StepListener {
                 printTestStarted(testName);
                 if (hasFailureStep(childrenTestSteps)) {
                     String getStepsInfo = getStepsInfo(childrenTestSteps);
-                    HashMap<String, String> properties = new HashMap<String, String>();
+                    HashMap<String, String> properties = new HashMap<>();
                     properties.put("name", testName);
                     properties.put("details", getStepsInfo);
                     printMessage("testFailed", properties);
@@ -152,16 +146,16 @@ public class TeamCityStepListener implements StepListener {
 
     private String getStepsInfo(List<TestStep> testSteps) {
         StringBuilder builder = new StringBuilder("Steps:\r\n");
-        for (int i = 0; i < testSteps.size(); i++) {
-            String stepMessage = String.format("%s (%s) -> %s\r\n", testSteps.get(i).getDescription(), testSteps.get(i).getDurationInSeconds(), getResultMessage(testSteps.get(i)));
+        for (TestStep testStep : testSteps) {
+            String stepMessage = String.format("%s (%s) -> %s\r\n", testStep.getDescription(), testStep.getDurationInSeconds(), getResultMessage(testStep));
             builder.append(stepMessage);
         }
         return builder.append("\r\n").toString();
     }
 
     private Boolean hasFailureStep(List<TestStep> testSteps) {
-        for (int i = 0; i < testSteps.size(); i++) {
-            if (testSteps.get(i).isError() || testSteps.get(i).isFailure()) {
+        for (TestStep testStep : testSteps) {
+            if (testStep.isError() || testStep.isFailure()) {
                 return true;
             }
         }
@@ -210,7 +204,8 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void testIgnored() {
-        printMessage("testIgnored");
+        Map<String, String> properties = new HashMap<>();
+        printMessage("testIgnored", properties);
     }
 
     @Override
@@ -219,7 +214,6 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void skippedStepStarted(ExecutedStepDescription description) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -228,38 +222,31 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void lastStepFailed(StepFailure failure) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void stepIgnored() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void stepPending() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void stepPending(String message) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void stepFinished() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void notifyScreenChange() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void useExamplesFrom(DataTable table) {
         //TODO run examples test in test suite
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -271,11 +258,9 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void exampleFinished() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void assumptionViolated(String message) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

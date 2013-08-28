@@ -104,7 +104,9 @@ public class ApiConnect {
     public Boolean hasInvoiceProduct(String invoiceId, String productId) throws IOException, JSONException {
         JSONArray jsonArray = getInvoiceProducts(invoiceId);
         for (int i = 0; i < jsonArray.length(); i++) {
-            return jsonArray.getJSONObject(i).getJSONObject("product").getString("id").equals(productId);
+            if (jsonArray.getJSONObject(i).getJSONObject("product").getString("id").equals(productId)) {
+                return true;
+            }
         }
         return false;
     }
@@ -277,10 +279,12 @@ public class ApiConnect {
 
     private Boolean hasStoreManager(Store store, User user) throws JSONException, IOException {
         String apiUrl = String.format("%s/%s/managers", UrlHelper.getApiUrl("/stores"), store.getId());
-        String responce = executeSimpleGetRequest(apiUrl, true);
-        JSONArray jsonArray = new JSONArray(responce);
+        String response = executeSimpleGetRequest(apiUrl, true);
+        JSONArray jsonArray = new JSONArray(response);
         for (int i = 0; i < jsonArray.length(); i++) {
-            return jsonArray.getJSONObject(i).getString("id").equals(user.getId());
+            if (jsonArray.getJSONObject(i).getString("id").equals(user.getId())) {
+                return true;
+            }
         }
         return false;
     }
@@ -325,7 +329,7 @@ public class ApiConnect {
     }
 
     //Fix for the connection time out problem?
-    private DefaultHttpClient getDefaultHttpClienWithHttpParams() {
+    private DefaultHttpClient getDefaultHttpClientWithHttpParams() {
         HttpParams httpParams = new BasicHttpParams();
         int timeoutConnection = 3000;
         HttpConnectionParams.setConnectionTimeout(httpParams, timeoutConnection);
@@ -414,7 +418,7 @@ public class ApiConnect {
                 );
             }
             fail(
-                    String.format("Responce json error: '%s'", builder.toString())
+                    String.format("Response json error: '%s'", builder.toString())
             );
         }
     }
