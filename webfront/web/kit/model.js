@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Backbone = require('backbone'),
         _ = require('underscore'),
-        getters = require('kit/utils/getters');
+        getter = require('kit/utils/getter');
 
     /**
      * Расширение <a target="blank" href="http://backbonejs.org/#Model">Backbone.Model</a><br />
@@ -52,7 +52,7 @@ define(function(require) {
         get: function(path){
             var model = this;
 
-            return getters.get.apply(model.attributes, arguments);
+            return getter.get.apply(model.attributes, arguments);
         },
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({

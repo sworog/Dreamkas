@@ -8,7 +8,7 @@ define(function(require) {
                 segments = path.split('.');
 
             _.every(segments, function(segment){
-                return attr = attr[segment];
+                return attr = _.result(attr, segment);
             });
 
             return attr;

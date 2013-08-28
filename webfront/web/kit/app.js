@@ -1,8 +1,8 @@
 define(function(require) {
     //requirements
     var _ = require('underscore'),
-        setters = require('kit/utils/setters'),
-        getters = require('kit/utils/getters'),
+        setter = require('kit/utils/setter'),
+        getter = require('kit/utils/getter'),
         Backbone = require('backbone'),
         cookie = require('kit/utils/cookie'),
         req = require('kit/utils/require');
@@ -34,7 +34,7 @@ define(function(require) {
                 document.location.reload();
             }
         },
-        getters,
-        setters,
+        getter,
+        setter,
         Backbone.Events);
 });

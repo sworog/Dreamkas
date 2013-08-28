@@ -6,6 +6,6 @@
     "logo": "../img/logo1.png",
     "options": {
         "outdir": "./docs",
-        "exclude": "libs,querystring.js"
+        "exclude": "libs"
     }
 }

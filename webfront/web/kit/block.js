@@ -4,14 +4,14 @@ define(function(require) {
         _ = require('underscore'),
         deepExtend = require('kit/utils/deepExtend'),
         classExtend = require('kit/utils/classExtend'),
-        setters = require('kit/utils/setters'),
-        getters = require('kit/utils/getters');
+        setter = require('kit/utils/setter'),
+        getter = require('kit/utils/getter');
 
     require('jquery.require');
 
     var Block = Backbone.View
-        .extend(setters)
-        .extend(getters)
+        .extend(setter)
+        .extend(getter)
         .extend({
             __name__: null,
             templates: {},
