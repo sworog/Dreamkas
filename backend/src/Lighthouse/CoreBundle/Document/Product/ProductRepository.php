@@ -131,7 +131,7 @@ class ProductRepository extends DocumentRepository
     protected function calcMarkup(Money $retailPrice = null, Money $purchasePrice = null)
     {
         $roundedMarkup = null;
-        if (null !== $retailPrice && !$retailPrice->isNull() && null !== $purchasePrice) {
+        if (null !== $retailPrice && !$retailPrice->isNull() && null !== $purchasePrice && !$purchasePrice->isNull()) {
             $markup = (($retailPrice->getCount() / $purchasePrice->getCount()) * 100) - 100;
             $roundedMarkup = RoundService::round($markup, 2);
         }
@@ -146,7 +146,7 @@ class ProductRepository extends DocumentRepository
     protected function calcRetailPrice($retailMarkup, Money $purchasePrice = null)
     {
         $retailPrice = new Money();
-        if (null !== $retailMarkup && '' !== $retailMarkup && null !== $purchasePrice) {
+        if (null !== $retailMarkup && '' !== $retailMarkup && null !== $purchasePrice && !$purchasePrice->isNull()) {
             $percent = 1 + ($retailMarkup / 100);
             $retailPrice->setCountByQuantity($purchasePrice, $percent, true);
         }

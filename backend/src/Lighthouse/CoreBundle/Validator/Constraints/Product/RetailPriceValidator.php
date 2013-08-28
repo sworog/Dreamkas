@@ -11,70 +11,20 @@ use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\Blank;
 use Lighthouse\CoreBundle\Validator\Constraints\ConstraintValidator;
 
 class RetailPriceValidator extends ConstraintValidator
 {
     /**
      * @param Product $value
-     * @param Constraint $constraint
+     * @param Constraint|RetailPrice $constraint
      */
     public function validate($value, Constraint $constraint)
     {
-        $retailPriceConstraints = array(
-            new Money(),
-        );
+        $retailPriceConstraints = $this->getRetailPriceConstraints($value, $constraint);
 
-        if (!$this->isNull($value->purchasePrice)) {
-            $retailPriceConstraints[] = new MoneyRange(
-                array(
-                    'gte' => $value->purchasePrice,
-                    'gteMessage' => 'lighthouse.validation.errors.product.retailPrice.purchasePrice'
-                )
-            );
-        }
-
-        $retailMarkupConstrains = array(
-            new Precision(),
-            new Range(
-                array(
-                    'gte' => 0,
-                    'gteMessage' => 'lighthouse.validation.errors.product.retailMarkup.range'
-                )
-            )
-        );
-
-        $comparePriceConstraints = array(
-            new NotBlankFields(
-                array(
-                    'fields' => array('retailPriceMin', 'retailPriceMax'),
-                    'message' => 'lighthouse.validation.errors.product.retailPrice.not_blank'
-                )
-            ),
-            new MoneyCompare(
-                array(
-                    'minField' => 'retailPriceMin',
-                    'maxField' => 'retailPriceMax',
-                    'message' => 'lighthouse.validation.errors.product.retailPrice.compare'
-                )
-            ),
-        );
-
-        $compareMarkupConstraints = array(
-            new NotBlankFields(
-                array(
-                    'fields' => array('retailMarkupMin', 'retailMarkupMax'),
-                    'message' => 'lighthouse.validation.errors.product.retailMarkup.not_blank'
-                )
-            ),
-            new NumbersCompare(
-                array(
-                    'minField' => 'retailMarkupMin',
-                    'maxField' => 'retailMarkupMax',
-                    'message' => 'lighthouse.validation.errors.product.retailMarkup.compare'
-                )
-            ),
-        );
+        $retailMarkupConstraints = $this->getRetailMarkupConstraints($value, $constraint);
 
         switch ($value->retailPricePreference) {
             case $value::RETAIL_PRICE_PREFERENCE_PRICE:
@@ -86,7 +36,7 @@ class RetailPriceValidator extends ConstraintValidator
                 if ($retailPriceMinValid) {
                     $this->context->validateValue(
                         $value->retailMarkupMin,
-                        $retailMarkupConstrains,
+                        $retailMarkupConstraints,
                         'retailMarkupMin'
                     );
                 }
@@ -98,19 +48,19 @@ class RetailPriceValidator extends ConstraintValidator
                 if ($retailPriceMaxValid) {
                     $this->context->validateValue(
                         $value->retailMarkupMax,
-                        $retailMarkupConstrains,
+                        $retailMarkupConstraints,
                         'retailMarkupMax'
                     );
                 }
                 if ($retailPriceMinValid && $retailPriceMaxValid) {
-                    $this->context->validateValue($value, $comparePriceConstraints);
+                    $this->validateComparePrice($value, $constraint);
                 }
                 break;
             case $value::RETAIL_PRICE_PREFERENCE_MARKUP:
             default:
                 $retailMarkupMinValid = $this->validateValue(
                     $value->retailMarkupMin,
-                    $retailMarkupConstrains,
+                    $retailMarkupConstraints,
                     'retailMarkupMin'
                 );
                 if ($retailMarkupMinValid) {
@@ -122,7 +72,7 @@ class RetailPriceValidator extends ConstraintValidator
                 }
                 $retailMarkupMaxValid = $this->validateValue(
                     $value->retailMarkupMax,
-                    $retailMarkupConstrains,
+                    $retailMarkupConstraints,
                     'retailMarkupMax'
                 );
                 if ($retailMarkupMaxValid) {
@@ -133,9 +83,121 @@ class RetailPriceValidator extends ConstraintValidator
                     );
                 }
                 if ($retailMarkupMinValid && $retailMarkupMaxValid) {
-                    $this->context->validateValue($value, $compareMarkupConstraints);
+                    $this->validateCompareMarkup($value, $constraint);
                 }
                 break;
         }
+    }
+
+    /**
+     * @param Product $value
+     * @param Constraint|RetailPrice $constraint
+     * @return array|Constraint[]
+     */
+    protected function getRetailPriceConstraints(Product $value, Constraint $constraint)
+    {
+        if ($this->isNull($value->purchasePrice)) {
+            $retailPriceConstraints = array(
+                new Blank(
+                    array(
+                        'message' => $constraint->blankRetailPriceMessage,
+                    )
+                )
+            );
+        } else {
+            $retailPriceConstraints = array(
+                new Money(),
+            );
+
+            if (!$this->isNull($value->purchasePrice)) {
+                $retailPriceConstraints[] = new MoneyRange(
+                    array(
+                        'gte' => $value->purchasePrice,
+                        'gteMessage' => $constraint->retailPriceGtePurchasePriceMessage
+                    )
+                );
+            }
+        }
+
+        return $retailPriceConstraints;
+    }
+
+    /**
+     * @param Product $value
+     * @param Constraint|RetailPrice $constraint
+     * @return array|Constraint[]
+     */
+    protected function getRetailMarkupConstraints(Product $value, Constraint $constraint)
+    {
+        if ($this->isNull($value->purchasePrice)) {
+            $retailMarkupConstraints = array(
+                new Blank(
+                    array(
+                        'message' => $constraint->blankRetailMarkupMessage,
+                    )
+                )
+            );
+        } else {
+            $retailMarkupConstraints = array(
+                new Precision(),
+                new Range(
+                    array(
+                        'gte' => 0,
+                        'gteMessage' => $constraint->retailMarkupGteZeroMessage
+                    )
+                )
+            );
+        }
+
+        return $retailMarkupConstraints;
+    }
+
+    /**
+     * @param Product $value
+     * @param Constraint|RetailPrice $constraint
+     */
+    protected function validateComparePrice(Product $value, Constraint $constraint)
+    {
+        $comparePriceConstraints = array(
+            new NotBlankFields(
+                array(
+                    'fields' => array('retailPriceMin', 'retailPriceMax'),
+                    'message' => $constraint->notBlankRetailPriceMessage,
+                )
+            ),
+            new MoneyCompare(
+                array(
+                    'minField' => 'retailPriceMin',
+                    'maxField' => 'retailPriceMax',
+                    'message' => $constraint->compareRetailPriceMessage
+                )
+            ),
+        );
+
+        $this->context->validateValue($value, $comparePriceConstraints);
+    }
+
+    /**
+     * @param Product $value
+     * @param Constraint|RetailPrice $conts
+     */
+    protected function validateCompareMarkup(Product $value, Constraint $constraint)
+    {
+        $compareMarkupConstraints = array(
+            new NotBlankFields(
+                array(
+                    'fields' => array('retailMarkupMin', 'retailMarkupMax'),
+                    'message' => $constraint->notBlankRetailMarkupMessage
+                )
+            ),
+            new NumbersCompare(
+                array(
+                    'minField' => 'retailMarkupMin',
+                    'maxField' => 'retailMarkupMax',
+                    'message' => $constraint->compareRetailMarkupMessage,
+                )
+            ),
+        );
+        $this->context->validateValue($value, $compareMarkupConstraints);
     }
 }

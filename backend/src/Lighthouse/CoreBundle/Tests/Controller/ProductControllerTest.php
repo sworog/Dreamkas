@@ -576,13 +576,12 @@ class ProductControllerTest extends WebTestCase
                 array('purchasePrice' => '10,89'),
             ),
             'empty price' => array(
-                400,
-                array('purchasePrice' => ''),
+                200,
                 array(
-                    'children.purchasePrice.errors.0'
-                    =>
-                    'Заполните это поле'
-                )
+                    'purchasePrice' => '',
+
+                ),
+                array('purchasePrice' => null),
             ),
             'not valid price very float' => array(
                 400,
@@ -1438,6 +1437,35 @@ class ProductControllerTest extends WebTestCase
                     'children.retailMarkupMin.errors.0' => 'Заполните это поле',
                     'children.retailMarkupMin.errors.1' => null,
                     'children.retailMarkupMax.errors' => null,
+                ),
+            ),
+            // No Purchase Price
+            'no purchase price, retailPrice given' => array(
+                array(
+                    'purchasePrice' => '',
+                    'retailPriceMin' => 28.45,
+                    'retailPriceMax' => 34.00,
+                    'retailPricePreference' => 'retailPrice',
+                ),
+                array(
+                    'children.retailPriceMin.errors.0' => 'Нельзя ввести цену продажи при отсутствии закупочной цены',
+                    'children.retailPriceMin.errors.1' => null,
+                    'children.retailPriceMax.errors.0' => 'Нельзя ввести цену продажи при отсутствии закупочной цены',
+                    'children.retailPriceMax.errors.1' => null,
+                ),
+            ),
+            'no purchase price, retailMarkup given' => array(
+                array(
+                    'purchasePrice' => '',
+                    'retailMarkupMin' => 28.45,
+                    'retailMarkupMax' => 34.00,
+                    'retailPricePreference' => 'retailMarkup',
+                ),
+                array(
+                    'children.retailMarkupMin.errors.0' => 'Нельзя ввести наценку при отсутствии закупочной цены',
+                    'children.retailMarkupMin.errors.1' => null,
+                    'children.retailMarkupMax.errors.0' => 'Нельзя ввести наценку при отсутствии закупочной цены',
+                    'children.retailMarkupMax.errors.1' => null,
                 ),
             )
         );

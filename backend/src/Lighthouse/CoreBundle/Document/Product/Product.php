@@ -86,8 +86,7 @@ class Product extends AbstractDocument implements VersionableInterface
 
     /**
      * @MongoDB\Field(type="money")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Money(notBlank=true)
+     * @LighthouseAssert\Money(notBlank=false)
      * @var Money
      */
     protected $purchasePrice;
