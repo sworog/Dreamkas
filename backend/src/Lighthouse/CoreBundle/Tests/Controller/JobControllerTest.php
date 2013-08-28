@@ -336,4 +336,56 @@ class JobControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         $this->performJsonAssertions($getResponse, $assertions);
     }
+
+    public function testNoJobCreatedOnProductUpdateWithoutRetailsAndRounding()
+    {
+        $this->clearMongoDb();
+
+        $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $getResponse = $this->clientJsonRequest(
+            $commercialAccessToken,
+            'GET',
+            '/api/1/jobs'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '*.id', $getResponse);
+
+        $storeId = $this->createStore('1');
+
+        $productData = array(
+            'sku' => 'Печенье Юбилейное',
+            'purchasePrice' => '20.00',
+            'retailPriceMin' => '21.08',
+            'retailPriceMax' => '27.74',
+            'retailPricePreference' => 'retailPrice',
+        );
+
+        $productId = $this->createProduct($productData);
+
+        $storeProductData = array(
+            'retailPrice' => '22.13',
+            'retailPricePreference' => 'retailPrice',
+        );
+
+        $this->updateStoreProduct($storeId, $productId, $storeProductData);
+
+        $updateProductData = array(
+            'sku' => 'Печенье Юбелейное 200гр'
+        ) + $productData;
+
+        $this->updateProduct($productId, $updateProductData);
+
+        $getResponse = $this->clientJsonRequest(
+            $commercialAccessToken,
+            'GET',
+            '/api/1/jobs'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '*.id', $getResponse);
+    }
 }
