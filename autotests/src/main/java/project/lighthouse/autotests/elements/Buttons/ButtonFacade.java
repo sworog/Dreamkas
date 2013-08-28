@@ -9,11 +9,12 @@ public class ButtonFacade {
     String xpath;
     private static final String BUTTON_XPATH = "//*[@class='button button_color_blue']";
 
-    CommonActions commonActions = new CommonActions(webDriver);
+    CommonActions commonActions;
 
     public ButtonFacade(WebDriver webDriver) {
         this.webDriver = webDriver;
         this.xpath = BUTTON_XPATH;
+        commonActions = new CommonActions(webDriver);
     }
 
     public void click() {
