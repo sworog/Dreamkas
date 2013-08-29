@@ -57,7 +57,7 @@
         "phpunit/phpunit": "~3.7",
         "phpunit/php-code-coverage": "~1.2",
         "phpmd/phpmd": "~1.4",
-        "squizlabs/php_codesniffer": "~1.4",
+        "squizlabs/php_codesniffer": "dev-phpcs-fixer",
         "pdepend/pdepend": "~1.1"
     }
 }
