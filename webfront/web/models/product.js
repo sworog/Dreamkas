@@ -9,7 +9,10 @@ define(function(require) {
         urlRoot: LH.baseApiUrl + '/products',
         defaults: {
             amount: 0,
-            retailPricePreference: 'retailMarkup'
+            retailPricePreference: 'retailMarkup',
+            rounding: {
+                name: 'nearest1'
+            }
         },
         saveFields: [
             'name',
