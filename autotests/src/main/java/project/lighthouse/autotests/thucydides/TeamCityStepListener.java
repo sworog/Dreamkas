@@ -136,8 +136,10 @@ public class TeamCityStepListener implements StepListener {
                     properties.put("name", testName);
                     properties.put("details", getStepsInfo);
                     printMessage("testFailed", properties);
+                } else if (hasPendingStep(childrenTestSteps)) {
+                    printTestIgnored(testName);
                 }
-                printMessage("testFinished", testName);
+                printTestFinished(testName);
             }
         }
         examplesTestCount = 0;
@@ -156,6 +158,15 @@ public class TeamCityStepListener implements StepListener {
     private Boolean hasFailureStep(List<TestStep> testSteps) {
         for (TestStep testStep : testSteps) {
             if (testStep.isError() || testStep.isFailure()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Boolean hasPendingStep(List<TestStep> testSteps) {
+        for (TestStep testStep : testSteps) {
+            if (testStep.isSkipped() || testStep.isPending()) {
                 return true;
             }
         }
@@ -185,8 +196,16 @@ public class TeamCityStepListener implements StepListener {
         printMessage("testIgnored", result.getTitle());
     }
 
+    private void printTestIgnored(String name) {
+        printMessage("testIgnored", name);
+    }
+
     private void printTestFinished(TestOutcome result) {
         printMessage("testFinished", result.getTitle());
+    }
+
+    private void printTestFinished(String name) {
+        printMessage("testFinished", name);
     }
 
     private void printTestSuiteFinished(String name) {
