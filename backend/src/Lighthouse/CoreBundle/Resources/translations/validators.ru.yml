@@ -1,6 +1,7 @@
 lighthouse:
     validation:
         errors:
+            blank: Поле не должно быть заполнено
             money:
                 precision: Цена не должна содержать больше {{ precision }} цифр после запятой.
                 negative: Цена не должна быть меньше или равна нулю.
