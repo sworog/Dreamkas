@@ -36,7 +36,7 @@ class DateTimestamp extends DateTime
      * @param MongoTimestamp $mongoTimestamp
      * @return static|DateTimestamp
      */
-    static public function createFromMongoTimestamp(MongoTimestamp $mongoTimestamp)
+    public static function createFromMongoTimestamp(MongoTimestamp $mongoTimestamp)
     {
         $dateTimestamp = static::createFromTimestamp($mongoTimestamp->sec);
         $dateTimestamp->inc = $mongoTimestamp->inc;
@@ -48,7 +48,7 @@ class DateTimestamp extends DateTime
      * @param int $timestamp
      * @return static|DateTimestamp
      */
-    static public function createFromTimestamp($timestamp)
+    public static function createFromTimestamp($timestamp)
     {
         $dateTimestamp = static::createFromFormat('U', $timestamp);
         return $dateTimestamp;

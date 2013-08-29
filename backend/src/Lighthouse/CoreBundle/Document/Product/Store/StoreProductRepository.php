@@ -12,7 +12,6 @@ use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyComparison;
 
 class StoreProductRepository extends DocumentRepository
 {
