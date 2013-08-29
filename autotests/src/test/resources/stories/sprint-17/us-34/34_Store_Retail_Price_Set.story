@@ -159,6 +159,7 @@ Then the user checks the dashboard link to 'catalog' section is not present
 Scenario: If mark up dont set - check mark up under the zero
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
+And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
 And there is the product with 'storeProductName6' name, 'storeProductSku6' sku, 'storeProductBarCode6' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
@@ -169,7 +170,7 @@ And the user inputs '-1' in 'retailMarkup' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Наценка должна быть больше или равна 0%. Наценка должна быть больше или равна 0% |
+| Наценка должна быть больше или равна 0% |
 
 Scenario: If mark up dont set - check retail price under the purchase price
 
