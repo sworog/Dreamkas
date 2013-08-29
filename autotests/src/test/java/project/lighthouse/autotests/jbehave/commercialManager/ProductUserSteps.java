@@ -202,6 +202,11 @@ public class ProductUserSteps {
         productSteps.retailPriceHintClick();
     }
 
+    @Then("the user checks '$elementName' element is disabled")
+    public void whenTheUserChecksElementIsDisabled(String elementName) {
+        productSteps.checkElementIsDisabled(elementName);
+    }
+
     @Then("the user checks the '$elementName' value is '$expectedValue'")
     @Alias("the user checks the <elementName> value is <expectedValue>")
     public void thenTheUserChecksValue(String elementName, String expectedValue) {

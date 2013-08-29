@@ -13,8 +13,7 @@ import project.lighthouse.autotests.elements.*;
 
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
+import static junit.framework.Assert.*;
 
 @DefaultUrl("/products/create")
 public class ProductCreatePage extends CommonPageObject {
@@ -110,5 +109,9 @@ public class ProductCreatePage extends CommonPageObject {
         waiter.waitUntilIsNotVisible(
                 By.xpath("//*[@class='productForm__rounding preloader_spinner']")
         );
+    }
+
+    public void checkElementIsDisabled(String elementName) {
+        assertNotNull("The disabled attribute is not present in the element", items.get(elementName).getWebElement().getAttribute("disabled"));
     }
 }

@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Pending;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -57,10 +58,10 @@ public class CommonUserSteps {
         commonSteps.NoAlertIsPresent();
     }
 
-    @When("test pending")
+    @Given("skipped test")
     @Pending
-    public void whenTheUserClicksCloseButtonInTheInvoiceCreatePage() {
-        // PENDING
+    public void pending() {
+        //Pending
     }
 
     @When("the user refreshes the current page")

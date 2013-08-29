@@ -54,6 +54,11 @@ public class WriteOffUserSteps {
         writeOffSteps.input(elementName, inputValue);
     }
 
+    @When("the user inputs <value> in the write off <elementName>")
+    public void whenTheUserInputsValueInTheWriteOffElementName(String value, String elementName) {
+        writeOffSteps.input(elementName, value);
+    }
+
     @When("the user inputs '$inputValue' in the write off product '$elementName' field")
     public void whenTheUserInputsTextInTheFieldOnTheWriteOffPageDuplicate(String inputValue, String elementName) {
         writeOffSteps.input(elementName, inputValue);

@@ -37,14 +37,20 @@ public class CommonActions extends PageObject {
 
     public void input(String elementName, String inputText) {
         try {
-            items.get(elementName).setValue(inputText);
+            defaultInput(elementName, inputText);
         } catch (Exception e) {
             if (isSkippableException(e, false)) {
                 input(elementName, inputText);
+            } else if (isStrangeFirefoxBehaviour(e)) {
+                defaultInput(elementName, inputText);
             } else {
                 throw e;
             }
         }
+    }
+
+    public void defaultInput(String elementName, String inputText) {
+        items.get(elementName).setValue(inputText);
     }
 
     public void type(By findBy, String inputText) {
@@ -197,19 +203,19 @@ public class CommonActions extends PageObject {
 
     public void selectByVisibleText(String label, By findBy) {
         try {
-            selectByVisibleTextByFindBy(label, findBy);
+            defaultSelectByVisibleText(label, findBy);
         } catch (Exception e) {
             if (isSkippableException(e)) {
                 selectByVisibleText(label, findBy);
-            } else if (isUnknownFirefoxException(e)) {
-                selectByVisibleTextByFindBy(label, findBy);
+            } else if (isStrangeFirefoxBehaviour(e)) {
+                defaultSelectByVisibleText(label, findBy);
             } else {
                 throw e;
             }
         }
     }
 
-    public void selectByVisibleTextByFindBy(String label, By findBy) {
+    public void defaultSelectByVisibleText(String label, By findBy) {
         WebElement element = waiter.getVisibleWebElement(findBy);
         $(element).selectByVisibleText(label);
     }
@@ -229,7 +235,7 @@ public class CommonActions extends PageObject {
         return isSkippableException(e, true);
     }
 
-    private Boolean isUnknownFirefoxException(Exception e) {
+    private Boolean isStrangeFirefoxBehaviour(Exception e) {
         String exceptionMessage = getExceptionMessage(e);
         return getCapabilities().getBrowserName().equals("firefox")
                 && exceptionMessage.contains("Timed out after");

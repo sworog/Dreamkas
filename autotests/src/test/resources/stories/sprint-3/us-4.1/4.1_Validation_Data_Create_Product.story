@@ -432,21 +432,6 @@ Then the user sees error messages
 | error message |
 | Цена не должна содержать больше 2 цифр после запятой. |
 
-
-Scenario: Create product validation - Purchase price field is required
-
-Given the user is on the product list page
-And the user logs in as 'commercialManager'
-When the user creates new product from product list page
-And the user inputs 'Unit fiels is required' in 'name' field
-And the user inputs 'IFV-01' in 'sku' field
-And the user selects 'unit' in 'unit' dropdown
-And the user selects '10' in 'vat' dropdown
-And the user clicks the create button
-Then the user sees error messages
-| error message |
-| Заполните это поле |
-
 Scenario: Create product validation - Purchase price validation sub zero
 
 Given the user is on the product list page

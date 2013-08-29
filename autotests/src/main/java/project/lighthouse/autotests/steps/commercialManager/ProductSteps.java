@@ -194,4 +194,9 @@ public class ProductSteps extends ScenarioSteps {
     public void roundingPreloaderSpinnerWait() {
         productCreatePage.roundingPreloaderSpinnerWait();
     }
+
+    @Step
+    public void checkElementIsDisabled(String elementName) {
+        productCreatePage.checkElementIsDisabled(elementName);
+    }
 }
