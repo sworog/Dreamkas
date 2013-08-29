@@ -25,7 +25,8 @@
     <tr>
         <th>Категория</th>
         <td>
-            <a href="/catalog/<%= productModel.get('subCategory').category.group.id %>/<%= productModel.get('subCategory').category.id %>" name="category">
+            <a href="/catalog/<%= productModel.get('subCategory').category.group.id %>/<%= productModel.get('subCategory').category.id %>"
+               name="category">
                 <%text productModel.get('subCategory').category.name %>
             </a>
         </td>
@@ -33,7 +34,8 @@
     <tr>
         <th>Подкатегория</th>
         <td>
-            <a href="/catalog/<%= productModel.get('subCategory').category.group.id %>/<%= productModel.get('subCategory').category.id %>/<%= productModel.get('subCategory').id %>" name="subCategory">
+            <a href="/catalog/<%= productModel.get('subCategory').category.group.id %>/<%= productModel.get('subCategory').category.id %>/<%= productModel.get('subCategory').id %>"
+               name="subCategory">
                 <%text productModel.get('subCategory').name %>
             </a>
         </td>
@@ -41,10 +43,16 @@
     <tr>
         <th>Закупочная цена</th>
         <td>
-            <span name="purchasePrice">
+            <% if(productModel.get('purchasePrice')){ %>
+                <span name="purchasePrice">
                 <%= LH.formatPrice(productModel.get('purchasePrice')) %>
-            </span>
+                </span>
             руб.
+            <% } else { %>
+                <i name="purchasePrice">
+                    отсутствует
+                </i>
+            <% } %>
         </td>
     </tr>
     <tr>
@@ -81,17 +89,18 @@
     <tr>
         <th>Диапазон наценки</th>
         <td>
-            <% if(_.isNumber(productModel.get('retailMarkupMin')) && _.isNumber(productModel.get('retailMarkupMax'))) { %>
+            <% if(_.isNumber(productModel.get('retailMarkupMin')) && _.isNumber(productModel.get('retailMarkupMax'))) {
+            %>
                 <span name="retailMarkupRange">
                     <%= LH.formatPrice(productModel.get('retailMarkupMin')) %>
                     -
                     <%= LH.formatPrice(productModel.get('retailMarkupMax')) %>
                 </span>
-                %
+            %
             <% } else { %>
-                <i name="retailMarkupRange">
-                    отсутствует
-                </i>
+            <i name="retailMarkupRange">
+                отсутствует
+            </i>
             <% } %>
         </td>
     </tr>
@@ -104,11 +113,11 @@
                     -
                     <%= LH.formatPrice(productModel.get('retailPriceMax')) %>
                 </span>
-                руб.
+            руб.
             <% } else { %>
-                <i name="retailPriceRange">
-                    отсутствует
-                </i>
+            <i name="retailPriceRange">
+                отсутствует
+            </i>
             <% } %>
         </td>
     </tr>
@@ -121,51 +130,51 @@
         </td>
     </tr>
     <% if(storeProductModel) { %>
-        <tr>
-            <th>Наценка</th>
-            <td>
-                <% if(storeProductModel.get('retailMarkup')) { %>
+    <tr>
+        <th>Наценка</th>
+        <td>
+            <% if(storeProductModel.get('retailMarkup')) { %>
                     <span name="retailMarkup">
                         <%= LH.formatPrice(storeProductModel.get('retailMarkup')) %>
                     </span>
-                    %
-                <% } else { %>
-                <i name="retailMarkup">
-                    отсутствует
-                </i>
-                <% } %>
-            </td>
-        </tr>
-        <tr>
-            <th>Цена продажи</th>
-            <td>
-                <% if(storeProductModel.get('roundedRetailPrice')) { %>
+            %
+            <% } else { %>
+            <i name="retailMarkup">
+                отсутствует
+            </i>
+            <% } %>
+        </td>
+    </tr>
+    <tr>
+        <th>Цена продажи</th>
+        <td>
+            <% if(storeProductModel.get('roundedRetailPrice')) { %>
                     <span name="retailPrice">
                         <%= LH.formatPrice(storeProductModel.get('roundedRetailPrice')) %>
                     </span>
-                    руб.
-                <% } else { %>
-                <i name="retailPrice">
-                    отсутствует
-                </i>
-                <% } %>
-            </td>
-        </tr>
-        <% if(LH.isAllow('stores/{store}/products/{product}', 'PUT')) { %>
-            <tr>
-                <td></td>
-                <td>
-                    <% if(productModel.get('retailPriceMin') && productModel.get('retailPriceMax')){ %>
-                        <a href="/stores/<%= storeProductModel.get('store').id %>/products/edit/<%= productModel.id %>">
-                            Изменить наценку/цену
-                        </a>
-                    <% } else { %>
-                        <span><%text 'Изменить наценку/цену нельзя. Нет диапазона наценки' %></span>
-                    <% } %>
+            руб.
+            <% } else { %>
+            <i name="retailPrice">
+                отсутствует
+            </i>
+            <% } %>
+        </td>
+    </tr>
+    <% if(LH.isAllow('stores/{store}/products/{product}', 'PUT')) { %>
+    <tr>
+        <td></td>
+        <td>
+            <% if(productModel.get('retailPriceMin') && productModel.get('retailPriceMax')){ %>
+            <a href="/stores/<%= storeProductModel.get('store').id %>/products/edit/<%= productModel.id %>">
+                Изменить наценку/цену
+            </a>
+            <% } else { %>
+            <span><%text 'Изменить наценку/цену нельзя. Нет диапазона наценки' %></span>
+            <% } %>
 
-                </td>
-            </tr>
-        <% } %>
+        </td>
+    </tr>
+    <% } %>
     <% } %>
 </table>
 <p name="info">
