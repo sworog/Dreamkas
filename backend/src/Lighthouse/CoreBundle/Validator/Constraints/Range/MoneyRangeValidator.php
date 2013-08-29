@@ -51,7 +51,7 @@ class MoneyRangeValidator extends RangeValidator
      */
     protected function formatValueMessage(Comparison $comparison, Range $constraint, $operator)
     {
-        return $this->transformer->transform($comparison->getMoneyValue(), $constraint->digits);
+        return $this->transformer->transform($comparison->getMoneyValue(), $constraint->precision);
     }
 
     /**
@@ -63,7 +63,7 @@ class MoneyRangeValidator extends RangeValidator
      */
     protected function formatLimitMessage($limit, Range $constraint, $operator, Comparison $comparison)
     {
-        $limitValue = $this->transformer->transform($limit, $constraint->digits);
+        $limitValue = $this->transformer->transform($limit, $constraint->precision);
         return parent::formatLimitMessage($limitValue, $constraint, $operator, $comparison);
     }
 }

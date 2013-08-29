@@ -29,8 +29,8 @@ class MoneyCompareValidator extends CompareValidator
      */
     protected function formatMessageValue($value, Constraint $constraint)
     {
-        $digits = (int) $constraint->digits;
-        $divider = pow(10, $digits);
+        $precision = (int) $constraint->precision;
+        $divider = pow(10, $precision);
 
         return $value->getCount() / $divider;
     }

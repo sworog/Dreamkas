@@ -13,7 +13,7 @@ class Money extends Constraint
      * Number of digits after dot
      * @var int
      */
-    public $digits = 2;
+    public $precision = 2;
 
     /**
      * @var int
@@ -34,7 +34,7 @@ class Money extends Constraint
      * Error message
      * @var string
      */
-    public $messageDigits = 'lighthouse.validation.errors.money.digits';
+    public $messagePrecision = 'lighthouse.validation.errors.money.precision';
 
     /**
      * Error message

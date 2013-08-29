@@ -17,5 +17,5 @@ class MoneyCompare extends Compare
     /**
      * @var int
      */
-    public $digits = 2;
+    public $precision = 2;
 }

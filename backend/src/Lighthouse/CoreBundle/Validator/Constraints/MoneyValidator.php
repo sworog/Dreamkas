@@ -26,8 +26,8 @@ class MoneyValidator extends ConstraintValidator
             return;
         }
 
-        $digits = (int) $constraint->digits;
-        $divider = pow(10, $digits);
+        $precision = (int) $constraint->precision;
+        $divider = pow(10, $precision);
 
         if ($value < 0 || ($value == 0 && $constraint->zero === false)) {
             $this->context->addViolation(
@@ -52,10 +52,10 @@ class MoneyValidator extends ConstraintValidator
 
         if ($value - floor($value) > 0) {
             $this->context->addViolation(
-                $constraint->messageDigits,
+                $constraint->messagePrecision,
                 array(
                     '{{ value }}' => $money,
-                    '{{ digits }}' => $digits
+                    '{{ precision }}' => $precision
                 )
             );
         }

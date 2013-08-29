@@ -35,11 +35,11 @@ class MoneyModelTransformerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider validTransformValueProvider
      * @param mixed $value
      * @param int $expected
-     * @param int $digits
+     * @param int $precision
      */
-    public function testTransform($value, $expected, $digits)
+    public function testTransform($value, $expected, $precision)
     {
-        $transformer = new MoneyModelTransformer($digits);
+        $transformer = new MoneyModelTransformer($precision);
         $actual = $transformer->transform($value);
         $this->assertEquals($expected, $actual);
     }
@@ -71,11 +71,11 @@ class MoneyModelTransformerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider validReverseTransformValueProvider
      * @param mixed $value
      * @param Money $expected
-     * @param int $digits
+     * @param int $precision
      */
-    public function testReverseTransform($value, $expected, $digits)
+    public function testReverseTransform($value, $expected, $precision)
     {
-        $transformer = new MoneyModelTransformer($digits);
+        $transformer = new MoneyModelTransformer($precision);
         $actual = $transformer->reverseTransform($value);
         $this->assertEquals($expected, $actual->getCount());
     }

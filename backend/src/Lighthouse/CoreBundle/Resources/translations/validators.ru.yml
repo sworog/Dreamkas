@@ -2,7 +2,7 @@ lighthouse:
     validation:
         errors:
             money:
-                digits: Цена не должна содержать больше {{ digits }} цифр после запятой.
+                precision: Цена не должна содержать больше {{ precision }} цифр после запятой.
                 negative: Цена не должна быть меньше или равна нулю.
                 max: Цена не должна быть больше {{ limit }}
                 not_blank: Заполните это поле

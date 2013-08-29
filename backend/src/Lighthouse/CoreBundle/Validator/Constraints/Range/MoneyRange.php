@@ -7,7 +7,7 @@ class MoneyRange extends Range
     /**
      * @var int
      */
-    public $digits;
+    public $precision;
 
     /**
      * @var string
