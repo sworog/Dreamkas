@@ -1,6 +1,7 @@
 Meta:
 @sprint 17
 @us 35
+@test
 
 Narrative:
 As a коммерческий директор,
@@ -26,7 +27,7 @@ Scenario: Product with no prurchase price list checking
 Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceSku' sku, 'ProductNoPriceBarCode' barcode, 'kg' units, '' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
-Then the user checks the product with 'ProductNoPriceSku' sku has 'purchasePrice' equal to 'отсутствует'
+Then the user checks the product with 'ProductNoPriceSku' sku has 'purchasePrice' equal to '—'
 
 Scenario: Product with no purchase price card checking
 
@@ -65,7 +66,7 @@ When the user inputs values in element fields
 | purchasePrice | |
 And the user clicks the create button
 Then the user sees no error messages
-And the user checks the product with 'PCWNPP1' sku has 'purchasePrice' equal to 'отсутствует'
+And the user checks the product with 'PCWNPP1' sku has 'purchasePrice' equal to '—'
 
 Scenario: Try to send form with data in retail price disabled fields
 
@@ -86,7 +87,7 @@ And the user inputs values in element fields
 | purchasePrice | |
 And the user clicks the create button
 Then the user sees no error messages
-And the user checks the product with 'PCWNPP2' sku has 'purchasePrice' equal to 'отсутствует'
+And the user checks the product with 'PCWNPP2' sku has 'purchasePrice' equal to '—'
 
 Scenario: Invoice autocomplete search for product with no purchasePrice
 
