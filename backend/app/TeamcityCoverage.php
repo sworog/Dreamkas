@@ -1,19 +1,19 @@
 <?php
 
 if (empty($_SERVER['argv'][1])) {
-    echo 'Missing argument - clover report file';
+    echo 'Missing argument - clover report file' . PHP_EOL;
     exit(1);
 }
 
 $file = $_SERVER['argv'][1];
 
 if (!is_file($file)) {
-    echo 'Invalid argument - argument should be a file.';
+    echo sprintf('Coverage file "%s" - not found', $file) . PHP_EOL;
     exit(1);
 }
 
 if (!is_readable($file)) {
-    echo 'Invalid argument - Unable to read file.';
+    echo 'Invalid argument - Unable to read file.' . PHP_EOL;
     exit(1);
 }
 
