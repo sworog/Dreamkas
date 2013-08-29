@@ -33,6 +33,9 @@ define(function(require) {
                 }
             },
             'keyup [name="purchasePrice"]': function(e) {
+
+                this.renderPriceInputs();
+
                 if (this.$retailPriceSpan.is(':hidden')) {
                     this.calculateRetailPrice();
                 }
@@ -79,14 +82,16 @@ define(function(require) {
 
                 block.$retailPriceLink = block.$retailPriceSpan.next('.productForm__inputLink');
                 block.$retailMarkupLink = block.$retailMarkupSpan.next('.productForm__inputLink');
+
+                block.$retailMarkupField = block.$('.productForm__retailMarkupField');
+                block.$retailPriceField = block.$('.productForm__retailPriceField');
             },
             render: function(){
                 var block = this;
 
                 Form.prototype.render.call(this);
 
-                block.renderRetailMarkupLink();
-                block.renderRetailPriceLink();
+                block.renderPriceInputs();
             },
             showRetailMarkupInput: function() {
                 this.$retailPriceSpan.addClass('productForm__hiddenInput');
@@ -153,6 +158,40 @@ define(function(require) {
                 this.$retailMarkupMaxInput
                     .val(calculatedMaxVal)
                     .change();
+            },
+            disablePriceInputs: function(){
+                var block = this;
+
+                block.$retailMarkupField.addClass('form__field_disabled');
+                block.$retailPriceField.addClass('form__field_disabled');
+
+                block.$retailPriceMinInput.show().prop('disabled', true);
+                block.$retailPriceMaxInput.show().prop('disabled', true);
+                block.$retailMarkupMinInput.show().prop('disabled', true);
+                block.$retailMarkupMaxInput.show().prop('disabled', true);
+            },
+            enablePriceInputs: function(){
+                var block = this;
+
+                block.$retailMarkupField.removeClass('form__field_disabled');
+                block.$retailPriceField.removeClass('form__field_disabled');
+
+                block.$retailPriceMinInput.show().prop('disabled', false);
+                block.$retailPriceMaxInput.show().prop('disabled', false);
+                block.$retailMarkupMinInput.show().prop('disabled', false);
+                block.$retailMarkupMaxInput.show().prop('disabled', false);
+            },
+            renderPriceInputs: function(){
+                var block = this;
+
+                if (!block.$purchasePriceInput.val()){
+                    block.disablePriceInputs();
+                } else {
+                    block.enablePriceInputs();
+                }
+
+                block.renderRetailMarkupLink();
+                block.renderRetailPriceLink();
             },
             renderRetailPriceLink: function() {
                 var priceMin = $.trim(this.$retailPriceMinInput.val()),

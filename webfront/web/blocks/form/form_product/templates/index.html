@@ -21,7 +21,7 @@
         <input style="width: 150px;" value="<%= model.get('purchasePrice') ? LH.formatPrice(model.get('purchasePrice')) : '' %>" class="inputText" type="text" name="purchasePrice"/>
         <span class="inputText__postfix">руб.</span>
     </div>
-    <div class="form__field form__field_inline">
+    <div class="form__field form__field_inline productForm__retailMarkupField">
         <label class="form__label">Диапазон наценки</label>
         <span name="retailMarkup" class="retailMarkup productForm__linkedInput <%text model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>">
             <input
@@ -42,8 +42,9 @@
             <span class="productForm__inputLinkText" name="retailMarkupHint"></span>
         </span>
         <span class="inputText__postfix">%</span>
+        <span class="productForm__disableHint">Введите цену закупки</span>
     </div>
-    <div class="form__field form__field_inline">
+    <div class="form__field form__field_inline productForm__retailPriceField">
         <label class="form__label">Диапазон цены продажи</label>
         <span name="retailPrice" class="retailPrice productForm__linkedInput <%= model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>">
             <input
@@ -64,6 +65,7 @@
             <span class="productForm__inputLinkText" name="retailPriceHint"></span>
         </span>
         <span class="inputText__postfix">руб.</span>
+        <span class="productForm__disableHint">Введите цену закупки</span>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label"><%text 'Округление' %></label>

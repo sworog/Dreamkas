@@ -50,3 +50,17 @@
 .productForm__rounding.preloader_spinner{
     min-height: 0;
 }
+
+.form_product .form__field_disabled *{
+    display: none;
+}
+
+.form_product .form__field_disabled .productForm__disableHint, .form_product .form__field_disabled .form__label{
+    display: inline-block;
+}
+
+.productForm__disableHint{
+    display: none;
+    font-size: 11px;
+    color: #555;
+}
