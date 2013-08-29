@@ -10,7 +10,7 @@ use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Versionable\VersionableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
+use Lighthouse\CoreBundle\Validator\Constraints\Product\RetailPrice as AssertProductRetailPrice;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use JMS\Serializer\Annotation\Exclude;
 
@@ -34,14 +34,14 @@ use JMS\Serializer\Annotation\Exclude;
  * @property string $retailPricePreference
  * @property AbstractRounding $rounding
  * @property Money  $averagePurchasePrice
- * @property \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory $subCategory
+ * @property SubCategory $subCategory
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Product\ProductRepository"
  * )
  * @MongoDB\InheritanceType("COLLECTION_PER_CLASS")
  * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
- * @LighthouseAssert\Product\RetailPrice
+ * @AssertProductRetailPrice
  */
 class Product extends AbstractDocument implements VersionableInterface
 {
@@ -86,7 +86,6 @@ class Product extends AbstractDocument implements VersionableInterface
 
     /**
      * @MongoDB\Field(type="money")
-     * @LighthouseAssert\Money(notBlank=false)
      * @var Money
      */
     protected $purchasePrice;
@@ -105,7 +104,7 @@ class Product extends AbstractDocument implements VersionableInterface
 
     /**
      * @MongoDB\String
-     * @MongoDB\UniqueIndex()
+     * @MongoDB\UniqueIndex
      * @Assert\NotBlank
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      */

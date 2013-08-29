@@ -21,12 +21,14 @@ class Money extends Constraint
     public $max = 1000000000;
 
     /**
+     * Money field should not be blank
      * @var bool
      */
     public $notBlank = false;
 
     /**
-     *
+     * Money value can be 0
+     * @var bool
      */
     public $zero = false;
 

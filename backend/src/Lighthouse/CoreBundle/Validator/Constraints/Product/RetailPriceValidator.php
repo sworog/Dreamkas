@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\Product;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Validator\Constraints\Blank;
 use Lighthouse\CoreBundle\Validator\Constraints\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\MoneyRange;
 use Lighthouse\CoreBundle\Validator\Constraints\NotBlankFields;
@@ -11,7 +12,6 @@ use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\Blank;
 use Lighthouse\CoreBundle\Validator\Constraints\ConstraintValidator;
 
 class RetailPriceValidator extends ConstraintValidator
@@ -22,9 +22,11 @@ class RetailPriceValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        $retailPriceConstraints = $this->getRetailPriceConstraints($value, $constraint);
+        $validPurchasePrice = $this->validatePurchasePrice($value, $constraint);
 
-        $retailMarkupConstraints = $this->getRetailMarkupConstraints($value, $constraint);
+        $retailPriceConstraints = $this->getRetailPriceConstraints($value, $constraint, $validPurchasePrice);
+
+        $retailMarkupConstraints = $this->getRetailMarkupConstraints($value, $constraint, $validPurchasePrice);
 
         switch ($value->retailPricePreference) {
             case $value::RETAIL_PRICE_PREFERENCE_PRICE:
@@ -92,11 +94,25 @@ class RetailPriceValidator extends ConstraintValidator
     /**
      * @param Product $value
      * @param Constraint|RetailPrice $constraint
+     * @return bool
+     */
+    protected function validatePurchasePrice(Product $value, Constraint $constraint)
+    {
+        $purchasePriceConstraints = array(
+            new Money()
+        );
+        return $this->validateValue($value->purchasePrice, $purchasePriceConstraints, 'purchasePrice');
+    }
+
+    /**
+     * @param Product $value
+     * @param Constraint|RetailPrice $constraint
+     * @param bool $isValidPurchasePrice
      * @return array|Constraint[]
      */
-    protected function getRetailPriceConstraints(Product $value, Constraint $constraint)
+    protected function getRetailPriceConstraints(Product $value, Constraint $constraint, $isValidPurchasePrice)
     {
-        if ($this->isNull($value->purchasePrice)) {
+        if ($isValidPurchasePrice && $this->isNull($value->purchasePrice)) {
             $retailPriceConstraints = array(
                 new Blank(
                     array(
@@ -125,11 +141,12 @@ class RetailPriceValidator extends ConstraintValidator
     /**
      * @param Product $value
      * @param Constraint|RetailPrice $constraint
+     * @param boolean $isValidPurchasePrice
      * @return array|Constraint[]
      */
-    protected function getRetailMarkupConstraints(Product $value, Constraint $constraint)
+    protected function getRetailMarkupConstraints(Product $value, Constraint $constraint, $isValidPurchasePrice)
     {
-        if ($this->isNull($value->purchasePrice)) {
+        if ($isValidPurchasePrice && $this->isNull($value->purchasePrice)) {
             $retailMarkupConstraints = array(
                 new Blank(
                     array(

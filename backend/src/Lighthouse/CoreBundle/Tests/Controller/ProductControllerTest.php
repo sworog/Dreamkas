@@ -104,7 +104,6 @@ class ProductControllerTest extends WebTestCase
     public function testPostProductActionOnlyOneErrorMessageOnNotBlank()
     {
         $invalidData = $this->getProductData();
-        $invalidData['purchasePrice'] = '';
         $invalidData['units'] = '';
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -116,10 +115,8 @@ class ProductControllerTest extends WebTestCase
             $invalidData
         );
 
-
         $this->assertResponseCode(400);
 
-        Assert::assertJsonPathCount(1, 'children.purchasePrice.errors.*', $response);
         Assert::assertJsonPathCount(1, 'children.units.errors.*', $response);
     }
 
@@ -575,8 +572,8 @@ class ProductControllerTest extends WebTestCase
                 201,
                 array('purchasePrice' => '10,89'),
             ),
-            'empty price' => array(
-                200,
+            'empty purchasePrice' => array(
+                201,
                 array(
                     'purchasePrice' => '',
 
@@ -1337,7 +1334,7 @@ class ProductControllerTest extends WebTestCase
                 ),
                 array(
                     'children.retailPriceMin.errors.0' => 'Цена не должна быть меньше или равна нулю.',
-                    'children.purchasePrice.errors.0' => 'Заполните это поле',
+                    'children.purchasePrice.errors.0' => null,
                 ),
             ),
             'prefer markup, empty price, invalid markup' => array(
@@ -1440,7 +1437,7 @@ class ProductControllerTest extends WebTestCase
                 ),
             ),
             // No Purchase Price
-            'no purchase price, retailPrice given' => array(
+            'no purchasePrice, retailPrice given' => array(
                 array(
                     'purchasePrice' => '',
                     'retailPriceMin' => 28.45,
@@ -1454,7 +1451,7 @@ class ProductControllerTest extends WebTestCase
                     'children.retailPriceMax.errors.1' => null,
                 ),
             ),
-            'no purchase price, retailMarkup given' => array(
+            'no purchasePrice, retailMarkup given' => array(
                 array(
                     'purchasePrice' => '',
                     'retailMarkupMin' => 28.45,
@@ -1466,6 +1463,34 @@ class ProductControllerTest extends WebTestCase
                     'children.retailMarkupMin.errors.1' => null,
                     'children.retailMarkupMax.errors.0' => 'Нельзя ввести наценку при отсутствии закупочной цены',
                     'children.retailMarkupMax.errors.1' => null,
+                ),
+            ),
+            'purchasePrice invalid, retailPrice given' => array(
+                array(
+                    'purchasePrice' => '20.123',
+                    'retailPriceMin' => 28.45,
+                    'retailPriceMax' => 34.00,
+                    'retailPricePreference' => 'retailPrice',
+                ),
+                array(
+                    'children.purchasePrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой.',
+                    'children.purchasePrice.errors.1' => null,
+                    'children.retailPriceMin.errors.0' => null,
+                    'children.retailPriceMax.errors.0' => null,
+                ),
+            ),
+            'purchasePrice invalid, retailMarkup given' => array(
+                array(
+                    'purchasePrice' => '20.123',
+                    'retailMarkupMin' => 28.45,
+                    'retailMarkupMax' => 34.00,
+                    'retailPricePreference' => 'retailMarkup',
+                ),
+                array(
+                    'children.purchasePrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой.',
+                    'children.purchasePrice.errors.1' => null,
+                    'children.retailMarkupMin.errors.0' => null,
+                    'children.retailMarkupMax.errors.0' => null,
                 ),
             )
         );
