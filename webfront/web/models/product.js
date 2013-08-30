@@ -10,9 +10,7 @@ define(function(require) {
         defaults: {
             amount: 0,
             retailPricePreference: 'retailMarkup',
-            rounding: {
-                name: 'nearest1'
-            }
+            rounding: {}
         },
         saveFields: [
             'name',
