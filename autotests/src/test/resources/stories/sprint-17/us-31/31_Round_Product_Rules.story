@@ -62,9 +62,7 @@ And the user navigates to the subCategory 'RoundingSubCategorySet', category 'Ro
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 When the user creates new product from product list page
-Then the user checks the elements values
-| elementName | value |
-| rounding | до рублей |
+Then the user checks the price roundings dropdawn default selected value is 'до рублей'
 
 Scenario: Rounding default values if rounding is default on subCategory
 
@@ -73,9 +71,7 @@ And the user navigates to the subCategory 'RoundingSubCategory', category 'Round
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 When the user creates new product from product list page
-Then the user checks the elements values
-| elementName | value |
-| rounding | до 99 копеек |
+Then the user checks the price roundings dropdawn default selected value is 'до копеек'
 
 Scenario: Regress - if mark up is not set store product price should be equal purchase price
 
