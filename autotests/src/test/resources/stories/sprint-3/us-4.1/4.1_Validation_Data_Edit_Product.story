@@ -59,8 +59,6 @@ Examples:
 | inputText | elementName |
 |  | name |
 |  | sku |
-|  | purchasePrice |
-
 
 Scenario: Edit product validation - Sku field validation good
 
