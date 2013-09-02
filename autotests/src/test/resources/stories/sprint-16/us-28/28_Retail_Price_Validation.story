@@ -7,13 +7,15 @@ Scenario: Create product retail price range validation positive
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 When the user inputs <value> in sku field
+And the user inputs values in element fields
+| elementName | value |
+| purchasePrice | 0,01 |
 And the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs values in element fields
 | elementName | value |
 | name | RP-PPV-07 |
 | unit | unit |
 | vat | 10 |
-| purchasePrice | 0,01 |
 | retailPriceMax | 10000000 |
 | retailPriceMin | 0,01 |
 And the user inputs <inputText> in <elementName> field
@@ -44,6 +46,9 @@ Scenario: Create product retail price range validation negative
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
+When the user inputs values in element fields
+| elementName | value |
+| purchasePrice | 0,01 |
 When the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs values in element fields
 | elementName | value |
@@ -51,7 +56,6 @@ And the user inputs values in element fields
 | sku | RP-PPV-06 |
 | unit | unit |
 | vat | 10 |
-| purchasePrice | 0,01 |
 | retailPriceMax | 100 |
 | retailPriceMin | 0,01 |
 And the user inputs <inputText> in <elementName> field
