@@ -51,7 +51,9 @@ define(function(require) {
             router.navigate(router.toFragment(document.location.pathname, {
                 editMode: pageParams.editMode,
                 storeId: pageParams.storeId
-            }));
+            }), {
+                replace: true
+            });
 
             page.catalogGroupModel = new СatalogGroupModel({
                 id: catalogGroupId,
