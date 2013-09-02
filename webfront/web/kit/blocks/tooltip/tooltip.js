@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
+        var Block = require('kit/core/block'),
             deepExtend = require('kit/utils/deepExtend');
 
         return Block.extend({

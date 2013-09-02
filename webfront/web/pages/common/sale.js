@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         SaleBox = require('blocks/saleBox/saleBox');
 
     return Page.extend({

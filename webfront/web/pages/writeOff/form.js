@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Form_writeOff = require('blocks/form/form_writeOff/form_writeOff'),
         WriteOffModel = require('models/writeOff');
 

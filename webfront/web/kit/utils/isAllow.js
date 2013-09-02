@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var app = require('kit/app');
+    var app = require('kit/core/app');
 
     return function(resource, method){
 

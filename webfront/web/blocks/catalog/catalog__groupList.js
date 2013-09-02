@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
+    var Block = require('kit/core/block'),
         Catalog__groupItem = require('blocks/catalog/catalog__groupItem');
 
     return Block.extend({

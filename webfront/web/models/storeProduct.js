@@ -1,6 +1,6 @@
 define(function(require) {
     // requirements
-    var Model = require('kit/model'),
+    var Model = require('kit/core/model'),
         currentUserModel = require('models/currentUser');
 
     return Model.extend({

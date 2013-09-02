@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
+        var Block = require('kit/core/block'),
             DataCollection = require('kit/blocks/table/collections/data'),
             columnsCollection = require('kit/blocks/table/collections/columns');
 

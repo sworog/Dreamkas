@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Table_writeOffs = require('blocks/table/table_writeOffs/table_writeOffs'),
         WriteOffsCollection = require('collections/writeOffs');
 

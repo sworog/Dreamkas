@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
+        var Block = require('kit/core/block'),
             Form_purchase = require('blocks/form/form_purchase/form_purchase'),
             Form_purchaseProduct = require('blocks/form/form_purchaseProduct/form_purchaseProduct');
 

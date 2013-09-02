@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         ProductModel = require('models/product'),
         SubCategoryModel = require('models/catalogSubCategory'),
         Form_product = require('blocks/form/form_product/form_product');

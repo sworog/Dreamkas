@@ -3,7 +3,7 @@
 
 
 // base path, that will be used to resolve files and exclude
-basePath = '';
+basePath = './';
 
 
 // list of files / patterns to load in the browser
@@ -25,19 +25,20 @@ exclude = ['docs/**/*.js'];
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['dots'];
+reporters = ['dots', 'coverage'];
 
-//preprocessors = {
-//    // source files, that you wanna generate coverage for
-//    // do not include tests or libraries
-//    // (these files will be instrumented by Istanbul)
-//    '**/kit/*.js': 'coverage'
-//};
-//
-//coverageReporter = {
-//    type : 'html',
-//    dir : 'coverage/'
-//};
+preprocessors = {
+    // source files, that you wanna generate coverage for
+    // do not include tests or libraries
+    // (these files will be instrumented by Istanbul),
+    'core/**/!(*.spec.js)*.js': 'coverage',
+    'utils/**/!(*.spec.js)*.js': 'coverage'
+};
+
+coverageReporter = {
+    type : 'html',
+    dir : './coverage/'
+};
 
 
 // web server port

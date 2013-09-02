@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
+        var Block = require('kit/core/block'),
             Table_departments = require('blocks/table/table_departments/table_departments'),
             Store__managers = require('blocks/store/store__managers');
 
