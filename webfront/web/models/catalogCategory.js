@@ -8,13 +8,15 @@ define(function(require) {
             initData: {
                 subCategories: require('collections/catalogSubCategories')
             },
-            saveFields: [
-                'name',
-                'group',
-                'retailMarkupMax',
-                'retailMarkupMin',
-                'rounding'
-            ],
+            saveFields: function(){
+                return {
+                    name: this.get('name'),
+                    group: this.get('group'),
+                    retailMarkupMax: this.get('retailMarkupMax'),
+                    retailMarkupMin: this.get('retailMarkupMin'),
+                    rounding: this.get('rounding').name
+                }
+            },
             initialize: function(attrs, options) {
 
                 Model.prototype.initialize.apply(this, arguments);

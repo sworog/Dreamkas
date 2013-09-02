@@ -56,13 +56,24 @@ define(function(require) {
         toJSON: function(options) {
             options = options || {};
 
-            var toJSON = Backbone.Model.prototype.toJSON;
-
             if (options.isSave) {
-                return _.pick(toJSON.apply(this, arguments), this.saveFields);
+                return this.getData();
             }
 
-            return toJSON.apply(this, arguments);
+            return Backbone.Model.prototype.toJSON.apply(this, arguments);
+        },
+        getData: function(){
+            var saveData;
+
+            if (_.isFunction(this.saveFields)){
+                saveData = this.saveFields();
+            }
+
+            if (_.isArray(this.saveFields)){
+                saveData = _.pick(this.toJSON(), this.saveFields);
+            }
+
+            return saveData;
         }
     })
 });
