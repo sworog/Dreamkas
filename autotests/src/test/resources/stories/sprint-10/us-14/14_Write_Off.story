@@ -80,8 +80,9 @@ And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs 'Retail price - WO-PCWRPF' in 'sku' field
 And the user clicks 'retailPriceHint' to make it avalaible
-When the user inputs '140' in 'retailPrice' field
-When the user clicks the create button
+When the user inputs '140' in 'retailPriceMax' field
+And the user inputs '140' in 'retailPriceMin' field
+And the user clicks the create button
 And the user logs out
 Given the user opens the write off create page
 And the user logs in as 'departmentManager'
