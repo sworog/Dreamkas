@@ -123,6 +123,7 @@ Scenario: Retail price is active by default
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
+When the user inputs '1' in 'purchasePrice' field
 Then the user checks 'retailMarkupMin' 'is' avalaible
 Then the user checks 'retailMarkupMax' 'is' avalaible
 And the user checks 'retailPriceMin' 'is not' avalaible
@@ -134,6 +135,7 @@ Scenario: Retail price hint text
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
+When the user inputs '1' in 'purchasePrice' field
 Then the user checks the elements values
 | elementName | value |
 | retailPriceHint | Введите значение |
@@ -142,7 +144,8 @@ Scenario: Retail markup hint text
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
-When the user clicks 'retailPriceHint' to make it avalaible
+When the user inputs '1' in 'purchasePrice' field
+And the user clicks 'retailPriceHint' to make it avalaible
 Then the user checks the elements values
 | elementName | value |
 | retailMarkupHint | Введите значение |
@@ -159,6 +162,7 @@ And the user sets max mark up value to '1'
 And the user clicks save mark up button
 Then the user sees success message 'Свойства успешно сохранены'
 When the user creates new product from product list page
+And the user inputs '1' in 'purchasePrice' field
 Then the user checks the elements values
 | elementName | value |
 | retailMarkupMin | 1 |
