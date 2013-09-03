@@ -1,6 +1,8 @@
 <% var isAllow = require('kit/utils/isAllow') %>
 <% var text = require ('kit/utils/text') %>
 
+<a href="/" class="navigationBar__logo"></a>
+
 <div class="navigationBar__links">
     <% if(currentUserModel.get('id')) { %>
 
@@ -50,5 +52,3 @@
     </a>
 </div>
 <% } %>
-
-<a href="/" class="navigationBar__logo"></a>

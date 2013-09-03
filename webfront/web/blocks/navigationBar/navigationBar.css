@@ -1,15 +1,14 @@
 .navigationBar{
-    border-right: 1px solid #ccc;
-    background: #ECF0F1;
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+    height: 40px;
     position: fixed;
-    width: 160px;
-    height: 100%;
+    width: 100%;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+    box-shadow: 0 0 4px #ccc;
     z-index: 100;
-    top: 0;
-    left: 0;
 }
 
 .navigationBar__userControls{
@@ -33,16 +32,8 @@
 }
 
 .navigationBar .navigationBar__logo{
-    background: url("/img/logo1.png") 0 0 no-repeat;
-    background-size: contain;
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    margin-left: -25px;
-    padding: 0;
+    background: url("/img/logo1.png") center center no-repeat;
+    background-size: auto 100%;
 }
 
 .navigationBar__userName{
