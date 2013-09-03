@@ -14,12 +14,14 @@ define(function(require) {
             initData: {
                 categories: require('collections/catalogCategories')
             },
-            saveFields: [
-                'name',
-                'retailMarkupMax',
-                'retailMarkupMin',
-                'rounding'
-            ],
+            saveFields: function(){
+                return {
+                    name: this.get('name'),
+                    retailMarkupMax: this.get('retailMarkupMax'),
+                    retailMarkupMin: this.get('retailMarkupMin'),
+                    rounding: this.get('rounding') ? this.get('rounding').name : 'nearest1'
+                }
+            },
             parse: function(response, options) {
                 var data = Model.prototype.parse.apply(this, arguments);
 
