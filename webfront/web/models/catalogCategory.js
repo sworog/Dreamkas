@@ -14,7 +14,7 @@ define(function(require) {
                     group: this.get('group'),
                     retailMarkupMax: this.get('retailMarkupMax'),
                     retailMarkupMin: this.get('retailMarkupMin'),
-                    rounding: this.get('rounding').name
+                    rounding: this.get('rounding') ? this.get('rounding').name : 'nearest1'
                 }
             },
             initialize: function(attrs, options) {

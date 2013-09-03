@@ -5,13 +5,15 @@ define(function(require) {
         return Model.extend({
             modelName: 'catalogSubCategory',
             urlRoot: LH.baseApiUrl + '/subcategories',
-            saveFields: [
-                'name',
-                'category',
-                'retailMarkupMax',
-                'retailMarkupMin',
-                'rounding'
-            ],
+            saveFields: function(){
+                return {
+                    name: this.get('name'),
+                    category: this.get('category'),
+                    retailMarkupMax: this.get('retailMarkupMax'),
+                    retailMarkupMin: this.get('retailMarkupMin'),
+                    rounding: this.get('rounding') ? this.get('rounding').name : 'nearest1'
+                }
+            },
             initialize: function(attrs, options) {
 
                 Model.prototype.initialize.apply(this, arguments);
