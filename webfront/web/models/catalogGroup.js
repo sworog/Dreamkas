@@ -19,7 +19,7 @@ define(function(require) {
                     name: this.get('name'),
                     retailMarkupMax: this.get('retailMarkupMax'),
                     retailMarkupMin: this.get('retailMarkupMin'),
-                    rounding: this.get('rounding') ? this.get('rounding').name : 'nearest1'
+                    rounding: this.get('rounding') ? this.get('rounding').name : null
                 }
             },
             parse: function(response, options) {

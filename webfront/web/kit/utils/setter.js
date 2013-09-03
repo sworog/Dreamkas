@@ -9,6 +9,7 @@ define(function(require) {
 
         extra = deepExtend({
             canceled: false,
+            silent: false,
             cancel: function() {
                 this.canceled = true;
             }
@@ -52,6 +53,8 @@ define(function(require) {
             });
         }
 
-        object.trigger('set:' + path, value);
+        if (!extra.silent && typeof object.trigger === 'function'){
+            object.trigger('set:' + path, value);
+        }
     }
 });

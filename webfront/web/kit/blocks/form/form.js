@@ -1,8 +1,7 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block');
-
-    require('backbone.syphon');
+    var Block = require('kit/block'),
+        setter = require('kit/utils/setter');
 
     var router = new Backbone.Router();
 
@@ -27,7 +26,11 @@ define(function(require) {
 
             var block = this,
                 dataArray = block.$el.serializeArray(),
-                data = _.object(_.pluck(dataArray, 'name'), _.pluck(dataArray, 'value'));
+                data = {};
+
+            _.each(dataArray, function(dataObject){
+                setter.call(data, dataObject.name, dataObject.value, {silent: true});
+            });
 
             block.$submitButton.addClass('preloader_rows');
 
