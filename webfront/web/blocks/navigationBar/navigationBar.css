@@ -31,13 +31,9 @@
     background-color: #f4f4f4;
 }
 
-.navigationBar__logo{
-    background: url("/img/logo1.png") 10px center no-repeat;
+.navigationBar .navigationBar__logo{
+    background: url("/img/logo1.png") center center no-repeat;
     background-size: auto 100%;
-    padding: 0 20px 0 50px !important;
-    font-size: 24px;
-    border-right: 1px solid #eee;
-    font-family: 'Lobster';
 }
 
 .navigationBar__userName{
