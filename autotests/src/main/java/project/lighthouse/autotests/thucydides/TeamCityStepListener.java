@@ -10,10 +10,14 @@ import net.thucydides.core.steps.StepListener;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import project.lighthouse.autotests.demo.KeyListenerThread;
 
 import java.util.*;
 
 public class TeamCityStepListener implements StepListener {
+
+    static KeyListenerThread keyListenerThread;
+    static public Boolean isPaused = false;
 
     private static final String messageTemplate = "##teamcity[%s %s]";
     private static final String propertyTemplate = " %s='%s'";
@@ -39,10 +43,16 @@ public class TeamCityStepListener implements StepListener {
 
     public TeamCityStepListener(Logger logger) {
         this.logger = logger;
+        keyListenerThreadStart();
     }
 
     public TeamCityStepListener() {
         this(LoggerFactory.getLogger(TeamCityStepListener.class));
+    }
+
+    public void keyListenerThreadStart() {
+        keyListenerThread = new KeyListenerThread();
+        keyListenerThread.start();
     }
 
     private String escapeProperty(String value) {
@@ -229,6 +239,13 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void stepStarted(ExecutedStepDescription description) {
+        keyListenerThread.setJlabelText(description.getTitle());
+        while (isPaused) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ignored) {
+            }
+        }
     }
 
     @Override
