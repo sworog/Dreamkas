@@ -3,6 +3,8 @@ define(function(require) {
     var Block = require('kit/block'),
         setter = require('kit/utils/setter');
 
+    require('backbone.syphon');
+
     var router = new Backbone.Router();
 
     return Block.extend({
