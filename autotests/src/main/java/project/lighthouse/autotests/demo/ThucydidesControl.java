@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.demo;
 
-import project.lighthouse.autotests.thucydides.TeamCityStepListener;
+import project.lighthouse.autotests.StaticData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,11 +48,11 @@ public class ThucydidesControl extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 switch (controlButton.getText()) {
                     case "Pause":
-                        TeamCityStepListener.isPaused = true;
+                        StaticData.isPaused = true;
                         controlButton.setText("Start");
                         break;
                     case "Start":
-                        TeamCityStepListener.isPaused = false;
+                        StaticData.isPaused = false;
                         controlButton.setText("Pause");
                         break;
                 }

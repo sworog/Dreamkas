@@ -14,7 +14,9 @@ public class KeyListenerThread extends Thread {
     }
 
     public void setCurrentStepText(String text) {
-        thucydidesControl.setCurrentStepText(text);
+        if (thucydidesControl != null) {
+            thucydidesControl.setCurrentStepText(text);
+        }
     }
 
     public void addStep(String text) {
@@ -22,7 +24,8 @@ public class KeyListenerThread extends Thread {
     }
 
     public void setScenarioName(String name) {
-        if (name != null && thucydidesControl != null) {
+        //for the first method call thucydidesControl is null
+        if (thucydidesControl != null) {
             thucydidesControl.setScenarioName(name);
         }
     }
