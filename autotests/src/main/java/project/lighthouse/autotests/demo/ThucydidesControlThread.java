@@ -1,11 +1,11 @@
 package project.lighthouse.autotests.demo;
 
-public class KeyListenerThread extends Thread {
+public class ThucydidesControlThread extends Thread {
 
     ThucydidesControl thucydidesControl;
 
-    public KeyListenerThread() {
-        super("KeyListenerThread");
+    public ThucydidesControlThread() {
+        super("ThucydidesControlThread");
     }
 
     @Override

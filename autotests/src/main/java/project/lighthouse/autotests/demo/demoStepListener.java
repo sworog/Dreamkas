@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class DemoStepListener implements StepListener {
 
-    KeyListenerThread keyListenerThread;
+    ThucydidesControlThread thucydidesControlThread;
 
     public DemoStepListener() {
         if (StaticData.demoMode) {
@@ -21,8 +21,8 @@ public class DemoStepListener implements StepListener {
     }
 
     public void keyListenerThreadStart() {
-        keyListenerThread = new KeyListenerThread();
-        keyListenerThread.start();
+        thucydidesControlThread = new ThucydidesControlThread();
+        thucydidesControlThread.start();
     }
 
     @Override
@@ -40,14 +40,14 @@ public class DemoStepListener implements StepListener {
     @Override
     public void testStarted(String description) {
         if (StaticData.demoMode) {
-            keyListenerThread.setScenarioName(description);
+            thucydidesControlThread.setScenarioName(description);
         }
     }
 
     @Override
     public void testFinished(TestOutcome result) {
         if (!result.isDataDriven() && StaticData.demoMode) {
-            keyListenerThread.removeScenarioSteps();
+            thucydidesControlThread.removeScenarioSteps();
         }
     }
 
@@ -58,14 +58,14 @@ public class DemoStepListener implements StepListener {
     @Override
     public void stepStarted(ExecutedStepDescription description) {
         if (StaticData.demoMode) {
-            keyListenerThread.setCurrentStepText(String.format("Current step: %s", description.getTitle()));
+            thucydidesControlThread.setCurrentStepText(String.format("Current step: %s", description.getTitle()));
             while (StaticData.isPaused) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException ignored) {
                 }
             }
-            keyListenerThread.addStep(description.getTitle());
+            thucydidesControlThread.addStep(description.getTitle());
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -125,7 +125,7 @@ public class DemoStepListener implements StepListener {
     @Override
     public void exampleFinished() {
         if (StaticData.demoMode) {
-            keyListenerThread.removeScenarioSteps();
+            thucydidesControlThread.removeScenarioSteps();
         }
     }
 
