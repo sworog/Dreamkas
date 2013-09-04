@@ -19,7 +19,7 @@ public class MarkUpTab extends CommonPageObject {
     public void createElements() {
         items.put("retailMarkupMin", new InputOnlyVisible(this, "retailMarkupMin"));
         items.put("retailMarkupMax", new InputOnlyVisible(this, "retailMarkupMax"));
-        items.put("rounding", new SelectByVisibleText(this, "rounding"));
+        items.put("rounding", new SelectByVisibleText(this, "rounding.name"));
     }
 
     public WebElement saveMarkUpButton() {
