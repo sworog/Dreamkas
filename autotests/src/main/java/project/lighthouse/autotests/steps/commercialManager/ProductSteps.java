@@ -199,4 +199,9 @@ public class ProductSteps extends ScenarioSteps {
     public void checkElementIsDisabled(String elementName) {
         productCreatePage.checkElementIsDisabled(elementName);
     }
+
+    @Step
+    public void checkDropDownDefaultValue(String expectedValue) {
+        productCreatePage.checkDropDownDefaultValue(expectedValue);
+    }
 }
