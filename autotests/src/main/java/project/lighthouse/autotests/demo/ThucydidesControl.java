@@ -3,29 +3,45 @@ package project.lighthouse.autotests.demo;
 import project.lighthouse.autotests.thucydides.TeamCityStepListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ThucydidesControl extends JFrame {
 
-    JLabel jLabel;
+    JPanel mainPanel;
+    JPanel controlPanel;
+    JPanel stepsPanel;
+    JLabel currentStep;
+    JLabel currentScenarioName;
+
+    ArrayList<JLabel> jLabelsSteps = new ArrayList<>();
 
     public ThucydidesControl() {
         initUI();
     }
 
     private void initUI() {
-        JPanel panel = new JPanel();
-        getContentPane().add(panel);
-        panel.setLayout(null);
 
-        jLabel = new JLabel();
-        jLabel.setBounds(20, 15, 500, 20);
-        jLabel.updateUI();
-        panel.add(jLabel);
+        mainPanel = new JPanel();
+        mainPanel.setOpaque(true);
+        mainPanel.setBackground(Color.WHITE);
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        final JButton controlButton = new JButton("Pause");
-        controlButton.setBounds(20, 40, 100, 50);
+        controlPanel = new JPanel();
+        controlPanel.setOpaque(true);
+        controlPanel.setBackground(Color.WHITE);
+        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.PAGE_AXIS));
+        controlPanel.setBorder(BorderFactory.createTitledBorder("Control Panel"));
+
+        currentScenarioName = new JLabel();
+        controlPanel.add(currentScenarioName, BorderLayout.PAGE_START);
+
+        currentStep = new JLabel();
+        controlPanel.add(currentStep, BorderLayout.CENTER);
+
+        final JButton controlButton = new JButton("Start");
 
         controlButton.addActionListener(new ActionListener() {
             @Override
@@ -43,20 +59,63 @@ public class ThucydidesControl extends JFrame {
             }
         });
 
-        panel.add(controlButton);
+        controlPanel.add(controlButton, BOTTOM_ALIGNMENT);
 
+        stepsPanel = new JPanel();
+        stepsPanel.setOpaque(true);
+        stepsPanel.setBackground(Color.WHITE);
+        stepsPanel.setBorder(BorderFactory.createTitledBorder("Steps"));
+        stepsPanel.setLayout(new BoxLayout(stepsPanel, BoxLayout.PAGE_AXIS));
+
+        mainPanel.add(controlPanel, BorderLayout.PAGE_START);
+        mainPanel.add(stepsPanel, BorderLayout.PAGE_END);
+        setContentPane(mainPanel);
+        pack();
         setTitle("Thucydides");
-        setSize(600, 150);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(300, 600);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
-    public void setJLabelText(String text) {
-        jLabel.setText(text);
+    public void setCurrentStepText(String text) {
+        currentStep.setText(text);
+        currentStep.updateUI();
     }
 
-    public void updateJLabelUI() {
-        jLabel.updateUI();
+    public void setScenarioName(String name) {
+        currentScenarioName.setText(
+                String.format("Scenario: %s", name));
+        currentScenarioName.updateUI();
+    }
+
+    public void addStep(String text) {
+        JLabel jLabelStep = new JLabel(text);
+
+        Font currentStepFont = new Font(jLabelStep.getFont().getName(), Font.BOLD, jLabelStep.getFont().getSize());
+        Font usualStepFont = new Font(jLabelStep.getFont().getName(), Font.PLAIN, jLabelStep.getFont().getSize());
+
+        if (jLabelsSteps.isEmpty()) {
+            jLabelStep.setFont(currentStepFont);
+        } else {
+            jLabelStep.setFont(currentStepFont);
+
+            JLabel previousStep = jLabelsSteps.get(jLabelsSteps.size() - 1);
+            previousStep.setFont(usualStepFont);
+            previousStep.updateUI();
+        }
+        stepsPanel.add(jLabelStep);
+
+        jLabelsSteps.add(jLabelStep);
+        jLabelStep.updateUI();
+    }
+
+    public void removeScenarioStepJLabels() {
+        for (JLabel jLabelStep : jLabelsSteps) {
+            Container container = jLabelStep.getParent();
+            container.remove(jLabelStep);
+            container.validate();
+            container.repaint();
+        }
+        jLabelsSteps.clear();
     }
 }

@@ -17,7 +17,7 @@ import java.util.*;
 public class TeamCityStepListener implements StepListener {
 
     static KeyListenerThread keyListenerThread;
-    static public Boolean isPaused = false;
+    static public Boolean isPaused = true;
 
     private static final String messageTemplate = "##teamcity[%s %s]";
     private static final String propertyTemplate = " %s='%s'";
@@ -104,6 +104,7 @@ public class TeamCityStepListener implements StepListener {
     @Override
     public void testStarted(String description) {
         this.description = description;
+        keyListenerThread.setScenarioName(description);
     }
 
     @Override
@@ -118,6 +119,7 @@ public class TeamCityStepListener implements StepListener {
                 printTestIgnored(result);
             }
             printTestFinished(result);
+            keyListenerThread.removeScenarioSteps();
         }
     }
 
@@ -239,12 +241,18 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void stepStarted(ExecutedStepDescription description) {
-        keyListenerThread.setJlabelText(description.getTitle());
+        keyListenerThread.setCurrentStepText(String.format("Current step: %s", description.getTitle()));
         while (isPaused) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ignored) {
             }
+        }
+        keyListenerThread.addStep(description.getTitle());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -294,6 +302,7 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void exampleFinished() {
+        keyListenerThread.removeScenarioSteps();
     }
 
     @Override

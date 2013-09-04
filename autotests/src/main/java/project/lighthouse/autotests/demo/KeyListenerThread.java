@@ -13,10 +13,23 @@ public class KeyListenerThread extends Thread {
         thucydidesControl = new ThucydidesControl();
     }
 
-    public void setJlabelText(String text) {
+    public void setCurrentStepText(String text) {
+        thucydidesControl.setCurrentStepText(text);
+    }
+
+    public void addStep(String text) {
+        thucydidesControl.addStep(text);
+    }
+
+    public void setScenarioName(String name) {
+        if (name != null && thucydidesControl != null) {
+            thucydidesControl.setScenarioName(name);
+        }
+    }
+
+    public void removeScenarioSteps() {
         if (thucydidesControl != null) {
-            thucydidesControl.setJLabelText(text);
-            thucydidesControl.updateJLabelUI();
+            thucydidesControl.removeScenarioStepJLabels();
         }
     }
 }
