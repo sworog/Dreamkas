@@ -28,7 +28,7 @@ Given there is the product with <productSku> and <rounding> in the subcategory n
 And the user navigates to the product with <productSku>
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
-Then the user checks the price rounding selected value is <value>
+Then the user checks the product rounding value is <value>
 
 Examples:
 | productSku | rounding | value |
@@ -62,7 +62,7 @@ And the user navigates to the subCategory 'RoundingSubCategorySet', category 'Ro
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 When the user creates new product from product list page
-Then the user checks the price roundings dropdawn default selected value is 'до рублей'
+Then the user checks the product price roundings dropdawn default selected value is 'до рублей'
 
 Scenario: Rounding default values if rounding is default on subCategory
 
@@ -71,7 +71,7 @@ And the user navigates to the subCategory 'RoundingSubCategory', category 'Round
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
 When the user creates new product from product list page
-Then the user checks the price roundings dropdawn default selected value is 'до копеек'
+Then the user checks the product price roundings dropdawn default selected value is 'до копеек'
 
 Scenario: Regress - if mark up is not set store product price should be equal purchase price
 
