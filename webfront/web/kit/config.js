@@ -3,7 +3,6 @@ require({
     //urlArgs: 'bust=' +  (new Date()).getTime(),
     paths: {
         'underscore': 'kit/libs/lodash/lodash',
-        'templateCompiler': 'kit/utils/template',
 
         'backbone': 'kit/libs/backbone/backbone',
         'backbone.queryparams': 'kit/libs/backbone/backbone.queryparams',
@@ -12,6 +11,8 @@ require({
         'jquery.require': 'kit/libs/jquery/jquery.require',
 
         'tpl': 'kit/utils/tpl',
+        'templateCompiler': 'kit/utils/template',
+
         'i18n': 'kit/libs/require/i18n'
     },
     packages: [
