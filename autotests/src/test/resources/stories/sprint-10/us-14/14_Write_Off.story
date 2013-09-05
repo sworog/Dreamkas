@@ -71,6 +71,7 @@ When the user inputs 'WriteOff-ProductBarCode' in the 'writeOff product barCode 
 
 Scenario: Write off price is filled by retail price
 
+Given skipped test
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
