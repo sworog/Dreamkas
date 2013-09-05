@@ -79,7 +79,7 @@ Then the user checks the elements values
 Scenario: Delete subcategory with products
 
 Given there is the subCategory with name 'productListPage' related to group named 'productListPage' and category named 'productListPage'
-And there is the product with 'PWESIDS' name, 'PWESIDS' sku, 'PWESIDS' barcode, 'kg' units, '123' purchasePrice in the subcategory named 'productListPage'
+And there is the product with 'PWESIDS' name, 'PWESIDS' sku, 'PWESIDS' barcode, 'kg' units, '123' purchasePrice of group named 'productListPage', category named 'productListPage', subcategory named 'productListPage'
 And the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
