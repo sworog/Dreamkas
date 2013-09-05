@@ -27,11 +27,12 @@ define(function(require) {
             e.preventDefault();
 
             var block = this,
-                dataArray = block.$el.serializeArray(),
-                data = {};
+                data = Backbone.Syphon.serialize(this);
 
-            _.each(dataArray, function(dataObject){
-                setter.call(data, dataObject.name, dataObject.value, {silent: true});
+
+            _.each(data, function(value, key){
+                delete data[key];
+                setter.call(data, key, value, {silent: true});
             });
 
             block.$submitButton.addClass('preloader_rows');
