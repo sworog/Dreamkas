@@ -1,1 +1,2 @@
 project.lighthouse.autotests.thucydides.TeamCityStepListener
+project.lighthouse.autotests.demo.DemoStepListener

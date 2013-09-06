@@ -8,12 +8,14 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
     private static final String BRANCH = "lighthouse.autotests.branch";
     private static final String THREADS = "lighthouse.threads";
+    private static final String DEMO_MODE = "lighthouse.demo";
 
     public AcceptanceTestSuite() {
         setImplicitlyWaitTimeOut();
         setWebDriverBaseUrl();
         setThreads();
         findStoriesByBranch();
+        setDemoMode();
     }
 
     private void setImplicitlyWaitTimeOut() {
@@ -43,5 +45,10 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     private void setThreads() {
         Integer threads = getEnvironmentVariables().getPropertyAsInteger(THREADS, 1);
         configuredEmbedder().embedderControls().useThreads(threads);
+    }
+
+    private void setDemoMode() {
+        StaticData.demoMode = getEnvironmentVariables()
+                .getPropertyAsBoolean(DEMO_MODE, false);
     }
 }
