@@ -17,6 +17,7 @@ class LighthouseCoreBundle extends Bundle
     public function __construct()
     {
         $this->registerMongoTypes();
+        $this->addStreamWrappers();
     }
 
     protected function registerMongoTypes()
@@ -46,5 +47,10 @@ class LighthouseCoreBundle extends Bundle
         /* @var CommandManager $commandManager */
         $commandManager = $this->container->get('lighthouse.core.command.manager');
         $application->addCommands($commandManager->getAll());
+    }
+
+    public function addStreamWrappers()
+    {
+        stream_wrapper_register('smb', 'Lighthouse\CoreBundle\Samba\SambaStreamWrapper');
     }
 }
