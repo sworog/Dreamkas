@@ -82,4 +82,15 @@ class ConfigController extends AbstractRestController
         $collection = new ConfigCollection($cursor);
         return $collection;
     }
+
+    /**
+     * @ApiDoc
+     * @Secure(roles="ROLE_ADMINISTRATOR")
+     */
+    public function getConfigsByNameAction()
+    {
+        $query = $this->getRequest()->get('query');
+
+        return $this->getDocumentRepository()->findOneBy(array('name' => $query));
+    }
 }

@@ -121,6 +121,8 @@ class ConfigControllerTest extends WebTestCase
             '/api/1/configs'
         );
 
+        $this->assertResponseCode(200);
+
         Assert::assertJsonPathEquals('test-config', '*.name', $response);
         Assert::assertJsonPathEquals('test-config-value', '*.value', $response);
         Assert::assertJsonPathEquals($configId, '*.id', $response);
@@ -132,5 +134,48 @@ class ConfigControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('test-config3', '*.name', $response);
         Assert::assertJsonPathEquals('test-config-value3', '*.value', $response);
         Assert::assertJsonPathEquals($configId3, '*.id', $response);
+    }
+
+    public function testGetByNameAction()
+    {
+        $this->clearMongoDb();
+
+        $configId = $this->createConfig("test-config", "test-config-value");
+        $configId2 = $this->createConfig("test-config2", "test-config-value2");
+        $configId3 = $this->createConfig("test-config3", "test-config-value3");
+
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/configs/by/name' . '?query=test-config2'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('test-config2', 'name', $response);
+        Assert::assertJsonPathEquals('test-config-value2', 'value', $response);
+        Assert::assertJsonPathEquals($configId2, 'id', $response);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/configs/by/name' . '?query=test-config'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('test-config', 'name', $response);
+        Assert::assertJsonPathEquals('test-config-value', 'value', $response);
+        Assert::assertJsonPathEquals($configId, 'id', $response);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/configs/by/name' . '?query=not-exists'
+        );
+
+        $this->assertResponseCode(204);
     }
 }
