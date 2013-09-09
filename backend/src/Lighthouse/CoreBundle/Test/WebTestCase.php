@@ -902,8 +902,6 @@ class WebTestCase extends ContainerAwareTestCase
      */
     public function createConfig($name = 'test-config', $value = 'test-config-value')
     {
-        $this->clearMongoDb();
-
         $configData = array(
             'name' => $name,
             'value' => $value,

@@ -59,7 +59,7 @@ class ConfigControllerTest extends WebTestCase
         Assert::assertJsonHasPath('id', $postResponse);
     }
 
-    public function testConfigReplace()
+    public function testConfigUnique()
     {
         $this->clearMongoDb();
 
@@ -79,11 +79,9 @@ class ConfigControllerTest extends WebTestCase
             $postData
         );
 
-        $this->assertResponseCode(200);
+        $this->assertResponseCode(400);
 
-        Assert::assertJsonPathEquals('unique', 'name', $postResponse);
-        Assert::assertJsonPathEquals('test2', 'value', $postResponse);
-        Assert::assertJsonHasPath('id', $postResponse);
+        Assert::assertJsonPathContains('Это значение уже используется.', 'children.name.errors.*', $postResponse);
     }
 
     public function testGetConfigAction()
