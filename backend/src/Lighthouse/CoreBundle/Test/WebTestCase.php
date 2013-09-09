@@ -894,4 +894,34 @@ class WebTestCase extends ContainerAwareTestCase
     {
         Assert::assertResponseCode($expectedCode, $this->client);
     }
+
+    /**
+     * @param string $name
+     * @param string $value
+     * @return mixed
+     */
+    public function createConfig($name = 'test-config', $value = 'test-config-value')
+    {
+        $configData = array(
+            'name' => $name,
+            'value' => $value,
+        );
+
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            "POST",
+            "/api/1/configs",
+            $configData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals($name, 'name', $postResponse);
+        Assert::assertJsonPathEquals($value, 'value', $postResponse);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
 }

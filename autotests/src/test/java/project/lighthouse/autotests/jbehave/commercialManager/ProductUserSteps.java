@@ -269,4 +269,10 @@ public class ProductUserSteps {
     public void thenTheUserWaitsUntillRoundingPreloaderSpinnerIsNotVisible() {
         productSteps.roundingPreloaderSpinnerWait();
     }
+
+    @Then("the user checks the product rounding value is <value>")
+    @Alias("the user checks the product price roundings dropdawn default selected value is '$value'")
+    public void thenTheUserChecksTheProductRounding(String value) {
+        productSteps.checkDropDownDefaultValue(value);
+    }
 }

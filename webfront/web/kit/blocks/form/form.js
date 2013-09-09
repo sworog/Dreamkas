@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block');
+    var Block = require('kit/block'),
+        setter = require('kit/utils/setter');
 
     require('backbone.syphon');
 
@@ -26,10 +27,13 @@ define(function(require) {
             e.preventDefault();
 
             var block = this,
-                dataArray = block.$el.serializeArray(),
-                data = _.object(_.pluck(dataArray, 'name'), _.pluck(dataArray, 'value'));
+                data = Backbone.Syphon.serialize(this);
 
-            console.log(data);
+
+            _.each(data, function(value, key){
+                delete data[key];
+                setter.call(data, key, value, {silent: true});
+            });
 
             block.$submitButton.addClass('preloader_rows');
 

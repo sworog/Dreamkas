@@ -48,7 +48,9 @@ define(function(require) {
                 storeId: pageParams.storeId
             });
 
-            router.navigate(route);
+            router.navigate(route, {
+                replace: true
+            });
 
             page.catalogGroupsCollection = new СatalogGroupsCollection([], {
                 storeId: pageParams.storeId

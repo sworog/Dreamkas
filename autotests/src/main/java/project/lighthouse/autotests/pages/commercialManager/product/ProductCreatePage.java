@@ -114,4 +114,9 @@ public class ProductCreatePage extends CommonPageObject {
     public void checkElementIsDisabled(String elementName) {
         assertNotNull("The disabled attribute is not present in the element", items.get(elementName).getWebElement().getAttribute("disabled"));
     }
+
+    public void checkDropDownDefaultValue(String expectedValue) {
+        WebElement element = items.get("rounding").getVisibleWebElement();
+        commonPage.checkDropDownDefaultValue(element, expectedValue);
+    }
 }

@@ -11,9 +11,6 @@ Meta:
 
 Scenario: SubCategory page full product create/edit
 
-Meta:
-@debug us18:1
-
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -68,12 +65,9 @@ Then the user checks the elements values
 
 Scenario: Check product is related to group/category/subcategory
 
-Meta:
-@debug us18:2
-
 Given there is the subCategory with name 'productListPage' related to group named 'productListPage' and category named 'productListPage'
 And the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
-And there is the product with 'CPIRTGCS' name, 'CPIRTGCS' sku, 'CPIRTGCS' barcode, 'kg' units, '123' purchasePrice in the subcategory named 'productListPage'
+And there is the product with 'CPIRTGCS' name, 'CPIRTGCS' sku, 'CPIRTGCS' barcode, 'kg' units, '123' purchasePrice of group named 'productListPage', category named 'productListPage', subcategory named 'productListPage'
 And the user logs in as 'commercialManager'
 When the user open the product card with 'CPIRTGCS' sku
 Then the user checks the elements values
@@ -84,11 +78,8 @@ Then the user checks the elements values
 
 Scenario: Delete subcategory with products
 
-Meta:
-@debug us18:3
-
 Given there is the subCategory with name 'productListPage' related to group named 'productListPage' and category named 'productListPage'
-And there is the product with 'PWESIDS' name, 'PWESIDS' sku, 'PWESIDS' barcode, 'kg' units, '123' purchasePrice in the subcategory named 'productListPage'
+And there is the product with 'PWESIDS' name, 'PWESIDS' sku, 'PWESIDS' barcode, 'kg' units, '123' purchasePrice of group named 'productListPage', category named 'productListPage', subcategory named 'productListPage'
 And the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -98,26 +89,6 @@ Then the user checks alert text is equal to 'Подкатегория не пу�
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
-Scenario: Product create from triangle menu
-
-!--Given there is the subCategory with name 'productListPage' related to group named 'productListPage' and category named 'productListPage'
-!--And the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
-!--And the user logs in as 'commercialManager'
-!--When the user clicks on start edition link and starts the edition
-!--And the user opens pop up menu of subCategory 'productListPage' element
-!--And the user creates new product through pop up menu
-!--And the user inputs values in element fields
-!--| elementName | value |
-!--| name | PCFTM |
-!--| vendor | PCFTM|
-!--| vendorCountry | PCFTM |
-!--| purchasePrice | 123 |
-!--| sku | PCFTM-999 |
-!--| unit | unit |
-!--| vat | 10 |
-!--And the user clicks the create button
-!--Then the user checks the product with 'PCFTM-999' sku is present
-!--
 Scenario: No products dashboard link for commercial manager
 
 Given the user opens the authorization page
@@ -142,17 +113,3 @@ Given the user opens catalog page
 And the user logs in as 'departmentManager'
 Then the user dont see the 403 error
 And the user checks the edit button is not present
-
-Scenario: Catalog - products list view by department manager
-
-!--Given there is the subCategory with name 'productListPage' related to group named 'productListPage' and category named 'productListPage'
-!--And the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
-!--And there is the product with 'CPIRTGCS' name, 'CPIRTGCS' sku, 'CPIRTGCS' barcode, 'kg' units, '123' purchasePrice in the subcategory named 'productListPage'
-!--And the user logs in as 'departmentManager'
-!--When the user open the product card with 'CPIRTGCS' sku
-!--Then the user checks the elements values
-!--| elementName | expectedValue  |
-!--| group | productListPage |
-!--| category | productListPage |
-!--| subCategory | productListPage |
-!--

@@ -60,6 +60,10 @@ lighthouse.core.rounding:
     resource: Lighthouse\CoreBundle\Controller\RoundingController
     type:     rest
 
+lighthouse.core.config:
+    resource: Lighthouse\CoreBundle\Controller\ConfigController
+    type:     rest
+
 lighthouse.core.service:
     resource: Lighthouse\CoreBundle\Controller\ServiceController
     type:     annotation
