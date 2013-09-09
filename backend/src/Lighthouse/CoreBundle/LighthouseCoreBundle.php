@@ -51,6 +51,9 @@ class LighthouseCoreBundle extends Bundle
 
     public function addStreamWrappers()
     {
-        stream_wrapper_register('smb', 'Lighthouse\CoreBundle\Samba\SambaStreamWrapper');
+        $found = false;
+        if (!in_array('smb', stream_get_wrappers())) {
+            stream_wrapper_register('smb', 'Lighthouse\CoreBundle\Samba\SambaStreamWrapper');
+        }
     }
 }
