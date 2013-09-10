@@ -4,17 +4,20 @@ define(function(require) {
         cookie = require('utils/cookie');
 
     var authorizationHeader = 'Bearer ' + cookie.get('token'),
-        configUrl = LH.baseApiUrl + '/config';
+        configUrl = LH.baseApiUrl + '/configs';
 
     return Form.extend({
         __name__: 'form_settings',
         templates: {
             index: require('tpl!blocks/form/form_settings/templates/index.html')
         },
+        set10IntegrationUrl: {},
+        set10IntegrationLogin: {},
+        set10IntegrationPassword: {},
         successMessage: 'Настройки успешно сохранены',
         onSubmit: function(data){
             var block = this,
-                saveData = $.when(block.saveUrl(data.url), block.saveLogin(data.login), block.savePassword(data.password));
+                saveData = $.when(block.saveUrl(data['set10-integration-url']), block.saveLogin(data['set10-integration-login']), block.savePassword(data['set10-integration-password']));
 
             saveData.done(function(){
                 block.onSubmitSuccess();
@@ -34,8 +37,10 @@ define(function(require) {
             return $.ajax({
                 url: configUrl,
                 dataType: 'json',
+                type: block.set10IntegrationUrl.id ? 'PUT' : 'POST',
                 data: {
-                    url: url
+                    name: 'set10-integration-url',
+                    value: url
                 },
                 headers: {
                     Authorization: authorizationHeader
@@ -48,8 +53,10 @@ define(function(require) {
             return $.ajax({
                 url: configUrl,
                 dataType: 'json',
+                type: block.set10IntegrationLogin.id ? 'PUT' : 'POST',
                 data: {
-                    login: login
+                    name: 'set10-integration-login',
+                    value: login
                 },
                 headers: {
                     Authorization: authorizationHeader
@@ -62,8 +69,10 @@ define(function(require) {
             return $.ajax({
                 url: configUrl,
                 dataType: 'json',
+                type: block.set10IntegrationPassword.id ? 'PUT' : 'POST',
                 data: {
-                    password: password
+                    name: 'set10-integration-password',
+                    value: password
                 },
                 headers: {
                     Authorization: authorizationHeader
