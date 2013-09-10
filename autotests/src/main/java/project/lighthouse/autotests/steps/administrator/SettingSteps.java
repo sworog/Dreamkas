@@ -26,6 +26,6 @@ public class SettingSteps extends ScenarioSteps {
     }
 
     public void saveSettingsButtonClick() {
-        settingsPage.getSaveSettingButtonWebElement().click();
+        settingsPage.saveSettingButtonClick();
     }
 }
