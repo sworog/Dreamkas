@@ -11,6 +11,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
+ * @property Group $group
+ *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository"
  * )

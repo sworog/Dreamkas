@@ -171,41 +171,10 @@ class ConvertToXmlForSetTen extends WebTestCase
 
         $this->assertResponseCode(200);
 
+        $converter = $this->getContainer()->get('lighthouse.core.service.convert.set10.product');
 
         $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model']);
-        $expectedXmlProduct1 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_1">
-    <shop-indices>2 3 4 5</shop-indices>
-    <name>Продукт 1</name>
-    <bar-code code="7770000000001">
-        <count>1</count>
-        <default-code>true</default-code>
-    </bar-code>
-    <product-type>ProductPieceEntity</product-type>
-    <price-entry price="70.58">
-        <begin-date>2013-01-01T00:00:00.000</begin-date>
-        <end-date>2061-05-07T23:59:59.000</end-date>
-        <number>1</number>
-        <department number="1">
-            <name>1</name>
-        </department>
-    </price-entry>
-    <vat>10.0</vat>
-    <group id="Подкатегория">
-        <name>Подкатегория</name>
-        <parent-group id="Категория">
-            <name>Категория</name>
-            <parent-group id="Группа">
-                <name>Группа</name>
-            </parent-group>
-        </parent-group>
-    </group>
-    <measure-type id="kg">
-        <name>кг</name>
-    </measure-type>
-    <delete-from-cash>false</delete-from-cash>
-    <plugin-property key="precision" value="1"/>
-</good>
+        $expectedXmlProduct11 = <<<EOF
 <good marking-of-the-good="Артикул_продукта_1">
     <shop-indices>1</shop-indices>
     <name>Продукт 1</name>
@@ -214,15 +183,10 @@ class ConvertToXmlForSetTen extends WebTestCase
         <default-code>true</default-code>
     </bar-code>
     <product-type>ProductPieceEntity</product-type>
-    <price-entry price="48.52">
-        <begin-date>2013-01-01T00:00:00.000</begin-date>
-        <end-date>2061-05-07T23:59:59.000</end-date>
+    <price-entry price="63.96">
         <number>1</number>
-        <department number="1">
-            <name>1</name>
-        </department>
     </price-entry>
-    <vat>10.0</vat>
+    <vat>10</vat>
     <group id="Подкатегория">
         <name>Подкатегория</name>
         <parent-group id="Категория">
@@ -235,36 +199,22 @@ class ConvertToXmlForSetTen extends WebTestCase
     <measure-type id="kg">
         <name>кг</name>
     </measure-type>
-    <delete-from-cash>false</delete-from-cash>
     <plugin-property key="precision" value="1"/>
 </good>
 EOF;
-        $this->assertXmlStringEqualsXmlString($expectedXmlProduct1, $xmlProduct1);
-
-
-        $xmlProduct2 = $converter->makeXmlByProduct($productsData[2]['model']);
-        $this->assertEmpty($xmlProduct2);
-
-
-        $xmlProduct3 = $converter->makeXmlByProduct($productsData[3]['model']);
-        $expectedXmlProduct3 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_3">
-    <shop-indices>1 3 4 5</shop-indices>
-    <name>Продукт 3</name>
-    <bar-code code="7770000000003">
+        $expectedXmlProduct12 = <<<EOF
+<good marking-of-the-good="Артикул_продукта_1">
+    <shop-indices>2 3</shop-indices>
+    <name>Продукт 1</name>
+    <bar-code code="7770000000001">
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
     <product-type>ProductPieceEntity</product-type>
-    <price-entry price="117.54">
-        <begin-date>2013-01-01T00:00:00.000</begin-date>
-        <end-date>2061-05-07T23:59:59.000</end-date>
+    <price-entry price="70.58">
         <number>1</number>
-        <department number="1">
-            <name>1</name>
-        </department>
     </price-entry>
-    <vat>10.0</vat>
+    <vat>10</vat>
     <group id="Подкатегория">
         <name>Подкатегория</name>
         <parent-group id="Категория">
@@ -274,12 +224,24 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
-    <measure-type id="unit">
-        <name>шт</name>
+    <measure-type id="kg">
+        <name>кг</name>
     </measure-type>
-    <delete-from-cash>false</delete-from-cash>
     <plugin-property key="precision" value="1"/>
 </good>
+EOF;
+        $expectedXmlProduct11 = simplexml_load_string($expectedXmlProduct11)->saveXML();
+        $expectedXmlProduct12 = simplexml_load_string($expectedXmlProduct12)->saveXML();
+        $this->assertXmlStringEqualsXmlString($expectedXmlProduct11, $xmlProduct1[0]);
+        $this->assertXmlStringEqualsXmlString($expectedXmlProduct12, $xmlProduct1[1]);
+
+
+        $xmlProduct2 = $converter->makeXmlByProduct($productsData[2]['model']);
+        $this->assertEmpty($xmlProduct2);
+
+
+        $xmlProduct3 = $converter->makeXmlByProduct($productsData[3]['model']);
+        $expectedXmlProduct31 = <<<EOF
 <good marking-of-the-good="Артикул_продукта_3">
     <shop-indices>2</shop-indices>
     <name>Продукт 3</name>
@@ -289,14 +251,9 @@ EOF;
     </bar-code>
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="76.93">
-        <begin-date>2013-01-01T00:00:00.000</begin-date>
-        <end-date>2061-05-07T23:59:59.000</end-date>
         <number>1</number>
-        <department number="1">
-            <name>1</name>
-        </department>
     </price-entry>
-    <vat>10.0</vat>
+    <vat>10</vat>
     <group id="Подкатегория">
         <name>Подкатегория</name>
         <parent-group id="Категория">
@@ -309,11 +266,41 @@ EOF;
     <measure-type id="unit">
         <name>шт</name>
     </measure-type>
-    <delete-from-cash>false</delete-from-cash>
     <plugin-property key="precision" value="1"/>
 </good>
 EOF;
-        $this->assertXmlStringEqualsXmlString($expectedXmlProduct3, $xmlProduct3);
+        $expectedXmlProduct32 = <<<EOF
+<good marking-of-the-good="Артикул_продукта_3">
+    <shop-indices>1 3</shop-indices>
+    <name>Продукт 3</name>
+    <bar-code code="7770000000003">
+        <count>1</count>
+        <default-code>true</default-code>
+    </bar-code>
+    <product-type>ProductPieceEntity</product-type>
+    <price-entry price="117.54">
+        <number>1</number>
+    </price-entry>
+    <vat>10</vat>
+    <group id="Подкатегория">
+        <name>Подкатегория</name>
+        <parent-group id="Категория">
+            <name>Категория</name>
+            <parent-group id="Группа">
+                <name>Группа</name>
+            </parent-group>
+        </parent-group>
+    </group>
+    <measure-type id="unit">
+        <name>шт</name>
+    </measure-type>
+    <plugin-property key="precision" value="1"/>
+</good>
+EOF;
+        $expectedXmlProduct31 = simplexml_load_string($expectedXmlProduct31)->saveXML();
+        $expectedXmlProduct32 = simplexml_load_string($expectedXmlProduct32)->saveXML();
+        $this->assertXmlStringEqualsXmlString($expectedXmlProduct31, $xmlProduct3[0]);
+        $this->assertXmlStringEqualsXmlString($expectedXmlProduct32, $xmlProduct3[1]);
 
 
         $xmlProduct4 = $converter->makeXmlByProduct($productsData[4]['model']);
@@ -323,7 +310,7 @@ EOF;
         $xmlProduct5 = $converter->makeXmlByProduct($productsData[5]['model']);
         $expectedXmlProduct5 = <<<EOF
 <good marking-of-the-good="Артикул_продукта_5">
-    <shop-indices>1 2 3 4 5</shop-indices>
+    <shop-indices>1 2 3</shop-indices>
     <name>Продукт 5</name>
     <bar-code code="7770000000005">
         <count>1</count>
@@ -331,14 +318,9 @@ EOF;
     </bar-code>
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="141.28">
-        <begin-date>2013-01-01T00:00:00.000</begin-date>
-        <end-date>2061-05-07T23:59:59.000</end-date>
         <number>1</number>
-        <department number="1">
-            <name>1</name>
-        </department>
     </price-entry>
-    <vat>10.0</vat>
+    <vat>10</vat>
     <group id="Подкатегория">
         <name>Подкатегория</name>
         <parent-group id="Категория">
@@ -351,10 +333,10 @@ EOF;
     <measure-type id="liter">
         <name>л</name>
     </measure-type>
-    <delete-from-cash>false</delete-from-cash>
     <plugin-property key="precision" value="1"/>
 </good>
 EOF;
-        $this->assertXmlStringEqualsXmlString($expectedXmlProduct5, $xmlProduct5);
+        $expectedXmlProduct5 = simplexml_load_string($expectedXmlProduct5)->saveXML();
+        $this->assertXmlStringEqualsXmlString($expectedXmlProduct5, $xmlProduct5[0]);
     }
 }
