@@ -35,7 +35,7 @@ define(function(require) {
             var block = this;
 
             return $.ajax({
-                url: configUrl,
+                url: configUrl + (block.set10IntegrationUrl.id ? '/' + block.set10IntegrationUrl.id : ''),
                 dataType: 'json',
                 type: block.set10IntegrationUrl.id ? 'PUT' : 'POST',
                 data: {
@@ -51,7 +51,7 @@ define(function(require) {
             var block = this;
 
             return $.ajax({
-                url: configUrl,
+                url: configUrl + (block.set10IntegrationLogin.id ? '/' + block.set10IntegrationLogin.id : ''),
                 dataType: 'json',
                 type: block.set10IntegrationLogin.id ? 'PUT' : 'POST',
                 data: {
@@ -67,7 +67,7 @@ define(function(require) {
             var block = this;
 
             return $.ajax({
-                url: configUrl,
+                url: configUrl + (block.set10IntegrationPassword.id ? '/' + block.set10IntegrationPassword.id : ''),
                 dataType: 'json',
                 type: block.set10IntegrationPassword.id ? 'PUT' : 'POST',
                 data: {

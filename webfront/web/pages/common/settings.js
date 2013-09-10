@@ -13,7 +13,7 @@ define(function(require) {
             '#content': require('tpl!./templates/settings.html')
         },
         permissions: {
-            //products: 'GET'
+            configs: 'GET'
         },
         initialize: function(){
             var page = this,
