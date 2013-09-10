@@ -12,7 +12,6 @@ Scenario: Saving integration settings
 Given the user opens the authorization page
 And the user logs in as 'watchman'
 When user opens the dashboard 'settings' section
-And user opens the dashboard 'settings' section
 And the user input values on the setting page
 | elementName | value |
 | set10-integration-url | set10-integration-url |
