@@ -12,6 +12,7 @@ define(function(require) {
             'sale(/)': require('pages/common/sale'),
             'balance(/)': require('pages/common/balance'),
             'jobs(/)': require('pages/common/jobs'),
+            'settings(/)': require('pages/common/settings'),
 
             //invoices
             'invoices(/)': require('pages/invoice/list'),
