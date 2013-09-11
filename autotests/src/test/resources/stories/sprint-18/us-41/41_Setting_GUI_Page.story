@@ -9,10 +9,9 @@ In order to обеспечить обмен данными между фронт
 
 Scenario: Saving integration settings
 
-Given the user opens the authorization page
+Given the user opens the settings page
 And the user logs in as 'watchman'
-When user opens the dashboard 'settings' section
-And the user input values on the setting page
+When the user input values on the setting page
 | elementName | value |
 | set10-integration-url | set10-integration-url |
 | set10-integration-login | set10-integration-login |
@@ -23,10 +22,9 @@ And the user checks the stored values on the setting page
 
 Scenario: Saving setting after refresh
 
-Given the user opens the authorization page
+Given the user opens the settings page
 And the user logs in as 'watchman'
-When user opens the dashboard 'settings' section
-And the user input values on the setting page
+When the user input values on the setting page
 | elementName | value |
 | set10-integration-url | set10-integration-url |
 | set10-integration-login | set10-integration-login |
