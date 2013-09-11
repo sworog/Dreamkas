@@ -63,12 +63,17 @@ define(function(require) {
                         block.trigger('submit:error', data);
                     },
                     complete: function(){
-                        block.$submitButton.removeClass('preloader_rows');
+                        block.onSubmitComplete();
                     }
                 });
             }
 
             block.trigger('submit', data);
+        },
+        onSubmitComplete: function(){
+            var block = this;
+
+            block.$submitButton.removeClass('preloader_rows');
         },
         onSubmitSuccess: function(model){
             var block = this;
