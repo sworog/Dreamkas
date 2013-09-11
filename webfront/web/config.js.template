@@ -1,6 +1,7 @@
 window.LH = {
     baseUrl: 'http://%api_url%',
     baseApiUrl: 'http://%api_url%/api/1',
+    exportUrl: 'http://%api_url%/export',
     mainJsFile: '/main.js',
     clientId: 'webfront_webfront',
     clientSecret: 'secret',

@@ -7,7 +7,10 @@ define(function(require) {
             Tooltip_catalogGroupForm = require('blocks/tooltip/tooltip_catalogGroupForm/tooltip_catalogGroupForm'),
             Tooltip_catalogGroupMenu = require('blocks/tooltip/tooltip_catalogGroupMenu/tooltip_catalogGroupMenu'),
             Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
-            params = require('pages/catalog/params');
+            params = require('pages/catalog/params'),
+            cookie = require('utils/cookie');
+
+        var authorizationHeader = 'Bearer ' + cookie.get('token');
 
         return Editor.extend({
             __name__: 'catalog',
@@ -20,7 +23,8 @@ define(function(require) {
                 catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
             },
             events: {
-                'click .catalog__addGroupLink': 'click .catalog__addGroupLink'
+                'click .catalog__addGroupLink': 'click .catalog__addGroupLink',
+                'click .catalog__exportLink': 'click .catalog__exportLink'
             },
             'click .catalog__addGroupLink': function(e) {
                 e.preventDefault();
@@ -33,6 +37,32 @@ define(function(require) {
                     collection: block.catalogGroupsCollection,
                     model: new CatalogGroupModel()
                 });
+            },
+            'click .catalog__exportLink': function(e) {
+                e.preventDefault();
+
+                var block = this,
+                    $target = $(e.target),
+                    exp = block.export();
+
+                if ($target.hasClass('preloader_rows')){
+                    return;
+                }
+
+                $target.addClass('preloader_rows');
+
+                exp.done(function(){
+                    alert('Выгрузка началась');
+                });
+
+                exp.fail(function(){
+                    alert('Выгрузка невозможна, обратитесь к администратору');
+                });
+
+                exp.always(function(){
+                    $target.removeClass('preloader_rows');
+                });
+
             },
             initialize: function() {
                 var block = this;
@@ -52,6 +82,16 @@ define(function(require) {
             'set:editMode': function(editMode) {
                 Editor.prototype['set:editMode'].apply(this, arguments);
                 params.editMode = editMode;
+            },
+            export: function(){
+                return $.ajax({
+                    url: LH.exportUrl,
+                    dataType: 'json',
+                    type: 'POST',
+                    headers: {
+                        Authorization: authorizationHeader
+                    }
+                })
             },
             remove: function(){
                 var block = this;

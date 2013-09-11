@@ -99,3 +99,7 @@
 .page__tabContentItem_active{
     display: block;
 }
+
+.page__controlsLink{
+    padding: 0 5px;
+}

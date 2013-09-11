@@ -1,9 +1,15 @@
-<% if (LH.isAllow('groups', 'POST')) { %>
 <div class="page__controls">
-    <a class="page__controlsLink editor__on"><%text 'Редактировать' %></a>
-    <a class="page__controlsLink editor__off"><%text 'Завершить редактирование' %></a>
+    <% if (LH.isAllow('groups', 'POST')) { %>
+    <div style="padding-bottom: 5px;">
+        <a class="page__controlsLink editor__on"><%text 'Редактировать' %></a>
+        <a class="page__controlsLink editor__off"><%text 'Завершить редактирование' %></a>
+    </div>
+    <% } %>
+    <div>
+        <a class="page__controlsLink catalog__exportLink"><%text 'Выгрузить в SetRetail' %></a>
+    </div>
 </div>
-<% } %>
+
 
 <h3>
     <span style="vertical-align: middle; margin-right: 10px;">
@@ -15,7 +21,7 @@
 </h3>
 <div id="catalog__groupList" class="catalog__groupList">
     <%== templates.catalog__groupList({
-        templates: templates,
-        catalogGroupsCollection: catalogGroupsCollection
+    templates: templates,
+    catalogGroupsCollection: catalogGroupsCollection
     }) %>
 </div>
