@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Converter;
+namespace Lighthouse\CoreBundle\Tests\Integration\Set10;
 
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;

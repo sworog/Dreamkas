@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Converter;
+namespace Lighthouse\CoreBundle\Integration\Set10;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
