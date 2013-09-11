@@ -2,8 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Integration\Set10\Set10;
+use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class ConvertToXmlForSetTen extends WebTestCase
@@ -24,11 +28,11 @@ class ConvertToXmlForSetTen extends WebTestCase
         return $this->getContainer()->get('lighthouse.core.document.repository.product');
     }
 
-    public function testConvertProductsToXml()
+    /**
+     * @return array
+     */
+    public function initBase()
     {
-        $this->clearMongoDb();
-
-        $commercialManagerAccessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $administratorAccessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
         $storeManager1User = $this->createUser('storeManager1', 'password', 'ROLE_STORE_MANAGER');
         $storeManager1AccessToken = $this->auth($storeManager1User);
@@ -170,6 +174,15 @@ class ConvertToXmlForSetTen extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+
+        return $productsData;
+    }
+
+    public function testConvertProductsToXml()
+    {
+        $this->clearMongoDb();
+
+        $productsData = $this->initBase();
 
         $converter = $this->getContainer()->get('lighthouse.core.service.convert.set10.product');
 
@@ -338,5 +351,81 @@ EOF;
 EOF;
         $expectedXmlProduct5 = simplexml_load_string($expectedXmlProduct5)->saveXML();
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct5, $xmlProduct5[0]);
+    }
+
+    public function testWriteRemoteFile()
+    {
+        $this->clearMongoDb();
+
+        $productData = $this->initBase();
+
+        $xmlFilePath = "/tmp/lighthouse_unit_test";
+        if (file_exists($xmlFilePath)) {
+            `rm -r $xmlFilePath`;
+        }
+        mkdir($xmlFilePath . "/source", 0777, true);
+        $xmlFileUrl = "file://" . $xmlFilePath;
+
+        $this->createConfig(Set10::URL_CONFIG_NAME, $xmlFileUrl);
+
+        $commercialAccessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $this->clientJsonRequest(
+            $commercialAccessToken,
+            "GET",
+            "/api/1/integration/export/products"
+        );
+
+        $this->assertResponseCode(200);
+
+        $getResponse = $this->clientJsonRequest(
+            $commercialAccessToken,
+            'GET',
+            '/api/1/jobs'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals('set10_export_products', '*.type', $getResponse);
+        Assert::assertJsonPathEquals('pending', '*.status', $getResponse);
+
+        /* @var DocumentManager $dm */
+        $dm = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
+        $dm->clear();
+
+        /* @var JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+
+        $jobManager->startWatchingTubes();
+        $job = $jobManager->reserveJob(0);
+        $jobManager->stopWatchingTubes();
+
+        $getResponse = $this->clientJsonRequest(
+            $commercialAccessToken,
+            'GET',
+            '/api/1/jobs'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals('set10_export_products', '*.type', $getResponse);
+        Assert::assertJsonPathEquals('processing', '*.status', $getResponse);
+
+        $jobManager->startWatchingTubes();
+        $jobManager->processJob($job);
+        $jobManager->stopWatchingTubes();
+
+        $getResponse = $this->clientJsonRequest(
+            $commercialAccessToken,
+            'GET',
+            '/api/1/jobs'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals('set10_export_products', '*.type', $getResponse);
+        Assert::assertJsonPathEquals('success', '*.status', $getResponse);
     }
 }

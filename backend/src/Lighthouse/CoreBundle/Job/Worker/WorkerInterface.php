@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Job\Worker;
 
-use Lighthouse\CoreBundle\Job\Job;
+use Lighthouse\CoreBundle\Document\Job\Job;
 
 interface WorkerInterface
 {
@@ -13,7 +13,7 @@ interface WorkerInterface
     public function supports(Job $job);
 
     /**
-     * @param \Lighthouse\CoreBundle\Job\Job $job
+     * @param \Lighthouse\CoreBundle\Document\Job\Job $job
      * @return mixed result of work
      */
     public function work(Job $job);

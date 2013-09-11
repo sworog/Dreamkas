@@ -120,7 +120,7 @@ services:
     lighthouse.core.job.repository:
             parent: doctrine_mongodb.odm.repository
             arguments:
-                - LighthouseCoreBundle:Product\RecalcProductPrice\RecalcProductPriceJob
+                - LighthouseCoreBundle:Job\Job
 
     lighthouse.core.document.repository.config:
             parent: doctrine_mongodb.odm.repository

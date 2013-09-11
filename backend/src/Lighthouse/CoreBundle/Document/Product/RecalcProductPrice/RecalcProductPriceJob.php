@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Product\RecalcProductPrice;
 
-use Lighthouse\CoreBundle\Job\Job;
+use Lighthouse\CoreBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
@@ -10,7 +10,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  * @property ProductVersion $productVersion
  *
  * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Job\JobRepository"
+ *      repositoryClass="Lighthouse\CoreBundle\Job\JobRepository",
+ *      collection="Jobs"
  * )
  */
 class RecalcProductPriceJob extends Job

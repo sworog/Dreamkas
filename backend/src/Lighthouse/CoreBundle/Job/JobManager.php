@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Job;
 
+use Lighthouse\CoreBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Job\Worker\WorkerManager;
 use Lighthouse\CoreBundle\Exception\Job\NotFoundJobException;
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
@@ -41,7 +42,7 @@ class JobManager
      *      "pheanstalk" = @DI\Inject("leezy.pheanstalk"),
      *      "jobRepository" = @DI\Inject("lighthouse.core.job.repository"),
      *      "workerManager" = @DI\Inject("lighthouse.core.job.worker.manager"),
-     *      "logger" = @DI\Inject("logger")
+     *      "logger" = @DI\Inject("logger"),
      * })
      * @param PheanstalkInterface $pheanstalk
      * @param JobRepository $jobRepository

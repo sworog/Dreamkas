@@ -106,7 +106,7 @@ class Set10ProductConverter
             $pluginElement->addAttribute('key', 'precision');
             $pluginElement->addAttribute('value', 1);
 
-            $xmlProducts[] = $goodElement->asXML();
+            $xmlProducts[] = str_replace('<?xml version="1.0"?>', "", $goodElement->asXML());
         }
 
         return $xmlProducts;
