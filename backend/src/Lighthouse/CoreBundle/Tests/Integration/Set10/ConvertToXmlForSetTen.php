@@ -532,4 +532,51 @@ EOF;
         $actualUrl = $worker->getUrl();
         $this->assertEquals($expectedUrl, $actualUrl);
     }
+
+    public function testWorkerValidateConfig()
+    {
+        $this->clearMongoDb();
+
+        /** @var ExportProductsWorker $worker */
+        $worker = $this->getContainer()->get("lighthouse.core.job.integration.set10.export_products");
+
+        $validateResult = $worker->validateConfig();
+        $this->assertFalse($validateResult);
+
+        $configLoginId = $this->createConfig(Set10::LOGIN_CONFIG_NAME, "user");
+        $validateResult = $worker->validateConfig();
+        $this->assertFalse($validateResult);
+
+        $configPasswordId = $this->createConfig(Set10::PASSWORD_CONFIG_NAME, "password");
+        $validateResult = $worker->validateConfig();
+        $this->assertFalse($validateResult);
+
+        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "");
+        $validateResult = $worker->validateConfig();
+        $this->assertFalse($validateResult);
+
+        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "");
+        $validateResult = $worker->validateConfig();
+        $this->assertFalse($validateResult);
+
+        $configUrlId = $this->createConfig(Set10::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+
+        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "");
+        $validateResult = $worker->validateConfig();
+        $this->assertFalse($validateResult);
+
+        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "file:///tmp/qwe");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+
+        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "user");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+
+        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "password");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+    }
 }
