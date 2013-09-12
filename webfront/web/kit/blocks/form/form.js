@@ -117,7 +117,6 @@ define(function(require) {
                 block.$controls.attr("lh_field_error", LH.text(errors.description));
             }
 
-            // TODO: Спросить не говнокод ли это? =)
             if (errors.error){
                 if (errors.error_description){
                     block.$controls.attr("lh_field_error", LH.text(errors.error_description));
