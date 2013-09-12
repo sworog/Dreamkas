@@ -160,5 +160,4 @@ class ExportProductsWorker implements WorkerInterface
     {
         return 'set10_export_products';
     }
-
 }

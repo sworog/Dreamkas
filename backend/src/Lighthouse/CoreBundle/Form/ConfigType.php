@@ -32,5 +32,4 @@ class ConfigType extends AbstractType
     {
         return '';
     }
-
 }

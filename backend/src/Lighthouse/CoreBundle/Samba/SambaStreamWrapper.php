@@ -187,4 +187,3 @@ class SambaStreamWrapper extends Samba
         }
     }
 }
- 
