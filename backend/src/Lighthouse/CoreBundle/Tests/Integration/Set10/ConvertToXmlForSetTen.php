@@ -437,5 +437,11 @@ EOF;
         Assert::assertJsonPathCount(1, '*.id', $getResponse);
         Assert::assertJsonPathEquals('set10_export_products', '*.type', $getResponse);
         Assert::assertJsonPathEquals('success', '*.status', $getResponse);
+
+        $files = glob($xmlFilePath . "/source/*");
+        $this->assertXmlFileEqualsXmlFile(
+            __DIR__ . "/../../Fixtures/Integration/Set10/ExportProducts.xml",
+            array_pop($files)
+        );
     }
 }
