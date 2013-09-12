@@ -132,6 +132,7 @@ class ExportProductsWorker implements WorkerInterface
 
     public function validateConfig()
     {
+        $this->configRepository->clear();
         $url = $this->configRepository->findOneBy(array('name' => Set10::URL_CONFIG_NAME));
         if (!$url || $url->value == '') {
             return false;
