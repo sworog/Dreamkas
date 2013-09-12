@@ -86,6 +86,11 @@ class Set10ProductConverter
                 $this->moneyModelTransformer->transform($storeProductModel->roundedRetailPrice)
             );
             $priceElement->addChild('number', 1);
+            /** Залипон, что б касса съедала цену */
+            $priceDepartmentElement = $priceElement->addChild("department");
+            $priceDepartmentElement->addAttribute("number", 1);
+            $priceDepartmentElement->addChild("name", 1);
+            /** Конец залипона */
             $goodElement->addChild('vat', $product->vat);
             $subCategoryElement = $goodElement->addChild('group');
             $subCategoryElement->addAttribute('id', $product->subCategory->name);

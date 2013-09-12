@@ -18,7 +18,7 @@ use Exception;
 class JobManager
 {
     /**
-     * @var \Lighthouse\CoreBundle\Job\Worker\WorkerManager
+     * @var WorkerManager
      */
     protected $workerManager;
 

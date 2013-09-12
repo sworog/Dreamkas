@@ -198,6 +198,9 @@ class ConvertToXmlForSetTen extends WebTestCase
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="63.96">
         <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
     </price-entry>
     <vat>10</vat>
     <group id="Подкатегория">
@@ -226,6 +229,9 @@ EOF;
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="70.58">
         <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
     </price-entry>
     <vat>10</vat>
     <group id="Подкатегория">
@@ -243,8 +249,6 @@ EOF;
     <plugin-property key="precision" value="1"/>
 </good>
 EOF;
-        $expectedXmlProduct11 = simplexml_load_string($expectedXmlProduct11)->saveXML();
-        $expectedXmlProduct12 = simplexml_load_string($expectedXmlProduct12)->saveXML();
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct11, $xmlProduct1[0]);
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct12, $xmlProduct1[1]);
 
@@ -265,6 +269,9 @@ EOF;
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="76.93">
         <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
     </price-entry>
     <vat>10</vat>
     <group id="Подкатегория">
@@ -293,6 +300,9 @@ EOF;
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="117.54">
         <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
     </price-entry>
     <vat>10</vat>
     <group id="Подкатегория">
@@ -310,8 +320,6 @@ EOF;
     <plugin-property key="precision" value="1"/>
 </good>
 EOF;
-        $expectedXmlProduct31 = simplexml_load_string($expectedXmlProduct31)->saveXML();
-        $expectedXmlProduct32 = simplexml_load_string($expectedXmlProduct32)->saveXML();
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct31, $xmlProduct3[0]);
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct32, $xmlProduct3[1]);
 
@@ -332,6 +340,9 @@ EOF;
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="141.28">
         <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
     </price-entry>
     <vat>10</vat>
     <group id="Подкатегория">
@@ -349,7 +360,6 @@ EOF;
     <plugin-property key="precision" value="1"/>
 </good>
 EOF;
-        $expectedXmlProduct5 = simplexml_load_string($expectedXmlProduct5)->saveXML();
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct5, $xmlProduct5[0]);
     }
 
