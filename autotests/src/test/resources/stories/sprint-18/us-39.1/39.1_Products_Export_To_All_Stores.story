@@ -50,6 +50,7 @@ And the user logs in as 'commercialManager'
 When the user clicks on products export link
 Given the robot waits for complete export
 And the user opens the log page
+Then the user checks the last set10 export log title is 'Выгрузка товаров в Set Retail 10'
 Then the user waits for the last set10 export log message success status
 And the user checks the last set10 export log status text is 'выполнено'
 When the robot starts the test named 'ru.crystals.setrobot.tests.lighthouse.SellKitKatShop2Test' on cashregistry with '172.16.2.166'
@@ -70,3 +71,4 @@ And there is the store with number '666' managed by 'ProductsExportStoreManager'
 And the user opens catalog page
 When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
 Then the user checks the products export link is not present
+
