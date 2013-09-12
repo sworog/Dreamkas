@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Converter;
+namespace Lighthouse\CoreBundle\Integration\Set10;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
@@ -86,6 +86,11 @@ class Set10ProductConverter
                 $this->moneyModelTransformer->transform($storeProductModel->roundedRetailPrice)
             );
             $priceElement->addChild('number', 1);
+            /** Залипон, что б касса съедала цену */
+            $priceDepartmentElement = $priceElement->addChild("department");
+            $priceDepartmentElement->addAttribute("number", 1);
+            $priceDepartmentElement->addChild("name", 1);
+            /** Конец залипона */
             $goodElement->addChild('vat', $product->vat);
             $subCategoryElement = $goodElement->addChild('group');
             $subCategoryElement->addAttribute('id', $product->subCategory->name);
@@ -106,7 +111,7 @@ class Set10ProductConverter
             $pluginElement->addAttribute('key', 'precision');
             $pluginElement->addAttribute('value', 1);
 
-            $xmlProducts[] = $goodElement->asXML();
+            $xmlProducts[] = str_replace('<?xml version="1.0"?>', "", $goodElement->asXML());
         }
 
         return $xmlProducts;

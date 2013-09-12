@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Job;
+namespace Lighthouse\CoreBundle\Document\Job;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -20,15 +20,17 @@ use DateTime;
  * @property float $duration
  *
  * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Job\JobRepository"
+ *      repositoryClass="Lighthouse\CoreBundle\Job\JobRepository",
+ *      collection="Jobs"
  * )
  * @MongoDB\InheritanceType("SINGLE_COLLECTION")
  * @MongoDB\DiscriminatorField(fieldName="type")
  * @MongoDB\DiscriminatorMap({
  *      "recalcProductPrice"="Lighthouse\CoreBundle\Document\Product\RecalcProductPrice\RecalcProductPriceJob",
+ *      "exportProductsJob"="Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob",
  * })
  */
-abstract class Job extends AbstractDocument
+class Job extends AbstractDocument
 {
     const STATUS_NEW = 'new';
     const STATUS_PENDING = 'pending';
@@ -179,7 +181,10 @@ abstract class Job extends AbstractDocument
      * @Serializer\VirtualProperty
      * @return string
      */
-    abstract public function getType();
+    public function getType()
+    {
+        return 'default';
+    }
 
     /**
      * @param PheanstalkJob $tubeJob

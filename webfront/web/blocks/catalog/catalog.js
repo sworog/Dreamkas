@@ -10,7 +10,8 @@ define(function(require) {
             params = require('pages/catalog/params'),
             cookie = require('utils/cookie');
 
-        var authorizationHeader = 'Bearer ' + cookie.get('token');
+        var authorizationHeader = 'Bearer ' + cookie.get('token'),
+            exportUrl = LH.baseApiUrl + '/integration/export/products';
 
         return Editor.extend({
             __name__: 'catalog',
@@ -85,9 +86,9 @@ define(function(require) {
             },
             export: function(){
                 return $.ajax({
-                    url: LH.exportUrl,
+                    url: exportUrl,
                     dataType: 'json',
-                    type: 'POST',
+                    type: 'GET',
                     headers: {
                         Authorization: authorizationHeader
                     }

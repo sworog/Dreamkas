@@ -1,9 +1,15 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Converter;
+namespace Lighthouse\CoreBundle\Tests\Integration\Set10;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Integration\Set10\ExportProductsWorker;
+use Lighthouse\CoreBundle\Integration\Set10\Set10;
+use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class ConvertToXmlForSetTen extends WebTestCase
@@ -24,11 +30,11 @@ class ConvertToXmlForSetTen extends WebTestCase
         return $this->getContainer()->get('lighthouse.core.document.repository.product');
     }
 
-    public function testConvertProductsToXml()
+    /**
+     * @return array
+     */
+    public function initBase()
     {
-        $this->clearMongoDb();
-
-        $commercialManagerAccessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $administratorAccessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
         $storeManager1User = $this->createUser('storeManager1', 'password', 'ROLE_STORE_MANAGER');
         $storeManager1AccessToken = $this->auth($storeManager1User);
@@ -171,6 +177,15 @@ class ConvertToXmlForSetTen extends WebTestCase
 
         $this->assertResponseCode(200);
 
+        return $productsData;
+    }
+
+    public function testConvertProductsToXml()
+    {
+        $this->clearMongoDb();
+
+        $productsData = $this->initBase();
+
         $converter = $this->getContainer()->get('lighthouse.core.service.convert.set10.product');
 
         $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model']);
@@ -185,6 +200,9 @@ class ConvertToXmlForSetTen extends WebTestCase
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="63.96">
         <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
     </price-entry>
     <vat>10</vat>
     <group id="Подкатегория">
@@ -213,6 +231,9 @@ EOF;
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="70.58">
         <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
     </price-entry>
     <vat>10</vat>
     <group id="Подкатегория">
@@ -230,8 +251,6 @@ EOF;
     <plugin-property key="precision" value="1"/>
 </good>
 EOF;
-        $expectedXmlProduct11 = simplexml_load_string($expectedXmlProduct11)->saveXML();
-        $expectedXmlProduct12 = simplexml_load_string($expectedXmlProduct12)->saveXML();
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct11, $xmlProduct1[0]);
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct12, $xmlProduct1[1]);
 
@@ -252,6 +271,9 @@ EOF;
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="76.93">
         <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
     </price-entry>
     <vat>10</vat>
     <group id="Подкатегория">
@@ -280,6 +302,9 @@ EOF;
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="117.54">
         <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
     </price-entry>
     <vat>10</vat>
     <group id="Подкатегория">
@@ -297,8 +322,6 @@ EOF;
     <plugin-property key="precision" value="1"/>
 </good>
 EOF;
-        $expectedXmlProduct31 = simplexml_load_string($expectedXmlProduct31)->saveXML();
-        $expectedXmlProduct32 = simplexml_load_string($expectedXmlProduct32)->saveXML();
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct31, $xmlProduct3[0]);
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct32, $xmlProduct3[1]);
 
@@ -319,6 +342,9 @@ EOF;
     <product-type>ProductPieceEntity</product-type>
     <price-entry price="141.28">
         <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
     </price-entry>
     <vat>10</vat>
     <group id="Подкатегория">
@@ -336,7 +362,174 @@ EOF;
     <plugin-property key="precision" value="1"/>
 </good>
 EOF;
-        $expectedXmlProduct5 = simplexml_load_string($expectedXmlProduct5)->saveXML();
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct5, $xmlProduct5[0]);
+    }
+
+    public function testWriteRemoteFile()
+    {
+        $this->clearMongoDb();
+
+        $productData = $this->initBase();
+
+        $xmlFilePath = "/tmp/lighthouse_unit_test";
+        if (file_exists($xmlFilePath)) {
+            `rm -r $xmlFilePath`;
+        }
+        mkdir($xmlFilePath . "/source", 0777, true);
+        $xmlFileUrl = "file://" . $xmlFilePath;
+
+        $this->createConfig(Set10::URL_CONFIG_NAME, $xmlFileUrl);
+
+        $commercialAccessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $this->clientJsonRequest(
+            $commercialAccessToken,
+            "GET",
+            "/api/1/integration/export/products"
+        );
+
+        $this->assertResponseCode(200);
+
+        $getResponse = $this->clientJsonRequest(
+            $commercialAccessToken,
+            'GET',
+            '/api/1/jobs'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals('set10_export_products', '*.type', $getResponse);
+        Assert::assertJsonPathEquals('pending', '*.status', $getResponse);
+
+        /* @var DocumentManager $dm */
+        $dm = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
+        $dm->clear();
+
+        /* @var JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+
+        $jobManager->startWatchingTubes();
+        $job = $jobManager->reserveJob(0);
+        $jobManager->stopWatchingTubes();
+
+        $getResponse = $this->clientJsonRequest(
+            $commercialAccessToken,
+            'GET',
+            '/api/1/jobs'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals('set10_export_products', '*.type', $getResponse);
+        Assert::assertJsonPathEquals('processing', '*.status', $getResponse);
+
+        $jobManager->startWatchingTubes();
+        $jobManager->processJob($job);
+        $jobManager->stopWatchingTubes();
+
+        $getResponse = $this->clientJsonRequest(
+            $commercialAccessToken,
+            'GET',
+            '/api/1/jobs'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals('set10_export_products', '*.type', $getResponse);
+        Assert::assertJsonPathEquals('success', '*.status', $getResponse);
+
+        $files = glob($xmlFilePath . "/source/*");
+        $this->assertXmlFileEqualsXmlFile(
+            __DIR__ . "/../../Fixtures/Integration/Set10/ExportProducts.xml",
+            array_pop($files)
+        );
+    }
+
+    public function testExportWorkerGetUrl()
+    {
+        $this->clearMongoDb();
+
+        /** @var ExportProductsWorker $worker */
+        $worker = $this->getContainer()->get("lighthouse.core.job.integration.set10.export_products");
+
+        $configUrlId = $this->createConfig(Set10::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");
+
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+
+        $expectedUrl = "smb://test:test@host/centrum/products/";
+        $actualUrl = $worker->getUrl();
+        $this->assertEquals($expectedUrl, $actualUrl);
+
+        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://host/centrum/products/");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+        $expectedUrl = "smb://host/centrum/products/";
+        $actualUrl = $worker->getUrl();
+        $this->assertEquals($expectedUrl, $actualUrl);
+
+        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://host/centrum/products/");
+        $configLoginId = $this->createConfig(Set10::LOGIN_CONFIG_NAME, "user");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+        $expectedUrl = "smb://user@host/centrum/products/";
+        $actualUrl = $worker->getUrl();
+        $this->assertEquals($expectedUrl, $actualUrl);
+
+        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "user");
+        $configPasswordId = $this->createConfig(Set10::PASSWORD_CONFIG_NAME, "password");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+        $expectedUrl = "smb://user:password@host/centrum/products/";
+        $actualUrl = $worker->getUrl();
+        $this->assertEquals($expectedUrl, $actualUrl);
+
+        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "");
+        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "password");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+        $expectedUrl = "smb://host/centrum/products/";
+        $actualUrl = $worker->getUrl();
+        $this->assertEquals($expectedUrl, $actualUrl);
+
+        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "");
+        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+        $expectedUrl = "smb://host/centrum/products/";
+        $actualUrl = $worker->getUrl();
+        $this->assertEquals($expectedUrl, $actualUrl);
+
+        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://user1:password1@host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "user");
+        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+        $expectedUrl = "smb://user@host/centrum/products/";
+        $actualUrl = $worker->getUrl();
+        $this->assertEquals($expectedUrl, $actualUrl);
+
+        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://user1:password1@host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "user");
+        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "password");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+        $expectedUrl = "smb://user:password@host/centrum/products/";
+        $actualUrl = $worker->getUrl();
+        $this->assertEquals($expectedUrl, $actualUrl);
+
+        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://user1:password1@host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "");
+        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "");
+        $validateResult = $worker->validateConfig();
+        $this->assertTrue($validateResult);
+        $expectedUrl = "smb://user1:password1@host/centrum/products/";
+        $actualUrl = $worker->getUrl();
+        $this->assertEquals($expectedUrl, $actualUrl);
     }
 }

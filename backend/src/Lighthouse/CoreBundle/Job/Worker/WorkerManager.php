@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Job\Worker;
 
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Job\Job;
+use Lighthouse\CoreBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
 

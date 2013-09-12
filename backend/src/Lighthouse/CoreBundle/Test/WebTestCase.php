@@ -924,4 +924,36 @@ class WebTestCase extends ContainerAwareTestCase
 
         return $postResponse['id'];
     }
+
+    /**
+     * @param string $name
+     * @param string $value
+     * @return mixed
+     */
+    public function updateConfig($configId, $name = 'test-config', $value = 'test-config-value')
+    {
+        $configData = array(
+            'name' => $name,
+            'value' => $value,
+        );
+
+        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            "PUT",
+            "/api/1/configs/" . $configId,
+            $configData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($name, 'name', $postResponse);
+        if ($value !== '') {
+            Assert::assertJsonPathEquals($value, 'value', $postResponse);
+        }
+        Assert::assertJsonPathEquals($configId, 'id', $postResponse);
+
+        return $postResponse['id'];
+    }
 }

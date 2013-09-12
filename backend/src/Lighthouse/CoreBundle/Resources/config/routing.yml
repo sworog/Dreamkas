@@ -64,6 +64,10 @@ lighthouse.core.config:
     resource: Lighthouse\CoreBundle\Controller\ConfigController
     type:     rest
 
+lighthouse.core.integration:
+    resource: Lighthouse\CoreBundle\Controller\IntegrationController
+    type:     rest
+
 lighthouse.core.service:
     resource: Lighthouse\CoreBundle\Controller\ServiceController
     type:     annotation
