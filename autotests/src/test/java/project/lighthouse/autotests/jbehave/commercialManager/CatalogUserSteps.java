@@ -372,4 +372,14 @@ public class CatalogUserSteps {
     public void thenTheUserChecksThePriceRoundingsDropDawnDefaultValue(String value) {
         catalogSteps.checkDropDownDefaultValue(value);
     }
+
+    @When("the user clicks on products export link")
+    public void WhenTheUserClicksOnProductExportLink() {
+        catalogSteps.productsExportLinkClick();
+    }
+
+    @Then("the user checks the products export link is not present")
+    public void thenTheUserChecksTheProductsExportLinkIsNotPresent() {
+        catalogSteps.productsExportLinkIsNotPresent();
+    }
 }

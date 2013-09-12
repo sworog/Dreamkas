@@ -294,4 +294,14 @@ public class CatalogSteps extends ScenarioSteps {
     public void checkDropDownDefaultValue(String expectedValue) {
         markUpTab.checkDropDownDefaultValue(expectedValue);
     }
+
+    @Step
+    public void productsExportLinkClick() {
+        groupPage.productsExportLinkClick();
+    }
+
+    @Step
+    public void productsExportLinkIsNotPresent() {
+        groupPage.productsExportLinkIsNotPresent();
+    }
 }

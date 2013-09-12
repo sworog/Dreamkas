@@ -189,4 +189,17 @@ public class GroupPage extends CommonPageObject {
         }
         return null;
     }
+
+    public void productsExportLinkClick() {
+        findVisibleElement(By.xpath("//*[@class='page__controlsLink catalog__exportLink']")).click();
+        commonPage.checkAlertText("Выгрузка началась");
+    }
+
+    public void productsExportLinkIsNotPresent() {
+        try {
+            productsExportLinkClick();
+            fail("The products export link is present on catalog page");
+        } catch (Exception e) {
+        }
+    }
 }

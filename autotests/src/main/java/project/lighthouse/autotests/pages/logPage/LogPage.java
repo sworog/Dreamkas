@@ -13,7 +13,8 @@ import java.util.List;
 @DefaultUrl("/jobs")
 public class LogPage extends CommonPageObject {
 
-    private static final String RECALC_PRODUCT_MESSAGE_TYPE = "recalc_product_price";
+    public static final String RECALC_PRODUCT_MESSAGE_TYPE = "recalc_product_price";
+    public static final String SET10_EXPORT_PRODUCTS_TYPE = "set10_export_products";
     public static final String SUCCESS_STATUS = "success";
 
     public LogPage(WebDriver driver) {
@@ -36,7 +37,10 @@ public class LogPage extends CommonPageObject {
             String type = logMessageWebElement.getAttribute("type");
             String status = logMessageWebElement.getAttribute("status");
             String title = logMessageWebElement.findElement(By.xpath("//*[@class='jobs__title']")).getText();
-            String product = logMessageWebElement.findElement(By.xpath("//*[@class='jobs__productName']")).getText();
+            String product = null;
+            if (isElementVisible(By.xpath("//*[@class='jobs__productName']"))) {
+                product = logMessageWebElement.findElement(By.xpath("//*[@class='jobs__productName']")).getText();
+            }
             String statusText = logMessageWebElement.findElement(By.xpath("//*[@class='jobs__status']")).getText();
             LogObject logObject = new LogObject(id, type, status, title, product, statusText);
             logMessages.add(logObject);
@@ -62,5 +66,9 @@ public class LogPage extends CommonPageObject {
 
     public LogObject getLastRecalcProductLogMessage() {
         return getLastLogMessageByType(RECALC_PRODUCT_MESSAGE_TYPE);
+    }
+
+    public LogObject getLastExportLogMessage() {
+        return getLastLogMessageByType(SET10_EXPORT_PRODUCTS_TYPE);
     }
 }

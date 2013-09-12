@@ -19,21 +19,38 @@ public class LogPageUserSteps {
     @Then("the user checks the last log product is '$productName'")
     @Alias("the user checks the last log product is <productName>")
     public void thenTheUSerChecksTheLastLogFinalMessage(String productName) {
-        logSteps.assertLastLogProduct(productName);
+        logSteps.assertLastRecalcLogProduct(productName);
     }
 
     @Then("the user checks the last log title is '$expectedTitle'")
     public void thenTheUserChecksTheLastLogTitle(String expectedTitle) {
-        logSteps.assertLastLogTitle(expectedTitle);
+        logSteps.assertLastRecalcLogTitle(expectedTitle);
     }
 
     @Then("the user checks the last log status text is '$expectedStatusText'")
     public void thenTheUserChecksTheLastLogStatusText(String expectedStatusText) {
-        logSteps.assertLastLogStatusText(expectedStatusText);
+        logSteps.assertLastRecalcLogStatusText(expectedStatusText);
     }
 
     @Then("the user waits for the last log message success status")
     public void thenTheUserWaitsForTheLastLogMessageSuccessStatus() {
-        logSteps.waitStatusForSuccess();
+        logSteps.waitLastRecalcLogMessageSuccessStatus();
+    }
+
+    //Set10 export
+
+    @Then("the user checks the last set10 export log title is '$expectedTitle'")
+    public void thenTheUserChecksTheLastSet10ExportLogTitle(String expectedTitle) {
+        logSteps.assertLastSet10ExportRecalcLogTitle(expectedTitle);
+    }
+
+    @Then("the user checks the last set10 export log status text is '$expectedStatusText'")
+    public void thenTheUserChecksTheLastSet10ExportLogStatusText(String expectedStatusText) {
+        logSteps.assertLastSet10ExportRecalcLogStatusText(expectedStatusText);
+    }
+
+    @Then("the user waits for the last set10 export log message success status")
+    public void thenTheUserWaitsForTheLastSet10ExportLogMessageSuccessStatus() {
+        logSteps.waitLastSet10ExportProductLogMessageSuccessStatus();
     }
 }

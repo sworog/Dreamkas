@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.pages.logPage.LogPage;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 
 public class LogSteps extends ScenarioSteps {
 
@@ -18,42 +19,57 @@ public class LogSteps extends ScenarioSteps {
         logPage.open();
     }
 
-    public String getLastLogStatus() {
-        return logPage.getLastRecalcProductLogMessage().getStatus();
+    public void waitLastRecalcLogMessageSuccessStatus() {
+        waitStatusForSuccess(LogPage.RECALC_PRODUCT_MESSAGE_TYPE);
     }
 
-    public String getLastLogStatusText() {
-        return logPage.getLastRecalcProductLogMessage().getStatusText();
+    public void waitLastSet10ExportProductLogMessageSuccessStatus() {
+        waitStatusForSuccess(LogPage.SET10_EXPORT_PRODUCTS_TYPE);
     }
 
-    public String getLastLogProduct() {
-        return logPage.getLastRecalcProductLogMessage().getProduct();
-    }
-
-    public String getLastLogTitle() {
-        return logPage.getLastRecalcProductLogMessage().getTitle();
-    }
-
-    public void waitStatusForSuccess() {
-        String status = getLastLogStatus();
+    public void waitStatusForSuccess(String logType) {
+        String status = getStatusByType(logType);
         int retriesCount = 0;
         while (!status.equals(LogPage.SUCCESS_STATUS) && retriesCount < 10) {
-            status = getLastLogStatus();
+            status = getStatusByType(logType);
             getDriver().navigate().refresh();
             retriesCount++;
         }
         assertEquals(LogPage.SUCCESS_STATUS, status);
     }
 
-    public void assertLastLogProduct(String expectedMessage) {
-        assertEquals(expectedMessage, getLastLogProduct());
+    public String getStatusByType(String logType) {
+        switch (logType) {
+            case LogPage.RECALC_PRODUCT_MESSAGE_TYPE:
+                return logPage.getLastRecalcProductLogMessage().getStatus();
+            case LogPage.SET10_EXPORT_PRODUCTS_TYPE:
+                return logPage.getLastExportLogMessage().getStatus();
+            default:
+                fail(
+                        String.format("No such option '%s'", logType)
+                );
+        }
+        return "";
     }
 
-    public void assertLastLogTitle(String expectedTitle) {
-        assertEquals(expectedTitle, getLastLogTitle());
+    public void assertLastRecalcLogProduct(String expectedMessage) {
+        assertEquals(expectedMessage, logPage.getLastRecalcProductLogMessage().getProduct());
     }
 
-    public void assertLastLogStatusText(String expectedStatusText) {
-        assertEquals(expectedStatusText, getLastLogStatusText());
+    public void assertLastRecalcLogTitle(String expectedTitle) {
+        assertEquals(expectedTitle, logPage.getLastRecalcProductLogMessage().getTitle());
     }
+
+    public void assertLastRecalcLogStatusText(String expectedStatusText) {
+        assertEquals(expectedStatusText, logPage.getLastRecalcProductLogMessage().getStatusText());
+    }
+
+    public void assertLastSet10ExportRecalcLogTitle(String expectedTitle) {
+        assertEquals(expectedTitle, logPage.getLastExportLogMessage().getTitle());
+    }
+
+    public void assertLastSet10ExportRecalcLogStatusText(String expectedStatusText) {
+        assertEquals(expectedStatusText, logPage.getLastExportLogMessage().getStatusText());
+    }
+
 }
