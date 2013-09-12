@@ -19,7 +19,10 @@ define(function(require) {
             var block = this,
                 saveData = $.when(block.saveUrl(data['set10-integration-url']), block.saveLogin(data['set10-integration-login']), block.savePassword(data['set10-integration-password']));
 
-            saveData.done(function(){
+            saveData.done(function(urlData, loginData, passwordData){
+                block.set10IntegrationUrl.id = urlData[0].id;
+                block.set10IntegrationLogin.id = loginData[0].id;
+                block.set10IntegrationPassword.id = passwordData[0].id;
                 block.onSubmitSuccess();
             });
 
@@ -30,6 +33,11 @@ define(function(require) {
             saveData.always(function(){
                 block.onSubmitComplete();
             });
+        },
+        onSubmitError: function(){
+            var block = this;
+
+            block.showErrors({error: 'Настройки не сохранены. Обратитесь к администратору.'})
         },
         saveUrl: function(url){
             var block = this;
