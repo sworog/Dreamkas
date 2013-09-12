@@ -87,7 +87,7 @@ define(function(require) {
                 return $.ajax({
                     url: LH.exportUrl,
                     dataType: 'json',
-                    type: 'POST',
+                    type: 'GET',
                     headers: {
                         Authorization: authorizationHeader
                     }
