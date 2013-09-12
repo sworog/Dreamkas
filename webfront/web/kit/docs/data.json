@@ -1,0 +1,69 @@
+{
+    "project": {
+        "name": "The Lighthouse API",
+        "description": "The Lighthouse API: a library for doing single page applications",
+        "version": "0.1",
+        "url": "http://example1.com/",
+        "logo": "../img/logo1.png"
+    },
+    "files": {
+        "core/model.js": {
+            "name": "core/model.js",
+            "modules": {},
+            "classes": {
+                "model": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "utils/getter.js": {
+            "name": "utils/getter.js",
+            "modules": {},
+            "classes": {
+                "getter": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "model": {
+            "name": "model",
+            "shortname": "model",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "core/model.js",
+            "line": 7,
+            "description": "Расширение <a target=\"blank\" href=\"http://backbonejs.org/#Model\">Backbone.Model</a><br />\nСодержит дополнительные свойства и методы",
+            "is_constructor": 1
+        },
+        "getter": {
+            "name": "getter",
+            "shortname": "getter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "utils/getter.js",
+            "line": 5,
+            "description": "Примесь для добавления к объекту get-методов",
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "utils/getter.js",
+            "line": 12,
+            "description": "Get-метод\n\n    var c = object.get('a.b.c');",
+            "itemtype": "method",
+            "name": "get",
+            "class": "getter"
+        }
+    ],
+    "warnings": []
+}
