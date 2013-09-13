@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Integration\Set10\ExportProductsWorker;
 use Lighthouse\CoreBundle\Integration\Set10\Set10;
+use Lighthouse\CoreBundle\Integration\Set10\Set10ProductConverter;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -141,6 +142,20 @@ class ConvertToXmlForSetTen extends WebTestCase
                 'retailPricePreference' => 'retailMarkup',
                 'subCategory' => $subCategoryData['id'],
             ),
+            6 => array(
+                'name' => 'Продукт 6',
+                'barcode' => '7770000000006',
+                'sku' => 'Артикул_продукта_6',
+                'vat' => '10',
+                'units' => 'liter',
+                'vendor' => 'Пончик',
+                'vendorCountry' => 'Израиль',
+                'purchasePrice' => '88.3',
+                'retailMarkupMin' => '0',
+                'retailMarkupMax' => '60',
+                'retailPricePreference' => 'retailMarkup',
+                'subCategory' => $subCategoryData['id'],
+            ),
         );
 
         $productRepository = $this->getProductRepository();
@@ -186,6 +201,7 @@ class ConvertToXmlForSetTen extends WebTestCase
 
         $productsData = $this->initBase();
 
+        /** @var Set10ProductConverter $converter */
         $converter = $this->getContainer()->get('lighthouse.core.service.convert.set10.product');
 
         $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model']);
@@ -363,6 +379,42 @@ EOF;
 </good>
 EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct5, $xmlProduct5[0]);
+
+
+        $xmlProduct6 = $converter->makeXmlByProduct($productsData[6]['model']);
+        $expectedXmlProduct6 = <<<EOF
+<good marking-of-the-good="Артикул_продукта_6">
+    <shop-indices>1 2 3</shop-indices>
+    <name>Продукт 6</name>
+    <bar-code code="7770000000006">
+        <count>1</count>
+        <default-code>true</default-code>
+    </bar-code>
+    <product-type>ProductPieceEntity</product-type>
+    <price-entry price="141.28">
+        <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
+    </price-entry>
+    <vat>10</vat>
+    <group id="Подкатегория">
+        <name>Подкатегория</name>
+        <parent-group id="Категория">
+            <name>Категория</name>
+            <parent-group id="Группа">
+                <name>Группа</name>
+            </parent-group>
+        </parent-group>
+    </group>
+    <measure-type id="liter">
+        <name>л</name>
+    </measure-type>
+    <plugin-property key="precision" value="1"/>
+</good>
+EOF;
+        $this->assertXmlStringEqualsXmlString($expectedXmlProduct6, $xmlProduct6[0]);
+
     }
 
     public function testWriteRemoteFile()

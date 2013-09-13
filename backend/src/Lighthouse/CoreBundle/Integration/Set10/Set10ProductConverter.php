@@ -125,13 +125,13 @@ class Set10ProductConverter
 
         switch ($product->retailPricePreference) {
             case $product::RETAIL_PRICE_PREFERENCE_MARKUP:
-                if ($product->retailMarkupMin == null || $product->retailMarkupMax == null) {
+                if ($product->retailMarkupMin === null || $product->retailMarkupMax === null) {
                     return false;
                 }
                 break;
 
             case $product::RETAIL_PRICE_PREFERENCE_PRICE:
-                if ($product->retailPriceMin == null || $product->retailPriceMax == null) {
+                if ($product->retailPriceMin === null || $product->retailPriceMax === null) {
                     return false;
                 }
                 break;
