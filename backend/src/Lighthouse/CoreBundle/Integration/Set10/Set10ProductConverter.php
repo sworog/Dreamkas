@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -119,7 +120,9 @@ class Set10ProductConverter
 
     protected function validateProduct(Product $product)
     {
-        if ($product->purchasePrice === null || $product->purchasePrice === "") {
+        if ($product->purchasePrice === null
+            || ($product->purchasePrice instanceof Money && $product->purchasePrice->getCount() === "")
+        ) {
             return false;
         }
 
@@ -129,6 +132,8 @@ class Set10ProductConverter
                     || $product->retailMarkupMax === null
                     || $product->retailMarkupMin === ""
                     || $product->retailMarkupMax === ""
+                    || ($product->retailMarkupMin instanceof Money && $product->retailMarkupMin->getCount() === "")
+                    || ($product->retailMarkupMax instanceof Money && $product->retailMarkupMax->getCount() === "")
                 ) {
                     return false;
                 }
@@ -139,6 +144,8 @@ class Set10ProductConverter
                     || $product->retailPriceMax === null
                     || $product->retailPriceMin === ""
                     || $product->retailPriceMax === ""
+                    || ($product->retailPriceMin instanceof Money && $product->retailPriceMin->getCount() === "")
+                    || ($product->retailPriceMax instanceof Money && $product->retailPriceMax->getCount() === "")
                 ) {
                     return false;
                 }

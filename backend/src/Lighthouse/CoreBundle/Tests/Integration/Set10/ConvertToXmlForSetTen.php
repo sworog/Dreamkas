@@ -126,6 +126,10 @@ class ConvertToXmlForSetTen extends WebTestCase
                 'units' => 'kg',
                 'vendor' => 'Гадило',
                 'vendorCountry' => 'Россия',
+                'purchasePrice' => '',
+                'retailPriceMin' => '',
+                'retailPriceMax' => '',
+                'retailPricePreference' => 'retailPrice',
                 'subCategory' => $subCategoryData['id'],
             ),
             5 => array(
