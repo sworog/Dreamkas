@@ -119,19 +119,27 @@ class Set10ProductConverter
 
     protected function validateProduct(Product $product)
     {
-        if ($product->purchasePrice == null) {
+        if ($product->purchasePrice === null || $product->purchasePrice === "") {
             return false;
         }
 
         switch ($product->retailPricePreference) {
             case $product::RETAIL_PRICE_PREFERENCE_MARKUP:
-                if ($product->retailMarkupMin === null || $product->retailMarkupMax === null) {
+                if ($product->retailMarkupMin === null
+                    || $product->retailMarkupMax === null
+                    || $product->retailMarkupMin === ""
+                    || $product->retailMarkupMax === ""
+                ) {
                     return false;
                 }
                 break;
 
             case $product::RETAIL_PRICE_PREFERENCE_PRICE:
-                if ($product->retailPriceMin === null || $product->retailPriceMax === null) {
+                if ($product->retailPriceMin === null
+                    || $product->retailPriceMax === null
+                    || $product->retailPriceMin === ""
+                    || $product->retailPriceMax === ""
+                ) {
                     return false;
                 }
                 break;
