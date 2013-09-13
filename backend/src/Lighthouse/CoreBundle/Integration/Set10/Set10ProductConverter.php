@@ -121,7 +121,7 @@ class Set10ProductConverter
     protected function validateProduct(Product $product)
     {
         if ($product->purchasePrice === null
-            || ($product->purchasePrice instanceof Money && $product->purchasePrice->getCount() === "")
+            || ($product->purchasePrice instanceof Money && $product->purchasePrice->isNull())
         ) {
             return false;
         }
@@ -132,8 +132,8 @@ class Set10ProductConverter
                     || $product->retailMarkupMax === null
                     || $product->retailMarkupMin === ""
                     || $product->retailMarkupMax === ""
-                    || ($product->retailMarkupMin instanceof Money && $product->retailMarkupMin->getCount() === "")
-                    || ($product->retailMarkupMax instanceof Money && $product->retailMarkupMax->getCount() === "")
+                    || ($product->retailMarkupMin instanceof Money && $product->retailMarkupMin->isNull())
+                    || ($product->retailMarkupMax instanceof Money && $product->retailMarkupMax->isNull())
                 ) {
                     return false;
                 }
@@ -144,8 +144,8 @@ class Set10ProductConverter
                     || $product->retailPriceMax === null
                     || $product->retailPriceMin === ""
                     || $product->retailPriceMax === ""
-                    || ($product->retailPriceMin instanceof Money && $product->retailPriceMin->getCount() === "")
-                    || ($product->retailPriceMax instanceof Money && $product->retailPriceMax->getCount() === "")
+                    || ($product->retailPriceMin instanceof Money && $product->retailPriceMin->isNull())
+                    || ($product->retailPriceMax instanceof Money && $product->retailPriceMax->isNull())
                 ) {
                     return false;
                 }
