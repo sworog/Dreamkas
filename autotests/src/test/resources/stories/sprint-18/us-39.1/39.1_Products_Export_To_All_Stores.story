@@ -36,7 +36,7 @@ Then the user sees no error messages
 And the user checks the 'retailPrice' value is '24,20'
 When the user logs out
 Given the user navigates to the product with sku 'Кит-Кат-343424'
-When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
+When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
 And the user inputs '24,55' in 'retailPrice' field
@@ -44,7 +44,8 @@ And the user clicks the create button
 Then the user sees no error messages
 And the user checks the 'retailPrice' value is '24,55'
 When the user logs out
-Given the robot prepares products data
+Given the user cleans the cash db by '172.16.2.166' ip
+And the user cleans the cash db by '172.16.1.165' ip
 And the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on products export link
