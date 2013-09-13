@@ -1,9 +1,8 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('kit/utils/deepExtend');
+    var deepExtend = require('./deepExtend.js');
 
-    return {
-        set: function(path, value, extra) {
+    return function(path, value, extra) {
             var object = this,
                 keyPath = this,
                 setValue;
@@ -55,5 +54,4 @@ define(function(require) {
 
             object.trigger('set:' + path, value);
         }
-    }
 });
