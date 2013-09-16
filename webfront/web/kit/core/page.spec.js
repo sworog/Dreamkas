@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page');
+    var Page = require('./page.js');
 
     var TestPage = Page.extend({
         __name__: 'page_test',

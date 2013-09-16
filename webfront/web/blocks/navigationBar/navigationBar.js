@@ -9,7 +9,7 @@ define(function(require) {
         currentUserModel: currentUserModel,
         userPermissions: null,
         templates: {
-            index: require('tpl!blocks/navigationBar/templates/index.html')
+            index: require('tpl!./navigationBar.html')
         },
         events: {
             'click .navigationBar__logoutLink': function(e) {

@@ -4,8 +4,8 @@ define(function(require) {
         setter = require('../mixins/setter.js'),
         getter = require('../mixins/getter.js'),
         Backbone = require('backbone'),
-        cookie = require('kit/utils/cookie'),
-        req = require('kit/utils/require');
+        cookie = require('../utils/cookie.js'),
+        req = require('../utils/require.js');
 
     return _.extend({
             permissions: {},

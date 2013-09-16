@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/core/block'),
-            deepExtend = require('kit/utils/deepExtend');
+        var Block = require('../../core/block.js'),
+            deepExtend = require('../../utils/deepExtend.js');
 
         return Block.extend({
             __name__: 'tooltip',

@@ -2,8 +2,8 @@ define(function(require) {
     //requirements
     var Backbone = require('backbone'),
         _ = require('underscore'),
-        deepExtend = require('kit/utils/deepExtend'),
-        classExtend = require('kit/utils/classExtend'),
+        deepExtend = require('../utils/deepExtend.js'),
+        classExtend = require('../utils/classExtend.js'),
         setter = require('../mixins/setter.js'),
         getter = require('../mixins/getter.js');
 

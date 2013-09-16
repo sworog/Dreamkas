@@ -1,9 +1,9 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/core/block'),
+    var Block = require('./block.js'),
         Backbone = require('backbone'),
-        Router = require('kit/core/router'),
-        isAllow = require('kit/utils/isAllow'),
+        Router = require('./router.js'),
+        isAllow = require('../utils/isAllow.js'),
         _ = require('underscore');
 
     var router = new Router();

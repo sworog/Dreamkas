@@ -1,8 +1,8 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/core/block'),
-            DataCollection = require('kit/blocks/table/collections/data'),
-            columnsCollection = require('kit/blocks/table/collections/columns');
+        var Block = require('../../core/block.js'),
+            DataCollection = require('./collections/data.js'),
+            columnsCollection = require('./collections/columns.js');
 
         return Block.extend({
             __name__: 'table',

@@ -50,23 +50,17 @@
     vertical-align: middle;
 }
 
-.page__contentWrapper{
-    text-align: center;
-    height: 100%;
-}
-
 .page__content {
     min-width: 1000px;
-    margin: 0 auto;
+    margin-left: 200px;
     text-align: left;
     min-height: 100%;
-    padding: 60px 20px 20px;
+    padding: 60px;
     position: relative;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     display: inline-block;
-    text-align: left;
 }
 
 .page__tabs{

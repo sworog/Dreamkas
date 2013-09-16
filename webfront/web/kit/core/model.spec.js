@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/core/model');
+    var Model = require('./model.js');
 
     var attrs = {
         string: 'test',

@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var InputDate = require('kit/blocks/inputDate/inputDate');
+        var InputDate = require('../inputDate/inputDate.js');
 
         return InputDate.extend({
             __name__: 'inputDate_noTime',
