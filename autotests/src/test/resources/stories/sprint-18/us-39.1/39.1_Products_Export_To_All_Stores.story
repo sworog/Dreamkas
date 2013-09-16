@@ -54,6 +54,8 @@ And the user opens the log page
 Then the user checks the last set10 export log title is 'Выгрузка товаров в Set Retail 10'
 Then the user waits for the last set10 export log message success status
 And the user checks the last set10 export log status text is 'выполнено'
+Given the user waits until cash registry by '172.16.2.166' products db has not empty rows
+And the user waits until cash registry by '172.16.1.165' products db has not empty rows
 When the robot starts the test named 'ru.crystals.setrobot.tests.lighthouse.SellKitKatShop2Test' on cashregistry with '172.16.2.166'
 Then the robot waits for the test success status
 When the robot starts the test named 'ru.crystals.setrobot.tests.lighthouse.SellKitKatShop1Test' on cashregistry with '172.16.1.165'
