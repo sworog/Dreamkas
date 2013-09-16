@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block');
+        var Block = require('kit/core/block');
 
         return Block.extend({
             __name__: 'select',
@@ -9,7 +9,6 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                Block.prototype.initialize.call(block);
                 block.$el.val(block.$el.attr('value'));
             }
         });

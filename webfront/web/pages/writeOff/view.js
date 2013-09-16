@@ -1,12 +1,12 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         WriteOff = require('blocks/writeOff/writeOff'),
         WriteOffModel = require('models/writeOff'),
         WriteOffProductsCollection = require('collections/writeOffProducts');
 
     return Page.extend({
-        pageName: 'page_writeOff_view',
+        __name__: 'page_writeOff_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },

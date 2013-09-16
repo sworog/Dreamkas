@@ -1,16 +1,16 @@
 <div class="form__field form__field_inline">
     <label class="form__label"><%text 'Минимальная наценка' %></label>
-    <input value="<%= model.get('retailMarkupMin') %>" class="inputText" type="text" name="retailMarkupMin"/>
+    <input value="<%- model.get('retailMarkupMin') %>" class="inputText" type="text" name="retailMarkupMin"/>
     <span class="inputText__postfix">%</span>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label"><%text 'Максимальная наценка' %></label>
-    <input value="<%= model.get('retailMarkupMax') %>" class="inputText" type="text" name="retailMarkupMax"/>
+    <input value="<%- model.get('retailMarkupMax') %>" class="inputText" type="text" name="retailMarkupMax"/>
     <span class="inputText__postfix">%</span>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label"><%text 'Округление' %></label>
-    <select class="select" value="<%= model.get('rounding').name %>" name="rounding.name" require="blocks/select/select_priceRoundings/select_priceRoundings"></select>
+    <select class="select" value="<%- model.get('rounding').name %>" name="rounding" require="blocks/select/select_priceRoundings/select_priceRoundings"></select>
 </div>
 <div class="form__controls">
     <span class="button button_color_blue">

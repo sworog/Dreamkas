@@ -1,42 +1,34 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         ProductModel = require('models/product'),
         SubCategoryModel = require('models/catalogSubCategory'),
         Form_product = require('blocks/form/form_product/form_product');
 
     return Page.extend({
-        pageName: 'page_product_form',
+        __name__: 'page_product_form',
+        productId: null,
         templates: {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {
             products: 'POST'
         },
-        initialize: function(productId, params){
+        initialize: function(){
             var page = this;
-
-            if (productId && typeof productId !== 'string'){
-                params = productId;
-                productId = null;
-            }
-
-            params = params || {};
-
-            page.productId = productId;
 
             page.productModel = new ProductModel({
                 id: page.productId,
-                subCategory: params.subCategory
+                subCategory: page.subCategory
             });
 
             page.subCategoryModel = new SubCategoryModel({
-                id: params.subCategory
+                id: page.subCategory
             });
 
-            $.when(productId ? page.productModel.fetch() : {}, page.subCategoryModel.id ? page.subCategoryModel.fetch({parse: false}) : {}).then(function(){
+            $.when(page.productId ? page.productModel.fetch() : {}, page.subCategoryModel.id ? page.subCategoryModel.fetch({parse: false}) : {}).then(function(){
 
-                if (!productId){
+                if (!page.productId){
                     page.productModel = new ProductModel({
                         subCategory: page.subCategoryModel.toJSON(),
                         retailMarkupMin: page.subCategoryModel.get('retailMarkupMin'),

@@ -1,11 +1,11 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         InvoiceModel = require('models/invoice'),
         Form_invoice = require('blocks/form/form_invoice/form_invoice');
 
     return Page.extend({
-        pageName: 'page_invoice_form',
+        __name__: 'page_invoice_form',
         templates: {
             '#content': require('tpl!./templates/form.html')
         },

@@ -1,6 +1,6 @@
 define(function(require) {
-    window.LH = _.extend({
-        isAllow: require('utils/isAllow'),
+    window.LH = window.Lighthouse = _.extend({
+        isAllow: require('kit/utils/isAllow'),
         text: require('kit/utils/text'),
         attr: require('kit/utils/attr'),
         formatPrice: require('utils/formatPrice'),
@@ -8,5 +8,5 @@ define(function(require) {
         normalizePrice: require('utils/normalizePrice'),
         prevalidateInput: require('utils/prevalidateInput'),
         units: require('utils/units')
-    }, window.LH);
+    }, window.LH, window.Lighthouse);
 });

@@ -1,0 +1,54 @@
+<% var isAllow = require('kit/utils/isAllow') %>
+<% var text = require ('kit/utils/text') %>
+
+<a href="/" class="navigationBar__logo"></a>
+
+<div class="navigationBar__links">
+    <% if(currentUserModel.get('id')) { %>
+
+    <% if(isAllow('groups')){ %>
+    <a href="/catalog"><%- text('Каталог') %></a>
+    <% } %>
+
+    <% if(isAllow('stores/{store}/groups') && currentUserModel.stores && currentUserModel.stores.length){ %>
+    <a href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>"><%- text('Каталог') %></a>
+    <% } %>
+
+    <% if(isAllow('invoices')){ %>
+    <a href="/invoices"><%- text('Накладные') %></a>
+    <% } %>
+
+    <% if(isAllow('products')){ %>
+    <a href="/balance"><%- text('Остатки') %></a>
+    <% } %>
+
+    <% if(isAllow('writeoffs')){ %>
+    <a href="/writeOffs"><%- text('Списания') %></a>
+    <% } %>
+
+    <% if(isAllow('users')){ %>
+    <a href="/users"><%- text('Пользователи') %></a>
+    <% } %>
+
+    <% if(isAllow('stores')){ %>
+    <a href="/stores"><%- text('Магазины') %></a>
+    <% } %>
+
+    <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
+    <a href="/stores/<%- currentUserModel.stores.at(0).id %>"><%- text('Мой магазин') %></a>
+    <% } %>
+    <% } %>
+</div>
+
+<% if(currentUserModel.get('id')) { %>
+<div class="navigationBar__userControls">
+    <a href="/users/current" class="navigationBar__userName">
+        <i style="vertical-align: middle; position: relative; left: -5px; top: -1px;" class="icon-user"></i>
+        <%- currentUserModel.get('username') %>
+    </a>
+    <a class="navigationBar__logoutLink">
+        <i class="icon-signout" style="margin-left: -5px;"></i>
+        <%- text('Выйти') %>
+    </a>
+</div>
+<% } %>

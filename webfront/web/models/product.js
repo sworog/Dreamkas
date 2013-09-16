@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/model');
+    var Model = require('kit/core/model');
 
     require('models/roundings');
 
@@ -12,7 +12,7 @@ define(function(require) {
             retailPricePreference: 'retailMarkup',
             rounding: {}
         },
-        saveFields: [
+        saveData: [
             'name',
             'units',
             'vat',

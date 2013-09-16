@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Form = require('kit/blocks/form/form'),
-            cookie = require('utils/cookie');
+            cookie = require('kit/utils/cookie');
 
         return Form.extend({
             __name__: 'form_purchase',
@@ -10,8 +10,6 @@ define(function(require) {
             },
             initialize: function(){
                 var block = this;
-
-                Form.prototype.initialize.call(block);
 
                 block.autocompleteToInput(block.$el.find('[lh_product_autocomplete]'));
             },

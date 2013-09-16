@@ -1,13 +1,11 @@
 define(function(require) {
     //requirements
-    var BaseRouter = require('kit/router');
+    var Router = require('routers/base');
 
-    var Router = BaseRouter.extend({
+    return new Router({
         routes: {
             //common
             '*path': require('pages/common/login')
         }
     });
-
-    return new Router();
 });

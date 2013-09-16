@@ -15,16 +15,13 @@ define(function(require) {
         collection: null,
         redirectUrl: null,
         events: {
-            'submit': 'submit',
-            'change :input': 'change :input'
-        },
-        'change :input': function(){
-            var block = this;
+            'change :input': function(){
+                var block = this;
 
-            block.removeSuccessMessage();
-        },
-        submit: function(e){
-            e.preventDefault();
+                block.removeSuccessMessage();
+            },
+            submit: function(e){
+                e.preventDefault();
 
             var block = this,
                 data = Backbone.Syphon.serialize(this);
@@ -37,9 +34,10 @@ define(function(require) {
 
             block.$submitButton.addClass('preloader_rows');
 
-            block.removeErrors();
-            block.removeSuccessMessage();
-            block.onSubmit(data);
+                block.removeErrors();
+                block.removeSuccessMessage();
+                block.onSubmit(data);
+            }
         },
         findElements: function() {
             var block = this;

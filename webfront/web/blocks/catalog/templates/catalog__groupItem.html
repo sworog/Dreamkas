@@ -1,10 +1,10 @@
 <div class="catalog__groupTitle">
-    <a href="/catalog/<%= catalogGroupModel.id %>"
+    <a href="/catalog/<%- catalogGroupModel.id %>"
        class="catalog__groupLink"><%attr catalogGroupModel:name %></a>
     <a class="editor__editLink catalog__editGroupLink"></a>
 </div>
 <div class="catalog__categoryList">
-    <%== templates.catalog__categoryList({
+    <%= templates.catalog__categoryList({
         templates: templates,
         catalogCategoriesCollection: catalogGroupModel.categories
     }) %>

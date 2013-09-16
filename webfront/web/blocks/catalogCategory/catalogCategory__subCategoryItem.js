@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
+    var Block = require('kit/core/block'),
         Tooltip_catalogSubCategoryMenu = require('blocks/tooltip/tooltip_catalogSubCategoryMenu/tooltip_catalogSubCategoryMenu');
 
     return Block.extend({
@@ -10,7 +10,17 @@ define(function(require) {
             index: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')
         },
         events: {
-            'click .catalog__editSubCategoryLink': 'click .catalog__editSubCategoryLink'
+            'click .catalog__editSubCategoryLink': function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                var block = this,
+                    $target = $(e.target);
+
+                block.tooltip_catalogSubCategoryMenu.show({
+                    $trigger: $target,
+                    catalogSubCategoryModel: block.catalogSubCategoryModel
+                });
+            }
         },
         listeners: {
             catalogSubCategoryModel: {
@@ -21,21 +31,8 @@ define(function(require) {
                 }
             }
         },
-        'click .catalog__editSubCategoryLink': function(e){
-            e.stopPropagation();
-            e.preventDefault();
-            var block = this,
-                $target = $(e.target);
-
-            block.tooltip_catalogSubCategoryMenu.show({
-                $trigger: $target,
-                catalogSubCategoryModel: block.catalogSubCategoryModel
-            });
-        },
         initialize: function(){
             var block = this;
-
-            Block.prototype.initialize.call(block);
 
             block.tooltip_catalogSubCategoryMenu = $('[block="tooltip_catalogSubCategoryMenu"]').data('tooltip_catalogSubCategoryMenu') || new Tooltip_catalogSubCategoryMenu()
         }

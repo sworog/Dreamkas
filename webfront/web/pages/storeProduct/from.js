@@ -1,11 +1,11 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         StoreProduct = require('models/storeProduct'),
         Form_storeProduct = require('blocks/form/form_storeProduct/form_storeProduct');
 
     return Page.extend({
-        pageName: 'page_storeProduct_form',
+        __name__: 'page_storeProduct_form',
         templates: {
             '#content': require('tpl!./templates/form.html')
         },

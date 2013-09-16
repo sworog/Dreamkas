@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/model');
+    var Model = require('kit/core/model');
 
     var TokenModel = Model.extend({
         modelName: 'token',
@@ -11,7 +11,7 @@ define(function(require) {
             grant_type: 'password'
         },
         sync: Backbone.Model.prototype.sync,
-        saveFields: [
+        saveData: [
             'client_id',
             'client_secret',
             'grant_type',

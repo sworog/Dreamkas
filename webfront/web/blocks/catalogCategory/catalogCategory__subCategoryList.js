@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
+    var Block = require('kit/core/block'),
         CatalogCategory__subCategoryItem = require('blocks/catalogCategory/catalogCategory__subCategoryItem');
 
     return Block.extend({
@@ -28,8 +28,6 @@ define(function(require) {
         },
         initialize: function(){
             var block = this;
-
-            Block.prototype.initialize.call(block);
 
             block.catalogSubCategoriesCollection.each(function(catalogSubCategoryModel){
                 new CatalogCategory__subCategoryItem({

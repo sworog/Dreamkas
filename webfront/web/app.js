@@ -1,13 +1,19 @@
 define(function(require) {
     //requirements
-    var currentUserModel = require('models/currentUser'),
-        cookie = require('utils/cookie'),
-        Page = require('blocks/page/page');
+    var app = require('kit/core/app'),
+        $ = require('jquery'),
+        Backbone = require('backbone'),
+        _ = require('underscore'),
+        currentUserModel = require('models/currentUser'),
+        cookie = require('kit/utils/cookie');
 
-    require('LH');
+    app.locale = 'root';
+
+    app.set('apiUrl', 'http://borovin.staging.api.lh.cs/api/1');
 
     var sync = Backbone.sync,
-        isAppStarted = false;
+        loading = currentUserModel.fetch(),
+        routers;
 
     Backbone.sync = function(method, model, options) {
         var syncing = sync.call(this, method, model, _.extend({}, options, {
@@ -19,7 +25,7 @@ define(function(require) {
         syncing.fail(function(res) {
             switch (res.status) {
                 case 401:
-                    if (isAppStarted) {
+                    if (app.isStarted) {
                         document.location.reload();
                     }
                     break;
@@ -29,25 +35,8 @@ define(function(require) {
         return syncing;
     };
 
-    var loading = currentUserModel.fetch(),
-        routers;
-
-    $(function() {
-        var router = new Backbone.Router();
-
-        new Page({
-            el: document.getElementById("page")
-        });
-
-        $(document).on('click', '[href]', function(e) {
-            e.preventDefault();
-            router.navigate($(this).attr('href'), {
-                trigger: true
-            });
-        });
-    });
-
     loading.done(function() {
+        app.set('permissions', currentUserModel.permissions.toJSON());
         routers = 'routers/authorized';
     });
 
@@ -56,18 +45,12 @@ define(function(require) {
     });
 
     loading.always(function() {
-
-        if (currentUserModel.stores.length) {
-//            window.history.replaceState({}, document.title, '/stores/' + currentUserModel.stores.at(0).id);
-        }
-
-        require([routers], function() {
-
-            Backbone.history.start({
-                pushState: true
-            });
-
-            isAppStarted = true;
-        });
+        app.start([
+            'LH',
+            'blocks/navigationBar/navigationBar',
+            'blocks/page/page',
+            'libs/lhAutocomplete',
+            routers
+        ]);
     });
 });

@@ -1,5 +1,4 @@
 /* fonts */
-@import "/fonts/lobster/lobster.css";
 @import "/fonts/sansus/sansus.css";
     /* libs */
 @import "./libs/jquery-ui/themes/base/minified/jquery-ui.min.css";
@@ -15,10 +14,15 @@
 @import "./blocks/catalog/catalog.css";
 @import "./blocks/tooltip/tooltip.css";
 @import "./blocks/form/form.css";
-@import "./blocks/topBar/topBar.css";
+@import "./blocks/navigationBar/navigationBar.css";
 @import "./blocks/catalogCategory/catalogCategory.css";
 @import "./blocks/store/store.css";
 @import "./blocks/jobs/jobs.css";
+
+
+body {
+    background-color: #f0f0f0;
+}
 
 h3 {
     font-family: 'Sansus Webissimo';

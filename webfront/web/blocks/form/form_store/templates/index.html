@@ -1,15 +1,15 @@
 <h3><%text model.id ? 'Редактирование магазина' : 'Добавление магазина' %></h3>
 <div class="form__field form__field_inline">
     <label class="form__label"><%text 'Номер магазина' %></label>
-    <input value="<%= model.get('number') %>" class="inputText" type="text" name="number"/>
+    <input value="<%- model.get('number') %>" class="inputText" type="text" name="number"/>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label"><%text 'Адрес' %></label>
-    <input value="<%= model.get('address') %>" class="inputText" type="text" name="address"/>
+    <input value="<%- model.get('address') %>" class="inputText" type="text" name="address"/>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label"><%text 'Контакты' %></label>
-    <input value="<%= model.get('contacts') %>" class="inputText" type="text" name="contacts" />
+    <input value="<%- model.get('contacts') %>" class="inputText" type="text" name="contacts" />
 </div>
 <div class="form__controls">
     <span class="button button_color_blue">

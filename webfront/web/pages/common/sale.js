@@ -1,10 +1,10 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         SaleBox = require('blocks/saleBox/saleBox');
 
     return Page.extend({
-        pageName: 'page_common_sale',
+        __name__: 'page_common_sale',
         templates: {
             '#content': require('tpl!./templates/sale.html')
         },

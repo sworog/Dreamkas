@@ -17,8 +17,6 @@ define(function(require) {
             if (block.model.id){
                 block.isAddForm = false;
             }
-
-            Form.prototype.initialize.call(block);
         },
         onSubmitSuccess: function(){
             var block = this;

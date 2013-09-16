@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
+    var Block = require('kit/core/block'),
         Catalog__groupItem = require('blocks/catalog/catalog__groupItem');
 
     return Block.extend({
@@ -26,8 +26,6 @@ define(function(require) {
         },
         initialize: function(){
             var block = this;
-
-            Block.prototype.initialize.call(block);
 
             block.catalogGroupsCollection.each(function(catalogGroupModel){
                 new Catalog__groupItem({

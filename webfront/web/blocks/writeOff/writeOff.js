@@ -1,10 +1,10 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
+        var Block = require('kit/core/block'),
             InputDate = require('kit/blocks/inputDate/inputDate'),
             Form_writeOffProduct = require('blocks/form/form_writeOffProduct/form_writeOffProduct'),
             Table_writeOffProducts = require('blocks/table/table_writeOffProducts/table_writeOffProducts'),
-            cookie = require('utils/cookie');
+            cookie = require('kit/utils/cookie');
 
         return Block.extend({
             __name__: 'writeOff',
@@ -44,131 +44,119 @@ define(function(require) {
                 }
             },
             events: {
-                'click .writeOff__removeLink': 'click .writeOff__removeLink',
-                'click .writeOff__removeCancel': 'click .writeOff__removeCancel',
-                'click .writeOff__removeConfirmButton': 'click .writeOff__removeConfirmButton',
-                'click .writeOff__editLink': 'click .writeOff__editLink',
-                'click .writeOff__stopEditLink, .writeOff__stopEditButton': 'click .writeOff__stopEditLink, .writeOff__stopEditButton',
-                'click .writeOff__editable': 'click .writeOff__editable',
-                'submit .writeOff__productsTable .writeOff__dataInput': 'submit .writeOff__productsTable .writeOff__dataInput',
-                'submit .writeOff__head .writeOff__dataInput': 'submit .writeOff__head .writeOff__dataInput',
-                'click .writeOff__dataInputSave': 'click .writeOff__dataInputSave',
-                'click .writeOff__dataInputCancel': 'click .writeOff__dataInputCancel'
-            },
-            'click .writeOff__removeLink': function(e) {
-                e.preventDefault();
-                var block = this,
-                    writeOffProductId = $(e.target).closest('.writeOff__dataRow').attr('writeOff-product-id');
+                'click .writeOff__removeLink': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        writeOffProductId = $(e.target).closest('.writeOff__dataRow').attr('writeOff-product-id');
 
-                block.showRemoveConfirm(writeOffProductId);
-            },
-            'click .writeOff__removeCancel': function(e) {
-                e.preventDefault();
-                var block = this,
-                    writeOffProductId = $(e.target).closest('.writeOff__removeConfirmRow').attr('writeOff-product-id');
+                    block.showRemoveConfirm(writeOffProductId);
+                },
+                'click .writeOff__removeCancel': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        writeOffProductId = $(e.target).closest('.writeOff__removeConfirmRow').attr('writeOff-product-id');
 
-                block.hideRemoveConfirm(writeOffProductId);
-            },
-            'click .writeOff__removeConfirmButton': function(e) {
-                e.preventDefault();
-                var block = this,
-                    writeOffProductId = $(e.target).closest('.writeOff__removeConfirmRow').attr('writeOff-product-id');
+                    block.hideRemoveConfirm(writeOffProductId);
+                },
+                'click .writeOff__removeConfirmButton': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        writeOffProductId = $(e.target).closest('.writeOff__removeConfirmRow').attr('writeOff-product-id');
 
-                block.removeWriteOffProduct(writeOffProductId);
-                block.set('dataEditing', false);
-            },
-            'click .writeOff__editLink': function(e) {
-                e.preventDefault();
-                var block = this;
+                    block.removeWriteOffProduct(writeOffProductId);
+                    block.set('dataEditing', false);
+                },
+                'click .writeOff__editLink': function(e) {
+                    e.preventDefault();
+                    var block = this;
 
-                block.set("editMode", true);
-            },
-            'click .writeOff__stopEditLink, .writeOff__stopEditButton': function(e) {
-                e.preventDefault();
-                var block = this;
+                    block.set("editMode", true);
+                },
+                'click .writeOff__stopEditLink, .writeOff__stopEditButton': function(e) {
+                    e.preventDefault();
+                    var block = this;
 
-                var notEmptyForm = false;
+                    var notEmptyForm = false;
 
-                block.productForm.$el.find('.inputText').each(function() {
-                    if ($(this).val()) {
-                        notEmptyForm = true;
+                    block.productForm.$el.find('.inputText').each(function() {
+                        if ($(this).val()) {
+                            notEmptyForm = true;
+                        }
+                    });
+
+                    if (notEmptyForm || block.dataEditing) {
+                        alert("У вас есть несохранённые данные");
+                    } else {
+                        block.set("editMode", false);
                     }
-                });
+                },
+                'click .writeOff__editable': function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var block = this;
 
-                if (notEmptyForm || block.dataEditing) {
-                    alert("У вас есть несохранённые данные");
-                } else {
-                    block.set("editMode", false);
-                }
-            },
-            'click .writeOff__editable': function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var block = this;
-
-                if (block.editMode && !block.dataEditing) {
-                    block.showDataInput($(e.currentTarget));
-                }
-            },
-            'submit .writeOff__productsTable .writeOff__dataInput': function(e) {
-                e.preventDefault();
-                var block = this,
-                    data = Backbone.Syphon.serialize(e.target),
-                    writeOffProductId = $(e.target).closest('[writeOff-product-id]').attr('writeOff-product-id'),
-                    writeOffProduct = block.writeOffProductsCollection.get(writeOffProductId),
-                    $submitButton = $(e.target).find('[type="submit"]').closest('.button');
-
-                block.removeInlineErrors();
-                $submitButton.addClass('preloader');
-
-                writeOffProduct.save(data, {
-                    success: function() {
-                        block.set('dataEditing', false);
-                        $submitButton.removeClass('preloader');
-                    },
-                    error: function(data, res) {
-                        block.showInlineErrors(JSON.parse(res.responseText));
-                        $submitButton.removeClass('preloader');
+                    if (block.editMode && !block.dataEditing) {
+                        block.showDataInput($(e.currentTarget));
                     }
-                });
-            },
-            'submit .writeOff__head .writeOff__dataInput': function(e) {
-                e.preventDefault();
-                var block = this,
-                    data = Backbone.Syphon.serialize(e.target),
-                    $submitButton = $(e.target).find('[type="submit"]').closest('.button');
+                },
+                'submit .writeOff__productsTable .writeOff__dataInput': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        data = Backbone.Syphon.serialize(e.target),
+                        writeOffProductId = $(e.target).closest('[writeOff-product-id]').attr('writeOff-product-id'),
+                        writeOffProduct = block.writeOffProductsCollection.get(writeOffProductId),
+                        $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
-                block.removeInlineErrors();
-                $submitButton.addClass('preloader');
+                    block.removeInlineErrors();
+                    $submitButton.addClass('preloader');
 
-                block.writeOffModel.save(data, {
-                    success: function() {
-                        block.set('dataEditing', false);
-                        $submitButton.removeClass('preloader');
-                    },
-                    error: function(data, res) {
-                        block.showInlineErrors(JSON.parse(res.responseText));
-                        $submitButton.removeClass('preloader');
-                    },
-                    wait: true
-                });
-            },
-            'click .writeOff__dataInputSave': function(e) {
-                e.preventDefault();
-                var block = this,
-                    $dataInputForm = block.$el.find('.writeOff__dataInput');
+                    writeOffProduct.save(data, {
+                        success: function() {
+                            block.set('dataEditing', false);
+                            $submitButton.removeClass('preloader');
+                        },
+                        error: function(data, res) {
+                            block.showInlineErrors(JSON.parse(res.responseText));
+                            $submitButton.removeClass('preloader');
+                        }
+                    });
+                },
+                'submit .writeOff__head .writeOff__dataInput': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        data = Backbone.Syphon.serialize(e.target),
+                        $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
-                $dataInputForm.submit();
-            },
-            'click .writeOff__dataInputCancel': function(e) {
-                var block = this;
-                e.preventDefault();
-                block.removeDataInput();
+                    block.removeInlineErrors();
+                    $submitButton.addClass('preloader');
+
+                    block.writeOffModel.save(data, {
+                        success: function() {
+                            block.set('dataEditing', false);
+                            $submitButton.removeClass('preloader');
+                        },
+                        error: function(data, res) {
+                            block.showInlineErrors(JSON.parse(res.responseText));
+                            $submitButton.removeClass('preloader');
+                        },
+                        wait: true
+                    });
+                },
+                'click .writeOff__dataInputSave': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        $dataInputForm = block.$el.find('.writeOff__dataInput');
+
+                    $dataInputForm.submit();
+                },
+                'click .writeOff__dataInputCancel': function(e) {
+                    var block = this;
+                    e.preventDefault();
+                    block.removeDataInput();
+                }
             },
             initialize: function() {
                 var block = this;
-
-                Block.prototype.initialize.call(this);
 
                 block.set('editMode', block.editMode);
 

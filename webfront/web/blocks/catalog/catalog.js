@@ -24,46 +24,44 @@ define(function(require) {
                 catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
             },
             events: {
-                'click .catalog__addGroupLink': 'click .catalog__addGroupLink',
-                'click .catalog__exportLink': 'click .catalog__exportLink'
-            },
-            'click .catalog__addGroupLink': function(e) {
-                e.preventDefault();
+                'click .catalog__addGroupLink': function(e) {
+                    e.preventDefault();
 
-                var block = this,
-                    $target = $(e.target);
+                    var block = this,
+                        $target = $(e.target);
 
-                block.tooltip_catalogGroupForm.show({
-                    $trigger: $target,
-                    collection: block.catalogGroupsCollection,
-                    model: new CatalogGroupModel()
-                });
-            },
-            'click .catalog__exportLink': function(e) {
-                e.preventDefault();
+                    block.tooltip_catalogGroupForm.show({
+                        $trigger: $target,
+                        collection: block.catalogGroupsCollection,
+                        model: new CatalogGroupModel()
+                    });
+                },
+                'click .catalog__exportLink': function(e) {
+                    e.preventDefault();
 
-                var block = this,
-                    $target = $(e.target),
-                    exp = block.export();
+                    var block = this,
+                        $target = $(e.target),
+                        exp = block.export();
 
-                if ($target.hasClass('preloader_rows')){
-                    return;
+                    if ($target.hasClass('preloader_rows')){
+                        return;
+                    }
+
+                    $target.addClass('preloader_rows');
+
+                    exp.done(function(){
+                        alert('Выгрузка началась');
+                    });
+
+                    exp.fail(function(){
+                        alert('Выгрузка невозможна, обратитесь к администратору');
+                    });
+
+                    exp.always(function(){
+                        $target.removeClass('preloader_rows');
+                    });
+
                 }
-
-                $target.addClass('preloader_rows');
-
-                exp.done(function(){
-                    alert('Выгрузка началась');
-                });
-
-                exp.fail(function(){
-                    alert('Выгрузка невозможна, обратитесь к администратору');
-                });
-
-                exp.always(function(){
-                    $target.removeClass('preloader_rows');
-                });
-
             },
             initialize: function() {
                 var block = this;

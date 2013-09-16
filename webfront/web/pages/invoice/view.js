@@ -1,23 +1,20 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Invoice = require('blocks/invoice/invoice'),
         InvoiceModel = require('models/invoice'),
         InvoiceProductsCollection = require('collections/invoiceProducts');
 
     return Page.extend({
-        pageName: 'page_invoice_view',
+        __name__: 'page_invoice_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },
         permissions: {
             invoices: 'GET::{invoice}'
         },
-        initialize: function(invoiceId, params) {
+        initialize: function() {
             var page = this;
-
-            page.invoiceId = invoiceId;
-            page.params = params || {};
 
             page.invoiceModel = new InvoiceModel({
                 id: page.invoiceId
@@ -33,7 +30,7 @@ define(function(require) {
                 new Invoice({
                     invoiceModel: page.invoiceModel,
                     invoiceProductsCollection: page.invoiceProductsCollection,
-                    editMode: page.params.editMode,
+                    editMode: page.editMode,
                     el: document.getElementById('invoice')
                 });
             });

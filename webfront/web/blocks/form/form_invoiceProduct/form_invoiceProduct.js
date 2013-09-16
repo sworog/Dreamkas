@@ -2,7 +2,7 @@ define(function(require) {
         //requirements
         var Form = require('kit/blocks/form/form'),
             InvoiceProduct = require('models/invoiceProduct'),
-            cookie = require('utils/cookie');
+            cookie = require('kit/utils/cookie');
 
         return Form.extend({
             __name__: 'form_invoiceProduct',
@@ -13,8 +13,6 @@ define(function(require) {
 
             initialize: function() {
                 var block = this;
-
-                Form.prototype.initialize.call(this);
 
                 block.model = new InvoiceProduct({
                     invoice: {

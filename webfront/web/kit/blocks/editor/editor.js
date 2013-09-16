@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block');
+        var Block = require('kit/core/block');
 
         var router = new Backbone.Router();
 
@@ -10,25 +10,21 @@ define(function(require) {
             editMode: false,
 
             events: {
-                'click .editor__on': 'click .editor__on',
-                'click .editor__off': 'click .editor__off'
-            },
-            'click .editor__on': function(e) {
-                e.preventDefault();
-                var block = this;
+                'click .editor__on': function(e) {
+                    e.preventDefault();
+                    var block = this;
 
-                block.set('editMode', true);
-            },
-            'click .editor__off': function(e) {
-                e.preventDefault();
-                var block = this;
+                    block.set('editMode', true);
+                },
+                'click .editor__off': function(e) {
+                    e.preventDefault();
+                    var block = this;
 
-                block.set('editMode', false);
+                    block.set('editMode', false);
+                }
             },
             initialize: function() {
                 var block = this;
-
-                Block.prototype.initialize.call(block);
 
                 block.set('editMode', block.editMode);
             },

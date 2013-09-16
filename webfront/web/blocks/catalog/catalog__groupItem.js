@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
+    var Block = require('kit/core/block'),
         Catalog__categoryList = require('blocks/catalog/catalog__categoryList'),
         Tooltip_catalogGroupMenu = require('blocks/tooltip/tooltip_catalogGroupMenu/tooltip_catalogGroupMenu'),
         CatalogCategoriesCollection = require('collections/catalogCategories');
@@ -14,7 +14,16 @@ define(function(require) {
             catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
         },
         events: {
-            'click .catalog__editGroupLink': 'click .catalog__editGroupLink'
+            'click .catalog__editGroupLink': function(e){
+                e.stopPropagation();
+                var block = this,
+                    $target = $(e.target);
+
+                block.tooltip_catalogGroupMenu.show({
+                    $trigger: $target,
+                    catalogGroupModel: block.catalogGroupModel
+                });
+            }
         },
         listeners: {
             catalogGroupModel: {
@@ -25,24 +34,12 @@ define(function(require) {
                 }
             }
         },
-        'click .catalog__editGroupLink': function(e){
-            e.stopPropagation();
-            var block = this,
-                $target = $(e.target);
-
-            block.tooltip_catalogGroupMenu.show({
-                $trigger: $target,
-                catalogGroupModel: block.catalogGroupModel
-            });
-        },
         initialize: function() {
             var block = this;
 
             block.catalogCategoriesCollection = block.catalogGroupModel.categories || new CatalogCategoriesCollection([], {
                 parentGroupModel: block.catalogGroupModel
             });
-
-            Block.prototype.initialize.call(block);
 
             block.tooltip_catalogGroupMenu = $('[block="tooltip_catalogGroupMenu"]').data('tooltip_catalogGroupMenu') || new Tooltip_catalogGroupMenu();
 

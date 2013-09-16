@@ -1,26 +1,26 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         User = require('blocks/user/user'),
         UserModel = require('models/user'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/403/403');
+        Page403 = require('pages/errors/403');
 
     return Page.extend({
-        pageName: 'page_user_view',
+        __name__: 'page_user_view',
         templates: {
             '#content': require('tpl!./templates/view.html')
         },
-        initialize: function(userId) {
+        initialize: function() {
             var page = this;
 
-            if (!(LH.isAllow('users', 'GET::{user}') || userId === 'current')){
+            if (!(LH.isAllow('users', 'GET::{user}') || page.userId === 'current')){
                 new Page403();
                 return;
             }
 
-            page.userModel = userId === 'current' ? currentUserModel : new UserModel({
-                id: userId
+            page.userModel = page.userId === 'current' ? currentUserModel : new UserModel({
+                id: page.userId
             });
 
             $.when(page.userModel.fetch()).then(function(){
