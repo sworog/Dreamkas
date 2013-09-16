@@ -1,8 +1,8 @@
 define(function(require) {
     //requirements
     var _ = require('underscore'),
-        setter = require('kit/utils/setter'),
-        getter = require('kit/utils/getter'),
+        setter = require('../mixins/setter.js'),
+        getter = require('../mixins/getter.js'),
         Backbone = require('backbone'),
         cookie = require('kit/utils/cookie'),
         req = require('kit/utils/require');

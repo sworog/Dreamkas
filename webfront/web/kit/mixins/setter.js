@@ -1,5 +1,5 @@
 define(function(require) {
     return {
-        get: require('../utils/get.js')
+        set: require('../utils/set.js')
     }
 });

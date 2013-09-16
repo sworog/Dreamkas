@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
-        setter = require('kit/utils/setter');
+    var Block = require('kit/core/block'),
+        setter = require('../../mixins/setter.js');
 
     require('backbone.syphon');
 

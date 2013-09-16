@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Backbone = require('backbone'),
         _ = require('underscore'),
-        getter = require('kit/utils/getter');
+        getter = require('../mixins/getter.js');
 
     /**
      * Расширение <a target="blank" href="http://backbonejs.org/#Model">Backbone.Model</a><br />

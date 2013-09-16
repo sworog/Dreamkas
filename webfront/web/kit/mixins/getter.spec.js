@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var getter = require('kit/utils/getter'),
+    var getter = require('./getter.js'),
         _ = require('underscore'),
         objectMock = require('kit/mocks/object');
 

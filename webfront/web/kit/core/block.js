@@ -4,8 +4,8 @@ define(function(require) {
         _ = require('underscore'),
         deepExtend = require('kit/utils/deepExtend'),
         classExtend = require('kit/utils/classExtend'),
-        setter = require('kit/utils/setter'),
-        getter = require('kit/utils/getter');
+        setter = require('../mixins/setter.js'),
+        getter = require('../mixins/getter.js');
 
     require('jquery.require');
 
