@@ -3,17 +3,19 @@
 namespace Lighthouse\CoreBundle\Request\ParamConverter;
 
 use Traversable;
+use IteratorAggregate;
+use ArrayIterator;
 
-class Links implements \IteratorAggregate
+class Links implements IteratorAggregate
 {
     /**
-     * @var Link[]|\ArrayIterator
+     * @var Link[]|ArrayIterator
      */
     protected $iterator;
 
     public function __construct()
     {
-        $this->iterator = new \ArrayIterator();
+        $this->iterator = new ArrayIterator();
     }
 
     /**
@@ -25,7 +27,7 @@ class Links implements \IteratorAggregate
     }
 
     /**
-     * @return \ArrayIterator|Link[]|Traversable
+     * @return ArrayIterator|Link[]|Traversable
      */
     public function getIterator()
     {

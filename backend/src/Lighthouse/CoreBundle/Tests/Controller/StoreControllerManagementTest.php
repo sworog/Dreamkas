@@ -105,7 +105,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $this->assertResponseCode(400);
 
-        Assert::assertJsonPathContains('does not have store manager role', 'message', $linkResponse);
+        Assert::assertJsonPathContains('does not have ROLE_STORE_MANAGER role', 'message', $linkResponse);
     }
 
     public function testLinkStoreManagerInvalidRel()
@@ -628,6 +628,31 @@ class StoreControllerManagementTest extends WebTestCase
         $this->assertResponseCode(403);
 
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $storesResponse);
+    }
+
+    public function testLinkDepartmentManager()
+    {
+        $this->clearMongoDb();
+
+        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeId = $this->createStore();
+
+        $accessToken = $this->auth($commUser, 'password');
+
+        $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
+        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'departmentManagers');
+
+        $this->jsonRequest($request, $accessToken);
+
+        $this->assertResponseCode(204);
+
+        $storeJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId);
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, 'departmentManagers.*', $storeJson);
+        Assert::assertJsonPathEquals($storeUser1->id, 'departmentManagers.*.id', $storeJson);
     }
 
     /**
