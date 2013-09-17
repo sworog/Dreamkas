@@ -43,8 +43,11 @@
     content: attr(data-error);
     display: block;
     color: #c0392b;
+    padding-top: 4px;
+    font-size: 14px;
 }
 
 .form__controls[data-error]:after {
     display: inline-block;
+    padding-top: 0;
 }
