@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\LoggableCursor;
 use FOS\Rest\Util\Codes;
+use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -35,7 +36,7 @@ class UserController extends AbstractRestController
 
     /**
      * @DI\Inject("lighthouse.core.user.provider")
-     * @var \Lighthouse\CoreBundle\Security\User\UserProvider
+     * @var UserProvider
      */
     public $userProvider;
 
@@ -61,7 +62,7 @@ class UserController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Lighthouse\CoreBundle\Document\User\User|\FOS\RestBundle\View\View
+     * @return User|View
      *
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_ADMINISTRATOR")
@@ -93,9 +94,9 @@ class UserController extends AbstractRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param User $user User ID
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\User\User
+     * @return View|User
      * @Secure(roles="ROLE_ADMINISTRATOR")
      * @ApiDoc(
      *      description="Update user",
@@ -161,7 +162,7 @@ class UserController extends AbstractRestController
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Document\User\UserCollection
+     * @return UserCollection
      * @Secure(roles="ROLE_ADMINISTRATOR")
      * @ApiDoc(
      *      description="Create users"

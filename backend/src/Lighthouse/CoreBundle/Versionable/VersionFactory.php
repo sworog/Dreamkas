@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Versionable;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**

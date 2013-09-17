@@ -71,7 +71,7 @@ class Store extends AbstractDocument
      *      cascade="persist",
      *      mappedBy="store"
      * )
-     * @var Department[]
+     * @var Department[]|ArrayCollection
      */
     protected $departments;
 
@@ -100,6 +100,7 @@ class Store extends AbstractDocument
      */
     public function __construct()
     {
+        $this->departments = new ArrayCollection();
         $this->managers = new ManagerCollection();
         $this->departmentManagers = new ManagerCollection();
     }
@@ -114,7 +115,7 @@ class Store extends AbstractDocument
         switch ($rel) {
             case self::REL_STORE_MANAGERS:
                 return $this->managers;
-            case self::REL_DEPARTMENT_MANAGERS;
+            case self::REL_DEPARTMENT_MANAGERS:
                 return $this->departmentManagers;
             default:
                 throw new InvalidArgumentException(sprintf("Invalid rel '%s' given", $rel));

@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Job\Worker;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
-use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
 
 /**
  * @DI\Service("lighthouse.core.job.worker.manager");
@@ -44,7 +43,7 @@ class WorkerManager
     /**
      * @param Job $job
      * @return WorkerInterface
-     * @throws \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getByJob(Job $job)
     {

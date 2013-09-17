@@ -20,7 +20,7 @@ class InvoiceProductController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.invoice_product")
-     * @var \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository
+     * @var InvoiceProductRepository
      */
     protected $documentRepository;
 
@@ -39,9 +39,9 @@ class InvoiceProductController extends AbstractRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param Invoice $invoice
-     * @return \FOS\RestBundle\View\View|Invoice
+     * @return View|Invoice
      *
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
@@ -72,8 +72,8 @@ class InvoiceProductController extends AbstractRestController
 
     /**
      * @param Invoice $invoice
-     * @param \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct $invoiceProduct
-     * @return \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection
+     * @param InvoiceProduct $invoiceProduct
+     * @return InvoiceProductCollection
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -114,7 +114,7 @@ class InvoiceProductController extends AbstractRestController
     /**
      * @param InvoiceProduct $invoiceProduct
      * @param Invoice $invoice
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     protected function checkInvoiceProduct(InvoiceProduct $invoiceProduct, Invoice $invoice)
     {

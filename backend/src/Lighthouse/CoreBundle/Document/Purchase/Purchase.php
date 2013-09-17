@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
+use DateTime;
 
 /**
  * @MongoDB\Document(
@@ -40,7 +41,7 @@ class Purchase extends AbstractDocument
      *
      * @Assert\NotBlank(message="lighthouse.validation.errors.purchase.product_empty")
      * @Assert\Valid(traverse=true)
-     * @var \Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct[]
+     * @var PurchaseProduct[]
      */
     protected $products = array();
 
@@ -51,7 +52,7 @@ class Purchase extends AbstractDocument
     public function prePersist()
     {
         if (empty($this->createdDate)) {
-            $this->createdDate = new \DateTime();
+            $this->createdDate = new DateTime();
         }
 
         foreach ($this->products as $product) {

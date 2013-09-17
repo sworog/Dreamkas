@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Command\Auth;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
-use OAuth2\OAuth2;
+use Lighthouse\CoreBundle\Document\Auth\Client;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -40,6 +40,7 @@ class CreateClient extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /* @var Client $client*/
         $client = $this->clientManager->createClient();
 
         $secret = $input->getArgument(self::ARGUMENT_SECRET);

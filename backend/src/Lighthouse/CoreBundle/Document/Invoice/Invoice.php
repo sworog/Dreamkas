@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompare;
+use DateTime;
 
 /**
  * @MongoDB\Document(
@@ -114,7 +115,7 @@ class Invoice extends AbstractDocument
      */
     public function __construct()
     {
-        $this->createdDate = new \DateTime();
+        $this->createdDate = new DateTime();
         $this->sumTotal = new Money(0);
     }
 }

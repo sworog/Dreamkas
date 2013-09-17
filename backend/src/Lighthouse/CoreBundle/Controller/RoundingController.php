@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\View\View;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Form\RoundingRoundType;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
@@ -35,8 +36,7 @@ class RoundingController extends FOSRestController
 
     /**
      * @param string $name
-     * @return \Lighthouse\CoreBundle\Rounding\AbstractRounding
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return AbstractRounding
      * @ApiDoc
      */
     public function getRoundingAction($name)
@@ -47,8 +47,7 @@ class RoundingController extends FOSRestController
     /**
      * @param string $name
      * @param Request $request
-     * @return array|\FOS\RestBundle\View\View
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return array|View
      * @ApiDoc
      * @Rest\View(statusCode=201)
      */
@@ -72,8 +71,8 @@ class RoundingController extends FOSRestController
 
     /**
      * @param $name
-     * @return \Lighthouse\CoreBundle\Rounding\AbstractRounding
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return AbstractRounding
+     * @throws NotFoundHttpException
      */
     protected function findRounding($name)
     {

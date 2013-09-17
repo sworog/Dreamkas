@@ -34,8 +34,8 @@ class ProductController extends AbstractRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product\Product
+     * @param Request $request
+     * @return View|Product
      *
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
@@ -47,9 +47,9 @@ class ProductController extends AbstractRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param Product $product
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Product\Product
+     * @return View|Product
      *
      * @Rest\View(statusCode=200)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
@@ -62,7 +62,7 @@ class ProductController extends AbstractRestController
 
     /**
      * @param Product $product
-     * @return \Lighthouse\CoreBundle\Document\Product\Product
+     * @return Product
      * @ApiDoc
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
      */
@@ -73,7 +73,7 @@ class ProductController extends AbstractRestController
 
     /**
      * @param string $property name, sku, barcode
-     * @return \Lighthouse\CoreBundle\Document\Product\ProductCollection
+     * @return ProductCollection
      * @ApiDoc
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
      */
@@ -97,7 +97,7 @@ class ProductController extends AbstractRestController
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Document\Product\ProductCollection
+     * @return ProductCollection
      * @ApiDoc(
      *      resource=true
      * )

@@ -24,7 +24,7 @@ class Group extends AbstractNode
      *      cascade="persist",
      *      mappedBy="group"
      * )
-     * @var \Lighthouse\CoreBundle\Document\Classifier\Category\Category[]
+     * @var Category[]
      */
     protected $categories;
 

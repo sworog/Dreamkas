@@ -20,7 +20,7 @@ class SubCategoryController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.classifier.subcategory")
-     * @var \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository
+     * @var SubCategoryRepository
      */
     protected $documentRepository;
 

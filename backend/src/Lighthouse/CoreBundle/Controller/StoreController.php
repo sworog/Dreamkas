@@ -179,18 +179,29 @@ class StoreController extends AbstractRestController
         if (!$user instanceof User) {
             throw new BadRequestHttpException('Invalid resource given, should be User');
         }
-        switch ($link->getRel()) {
-            case Store::REL_STORE_MANAGERS;
-                $role = User::ROLE_STORE_MANAGER;
-                break;
-            case Store::REL_DEPARTMENT_MANAGERS:
-                $role = User::ROLE_DEPARTMENT_MANAGER;
-                break;
-        }
+        $role = $this->getRoleByRel($link->getRel());
         if (!$user->hasUserRole($role)) {
             throw new BadRequestHttpException(
                 sprintf("User '%s' does not have %s role", $user->username, $role)
             );
+        }
+    }
+
+    /**
+     * @param string $rel
+     * @return string
+     */
+    protected function getRoleByRel($rel)
+    {
+        switch ($rel) {
+            case Store::REL_STORE_MANAGERS:
+                return User::ROLE_STORE_MANAGER;
+
+            case Store::REL_DEPARTMENT_MANAGERS:
+                return User::ROLE_DEPARTMENT_MANAGER;
+
+            default:
+                return '';
         }
     }
 }

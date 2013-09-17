@@ -6,7 +6,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use FOS\RestBundle\Util\Inflector\DoctrineInflector;
 use JMS\Serializer\Metadata\Driver\DoctrineTypeDriver;
 use Metadata\Driver\DriverInterface;
-use Metadata\ClassMetadata;
+use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**

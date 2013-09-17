@@ -31,8 +31,8 @@ class InvoiceController extends AbstractRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\Invoice
+     * @param Request $request
+     * @return View|Invoice
      *
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
@@ -44,9 +44,9 @@ class InvoiceController extends AbstractRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param Invoice $invoice
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\Invoice
+     * @return View|Invoice
      *
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
@@ -57,7 +57,7 @@ class InvoiceController extends AbstractRestController
     }
 
     /**
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection
+     * @return View|InvoiceCollection
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
@@ -73,7 +73,7 @@ class InvoiceController extends AbstractRestController
 
     /**
      * @param Invoice $invoice
-     * @return \Lighthouse\CoreBundle\Document\Invoice\Invoice
+     * @return Invoice
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
      * @ApiDoc
      */

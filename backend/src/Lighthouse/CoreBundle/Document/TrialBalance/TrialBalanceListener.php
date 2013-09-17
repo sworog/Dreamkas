@@ -25,7 +25,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
     /**
      * @DI\Inject("lighthouse.core.document.repository.invoice_product")
-     * @var \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository
+     * @var InvoiceProductRepository
      */
     public $invoiceProductRepository;
 

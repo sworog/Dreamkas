@@ -9,8 +9,6 @@ use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * @codeCoverageIgnore
@@ -684,6 +682,7 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $storeId
      * @param string|array $userIds
+     * @param string $rel
      */
     public function linkStoreManagers($storeId, $userIds, $rel = Store::REL_STORE_MANAGERS)
     {
@@ -927,9 +926,10 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @param string $configId
      * @param string $name
      * @param string $value
-     * @return mixed
+     * @return string
      */
     public function updateConfig($configId, $name = 'test-config', $value = 'test-config-value')
     {
