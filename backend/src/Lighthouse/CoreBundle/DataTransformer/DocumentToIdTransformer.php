@@ -50,7 +50,10 @@ class DocumentToIdTransformer implements DataTransformerInterface
             return null;
         }
 
-        return $document->id;
+        $metadata = $this->documentManager->getClassMetadata(get_class($document));
+        $id = $metadata->getIdentifierValue($document);
+
+        return $id;
     }
 
     /**
