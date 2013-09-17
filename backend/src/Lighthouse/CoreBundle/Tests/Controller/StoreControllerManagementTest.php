@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
@@ -20,7 +21,7 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'managers');
+        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
 
         $this->jsonRequest($request, $accessToken);
 
@@ -46,7 +47,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'POST');
         $request->parameters['_method'] = 'LINK';
-        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'managers');
+        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
 
         $this->jsonRequest($request, $accessToken);
 
@@ -72,8 +73,8 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'managers');
-        $request->addLinkHeader($this->getUserResourceUri($storeUser2->id), 'managers');
+        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
+        $request->addLinkHeader($this->getUserResourceUri($storeUser2->id), Store::REL_STORE_MANAGERS);
 
         $this->jsonRequest($request, $accessToken);
 
@@ -99,7 +100,7 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        $request->addLinkHeader($this->getUserResourceUri($depUser1->id), 'managers');
+        $request->addLinkHeader($this->getUserResourceUri($depUser1->id), Store::REL_STORE_MANAGERS);
 
         $linkResponse = $this->jsonRequest($request, $accessToken);
 
@@ -177,7 +178,7 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        $request->addLinkHeader($this->getUserResourceUri('2143214235345345'), 'managers');
+        $request->addLinkHeader($this->getUserResourceUri('2143214235345345'), Store::REL_STORE_MANAGERS);
 
         $linkResponse = $this->jsonRequest($request, $accessToken);
 
@@ -198,7 +199,7 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        $request->addLinkHeader('http://localhost/api/1/groups/'.  $groupId, 'managers');
+        $request->addLinkHeader('http://localhost/api/1/groups/'.  $groupId, Store::REL_STORE_MANAGERS);
 
         $linkResponse = $this->jsonRequest($request, $accessToken);
 
@@ -218,7 +219,7 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'managers');
+        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
 
         $this->jsonRequest($request, $accessToken);
 
@@ -242,7 +243,7 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/notfoundstore' . $storeId, 'LINK');
-        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'managers');
+        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
 
         $linkResponse = $this->jsonRequest($request, $accessToken);
 
@@ -442,7 +443,7 @@ class StoreControllerManagementTest extends WebTestCase
     public function allRolesExceptCommercialManagerProvider()
     {
         return array(
-            array('managers'),
+            array(Store::REL_STORE_MANAGERS),
             array(User::ROLE_ADMINISTRATOR),
             array(User::ROLE_DEPARTMENT_MANAGER),
         );
@@ -483,7 +484,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson);
 
         $jsonRequest = new JsonRequest('/api/1/stores/' . $storeId1, 'UNLINK');
-        $jsonRequest->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'managers');
+        $jsonRequest->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
         $this->jsonRequest($jsonRequest, $accessToken);
 
         $this->assertResponseCode(204);
@@ -508,7 +509,7 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $jsonRequest = new JsonRequest('/api/1/stores/' . $storeId, 'UNLINK');
-        $jsonRequest->addLinkHeader($this->getUserResourceUri($storeUser->id), 'managers');
+        $jsonRequest->addLinkHeader($this->getUserResourceUri($storeUser->id), Store::REL_STORE_MANAGERS);
         $unlinkResponse = $this->jsonRequest($jsonRequest, $accessToken);
 
         $this->assertResponseCode(409);
@@ -641,7 +642,7 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'departmentManagers');
+        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_DEPARTMENT_MANAGERS);
 
         $this->jsonRequest($request, $accessToken);
 
@@ -655,12 +656,28 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathEquals($storeUser1->id, 'departmentManagers.*.id', $storeJson);
     }
 
-    /**
-     * @param string $userId
-     * @return string
-     */
-    protected function getUserResourceUri($userId)
+    public function testUnlinkDepartmentManager()
     {
-        return sprintf('http://localhost/api/1/users/%s', $userId);
+        $this->clearMongoDb();
+
+        $storeUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeId = $this->createStore();
+
+        $this->linkStoreManagers($storeId, $storeUser1->id, Store::REL_DEPARTMENT_MANAGERS);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $request = new JsonRequest('/api/1/stores/' . $storeId, 'UNLINK');
+        $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_DEPARTMENT_MANAGERS);
+
+        $this->jsonRequest($request, $accessToken);
+
+        $this->assertResponseCode(204);
+
+        $storeJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId);
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, 'departmentManagers.*', $storeJson);
     }
 }

@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
@@ -684,13 +685,13 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $storeId
      * @param string|array $userIds
      */
-    public function linkStoreManagers($storeId, $userIds)
+    public function linkStoreManagers($storeId, $userIds, $rel = Store::REL_STORE_MANAGERS)
     {
         $userIds = (array) $userIds;
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         foreach ($userIds as $userId) {
-            $request->addLinkHeader('http://localhost/api/1/users/' . $userId, 'managers');
+            $request->addLinkHeader($this->getUserResourceUri($userId), $rel);
         }
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -955,5 +956,14 @@ class WebTestCase extends ContainerAwareTestCase
         Assert::assertJsonPathEquals($configId, 'id', $postResponse);
 
         return $postResponse['id'];
+    }
+
+    /**
+     * @param string $userId
+     * @return string
+     */
+    protected function getUserResourceUri($userId)
+    {
+        return sprintf('http://localhost/api/1/users/%s', $userId);
     }
 }
