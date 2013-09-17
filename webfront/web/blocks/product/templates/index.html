@@ -7,7 +7,7 @@
 </div>
 <% } %>
 
-<h3 name="name" class="product__name"><%text productModel.get('name') %></h3>
+<h1 name="name" class="product__name"><%- productModel.get('name') %></h1>
 
 <div class="product__sku" name="sku">
     <%- productModel.get('sku') %>
@@ -18,7 +18,7 @@
         <th>Группа</th>
         <td>
             <a href="/catalog/<%- productModel.get('subCategory').category.group.id %>" name="group">
-                <%text productModel.get('subCategory').category.group.name %>
+                <%- productModel.get('subCategory').category.group.name %>
             </a>
         </td>
     </tr>
@@ -27,7 +27,7 @@
         <td>
             <a href="/catalog/<%- productModel.get('subCategory').category.group.id %>/<%= productModel.get('subCategory').category.id %>"
                name="category">
-                <%text productModel.get('subCategory').category.name %>
+                <%- productModel.get('subCategory').category.name %>
             </a>
         </td>
     </tr>
@@ -36,7 +36,7 @@
         <td>
             <a href="/catalog/<%- productModel.get('subCategory').category.group.id %>/<%= productModel.get('subCategory').category.id %>/<%= productModel.get('subCategory').id %>"
                name="subCategory">
-                <%text productModel.get('subCategory').name %>
+                <%- productModel.get('subCategory').name %>
             </a>
         </td>
     </tr>
@@ -71,19 +71,19 @@
     <tr>
         <th>Единица измерения</th>
         <td name="units">
-            <%text LH.units(productModel.get('units'), 'smallFull') %>
+            <%- LH.units(productModel.get('units'), 'smallFull') %>
         </td>
     </tr>
     <tr>
         <th>Производитель</th>
         <td name="vendor">
-            <%text productModel.get('vendor') %>
+            <%- productModel.get('vendor') %>
         </td>
     </tr>
     <tr>
         <th>Страна</th>
         <td name="vendorCountry">
-            <%text productModel.get('vendorCountry') %>
+            <%- productModel.get('vendorCountry') %>
         </td>
     </tr>
     <tr>
@@ -125,7 +125,7 @@
         <th>Округление</th>
         <td>
             <span name="rounding">
-                <%text productModel.get('rounding').name %>
+                <%- productModel.get('rounding').name %>
             </span>
         </td>
     </tr>
@@ -169,7 +169,7 @@
                 Изменить наценку/цену
             </a>
             <% } else { %>
-            <span><%text 'Изменить наценку/цену нельзя. Нет диапазона наценки' %></span>
+            <span><%- 'Изменить наценку/цену нельзя. Нет диапазона наценки' %></span>
             <% } %>
 
         </td>

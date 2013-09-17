@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('./deepExtend.js');
+    var deepExtend = require('./deepExtend');
 
     return function(path, value, extra) {
             var object = this,

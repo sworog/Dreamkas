@@ -4,7 +4,7 @@
               class="invoice__editable"
               autocomplete-name="name"
               model-attr="product"
-              product-id="<%- model.get('product').id %>"><%text model.get('product').name %></span>
+              product-id="<%- model.get('product').id %>"><%- model.get('product').name %></span>
         <br />
         <span name="productSku"
               class="invoice__editable"
@@ -27,7 +27,7 @@
                 <%- model.get('quantity') %>
             </span>
             <span name="productUnits">
-                <%text LH.units(model.get('product').units, 'smallShort') %>
+                <%- LH.units(model.get('product').units, 'smallShort') %>
             </span>
         </span>
     </td>
@@ -37,7 +37,7 @@
                 по
             </span>
             <span name="productPrice" model-attr="price">
-                <%text LH.formatPrice(model.get('price')) %>
+                <%- LH.formatPrice(model.get('price')) %>
             </span>
             <span>
                 р.
@@ -49,13 +49,13 @@
             =
         </span>
         <span name="productSum">
-            <%text LH.formatPrice(model.get('totalPrice')) %>
+            <%- LH.formatPrice(model.get('totalPrice')) %>
         </span>
         <span>
             р.
         </span>
     </td>
     <td style="width: 1px;">
-        <span class="invoice__removeLink"><%text 'удалить' %></span>
+        <span class="invoice__removeLink"><%- 'удалить' %></span>
     </td>
 </tr>

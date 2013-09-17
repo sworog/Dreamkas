@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Form = require('kit/blocks/form/form'),
-        cookie = require('utils/cookie');
+        cookie = require('kit/utils/cookie');
 
     var authorizationHeader = 'Bearer ' + cookie.get('token'),
         configUrl = LH.baseApiUrl + '/configs';
@@ -15,7 +15,7 @@ define(function(require) {
         set10IntegrationLogin: {},
         set10IntegrationPassword: {},
         successMessage: 'Настройки успешно сохранены',
-        onSubmit: function(data){
+        submit: function(data){
             var block = this,
                 saveData = $.when(block.saveUrl(data['set10-integration-url']), block.saveLogin(data['set10-integration-login']), block.savePassword(data['set10-integration-password']));
 
@@ -23,18 +23,18 @@ define(function(require) {
                 block.set10IntegrationUrl.id = urlData[0].id;
                 block.set10IntegrationLogin.id = loginData[0].id;
                 block.set10IntegrationPassword.id = passwordData[0].id;
-                block.onSubmitSuccess();
+                block.submitSuccess();
             });
 
             saveData.fail(function(){
-                block.onSubmitError();
+                block.submitError();
             });
 
             saveData.always(function(){
-                block.onSubmitComplete();
+                block.submitComplete();
             });
         },
-        onSubmitError: function(){
+        submitError: function(){
             var block = this;
 
             block.showErrors({error: 'Настройки не сохранены. Обратитесь к администратору.'})

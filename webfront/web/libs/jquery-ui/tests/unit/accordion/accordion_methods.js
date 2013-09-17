@@ -59,7 +59,7 @@ test( "refresh", function() {
 
 	// add a panel
 	element
-		.append("<h3 class='bar' id='new_1'>new 1</h3>")
+		.append("<h1 class='bar' id='new_1'>new 1</h1>")
 		.append("<div class='foo' id='new_1_panel'>new 1</div>");
 	element.accordion( "refresh" );
 	state( element, 1, 0, 0, 0 );
@@ -72,13 +72,13 @@ test( "refresh", function() {
 
 	// add panels
 	element
-		.append("<h3 class='bar' id='new_2'>new 2</h3>")
+		.append("<h1 class='bar' id='new_2'>new 2</h1>")
 		.append("<div class='foo' id='new_2_panel'>new 2</div>")
-		.append("<h3 class='bar' id='new_3'>new 3</h3>")
+		.append("<h1 class='bar' id='new_3'>new 3</h1>")
 		.append("<div class='foo' id='new_3_panel'>new 3</div>")
-		.append("<h3 class='bar' id='new_4'>new 4</h3>")
+		.append("<h1 class='bar' id='new_4'>new 4</h1>")
 		.append("<div class='foo' id='new_4_panel'>new 4</div>")
-		.append("<h3 class='bar' id='new_5'>new 5</h3>")
+		.append("<h1 class='bar' id='new_5'>new 5</h1>")
 		.append("<div class='foo' id='new_5_panel'>new 5</div>");
 	element.accordion( "refresh" );
 	state( element, 1, 0, 0, 0 );

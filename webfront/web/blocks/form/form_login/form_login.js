@@ -7,8 +7,8 @@ define(function(require) {
     return Form.extend({
         __name__: 'form_login',
         model: tokenModel,
-        onSubmitSuccess: function(model) {
-            login(model.get('access_token'));
+        submitSuccess: function(response) {
+            login(this.model.get('access_token'));
         }
     });
 });

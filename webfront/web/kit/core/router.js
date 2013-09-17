@@ -2,8 +2,8 @@ define(function(require) {
     //requirements
     var Backbone = require('backbone'),
         _ = require('underscore'),
-        deepExtend = require('../utils/deepExtend.js'),
-        classExtend = require('../utils/classExtend.js');
+        deepExtend = require('../utils/deepExtend'),
+        classExtend = require('../utils/classExtend');
 
     require('backbone.queryparams');
 

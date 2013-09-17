@@ -16,7 +16,7 @@
     <div>
         <div class="invoice__headItem">
         <span class="invoice__headItemData invoice__editable" name="supplier" model-attr="supplier">
-            <%text invoiceModel.get('supplier') %>
+            <%- invoiceModel.get('supplier') %>
         </span>
             <div class="invoice__headItemHint">
                 поставщик
@@ -24,7 +24,7 @@
         </div>
         <div class="invoice__headItem">
         <span class="invoice__headItemData invoice__editable" name="accepter" model-attr="accepter">
-            <%text invoiceModel.get('accepter') %>
+            <%- invoiceModel.get('accepter') %>
         </span>
             <div class="invoice__headItemHint">
                 приёмщик
@@ -32,7 +32,7 @@
         </div>
         <div class="invoice__headItem">
         <span class="invoice__headItemData invoice__editable" name="legalEntity" model-attr="legalEntity">
-            <%text invoiceModel.get('legalEntity') %>
+            <%- invoiceModel.get('legalEntity') %>
         </span>
             <div class="invoice__headItemHint">
                 получатель

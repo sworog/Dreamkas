@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('../../core/block.js');
+        var Block = require('../../core/block');
 
         return Block.extend({
             __name__: 'select',

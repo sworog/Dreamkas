@@ -23,7 +23,7 @@ define(function(require) {
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='sku']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='barcode']"));
             },
-            onSubmitSuccess: function(model){
+            submitSuccess: function(model){
                 var block = this;
 
                 block.writeOffProductsCollection.push(model);

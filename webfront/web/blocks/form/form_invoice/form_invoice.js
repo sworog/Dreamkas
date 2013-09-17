@@ -9,7 +9,7 @@ define(function(require) {
         templates: {
             index: require('tpl!blocks/form/form_invoice/templates/index.html')
         },
-        onSubmitSuccess: function(model){
+        submitSuccess: function(model){
             router.navigate('/invoices/' + model.id + '?editMode=true', {
                 trigger: true
             });

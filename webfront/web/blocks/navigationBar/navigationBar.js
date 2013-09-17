@@ -8,9 +8,7 @@ define(function(require) {
         __name__: 'navigationBar',
         currentUserModel: currentUserModel,
         userPermissions: null,
-        templates: {
-            index: require('tpl!./navigationBar.html')
-        },
+        template: require('tpl!./navigationBar.html'),
         events: {
             'click .navigationBar__logoutLink': function(e) {
                 e.preventDefault();

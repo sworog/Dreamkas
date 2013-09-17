@@ -2,8 +2,6 @@ define(function(require) {
     //requirements
     var Model = require('kit/core/model');
 
-    require('models/roundings');
-
     return Model.extend({
         modelName: 'product',
         urlRoot: LH.baseApiUrl + '/products',

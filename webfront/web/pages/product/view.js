@@ -5,7 +5,7 @@ define(function(require) {
         ProductModel = require('models/product'),
         StoreProductModel = require('models/storeProduct'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/403/403');
+        Page403 = require('pages/errors/403');
 
     return Page.extend({
         __name__: 'page_product_view',

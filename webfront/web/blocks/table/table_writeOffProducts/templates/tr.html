@@ -4,7 +4,7 @@
               class="writeOff__editable"
               autocomplete-name="name"
               model-attr="product"
-              product-id="<%- model.get('product').id %>"><%text model.get('product').name %></span>
+              product-id="<%- model.get('product').id %>"><%- model.get('product').name %></span>
         <br />
         <span name="productSku"
               class="writeOff__editable"
@@ -27,7 +27,7 @@
                 <%- model.get('quantity') %>
             </span>
             <span name="productUnits">
-                <%text LH.units(model.get('product').units, 'smallShort') %>
+                <%- LH.units(model.get('product').units, 'smallShort') %>
             </span>
         </span>
     </td>
@@ -50,6 +50,6 @@
         </span>
     </td>
     <td style="width: 1px;">
-        <span class="writeOff__removeLink"><%text 'удалить' %></span>
+        <span class="writeOff__removeLink"><%- 'удалить' %></span>
     </td>
 </tr>

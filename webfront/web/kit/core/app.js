@@ -1,11 +1,11 @@
 define(function(require) {
     //requirements
     var _ = require('underscore'),
-        setter = require('../mixins/setter.js'),
-        getter = require('../mixins/getter.js'),
+        setter = require('../mixins/setter'),
+        getter = require('../mixins/getter'),
         Backbone = require('backbone'),
-        cookie = require('../utils/cookie.js'),
-        req = require('../utils/require.js');
+        cookie = require('../utils/cookie'),
+        req = require('../utils/require');
 
     return _.extend({
             permissions: {},

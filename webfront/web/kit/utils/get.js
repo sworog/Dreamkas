@@ -7,6 +7,10 @@ define(function(require) {
             attr = this,
             segments = path.split('.');
 
+        if (attr === null || typeof attr === 'undefined'){
+            return undefined;
+        }
+
         _.every(segments, function(segment){
 
             if (_.isFunction(attr[segment])){

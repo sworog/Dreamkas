@@ -1,4 +1,4 @@
-<h3><%text 'Редактирование наценки/цены' %></h3>
+<h1><%- 'Редактирование наценки/цены' %></h1>
 <fieldset class="form__fieldset">
     <div class="form__field form__field_inline">
         <label class="form__label">
@@ -10,7 +10,7 @@
         <input
                 style="width: 100px;"
                 value="<%- model.get('retailMarkup') ? model.get('retailMarkup') : model.get('product').retailMarkupMax %>"
-                class="inputText retailMarkup productForm__linkedInput <%text model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>"
+                class="inputText retailMarkup productForm__linkedInput <%- model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>"
                 type="text"
                 name="retailMarkup"/>
         <span class="productForm__inputLink">
@@ -41,7 +41,7 @@
 </fieldset>
 <div class="form__controls">
     <span class="button ">
-        <%text 'Сохранить' %>
+        <%- 'Сохранить' %>
         <input type="submit"/>
     </span>
 </div>

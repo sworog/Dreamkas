@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Backbone = require('backbone'),
         _ = require('underscore'),
-        getter = require('../mixins/getter.js');
+        get = require('../utils/get');
 
     /**
      * Расширение <a target="blank" href="http://backbonejs.org/#Model">Backbone.Model</a><br />
@@ -33,7 +33,7 @@ define(function(require) {
                         }
 
                         _.each(model.attributes, function(attrValue, attrKey){
-                            var deps = attrValue.__dependencies__;
+                            var deps = get.call(attrValue, '__dependencies__');
 
                             if (_.contains(deps, changedAttrKey)){
                                 model.trigger('change:' + attrKey, model, model.get(attrKey));
@@ -60,7 +60,7 @@ define(function(require) {
         get: function(path){
             var model = this;
 
-            return getter.get.apply(model.attributes, arguments);
+            return get.apply(model.attributes, arguments);
         },
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({

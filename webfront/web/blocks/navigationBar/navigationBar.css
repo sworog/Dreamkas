@@ -1,5 +1,5 @@
 .navigationBar{
-    background: #2c3e50;
+    background: #282A2E;
     height: 100%;
     position: fixed;
     width: 200px;
@@ -9,40 +9,42 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     z-index: 100;
+    padding: 40px;
+}
+
+.navigationBar__bottom{
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+    right: 40px;
 }
 
 .navigationBar__userControls{
-    float: right;
-    height: 100%;
+    padding-bottom: 10px;
 }
 
 .navigationBar a{
     height: 40px;
-    line-height: 37px;
+    line-height: 41px;
     vertical-align: middle;
     cursor: pointer;
-    color: #fff;
-    padding: 0 20px 0 30px;
+    color: #D4D4D4;
     text-decoration: none;
     display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
 }
 
 .navigationBar a:hover{
-    background-color: #34495e;
+    color: #1FB18A;
 }
 
 .navigationBar .navigationBar__logo{
-    font-family: "Sansus Webissimo";
     font-size: 20px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }
 
 .navigationBar__userName{
-    border-right: 1px solid #eee;
-    font-weight: bold;
 }
 
 .navigationBar__links {

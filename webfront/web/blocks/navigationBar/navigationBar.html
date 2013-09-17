@@ -1,8 +1,6 @@
 <% var isAllow = require('kit/utils/isAllow') %>
 <% var text = require ('kit/utils/text') %>
 
-<a href="/" class="navigationBar__logo">Lighthouse</a>
-
 <div class="navigationBar__links">
     <% if(currentUserModel.get('id')) { %>
 
@@ -40,15 +38,20 @@
     <% } %>
 </div>
 
-<% if(currentUserModel.get('id')) { %>
-<div class="navigationBar__userControls">
-    <a href="/users/current" class="navigationBar__userName">
-        <i style="vertical-align: middle; position: relative; left: -5px; top: -1px;" class="icon-user"></i>
-        <%- currentUserModel.get('username') %>
-    </a>
-    <a class="navigationBar__logoutLink">
-        <i class="icon-signout" style="margin-left: -5px;"></i>
-        <%- text('Выйти') %>
+<div class="navigationBar__bottom">
+
+    <% if(currentUserModel.get('id')) { %>
+    <div class="navigationBar__userControls">
+        <a href="/users/current" class="navigationBar__userName">
+            <%- currentUserModel.get('username') %>
+        </a>
+        <a class="navigationBar__logoutLink">
+            <%- text('Выйти') %>
+        </a>
+    </div>
+    <% } %>
+
+    <a href="/" class="navigationBar__logo">
+        Lighthouse
     </a>
 </div>
-<% } %>

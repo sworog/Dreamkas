@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('../../core/block.js'),
+        var Block = require('../../core/block'),
             moment = require('moment');
 
         require('moment/ru');

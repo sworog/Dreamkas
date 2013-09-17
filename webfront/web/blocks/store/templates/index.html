@@ -1,23 +1,25 @@
+<% var attr = require('kit/utils/attr') %>
+
 <% if(LH.isAllow('stores', 'PUT::{store}')) { %>
 <div class="page__controls">
     <a href="/stores/edit/<%- storeModel.id %>">
-        <%text 'Редактировать' %>
+        <%- 'Редактировать' %>
     </a>
 </div>
 <% } %>
 
-<h3><%attr storeModel:number %></h3>
+<h1><%- attr(storeModel, 'number') %></h1>
 <table class="table store__info">
     <tr>
-        <th><%text 'Адрес' %></th>
+        <th><%- 'Адрес' %></th>
         <td>
-            <%attr storeModel:address %>
+            <%- attr(storeModel, 'address') %>
         </td>
     </tr>
     <tr>
-        <th><%text 'Контактная информация' %></th>
+        <th><%- 'Контактная информация' %></th>
         <td>
-            <%attr storeModel:contacts %>
+            <%- attr(storeModel, 'contacts') %>
         </td>
     </tr>
 </table>
@@ -27,7 +29,7 @@
         <span class="store__departmentsTitle"></span>
         <% if(LH.isAllow('departments', 'POST')) { %>
         <a style="margin-left: 10px;" class="button" href="/stores/<%- storeModel.id %>/departments/create">
-            <%text 'Создать отдел' %>
+            <%- 'Создать отдел' %>
         </a>
         <% } %>
     </h4>

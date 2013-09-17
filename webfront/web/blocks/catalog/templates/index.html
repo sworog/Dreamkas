@@ -1,26 +1,26 @@
 <div class="page__controls">
     <% if (LH.isAllow('groups', 'POST')) { %>
     <div style="padding-bottom: 5px;">
-        <a class="page__controlsLink editor__on"><%text 'Редактировать' %></a>
-        <a class="page__controlsLink editor__off"><%text 'Завершить редактирование' %></a>
+        <a class="page__controlsLink editor__on">Редактировать</a>
+        <a class="page__controlsLink editor__off">Завершить редактирование</a>
     </div>
     <% } %>
     <% if (LH.isAllow('others', 'GET::api/1/integration/export/products')) { %>
     <div>
-        <a class="page__controlsLink catalog__exportLink"><%text 'Выгрузить в SetRetail' %></a>
+        <a class="page__controlsLink catalog__exportLink">Выгрузить в SetRetail</a>
     </div>
     <% } %>
 </div>
 
 
-<h3>
+<h1>
     <span style="vertical-align: middle; margin-right: 10px;">
-        <%text 'Товарный справочник' %>
+        Товарный справочник
     </span>
     <a class="button  catalog__addGroupLink editor__control">
-        <%text 'Добавить группу' %>
+        Добавить группу
     </a>
-</h3>
+</h1>
 <div id="catalog__groupList" class="catalog__groupList">
     <%= templates.catalog__groupList({
         templates: templates,

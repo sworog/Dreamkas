@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var deepExtend = require('./deepExtend.js');
+        var deepExtend = require('./deepExtend');
 
         // Helper function to correctly set up the prototype chain, for subclasses.
         // Similar to `goog.inherits`, but uses a hash of prototype properties and

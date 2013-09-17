@@ -2,24 +2,24 @@
 <div class="page__controls">
     <a class="user__editLink"
        href="/users/edit/<%- model.get('id') %>">
-       <%text 'Редактировать' %>
+       <%- 'Редактировать' %>
     </a>
 </div>
 <% } %>
 
-<h3 name="name"><%- model.get('name') %></h3>
+<h1 name="name"><%- model.get('name') %></h1>
 
 <table class="table" style="width: 50%">
     <tr>
-        <th><%text 'Роль' %></th>
-        <td name="role"><%text model.get('role') %></td>
+        <th><%- 'Роль' %></th>
+        <td name="role"><%- model.get('role') %></td>
     </tr>
     <tr>
-        <th><%text 'Должность' %></th>
-        <td name="position"><%text model.get('position') %></td>
+        <th><%- 'Должность' %></th>
+        <td name="position"><%- model.get('position') %></td>
     </tr>
     <tr>
-        <th><%text 'Логин' %></th>
+        <th><%- 'Логин' %></th>
         <td name="username"><%- model.get('username') %></td>
     </tr>
 </table>

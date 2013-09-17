@@ -2,10 +2,10 @@ define(function(require) {
     //requirements
     var Backbone = require('backbone'),
         _ = require('underscore'),
-        deepExtend = require('../utils/deepExtend.js'),
-        classExtend = require('../utils/classExtend.js'),
-        setter = require('../mixins/setter.js'),
-        getter = require('../mixins/getter.js');
+        deepExtend = require('../utils/deepExtend'),
+        classExtend = require('../utils/classExtend'),
+        setter = require('../mixins/setter'),
+        getter = require('../mixins/getter');
 
     require('jquery.require');
 
@@ -14,7 +14,7 @@ define(function(require) {
         .extend(getter)
         .extend({
             __name__: null,
-            templates: {},
+            template: function(){},
 
             className: null,
             addClass: null,
@@ -58,22 +58,11 @@ define(function(require) {
 
                 block.startListening();
             },
-
             initialize: function() {
             },
             render: function() {
                 var block = this,
-                    template;
-
-                if (!block.templates.index) {
-                    return block;
-                }
-
-                if (block.loading) {
-                    return block;
-                }
-
-                template = block.templates.index(block);
+                    template = block.template(block);
 
                 //block.removeBlocks();
 

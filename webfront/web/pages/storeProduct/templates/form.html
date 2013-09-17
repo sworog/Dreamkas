@@ -1,15 +1,15 @@
 <div class="page__header">
-    <a href="/stores/<%- storeId %>" class="page__backLink"><%text storeProductModel.get('store').number %></a>
+    <a href="/stores/<%- storeId %>" class="page__backLink"><%- storeProductModel.get('store').number %></a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog" class="page__backLink"><%text 'Товарный справочник' %></a>
+    <a href="/catalog" class="page__backLink"><%- 'Товарный справочник' %></a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%- storeProductModel.get('product').subCategory.category.group.id %>" class="page__backLink"><%text storeProductModel.get('product').subCategory.category.group.name %></a>
+    <a href="/catalog/<%- storeProductModel.get('product').subCategory.category.group.id %>" class="page__backLink"><%- storeProductModel.get('product').subCategory.category.group.name %></a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%- storeProductModel.get('product').subCategory.category.group.id %>/<%- storeProductModel.get('product').subCategory.category.id %>" class="page__backLink"><%text storeProductModel.get('product').subCategory.category.name %></a>
+    <a href="/catalog/<%- storeProductModel.get('product').subCategory.category.group.id %>/<%- storeProductModel.get('product').subCategory.category.id %>" class="page__backLink"><%- storeProductModel.get('product').subCategory.category.name %></a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%- storeProductModel.get('product').subCategory.category.group.id %>/<%- storeProductModel.get('product').subCategory.category.id %>/<%- storeProductModel.get('product').subCategory.id %>" class="page__backLink"><%text storeProductModel.get('product').subCategory.name %></a>
+    <a href="/catalog/<%- storeProductModel.get('product').subCategory.category.group.id %>/<%- storeProductModel.get('product').subCategory.category.id %>/<%- storeProductModel.get('product').subCategory.id %>" class="page__backLink"><%- storeProductModel.get('product').subCategory.name %></a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/products/<%- storeProductModel.id %>" class="page__backLink"><%text storeProductModel.get('product').name %></a>
+    <a href="/products/<%- storeProductModel.id %>" class="page__backLink"><%- storeProductModel.get('product').name %></a>
 </div>
 <div class="box">
     <form id="form_storeProduct"></form>

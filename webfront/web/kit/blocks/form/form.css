@@ -1,6 +1,7 @@
 .form__label{
     display: block;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
+    font-size: 13px;
 }
 
 .form__fieldset{
@@ -17,11 +18,10 @@
 }
 
 .form__controls{
-    padding-top: 10px;
 }
 
 .form__field{
-    padding-bottom: 20px;
+    padding-bottom: 16px;
 }
 
 .form__field .inputText, .form__field .select{
@@ -37,4 +37,14 @@
     vertical-align: middle;
     color: darkgreen;
     margin-left: 10px;
+}
+
+[data-error]:after {
+    content: attr(data-error);
+    display: block;
+    color: #c0392b;
+}
+
+.form__controls[data-error]:after {
+    display: inline-block;
 }

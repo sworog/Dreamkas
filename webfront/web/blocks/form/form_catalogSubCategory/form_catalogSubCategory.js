@@ -18,10 +18,10 @@ define(function(require) {
                 block.isAddForm = false;
             }
         },
-        onSubmitSuccess: function(){
+        submitSuccess: function(){
             var block = this;
 
-            Form.prototype.onSubmitSuccess.apply(block, arguments);
+            Form.prototype.submitSuccess.apply(block, arguments);
 
             if (block.isAddForm){
                 block.model = new CatalogSubCategoryModel({

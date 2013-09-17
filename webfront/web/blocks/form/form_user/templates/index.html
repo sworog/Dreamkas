@@ -1,4 +1,4 @@
-<h3><%text model.id ? 'Редактирование пользователя' : 'Добавление нового пользователя' %></h3>
+<h1><%- model.id ? 'Редактирование пользователя' : 'Добавление нового пользователя' %></h1>
 <div class="form__field form__field_inline">
     <label class="form__label">Роль</label>
     <select class="select" value="<%- model.get('role') %>" name="role" require="blocks/select/select_userRole/select_userRole"></select>
@@ -15,7 +15,7 @@
     <input type="text"
            class="inputText"
            name="position"
-           value="<%text model.get('position') %>"/>
+           value="<%- model.get('position') %>"/>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label">Логин</label>
@@ -32,7 +32,7 @@
 </div>
 <div class="form__controls">
     <span class="button ">
-        <%text model.id ? 'Сохранить' : 'Добавить' %>
+        <%- model.id ? 'Сохранить' : 'Добавить' %>
         <input type="submit"/>
     </span>
 </div>

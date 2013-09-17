@@ -9,10 +9,8 @@ define(function(require) {
 
     app.locale = 'root';
 
-    app.set('apiUrl', 'http://borovin.staging.api.lh.cs/api/1');
-
     var sync = Backbone.sync,
-        loading = currentUserModel.fetch(),
+        loading,
         routers;
 
     Backbone.sync = function(method, model, options) {
@@ -35,8 +33,11 @@ define(function(require) {
         return syncing;
     };
 
+    loading = currentUserModel.fetch();
+
     loading.done(function() {
         app.set('permissions', currentUserModel.permissions.toJSON());
+        console.log(app.permissions);
         routers = 'routers/authorized';
     });
 
@@ -53,4 +54,6 @@ define(function(require) {
             routers
         ]);
     });
+
+    return app;
 });

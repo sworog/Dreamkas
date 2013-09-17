@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         JobsCollection = require('collections/jobs'),
         Jobs = require('blocks/jobs/jobs');
 

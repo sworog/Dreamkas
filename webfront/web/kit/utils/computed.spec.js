@@ -1,9 +1,9 @@
 define(function(require) {
     //requirements
-    var getter = require('../mixins/getter.js'),
+    var getter = require('../mixins/getter'),
         _ = require('underscore'),
-        computed = require('./computed.js'),
-        objectMock = require('../mocks/object.js');
+        computed = require('./computed'),
+        objectMock = require('../mocks/object');
 
     var object = _.extend({
         computedString: computed(['string', 'number'], function(string, number){

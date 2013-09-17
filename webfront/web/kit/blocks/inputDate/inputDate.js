@@ -1,8 +1,8 @@
 define(function(require) {
         //requirements
-        var Block = require('../../core/block.js'),
-            Datepicker = require('../datepicker/datepicker.js'),
-            Tooltip = require('../tooltip/tooltip.js');
+        var Block = require('../../core/block'),
+            Datepicker = require('../datepicker/datepicker'),
+            Tooltip = require('../tooltip/tooltip');
 
         require('jquery.maskedinput');
 

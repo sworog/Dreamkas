@@ -1,8 +1,8 @@
-<h4><%text 'Управляющие' %></h4>
+<h4><%- 'Управляющие' %></h4>
 <div class="store__managerList">
     <% storeManagersCollection.each(function(storeManagerModel) { %>
     <%= templates.store__managerItem({storeManagerModel: storeManagerModel}) %>
     <% }) %>
 </div>
 <select id='select_storeManagers' class="select"></select>
-<div class="store__managersNotification"><%text 'Больше нет свободных управляющих' %></div>
+<div class="store__managersNotification"><%- 'Больше нет свободных управляющих' %></div>

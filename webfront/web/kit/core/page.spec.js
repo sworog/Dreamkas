@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('./page.js');
+    var Page = require('./page');
 
     var TestPage = Page.extend({
         __name__: 'page_test',

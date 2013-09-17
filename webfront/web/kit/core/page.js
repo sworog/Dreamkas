@@ -1,9 +1,9 @@
 define(function(require) {
     //requirements
-    var Block = require('./block.js'),
+    var Block = require('./block'),
         Backbone = require('backbone'),
-        Router = require('./router.js'),
-        isAllow = require('../utils/isAllow.js'),
+        Router = require('./router'),
+        isAllow = require('../utils/isAllow'),
         _ = require('underscore');
 
     var router = new Router();

@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Model = require('./model.js');
+    var Model = require('./model');
 
     var attrs = {
         string: 'test',

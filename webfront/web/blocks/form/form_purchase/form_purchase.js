@@ -9,7 +9,7 @@ define(function(require) {
             templates: {
                 index: require('tpl!blocks/form/form_purchase/templates/index.html')
             },
-            onSubmit: function(data) {
+            submit: function(data) {
                 var products = [];
 
                 _.each(data.product, function(product, index) {
@@ -24,13 +24,13 @@ define(function(require) {
                     products: products
                 };
 
-                Form.prototype.onSubmit.call(this, data);
+                Form.prototype.submit.call(this, data);
             },
-            onSubmitSuccess: function(){
+            submitSuccess: function(){
                 alert('Продано!');
                 document.location.reload();
             },
-            onSubmitError: function(){
+            submitError: function(){
                 alert('Ошибка!');
             }
         });
