@@ -3,9 +3,9 @@ Meta:
 @us 42
 
 Narrative:
-As a user
-I want to perform an action
-So that I can achieve a business goal
+As a коммерческий директор
+I want to назначить заведующего отделом магазина,
+In In order to предоставить ему соответсвующие возможности и полномочия
 
 Scenario: Promote department manager
 
@@ -60,7 +60,7 @@ Then user checks the promoted department manager is not 'promotedCommercialManag
 
 Scenario: Can't promote not department manager - storeManager
 
-Given there is the user with name 'promotedStoreManager6', position 'promotedStoreManager6', username 'promotedStoreManager6', password 'lighthouse', role 'administrator'
+Given there is the user with name 'promotedStoreManager6', position 'promotedStoreManager6', username 'promotedStoreManager6', password 'lighthouse', role 'storeManager'
 And there is created store with number 'CPNDM-D', address 'CPNDM-D', contacts 'CPNDM-D'
 And user navigates to created store page
 And the user logs in as 'commercialManager'
