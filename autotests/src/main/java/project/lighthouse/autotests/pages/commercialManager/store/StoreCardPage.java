@@ -22,6 +22,7 @@ public class StoreCardPage extends CommonPageObject {
     @Override
     public void createElements() {
         items.put("store manager select", new SelectByVisibleText(this, By.id("select_storeManagers")));
+        items.put("department manager select", new SelectByVisibleText(this, By.id("select_departmentManagers")));
     }
 
     public void checkStoreCardValue(String fieldName, String value) {
@@ -70,6 +71,14 @@ public class StoreCardPage extends CommonPageObject {
         );
     }
 
+    public WebElement findPromotedDepartmentManager(String value) {
+        return findVisibleElement(
+                By.xpath(
+                        String.format("//*[not(contains(@class, 'store__managerItem preloader_rows'))]/*[@model_attr='name' and @model_name='user' and text()='%s']", value)
+                )
+        );
+    }
+
     public void promoteStoreManager(String storeManager) {
         try {
             setStoreManager(storeManager);
@@ -90,7 +99,7 @@ public class StoreCardPage extends CommonPageObject {
             fail(
                     String.format("The user named '%s' can't be promoted to store manager!", notStoreManager)
             );
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -111,11 +120,60 @@ public class StoreCardPage extends CommonPageObject {
             fail(
                     String.format("Store manager named '%s' should be not promoted!", storeManager)
             );
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
     public void unPromoteStoreManager(String storeManager) {
         checkPromotedStoreManager(storeManager).findElement(By.xpath("../i")).click();
+    }
+
+    public void setDepartmentManager(String departmentManager) {
+        items.get("department manager select").setValue(departmentManager);
+    }
+
+    public void promoteDepartmentManager(String departmentManager) {
+        try {
+            setDepartmentManager(departmentManager);
+        } catch (Exception e) {
+            fail(
+                    String.format("Can't promote department manager named '%s', he doesn't exist in drop down list", departmentManager)
+            );
+        }
+    }
+
+    public void promoteNotDepartmentManager(String notDepartmentManager) {
+        try {
+            setDepartmentManager(notDepartmentManager);
+            fail(
+                    String.format("The user named '%s' can't be promoted to store manager!", notDepartmentManager)
+            );
+        } catch (Exception ignored) {
+        }
+    }
+
+    public WebElement checkPromotedDepartmentManager(String departmentManager) {
+        try {
+            return findPromotedDepartmentManager(departmentManager);
+        } catch (Exception e) {
+            fail(
+                    String.format("Store manager '%s' should be promoted and selected!", departmentManager)
+            );
+        }
+        return null;
+    }
+
+    public void checkPromotedDepartmentManagerIsNotPresent(String departmentManager) {
+        try {
+            findPromotedDepartmentManager(departmentManager);
+            fail(
+                    String.format("Store manager named '%s' should be not promoted!", departmentManager)
+            );
+        } catch (Exception ignored) {
+        }
+    }
+
+    public void unPromoteDepartmentManager(String departmentManager) {
+        checkPromotedDepartmentManager(departmentManager).findElement(By.xpath("../i")).click();
     }
 }

@@ -286,6 +286,11 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void promoteDepartmentManager(Store store, String userName) throws IOException, JSONException {
+        catalogApi.promoteDepartmentManager(store, userName);
+    }
+
+    @Step
     public void setRoundings(String value) {
         markUpTab.input("rounding", value);
     }

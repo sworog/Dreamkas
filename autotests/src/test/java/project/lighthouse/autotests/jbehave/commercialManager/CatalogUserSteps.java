@@ -7,7 +7,6 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.json.JSONException;
 import org.junit.Assert;
-import project.lighthouse.autotests.objects.Store;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
 import project.lighthouse.autotests.steps.CommonSteps;
 import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
@@ -75,13 +74,6 @@ public class CatalogUserSteps {
     @Given("the user sets subCategory '$subCategoryName' mark up with max '$maxValue' and min '$minValue' values")
     public void givenTheUSerSetsSubCategoryMarkUp(String subCategoryName, String maxValue, String minValue) throws IOException, JSONException {
         catalogSteps.setSubCategoryMarkUp(maxValue, minValue, subCategoryName);
-    }
-
-    @Given("there is the store with number '$storeNumber' managed by '$userName'")
-    @Alias("there is the store with <storeNumber> managed by <userName>")
-    public void givenThereIsTheStoreManagedBy(String storeNumber, String userName) throws IOException, JSONException {
-        Store store = storeSteps.createStore(storeNumber, userName, userName);
-        catalogSteps.promoteStoreManager(store, userName);
     }
 
     @Given("the user navigates to the store '$storeName' catalog page")

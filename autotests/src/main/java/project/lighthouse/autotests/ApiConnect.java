@@ -264,12 +264,12 @@ public class ApiConnect {
         );
     }
 
-    public void promoteStoreManager(Store store, User user) throws JSONException, IOException {
+    public void promoteUserToManager(Store store, User user, String type) throws JSONException, IOException {
         if (!hasStoreManager(store, user)) {
             String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/stores"), store.getId());
             String data = "_method=LINK";
             HttpPost httpPost = getHttpPost(apiUrl);
-            httpPost.setHeader("Link", getLinkHeaderValue(user));
+            httpPost.setHeader("Link", getLinkHeaderValue(user, type));
             StringEntity entity = new StringEntity(data, "UTF-8");
             entity.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
             httpPost.setEntity(entity);
@@ -338,8 +338,8 @@ public class ApiConnect {
         return new DefaultHttpClient(httpParams);
     }
 
-    private String getLinkHeaderValue(User user) throws JSONException {
-        return String.format("<%s/%s>; rel=\"managers\"", UrlHelper.getApiUrl("/users"), user.getId());
+    private String getLinkHeaderValue(User user, String type) throws JSONException {
+        return String.format("<%s/%s>; rel=\"%s\"", UrlHelper.getApiUrl("/users"), user.getId(), type);
     }
 
     private String executePutRequest(String targetURL, String urlParameters) throws IOException, JSONException {
