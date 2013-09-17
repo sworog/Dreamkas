@@ -2,9 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Store\ManagerCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreCollection;
+use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Form\StoreType;
 use Lighthouse\CoreBundle\Request\ParamConverter\Link;
@@ -24,7 +26,7 @@ class StoreController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.store")
-     * @var \Lighthouse\CoreBundle\Document\Store\StoreRepository
+     * @var StoreRepository
      */
     protected $documentRepository;
 
@@ -40,7 +42,7 @@ class StoreController extends AbstractRestController
      * @Rest\View(statusCode=201)
      *
      * @param Request $request
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Store\Store
+     * @return View|Store
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */

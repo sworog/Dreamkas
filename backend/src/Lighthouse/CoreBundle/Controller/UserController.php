@@ -181,9 +181,10 @@ class UserController extends AbstractRestController
      * @param Request $request
      * @return UserCollection
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("stores/{store}/storeManagers")
      * @ApiDoc
      */
-    public function getStoreManagersAction(Store $store, Request $request)
+    public function getStoreStoreManagersAction(Store $store, Request $request)
     {
         $candidates = (bool) $request->query->get('candidates', false);
         if ($candidates) {
@@ -191,7 +192,7 @@ class UserController extends AbstractRestController
             $users = $this->documentRepository->findAllByRole(User::ROLE_STORE_MANAGER, $excludeIds);
             return new UserCollection($users);
         } else {
-            return new UserCollection($store->managers);
+            return new UserCollection($store->storeManagers);
         }
     }
 }

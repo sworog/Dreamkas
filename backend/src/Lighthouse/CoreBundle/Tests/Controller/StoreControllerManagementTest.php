@@ -31,8 +31,8 @@ class StoreControllerManagementTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathCount(1, 'managers.*', $storeJson);
-        Assert::assertJsonPathEquals($storeUser1->id, 'managers.*.id', $storeJson);
+        Assert::assertJsonPathCount(1, 'storeManagers.*', $storeJson);
+        Assert::assertJsonPathEquals($storeUser1->id, 'storeManagers.*.id', $storeJson);
     }
 
     public function testLinkStoreManagerLinkMethodByQueryParam()
@@ -57,8 +57,8 @@ class StoreControllerManagementTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathCount(1, 'managers.*', $storeJson);
-        Assert::assertJsonPathEquals($storeUser1->id, 'managers.*.id', $storeJson);
+        Assert::assertJsonPathCount(1, 'storeManagers.*', $storeJson);
+        Assert::assertJsonPathEquals($storeUser1->id, 'storeManagers.*.id', $storeJson);
     }
 
     public function testLinkTwoStoreManagers()
@@ -84,9 +84,9 @@ class StoreControllerManagementTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathCount(2, 'managers.*', $storeJson);
-        Assert::assertJsonPathEquals($storeUser1->id, 'managers.*.id', $storeJson);
-        Assert::assertJsonPathEquals($storeUser2->id, 'managers.*.id', $storeJson);
+        Assert::assertJsonPathCount(2, 'storeManagers.*', $storeJson);
+        Assert::assertJsonPathEquals($storeUser1->id, 'storeManagers.*.id', $storeJson);
+        Assert::assertJsonPathEquals($storeUser2->id, 'storeManagers.*.id', $storeJson);
     }
 
     public function testLinkNotStoreManager()
@@ -262,7 +262,7 @@ class StoreControllerManagementTest extends WebTestCase
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $accessToken = $this->auth($commUser, 'password');
 
-        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId . '/managers');
+        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId . '/storeManagers');
 
         $this->assertResponseCode(200);
 
@@ -280,7 +280,7 @@ class StoreControllerManagementTest extends WebTestCase
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $accessToken = $this->auth($commUser, 'password');
 
-        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId . '/managers');
+        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId . '/storeManagers');
 
         $this->assertResponseCode(200);
 
@@ -293,7 +293,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notfoundstore/managers');
+        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notfoundstore/storeManagers');
 
         $this->assertResponseCode(404);
 
@@ -317,7 +317,7 @@ class StoreControllerManagementTest extends WebTestCase
         $managersJson = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId1 . '/managers',
+            '/api/1/stores/' . $storeId1 . '/storeManagers',
             null,
             array('candidates' => 1)
         );
@@ -336,7 +336,7 @@ class StoreControllerManagementTest extends WebTestCase
         $managersJson = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId1 . '/managers',
+            '/api/1/stores/' . $storeId1 . '/storeManagers',
             null,
             array('candidates' => 1)
         );
@@ -358,7 +358,7 @@ class StoreControllerManagementTest extends WebTestCase
         $managersJson = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId1 . '/managers',
+            '/api/1/stores/' . $storeId1 . '/storeManagers',
             null,
             array('candidates' => 1)
         );
@@ -376,7 +376,7 @@ class StoreControllerManagementTest extends WebTestCase
         $managersJson = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId2 . '/managers',
+            '/api/1/stores/' . $storeId2 . '/storeManagers',
             null,
             array('candidates' => 1)
         );
@@ -396,7 +396,7 @@ class StoreControllerManagementTest extends WebTestCase
         $managersJson = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId1 . '/managers',
+            '/api/1/stores/' . $storeId1 . '/storeManagers',
             null,
             array('candidates' => 1)
         );
@@ -427,7 +427,7 @@ class StoreControllerManagementTest extends WebTestCase
         $managersJson = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId1 . '/managers',
+            '/api/1/stores/' . $storeId1 . '/storeManagers',
             null,
             array('candidates' => 1)
         );
@@ -475,7 +475,7 @@ class StoreControllerManagementTest extends WebTestCase
         $managersJson = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId1 . '/managers'
+            '/api/1/stores/' . $storeId1 . '/storeManagers'
         );
 
         $this->assertResponseCode(200);
@@ -492,7 +492,7 @@ class StoreControllerManagementTest extends WebTestCase
         $managersJson = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId1 . '/managers'
+            '/api/1/stores/' . $storeId1 . '/storeManagers'
         );
 
         $this->assertResponseCode(200);

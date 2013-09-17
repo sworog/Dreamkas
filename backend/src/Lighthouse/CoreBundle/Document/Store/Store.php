@@ -17,7 +17,7 @@ use InvalidArgumentException;
  * @property string $address
  * @property string $contacts
  * @property ArrayCollection|Department[] $departments
- * @property ManagerCollection|User[] $managers
+ * @property ManagerCollection|User[] $storeManagers
  * @property ManagerCollection|User[] $departmentManagers
  *
  * @MongoDB\Document(
@@ -27,7 +27,7 @@ use InvalidArgumentException;
  */
 class Store extends AbstractDocument
 {
-    const REL_STORE_MANAGERS = 'managers';
+    const REL_STORE_MANAGERS = 'storeManagers';
     const REL_DEPARTMENT_MANAGERS = 'departmentManagers';
 
     /**
@@ -83,7 +83,7 @@ class Store extends AbstractDocument
      * )
      * @var ManagerCollection|User[]
      */
-    protected $managers;
+    protected $storeManagers;
 
     /**
      * @MongoDB\ReferenceMany(
@@ -101,7 +101,7 @@ class Store extends AbstractDocument
     public function __construct()
     {
         $this->departments = new ArrayCollection();
-        $this->managers = new ManagerCollection();
+        $this->storeManagers = new ManagerCollection();
         $this->departmentManagers = new ManagerCollection();
     }
 
@@ -114,7 +114,7 @@ class Store extends AbstractDocument
     {
         switch ($rel) {
             case self::REL_STORE_MANAGERS:
-                return $this->managers;
+                return $this->storeManagers;
             case self::REL_DEPARTMENT_MANAGERS:
                 return $this->departmentManagers;
             default:

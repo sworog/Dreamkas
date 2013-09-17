@@ -21,7 +21,7 @@ define(function(require) {
                     dataType: 'json',
                     type: 'POST',
                     headers: {
-                        Link: '<' + userUrl + '>; rel="managers"',
+                        Link: '<' + userUrl + '>; rel="storeManagers"',
                         Authorization: 'Bearer ' + cookie.get('token')
                     },
                     data: {
@@ -35,7 +35,7 @@ define(function(require) {
                     dataType: 'json',
                     type: 'POST',
                     headers: {
-                        Link: '<' + userUrl + '>; rel="managers"',
+                        Link: '<' + userUrl + '>; rel="storeManagers"',
                         Authorization: 'Bearer ' + cookie.get('token')
                     },
                     data: {

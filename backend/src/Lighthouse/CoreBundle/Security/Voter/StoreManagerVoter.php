@@ -51,7 +51,7 @@ class StoreManagerVoter implements VoterInterface
         foreach ($attributes as $attribute) {
             if ($this->supportsAttribute($attribute)) {
                 if ($object instanceof Store) {
-                    if ($object->managers->contains($user)) {
+                    if ($object->storeManagers->contains($user)) {
                         return VoterInterface::ACCESS_GRANTED;
                     } else {
                         return VoterInterface::ACCESS_DENIED;
