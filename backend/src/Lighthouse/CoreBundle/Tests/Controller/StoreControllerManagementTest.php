@@ -457,7 +457,6 @@ class StoreControllerManagementTest extends WebTestCase
         return array(
             array(User::ROLE_COMMERCIAL_MANAGER),
             array(User::ROLE_ADMINISTRATOR),
-            array(User::ROLE_DEPARTMENT_MANAGER),
         );
     }
 
@@ -679,5 +678,167 @@ class StoreControllerManagementTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(0, 'departmentManagers.*', $storeJson);
+    }
+    public function testGetStoreDepartmentManagers()
+    {
+        $this->clearMongoDb();
+
+        $depUser1 = $this->createUser('storeUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $depUser2 = $this->createUser('storeUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeId = $this->createStore();
+        $this->linkStoreManagers($storeId, array($depUser1->id, $depUser2->id), Store::REL_DEPARTMENT_MANAGERS);
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/departmentManagers'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, 1);
+    }
+
+    public function testGetDepartmentManagersEmptyList()
+    {
+        $this->clearMongoDb();
+
+        $storeId = $this->createStore();
+
+        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->auth($commUser, 'password');
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/departmentManagers'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '*.id', $managersJson);
+    }
+
+    public function testGetDepartmentManagersNotFoundStore()
+    {
+        $this->clearMongoDb();
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notfoundstore/departmentManagers');
+
+        $this->assertResponseCode(404);
+
+        Assert::assertJsonPathContains('object not found', 'message', $managersJson);
+    }
+
+    public function testGetDepartmentManagersCandidates()
+    {
+        $this->clearMongoDb();
+
+        $depUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $depUser2 = $this->createUser('depUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $depUser3 = $this->createUser('depUser3', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+
+        $storeId1 = $this->createStore('42');
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/departmentManagers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($depUser3->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, false);
+
+        $this->linkStoreManagers($storeId1, $depUser1->id, Store::REL_DEPARTMENT_MANAGERS);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/departmentManagers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($depUser3->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, false);
+
+        //
+        $storeId2 = $this->createStore('43');
+
+        $this->linkStoreManagers($storeId2, $depUser2->id, Store::REL_DEPARTMENT_MANAGERS);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/departmentManagers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser3->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, false);
+
+        // Check that second store has same candidates
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/departmentManagers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $managersJson);
+        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($depUser3->id, '*.id', $managersJson, 1);
+        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
+        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, false);
+
+        //
+        $this->linkStoreManagers($storeId2, $depUser3->id, Store::REL_DEPARTMENT_MANAGERS);
+
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/storeManagers',
+            null,
+            array('candidates' => 1)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '*', $managersJson);
     }
 }

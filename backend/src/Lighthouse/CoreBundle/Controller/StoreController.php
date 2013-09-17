@@ -55,8 +55,8 @@ class StoreController extends AbstractRestController
      * @Rest\View(statusCode=200)
      *
      * @param Request $request
-     * @param \Lighthouse\CoreBundle\Document\Store\Store $store
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Store\Store
+     * @param Store $store
+     * @return View|Store
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -66,7 +66,7 @@ class StoreController extends AbstractRestController
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Document\Store\StoreCollection
+     * @return StoreCollection
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(
      *      resource=true
@@ -138,7 +138,7 @@ class StoreController extends AbstractRestController
     /**
      * @param User $user
      * @return StoreCollection|Store[]
-     * @Secure(roles="ROLE_STORE_MANAGER")
+     * @Secure(roles="ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @SecureParam(name="user", permissions="ACL_CURRENT_USER")
      * @ApiDoc
      */
