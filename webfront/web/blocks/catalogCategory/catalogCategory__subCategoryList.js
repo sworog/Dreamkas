@@ -6,6 +6,8 @@ define(function(require) {
     return Block.extend({
         __name__: 'catalogCategory__subCategoryList',
         catalogSubCategoriesCollection: null,
+
+        template: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryList.html'),
         templates: {
             index: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryList.html'),
             catalogCategory__subCategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')

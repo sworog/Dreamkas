@@ -6,7 +6,7 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_common_balance',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/balance.html')
         },
         permissions: {

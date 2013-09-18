@@ -6,9 +6,7 @@ define(function(require) {
     return Block.extend({
         __name__: 'catalogCategory__subCategoryItem',
         catalogSubCategoryModel: null,
-        templates: {
-            index: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')
-        },
+        template: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html'),
         events: {
             'click .catalog__editSubCategoryLink': function(e){
                 e.stopPropagation();

@@ -14,6 +14,7 @@ define(function(require) {
     return Editor.extend({
         __name__: 'catalogGroup',
         catalogGroupModel: null,
+        template: require('tpl!blocks/catalogGroup/templates/index.html'),
         templates: {
             index: require('tpl!blocks/catalogGroup/templates/index.html'),
             catalog__categoryList: require('tpl!blocks/catalog/templates/catalog__categoryList.html'),

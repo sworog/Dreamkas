@@ -13,6 +13,7 @@ define(function(require) {
         permissions: null,
         referrer: {},
         loading: false,
+        partials: {},
         _configure: function(params, route) {
 
             Block.prototype._configure.apply(this, arguments);
@@ -23,7 +24,8 @@ define(function(require) {
             page.route = route;
 
             if (Page.current) {
-                page.referrer = _.clone(Page.current);
+                page.referrer = _.cloneDeep(Page.current);
+                page.referrer.__name__ = Page.current.__name__;
                 Page.current.stopListening();
             }
 
@@ -69,7 +71,7 @@ define(function(require) {
         render: function() {
             var page = this;
 
-            _.each(page.templates, function(template, selector) {
+            _.each(page.partials, function(template, selector) {
                 var $renderContainer = $(selector);
 
                 page.removeBlocks($renderContainer);

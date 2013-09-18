@@ -10,7 +10,7 @@ define(function (require) {
 
     return Page.extend({
         __name__: 'page_store_view',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/view.html')
         },
         initialize: function () {

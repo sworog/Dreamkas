@@ -4,9 +4,7 @@ define(function(require) {
 
         return Block.extend({
             __name__: 'product',
-            templates: {
-                index: require('tpl!blocks/product/templates/index.html')
-            }
+            template: require('tpl!blocks/product/templates/index.html')
         })
     }
 );

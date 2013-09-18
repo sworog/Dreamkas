@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var Backbone = require('backbone'),
+        $ = require('jquery'),
         _ = require('underscore'),
         deepExtend = require('../utils/deepExtend'),
         classExtend = require('../utils/classExtend'),
@@ -50,6 +51,10 @@ define(function(require) {
                     .addClass(block.addClass)
                     .attr('block', block.__name__)
                     .data(block.__name__, block);
+
+                if (!$.trim(this.$el.html())){
+                    this.render();
+                }
             },
             delegateEvents: function() {
                 var block = this;

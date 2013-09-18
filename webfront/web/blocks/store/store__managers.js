@@ -8,9 +8,9 @@ define(function(require) {
         storeManagerCandidatesCollection: null,
         storeManagersCollection: null,
         storeModel: null,
+        template: require('tpl!blocks/store/store__managers.html'),
         templates: {
-            index: require('tpl!blocks/store/templates/store__managers.html'),
-            store__managerItem: require('tpl!blocks/store/templates/store__managerItem.html')
+            store__managerItem: require('tpl!blocks/store/store__managerItem.html')
         },
         events: {
             'click .store__managerRemoveLink': function(event) {

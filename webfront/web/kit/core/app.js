@@ -5,11 +5,21 @@ define(function(require) {
         getter = require('../mixins/getter'),
         Backbone = require('backbone'),
         cookie = require('../utils/cookie'),
-        req = require('../utils/require');
+        load = require('../utils/require');
+
+    var router = new Backbone.Router();
+
+    $(document).on('click', '[href]', function(e){
+        e.preventDefault();
+        var $target = $(e.currentTarget);
+
+        router.navigate($target.attr('href'), {
+            trigger: true
+        });
+    });
 
     return _.extend({
             permissions: {},
-            templates: {},
             apiUrl: null,
             currentPage: null,
             locale: cookie.get('locale'),
@@ -18,7 +28,7 @@ define(function(require) {
             start: function(deps) {
                 var app = this;
 
-                req({
+                load({
                     locale: app.locale
                 }, deps, function() {
 

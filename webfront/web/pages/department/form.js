@@ -7,7 +7,7 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_department_form',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {

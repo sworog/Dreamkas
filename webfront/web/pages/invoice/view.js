@@ -7,7 +7,7 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_invoice_view',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/view.html')
         },
         permissions: {

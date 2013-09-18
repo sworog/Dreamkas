@@ -4,9 +4,7 @@ define(function(require) {
 
         return Select.extend({
             __name__: 'select_userRole',
-            templates: {
-                index: require('tpl!blocks/select/select_userRole/templates/index.html')
-            }
+            template: require('tpl!blocks/select/select_userRole/templates/index.html')
         });
     }
 );

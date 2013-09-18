@@ -4,9 +4,7 @@ define(function(require) {
 
         return Select.extend({
             __name__: 'select_unit',
-            templates: {
-                index: require('tpl!blocks/select/select_unit/templates/index.html')
-            }
+            template: require('tpl!blocks/select/select_unit/templates/index.html')
         });
     }
 );

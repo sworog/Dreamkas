@@ -4,7 +4,7 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_error_404',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/404.html')
         }
     });

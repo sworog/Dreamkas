@@ -5,7 +5,7 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_common_sale',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/sale.html')
         },
         permissions: {

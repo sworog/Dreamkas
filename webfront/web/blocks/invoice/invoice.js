@@ -10,6 +10,7 @@ define(function(require) {
             __name__: 'invoice',
             editMode: false,
             dataEditing: false,
+            template: require('tpl!blocks/invoice/templates/index.html'),
             templates: {
                 index: require('tpl!blocks/invoice/templates/index.html'),
                 dataInput: require('tpl!blocks/invoice/templates/dataInput.html'),

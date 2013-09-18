@@ -8,6 +8,7 @@ define(function(require) {
     return Block.extend({
         __name__: 'catalog__groupItem',
         catalogGroupModel: null,
+        template: require('tpl!blocks/catalog/templates/catalog__groupItem.html'),
         templates: {
             index: require('tpl!blocks/catalog/templates/catalog__groupItem.html'),
             catalog__categoryList: require('tpl!blocks/catalog/templates/catalog__categoryList.html'),

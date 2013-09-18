@@ -10,9 +10,7 @@ define(function(require) {
             $departmentsTitle: null,
             storeManagerCandidatesCollection: null,
             storeManagersCollection: null,
-            templates: {
-                index: require('tpl!blocks/store/templates/index.html')
-            },
+            template: require('tpl!blocks/store/store.html'),
             initialize: function(){
                 var block = this;
 

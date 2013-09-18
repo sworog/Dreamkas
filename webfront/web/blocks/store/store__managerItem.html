@@ -4,5 +4,5 @@
     <% if (LH.isAllow('stores', 'UNLINK::{store}')) { %>
         <i class="icon-remove-sign store__managerRemoveLink" data-user_id="<%- storeManagerModel.id %>"></i>
     <% } %>
-    <%- attr(storeManagerModel, 'name') %>
+    <%= attr(storeManagerModel, 'name') %>
 </div>

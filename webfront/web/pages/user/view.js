@@ -8,7 +8,7 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_user_view',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/view.html')
         },
         initialize: function() {

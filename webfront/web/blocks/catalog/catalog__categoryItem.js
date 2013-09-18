@@ -6,11 +6,9 @@ define(function(require) {
     return Block.extend({
         __name__: 'catalog__categoryItem',
         catalogCategoryModel: null,
-        templates: {
-            index: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
-        },
+        template: require('tpl!blocks/catalog/templates/catalog__categoryItem.html'),
         events: {
-            'click .catalog__editCategoryLink': function(e){
+            'click .catalog__editCategoryLink': function(e) {
                 e.stopPropagation();
                 var block = this,
                     $target = $(e.target);
@@ -23,14 +21,14 @@ define(function(require) {
         },
         listeners: {
             catalogCategoryModel: {
-                'destroy': function(){
+                'destroy': function() {
                     var block = this;
 
                     block.remove();
                 }
             }
         },
-        initialize: function(){
+        initialize: function() {
             var block = this;
 
             block.tooltip_catalogCategoryMenu = $('[block="tooltip_catalogCategoryMenu"]').data('tooltip_catalogCategoryMenu') || new Tooltip_catalogCategoryMenu()

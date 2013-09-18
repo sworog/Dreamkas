@@ -14,6 +14,7 @@ define(function(require) {
             selectedDate: null,
             noTime: false,
             dateList: [],
+            template: require('tpl!kit/blocks/datepicker/templates/index.html'),
             templates: {
                 index: require('tpl!kit/blocks/datepicker/templates/index.html'),
                 controls: require('tpl!kit/blocks/datepicker/templates/controls.html'),

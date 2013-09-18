@@ -11,13 +11,13 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_catalog_catalog',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/catalog.html')
         },
         initialize: function(params){
             var page = this;
 
-            if (page.referrer && page.referrer.__name__.indexOf('page_catalog') >= 0){
+            if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0){
                 _.extend(pageParams, params);
             } else {
                 _.extend(pageParams, {

@@ -6,6 +6,7 @@ define(function(require) {
 
         return Block.extend({
             __name__: 'saleBox',
+            template: require('tpl!blocks/saleBox/templates/index.html'),
             templates: {
                 index: require('tpl!blocks/saleBox/templates/index.html'),
                 form_purchase: require('tpl!blocks/form/form_purchase/templates/index.html'),

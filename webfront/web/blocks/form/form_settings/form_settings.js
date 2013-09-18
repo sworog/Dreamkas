@@ -8,9 +8,7 @@ define(function(require) {
 
     return Form.extend({
         __name__: 'form_settings',
-        templates: {
-            index: require('tpl!blocks/form/form_settings/templates/index.html')
-        },
+        template: require('tpl!blocks/form/form_settings/templates/index.html'),
         set10IntegrationUrl: {},
         set10IntegrationLogin: {},
         set10IntegrationPassword: {},

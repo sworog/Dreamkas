@@ -10,7 +10,7 @@ define(function(require) {
     return Page.extend({
         __name__: 'page_product_view',
         productId: null,
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/view.html')
         },
         initialize: function(productId) {

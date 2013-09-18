@@ -7,7 +7,7 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_writeOff_view',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/view.html')
         },
         permissions: {

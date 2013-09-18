@@ -7,9 +7,7 @@ define(function(require) {
             defaultInputLinkText: 'Введите значение',
             model: null,
             subCategoryModel: null,
-            templates: {
-                index: require('tpl!blocks/form/form_product/templates/index.html')
-            },
+            template: require('tpl!blocks/form/form_product/templates/index.html'),
             events: {
                 'click .productForm__inputLink': function(e) {
                     e.preventDefault;

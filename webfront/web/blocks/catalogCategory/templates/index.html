@@ -9,10 +9,10 @@
 
 <h1>
     <span style="vertical-align: middle">
-        <%- attr(catalogCategoryModel, 'name') %>
+        <%= attr(catalogCategoryModel, 'name') %>
     </span>
     <a class="editor__editLink catalog__editCategoryLink"></a>
-    <a class="button  catalog__addSubCategoryLink editor__control">
+    <a lh-button class="button catalog__addSubCategoryLink editor__control">
         Добавить подкатегорию
     </a>
 </h1>
@@ -38,8 +38,8 @@
         <div class="catalogCategory__productList">
             <h4>
                 <span class="catalogCategory__productListTitle">Список товаров</span>
-                <a style="margin-left: 15px;" href="/products/create?subCategory=<%- catalogSubCategoryId %>"
-                   class="button  catalogCategory__addProductLink editor__control">
+                <a lh-button style="margin-left: 15px;" href="/products/create?subCategory=<%- catalogSubCategoryId %>"
+                   class="button catalogCategory__addProductLink editor__control">
                     Добавить товар
                 </a>
             </h4>

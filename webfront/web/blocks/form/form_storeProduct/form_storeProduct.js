@@ -6,9 +6,7 @@ define(function(require) {
         return Form.extend({
             __name__: 'form_storeProduct',
             defaultInputLinkText: 'Введите значение',
-            templates: {
-                index: require('tpl!blocks/form/form_storeProduct/templates/index.html')
-            },
+            template: require('tpl!blocks/form/form_storeProduct/templates/index.html'),
             events: {
                 'click .productForm__inputLink': function(e) {
                     e.preventDefault;

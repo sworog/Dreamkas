@@ -7,9 +7,7 @@ define(function(require) {
     return Form.extend({
         __name__: 'form_user',
         redirectUrl: '/users',
-        templates: {
-            index: require('tpl!blocks/form/form_user/templates/index.html')
-        },
+        template: require('tpl!blocks/form/form_user/templates/index.html'),
         initialize: function(){
             var block = this;
 

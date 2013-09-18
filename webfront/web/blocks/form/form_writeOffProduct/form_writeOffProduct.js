@@ -6,10 +6,7 @@ define(function(require) {
 
         return Form.extend({
             __name__: 'form_writeOffProduct',
-            templates: {
-                index: require('tpl!blocks/form/form_writeOffProduct/templates/index.html')
-            },
-
+            template: require('tpl!blocks/form/form_writeOffProduct/templates/index.html'),
             initialize: function(){
                 var block = this;
 

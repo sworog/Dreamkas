@@ -1,5 +1,5 @@
 <% var attr = require('kit/utils/attr') %>
 
 <a href="/catalog/<%- catalogCategoryModel.get('group') %>/<%- catalogCategoryModel.id %>"
-   class="catalog__categoryLink"><%- attr(catalogCategoryModel, 'name') %></a>
+   class="catalog__categoryLink"><%= attr(catalogCategoryModel, 'name') %></a>
 <a class="editor__editLink catalog__editCategoryLink"></a>

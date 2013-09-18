@@ -22,6 +22,7 @@ define(function(require) {
         catalogSubCategoriesCollection: null,
         catalogProductsCollection: null,
 
+        template: require('tpl!blocks/catalogCategory/templates/index.html'),
         templates: {
             index: require('tpl!blocks/catalogCategory/templates/index.html'),
             catalogCategory__subCategoryList: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryList.html'),

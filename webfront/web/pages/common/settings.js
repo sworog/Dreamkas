@@ -9,7 +9,7 @@ define(function(require) {
 
     return Page.extend({
         pageName: 'page_common_balance',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/settings.html')
         },
         permissions: {

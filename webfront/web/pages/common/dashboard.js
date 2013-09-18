@@ -4,7 +4,7 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_common_dashboard',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/dashboard.html')
         }
     });

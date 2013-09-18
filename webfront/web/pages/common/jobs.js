@@ -6,7 +6,7 @@ define(function(require) {
 
     return Page.extend({
         pageName: 'page_common_jobs',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/jobs.html')
         },
         initialize: function(){

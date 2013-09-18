@@ -1,8 +1,5 @@
 define(function(require) {
-    var Block = require('kit/core/block'),
-        Backbone = require('backbone');
-
-    var router = new Backbone.Router();
+    var Block = require('kit/core/block');
 
     return new (Block.extend({
         __name__: 'page',
@@ -24,15 +21,6 @@ define(function(require) {
                     .addClass('page__tabItem_active')
                     .siblings('.page__tabItem')
                     .removeClass('page__tabItem_active');
-            },
-            'click [href]': function(e) {
-                e.preventDefault();
-                var block = this,
-                    $target = $(e.target);
-
-                router.navigate($target.attr('href'), {
-                    trigger: true
-                });
             }
         }
     }));

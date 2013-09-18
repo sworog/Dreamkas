@@ -6,9 +6,7 @@ define(function(require) {
         return Form.extend({
             __name__: 'form_purchase',
             model: new PurchaseModel(),
-            templates: {
-                index: require('tpl!blocks/form/form_purchase/templates/index.html')
-            },
+            template: require('tpl!blocks/form/form_purchase/templates/index.html'),
             submit: function(data) {
                 var products = [];
 

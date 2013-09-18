@@ -5,7 +5,7 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_common_login',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/login.html')
         },
         initialize: function(){

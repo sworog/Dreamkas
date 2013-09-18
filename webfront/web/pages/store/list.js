@@ -6,7 +6,7 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_store_list',
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/list.html')
         },
         permissions: {

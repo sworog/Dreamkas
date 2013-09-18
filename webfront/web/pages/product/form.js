@@ -8,7 +8,7 @@ define(function(require) {
     return Page.extend({
         __name__: 'page_product_form',
         productId: null,
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {

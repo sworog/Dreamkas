@@ -37,7 +37,6 @@ define(function(require) {
 
     loading.done(function() {
         app.set('permissions', currentUserModel.permissions.toJSON());
-        console.log(app.permissions);
         routers = 'routers/authorized';
     });
 

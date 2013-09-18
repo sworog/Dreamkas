@@ -5,7 +5,7 @@ define(function(require) {
     return Page.extend({
         __name__: 'page_error_global',
         response: null,
-        templates: {
+        partials: {
             '#content': require('tpl!./templates/global.html')
         }
     });

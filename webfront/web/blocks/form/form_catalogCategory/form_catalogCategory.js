@@ -8,9 +8,7 @@ define(function(require) {
         model: new CatalogCategoryModel(),
         collection: null,
         isAddForm: true,
-        templates: {
-            index: require('tpl!blocks/form/form_catalogCategory/templates/index.html')
-        },
+        template: require('tpl!blocks/form/form_catalogCategory/templates/index.html'),
         initialize: function(){
             var block = this;
 

@@ -10,6 +10,7 @@ define(function(require) {
             __name__: 'writeOff',
             editMode: false,
             dataEditing: false,
+            template: require('tpl!blocks/writeOff/templates/index.html'),
             templates: {
                 index: require('tpl!blocks/writeOff/templates/index.html'),
                 dataInput: require('tpl!blocks/writeOff/templates/dataInput.html'),

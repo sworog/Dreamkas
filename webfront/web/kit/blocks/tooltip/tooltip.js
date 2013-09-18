@@ -7,6 +7,7 @@ define(function(require) {
             __name__: 'tooltip',
             className: 'tooltip',
             $trigger: null,
+            template: require('tpl!./templates/tooltip.html'),
             templates: {
                 index: require('tpl!./templates/tooltip.html'),
                 content: require('tpl!./templates/content.html')

@@ -7,9 +7,7 @@ define(function(require) {
         storeManagerCandidatesCollection: null,
         storeManagersCollection: null,
         storeModel: null,
-        templates: {
-            index: require('tpl!blocks/select/select_storeManagers/templates/index.html')
-        },
+        template: require('tpl!blocks/select/select_storeManagers/templates/index.html'),
         events: {
             'change': function(event) {
                 var block = this,

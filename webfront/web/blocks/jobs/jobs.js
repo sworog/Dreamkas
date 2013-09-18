@@ -5,8 +5,6 @@ define(function(require) {
     return Block.extend({
         __name__: 'jobs',
         jobsCollection: null,
-        templates: {
-            index: require('tpl!blocks/jobs/templates/index.html')
-        }
+        template: require('tpl!blocks/jobs/templates/index.html')
     });
 });
