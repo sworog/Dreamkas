@@ -14,7 +14,7 @@ define(function(require) {
         partials: {
             '#content': require('tpl!./templates/group.html')
         },
-        initialize: function(catalogGroupId, params){
+        initialize: function(params){
             var page = this;
 
             if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0){
@@ -53,7 +53,7 @@ define(function(require) {
             });
 
             page.catalogGroupModel = new СatalogGroupModel({
-                id: catalogGroupId,
+                id: params.catalogGroupId,
                 storeId: pageParams.storeId
             });
 

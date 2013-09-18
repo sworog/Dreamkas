@@ -15,7 +15,7 @@ define(function(require) {
         partials: {
             '#content': require('tpl!./templates/category.html')
         },
-        initialize: function(catalogGroupId, catalogCategoryId, catalogSubCategoryId, params){
+        initialize: function(params){
             var page = this;
 
             if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0){
@@ -56,18 +56,18 @@ define(function(require) {
             });
 
             page.catalogGroupModel = new СatalogGroupModel({
-                id: catalogGroupId,
+                id: params.catalogGroupId,
                 storeId: pageParams.storeId
             });
 
             page.catalogProductsCollection = new CatalogProductsCollection([], {
-                subCategory: catalogSubCategoryId,
+                subCategory: params.catalogSubCategoryId,
                 storeId: pageParams.storeId
             });
 
-            $.when(page.catalogGroupModel.fetch(), catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
+            $.when(page.catalogGroupModel.fetch(), params.catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
 
-                page.catalogCategoryModel = page.catalogGroupModel.categories.get(catalogCategoryId);
+                page.catalogCategoryModel = page.catalogGroupModel.categories.get(params.catalogCategoryId);
                 page.catalogSubCategoriesCollection = page.catalogCategoryModel.subCategories;
 
                 page.render();
@@ -76,7 +76,7 @@ define(function(require) {
                     el: document.getElementById('catalogCategory'),
                     catalogCategoryModel: page.catalogCategoryModel,
                     catalogSubCategoriesCollection: page.catalogSubCategoriesCollection,
-                    catalogSubCategoryId: catalogSubCategoryId,
+                    catalogSubCategoryId: params.catalogSubCategoryId,
                     catalogProductsCollection: page.catalogProductsCollection,
                     editMode: pageParams.editMode
                 })
