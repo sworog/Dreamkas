@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
@@ -617,7 +618,7 @@ class CategoryControllerTest extends WebTestCase
                 '/api/1/categories/__CATEGORY_ID__',
                 'GET',
                 User::ROLE_DEPARTMENT_MANAGER,
-                200,
+                403,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
@@ -729,7 +730,7 @@ class CategoryControllerTest extends WebTestCase
                 '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
                 User::ROLE_DEPARTMENT_MANAGER,
-                200,
+                403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__/categories',
@@ -917,16 +918,21 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('retailMarkupMax', $putResponse);
     }
 
-    public function testGetStoreCategoryStoreManagerHasStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreCategoryStoreManagerHasStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId = $this->createStore();
 
-        $this->linkStoreManagers($storeId, $storeManager->id);
+        $this->linkStoreManagers($storeId, $storeManager->id, $rel);
 
         $accessToken = $this->auth($storeManager, 'password');
 
@@ -940,17 +946,22 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($categoryId, 'id', $getResponse);
     }
 
-    public function testGetStoreCategoryStoreManagerFromAnotherStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreCategoryStoreManagerFromAnotherStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId1 = $this->createStore('42');
         $storeId2 = $this->createStore('43');
 
-        $this->linkStoreManagers($storeId1, $storeManager->id);
+        $this->linkStoreManagers($storeId1, $storeManager->id, $rel);
 
         $accessToken = $this->auth($storeManager, 'password');
 
@@ -965,11 +976,16 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
 
-    public function testGetStoreCategoryStoreManagerHasNoStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreCategoryStoreManagerHasNoStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId = $this->createStore();
@@ -987,15 +1003,20 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
 
-    public function testGetStoreGroupCategoriesStoreManagerHasStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreGroupCategoriesStoreManagerHasStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $manager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $storeId = $this->createStore();
 
-        $this->linkStoreManagers($storeId, $storeManager->id);
+        $this->linkStoreManagers($storeId, $manager->id, $rel);
 
         $groupId1 = $this->createGroup('1');
         $groupId2 = $this->createGroup('2');
@@ -1007,7 +1028,7 @@ class CategoryControllerTest extends WebTestCase
         $categoryId5 = $this->createCategory($groupId2, '2.1');
         $categoryId6 = $this->createCategory($groupId2, '2.2');
 
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -1036,6 +1057,17 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($categoryId5, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($categoryId6, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($groupId2, '*.group.id', $getResponse, 2);
+    }
+
+    /**
+     * @return array
+     */
+    public function storeRolesProvider()
+    {
+        return array(
+            'store manager' => array(User::ROLE_STORE_MANAGER, Store::REL_STORE_MANAGERS),
+            'department manager' => array(User::ROLE_DEPARTMENT_MANAGER, Store::REL_DEPARTMENT_MANAGERS),
+        );
     }
 
     public function testRoundingIsInheritedFromGroup()

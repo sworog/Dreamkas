@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Symfony\Component\Form\AbstractType;
@@ -30,9 +31,9 @@ abstract class AbstractRestController extends FOSRestController
     abstract protected function getDocumentFormType();
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param AbstractDocument $document
-     * @return \FOS\RestBundle\View\View|AbstractDocument
+     * @return View|AbstractDocument
      */
     protected function processForm(Request $request, AbstractDocument $document)
     {
@@ -51,7 +52,7 @@ abstract class AbstractRestController extends FOSRestController
 
     /**
      * @param Request $request
-     * @return \FOS\RestBundle\View\View|AbstractDocument
+     * @return View|AbstractDocument
      */
     protected function processPost(Request $request)
     {

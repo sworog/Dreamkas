@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
@@ -33,7 +34,7 @@ class CategoryController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @return \FOS\RestBundle\View\View|Category
+     * @return View|Category
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(
@@ -47,8 +48,8 @@ class CategoryController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @param \Lighthouse\CoreBundle\Document\Classifier\Category\Category $category
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Classifier\Category\Category
+     * @param Category $category
+     * @return View|Category
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -60,7 +61,7 @@ class CategoryController extends AbstractRestController
     /**
      * @param Category $category
      * @return Category
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function getCategoryAction(Category $category)
@@ -72,7 +73,7 @@ class CategoryController extends AbstractRestController
      * @param Store $store
      * @param Category $category
      * @return Category
-     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )
@@ -85,7 +86,7 @@ class CategoryController extends AbstractRestController
     /**
      * @param \Lighthouse\CoreBundle\Document\Classifier\Group\Group $group
      * @return CategoryCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function getGroupCategoriesAction(Group $group)
@@ -99,7 +100,7 @@ class CategoryController extends AbstractRestController
      * @param Store $store
      * @param Group $group
      * @return CategoryCollection
-     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getStoreGroupCategoriesAction(Store $store, Group $group)
