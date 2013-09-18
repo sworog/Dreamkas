@@ -46,7 +46,7 @@ public class AuthorizationPage extends UserCreatePage {
     public void authorization(String userName, String password, Boolean isFalse) {
         type(By.name("username"), userName);
         type(By.name("password"), password);
-        new ButtonFacade(getDriver()).click();
+        new ButtonFacade(getDriver(), "Войти").click();
         if (!isFalse) {
             checkUser(userName);
         }
@@ -59,7 +59,7 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void logOutButtonClick() {
-        String logOutButtonXpath = "//*[@class='topBar__logoutLink']";
+        String logOutButtonXpath = "//*[@class='navigationBar__logoutLink']";
         findVisibleElement(By.xpath(logOutButtonXpath)).click();
     }
 
@@ -73,7 +73,7 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void checkUser(String userName) {
-        String userXpath = "//*[@class='topBar__userName']";
+        String userXpath = "//*[@class='navigationBar__userName']";
         String actualUserName = find(By.xpath(userXpath)).getText();
         assertEquals(
                 String.format("The user name is '%s'. Should be '%s'.", actualUserName, userName),

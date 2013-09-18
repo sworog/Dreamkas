@@ -21,6 +21,7 @@ public class SettingsPage extends CommonPageObject {
     }
 
     public void saveSettingButtonClick() {
-        new ButtonFacade(getDriver()).click();
+        new ButtonFacade(getDriver(), "Сохранить").click();
+        //TODO common preloader object waiter
     }
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.NonType;
 
 @DefaultUrl("/stores")
@@ -21,10 +22,8 @@ public class StoreListPage extends CommonPageObject {
         items.put("contacts", new NonType(this, "contacts"));
     }
 
-    public WebElement createNewStoreButton() {
-        return findElement(
-                By.xpath("//a[@class='button' and contains(text(), 'Новый магазин')]")
-        );
+    public void createNewStoreButtonClick() {
+        new ButtonFacade(getDriver(), "Новый магазин").click();
     }
 
     public void checkStoreListItem(String columnName, String expectedValue) {

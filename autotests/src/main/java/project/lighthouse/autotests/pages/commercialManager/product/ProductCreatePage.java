@@ -63,6 +63,7 @@ public class ProductCreatePage extends CommonPageObject {
 
     public void createButtonClick() {
         new ButtonFacade(getDriver()).click();
+        //TODO common preloader object waiter
         waiter.waitUntilIsNotVisible(By.xpath("//*[@class='button button_color_blue preloader']"));
     }
 

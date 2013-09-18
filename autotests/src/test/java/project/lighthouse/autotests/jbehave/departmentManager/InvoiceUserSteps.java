@@ -91,7 +91,7 @@ public class InvoiceUserSteps {
     }
 
     @When("the user clicks OK and accepts changes")
-    public void whenTheUSerClicksOkAndAcceptsChanges() {
+    public void whenTheUSerClicksOkAndAcceptsChanges() throws InterruptedException {
         invoiceSteps.acceptChangesButtonClick();
     }
 
@@ -101,7 +101,7 @@ public class InvoiceUserSteps {
     }
 
     @When("the user clicks OK and accepts deletion")
-    public void whenTheUSerClicksOkAndAcceptsDeletion() {
+    public void whenTheUSerClicksOkAndAcceptsDeletion() throws InterruptedException {
         invoiceSteps.acceptDeleteButtonClick();
     }
 
@@ -121,7 +121,7 @@ public class InvoiceUserSteps {
     }
 
     @When("the user edits '$elementName' element with new value '$newValue' and verify the '$checkType' changes")
-    public void whenTheUserEditElementWithNewValueAndVerify(String elementName, String newValue, String checkType) {
+    public void whenTheUserEditElementWithNewValueAndVerify(String elementName, String newValue, String checkType) throws InterruptedException {
         String newElementName = "inline " + elementName;
         whenTheUserClicksOnElementtoEditIt(elementName);
         whenTheUserInputsTextInTheInvoiceField(newElementName, newValue);

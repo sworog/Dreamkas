@@ -147,7 +147,7 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void acceptChangesButtonClick() {
+    public void acceptChangesButtonClick() throws InterruptedException {
         invoiceBrowsing.acceptChangesButtonClick();
     }
 
@@ -157,7 +157,7 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void acceptDeleteButtonClick() {
+    public void acceptDeleteButtonClick() throws InterruptedException {
         invoiceBrowsing.acceptDeleteButtonClick();
     }
 

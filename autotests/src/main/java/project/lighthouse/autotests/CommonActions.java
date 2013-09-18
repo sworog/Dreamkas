@@ -146,22 +146,10 @@ public class CommonActions extends PageObject {
         elementClick(findBy);
     }
 
-    private Capabilities getCapabilities() {
+    public Capabilities getCapabilities() {
         WebDriverFacade webDriverFacade = (WebDriverFacade) getDriver();
         RemoteWebDriver remoteWebDriver = (RemoteWebDriver) webDriverFacade.getProxiedDriver();
         return remoteWebDriver.getCapabilities();
-    }
-
-    public void spanElementClick(String xpath) {
-        switch (getCapabilities().getBrowserName()) {
-            case "firefox":
-                elementClickByFirefox(By.xpath(xpath + "/input"));
-                break;
-            case "chrome":
-            default:
-                elementClick(By.xpath(xpath));
-                break;
-        }
     }
 
     public void elementClickByFirefox(By findBy) {
@@ -239,5 +227,9 @@ public class CommonActions extends PageObject {
         String exceptionMessage = getExceptionMessage(e);
         return getCapabilities().getBrowserName().equals("firefox")
                 && exceptionMessage.contains("Timed out after");
+    }
+
+    public Boolean webElementHasTagName(String xpath, String expectedTagName) {
+        return waiter.getVisibleWebElement(By.xpath(xpath)).equals(expectedTagName);
     }
 }

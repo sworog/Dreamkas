@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.SelectByValue;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
@@ -37,8 +38,8 @@ public class UserCreatePage extends ProductCreatePage {
     }
 
     public void userCreateButtonClick() {
-        String userCreateButtonXpath = "//*[@class='button button_color_blue']/input";
-        findBy(userCreateButtonXpath).click();
+        new ButtonFacade(getDriver()).click();
+        //TODO common preloader object waiter
         preloaderWait();
     }
 
