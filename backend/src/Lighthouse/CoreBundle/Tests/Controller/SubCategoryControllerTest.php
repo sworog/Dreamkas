@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -657,7 +658,7 @@ class SubCategoryControllerTest extends WebTestCase
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
                 'GET',
                 User::ROLE_DEPARTMENT_MANAGER,
-                200,
+                403,
             ),
             array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__',
@@ -769,7 +770,7 @@ class SubCategoryControllerTest extends WebTestCase
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
                 'GET',
                 User::ROLE_DEPARTMENT_MANAGER,
-                200,
+                403,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__/subcategories',
@@ -961,16 +962,21 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('retailMarkupMax', $putResponse);
     }
 
-    public function testGetStoreSubCategoryStoreManagerHasStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreSubCategoryStoreManagerHasStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
         $storeId = $this->createStore();
 
-        $this->linkStoreManagers($storeId, $storeManager->id);
+        $this->linkStoreManagers($storeId, $storeManager->id, $rel);
 
         $accessToken = $this->auth($storeManager, 'password');
 
@@ -984,17 +990,22 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($subCategoryId, 'id', $getResponse);
     }
 
-    public function testGetStoreSubCategoryStoreManagerFromAnotherStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreSubCategoryStoreManagerFromAnotherStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
         $storeId1 = $this->createStore('42');
         $storeId2 = $this->createStore('43');
 
-        $this->linkStoreManagers($storeId1, $storeManager->id);
+        $this->linkStoreManagers($storeId1, $storeManager->id, $rel);
 
         $accessToken = $this->auth($storeManager, 'password');
 
@@ -1009,11 +1020,15 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
 
-    public function testGetStoreSubCategoryStoreManagerHasNoStore()
+    /**
+     * @param string $role
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreSubCategoryStoreManagerHasNoStore($role)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
         $storeId = $this->createStore();
@@ -1031,15 +1046,20 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
 
-    public function testGetStoreCategorySubCategoriesStoreManagerHasStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreCategorySubCategoriesStoreManagerHasStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $storeId = $this->createStore();
 
-        $this->linkStoreManagers($storeId, $storeManager->id);
+        $this->linkStoreManagers($storeId, $storeManager->id, $rel);
 
         $groupId1 = $this->createGroup('1');
         $groupId2 = $this->createGroup('2');
@@ -1097,6 +1117,23 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(0, '*.id', $getResponse);
+    }
+
+    /**
+     * @return array
+     */
+    public function storeRolesProvider()
+    {
+        return array(
+            'store manager' => array(
+                User::ROLE_STORE_MANAGER,
+                Store::REL_STORE_MANAGERS
+            ),
+            'department manager' => array(
+                User::ROLE_DEPARTMENT_MANAGER,
+                Store::REL_DEPARTMENT_MANAGERS
+            ),
+        );
     }
 
     public function testRoundingIsInheritedFromGroup()
