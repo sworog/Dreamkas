@@ -44,6 +44,10 @@ class Set10ProductConverter
         $this->translator = $translator;
     }
 
+    /**
+     * @param Product $product
+     * @return string[]
+     */
     public function makeXmlByProduct(Product $product)
     {
         if (!$this->validateProduct($product)) {
@@ -118,6 +122,10 @@ class Set10ProductConverter
         return $xmlProducts;
     }
 
+    /**
+     * @param Product $product
+     * @return bool
+     */
     protected function validateProduct(Product $product)
     {
         if ($product->purchasePrice === null

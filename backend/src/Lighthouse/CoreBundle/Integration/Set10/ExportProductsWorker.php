@@ -107,6 +107,9 @@ class ExportProductsWorker implements WorkerInterface
         fclose($remoteXmlFile);
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         $parsedUrl = parse_url($this->set10Url);
@@ -130,6 +133,9 @@ class ExportProductsWorker implements WorkerInterface
         }
     }
 
+    /**
+     * @return bool
+     */
     public function validateConfig()
     {
         $this->configRepository->clear();
@@ -154,7 +160,7 @@ class ExportProductsWorker implements WorkerInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {

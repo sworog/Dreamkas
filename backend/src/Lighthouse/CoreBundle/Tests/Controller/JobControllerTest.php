@@ -18,10 +18,7 @@ class JobControllerTest extends WebTestCase
     protected function setUp()
     {
         parent::setUp();
-
-        /* @var \Lighthouse\CoreBundle\Job\JobManager $jobManager */
-        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
-        $jobManager->startWatchingTubes()->purgeTubes()->stopWatchingTubes();
+        $this->clearJobs();
     }
 
     public function testRecalcProductProductPriceOnRetailsChange()

@@ -13,8 +13,14 @@ use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
-class ConvertToXmlForSetTen extends WebTestCase
+class ConvertToXmlForSet10Test extends WebTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->clearJobs();
+    }
+
     /**
      * @return StoreProductRepository
      */
