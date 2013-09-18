@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Translation\Translator;
+use SimpleXMLElement;
 
 /**
  * @DI\Service("lighthouse.core.service.convert.set10.product")
@@ -76,7 +77,7 @@ class Set10ProductConverter
             $storeProductModel = $version['storeProductModel'];
             /** @var Product $productModel */
             $productModel = $storeProductModel->product;
-            $goodElement = new \SimpleXMLElement('<good></good>');
+            $goodElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><good/>');
             $goodElement->addAttribute('marking-of-the-good', $productModel->sku);
             $goodElement->addChild('shop-indices', implode(" ", $version['storeNumbers']));
             $goodElement->addChild("name", $product->name);
@@ -116,7 +117,8 @@ class Set10ProductConverter
             $pluginElement->addAttribute('key', 'precision');
             $pluginElement->addAttribute('value', 1);
 
-            $xmlProducts[] = str_replace('<?xml version="1.0"?>', "", $goodElement->asXML());
+            $productXml = $goodElement->asXML();
+            $xmlProducts[] = substr($productXml, strpos($productXml, '?>') + 2);
         }
 
         return $xmlProducts;
