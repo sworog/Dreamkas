@@ -701,6 +701,15 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @param string $storeId
+     * @param string|string[] $userIds
+     */
+    public function linkDepartmentManagers($storeId, $userIds)
+    {
+        $this->linkStoreManagers($storeId, $userIds, Store::REL_DEPARTMENT_MANAGERS);
+    }
+
+    /**
+     * @param string $storeId
      * @param string $productId
      * @param array $productData
      * @param User $storeManager

@@ -36,7 +36,7 @@ class StoreProductController extends AbstractRestController
      * @param Store $store
      * @param Product $product
      * @return StoreProduct
-     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )
@@ -65,7 +65,7 @@ class StoreProductController extends AbstractRestController
      * @param Store $store
      * @param SubCategory $subCategory
      * @return StoreProductCollection
-     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getStoreSubcategoryProductsAction(Store $store, SubCategory $subCategory)

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -525,7 +526,7 @@ class GroupControllerTest extends WebTestCase
                 '/api/1/groups',
                 'GET',
                 'ROLE_DEPARTMENT_MANAGER',
-                200,
+                403,
             ),
             array(
                 '/api/1/groups',
@@ -553,7 +554,7 @@ class GroupControllerTest extends WebTestCase
                 '/api/1/groups/__GROUP_ID__',
                 'GET',
                 'ROLE_DEPARTMENT_MANAGER',
-                200,
+                403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
@@ -654,18 +655,23 @@ class GroupControllerTest extends WebTestCase
         );
     }
 
-    public function testGetStoreGroupStoreManagerHasStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreGroupStoreManagerHasStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $manager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $groupId = $this->createGroup();
         $storeId = $this->createStore();
 
-        $this->linkStoreManagers($storeId, $storeManager->id);
+        $this->linkStoreManagers($storeId, $manager->id, $rel);
 
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -678,19 +684,24 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonHasPath('rounding.name', $getResponse);
     }
 
-    public function testGetStoreGroupStoreManagerFromAnotherStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreGroupStoreManagerFromAnotherStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $manager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $groupId = $this->createGroup();
         $storeId1 = $this->createStore('42');
         $storeId2 = $this->createStore('43');
 
-        $this->linkStoreManagers($storeId1, $storeManager->id);
+        $this->linkStoreManagers($storeId1, $manager->id, $rel);
 
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -703,16 +714,21 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
 
-    public function testGetStoreGroupStoreManagerHasNoStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreGroupStoreManagerHasNoStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $manager = $this->getRoleUser($role);
 
         $groupId = $this->createGroup();
         $storeId = $this->createStore();
 
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -725,20 +741,26 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
 
-    public function testGetStoreGroupsStoreManagerHasStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreGroupsStoreManagerHasStore($role, $rel)
     {
         $this->clearMongoDb();
 
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $manager = $this->getRoleUser($role);
 
         $groupId1 = $this->createGroup('1');
         $groupId2 = $this->createGroup('2');
         $groupId3 = $this->createGroup('3');
+
         $storeId = $this->createStore();
 
-        $this->linkStoreManagers($storeId, $storeManager->id);
+        $this->linkStoreManagers($storeId, $manager->id, $rel);
 
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -751,5 +773,16 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($groupId1, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($groupId2, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($groupId3, '*.id', $getResponse, 1);
+    }
+
+    /**
+     * @return array
+     */
+    public function storeRolesProvider()
+    {
+        return array(
+            'store manager' => array(User::ROLE_STORE_MANAGER, Store::REL_STORE_MANAGERS),
+            'department manager' => array(User::ROLE_DEPARTMENT_MANAGER, Store::REL_DEPARTMENT_MANAGERS),
+        );
     }
 }

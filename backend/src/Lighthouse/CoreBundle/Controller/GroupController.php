@@ -72,7 +72,7 @@ class GroupController extends AbstractRestController
     /**
      * @param Group $group
      * @return Group
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function getGroupAction(Group $group)
@@ -84,7 +84,7 @@ class GroupController extends AbstractRestController
      * @param Store $store
      * @param Group $group
      * @return Group
-     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      */
     public function getStoreGroupAction(Store $store, Group $group)
     {
@@ -93,7 +93,7 @@ class GroupController extends AbstractRestController
 
     /**
      * @return GroupCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )
@@ -107,7 +107,7 @@ class GroupController extends AbstractRestController
     /**
      * @param Store $store
      * @return GroupCollection
-     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )

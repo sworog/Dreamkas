@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -504,6 +505,37 @@ class StoreProductControllerTest extends WebTestCase
         $accessToken = $this->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $this->productId
+        );
+
+        $this->assertResponseCode(200);
+    }
+
+    public function testDepartmentManagerAccessHasNoStore()
+    {
+        $accessToken = $this->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $this->productId
+        );
+
+        $this->assertResponseCode(403);
+
+        Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
+    }
+
+    public function testDepartmentManagerAccessHasStore()
+    {
+        $departmentManager = $this->createUser('Василиса Петровна Бздых', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->linkDepartmentManagers($this->storeId, $departmentManager->id);
+
+        $accessToken = $this->auth($departmentManager, 'password');
+
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/stores/' . $this->storeId . '/products/' . $this->productId
