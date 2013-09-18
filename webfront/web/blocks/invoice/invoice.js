@@ -1,15 +1,16 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
+        var Block = require('kit/core/block'),
             InputDate = require('kit/blocks/inputDate/inputDate'),
             Form_invoiceProduct = require('blocks/form/form_invoiceProduct/form_invoiceProduct'),
             Table_invoiceProducts = require('blocks/table/table_invoiceProducts/table_invoiceProducts'),
-            cookie = require('utils/cookie');
+            cookie = require('kit/utils/cookie');
 
         return Block.extend({
             __name__: 'invoice',
             editMode: false,
             dataEditing: false,
+            template: require('tpl!blocks/invoice/templates/index.html'),
             templates: {
                 index: require('tpl!blocks/invoice/templates/index.html'),
                 dataInput: require('tpl!blocks/invoice/templates/dataInput.html'),
@@ -44,131 +45,119 @@ define(function(require) {
                 }
             },
             events: {
-                'click .invoice__removeLink': 'click .invoice__removeLink',
-                'click .invoice__removeCancel': 'click .invoice__removeCancel',
-                'click .invoice__removeConfirmButton': 'click .invoice__removeConfirmButton',
-                'click .invoice__editLink': 'click .invoice__editLink',
-                'click .invoice__stopEditLink, .invoice__stopEditButton': 'click .invoice__stopEditLink, .invoice__stopEditButton',
-                'click .invoice__editable': 'click .invoice__editable',
-                'submit .invoice__productsTable .invoice__dataInput': 'submit .invoice__productsTable .invoice__dataInput',
-                'submit .invoice__head .invoice__dataInput': 'submit .invoice__head .invoice__dataInput',
-                'click .invoice__dataInputSave': 'click .invoice__dataInputSave',
-                'click .invoice__dataInputCancel': 'click .invoice__dataInputCancel'
-            },
-            'click .invoice__removeLink': function(e) {
-                e.preventDefault();
-                var block = this,
-                    invoiceProductId = $(e.target).closest('.invoice__dataRow').attr('invoice-product-id');
+                'click .invoice__removeLink': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        invoiceProductId = $(e.target).closest('.invoice__dataRow').attr('invoice-product-id');
 
-                block.showRemoveConfirm(invoiceProductId);
-            },
-            'click .invoice__removeCancel': function(e) {
-                e.preventDefault();
-                var block = this,
-                    invoiceProductId = $(e.target).closest('.invoice__removeConfirmRow').attr('invoice-product-id');
+                    block.showRemoveConfirm(invoiceProductId);
+                },
+                'click .invoice__removeCancel': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        invoiceProductId = $(e.target).closest('.invoice__removeConfirmRow').attr('invoice-product-id');
 
-                block.hideRemoveConfirm(invoiceProductId);
-            },
-            'click .invoice__removeConfirmButton': function(e) {
-                e.preventDefault();
-                var block = this,
-                    invoiceProductId = $(e.target).closest('.invoice__removeConfirmRow').attr('invoice-product-id');
+                    block.hideRemoveConfirm(invoiceProductId);
+                },
+                'click .invoice__removeConfirmButton': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        invoiceProductId = $(e.target).closest('.invoice__removeConfirmRow').attr('invoice-product-id');
 
-                block.removeInvoiceProduct(invoiceProductId);
-                block.set('dataEditing', false);
-            },
-            'click .invoice__editLink': function(e) {
-                e.preventDefault();
-                var block = this;
+                    block.removeInvoiceProduct(invoiceProductId);
+                    block.set('dataEditing', false);
+                },
+                'click .invoice__editLink': function(e) {
+                    e.preventDefault();
+                    var block = this;
 
-                block.set("editMode", true);
-            },
-            'click .invoice__stopEditLink, .invoice__stopEditButton': function(e) {
-                e.preventDefault();
-                var block = this;
+                    block.set("editMode", true);
+                },
+                'click .invoice__stopEditLink, .invoice__stopEditButton': function(e) {
+                    e.preventDefault();
+                    var block = this;
 
-                var notEmptyForm = false;
+                    var notEmptyForm = false;
 
-                block.productForm.$el.find("input").each(function() {
-                    if ($(this).val()) {
-                        notEmptyForm = true;
+                    block.productForm.$el.find("input").each(function() {
+                        if ($(this).val()) {
+                            notEmptyForm = true;
+                        }
+                    });
+
+                    if (notEmptyForm || block.dataEditing) {
+                        alert("У вас есть несохранённые данные");
+                    } else {
+                        block.set("editMode", false);
                     }
-                });
+                },
+                'click .invoice__editable': function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var block = this;
 
-                if (notEmptyForm || block.dataEditing) {
-                    alert("У вас есть несохранённые данные");
-                } else {
-                    block.set("editMode", false);
-                }
-            },
-            'click .invoice__editable': function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var block = this;
-
-                if (block.editMode && !block.dataEditing) {
-                    block.showDataInput($(e.currentTarget));
-                }
-            },
-            'submit .invoice__productsTable .invoice__dataInput': function(e) {
-                e.preventDefault();
-                var block = this,
-                    data = Backbone.Syphon.serialize(e.target),
-                    invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
-                    invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId),
-                    $submitButton = $(e.target).find('[type="submit"]').closest('.button');
-
-                block.removeInlineErrors();
-                $submitButton.addClass('preloader');
-
-                invoiceProduct.save(data, {
-                    success: function() {
-                        block.set('dataEditing', false);
-                        $submitButton.removeClass('preloader');
-                    },
-                    error: function(data, res) {
-                        block.showInlineErrors(JSON.parse(res.responseText));
-                        $submitButton.removeClass('preloader');
+                    if (block.editMode && !block.dataEditing) {
+                        block.showDataInput($(e.currentTarget));
                     }
-                });
-            },
-            'submit .invoice__head .invoice__dataInput': function(e) {
-                e.preventDefault();
-                var block = this,
-                    data = Backbone.Syphon.serialize(e.target),
-                    $submitButton = $(e.target).find('[type="submit"]').closest('.button');
+                },
+                'submit .invoice__productsTable .invoice__dataInput': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        data = Backbone.Syphon.serialize(e.target),
+                        invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
+                        invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId),
+                        $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
-                block.removeInlineErrors();
-                $submitButton.addClass('preloader');
+                    block.removeInlineErrors();
+                    $submitButton.addClass('preloader');
 
-                block.invoiceModel.save(data, {
-                    success: function() {
-                        block.set('dataEditing', false);
-                        $submitButton.removeClass('preloader');
-                    },
-                    error: function(data, res) {
-                        block.showInlineErrors(JSON.parse(res.responseText));
-                        $submitButton.removeClass('preloader');
-                    },
-                    wait: true
-                });
-            },
-            'click .invoice__dataInputSave': function(e) {
-                e.preventDefault();
-                var block = this,
-                    $dataInputForm = block.$el.find('.invoice__dataInput');
+                    invoiceProduct.save(data, {
+                        success: function() {
+                            block.set('dataEditing', false);
+                            $submitButton.removeClass('preloader');
+                        },
+                        error: function(data, res) {
+                            block.showInlineErrors(JSON.parse(res.responseText));
+                            $submitButton.removeClass('preloader');
+                        }
+                    });
+                },
+                'submit .invoice__head .invoice__dataInput': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        data = Backbone.Syphon.serialize(e.target),
+                        $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
-                $dataInputForm.submit();
-            },
-            'click .invoice__dataInputCancel': function(e) {
-                var block = this;
-                e.preventDefault();
-                block.removeDataInput();
+                    block.removeInlineErrors();
+                    $submitButton.addClass('preloader');
+
+                    block.invoiceModel.save(data, {
+                        success: function() {
+                            block.set('dataEditing', false);
+                            $submitButton.removeClass('preloader');
+                        },
+                        error: function(data, res) {
+                            block.showInlineErrors(JSON.parse(res.responseText));
+                            $submitButton.removeClass('preloader');
+                        },
+                        wait: true
+                    });
+                },
+                'click .invoice__dataInputSave': function(e) {
+                    e.preventDefault();
+                    var block = this,
+                        $dataInputForm = block.$el.find('.invoice__dataInput');
+
+                    $dataInputForm.submit();
+                },
+                'click .invoice__dataInputCancel': function(e) {
+                    var block = this;
+                    e.preventDefault();
+                    block.removeDataInput();
+                }
             },
             initialize: function() {
                 var block = this;
-
-                Block.prototype.initialize.call(block);
 
                 block.set('editMode', block.editMode);
 

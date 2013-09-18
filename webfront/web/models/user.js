@@ -1,10 +1,10 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/model');
+    var Model = require('kit/core/model');
 
     return Model.extend({
         modelName: 'user',
-        saveFields: [
+        saveData: [
             'name',
             'position',
             'username',

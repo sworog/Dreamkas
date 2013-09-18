@@ -6,15 +6,15 @@
     <span style="vertical-align: middle; margin: 0 5px 0 10px;">от</span>
     <input style="width: 200px;"
            class="inputText"
-           value="<%= moment().format('DD.MM.YYYY') %>"
+           value="<%- moment().format('DD.MM.YYYY') %>"
            type="text"
            name="date"
            require="kit/blocks/inputDate/inputDate_noTime"/>
 </div>
 
 <div class="form__controls">
-    <span class="button button_color_blue">
-        <%text 'Сохранить и перейти к добавлению товаров' %>
+    <span lh-button class="button">
+        <%- 'Сохранить и перейти к добавлению товаров' %>
         <input type="submit"/>
     </span>
 </div>

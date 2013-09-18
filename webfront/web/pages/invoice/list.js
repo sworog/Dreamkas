@@ -1,12 +1,12 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Table_invoices = require('blocks/table/table_invoices/table_invoices'),
         InvoicesCollection = require('collections/invoices');
 
     return Page.extend({
-        pageName: 'page_invoice_list',
-        templates: {
+        __name__: 'page_invoice_list',
+        partials: {
             '#content': require('tpl!./templates/list.html')
         },
         permissions: {

@@ -22,15 +22,53 @@ define(function(require) {
         catalogSubCategoriesCollection: null,
         catalogProductsCollection: null,
 
+        template: require('tpl!blocks/catalogCategory/templates/index.html'),
         templates: {
             index: require('tpl!blocks/catalogCategory/templates/index.html'),
             catalogCategory__subCategoryList: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryList.html'),
             catalogCategory__subCategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')
         },
         events: {
-            'click .catalog__editCategoryLink': 'click .catalog__editCategoryLink',
-            'click .catalog__addSubCategoryLink': 'click .catalog__addSubCategoryLink',
-            'click .catalogCategory__subCategoryLink': 'click .catalogCategory__subCategoryLink'
+            'click .catalog__editCategoryLink': function(e) {
+                var block = this,
+                    $target = $(e.target);
+
+                block.tooltip_catalogCategoryMenu.show({
+                    $trigger: $target,
+                    catalogCategoryModel: block.catalogCategoryModel
+                });
+            },
+            'click .catalog__addSubCategoryLink': function(e) {
+                e.preventDefault();
+
+                var block = this,
+                    $target = $(e.target);
+
+                block.tooltip_catalogSubCategoryForm.show({
+                    $trigger: $target,
+                    collection: block.catalogSubCategoriesCollection,
+                    model: new CatalogSubCategoryModel({
+                        category: block.catalogCategoryModel.id,
+                        group: block.catalogCategoryModel.get('group'),
+                        retailMarkupMax: block.catalogCategoryModel.get('retailMarkupMax'),
+                        retailMarkupMin: block.catalogCategoryModel.get('retailMarkupMin')
+                    })
+                });
+            },
+            'click .catalogCategory__subCategoryLink': function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                var block = this,
+                    $target = $(e.currentTarget);
+
+                router.navigate(router.toFragment($target.attr('href'), {
+                    editMode: pageParams.editMode,
+                    storeId: pageParams.storeId
+                }));
+
+                block.set('catalogSubCategoryId', $target.attr('subCategory_id'));
+            }
         },
         listeners: {
             catalogCategoryModel: {
@@ -42,46 +80,6 @@ define(function(require) {
                     })
                 }
             }
-        },
-        'click .catalog__editCategoryLink': function(e) {
-            var block = this,
-                $target = $(e.target);
-
-            block.tooltip_catalogCategoryMenu.show({
-                $trigger: $target,
-                catalogCategoryModel: block.catalogCategoryModel
-            });
-        },
-        'click .catalog__addSubCategoryLink': function(e) {
-            e.preventDefault();
-
-            var block = this,
-                $target = $(e.target);
-
-            block.tooltip_catalogSubCategoryForm.show({
-                $trigger: $target,
-                collection: block.catalogSubCategoriesCollection,
-                model: new CatalogSubCategoryModel({
-                    category: block.catalogCategoryModel.id,
-                    group: block.catalogCategoryModel.get('group'),
-                    retailMarkupMax: block.catalogCategoryModel.get('retailMarkupMax'),
-                    retailMarkupMin: block.catalogCategoryModel.get('retailMarkupMin')
-                })
-            });
-        },
-        'click .catalogCategory__subCategoryLink': function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-
-            var block = this,
-                $target = $(e.currentTarget);
-
-            router.navigate(router.toFragment($target.attr('href'), {
-                editMode: pageParams.editMode,
-                storeId: pageParams.storeId
-            }));
-
-            block.set('catalogSubCategoryId', $target.attr('subCategory_id'));
         },
         initialize: function() {
             var block = this;

@@ -1,16 +1,16 @@
 define(function(require) {
         //requirements
-        var Model = require('kit/model'),
-            cookie = require('utils/cookie');
+        var Model = require('kit/core/model'),
+            cookie = require('kit/utils/cookie');
 
         return Model.extend({
             modelName: 'store',
             urlRoot: LH.baseApiUrl + '/stores',
-            initData: {
+            nestedData: {
                 departments: require('collections/departments'),
                 managers: require('collections/storeManagers')
             },
-            saveFields: [
+            saveData: [
                 'number',
                 'address',
                 'contacts'

@@ -1,11 +1,11 @@
 <div class="page__header">
-    <a href="/catalog" class="page__backLink"><%text 'Товарный справочник' %></a>
+    <a href="/catalog" class="page__backLink"><%- 'Товарный справочник' %></a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%= productModel.get('group').id %>" class="page__backLink"><%text productModel.get('group').name %></a>
+    <a href="/catalog/<%- productModel.get('group').id %>" class="page__backLink"><%- productModel.get('group').name %></a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%= productModel.get('group').id %>/<%= productModel.get('category').id %>" class="page__backLink"><%text productModel.get('category').name %></a>
+    <a href="/catalog/<%- productModel.get('group').id %>/<%- productModel.get('category').id %>" class="page__backLink"><%- productModel.get('category').name %></a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%= productModel.get('group').id %>/<%= productModel.get('category').id %>/<%= productModel.get('subCategory').id %>" class="page__backLink"><%text productModel.get('subCategory').name %></a>
+    <a href="/catalog/<%- productModel.get('group').id %>/<%- productModel.get('category').id %>/<%- productModel.get('subCategory').id %>" class="page__backLink"><%- productModel.get('subCategory').name %></a>
 </div>
 <div class="box">
     <form id="form_product"></form>

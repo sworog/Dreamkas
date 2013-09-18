@@ -1,12 +1,12 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Table_balance = require('blocks/table/table_balance/table_balance'),
         ProductsCollection = require('collections/products');
 
     return Page.extend({
-        pageName: 'page_common_balance',
-        templates: {
+        __name__: 'page_common_balance',
+        partials: {
             '#content': require('tpl!./templates/balance.html')
         },
         permissions: {

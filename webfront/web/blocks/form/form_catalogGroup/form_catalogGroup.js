@@ -8,22 +8,18 @@ define(function(require) {
         model: new CatalogGroupModel(),
         isAddForm: true,
         collection: null,
-        templates: {
-            index: require('tpl!blocks/form/form_catalogGroup/templates/index.html')
-        },
+        template: require('tpl!blocks/form/form_catalogGroup/templates/index.html'),
         initialize: function(){
             var block = this;
-
-            Form.prototype.initialize.call(block);
 
             if (block.model.id){
                 block.isAddForm = false;
             }
         },
-        onSubmitSuccess: function(){
+        submitSuccess: function(){
             var block = this;
 
-            Form.prototype.onSubmitSuccess.apply(block, arguments);
+            Form.prototype.submitSuccess.apply(block, arguments);
 
             if (block.isAddForm){
                 block.model = new CatalogGroupModel();

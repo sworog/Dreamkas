@@ -4,9 +4,7 @@ define(function(require) {
 
         return Select.extend({
             __name__: 'select_priceRoundings',
-            templates: {
-                index: require('tpl!blocks/select/select_priceRoundings/templates/index.html')
-            }
+            template: require('tpl!blocks/select/select_priceRoundings/templates/index.html')
         });
     }
 );

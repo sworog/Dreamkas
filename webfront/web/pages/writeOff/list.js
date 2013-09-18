@@ -1,12 +1,12 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Table_writeOffs = require('blocks/table/table_writeOffs/table_writeOffs'),
         WriteOffsCollection = require('collections/writeOffs');
 
     return Page.extend({
-        pageName: 'page_writeOffs_list',
-        templates: {
+        __name__: 'page_writeOffs_list',
+        partials: {
             '#content': require('tpl!./templates/list.html')
         },
         permissions: {

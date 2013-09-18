@@ -16,7 +16,7 @@ var queryStringParam = /^\?(.*)/,
     queryStrip = /(\?.*)$/,
     fragmentStrip = /^([^\?]*)/,
     hasQueryString = /(\?)[\w-]+=/i,
-    namesPattern = /[\:\*]([^\:\?\/]+)/g,
+    namesPattern = /[\:\*]([^\:\(\)\?\/]+)/g,
     routeStripper = /^[#\/]|\s+$/g,
     trailingSlash = /\/$/;
 Backbone.Router.arrayValueSplit = '|';
@@ -124,7 +124,7 @@ _.extend(Backbone.Router.prototype, {
    * extracted parameters.
    */
   _extractParameters : function(route, fragment) {
-    var params = route.exec(fragment).slice(1),
+      var params = route.exec(fragment).slice(1),
         namedParams = {};
 
     // do we have an additional query string?
@@ -142,7 +142,7 @@ _.extend(Backbone.Router.prototype, {
       _.extend(namedParams, data);
     }
 
-    // decode params
+      // decode params
     var length = params.length;
     if (route.splatMatch && this.encodedSplatParts) {
       if (route.splatMatch < 0) {
@@ -153,6 +153,8 @@ _.extend(Backbone.Router.prototype, {
       }
     }
 
+
+
     for (var i=0; i<length; i++) {
       if (_.isString(params[i])) {
         params[i] = Backbone.Router.decodeParams ? decodeURIComponent(params[i]) : params[i];
@@ -162,7 +164,8 @@ _.extend(Backbone.Router.prototype, {
       }
     }
 
-    return (Backbone.Router.namedParameters || route.namedParameters) ? [namedParams] : params;
+
+      return (Backbone.Router.namedParameters || route.namedParameters) ? [namedParams] : params;
   },
 
   /**

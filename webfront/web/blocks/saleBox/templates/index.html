@@ -1,12 +1,12 @@
-<h3>Эмулятор продажи</h3>
+<h1>Эмулятор продажи</h1>
 <form class="form saleBox__purchaseForm" id="form_purchase">
-    <%== templates.form_purchase() %>
+    <%= templates.form_purchase() %>
 </form>
 <form class="form saleBox__productForm" id="form_purchaseProduct">
-    <%== templates.form_purchaseProduct() %>
+    <%= templates.form_purchaseProduct() %>
 </form>
 <div>
-    <span class="button button_color_blue">
+    <span lh-button class="button">
         Расчитать
         <input type="submit" form="form_purchase"/>
     </span>

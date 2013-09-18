@@ -1,33 +1,35 @@
+<% var attr = require('kit/utils/attr') %>
+
 <% if (LH.isAllow('subcategories', 'POST')) { %>
 <div class="page__controls">
-    <a class="page__controlsLink editor__on"><%text 'Редактировать' %></a>
-    <a class="page__controlsLink editor__off"><%text 'Завершить редактирование' %></a>
+    <a class="page__controlsLink editor__on">Редактировать</a>
+    <a class="page__controlsLink editor__off">Завершить редактирование</a>
 </div>
 <% } %>
 
-<h3>
+<h1>
     <span style="vertical-align: middle">
-        <%attr catalogCategoryModel:name %>
+        <%= attr(catalogCategoryModel, 'name') %>
     </span>
     <a class="editor__editLink catalog__editCategoryLink"></a>
-    <a class="button button_color_blue catalog__addSubCategoryLink editor__control">
-        <%text 'Добавить подкатегорию' %>
+    <a lh-button class="button catalog__addSubCategoryLink editor__control">
+        Добавить подкатегорию
     </a>
-</h3>
+</h1>
 <div class="page__tabs">
     <div class="page__tabItem page__tabItem_active" rel="subCategoryList">
-        <%text 'Подкатегории' %>
+        Подкатегории
     </div>
     <% if(LH.isAllow('categories', 'PUT::{category}')) { %>
     <div class="page__tabItem" rel="categoryProperties">
-        <%text 'Свойства' %>
+        Свойства
     </div>
     <% } %>
 </div>
 <div class="page__tabsContent">
     <div class="page__tabContentItem page__tabContentItem_active" rel="subCategoryList">
         <div id="catalogCategory__subCategoryList">
-            <%== templates.catalogCategory__subCategoryList({
+            <%= templates.catalogCategory__subCategoryList({
             templates: templates,
             catalogSubCategoriesCollection: catalogSubCategoriesCollection
             }) %>
@@ -35,26 +37,26 @@
 
         <div class="catalogCategory__productList">
             <h4>
-                <span class="catalogCategory__productListTitle"><%text 'Список товаров' %></span>
-                <a style="margin-left: 15px;" href="/products/create?subCategory=<%= catalogSubCategoryId %>"
-                   class="button button_color_blue catalogCategory__addProductLink editor__control">
+                <span class="catalogCategory__productListTitle">Список товаров</span>
+                <a lh-button style="margin-left: 15px;" href="/products/create?subCategory=<%- catalogSubCategoryId %>"
+                   class="button catalogCategory__addProductLink editor__control">
                     Добавить товар
                 </a>
             </h4>
             <div class="page__tabs">
                 <div class="page__tabItem page__tabItem_active" rel="productList">
-                    <%text 'Продукты' %>
+                    Продукты
                 </div>
                 <% if(LH.isAllow('subcategories', 'PUT::{subCategory}')) { %>
                 <div class="page__tabItem" rel="subCategoryProperties">
-                    <%text 'Свойства' %>
+                    Свойства
                 </div>
                 <% } %>
             </div>
             <div class="page__tabsContent">
                 <div class="page__tabContentItem page__tabContentItem_active" rel="productList">
                     <div class="catalogCategory__productListNotification">
-                        <%text 'Нет продуктов' %>
+                        Нет продуктов
                     </div>
                     <table class="table table_products"></table>
                 </div>

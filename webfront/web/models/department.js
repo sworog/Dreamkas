@@ -1,24 +1,19 @@
 define(function(require) {
         //requirements
-        var Model = require('kit/model');
+        var Model = require('kit/core/model');
 
         return Model.extend({
             modelName: 'department',
             urlRoot: LH.baseApiUrl + '/departments',
-            saveFields: [
+            saveData: [
                 'number',
                 'name',
                 'store'
             ],
-            initialize: function(attrs, options) {
-
-                Model.prototype.initialize.apply(this, arguments);
-
+            initialize: function() {
                 if (this.collection && this.collection.store) {
                     this.set('store', this.collection.store);
                 }
-
-                console.log()
             }
         });
     }

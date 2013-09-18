@@ -1,17 +1,20 @@
-<% if(LH.isAllow('departments', 'PUT::{department}')) { %>
+<% var attr = require('kit/utils/attr') %>
+<% var isAllow = require('kit/utils/isAllow') %>
+
+<% if(isAllow('departments', 'PUT::{department}')) { %>
 <div class="page__controls">
-    <a href="/stores/<%= departmentModel.get('store') %>/departments/edit/<%= departmentModel.id %>">
-        <%text 'Редактировать' %>
+    <a href="/stores/<%- departmentModel.get('store') %>/departments/edit/<%- departmentModel.id %>">
+        Редактировать
     </a>
 </div>
 <% } %>
 
-<h3><%attr departmentModel:name %></h3>
+<h1><%= attr(departmentModel, 'name') %></h1>
 <table class="table" style="width: 50%;">
     <tr>
-        <th><%text 'Номер отдела' %></th>
+        <th>Номер отдела</th>
         <td>
-            <%attr departmentModel:number %>
+            <%= attr(departmentModel, 'number') %>
         </td>
     </tr>
 </table>

@@ -1,17 +1,17 @@
 <div class="page__controls">
-    <a class="page__controlsLink writeOff__editLink"><%text 'Редактировать' %></a>
-    <a class="page__controlsLink writeOff__stopEditLink"><%text 'Завершить редактирование' %></a>
+    <a class="page__controlsLink writeOff__editLink"><%- 'Редактировать' %></a>
+    <a class="page__controlsLink writeOff__stopEditLink"><%- 'Завершить редактирование' %></a>
 </div>
 
 <div class="writeOff__content">
     <div class="writeOff__head">
-        <%== templates.head({
+        <%= templates.head({
             writeOffModel: writeOffModel
         }) %>
     </div>
     <table class="writeOff__productsTable table"></table>
     <div class="writeOff__footer">
-        <%== templates.footer({
+        <%= templates.footer({
             writeOffModel: writeOffModel
         }) %>
     </div>

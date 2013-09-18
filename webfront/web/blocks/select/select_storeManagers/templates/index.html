@@ -1,5 +1,5 @@
-<option disabled value=""><%text 'Назначить упраляющего' %></option>
+<option disabled value=""><%- 'Назначить упраляющего' %></option>
 <% storeManagerCandidatesCollection.each(function(storeManagerModel){ %>
-<option data-user_id="<%= storeManagerModel.id %>" value="<%= storeManagerModel.url() %>"><%= storeManagerModel.get('name') %></option>
+<option data-user_id="<%- storeManagerModel.id %>" value="<%- storeManagerModel.url() %>"><%- storeManagerModel.get('name') %></option>
 <% }) %>
 

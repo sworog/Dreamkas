@@ -1,3 +1,5 @@
-<div class="box">
-    <form id="form_login"></form>
-</div>
+<% var form_login = require('tpl!blocks/form/form_login/form_login.html') %>
+
+<form id="form_login">
+    <%= form_login() %>
+</form>

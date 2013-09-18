@@ -1,11 +1,13 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
+    var Block = require('kit/core/block'),
         CatalogCategory__subCategoryItem = require('blocks/catalogCategory/catalogCategory__subCategoryItem');
 
     return Block.extend({
         __name__: 'catalogCategory__subCategoryList',
         catalogSubCategoriesCollection: null,
+
+        template: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryList.html'),
         templates: {
             index: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryList.html'),
             catalogCategory__subCategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')
@@ -28,8 +30,6 @@ define(function(require) {
         },
         initialize: function(){
             var block = this;
-
-            Block.prototype.initialize.call(block);
 
             block.catalogSubCategoriesCollection.each(function(catalogSubCategoryModel){
                 new CatalogCategory__subCategoryItem({

@@ -1,6 +1,13 @@
-<% if(LH.isAllow('stores', 'GET')) { %>
+<% var isAllow = require('kit/utils/isAllow') %>
+<% var store = require('tpl!blocks/store/store.html') %>
+
+<% if(isAllow('stores', 'GET')) { %>
 <div class="page__header">
-    <a href="/stores" class="page__backLink"><%text 'Список магазинов' %></a>
+    <a href="/stores" class="page__backLink"><%- 'Список магазинов' %></a>
 </div>
 <% } %>
-<div class="box" id="store"></div>
+<div class="box" id="store">
+    <%= store({
+        storeModel: storeModel
+    }) %>
+</div>

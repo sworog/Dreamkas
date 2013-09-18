@@ -6,8 +6,6 @@ define(function(require) {
         __name__: 'form_catalogCategoryProperties',
         model: null,
         successMessage: 'Свойства успешно сохранены',
-        templates: {
-            index: require('tpl!blocks/form/form_catalogCategoryProperties/templates/index.html')
-        }
+        template: require('tpl!blocks/form/form_catalogCategoryProperties/templates/index.html'),
     });
 });

@@ -1,10 +1,10 @@
 /* fonts */
-@import "/fonts/lobster/lobster.css";
-@import "/fonts/sansus/sansus.css";
+@import "/fonts/proxima/proxima.css";
     /* libs */
 @import "./libs/jquery-ui/themes/base/minified/jquery-ui.min.css";
 @import "./kit/main.css";
 @import "/icons/font-awesome/font-awesome.css";
+@import "/icons/michalych/style.css";
     /* blocks */
 @import "./blocks/page/page.css";
 @import "./blocks/invoice/invoice.css";
@@ -15,21 +15,34 @@
 @import "./blocks/catalog/catalog.css";
 @import "./blocks/tooltip/tooltip.css";
 @import "./blocks/form/form.css";
-@import "./blocks/topBar/topBar.css";
+@import "./blocks/navigationBar/navigationBar.css";
 @import "./blocks/catalogCategory/catalogCategory.css";
 @import "./blocks/store/store.css";
 @import "./blocks/jobs/jobs.css";
 
+
+body {
+    background-color: #fff;
+    font-family: proximanova-regular;
+}
+
 h3 {
-    font-family: 'Sansus Webissimo';
     font-size: 28px;
     font-weight: normal;
 }
 
 h4 {
-    font-family: 'Sansus Webissimo';
     font-size: 22px;
     font-weight: normal;
+}
+
+a{
+    color: #1FB18A;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 [href] {

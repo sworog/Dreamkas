@@ -1,12 +1,13 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
-            deepExtend = require('kit/utils/deepExtend');
+        var Block = require('../../core/block'),
+            deepExtend = require('../../utils/deepExtend');
 
         return Block.extend({
             __name__: 'tooltip',
             className: 'tooltip',
             $trigger: null,
+            template: require('tpl!./templates/tooltip.html'),
             templates: {
                 index: require('tpl!./templates/tooltip.html'),
                 content: require('tpl!./templates/content.html')
@@ -19,14 +20,13 @@ define(function(require) {
                 block.render();
             },
             events: {
-                'click .tooltip__closeLink': 'click .tooltip__closeLink'
-            },
-            'click .tooltip__closeLink': function(e) {
-                e.preventDefault();
+                'click .tooltip__closeLink': function(e) {
+                    e.preventDefault();
 
-                var block = this;
+                    var block = this;
 
-                block.hide();
+                    block.hide();
+                }
             },
             show: function(opt) {
                 var block = this;

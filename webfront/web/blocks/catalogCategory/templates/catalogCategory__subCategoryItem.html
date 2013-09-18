@@ -1,4 +1,6 @@
-<a class="catalogCategory__subCategoryLink" href="/catalog/<%= catalogSubCategoryModel.get('group') %>/<%= catalogSubCategoryModel.get('category') %>/<%= catalogSubCategoryModel.id %>" subCategory_id="<%= catalogSubCategoryModel.id %>">
+<% var attr = require('kit/utils/attr') %>
+
+<a class="catalogCategory__subCategoryLink" href="/catalog/<%- catalogSubCategoryModel.get('group') %>/<%- catalogSubCategoryModel.get('category') %>/<%- catalogSubCategoryModel.id %>" subCategory_id="<%- catalogSubCategoryModel.id %>">
     <span class="editor__editLink catalog__editSubCategoryLink"></span>
-    <span class="catalogCategory__subCategoryLinkText"><%attr catalogSubCategoryModel:name %></span>
+    <span class="catalogCategory__subCategoryLinkText"><%= attr(catalogSubCategoryModel, 'name') %></span>
 </a>

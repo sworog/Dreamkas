@@ -1,12 +1,12 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Form_writeOff = require('blocks/form/form_writeOff/form_writeOff'),
         WriteOffModel = require('models/writeOff');
 
     return Page.extend({
-        pageName: 'page_writeOff_form',
-        templates: {
+        __name__: 'page_writeOff_form',
+        partials: {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {

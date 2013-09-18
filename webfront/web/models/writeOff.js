@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/model');
+    var Model = require('kit/core/model');
 
     return Model.extend({
         modelName: 'writeOff',
@@ -11,7 +11,7 @@ define(function(require) {
         timeFormat: 'HH:mm',
         invalidMessage: 'Вы ввели неверную дату',
 
-        saveFields: [
+        saveData: [
             'number',
             'date'
         ]

@@ -1,39 +1,37 @@
 define(function (require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Store = require('blocks/store/store'),
         getUserStore = require('utils/getUserStore'),
         StoreManagerCandidatesCollection = require('collections/storeManagerCandidates'),
         StoreManagersCollection = require('collections/storeManagers'),
         StoreModel = require('models/store'),
-        Page403 = require('pages/403/403');
+        Page403 = require('pages/errors/403');
 
     return Page.extend({
-        pageName: 'page_store_view',
-        templates: {
+        __name__: 'page_store_view',
+        partials: {
             '#content': require('tpl!./templates/view.html')
         },
-        initialize: function (storeId) {
+        initialize: function () {
             var page = this,
-                userStoreModel = getUserStore(storeId);
+                userStoreModel = getUserStore(page.storeId);
 
             if (!(LH.isAllow('stores', 'GET::{store}') || userStoreModel)){
                 new Page403();
                 return;
             }
 
-            page.storeId = storeId;
-
             page.storeModel = userStoreModel || new StoreModel({
-                id: storeId
+                id: page.storeId
             });
 
             page.storeManagerCandidatesCollection = new StoreManagerCandidatesCollection([], {
-                storeId: storeId
+                storeId: page.storeId
             });
 
             page.storeManagersCollection = new StoreManagersCollection([], {
-                storeId: storeId
+                storeId: page.storeId
             });
 
             $.when(userStoreModel || page.storeModel.fetch(), LH.isAllow('stores', 'GET::{store}/storeManagers') ? page.storeManagerCandidatesCollection.fetch() : {}).then(function () {

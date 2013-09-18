@@ -21,8 +21,6 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                Tooltip_form.prototype.initialize.call(this);
-
                 block.form = new Form_catalogCategory({
                     el: block.el.getElementsByClassName('form'),
                     model: block.model,

@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var columnModel = require('kit/blocks/table/models/column');
+    var columnModel = require('../models/column');
 
     return Backbone.Collection.extend({
         model: columnModel

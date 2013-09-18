@@ -1,8 +1,10 @@
+<% var attr = require('kit/utils/attr') %>
+
 <div class="page__header">
-    <a href="/catalog" class="page__backLink"><%text 'Товарный справочник' %></a>
+    <a href="/catalog" class="page__backLink"><%- 'Товарный справочник' %></a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%= catalogGroupModel.id %>" class="page__backLink">
-        <%attr catalogGroupModel:name %>
+    <a href="/catalog/<%- catalogGroupModel.id %>" class="page__backLink">
+        <%= attr(catalogGroupModel, 'name') %>
     </a>
 </div>
-<div class="box" id="catalogCategory"></div>
+<div id="catalogCategory"></div>
