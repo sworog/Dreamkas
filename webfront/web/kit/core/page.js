@@ -62,9 +62,6 @@ define(function(require) {
             }
 
             Page.current = page;
-
-            console.log(page.referrer.__name__);
-
         },
         _ensureElement: function() {
 
