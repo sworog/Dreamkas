@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var Block = require('kit/core/block'),
+        LH = require('LH'),
         logout = require('utils/logout'),
         currentUserModel = require('models/currentUser');
 

@@ -1,23 +1,20 @@
 define(function(require) {
         //requirements
         var Block = require('../../core/block'),
+            _ = require('underscore'),
             deepExtend = require('../../utils/deepExtend');
 
         return Block.extend({
             __name__: 'tooltip',
             className: 'tooltip',
-            $trigger: null,
-            template: require('tpl!./templates/tooltip.html'),
-            templates: {
-                index: require('tpl!./templates/tooltip.html'),
-                content: require('tpl!./templates/content.html')
+            el: function(){
+                return document.body.appendChild(document.createElement('div'));
             },
-            initialize: function() {
-                var block = this;
-
-                block.$el.appendTo('body');
-
-                block.render();
+            $trigger: null,
+            template: require('tpl!./tooltip.html'),
+            templates: {
+                index: require('tpl!./tooltip.html'),
+                content: require('tpl!./content.html')
             },
             events: {
                 'click .tooltip__closeLink': function(e) {

@@ -1,8 +1,6 @@
-<div class="box">
-    <h1>Товары
-        <% if(LH.isAllow('products', 'POST')) { %>
-            <a class="button" href="/products/create" style="margin-left: 20px;">Новый товар</a>
-        <% } %>
-    </h1>
-    <table id="table_products" class="table"></table>
-</div>
+<h1>Товары
+    <% if(LH.isAllow('products', 'POST')) { %>
+    <a class="button" href="/products/create" style="margin-left: 20px;">Новый товар</a>
+    <% } %>
+</h1>
+<table id="table_products" class="table"></table>

@@ -110,6 +110,11 @@ define(function(require) {
                     }
                 });
             },
+            destroy: function(){
+                var block = this;
+
+                block.stopListening();
+            },
             'set:loading': function(loading) {
                 var block = this;
                 block.$el.toggleClass('preloader_spinner', loading);

@@ -1,5 +1,3 @@
-<% var attr = require('kit/utils/attr') %>
-
 <% if (LH.isAllow('categories', 'POST')) { %>
 <div class="page__controls">
     <a class="page__controlsLink editor__on">Редактировать</a>
@@ -9,7 +7,7 @@
 
 <h1>
     <span style="vertical-align: middle">
-        <%= attr(catalogGroupModel, 'name') %>
+        <%= LH.attr(catalogGroupModel, 'name') %>
     </span>
     <a class="editor__editLink catalog__editGroupLink"></a>
     <a lh-button class="button catalog__addCategoryLink editor__control">

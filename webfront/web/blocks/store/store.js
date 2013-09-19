@@ -27,10 +27,10 @@ define(function(require) {
                 });
 
                 if (block.storeModel.departments.length){
-                    block.$departmentsTitle.html(LH.text('Отделы'));
+                    block.$departmentsTitle.html('Отделы');
                     block.table_departments.$el.show();
                 } else {
-                    block.$departmentsTitle.html(LH.text('Нет отделов'));
+                    block.$departmentsTitle.html('Нет отделов');
                     block.table_departments.$el.hide();
                 }
             }
