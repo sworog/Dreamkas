@@ -9,8 +9,6 @@ class PurchaseControllerTest extends WebTestCase
 {
     public function testPostPurchasesAction()
     {
-        $this->clearMongoDb();
-
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
         $product3Id = $this->createProduct('3');
@@ -64,8 +62,6 @@ class PurchaseControllerTest extends WebTestCase
 
     public function testPostPurchasesActionWithCreatedDate()
     {
-        $this->clearMongoDb();
-
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
         $product3Id = $this->createProduct('3');
@@ -128,8 +124,6 @@ class PurchaseControllerTest extends WebTestCase
      */
     public function testPostPurchaseValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
 
         $purchaseProductData = array(
@@ -199,8 +193,6 @@ class PurchaseControllerTest extends WebTestCase
      */
     public function testPostPurchaseProductValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-        
         $productId = $this->createProduct();
         
         $purchaseProductData = $data + array(
@@ -398,8 +390,6 @@ class PurchaseControllerTest extends WebTestCase
 
     public function testPostPurchasesActionAmountChange()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
 
         $invoiceId = $this->createInvoice();

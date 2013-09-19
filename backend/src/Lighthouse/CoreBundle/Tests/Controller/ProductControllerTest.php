@@ -9,12 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductControllerTest extends WebTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->clearMongoDb();
-    }
-
     /**
      * @dataProvider productProvider
      */
@@ -437,8 +431,6 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetSubCategoryProducts()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $subCategoryId1 = $this->createSubCategory(null, 'Пиво');
@@ -1674,8 +1666,6 @@ class ProductControllerTest extends WebTestCase
      */
     public function testAccessProduct($url, $method, $role, $responseCode, array $requestData = array())
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
         $subCategoryId = $this->createSubCategory($categoryId);

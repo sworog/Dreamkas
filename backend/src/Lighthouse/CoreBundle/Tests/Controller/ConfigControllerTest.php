@@ -9,8 +9,6 @@ class ConfigControllerTest extends WebTestCase
 {
     public function testPostConfigAction()
     {
-        $this->clearMongoDb();
-
         $configData = array(
             'name' => 'test-config',
             'value' => 'test-config-value',
@@ -34,8 +32,6 @@ class ConfigControllerTest extends WebTestCase
 
     public function testPutConfigAction()
     {
-        $this->clearMongoDb();
-
         $configId = $this->createConfig('config', 'test');
 
         $putData = array(
@@ -61,8 +57,6 @@ class ConfigControllerTest extends WebTestCase
 
     public function testConfigUnique()
     {
-        $this->clearMongoDb();
-
         $this->createConfig('unique', 'test');
 
         $postData = array(
@@ -86,8 +80,6 @@ class ConfigControllerTest extends WebTestCase
 
     public function testGetConfigAction()
     {
-        $this->clearMongoDb();
-
         $configId = $this->createConfig("test-config", "test-config-value");
 
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
@@ -107,8 +99,6 @@ class ConfigControllerTest extends WebTestCase
 
     public function testGetConfigsAction()
     {
-        $this->clearMongoDb();
-
         $configId = $this->createConfig("test-config", "test-config-value");
         $configId2 = $this->createConfig("test-config2", "test-config-value2");
         $configId3 = $this->createConfig("test-config3", "test-config-value3");
@@ -138,8 +128,6 @@ class ConfigControllerTest extends WebTestCase
 
     public function testGetByNameAction()
     {
-        $this->clearMongoDb();
-
         $configId = $this->createConfig("test-config", "test-config-value");
         $configId2 = $this->createConfig("test-config2", "test-config-value2");
         $configId3 = $this->createConfig("test-config3", "test-config-value3");

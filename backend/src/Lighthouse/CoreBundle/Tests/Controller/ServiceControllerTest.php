@@ -9,8 +9,6 @@ class ServiceControllerTest extends WebTestCase
 {
     public function testRecalculateAveragePurchasePriceAction()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
@@ -25,8 +23,6 @@ class ServiceControllerTest extends WebTestCase
 
     public function testPermissionsAction()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(

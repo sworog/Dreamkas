@@ -12,8 +12,6 @@ class UserControllerTest extends WebTestCase
 {
     public function testPostUserUniqueUsernameTest()
     {
-        $this->clearMongoDb();
-
         $userData = array(
             'username'  => 'test',
             'name'      => 'Вася пупкин',
@@ -57,8 +55,6 @@ class UserControllerTest extends WebTestCase
         array $data,
         array $assertions = array()
     ) {
-        $this->clearMongoDb();
-
         $userData = $data + array(
             'username'  => 'test',
             'name'      => 'Вася пупкин',
@@ -88,10 +84,7 @@ class UserControllerTest extends WebTestCase
         $expectedCode,
         array $data,
         array $assertions = array()
-    ) {
-        $this->clearMongoDb();
-
-        $userData = array(
+    ) {        $userData = array(
             'username'  => 'qweqwe',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
@@ -136,8 +129,6 @@ class UserControllerTest extends WebTestCase
 
     public function testPasswordChange()
     {
-        $this->clearMongoDb();
-
         $userData = array(
             'username'  => 'qweqwe',
             'name'      => 'ASFFS',
@@ -455,8 +446,6 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersAction(array $data)
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
 
         $postDataArray = array();
@@ -496,8 +485,6 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersActionPermissionDenied($role)
     {
-        $this->clearMongoDb();
-
         $this->createUser('user1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $this->createUser('user2', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $this->createUser('user3', 'password', User::ROLE_STORE_MANAGER);
@@ -527,8 +514,6 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUserAction(array $postData)
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
@@ -556,8 +541,6 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUsersCurrentAction()
     {
-        $this->clearMongoDb();
-
         $authClient = $this->createAuthClient();
         $user = $this->createUser('user', 'qwerty123');
 
@@ -575,8 +558,6 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUserPermissionsAction()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(

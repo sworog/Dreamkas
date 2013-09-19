@@ -207,8 +207,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
 
     public function testConvertProductsToXml()
     {
-        $this->clearMongoDb();
-
         $productsData = $this->initBase();
 
         /** @var Set10ProductConverter $converter */
@@ -429,8 +427,6 @@ EOF;
 
     public function testWriteRemoteFile()
     {
-        $this->clearMongoDb();
-
         $productData = $this->initBase();
 
         $xmlFilePath = "/tmp/lighthouse_unit_test";
@@ -511,8 +507,6 @@ EOF;
 
     public function testExportWorkerGetUrl()
     {
-        $this->clearMongoDb();
-
         /** @var ExportProductsWorker $worker */
         $worker = $this->getContainer()->get("lighthouse.core.job.integration.set10.export_products");
 
@@ -597,8 +591,6 @@ EOF;
 
     public function testWorkerValidateConfig()
     {
-        $this->clearMongoDb();
-
         /** @var ExportProductsWorker $worker */
         $worker = $this->getContainer()->get("lighthouse.core.job.integration.set10.export_products");
 

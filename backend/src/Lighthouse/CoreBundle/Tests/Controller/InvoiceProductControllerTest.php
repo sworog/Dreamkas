@@ -14,8 +14,6 @@ class InvoiceProductControllerTest extends WebTestCase
      */
     public function testPostAction($quantity, $price, $totalPrice)
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
         $productId = $this->createProduct();
 
@@ -62,8 +60,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testPostActionNotExistingInvoice()
     {
-        $this->clearMongoDb();
-
         $invoiceId = 'dwedwdwdwwd';
         $productId = 'dewdewdwedw';
 
@@ -86,8 +82,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testPostActionNotExistingField()
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
         $productId = $this->createProduct();
 
@@ -117,8 +111,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testPostActionsNotExistingProduct()
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
 
         $invoiceProductData = array(
@@ -142,8 +134,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testInvoiceTotalsAreUpdatedOnInvoiceProductPost()
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
 
         $providerData = array(
@@ -199,8 +189,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testProductAmountIsUpdatedOnInvoiceProductPost()
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
         $productId = $this->createProduct();
 
@@ -257,8 +245,6 @@ class InvoiceProductControllerTest extends WebTestCase
      */
     public function testPostActionValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
         $productId = $this->createProduct();
 
@@ -448,8 +434,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductsAction()
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
         $productId = $this->createProduct();
 
@@ -513,8 +497,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductsActionNotFound()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $this->clientJsonRequest(
@@ -528,8 +510,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductActionNotFound()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
         $invoiceId1 = $this->createInvoice();
         $invoiceId2 = $this->createInvoice();
@@ -556,8 +536,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductsActionEmptyCollection()
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
 
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
@@ -575,8 +553,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductNotFound()
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
 
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
@@ -600,8 +576,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductNotFoundInvalidInvoiceId()
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
         $productId = $this->createProduct();
 
@@ -650,8 +624,6 @@ class InvoiceProductControllerTest extends WebTestCase
      */
     public function testPutInvoiceProductAction($quantity, $price, $totalPrice, $newQuantity, $newPrice, $newTotalPrice)
     {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
         $productId = $this->createProduct();
 
@@ -749,8 +721,6 @@ class InvoiceProductControllerTest extends WebTestCase
         $price2,
         $invoiceSumTotal2
     ) {
-        $this->clearMongoDb();
-
         $invoiceId = $this->createInvoice();
         $product1Id = $this->createProduct('_1');
         $product2Id = $this->createProduct('_2');
@@ -881,8 +851,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testDeleteProductsAction()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice();
 
@@ -916,8 +884,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testDeleteProductsActionUpdateAmountAndInvoiceTotals()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice();
 
@@ -958,8 +924,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testLastPurchasePriceChangeOnInvoiceProductDelete()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
 
         $invoiceId = $this->createInvoice();
@@ -1003,8 +967,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testLastPurchasePriceChangeOnInvoiceProductUpdate()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
 
         $invoiceId = $this->createInvoice();
@@ -1048,8 +1010,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testAveragePurchasePrice()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
         $productId2 = $this->createProduct('2');
 
@@ -1146,8 +1106,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testAveragePurchasePriceRounded()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
         $productId2 = $this->createProduct('2');
 
@@ -1178,8 +1136,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testAveragePurchasePriceChangeOnInvoiceDateChange()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
 
         $invoiceData = array(
@@ -1222,8 +1178,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testProductDataDoesNotChangeInInvoiceAfterProductUpdate()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
 
         $this->assertProduct($productId, array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
@@ -1263,8 +1217,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testTwoProductVersionsInInvoice()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
         $invoiceId = $this->createInvoice();
         $this->createInvoiceProduct($invoiceId, $productId, 10, 10.12);
@@ -1292,8 +1244,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testTwoProductVersionsCreated()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
         $invoiceId = $this->createInvoice();
         $this->createInvoiceProduct($invoiceId, $productId, 10, 10.12);

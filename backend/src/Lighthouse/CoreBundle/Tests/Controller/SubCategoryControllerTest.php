@@ -11,8 +11,6 @@ class SubCategoryControllerTest extends WebTestCase
 {
     public function testPostSubCategoriesAction()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь');
         $categoryId = $this->createCategory($groupId, 'Крепкий алкоголь');
 
@@ -43,8 +41,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testPutSubCategoryActionRoundingUpdated()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь');
         $categoryId = $this->createCategory($groupId, 'Водка');
         $subCategoryId = $this->createSubCategory($categoryId, 'Безалкогольная водка');
@@ -108,8 +104,6 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testPostSubCategoriesValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь');
         $categoryId = $this->createCategory($groupId, 'Крепкий алкоголь');
 
@@ -247,7 +241,7 @@ class SubCategoryControllerTest extends WebTestCase
                 array('rounding' => 'nearest100'),
                 array('rounding.name' => 'nearest100', 'rounding.title' => 'до рублей')
             ),
-            'valid rounding nearest100' => array(
+            'valid rounding nearest99' => array(
                 201,
                 array('rounding' => 'nearest99'),
                 array('rounding.name' => 'nearest99', 'rounding.title' => 'до 99 копеек')
@@ -278,8 +272,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testUniqueCategoryName()
     {
-        $this->clearMongoDb();
-
         $groupId1 = $this->createGroup('Алкоголь');
         $groupId2 = $this->createGroup('Кисло-молочка');
         $categoryId1 = $this->createCategory($groupId1, 'Крепкий алкоголь');
@@ -356,8 +348,6 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testPutSubCategoriesValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь');
         $categoryId = $this->createCategory($groupId, 'Крепкий алкоголь');
 
@@ -399,8 +389,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testGetCategory()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
         $subCategoryId = $this->createSubCategory($categoryId);
@@ -421,8 +409,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testGetCategoryNotFound()
     {
-        $this->clearMongoDb();
-
         $groupId1 = $this->createGroup('1');
         $categoryId = $this->createCategory($groupId1, '1.1');
         $this->createSubCategory($categoryId, '1.1.1');
@@ -440,8 +426,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testGetCategories()
     {
-        $this->clearMongoDb();
-
         $groupId1 = $this->createGroup('1');
         $groupId2 = $this->createGroup('2');
 
@@ -490,8 +474,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testGetCategoriesNotFound()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $this->clientJsonRequest(
@@ -505,8 +487,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testGetCategoriesEmptyCollection()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
 
@@ -525,8 +505,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testDeleteCategory()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
         $subCategoryId = $this->createSubCategory($categoryId);
@@ -560,8 +538,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testDeleteNotEmptyCategory()
     {
-        $this->clearMongoDb();
-
         $subCategoryId = $this->createSubCategory();
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -606,8 +582,6 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testAccessSubCategory($url, $method, $role, $responseCode, array $requestData = array())
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
         $subCategoryId = $this->createSubCategory($categoryId);
@@ -789,8 +763,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupIsNullOnSubCategoryCreateWithEmptyMarkup()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
         $categoryId = $this->createCategory($groupId, 'Вино', false);
         $subCategoryId = $this->createSubCategory($categoryId, 'Сухое красное божоле', false);
@@ -812,8 +784,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupIsNotInheritedFromGroupAfterGroupUpdate()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
         $categoryId = $this->createCategory($groupId, 'Вино', false);
         $subCategoryId = $this->createSubCategory($categoryId, 'Сухое красное божоле', false);
@@ -861,8 +831,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupBecomesNullIfNullMarkupPassed()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
         $categoryId = $this->createCategory($groupId, 'Вино', false);
 
@@ -914,8 +882,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupBecomesNullIfNoMarkupPassed()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
         $categoryId = $this->createCategory($groupId, 'Вино', false);
 
@@ -969,8 +935,6 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testGetStoreSubCategoryStoreManagerHasStore($role, $rel)
     {
-        $this->clearMongoDb();
-
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
@@ -997,8 +961,6 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testGetStoreSubCategoryStoreManagerFromAnotherStore($role, $rel)
     {
-        $this->clearMongoDb();
-
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
@@ -1026,8 +988,6 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testGetStoreSubCategoryStoreManagerHasNoStore($role)
     {
-        $this->clearMongoDb();
-
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
@@ -1053,8 +1013,6 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testGetStoreCategorySubCategoriesStoreManagerHasStore($role, $rel)
     {
-        $this->clearMongoDb();
-
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $storeId = $this->createStore();
@@ -1138,8 +1096,6 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testRoundingIsInheritedFromGroup()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь', true, null, null, 'nearest50');
         $categoryId = $this->createCategory($groupId, 'Водка', true, 'nearest50');
 

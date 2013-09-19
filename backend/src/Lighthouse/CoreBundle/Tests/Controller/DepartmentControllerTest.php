@@ -9,8 +9,6 @@ class DepartmentControllerTest extends WebTestCase
 {
     public function testPostDepartmentsAction()
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore('магазин_номер_42');
 
         $departmentData = array(
@@ -39,8 +37,6 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testUniqueDepartmentNumber()
     {
-        $this->clearMongoDb();
-
         $storeId1 = $this->createStore('Алкоголь');
         $storeId2 = $this->createStore('магазин_номер_42');
 
@@ -115,8 +111,6 @@ class DepartmentControllerTest extends WebTestCase
      */
     public function testPostDepartmentsValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore('магазин_номер_42');
 
         $categoryData = $data + array(
@@ -226,8 +220,6 @@ class DepartmentControllerTest extends WebTestCase
      */
     public function testPutDepartmentsValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore('магазин_номер_42');
 
         $departmentId = $this->createDepartment($storeId);
@@ -255,8 +247,6 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartment()
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore();
         $departmentId = $this->createDepartment($storeId);
 
@@ -275,8 +265,6 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartmentNotFound()
     {
-        $this->clearMongoDb();
-
         $storeId1 = $this->createStore('1');
         $this->createDepartment($storeId1, '1-1');
 
@@ -292,8 +280,6 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartments()
     {
-        $this->clearMongoDb();
-
         $storeId1 = $this->createStore('1');
         $storeId2 = $this->createStore('2');
 
@@ -339,8 +325,6 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartmentsNotFound()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
             $accessToken,
@@ -353,8 +337,6 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartmentsEmptyCollection()
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore();
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -380,8 +362,6 @@ class DepartmentControllerTest extends WebTestCase
      */
     public function testAccessDepartments($url, $method, $role, $responseCode, $requestData = null)
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore();
         $departmentId = $this->createDepartment($storeId);
 

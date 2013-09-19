@@ -11,8 +11,6 @@ class GroupControllerTest extends WebTestCase
 {
     public function testPostGroupAction()
     {
-        $this->clearMongoDb();
-
         $groupData = array(
             'name' => 'Продовольственные товары',
             'rounding' => 'nearest1'
@@ -35,8 +33,6 @@ class GroupControllerTest extends WebTestCase
 
     public function testPostGroupActionWithoutRounding()
     {
-        $this->clearMongoDb();
-
         $groupData = array(
             'name' => 'Продовольственные товары',
         );
@@ -59,8 +55,6 @@ class GroupControllerTest extends WebTestCase
 
     public function testPutGroupActionRoundingUpdated()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -121,8 +115,6 @@ class GroupControllerTest extends WebTestCase
      */
     public function testPostGroupValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $groupData = $data + array(
             'name' => 'Продовольственные товары',
             'rounding' => 'nearest1',
@@ -229,7 +221,7 @@ class GroupControllerTest extends WebTestCase
                 array('rounding' => 'nearest100'),
                 array('rounding.name' => 'nearest100', 'rounding.title' => 'до рублей')
             ),
-            'valid rounding nearest100' => array(
+            'valid rounding nearest99' => array(
                 201,
                 array('rounding' => 'nearest99'),
                 array('rounding.name' => 'nearest99', 'rounding.title' => 'до 99 копеек')
@@ -267,8 +259,6 @@ class GroupControllerTest extends WebTestCase
      */
     public function testPutGroupValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Прод тов');
 
         $groupData = $data + array(
@@ -296,8 +286,6 @@ class GroupControllerTest extends WebTestCase
 
     public function testGetGroup()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Прод Тов');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -316,8 +304,6 @@ class GroupControllerTest extends WebTestCase
 
     public function testGetGroupWithCategoriesAndSubCategories()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('1');
 
         $categoryId1 = $this->createCategory($groupId, '1.1');
@@ -354,8 +340,6 @@ class GroupControllerTest extends WebTestCase
 
     public function testGetGroups()
     {
-        $this->clearMongoDb();
-
         $groupIds = array();
         for ($i = 0; $i < 5; $i++) {
             $groupIds[$i] = $this->createGroup('Прод Тов' . $i);
@@ -379,8 +363,6 @@ class GroupControllerTest extends WebTestCase
 
     public function testGroupUnique()
     {
-        $this->clearMongoDb();
-
         $this->createGroup('Прод Тов');
 
         $postData = array(
@@ -402,8 +384,6 @@ class GroupControllerTest extends WebTestCase
 
     public function testDeleteGroupNoCategories()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -435,8 +415,6 @@ class GroupControllerTest extends WebTestCase
 
     public function testDeleteGroupWithCategories()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
 
         $this->createCategory($groupId, '1');
@@ -455,8 +433,6 @@ class GroupControllerTest extends WebTestCase
 
     public function testGroupWithCategories()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
 
         $categoryId1 = $this->createCategory($groupId, '1');
@@ -487,8 +463,6 @@ class GroupControllerTest extends WebTestCase
      */
     public function testAccessGroup($url, $method, $role, $responseCode, array $requestData = array())
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
 
         $url = str_replace('__GROUP_ID__', $groupId, $url);
@@ -662,8 +636,6 @@ class GroupControllerTest extends WebTestCase
      */
     public function testGetStoreGroupStoreManagerHasStore($role, $rel)
     {
-        $this->clearMongoDb();
-
         $manager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $groupId = $this->createGroup();
@@ -691,8 +663,6 @@ class GroupControllerTest extends WebTestCase
      */
     public function testGetStoreGroupStoreManagerFromAnotherStore($role, $rel)
     {
-        $this->clearMongoDb();
-
         $manager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $groupId = $this->createGroup();
@@ -716,13 +686,10 @@ class GroupControllerTest extends WebTestCase
 
     /**
      * @param string $role
-     * @param string $rel
      * @dataProvider storeRolesProvider
      */
-    public function testGetStoreGroupStoreManagerHasNoStore($role, $rel)
+    public function testGetStoreGroupStoreManagerHasNoStore($role)
     {
-        $this->clearMongoDb();
-
         $manager = $this->getRoleUser($role);
 
         $groupId = $this->createGroup();
@@ -747,10 +714,7 @@ class GroupControllerTest extends WebTestCase
      * @dataProvider storeRolesProvider
      */
     public function testGetStoreGroupsStoreManagerHasStore($role, $rel)
-    {
-        $this->clearMongoDb();
-
-        $manager = $this->getRoleUser($role);
+    {        $manager = $this->getRoleUser($role);
 
         $groupId1 = $this->createGroup('1');
         $groupId2 = $this->createGroup('2');

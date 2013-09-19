@@ -9,8 +9,6 @@ class AuthControllerTest extends WebTestCase
 {
     public function testAuth()
     {
-        $this->clearMongoDb();
-
         $authClient = $this->createAuthClient();
         $user = $this->createUser('admin', 'qwerty123');
 
@@ -46,8 +44,6 @@ class AuthControllerTest extends WebTestCase
 
     public function testRefreshToken()
     {
-        $this->clearMongoDb();
-
         $authClient = $this->createAuthClient();
         $user = $this->createUser('admin', 'qwerty123');
 
@@ -109,7 +105,6 @@ class AuthControllerTest extends WebTestCase
 
     public function testInvalidPassword()
     {
-        $this->clearMongoDb();
         $user = $this->createUser('test', 'password');
 
         $response = $this->auth($user, 'qwerty');

@@ -9,8 +9,6 @@ class WriteOffControllerTest extends WebTestCase
 {
     public function testPostAction()
     {
-        $this->clearMongoDb();
-
         $date = strtotime('-1 day');
 
         $writeOffData = array(
@@ -44,8 +42,6 @@ class WriteOffControllerTest extends WebTestCase
      */
     public function testPostWriteOffValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $writeOffData = $data + array(
             'date' => '11.07.2012',
             'number' => '1234567',
@@ -76,8 +72,6 @@ class WriteOffControllerTest extends WebTestCase
      */
     public function testPutWriteOffValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $postData = array(
             'date' => '11.07.2012',
             'number' => '1234567',
@@ -168,8 +162,6 @@ class WriteOffControllerTest extends WebTestCase
 
     public function testGetAction()
     {
-        $this->clearMongoDb();
-
         $number = '431-1234';
         $date = '2012-05-23T15:12:05+0400';
 
@@ -192,8 +184,6 @@ class WriteOffControllerTest extends WebTestCase
 
     public function testGetActionNotFound()
     {
-        $this->clearMongoDb();
-
         $this->createWriteOff();
 
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
@@ -215,8 +205,6 @@ class WriteOffControllerTest extends WebTestCase
 
     public function testWriteOffTotals()
     {
-        $this->clearMongoDb();
-
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');
@@ -313,8 +301,6 @@ class WriteOffControllerTest extends WebTestCase
 
     public function testGetWriteOffsAction()
     {
-        $this->clearMongoDb();
-
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');

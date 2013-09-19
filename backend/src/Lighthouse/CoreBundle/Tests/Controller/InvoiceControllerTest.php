@@ -7,12 +7,6 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class InvoiceControllerTest extends WebTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->clearMongoDb();
-    }
-
     /**
      * @dataProvider postInvoiceDataProvider
      */

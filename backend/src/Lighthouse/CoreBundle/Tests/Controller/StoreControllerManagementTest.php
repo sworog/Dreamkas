@@ -12,8 +12,6 @@ class StoreControllerManagementTest extends WebTestCase
 {
     public function testLinkStoreManager()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeId = $this->createStore();
@@ -37,8 +35,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerLinkMethodByQueryParam()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeId = $this->createStore();
@@ -63,8 +59,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkTwoStoreManagers()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
@@ -91,8 +85,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkNotStoreManager()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $depUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $storeId = $this->createStore();
@@ -111,8 +103,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerInvalidRel()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeId = $this->createStore();
@@ -131,8 +121,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerMissingRel()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeId = $this->createStore();
@@ -151,8 +139,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerMissingLinkHeader()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeId = $this->createStore();
 
@@ -169,8 +155,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerNotExistingUser()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeId = $this->createStore();
@@ -189,8 +173,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerInvalidResource()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $groupId = $this->createGroup();
@@ -210,8 +192,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerUserAlreadyStoreManager()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeId = $this->createStore();
@@ -234,8 +214,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerStoreNotFound()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeId = $this->createStore();
@@ -252,8 +230,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetStoreManagers()
     {
-        $this->clearMongoDb();
-
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
         $storeId = $this->createStore();
@@ -273,8 +249,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetStoreManagersEmptyList()
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore();
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
@@ -289,8 +263,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetStoreManagersNotFoundStore()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notfoundstore/storeManagers');
@@ -302,8 +274,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetStoreManagersCandidates()
     {
-        $this->clearMongoDb();
-
         $depUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $depUser2 = $this->createUser('depUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
@@ -412,8 +382,6 @@ class StoreControllerManagementTest extends WebTestCase
      */
     public function testGetStoreManagersPermissionForbidden($role)
     {
-        $this->clearMongoDb();
-
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
         $storeUser3 = $this->createUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
@@ -462,7 +430,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testUnlinkStoreManager()
     {
-        $this->clearMongoDb();
         $storeId1 = $this->createStore();
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
@@ -501,7 +468,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testUnlinkStoreManagerNotFromStore()
     {
-        $this->clearMongoDb();
         $storeId = $this->createStore();
         $storeUser = $this->createUser('storeUser', 'password', User::ROLE_STORE_MANAGER);
 
@@ -518,8 +484,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerOptionsCheck()
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore();
         $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
 
@@ -543,7 +507,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetUserStore()
     {
-        $this->clearMongoDb();
         $storeId1 = $this->createStore();
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
 
@@ -565,7 +528,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetUserStoreNotFound()
     {
-        $this->clearMongoDb();
         $storeId1 = $this->createStore();
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
 
@@ -588,7 +550,6 @@ class StoreControllerManagementTest extends WebTestCase
      */
     public function testGetUserStoreForbidden($role)
     {
-        $this->clearMongoDb();
         $storeId1 = $this->createStore();
         $storeUser1 = $this->createUser('user1', 'password', $role);
 
@@ -607,8 +568,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetUserStoreByAnotherUserForbidden()
     {
-        $this->clearMongoDb();
-
         $storeId1 = $this->createStore('1');
         $storeId2 = $this->createStore('2');
         $storeUser1 = $this->createUser('user1', 'password', User::ROLE_STORE_MANAGER);
@@ -632,8 +591,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkDepartmentManager()
     {
-        $this->clearMongoDb();
-
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $storeUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $storeId = $this->createStore();
@@ -657,8 +614,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testUnlinkDepartmentManager()
     {
-        $this->clearMongoDb();
-
         $storeUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $storeId = $this->createStore();
 
@@ -681,8 +636,6 @@ class StoreControllerManagementTest extends WebTestCase
     }
     public function testGetStoreDepartmentManagers()
     {
-        $this->clearMongoDb();
-
         $depUser1 = $this->createUser('storeUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $depUser2 = $this->createUser('storeUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $storeId = $this->createStore();
@@ -705,8 +658,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetDepartmentManagersEmptyList()
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore();
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
@@ -725,8 +676,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetDepartmentManagersNotFoundStore()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notfoundstore/departmentManagers');
@@ -738,8 +687,6 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetDepartmentManagersCandidates()
     {
-        $this->clearMongoDb();
-
         $depUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $depUser2 = $this->createUser('depUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $depUser3 = $this->createUser('depUser3', 'password', User::ROLE_DEPARTMENT_MANAGER);

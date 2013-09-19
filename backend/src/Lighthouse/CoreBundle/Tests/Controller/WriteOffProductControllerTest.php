@@ -18,8 +18,6 @@ class WriteOffProductControllerTest extends WebTestCase
      */
     public function testPostWriteOffProductValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $writeOffId = $this->createWriteOff('345-783');
         $productId = $this->createProduct();
 
@@ -241,7 +239,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testPostActionWriteOffNotFound()
     {
-        $this->clearMongoDb();
         $productId = $this->createProduct();
         $writeOffId = $this->createWriteOff('123-43432');
 
@@ -269,8 +266,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testPutActionWriteOffProductNotFound()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
         $writeOffId = $this->createWriteOff('123-43432');
         $writeOffProductId = $this->createWriteOffProduct($writeOffId, $productId);
@@ -343,7 +338,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testDeleteActionWriteOffProductNotFound()
     {
-        $this->clearMongoDb();
         $productId = $this->createProduct();
         $writeOffId = $this->createWriteOff('123-43432');
         $writeOffProductId = $this->createWriteOffProduct($writeOffId, $productId);
@@ -367,8 +361,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testGetWriteOffProductAction()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
         $writeOffId = $this->createWriteOff();
         $writeOffProductId = $this->createWriteOffProduct($writeOffId, $productId);
@@ -386,8 +378,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testGetWriteOffProductActionNotFound()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct();
 
         $writeOffId1 = $this->createWriteOff('1');
@@ -431,8 +421,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testProductAmountChangeOnWriteOf()
     {
-        $this->clearMongoDb();
-
         $productId1 = $this->createProduct(1);
         $productId2 = $this->createProduct(2);
 
@@ -552,8 +540,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testGetWriteOffProductsAction()
     {
-        $this->clearMongoDb();
-
         $product1 = $this->createProduct('1');
         $product2 = $this->createProduct('2');
         $product3 = $this->createProduct('3');
@@ -597,8 +583,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testGetWriteOffProductsActionNotFound()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $this->clientJsonRequest(
@@ -612,8 +596,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductsActionEmptyCollection()
     {
-        $this->clearMongoDb();
-
         $writeOffId = $this->createWriteOff();
 
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
@@ -627,8 +609,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testProductDataDoesNotChangeInWriteOffAfterProductUpdate()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
         $writeOffId = $this->createWriteOff();
         $this->createWriteOffProduct($writeOffId, $productId);
@@ -664,8 +644,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testTwoProductVersionsInWriteoff()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
         $writeOffId = $this->createWriteOff();
         $this->createWriteOffProduct($writeOffId, $productId);
@@ -693,8 +671,6 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testTwoProductVersionsCreated()
     {
-        $this->clearMongoDb();
-
         $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
         $writeOffId = $this->createWriteOff();
         $this->createWriteOffProduct($writeOffId, $productId);

@@ -9,8 +9,6 @@ class StoreControllerTest extends WebTestCase
 {
     public function testPostStoreAction()
     {
-        $this->clearMongoDb();
-
         $storeData = array(
             'number' => 'магазин_номер-32',
             'address' => 'СПБ, профессора Попова пр., д. 37, пом 3А',
@@ -36,8 +34,6 @@ class StoreControllerTest extends WebTestCase
 
     public function testStoreUnique()
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore("42");
 
         $storeData = array(
@@ -68,8 +64,6 @@ class StoreControllerTest extends WebTestCase
      */
     public function testPostStoreValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $storeData = $data + array(
             'number' => 'магазин_номер-32',
             'address' => 'СПБ, профессора Попова пр., д. 37, пом 3А',
@@ -101,8 +95,6 @@ class StoreControllerTest extends WebTestCase
      */
     public function testPutStoreValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore();
 
         $storeData = $data + array(
@@ -235,8 +227,6 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStores()
     {
-        $this->clearMongoDb();
-
         $storesIds = array();
         for ($i = 0; $i < 5; $i++) {
             $storesIds[$i] = $this->createStore(
@@ -264,8 +254,6 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStoreAction()
     {
-        $this->clearMongoDb();
-
         $storeData = array(
             'number' => 'магазин_номер-32',
             'address' => 'СПБ, профессора Попова пр., д. 37, пом 3А',
@@ -305,8 +293,6 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStoreWithDepartments()
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore('1');
 
         $departmentId1 = $this->createDepartment($storeId, '1-1');
@@ -340,8 +326,6 @@ class StoreControllerTest extends WebTestCase
      */
     public function testAccessStore($url, $method, $role, $responseCode, $requestData = null)
     {
-        $this->clearMongoDb();
-
         $storeId = $this->createStore();
 
         $url = str_replace(

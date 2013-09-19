@@ -23,8 +23,6 @@ class JobControllerTest extends WebTestCase
 
     public function testRecalcProductProductPriceOnRetailsChange()
     {
-        $this->clearMongoDb();
-
         $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
@@ -166,8 +164,6 @@ class JobControllerTest extends WebTestCase
      */
     public function testRecalcProductProductPriceOnMarkupChange($rounding, $retailPrice1, $retailPrice2, $retailPrice3)
     {
-        $this->clearMongoDb();
-
         $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
@@ -336,8 +332,6 @@ class JobControllerTest extends WebTestCase
 
     public function testNoJobCreatedOnProductUpdateWithoutRetailsAndRounding()
     {
-        $this->clearMongoDb();
-
         $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
