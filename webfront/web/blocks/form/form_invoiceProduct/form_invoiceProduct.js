@@ -55,9 +55,9 @@ define(function(require) {
                                 productField = 'name';
                             }
 
-                            block.$el.find("[lh_product_autocomplete='" + productField + "']").closest(".form__field").attr("lh_field_error", fieldErrors);
+                            block.$el.find("[lh_product_autocomplete='" + productField + "']").closest(".form__field").attr("data-error", fieldErrors);
                         } else {
-                            block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", fieldErrors);
+                            block.$el.find("[name='" + field + "']").closest(".form__field").attr("data-error", fieldErrors);
                         }
                     }
                 });
