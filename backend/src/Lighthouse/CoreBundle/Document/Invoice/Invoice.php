@@ -29,6 +29,16 @@ class Invoice extends AbstractDocument
     protected $id;
 
     /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true
+     * )
+     * @Assert\NotBlank
+     * @var Store
+     */
+    protected $store;
+
+    /**
      * Артикул
      * @MongoDB\String
      * @Assert\NotBlank

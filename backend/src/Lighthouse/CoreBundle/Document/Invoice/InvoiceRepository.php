@@ -7,6 +7,15 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 class InvoiceRepository extends DocumentRepository
 {
     /**
+     * @param string $storeId
+     * @return \Doctrine\ODM\MongoDB\Cursor
+     */
+    public function findByStore($storeId)
+    {
+        return $this->findBy(array('store' => $storeId));
+    }
+
+    /**
      * @param Invoice $invoice
      * @param int $itemsCountDiff
      * @param int $sumTotalDiff

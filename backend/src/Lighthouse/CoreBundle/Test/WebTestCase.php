@@ -104,11 +104,15 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @param array $modifiedData
-     * @return string
+     * @param string $storeId
+     * @param User $departmentManager
+     * @return mixed
      */
-    protected function createInvoice(array $modifiedData = array())
+    protected function createInvoice(array $modifiedData = array(), $storeId, User $departmentManager = null)
     {
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $departmentManager = ($departmentManager) ?: $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
+
+        $accessToken = $this->auth($departmentManager);
 
         $invoiceData = $modifiedData + array(
             'sku' => 'sku232',
@@ -123,7 +127,7 @@ class WebTestCase extends ContainerAwareTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/invoices',
+            '/api/1/stores/' . $storeId . '/invoices',
             $invoiceData
         );
 
