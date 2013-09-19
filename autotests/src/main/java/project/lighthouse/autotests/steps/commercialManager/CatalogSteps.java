@@ -247,7 +247,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void saveMarkUpButtonClick() {
-        markUpTab.saveMarkUpButton().click();
+        markUpTab.saveMarkUpButtonClick();
     }
 
     @Step

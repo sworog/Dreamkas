@@ -1,15 +1,11 @@
 package project.lighthouse.autotests.pages.commercialManager.catalog;
 
 
-import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.InputOnlyVisible;
 
 public class CategoryPage extends GroupPage {
-
-    @FindBy(xpath = "//*[@class='button button_color_blue catalog__addCategoryLink editor__control']")
-    WebElementFacade addNewCategoryButton;
 
     public CategoryPage(WebDriver driver) {
         super(driver);
@@ -17,13 +13,7 @@ public class CategoryPage extends GroupPage {
 
     @Override
     public void addNewButtonClick() {
-        addNewCategoryButton.click();
-    }
-
-    @Override
-    public void addNewButtonConfirmClick() {
-        findBy("//*[@class='form catalog__addGroupForm']//*[@class='button button_color_blue']/input").click();
-        preloaderWait();
+        new ButtonFacade(getDriver(), "Добавить категорию").click();
     }
 
     @Override

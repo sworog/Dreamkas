@@ -1,23 +1,20 @@
 package project.lighthouse.autotests.pages.commercialManager.catalog;
 
 import net.thucydides.core.annotations.DefaultUrl;
-import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.InputOnlyVisible;
+import project.lighthouse.autotests.elements.PreLoader;
 
 import static junit.framework.Assert.fail;
 
 @DefaultUrl("/catalog")
 public class GroupPage extends CommonPageObject {
-
-    @FindBy(xpath = "//*[@class='button button_color_blue catalog__addGroupLink editor__control']")
-    WebElementFacade addNewGroupButton;
 
     public static final String GROUP = "group";
     public static final String CATEGORY = "category";
@@ -29,7 +26,7 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void addNewButtonClick() {
-        addNewGroupButton.click();
+        new ButtonFacade(getDriver(), "Добавить группу").click();
     }
 
     public void startEditionButtonLinkClick() {
@@ -40,7 +37,7 @@ public class GroupPage extends CommonPageObject {
         try {
             startEditionButtonLinkClick();
             fail("The edit button is present on catalog page!");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -64,8 +61,8 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void addNewButtonConfirmClick() {
-        findOnlyVisibleWebElementFromTheWebElementsList(By.xpath("//*[@class='button button_color_blue']")).click();
-        preloaderWait();
+        new ButtonFacade(getDriver(), "Подтвердить").catalogClick();
+        new PreLoader(getDriver()).await();
     }
 
     @Override
@@ -103,8 +100,7 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void popUpMenuAccept() {
-        findOnlyVisibleWebElementFromTheWebElementsList(By.xpath("//*[@class='form__field']/*[@class='button button_color_blue' and normalize-space(text())='Подтвердить']")).click();
-        preloaderWait();
+        addNewButtonConfirmClick();
     }
 
     public void popUpMenuCancel() {
@@ -139,11 +135,6 @@ public class GroupPage extends CommonPageObject {
     public void checkFieldLength(String elementName, int fieldLength) {
         CommonItem item = items.get(elementName);
         commonPage.checkFieldLength(elementName, fieldLength, item.getOnlyVisibleWebElement());
-    }
-
-    public void preloaderWait() {
-        String preloaderXpath = "//*[contains(@class, 'preloader')]";
-        waiter.waitUntilIsNotVisible(By.xpath(preloaderXpath));
     }
 
     public WebElement mainTab(String mainTabType) {
@@ -199,7 +190,7 @@ public class GroupPage extends CommonPageObject {
         try {
             productsExportLinkClick();
             fail("The products export link is present on catalog page");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 }
