@@ -9,8 +9,7 @@ public class ButtonFacade {
     WebDriver webDriver;
     String xpath = "//*[@class='button']";
 
-    private static final String BUTTON_XPATH_PATTERN = "//*[@class='button' and normalize-space(text())='%s']";
-    private static final String BUTTON_XPATH_PATTERN2 = "//*[@class='button %s' and normalize-space(text())='%s']";
+    private static final String BUTTON_XPATH_PATTERN = "//*[contains(@class, 'button') and normalize-space(text())='%s']";
 
     CommonActions commonActions;
 
@@ -25,22 +24,12 @@ public class ButtonFacade {
                 getButtonXpath(buttonTextName));
     }
 
-    public ButtonFacade(WebDriver driver, String classNameOption, String buttonText) {
-        this(driver);
-        setXpath(
-                getButtonXpath(classNameOption, buttonText));
-    }
-
     private void setXpath(String xpath) {
         this.xpath = xpath;
     }
 
     private String getButtonXpath(String buttonTextName) {
         return String.format(BUTTON_XPATH_PATTERN, buttonTextName);
-    }
-
-    private String getButtonXpath(String className, String buttonTextName) {
-        return String.format(BUTTON_XPATH_PATTERN2, className, buttonTextName);
     }
 
     public void click() {

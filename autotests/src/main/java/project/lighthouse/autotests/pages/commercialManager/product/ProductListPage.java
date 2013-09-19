@@ -1,10 +1,10 @@
 package project.lighthouse.autotests.pages.commercialManager.product;
 
 import net.thucydides.core.annotations.DefaultUrl;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 
 @DefaultUrl("/products")
 public class ProductListPage extends ProductCreatePage {
@@ -19,7 +19,7 @@ public class ProductListPage extends ProductCreatePage {
     }
 
     public void createNewProductButtonClick() {
-        findVisibleElement(By.cssSelector("a.catalogCategory__addProductLink")).click();
+        new ButtonFacade(getDriver(), "Добавить товар").click();
     }
 
     public void listItemClick(String skuValue) {

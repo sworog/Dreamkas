@@ -108,7 +108,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void writeOffStopEditButtonClick() {
-        new ButtonFacade(getDriver(), "invoice__stopEditButton", "Завершить редактирование").click();
+        new ButtonFacade(getDriver(), "Завершить редактирование").click();
     }
 
     public void writeOffStopEditlinkClick() {
@@ -136,7 +136,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void addNewInvoiceProductButtonClick() {
-        new ButtonFacade(getDriver(), "invoice__addMoreProduct", "Добавить товар").click();
+        new ButtonFacade(getDriver(), "Добавить товар").click();
         //TODO common preloader object waiter
         waiter.waitUntilIsNotVisible(By.xpath("//span[@class='button button_color_blue invoice__addMoreProduct preloader']"));
     }

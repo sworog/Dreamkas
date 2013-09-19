@@ -77,7 +77,7 @@ public class WriteOffPage extends InvoiceBrowsing {
 
     public void addProductToWriteOff() {
         String className = "button invoice__addMoreProduct";
-        new ButtonFacade(getDriver(), className, "Добавить товар").click();
+        new ButtonFacade(getDriver(), "Добавить товар").click();
         //TODO common preloader object waiter
         waiter.waitUntilIsNotVisible(By.xpath(String.format("//*[@class='%s preloader']", className)));
     }
