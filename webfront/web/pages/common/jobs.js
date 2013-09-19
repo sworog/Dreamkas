@@ -5,7 +5,7 @@ define(function(require) {
         Jobs = require('blocks/jobs/jobs');
 
     return Page.extend({
-        pageName: 'page_common_jobs',
+        __name__: 'page_common_jobs',
         partials: {
             '#content': require('tpl!./templates/jobs.html')
         },

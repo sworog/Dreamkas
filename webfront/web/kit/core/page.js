@@ -14,22 +14,13 @@ define(function(require) {
         referrer: {},
         loading: false,
         partials: {},
-        _configure: function(params, route) {
-
-            Block.prototype._configure.apply(this, arguments);
+        constructor: function(){
 
             var page = this,
                 accessDenied;
 
-            page.route = route;
-
-            if (Page.current) {
-                page.referrer = _.cloneDeep(Page.current);
-                page.referrer.__name__ = Page.current.__name__;
-                Page.current.stopListening();
-            }
-
-            Page.current = page;
+            this.cid = _.uniqueId('cid');
+            this._configure.apply(this, arguments);
 
             switch (typeof page.permissions) {
                 case 'object':
@@ -49,7 +40,30 @@ define(function(require) {
                 router.navigate('/403', {
                     trigger: true
                 });
+
+                return;
             }
+
+            this._ensureElement();
+            this.initialize.apply(this, arguments);
+            this.delegateEvents();
+        },
+        _configure: function(params, route) {
+
+            Block.prototype._configure.apply(this, arguments);
+
+            var page = this;
+
+            page.route = route;
+
+            if (Page.current) {
+                page.referrer = Page.current;
+                Page.current.stopListening();
+            }
+
+            Page.current = page;
+
+            console.log(page.referrer.__name__);
 
         },
         _ensureElement: function() {
@@ -59,7 +73,7 @@ define(function(require) {
             var page = this;
 
             page.$el
-                .removeAttr(page.referrer.__name__)
+                .removeClass(page.referrer.__name__)
                 .addClass(page.__name__);
 
             page.set('loading', true);
