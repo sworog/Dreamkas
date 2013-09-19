@@ -8,28 +8,10 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class InvoiceControllerTest extends WebTestCase
 {
-    /**
-     * @var User
-     */
-    protected $departmentManager;
-
-    /**
-     * @var string
-     */
-    protected $storeId;
-
     protected function setUp()
     {
         parent::setUp();
-        $this->initStoreProduct();
-    }
-
-    protected function initStoreProduct()
-    {
-        $this->departmentManager = $this->createUser('Краузе В.П.', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->storeId = $this->createStore();
-
-        $this->linkDepartmentManagers($this->storeId, $this->departmentManager->id);
+        $this->initStoreDepartmentManager();
     }
 
     /**

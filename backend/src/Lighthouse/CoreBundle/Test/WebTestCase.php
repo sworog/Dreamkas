@@ -20,12 +20,25 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected $client;
 
+    /**
+     * @var AuthClient
+     */
     protected $oauthClient;
 
     /**
      * @var User[]
      */
     protected $oauthUsers = array();
+
+    /**
+     * @var User
+     */
+    protected $departmentManager;
+
+    /**
+     * @var string
+     */
+    protected $storeId;
 
     protected function setUp()
     {
@@ -108,8 +121,9 @@ class WebTestCase extends ContainerAwareTestCase
      * @param User $departmentManager
      * @return mixed
      */
-    protected function createInvoice(array $modifiedData = array(), $storeId, User $departmentManager = null)
+    protected function createInvoice(array $modifiedData = array(), $storeId = null, User $departmentManager = null)
     {
+        $storeId = ($storeId) ?: $this->createStore('42', '42', '42', true);
         $departmentManager = ($departmentManager) ?: $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
 
         $accessToken = $this->auth($departmentManager);
@@ -138,6 +152,7 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @param string $storeId
      * @param string $invoiceId
      * @param string $productId
      * @param int $quantity
@@ -146,7 +161,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
     {
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($this->departmentManager);
 
         $invoiceProductData = array(
             'product' => $productId,
@@ -157,7 +172,7 @@ class WebTestCase extends ContainerAwareTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/invoices/' . $invoiceId . '/products.json',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products',
             $invoiceProductData
         );
 
@@ -274,7 +289,7 @@ class WebTestCase extends ContainerAwareTestCase
             ),
         );
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($this->departmentManager);
 
         foreach ($productsData as $i => $row) {
 
@@ -287,7 +302,7 @@ class WebTestCase extends ContainerAwareTestCase
             $response = $this->clientJsonRequest(
                 $accessToken,
                 'POST',
-                '/api/1/invoices/' . $invoiceId . '/products.json',
+                '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products.json',
                 $invoiceProductData
             );
 
@@ -298,7 +313,7 @@ class WebTestCase extends ContainerAwareTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/invoices/' . $invoiceId . '/products.json'
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products'
         );
 
         $this->assertResponseCode(200);
@@ -599,7 +614,7 @@ class WebTestCase extends ContainerAwareTestCase
             'contacts' => $contacts,
         );
 
-        $accessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         if ($ifNotExists) {
             $postResponse = $this->clientJsonRequest(
@@ -979,5 +994,16 @@ class WebTestCase extends ContainerAwareTestCase
     protected function getUserResourceUri($userId)
     {
         return sprintf('http://localhost/api/1/users/%s', $userId);
+    }
+
+    /**
+     *
+     */
+    protected function initStoreDepartmentManager()
+    {
+        $this->departmentManager = $this->createUser('Краузе В.П.', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->storeId = $this->createStore();
+
+        $this->linkDepartmentManagers($this->storeId, $this->departmentManager->id);
     }
 }

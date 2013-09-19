@@ -9,12 +9,13 @@ use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\InvoiceProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use JMS\SecurityExtraBundle\Annotation\SecureParam;
 
 class InvoiceProductController extends AbstractRestController
 {
@@ -39,87 +40,108 @@ class InvoiceProductController extends AbstractRestController
     }
 
     /**
+     * @param Store $store
      * @param Request $request
      * @param Invoice $invoice
      * @return View|Invoice
      *
      * @Rest\View(statusCode=201)
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function postProductsAction(Request $request, Invoice $invoice)
+    public function postProductsAction(Store $store, Invoice $invoice, Request $request)
     {
+        $this->checkInvoiceStore($invoice, $store);
         $invoiceProduct = new InvoiceProduct();
         $invoiceProduct->invoice = $invoice;
         return $this->processForm($request, $invoiceProduct);
     }
 
     /**
+     * @param Store $store
      * @param Request $request
      * @param Invoice $invoice
      * @param InvoiceProduct $invoiceProduct
      *
-     * @return \FOS\RestBundle\View\View|InvoiceProduct
+     * @return View|InvoiceProduct
      *
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function putProductAction(Request $request, Invoice $invoice, InvoiceProduct $invoiceProduct)
+    public function putProductAction(Store $store, Invoice $invoice, InvoiceProduct $invoiceProduct, Request $request)
     {
-        $this->checkInvoiceProduct($invoiceProduct, $invoice);
+        $this->checkInvoiceProduct($invoiceProduct, $invoice, $store);
         return $this->processForm($request, $invoiceProduct);
     }
 
     /**
+     * @param Store $store
      * @param Invoice $invoice
      * @param InvoiceProduct $invoiceProduct
      * @return InvoiceProductCollection
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function getProductAction(Invoice $invoice, InvoiceProduct $invoiceProduct)
+    public function getProductAction(Store $store, Invoice $invoice, InvoiceProduct $invoiceProduct)
     {
-        $this->checkInvoiceProduct($invoiceProduct, $invoice);
+        $this->checkInvoiceProduct($invoiceProduct, $invoice, $store);
         return $invoiceProduct;
     }
 
     /**
+     * @param Store $store
      * @param invoice $invoice
      * @return InvoiceProductCollection
      * @ApiDoc(
      *      resource=true
      * )
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function getProductsAction(Invoice $invoice)
+    public function getProductsAction(Store $store, Invoice $invoice)
     {
+        $this->checkInvoiceStore($invoice, $store);
         $invoiceProducts = $this->getDocumentRepository()->findByInvoice($invoice->id);
         return new InvoiceProductCollection($invoiceProducts);
     }
 
     /**
+     * @param Store $store
      * @param Invoice $invoice
      * @param InvoiceProduct $invoiceProduct
      * @return null
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function deleteProductAction(Invoice $invoice, InvoiceProduct $invoiceProduct)
+    public function deleteProductAction(Store $store, Invoice $invoice, InvoiceProduct $invoiceProduct)
     {
-        $this->checkInvoiceProduct($invoiceProduct, $invoice);
+        $this->checkInvoiceProduct($invoiceProduct, $invoice, $store);
         return $this->processDelete($invoiceProduct);
+    }
+
+    /**
+     * @param Store $store
+     * @param Invoice $invoice
+     * @throws NotFoundHttpException
+     */
+    protected function checkInvoiceStore(Invoice $invoice, Store $store)
+    {
+        if ($invoice->store !== $store) {
+            throw new NotFoundHttpException(sprintf("%s object not found", get_class($invoice)));
+        }
     }
 
     /**
      * @param InvoiceProduct $invoiceProduct
      * @param Invoice $invoice
+     * @param Store $store
      * @throws NotFoundHttpException
      */
-    protected function checkInvoiceProduct(InvoiceProduct $invoiceProduct, Invoice $invoice)
+    protected function checkInvoiceProduct(InvoiceProduct $invoiceProduct, Invoice $invoice, Store $store)
     {
-        if ($invoiceProduct->invoice->id != $invoice->id) {
-            throw new NotFoundHttpException(sprintf("%s object not found", get_class($invoice)));
+        $this->checkInvoiceStore($invoice, $store);
+        if ($invoiceProduct->invoice !== $invoice) {
+            throw new NotFoundHttpException(sprintf("%s object not found", get_class($invoiceProduct)));
         }
     }
 }
