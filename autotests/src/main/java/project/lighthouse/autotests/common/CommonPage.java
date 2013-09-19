@@ -120,9 +120,9 @@ public class CommonPage extends PageObject {
     }
 
     public void checkErrorMessage(String expectedErrorMessage) {
-        String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
+        String xpath = String.format("//*[contains(@data-error,'%s')]", expectedErrorMessage);
         if (!isPresent(xpath)) {
-            String errorXpath = "//*[@lh_field_error]";
+            String errorXpath = "//*[@data-error]";
             String errorMessage;
             if (isPresent(errorXpath)) {
                 errorMessage = getErrorMessages(errorXpath);
@@ -137,7 +137,7 @@ public class CommonPage extends PageObject {
         List<WebElementFacade> webElementList = findAll(By.xpath(xpath));
         StringBuilder builder = new StringBuilder("Validation errors are present: ");
         for (WebElementFacade element : webElementList) {
-            builder.append(element.getAttribute("lh_field_error"));
+            builder.append(element.getAttribute("data-error"));
         }
         return builder.toString();
     }
@@ -145,13 +145,13 @@ public class CommonPage extends PageObject {
     public void checkNoErrorMessages(ExamplesTable errorMessageTable) {
         for (Map<String, String> row : errorMessageTable.getRows()) {
             String expectedErrorMessage = row.get("error message");
-            String xpath = String.format("//*[contains(@lh_field_error,'%s')]", expectedErrorMessage);
+            String xpath = String.format("//*[contains(@data-error,'%s')]", expectedErrorMessage);
             assertFalse(getErrorMessages(xpath), isPresent(xpath));
         }
     }
 
     public void checkNoErrorMessages() {
-        String xpath = "//*[@lh_field_error]";
+        String xpath = "//*[@data-error]";
         assertFalse(getErrorMessages(xpath), isPresent(xpath));
     }
 
