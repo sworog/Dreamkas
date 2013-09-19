@@ -1,0 +1,8 @@
+<% var attr = require('kit/utils/attr') %>
+
+<div href="/users/<%- departmentManagerModel.id %>" class="store__departmentManagerItem">
+    <% if (LH.isAllow('stores', 'UNLINK::{store}')) { %>
+        <i class="icon-remove-sign store__departmentManagerRemoveLink" data-user_id="<%- departmentManagerModel.id %>"></i>
+    <% } %>
+    <%= attr(departmentManagerModel, 'name') %>
+</div>

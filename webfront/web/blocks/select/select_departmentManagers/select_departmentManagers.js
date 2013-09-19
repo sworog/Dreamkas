@@ -3,28 +3,28 @@ define(function(require) {
     var Select = require('kit/blocks/select/select');
 
     return Select.extend({
-        __name__: 'select_storeManagers',
-        storeManagerCandidatesCollection: null,
-        storeManagersCollection: null,
+        __name__: 'select_departmentManagers',
+        departmentManagerCandidatesCollection: null,
+        departmentManagersCollection: null,
         storeModel: null,
-        template: require('tpl!blocks/select/select_storeManagers/templates/index.html'),
+        template: require('tpl!blocks/select/select_departmentManagers/templates/index.html'),
         events: {
             'change': function(event) {
                 var block = this,
                     userId = block.$el.find(':selected').data('user_id'),
-                    userModel = block.storeManagerCandidatesCollection.get(userId);
+                    userModel = block.departmentManagerCandidatesCollection.get(userId);
 
                 block.$el.addClass('preloader_rows');
 
-                block.storeModel.linkStoreManager(block.$el.val()).done(function(){
+                block.storeModel.linkDepartmentManager(block.$el.val()).done(function(){
                     block.$el.removeClass('preloader_rows');
-                    block.storeManagerCandidatesCollection.remove(userModel);
-                    block.storeManagersCollection.add(userModel);
+                    block.departmentManagerCandidatesCollection.remove(userModel);
+                    block.departmentManagersCollection.add(userModel);
                 });
             }
         },
         listeners: {
-            storeManagerCandidatesCollection: {
+            departmentManagerCandidatesCollection: {
                 remove: function(model, collectoin, options){
                     var block = this;
 
@@ -49,7 +49,7 @@ define(function(require) {
 
             Select.prototype.initialize.apply(block, arguments);
 
-            if (!block.storeManagerCandidatesCollection.length){
+            if (!block.departmentManagerCandidatesCollection.length){
                 block.$el.hide();
             }
         }

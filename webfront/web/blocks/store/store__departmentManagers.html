@@ -1,0 +1,13 @@
+<!--
+    @departmentManagersCollection
+    @templates.store__departmentManagerItem
+-->
+
+<h4><%- 'Заведующие отделами' %></h4>
+<div class="store__departmentManagerList">
+    <% departmentManagersCollection.each(function(departmentManagerModel) { %>
+    <%= templates.store__departmentManagerItem({departmentManagerModel: departmentManagerModel}) %>
+    <% }) %>
+</div>
+<select id='select_departmentManagers' class="select"></select>
+<div class="store__managersNotification"><%- 'Больше нет свободных заведующих' %></div>

@@ -2,7 +2,8 @@ define(function(require) {
         //requirements
         var Block = require('kit/core/block'),
             Table_departments = require('blocks/table/table_departments/table_departments'),
-            Store__managers = require('blocks/store/store__managers');
+            Store__storeManagers = require('blocks/store/store__storeManagers'),
+            Store__departmentManagers = require('blocks/store/store__departmentManagers');
 
         return Block.extend({
             __name__: 'store',
@@ -10,6 +11,8 @@ define(function(require) {
             $departmentsTitle: null,
             storeManagerCandidatesCollection: null,
             storeManagersCollection: null,
+            departmentManagerCandidatesCollection: null,
+            departmentManagersCollection: null,
             template: require('tpl!blocks/store/store.html'),
             initialize: function(){
                 var block = this;
@@ -19,12 +22,20 @@ define(function(require) {
                     el: document.getElementById('table_departments')
                 });
 
-                block.store__managers = new Store__managers({
+                block.store__storeManagers = new Store__storeManagers({
                     storeManagerCandidatesCollection: block.storeManagerCandidatesCollection,
                     storeManagersCollection: block.storeManagersCollection,
                     storeModel: block.storeModel,
-                    el: document.getElementById('store__managers')
+                    el: document.getElementById('store__storeManagers')
                 });
+
+                block.store__departmentManagers = new Store__departmentManagers({
+                    departmentManagerCandidatesCollection: block.departmentManagerCandidatesCollection,
+                    departmentManagersCollection: block.departmentManagersCollection,
+                    storeModel: block.storeModel,
+                    el: document.getElementById('store__departmentManagers')
+                });
+
 
                 if (block.storeModel.departments.length){
                     block.$departmentsTitle.html('Отделы');
