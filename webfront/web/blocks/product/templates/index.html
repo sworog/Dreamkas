@@ -165,7 +165,7 @@
         <td></td>
         <td>
             <% if(productModel.retailPriceMin && productModel.retailPriceMax){ %>
-            <a href="/stores/<%= storeProductModel.store.id %>/products/edit/<%= productModel.id %>">
+            <a href="/stores/<%= storeProductModel.get('store').id %>/products/edit/<%= productModel.id %>">
                 Изменить наценку/цену
             </a>
             <% } else { %>
