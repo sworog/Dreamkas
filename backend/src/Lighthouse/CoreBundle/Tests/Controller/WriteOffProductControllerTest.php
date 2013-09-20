@@ -418,18 +418,21 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->assertResponseCode(404);
     }
 
-
     public function testProductAmountChangeOnWriteOf()
     {
+        $storeId = $this->createStore();
+        $departmentManager = $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
+        $this->linkDepartmentManagers($storeId, $departmentManager->id);
+
         $productId1 = $this->createProduct(1);
         $productId2 = $this->createProduct(2);
 
         $this->assertProduct($productId1, array('amount' => null));
 
-        $invoiceId = $this->createInvoice();
+        $invoiceId = $this->createInvoice(array(), $storeId, $departmentManager);
 
-        $this->createInvoiceProduct($invoiceId, $productId1, 10, 4.99);
-        $this->createInvoiceProduct($invoiceId, $productId2, 20, 6.99);
+        $this->createInvoiceProduct($invoiceId, $productId1, 10, 4.99, $storeId, $departmentManager);
+        $this->createInvoiceProduct($invoiceId, $productId2, 20, 6.99, $storeId, $departmentManager);
 
         $this->assertProduct($productId1, array('amount' => 10));
         $this->assertProduct($productId2, array('amount' => 20));

@@ -159,9 +159,12 @@ class WebTestCase extends ContainerAwareTestCase
      * @param float $price
      * @return string
      */
-    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
+    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price, $storeId = null, $manager = null)
     {
-        $accessToken = $this->auth($this->departmentManager);
+        $manager = ($manager) ?: $this->departmentManager;
+        $storeId = ($storeId) ?: $this->storeId;
+
+        $accessToken = $this->auth($manager);
 
         $invoiceProductData = array(
             'product' => $productId,
@@ -172,7 +175,7 @@ class WebTestCase extends ContainerAwareTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products',
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products',
             $invoiceProductData
         );
 

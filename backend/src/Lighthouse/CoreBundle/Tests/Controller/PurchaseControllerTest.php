@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
@@ -390,9 +391,13 @@ class PurchaseControllerTest extends WebTestCase
 
     public function testPostPurchasesActionAmountChange()
     {
+        $storeId = $this->createStore();
+        $departmentManager = $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
+        $this->linkDepartmentManagers($storeId, $departmentManager->id);
+
         $productId = $this->createProduct();
 
-        $invoiceId = $this->createInvoice();
+        $invoiceId = $this->createInvoice(array(), $storeId, $departmentManager);
 
         $invoiceProductData = array(
             'quantity' => 10,
@@ -400,12 +405,12 @@ class PurchaseControllerTest extends WebTestCase
             'product'  => $productId,
         );
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($departmentManager);
 
         $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/invoices/' . $invoiceId . '/products',
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products',
             $invoiceProductData
         );
 
