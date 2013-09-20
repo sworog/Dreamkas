@@ -9,8 +9,8 @@
     <a href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>">Каталог</a>
     <% } %>
 
-    <% if(LH.isAllow('invoices')){ %>
-    <a href="/invoices">Накладные</a>
+    <% if(LH.isAllow('stores/{store}/invoices') && currentUserModel.stores && currentUserModel.stores.length){ %>
+    <a href="/invoices?storeId=<%- currentUserModel.stores.at(0).id %>">Накладные</a>
     <% } %>
 
     <% if(LH.isAllow('products')){ %>
