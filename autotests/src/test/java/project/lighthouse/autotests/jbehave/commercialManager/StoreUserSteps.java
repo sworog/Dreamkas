@@ -92,7 +92,7 @@ public class StoreUserSteps {
 
     @Given("there is the store with number '$storeNumber' managed by department manager named '$userName'")
     public void givenThereIsTheStoreManagedByDepartmentManager(String storeNumber, String userName) throws IOException, JSONException {
-        createdStore = storeSteps.createStore(storeNumber, userName, userName);
+        createdStore = storeSteps.createStore(storeNumber, storeNumber, storeNumber);
         catalogSteps.promoteDepartmentManager(createdStore, userName);
     }
 

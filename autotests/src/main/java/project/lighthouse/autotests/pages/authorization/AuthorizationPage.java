@@ -104,7 +104,7 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public String getError403Xpath() {
-        return "//body[@class='page page_common_403']";
+        return "//*[contains(@class, 'page_error_403')]";
     }
 
     public void error403IsNotPresent() {

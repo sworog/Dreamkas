@@ -265,7 +265,7 @@ public class ApiConnect {
     }
 
     public void promoteUserToManager(Store store, User user, String type) throws JSONException, IOException {
-        if (!hasStoreManager(store, user)) {
+        if (!hasStoreManager(store, user, type)) {
             String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/stores"), store.getId());
             String data = "_method=LINK";
             HttpPost httpPost = getHttpPost(apiUrl);
@@ -277,8 +277,8 @@ public class ApiConnect {
         }
     }
 
-    private Boolean hasStoreManager(Store store, User user) throws JSONException, IOException {
-        String apiUrl = String.format("%s/%s/managers", UrlHelper.getApiUrl("/stores"), store.getId());
+    private Boolean hasStoreManager(Store store, User user, String type) throws JSONException, IOException {
+        String apiUrl = String.format("%s/%s/%s", UrlHelper.getApiUrl("/stores"), store.getId(), type);
         String response = executeSimpleGetRequest(apiUrl, true);
         JSONArray jsonArray = new JSONArray(response);
         for (int i = 0; i < jsonArray.length(); i++) {
