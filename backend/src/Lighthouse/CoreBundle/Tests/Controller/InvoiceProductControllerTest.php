@@ -624,6 +624,41 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode(404);
     }
 
+    public function testGetInvoiceProductNotFoundFromAnotherStore()
+    {
+        $storeId2 = $this->createStore('43');
+        $this->linkDepartmentManagers($storeId2, $this->departmentManager->id);
+
+        $productId = $this->createProduct();
+        $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
+        $invoiceProductId = $this->createInvoiceProduct(
+            $invoiceId,
+            $productId,
+            2,
+            19.25,
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $accessToken = $this->auth($this->departmentManager);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId
+        );
+
+        $this->assertResponseCode(404);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId
+        );
+
+        $this->assertResponseCode(200);
+    }
+
     /**
      * @dataProvider putInvoiceProvider
      */

@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
