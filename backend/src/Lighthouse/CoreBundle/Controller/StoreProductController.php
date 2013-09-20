@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
-use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class StoreProductController extends AbstractRestController
 {
