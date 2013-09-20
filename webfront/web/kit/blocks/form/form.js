@@ -135,7 +135,7 @@ define(function(require) {
         showSuccessMessage: function() {
             var block = this;
 
-            block.$submitButton.after('<span class="form__successMessage">' + LH.text(_.result(block, 'successMessage')) + '</span>')
+            block.$submitButton.after('<span class="form__successMessage">' + text(_.result(block, 'successMessage')) + '</span>')
         },
         removeSuccessMessage: function() {
             var block = this;

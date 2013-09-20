@@ -21,6 +21,12 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
+                if (block.form){
+                    block.form.remove();
+                }
+
+                block.render();
+
                 block.form = new Form_catalogCategory({
                     el: block.el.getElementsByClassName('form'),
                     model: block.model,

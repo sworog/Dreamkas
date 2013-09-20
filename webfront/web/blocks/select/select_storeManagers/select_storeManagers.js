@@ -16,7 +16,7 @@ define(function(require) {
 
                 block.$el.addClass('preloader_rows');
 
-                block.storeModel.linkManager(block.$el.val()).done(function(){
+                block.storeModel.linkStoreManager(block.$el.val()).done(function(){
                     block.$el.removeClass('preloader_rows');
                     block.storeManagerCandidatesCollection.remove(userModel);
                     block.storeManagersCollection.add(userModel);

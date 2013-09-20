@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.PreLoader;
 import project.lighthouse.autotests.elements.SelectByValue;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
 
@@ -39,13 +40,7 @@ public class UserCreatePage extends ProductCreatePage {
 
     public void userCreateButtonClick() {
         new ButtonFacade(getDriver()).click();
-        //TODO common preloader object waiter
-        preloaderWait();
-    }
-
-    public void preloaderWait() {
-        String preloaderXpath = "//*[contains(@class, 'preloader') and not(contains(@class, 'preloader_spinner'))]";
-        waiter.waitUntilIsNotVisible(By.xpath(preloaderXpath));
+        new PreLoader(getDriver()).await();
     }
 
     public void backToTheUsersListPageLink() {

@@ -176,6 +176,18 @@ public class CommonActions extends PageObject {
         }
     }
 
+    public void catalogElementClick(By findBy) {
+        try {
+            waiter.getOnlyVisibleElementFromTheList(findBy).click();
+        } catch (Exception e) {
+            if (isSkippableException(e)) {
+                elementClick(findBy);
+            } else {
+                throw e;
+            }
+        }
+    }
+
     public void selectByValue(String value, By findBy) {
         try {
             WebElement element = waiter.getVisibleWebElement(findBy);
@@ -229,7 +241,11 @@ public class CommonActions extends PageObject {
                 && exceptionMessage.contains("Timed out after");
     }
 
+    public Boolean visibleWebElementHasTagName(String xpath, String expectedTagName) {
+        return waiter.getVisibleWebElement(By.xpath(xpath)).getTagName().equals(expectedTagName);
+    }
+
     public Boolean webElementHasTagName(String xpath, String expectedTagName) {
-        return waiter.getVisibleWebElement(By.xpath(xpath)).equals(expectedTagName);
+        return waiter.getOnlyVisibleElementFromTheList(By.xpath(xpath)).getTagName().equals(expectedTagName);
     }
 }

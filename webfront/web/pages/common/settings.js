@@ -8,7 +8,7 @@ define(function(require) {
         configUrl = LH.baseApiUrl + '/configs/by/name';
 
     return Page.extend({
-        pageName: 'page_common_balance',
+        __name__: 'page_common_settings',
         partials: {
             '#content': require('tpl!./templates/settings.html')
         },

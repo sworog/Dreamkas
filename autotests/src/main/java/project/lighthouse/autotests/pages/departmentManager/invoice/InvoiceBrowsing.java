@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
+import project.lighthouse.autotests.elements.PreLoader;
 
 public class InvoiceBrowsing extends InvoiceCreatePage {
 
@@ -65,8 +66,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void goToTheaAdditionOfProductsLinkClick() {
         new ButtonFacade(getDriver(), "Сохранить и перейти к добавлению товаров").click();
-        //TODO common preloader object waiter
-        waiter.waitUntilIsNotVisible(By.xpath("//span[@class='button button_color_blue preloader preloader_rows']"));
+        new PreLoader(getDriver()).await();
     }
 
     public void addOneMoreProductLinkClick() {
@@ -137,8 +137,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void addNewInvoiceProductButtonClick() {
         new ButtonFacade(getDriver(), "Добавить товар").click();
-        //TODO common preloader object waiter
-        waiter.waitUntilIsNotVisible(By.xpath("//span[@class='button button_color_blue invoice__addMoreProduct preloader']"));
+        new PreLoader(getDriver()).await();
     }
 
     public void checkItemIsNotPresent(String elementName) {

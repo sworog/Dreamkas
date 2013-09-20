@@ -1,8 +1,6 @@
-<% var attr = require('kit/utils/attr') %>
-
 <div class="catalog__groupTitle">
     <a href="/catalog/<%- catalogGroupModel.id %>"
-       class="catalog__groupLink"><%= attr(catalogGroupModel, 'name') %></a>
+       class="catalog__groupLink"><%= LH.attr(catalogGroupModel, 'name') %></a>
     <a class="editor__editLink catalog__editGroupLink"></a>
 </div>
 <div class="catalog__categoryList">

@@ -5,6 +5,8 @@ define(function (require) {
         getUserStore = require('utils/getUserStore'),
         StoreManagerCandidatesCollection = require('collections/storeManagerCandidates'),
         StoreManagersCollection = require('collections/storeManagers'),
+        DepartmentManagerCollection = require('collections/departmentManagers'),
+        DepartmentManagerCandidatesCollection = require('collections/departmentManagerCandidates'),
         StoreModel = require('models/store'),
         Page403 = require('pages/errors/403');
 
@@ -34,13 +36,28 @@ define(function (require) {
                 storeId: page.storeId
             });
 
-            $.when(userStoreModel || page.storeModel.fetch(), LH.isAllow('stores', 'GET::{store}/storeManagers') ? page.storeManagerCandidatesCollection.fetch() : {}).then(function () {
+            page.departmentManagerCandidatesCollection = new DepartmentManagerCandidatesCollection([], {
+                storeId: page.storeId
+            });
+
+            page.departmentManagersCollection = new DepartmentManagerCollection([], {
+                storeId: page.storeId
+            });
+
+            $.when(
+                    userStoreModel || page.storeModel.fetch(),
+                    LH.isAllow('stores', 'GET::{store}/storeManagers') ? page.storeManagerCandidatesCollection.fetch() : {},
+                    LH.isAllow('stores', 'GET::{store}/departmentManagers') ? page.departmentManagerCandidatesCollection.fetch() : {}
+                )
+                .then(function () {
                 page.render();
 
                 new Store({
                     storeModel: page.storeModel,
                     storeManagerCandidatesCollection: page.storeManagerCandidatesCollection,
-                    storeManagersCollection: page.storeModel.managers,
+                    storeManagersCollection: page.storeModel.storeManagers,
+                    departmentManagerCandidatesCollection: page.departmentManagerCandidatesCollection,
+                    departmentManagersCollection: page.storeModel.departmentManagers,
                     el: document.getElementById('store')
                 });
             });

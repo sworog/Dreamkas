@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.PreLoader;
 
 @DefaultUrl("/settings")
 public class SettingsPage extends CommonPageObject {
@@ -22,6 +23,6 @@ public class SettingsPage extends CommonPageObject {
 
     public void saveSettingButtonClick() {
         new ButtonFacade(getDriver(), "Сохранить").click();
-        //TODO common preloader object waiter
+        new PreLoader(getDriver()).await();
     }
 }

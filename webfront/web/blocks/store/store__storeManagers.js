@@ -4,26 +4,26 @@ define(function(require) {
         Select_storeManagers = require('blocks/select/select_storeManagers/select_storeManagers');
 
     return Block.extend({
-        __name__: 'store__managers',
+        __name__: 'store__storeManagers',
         storeManagerCandidatesCollection: null,
         storeManagersCollection: null,
         storeModel: null,
-        template: require('tpl!blocks/store/store__managers.html'),
+        template: require('tpl!blocks/store/store__storeManagers.html'),
         templates: {
-            store__managerItem: require('tpl!blocks/store/store__managerItem.html')
+            store__storeManagerItem: require('tpl!blocks/store/store__storeManagerItem.html')
         },
         events: {
-            'click .store__managerRemoveLink': function(event) {
+            "click .store__storeManagerRemoveLink": function(event) {
                 event.stopPropagation();
                 var block = this,
                     $link = $(event.target),
-                    $item = $link.closest('.store__managerItem'),
+                    $item = $link.closest('.store__storeManagerItem'),
                     userId = $link.data('user_id'),
                     userModel = block.storeManagersCollection.get(userId);
 
                 $item.addClass('preloader_rows');
 
-                block.storeModel.unlinkManager(userModel.url()).done(function(){
+                block.storeModel.unlinkStoreManager(userModel.url()).done(function(){
                     $item.removeClass('preloader_rows');
                     block.storeManagersCollection.remove(userModel);
                     block.storeManagerCandidatesCollection.add(userModel);
@@ -35,12 +35,12 @@ define(function(require) {
                 remove: function(storeManagerModel) {
                     var block = this;
 
-                    block.$('span[model_id="' + storeManagerModel.id + '"]').closest(".store__managerItem").remove();
+                    block.$('span[model_id="' + storeManagerModel.id + '"]').closest(".store__storeManagerItem").remove();
                 },
                 add: function(storeManagerModel) {
                     var block = this;
 
-                    block.$managerList.append(block.templates.store__managerItem({
+                    block.$managerList.append(block.templates.store__storeManagerItem({
                         storeManagerModel: storeManagerModel
                     }));
                 }

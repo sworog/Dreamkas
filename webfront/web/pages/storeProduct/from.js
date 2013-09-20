@@ -12,16 +12,16 @@ define(function(require) {
         permissions: {
             'stores/{store}/products/{product}': 'PUT'
         },
-        initialize: function(storeId, storeProductId, params) {
+        initialize: function(params) {
             var page = this;
 
             params = params || {};
 
-            page.storeId = storeId;
-            page.storeProductId = storeProductId;
+            page.storeId = params.storeId;
+            page.productId = params.productId;
 
             page.storeProductModel = new StoreProduct({
-                id: page.storeProductId
+                id: page.productId
             });
 
             $.when(page.storeProductModel.fetch()).then(function() {

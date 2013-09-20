@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.InputOnlyVisible;
+import project.lighthouse.autotests.elements.PreLoader;
 import project.lighthouse.autotests.elements.SelectByVisibleText;
 
 import static junit.framework.Assert.assertEquals;
@@ -22,10 +24,9 @@ public class MarkUpTab extends CommonPageObject {
         items.put("rounding", new SelectByVisibleText(this, "rounding.name"));
     }
 
-    public WebElement saveMarkUpButton() {
-        return findVisibleElement(
-                By.xpath("//*[@class='button button_color_blue']")
-        );
+    public void saveMarkUpButtonClick() {
+        new ButtonFacade(getDriver(), "Сохранить").click();
+        new PreLoader(getDriver()).await();
     }
 
     public WebElement getSuccessMessage() {

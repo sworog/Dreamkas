@@ -73,6 +73,7 @@ class CategoryController extends AbstractRestController
      * @param Store $store
      * @param Category $category
      * @return Category
+     * @Secure(roles="ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
@@ -100,6 +101,7 @@ class CategoryController extends AbstractRestController
      * @param Store $store
      * @param Group $group
      * @return CategoryCollection
+     * @Secure(roles="ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */

@@ -1,0 +1,5 @@
+<option disabled value=""><%- 'Назначить упраляющего' %></option>
+<% departmentManagerCandidatesCollection.each(function(departmentManagerModel){ %>
+<option data-user_id="<%- departmentManagerModel.id %>" value="<%- departmentManagerModel.url() %>"><%- departmentManagerModel.get('name') %></option>
+<% }) %>
+

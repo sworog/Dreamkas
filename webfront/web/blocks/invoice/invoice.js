@@ -4,7 +4,8 @@ define(function(require) {
             InputDate = require('kit/blocks/inputDate/inputDate'),
             Form_invoiceProduct = require('blocks/form/form_invoiceProduct/form_invoiceProduct'),
             Table_invoiceProducts = require('blocks/table/table_invoiceProducts/table_invoiceProducts'),
-            cookie = require('kit/utils/cookie');
+            cookie = require('kit/utils/cookie'),
+            form2js = require('kit/libs/form2js');
 
         return Block.extend({
             __name__: 'invoice',
@@ -103,7 +104,7 @@ define(function(require) {
                 'submit .invoice__productsTable .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = Backbone.Syphon.serialize(e.target),
+                        data = form2js(e.target),
                         invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
                         invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
@@ -125,7 +126,7 @@ define(function(require) {
                 'submit .invoice__head .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = Backbone.Syphon.serialize(e.target),
+                        data = form2js(e.target),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();

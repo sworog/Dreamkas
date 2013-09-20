@@ -19,7 +19,7 @@ define(function(require) {
             return this.permissions.fetch();
         },
         fetchStores: function(){
-            if (this.get('role') === 'ROLE_STORE_MANAGER'){
+            if (this.get('role') === 'ROLE_STORE_MANAGER' || this.get('role') === 'ROLE_DEPARTMENT_MANAGER'){
                 this.stores = new UserStoresCollection([], {
                     userId: this.id
                 });

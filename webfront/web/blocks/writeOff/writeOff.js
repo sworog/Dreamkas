@@ -4,7 +4,8 @@ define(function(require) {
             InputDate = require('kit/blocks/inputDate/inputDate'),
             Form_writeOffProduct = require('blocks/form/form_writeOffProduct/form_writeOffProduct'),
             Table_writeOffProducts = require('blocks/table/table_writeOffProducts/table_writeOffProducts'),
-            cookie = require('kit/utils/cookie');
+            cookie = require('kit/utils/cookie'),
+            form2js = require('kit/libs/form2js');
 
         return Block.extend({
             __name__: 'writeOff',
@@ -103,7 +104,7 @@ define(function(require) {
                 'submit .writeOff__productsTable .writeOff__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = Backbone.Syphon.serialize(e.target),
+                        data = form2js(e.target),
                         writeOffProductId = $(e.target).closest('[writeOff-product-id]').attr('writeOff-product-id'),
                         writeOffProduct = block.writeOffProductsCollection.get(writeOffProductId),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
@@ -125,7 +126,7 @@ define(function(require) {
                 'submit .writeOff__head .writeOff__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = Backbone.Syphon.serialize(e.target),
+                        data = form2js(e.target),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();

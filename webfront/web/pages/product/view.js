@@ -16,12 +16,10 @@ define(function(require) {
         initialize: function(productId) {
             var page = this;
 
-            if (!LH.isAllow('stores/{store}/products/{product}')){
-                new Page403();
-                return;
-            }
-
-            if (!LH.isAllow('products', 'GET::{product}') && !currentUserModel.stores.length){
+            if (
+                !LH.isAllow('products', 'GET::{product}')
+                && (!LH.isAllow('stores/{store}/products/{product}') || !currentUserModel.stores.length)
+            ){
                 new Page403();
                 return;
             }
@@ -40,8 +38,8 @@ define(function(require) {
 
             $.when(page.model.fetch()).then(function(){
 
-                page.productModel = page.model.product || page.model;
-                page.storeProductModel = page.model.store ? page.model : null;
+                page.productModel = page.model.get('product') || page.model.toJSON();
+                page.storeProductModel = page.model.get('store') ? page.model.toJSON() : null;
 
                 page.render();
 

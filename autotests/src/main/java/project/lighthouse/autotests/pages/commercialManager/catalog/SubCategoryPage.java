@@ -1,15 +1,11 @@
 package project.lighthouse.autotests.pages.commercialManager.catalog;
 
-import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.common.CommonItem;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.InputOnlyVisible;
 
 public class SubCategoryPage extends GroupPage {
-
-    @FindBy(xpath = "//*[@class='button button_color_blue catalog__addSubCategoryLink editor__control']")
-    WebElementFacade addNewSubCategoryButton;
 
     public SubCategoryPage(WebDriver driver) {
         super(driver);
@@ -22,7 +18,7 @@ public class SubCategoryPage extends GroupPage {
 
     @Override
     public void addNewButtonClick() {
-        addNewSubCategoryButton.click();
+        new ButtonFacade(getDriver(), "Добавить подкатегорию").click();
     }
 
     @Override

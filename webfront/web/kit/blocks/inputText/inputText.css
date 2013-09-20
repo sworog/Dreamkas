@@ -15,8 +15,7 @@ input.inputText, .inputText input, textarea.inputText, .inputText textarea{
     box-sizing: border-box;
     margin: 0;
     border: 2px solid #cacaca;
-    line-height: 20px;
-    padding: 0 8px;
+    padding: 1px 8px 0;
     vertical-align: middle;
     width: 100%;
     color: #000;

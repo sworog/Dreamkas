@@ -16,9 +16,6 @@ define(function(require) {
         initialize: function(writeOffId, params) {
             var page = this;
 
-            page.writeOffId = writeOffId;
-            page.params = params || {};
-
             page.writeOffModel = new WriteOffModel({
                 id: page.writeOffId
             });
@@ -33,7 +30,7 @@ define(function(require) {
                 new WriteOff({
                     writeOffModel: page.writeOffModel,
                     writeOffProductsCollection: page.writeOffProductsCollection,
-                    editMode: page.params.editMode,
+                    editMode: page.editMode,
                     el: document.getElementById('writeOff')
                 });
             });

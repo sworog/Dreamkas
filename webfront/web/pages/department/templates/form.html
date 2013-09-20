@@ -1,10 +1,6 @@
-<% var attr = require('kit/utils/attr') %>
-
 <div class="page__header">
-    <a href="/stores" class="page__backLink"><%- 'Список магазинов' %></a>
+    <a href="/stores" class="page__backLink">Список магазинов</a>
     <span class="page__backLinkSeparator">/</span>
-    <a href="/stores/<%- storeModel.id %>" class="page__backLink"><%=  attr(storeModel, 'number') %></a>
+    <a href="/stores/<%- storeModel.id %>" class="page__backLink"><%= LH.attr(storeModel, 'number') %></a>
 </div>
-<div class="box">
-    <form id="form_department"></form>
-</div>
+<form id="form_department"></form>
