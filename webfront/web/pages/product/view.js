@@ -40,8 +40,8 @@ define(function(require) {
 
             $.when(page.model.fetch()).then(function(){
 
-                page.productModel = page.model.product || page.model;
-                page.storeProductModel = page.model.store ? page.model : null;
+                page.productModel = page.model.get('product') || page.model;
+                page.storeProductModel = page.model.get('store') ? page.model : null;
 
                 page.render();
 
