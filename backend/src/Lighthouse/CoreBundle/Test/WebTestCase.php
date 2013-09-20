@@ -5,10 +5,8 @@ namespace Lighthouse\CoreBundle\Test;
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
-use Lighthouse\CoreBundle\Document\User\UserRepository;
-use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Lighthouse\CoreBundle\Test\Client\Client;
 
 /**
  * @codeCoverageIgnore
@@ -21,16 +19,6 @@ class WebTestCase extends ContainerAwareTestCase
     protected $client;
 
     /**
-     * @var AuthClient
-     */
-    protected $oauthClient;
-
-    /**
-     * @var User[]
-     */
-    protected $oauthUsers = array();
-
-    /**
      * @var User
      */
     protected $departmentManager;
@@ -40,19 +28,24 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected $storeId;
 
+    /**
+     * @var Factory
+     */
+    protected $factory;
+
     protected function setUp()
     {
         $this->client = static::createClient();
         $this->clearMongoDb();
+        $this->factory = new Factory($this->getContainer());
     }
 
     protected function tearDown()
     {
         parent::tearDown();
 
-        $this->oauthUsers = array();
+        $this->factory = null;
         $this->client = null;
-        $this->oauthClient = null;
     }
 
     /**
@@ -98,21 +91,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function jsonRequest(JsonRequest $jsonRequest, $accessToken = null)
     {
-        if (null !== $accessToken) {
-            $jsonRequest->setAccessToken($accessToken);
-        }
-
-        $this->client->request(
-            $jsonRequest->method,
-            $jsonRequest->uri,
-            $jsonRequest->parameters,
-            $jsonRequest->files,
-            $jsonRequest->server,
-            $jsonRequest->content,
-            $jsonRequest->changeHistory
-        );
-
-        return $this->parseJsonResponse($this->client);
+        return $this->client->jsonRequest($jsonRequest, $accessToken);
     }
 
     /**
@@ -762,20 +741,11 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param string $secret
      * @return AuthClient
      */
-    protected function createAuthClient($secret = 'secret')
+    protected function createAuthClient()
     {
-        $client = new AuthClient();
-        $client->setSecret($secret);
-
-        $dm = $this->getContainer()->get('doctrine_mongodb.odm.document_manager');
-
-        $dm->persist($client);
-        $dm->flush();
-
-        return $client;
+        return $this->factory->getAuthClient();
     }
 
     /**
@@ -788,28 +758,12 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createUser(
         $username = 'admin',
-        $password = 'password',
-        $role = 'ROLE_ADMINISTRATOR',
+        $password = Factory::USER_DEFAULT_PASSWORD,
+        $role = User::ROLE_ADMINISTRATOR,
         $name = 'Админ Админыч',
         $position = 'Администратор'
     ) {
-        /* @var UserRepository $userRepository */
-        $userRepository = $this->getContainer()->get('lighthouse.core.document.repository.user');
-        /* @var UserProvider $userProvider */
-        $userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
-
-        $user = new User();
-        $user->name = $name;
-        $user->username = $username;
-        $user->role = $role;
-        $user->position = $position;
-
-        $userProvider->setPassword($user, $password);
-
-        $userRepository->getDocumentManager()->persist($user);
-        $userRepository->getDocumentManager()->flush();
-
-        return $user;
+        return $this->factory->getUser($username, $password, $role, $name, $position);
     }
 
     /**
@@ -818,8 +772,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function authAsRole($role)
     {
-        $user = $this->getRoleUser($role);
-        return $this->auth($user);
+        return $this->factory->authAsRole($role);
     }
 
     /**
@@ -828,11 +781,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function getRoleUser($role)
     {
-        if (!isset($this->oauthUsers[$role])) {
-            $this->oauthUsers[$role] = $this->createUser($role, 'password', $role, $role, $role);
-        }
-
-        return $this->oauthUsers[$role];
+        return $this->factory->getRoleUser($role);
     }
 
     /**
@@ -841,73 +790,21 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function getStoreManager($storeId)
     {
-        $username = 'storeManagerStore' . $storeId;
-        if (!isset($this->oauthUsers[$username])) {
-            $storeManager = $this->createUser($username, 'password', User::ROLE_STORE_MANAGER);
-            $this->linkStoreManagers($storeId, $storeManager->id);
-            $this->oauthUsers[$username] = $storeManager;
-        }
-        return $this->oauthUsers[$username];
+        return $this->factory->getStoreManager($storeId);
     }
 
     /**
-     * @param User $oauthUser
+     * @param User $user
      * @param string $password
      * @param AuthClient $oauthClient
      * @return \stdClass access token
      */
-    protected function auth(User $oauthUser = null, $password = 'password', AuthClient $oauthClient = null)
-    {
-        if (!$oauthClient) {
-            if (!$this->oauthClient) {
-                $this->oauthClient = $this->createAuthClient();
-            }
-            $oauthClient = $this->oauthClient;
-        }
-
-        if (!$oauthUser) {
-            $oauthUser = $this->getRoleUser('ROLE_ADMINISTRATOR');
-        }
-
-        $authParams = array(
-            'grant_type' => 'password',
-            'username' => $oauthUser->username,
-            'password' => $password,
-            'client_id' => $oauthClient->getPublicId(),
-            'client_secret' => $oauthClient->getSecret()
-        );
-
-        $this->client->request(
-            'POST',
-            '/oauth/v2/token',
-            $authParams,
-            array(),
-            array('Content-Type' => 'application/x-www-form-urlencoded')
-        );
-
-        $response = $this->client->getResponse()->getContent();
-        $json = json_decode($response);
-
-        return $json;
-    }
-
-    /**
-     * @param Client $client
-     * @return mixed
-     * @throws \PHPUnit_Framework_AssertionFailedError
-     */
-    protected function parseJsonResponse(Client $client)
-    {
-        $content = $client->getResponse()->getContent();
-        $json = json_decode($content, true);
-
-        if (0 != json_last_error()) {
-            throw new \PHPUnit_Framework_AssertionFailedError(
-                sprintf('Failed asserting that response body is json. Response given: %s', $content)
-            );
-        }
-
-        return $json;
+    protected function auth(
+        User $user,
+        $password = Factory::USER_DEFAULT_PASSWORD,
+        AuthClient $oauthClient = null
+    ) {
+        return $this->factory->auth($user, $password, $oauthClient);
     }
 
     /**
