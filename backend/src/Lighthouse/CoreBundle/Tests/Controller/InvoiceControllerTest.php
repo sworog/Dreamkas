@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Document\User\User;
 
 class InvoiceControllerTest extends WebTestCase
 {
@@ -554,5 +555,50 @@ class InvoiceControllerTest extends WebTestCase
                 ),
             ),
         );
+    }
+
+    public function testDepartmentManagerCantGetInvoiceFromAnotherStore()
+    {
+        $storeId2 = $this->createStore('43');
+        $departmentManager2 = $this->createUser('Депардье Ж.К.М.', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->linkDepartmentManagers($storeId2, $departmentManager2->id);
+
+        $accessToken1 = $this->auth($this->departmentManager);
+        $accessToken2 = $this->auth($departmentManager2);
+
+        $invoiceId1 = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
+        $invoiceId2 = $this->createInvoice(array(), $storeId2, $departmentManager2);
+
+        $this->clientJsonRequest(
+            $accessToken2,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(403);
+
+        $this->clientJsonRequest(
+            $accessToken1,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/invoices/' . $invoiceId2
+        );
+
+        $this->assertResponseCode(403);
+
+        $this->clientJsonRequest(
+            $accessToken1,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->clientJsonRequest(
+            $accessToken2,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/invoices/' . $invoiceId2
+        );
+
+        $this->assertResponseCode(200);
     }
 }
