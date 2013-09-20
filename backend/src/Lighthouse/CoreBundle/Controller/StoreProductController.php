@@ -15,6 +15,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class StoreProductController extends AbstractRestController
 {
@@ -36,6 +37,7 @@ class StoreProductController extends AbstractRestController
      * @param Store $store
      * @param Product $product
      * @return StoreProduct
+     * @Secure("ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
@@ -51,6 +53,7 @@ class StoreProductController extends AbstractRestController
      * @param Product $product
      * @param Request $request
      * @return View|StoreProduct
+     * @Secure("ROLE_STORE_MANAGER")
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @ApiDoc
      */
@@ -65,6 +68,7 @@ class StoreProductController extends AbstractRestController
      * @param Store $store
      * @param SubCategory $subCategory
      * @return StoreProductCollection
+     * @Secure("ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
