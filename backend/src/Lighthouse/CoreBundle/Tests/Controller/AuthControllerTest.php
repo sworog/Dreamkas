@@ -105,13 +105,31 @@ class AuthControllerTest extends WebTestCase
 
     public function testInvalidPassword()
     {
+        $authClient = $this->createAuthClient();
+
         $user = $this->createUser('test', 'password');
 
-        $response = $this->auth($user, 'qwerty');
+        $authParams = array(
+            'grant_type' => 'password',
+            'username' => 'test',
+            'password' => 'invalidpassword',
+            'client_id' => $authClient->getPublicId(),
+            'client_secret' => $authClient->getSecret()
+        );
+
+        $this->client->request(
+            'POST',
+            '/oauth/v2/token',
+            $authParams,
+            array(),
+            array('Content-Type' => 'application/x-www-form-urlencoded')
+        );
+
+        $response = $this->client->getJsonResponse();
 
         $this->assertResponseCode(400);
 
-        $this->assertObjectHasAttribute('error', $response);
-        $this->assertEquals('invalid_grant', $response->error);
+        $this->assertArrayHasKey('error', $response);
+        $this->assertEquals('invalid_grant', $response['error']);
     }
 }

@@ -688,17 +688,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     public function linkStoreManagers($storeId, $userIds, $rel = Store::REL_STORE_MANAGERS)
     {
-        $userIds = (array) $userIds;
-
-        $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        foreach ($userIds as $userId) {
-            $request->addLinkHeader($this->getUserResourceUri($userId), $rel);
-        }
-
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $this->jsonRequest($request, $accessToken);
-
-        $this->assertResponseCode(204);
+        $this->factory->linkManagers($storeId, $userIds, $rel);
     }
 
     /**
@@ -893,7 +883,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function getUserResourceUri($userId)
     {
-        return sprintf('http://localhost/api/1/users/%s', $userId);
+        return $this->factory->getUserResourceUri($userId);
     }
 
     /**

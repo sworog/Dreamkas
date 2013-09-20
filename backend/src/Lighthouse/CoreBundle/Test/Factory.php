@@ -265,4 +265,13 @@ class Factory
     {
         $this->linkManagers($storeId, $userIds, Store::REL_DEPARTMENT_MANAGERS);
     }
+
+    /**
+     * @param string $userId
+     * @return string
+     */
+    public function getUserResourceUri($userId)
+    {
+        return sprintf('http://localhost/api/1/users/%s', $userId);
+    }
 }
