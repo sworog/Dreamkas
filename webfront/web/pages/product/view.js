@@ -16,12 +16,10 @@ define(function(require) {
         initialize: function(productId) {
             var page = this;
 
-            if (!LH.isAllow('stores/{store}/products/{product}')){
-                new Page403();
-                return;
-            }
-
-            if (!LH.isAllow('products', 'GET::{product}') && !currentUserModel.stores.length){
+            if (
+                !LH.isAllow('products', 'GET::{product}')
+                && (!LH.isAllow('stores/{store}/products/{product}') || !currentUserModel.stores.length)
+            ){
                 new Page403();
                 return;
             }
