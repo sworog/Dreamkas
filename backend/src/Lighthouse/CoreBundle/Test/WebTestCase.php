@@ -314,8 +314,17 @@ class WebTestCase extends ContainerAwareTestCase
      * @param int $date timestamp
      * @return mixed
      */
-    protected function createWriteOff($number = '431-6782', $date = null)
-    {
+    protected function createWriteOff(
+        $number = '431-6782',
+        $date = null,
+        $storeId = null,
+        User $departmentManager = null
+    ) {
+        $storeId = ($storeId) ?: $this->createStore('42', '42', '42', true);
+        $departmentManager = ($departmentManager) ?: $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
+
+        $accessToken = $this->auth($departmentManager);
+
         $date = $date ? : date('c', strtotime('-1 day'));
 
         $postData = array(
@@ -323,12 +332,10 @@ class WebTestCase extends ContainerAwareTestCase
             'date' => $date,
         );
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
-
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/writeoffs.json',
+            '/api/1/stores/' . $storeId . '/writeoffs',
             $postData
         );
 
@@ -347,8 +354,20 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $cause
      * @return string
      */
-    protected function createWriteOffProduct($writeOffId, $productId, $price = 5.99, $quantity = 10, $cause = 'Порча')
-    {
+    protected function createWriteOffProduct(
+        $writeOffId,
+        $productId,
+        $price = 5.99,
+        $quantity = 10,
+        $cause = 'Порча',
+        $storeId = null,
+        $manager = null
+    ) {
+        $manager = ($manager) ?: $this->departmentManager;
+        $storeId = ($storeId) ?: $this->storeId;
+
+        $accessToken = $this->auth($manager);
+
         $postData = array(
             'product' => $productId,
             'price' => $price,
@@ -356,8 +375,11 @@ class WebTestCase extends ContainerAwareTestCase
             'cause' => $cause,
         );
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
-        $request = new JsonRequest('/api/1/writeoffs/' . $writeOffId . '/products', 'POST', $postData);
+        $request = new JsonRequest(
+            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products',
+            'POST',
+            $postData
+        );
         $postResponse = $this->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(201);
