@@ -23,7 +23,7 @@ define(function(require) {
                 return;
             }
 
-            page.writeOffsCollection = new WriteOffsCollection({
+            page.writeOffsCollection = new WriteOffsCollection([], {
                 storeId: pageParams.storeId
             });
 

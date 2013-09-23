@@ -15,7 +15,7 @@ define(function(require) {
         initialize: function(pageParams) {
             var page = this;
 
-            if (!LH.isAllow('stores/{store}/writeoffs/{writeoff}/products', 'POST')){
+            if (!LH.isAllow('stores/{store}/writeoffs/{writeOff}/products', 'POST')){
                 new Page403();
                 return;
             }
@@ -28,6 +28,8 @@ define(function(require) {
                 new Page403();
                 return;
             }
+
+            page.writeOffId = pageParams.writeOffId;
 
             page.writeOffModel = new WriteOffModel({
                 id: page.writeOffId
