@@ -17,8 +17,8 @@
     <a href="/balance">Остатки</a>
     <% } %>
 
-    <% if(LH.isAllow('writeoffs')){ %>
-    <a href="/writeOffs">Списания</a>
+    <% if(LH.isAllow('stores/{store}/writeoffs') &&currentUserModel.stores && currentUserModel.stores.length){ %>
+    <a href="/writeOffs?storeId=<%- currentUserModel.stores.at(0).id %>">Списания</a>
     <% } %>
 
     <% if(LH.isAllow('users')){ %>

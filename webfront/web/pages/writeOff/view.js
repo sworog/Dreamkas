@@ -3,25 +3,39 @@ define(function(require) {
     var Page = require('kit/core/page'),
         WriteOff = require('blocks/writeOff/writeOff'),
         WriteOffModel = require('models/writeOff'),
-        WriteOffProductsCollection = require('collections/writeOffProducts');
+        WriteOffProductsCollection = require('collections/writeOffProducts'),
+        currentUserModel = require('models/currentUser'),
+        Page403 = require('pages/errors/403');
 
     return Page.extend({
         __name__: 'page_writeOff_view',
         partials: {
             '#content': require('tpl!./templates/view.html')
         },
-        permissions: {
-            writeoffs: 'GET::{writeOff}'
-        },
-        initialize: function(writeOffId, params) {
+        initialize: function(pageParams) {
             var page = this;
+
+            if (!LH.isAllow('stores/{store}/writeoffs/{writeoff}/products', 'POST')){
+                new Page403();
+                return;
+            }
+
+            if (currentUserModel.stores.length){
+                pageParams.storeId = currentUserModel.stores.at(0).id;
+            }
+
+            if (!pageParams.storeId){
+                new Page403();
+                return;
+            }
 
             page.writeOffModel = new WriteOffModel({
                 id: page.writeOffId
             });
 
             page.writeOffProductsCollection = new WriteOffProductsCollection({
-                writeOffId: page.writeOffId
+                writeOffId: page.writeOffId,
+                storeId: pageParams.storeId
             });
 
             $.when(page.writeOffModel.fetch(), page.writeOffProductsCollection.fetch()).then(function(){
