@@ -26,6 +26,14 @@ class StoreManagerVoter implements VoterInterface
     );
 
     /**
+     * @var array
+     */
+    protected $roleAttributes = array(
+        self::ACL_STORE_MANAGER => User::ROLE_STORE_MANAGER,
+        self::ACL_DEPARTMENT_MANAGER => User::ROLE_DEPARTMENT_MANAGER
+    );
+
+    /**
      * Checks if the voter supports the given attribute.
      *
      * @param string $attribute An attribute
@@ -74,5 +82,16 @@ class StoreManagerVoter implements VoterInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $attribute
+     * @return string
+     */
+    public function getRoleByAttribute($attribute)
+    {
+        if (isset($this->roleAttributes[$attribute])) {
+            return $this->roleAttributes[$attribute];
+        }
     }
 }

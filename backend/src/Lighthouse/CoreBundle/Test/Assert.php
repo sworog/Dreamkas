@@ -65,6 +65,20 @@ class Assert
     }
 
     /**
+     * @param $expected
+     * @param $path
+     * @param $json
+     * @param bool $canonicalize
+     * @param string $message
+     */
+    public static function assertJsonPathEqualsArray($expected, $path, $json, $canonicalize = true, $message = '')
+    {
+        $jsonPath = new JsonPath($json, $path);
+        $values = $jsonPath->getValues();
+        \PHPUnit_Framework_Assert::assertEquals($expected, $values, $message, 0, 10, true);
+    }
+
+    /**
      * @param string $expected
      * @param string $path
      * @param mixed $json

@@ -585,4 +585,76 @@ class UserControllerTest extends WebTestCase
             ),
         );
     }
+
+    /**
+     * @dataProvider rolePermissionsProvider
+     * @param $role
+     * @param array $assertions
+     */
+    public function testRolePermissions($role, array $assertions)
+    {
+        $user = $this->getRoleUser($role);
+
+        $accessToken = $this->auth($user);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/users/permissions'
+        );
+
+        $this->assertResponseCode(200);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathEqualsArray($expected, $path, $getResponse);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function rolePermissionsProvider()
+    {
+        return array(
+            User::ROLE_DEPARTMENT_MANAGER => array(
+                User::ROLE_DEPARTMENT_MANAGER,
+                array(
+                    'stores/{store}/invoices.*' => array(
+                        'GET::{invoice}',
+                        'PUT::{invoice}',
+                        'GET',
+                        'POST'
+                    ),
+                    'stores/{store}/invoices/{invoice}/products.*' => array(
+                        'GET::{invoiceProduct}',
+                        'PUT::{invoiceProduct}',
+                        'DELETE::{invoiceProduct}',
+                        'GET',
+                        'POST'
+                    )
+                )
+            ),
+            User::ROLE_STORE_MANAGER => array(
+                User::ROLE_STORE_MANAGER,
+                array(
+                    'stores/{store}/invoices.*' => array(),
+                    'stores/{store}/invoices/{invoice}/products.*' => array(),
+                )
+            ),
+            User::ROLE_COMMERCIAL_MANAGER => array(
+                User::ROLE_COMMERCIAL_MANAGER,
+                array(
+                    'stores/{store}/invoices.*' => array(),
+                    'stores/{store}/invoices/{invoice}/products.*' => array(),
+                )
+            ),
+            User::ROLE_ADMINISTRATOR => array(
+                User::ROLE_ADMINISTRATOR,
+                array(
+                    'stores/{store}/invoices.*' => array(),
+                    'stores/{store}/invoices/{invoice}/products.*' => array(),
+                )
+            )
+        );
+    }
 }
