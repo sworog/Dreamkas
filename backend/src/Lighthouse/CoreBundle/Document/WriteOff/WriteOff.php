@@ -22,6 +22,16 @@ class WriteOff extends AbstractDocument
     protected $id;
 
     /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true
+     * )
+     * @Assert\NotBlank
+     * @var Store
+     */
+    protected $store;
+
+    /**
      * Номер
      * @MongoDB\String
      * @Assert\NotBlank

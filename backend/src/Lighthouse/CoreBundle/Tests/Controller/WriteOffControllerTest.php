@@ -172,7 +172,7 @@ class WriteOffControllerTest extends WebTestCase
         $number = '431-1234';
         $date = '2012-05-23T15:12:05+0400';
 
-        $writeOfId = $this->createWriteOff($number, $date);
+        $writeOfId = $this->createWriteOff($number, $date, $this->storeId, $this->departmentManager);
 
         $accessToken = $this->auth($this->departmentManager);
 
@@ -191,7 +191,7 @@ class WriteOffControllerTest extends WebTestCase
 
     public function testGetActionNotFound()
     {
-        $this->createWriteOff();
+        $this->createWriteOff('431', null, $this->storeId, $this->departmentManager);
 
         $accessToken = $this->auth($this->departmentManager);
 
@@ -365,7 +365,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $writeOffId2 = $this->createWriteOff('2');
+        $writeOffId2 = $this->createWriteOff('2', null, $this->storeId, $this->departmentManager);
         $this->createWriteOffProduct(
             $writeOffId2,
             $productId1,
@@ -408,12 +408,12 @@ class WriteOffControllerTest extends WebTestCase
         $accessToken2 = $this->auth($departmentManager2);
 
         $writeOffId1 = $this->createWriteOff('4313', null, $this->storeId, $this->departmentManager);
-        $writeOffId2 = $this->createInvoice('4314', null, $storeId2, $departmentManager2);
+        $writeOffId2 = $this->createWriteOff('4314', null, $storeId2, $departmentManager2);
 
         $this->clientJsonRequest(
             $accessToken2,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/writeoff/' . $writeOffId1
+            '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId1
         );
 
         $this->assertResponseCode(403);
@@ -421,7 +421,7 @@ class WriteOffControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken1,
             'GET',
-            '/api/1/stores/' . $storeId2 . '/writeoff/' . $writeOffId2
+            '/api/1/stores/' . $storeId2 . '/writeoffs/' . $writeOffId2
         );
 
         $this->assertResponseCode(403);
@@ -429,7 +429,7 @@ class WriteOffControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken1,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/writeoff/' . $writeOffId1
+            '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId1
         );
 
         $this->assertResponseCode(200);
@@ -437,7 +437,7 @@ class WriteOffControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken2,
             'GET',
-            '/api/1/stores/' . $storeId2 . '/writeoff/' . $writeOffId2
+            '/api/1/stores/' . $storeId2 . '/writeoffs/' . $writeOffId2
         );
 
         $this->assertResponseCode(200);
