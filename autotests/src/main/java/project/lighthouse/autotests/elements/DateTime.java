@@ -98,8 +98,9 @@ public class DateTime extends CommonItem {
         }
     }
 
+    //TODO refactor to ButtonFacade() class
     public void dateTimePickerClose() {
-        String dateTimePickerCloseButtonXpath = getDatePickerXpath() + "//*[@class='button button_color_blue datepicker__saveLink tooltip__closeLink']";
+        String dateTimePickerCloseButtonXpath = getDatePickerXpath() + "//*[@class='button datepicker__saveLink tooltip__closeLink']";
         pageObject.findElement(By.xpath(dateTimePickerCloseButtonXpath)).click();
     }
 
