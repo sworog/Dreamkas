@@ -48,6 +48,17 @@ Then the user checks the write off with 'CWIDSBDU-2' is present on write off lis
 Then the user checks the write off with 'CWIDSBDU-1' is not present on write off list page
 When the user logs out
 
+Scenario: Department manager dont have rights to see writeOff of other store
+
+Given there is the user with name 'departmentManager-DIC', position 'departmentManager-DIC', username 'departmentManager-DIC', password 'lighthouse', role 'departmentManager'
+And there is the user with name 'departmentManager-DIC-2', position 'departmentManager-DIC-2', username 'departmentManager-DIC-2', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'DIC-01' managed by department manager named 'departmentManager-DIC'
+And there is the store with number 'DIC-02' managed by department manager named 'departmentManager-DIC-2'
+And there is the write off with number 'CWIDSBDU-1' in the store with number 'DIC-01' ruled by user with name 'departmentManager-DIC'
+Given the user navigates to the write off with number 'CWIDSBDU-1'
+When the user logs in using 'departmentManager-DIC-2' userName and 'lighthouse' password
+Then the user sees the 403 error
+
 Scenario: Left menu writeOffs link is visible by departmentManager who has store
 
 Given there is the user with name 'departmentManager-DIC', position 'departmentManager-DIC', username 'departmentManager-DIC', password 'lighthouse', role 'departmentManager'
