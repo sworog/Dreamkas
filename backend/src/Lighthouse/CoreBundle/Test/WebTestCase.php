@@ -365,6 +365,9 @@ class WebTestCase extends ContainerAwareTestCase
     ) {
         $manager = ($manager) ?: $this->departmentManager;
         $storeId = ($storeId) ?: $this->storeId;
+        $price = ($price) ?: 5.99;
+        $quantity = ($quantity) ?: 10;
+        $cause = ($cause) ?: 'Порча';
 
         $accessToken = $this->auth($manager);
 
