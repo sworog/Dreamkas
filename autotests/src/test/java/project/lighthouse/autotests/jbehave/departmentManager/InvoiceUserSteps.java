@@ -4,6 +4,10 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceApi;
+import project.lighthouse.autotests.steps.administrator.UserSteps;
+import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
+import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
 import project.lighthouse.autotests.steps.departmentManager.InvoiceSteps;
 
 import java.io.IOException;
@@ -12,6 +16,15 @@ public class InvoiceUserSteps {
 
     @Steps
     InvoiceSteps invoiceSteps;
+
+    @Steps
+    StoreSteps storeSteps;
+
+    @Steps
+    CatalogSteps catalogSteps;
+
+    @Steps
+    UserSteps userSteps;
 
     @Given("there is the invoice '$invoiceSku' with product '$productName' name, '$productSku' sku, '$productBarCode' barcode, '$productUnits' units")
     public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
@@ -23,14 +36,26 @@ public class InvoiceUserSteps {
         invoiceSteps.createInvoiceThroughPost(sku);
     }
 
+    @Given("there is the invoice with sku '$sku' in the store with number '$number' ruled by department manager with name '$userName'")
+    public void givenThereIsTheInvoiceInTheStore(String sku, String number, String userName) throws IOException, JSONException {
+        invoiceSteps.createInvoiceThroughPost(sku, number, userName);
+    }
+
     @Given("the user is on the invoice create page")
-    public void givenTheUserIsOnTheInvoiceCreatePage() {
+    public void givenTheUserIsOnTheInvoiceCreatePage() throws IOException, JSONException {
+        beforeSteps();
         invoiceSteps.openInvoiceCreatePage();
     }
 
     @Given("the user is on the invoice list page")
-    public void givenTheUserIsOnTheInvoiceListPage() {
+    public void givenTheUserIsOnTheInvoiceListPage() throws IOException, JSONException {
+        beforeSteps();
         invoiceSteps.openInvoiceListPage();
+    }
+
+    public void beforeSteps() throws IOException, JSONException {
+        userSteps.getUser(InvoiceApi.DEFAULT_USER_NAME);
+        catalogSteps.promoteDepartmentManager(storeSteps.createStore(), InvoiceApi.DEFAULT_USER_NAME);
     }
 
     @Given("the user navigates to the invoice page with name '$invoiceName'")
@@ -163,6 +188,11 @@ public class InvoiceUserSteps {
     @Then("the user checks the invoice with '$skuValue' sku is present")
     public void whenTheUserChecksTheInvoiceWithSkuIsPresent(String skuValue) {
         invoiceSteps.listItemCheck(skuValue);
+    }
+
+    @Then("the user checks the invoice with '$skuValue' sku is not present")
+    public void whenTheUserChecksTheInvoiceWithSkuIsNotPresent(String skuValue) {
+        invoiceSteps.checkItemIsNotPresent(skuValue);
     }
 
     @Then("the user checks the invoice '$elementName' value is '$expectedValue'")
