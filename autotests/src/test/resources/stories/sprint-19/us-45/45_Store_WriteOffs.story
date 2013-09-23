@@ -48,7 +48,7 @@ Then the user checks the write off with 'CWIDSBDU-2' is present on write off lis
 Then the user checks the write off with 'CWIDSBDU-1' is not present on write off list page
 When the user logs out
 
-Scenario: Left menu invoices link is visible by departmentManager who has store
+Scenario: Left menu writeOffs link is visible by departmentManager who has store
 
 Given there is the user with name 'departmentManager-DIC', position 'departmentManager-DIC', username 'departmentManager-DIC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'DIC-01' managed by department manager named 'departmentManager-DIC'
