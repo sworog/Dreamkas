@@ -686,9 +686,9 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string|array $userIds
      * @param string $rel
      */
-    public function linkStoreManagers($storeId, $userIds, $rel = Store::REL_STORE_MANAGERS)
+    public function linkStoreManagers($storeId, $userIds)
     {
-        $this->factory->linkManagers($storeId, $userIds, $rel);
+        $this->factory->linkStoreManagers($storeId, $userIds);
     }
 
     /**
@@ -697,7 +697,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     public function linkDepartmentManagers($storeId, $userIds)
     {
-        $this->linkStoreManagers($storeId, $userIds, Store::REL_DEPARTMENT_MANAGERS);
+        $this->factory->linkDepartmentManagers($storeId, $userIds);
     }
 
     /**

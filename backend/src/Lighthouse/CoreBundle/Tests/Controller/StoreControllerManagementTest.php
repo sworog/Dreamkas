@@ -617,7 +617,7 @@ class StoreControllerManagementTest extends WebTestCase
         $storeUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $storeId = $this->createStore();
 
-        $this->linkStoreManagers($storeId, $storeUser1->id, Store::REL_DEPARTMENT_MANAGERS);
+        $this->linkDepartmentManagers($storeId, $storeUser1->id);
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -639,7 +639,7 @@ class StoreControllerManagementTest extends WebTestCase
         $depUser1 = $this->createUser('storeUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $depUser2 = $this->createUser('storeUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $storeId = $this->createStore();
-        $this->linkStoreManagers($storeId, array($depUser1->id, $depUser2->id), Store::REL_DEPARTMENT_MANAGERS);
+        $this->linkDepartmentManagers($storeId, array($depUser1->id, $depUser2->id));
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -714,7 +714,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
         Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, false);
 
-        $this->linkStoreManagers($storeId1, $depUser1->id, Store::REL_DEPARTMENT_MANAGERS);
+        $this->linkDepartmentManagers($storeId1, $depUser1->id);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -736,7 +736,7 @@ class StoreControllerManagementTest extends WebTestCase
         //
         $storeId2 = $this->createStore('43');
 
-        $this->linkStoreManagers($storeId2, $depUser2->id, Store::REL_DEPARTMENT_MANAGERS);
+        $this->linkDepartmentManagers($storeId2, $depUser2->id);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -774,7 +774,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, false);
 
         //
-        $this->linkStoreManagers($storeId2, $depUser3->id, Store::REL_DEPARTMENT_MANAGERS);
+        $this->linkDepartmentManagers($storeId2, $depUser3->id);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
