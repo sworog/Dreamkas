@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffCollection;
@@ -36,8 +37,7 @@ class WriteOffController extends AbstractRestController
      *
      * @param Store $store
      * @param Request $request
-     * @return \FOS\RestBundle\View\View|WriteOff
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @return View|WriteOff
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -54,8 +54,7 @@ class WriteOffController extends AbstractRestController
      * @param Store $store
      * @param WriteOff $writeOff
      * @param Request $request
-     * @return \FOS\RestBundle\View\View|WriteOff
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
+     * @return View|WriteOff
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -69,7 +68,6 @@ class WriteOffController extends AbstractRestController
      * @param Store $store
      * @param WriteOff $writeOff
      * @return \Lighthouse\CoreBundle\Document\WriteOff\WriteOff
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -82,7 +80,6 @@ class WriteOffController extends AbstractRestController
     /**
      * @param Store $store
      * @return WriteOffCollection
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER")
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true

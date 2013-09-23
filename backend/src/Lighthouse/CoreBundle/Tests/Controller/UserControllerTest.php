@@ -631,7 +631,20 @@ class UserControllerTest extends WebTestCase
                         'DELETE::{invoiceProduct}',
                         'GET',
                         'POST'
-                    )
+                    ),
+                    'stores/{store}/writeoffs.*' => array(
+                        'GET::{writeOff}',
+                        'PUT::{writeOff}',
+                        'GET',
+                        'POST'
+                    ),
+                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(
+                        'GET::{writeOffProduct}',
+                        'PUT::{writeOffProduct}',
+                        'DELETE::{writeOffProduct}',
+                        'GET',
+                        'POST'
+                    ),
                 )
             ),
             User::ROLE_STORE_MANAGER => array(
@@ -639,6 +652,8 @@ class UserControllerTest extends WebTestCase
                 array(
                     'stores/{store}/invoices.*' => array(),
                     'stores/{store}/invoices/{invoice}/products.*' => array(),
+                    'stores/{store}/writeoffs.*' => array(),
+                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                 )
             ),
             User::ROLE_COMMERCIAL_MANAGER => array(
@@ -646,6 +661,8 @@ class UserControllerTest extends WebTestCase
                 array(
                     'stores/{store}/invoices.*' => array(),
                     'stores/{store}/invoices/{invoice}/products.*' => array(),
+                    'stores/{store}/writeoffs.*' => array(),
+                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                 )
             ),
             User::ROLE_ADMINISTRATOR => array(
@@ -653,6 +670,8 @@ class UserControllerTest extends WebTestCase
                 array(
                     'stores/{store}/invoices.*' => array(),
                     'stores/{store}/invoices/{invoice}/products.*' => array(),
+                    'stores/{store}/writeoffs.*' => array(),
+                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                 )
             )
         );
