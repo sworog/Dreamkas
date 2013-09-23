@@ -21,8 +21,6 @@ public class InvoiceApi extends DepartmentManagerApi {
     UserApi userApi = new UserApi(getDriver());
     CatalogApi catalogApi = new CatalogApi(getDriver());
 
-    public static final String DEFAULT_USER_NAME = "departmentManager";
-
     public InvoiceApi(WebDriver driver) throws JSONException {
         super(driver);
     }

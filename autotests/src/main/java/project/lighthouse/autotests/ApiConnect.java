@@ -138,11 +138,11 @@ public class ApiConnect {
 
     public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws JSONException, IOException {
-        String productId = StaticData.products.get(productSku).getId();
-        String writeOffId = StaticData.writeOffs.get(writeOffNumber).getId();
-        String apiUrl = String.format("%s/api/1/writeoffs/%s/products.json", UrlHelper.getApiUrl(), writeOffId);
+        Product product = StaticData.products.get(productSku);
+        WriteOff writeOff = StaticData.writeOffs.get(writeOffNumber);
+        String apiUrl = String.format("%s%s/%s/products.json", UrlHelper.getApiUrl(""), writeOff.getApiUrl(), writeOff.getId());
 
-        String productJsonData = WriteOffProduct.getJsonObject(productId, quantity, price, cause).toString();
+        String productJsonData = WriteOffProduct.getJsonObject(product.getId(), quantity, price, cause).toString();
         executePostRequest(apiUrl, productJsonData);
     }
 
