@@ -201,9 +201,6 @@ class StoreController extends AbstractRestController
 
             case Store::REL_DEPARTMENT_MANAGERS:
                 return User::ROLE_DEPARTMENT_MANAGER;
-
-            default:
-                return '';
         }
     }
 }
