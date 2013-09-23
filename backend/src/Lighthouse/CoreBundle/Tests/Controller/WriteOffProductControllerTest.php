@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
+use Lighthouse\CoreBundle\Test\Factory;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Document\User\User;
 
@@ -742,5 +743,130 @@ class WriteOffProductControllerTest extends WebTestCase
         $productVersions = $productVersionRepository->findAllByDocumentId($productId);
 
         $this->assertCount(2, $productVersions);
+    }
+
+    /**
+     * @dataProvider departmentManagerCanNotAccessWriteOffFromAnotherStoreProvider
+     * @param string $method
+     * @param string $url
+     * @param int $expectedCode
+     * @param array|null $data
+     */
+    public function testDepartmentManagerCanNotAccessWriteOffFromAnotherStore(
+        $method,
+        $url,
+        $expectedCode,
+        array $data = null
+    ) {
+        $storeId2 = $this->createStore('43');
+        $departmentManager2 = $this->createUser(
+            'depUser2',
+            Factory::USER_DEFAULT_PASSWORD,
+            User::ROLE_DEPARTMENT_MANAGER
+        );
+        $this->linkDepartmentManagers($storeId2, $departmentManager2->id);
+
+        $productId = $this->createProduct();
+
+        $writeOffId1 = $this->createWriteOff('431-1111', null, $this->storeId, $this->departmentManager);
+        $writeOffId2 = $this->createWriteOff('432-2222', null, $storeId2, $departmentManager2);
+
+        $writeOffProductId1 = $this->createWriteOffProduct(
+            $writeOffId1,
+            $productId,
+            20,
+            2,
+            'Бой',
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $writeOffProductId2 = $this->createWriteOffProduct(
+            $writeOffId2,
+            $productId,
+            10,
+            1,
+            'Порча',
+            $storeId2,
+            $departmentManager2
+        );
+
+        $accessToken1 = $this->auth($this->departmentManager);
+        $accessToken2 = $this->auth($departmentManager2);
+
+        if (null !== $data) {
+            $data += array(
+                'product' => $productId,
+                'price' => 7.99,
+                'quantity' => 2,
+                'cause' => 'Сгнил товар'
+            );
+        }
+
+        $url1 = strtr(
+            $url,
+            array(
+                '{store}' => $this->storeId,
+                '{writeOff}' => $writeOffId1,
+                '{writeOffProduct}' => $writeOffProductId1
+            )
+        );
+
+        $this->clientJsonRequest($accessToken2, $method, $url1, $data);
+        $this->assertResponseCode(403);
+
+        $this->clientJsonRequest($accessToken1, $method, $url1, $data);
+        $this->assertResponseCode($expectedCode);
+
+        $url2 = strtr(
+            $url,
+            array(
+                '{store}' => $storeId2,
+                '{writeOff}' => $writeOffId2,
+                '{writeOffProduct}' => $writeOffProductId2
+            )
+        );
+
+        $this->clientJsonRequest($accessToken1, $method, $url2, $data);
+        $this->assertResponseCode(403);
+
+        $this->clientJsonRequest($accessToken2, $method, $url2, $data);
+        $this->assertResponseCode($expectedCode);
+    }
+
+    /**
+     * @return array
+     */
+    public function departmentManagerCanNotAccessWriteOffFromAnotherStoreProvider()
+    {
+        return array(
+            'GET' => array(
+                'GET',
+                '/api/1/stores/{store}/writeoffs/{writeOff}/products',
+                200
+            ),
+            'POST' => array(
+                'POST',
+                '/api/1/stores/{store}/writeoffs/{writeOff}/products',
+                201,
+                array()
+            ),
+            'GET::{writeOffProduct}' => array(
+                'GET',
+                '/api/1/stores/{store}/writeoffs/{writeOff}/products/{writeOffProduct}',
+                200
+            ),
+            'PUT::{writeOffProduct}' => array(
+                'PUT',
+                '/api/1/stores/{store}/writeoffs/{writeOff}/products/{writeOffProduct}',
+                200,
+                array()
+            ),
+            'DELETE::{writeOffProduct}' => array(
+                'DELETE',
+                '/api/1/stores/{store}/writeoffs/{writeOff}/products/{writeOffProduct}',
+                204
+            ),
+        );
     }
 }
