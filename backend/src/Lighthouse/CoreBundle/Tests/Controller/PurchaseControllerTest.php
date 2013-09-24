@@ -8,6 +8,11 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class PurchaseControllerTest extends WebTestCase
 {
+    protected function setUp()
+    {
+        $this->markTestSkipped();
+    }
+
     public function testPostPurchasesAction()
     {
         $product1Id = $this->createProduct('1');

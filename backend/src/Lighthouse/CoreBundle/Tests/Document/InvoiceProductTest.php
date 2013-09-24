@@ -7,8 +7,10 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Purchase\Purchase;
 use Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
@@ -38,6 +40,11 @@ class InvoiceProductTest extends ContainerAwareTestCase
 
         $manager = $this->getManager();
 
+        $store = new Store();
+        $store->number = '42';
+        $store->address = '42';
+        $store->contacts = '42';
+
         $invoice = new Invoice();
         $invoice->sku = 'sdfwfsf232';
         $invoice->supplier = 'ООО "Поставщик"';
@@ -46,6 +53,7 @@ class InvoiceProductTest extends ContainerAwareTestCase
         $invoice->legalEntity = 'ООО "Магазин"';
         $invoice->supplierInvoiceSku = '1248373';
         $invoice->supplierInvoiceDate = new \DateTime('-1');
+        $invoice->store = $store;
 
         $product = new Product();
         $product->name = 'Кефир "Веселый Молочник" 1% 950гр';
@@ -67,6 +75,7 @@ class InvoiceProductTest extends ContainerAwareTestCase
         $invoiceProduct->product = $productVersion;
         $invoiceProduct->quantity = 10;
 
+        $manager->persist($store);
         $manager->persist($product);
         $manager->persist($invoice);
         $manager->persist($invoiceProduct);
@@ -75,13 +84,17 @@ class InvoiceProductTest extends ContainerAwareTestCase
         $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\Invoice\\Invoice', $invoiceProduct->invoice);
         $this->assertEquals($invoiceProduct->invoice->id, $invoice->id);
 
-        $this->assertEquals(10, $product->amount);
+        /* @var StoreProductRepository $storeProductRepository */
+        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
+        $storeProduct = $storeProductRepository->findByStoreIdProductId($store->id, $product->id);
+
+        $this->assertEquals(10, $storeProduct->amount);
 
         $invoiceProduct->quantity = 3;
         $manager->persist($invoiceProduct);
         $manager->flush();
 
-        $this->assertEquals(3, $product->amount);
+        $this->assertEquals(3, $storeProduct->amount);
 
         $invoiceProduct->quantity = 4;
         $manager->persist($invoiceProduct);

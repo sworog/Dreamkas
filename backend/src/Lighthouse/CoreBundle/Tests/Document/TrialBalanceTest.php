@@ -181,6 +181,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
     public function testCreateTrialBalanceByPurchase()
     {
+        $this->markTestSkipped();
+
         $this->clearMongoDb();
 
         $manager = $this->getManager();
