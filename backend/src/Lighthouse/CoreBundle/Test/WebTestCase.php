@@ -482,6 +482,26 @@ class WebTestCase extends ContainerAwareTestCase
         $this->performJsonAssertions($productJson, $assertions);
     }
 
+    /**
+     * @param string $storeId
+     * @param string $productId
+     * @param array $assertions
+     */
+    protected function assertStoreProduct($storeId, $productId, array $assertions)
+    {
+        $storeManager = $this->factory->getStoreManager($storeId);
+        $accessToken = $this->factory->auth($storeManager);
+
+        $storeProductJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products/' . $productId
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->performJsonAssertions($storeProductJson, $assertions);
+    }
 
     /**
      * @param string $productId
@@ -496,6 +516,20 @@ class WebTestCase extends ContainerAwareTestCase
         );
 
         $this->assertProduct($productId, $assertions);
+    }
+
+    /**
+     * @param string $storeId
+     * @param string $productId
+     * @param int $amount
+     */
+    protected function assertStoreProductTotals($storeId, $productId, $amount)
+    {
+        $assertions = array(
+            'amount' => $amount,
+        );
+
+        $this->assertStoreProduct($storeId, $productId, $assertions);
     }
 
     /**

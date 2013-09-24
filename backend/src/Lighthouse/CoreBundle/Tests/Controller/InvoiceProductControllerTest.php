@@ -241,7 +241,7 @@ class InvoiceProductControllerTest extends WebTestCase
             Assert::assertJsonPathEquals($row['quantity'], 'quantity', $response);
             Assert::assertJsonPathEquals($row['price'], 'price', $response);
 
-            $this->assertProductTotals($productId, $row['productAmount'], $row['price']);
+            $this->assertStoreProductTotals($this->storeId, $productId, $row['productAmount'], $row['price']);
         }
     }
 
@@ -689,7 +689,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($productId, 'product.id', $responseJson);
 
-        $this->assertProductTotals($productId, $quantity, $price);
+        $this->assertStoreProductTotals($this->storeId, $productId, $quantity, $price);
 
         Assert::assertJsonPathEquals($invoiceId, 'invoice.id', $responseJson);
         Assert::assertJsonPathEquals(1, 'invoice.itemsCount', $responseJson);
@@ -720,7 +720,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productId, 'product.id', $responseJson);
         Assert::assertJsonPathEquals($invoiceId, 'invoice.id', $responseJson);
 
-        $this->assertProductTotals($productId, $newQuantity, $newPrice);
+        $this->assertStoreProductTotals($this->storeId, $productId, $newQuantity, $newPrice);
         $this->assertInvoiceTotals($invoiceId, $newTotalPrice, 1);
 
         $responseJson = $this->clientJsonRequest(
@@ -788,13 +788,13 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonHasPath('id', $postJson);
         $invoiceProductId = $postJson['id'];
 
-        $this->assertProductTotals($product1Id, $quantity1, $price1);
+        $this->assertStoreProductTotals($this->storeId, $product1Id, $quantity1, $price1);
 
         Assert::assertJsonPathEquals($invoiceSumTotal1, 'invoice.sumTotal', $postJson);
         Assert::assertJsonPathEquals(1, 'invoice.itemsCount', $postJson);
 
-        $this->assertProductTotals($product1Id, $quantity1, $price1);
-        $this->assertProductTotals($product2Id, null, null);
+        $this->assertStoreProductTotals($this->storeId, $product1Id, $quantity1, $price1);
+        $this->assertStoreProductTotals($this->storeId, $product2Id, null, null);
         $this->assertInvoiceTotals($invoiceId, $invoiceSumTotal1, 1);
 
         // PUT invoice product with another product id
@@ -813,13 +813,13 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertProductTotals($product2Id, $quantity2, $price2);
+        $this->assertStoreProductTotals($this->storeId, $product2Id, $quantity2, $price2);
 
         Assert::assertJsonPathEquals($invoiceSumTotal2, 'invoice.sumTotal', $putJson);
         Assert::assertJsonPathEquals(1, 'invoice.itemsCount', $putJson);
 
-        $this->assertProductTotals($product1Id, 0, null);
-        $this->assertProductTotals($product2Id, $quantity2, $price2);
+        $this->assertStoreProductTotals($this->storeId, $product1Id, 0, null);
+        $this->assertStoreProductTotals($this->storeId, $product2Id, $quantity2, $price2);
         $this->assertInvoiceTotals($invoiceId, $invoiceSumTotal2, 1);
     }
 
@@ -931,7 +931,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $accessToken = $this->auth($this->departmentManager);
 
-        $this->assertProductTotals($productId, 16, 5.99);
+        $this->assertStoreProductTotals($this->storeId, $productId, 16, 5.99);
 
         $this->assertInvoiceTotals($invoiceId, 180.99, 3);
 
@@ -958,7 +958,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($productsData[1]['id'], '*.id', $getResponse, false);
 
-        $this->assertProductTotals($productId, 11, $productsData[2]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 11, $productsData[2]['price']);
         $this->assertInvoiceTotals($invoiceId, 117.19, 2);
     }
 
@@ -970,7 +970,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceProducts = $this->createInvoiceProducts($productId, $invoiceId);
 
-        $this->assertProductTotals($productId, $invoiceProducts[2]['productAmount'], $invoiceProducts[2]['price']);
+        $this->assertStoreProductTotals(
+            $this->storeId,
+            $productId,
+            $invoiceProducts[2]['productAmount'],
+            $invoiceProducts[2]['price']
+        );
 
         $accessToken = $this->auth($this->departmentManager);
 
@@ -982,7 +987,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->assertProductTotals($productId, 15, $invoiceProducts[1]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 15, $invoiceProducts[1]['price']);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -992,7 +997,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->assertProductTotals($productId, 5, $invoiceProducts[1]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 5, $invoiceProducts[1]['price']);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -1002,7 +1007,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->assertProductTotals($productId, 0, null);
+        $this->assertStoreProductTotals($this->storeId, $productId, 0, null);
     }
 
     public function testLastPurchasePriceChangeOnInvoiceProductUpdate()
@@ -1013,7 +1018,13 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceProducts = $this->createInvoiceProducts($productId, $invoiceId);
 
-        $this->assertProductTotals($productId, $invoiceProducts[2]['productAmount'], $invoiceProducts[2]['price']);
+        $this->assertStoreProductTotals(
+            $this->storeId,
+            $productId,
+            $invoiceProducts[2]['productAmount'],
+            $invoiceProducts[2]['price']
+        );
+
         $newInvoiceProductData = $invoiceProducts[1];
         $newInvoiceProductData['price'] = 13.01;
         unset($newInvoiceProductData['productAmount'], $newInvoiceProductData['id']);
@@ -1029,7 +1040,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertProductTotals($productId, 16, $invoiceProducts[2]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 16, $invoiceProducts[2]['price']);
 
         $newProductId = $this->createProduct('NEW');
         $newInvoiceProductDataNewProduct = $invoiceProducts[2];
@@ -1046,12 +1057,13 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertProductTotals($productId, 15, $newInvoiceProductData['price']);
-        $this->assertProductTotals($newProductId, 1, $newInvoiceProductDataNewProduct['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 15, $newInvoiceProductData['price']);
+        $this->assertStoreProductTotals($this->storeId, $newProductId, 1, $newInvoiceProductDataNewProduct['price']);
     }
 
     public function testAveragePurchasePrice()
     {
+        $this->markTestSkipped('Purchase is not storeable');
         $productId = $this->createProduct();
         $productId2 = $this->createProduct('2');
 
