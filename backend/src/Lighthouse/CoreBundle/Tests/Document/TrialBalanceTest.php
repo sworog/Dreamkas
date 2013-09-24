@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Purchase\Purchase;
 use Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceCollection;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
@@ -111,6 +112,11 @@ class TrialBalanceTest extends ContainerAwareTestCase
     {
         $this->clearMongoDb();
 
+        $store = new Store();
+        $store->number = '42';
+        $store->address = '42';
+        $store->contacts = '42';
+
         $invoiceData = array(
             'sku' => 'sdfwfsf232',
             'supplier' => 'ООО "Поставщик"',
@@ -124,6 +130,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $product = $this->createProduct();
 
         $invoice = new Invoice();
+        $invoice->store = $store;
         $invoice->populate($invoiceData);
 
         $manager = $this->getManager();
@@ -224,7 +231,13 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $product = $this->createProduct();
         $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
 
+        $store = new Store();
+        $store->number = '42';
+        $store->address = '42';
+        $store->contacts = '42';
+
         $writeOff = new WriteOff();
+        $writeOff->store = $store;
 
         $writeOffProduct = new WriteOffProduct();
         $writeOffProduct->writeOff = $writeOff;
