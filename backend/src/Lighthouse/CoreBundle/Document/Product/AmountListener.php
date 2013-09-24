@@ -7,7 +7,9 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
+use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"prePersist", "preRemove", "onFlush"})
@@ -21,10 +23,10 @@ class AmountListener extends AbstractMongoDBListener
     {
         $document = $eventArgs->getDocument();
 
-        if ($document instanceof Productable) {
-            $product = $document->getReasonProduct();
+        if ($document instanceof Reasonable) {
+            $storeProduct = $this->getStoreProduct($document);
             $sign = ($document->increaseAmount()) ? 1 : -1;
-            $product->amount = $product->amount + ($document->getProductQuantity() * $sign);
+            $storeProduct->amount = $storeProduct->amount + ($document->getProductQuantity() * $sign);
         }
     }
 
@@ -35,10 +37,10 @@ class AmountListener extends AbstractMongoDBListener
     {
         $document = $eventArgs->getDocument();
 
-        if ($document instanceof Productable) {
-            $product = $document->getReasonProduct();
+        if ($document instanceof Reasonable) {
+            $storeProduct = $this->getStoreProduct($document);
             $sign = ($document->increaseAmount()) ? 1 : -1;
-            $product->amount = $product->amount - ($document->getProductQuantity() * $sign);
+            $storeProduct->amount = $storeProduct->amount - ($document->getProductQuantity() * $sign);
         }
     }
 
@@ -52,7 +54,7 @@ class AmountListener extends AbstractMongoDBListener
         $uow = $dm->getUnitOfWork();
 
         foreach ($uow->getScheduledDocumentUpdates() as $document) {
-            if ($document instanceof Productable) {
+            if ($document instanceof Reasonable) {
                 $this->updateProductOnFlush($dm, $document);
             }
         }
@@ -60,9 +62,9 @@ class AmountListener extends AbstractMongoDBListener
 
     /**
      * @param DocumentManager $dm
-     * @param Productable $document
+     * @param Reasonable $document
      */
-    public function updateProductOnFlush(DocumentManager $dm, Productable $document)
+    public function updateProductOnFlush(DocumentManager $dm, Reasonable $document)
     {
         $sign = ($document->increaseAmount()) ? -1 : 1;
 
@@ -71,15 +73,8 @@ class AmountListener extends AbstractMongoDBListener
         $changeSet = $uow->getDocumentChangeSet($document);
 
         if ($this->isProductChanged($changeSet)) {
-            $oldProduct = $changeSet['product'][0];
-            $newProduct = $changeSet['product'][1];
-
-            if ($oldProduct instanceof ProductVersion) {
-                $oldProduct = $oldProduct->getObject();
-            }
-            if ($newProduct instanceof ProductVersion) {
-                $newProduct = $newProduct->getObject();
-            }
+            $oldProduct = $this->getStoreProduct($document, $changeSet['product'][0]);
+            $newProduct = $this->getStoreProduct($document, $changeSet['product'][1]);
 
             $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $document->getProductQuantity();
             $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $document->getProductQuantity();
@@ -96,10 +91,25 @@ class AmountListener extends AbstractMongoDBListener
                 $quantityDiff = 0;
             }
 
-            $product = $document->getReasonProduct();
-            $product->amount = $product->amount + $quantityDiff;
-            $this->computeChangeSet($dm, $product);
+            $storeProduct = $this->getStoreProduct($document);
+            $storeProduct->amount = $storeProduct->amount + $quantityDiff;
+            $this->computeChangeSet($dm, $storeProduct);
         }
+    }
+
+    /**
+     * @param Reasonable $reason
+     * @param Product $product
+     * @return Product
+     */
+    protected function getStoreProduct(Reasonable $reason, Product $product = null)
+    {
+        if ($product instanceof ProductVersion) {
+            $product = $product->getObject();
+        } elseif (null === $product) {
+            $product = $reason->getReasonProduct();
+        }
+        return $product;
     }
 
     /**

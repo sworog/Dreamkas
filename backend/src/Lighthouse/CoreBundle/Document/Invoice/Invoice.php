@@ -5,6 +5,8 @@ namespace Lighthouse\CoreBundle\Document\Invoice;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompare;
@@ -20,7 +22,7 @@ use DateTime;
  *     message="lighthouse.validation.errors.invoice.dates_compare"
  * )
  */
-class Invoice extends AbstractDocument
+class Invoice extends AbstractDocument implements Storeable
 {
     /**
      * @MongoDB\Id
@@ -127,5 +129,13 @@ class Invoice extends AbstractDocument
     {
         $this->createdDate = new DateTime();
         $this->sumTotal = new Money(0);
+    }
+
+    /**
+     * @return Store
+     */
+    public function getStore()
+    {
+        return $this->store;
     }
 }
