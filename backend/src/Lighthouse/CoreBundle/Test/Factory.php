@@ -52,6 +52,11 @@ class Factory
     protected $departmentManagers;
 
     /**
+     * @var array
+     */
+    protected $accessTokens = array();
+
+    /**
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
@@ -94,7 +99,7 @@ class Factory
      * @param AuthClient $oauthClient
      * @return \stdClass access token
      */
-    public function auth(User $oauthUser, $password = self::USER_DEFAULT_PASSWORD, AuthClient $oauthClient = null)
+    public function doAuth(User $oauthUser, $password = self::USER_DEFAULT_PASSWORD, AuthClient $oauthClient = null)
     {
         $oauthClient = ($oauthClient) ?: $this->getAuthClient();
 
@@ -118,6 +123,24 @@ class Factory
         $token = json_decode($content);
 
         return $token;
+    }
+
+    /**
+     * @param User $oauthUser
+     * @param string $password
+     * @param AuthClient $oauthClient
+     * @return \stdClass
+     */
+    public function auth(User $oauthUser, $password = self::USER_DEFAULT_PASSWORD, AuthClient $oauthClient = null)
+    {
+        if (self::USER_DEFAULT_PASSWORD === $password && null === $oauthClient) {
+            if (!isset($this->accessTokens[$oauthUser->id])) {
+                $this->accessTokens[$oauthUser->id] = $this->doAuth($oauthUser, $password, $oauthClient);
+            }
+            return $this->accessTokens[$oauthUser->id];
+        } else {
+            return $this->doAuth($oauthUser, $password, $oauthClient);
+        }
     }
 
     /**
