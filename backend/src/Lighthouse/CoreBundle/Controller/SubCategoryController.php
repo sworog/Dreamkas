@@ -74,7 +74,6 @@ class SubCategoryController extends AbstractRestController
      * @param Store $store
      * @param SubCategory $subCategory
      * @return SubCategory
-     * @Secure(roles="ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource = true
@@ -103,7 +102,6 @@ class SubCategoryController extends AbstractRestController
      * @param Store $store
      * @param Category $category
      * @return SubCategoryCollection
-     * @Secure(roles="ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
