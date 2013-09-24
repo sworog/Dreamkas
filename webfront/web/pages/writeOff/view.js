@@ -5,7 +5,8 @@ define(function(require) {
         WriteOffModel = require('models/writeOff'),
         WriteOffProductsCollection = require('collections/writeOffProducts'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/errors/403');
+        Page403 = require('pages/errors/403'),
+        Page404 = require('pages/errors/404');
 
     return Page.extend({
         __name__: 'page_writeOff_view',
@@ -49,6 +50,8 @@ define(function(require) {
                     editMode: page.editMode,
                     el: document.getElementById('writeOff')
                 });
+            }, function() {
+                new Page404();
             });
         }
     });

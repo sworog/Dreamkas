@@ -5,7 +5,8 @@ define(function(require) {
         InvoiceModel = require('models/invoice'),
         InvoiceProductsCollection = require('collections/invoiceProducts'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/errors/403');
+        Page403 = require('pages/errors/403'),
+        Page404 = require('pages/errors/404');
 
     return Page.extend({
         __name__: 'page_invoice_view',
@@ -47,6 +48,8 @@ define(function(require) {
                     editMode: page.editMode,
                     el: document.getElementById('invoice')
                 });
+            }, function() {
+                new Page404();
             });
         }
     });
