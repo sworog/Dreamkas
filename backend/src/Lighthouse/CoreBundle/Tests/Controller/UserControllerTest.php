@@ -619,6 +619,22 @@ class UserControllerTest extends WebTestCase
             User::ROLE_DEPARTMENT_MANAGER => array(
                 User::ROLE_DEPARTMENT_MANAGER,
                 array(
+                    'stores.*' => array(),
+                    'stores/{store}/products/{product}.*' => array(
+                        'GET'
+                    ),
+                    'stores/{store}/groups.*' => array(
+                        'GET::{group}/categories',
+                        'GET'
+                    ),
+                    'stores/{store}/categories/{category}.*' => array(
+                        'GET::subcategories',
+                        'GET'
+                    ),
+                    'stores/{store}/subcategories/{subCategory}.*' => array(
+                        'GET',
+                        'GET::products',
+                    ),
                     'stores/{store}/invoices.*' => array(
                         'GET::{invoice}',
                         'PUT::{invoice}',
@@ -650,6 +666,23 @@ class UserControllerTest extends WebTestCase
             User::ROLE_STORE_MANAGER => array(
                 User::ROLE_STORE_MANAGER,
                 array(
+                    'stores.*' => array(),
+                    'stores/{store}/products/{product}.*' => array(
+                        'GET',
+                        'PUT'
+                    ),
+                    'stores/{store}/groups.*' => array(
+                        'GET::{group}/categories',
+                        'GET'
+                    ),
+                    'stores/{store}/categories/{category}.*' => array(
+                        'GET::subcategories',
+                        'GET'
+                    ),
+                    'stores/{store}/subcategories/{subCategory}.*' => array(
+                        'GET',
+                        'GET::products',
+                    ),
                     'stores/{store}/invoices.*' => array(),
                     'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
@@ -659,6 +692,21 @@ class UserControllerTest extends WebTestCase
             User::ROLE_COMMERCIAL_MANAGER => array(
                 User::ROLE_COMMERCIAL_MANAGER,
                 array(
+                    'stores.*' => array(
+                        'GET',
+                        'GET::{store}',
+                        'GET::{store}/departmentManagers',
+                        'GET::{store}/departments',
+                        'GET::{store}/storeManagers',
+                        'LINK::{store}',
+                        'POST',
+                        'PUT::{store}',
+                        'UNLINK::{store}'
+                    ),
+                    'stores/{store}/products/{product}.*' => array(),
+                    'stores/{store}/groups.*' => array(),
+                    'stores/{store}/categories/{category}.*' => array(),
+                    'stores/{store}/subcategories/{subCategory}.*' => array(),
                     'stores/{store}/invoices.*' => array(),
                     'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
@@ -668,6 +716,11 @@ class UserControllerTest extends WebTestCase
             User::ROLE_ADMINISTRATOR => array(
                 User::ROLE_ADMINISTRATOR,
                 array(
+                    'stores.*' => array(),
+                    'stores/{store}/products/{product}.*' => array(),
+                    'stores/{store}/groups.*' => array(),
+                    'stores/{store}/categories/{category}.*' => array(),
+                    'stores/{store}/subcategories/{subCategory}.*' => array(),
                     'stores/{store}/invoices.*' => array(),
                     'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),

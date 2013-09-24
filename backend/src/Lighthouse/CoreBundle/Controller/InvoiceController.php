@@ -33,6 +33,7 @@ class InvoiceController extends AbstractRestController
     }
 
     /**
+     * @param Store $store
      * @param Request $request
      * @return View|Invoice
      *
@@ -48,8 +49,9 @@ class InvoiceController extends AbstractRestController
     }
 
     /**
-     * @param Request $request
+     * @param Store $store
      * @param Invoice $invoice
+     * @param Request $request
      * @return View|Invoice
      *
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
