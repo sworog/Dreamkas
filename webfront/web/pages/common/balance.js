@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Page = require('kit/core/page'),
         Table_balance = require('blocks/table/table_balance/table_balance'),
-        ProductsCollection = require('collections/products'),
+        StoreProductsCollection = require('collections/storeProducts'),
         currentUserModel = require('models/currentUser'),
         Page403 = require('pages/errors/403');
 
@@ -25,15 +25,15 @@ define(function(require) {
                 new Page403();
             }
 
-            page.productsCollection = new ProductsCollection([], {
+            page.storeProductsCollection = new StoreProductsCollection([], {
                 storeId: (pageParams.storeId) ? pageParams.storeId : null
             });
 
-            $.when(page.productsCollection.fetch()).then(function(){
+            $.when(page.storeProductsCollection.fetch()).then(function(){
                 page.render();
 
                 new Table_balance({
-                    collection: page.productsCollection,
+                    collection: page.storeProductsCollection,
                     el: document.getElementById('table_balance')
                 })
             })

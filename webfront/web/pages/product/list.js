@@ -15,13 +15,13 @@ define(function(require) {
         initialize: function(){
             var page = this;
 
-            page.productsCollection = new ProductsCollection();
+            page.storeProductsCollection = new ProductsCollection();
 
-            $.when(page.productsCollection.fetch()).then(function(){
+            $.when(page.storeProductsCollection.fetch()).then(function(){
                 page.render();
 
                 new Table_products({
-                    collection: page.productsCollection,
+                    collection: page.storeProductsCollection,
                     el: document.getElementById('table_products')
                 });
             });
