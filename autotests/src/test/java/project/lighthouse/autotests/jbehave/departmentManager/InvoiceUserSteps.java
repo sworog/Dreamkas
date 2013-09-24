@@ -63,6 +63,11 @@ public class InvoiceUserSteps {
         invoiceSteps.navigateToTheInvoicePage(invoiceName);
     }
 
+    @Given("the user adds the product to the invoice with name '$invoiceName' with sku '$productSku', quantity '$quantity', price '$price' in the store ruled by '$userName'")
+    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price, String userName) throws IOException, JSONException {
+        invoiceSteps.addProductToInvoice(invoiceName, productSku, quantity, price, userName);
+    }
+
     @When("the user inputs '$inputText' in the invoice '$elementName' field")
     public void whenTheUserInputsTextInTheInvoiceField(String elementName, String inputText) {
         invoiceSteps.input(elementName, inputText);

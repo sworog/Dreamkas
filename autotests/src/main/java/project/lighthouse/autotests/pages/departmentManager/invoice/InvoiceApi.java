@@ -46,14 +46,18 @@ public class InvoiceApi extends DepartmentManagerApi {
 
     public void createInvoiceThroughPostWithProductAndNavigateToIt(String invoiceName, String productSku) throws IOException, JSONException {
         createInvoiceThroughPost(invoiceName);
-        new ApiConnect(DEFAULT_USER_NAME, "lighthouse").addProductToInvoice(invoiceName, productSku);
+        addProductToInvoice(invoiceName, productSku, "1", "1", DEFAULT_USER_NAME);
     }
 
     //TODO make given method->>>
     public void createInvoiceThroughPostWithProductAndNavigateToIt(String invoiceName, String productSku, String storeName, String userName) throws IOException, JSONException {
         createInvoiceThroughPost(invoiceName, storeName, userName);
-        new ApiConnect(userName, "lighthouse").addProductToInvoice(invoiceName, productSku);
+        addProductToInvoice(invoiceName, productSku, "1", "1", userName);
         navigateToTheInvoicePage(invoiceName);
+    }
+
+    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price, String userName) throws JSONException, IOException {
+        new ApiConnect(userName, "lighthouse").addProductToInvoice(invoiceName, productSku, quantity, price);
     }
 
     public void navigateToTheInvoicePage(String invoiceName) throws JSONException {

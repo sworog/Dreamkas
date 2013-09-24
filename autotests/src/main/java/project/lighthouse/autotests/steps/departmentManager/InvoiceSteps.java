@@ -50,6 +50,11 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
+    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price, String userName) throws IOException, JSONException {
+        invoiceApi.addProductToInvoice(invoiceName, productSku, quantity, price, userName);
+    }
+
+    @Step
     public void openInvoiceCreatePage() {
         invoiceCreatePage.open();
     }

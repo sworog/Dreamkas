@@ -45,6 +45,11 @@ public class WriteOffSteps extends ScenarioSteps {
     }
 
     @Step
+    public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause, String userName) throws IOException, JSONException {
+        writeOffApi.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, userName);
+    }
+
+    @Step
     public void createWriteOffAndNavigateToIt(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
                                               String quantity, String price, String cause)
             throws JSONException, IOException {

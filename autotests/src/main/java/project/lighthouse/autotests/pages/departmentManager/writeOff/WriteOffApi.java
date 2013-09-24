@@ -42,26 +42,24 @@ public class WriteOffApi extends DepartmentManagerApi {
     public WriteOff createWriteOffThroughPost(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws IOException, JSONException {
         WriteOff writeOff = createWriteOffThroughPost(writeOffNumber);
-        new ApiConnect(DEFAULT_USER_NAME, "lighthouse").addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause);
+        addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, DEFAULT_USER_NAME);
         return writeOff;
     }
 
     //TODO given method
     public WriteOff createWriteOffThroughPost(String writeOffNumber, String productSku, String quantity, String price, String cause, String storeName, String userName) throws IOException, JSONException {
         WriteOff writeOff = createWriteOffThroughPost(writeOffNumber, storeName, userName);
-        new ApiConnect(userName, "lighthouse").addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause);
+        addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, userName);
         return writeOff;
+    }
+
+    public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause, String userName) throws JSONException, IOException {
+        new ApiConnect(userName, "lighthouse").addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause);
     }
 
     public void createWriteOffAndNavigateToIt(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws JSONException, IOException {
         createWriteOffThroughPost(writeOffNumber, productSku, quantity, price, cause);
-        navigateToWriteOffPage(writeOffNumber);
-    }
-
-    //TODO given method
-    public void createWriteOffAndNavigateToIt(String writeOffNumber, String productSku, String quantity, String price, String cause, String storeName, String userName) throws IOException, JSONException {
-        createWriteOffThroughPost(writeOffNumber, productSku, quantity, price, cause, storeName, userName);
         navigateToWriteOffPage(writeOffNumber);
     }
 

@@ -90,13 +90,13 @@ public class ApiConnect {
         return String.format("%s/invoices/%s?editMode=true", UrlHelper.getWebFrontUrl(), invoice.getId());
     }
 
-    public void addProductToInvoice(String invoiceName, String productSku)
+    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price)
             throws JSONException, IOException {
         Product product = StaticData.products.get(productSku);
         Invoice invoice = StaticData.invoices.get(invoiceName);
         if (!hasInvoiceProduct(invoice, product)) {
             String apiUrl = String.format("%s%s/%s/products.json", UrlHelper.getApiUrl(""), invoice.getApiUrl(), invoice.getId());
-            String productJsonData = InvoiceProduct.getJsonObject(product.getId(), "1", "1").toString();
+            String productJsonData = InvoiceProduct.getJsonObject(product.getId(), quantity, price).toString();
             executePostRequest(apiUrl, productJsonData);
         }
     }
