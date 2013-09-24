@@ -661,6 +661,11 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'POST'
                     ),
+                    'users.*' => array(
+                        'GET::current',
+                        'GET::permissions',
+                        'GET::{user}/stores'
+                    )
                 )
             ),
             User::ROLE_STORE_MANAGER => array(
@@ -687,6 +692,11 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
+                    'users.*' => array(
+                        'GET::current',
+                        'GET::permissions',
+                        'GET::{user}/stores'
+                    )
                 )
             ),
             User::ROLE_COMMERCIAL_MANAGER => array(
@@ -711,6 +721,11 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
+                    'users.*' => array(
+                        'GET::current',
+                        'GET::permissions',
+                        'GET::{user}'
+                    )
                 )
             ),
             User::ROLE_ADMINISTRATOR => array(
@@ -725,6 +740,14 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
+                    'users.*' => array(
+                        'GET::current',
+                        'GET::permissions',
+                        'GET',
+                        'GET::{user}',
+                        'POST',
+                        'PUT::{user}'
+                    )
                 )
             )
         );
