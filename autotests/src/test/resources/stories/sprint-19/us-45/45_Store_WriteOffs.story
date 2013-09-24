@@ -57,7 +57,7 @@ And there is the store with number 'DIC-02' managed by department manager named 
 And there is the write off with number 'CWIDSBDU-1' in the store with number 'DIC-01' ruled by user with name 'departmentManager-DIC'
 Given the user navigates to the write off with number 'CWIDSBDU-1'
 When the user logs in using 'departmentManager-DIC-2' userName and 'lighthouse' password
-Then the user sees the 403 error
+Then the user sees the 404 error
 
 Scenario: Left menu writeOffs link is visible by departmentManager who has store
 

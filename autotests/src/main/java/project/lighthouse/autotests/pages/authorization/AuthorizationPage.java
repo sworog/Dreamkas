@@ -103,6 +103,15 @@ public class AuthorizationPage extends UserCreatePage {
         }
     }
 
+    public void error404isPresent() {
+        try {
+            String error404Xpath = "//*[contains(@class, 'page_error_404')]";
+            findElement(By.xpath(error404Xpath));
+        } catch (Exception e) {
+            fail("The error 403 is not present on the page!");
+        }
+    }
+
     public String getError403Xpath() {
         return "//*[contains(@class, 'page_error_403')]";
     }

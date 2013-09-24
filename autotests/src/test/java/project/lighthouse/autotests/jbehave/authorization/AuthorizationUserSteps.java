@@ -61,6 +61,11 @@ public class AuthorizationUserSteps {
         authorizationSteps.error403IsPresent();
     }
 
+    @Then("the user sees the 404 error")
+    public void thenTheUserSeesThe404Error() {
+        authorizationSteps.error404isPresent();
+    }
+
     @Then("the user dont see the 403 error")
     public void thenTheUserDonseeSeeThe403Error() {
         authorizationSteps.error403IsNotPresent();
