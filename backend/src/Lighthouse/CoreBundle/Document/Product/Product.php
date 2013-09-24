@@ -26,7 +26,6 @@ use JMS\Serializer\Annotation\Exclude;
  * @property string $vendorCountry
  * @property string $vendor
  * @property string $info
- * @property int    $amount
  * @property Money  $retailPriceMin
  * @property Money  $retailPriceMax
  * @property float  $retailMarkupMin
@@ -127,13 +126,6 @@ class Product extends AbstractDocument implements VersionableInterface
      * @Assert\Length(max="2000", maxMessage="lighthouse.validation.errors.length")
      */
     protected $info;
-
-    /**
-     * Остаток
-     * @MongoDB\Increment
-     * @var int
-     */
-    protected $amount;
 
     /**
      * @MongoDB\Field(type="money")

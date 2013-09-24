@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
@@ -16,6 +17,22 @@ use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
  */
 class AmountListener extends AbstractMongoDBListener
 {
+    /**
+     * @var StoreProductRepository
+     */
+    protected $storeProductRepository;
+
+    /**
+     * @DI\InjectParams({
+     *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product")
+     * })
+     * @param StoreProductRepository $storeProductRepository
+     */
+    public function __construct(StoreProductRepository $storeProductRepository)
+    {
+        $this->storeProductRepository = $storeProductRepository;
+    }
+
     /**
      * @param LifecycleEventArgs $eventArgs
      */
@@ -27,6 +44,7 @@ class AmountListener extends AbstractMongoDBListener
             $storeProduct = $this->getStoreProduct($document);
             $sign = ($document->increaseAmount()) ? 1 : -1;
             $storeProduct->amount = $storeProduct->amount + ($document->getProductQuantity() * $sign);
+            $eventArgs->getDocumentManager()->persist($storeProduct);
         }
     }
 
@@ -83,6 +101,7 @@ class AmountListener extends AbstractMongoDBListener
             $this->computeChangeSet($dm, $oldProduct);
 
             $newProduct->amount = $newProduct->amount - $newQuantity * $sign;
+            $dm->persist($newProduct);
             $this->computeChangeSet($dm, $newProduct);
         } else {
             if (isset($changeSet['quantity'])) {
@@ -100,7 +119,7 @@ class AmountListener extends AbstractMongoDBListener
     /**
      * @param Reasonable $reason
      * @param Product $product
-     * @return Product
+     * @return StoreProduct
      */
     protected function getStoreProduct(Reasonable $reason, Product $product = null)
     {
@@ -108,6 +127,19 @@ class AmountListener extends AbstractMongoDBListener
             $product = $product->getObject();
         } elseif (null === $product) {
             $product = $reason->getReasonProduct();
+        }
+        $store = $reason->getReasonParent()->getStore();
+        return $this->storeProductRepository->findOrCreateByStoreProduct($store, $product);
+    }
+
+    /**
+     * @param Product|ProductVersion $product
+     * @return Product
+     */
+    protected function normalizeProduct(Product $product)
+    {
+        if ($product instanceof ProductVersion) {
+            $product = $product->getObject();
         }
         return $product;
     }
@@ -121,7 +153,9 @@ class AmountListener extends AbstractMongoDBListener
     protected function isProductChanged(array $changeSet)
     {
         if (isset($changeSet['product'])) {
-            return $changeSet['product'][1]->id != $changeSet['product'][0]->id;
+            $oldProduct = $this->normalizeProduct($changeSet['product'][0]);
+            $newProduct = $this->normalizeProduct($changeSet['product'][1]);
+            return $oldProduct->id != $newProduct->id;
         } else {
             return false;
         }

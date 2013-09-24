@@ -104,7 +104,7 @@ class ProductVersion extends Product implements VersionInterface
             "sku",
             "vendorCountry",
             "info",
-            "amount",
+            //"amount",
             "subCategory",
             "retailMarkupMin",
             "retailMarkupMax",

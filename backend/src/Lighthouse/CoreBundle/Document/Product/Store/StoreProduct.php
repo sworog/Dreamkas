@@ -12,13 +12,14 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation\Exclude;
 
 /**
- * @property Money $retailPrice
- * @property float $retailMarkup
+ * @property Money  $retailPrice
+ * @property float  $retailMarkup
  * @property string $retailPricePreference
- * @property Money $roundedRetailPrice
+ * @property Money  $roundedRetailPrice
  * @property Product $product
  * @property SubCategory $subCategory
- * @property Store $store
+ * @property Store  $store
+ * @property int    $amount
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository"
@@ -89,4 +90,11 @@ class StoreProduct extends AbstractDocument
      * @var Store
      */
     protected $store;
+
+    /**
+     * Остаток
+     * @MongoDB\Increment
+     * @var int
+     */
+    protected $amount;
 }
