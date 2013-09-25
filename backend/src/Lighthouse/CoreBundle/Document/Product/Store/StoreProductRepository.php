@@ -52,6 +52,15 @@ class StoreProductRepository extends DocumentRepository
     }
 
     /**
+     * @param StoreProduct $storeProduct
+     */
+    public function refresh(StoreProduct $storeProduct)
+    {
+        $id = new \MongoId($storeProduct->id);
+        $this->uow->getDocumentPersister($this->documentName)->refresh($id, $storeProduct);
+    }
+
+    /**
      * @param Store $store
      * @param Product $product
      * @return StoreProduct
