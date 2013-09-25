@@ -96,5 +96,5 @@ class StoreProduct extends AbstractDocument
      * @MongoDB\Increment
      * @var int
      */
-    protected $amount;
+    protected $amount = 0;
 }

@@ -890,7 +890,7 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productId2, '*.product.id', $response);
         Assert::assertJsonPathEquals($productId3, '*.product.id', $response);
 
-        Assert::assertJsonPathEquals(0, '*.amount', $response, 3);
+        Assert::assertJsonPathEquals(0, '*.amount', $response);
 
         $response = $this->clientJsonRequest(
             $departmentAccessToken2,
@@ -906,7 +906,7 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(0, '*.amount', $response, 3);
 
 
-        $invoice1Store1Id = $this->createInvoice('store1', $storeId1, $departmentManager1);
+        $invoice1Store1Id = $this->createInvoice(array('sku' => 'store1'), $storeId1, $departmentManager1);
         $this->createInvoiceProduct($invoice1Store1Id, $productId1, 1, 10.99, $storeId1, $departmentManager1);
         $this->createInvoiceProduct($invoice1Store1Id, $productId2, 2, 11.99, $storeId1, $departmentManager1);
 
@@ -928,7 +928,7 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(10.99, '*.lastPurchasePrice', $response, 1);
         Assert::assertJsonPathEquals(11.99, '*.lastPurchasePrice', $response, 1);
 
-        $invoice2Store1Id = $this->createInvoice('store1', $storeId1, $departmentManager1);
+        $invoice2Store1Id = $this->createInvoice(array('sku' => 'store1invoice2'), $storeId1, $departmentManager1);
         $this->createInvoiceProduct($invoice2Store1Id, $productId1, 3, 9.99, $storeId1, $departmentManager1);
         $this->createInvoiceProduct($invoice2Store1Id, $productId2, 4, 12.99, $storeId1, $departmentManager1);
 

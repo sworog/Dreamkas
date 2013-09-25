@@ -92,9 +92,7 @@ class JsonPath
 
                 $values = array();
                 foreach ($array as $arr) {
-                    if ($value = $this->path($arr, implode($delimiter, $keys))) {
-                        $values[] = $value;
-                    }
+                    $values[] = $this->path($arr, implode($delimiter, $keys));
                 }
 
                 if ($values) {
