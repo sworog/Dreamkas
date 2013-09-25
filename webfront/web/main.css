@@ -26,6 +26,14 @@ body {
     font-family: proximanova-regular;
 }
 
+select {
+    font-family: proximanova-regular;
+}
+
+input {
+    font-family: proximanova-regular;
+}
+
 h3 {
     font-size: 28px;
     font-weight: normal;
