@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var _ = require('underscore'),
+    var _ = require('lodash'),
         setter = require('../mixins/setter'),
         getter = require('../mixins/getter'),
         Backbone = require('backbone'),

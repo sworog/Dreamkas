@@ -4,7 +4,7 @@ define(function(require) {
         Backbone = require('backbone'),
         Router = require('./router'),
         isAllow = require('../utils/isAllow'),
-        _ = require('underscore');
+        _ = require('lodash');
 
     var router = new Router();
 

@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var _ = require('underscore');
+    var _ = require('lodash');
 
     return function(path){
         var object = this,

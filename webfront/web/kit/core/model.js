@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Backbone = require('backbone'),
-        _ = require('underscore'),
+        _ = require('lodash'),
         get = require('../utils/get');
 
     /**
