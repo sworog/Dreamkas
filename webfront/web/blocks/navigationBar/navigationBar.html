@@ -13,7 +13,7 @@
     <a href="/invoices?storeId=<%- currentUserModel.stores.at(0).id %>">Накладные</a>
     <% } %>
 
-    <% if((LH.isAllow('stores/{store}/products') && currentUserModel.stores && currentUserModel.stores.length)){ %>
+    <% if((LH.isAllow('stores', 'GET::{store}/products') && currentUserModel.stores && currentUserModel.stores.length)){ %>
     <a href="/balance?storeId=<%- currentUserModel.stores.at(0).id %>">Остатки</a>
     <% } %>
 

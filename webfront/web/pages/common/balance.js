@@ -20,7 +20,7 @@ define(function(require) {
 
             if (
                 !LH.isAllow("products", "GET")
-                && (!LH.isAllow("stores/{store}/products") || !currentUserModel.stores.length)
+                && (!LH.isAllow("stores", "GET::{store}/products") || !currentUserModel.stores.length)
             ) {
                 new Page403();
             }

@@ -4,7 +4,7 @@ define(function(require) {
 
         return Collection.extend({
             model: require('models/storeProduct'),
-            initialize: function(opt) {
+            initialize: function(models, opt) {
                 this.storeId = opt.storeId;
             },
             url: function() {
