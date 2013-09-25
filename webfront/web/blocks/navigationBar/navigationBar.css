@@ -55,3 +55,8 @@
 .navigationBar__active{
     background-color: #e5e5e5;
 }
+
+.navigationBar .navigationBar__userName{
+    height: auto;
+    line-height: normal;
+}
