@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    _ = require('underscore');
+    _ = require('lodash');
 
     return function(depsStrings, getter) {
 

@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Backbone = require('backbone'),
         $ = require('jquery'),
-        _ = require('underscore'),
+        _ = require('lodash'),
         deepExtend = require('../utils/deepExtend'),
         classExtend = require('../utils/classExtend'),
         setter = require('../mixins/setter'),

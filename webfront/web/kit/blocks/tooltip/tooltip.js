@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Block = require('../../core/block'),
-            _ = require('underscore'),
+            _ = require('lodash'),
             deepExtend = require('../../utils/deepExtend');
 
         return Block.extend({

@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var getter = require('./getter'),
-        _ = require('underscore'),
+        _ = require('lodash'),
         objectMock = require('../mocks/object');
 
     var object = _.extend({

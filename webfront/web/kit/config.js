@@ -2,13 +2,14 @@ require({
     baseUrl: '/',
     //urlArgs: 'bust=' +  (new Date()).getTime(),
     paths: {
-        'underscore': 'kit/libs/lodash/lodash',
-
         'backbone': 'kit/libs/backbone/backbone',
         'backbone.queryparams': 'kit/libs/backbone/backbone.queryparams',
 
-        'jquery': 'kit/libs/jquery/jquery',
+        'lodash': 'kit/libs/lodash',
+
+        'jquery': 'kit/libs/jquery/jquery-2.0.3',
         'jquery.require': 'kit/libs/jquery/jquery.require',
+        'jquery.maskedinput': 'kit/libs/jquery/jquery.maskedinput',
 
         'tpl': 'kit/utils/tpl',
         'templateCompiler': 'kit/utils/template',
@@ -24,7 +25,7 @@ require({
     ],
     shim: {
         backbone: {
-            deps: ['underscore', 'jquery'],
+            deps: ['lodash', 'jquery'],
             exports: 'Backbone'
         },
         'backbone.queryparams': ['backbone']

@@ -3,7 +3,7 @@ define(function(require) {
     var app = require('kit/core/app'),
         $ = require('jquery'),
         Backbone = require('backbone'),
-        _ = require('underscore'),
+        _ = require('lodash'),
         currentUserModel = require('models/currentUser'),
         cookie = require('kit/utils/cookie');
 

@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var getter = require('../mixins/getter'),
-        _ = require('underscore'),
+        _ = require('lodash'),
         computed = require('./computed'),
         objectMock = require('../mocks/object');
 
