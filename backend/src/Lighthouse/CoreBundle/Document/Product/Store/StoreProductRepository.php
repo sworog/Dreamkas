@@ -154,6 +154,35 @@ class StoreProductRepository extends DocumentRepository
     }
 
     /**
+     * @param Store $store
+     * @return StoreProductCollection
+     */
+    public function findByStore(Store $store)
+    {
+        $productCollection = $this->productRepository->findAll();
+        $products = array();
+        foreach ($productCollection as $product) {
+            $products[$product->id] = $product;
+        }
+
+        $cursor = $this->findBy(array('store' => $store->id));
+
+        foreach ($cursor as $storeProduct) {
+            if (isset($products[$storeProduct->product->id])) {
+                $products[$storeProduct->product->id] = $storeProduct;
+            }
+        }
+
+        foreach ($products as $productId => $product) {
+            if ($product instanceof Product) {
+                $products[$productId] = $this->createByStoreProduct($store, $product);
+            }
+        }
+
+        return new StoreProductCollection(array_values($products));
+    }
+
+    /**
      * @param StoreProduct $storeProduct
      * @param Product $product
      */
