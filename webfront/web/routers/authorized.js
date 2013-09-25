@@ -7,6 +7,7 @@ define(function(require) {
             //common
             '': require('pages/common/dashboard'),
             '/': require('pages/common/dashboard'),
+            'logout(/)': require('utils/logout'),
             'dashboard(/)': require('pages/common/dashboard'),
             'sale(/)': require('pages/common/sale'),
             'balance(/)': require('pages/common/balance'),

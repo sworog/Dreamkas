@@ -2,7 +2,7 @@
 <div class="page__controls">
     <a class="user__editLink"
        href="/users/edit/<%- model.get('id') %>">
-       <%- 'Редактировать' %>
+        <%- 'Редактировать' %>
     </a>
 </div>
 <% } %>
@@ -23,3 +23,8 @@
         <td name="username"><%- model.get('username') %></td>
     </tr>
 </table>
+<div style="padding-top: 20px;">
+    <a class="button" href="/logout">
+        Выйти
+    </a>
+</div>

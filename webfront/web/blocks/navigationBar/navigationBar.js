@@ -10,12 +10,6 @@ define(function(require) {
         currentUserModel: currentUserModel,
         userPermissions: null,
         template: require('tpl!./navigationBar.html'),
-        events: {
-            'click .navigationBar__logoutLink': function(e) {
-                e.preventDefault();
-                logout();
-            }
-        },
         listeners: {
             currentUserModel: {
                 change: function() {
