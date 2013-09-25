@@ -136,6 +136,8 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $productId
      * @param int $quantity
      * @param float $price
+     * @param string $storeId
+     * @param User $manager
      * @return string
      */
     public function createInvoiceProduct($invoiceId, $productId, $quantity, $price, $storeId = null, $manager = null)
