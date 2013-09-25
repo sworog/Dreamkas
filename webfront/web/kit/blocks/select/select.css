@@ -2,15 +2,19 @@
     height: 32px;
     background: #fff;
     outline: none;
-    font-size: 14px;
-    border-radius: 4px;
+    font-size: 16px;
+    border-radius: 3px;
     -webkit-box-sizing: border-box;
     -ms-box-sizing: border-box;
     -o-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin: 0;
-    border: 1px solid #999;
+    border: 2px solid #cacaca;
     line-height: 17px;
     padding: 0 4px;
+}
+
+.select:focus{
+    border-color: #1FB18A;
 }

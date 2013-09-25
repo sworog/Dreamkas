@@ -23,7 +23,6 @@ input.inputText, .inputText input, textarea.inputText, .inputText textarea{
     -moz-transition: border .25s linear, color .25s linear;
     -o-transition: border .25s linear, color .25s linear;
     transition: border .25s linear, color .25s linear;
-    font-family: proximanova-regular;
 }
 
 input.inputText:-moz-placeholder,
