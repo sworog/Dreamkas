@@ -59,8 +59,8 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void logOutButtonClick() {
-        String logOutButtonXpath = "//*[@class='navigationBar__logoutLink']";
-        findVisibleElement(By.xpath(logOutButtonXpath)).click();
+        findVisibleElement(By.xpath("//*[@class='navigationBar__userName']")).click();
+        new ButtonFacade(getDriver(), "Выйти").click();
     }
 
     public void beforeScenario() {

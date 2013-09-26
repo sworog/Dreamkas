@@ -42,7 +42,7 @@ Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
 Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '0' on amounts page
 When the user logs out
-Given there is the invoice with sku 'Invoice-BIC-2' in the store with number 'BIC-01' ruled by department manager with name 'departmentManager-BIC-2'
+Given there is the invoice with sku 'Invoice-BIC-2' in the store with number 'BIC-02' ruled by department manager with name 'departmentManager-BIC-2'
 And the user adds the product to the invoice with name 'Invoice-BIC-2' with sku 'SBV-01', quantity '3', price '10' in the store ruled by 'departmentManager-BIC-2'
 Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
@@ -52,7 +52,7 @@ Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
 Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '3' on amounts page
 When the user logs out
-Given there is the write off with number 'WriteOff-Bic-02' in the store with number 'BIC-01' ruled by user with name 'departmentManager-BIC-2'
+Given there is the write off with number 'WriteOff-Bic-02' in the store with number 'BIC-02' ruled by user with name 'departmentManager-BIC-2'
 And the user adds the product to the write off with number 'WriteOff-Bic-02' with sku 'SBV-01', quantity '2', price '5, cause 'Причины нет' in the store ruled by 'departmentManager-BIC-2'
 Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
@@ -78,7 +78,7 @@ When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' 
 Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '123,00' on amounts page
 When the user logs out
 Given there is the invoice with sku 'Invoice-BIC-3' in the store with number 'BIC-01' ruled by department manager with name 'departmentManager-BIC'
-And the user adds the product to the invoice with name 'Invoice-BIC-3' with sku 'SBV-01', quantity '5', price '101' in the store ruled by 'departmentManager-BIC'
+And the user adds the product to the invoice with name 'Invoice-BIC-3' with sku 'SBV-02', quantity '5', price '101' in the store ruled by 'departmentManager-BIC'
 Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
 Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '101,00' on amounts page
@@ -87,8 +87,8 @@ Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
 Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '123,00' on amounts page
 When the user logs out
-Given there is the invoice with sku 'Invoice-BIC-4' in the store with number 'BIC-01' ruled by department manager with name 'departmentManager-BIC-2'
-And the user adds the product to the invoice with name 'Invoice-BIC-4' with sku 'SBV-01', quantity '5', price '156' in the store ruled by 'departmentManager-BIC-2'
+Given there is the invoice with sku 'Invoice-BIC-4' in the store with number 'BIC-02' ruled by department manager with name 'departmentManager-BIC-2'
+And the user adds the product to the invoice with name 'Invoice-BIC-4' with sku 'SBV-02', quantity '5', price '156' in the store ruled by 'departmentManager-BIC-2'
 Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
 Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '101,00' on amounts page
@@ -96,9 +96,6 @@ When the user logs out
 Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
 Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '156,00' on amounts page
-
-Scenario: Store average price
-Given skipped test
 
 Scenario: Department manager who has store can see balance link
 
