@@ -473,15 +473,15 @@ class WriteOffProductControllerTest extends WebTestCase
         $productId1 = $this->createProduct(1);
         $productId2 = $this->createProduct(2);
 
-        $this->assertProduct($productId1, array('amount' => null));
+        $this->assertStoreProductTotals($this->storeId, $productId1, 0);
 
         $invoiceId = $this->createInvoice(array(), $storeId, $departmentManager);
 
         $this->createInvoiceProduct($invoiceId, $productId1, 10, 4.99, $storeId, $departmentManager);
         $this->createInvoiceProduct($invoiceId, $productId2, 20, 6.99, $storeId, $departmentManager);
 
-        $this->assertStoreProductTotals($this->storeId, $productId1, 10);
-        $this->assertStoreProductTotals($this->storeId, $productId2, 20);
+        $this->assertStoreProductTotals($this->storeId, $productId1, 10, 4.99);
+        $this->assertStoreProductTotals($this->storeId, $productId2, 20, 6.99);
 
         $writeOffId = $this->createWriteOff('431-678', null, $this->storeId, $this->departmentManager);
 
@@ -529,8 +529,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($writeOffProductId1, 'id', $putResponse);
 
-        //Assert::assertJsonPathEquals(3, 'product.amount', $putResponse);
-        $this->assertStoreProductTotals($this->storeId, $productId1, 3);
+        $this->assertStoreProductTotals($this->storeId, $productId1, 3, 4.99);
 
         // write off product 2
         $putData2 = array(
