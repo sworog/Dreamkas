@@ -46,6 +46,7 @@ public class WriteOffUserSteps {
     }
 
     @Given("there is the write off with number '$writeOffNumber' in the store with number '$storeNumber' ruled by user with name '$userName'")
+    @Alias("there is the write off with sku '$writeOffNumber' in the store with number '$storeNumber' ruled by user with name '$userName'")
     public void givenThereIsTheWriteOffWithNumberInTheStoreRuledByUser(String writeOffNumber, String storeNumber, String userName) throws IOException, JSONException {
         writeOffSteps.createWriteOffThroughPost(writeOffNumber, storeNumber, userName);
     }

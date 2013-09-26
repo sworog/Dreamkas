@@ -32,7 +32,7 @@ Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
 Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '0' on amounts page
 When the user logs out
-Given there is the write off with number 'WriteOff-Bic-01' in the store with number 'BIC-01' ruled by user with name 'departmentManager-BIC'
+Given there is the write off with sku 'WriteOff-Bic-01' in the store with number 'BIC-01' ruled by user with name 'departmentManager-BIC'
 And the user adds the product to the write off with number 'WriteOff-Bic-01' with sku 'SBV-01', quantity '3', price '5, cause 'Причины нет' in the store ruled by 'departmentManager-BIC'
 Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
@@ -52,7 +52,7 @@ Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
 Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '3' on amounts page
 When the user logs out
-Given there is the write off with number 'WriteOff-Bic-02' in the store with number 'BIC-02' ruled by user with name 'departmentManager-BIC-2'
+Given there is the write off with sku 'WriteOff-Bic-02' in the store with number 'BIC-02' ruled by user with name 'departmentManager-BIC-2'
 And the user adds the product to the write off with number 'WriteOff-Bic-02' with sku 'SBV-01', quantity '2', price '5, cause 'Причины нет' in the store ruled by 'departmentManager-BIC-2'
 Given the user opens amount list page
 When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
