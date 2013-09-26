@@ -765,8 +765,8 @@ class InvoiceProductControllerTest extends WebTestCase
         $product1Id = $this->createProduct('_1');
         $product2Id = $this->createProduct('_2');
 
-        $this->assertProductTotals($product1Id, null, null);
-        $this->assertProductTotals($product2Id, null, null);
+        $this->assertStoreProductTotals($this->storeId, $product1Id, 0, null);
+        $this->assertStoreProductTotals($this->storeId, $product2Id, 0, null);
 
         // POST invoice product
         $postData = array(
@@ -794,7 +794,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(1, 'invoice.itemsCount', $postJson);
 
         $this->assertStoreProductTotals($this->storeId, $product1Id, $quantity1, $price1);
-        $this->assertStoreProductTotals($this->storeId, $product2Id, null, null);
+        $this->assertStoreProductTotals($this->storeId, $product2Id, 0, null);
         $this->assertInvoiceTotals($invoiceId, $invoiceSumTotal1, 1);
 
         // PUT invoice product with another product id

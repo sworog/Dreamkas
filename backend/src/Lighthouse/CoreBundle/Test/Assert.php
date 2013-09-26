@@ -32,7 +32,7 @@ class Assert
     public static function assertJsonPathEquals($expected, $path, $json, $count = true, $message = '')
     {
         $jsonPath = new JsonPath($json, $path);
-        $values = $jsonPath->getValues();
+        $values = $jsonPath->getValues(true);
         $found = 0;
         $notFoundValues = array();
         foreach ($values as $value) {
@@ -75,7 +75,7 @@ class Assert
     {
         $jsonPath = new JsonPath($json, $path);
         $values = $jsonPath->getValues();
-        \PHPUnit_Framework_Assert::assertEquals($expected, $values, $message, 0, 10, true);
+        \PHPUnit_Framework_Assert::assertEquals($expected, $values, $message, 0, 10, $canonicalize);
     }
 
     /**

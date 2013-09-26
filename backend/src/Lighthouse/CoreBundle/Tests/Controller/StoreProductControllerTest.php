@@ -861,7 +861,7 @@ class StoreProductControllerTest extends WebTestCase
         );
     }
 
-    public function testGetStoreProductAction()
+    public function testGetStoreProductsAction()
     {
         $storeId1 = $this->storeId;
         $storeId2 = $this->createStore('2', '2', '2');

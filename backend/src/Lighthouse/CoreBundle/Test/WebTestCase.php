@@ -525,10 +525,11 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $productId
      * @param int $amount
      */
-    protected function assertStoreProductTotals($storeId, $productId, $amount)
+    protected function assertStoreProductTotals($storeId, $productId, $amount, $lastPurchasePrice = null)
     {
         $assertions = array(
             'amount' => $amount,
+            'lastPurchasePrice' => $lastPurchasePrice
         );
 
         $this->assertStoreProduct($storeId, $productId, $assertions);
