@@ -80,7 +80,7 @@ And the user opens the authorization page
 When the user logs in using 'departmentManager-SIC-3' userName and 'lighthouse' password
 Then the user checks the dashboard link to 'invoices' section is not present
 
-Scenario: Invoices create navigation by departmentManager who has store
+Scenario: Invoices create navigation by departmentManager who has no store
 
 Given there is the user with name 'departmentManager-SIC-3', position 'departmentManager-SIC-3', username 'departmentManager-SIC-3', password 'lighthouse', role 'departmentManager'
 And the user is on the invoice list page
