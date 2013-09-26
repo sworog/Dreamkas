@@ -90,7 +90,7 @@ And the user opens the authorization page
 When the user logs in using 'departmentManager-DIC-3' userName and 'lighthouse' password
 Then the user checks the dashboard link to 'writeOffs' section is not present
 
-Scenario: WriteOffs create navigation by departmentManager who has store
+Scenario: WriteOffs create navigation by departmentManager who has no store
 
 Given there is the user with name 'departmentManager-DIC-3', position 'departmentManager-DIC-3', username 'departmentManager-DIC-3', password 'lighthouse', role 'departmentManager'
 And the user opens write off list page
