@@ -16,11 +16,13 @@ define(function(require) {
 
             if (currentUserModel.stores.length){
                 pageParams.storeId = currentUserModel.stores.at(0).id;
+            } else {
+                new Page403();
             }
 
             if (
-                !LH.isAllow("products", "GET")
-                && (!LH.isAllow("stores", "GET::{store}/products") || !currentUserModel.stores.length)
+                !LH.isAllow('products', 'GET')
+                && (!LH.isAllow('stores', 'GET::{store}/products') || !currentUserModel.stores.length)
             ) {
                 new Page403();
             }
