@@ -15,7 +15,7 @@ set :web_path,    "web"
 set :user,        "watchman"
 set :shared_files, [app_path + "/config/parameters.yml"]
 
-set :repository,  "git@git.lighthouse.cs:lighthouse.git"
+set :repository,  "git@git.lighthouse.cs:watchmen/lighthouse.git"
 set :scm,         :git
 
 ssh_options[:forward_agent] = true
