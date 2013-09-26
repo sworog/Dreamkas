@@ -619,7 +619,9 @@ class UserControllerTest extends WebTestCase
             User::ROLE_DEPARTMENT_MANAGER => array(
                 User::ROLE_DEPARTMENT_MANAGER,
                 array(
-                    'stores.*' => array(),
+                    'stores.*' => array(
+                        'GET::{store}/products',
+                    ),
                     'stores/{store}/products/{product}.*' => array(
                         'GET'
                     ),
@@ -671,7 +673,9 @@ class UserControllerTest extends WebTestCase
             User::ROLE_STORE_MANAGER => array(
                 User::ROLE_STORE_MANAGER,
                 array(
-                    'stores.*' => array(),
+                    'stores.*' => array(
+                        'GET::{store}/products',
+                    ),
                     'stores/{store}/products/{product}.*' => array(
                         'GET',
                         'PUT'

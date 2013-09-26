@@ -5,6 +5,14 @@ namespace Lighthouse\CoreBundle\Document;
 abstract class AbstractDocument
 {
     /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
+    }
+
+    /**
      * @param string $name
      * @return mixed
      * @throws \Exception

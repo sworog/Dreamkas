@@ -8,6 +8,7 @@ use Doctrine\ODM\MongoDB\Query\Query;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 
 class TrialBalanceRepository extends DocumentRepository
 {
@@ -53,13 +54,13 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
-     * @param Product $product
+     * @param Product $storeProduct
      * @param \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct $invoiceProduct
      * @return TrialBalance
      */
-    public function findOneByProduct(Product $product, InvoiceProduct $invoiceProduct = null)
+    public function findOneByStoreProduct(StoreProduct $storeProduct, InvoiceProduct $invoiceProduct = null)
     {
-        $criteria = array('product' => $product->id);
+        $criteria = array('storeProduct' => $storeProduct->id);
         if (null !== $invoiceProduct) {
             $criteria['reason.$id'] = array('$ne' => new \MongoId($invoiceProduct->id));
             //$criteria['reason.$ref'] = array('$ne' => 'InvoiceProduct');
@@ -74,12 +75,12 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
-     * @param Product $product
+     * @param StoreProduct $storeProduct
      * @return TrialBalance
      */
-    public function findOneReasonInvoiceProductByProduct(Product $product)
+    public function findOneReasonInvoiceProductByProduct(StoreProduct $storeProduct)
     {
-        $criteria = array('product' => $product->id);
+        $criteria = array('storeProduct' => $storeProduct->id);
         $criteria['reason.$ref'] = 'InvoiceProduct';
         // Ugly hack to force document refresh
         $hints = array(Query::HINT_REFRESH => true);
@@ -107,7 +108,7 @@ class TrialBalanceRepository extends DocumentRepository
                 new \MongoCode(
                     "function() {
                         emit(
-                            this.product,
+                            this.storeProduct,
                             {
                                 totalPrice: this.totalPrice,
                                 quantity: this.quantity
@@ -118,7 +119,7 @@ class TrialBalanceRepository extends DocumentRepository
             )
             ->reduce(
                 new \MongoCode(
-                    "function(productId, obj) {
+                    "function(storeProductId, obj) {
                         var reducedObj = {totalPrice: 0, quantity: 0}
                         for (var item in obj) {
                             reducedObj.totalPrice += obj[item].totalPrice;
@@ -130,7 +131,7 @@ class TrialBalanceRepository extends DocumentRepository
             )
             ->finalize(
                 new \MongoCode(
-                    "function(productId, obj) {
+                    "function(storeProductId, obj) {
                         if (obj.quantity > 0) {
                             obj.averagePrice = obj.totalPrice / obj.quantity;
                         } else {

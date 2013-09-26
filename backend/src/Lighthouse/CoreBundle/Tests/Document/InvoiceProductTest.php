@@ -128,7 +128,7 @@ class InvoiceProductTest extends ContainerAwareTestCase
 
         $storeProductRepository->refresh($storeProduct);
         $this->assertEquals(15, $storeProduct->amount);
-        $this->assertEquals(2222, $product->lastPurchasePrice->getCount());
+        $this->assertEquals(2222, $storeProduct->lastPurchasePrice->getCount());
 
         return;
 

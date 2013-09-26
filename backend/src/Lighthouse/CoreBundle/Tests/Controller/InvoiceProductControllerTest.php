@@ -37,7 +37,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceProductData
         );
 
-        Assert::assertResponseCode(201, $this->client->getResponse());
+        $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $responseJson);
 
         Assert::assertJsonPathEquals($quantity, 'quantity', $responseJson);
@@ -1197,7 +1197,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertProduct($productId, array('averagePurchasePrice' => 24.67));
+        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 24.67));
     }
 
     public function testAveragePurchasePriceChangeOnInvoiceDateChange()
@@ -1222,7 +1222,14 @@ class InvoiceProductControllerTest extends WebTestCase
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertProduct($productId, array('averagePurchasePrice' => null, 'lastPurchasePrice' => 26));
+        $this->assertStoreProduct(
+            $this->storeId,
+            $productId,
+            array(
+                'averagePurchasePrice' => null,
+                'lastPurchasePrice' => 26
+            )
+        );
 
         $accessToken = $this->auth($this->departmentManager);
 
@@ -1239,7 +1246,14 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertProduct($productId, array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26));
+        $this->assertStoreProduct(
+            $this->storeId,
+            $productId,
+            array(
+                'averagePurchasePrice' => 26,
+                'lastPurchasePrice' => 26
+            )
+        );
     }
 
     public function testProductDataDoesNotChangeInInvoiceAfterProductUpdate()

@@ -1,11 +1,12 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Product;
+namespace Lighthouse\CoreBundle\Document\Product\Store;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 
@@ -15,9 +16,9 @@ use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 class LastPurchasePriceListener
 {
     /**
-     * @var ProductRepository
+     * @var StoreProductRepository
      */
-    protected $productRepository;
+    protected $storeProductRepository;
 
     /**
      * @var TrialBalanceRepository
@@ -25,24 +26,24 @@ class LastPurchasePriceListener
     protected $trialBalanceRepository;
 
     /**
-     * @var Product[]
+     * @var StoreProduct[]
      */
-    protected $productsToUpdate = array();
+    protected $storeProductsToUpdate = array();
 
     /**
      * @DI\InjectParams({
-     *     "productRepository"=@DI\Inject("lighthouse.core.document.repository.product"),
+     *     "storeProductRepository"=@DI\Inject("lighthouse.core.document.repository.store_product"),
      *     "trialBalanceRepository"=@DI\Inject("lighthouse.core.document.repository.trial_balance")
      * })
      *
-     * @param ProductRepository $productRepository
+     * @param StoreProductRepository $storeProductRepository
      * @param TrialBalanceRepository $trialBalanceRepository
      */
     public function __construct(
-        ProductRepository $productRepository,
+        StoreProductRepository $storeProductRepository,
         TrialBalanceRepository $trialBalanceRepository
     ) {
-        $this->productRepository = $productRepository;
+        $this->storeProductRepository = $storeProductRepository;
         $this->trialBalanceRepository = $trialBalanceRepository;
     }
 
@@ -54,7 +55,7 @@ class LastPurchasePriceListener
         $document = $eventArgs->getDocument();
 
         if ($document instanceof TrialBalance) {
-            $this->addProductToUpdate($document->product);
+            $this->addProductToUpdate($document->storeProduct);
         }
     }
 
@@ -69,11 +70,11 @@ class LastPurchasePriceListener
             /* @var DocumentManager $dm */
             $dm = $eventArgs->getDocumentManager();
             $changeSet = $dm->getUnitOfWork()->getDocumentChangeSet($document);
-            if (isset($changeSet['product'])) {
-                $this->addProductToUpdate($changeSet['product'][0]);
-                $this->addProductToUpdate($changeSet['product'][1]);
+            if (isset($changeSet['storeProduct'])) {
+                $this->addProductToUpdate($changeSet['storeProduct'][0]);
+                $this->addProductToUpdate($changeSet['storeProduct'][1]);
             } else {
-                $this->addProductToUpdate($document->product);
+                $this->addProductToUpdate($document->storeProduct);
             }
         }
     }
@@ -86,16 +87,16 @@ class LastPurchasePriceListener
         $document = $eventArgs->getDocument();
 
         if ($document instanceof TrialBalance) {
-            $this->addProductToUpdate($document->product);
+            $this->addProductToUpdate($document->storeProduct);
         }
     }
 
     /**
-     * @param Product $product
+     * @param StoreProduct $storeProduct
      */
-    public function addProductToUpdate(Product $product)
+    public function addProductToUpdate(StoreProduct $storeProduct)
     {
-        $this->productsToUpdate[spl_object_hash($product)] = $product;
+        $this->storeProductsToUpdate[spl_object_hash($storeProduct)] = $storeProduct;
     }
 
     /**
@@ -103,14 +104,14 @@ class LastPurchasePriceListener
      */
     public function postFlush(PostFlushEventArgs $eventArgs)
     {
-        if (count($this->productsToUpdate) > 0) {
-            foreach ($this->productsToUpdate as $product) {
-                $lastTrialBalance = $this->trialBalanceRepository->findOneReasonInvoiceProductByProduct($product);
+        if (count($this->storeProductsToUpdate) > 0) {
+            foreach ($this->storeProductsToUpdate as $storeProduct) {
+                $lastTrialBalance = $this->trialBalanceRepository->findOneReasonInvoiceProductByProduct($storeProduct);
                 $price = (null !== $lastTrialBalance) ? $lastTrialBalance->price : null;
 
-                $this->productRepository->updateLastPurchasePrice($product, $price);
+                $this->storeProductRepository->updateLastPurchasePrice($storeProduct, $price);
             }
         }
-        $this->productsToUpdate = array();
+        $this->storeProductsToUpdate = array();
     }
 }

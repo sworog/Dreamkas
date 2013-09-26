@@ -30,7 +30,7 @@ use JMS\Serializer\Annotation\Exclude;
 class StoreProduct extends AbstractDocument
 {
     /**
-     * @MongoDB\Id
+     * @MongoDB\Id(strategy="NONE")
      * @var string
      * @Exclude
      */
@@ -97,4 +97,16 @@ class StoreProduct extends AbstractDocument
      * @var int
      */
     protected $amount = 0;
+
+    /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $lastPurchasePrice;
+
+    /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $averagePurchasePrice;
 }

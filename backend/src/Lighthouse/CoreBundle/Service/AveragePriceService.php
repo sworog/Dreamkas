@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Service;
 
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -12,41 +13,41 @@ use JMS\DiExtraBundle\Annotation as DI;
 class AveragePriceService
 {
     /**
-     * @var ProductRepository
+     * @var StoreProductRepository
      */
-    protected $productRepository;
+    protected $storeProductRepository;
 
     /**
-     * @var \Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository
+     * @var TrialBalanceRepository
      */
     protected $trialBalanceRepository;
 
     /**
      * @DI\InjectParams({
-     *     "productRepository"=@DI\Inject("lighthouse.core.document.repository.product"),
+     *     "storeProductRepository"=@DI\Inject("lighthouse.core.document.repository.store_product"),
      *     "trialBalanceRepository"=@DI\Inject("lighthouse.core.document.repository.trial_balance")
      * })
      *
-     * @param ProductRepository $productRepository
+     * @param StoreProductRepository $storeProductRepository
      * @param TrialBalanceRepository $trialBalanceRepository
      */
     public function __construct(
-        ProductRepository $productRepository,
+        StoreProductRepository $storeProductRepository,
         TrialBalanceRepository $trialBalanceRepository
     ) {
-        $this->productRepository = $productRepository;
+        $this->storeProductRepository = $storeProductRepository;
         $this->trialBalanceRepository = $trialBalanceRepository;
     }
 
     public function recalculateAveragePrice()
     {
-        $this->productRepository->setAllAveragePurchasePriceToNotCalculate();
+        $this->storeProductRepository->setAllAveragePurchasePriceToNotCalculate();
 
         $results = $this->trialBalanceRepository->calculateAveragePurchasePrice();
         foreach ($results as $result) {
-            $this->productRepository->updateAveragePurchasePrice($result['_id'], $result['value']['averagePrice']);
+            $this->storeProductRepository->updateAveragePurchasePrice($result['_id'], $result['value']['averagePrice']);
         }
 
-        $this->productRepository->resetAveragePurchasePriceNotCalculate();
+        $this->storeProductRepository->resetAveragePurchasePriceNotCalculate();
     }
 }

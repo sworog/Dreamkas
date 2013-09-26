@@ -32,7 +32,6 @@ use JMS\Serializer\Annotation\Exclude;
  * @property float  $retailMarkupMax
  * @property string $retailPricePreference
  * @property AbstractRounding $rounding
- * @property Money  $averagePurchasePrice
  * @property SubCategory $subCategory
  *
  * @MongoDB\Document(
@@ -88,12 +87,6 @@ class Product extends AbstractDocument implements VersionableInterface
      * @var Money
      */
     protected $purchasePrice;
-
-    /**
-     * @MongoDB\Field(type="money")
-     * @var Money
-     */
-    protected $lastPurchasePrice;
 
     /**
      * @MongoDB\String
@@ -168,12 +161,6 @@ class Product extends AbstractDocument implements VersionableInterface
      * @var string
      */
     protected $roundingId;
-
-    /**
-     * @MongoDB\Field(type="money")
-     * @var Money
-     */
-    protected $averagePurchasePrice;
 
     /**
      * @MongoDB\ReferenceOne(

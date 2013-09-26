@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
+use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Money;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -52,12 +53,22 @@ class StoreProductRepository extends DocumentRepository
     }
 
     /**
+     * @param Reasonable $reason
+     * @return StoreProduct
+     */
+    public function findOrCreateByReason(Reasonable $reason)
+    {
+        $store = $reason->getReasonParent()->getStore();
+        $product = $reason->getReasonProduct();
+        return $this->findOrCreateByStoreProduct($store, $product);
+    }
+
+    /**
      * @param StoreProduct $storeProduct
      */
     public function refresh(StoreProduct $storeProduct)
     {
-        $id = new \MongoId($storeProduct->id);
-        $this->uow->getDocumentPersister($this->documentName)->refresh($id, $storeProduct);
+        $this->uow->getDocumentPersister($this->documentName)->refresh($storeProduct->id, $storeProduct);
     }
 
     /**
@@ -67,15 +78,35 @@ class StoreProductRepository extends DocumentRepository
      */
     public function createByStoreProduct(Store $store, Product $product)
     {
-        $storeProduct = new StoreProduct();
-        $storeProduct->store = $store;
-        $storeProduct->product = $product;
-        $storeProduct->subCategory = $product->subCategory;
+        $uow = $this->getDocumentManager()->getUnitOfWork();
 
-        $storeProduct->retailMarkup = $product->retailMarkupMax;
-        $this->updateRetails($storeProduct);
+        $id = $this->getIdByStoreAndProduct($store, $product);
+        $storeProduct = $uow->tryGetById($id, StoreProduct::getClassName());
+
+        if (!$storeProduct) {
+            $storeProduct = new StoreProduct();
+            $storeProduct->id = $id;
+            $storeProduct->store = $store;
+            $storeProduct->product = $product;
+            $storeProduct->subCategory = $product->subCategory;
+
+            $storeProduct->retailMarkup = $product->retailMarkupMax;
+            $this->updateRetails($storeProduct);
+
+            $uow->persist($storeProduct);
+        }
 
         return $storeProduct;
+    }
+
+    /**
+     * @param Store $store
+     * @param Product $product
+     * @return string
+     */
+    public function getIdByStoreAndProduct(Store $store, Product $product)
+    {
+        return md5($store->id . ':' . $product->id);
     }
 
     /**
@@ -267,5 +298,65 @@ class StoreProductRepository extends DocumentRepository
             $retailPrice->setCountByQuantity($purchasePrice, $percent, true);
         }
         return $retailPrice;
+    }
+
+
+    /**
+     * @param StoreProduct $storeProduct
+     * @param Money $purchasePrice
+     */
+    public function updateLastPurchasePrice(StoreProduct $storeProduct, Money $purchasePrice = null)
+    {
+        $lastPurchasePrice = (null !== $purchasePrice) ? $purchasePrice->getCount() : null;
+        $query = $this
+            ->createQueryBuilder()
+            ->findAndUpdate()
+            ->returnNew(true)
+            ->field('id')->equals($storeProduct->id)
+            ->field('lastPurchasePrice')->set($lastPurchasePrice, true);
+
+        $query->getQuery()->execute();
+    }
+
+    /**
+     * @param string $storeProductId
+     * @param int $averagePurchasePrice
+     */
+    public function updateAveragePurchasePrice($storeProductId, $averagePurchasePrice)
+    {
+        $roundedAveragePurchasePrice = RoundService::round($averagePurchasePrice);
+
+        $query = $this
+            ->createQueryBuilder()
+            ->findAndUpdate()
+            //->returnNew(true)
+            ->field('id')->equals($storeProductId)
+            ->field('averagePurchasePrice')->set($roundedAveragePurchasePrice, true)
+            ->field('averagePurchasePriceNotCalculate')->unsetField();
+
+        $query->getQuery()->execute();
+    }
+
+    public function setAllAveragePurchasePriceToNotCalculate()
+    {
+        $query = $this->createQueryBuilder()
+            ->update()
+            ->multiple(true)
+            ->field('averagePurchasePrice')->notEqual(null)
+            ->field('averagePurchasePriceNotCalculate')->set(true, true);
+
+        $query->getQuery()->execute();
+    }
+
+    public function resetAveragePurchasePriceNotCalculate()
+    {
+        $query = $this->createQueryBuilder()
+            ->update()
+            ->multiple(true)
+            ->field('averagePurchasePriceNotCalculate')->equals(true)
+            ->field('averagePurchasePrice')->set(null, true)
+            ->field('averagePurchasePriceNotCalculate')->unsetField();
+
+        $query->getQuery()->execute();
     }
 }
