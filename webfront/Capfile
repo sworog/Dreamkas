@@ -1,6 +1,7 @@
 load 'deploy' if respond_to?(:namespace)
 
 require 'colored'
+require 'capifony_symfony2'
 
 # add local recipes to load path
 $:.unshift(File.expand_path('../deploy/capistrano/plugins'))
