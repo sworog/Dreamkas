@@ -152,14 +152,21 @@ public class CommonActions extends PageObject {
         return remoteWebDriver.getCapabilities();
     }
 
-    public void elementClickByFirefox(By findBy) {
+    public void catalogElementSubmit(By findBy) {
         try {
-            List<WebElement> presentWebElements = waiter.getPresentWebElements(findBy);
-            if (presentWebElements.size() != 1 && !presentWebElements.isEmpty()) {
-                presentWebElements.get(presentWebElements.size() - 1).click();
+            waiter.getOnlyVisibleElementFromTheList(findBy).submit();
+        } catch (Exception e) {
+            if (isSkippableException(e)) {
+                elementClick(findBy);
             } else {
-                presentWebElements.get(0).click();
+                throw e;
             }
+        }
+    }
+
+    public void elementSubmit(By findBy) {
+        try {
+            waiter.getVisibleWebElement(findBy).submit();
         } catch (Exception e) {
             if (isSkippableException(e)) {
                 elementClick(findBy);

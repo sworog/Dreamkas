@@ -35,7 +35,7 @@ public class ButtonFacade {
     public void click() {
         String browserName = commonActions.getCapabilities().getBrowserName();
         if (browserName.equals("firefox") && commonActions.visibleWebElementHasTagName(xpath, "span")) {
-            commonActions.elementClickByFirefox(By.xpath(xpath + "/input"));
+            commonActions.elementSubmit(By.xpath(xpath));
         } else {
             commonActions.elementClick(By.xpath(xpath));
         }
@@ -44,7 +44,7 @@ public class ButtonFacade {
     public void catalogClick() {
         String browserName = commonActions.getCapabilities().getBrowserName();
         if (browserName.equals("firefox") && commonActions.webElementHasTagName(xpath, "span")) {
-            commonActions.elementClickByFirefox(By.xpath(xpath + "/input"));
+            commonActions.catalogElementSubmit(By.xpath(xpath));
         } else {
             commonActions.catalogElementClick(By.xpath(xpath));
         }
