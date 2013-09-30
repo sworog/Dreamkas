@@ -252,7 +252,7 @@ define(function(require) {
 
                     if (data.errors) {
                         fieldErrors = data.errors.join(', ');
-                        $inputControls.attr("lh_field_error", fieldErrors);
+                        $inputControls.attr("data-error", fieldErrors);
 
                     }
                 });
@@ -263,7 +263,7 @@ define(function(require) {
                     $inputControls = block.$el.find('.writeOff__dataInputControls');
 
                 $input.removeClass('.inputText_error');
-                $inputControls.removeAttr('lh_field_error');
+                $inputControls.removeAttr('data-error');
             },
             showDataInput: function($el) {
                 var block = this,
