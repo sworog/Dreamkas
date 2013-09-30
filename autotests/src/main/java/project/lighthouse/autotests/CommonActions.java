@@ -154,7 +154,12 @@ public class CommonActions extends PageObject {
 
     public void elementClickByFirefox(By findBy) {
         try {
-            waiter.getPresentWebElement(findBy).click();
+            List<WebElement> presentWebElements = waiter.getPresentWebElements(findBy);
+            if (presentWebElements.size() != 1 && !presentWebElements.isEmpty()) {
+                presentWebElements.get(presentWebElements.size() - 1).click();
+            } else {
+                presentWebElements.get(0).click();
+            }
         } catch (Exception e) {
             if (isSkippableException(e)) {
                 elementClick(findBy);
