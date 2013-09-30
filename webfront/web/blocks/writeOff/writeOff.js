@@ -104,7 +104,7 @@ define(function(require) {
                 'submit .writeOff__productsTable .writeOff__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = form2js(e.target),
+                        data = form2js(e.target, '.', false),
                         writeOffProductId = $(e.target).closest('[writeOff-product-id]').attr('writeOff-product-id'),
                         writeOffProduct = block.writeOffProductsCollection.get(writeOffProductId),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
@@ -126,7 +126,7 @@ define(function(require) {
                 'submit .writeOff__head .writeOff__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = form2js(e.target),
+                        data = form2js(e.target, '.', false),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();

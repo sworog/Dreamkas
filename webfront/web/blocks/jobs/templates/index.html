@@ -6,7 +6,7 @@
         <%= moment(jobModel.get('dateCreated')).format('DD.MM.YYYY HH:mm') %>
     </div>
     <div class="jobs__title">
-        <%- jobModel.get('type') %>
+        <%- LH.text(jobModel.get('type')) %>
     </div>
     <% if(jobModel.get('productVersion')){ %>
         <div class="jobs__productName">
@@ -14,11 +14,11 @@
         </div>
     <% } %>
     <div class="jobs__status">
-        <%- jobModel.get('status') %>
+        <%- LH.text(jobModel.get('status')) %>
     </div>
     <% if(jobModel.get('finalMessage')){ %>
     <div class="jobs__finalMessage">
-        <%- jobModel.get('finalMessage') %>
+        <%- LH.text(jobModel.get('finalMessage')) %>
     </div>
     <% } %>
 </div>

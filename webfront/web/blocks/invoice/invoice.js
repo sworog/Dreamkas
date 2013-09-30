@@ -104,7 +104,7 @@ define(function(require) {
                 'submit .invoice__productsTable .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = form2js(e.target),
+                        data = form2js(e.target, '.', false),
                         invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
                         invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
@@ -126,7 +126,7 @@ define(function(require) {
                 'submit .invoice__head .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = form2js(e.target),
+                        data = form2js(e.target, '.', false),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();
