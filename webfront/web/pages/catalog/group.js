@@ -1,23 +1,23 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         pageParams = require('pages/catalog/params'),
         СatalogGroupModel = require('models/catalogGroup'),
         CatalogGroup = require('blocks/catalogGroup/catalogGroup'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/403/403');
+        Page403 = require('pages/errors/403');
 
     var router = new Backbone.Router();
 
     return Page.extend({
-        pageName: 'page_catalog_group',
-        templates: {
+        __name__: 'page_catalog_group',
+        partials: {
             '#content': require('tpl!./templates/group.html')
         },
-        initialize: function(catalogGroupId, params){
+        initialize: function(params){
             var page = this;
 
-            if (page.referer && page.referer.pageName.indexOf('page_catalog') >= 0){
+            if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0){
                 _.extend(pageParams, params);
             } else {
                 _.extend(pageParams, {
@@ -53,7 +53,7 @@ define(function(require) {
             });
 
             page.catalogGroupModel = new СatalogGroupModel({
-                id: catalogGroupId,
+                id: params.catalogGroupId,
                 storeId: pageParams.storeId
             });
 

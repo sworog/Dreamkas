@@ -9,6 +9,8 @@ public class DepartmentManagerApi extends PageObject {
 
     protected ApiConnect apiConnect;
 
+    public static final String DEFAULT_USER_NAME = "departmentManager";
+
     public DepartmentManagerApi(WebDriver driver) throws JSONException {
         super(driver);
         apiConnect = new ApiConnect("departmentManagerApi", "lighthouse");

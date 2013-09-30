@@ -1,28 +1,25 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Product = require('blocks/product/product'),
         ProductModel = require('models/product'),
         StoreProductModel = require('models/storeProduct'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/403/403');
+        Page403 = require('pages/errors/403');
 
     return Page.extend({
-        pageName: 'page_product_view',
-        templates: {
+        __name__: 'page_product_view',
+        productId: null,
+        partials: {
             '#content': require('tpl!./templates/view.html')
         },
         initialize: function(productId) {
             var page = this;
 
-            page.productId = productId;
-
-            if (!LH.isAllow('stores/{store}/products/{product}')){
-                new Page403();
-                return;
-            }
-
-            if (!LH.isAllow('products', 'GET::{product}') && !currentUserModel.stores.length){
+            if (
+                !LH.isAllow('products', 'GET::{product}')
+                && (!LH.isAllow('stores/{store}/products/{product}') || !currentUserModel.stores.length)
+            ){
                 new Page403();
                 return;
             }
@@ -41,8 +38,8 @@ define(function(require) {
 
             $.when(page.model.fetch()).then(function(){
 
-                page.productModel = page.model.product || page.model;
-                page.storeProductModel = page.model.store ? page.model : null;
+                page.productModel = page.model.get('product') || page.model.toJSON();
+                page.storeProductModel = page.model.get('store') ? page.model.toJSON() : null;
 
                 page.render();
 

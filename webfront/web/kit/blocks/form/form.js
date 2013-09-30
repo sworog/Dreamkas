@@ -1,9 +1,10 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
-        setter = require('kit/utils/setter');
-
-    require('backbone.syphon');
+    var Block = require('../../core/block'),
+        Backbone = require('backbone'),
+        setter = require('../../mixins/setter'),
+        form2js = require('../../libs/form2js'),
+        text = require('../../utils/text');
 
     var router = new Backbone.Router();
 
@@ -11,35 +12,42 @@ define(function(require) {
         __name__: 'form',
         className: 'form',
         tagName: 'form',
-        model: null,
+        model: new Backbone.Model,
         collection: null,
         redirectUrl: null,
         events: {
-            'submit': 'submit',
-            'change :input': 'change :input'
-        },
-        'change :input': function(){
-            var block = this;
+            'change :input': function() {
+                var block = this;
 
-            block.removeSuccessMessage();
-        },
-        submit: function(e){
-            e.preventDefault();
+                block.removeSuccessMessage();
+            },
+            submit: function(e) {
+                e.preventDefault();
 
-            var block = this,
-                data = Backbone.Syphon.serialize(this);
+                var block = this,
+                    formData = form2js(this.el),
+                    submit;
 
+                block.trigger('submit:start', formData);
+                block.submitStart(formData);
 
-            _.each(data, function(value, key){
-                delete data[key];
-                setter.call(data, key, value, {silent: true});
-            });
+                submit = block.submit(formData);
 
-            block.$submitButton.addClass('preloader_rows');
+                submit.done(function(response) {
+                    block.submitSuccess(response);
+                    block.trigger('submit:success', response);
+                });
 
-            block.removeErrors();
-            block.removeSuccessMessage();
-            block.onSubmit(data);
+                submit.fail(function(response) {
+                    block.submitError(response);
+                    block.trigger('submit:error', response);
+                });
+
+                submit.always(function(response) {
+                    block.submitComplete(response);
+                    block.trigger('submit:complete', response);
+                });
+            }
         },
         findElements: function() {
             var block = this;
@@ -49,58 +57,51 @@ define(function(require) {
             block.$submitButton = block.$el.find('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
             block.$controls = block.$submitButton.closest(".form__controls");
         },
-        onSubmit: function(data){
+        submit: function(formData) {
             var block = this;
 
-            if (block.model){
-                block.model.save(data, {
-                    success: function(model) {
-                        block.onSubmitSuccess(model);
-                        block.trigger('submit:success', model);
-                    },
-                    error: function(model, response) {
-                        block.onSubmitError(JSON.parse(response.responseText));
-                        block.trigger('submit:error', data);
-                    },
-                    complete: function(){
-                        block.onSubmitComplete();
-                    }
-                });
-            }
-
-            block.trigger('submit', data);
+            return block.model.save(formData);
         },
-        onSubmitComplete: function(){
+        submitStart: function(formData) {
+            var block = this;
+
+            block.$submitButton.addClass('preloader_rows');
+            block.removeErrors();
+            block.removeSuccessMessage();
+        },
+        submitComplete: function(response) {
             var block = this;
 
             block.$submitButton.removeClass('preloader_rows');
         },
-        onSubmitSuccess: function(model){
+        submitSuccess: function(response) {
             var block = this;
 
-            if (block.collection){
-                block.collection.push(model);
+            if (block.collection) {
+                block.collection.push(response);
             }
 
-            if (block.redirectUrl){
-                router.navigate(_.result(block, 'redirectUrl') , {
+            if (block.redirectUrl) {
+                router.navigate(_.result(block, 'redirectUrl'), {
                     trigger: true
                 });
             }
 
-            if (block.successMessage){
+            if (block.successMessage) {
                 block.showSuccessMessage();
             }
         },
-        onSubmitError: function(data){
+        submitError: function(response) {
             var block = this;
-            block.showErrors(data);
+            block.showErrors(block.parseErrors(response.responseText));
+        },
+        parseErrors: function(data) {
+            return JSON.parse(data);
         },
         showErrors: function(errors) {
             var block = this;
 
             block.removeErrors();
-            block.$submitButton.removeClass('preloader preloader_rows');
 
             if (errors.children) {
                 _.each(errors.children, function(data, field) {
@@ -108,37 +109,38 @@ define(function(require) {
 
                     if (data.errors) {
                         fieldErrors = data.errors.join('. ');
-                        block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", LH.text(fieldErrors));
+                        block.$('[name="' + field + '"]')
+                            .closest('.form__field')
+                            .attr('data-error', text(fieldErrors));
                     }
                 });
             }
 
-            if (errors.description){
-                block.$controls.attr("lh_field_error", LH.text(errors.description));
+            if (errors.error) {
+                block.$controls.attr('data-error', text(errors.error));
             }
 
-            if (errors.error){
-                if (errors.error_description){
-                    block.$controls.attr("lh_field_error", LH.text(errors.error_description));
-                } else {
-                    block.$controls.attr("lh_field_error", LH.text(errors.error));
-                }
+            if (errors.description) {
+                block.$controls.attr('data-error', text(errors.description));
             }
 
-        },
-        showSuccessMessage: function(){
-            var block = this;
-
-            block.$submitButton.after('<span class="form__successMessage">' + LH.text(_.result(block, 'successMessage')) + '</span>')
-        },
-        removeSuccessMessage: function(){
-            var block = this;
-
-            block.$('.form__successMessage').remove();
+            if (errors.error_description) {
+                block.$controls.attr('data-error', text(errors.error_description));
+            }
         },
         removeErrors: function() {
             var block = this;
-            block.$el.find('[lh_field_error]').removeAttr("lh_field_error");
+            block.$el.find('[data-error]').removeAttr('data-error');
+        },
+        showSuccessMessage: function() {
+            var block = this;
+
+            block.$submitButton.after('<span class="form__successMessage">' + text(_.result(block, 'successMessage')) + '</span>')
+        },
+        removeSuccessMessage: function() {
+            var block = this;
+
+            block.$('.form__successMessage').remove();
         },
         disable: function(disabled) {
             var block = this;

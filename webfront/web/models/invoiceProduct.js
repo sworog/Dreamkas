@@ -1,13 +1,14 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/model');
+    var Model = require('kit/core/model'),
+        currentUserModel = require('models/currentUser');
 
     return Model.extend({
         modelName: 'invoiceProduct',
         urlRoot: function() {
-            return LH.baseApiUrl + '/invoices/' + this.get('invoice').id + '/products';
+            return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/invoices/' + this.get('invoice').id + '/products';
         },
-        saveFields: [
+        saveData: [
             'product',
             'quantity',
             'price'

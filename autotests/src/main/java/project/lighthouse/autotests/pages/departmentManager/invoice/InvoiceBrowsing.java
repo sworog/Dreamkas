@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
+import project.lighthouse.autotests.elements.PreLoader;
 
 public class InvoiceBrowsing extends InvoiceCreatePage {
 
@@ -16,12 +18,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     @FindBy(xpath = "//*[@class='addMoreProduct']")
     private WebElement addOneMoreProductLink;
-
-    @FindBy(xpath = "//*[@class='page__controlsLink invoice__stopEditLink']")
-    public WebElement invoiceStopEditLink;
-
-    @FindBy(xpath = "//*[@class='button invoice__stopEditButton']")
-    public WebElement invoiceStopEditButtonLink;
 
     @FindBy(xpath = "//*[contains(@class, 'dataInputSave')]")
     public WebElement acceptChangesButton;
@@ -69,8 +65,8 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void goToTheaAdditionOfProductsLinkClick() {
-        findBy("//span[@class='button button_color_blue']/input").click();
-        waiter.waitUntilIsNotVisible(By.xpath("//span[@class='button button_color_blue preloader preloader_rows']"));
+        new ButtonFacade(getDriver(), "Сохранить и перейти к добавлению товаров").click();
+        new PreLoader(getDriver()).await();
     }
 
     public void addOneMoreProductLinkClick() {
@@ -93,24 +89,18 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         items.get(elementName).getWebElement().click();
     }
 
-    public void acceptChangesButtonClick() {
+    public void acceptChangesButtonClick() throws InterruptedException {
         $(acceptChangesButton).click();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        }
+        Thread.sleep(1000);
     }
 
     public void discardChangesButtonClick() {
         $(discardChangesButton).click();
     }
 
-    public void acceptDeleteButtonClick() {
+    public void acceptDeleteButtonClick() throws InterruptedException {
         $(acceptDeleteButton).click();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        }
+        Thread.sleep(1000);
     }
 
     public void discardDeleteButtonClick() {
@@ -118,11 +108,13 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void writeOffStopEditButtonClick() {
-        invoiceStopEditButtonLink.click();
+        new ButtonFacade(getDriver(), "Завершить редактирование").click();
     }
 
     public void writeOffStopEditlinkClick() {
-        invoiceStopEditLink.click();
+        findVisibleElement(
+                By.xpath("//*[@class='page__controlsLink invoice__stopEditLink']")
+        ).click();
     }
 
     public void childrenElementClick(String elementName, String elementClassName) {
@@ -134,7 +126,8 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void tryTochildrenItemNavigateAndClickByFindByLocator(String elementName) {
-        shouldNotBeVisible(By.xpath(deleteButtonXpath));
+        By finBy = items.get(elementName).getFindBy();
+        shouldNotBeVisible(finBy);
     }
 
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
@@ -143,8 +136,8 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void addNewInvoiceProductButtonClick() {
-        findBy("//span[@class='button button_color_blue invoice__addMoreProduct']/input").click();
-        waiter.waitUntilIsNotVisible(By.xpath("//span[@class='button button_color_blue invoice__addMoreProduct preloader']"));
+        new ButtonFacade(getDriver(), "Добавить товар").click();
+        new PreLoader(getDriver()).await();
     }
 
     public void checkItemIsNotPresent(String elementName) {

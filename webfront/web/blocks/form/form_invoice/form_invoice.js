@@ -6,10 +6,8 @@ define(function(require) {
 
     return Form.extend({
         __name__: 'form_invoice',
-        templates: {
-            index: require('tpl!blocks/form/form_invoice/templates/index.html')
-        },
-        onSubmitSuccess: function(model){
+        template: require('tpl!blocks/form/form_invoice/templates/index.html'),
+        submitSuccess: function(model){
             router.navigate('/invoices/' + model.id + '?editMode=true', {
                 trigger: true
             });

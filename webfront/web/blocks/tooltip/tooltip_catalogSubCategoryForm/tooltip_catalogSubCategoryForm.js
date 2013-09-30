@@ -21,7 +21,11 @@ define(function(require) {
             initialize: function() {
                 var block = this;
 
-                Tooltip_form.prototype.initialize.call(this);
+                if (block.form){
+                    block.form.remove();
+                }
+
+                block.render();
 
                 block.form = new Form_catalogSubCategory({
                     el: block.el.getElementsByClassName('form'),

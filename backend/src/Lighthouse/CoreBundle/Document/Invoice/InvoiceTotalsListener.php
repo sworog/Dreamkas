@@ -3,11 +3,9 @@
 namespace Lighthouse\CoreBundle\Document\Invoice;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
-use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
-use Lighthouse\CoreBundle\Types\Money;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"postPersist", "postUpdate", "postRemove"})

@@ -1,32 +1,29 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
-            deepExtend = require('kit/utils/deepExtend');
+        var Block = require('../../core/block'),
+            _ = require('lodash'),
+            deepExtend = require('../../utils/deepExtend');
 
         return Block.extend({
             __name__: 'tooltip',
             className: 'tooltip',
-            $trigger: null,
-            templates: {
-                index: require('tpl!./templates/tooltip.html'),
-                content: require('tpl!./templates/content.html')
+            el: function(){
+                return document.body.appendChild(document.createElement('div'));
             },
-            initialize: function() {
-                var block = this;
-
-                block.$el.appendTo('body');
-
-                block.render();
+            $trigger: null,
+            template: require('tpl!./tooltip.html'),
+            templates: {
+                index: require('tpl!./tooltip.html'),
+                content: require('tpl!./content.html')
             },
             events: {
-                'click .tooltip__closeLink': 'click .tooltip__closeLink'
-            },
-            'click .tooltip__closeLink': function(e) {
-                e.preventDefault();
+                'click .tooltip__closeLink': function(e) {
+                    e.preventDefault();
 
-                var block = this;
+                    var block = this;
 
-                block.hide();
+                    block.hide();
+                }
             },
             show: function(opt) {
                 var block = this;

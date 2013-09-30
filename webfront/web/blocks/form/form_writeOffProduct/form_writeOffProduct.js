@@ -2,17 +2,12 @@ define(function(require) {
         //requirements
         var Form = require('kit/blocks/form/form'),
             WriteOffProduct = require('models/writeOffProduct'),
-            cookie = require('utils/cookie');
+            cookie = require('kit/utils/cookie');
 
         return Form.extend({
             __name__: 'form_writeOffProduct',
-            templates: {
-                index: require('tpl!blocks/form/form_writeOffProduct/templates/index.html')
-            },
-
+            template: require('tpl!blocks/form/form_writeOffProduct/templates/index.html'),
             initialize: function(){
-                Form.prototype.initialize.apply(this, arguments);
-
                 var block = this;
 
                 block.model = new WriteOffProduct({
@@ -25,7 +20,7 @@ define(function(require) {
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='sku']"));
                 block.autocompleteToInput(block.$el.find("[lh_product_autocomplete='barcode']"));
             },
-            onSubmitSuccess: function(model){
+            submitSuccess: function(model){
                 var block = this;
 
                 block.writeOffProductsCollection.push(model);
@@ -58,9 +53,9 @@ define(function(require) {
                                 productField = 'name';
                             }
 
-                            block.$el.find("[lh_product_autocomplete='" + productField + "']").closest(".form__field").attr("lh_field_error", fieldErrors);
+                            block.$el.find("[lh_product_autocomplete='" + productField + "']").closest(".form__field").attr("data-error", fieldErrors);
                         } else {
-                            block.$el.find("[name='" + field + "']").closest(".form__field").attr("lh_field_error", fieldErrors);
+                            block.$el.find("[name='" + field + "']").closest(".form__field").attr("data-error", fieldErrors);
                         }
                     }
                 });

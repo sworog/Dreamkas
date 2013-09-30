@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
@@ -11,8 +12,6 @@ class CategoryControllerTest extends WebTestCase
 {
     public function testPostCategoriesAction()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Продовольственные товары');
 
         $categoryData = array(
@@ -40,8 +39,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testUniqueCategoryName()
     {
-        $this->clearMongoDb();
-
         $groupId1 = $this->createGroup('Алкоголь');
         $groupId2 = $this->createGroup('Продовольственные товары');
 
@@ -109,8 +106,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPutCategoryActionRoundingUpdated()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь');
         $categoryId = $this->createCategory($groupId, 'Водка');
 
@@ -173,8 +168,6 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testPostCategoriesValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Продовольственные товары');
 
         $categoryData = $data + array(
@@ -293,7 +286,7 @@ class CategoryControllerTest extends WebTestCase
                 array('rounding' => 'nearest100'),
                 array('rounding.name' => 'nearest100', 'rounding.title' => 'до рублей')
             ),
-            'valid rounding nearest100' => array(
+            'valid rounding nearest99' => array(
                 201,
                 array('rounding' => 'nearest99'),
                 array('rounding.name' => 'nearest99', 'rounding.title' => 'до 99 копеек')
@@ -331,8 +324,6 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testPutCategoriesValidation($expectedCode, array $data, array $assertions = array())
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Продовольственные товары');
 
         $categoryId = $this->createCategory($groupId);
@@ -360,8 +351,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategory()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
 
@@ -380,8 +369,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategoryNotFound()
     {
-        $this->clearMongoDb();
-
         $groupId1 = $this->createGroup('1');
         $this->createCategory($groupId1, '1.1');
 
@@ -397,8 +384,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategoryWithSubcategories()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
 
@@ -423,8 +408,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategories()
     {
-        $this->clearMongoDb();
-
         $groupId1 = $this->createGroup('1');
         $groupId2 = $this->createGroup('2');
 
@@ -470,8 +453,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategoriesNotFound()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
             $accessToken,
@@ -484,8 +465,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategoriesEmptyCollection()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -502,8 +481,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testDeleteCategory()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
 
@@ -527,8 +504,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testDeleteCategoryWithSubcategories()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
 
@@ -566,8 +541,6 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testAccessCategory($url, $method, $role, $responseCode, array $requestData = array())
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
 
@@ -617,7 +590,7 @@ class CategoryControllerTest extends WebTestCase
                 '/api/1/categories/__CATEGORY_ID__',
                 'GET',
                 User::ROLE_DEPARTMENT_MANAGER,
-                200,
+                403,
             ),
             array(
                 '/api/1/categories/__CATEGORY_ID__',
@@ -729,7 +702,7 @@ class CategoryControllerTest extends WebTestCase
                 '/api/1/groups/__GROUP_ID__/categories',
                 'GET',
                 User::ROLE_DEPARTMENT_MANAGER,
-                200,
+                403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__/categories',
@@ -748,8 +721,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupIsNullOnCategoryCreateWithEmptyMarkup()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
         $categoryId = $this->createCategory($groupId, 'Вино', false);
 
@@ -770,8 +741,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupIsNotInheritedFromGroupAfterGroupUpdate()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
         $categoryId = $this->createCategory($groupId, 'Вино', false);
 
@@ -818,8 +787,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupBecomesNullIfNullMarkupPassed()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -870,8 +837,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupBecomesNullIfNoMarkupPassed()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -917,16 +882,19 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('retailMarkupMax', $putResponse);
     }
 
-    public function testGetStoreCategoryStoreManagerHasStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreCategoryStoreManagerHasStore($role, $rel)
     {
-        $this->clearMongoDb();
-
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId = $this->createStore();
 
-        $this->linkStoreManagers($storeId, $storeManager->id);
+        $this->factory->linkManagers($storeId, $storeManager->id, $rel);
 
         $accessToken = $this->auth($storeManager, 'password');
 
@@ -940,17 +908,20 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($categoryId, 'id', $getResponse);
     }
 
-    public function testGetStoreCategoryStoreManagerFromAnotherStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreCategoryStoreManagerFromAnotherStore($role, $rel)
     {
-        $this->clearMongoDb();
-
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId1 = $this->createStore('42');
         $storeId2 = $this->createStore('43');
 
-        $this->linkStoreManagers($storeId1, $storeManager->id);
+        $this->factory->linkManagers($storeId1, $storeManager->id, $rel);
 
         $accessToken = $this->auth($storeManager, 'password');
 
@@ -965,11 +936,13 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
 
-    public function testGetStoreCategoryStoreManagerHasNoStore()
+    /**
+     * @param string $role
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreCategoryStoreManagerHasNoStore($role)
     {
-        $this->clearMongoDb();
-
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId = $this->createStore();
@@ -987,15 +960,18 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
     }
 
-    public function testGetStoreGroupCategoriesStoreManagerHasStore()
+    /**
+     * @param string $role
+     * @param string $rel
+     * @dataProvider storeRolesProvider
+     */
+    public function testGetStoreGroupCategoriesStoreManagerHasStore($role, $rel)
     {
-        $this->clearMongoDb();
-
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $manager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $storeId = $this->createStore();
 
-        $this->linkStoreManagers($storeId, $storeManager->id);
+        $this->factory->linkManagers($storeId, $manager->id, $rel);
 
         $groupId1 = $this->createGroup('1');
         $groupId2 = $this->createGroup('2');
@@ -1007,7 +983,7 @@ class CategoryControllerTest extends WebTestCase
         $categoryId5 = $this->createCategory($groupId2, '2.1');
         $categoryId6 = $this->createCategory($groupId2, '2.2');
 
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -1038,10 +1014,19 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($groupId2, '*.group.id', $getResponse, 2);
     }
 
+    /**
+     * @return array
+     */
+    public function storeRolesProvider()
+    {
+        return array(
+            'store manager' => array(User::ROLE_STORE_MANAGER, Store::REL_STORE_MANAGERS),
+            'department manager' => array(User::ROLE_DEPARTMENT_MANAGER, Store::REL_DEPARTMENT_MANAGERS),
+        );
+    }
+
     public function testRoundingIsInheritedFromGroup()
     {
-        $this->clearMongoDb();
-
         $groupId = $this->createGroup('Алкоголь', true, null, null, 'nearest50');
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);

@@ -1,0 +1,62 @@
+.navigationBar{
+    background: #282A2E;
+    height: 100%;
+    position: fixed;
+    width: 200px;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    z-index: 100;
+    padding: 40px;
+}
+
+.navigationBar__bottom{
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+    right: 40px;
+}
+
+.navigationBar__userControls{
+    padding-bottom: 10px;
+}
+
+.navigationBar a{
+    height: 40px;
+    line-height: 41px;
+    vertical-align: middle;
+    cursor: pointer;
+    color: #D4D4D4;
+    text-decoration: none;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+}
+
+.navigationBar a:hover{
+    color: #1FB18A;
+}
+
+.navigationBar .navigationBar__logo{
+    font-size: 20px;
+}
+
+.navigationBar__userName{
+}
+
+.navigationBar__links {
+    float: left;
+    height: 100%;
+}
+
+.navigationBar__active{
+    background-color: #e5e5e5;
+}
+
+.navigationBar .navigationBar__userName{
+    height: auto;
+    line-height: normal;
+}

@@ -5,24 +5,24 @@ namespace Lighthouse\CoreBundle\Document\TrialBalance;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Types\Money;
+use DateTime;
 
 /**
  * Сальдовая ведомость
  *
- * @property string $id
- * @property float  $beginningBalance
- * @property Money  $beginningBalanceMoney
- * @property float  $endingBalance
- * @property Money  $endingBalanceMoney
- * @property float  $quantity
- * @property Money  $totalPrice
- * @property Money  $price
- * @property \DateTime $createdDate
- * @property Product $product
- * @property Reasonable $reason
+ * @property string         $id
+ * @property float          $beginningBalance
+ * @property Money          $beginningBalanceMoney
+ * @property float          $endingBalance
+ * @property Money          $endingBalanceMoney
+ * @property float          $quantity
+ * @property Money          $totalPrice
+ * @property Money          $price
+ * @property DateTime      $createdDate
+ * @property StoreProduct   $storeProduct
+ * @property Reasonable     $reason
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository"
@@ -84,19 +84,19 @@ class TrialBalance extends AbstractDocument
 
     /**
      * @MongoDB\Date
-     * @var \DateTime
+     * @var DateTime
      */
     protected $createdDate;
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Store\StoreProduct",
      *     simple=true,
      *     cascade={"persist"}
      * )
-     * @var Product
+     * @var StoreProduct
      */
-    protected $product;
+    protected $storeProduct;
 
     /**
      * Основание
@@ -108,9 +108,19 @@ class TrialBalance extends AbstractDocument
      *          "writeOffProduct"="Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct"
      *      }
      * )
-     * @var Invoice
+     * @var Reasonable
      */
     protected $reason;
+
+    /**
+     * @var
+     */
+    protected $store;
+
+    public function __construct()
+    {
+        $this->createdDate = new DateTime;
+    }
 
     /**
      * @MongoDB\PrePersist

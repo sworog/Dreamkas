@@ -8,22 +8,18 @@ define(function(require) {
         model: new CatalogSubCategoryModel(),
         collection: null,
         isAddForm: true,
-        templates: {
-            index: require('tpl!blocks/form/form_catalogSubCategory/templates/index.html')
-        },
+        template: require('tpl!blocks/form/form_catalogSubCategory/templates/index.html'),
         initialize: function(){
             var block = this;
 
             if (block.model.id){
                 block.isAddForm = false;
             }
-
-            Form.prototype.initialize.call(block);
         },
-        onSubmitSuccess: function(){
+        submitSuccess: function(){
             var block = this;
 
-            Form.prototype.onSubmitSuccess.apply(block, arguments);
+            Form.prototype.submitSuccess.apply(block, arguments);
 
             if (block.isAddForm){
                 block.model = new CatalogSubCategoryModel({

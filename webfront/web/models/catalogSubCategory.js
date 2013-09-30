@@ -1,11 +1,11 @@
 define(function(require) {
         //requirements
-        var Model = require('kit/model');
+        var Model = require('kit/core/model');
 
         return Model.extend({
             modelName: 'catalogSubCategory',
             urlRoot: LH.baseApiUrl + '/subcategories',
-            saveFields: function(){
+            saveData: function(){
                 return {
                     name: this.get('name'),
                     category: this.get('category'),
@@ -15,9 +15,6 @@ define(function(require) {
                 }
             },
             initialize: function(attrs, options) {
-
-                Model.prototype.initialize.apply(this, arguments);
-
                 if (this.collection && this.collection.category) {
                     this.set('category', this.collection.category);
                 }

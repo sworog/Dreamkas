@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\ClassMoneyComparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\ClassNumericComparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
-use Symfony\Component\Validator\Constraint;
 
 class ClassNumericRangeValidator extends RangeValidator
 {

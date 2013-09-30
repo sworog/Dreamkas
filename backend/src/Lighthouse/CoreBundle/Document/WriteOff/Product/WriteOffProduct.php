@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
+use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Types\Money;
@@ -158,5 +159,13 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     public function increaseAmount()
     {
         return false;
+    }
+
+    /**
+     * @return Storeable
+     */
+    public function getReasonParent()
+    {
+        return $this->writeOff;
     }
 }

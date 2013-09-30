@@ -1,6 +1,12 @@
+<% var store = require('tpl!blocks/store/store.html') %>
+
 <% if(LH.isAllow('stores', 'GET')) { %>
 <div class="page__header">
-    <a href="/stores" class="page__backLink"><%text 'Список магазинов' %></a>
+    <a href="/stores" class="page__backLink"><%- 'Список магазинов' %></a>
 </div>
 <% } %>
-<div class="box" id="store"></div>
+<div id="store">
+    <%= store({
+        storeModel: storeModel
+    }) %>
+</div>

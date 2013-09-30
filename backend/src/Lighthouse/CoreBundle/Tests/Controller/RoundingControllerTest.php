@@ -10,8 +10,6 @@ class RoundingControllerTest extends WebTestCase
 {
     public function testGetRoundingsAction()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
@@ -39,8 +37,6 @@ class RoundingControllerTest extends WebTestCase
      */
     public function testGetRoundingAction($name, $title)
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
@@ -71,8 +67,6 @@ class RoundingControllerTest extends WebTestCase
 
     public function testGetRoundingActionNotFound()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
@@ -95,8 +89,6 @@ class RoundingControllerTest extends WebTestCase
      */
     public function testPostRoundingRoundAction($name, $price, $roundedPrice)
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
 
         $postData = array(
@@ -148,8 +140,6 @@ class RoundingControllerTest extends WebTestCase
      */
     public function testPostRoundingRoundActionInvalidData($price, array $assertions)
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
 
         $postData = array(

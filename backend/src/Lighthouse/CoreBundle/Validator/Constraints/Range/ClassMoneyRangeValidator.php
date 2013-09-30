@@ -6,10 +6,6 @@ use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\ClassMoneyComparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\PropertyAccess\PropertyAccessor;
-use Symfony\Component\Validator\Constraint;
-use Lighthouse\CoreBundle\Types\Money as MoneyType;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**

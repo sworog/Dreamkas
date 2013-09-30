@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
+use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
@@ -146,5 +147,13 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     public function increaseAmount()
     {
         return true;
+    }
+
+    /**
+     * @return Storeable
+     */
+    public function getReasonParent()
+    {
+        return $this->invoice;
     }
 }

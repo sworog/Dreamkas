@@ -11,20 +11,50 @@ class StoreRepository extends DocumentRepository
      */
     public function findAllStoresManagerIds()
     {
+        return $this->findAllManagerIds(Store::REL_STORE_MANAGERS);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function findAllDepartmentManagerIds()
+    {
+        return $this->findAllManagerIds(Store::REL_DEPARTMENT_MANAGERS);
+    }
+
+    /**
+     * @param string $rel
+     * @return string[]
+     */
+    public function findAllManagerIds($rel)
+    {
         $query = $this
             ->createQueryBuilder()
             ->hydrate(false)
-            ->select('managers')
+            ->select($rel)
             ->getQuery();
         $result = $query->execute();
         $userIds = array();
         foreach ($result as $row) {
-            if (isset($row['managers']) && is_array($row['managers'])) {
-                foreach ($row['managers'] as $manager) {
+            if (isset($row[$rel]) && is_array($row[$rel])) {
+                foreach ($row[$rel] as $manager) {
                     $userIds[] = (string) $manager;
                 }
             }
         }
         return $userIds;
+    }
+
+    /**
+     * @param string $userId
+     * @return mixed
+     */
+    public function findByManagers($userId)
+    {
+        $query = $this->createQueryBuilder();
+        $query->addOr($query->expr()->field('departmentManagers')->equals($userId));
+        $query->addOr($query->expr()->field('storeManagers')->equals($userId));
+
+        return $query->getQuery()->execute();
     }
 }

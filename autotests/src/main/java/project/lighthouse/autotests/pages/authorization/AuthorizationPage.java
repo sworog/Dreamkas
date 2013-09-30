@@ -46,7 +46,7 @@ public class AuthorizationPage extends UserCreatePage {
     public void authorization(String userName, String password, Boolean isFalse) {
         type(By.name("username"), userName);
         type(By.name("password"), password);
-        new ButtonFacade(getDriver()).click();
+        new ButtonFacade(getDriver(), "Войти").click();
         if (!isFalse) {
             checkUser(userName);
         }
@@ -59,8 +59,8 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void logOutButtonClick() {
-        String logOutButtonXpath = "//*[@class='topBar__logoutLink']";
-        findVisibleElement(By.xpath(logOutButtonXpath)).click();
+        findVisibleElement(By.xpath("//*[@class='navigationBar__userName']")).click();
+        new ButtonFacade(getDriver(), "Выйти").click();
     }
 
     public void beforeScenario() {
@@ -73,7 +73,7 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void checkUser(String userName) {
-        String userXpath = "//*[@class='topBar__userName']";
+        String userXpath = "//*[@class='navigationBar__userName']";
         String actualUserName = find(By.xpath(userXpath)).getText();
         assertEquals(
                 String.format("The user name is '%s'. Should be '%s'.", actualUserName, userName),
@@ -103,8 +103,17 @@ public class AuthorizationPage extends UserCreatePage {
         }
     }
 
+    public void error404isPresent() {
+        try {
+            String error404Xpath = "//*[contains(@class, 'page_error_404')]";
+            findElement(By.xpath(error404Xpath));
+        } catch (Exception e) {
+            fail("The error 403 is not present on the page!");
+        }
+    }
+
     public String getError403Xpath() {
-        return "//body[@class='page page_common_403']";
+        return "//*[contains(@class, 'page_error_403')]";
     }
 
     public void error403IsNotPresent() {

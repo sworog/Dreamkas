@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.*;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrowsing;
 
 import java.util.Map;
@@ -69,17 +70,13 @@ public class WriteOffPage extends InvoiceBrowsing {
     }
 
     public void continueWriteOffCreation() {
-        String className = "button button_color_blue";
-        String xpath = String.format("//*[@class='%s']/input", className);
-        findElement(By.xpath(xpath)).click();
-        waiter.waitUntilIsNotVisible(By.xpath(String.format("//*[@class='%s preloader preloader_rows']", className)));
+        new ButtonFacade(getDriver(), "Сохранить и перейти к добавлению товаров").click();
+        new PreLoader(getDriver()).await();
     }
 
     public void addProductToWriteOff() {
-        String className = "button button_color_blue writeOff__addMoreProduct";
-        String addProductToWriteOffXpath = String.format("//*[@class='%s']/input", className);
-        findElement(By.xpath(addProductToWriteOffXpath)).click();
-        waiter.waitUntilIsNotVisible(By.xpath(String.format("//*[@class='%s preloader']", className)));
+        new ButtonFacade(getDriver(), "Добавить товар").click();
+        new PreLoader(getDriver()).await();
     }
 
     public void itemCheck(String value) {

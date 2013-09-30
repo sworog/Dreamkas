@@ -13,6 +13,9 @@ import java.io.IOException;
 
 public class CatalogApi extends CommercialManagerApi {
 
+    private static final String STORE_MANAGERS_REL_VALUE = "storeManagers";
+    private static final String DEPARTMENT_MANAGERS_REL_VALUE = "departmentManagers";
+
     public CatalogApi(WebDriver driver) throws JSONException {
         super(driver);
     }
@@ -72,7 +75,11 @@ public class CatalogApi extends CommercialManagerApi {
     }
 
     public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
-        apiConnect.promoteStoreManager(store, StaticData.users.get(userName));
+        apiConnect.promoteUserToManager(store, StaticData.users.get(userName), STORE_MANAGERS_REL_VALUE);
+    }
+
+    public void promoteDepartmentManager(Store store, String userName) throws IOException, JSONException {
+        apiConnect.promoteUserToManager(store, StaticData.users.get(userName), DEPARTMENT_MANAGERS_REL_VALUE);
     }
 
     public SubCategory createDefaultSubCategoryThroughPost() throws IOException, JSONException {

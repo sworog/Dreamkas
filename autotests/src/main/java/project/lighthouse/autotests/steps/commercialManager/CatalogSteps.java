@@ -247,7 +247,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void saveMarkUpButtonClick() {
-        markUpTab.saveMarkUpButton().click();
+        markUpTab.saveMarkUpButtonClick();
     }
 
     @Step
@@ -283,6 +283,11 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
         catalogApi.promoteStoreManager(store, userName);
+    }
+
+    @Step
+    public void promoteDepartmentManager(Store store, String userName) throws IOException, JSONException {
+        catalogApi.promoteDepartmentManager(store, userName);
     }
 
     @Step

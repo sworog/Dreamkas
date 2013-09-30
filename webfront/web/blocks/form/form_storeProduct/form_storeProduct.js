@@ -6,47 +6,38 @@ define(function(require) {
         return Form.extend({
             __name__: 'form_storeProduct',
             defaultInputLinkText: 'Введите значение',
-            templates: {
-                index: require('tpl!blocks/form/form_storeProduct/templates/index.html')
-            },
+            template: require('tpl!blocks/form/form_storeProduct/templates/index.html'),
             events: {
-                'click .productForm__inputLink': 'click .productForm__inputLink',
-                'keyup [name="retailMarkup"]': 'keyup [name="retailMarkup"]',
-                'keyup [name="retailPrice"]': 'keyup [name="retailPrice"]',
-                'change [name="retailMarkup"]': 'change [name="retailMarkup"]',
-                'change [name="retailPrice"]': 'change [name="retailPrice"]'
-            },
-            'click .productForm__inputLink': function(e) {
-                e.preventDefault;
-                var $link = $(e.currentTarget),
-                    $linkedInput = $link.prev('.productForm__linkedInput');
+                'click .productForm__inputLink': function(e) {
+                    e.preventDefault;
+                    var $link = $(e.currentTarget),
+                        $linkedInput = $link.prev('.productForm__linkedInput');
 
-                switch ($linkedInput.attr('name')) {
-                    case 'retailMarkup':
-                        this.showRetailMarkupInput();
-                        break;
-                    case 'retailPrice':
-                        this.showRetailPriceInput();
-                        break;
+                    switch ($linkedInput.attr('name')) {
+                        case 'retailMarkup':
+                            this.showRetailMarkupInput();
+                            break;
+                        case 'retailPrice':
+                            this.showRetailPriceInput();
+                            break;
+                    }
+                },
+                'keyup [name="retailMarkup"]': function() {
+                    this.calculateRetailPrice();
+                },
+                'keyup [name="retailPrice"]': function() {
+                    this.calculateRetailMarkup();
+                },
+                'change [name="retailMarkup"]': function() {
+                    this.renderRetailMarkupLink();
+                },
+                'change [name="retailPrice"]': function() {
+                    this.renderRetailPriceLink();
+                    this.renderRounding();
                 }
-            },
-            'keyup [name="retailMarkup"]': function() {
-                this.calculateRetailPrice();
-            },
-            'keyup [name="retailPrice"]': function() {
-                this.calculateRetailMarkup();
-            },
-            'change [name="retailMarkup"]': function() {
-                this.renderRetailMarkupLink();
-            },
-            'change [name="retailPrice"]': function() {
-                this.renderRetailPriceLink();
-                this.renderRounding();
             },
             initialize: function(){
                 var block = this;
-
-                Form.prototype.initialize.apply(block, arguments);
 
                 if (block.model.id){
                     block.redirectUrl = '/products/' + block.model.id

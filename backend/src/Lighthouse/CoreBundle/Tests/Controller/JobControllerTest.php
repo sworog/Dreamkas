@@ -18,16 +18,11 @@ class JobControllerTest extends WebTestCase
     protected function setUp()
     {
         parent::setUp();
-
-        /* @var \Lighthouse\CoreBundle\Job\JobManager $jobManager */
-        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
-        $jobManager->startWatchingTubes()->purgeTubes()->stopWatchingTubes();
+        $this->clearJobs();
     }
 
     public function testRecalcProductProductPriceOnRetailsChange()
     {
-        $this->clearMongoDb();
-
         $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
@@ -169,8 +164,6 @@ class JobControllerTest extends WebTestCase
      */
     public function testRecalcProductProductPriceOnMarkupChange($rounding, $retailPrice1, $retailPrice2, $retailPrice3)
     {
-        $this->clearMongoDb();
-
         $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
@@ -339,8 +332,6 @@ class JobControllerTest extends WebTestCase
 
     public function testNoJobCreatedOnProductUpdateWithoutRetailsAndRounding()
     {
-        $this->clearMongoDb();
-
         $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(

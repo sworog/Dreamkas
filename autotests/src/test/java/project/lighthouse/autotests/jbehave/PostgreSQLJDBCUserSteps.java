@@ -15,4 +15,9 @@ public class PostgreSQLJDBCUserSteps {
     public void givenTheUserCleansTheCashDB(String ip) throws SQLException {
         postgreSQLJDBCSteps.truncateProductsTable(ip);
     }
+
+    @Given("the user waits until cash registry by '$ip' products db has not empty rows")
+    public void givenTheUSerWaitsUntilCashProductDBHasNotEmptyRows(String ip) throws SQLException, InterruptedException {
+        postgreSQLJDBCSteps.waitUntilTableIsNotEmpty(ip);
+    }
 }

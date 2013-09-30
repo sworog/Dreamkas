@@ -1,9 +1,14 @@
+lighthouse.core.store:
+    resource: Lighthouse\CoreBundle\Controller\StoreController
+    type:     rest
+
 lighthouse.core.product:
     resource: Lighthouse\CoreBundle\Controller\ProductController
     type:     rest
 
 lighthouse.core.invoice:
     resource: Lighthouse\CoreBundle\Controller\InvoiceController
+    parent:   lighthouse.core.store
     type:     rest
 
 lighthouse.core.invoice.product:
@@ -17,12 +22,13 @@ lighthouse.core.purchase:
 
 lighthouse.core.write-off:
     resource: Lighthouse\CoreBundle\Controller\WriteOffController
+    parent:   lighthouse.core.store
     type:     rest
 
 lighthouse.core.write-off.product:
     resource: Lighthouse\CoreBundle\Controller\WriteOffProductController
-    type:     rest
     parent:   lighthouse.core.write-off
+    type:     rest
 
 lighthouse.core.group:
     resource: Lighthouse\CoreBundle\Controller\GroupController
@@ -34,10 +40,6 @@ lighthouse.core.category:
 
 lighthouse.core.subcategory:
     resource: Lighthouse\CoreBundle\Controller\SubCategoryController
-    type:     rest
-
-lighthouse.core.store:
-    resource: Lighthouse\CoreBundle\Controller\StoreController
     type:     rest
 
 lighthouse.core.store.product:

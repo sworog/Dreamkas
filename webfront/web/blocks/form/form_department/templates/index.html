@@ -1,15 +1,15 @@
-<h3><%text model.id ? 'Редактирование отдела' : 'Создание отдела' %></h3>
+<h1><%- model.id ? 'Редактирование отдела' : 'Создание отдела' %></h1>
 <div class="form__field form__field_inline">
-    <label class="form__label"><%text 'Номер отдела' %></label>
-    <input value="<%= model.get('number') %>" class="inputText" type="text" name="number"/>
+    <label class="form__label">Номер отдела</label>
+    <input value="<%- model.get('number') %>" class="inputText" type="text" name="number"/>
 </div>
 <div class="form__field form__field_inline">
-    <label class="form__label"><%text 'Название отдела' %></label>
-    <input value="<%= model.get('name') %>" class="inputText" type="text" name="name"/>
+    <label class="form__label">Название отдела</label>
+    <input value="<%- model.get('name') %>" class="inputText" type="text" name="name"/>
 </div>
 <div class="form__controls">
-    <span class="button button_color_blue">
-        <%text model.id ? 'Сохранить' : 'Добавить' %>
+    <span lh-button class="button">
+        <%- model.id ? 'Сохранить' : 'Добавить' %>
         <input type="submit"/>
     </span>
 </div>

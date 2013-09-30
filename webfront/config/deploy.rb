@@ -12,7 +12,7 @@ set :deploy_to,   "{#deploy_to_base}#{application}"
 set :deploy_via,  :remote_cache_subfolder
 set :deploy_subdir, "webfront/web"
 
-set :repository,  "git@git.lighthouse.cs:lighthouse.git"
+set :repository,  "git@git.lighthouse.cs:watchmen/lighthouse.git"
 set :scm,         :git
 
 ssh_options[:forward_agent] = true
@@ -34,3 +34,54 @@ after "deploy:restart" do
 end
 
 after "deploy:finalize_update", "webfront"
+
+namespace :deploy do
+    namespace :remove do
+        task :default, :roles => :app, :except => { :no_release => true } do
+            if Capistrano::CLI.ui.ask("Are you sure drop " + application_url.yellow + " (y/n)") == 'y'
+                host
+            end
+        end
+    end
+end
+
+def capifony_pretty_print(msg)
+    if logger.level == Capistrano::Logger::IMPORTANT
+        pretty_errors
+
+        msg = msg.slice(0, 57)
+        msg << '.' * (60 - msg.size)
+        print msg
+    else
+        puts msg.green
+    end
+end
+
+def capifony_puts_ok
+    if logger.level == Capistrano::Logger::IMPORTANT && !$error
+        puts '✔'.green
+    end
+
+    $error = false
+end
+
+def pretty_errors
+    if !$pretty_errors_defined
+        $pretty_errors_defined = true
+
+        class << $stderr
+            @@firstLine = true
+            alias _write write
+
+            def write(s)
+                if @@firstLine
+                    s = '✘' << "\n" << s
+                    @@firstLine = false
+                end
+
+                _write(s.red)
+                $error = true
+            end
+        end
+    end
+end

@@ -7,6 +7,10 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceApi;
+import project.lighthouse.autotests.steps.administrator.UserSteps;
+import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
+import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
 import project.lighthouse.autotests.steps.departmentManager.WriteOffSteps;
 
 import java.io.IOException;
@@ -16,9 +20,24 @@ public class WriteOffUserSteps {
     @Steps
     WriteOffSteps writeOffSteps;
 
+    @Steps
+    StoreSteps storeSteps;
+
+    @Steps
+    CatalogSteps catalogSteps;
+
+    @Steps
+    UserSteps userSteps;
+
     @Given("the user opens the write off create page")
-    public void givenTheUserOpensTheWriteOffCreatePage() {
+    public void givenTheUserOpensTheWriteOffCreatePage() throws IOException, JSONException {
+        beforeSteps();
         writeOffSteps.openPage();
+    }
+
+    public void beforeSteps() throws IOException, JSONException {
+        userSteps.getUser(InvoiceApi.DEFAULT_USER_NAME);
+        catalogSteps.promoteDepartmentManager(storeSteps.createStore(), InvoiceApi.DEFAULT_USER_NAME);
     }
 
     @Given("there is the write off with number '$writeOffNumber'")
@@ -26,10 +45,21 @@ public class WriteOffUserSteps {
         writeOffSteps.createWriteOffThroughPost(writeOffNumber);
     }
 
+    @Given("there is the write off with number '$writeOffNumber' in the store with number '$storeNumber' ruled by user with name '$userName'")
+    @Alias("there is the write off with sku '$writeOffNumber' in the store with number '$storeNumber' ruled by user with name '$userName'")
+    public void givenThereIsTheWriteOffWithNumberInTheStoreRuledByUser(String writeOffNumber, String storeNumber, String userName) throws IOException, JSONException {
+        writeOffSteps.createWriteOffThroughPost(writeOffNumber, storeNumber, userName);
+    }
+
     @Given("there is the write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
     public void givenThereIsTheWriteOffWithProduct(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws IOException, JSONException {
         writeOffSteps.createWriteOffThroughPost(writeOffNumber, productSku, productSku, productSku, "kg", "15", quantity, price, cause);
+    }
+
+    @Given("the user adds the product to the write off with number '$writeOffNumber' with sku '$productSku', quantity '$quantity', price '$price, cause '$cause' in the store ruled by '$userName'")
+    public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause, String userName) throws IOException, JSONException {
+        writeOffSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, userName);
     }
 
     @Given("the user navigates to new write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
@@ -151,13 +181,19 @@ public class WriteOffUserSteps {
     }
 
     @Given("the user opens write off list page")
-    public void givenTheUserOpensAmountListPage() {
+    public void givenTheUserOpensAmountListPage() throws IOException, JSONException {
+        beforeSteps();
         writeOffSteps.writeOffListPageOpen();
     }
 
     @Then("the user checks the write off with '$value' is present on write off list page")
     public void thenTheUserChecksTheProductWithValueHasElement(String value) {
         writeOffSteps.listItemCheck(value);
+    }
+
+    @Then("the user checks the write off with '$value' is not present on write off list page")
+    public void thenTheUserChecksTheProductWithValueHasElements(String value) {
+        writeOffSteps.itemCheckIsNotPresent(value);
     }
 
     @Then("the user checks the product with '$value' sku has '$name' element equal to '$expectedValue' on write off list page")

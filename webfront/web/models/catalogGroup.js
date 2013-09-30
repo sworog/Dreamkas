@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Model = require('kit/model');
+        var Model = require('kit/core/model');
 
         return Model.extend({
             modelName: 'catalogGroup',
@@ -11,10 +11,10 @@ define(function(require) {
                     return LH.baseApiUrl + '/groups';
                 }
             },
-            initData: {
+            nestedData: {
                 categories: require('collections/catalogCategories')
             },
-            saveFields: function(){
+            saveData: function(){
                 return {
                     name: this.get('name'),
                     retailMarkupMax: this.get('retailMarkupMax'),

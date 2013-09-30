@@ -1,14 +1,14 @@
 define(function(require) {
         //requirements
-        var Model = require('kit/model');
+        var Model = require('kit/core/model');
 
         return Model.extend({
             modelName: 'catalogCategory',
             urlRoot: LH.baseApiUrl + '/categories',
-            initData: {
+            nestedData: {
                 subCategories: require('collections/catalogSubCategories')
             },
-            saveFields: function(){
+            saveData: function(){
                 return {
                     name: this.get('name'),
                     group: this.get('group'),
@@ -17,10 +17,7 @@ define(function(require) {
                     rounding: this.get('rounding') ? this.get('rounding').name : null
                 }
             },
-            initialize: function(attrs, options) {
-
-                Model.prototype.initialize.apply(this, arguments);
-
+            initialize: function() {
                 if (this.collection && this.collection.group) {
                     this.set('group', this.collection.group);
                 }

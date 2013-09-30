@@ -5,10 +5,8 @@ namespace Lighthouse\CoreBundle\Document\User;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Types\Money;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
@@ -203,5 +201,14 @@ class User extends AbstractDocument implements UserInterface, EquatableInterface
      */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @param string $role
+     * @return bool
+     */
+    public function hasUserRole($role)
+    {
+        return in_array($role, $this->getRoles());
     }
 }

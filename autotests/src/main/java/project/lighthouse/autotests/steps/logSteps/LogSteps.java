@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.steps.logSteps;
 
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.pages.logPage.LogPage;
@@ -15,18 +16,22 @@ public class LogSteps extends ScenarioSteps {
         super(pages);
     }
 
+    @Step
     public void open() {
         logPage.open();
     }
 
+    @Step
     public void waitLastRecalcLogMessageSuccessStatus() {
         waitStatusForSuccess(LogPage.RECALC_PRODUCT_MESSAGE_TYPE);
     }
 
+    @Step
     public void waitLastSet10ExportProductLogMessageSuccessStatus() {
         waitStatusForSuccess(LogPage.SET10_EXPORT_PRODUCTS_TYPE);
     }
 
+    @Step
     public void waitStatusForSuccess(String logType) {
         String status = getStatusByType(logType);
         int retriesCount = 0;
@@ -52,22 +57,27 @@ public class LogSteps extends ScenarioSteps {
         return "";
     }
 
+    @Step
     public void assertLastRecalcLogProduct(String expectedMessage) {
         assertEquals(expectedMessage, logPage.getLastRecalcProductLogMessage().getProduct());
     }
 
+    @Step
     public void assertLastRecalcLogTitle(String expectedTitle) {
         assertEquals(expectedTitle, logPage.getLastRecalcProductLogMessage().getTitle());
     }
 
+    @Step
     public void assertLastRecalcLogStatusText(String expectedStatusText) {
         assertEquals(expectedStatusText, logPage.getLastRecalcProductLogMessage().getStatusText());
     }
 
+    @Step
     public void assertLastSet10ExportRecalcLogTitle(String expectedTitle) {
         assertEquals(expectedTitle, logPage.getLastExportLogMessage().getTitle());
     }
 
+    @Step
     public void assertLastSet10ExportRecalcLogStatusText(String expectedStatusText) {
         assertEquals(expectedStatusText, logPage.getLastExportLogMessage().getStatusText());
     }

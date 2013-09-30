@@ -1,6 +1,7 @@
 .form__label{
     display: block;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
+    font-size: 13px;
 }
 
 .form__fieldset{
@@ -17,34 +18,15 @@
 }
 
 .form__controls{
-    padding: 20px;
-    margin-top: 20px;
-    background: #fafafa;
 }
 
 .form__field{
-    padding-bottom: 10px;
+    padding-bottom: 16px;
 }
 
-.form__field_inline .form__label{
-    display: inline-block;
-    vertical-align: middle;
-    width: 140px;
-    padding-right: 20px;
-    padding-bottom: 0;
-}
-
-.form__field_inline .inputText, .form__field_inline .select{
+.form__field .inputText, .form__field .select{
     width: 300px;
     vertical-align: middle;
-}
-
-.form__field_inline textarea.inputText{
-    vertical-align: top;
-}
-
-textarea.inputText ~ .form__label{
-    margin-top: 5px;
 }
 
 .form__controlLink{
@@ -55,4 +37,17 @@ textarea.inputText ~ .form__label{
     vertical-align: middle;
     color: darkgreen;
     margin-left: 10px;
+}
+
+[data-error]:after {
+    content: attr(data-error);
+    display: block;
+    color: #c0392b;
+    padding-top: 4px;
+    font-size: 14px;
+}
+
+.form__controls[data-error]:after {
+    display: inline-block;
+    padding-top: 0;
 }

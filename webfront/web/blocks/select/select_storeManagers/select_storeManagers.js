@@ -7,24 +7,21 @@ define(function(require) {
         storeManagerCandidatesCollection: null,
         storeManagersCollection: null,
         storeModel: null,
-        templates: {
-            index: require('tpl!blocks/select/select_storeManagers/templates/index.html')
-        },
+        template: require('tpl!blocks/select/select_storeManagers/templates/index.html'),
         events: {
-            'change': 'change'
-        },
-        'change': function(event) {
-            var block = this,
-                userId = block.$el.find(':selected').data('user_id'),
-                userModel = block.storeManagerCandidatesCollection.get(userId);
+            'change': function(event) {
+                var block = this,
+                    userId = block.$el.find(':selected').data('user_id'),
+                    userModel = block.storeManagerCandidatesCollection.get(userId);
 
-            block.$el.addClass('preloader_rows');
+                block.$el.addClass('preloader_rows');
 
-            block.storeModel.linkManager(block.$el.val()).done(function(){
-                block.$el.removeClass('preloader_rows');
-                block.storeManagerCandidatesCollection.remove(userModel);
-                block.storeManagersCollection.add(userModel);
-            });
+                block.storeModel.linkStoreManager(block.$el.val()).done(function(){
+                    block.$el.removeClass('preloader_rows');
+                    block.storeManagerCandidatesCollection.remove(userModel);
+                    block.storeManagersCollection.add(userModel);
+                });
+            }
         },
         listeners: {
             storeManagerCandidatesCollection: {

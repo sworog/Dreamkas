@@ -1,12 +1,12 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Table_products = require('blocks/table/table_products/table_products'),
         ProductsCollection = require('collections/products');
 
     return Page.extend({
-        pageName: 'page_product_list',
-        templates: {
+        __name__: 'page_product_list',
+        partials: {
             '#content': require('tpl!./templates/list.html')
         },
         permissions: {
@@ -15,13 +15,13 @@ define(function(require) {
         initialize: function(){
             var page = this;
 
-            page.productsCollection = new ProductsCollection();
+            page.storeProductsCollection = new ProductsCollection();
 
-            $.when(page.productsCollection.fetch()).then(function(){
+            $.when(page.storeProductsCollection.fetch()).then(function(){
                 page.render();
 
                 new Table_products({
-                    collection: page.productsCollection,
+                    collection: page.storeProductsCollection,
                     el: document.getElementById('table_products')
                 });
             });

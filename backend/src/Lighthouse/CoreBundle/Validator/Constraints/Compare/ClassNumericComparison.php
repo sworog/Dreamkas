@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Exception\NullValueException;
-use Lighthouse\CoreBundle\Types\Money as MoneyType;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;

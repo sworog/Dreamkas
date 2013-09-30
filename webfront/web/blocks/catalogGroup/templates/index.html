@@ -1,33 +1,33 @@
 <% if (LH.isAllow('categories', 'POST')) { %>
 <div class="page__controls">
-    <a class="page__controlsLink editor__on"><%text 'Редактировать' %></a>
-    <a class="page__controlsLink editor__off"><%text 'Завершить редактирование' %></a>
+    <a class="page__controlsLink editor__on">Редактировать</a>
+    <a class="page__controlsLink editor__off">Завершить редактирование</a>
 </div>
 <% } %>
 
-<h3>
+<h1>
     <span style="vertical-align: middle">
-        <%attr catalogGroupModel:name %>
+        <%= LH.attr(catalogGroupModel, 'name') %>
     </span>
     <a class="editor__editLink catalog__editGroupLink"></a>
-    <a class="button button_color_blue catalog__addCategoryLink editor__control">
-        <%text 'Добавить категорию' %>
+    <a lh-button class="button catalog__addCategoryLink editor__control">
+        Добавить категорию
     </a>
-</h3>
+</h1>
 <div class="page__tabs">
     <div class="page__tabItem page__tabItem_active" rel="categoryList">
-        <%text 'Категории' %>
+        Категории
     </div>
     <% if(LH.isAllow('groups', 'PUT::{group}')) { %>
     <div class="page__tabItem" rel="groupProperties">
-        <%text 'Свойства' %>
+        Свойства
     </div>
     <% } %>
 </div>
 <div class="page__tabsContent">
     <div class="page__tabContentItem page__tabContentItem_active" rel="categoryList">
         <div id="catalog__categoryList" class="catalog__categoryList">
-            <%== templates.catalog__categoryList({
+            <%= templates.catalog__categoryList({
                 templates: templates,
                 catalogCategoriesCollection: catalogGroupModel.categories
             }) %>

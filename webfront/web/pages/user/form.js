@@ -1,27 +1,25 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Form_user = require('blocks/form/form_user/form_user'),
         UserModel = require('models/user');
 
     return Page.extend({
-        pageName: 'page_user_form',
-        templates: {
+        __name__: 'page_user_form',
+        partials: {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {
             users: 'POST'
         },
-        initialize: function(userId, params) {
+        initialize: function() {
             var page = this;
-
-            page.userId = userId;
 
             page.userModel = new UserModel({
                 id: page.userId
             });
 
-            $.when(userId ? page.userModel.fetch() : {}).then(function(){
+            $.when(page.userId ? page.userModel.fetch() : {}).then(function(){
                 page.render();
 
                 new Form_user({

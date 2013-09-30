@@ -1,13 +1,13 @@
 define(function(require) {
     //requirements
-    var BaseRouter = require('kit/router'),
-        topBar = require('blocks/topBar/topBar');
+    var Router = require('routers/base');
 
-    var Router = BaseRouter.extend({
+    return new Router({
         routes: {
             //common
             '': require('pages/common/dashboard'),
             '/': require('pages/common/dashboard'),
+            'logout(/)': require('utils/logout'),
             'dashboard(/)': require('pages/common/dashboard'),
             'sale(/)': require('pages/common/sale'),
             'balance(/)': require('pages/common/balance'),
@@ -53,18 +53,9 @@ define(function(require) {
             'stores/:storeId/departments/edit/:departmentId(/)': require('pages/department/form'),
             'stores/:storeId/departments/:departmentId(/)': require('pages/department/view'),
 
-            '*path': require('pages/common/404')
-        },
-        initialize: function(){
-            var router = this;
-
-            router.on({
-                route: function(){
-                    topBar.set('active', document.location.pathname);
-                }
-            });
+            //errors
+            '403(/)': require('pages/errors/403'),
+            '*path': require('pages/errors/404')
         }
     });
-
-    return new Router();
 });

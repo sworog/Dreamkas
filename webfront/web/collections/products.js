@@ -1,10 +1,23 @@
 define(function(require) {
         //requirements
-        var Collection = require('kit/collection');
+        var Collection = require('kit/core/collection');
 
         return Collection.extend({
             model: require('models/product'),
-            url: LH.baseApiUrl + "/products"
+            url: function() {
+                if (this.storeId) {
+                    return LH.baseApiUrl + "/stores/" + this.storeId + "/products";
+                } else {
+                    return LH.baseApiUrl + "/products";
+                }
+            },
+            initialize: function(models, options) {
+                if (options.storeId) {
+                    this.storeId = options.storeId;
+                } else {
+                    this.storeId = null;
+                }
+            }
         });
     }
 );

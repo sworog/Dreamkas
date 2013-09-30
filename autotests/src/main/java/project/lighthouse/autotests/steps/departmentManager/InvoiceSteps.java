@@ -40,8 +40,18 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
+    public void createInvoiceThroughPost(String invoiceName, String storeName, String userName) throws IOException, JSONException {
+        invoiceApi.createInvoiceThroughPost(invoiceName, storeName, userName);
+    }
+
+    @Step
     public void navigateToTheInvoicePage(String invoiceName) throws JSONException {
         invoiceApi.navigateToTheInvoicePage(invoiceName);
+    }
+
+    @Step
+    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price, String userName) throws IOException, JSONException {
+        invoiceApi.addProductToInvoice(invoiceName, productSku, quantity, price, userName);
     }
 
     @Step
@@ -147,7 +157,7 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void acceptChangesButtonClick() {
+    public void acceptChangesButtonClick() throws InterruptedException {
         invoiceBrowsing.acceptChangesButtonClick();
     }
 
@@ -157,7 +167,7 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void acceptDeleteButtonClick() {
+    public void acceptDeleteButtonClick() throws InterruptedException {
         invoiceBrowsing.acceptDeleteButtonClick();
     }
 

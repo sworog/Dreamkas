@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
@@ -18,7 +19,7 @@ class GroupController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.classifier.group")
-     * @var \Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository
+     * @var GroupRepository
      */
     protected $documentRepository;
 
@@ -34,7 +35,7 @@ class GroupController extends AbstractRestController
      * @Rest\View(statusCode=201)
      *
      * @param Request $request
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Classifier\Group\Group
+     * @return View|Group
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -47,8 +48,8 @@ class GroupController extends AbstractRestController
      * @Rest\View(statusCode=200)
      *
      * @param Request $request
-     * @param \Lighthouse\CoreBundle\Document\Classifier\Group\Group $group
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Classifier\Group\Group
+     * @param Group $group
+     * @return View|Group
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -58,7 +59,7 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\Classifier\Group\Group $group
+     * @param Group $group
      * @return null
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
@@ -69,9 +70,9 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\Classifier\Group\Group $group
+     * @param Group $group
      * @return Group
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function getGroupAction(Group $group)
@@ -83,7 +84,7 @@ class GroupController extends AbstractRestController
      * @param Store $store
      * @param Group $group
      * @return Group
-     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      */
     public function getStoreGroupAction(Store $store, Group $group)
     {
@@ -91,8 +92,8 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @return GroupCollection
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )
@@ -106,7 +107,7 @@ class GroupController extends AbstractRestController
     /**
      * @param Store $store
      * @return GroupCollection
-     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )

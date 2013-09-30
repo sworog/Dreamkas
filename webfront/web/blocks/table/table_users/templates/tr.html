@@ -1,14 +1,14 @@
-<tr name="user" href="/users/<%= model.get('id') %>">
+<tr name="user" href="/users/<%- model.get('id') %>">
     <td name="name">
-        <%text model.get('name') %>
+        <%- model.get('name') %>
     </td>
     <td name="position">
-        <%text model.get('position') %>
+        <%- LH.text(model.get('position')) %>
     </td>
     <td name="username">
-        <%= model.get('username') %>
+        <%- model.get('username') %>
     </td>
     <td name="role">
-        <%text model.get('role') %>
+        <%- LH.text(model.get('role')) %>
     </td>
 </tr>

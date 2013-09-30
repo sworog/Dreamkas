@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Collection = require('kit/collection'),
+    var Collection = require('kit/core/collection'),
         StoreModel = require('models/store');
 
     return Collection.extend({

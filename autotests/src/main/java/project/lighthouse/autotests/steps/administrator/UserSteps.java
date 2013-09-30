@@ -133,4 +133,9 @@ public class UserSteps extends ScenarioSteps {
     public void backToTheUsersListPageLink() {
         userCreatePage.backToTheUsersListPageLink();
     }
+
+    @Step
+    public void getUser(String userName) throws IOException, JSONException {
+        userApi.getUser(userName);
+    }
 }

@@ -1,30 +1,44 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         WriteOff = require('blocks/writeOff/writeOff'),
         WriteOffModel = require('models/writeOff'),
-        WriteOffProductsCollection = require('collections/writeOffProducts');
+        WriteOffProductsCollection = require('collections/writeOffProducts'),
+        currentUserModel = require('models/currentUser'),
+        Page403 = require('pages/errors/403'),
+        Page404 = require('pages/errors/404');
 
     return Page.extend({
-        pageName: 'page_writeOff_view',
-        templates: {
+        __name__: 'page_writeOff_view',
+        partials: {
             '#content': require('tpl!./templates/view.html')
         },
-        permissions: {
-            writeoffs: 'GET::{writeOff}'
-        },
-        initialize: function(writeOffId, params) {
+        initialize: function(pageParams) {
             var page = this;
 
-            page.writeOffId = writeOffId;
-            page.params = params || {};
+            if (!LH.isAllow('stores/{store}/writeoffs/{writeOff}/products', 'POST')){
+                new Page403();
+                return;
+            }
+
+            if (currentUserModel.stores.length){
+                pageParams.storeId = currentUserModel.stores.at(0).id;
+            }
+
+            if (!pageParams.storeId){
+                new Page403();
+                return;
+            }
+
+            page.writeOffId = pageParams.writeOffId;
 
             page.writeOffModel = new WriteOffModel({
                 id: page.writeOffId
             });
 
             page.writeOffProductsCollection = new WriteOffProductsCollection({
-                writeOffId: page.writeOffId
+                writeOffId: page.writeOffId,
+                storeId: pageParams.storeId
             });
 
             $.when(page.writeOffModel.fetch(), page.writeOffProductsCollection.fetch()).then(function(){
@@ -33,9 +47,11 @@ define(function(require) {
                 new WriteOff({
                     writeOffModel: page.writeOffModel,
                     writeOffProductsCollection: page.writeOffProductsCollection,
-                    editMode: page.params.editMode,
+                    editMode: page.editMode,
                     el: document.getElementById('writeOff')
                 });
+            }, function() {
+                new Page404();
             });
         }
     });

@@ -67,6 +67,11 @@ public class AuthorizationSteps extends ScenarioSteps {
     }
 
     @Step
+    public void error404isPresent() {
+        authorizationPage.error404isPresent();
+    }
+
+    @Step
     public void error403IsNotPresent() {
         authorizationPage.error403IsNotPresent();
     }

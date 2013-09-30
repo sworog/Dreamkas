@@ -1,11 +1,11 @@
-<tr href="/stores/<%= model.id %>">
+<tr href="/stores/<%- model.id %>">
     <td>
-        <%attr model:number %>
+        <%= LH.attr(model, 'number') %>
     </td>
     <td>
-        <%attr model:address %>
+        <%= LH.attr(model, 'address') %>
     </td>
     <td>
-        <%attr model:contacts %>
+        <%= LH.attr(model, 'contacts') %>
     </td>
 </tr>

@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
-use Symfony\Component\Validator\Constraint;
 use DateTime;
 
 /**

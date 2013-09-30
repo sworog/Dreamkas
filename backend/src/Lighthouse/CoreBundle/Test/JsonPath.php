@@ -27,11 +27,12 @@ class JsonPath
     }
 
     /**
+     * @param bool $suppressNotFound
      * @return array|mixed
      */
-    public function getValues()
+    public function getValues($suppressNotFound = false)
     {
-        $result = $this->path($this->json, $this->path);
+        $result = $this->path($this->json, $this->path, $suppressNotFound);
         if (false === strpos($this->path, '*')) {
             $result = array($result);
         }
@@ -54,7 +55,7 @@ class JsonPath
      * @return array|mixed
      * @throws \DomainException
      */
-    protected function path(array $array, $path)
+    protected function path(array $array, $path, $suppressNotFound = false)
     {
         $delimiter = self::DELIMITER;
         // Remove starting delimiters and spaces
@@ -92,8 +93,12 @@ class JsonPath
 
                 $values = array();
                 foreach ($array as $arr) {
-                    if ($value = $this->path($arr, implode($delimiter, $keys))) {
-                        $values[] = $value;
+                    try {
+                        $values[] = $this->path($arr, implode($delimiter, $keys));
+                    } catch (\DomainException $e) {
+                        if (!$suppressNotFound) {
+                            throw $e;
+                        }
                     }
                 }
 

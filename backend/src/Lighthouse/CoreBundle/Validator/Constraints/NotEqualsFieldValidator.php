@@ -4,15 +4,13 @@ namespace Lighthouse\CoreBundle\Validator\Constraints;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 class NotEqualsFieldValidator extends ConstraintValidator
 {
     /**
-     * @param $value
+     * @param mixed $value
      * @param Constraint|NotEqualsField $constraint
-     * @return bool|void
-     * @throws \Symfony\Component\Validator\Exception\MissingOptionsException
+     * @return bool
      */
     public function validate($value, Constraint $constraint)
     {

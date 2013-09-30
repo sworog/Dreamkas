@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
+use InvalidArgumentException;
 
 /**
  * @property string $id
@@ -16,7 +17,8 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $address
  * @property string $contacts
  * @property ArrayCollection|Department[] $departments
- * @property ArrayCollection|User[] $managers
+ * @property ManagerCollection|User[] $storeManagers
+ * @property ManagerCollection|User[] $departmentManagers
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Store\StoreRepository"
@@ -25,6 +27,9 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  */
 class Store extends AbstractDocument
 {
+    const REL_STORE_MANAGERS = 'storeManagers';
+    const REL_DEPARTMENT_MANAGERS = 'departmentManagers';
+
     /**
      * @MongoDB\Id
      * @var string
@@ -66,7 +71,7 @@ class Store extends AbstractDocument
      *      cascade="persist",
      *      mappedBy="store"
      * )
-     * @var Department[]
+     * @var Department[]|ArrayCollection
      */
     protected $departments;
 
@@ -76,15 +81,44 @@ class Store extends AbstractDocument
      *      simple=true,
      *      cascade="persist"
      * )
-     * @var User[]
+     * @var ManagerCollection|User[]
      */
-    protected $managers;
+    protected $storeManagers;
+
+    /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\User\User",
+     *      simple=true,
+     *      cascade="persist"
+     * )
+     * @var ManagerCollection|User[]
+     */
+    protected $departmentManagers;
 
     /**
      *
      */
     public function __construct()
     {
-        $this->managers = new ArrayCollection();
+        $this->departments = new ArrayCollection();
+        $this->storeManagers = new ManagerCollection();
+        $this->departmentManagers = new ManagerCollection();
+    }
+
+    /**
+     * @param string $rel
+     * @return ManagerCollection|User[]
+     * @throws InvalidArgumentException
+     */
+    public function getManagersByRel($rel)
+    {
+        switch ($rel) {
+            case self::REL_STORE_MANAGERS:
+                return $this->storeManagers;
+            case self::REL_DEPARTMENT_MANAGERS:
+                return $this->departmentManagers;
+            default:
+                throw new InvalidArgumentException(sprintf("Invalid rel '%s' given", $rel));
+        }
     }
 }

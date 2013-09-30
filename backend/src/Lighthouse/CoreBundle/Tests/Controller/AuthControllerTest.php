@@ -9,8 +9,6 @@ class AuthControllerTest extends WebTestCase
 {
     public function testAuth()
     {
-        $this->clearMongoDb();
-
         $authClient = $this->createAuthClient();
         $user = $this->createUser('admin', 'qwerty123');
 
@@ -46,8 +44,6 @@ class AuthControllerTest extends WebTestCase
 
     public function testRefreshToken()
     {
-        $this->clearMongoDb();
-
         $authClient = $this->createAuthClient();
         $user = $this->createUser('admin', 'qwerty123');
 
@@ -109,14 +105,31 @@ class AuthControllerTest extends WebTestCase
 
     public function testInvalidPassword()
     {
-        $this->clearMongoDb();
+        $authClient = $this->createAuthClient();
+
         $user = $this->createUser('test', 'password');
 
-        $response = $this->auth($user, 'qwerty');
+        $authParams = array(
+            'grant_type' => 'password',
+            'username' => 'test',
+            'password' => 'invalidpassword',
+            'client_id' => $authClient->getPublicId(),
+            'client_secret' => $authClient->getSecret()
+        );
+
+        $this->client->request(
+            'POST',
+            '/oauth/v2/token',
+            $authParams,
+            array(),
+            array('Content-Type' => 'application/x-www-form-urlencoded')
+        );
+
+        $response = $this->client->getJsonResponse();
 
         $this->assertResponseCode(400);
 
-        $this->assertObjectHasAttribute('error', $response);
-        $this->assertEquals('invalid_grant', $response->error);
+        $this->assertArrayHasKey('error', $response);
+        $this->assertEquals('invalid_grant', $response['error']);
     }
 }

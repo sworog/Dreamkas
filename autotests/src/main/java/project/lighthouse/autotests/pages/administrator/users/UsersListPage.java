@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.common.CommonView;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.NonType;
 
 @DefaultUrl("/users")
@@ -29,8 +30,7 @@ public class UsersListPage extends CommonPageObject {
     }
 
     public void createNewUserButtonClick() {
-        String createNewUserButtonXpath = "//*[@class='button']";
-        findElement(By.xpath(createNewUserButtonXpath)).click();
+        new ButtonFacade(getDriver(), "Добавить пользователя").click();
     }
 
     public void listItemClick(String skuValue) {

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.common.CommonView;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.NonType;
 
 @DefaultUrl("/writeOffs")
@@ -28,8 +29,7 @@ public class WriteOffListPage extends CommonPageObject {
     }
 
     public void writeOffItemListCreate() {
-        String xpath = "//a[@class='button']";
-        findElement(By.xpath(xpath)).click();
+        new ButtonFacade(getDriver(), "Новое списание").click();
     }
 
     public void listItemCheck(String skuValue) {

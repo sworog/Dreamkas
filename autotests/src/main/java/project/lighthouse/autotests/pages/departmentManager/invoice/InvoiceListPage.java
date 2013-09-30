@@ -1,10 +1,10 @@
 package project.lighthouse.autotests.pages.departmentManager.invoice;
 
 import net.thucydides.core.annotations.DefaultUrl;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 
 @DefaultUrl("/invoices")
 public class InvoiceListPage extends InvoiceCreatePage {
@@ -19,8 +19,7 @@ public class InvoiceListPage extends InvoiceCreatePage {
     }
 
     public void invoiceListItemCreate() {
-        String xpath = "//a[@class='button']";
-        findVisibleElement(By.xpath(xpath)).click();
+        new ButtonFacade(getDriver(), "Новая накладная").click();
     }
 
     public void listItemClick(String skuValue) {

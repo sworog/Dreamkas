@@ -1,16 +1,17 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
-            DataCollection = require('kit/blocks/table/collections/data'),
-            columnsCollection = require('kit/blocks/table/collections/columns');
+        var Block = require('../../core/block'),
+            DataCollection = require('./collections/data'),
+            columnsCollection = require('./collections/columns');
 
         return Block.extend({
+            __name__: 'table',
             loading: false,
             columns: [],
             collection: [],
             tagName: 'table',
             className: 'table',
-            __name__: 'table',
+            template: require('tpl!kit/blocks/table/templates/index.html'),
             templates: {
                 index: require('tpl!kit/blocks/table/templates/index.html'),
                 head: require('tpl!kit/blocks/table/templates/head.html'),
@@ -62,8 +63,6 @@ define(function(require) {
                 if (_.isArray(block.collection)){
                     block.collection = new DataCollection(block.collection);
                 }
-
-                Block.prototype.initialize.call(block);
             },
             renderBody: function(){
                 var block = this;

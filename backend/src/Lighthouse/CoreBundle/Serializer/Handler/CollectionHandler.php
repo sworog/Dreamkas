@@ -64,6 +64,7 @@ class CollectionHandler implements SubscribingHandlerInterface, EventSubscriberI
         $visitor->startVisitingObject($collectionMetadata, $collection, $type, $context);
 
         foreach ($collection->toArray() as $item) {
+            /* @var ClassMetadata $itemMetadata */
             $itemMetadata = $this->metadataFactory->getMetadataForClass(get_class($item));
 
             $itemNode = $visitor->document->createElement($itemMetadata->xmlRootName);

@@ -1,24 +1,24 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         pageParams = require('pages/catalog/params'),
         CatalogCategoryBlock = require('blocks/catalogCategory/catalogCategory'),
         CatalogProductsCollection = require('collections/catalogProducts'),
         СatalogGroupModel = require('models/catalogGroup'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/403/403');
+        Page403 = require('pages/errors/403');
 
     var router = new Backbone.Router();
 
     return Page.extend({
-        pageName: 'page_catalog_category',
-        templates: {
+        __name__: 'page_catalog_category',
+        partials: {
             '#content': require('tpl!./templates/category.html')
         },
-        initialize: function(catalogGroupId, catalogCategoryId, catalogSubCategoryId, params){
+        initialize: function(params){
             var page = this;
 
-            if (page.referer && page.referer.pageName.indexOf('page_catalog') >= 0){
+            if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0){
                 _.extend(pageParams, params);
             } else {
                 _.extend(pageParams, {
@@ -40,7 +40,7 @@ define(function(require) {
                 return;
             }
 
-            if (page.referer && page.referer.pageName === 'page_product_form'){
+            if (page.referrer && page.referrer.__name__ === 'page_product_form'){
                 pageParams.editMode = true;
             }
 
@@ -56,18 +56,18 @@ define(function(require) {
             });
 
             page.catalogGroupModel = new СatalogGroupModel({
-                id: catalogGroupId,
+                id: params.catalogGroupId,
                 storeId: pageParams.storeId
             });
 
             page.catalogProductsCollection = new CatalogProductsCollection([], {
-                subCategory: catalogSubCategoryId,
+                subCategory: params.catalogSubCategoryId,
                 storeId: pageParams.storeId
             });
 
-            $.when(page.catalogGroupModel.fetch(), catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
+            $.when(page.catalogGroupModel.fetch(), params.catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
 
-                page.catalogCategoryModel = page.catalogGroupModel.categories.get(catalogCategoryId);
+                page.catalogCategoryModel = page.catalogGroupModel.categories.get(params.catalogCategoryId);
                 page.catalogSubCategoriesCollection = page.catalogCategoryModel.subCategories;
 
                 page.render();
@@ -76,7 +76,7 @@ define(function(require) {
                     el: document.getElementById('catalogCategory'),
                     catalogCategoryModel: page.catalogCategoryModel,
                     catalogSubCategoriesCollection: page.catalogSubCategoriesCollection,
-                    catalogSubCategoryId: catalogSubCategoryId,
+                    catalogSubCategoryId: params.catalogSubCategoryId,
                     catalogProductsCollection: page.catalogProductsCollection,
                     editMode: pageParams.editMode
                 })

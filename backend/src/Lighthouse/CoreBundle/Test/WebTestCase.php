@@ -3,13 +3,10 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
-use Lighthouse\CoreBundle\Document\User\UserRepository;
-use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
-use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Lighthouse\CoreBundle\Test\Client\Client;
 
 /**
  * @codeCoverageIgnore
@@ -21,25 +18,34 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected $client;
 
-    protected $oauthClient;
+    /**
+     * @var User
+     */
+    protected $departmentManager;
 
     /**
-     * @var User[]
+     * @var string
      */
-    protected $oauthUsers = array();
+    protected $storeId;
+
+    /**
+     * @var Factory
+     */
+    protected $factory;
 
     protected function setUp()
     {
         $this->client = static::createClient();
+        $this->clearMongoDb();
+        $this->factory = new Factory($this->getContainer());
     }
 
     protected function tearDown()
     {
         parent::tearDown();
 
-        $this->oauthUsers = array();
+        $this->factory = null;
         $this->client = null;
-        $this->oauthClient = null;
     }
 
     /**
@@ -85,30 +91,21 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function jsonRequest(JsonRequest $jsonRequest, $accessToken = null)
     {
-        if (null !== $accessToken) {
-            $jsonRequest->setAccessToken($accessToken);
-        }
-
-        $this->client->request(
-            $jsonRequest->method,
-            $jsonRequest->uri,
-            $jsonRequest->parameters,
-            $jsonRequest->files,
-            $jsonRequest->server,
-            $jsonRequest->content,
-            $jsonRequest->changeHistory
-        );
-
-        return $this->parseJsonResponse($this->client);
+        return $this->client->jsonRequest($jsonRequest, $accessToken);
     }
 
     /**
      * @param array $modifiedData
-     * @return string
+     * @param string $storeId
+     * @param User $departmentManager
+     * @return mixed
      */
-    protected function createInvoice(array $modifiedData = array())
+    protected function createInvoice(array $modifiedData = array(), $storeId = null, User $departmentManager = null)
     {
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $storeId = ($storeId) ?: $this->createStore('42', '42', '42', true);
+        $departmentManager = ($departmentManager) ?: $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
+
+        $accessToken = $this->auth($departmentManager);
 
         $invoiceData = $modifiedData + array(
             'sku' => 'sku232',
@@ -123,7 +120,7 @@ class WebTestCase extends ContainerAwareTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/invoices',
+            '/api/1/stores/' . $storeId . '/invoices',
             $invoiceData
         );
 
@@ -134,15 +131,21 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @param string $storeId
      * @param string $invoiceId
      * @param string $productId
      * @param int $quantity
      * @param float $price
+     * @param string $storeId
+     * @param User $manager
      * @return string
      */
-    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
+    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price, $storeId = null, $manager = null)
     {
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $manager = ($manager) ?: $this->departmentManager;
+        $storeId = ($storeId) ?: $this->storeId;
+
+        $accessToken = $this->auth($manager);
 
         $invoiceProductData = array(
             'product' => $productId,
@@ -153,7 +156,7 @@ class WebTestCase extends ContainerAwareTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/invoices/' . $invoiceId . '/products.json',
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products',
             $invoiceProductData
         );
 
@@ -270,7 +273,7 @@ class WebTestCase extends ContainerAwareTestCase
             ),
         );
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($this->departmentManager);
 
         foreach ($productsData as $i => $row) {
 
@@ -283,7 +286,7 @@ class WebTestCase extends ContainerAwareTestCase
             $response = $this->clientJsonRequest(
                 $accessToken,
                 'POST',
-                '/api/1/invoices/' . $invoiceId . '/products.json',
+                '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products.json',
                 $invoiceProductData
             );
 
@@ -294,7 +297,7 @@ class WebTestCase extends ContainerAwareTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/invoices/' . $invoiceId . '/products.json'
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products'
         );
 
         $this->assertResponseCode(200);
@@ -313,8 +316,17 @@ class WebTestCase extends ContainerAwareTestCase
      * @param int $date timestamp
      * @return mixed
      */
-    protected function createWriteOff($number = '431-6782', $date = null)
-    {
+    protected function createWriteOff(
+        $number = '431-6782',
+        $date = null,
+        $storeId = null,
+        User $departmentManager = null
+    ) {
+        $storeId = ($storeId) ?: $this->createStore('42', '42', '42', true);
+        $departmentManager = ($departmentManager) ?: $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
+
+        $accessToken = $this->auth($departmentManager);
+
         $date = $date ? : date('c', strtotime('-1 day'));
 
         $postData = array(
@@ -322,12 +334,10 @@ class WebTestCase extends ContainerAwareTestCase
             'date' => $date,
         );
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
-
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/writeoffs.json',
+            '/api/1/stores/' . $storeId . '/writeoffs',
             $postData
         );
 
@@ -346,8 +356,23 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $cause
      * @return string
      */
-    protected function createWriteOffProduct($writeOffId, $productId, $price = 5.99, $quantity = 10, $cause = 'Порча')
-    {
+    protected function createWriteOffProduct(
+        $writeOffId,
+        $productId,
+        $price = 5.99,
+        $quantity = 10,
+        $cause = 'Порча',
+        $storeId = null,
+        $manager = null
+    ) {
+        $manager = ($manager) ?: $this->departmentManager;
+        $storeId = ($storeId) ?: $this->storeId;
+        $price = ($price) ?: 5.99;
+        $quantity = ($quantity) ?: 10;
+        $cause = ($cause) ?: 'Порча';
+
+        $accessToken = $this->auth($manager);
+
         $postData = array(
             'product' => $productId,
             'price' => $price,
@@ -355,8 +380,11 @@ class WebTestCase extends ContainerAwareTestCase
             'cause' => $cause,
         );
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
-        $request = new JsonRequest('/api/1/writeoffs/' . $writeOffId . '/products', 'POST', $postData);
+        $request = new JsonRequest(
+            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products',
+            'POST',
+            $postData
+        );
         $postResponse = $this->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(201);
@@ -456,20 +484,40 @@ class WebTestCase extends ContainerAwareTestCase
         $this->performJsonAssertions($productJson, $assertions);
     }
 
+    /**
+     * @param string $storeId
+     * @param string $productId
+     * @param array $assertions
+     */
+    protected function assertStoreProduct($storeId, $productId, array $assertions)
+    {
+        $storeManager = $this->factory->getStoreManager($storeId);
+        $accessToken = $this->factory->auth($storeManager);
+
+        $storeProductJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products/' . $productId
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->performJsonAssertions($storeProductJson, $assertions);
+    }
 
     /**
+     * @param string $storeId
      * @param string $productId
      * @param int $amount
-     * @param float $lastPurchasePrice
      */
-    protected function assertProductTotals($productId, $amount, $lastPurchasePrice)
+    protected function assertStoreProductTotals($storeId, $productId, $amount, $lastPurchasePrice = null)
     {
         $assertions = array(
             'amount' => $amount,
-            'lastPurchasePrice' => $lastPurchasePrice,
+            'lastPurchasePrice' => $lastPurchasePrice
         );
 
-        $this->assertProduct($productId, $assertions);
+        $this->assertStoreProduct($storeId, $productId, $assertions);
     }
 
     /**
@@ -595,7 +643,7 @@ class WebTestCase extends ContainerAwareTestCase
             'contacts' => $contacts,
         );
 
-        $accessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         if ($ifNotExists) {
             $postResponse = $this->clientJsonRequest(
@@ -683,20 +731,20 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $storeId
      * @param string|array $userIds
+     * @param string $rel
      */
     public function linkStoreManagers($storeId, $userIds)
     {
-        $userIds = (array) $userIds;
+        $this->factory->linkStoreManagers($storeId, $userIds);
+    }
 
-        $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        foreach ($userIds as $userId) {
-            $request->addLinkHeader('http://localhost/api/1/users/' . $userId, 'managers');
-        }
-
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $this->jsonRequest($request, $accessToken);
-
-        $this->assertResponseCode(204);
+    /**
+     * @param string $storeId
+     * @param string|string[] $userIds
+     */
+    public function linkDepartmentManagers($storeId, $userIds)
+    {
+        $this->factory->linkDepartmentManagers($storeId, $userIds);
     }
 
     /**
@@ -730,20 +778,11 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param string $secret
      * @return AuthClient
      */
-    protected function createAuthClient($secret = 'secret')
+    protected function createAuthClient()
     {
-        $client = new AuthClient();
-        $client->setSecret($secret);
-
-        $dm = $this->getContainer()->get('doctrine_mongodb.odm.document_manager');
-
-        $dm->persist($client);
-        $dm->flush();
-
-        return $client;
+        return $this->factory->getAuthClient();
     }
 
     /**
@@ -756,28 +795,12 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createUser(
         $username = 'admin',
-        $password = 'password',
-        $role = 'ROLE_ADMINISTRATOR',
+        $password = Factory::USER_DEFAULT_PASSWORD,
+        $role = User::ROLE_ADMINISTRATOR,
         $name = 'Админ Админыч',
         $position = 'Администратор'
     ) {
-        /* @var UserRepository $userRepository */
-        $userRepository = $this->getContainer()->get('lighthouse.core.document.repository.user');
-        /* @var UserProvider $userProvider */
-        $userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
-
-        $user = new User();
-        $user->name = $name;
-        $user->username = $username;
-        $user->role = $role;
-        $user->position = $position;
-
-        $userProvider->setPassword($user, $password);
-
-        $userRepository->getDocumentManager()->persist($user);
-        $userRepository->getDocumentManager()->flush();
-
-        return $user;
+        return $this->factory->getUser($username, $password, $role, $name, $position);
     }
 
     /**
@@ -786,8 +809,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function authAsRole($role)
     {
-        $user = $this->getRoleUser($role);
-        return $this->auth($user);
+        return $this->factory->authAsRole($role);
     }
 
     /**
@@ -796,11 +818,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function getRoleUser($role)
     {
-        if (!isset($this->oauthUsers[$role])) {
-            $this->oauthUsers[$role] = $this->createUser($role, 'password', $role, $role, $role);
-        }
-
-        return $this->oauthUsers[$role];
+        return $this->factory->getRoleUser($role);
     }
 
     /**
@@ -809,73 +827,21 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function getStoreManager($storeId)
     {
-        $username = 'storeManagerStore' . $storeId;
-        if (!isset($this->oauthUsers[$username])) {
-            $storeManager = $this->createUser($username, 'password', User::ROLE_STORE_MANAGER);
-            $this->linkStoreManagers($storeId, $storeManager->id);
-            $this->oauthUsers[$username] = $storeManager;
-        }
-        return $this->oauthUsers[$username];
+        return $this->factory->getStoreManager($storeId);
     }
 
     /**
-     * @param User $oauthUser
+     * @param User $user
      * @param string $password
      * @param AuthClient $oauthClient
      * @return \stdClass access token
      */
-    protected function auth(User $oauthUser = null, $password = 'password', AuthClient $oauthClient = null)
-    {
-        if (!$oauthClient) {
-            if (!$this->oauthClient) {
-                $this->oauthClient = $this->createAuthClient();
-            }
-            $oauthClient = $this->oauthClient;
-        }
-
-        if (!$oauthUser) {
-            $oauthUser = $this->getRoleUser('ROLE_ADMINISTRATOR');
-        }
-
-        $authParams = array(
-            'grant_type' => 'password',
-            'username' => $oauthUser->username,
-            'password' => $password,
-            'client_id' => $oauthClient->getPublicId(),
-            'client_secret' => $oauthClient->getSecret()
-        );
-
-        $this->client->request(
-            'POST',
-            '/oauth/v2/token',
-            $authParams,
-            array(),
-            array('Content-Type' => 'application/x-www-form-urlencoded')
-        );
-
-        $response = $this->client->getResponse()->getContent();
-        $json = json_decode($response);
-
-        return $json;
-    }
-
-    /**
-     * @param Client $client
-     * @return mixed
-     * @throws \PHPUnit_Framework_AssertionFailedError
-     */
-    protected function parseJsonResponse(Client $client)
-    {
-        $content = $client->getResponse()->getContent();
-        $json = json_decode($content, true);
-
-        if (0 != json_last_error()) {
-            throw new \PHPUnit_Framework_AssertionFailedError(
-                sprintf('Failed asserting that response body is json. Response given: %s', $content)
-            );
-        }
-
-        return $json;
+    protected function auth(
+        User $user,
+        $password = Factory::USER_DEFAULT_PASSWORD,
+        AuthClient $oauthClient = null
+    ) {
+        return $this->factory->auth($user, $password, $oauthClient);
     }
 
     /**
@@ -926,9 +892,10 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @param string $configId
      * @param string $name
      * @param string $value
-     * @return mixed
+     * @return string
      */
     public function updateConfig($configId, $name = 'test-config', $value = 'test-config-value')
     {
@@ -955,5 +922,25 @@ class WebTestCase extends ContainerAwareTestCase
         Assert::assertJsonPathEquals($configId, 'id', $postResponse);
 
         return $postResponse['id'];
+    }
+
+    /**
+     * @param string $userId
+     * @return string
+     */
+    protected function getUserResourceUri($userId)
+    {
+        return $this->factory->getUserResourceUri($userId);
+    }
+
+    /**
+     *
+     */
+    protected function initStoreDepartmentManager()
+    {
+        $this->departmentManager = $this->createUser('Краузе В.П.', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->storeId = $this->createStore();
+
+        $this->linkDepartmentManagers($this->storeId, $this->departmentManager->id);
     }
 }

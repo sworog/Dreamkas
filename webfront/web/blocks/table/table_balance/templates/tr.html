@@ -1,24 +1,24 @@
 <tr name="amountItem">
     <td name="sku">
-        <%= model.get('sku') %>
+        <%- model.get('product').sku %>
     </td>
     <td name="name">
-        <%text model.get('name') %>
+        <%- model.get('product').name %>
     </td>
     <td name="vendor">
-        <%text model.get('vendor') %>
+        <%- model.get('product').vendor %>
     </td>
     <td name="vendorCountry">
-        <%text model.get('vendorCountry') %>
+        <%- model.get('product').vendorCountry %>
     </td>
     <td name="averagePurchasePrice">
-        <%== model.get('averagePurchasePrice') ? LH.formatPrice(model.get('averagePurchasePrice')) + 'р.' : '&mdash;' %>
+        <%=model.get('averagePurchasePrice') ? LH.formatPrice(model.get('averagePurchasePrice')) + 'р.' : '&mdash;' %>
     </td>
     <td name="lastPurchasePrice">
-        <%= model.get('lastPurchasePrice') ? LH.formatPrice(model.get('lastPurchasePrice')) : LH.formatPrice(model.get('purchasePrice')) %> р.
+        <%- model.get('lastPurchasePrice') ? LH.formatPrice(model.get('lastPurchasePrice')) : LH.formatPrice(model.get('product').purchasePrice) %> р.
     </td>
     <td>
-        <span name="amount"><%= model.get('amount') || 0 %></span>
-        <span name="units"><%text LH.units(model.get('units'), 'smallShort') %></span>
+        <span name="amount"><%- model.get('amount') || 0 %></span>
+        <span name="units"><%- LH.units(model.get('units'), 'smallShort') %></span>
     </td>
 </tr>

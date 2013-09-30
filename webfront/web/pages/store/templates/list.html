@@ -1,8 +1,6 @@
-<div class="box">
-    <h3><%text 'Магазины' %>
-        <% if(LH.isAllow('stores', 'POST')) { %>
-            <a class="button" href="/stores/create" style="margin-left: 20px;"><%text 'Новый магазин' %></a>
-        <% } %>
-    </h3>
-    <table id="table_stores" class="table"></table>
-</div>
+<h1>Магазины
+    <% if(LH.isAllow('stores', 'POST')) { %>
+    <a class="button" href="/stores/create" style="margin-left: 20px;"><%- 'Новый магазин' %></a>
+    <% } %>
+</h1>
+<table id="table_stores" class="table"></table>

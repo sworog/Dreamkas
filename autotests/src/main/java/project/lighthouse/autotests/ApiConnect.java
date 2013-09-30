@@ -86,33 +86,33 @@ public class ApiConnect {
     }
 
     public String getInvoicePageUrl(String invoiceName) throws JSONException {
-        String invoiceId = StaticData.invoices.get(invoiceName).getId();
-        return String.format("%s/invoices/%s?editMode=true", UrlHelper.getWebFrontUrl(), invoiceId);
+        Invoice invoice = StaticData.invoices.get(invoiceName);
+        return String.format("%s/invoices/%s?editMode=true", UrlHelper.getWebFrontUrl(), invoice.getId());
     }
 
-    public void addProductToInvoice(String invoiceName, String productSku)
+    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price)
             throws JSONException, IOException {
-        String productId = StaticData.products.get(productSku).getId();
-        String invoiceId = StaticData.invoices.get(invoiceName).getId();
-        if (!hasInvoiceProduct(invoiceId, productId)) {
-            String apiUrl = String.format("%s/api/1/invoices/%s/products.json", UrlHelper.getApiUrl(), invoiceId);
-            String productJsonData = InvoiceProduct.getJsonObject(productId, "1", "1").toString();
+        Product product = StaticData.products.get(productSku);
+        Invoice invoice = StaticData.invoices.get(invoiceName);
+        if (!hasInvoiceProduct(invoice, product)) {
+            String apiUrl = String.format("%s%s/%s/products.json", UrlHelper.getApiUrl(""), invoice.getApiUrl(), invoice.getId());
+            String productJsonData = InvoiceProduct.getJsonObject(product.getId(), quantity, price).toString();
             executePostRequest(apiUrl, productJsonData);
         }
     }
 
-    public Boolean hasInvoiceProduct(String invoiceId, String productId) throws IOException, JSONException {
-        JSONArray jsonArray = getInvoiceProducts(invoiceId);
+    public Boolean hasInvoiceProduct(Invoice invoice, Product product) throws IOException, JSONException {
+        JSONArray jsonArray = getInvoiceProducts(invoice);
         for (int i = 0; i < jsonArray.length(); i++) {
-            if (jsonArray.getJSONObject(i).getJSONObject("product").getString("id").equals(productId)) {
+            if (jsonArray.getJSONObject(i).getJSONObject("product").getString("id").equals(product.getId())) {
                 return true;
             }
         }
         return false;
     }
 
-    public JSONArray getInvoiceProducts(String invoiceId) throws IOException, JSONException {
-        String url = String.format("%s/api/1/invoices/%s/products", UrlHelper.getApiUrl(), invoiceId);
+    public JSONArray getInvoiceProducts(Invoice invoice) throws IOException, JSONException {
+        String url = String.format("%s%s/%s/products", UrlHelper.getApiUrl(""), invoice.getApiUrl(), invoice.getId());
         String response = executeSimpleGetRequest(url, true);
         return new JSONArray(response);
     }
@@ -138,11 +138,11 @@ public class ApiConnect {
 
     public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws JSONException, IOException {
-        String productId = StaticData.products.get(productSku).getId();
-        String writeOffId = StaticData.writeOffs.get(writeOffNumber).getId();
-        String apiUrl = String.format("%s/api/1/writeoffs/%s/products.json", UrlHelper.getApiUrl(), writeOffId);
+        Product product = StaticData.products.get(productSku);
+        WriteOff writeOff = StaticData.writeOffs.get(writeOffNumber);
+        String apiUrl = String.format("%s%s/%s/products.json", UrlHelper.getApiUrl(""), writeOff.getApiUrl(), writeOff.getId());
 
-        String productJsonData = WriteOffProduct.getJsonObject(productId, quantity, price, cause).toString();
+        String productJsonData = WriteOffProduct.getJsonObject(product.getId(), quantity, price, cause).toString();
         executePostRequest(apiUrl, productJsonData);
     }
 
@@ -235,6 +235,20 @@ public class ApiConnect {
         return createUserThroughPost(user);
     }
 
+    public User getUser(String userName) throws IOException, JSONException {
+        JSONArray jsonArray = new JSONArray(executeSimpleGetRequest(UrlHelper.getApiUrl("/users"), true));
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.getString("username").equals(userName)) {
+                User user = new User(new JSONObject());
+                user.setJsonObject(jsonObject);
+                StaticData.users.put(userName, user);
+                return user;
+            }
+        }
+        return null;
+    }
+
     public Store createStoreThroughPost(Store store) throws JSONException, IOException {
         if (!StaticData.stores.containsKey(store.getNumber())) {
             executePostRequest(store);
@@ -264,12 +278,12 @@ public class ApiConnect {
         );
     }
 
-    public void promoteStoreManager(Store store, User user) throws JSONException, IOException {
-        if (!hasStoreManager(store, user)) {
+    public void promoteUserToManager(Store store, User user, String type) throws JSONException, IOException {
+        if (!hasStoreManager(store, user, type)) {
             String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/stores"), store.getId());
             String data = "_method=LINK";
             HttpPost httpPost = getHttpPost(apiUrl);
-            httpPost.setHeader("Link", getLinkHeaderValue(user));
+            httpPost.setHeader("Link", getLinkHeaderValue(user, type));
             StringEntity entity = new StringEntity(data, "UTF-8");
             entity.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
             httpPost.setEntity(entity);
@@ -277,8 +291,8 @@ public class ApiConnect {
         }
     }
 
-    private Boolean hasStoreManager(Store store, User user) throws JSONException, IOException {
-        String apiUrl = String.format("%s/%s/managers", UrlHelper.getApiUrl("/stores"), store.getId());
+    private Boolean hasStoreManager(Store store, User user, String type) throws JSONException, IOException {
+        String apiUrl = String.format("%s/%s/%s", UrlHelper.getApiUrl("/stores"), store.getId(), type);
         String response = executeSimpleGetRequest(apiUrl, true);
         JSONArray jsonArray = new JSONArray(response);
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -338,8 +352,8 @@ public class ApiConnect {
         return new DefaultHttpClient(httpParams);
     }
 
-    private String getLinkHeaderValue(User user) throws JSONException {
-        return String.format("<%s/%s>; rel=\"managers\"", UrlHelper.getApiUrl("/users"), user.getId());
+    private String getLinkHeaderValue(User user, String type) throws JSONException {
+        return String.format("<%s/%s>; rel=\"%s\"", UrlHelper.getApiUrl("/users"), user.getId(), type);
     }
 
     private String executePutRequest(String targetURL, String urlParameters) throws IOException, JSONException {

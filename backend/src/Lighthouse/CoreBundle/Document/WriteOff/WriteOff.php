@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Document\WriteOff;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -13,13 +15,23 @@ use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
  *     repositoryClass="Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository"
  * )
  */
-class WriteOff extends AbstractDocument
+class WriteOff extends AbstractDocument implements Storeable
 {
     /**
      * @MongoDB\Id
      * @var string
      */
     protected $id;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true
+     * )
+     * @Assert\NotBlank
+     * @var Store
+     */
+    protected $store;
 
     /**
      * Номер
@@ -64,4 +76,12 @@ class WriteOff extends AbstractDocument
      * @var WriteOffProduct[]
      */
     protected $products;
+
+    /**
+     * @return Store
+     */
+    public function getStore()
+    {
+        return $this->store;
+    }
 }

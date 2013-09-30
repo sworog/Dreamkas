@@ -1,11 +1,11 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/page'),
+    var Page = require('kit/core/page'),
         Form_login = require('blocks/form/form_login/form_login');
 
     return Page.extend({
-        pageName: 'page_common_login',
-        templates: {
+        __name__: 'page_common_login',
+        partials: {
             '#content': require('tpl!./templates/login.html')
         },
         initialize: function(){

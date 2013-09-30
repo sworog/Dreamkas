@@ -56,4 +56,11 @@ class ContainerAwareTestCase extends WebTestCase
         $mongoDb->getSchemaManager()->createCollections();
         $mongoDb->getSchemaManager()->ensureIndexes();
     }
+
+    protected function clearJobs()
+    {
+        /* @var \Lighthouse\CoreBundle\Job\JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+        $jobManager->startWatchingTubes()->purgeTubes()->stopWatchingTubes();
+    }
 }

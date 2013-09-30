@@ -2,11 +2,11 @@ package project.lighthouse.autotests.pages.commercialManager.store;
 
 
 import net.thucydides.core.annotations.DefaultUrl;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.PreLoader;
 
 @DefaultUrl("/stores/create")
 public class StoreCreatePage extends CommonPageObject {
@@ -22,15 +22,13 @@ public class StoreCreatePage extends CommonPageObject {
         items.put("contacts", new Input(this, "contacts"));
     }
 
-    public WebElement createButton() {
-        return findVisibleElement(
-                By.xpath("//*[@class='button button_color_blue']")
-        );
+    public void createButtonClick() {
+        new ButtonFacade(getDriver(), "Добавить").click();
+        new PreLoader(getDriver()).await();
     }
 
-    public WebElement saveButton() {
-        return findVisibleElement(
-                By.xpath("//*[@class='button button_color_blue']")
-        );
+    public void saveButtonClick() {
+        new ButtonFacade(getDriver(), "Сохранить").click();
+        new PreLoader(getDriver()).await();
     }
 }

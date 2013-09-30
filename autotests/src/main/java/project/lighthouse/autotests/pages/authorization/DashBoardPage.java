@@ -18,7 +18,7 @@ public class DashBoardPage extends CommonPageObject {
     }
 
     private String getButtonXpath(String name) {
-        return String.format("//*[@href='/%s']", name);
+        return String.format("//*[contains(@href, '/%s')]", name);
     }
 
     public void buttonClick(String name) {
@@ -49,6 +49,6 @@ public class DashBoardPage extends CommonPageObject {
     }
 
     public void openUserCard() {
-        findVisibleElement(By.className("topBar__userName")).click();
+        findVisibleElement(By.className("navigationBar__userName")).click();
     }
 }

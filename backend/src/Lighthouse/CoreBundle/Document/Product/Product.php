@@ -26,14 +26,12 @@ use JMS\Serializer\Annotation\Exclude;
  * @property string $vendorCountry
  * @property string $vendor
  * @property string $info
- * @property int    $amount
  * @property Money  $retailPriceMin
  * @property Money  $retailPriceMax
  * @property float  $retailMarkupMin
  * @property float  $retailMarkupMax
  * @property string $retailPricePreference
  * @property AbstractRounding $rounding
- * @property Money  $averagePurchasePrice
  * @property SubCategory $subCategory
  *
  * @MongoDB\Document(
@@ -91,12 +89,6 @@ class Product extends AbstractDocument implements VersionableInterface
     protected $purchasePrice;
 
     /**
-     * @MongoDB\Field(type="money")
-     * @var Money
-     */
-    protected $lastPurchasePrice;
-
-    /**
      * @MongoDB\String
      * @Assert\Length(max="200", maxMessage="lighthouse.validation.errors.length")
      */
@@ -127,13 +119,6 @@ class Product extends AbstractDocument implements VersionableInterface
      * @Assert\Length(max="2000", maxMessage="lighthouse.validation.errors.length")
      */
     protected $info;
-
-    /**
-     * Остаток
-     * @MongoDB\Increment
-     * @var int
-     */
-    protected $amount;
 
     /**
      * @MongoDB\Field(type="money")
@@ -176,12 +161,6 @@ class Product extends AbstractDocument implements VersionableInterface
      * @var string
      */
     protected $roundingId;
-
-    /**
-     * @MongoDB\Field(type="money")
-     * @var Money
-     */
-    protected $averagePurchasePrice;
 
     /**
      * @MongoDB\ReferenceOne(

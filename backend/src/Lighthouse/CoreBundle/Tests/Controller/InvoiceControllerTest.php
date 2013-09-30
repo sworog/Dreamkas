@@ -3,14 +3,16 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\JsonPath;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Document\User\User;
 
 class InvoiceControllerTest extends WebTestCase
 {
     protected function setUp()
     {
         parent::setUp();
-        $this->clearMongoDb();
+        $this->initStoreDepartmentManager();
     }
 
     /**
@@ -19,12 +21,12 @@ class InvoiceControllerTest extends WebTestCase
     public function testPostInvoiceAction(array $invoiceData, array $assertions = array())
     {
         $assertions['createdDate'] = $this->getNowDate();
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($this->departmentManager);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/invoices',
+            '/api/1/stores/' . $this->storeId . '/invoices',
             $invoiceData
         );
 
@@ -40,15 +42,15 @@ class InvoiceControllerTest extends WebTestCase
     {
         for ($i = 0; $i < 5; $i++) {
             $invoiceData['sku'] = '12122004' . $i;
-            $this->createInvoice($invoiceData);
+            $this->createInvoice($invoiceData, $this->storeId, $this->departmentManager);
         }
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($this->departmentManager);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/invoices'
+            '/api/1/stores/' . $this->storeId . '/invoices'
         );
 
         $this->assertResponseCode(200);
@@ -61,14 +63,14 @@ class InvoiceControllerTest extends WebTestCase
     public function testGetInvoice(array $invoiceData, array $assertions)
     {
         $assertions['createdDate'] = $this->getNowDate();
-        $id = $this->createInvoice($invoiceData);
+        $id = $this->createInvoice($invoiceData, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($this->departmentManager);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/invoices/' . $id
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $id
         );
 
         $this->assertResponseCode(200);
@@ -108,15 +110,41 @@ class InvoiceControllerTest extends WebTestCase
     {
         $id = 'not_exists_id';
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($this->departmentManager);
 
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/invoices/' . $id
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $id
         );
 
         $this->assertResponseCode(404);
+    }
+
+    public function testGetInvoiceNotFoundInAnotherStore()
+    {
+        $storeId2 = $this->createStore('43');
+        $this->linkDepartmentManagers($storeId2, $this->departmentManager->id);
+
+        $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
+
+        $accessToken = $this->auth($this->departmentManager);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/invoices/' . $invoiceId
+        );
+
+        $this->assertResponseCode(404);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId
+        );
+
+        $this->assertResponseCode(200);
     }
 
     /**
@@ -128,12 +156,12 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = $data + $invoiceData['invoice']['data'];
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($this->departmentManager);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/invoices',
+            '/api/1/stores/' . $this->storeId . '/invoices',
             $postData
         );
 
@@ -153,12 +181,12 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = $data + $invoiceData['invoice']['data'];
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($this->departmentManager);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/invoices',
+            '/api/1/stores/' . $this->storeId . '/invoices',
             $postData
         );
 
@@ -205,12 +233,12 @@ class InvoiceControllerTest extends WebTestCase
             $putAssertions['createdDate'] = $this->getNowDate();
         }
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->auth($this->departmentManager);
 
         $postJson = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/invoices',
+            '/api/1/stores/' . $this->storeId . '/invoices',
             $postData
         );
 
@@ -225,7 +253,7 @@ class InvoiceControllerTest extends WebTestCase
         $putJson = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/invoices/' . $invoiceId,
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId,
             $putData
         );
 
@@ -528,5 +556,50 @@ class InvoiceControllerTest extends WebTestCase
                 ),
             ),
         );
+    }
+
+    public function testDepartmentManagerCantGetInvoiceFromAnotherStore()
+    {
+        $storeId2 = $this->createStore('43');
+        $departmentManager2 = $this->createUser('Депардье Ж.К.М.', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->linkDepartmentManagers($storeId2, $departmentManager2->id);
+
+        $accessToken1 = $this->auth($this->departmentManager);
+        $accessToken2 = $this->auth($departmentManager2);
+
+        $invoiceId1 = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
+        $invoiceId2 = $this->createInvoice(array(), $storeId2, $departmentManager2);
+
+        $this->clientJsonRequest(
+            $accessToken2,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(403);
+
+        $this->clientJsonRequest(
+            $accessToken1,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/invoices/' . $invoiceId2
+        );
+
+        $this->assertResponseCode(403);
+
+        $this->clientJsonRequest(
+            $accessToken1,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->clientJsonRequest(
+            $accessToken2,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/invoices/' . $invoiceId2
+        );
+
+        $this->assertResponseCode(200);
     }
 }

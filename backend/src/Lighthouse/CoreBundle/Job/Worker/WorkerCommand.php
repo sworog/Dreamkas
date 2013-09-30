@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Job\Worker;
 
-use Lighthouse\CoreBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Exception\Job\NotFoundJobException;
 use Symfony\Component\Console\Command\Command;

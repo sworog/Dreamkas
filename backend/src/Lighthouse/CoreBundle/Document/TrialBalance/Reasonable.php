@@ -2,9 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
-use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Productable;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Document\Store\Storeable;
 
 interface Reasonable extends Productable
 {
@@ -22,4 +21,9 @@ interface Reasonable extends Productable
      * @return \DateTime
      */
     public function getReasonDate();
+
+    /**
+     * @return Storeable
+     */
+    public function getReasonParent();
 }

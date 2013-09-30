@@ -2,8 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 

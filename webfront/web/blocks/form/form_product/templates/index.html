@@ -1,39 +1,39 @@
-<h3><%text model.id ? 'Редактирование товара' : 'Добавление товара' %></h3>
+<h1><%- model.id ? 'Редактирование товара' : 'Добавление товара' %></h1>
 <fieldset class="form__fieldset">
     <div class="form__field form__field_inline">
         <label class="form__label">Артикул</label>
-        <input value="<%= model.get('sku') %>" class="inputText" type="text" name="sku"/>
+        <input value="<%- model.get('sku') %>" class="inputText" type="text" name="sku"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Наименование</label>
-        <input value="<%= model.get('name') %>" class="inputText" type="text" name="name"/>
+        <input value="<%- model.get('name') %>" class="inputText" type="text" name="name"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Измеряется в</label>
-        <select value="<%= model.get('units') %>" class="select" name="units" require="blocks/select/select_unit/select_unit"></select>
+        <select value="<%- model.get('units') %>" class="select" name="units" require="blocks/select/select_unit/select_unit"></select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">НДС</label>
-        <select value="<%= model.get('vat') %>" class="select" name="vat" require="blocks/select/select_vat/select_vat"></select>
+        <select value="<%- model.get('vat') %>" class="select" name="vat" require="blocks/select/select_vat/select_vat"></select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена закупки</label>
-        <input style="width: 150px;" value="<%= model.get('purchasePrice') ? LH.formatPrice(model.get('purchasePrice')) : '' %>" class="inputText" type="text" name="purchasePrice"/>
+        <input style="width: 150px;" value="<%- model.get('purchasePrice') ? LH.formatPrice(model.get('purchasePrice')) : '' %>" class="inputText" type="text" name="purchasePrice"/>
         <span class="inputText__postfix">руб.</span>
     </div>
     <div class="form__field form__field_inline productForm__retailMarkupField">
         <label class="form__label">Диапазон наценки</label>
-        <span name="retailMarkup" class="retailMarkup productForm__linkedInput <%text model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>">
+        <span name="retailMarkup" class="retailMarkup productForm__linkedInput <%- model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>">
             <input
                    style="width: 100px;"
-                   value="<%= model.get('retailMarkupMin') %>"
+                   value="<%- model.get('retailMarkupMin') %>"
                    class="inputText"
                    type="text"
                    name="retailMarkupMin"/>
             -
             <input
                     style="width: 100px;"
-                    value="<%= model.get('retailMarkupMax') %>"
+                    value="<%- model.get('retailMarkupMax') %>"
                     class="inputText"
                     type="text"
                     name="retailMarkupMax"/>
@@ -46,17 +46,17 @@
     </div>
     <div class="form__field form__field_inline productForm__retailPriceField">
         <label class="form__label">Диапазон цены продажи</label>
-        <span name="retailPrice" class="retailPrice productForm__linkedInput <%= model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>">
+        <span name="retailPrice" class="retailPrice productForm__linkedInput <%- model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>">
             <input
                     style="width: 100px;"
-                    value="<%= model.get('retailPriceMin') ? LH.formatPrice(model.get('retailPriceMin')) : '' %>"
+                    value="<%- model.get('retailPriceMin') ? LH.formatPrice(model.get('retailPriceMin')) : '' %>"
                     class="inputText"
                     type="text"
                     name="retailPriceMin"/>
             -
             <input
                     style="width: 100px;"
-                    value="<%= model.get('retailPriceMax') ? LH.formatPrice(model.get('retailPriceMax')) : '' %>"
+                    value="<%- model.get('retailPriceMax') ? LH.formatPrice(model.get('retailPriceMax')) : '' %>"
                     class="inputText"
                     type="text"
                     name="retailPriceMax"/>
@@ -68,33 +68,33 @@
         <span class="productForm__disableHint">Введите цену закупки</span>
     </div>
     <div class="form__field form__field_inline">
-        <label class="form__label"><%text 'Округление' %></label>
-        <select class="select" value="<%= model.get('rounding').name || subCategoryModel.get('rounding').name || 'nearest1' %>" name="rounding" require="blocks/select/select_priceRoundings/select_priceRoundings"></select>
+        <label class="form__label">Округление</label>
+        <select class="select" value="<%- model.get('rounding').name || subCategoryModel.get('rounding').name || 'nearest1' %>" name="rounding" require="blocks/select/select_priceRoundings/select_priceRoundings"></select>
     </div>
-    <input type="hidden" value="<%= model.get('retailPricePreference') %>" name="retailPricePreference" />
+    <input type="hidden" value="<%- model.get('retailPricePreference') %>" name="retailPricePreference" />
 </fieldset>
 <fieldset class="form__fieldset">
     <legend class="form__legend">Необязательно к заполнению</legend>
     <div class="form__field form__field_inline">
         <label class="form__label">Штрихкод</label>
-        <input value="<%= model.get('barcode') %>" class="inputText" type="text" name="barcode"/>
+        <input value="<%- model.get('barcode') %>" class="inputText" type="text" name="barcode"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Страна производства</label>
-        <input value="<%text model.get('vendorCountry') %>" class="inputText" type="text" name="vendorCountry"/>
+        <input value="<%- model.get('vendorCountry') %>" class="inputText" type="text" name="vendorCountry"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Производитель</label>
-        <input value="<%text model.get('vendor') %>" class="inputText" type="text" name="vendor"/>
+        <input value="<%- model.get('vendor') %>" class="inputText" type="text" name="vendor"/>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Дополнительная информация</label>
-        <textarea class="inputText" name="info"><%= model.get('info') %></textarea>
+        <textarea class="inputText" name="info"><%- model.get('info') %></textarea>
     </div>
 </fieldset>
 <div class="form__controls">
-    <span class="button button_color_blue">
-        <%text model.id ? 'Сохранить' : 'Добавить' %>
+    <span lh-button class="button">
+        <%- model.id ? 'Сохранить' : 'Добавить' %>
         <input type="submit"/>
     </span>
 </div>

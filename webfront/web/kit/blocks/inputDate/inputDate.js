@@ -1,8 +1,8 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
-            Datepicker = require('kit/blocks/datepicker/datepicker'),
-            Tooltip = require('kit/blocks/tooltip/tooltip');
+        var Block = require('../../core/block'),
+            Datepicker = require('../datepicker/datepicker'),
+            Tooltip = require('../tooltip/tooltip');
 
         require('jquery.maskedinput');
 
@@ -69,22 +69,20 @@ define(function(require) {
                 }
             },
             events: {
-                'focus': 'focus',
-                'change': 'change'
-            },
-            'focus': function(e) {
-                var block = this;
+                'focus': function(e) {
+                    var block = this;
 
-                block.showDatePicker();
-            },
-            'change': function(e){
-                var block = this,
-                    date = moment(block.$el.val(), block.dateFormat);
+                    block.showDatePicker();
+                },
+                'change': function(e){
+                    var block = this,
+                        date = moment(block.$el.val(), block.dateFormat);
 
-                if (date){
-                    block.set('date', date.valueOf(), {
-                        updateInput: false
-                    });
+                    if (date){
+                        block.set('date', date.valueOf(), {
+                            updateInput: false
+                        });
+                    }
                 }
             },
             showDatePicker: function() {

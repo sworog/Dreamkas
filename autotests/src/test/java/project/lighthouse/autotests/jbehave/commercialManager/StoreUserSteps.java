@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.commercialManager;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -8,6 +9,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.objects.Store;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
+import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
 import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
 
 import java.io.IOException;
@@ -19,8 +21,15 @@ public class StoreUserSteps {
 
     @Steps
     StoreSteps formSteps;
+
     @Steps
     AuthorizationSteps authorizationSteps;
+
+    @Steps
+    StoreSteps storeSteps;
+
+    @Steps
+    CatalogSteps catalogSteps;
 
     @Given("the user is on create store page")
     public void userIsOnCreateStorePage() {
@@ -72,6 +81,19 @@ public class StoreUserSteps {
     @Given("there is created store with number '$number', address '$address', contacts '$contacts'")
     public void createStore(String number, String address, String contacts) throws IOException, JSONException {
         createdStore = formSteps.createStore(number, address, contacts);
+    }
+
+    @Given("there is the store with number '$storeNumber' managed by '$userName'")
+    @Alias("there is the store with <storeNumber> managed by <userName>")
+    public void givenThereIsTheStoreManagedBy(String storeNumber, String userName) throws IOException, JSONException {
+        createdStore = storeSteps.createStore(storeNumber, storeNumber, storeNumber);
+        catalogSteps.promoteStoreManager(createdStore, userName);
+    }
+
+    @Given("there is the store with number '$storeNumber' managed by department manager named '$userName'")
+    public void givenThereIsTheStoreManagedByDepartmentManager(String storeNumber, String userName) throws IOException, JSONException {
+        createdStore = storeSteps.createStore(storeNumber, storeNumber, storeNumber);
+        catalogSteps.promoteDepartmentManager(createdStore, userName);
     }
 
     @Given("user navigates to created store page")
@@ -127,5 +149,30 @@ public class StoreUserSteps {
     @Then("user checks the store number is eqaul to '$number'")
     public void thenUserChecksTheStoreNumber(String number) {
         formSteps.checkStoreNumber(number);
+    }
+
+    @When("user promotes department manager named '$departmentManager'")
+    public void whenUserPromotesDepartmentManager(String departmentManager) {
+        formSteps.promoteDepartmentManager(departmentManager);
+    }
+
+    @When("user unpromotes department manager named '$departmentManager'")
+    public void whenUserUnPromotesDepartmentManager(String departmentManager) {
+        formSteps.unPromoteDepartmentManager(departmentManager);
+    }
+
+    @When("user try to promote not department manager named '$notDepartmentManager'")
+    public void whenUserTryToPromoteNotDepartmentManager(String notDepartmentManager) {
+        formSteps.promoteNotDepartmentManager(notDepartmentManager);
+    }
+
+    @Then("user checks the promoted department manager is '$departmentManager'")
+    public void thenTheUserChecksThePromotedDepartmentManager(String departmentManager) {
+        formSteps.checkPromotedDepartmentManager(departmentManager);
+    }
+
+    @Then("user checks the promoted department manager is not '$departmentManager'")
+    public void thenTheUserChecksThePromotedDepartmentManagerIsNot(String departmentManager) {
+        formSteps.checkPromotedDepartmentManagerIsNotPresent(departmentManager);
     }
 }

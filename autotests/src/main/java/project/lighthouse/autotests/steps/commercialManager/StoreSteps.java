@@ -34,7 +34,7 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void clickCreateNewStoreButton() {
-        storeListPage.createNewStoreButton().click();
+        storeListPage.createNewStoreButtonClick();
     }
 
     @Step
@@ -44,12 +44,12 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void clickCreateStoreSubmitButton() {
-        storeCreatePage.createButton().click();
+        storeCreatePage.createButtonClick();
     }
 
     @Step
     public void clickSaveStoreSubmitButton() {
-        storeCreatePage.saveButton().click();
+        storeCreatePage.saveButtonClick();
     }
 
     @Step
@@ -128,7 +128,6 @@ public class StoreSteps extends ScenarioSteps {
         storeCardPage.promoteStoreManager(storeManager);
     }
 
-
     @Step
     public void promoteNotStoreManager(String notStoreManager) {
         storeCardPage.promoteNotStoreManager(notStoreManager);
@@ -143,5 +142,31 @@ public class StoreSteps extends ScenarioSteps {
     public void navigatesToTheStoreCatalogPage(String storeName) throws JSONException {
         String url = String.format("%s/catalog?editMode=false&storeId=%s", UrlHelper.getWebFrontUrl(), StaticData.stores.get(storeName).getId());
         getDriver().navigate().to(url);
+    }
+
+
+    @Step
+    public void checkPromotedDepartmentManager(String departmentManager) {
+        storeCardPage.checkPromotedDepartmentManager(departmentManager);
+    }
+
+    @Step
+    public void checkPromotedDepartmentManagerIsNotPresent(String departmentManager) {
+        storeCardPage.checkPromotedDepartmentManagerIsNotPresent(departmentManager);
+    }
+
+    @Step
+    public void unPromoteDepartmentManager(String departmentManager) {
+        storeCardPage.unPromoteDepartmentManager(departmentManager);
+    }
+
+    @Step
+    public void promoteDepartmentManager(String departmentManager) {
+        storeCardPage.promoteDepartmentManager(departmentManager);
+    }
+
+    @Step
+    public void promoteNotDepartmentManager(String notDepartmentManager) {
+        storeCardPage.promoteNotDepartmentManager(notDepartmentManager);
     }
 }

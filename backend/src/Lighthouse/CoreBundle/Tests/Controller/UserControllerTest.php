@@ -12,8 +12,6 @@ class UserControllerTest extends WebTestCase
 {
     public function testPostUserUniqueUsernameTest()
     {
-        $this->clearMongoDb();
-
         $userData = array(
             'username'  => 'test',
             'name'      => 'Вася пупкин',
@@ -57,8 +55,6 @@ class UserControllerTest extends WebTestCase
         array $data,
         array $assertions = array()
     ) {
-        $this->clearMongoDb();
-
         $userData = $data + array(
             'username'  => 'test',
             'name'      => 'Вася пупкин',
@@ -88,10 +84,7 @@ class UserControllerTest extends WebTestCase
         $expectedCode,
         array $data,
         array $assertions = array()
-    ) {
-        $this->clearMongoDb();
-
-        $userData = array(
+    ) {        $userData = array(
             'username'  => 'qweqwe',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
@@ -136,8 +129,6 @@ class UserControllerTest extends WebTestCase
 
     public function testPasswordChange()
     {
-        $this->clearMongoDb();
-
         $userData = array(
             'username'  => 'qweqwe',
             'name'      => 'ASFFS',
@@ -455,8 +446,6 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersAction(array $data)
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
 
         $postDataArray = array();
@@ -496,8 +485,6 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersActionPermissionDenied($role)
     {
-        $this->clearMongoDb();
-
         $this->createUser('user1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $this->createUser('user2', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $this->createUser('user3', 'password', User::ROLE_STORE_MANAGER);
@@ -527,8 +514,6 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUserAction(array $postData)
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
@@ -556,8 +541,6 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUsersCurrentAction()
     {
-        $this->clearMongoDb();
-
         $authClient = $this->createAuthClient();
         $user = $this->createUser('user', 'qwerty123');
 
@@ -575,8 +558,6 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUserPermissionsAction()
     {
-        $this->clearMongoDb();
-
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
@@ -602,6 +583,177 @@ class UserControllerTest extends WebTestCase
                     'password'  => 'qwerty',
                 ),
             ),
+        );
+    }
+
+    /**
+     * @dataProvider rolePermissionsProvider
+     * @param $role
+     * @param array $assertions
+     */
+    public function testRolePermissions($role, array $assertions)
+    {
+        $user = $this->getRoleUser($role);
+
+        $accessToken = $this->auth($user);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/users/permissions'
+        );
+
+        $this->assertResponseCode(200);
+
+        foreach ($assertions as $path => $expected) {
+            Assert::assertJsonPathEqualsArray($expected, $path, $getResponse);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function rolePermissionsProvider()
+    {
+        return array(
+            User::ROLE_DEPARTMENT_MANAGER => array(
+                User::ROLE_DEPARTMENT_MANAGER,
+                array(
+                    'stores.*' => array(
+                        'GET::{store}/products',
+                    ),
+                    'stores/{store}/products/{product}.*' => array(
+                        'GET'
+                    ),
+                    'stores/{store}/groups.*' => array(
+                        'GET::{group}/categories',
+                        'GET'
+                    ),
+                    'stores/{store}/categories/{category}.*' => array(
+                        'GET::subcategories',
+                        'GET'
+                    ),
+                    'stores/{store}/subcategories/{subCategory}.*' => array(
+                        'GET',
+                        'GET::products',
+                    ),
+                    'stores/{store}/invoices.*' => array(
+                        'GET::{invoice}',
+                        'PUT::{invoice}',
+                        'GET',
+                        'POST'
+                    ),
+                    'stores/{store}/invoices/{invoice}/products.*' => array(
+                        'GET::{invoiceProduct}',
+                        'PUT::{invoiceProduct}',
+                        'DELETE::{invoiceProduct}',
+                        'GET',
+                        'POST'
+                    ),
+                    'stores/{store}/writeoffs.*' => array(
+                        'GET::{writeOff}',
+                        'PUT::{writeOff}',
+                        'GET',
+                        'POST'
+                    ),
+                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(
+                        'GET::{writeOffProduct}',
+                        'PUT::{writeOffProduct}',
+                        'DELETE::{writeOffProduct}',
+                        'GET',
+                        'POST'
+                    ),
+                    'users.*' => array(
+                        'GET::current',
+                        'GET::permissions',
+                        'GET::{user}/stores'
+                    )
+                )
+            ),
+            User::ROLE_STORE_MANAGER => array(
+                User::ROLE_STORE_MANAGER,
+                array(
+                    'stores.*' => array(
+                        'GET::{store}/products',
+                    ),
+                    'stores/{store}/products/{product}.*' => array(
+                        'GET',
+                        'PUT'
+                    ),
+                    'stores/{store}/groups.*' => array(
+                        'GET::{group}/categories',
+                        'GET'
+                    ),
+                    'stores/{store}/categories/{category}.*' => array(
+                        'GET::subcategories',
+                        'GET'
+                    ),
+                    'stores/{store}/subcategories/{subCategory}.*' => array(
+                        'GET',
+                        'GET::products',
+                    ),
+                    'stores/{store}/invoices.*' => array(),
+                    'stores/{store}/invoices/{invoice}/products.*' => array(),
+                    'stores/{store}/writeoffs.*' => array(),
+                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
+                    'users.*' => array(
+                        'GET::current',
+                        'GET::permissions',
+                        'GET::{user}/stores'
+                    )
+                )
+            ),
+            User::ROLE_COMMERCIAL_MANAGER => array(
+                User::ROLE_COMMERCIAL_MANAGER,
+                array(
+                    'stores.*' => array(
+                        'GET',
+                        'GET::{store}',
+                        'GET::{store}/departmentManagers',
+                        'GET::{store}/departments',
+                        'GET::{store}/storeManagers',
+                        'LINK::{store}',
+                        'POST',
+                        'PUT::{store}',
+                        'UNLINK::{store}'
+                    ),
+                    'stores/{store}/products/{product}.*' => array(),
+                    'stores/{store}/groups.*' => array(),
+                    'stores/{store}/categories/{category}.*' => array(),
+                    'stores/{store}/subcategories/{subCategory}.*' => array(),
+                    'stores/{store}/invoices.*' => array(),
+                    'stores/{store}/invoices/{invoice}/products.*' => array(),
+                    'stores/{store}/writeoffs.*' => array(),
+                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
+                    'users.*' => array(
+                        'GET::current',
+                        'GET::permissions',
+                        'GET::{user}'
+                    )
+                )
+            ),
+            User::ROLE_ADMINISTRATOR => array(
+                User::ROLE_ADMINISTRATOR,
+                array(
+                    'stores.*' => array(),
+                    'stores/{store}/products/{product}.*' => array(),
+                    'stores/{store}/groups.*' => array(),
+                    'stores/{store}/categories/{category}.*' => array(),
+                    'stores/{store}/subcategories/{subCategory}.*' => array(),
+                    'stores/{store}/invoices.*' => array(),
+                    'stores/{store}/invoices/{invoice}/products.*' => array(),
+                    'stores/{store}/writeoffs.*' => array(),
+                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
+                    'users.*' => array(
+                        'GET::current',
+                        'GET::permissions',
+                        'GET',
+                        'GET::{user}',
+                        'POST',
+                        'PUT::{user}'
+                    )
+                )
+            )
         );
     }
 }

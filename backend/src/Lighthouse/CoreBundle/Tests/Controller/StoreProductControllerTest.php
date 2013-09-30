@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -31,7 +32,6 @@ class StoreProductControllerTest extends WebTestCase
 
     protected function initStoreProduct()
     {
-        $this->clearMongoDb();
         $this->storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
 
         $this->productId = $this->createProduct();
@@ -512,6 +512,37 @@ class StoreProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
     }
 
+    public function testDepartmentManagerAccessHasNoStore()
+    {
+        $accessToken = $this->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $this->productId
+        );
+
+        $this->assertResponseCode(403);
+
+        Assert::assertJsonPathContains('Token does not have the required permissions', 'message', $getResponse);
+    }
+
+    public function testDepartmentManagerAccessHasStore()
+    {
+        $departmentManager = $this->createUser('Василиса Петровна Бздых', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->linkDepartmentManagers($this->storeId, $departmentManager->id);
+
+        $accessToken = $this->auth($departmentManager, 'password');
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $this->productId
+        );
+
+        $this->assertResponseCode(200);
+    }
+
     public function testGetStoreSubCategoryProductsStoreManagerHasStore()
     {
         $accessToken = $this->auth($this->storeManager, 'password');
@@ -828,5 +859,95 @@ class StoreProductControllerTest extends WebTestCase
                 )
             ),
         );
+    }
+
+    public function testGetStoreProductsAction()
+    {
+        $storeId1 = $this->storeId;
+        $storeId2 = $this->createStore('2', '2', '2');
+
+        $departmentManager1 = $this->createUser('dm1', 'password', 'ROLE_DEPARTMENT_MANAGER');
+        $departmentManager2 = $this->createUser('dm2', 'password', 'ROLE_DEPARTMENT_MANAGER');
+
+        $this->linkDepartmentManagers($storeId1, $departmentManager1->id);
+        $this->linkDepartmentManagers($storeId2, $departmentManager2->id);
+
+        $productId1 = $this->productId;
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
+
+        $departmentAccessToken1 = $this->auth($departmentManager1);
+        $departmentAccessToken2 = $this->auth($departmentManager2);
+
+        $response = $this->clientJsonRequest(
+            $departmentAccessToken1,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/products'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($productId1, '*.product.id', $response);
+        Assert::assertJsonPathEquals($productId2, '*.product.id', $response);
+        Assert::assertJsonPathEquals($productId3, '*.product.id', $response);
+
+        Assert::assertJsonPathEquals(0, '*.amount', $response);
+
+        $response = $this->clientJsonRequest(
+            $departmentAccessToken2,
+            'GET',
+            '/api/1/stores/' . $storeId2. '/products'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($productId1, '*.product.id', $response);
+        Assert::assertJsonPathEquals($productId2, '*.product.id', $response);
+        Assert::assertJsonPathEquals($productId3, '*.product.id', $response);
+
+        Assert::assertJsonPathEquals(0, '*.amount', $response, 3);
+
+
+        $invoice1Store1Id = $this->createInvoice(array('sku' => 'store1'), $storeId1, $departmentManager1);
+        $this->createInvoiceProduct($invoice1Store1Id, $productId1, 1, 10.99, $storeId1, $departmentManager1);
+        $this->createInvoiceProduct($invoice1Store1Id, $productId2, 2, 11.99, $storeId1, $departmentManager1);
+
+        $response = $this->clientJsonRequest(
+            $departmentAccessToken1,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/products'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($productId1, '*.product.id', $response);
+        Assert::assertJsonPathEquals($productId2, '*.product.id', $response);
+        Assert::assertJsonPathEquals($productId3, '*.product.id', $response);
+
+        Assert::assertJsonPathEquals(1, '*.amount', $response, 1);
+        Assert::assertJsonPathEquals(2, '*.amount', $response, 1);
+        Assert::assertJsonPathEquals(0, '*.amount', $response, 1);
+
+        Assert::assertJsonPathEquals(10.99, '*.lastPurchasePrice', $response, 1);
+        Assert::assertJsonPathEquals(11.99, '*.lastPurchasePrice', $response, 1);
+
+        $invoice2Store1Id = $this->createInvoice(array('sku' => 'store1invoice2'), $storeId1, $departmentManager1);
+        $this->createInvoiceProduct($invoice2Store1Id, $productId1, 3, 9.99, $storeId1, $departmentManager1);
+        $this->createInvoiceProduct($invoice2Store1Id, $productId2, 4, 12.99, $storeId1, $departmentManager1);
+
+        $response = $this->clientJsonRequest(
+            $departmentAccessToken1,
+            'GET',
+            '/api/1/stores/' . $storeId1 . '/products'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($productId1, '*.product.id', $response);
+        Assert::assertJsonPathEquals($productId2, '*.product.id', $response);
+        Assert::assertJsonPathEquals($productId3, '*.product.id', $response);
+
+        Assert::assertJsonPathEquals(4, '*.amount', $response, 1);
+        Assert::assertJsonPathEquals(6, '*.amount', $response, 1);
+        Assert::assertJsonPathEquals(0, '*.amount', $response, 1);
+
+        Assert::assertJsonPathEquals(9.99, '*.lastPurchasePrice', $response, 1);
+        Assert::assertJsonPathEquals(12.99, '*.lastPurchasePrice', $response, 1);
     }
 }
