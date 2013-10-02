@@ -60,7 +60,7 @@ Then user checks the promoted store manager is not 'promotedCommercialManager'
 
 Scenario: Can't promote not store manager - departmentManager
 
-Given there is the user with name 'promotedDepartmentManager', position 'promotedDepartmentManager', username 'promotedDepartmentManager', password 'lighthouse', role 'administrator'
+Given there is the user with name 'promotedDepartmentManager', position 'promotedDepartmentManager', username 'promotedDepartmentManager', password 'lighthouse', role 'departmentManager'
 And there is created store with number 'CPNSM-D', address 'CPNSM-D', contacts 'CPNSM-D'
 And user navigates to created store page
 And the user logs in as 'commercialManager'

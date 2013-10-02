@@ -83,24 +83,30 @@ public class CommonActions extends PageObject {
 
     public void checkElementValue(String checkType, String elementName, String expectedValue) {
         try {
-            WebElement element;
-            By findBy;
-            if (checkType.isEmpty()) {
-                findBy = items.get(elementName).getFindBy();
-                element = waiter.getVisibleWebElement(findBy);
-            } else {
-                By parentFindBy = items.get(checkType).getFindBy();
-                WebElement parent = waiter.getVisibleWebElement(parentFindBy);
-                element = items.get(elementName).getWebElement(parent);
-            }
-            commonPage.shouldContainsText(elementName, element, expectedValue);
+            defaultCheckElementValue(checkType, elementName, expectedValue);
         } catch (Exception e) {
             if (isSkippableException(e, false)) {
                 checkElementValue(checkType, elementName, expectedValue);
+            } else if (isStrangeFirefoxBehaviour(e)) {
+                defaultCheckElementValue(checkType, elementName, expectedValue);
             } else {
                 throw e;
             }
         }
+    }
+
+    public void defaultCheckElementValue(String checkType, String elementName, String expectedValue) {
+        WebElement element;
+        By findBy;
+        if (checkType.isEmpty()) {
+            findBy = items.get(elementName).getFindBy();
+            element = waiter.getVisibleWebElement(findBy);
+        } else {
+            By parentFindBy = items.get(checkType).getFindBy();
+            WebElement parent = waiter.getVisibleWebElement(parentFindBy);
+            element = items.get(elementName).getWebElement(parent);
+        }
+        commonPage.shouldContainsText(elementName, element, expectedValue);
     }
 
     public void checkElementText(String elementName, String expectedValue) {

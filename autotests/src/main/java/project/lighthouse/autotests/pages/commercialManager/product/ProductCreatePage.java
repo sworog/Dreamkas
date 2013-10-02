@@ -45,7 +45,7 @@ public class ProductCreatePage extends CommonPageObject {
         items.put("group", new NonType(this, "group"));
         items.put("category", new NonType(this, "category"));
         items.put("subCategory", new NonType(this, "subCategory"));
-        items.put("rounding", new SelectByVisibleText(this, "rounding"));
+        items.put("rounding", new SelectByVisibleText(this, "rounding.name"));
         items.put("rounding price", new NonType(this, By.xpath("//*[@class='productForm__rounding']")));
     }
 
