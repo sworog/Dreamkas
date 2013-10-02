@@ -30,6 +30,7 @@ table{
 a{
     color: #1FB18A;
     text-decoration: none;
+    cursor: pointer;
 }
 
 a:hover {
