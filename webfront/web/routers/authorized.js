@@ -5,8 +5,7 @@ define(function(require) {
     return new Router({
         routes: {
             //common
-            '': require('pages/common/dashboard'),
-            '/': require('pages/common/dashboard'),
+            '(/)': require('pages/common/dashboard'),
             'logout(/)': require('utils/logout'),
             'dashboard(/)': require('pages/common/dashboard'),
             'sale(/)': require('pages/common/sale'),

@@ -2,14 +2,18 @@ define(function(require) {
     //requirements
     var _ = require('lodash');
 
-    return function(){
-        
-        var args = [].slice.call(arguments);
-        
-        args.push(function(objectValue, sourceValue){
-            return _.isArray(sourceValue) ? sourceValue : undefined;
+    return function deepExtend(obj) {
+
+        _.each([].slice.call(arguments, 1), function(source) {
+            _.forOwn(source, function(value, key) {
+                if (_.isPlainObject(obj[key]) && _.isPlainObject(value)) {
+                    obj[key] = deepExtend({}, obj[key], value);
+                } else {
+                    obj[key] = value;
+                }
+            });
         });
 
-        return _.merge.apply(this, args);
-    }
+        return obj;
+    };
 });
