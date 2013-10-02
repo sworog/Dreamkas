@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var app = require('app');
+    var app = require('../core/app');
 
     return function(resource, method){
 

@@ -5,8 +5,8 @@ define(function(require) {
         _ = require('lodash'),
         deepExtend = require('../utils/deepExtend'),
         classExtend = require('../utils/classExtend'),
-        setter = require('../mixins/setter'),
-        getter = require('../mixins/getter');
+        setter = require('../utils/setter'),
+        getter = require('../utils/getter');
 
     require('jquery.require');
 

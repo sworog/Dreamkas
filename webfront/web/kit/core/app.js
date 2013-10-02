@@ -1,11 +1,10 @@
 define(function(require) {
     //requirements
     var _ = require('lodash'),
-        setter = require('../mixins/setter'),
-        getter = require('../mixins/getter'),
+        setter = require('../utils/setter'),
+        getter = require('../utils/getter'),
         Backbone = require('backbone'),
-        cookie = require('../utils/cookie'),
-        load = require('../utils/require');
+        cookie = require('../utils/cookie');
 
     var router = new Backbone.Router();
 
@@ -28,7 +27,7 @@ define(function(require) {
             start: function(deps) {
                 var app = this;
 
-                load({
+                requirejs({
                     locale: app.locale
                 }, deps, function() {
 

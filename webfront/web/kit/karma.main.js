@@ -1,28 +1,15 @@
-var specs = Object.keys(window.__karma__.files).filter(function (file) {
+var specFiles = Object.keys(window.__karma__.files).filter(function (file) {
     return /spec\.js$/.test(file);
 });
 
+var specModules = specFiles.map(function(moduleUrl){
+    return moduleUrl
+        .replace(/\/base\//g, '')
+        .replace(/.js/g, '');
+});
+
 require({
-    baseUrl: '/base',
-    paths: {
-        'underscore': 'libs/lodash/lodash',
-        'templateCompiler': 'utils/template',
-
-        'backbone': 'libs/backbone/backbone',
-        'backbone.queryparams': 'libs/backbone/backbone.queryparams',
-
-        'jquery': 'libs/jquery/jquery',
-        'jquery.require': 'libs/jquery/jquery.require',
-
-        'tpl': 'utils/tpl',
-        'i18n': 'libs/require/i18n'
-    },
-    packages: [
-        {
-            name: 'kit',
-            location: '/base'
-        }
-    ],
-    deps: specs,
-    callback: window.__karma__.start
+    baseUrl: '/base/'
+}, ['config'], function(){
+    require(specModules, window.__karma__.start);
 });

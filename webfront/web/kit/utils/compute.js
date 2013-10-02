@@ -2,18 +2,18 @@ define(function(require) {
     //requirements
     _ = require('lodash');
 
-    return function(depsStrings, getter) {
+    return function(depsArray, getter) {
 
         function computed() {
             var object = this,
-                depsAttributes = _.map(depsStrings, function(depString) {
+                depsAttributes = _.map(depsArray, function(depString) {
                     return object.get(depString);
                 });
 
             return getter.apply(object, depsAttributes);
         }
 
-        computed.__dependencies__ = depsStrings;
+        computed.__dependencies__ = depsArray;
 
         return computed;
     }

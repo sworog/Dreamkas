@@ -1,17 +1,16 @@
 define(function(require) {
     //requirements
-    var getter = require('../mixins/getter'),
+    var getter = require('./getter'),
         _ = require('lodash'),
-        computed = require('./computed'),
-        objectMock = require('../mocks/object');
+        compute = require('./compute');
 
     var object = _.extend({
-        computedString: computed(['string', 'number'], function(string, number){
+        computedString: compute(['string', 'number'], function(string, number){
             return string + '+' + number;
         })
-    }, objectMock, getter);
+    }, require('../fixtures/object'), getter);
 
-    describe('computed', function() {
+    describe('utils/compute', function() {
         it('computed get method', function() {
             expect(object.get('computedString')).toEqual('test string level 1+1');
         });

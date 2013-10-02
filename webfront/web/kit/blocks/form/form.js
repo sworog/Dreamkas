@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Block = require('../../core/block'),
         Backbone = require('backbone'),
-        setter = require('../../mixins/setter'),
+        setter = require('../../utils/setter'),
         form2js = require('../../libs/form2js'),
         text = require('../../utils/text');
 

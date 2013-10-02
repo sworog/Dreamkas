@@ -1,28 +1,15 @@
-define(function() {
-    return function deepExtend(obj) {
-        var slice = Array.prototype.slice,
-            hasOwnProperty = Object.prototype.hasOwnProperty;
+define(function(require) {
+    //requirements
+    var _ = require('lodash');
 
-        _.each(slice.call(arguments, 1), function(source) {
-            for (var prop in source) {
-                if (hasOwnProperty.call(source, prop)) {
-                    if ($.isPlainObject(obj[prop]) && $.isPlainObject(source[prop])) {
-                        obj[prop] = deepExtend({}, obj[prop], source[prop]);
-                    } else {
-                        switch (source[prop]){
-                            case 'false':
-                                source[prop] = false;
-                                break;
-                            case 'true':
-                                source[prop] = true;
-                                break;
-                        }
-                        obj[prop] = source[prop];
-                    }
-                }
-            }
+    return function(){
+        
+        var args = [].slice.call(arguments);
+        
+        args.push(function(objectValue, sourceValue){
+            return _.isArray(sourceValue) ? sourceValue : undefined;
         });
 
-        return obj;
-    };
+        return _.merge.apply(this, args);
+    }
 });

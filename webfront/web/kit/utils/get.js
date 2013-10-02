@@ -2,9 +2,25 @@ define(function(require) {
     //requirements
     var _ = require('lodash');
 
-    return function(path){
-        var object = this,
-            attr = this,
+    return function(){
+
+        var object = arguments[0],
+            path = arguments[1],
+            params;
+
+        if (typeof object === 'string'){
+            path = object;
+            object = this;
+            params = Array.prototype.slice.call(arguments, 1);
+        } else {
+            params = Array.prototype.slice.call(arguments, 2);
+        }
+
+        if (typeof object['get:' + path] === 'function'){
+            return object['get:' + path].apply(object, params);
+        }
+
+        var attr = object,
             segments = path.split('.');
 
         if (attr === null || typeof attr === 'undefined'){
@@ -13,8 +29,8 @@ define(function(require) {
 
         _.every(segments, function(segment){
 
-            if (_.isFunction(attr[segment])){
-                attr = attr[segment].call(object)
+            if (typeof attr[segment] === 'function'){
+                attr = attr[segment].apply(attr, params);
             } else {
                 attr = attr[segment];
             }

@@ -1,3 +1,5 @@
+@import "./common.css";
+
 @import "./blocks/button/button.css";
 @import "./blocks/table/table.css";
 @import "./blocks/inputText/inputText.css";
@@ -9,51 +11,3 @@
 @import "./blocks/datepicker/datepicker.css";
 @import "./blocks/inputDate/inputDate.css";
 @import "./blocks/editor/editor.css";
-
-html{
-    height: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-body{
-    height: 100%;
-    font-size: 16px;
-    font-family: Tahoma, Arial, "sans serif";
-    padding: 0;
-    margin: 0;
-    overflow-y: scroll;
-    line-height: 1.4;
-}
-
-table{
-    border-collapse: collapse;
-}
-
-a{
-    color: #336699;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-a:hover{
-    text-decoration: none;
-}
-
-h1{
-    font-weight: normal;
-    padding:0 0 44px;
-    margin: 0;
-    font-size: 32px;
-}
-
-h2{
-    padding:0 0 22px;
-    margin: 0;
-    font-size: 22px;
-}
-
-p{
-    margin: 0;
-    padding: 0 0 20px;
-}
