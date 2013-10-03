@@ -43,9 +43,9 @@ And the user inputs '24,55' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the 'retailPrice' value is '24,55'
-When the user logs out
-Given the user cleans the cash db by '172.16.2.166' ip
-And the user cleans the cash db by '172.16.1.165' ip
+When the user logs out                    
+Given the user cleans the cash db by '172.16.1.15' ip
+And the user cleans the cash db by '172.16.2.251' ip
 And the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on products export link
@@ -54,11 +54,11 @@ And the user opens the log page
 Then the user checks the last set10 export log title is 'Выгрузка товаров в Set Retail 10'
 Then the user waits for the last set10 export log message success status
 And the user checks the last set10 export log status text is 'выполнено'
-Given the user waits until cash registry by '172.16.2.166' products db has not empty rows
-And the user waits until cash registry by '172.16.1.165' products db has not empty rows
-When the robot starts the test named 'ru.crystals.setrobot.tests.lighthouse.SellKitKatShop2Test' on cashregistry with '172.16.2.166'
+Given the user waits until cash registry by '172.16.1.15' products db has not empty rows
+And the user waits until cash registry by '172.16.2.251' products db has not empty rows
+When the robot starts the test named 'ru.crystals.setrobot.tests.lighthouse.SellKitKatShop2Test' on cashregistry with '172.16.1.15'
 Then the robot waits for the test success status
-When the robot starts the test named 'ru.crystals.setrobot.tests.lighthouse.SellKitKatShop1Test' on cashregistry with '172.16.1.165'
+When the robot starts the test named 'ru.crystals.setrobot.tests.lighthouse.SellKitKatShop1Test' on cashregistry with '172.16.2.251'
 Then the robot waits for the test success status
 
 Scenario: No export link for departmentManager
