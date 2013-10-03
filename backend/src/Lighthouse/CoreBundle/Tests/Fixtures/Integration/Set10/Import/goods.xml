@@ -7,7 +7,7 @@
 			<default-code>true</default-code>
 		</bar-code>
 		<product-type>ProductPieceEntity</product-type>
-		<price-entry price="50.00">
+		<price-entry price="50.77">
 			<begin-date>2011-05-12T00:00:00.000</begin-date>
 			<end-date>2061-05-12T23:59:59.000</end-date>
 			<number>1</number>

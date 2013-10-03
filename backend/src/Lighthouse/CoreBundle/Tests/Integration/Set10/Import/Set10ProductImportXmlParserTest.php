@@ -16,7 +16,9 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
     protected function createXmlParser($xmlFilePath = null)
     {
         $xmlFilePath = ($xmlFilePath) ?: __DIR__ . '/../../../Fixtures/Integration/Set10/Import/goods.xml';
-        return new Set10ProductImportXmlParser($xmlFilePath);
+        $parser = $this->getContainer()->get('lighthouse.core.integration.set10.product_xml_parser');
+        $parser->setXmlFilePath($xmlFilePath);
+        return $parser;
     }
 
     public function testReadNextNodeReturnsSimpleXml()
@@ -131,7 +133,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $parser = $this->createXmlParser();
 
         $product1 = $parser->createNextProduct();
-        $this->assertEquals(4000, $product1->purchasePrice->getCount());
+        $this->assertEquals(4062, $product1->purchasePrice->getCount());
         $this->assertEquals(15, $product1->retailMarkupMin);
         $this->assertEquals(40, $product1->retailMarkupMax);
         $this->assertEquals($product1::RETAIL_PRICE_PREFERENCE_MARKUP, $product1->retailPricePreference);

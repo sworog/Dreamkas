@@ -17,8 +17,9 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
     protected function createXmlParser($xmlFilePath = null)
     {
         $xmlFilePath = ($xmlFilePath) ?: __DIR__ . '/../../../Fixtures/Integration/Set10/Import/goods.xml';
-        $xmlParser = new Set10ProductImportXmlParser($xmlFilePath);
-        return $xmlParser;
+        $parser = $this->getContainer()->get('lighthouse.core.integration.set10.product_xml_parser');
+        $parser->setXmlFilePath($xmlFilePath);
+        return $parser;
     }
 
     public function testImport()

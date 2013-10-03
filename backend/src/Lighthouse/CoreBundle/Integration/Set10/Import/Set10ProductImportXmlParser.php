@@ -2,13 +2,19 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10\Import;
 
+use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Types\Money;
+use JMS\DiExtraBundle\Annotation as DI;
 use XMLReader;
 use DOMDocument;
 
+/**
+ * @DI\Service("lighthouse.core.integration.set10.product_xml_parser")
+ */
 class Set10ProductImportXmlParser
 {
     /**
@@ -32,9 +38,26 @@ class Set10ProductImportXmlParser
     protected $subCategories;
 
     /**
+     * @var MoneyModelTransformer
+     */
+    protected $moneyModelTransformer;
+
+    /**
+     * @param MoneyModelTransformer $moneyModelTransformer
+     *
+     * @DI\InjectParams({
+     *      "moneyModelTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model"),
+     * })
+     */
+    public function __construct(MoneyModelTransformer $moneyModelTransformer)
+    {
+        $this->moneyModelTransformer = $moneyModelTransformer;
+    }
+
+    /**
      * @param $xmlFilePath
      */
-    public function __construct($xmlFilePath)
+    public function setXmlFilePath($xmlFilePath)
     {
         $this->createXmlReader($xmlFilePath);
     }
@@ -89,10 +112,28 @@ class Set10ProductImportXmlParser
         $product->barcode = $good->getBarcode();
         $product->vendor = $good->getVendor();
         $product->units = $good->getUnits();
+        $product->purchasePrice = $this->getPurchasePrice($good);
+        $product->retailPricePreference = $product::RETAIL_PRICE_PREFERENCE_MARKUP;
+        $product->retailMarkupMin = 15;
+        $product->retailMarkupMax = 40;
 
         $product->subCategory = $this->getSubCategory($good);
 
         return $product;
+    }
+
+    /**
+     * @param GoodElement $good
+     * @return Money
+     */
+    public function getPurchasePrice(GoodElement $good)
+    {
+        $salePrice = $good->getPrice();
+        $salePriceMoney = $this->moneyModelTransformer->reverseTransform($salePrice);
+
+        $purchasePrice = new Money();
+        $purchasePrice->setCountByQuantity($salePriceMoney, 0.80, true);
+        return $purchasePrice;
     }
 
     /**

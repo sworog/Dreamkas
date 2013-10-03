@@ -22,14 +22,30 @@ class Set10Product extends Command
     protected $importer;
 
     /**
+     * @var Set10ProductImportXmlParser
+     */
+    protected $parser;
+
+    /**
      * @DI\InjectParams({
      *      "importer" = @DI\Inject("lighthouse.core.integration.set10.importer")
      * })
      * @param Set10ProductImporter $importer
      */
-    public function setUserProvider(Set10ProductImporter $importer)
+    public function setImporterProvider(Set10ProductImporter $importer)
     {
         $this->importer = $importer;
+    }
+
+    /**
+     * @DI\InjectParams({
+     *      "parser" = @DI\Inject("lighthouse.core.integration.set10.product_xml_parser")
+     * })
+     * @param Set10ProductImportXmlParser $parser
+     */
+    public function setParserProvider(Set10ProductImportXmlParser $parser)
+    {
+        $this->parser = $parser;
     }
 
     protected function configure()
@@ -53,9 +69,9 @@ class Set10Product extends Command
 
         $filePath = $input->getArgument('file');
 
-        $parser = new Set10ProductImportXmlParser($filePath);
+        $this->parser->setXmlFilePath($filePath);
 
-        $this->importer->import($parser, $output);
+        $this->importer->import($this->parser, $output);
 
         $endTime = time();
 

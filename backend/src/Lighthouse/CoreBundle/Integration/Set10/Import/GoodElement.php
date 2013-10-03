@@ -76,6 +76,18 @@ class GoodElement extends SimpleXMLElement
     }
 
     /**
+     * @return string
+     */
+    public function getPrice()
+    {
+        foreach ($this->{'price-entry'} as $price) {
+            if ('1' == $price->number) {
+                return (string) $price['price'];
+            }
+        }
+    }
+
+    /**
      * @return array id => name
      */
     public function getGroups()
