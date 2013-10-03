@@ -59,6 +59,7 @@ class Set10ProductImporter
         $this->count = 0;
         $batchSize = ($batchSize) ?: $this->batchSize;
 
+        $startItemTime = microtime(true);
         while ($product = $parser->createNextProduct()) {
             try {
                 $this->validate($product);
@@ -71,6 +72,10 @@ class Set10ProductImporter
             } catch (ValidationFailedException $e) {
                 $output->writeln($e->getMessage());
             }
+            $stopItemTime = microtime(true);
+            $itemTime = $stopItemTime - $startItemTime;
+            $output->writeln('Item time: '. (string) $itemTime . ' seconds');
+            $startItemTime = microtime(true);
         }
         $this->dm->flush();
     }

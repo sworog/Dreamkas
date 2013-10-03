@@ -49,13 +49,19 @@ class Set10Product extends Command
     {
         $output->writeLn("Starting import\n");
 
+        $startTime = time();
+
         $filePath = $input->getArgument('file');
 
         $parser = new Set10ProductImportXmlParser($filePath);
 
         $this->importer->import($parser, $output);
 
+        $endTime = time();
+
         $output->writeln('Done');
+        $execTime = $endTime - $startTime;
+        $output->writeln('Executed time: '. $execTime . ' seconds');
 
         return 0;
     }
