@@ -135,25 +135,25 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $product1 = $parser->createNextProduct();
         $this->assertEquals(4062, $product1->purchasePrice->getCount());
         $this->assertEquals(15, $product1->retailMarkupMin);
-        $this->assertEquals(40, $product1->retailMarkupMax);
+        $this->assertEquals(20, $product1->retailMarkupMax);
         $this->assertEquals($product1::RETAIL_PRICE_PREFERENCE_MARKUP, $product1->retailPricePreference);
 
         $product2 = $parser->createNextProduct();
         $this->assertEquals(7520, $product2->purchasePrice->getCount());
         $this->assertEquals(15, $product2->retailMarkupMin);
-        $this->assertEquals(40, $product2->retailMarkupMax);
+        $this->assertEquals(20, $product2->retailMarkupMax);
         $this->assertEquals($product2::RETAIL_PRICE_PREFERENCE_MARKUP, $product2->retailPricePreference);
 
         $product3 = $parser->createNextProduct();
         $this->assertEquals(88000, $product3->purchasePrice->getCount());
         $this->assertEquals(15, $product3->retailMarkupMin);
-        $this->assertEquals(40, $product3->retailMarkupMax);
+        $this->assertEquals(20, $product3->retailMarkupMax);
         $this->assertEquals($product3::RETAIL_PRICE_PREFERENCE_MARKUP, $product3->retailPricePreference);
 
         $product4 = $parser->createNextProduct();
         $this->assertEquals(35200, $product4->purchasePrice->getCount());
         $this->assertEquals(15, $product4->retailMarkupMin);
-        $this->assertEquals(40, $product4->retailMarkupMax);
+        $this->assertEquals(20, $product4->retailMarkupMax);
         $this->assertEquals($product4::RETAIL_PRICE_PREFERENCE_MARKUP, $product4->retailPricePreference);
     }
 }

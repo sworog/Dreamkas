@@ -115,7 +115,7 @@ class Set10ProductImportXmlParser
         $product->purchasePrice = $this->getPurchasePrice($good);
         $product->retailPricePreference = $product::RETAIL_PRICE_PREFERENCE_MARKUP;
         $product->retailMarkupMin = 15;
-        $product->retailMarkupMax = 40;
+        $product->retailMarkupMax = 20;
 
         $product->subCategory = $this->getSubCategory($good);
 
