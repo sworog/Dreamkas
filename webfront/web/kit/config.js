@@ -16,7 +16,8 @@ define(function(require) {
             'tpl': url('./utils/tpl'),
             'templateCompiler': url('./utils/template'),
 
-            'i18n': url('./libs/require/i18n')
+            'i18n': url('./libs/require/i18n'),
+            'dictionary': url('./dictionary')
         },
         packages: [
             {

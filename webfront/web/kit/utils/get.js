@@ -2,22 +2,12 @@ define(function(require) {
     //requirements
     require('lodash');
 
-    return function(){
+    return function(path){
 
-        var object = arguments[0],
-            path = arguments[1],
-            params;
-
-        if (typeof object === 'string'){
-            path = object;
-            object = this;
-            params = Array.prototype.slice.call(arguments, 1);
-        } else {
-            params = Array.prototype.slice.call(arguments, 2);
-        }
+        var object = this;
 
         if (typeof object['get:' + path] === 'function'){
-            return object['get:' + path].apply(object, params);
+            return object['get:' + path]();
         }
 
         var attr = object,
@@ -30,7 +20,7 @@ define(function(require) {
         _.every(segments, function(segment){
 
             if (typeof attr[segment] === 'function'){
-                attr = attr[segment].apply(attr, params);
+                attr = attr[segment].call(object);
             } else {
                 attr = attr[segment];
             }

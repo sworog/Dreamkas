@@ -12,18 +12,18 @@
 </div>
 <% } %>
 
-<h1><%= LH.attr(storeModel, 'number') %></h1>
+<h1><%= LH.modelNode(storeModel, 'number') %></h1>
 <table class="table store__info">
     <tr>
         <th><%- 'Адрес' %></th>
         <td>
-            <%= LH.attr(storeModel, 'address') %>
+            <%= LH.modelNode(storeModel, 'address') %>
         </td>
     </tr>
     <tr>
         <th><%- 'Контактная информация' %></th>
         <td>
-            <%= LH.attr(storeModel, 'contacts') %>
+            <%= LH.modelNode(storeModel, 'contacts') %>
         </td>
     </tr>
 </table>

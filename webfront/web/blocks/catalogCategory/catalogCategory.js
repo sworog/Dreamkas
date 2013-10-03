@@ -129,7 +129,7 @@ define(function(require) {
             var block = this;
 
             if (block.catalogSubCategoryModel){
-                block.$productListTitle.html(LH.attr(block.catalogSubCategoryModel, 'name'));
+                block.$productListTitle.html(LH.modelNode(block.catalogSubCategoryModel, 'name'));
                 block.$productList.show();
             } else {
                 block.$productList.hide();

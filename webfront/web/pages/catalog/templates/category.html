@@ -2,7 +2,7 @@
     <a href="/catalog" class="page__backLink"><%- 'Товарный справочник' %></a>
     <span class="page__backLinkSeparator">/</span>
     <a href="/catalog/<%- catalogGroupModel.id %>" class="page__backLink">
-        <%= LH.attr(catalogGroupModel, 'name') %>
+        <%= LH.modelNode(catalogGroupModel, 'name') %>
     </a>
 </div>
 <div id="catalogCategory"></div>

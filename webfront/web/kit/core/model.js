@@ -12,7 +12,7 @@ define(function(require) {
      * @class model
      * @constructor
      */
-    return Backbone.Model.extend({
+    var Model = Backbone.Model.extend({
         saveData: null,
         nestedData: {},
         constructor: function() {
@@ -21,25 +21,20 @@ define(function(require) {
             Backbone.Model.apply(model, arguments);
 
             this.listenTo(this, {
-                change: function(model){
+                change: function(model, options) {
+
                     var changedAttributes = model.changed;
 
                     _.each(changedAttributes, function(changedAttrValue, changedAttrKey) {
-                        $('body')
-                            .find('[model_id="' + model.id + '"][model_attr="' + changedAttrKey + '"]')
-                            .html(changedAttrValue);
-
                         if (model.nestedData[changedAttrKey] && model[changedAttrKey]) {
                             model[changedAttrKey].set(changedAttrValue);
                         }
+                    });
 
-                        _.each(model.attributes, function(attrValue, attrKey){
-                            var deps = get.call(attrValue, '__dependencies__');
-
-                            if (_.contains(deps, changedAttrKey)){
-                                model.trigger('change:' + attrKey, model, model.get(attrKey));
-                            }
-                        });
+                    _.each(model.attributes, function(attrValue, attrKey) {
+                        if (_.intersection(attrValue.__dependencies__, _.keys(changedAttributes)).length) {
+                            model.trigger('change:' + attrKey, model, model.get(attrKey), options);
+                        }
                     });
                 }
             });
@@ -51,17 +46,17 @@ define(function(require) {
                 });
 
                 model.listenTo(model[key], {
-                    change: function(){
+                    change: function() {
                         model.set(key, model[key].toJSON());
                     }
                 })
             });
 
         },
-        get: function(path){
+        get: function(path) {
             var model = this;
 
-            return get.apply(model.attributes, arguments);
+            return get.call(model, 'attributes.' + path);
         },
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({
@@ -88,18 +83,20 @@ define(function(require) {
 
             return Backbone.Model.prototype.toJSON.apply(this, arguments);
         },
-        getData: function(){
+        getData: function() {
             var saveData;
 
-            if (_.isFunction(this.saveData)){
+            if (_.isFunction(this.saveData)) {
                 saveData = this.saveData();
             }
 
-            if (_.isArray(this.saveData)){
+            if (_.isArray(this.saveData)) {
                 saveData = _.pick(this.toJSON(), this.saveData);
             }
 
             return saveData;
         }
-    })
+    });
+
+    return Model;
 });

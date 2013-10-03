@@ -11,5 +11,7 @@ require(
             'jquery.ui': ['jquery']
         }
     }, ['kit/config'], function(){
-        require(['app']);
+        require({
+           dictionary: 'dictionary'
+        }, ['app']);
     });
