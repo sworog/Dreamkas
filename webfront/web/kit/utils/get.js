@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var _ = require('lodash');
+    require('lodash');
 
     return function(){
 

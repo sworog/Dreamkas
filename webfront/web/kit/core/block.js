@@ -2,13 +2,13 @@ define(function(require) {
     //requirements
     var Backbone = require('backbone'),
         $ = require('jquery'),
-        _ = require('lodash'),
         deepExtend = require('../utils/deepExtend'),
         classExtend = require('../utils/classExtend'),
         setter = require('../utils/setter'),
         getter = require('../utils/getter');
 
     require('jquery.require');
+    require('lodash');
 
     var Block = Backbone.View
         .extend(setter)

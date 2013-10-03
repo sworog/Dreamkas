@@ -1,8 +1,9 @@
 define(function(require) {
     //requirements
     var getter = require('./getter'),
-        _ = require('lodash'),
         compute = require('./compute');
+
+    require('lodash');
 
     var object = _.extend({
         computedString: compute(['string', 'number'], function(string, number){

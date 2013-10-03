@@ -1,7 +1,8 @@
 define(function(require) {
     //requirements
-    var dictionary = require('dictionary'),
-        _ = require('lodash');
+    var dictionary = require('dictionary');
+
+    require('lodash');
 
     return function(text) {
         var result = '';

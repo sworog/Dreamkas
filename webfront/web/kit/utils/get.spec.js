@@ -1,8 +1,9 @@
 define(function(require) {
     //requirements
-    var _ = require('lodash'),
-        get = require('./get'),
+    var get = require('./get'),
         objectFixture = require('../fixtures/object');
+
+    require('lodash');
 
     describe('utils/get', function(){
 

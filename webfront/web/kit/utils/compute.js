@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    _ = require('lodash');
+    require('lodash');
 
     return function(depsArray, getter) {
 

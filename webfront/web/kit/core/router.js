@@ -1,11 +1,11 @@
 define(function(require) {
     //requirements
     var Backbone = require('backbone'),
-        _ = require('lodash'),
         deepExtend = require('../utils/deepExtend'),
         classExtend = require('../utils/classExtend');
 
     require('backbone.queryparams');
+    require('lodash');
 
     Backbone.Router.namedParameters = true;
 

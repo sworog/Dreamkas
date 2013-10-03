@@ -1,8 +1,9 @@
 define(function(require) {
     //requirements
     var deepExtend = require('./deepExtend'),
-        _ = require('lodash'),
         objectFixture = require('../fixtures/object');
+
+    require('lodash');
 
     describe('utils/deepExtend', function() {
 

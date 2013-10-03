@@ -3,8 +3,9 @@ define(function(require) {
     var Block = require('./block'),
         Backbone = require('backbone'),
         Router = require('./router'),
-        isAllow = require('../utils/isAllow'),
-        _ = require('lodash');
+        isAllow = require('../utils/isAllow');
+
+    require('lodash');
 
     var router = new Router();
 

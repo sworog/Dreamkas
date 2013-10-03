@@ -1,8 +1,9 @@
 define(function(require) {
         //requirements
         var Block = require('../../core/block'),
-            _ = require('lodash'),
             deepExtend = require('../../utils/deepExtend');
+
+        require('lodash');
 
         return Block.extend({
             __name__: 'tooltip',
