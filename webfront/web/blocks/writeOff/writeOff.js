@@ -104,7 +104,7 @@ define(function(require) {
                 'submit .writeOff__productsTable .writeOff__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = form2js(e.target),
+                        data = form2js(e.target, '.', false),
                         writeOffProductId = $(e.target).closest('[writeOff-product-id]').attr('writeOff-product-id'),
                         writeOffProduct = block.writeOffProductsCollection.get(writeOffProductId),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
@@ -126,7 +126,7 @@ define(function(require) {
                 'submit .writeOff__head .writeOff__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = form2js(e.target),
+                        data = form2js(e.target, '.', false),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();
@@ -252,7 +252,7 @@ define(function(require) {
 
                     if (data.errors) {
                         fieldErrors = data.errors.join(', ');
-                        $inputControls.attr("lh_field_error", fieldErrors);
+                        $inputControls.attr("data-error", fieldErrors);
 
                     }
                 });
@@ -263,7 +263,7 @@ define(function(require) {
                     $inputControls = block.$el.find('.writeOff__dataInputControls');
 
                 $input.removeClass('.inputText_error');
-                $inputControls.removeAttr('lh_field_error');
+                $inputControls.removeAttr('data-error');
             },
             showDataInput: function($el) {
                 var block = this,

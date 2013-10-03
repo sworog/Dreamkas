@@ -104,7 +104,7 @@ define(function(require) {
                 'submit .invoice__productsTable .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = form2js(e.target),
+                        data = form2js(e.target, '.', false),
                         invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
                         invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
@@ -126,7 +126,7 @@ define(function(require) {
                 'submit .invoice__head .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
-                        data = form2js(e.target),
+                        data = form2js(e.target, '.', false),
                         $submitButton = $(e.target).find('[type="submit"]').closest('.button');
 
                     block.removeInlineErrors();
@@ -252,7 +252,7 @@ define(function(require) {
 
                     if (data.errors) {
                         fieldErrors = data.errors.join(', ');
-                        $inputControls.attr("lh_field_error", fieldErrors);
+                        $inputControls.attr("data-error", fieldErrors);
 
                     }
                 });
@@ -263,7 +263,7 @@ define(function(require) {
                     $inputControls = block.$el.find('.invoice__dataInputControls');
 
                 $input.removeClass('.inputText_error');
-                $inputControls.removeAttr('lh_field_error');
+                $inputControls.removeAttr('data-error');
             },
             showDataInput: function($el) {
                 var block = this,

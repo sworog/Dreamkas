@@ -444,6 +444,7 @@ And the user clicks finish edit link and ends the invoice edition
 
 Scenario: Issue 8 regresssion
 
+Given skipped. Info: 'Test is skipped', Details: 'unnormal behaviour'
 Given there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice 'InvoiceProduct-IPE-Common-regress' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
 And the user is on the invoice list page

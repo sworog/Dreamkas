@@ -25,7 +25,7 @@ public class MarkUpTab extends CommonPageObject {
     }
 
     public void saveMarkUpButtonClick() {
-        new ButtonFacade(getDriver(), "Сохранить").click();
+        new ButtonFacade(getDriver(), "Сохранить").catalogClick();
         new PreLoader(getDriver()).await();
     }
 

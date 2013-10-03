@@ -73,4 +73,10 @@ public class CommonUserSteps {
     public void pageContainsText(String text) {
         commonSteps.pageContainsText(text);
     }
+
+    @Given("skipped. Info: '$description', Details: '$details'")
+    @Pending
+    public void about(String description, String details) {
+        //pending
+    }
 }

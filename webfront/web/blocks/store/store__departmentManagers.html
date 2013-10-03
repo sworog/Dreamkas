@@ -9,5 +9,7 @@
     <%= templates.store__departmentManagerItem({departmentManagerModel: departmentManagerModel}) %>
     <% }) %>
 </div>
+<% if(LH.isAllow('stores', 'POST')) { %>
 <select id='select_departmentManagers' class="select"></select>
-<div class="store__managersNotification"><%- 'Больше нет свободных заведующих' %></div>
+<div class="store__managersNotification">Больше нет свободных заведующих</div>
+<% } %>

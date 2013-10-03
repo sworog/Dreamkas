@@ -10,24 +10,26 @@ define(function(require) {
             retailPricePreference: 'retailMarkup',
             rounding: {}
         },
-        saveData: [
-            'name',
-            'units',
-            'vat',
-            'purchasePrice',
-            'retailPriceMin',
-            'retailPriceMax',
-            'retailMarkupMax',
-            'retailMarkupMin',
-            'retailPricePreference',
-            'barcode',
-            'sku',
-            'vendorCountry',
-            'vendor',
-            'info',
-            'subCategory',
-            'rounding'
-        ],
+        saveData: function(){
+            return {
+                name: this.get('name'),
+                units: this.get('units'),
+                vat: this.get('vat'),
+                purchasePrice: this.get('purchasePrice'),
+                retailPriceMin: this.get('retailPriceMin'),
+                retailPriceMax: this.get('retailPriceMax'),
+                retailMarkupMax: this.get('retailMarkupMax'),
+                retailMarkupMin: this.get('retailMarkupMin'),
+                retailPricePreference: this.get('retailPricePreference'),
+                barcode: this.get('barcode'),
+                sku: this.get('sku'),
+                vendorCountry: this.get('vendorCountry'),
+                vendor: this.get('vendor'),
+                info: this.get('info'),
+                subCategory: this.get('subCategory'),
+                rounding: this.get('rounding') ? this.get('rounding').name : null
+            }
+        },
         parse: function(response, options) {
             var data = Model.prototype.parse.apply(this, arguments);
 

@@ -47,6 +47,7 @@ public class InvoiceApi extends DepartmentManagerApi {
     public void createInvoiceThroughPostWithProductAndNavigateToIt(String invoiceName, String productSku) throws IOException, JSONException {
         createInvoiceThroughPost(invoiceName);
         addProductToInvoice(invoiceName, productSku, "1", "1", DEFAULT_USER_NAME);
+        navigateToTheInvoicePage(invoiceName);
     }
 
     //TODO make given method->>>

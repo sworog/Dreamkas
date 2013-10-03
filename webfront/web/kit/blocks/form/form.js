@@ -25,7 +25,7 @@ define(function(require) {
                 e.preventDefault();
 
                 var block = this,
-                    formData = form2js(this.el),
+                    formData = form2js(this.el, '.', false),
                     submit;
 
                 block.trigger('submit:start', formData);

@@ -47,18 +47,21 @@ Then the user checks the dashboard link to 'catalog' section is present
 
 Scenario: DepartmentManager role valid rules - dashboard links - invoices
 
+Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-44'
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'invoices' section is present
 
 Scenario: DepartmentManager role valid rules - dashboard links - balance
 
+Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-43'
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'balance' section is present
 
 Scenario: DepartmentManager role valid rules - dashboard links - writeOffs
 
+Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-45'
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'writeOffs' section is present
@@ -95,6 +98,7 @@ Then the user checks the dashboard link to 'invoices' section is not present
 
 Scenario: Commercial manager role invalid rules - dashboard links - balance
 
+Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19'
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the dashboard link to 'balance' section is present
@@ -188,6 +192,7 @@ Then the user checks the category with 'First category create1234567' name is re
 
 Scenario: DepartmentManager role valid rules - simple user scenario from dashboard - invoice
 
+Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-44'
 Given there is the product with 'IFBKG-1199' name, 'IFBKG-1199' sku, 'IFBKG-1199' barcode
 And the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -234,6 +239,7 @@ And the user checks invoice elements values
 
 Scenario: DepartmentManager role valid rules - simple user scenario from dashboard - writeOff
 
+Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-45'
 Given there is the product with 'WriteOff-ProductName999' name, 'WriteOff-ProductSku999' sku, 'WriteOff-ProductBarCode999' barcode, 'liter' units, '15' purchasePrice
 And the user opens the authorization page
 And the user logs in as 'departmentManager'
@@ -355,6 +361,7 @@ Then the user sees the 403 error
 
 Scenario: CommercialManager role invalid rules - unauthorised access from balance link
 
+Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19'
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 And the user opens amount list page

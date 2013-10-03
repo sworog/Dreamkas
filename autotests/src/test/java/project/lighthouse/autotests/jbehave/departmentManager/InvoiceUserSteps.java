@@ -53,6 +53,7 @@ public class InvoiceUserSteps {
         invoiceSteps.openInvoiceListPage();
     }
 
+    @Given("before steps")
     public void beforeSteps() throws IOException, JSONException {
         userSteps.getUser(InvoiceApi.DEFAULT_USER_NAME);
         catalogSteps.promoteDepartmentManager(storeSteps.createStore(), InvoiceApi.DEFAULT_USER_NAME);

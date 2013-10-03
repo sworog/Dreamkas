@@ -18,7 +18,12 @@ public class DashBoardPage extends CommonPageObject {
     }
 
     private String getButtonXpath(String name) {
-        return String.format("//*[contains(@href, '/%s')]", name);
+        switch (name) {
+            case "users":
+                return "//*[contains(@href, '/users') and not(@class='navigationBar__userName')]";
+            default:
+                return String.format("//*[contains(@href, '/%s')]", name);
+        }
     }
 
     public void buttonClick(String name) {

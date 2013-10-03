@@ -146,14 +146,14 @@
     margin: 0;
 }
 
-.invoice__dataInputControls[lh_field_error]:before{
-    content: attr(lh_field_error);
+.invoice__dataInputControls[data-error]:before{
+    content: attr(data-error);
     display: block;
     color: #c60f13;
     padding: 0 0 10px;
 }
 
-.invoice__dataInputControls[lh_field_error]:after{
+.invoice__dataInputControls[data-error]:after{
     display: none;
 }
 
