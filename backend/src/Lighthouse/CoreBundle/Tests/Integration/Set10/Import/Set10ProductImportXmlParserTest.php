@@ -70,6 +70,28 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $this->assertFalse($good);
     }
 
+    public function testMeasurementCaseSensitiveParsing()
+    {
+        $parser = $this->createXmlParser(__DIR__ . '/../../../Fixtures/Integration/Set10/Import/goods-measurement.xml');
+
+        $expected = array(
+            Product::UNITS_UNIT,
+            Product::UNITS_UNIT,
+            Product::UNITS_UNIT,
+            Product::UNITS_UNIT,
+            Product::UNITS_KG,
+            Product::UNITS_KG,
+            Product::UNITS_KG,
+            Product::UNITS_KG,
+            null
+        );
+
+        foreach ($expected as $expectedUnit) {
+            $good = $parser->readNextNode();
+            $this->assertEquals($expectedUnit, $good->getUnits());
+        }
+    }
+
     public function testOnlyGroupNodesAreRead()
     {
         $parser = $this->createXmlParser();

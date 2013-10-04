@@ -111,7 +111,7 @@ class Set10ProductImportXmlParser
         $product->vat  = $good->getVat();
         $product->barcode = $good->getBarcode();
         $product->vendor = $good->getVendor();
-        $product->units = $good->getUnits();
+        $product->units = $good->getUnits() ?: Product::UNITS_UNIT;
         $product->purchasePrice = $this->getPurchasePrice($good);
         $product->retailPricePreference = $product::RETAIL_PRICE_PREFERENCE_MARKUP;
         $product->retailMarkupMin = 15;

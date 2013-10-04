@@ -66,12 +66,11 @@ class GoodElement extends SimpleXMLElement
     {
         $measureType = (string) $this->{'measure-type'}->name;
         switch (true) {
-            case preg_match('/^(кг|Кг|кГ|КГ)\.?$/', $measureType):
+            case preg_match('/^кг\.?$/ui', $measureType):
                 return Product::UNITS_KG;
-            case preg_match('/^(шт|Шт|шТ|ШТ)\.?$/', $measureType):
+            case preg_match('/^шт\.?$/ui', $measureType):
                 return Product::UNITS_UNIT;
             default:
-                echo "\n" . $measureType . "\n";
                 return null;
         }
     }
