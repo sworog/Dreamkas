@@ -64,13 +64,14 @@ class GoodElement extends SimpleXMLElement
      */
     public function getUnits()
     {
-        $measureTypeId = (string) $this->{'measure-type'}['id'];
-        switch ($measureTypeId) {
-            case '1':
+        $measureType = (string) $this->{'measure-type'}->name;
+        switch (true) {
+            case preg_match('/^(кг|Кг|кГ|КГ)\.?$/', $measureType):
                 return Product::UNITS_KG;
-            case '1006':
+            case preg_match('/^(шт|Шт|шТ|ШТ)\.?$/', $measureType):
                 return Product::UNITS_UNIT;
             default:
+                echo "\n" . $measureType . "\n";
                 return null;
         }
     }
