@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var cookie = require('kit/utils/cookie');
+    var cookie = require('kit/libs/cookie');
 
     return function(price, rounding){
         return $.ajax({

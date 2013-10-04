@@ -3,7 +3,7 @@ define(function(require) {
     var setter = require('../utils/setter'),
         getter = require('../utils/getter'),
         Backbone = require('backbone'),
-        cookie = require('../utils/cookie');
+        cookie = require('../libs/cookie');
 
     require('lodash');
 

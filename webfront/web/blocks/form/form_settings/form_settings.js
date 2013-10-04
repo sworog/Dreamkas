@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Form = require('kit/blocks/form/form'),
-        cookie = require('kit/utils/cookie');
+        cookie = require('kit/libs/cookie');
 
     var authorizationHeader = 'Bearer ' + cookie.get('token'),
         configUrl = LH.baseApiUrl + '/configs';
