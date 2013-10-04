@@ -24,6 +24,7 @@ define(function(require) {
             var testKlass = new ExtendedKlass();
 
             expect(testKlass.testValue).toBeNull();
+
         });
 
         it('base class property is not changed after calling extend function', function() {
@@ -35,6 +36,7 @@ define(function(require) {
             var testKlass = new Klass();
 
             expect(testKlass.testValue).toBeNull();
+
         });
 
         it('base class extend', function() {
@@ -46,6 +48,18 @@ define(function(require) {
 
             expect(testKlass.testValue).not.toBeNull();
             expect(testKlass.testValue).toEqual('test extend field');
+        });
+
+        it('class instant without new', function() {
+
+            var ExtendedKlass = Klass.extend({
+                testValue: 'test extend field'
+            });
+            var testKlass = ExtendedKlass();
+
+            expect(testKlass.testValue).not.toBeNull();
+            expect(testKlass.testValue).toEqual('test extend field');
+
         });
 
         it('base class property is String', function() {
@@ -116,6 +130,19 @@ define(function(require) {
             var testKlass = new ExtendedKlass();
 
             expect(testKlass.testValue).toEqual([5, 6, 7]);
+
+        });
+
+        it('calling super property', function() {
+
+            var ExtendedKlass = Klass.extend({
+                testValue: function(){
+                    return Klass.prototype.testValue
+                }
+            });
+            var testKlass = new ExtendedKlass();
+
+            expect(testKlass.testValue()).toBeNull();
 
         });
 
