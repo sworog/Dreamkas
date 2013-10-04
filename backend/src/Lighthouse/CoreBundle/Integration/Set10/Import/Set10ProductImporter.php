@@ -33,7 +33,7 @@ class Set10ProductImporter
     /**
      * @var int
      */
-    protected $count = 0;
+    protected $lineWidth = 50;
 
     /**
      * @DI\InjectParams({
@@ -56,28 +56,104 @@ class Set10ProductImporter
      */
     public function import(Set10ProductImportXmlParser $parser, OutputInterface $output, $batchSize = null)
     {
-        $this->count = 0;
+        $errors = array();
+        $memStart = memory_get_usage();
+        $count = 0;
         $batchSize = ($batchSize) ?: $this->batchSize;
-
+        $verbose = $output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL;
+        $totalStartTime = microtime(true);
         $startItemTime = microtime(true);
+        $flushStartTime = microtime(true);
+        $flushCount = 0;
+        $lineCount = 0;
         while ($product = $parser->createNextProduct()) {
+            $count++;
+            $flushCount++;
+            $lineCount++;
             try {
                 $this->validate($product);
                 $this->dm->persist($product);
-                $output->writeln(sprintf('Persist product "%s"', $product->name));
-                if (0 == ++$this->count % $batchSize) {
-                    $this->dm->flush();
-                    $output->writeln('Flushing');
+                if ($verbose) {
+                    $output->writeln(sprintf('<info>Persist product "%s"</info>', $product->name));
+                } else {
+                    $output->write('.');
                 }
             } catch (ValidationFailedException $e) {
-                $output->writeln($e->getMessage());
+                $errors[] = array(
+                    'exception' => $e,
+                    'product' => $product,
+                );
+                if ($verbose) {
+                    $output->writeln('<error>Error: ' . $e->getMessage() . '</error>');
+                } else {
+                    $output->write('<error>E</error>');
+                }
             }
+
             $stopItemTime = microtime(true);
             $itemTime = $stopItemTime - $startItemTime;
-            $output->writeln('Item time: '. (string) $itemTime . ' seconds');
+            if ($verbose) {
+                $output->writeln(sprintf('<comment>Item time: %.02f ms</comment>', $itemTime * 1000));
+            }
             $startItemTime = microtime(true);
+
+            if ($this->lineWidth == $lineCount) {
+                $output->writeln(sprintf('   %s', $count));
+                $lineCount = 0;
+            }
+
+            if (0 == $count % $batchSize) {
+                if (0 != $lineCount) {
+                    $output->writeln('');
+                }
+                $output->write('<info>Flushing</info>');
+                $this->dm->flush();
+                $flushTime = microtime(true) - $flushStartTime;
+                if ($verbose) {
+                    $output->writeln('<info>Flushing</info>');
+                } else {
+                    $output->writeln(sprintf(' - %.02f prod/s', $flushCount / $flushTime));
+                }
+                $flushStartTime = microtime(true);
+                $flushCount = 0;
+                $lineCount = 0;
+            }
         }
         $this->dm->flush();
+
+        $totalTime = microtime(true) - $totalStartTime;
+        $output->writeln('');
+        $output->writeln(
+            sprintf(
+                '<info>Total</info> - %d products in %d seconds, %.02f prod/s',
+                $count,
+                $totalTime,
+                $count / $totalTime
+            )
+        );
+        $memStop = memory_get_usage();
+        $output->writeln(
+            sprintf(
+                '<info>Memory usage</info> - start %dMB, end %dMB, diff %dMB, peak %dMB',
+                $memStart / 1048576,
+                $memStop / 1048576,
+                ($memStop - $memStart)  / 1048576,
+                memory_get_peak_usage() / 1048576
+            )
+        );
+        if (count($errors) > 0) {
+            $output->writeln('<error>Errors</error>');
+            foreach ($errors as $error) {
+                $output->writeln(
+                    sprintf(
+                        '<comment>%s / %s</comment> - %s',
+                        $error['product']->sku,
+                        $error['product']->name,
+                        $error['exception']->getMessage()
+                    )
+                );
+            }
+        }
     }
 
     /**
