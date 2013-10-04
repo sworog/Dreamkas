@@ -48,7 +48,8 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
         $categories = $categoryRepository->findAll();
         $this->assertCount(3, $categories);
 
-        $subCategoryRepository = $this->getContainer()->get('lighthouse.core.document.repository.classifier.subcategory');
+        $subCategoryRepository = $this->getContainer()
+            ->get('lighthouse.core.document.repository.classifier.subcategory');
         $subCategories = $subCategoryRepository->findAll();
         $this->assertCount(4, $subCategories);
     }
