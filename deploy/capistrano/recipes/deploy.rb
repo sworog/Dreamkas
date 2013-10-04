@@ -179,6 +179,36 @@ namespace :deploy do
         end
     end
 
+    desc "Import products catalog from file, required: -S file=<..>"
+    task :import_xml do
+        set :branch, `git rev-parse --abbrev-ref HEAD`.delete("\n") || "master" unless exists?(:branch)
+        set :host, branch unless exists?(:host)
+        set :application, "#{host}.#{stage}.#{app_end}"
+
+        set :deploy_to,   "/var/www/#{application}"
+        set :symfony_env_prod, exists?(:symfony_env) ? symfony_env : stage
+        set :application_url, "http://#{application}.lighthouse.cs"
+
+        raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
+
+        set :xml_file_path, file
+        set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import.xml"
+
+        if File.exists?(remote_temp_file_path)
+            begin
+                run "#{try_sudo} rm #{remote_temp_file_path}"
+            end
+        end
+
+        puts "--> Uploading xml file".yellow
+        top.upload(xml_file_path, remote_temp_file_path)
+
+        puts "--> Import products".yellow
+        stream "cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:import:products #{remote_temp_file_path} --env=#{symfony_env_prod}"
+        capifony_pretty_print "--> Import products finish".yellow
+        capifony_puts_ok
+    end
+
 end
 
 after "multistage:ensure", "deploy:init"
