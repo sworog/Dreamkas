@@ -1,13 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Integration\Set10;
+namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Export;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Integration\Set10\ExportProductsWorker;
-use Lighthouse\CoreBundle\Integration\Set10\Set10;
+use Lighthouse\CoreBundle\Integration\Set10\Export\ExportProductsWorker;
+use Lighthouse\CoreBundle\Integration\Set10\Export\Set10Export;
 use Lighthouse\CoreBundle\Integration\Set10\Set10ProductConverter;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Assert;
@@ -436,7 +436,7 @@ EOF;
         mkdir($xmlFilePath . "/source", 0777, true);
         $xmlFileUrl = "file://" . $xmlFilePath;
 
-        $this->createConfig(Set10::URL_CONFIG_NAME, $xmlFileUrl);
+        $this->createConfig(Set10Export::URL_CONFIG_NAME, $xmlFileUrl);
 
         $commercialAccessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
         $this->clientJsonRequest(
@@ -500,7 +500,7 @@ EOF;
 
         $files = glob($xmlFilePath . "/source/*");
         $this->assertXmlFileEqualsXmlFile(
-            __DIR__ . "/../../Fixtures/Integration/Set10/ExportProducts.xml",
+            __DIR__ . "/../../../Fixtures/Integration/Set10/ExportProducts.xml",
             array_pop($files)
         );
     }
@@ -510,7 +510,7 @@ EOF;
         /** @var ExportProductsWorker $worker */
         $worker = $this->getContainer()->get("lighthouse.core.job.integration.set10.export_products");
 
-        $configUrlId = $this->createConfig(Set10::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");
+        $configUrlId = $this->createConfig(Set10Export::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");
 
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
@@ -519,69 +519,69 @@ EOF;
         $actualUrl = $worker->getUrl();
         $this->assertEquals($expectedUrl, $actualUrl);
 
-        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://host/centrum/products/");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "smb://host/centrum/products/");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
         $expectedUrl = "smb://host/centrum/products/";
         $actualUrl = $worker->getUrl();
         $this->assertEquals($expectedUrl, $actualUrl);
 
-        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://host/centrum/products/");
-        $configLoginId = $this->createConfig(Set10::LOGIN_CONFIG_NAME, "user");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "smb://host/centrum/products/");
+        $configLoginId = $this->createConfig(Set10Export::LOGIN_CONFIG_NAME, "user");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
         $expectedUrl = "smb://user@host/centrum/products/";
         $actualUrl = $worker->getUrl();
         $this->assertEquals($expectedUrl, $actualUrl);
 
-        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://host/centrum/products/");
-        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "user");
-        $configPasswordId = $this->createConfig(Set10::PASSWORD_CONFIG_NAME, "password");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "smb://host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, "user");
+        $configPasswordId = $this->createConfig(Set10Export::PASSWORD_CONFIG_NAME, "password");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
         $expectedUrl = "smb://user:password@host/centrum/products/";
         $actualUrl = $worker->getUrl();
         $this->assertEquals($expectedUrl, $actualUrl);
 
-        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://host/centrum/products/");
-        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "");
-        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "password");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "smb://host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, "");
+        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, "password");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
         $expectedUrl = "smb://host/centrum/products/";
         $actualUrl = $worker->getUrl();
         $this->assertEquals($expectedUrl, $actualUrl);
 
-        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://host/centrum/products/");
-        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "");
-        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "smb://host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, "");
+        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, "");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
         $expectedUrl = "smb://host/centrum/products/";
         $actualUrl = $worker->getUrl();
         $this->assertEquals($expectedUrl, $actualUrl);
 
-        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://user1:password1@host/centrum/products/");
-        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "user");
-        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "smb://user1:password1@host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, "user");
+        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, "");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
         $expectedUrl = "smb://user@host/centrum/products/";
         $actualUrl = $worker->getUrl();
         $this->assertEquals($expectedUrl, $actualUrl);
 
-        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://user1:password1@host/centrum/products/");
-        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "user");
-        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "password");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "smb://user1:password1@host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, "user");
+        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, "password");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
         $expectedUrl = "smb://user:password@host/centrum/products/";
         $actualUrl = $worker->getUrl();
         $this->assertEquals($expectedUrl, $actualUrl);
 
-        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "smb://user1:password1@host/centrum/products/");
-        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "");
-        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "smb://user1:password1@host/centrum/products/");
+        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, "");
+        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, "");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
         $expectedUrl = "smb://user1:password1@host/centrum/products/";
@@ -597,39 +597,39 @@ EOF;
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $configLoginId = $this->createConfig(Set10::LOGIN_CONFIG_NAME, "user");
+        $configLoginId = $this->createConfig(Set10Export::LOGIN_CONFIG_NAME, "user");
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $configPasswordId = $this->createConfig(Set10::PASSWORD_CONFIG_NAME, "password");
+        $configPasswordId = $this->createConfig(Set10Export::PASSWORD_CONFIG_NAME, "password");
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "");
+        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, "");
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "");
+        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, "");
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $configUrlId = $this->createConfig(Set10::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");
+        $configUrlId = $this->createConfig(Set10Export::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
 
-        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "");
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $this->updateConfig($configUrlId, Set10::URL_CONFIG_NAME, "file:///tmp/qwe");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "file:///tmp/qwe");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
 
-        $this->updateConfig($configLoginId, Set10::LOGIN_CONFIG_NAME, "user");
+        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, "user");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
 
-        $this->updateConfig($configPasswordId, Set10::PASSWORD_CONFIG_NAME, "password");
+        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, "password");
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
     }

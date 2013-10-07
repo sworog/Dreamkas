@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\MongoDB\LoggableCursor;
+use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Config\Config;
 use Lighthouse\CoreBundle\Document\Config\ConfigCollection;
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
@@ -31,8 +32,8 @@ class ConfigController extends AbstractRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Config\Config
+     * @param Request $request
+     * @return View|Config
      *
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_ADMINISTRATOR")
@@ -44,9 +45,9 @@ class ConfigController extends AbstractRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param Config $config
-     * @return \FOS\RestBundle\View\View|\Lighthouse\CoreBundle\Document\Config\Config
+     * @return View|Config
      *
      * @Rest\View(statusCode=200)
      * @Secure(roles="ROLE_ADMINISTRATOR")
@@ -59,7 +60,7 @@ class ConfigController extends AbstractRestController
 
     /**
      * @param Config $config
-     * @return \Lighthouse\CoreBundle\Document\Config\Config
+     * @return Config
      * @ApiDoc
      * @Secure(roles="ROLE_ADMINISTRATOR")
      */
@@ -69,7 +70,7 @@ class ConfigController extends AbstractRestController
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Document\Config\ConfigCollection
+     * @return ConfigCollection
      * @ApiDoc(
      *      resource=true
      * )
