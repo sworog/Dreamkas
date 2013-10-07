@@ -9,7 +9,6 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Translation\Translator;
-use SimpleXMLElement;
 
 /**
  * @DI\Service("lighthouse.core.service.convert.set10.product")
@@ -51,8 +50,10 @@ class Set10ProductConverter
      */
     public function makeXmlByProduct(Product $product)
     {
+        $xmlProducts = array();
+
         if (!$this->validateProduct($product)) {
-            return array();
+            return $xmlProducts;
         }
 
         $storeProducts = $this->storeProductRepository->findByProduct($product);
@@ -71,57 +72,47 @@ class Set10ProductConverter
             $versionProducts[$uniqueVersionString]['storeNumbers'][] = $storeProduct->store->number;
         }
 
-        $xmlProducts = array();
         foreach ($versionProducts as $version) {
-            /** @var StoreProduct $storeProductModel */
-            $storeProductModel = $version['storeProductModel'];
-            /** @var Product $productModel */
-            $productModel = $storeProductModel->product;
-            $goodElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><good/>');
-            $goodElement->addAttribute('marking-of-the-good', $productModel->sku);
-            $goodElement->addChild('shop-indices', implode(" ", $version['storeNumbers']));
-            $goodElement->addChild("name", $product->name);
-            $barcodeElement = $goodElement->addChild('bar-code');
-            $barcodeElement->addAttribute('code', $product->barcode);
-            $barcodeElement->addChild('count', 1);
-            $barcodeElement->addChild('default-code', 'true');
-            $goodElement->addChild('product-type', 'ProductPieceEntity');
-            $priceElement = $goodElement->addChild('price-entry');
-            $priceElement->addAttribute(
-                'price',
-                $this->moneyModelTransformer->transform($storeProductModel->roundedRetailPrice)
-            );
-            $priceElement->addChild('number', 1);
-            /** Залипон, что б касса съедала цену */
-            $priceDepartmentElement = $priceElement->addChild("department");
-            $priceDepartmentElement->addAttribute("number", 1);
-            $priceDepartmentElement->addChild("name", 1);
-            /** Конец залипона */
-            $goodElement->addChild('vat', $product->vat);
-            $subCategoryElement = $goodElement->addChild('group');
-            $subCategoryElement->addAttribute('id', $product->subCategory->name);
-            $subCategoryElement->addChild('name', $product->subCategory->name);
-            $categoryElement = $subCategoryElement->addChild('parent-group');
-            $categoryElement->addAttribute('id', $product->subCategory->category->name);
-            $categoryElement->addChild('name', $product->subCategory->category->name);
-            $groupElement = $categoryElement->addChild('parent-group');
-            $groupElement->addAttribute('id', $product->subCategory->category->group->name);
-            $groupElement->addChild('name', $product->subCategory->category->group->name);
-            $unitsElement = $goodElement->addChild('measure-type');
-            $unitsElement->addAttribute('id', $product->units);
-            $unitsElement->addChild(
-                'name',
-                $this->translator->trans('lighthouse.units.' . $product->units, array(), 'units')
-            );
-            $pluginElement = $goodElement->addChild('plugin-property');
-            $pluginElement->addAttribute('key', 'precision');
-            $pluginElement->addAttribute('value', 1);
-
-            $productXml = $goodElement->asXML();
-            $xmlProducts[] = substr($productXml, strpos($productXml, '?>') + 2);
+            $goodElement = $this->createProductXml($version['storeProductModel'], $version['storeNumbers']);
+            $xmlProducts[] = $goodElement->asXmlWithoutHeader();
         }
 
         return $xmlProducts;
+    }
+
+    /**
+     * @param StoreProduct $storeProductModel
+     * @param array $storeNumbers
+     * @return GoodElement
+     */
+    protected function createProductXml(StoreProduct $storeProductModel, array $storeNumbers)
+    {
+        $product = $storeProductModel->product;
+
+        $goodElement = GoodElement::create();
+        $goodElement->setMarking($product->sku);
+        $goodElement->setShopIndices($storeNumbers);
+        $goodElement->setName($product->name);
+        $goodElement->setBarcode($product->barcode);
+        $goodElement->setProductType();
+        $goodElement->setPrice(
+            $this->moneyModelTransformer->transform($storeProductModel->roundedRetailPrice)
+        );
+        $goodElement->setVat($product->vat);
+        $goodElement->setGroups(
+            array(
+                $product->subCategory->name => $product->subCategory->name,
+                $product->subCategory->category->name => $product->subCategory->category->name,
+                $product->subCategory->category->group->name => $product->subCategory->category->group->name,
+            )
+        );
+        $goodElement->setMeasureType(
+            $product->units,
+            $this->translator->trans('lighthouse.units.' . $product->units, array(), 'units')
+        );
+        $goodElement->setPluginProperty();
+
+        return $goodElement;
     }
 
     /**
@@ -140,10 +131,8 @@ class Set10ProductConverter
             case $product::RETAIL_PRICE_PREFERENCE_MARKUP:
                 if ($product->retailMarkupMin === null
                     || $product->retailMarkupMax === null
-                    || $product->retailMarkupMin === ""
-                    || $product->retailMarkupMax === ""
-                    || ($product->retailMarkupMin instanceof Money && $product->retailMarkupMin->isNull())
-                    || ($product->retailMarkupMax instanceof Money && $product->retailMarkupMax->isNull())
+                    || $product->retailMarkupMin === ''
+                    || $product->retailMarkupMax === ''
                 ) {
                     return false;
                 }
@@ -152,8 +141,8 @@ class Set10ProductConverter
             case $product::RETAIL_PRICE_PREFERENCE_PRICE:
                 if ($product->retailPriceMin === null
                     || $product->retailPriceMax === null
-                    || $product->retailPriceMin === ""
-                    || $product->retailPriceMax === ""
+                    || $product->retailPriceMin === ''
+                    || $product->retailPriceMax === ''
                     || ($product->retailPriceMin instanceof Money && $product->retailPriceMin->isNull())
                     || ($product->retailPriceMax instanceof Money && $product->retailPriceMax->isNull())
                 ) {
