@@ -30,6 +30,11 @@ public class SettingUserSteps {
         settingSteps.saveSettingsButtonClick();
     }
 
+    @When("the user clicks import save button on the setting page")
+    public void whenTheUSerClicksImportSaveButton() {
+        settingSteps.saveImportSettingsClick();
+    }
+
     @Then("the user checks the stored values on the setting page")
     public void thenTheUserChecksTheStoreValues() {
         settingSteps.check(valuesTable);

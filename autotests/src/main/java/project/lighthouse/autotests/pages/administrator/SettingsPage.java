@@ -19,10 +19,20 @@ public class SettingsPage extends CommonPageObject {
         items.put("set10-integration-url", new Input(this, "set10-integration-url"));
         items.put("set10-integration-login", new Input(this, "set10-integration-login"));
         items.put("set10-integration-password", new Input(this, "set10-integration-password"));
+
+        items.put("set10-import-url", new Input(this, "set10-import-url"));
+        items.put("set10-import-login", new Input(this, "set10-import-login"));
+        items.put("set10-import-password", new Input(this, "set10-import-password"));
+        items.put("set10-import-interval", new Input(this, "set10-import-interval"));
     }
 
     public void saveSettingButtonClick() {
-        new ButtonFacade(getDriver(), "Сохранить").click();
+        new ButtonFacade(getDriver(), "Сохранить настройки экспорта").click();
+        new PreLoader(getDriver()).await();
+    }
+
+    public void saveImportSettingsClick() {
+        new ButtonFacade(getDriver(), "Сохранить настройки импорта").click();
         new PreLoader(getDriver()).await();
     }
 }
