@@ -196,11 +196,34 @@ namespace :symfony do
     end
 
     namespace :env do
-        desc "Reacreate db, create default clients and users"
+        desc "Recreate db, create default clients and users"
         task :init, :roles => :app, :except => { :no_release => true } do
             doctrine.mongodb.schema.recreate
             user.create_default
             auth.client.create_default
         end
     end
+
+    desc "Import products catalog from file, required: -S file=<..>"
+    task :import_xml do
+
+        raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
+
+        set :xml_file_path, file
+        set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import.xml"
+
+        if File.exists?(remote_temp_file_path)
+            begin
+                run "#{try_sudo} rm #{remote_temp_file_path}"
+            end
+        end
+
+        puts "--> Uploading xml file".yellow
+        top.upload(xml_file_path, remote_temp_file_path)
+
+        puts "--> Import products".yellow
+        stream "cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:import:products #{remote_temp_file_path} --env=#{symfony_env_prod}"
+        capifony_puts_ok
+    end
+
 end
