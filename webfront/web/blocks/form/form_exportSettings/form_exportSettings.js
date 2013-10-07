@@ -7,37 +7,41 @@ define(function(require) {
         configUrl = LH.baseApiUrl + '/configs';
 
     return Form.extend({
-        __name__: 'form_settings',
-        template: require('tpl!blocks/form/form_settings/templates/index.html'),
+        __name__: 'form_exportSettings',
+        template: require('tpl!blocks/form/form_exportSettings/templates/index.html'),
         set10IntegrationUrl: {},
         set10IntegrationLogin: {},
         set10IntegrationPassword: {},
         successMessage: 'Настройки успешно сохранены',
-        submit: function(data){
+        submit: function(data) {
             var block = this,
-                saveData = $.when(block.saveUrl(data['set10-integration-url']), block.saveLogin(data['set10-integration-login']), block.savePassword(data['set10-integration-password']));
+                saveData = $.when(
+                    block.saveExportUrl(data['set10-integration-url']),
+                    block.saveExportLogin(data['set10-integration-login']),
+                    block.saveExportPassword(data['set10-integration-password'])
+                );
 
-            saveData.done(function(urlData, loginData, passwordData){
-                block.set10IntegrationUrl.id = urlData[0].id;
-                block.set10IntegrationLogin.id = loginData[0].id;
-                block.set10IntegrationPassword.id = passwordData[0].id;
+            saveData.done(function(exportUrl, exportLogin, exportPassword) {
+                block.set10IntegrationUrl.id = exportUrl[0].id;
+                block.set10IntegrationLogin.id = exportLogin[0].id;
+                block.set10IntegrationPassword.id = exportPassword[0].id;
                 block.submitSuccess();
             });
 
-            saveData.fail(function(){
+            saveData.fail(function() {
                 block.submitError();
             });
 
-            saveData.always(function(){
+            saveData.always(function() {
                 block.submitComplete();
             });
         },
-        submitError: function(){
+        submitError: function() {
             var block = this;
 
             block.showErrors({error: 'Настройки не сохранены. Обратитесь к администратору.'})
         },
-        saveUrl: function(url){
+        saveExportUrl: function(url) {
             var block = this;
 
             return $.ajax({
@@ -53,7 +57,7 @@ define(function(require) {
                 }
             })
         },
-        saveLogin: function(login){
+        saveExportLogin: function(login) {
             var block = this;
 
             return $.ajax({
@@ -69,7 +73,7 @@ define(function(require) {
                 }
             })
         },
-        savePassword: function(password){
+        saveExportPassword: function(password) {
             var block = this;
 
             return $.ajax({
