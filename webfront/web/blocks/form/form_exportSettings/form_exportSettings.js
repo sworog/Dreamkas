@@ -25,16 +25,9 @@ define(function(require) {
                 block.set10IntegrationUrl.id = exportUrl[0].id;
                 block.set10IntegrationLogin.id = exportLogin[0].id;
                 block.set10IntegrationPassword.id = exportPassword[0].id;
-                block.submitSuccess();
             });
 
-            saveData.fail(function() {
-                block.submitError();
-            });
-
-            saveData.always(function() {
-                block.submitComplete();
-            });
+            return saveData;
         },
         submitError: function() {
             var block = this;

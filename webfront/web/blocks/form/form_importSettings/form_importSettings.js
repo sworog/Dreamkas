@@ -28,17 +28,9 @@ define(function(require) {
                 block.set10ImportLogin.id = importLogin[0].id;
                 block.set10ImportPassword.id = importPassword[0].id;
                 block.set10ImportInterval.id = importInterval[0].id;
-
-                block.submitSuccess();
             });
 
-            saveData.fail(function() {
-                block.submitError();
-            });
-
-            saveData.always(function() {
-                block.submitComplete();
-            });
+            return saveData;
         },
         submitError: function() {
             var block = this;
