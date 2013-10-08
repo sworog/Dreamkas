@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10\Export;
 
-use SimpleXMLElement;
+use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
 
 class GoodElement extends SimpleXMLElement
 {
@@ -135,14 +135,5 @@ class GoodElement extends SimpleXMLElement
         $pluginElement->addAttribute('key', 'precision');
         $pluginElement->addAttribute('value', 1);
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function asXmlWithoutHeader()
-    {
-        $xml = $this->asXML();
-        return substr($xml, strpos($xml, '?>') + 3);
     }
 }
