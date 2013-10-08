@@ -1,11 +1,11 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Purchase\Product;
+namespace Lighthouse\CoreBundle\Document\Sale\Product;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Document\Purchase\Purchase;
+use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Money;
@@ -19,11 +19,11 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  * @property Money      $sellingPrice
  * @property int        $quantity
  * @property Money      $totalSellingPrice
- * @property \DateTime  $createdDate
+ * @property DateTime   $createdDate
  * @property Product    $product
- * @property Purchase   $purchase
+ * @property Sale       $sale
  */
-class PurchaseProduct extends AbstractDocument implements Reasonable
+class SaleProduct extends AbstractDocument implements Reasonable
 {
     /**
      * @MongoDB\Id
@@ -76,13 +76,13 @@ class PurchaseProduct extends AbstractDocument implements Reasonable
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Purchase\Purchase",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Sale\Sale",
      *     simple=true,
      *     cascade="persist"
      * )
-     * @var Purchase
+     * @var Sale
      */
-    protected $purchase;
+    protected $sale;
 
     /**
      * @MongoDB\PrePersist
@@ -93,7 +93,7 @@ class PurchaseProduct extends AbstractDocument implements Reasonable
         $this->totalSellingPrice = new Money();
         $this->totalSellingPrice->setCountByQuantity($this->sellingPrice, $this->quantity, true);
 
-        $this->createdDate = $this->purchase->createdDate;
+        $this->createdDate = $this->sale->createdDate;
     }
 
     /**
@@ -109,7 +109,7 @@ class PurchaseProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonType()
     {
-        return 'PurchaseProduct';
+        return 'SaleProduct';
     }
 
     /**
@@ -157,6 +157,6 @@ class PurchaseProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonParent()
     {
-        return $this->purchase;
+        return $this->sale;
     }
 }

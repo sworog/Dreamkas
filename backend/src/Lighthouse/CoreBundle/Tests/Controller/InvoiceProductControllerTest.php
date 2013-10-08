@@ -1063,11 +1063,11 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testAveragePurchasePrice()
     {
-        $this->markTestSkipped('Purchase is not storeable');
+        $this->markTestSkipped('Sale is not storeable');
         $productId = $this->createProduct();
         $productId2 = $this->createProduct('2');
 
-        $purchaseId = $this->createPurchaseWithProduct($productId, 79.99, 13, '-2 days');
+        $purchaseId = $this->createSaleWithProduct($productId, 79.99, 13, '-2 days');
 
         $invoiceId1 = $this->createInvoice(
             array(

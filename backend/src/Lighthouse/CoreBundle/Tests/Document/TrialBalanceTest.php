@@ -8,8 +8,8 @@ use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\Purchase\Purchase;
-use Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct;
+use Lighthouse\CoreBundle\Document\Sale\Sale;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceCollection;
@@ -205,9 +205,9 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $product = $this->createProduct();
 
-        $purchase = new Purchase();
+        $purchase = new Sale();
 
-        $purchaseProduct = new PurchaseProduct();
+        $purchaseProduct = new SaleProduct();
         $purchaseProduct->purchase = $purchase;
         $purchaseProduct->product = $product;
         $purchaseProduct->quantity = 3;

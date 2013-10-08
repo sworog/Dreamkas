@@ -165,9 +165,16 @@ class WebTestCase extends ContainerAwareTestCase
         return $postResponse['id'];
     }
 
-    public function createPurchaseWithProduct($productId, $sellingPrice, $quantity, $date = 'now')
+    /**
+     * @param $productId
+     * @param $sellingPrice
+     * @param $quantity
+     * @param string $date
+     * @return mixed
+     */
+    public function createSaleWithProduct($productId, $sellingPrice, $quantity, $date = 'now')
     {
-        $purchaseProductData = array(
+        $saleProductData = array(
             'product' => $productId,
             'sellingPrice' => $sellingPrice,
             'quantity' => $quantity,
@@ -178,10 +185,10 @@ class WebTestCase extends ContainerAwareTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/purchases',
+            '/api/1/sales',
             array(
                 'createdDate' => date('c', strtotime($date)),
-                'products' => array($purchaseProductData),
+                'products' => array($saleProductData),
             )
         );
 

@@ -8,8 +8,8 @@ use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\Purchase\Purchase;
-use Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct;
+use Lighthouse\CoreBundle\Document\Sale\Sale;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Money;
@@ -134,12 +134,12 @@ class InvoiceProductTest extends ContainerAwareTestCase
 
         // FIXME uncomment purchase test
         // Purchase
-        $purchaseProduct = new PurchaseProduct();
+        $purchaseProduct = new SaleProduct();
         $purchaseProduct->product = $product;
         $purchaseProduct->quantity = 5;
         $purchaseProduct->sellingPrice = new Money(1067);
 
-        $purchase = new Purchase();
+        $purchase = new Sale();
         $purchase->products = array($purchaseProduct);
 
         $manager->persist($purchase);
@@ -148,12 +148,12 @@ class InvoiceProductTest extends ContainerAwareTestCase
         $storeProductRepository->refresh($storeProduct);
         $this->assertEquals(10, $storeProduct->amount);
 
-        $purchaseProduct2 = new PurchaseProduct();
+        $purchaseProduct2 = new SaleProduct();
         $purchaseProduct2->product = $product;
         $purchaseProduct2->quantity = 12;
         $purchaseProduct2->sellingPrice = new Money(1067);
 
-        $purchase2 = new Purchase();
+        $purchase2 = new Sale();
         $purchase2->products = array($purchaseProduct2);
 
         $manager->persist($purchase2);

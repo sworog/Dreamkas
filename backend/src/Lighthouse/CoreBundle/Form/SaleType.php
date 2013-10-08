@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PurchaseType extends AbstractType
+class SaleType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -19,7 +19,7 @@ class PurchaseType extends AbstractType
                 'products',
                 'collection',
                 array(
-                    'type' => new PurchaseProductType(),
+                    'type' => new SaleProductType(),
                     'allow_add' => true
                 )
             )
@@ -33,7 +33,7 @@ class PurchaseType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Purchase\\Purchase',
+                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Sale\\Sale',
                 'csrf_protection' => false
             )
         );

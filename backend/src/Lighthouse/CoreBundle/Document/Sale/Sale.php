@@ -1,24 +1,24 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Purchase;
+namespace Lighthouse\CoreBundle\Document\Sale;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use DateTime;
 
 /**
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\Purchase\PurchaseRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\Sale\SaleRepository"
  * )
  *
  * @property int        $id
- * @property \DateTime   $createdDate
- * @property PurchaseProduct[]  $product
+ * @property DateTime   $createdDate
+ * @property SaleProduct[]  $product
  */
-class Purchase extends AbstractDocument
+class Sale extends AbstractDocument
 {
     /**
      * @MongoDB\Id
@@ -34,14 +34,14 @@ class Purchase extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct",
      *      simple=true,
      *      cascade="persist"
      * )
      *
-     * @Assert\NotBlank(message="lighthouse.validation.errors.purchase.product_empty")
+     * @Assert\NotBlank(message="lighthouse.validation.errors.sale.product_empty")
      * @Assert\Valid(traverse=true)
-     * @var PurchaseProduct[]
+     * @var SaleProduct[]
      */
     protected $products = array();
 
@@ -56,7 +56,7 @@ class Purchase extends AbstractDocument
         }
 
         foreach ($this->products as $product) {
-            $product->purchase = $this;
+            $product->sale = $this;
         }
     }
 }

@@ -6,21 +6,21 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
-class PurchaseControllerTest extends WebTestCase
+class SaleControllerTest extends WebTestCase
 {
     protected function setUp()
     {
         $this->markTestSkipped();
     }
 
-    public function testPostPurchasesAction()
+    public function testPostSalesAction()
     {
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
         $product3Id = $this->createProduct('3');
 
 
-        $purchaseData = array(
+        $saleData = array(
             'products' => array(
                 array(
                     'product' => $product1Id,
@@ -45,28 +45,28 @@ class PurchaseControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/purchases',
-            $purchaseData
+            '/api/1/sales',
+            $saleData
         );
 
         $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
 
-        foreach ($purchaseData['products'] as $productData) {
+        foreach ($saleData['products'] as $productData) {
             Assert::assertJsonPathEquals($productData['product'], 'products.*.product.id', $postResponse, 1);
             Assert::assertJsonPathEquals($productData['sellingPrice'], 'products.*.sellingPrice', $postResponse);
             Assert::assertJsonPathEquals($productData['quantity'], 'products.*.quantity', $postResponse);
         }
 
-        Assert::assertNotJsonHasPath('products.*.purchase', $postResponse);
+        Assert::assertNotJsonHasPath('products.*.sale', $postResponse);
 
         Assert::assertJsonPathContains($this->getNowDate(), 'createdDate', $postResponse);
 
         Assert::assertJsonPathEquals($postResponse['createdDate'], 'products.*.createdDate', $postResponse, 3);
     }
 
-    public function testPostPurchasesActionWithCreatedDate()
+    public function testPostSalesActionWithCreatedDate()
     {
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -74,7 +74,7 @@ class PurchaseControllerTest extends WebTestCase
 
         $createdDate = '2013-05-12T15:56:12+0400';
 
-        $purchaseData = array(
+        $saleData = array(
             'createdDate' => '2013-05-12T15:56:12',
             'products' => array(
                 array(
@@ -100,21 +100,21 @@ class PurchaseControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/purchases',
-            $purchaseData
+            '/api/1/sales',
+            $saleData
         );
 
         $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
 
-        foreach ($purchaseData['products'] as $productData) {
+        foreach ($saleData['products'] as $productData) {
             Assert::assertJsonPathEquals($productData['product'], 'products.*.product.id', $postResponse, 1);
             Assert::assertJsonPathEquals($productData['sellingPrice'], 'products.*.sellingPrice', $postResponse);
             Assert::assertJsonPathEquals($productData['quantity'], 'products.*.quantity', $postResponse);
         }
 
-        Assert::assertNotJsonHasPath('products.*.purchase', $postResponse);
+        Assert::assertNotJsonHasPath('products.*.sale', $postResponse);
 
         Assert::assertJsonPathEquals($createdDate, 'createdDate', $postResponse);
 
@@ -122,24 +122,24 @@ class PurchaseControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider validationPurchaseProvider
+     * @dataProvider validationSaleProvider
      *
      * @param $expectedCode
      * @param array $data
      * @param array $assertions
      */
-    public function testPostPurchaseValidation($expectedCode, array $data, array $assertions = array())
+    public function testPostSaleValidation($expectedCode, array $data, array $assertions = array())
     {
         $productId = $this->createProduct();
 
-        $purchaseProductData = array(
+        $saleProductData = array(
             'product' => $productId,
             'sellingPrice' => 7.99,
             'quantity' => 2,
         );
 
-        $purchaseData = $data + array(
-            'products' => array($purchaseProductData)
+        $saleData = $data + array(
+            'products' => array($saleProductData)
         );
 
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
@@ -147,8 +147,8 @@ class PurchaseControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/purchases',
-            $purchaseData
+            '/api/1/sales',
+            $saleData
         );
 
         $this->assertResponseCode($expectedCode);
@@ -158,7 +158,7 @@ class PurchaseControllerTest extends WebTestCase
         }
     }
 
-    public function validationPurchaseProvider()
+    public function validationSaleProvider()
     {
         return array(
             'valid empty date' => array(
@@ -191,17 +191,17 @@ class PurchaseControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider validationPurchaseProductProvider
+     * @dataProvider validationSaleProductProvider
      * 
      * @param $expectedCode
      * @param array $data
      * @param array $assertions
      */
-    public function testPostPurchaseProductValidation($expectedCode, array $data, array $assertions = array())
+    public function testPostSaleProductValidation($expectedCode, array $data, array $assertions = array())
     {
         $productId = $this->createProduct();
         
-        $purchaseProductData = $data + array(
+        $saleProductData = $data + array(
             'product' => $productId,
             'sellingPrice' => 7.99,
             'quantity' => 2,
@@ -212,9 +212,9 @@ class PurchaseControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/purchases',
+            '/api/1/sales',
             array(
-                'products' => array($purchaseProductData)
+                'products' => array($saleProductData)
             )
         );
 
@@ -225,7 +225,7 @@ class PurchaseControllerTest extends WebTestCase
         }
     }
     
-    public function validationPurchaseProductProvider()
+    public function validationSaleProductProvider()
     {
         return array(
             /***********************************************************************************************
@@ -394,7 +394,7 @@ class PurchaseControllerTest extends WebTestCase
         );
     }
 
-    public function testPostPurchasesActionAmountChange()
+    public function testPostSalesActionAmountChange()
     {
         $storeId = $this->createStore();
         $departmentManager = $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
@@ -423,7 +423,7 @@ class PurchaseControllerTest extends WebTestCase
 
         $this->assertProduct($productId, array('amount' => 10));
 
-        $this->createProductPurchase(
+        $this->createProductSale(
             $productId,
             array(
                 'sellingPrice' => 19.99,
@@ -431,7 +431,7 @@ class PurchaseControllerTest extends WebTestCase
             )
         );
 
-        $this->createProductPurchase(
+        $this->createProductSale(
             $productId,
             array(
                 'sellingPrice' => 15.99,
@@ -442,7 +442,7 @@ class PurchaseControllerTest extends WebTestCase
         $this->assertProduct($productId, array('amount' => 0));
 
 
-        $this->createProductPurchase(
+        $this->createProductSale(
             $productId,
             array(
                 'sellingPrice' => 17.99,
@@ -458,9 +458,9 @@ class PurchaseControllerTest extends WebTestCase
      * @param array $data
      * @return mixed
      */
-    protected function createProductPurchase($productId, array $data)
+    protected function createProductSale($productId, array $data)
     {
-        $purchaseData = array(
+        $saleData = array(
             'products' => array(
                 $data + array(
                     'product' => $productId,
@@ -472,23 +472,23 @@ class PurchaseControllerTest extends WebTestCase
 
         $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
-        $purchaseResponse = $this->clientJsonRequest(
+        $saleResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/purchases',
-            $purchaseData
+            '/api/1/sales',
+            $saleData
         );
 
         $this->assertResponseCode(201);
 
-        Assert::assertJsonHasPath('products.*.id', $purchaseResponse);
-        Assert::assertJsonHasPath('id', $purchaseResponse);
+        Assert::assertJsonHasPath('products.*.id', $saleResponse);
+        Assert::assertJsonHasPath('id', $saleResponse);
         Assert::assertJsonPathEquals(
-            $purchaseData['products'][0]['product'],
+            $saleData['products'][0]['product'],
             'products.*.product.id',
-            $purchaseResponse
+            $saleResponse
         );
 
-        return $purchaseResponse;
+        return $saleResponse;
     }
 }

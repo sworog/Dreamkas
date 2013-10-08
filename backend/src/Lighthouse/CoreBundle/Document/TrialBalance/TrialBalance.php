@@ -104,7 +104,7 @@ class TrialBalance extends AbstractDocument
      *      discriminatorField="reasonType",
      *      discriminatorMap={
      *          "invoiceProduct"="Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct",
-     *          "purchaseProduct"="Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct",
+     *          "saleProduct"="Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct",
      *          "writeOffProduct"="Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct"
      *      }
      * )
@@ -113,7 +113,7 @@ class TrialBalance extends AbstractDocument
     protected $reason;
 
     /**
-     * @var
+     * @var Store
      */
     protected $store;
 
