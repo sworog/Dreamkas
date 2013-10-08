@@ -20,13 +20,13 @@ class Samba
     public function parseUrl($url)
     {
         $parsedUrl = parse_url(trim($url));
-        foreach (array('domain', 'user', 'pass', 'host', 'port', 'path') as $i) {
+        foreach (array('domain', 'user', 'pass', 'host', 'port', 'path', 'scheme') as $i) {
             if (!isset($parsedUrl[$i])) {
                 $parsedUrl[$i] = '';
             }
         }
         if (count($userDomain = explode(';', urldecode($parsedUrl['user']))) > 1) {
-            @list ($parsedUrl['domain'], $parsedUrl['user']) = $userDomain;
+            list ($parsedUrl['domain'], $parsedUrl['user']) = $userDomain;
         }
         $path = preg_replace(array('/^\//', '/\/$/'), '', urldecode($parsedUrl['path']));
         list ($parsedUrl['share'], $parsedUrl['path']) = (preg_match('/^([^\/]+)\/(.*)/', $path, $regs))
@@ -37,7 +37,7 @@ class Samba
             ? 'path'
             : ($parsedUrl['share'] ? 'share' : ($parsedUrl['host'] ? 'host' : '**error**'));
 
-        if (!($parsedUrl['port'] = intval(@$parsedUrl['port']))) {
+        if (!($parsedUrl['port'] = intval($parsedUrl['port']))) {
             $parsedUrl['port'] = 139;
         }
 
@@ -47,13 +47,13 @@ class Samba
 
     public function look($purl)
     {
-        return Samba::client('-L ' . escapeshellarg($purl['host']), $purl);
+        return $this->client('-L ' . escapeshellarg($purl['host']), $purl);
     }
 
 
     public function execute($command, $purl)
     {
-        return Samba::client(
+        return $this->client(
             '-d 0 '
             . escapeshellarg('//' . $purl['host'] . '/' . $purl['share'])
             . ' -c ' . escapeshellarg($command),
@@ -96,19 +96,19 @@ class Samba
             '^message start: ERRSRV - (ERRmsgoff)' => 'error'
         );
 
-        if (self::SMB4PHP_AUTHMODE == 'env') {
+        if ($this->SMB4PHP_AUTHMODE == 'env') {
             putenv("USER={$purl['user']}%{$purl['pass']}");
             $auth = '';
         } else {
-            $auth = ($purl['user'] <> '' ? (' -U ' . escapeshellarg($purl['user'] . '%' . $purl['pass'])) : '');
+            $auth = ($purl['user'] != '' ? (' -U ' . escapeshellarg($purl['user'] . '%' . $purl['pass'])) : '');
         }
-        if ($purl['domain'] <> '') {
+        if ($purl['domain'] != '') {
             $auth .= ' -W ' . escapeshellarg($purl['domain']);
         }
-        $port = ($purl['port'] <> 139 ? ' -p ' . escapeshellarg($purl['port']) : '');
-        $options = '-O ' . escapeshellarg(self::SMB4PHP_SMBOPTIONS);
+        $port = ($purl['port'] != 139 ? ' -p ' . escapeshellarg($purl['port']) : '');
+        $options = '-O ' . escapeshellarg($this->SMB4PHP_SMBOPTIONS);
         $output = popen(
-            self::SMB4PHP_SMBCLIENT . " -N {$auth} {$options} {$port} {$options} {$params} 2>/dev/null",
+            $this->SMB4PHP_SMBCLIENT . " -N {$auth} {$options} {$port} {$options} {$params} 2>/dev/null",
             'r'
         );
         $info = array();
@@ -138,7 +138,7 @@ class Samba
                         trim(substr($line, 1, 15)),
                         trim(strtolower(substr($line, 17, 10)))
                     );
-                    $i = ($type <> 'disk' && preg_match('/^(.*) Disk/', $line, $regs))
+                    $i = ($type != 'disk' && preg_match('/^(.*) Disk/', $line, $regs))
                         ? array(trim($regs[1]), 'disk')
                         : array($name, 'disk');
                     break;
@@ -159,7 +159,7 @@ class Samba
                         explode(':', $regs[6]),
                         1 + strpos("JanFebMarAprMayJunJulAugSepOctNovDec", $regs[4]) / 3
                     );
-                    $i = ($name <> '.' && $name <> '..')
+                    $i = ($name != '.' && $name != '..')
                         ? array(
                             $name,
                             (strpos($attr, 'D') === false) ? 'file' : 'folder',
@@ -194,20 +194,20 @@ class Samba
 
     public function url_stat($url, $flags = STREAM_URL_STAT_LINK)
     {
-        if ($s = Samba::getstatcache($url)) {
+        if ($s = $this->getstatcache($url)) {
             return $s;
         }
-        list ($stat, $pu) = array(array(), Samba::ParseUrl($url));
+        list ($stat, $pu) = array(array(), $this->ParseUrl($url));
         switch ($pu['type']) {
             case 'host':
-                if ($o = Samba::look($pu)) {
+                if ($o = $this->look($pu)) {
                     $stat = stat("/tmp");
                 } else {
                     trigger_error("url_stat(): list failed for host ''", E_USER_WARNING);
                 }
                 break;
             case 'share':
-                if ($o = Samba::look($pu)) {
+                if ($o = $this->look($pu)) {
                     $found = false;
                     $lshare = strtolower($pu['share']); # fix by Eric Leung
                     foreach ($o['disk'] as $s) {
@@ -223,11 +223,11 @@ class Samba
                 }
                 break;
             case 'path':
-                if ($o = Samba::execute('dir "' . $pu['path'] . '"', $pu)) {
+                if ($o = $this->execute('dir "' . $pu['path'] . '"', $pu)) {
                     $p = explode("\\", $pu['path']);
                     $name = $p[count($p) - 1];
                     if (isset ($o['info'][$name])) {
-                        $stat = Samba::addstatcache($url, $o['info'][$name]);
+                        $stat = $this->addstatcache($url, $o['info'][$name]);
                     } else {
                         trigger_error("url_stat(): path '{$pu['path']}' not found", E_USER_WARNING);
                     }
@@ -254,7 +254,7 @@ class Samba
 
     public function getstatcache($url)
     {
-        return isset (self::$smb_cache['stat'][$url]) ? self::$smb_cache['stat'][$url] : false;
+        return isset(self::$smb_cache['stat'][$url]) ? self::$smb_cache['stat'][$url] : false;
     }
 
     public function clearstatcache($url = '')
@@ -271,52 +271,52 @@ class Samba
 
     public function unlink($url)
     {
-        $pu = Samba::ParseUrl($url);
-        if ($pu['type'] <> 'path') {
+        $pu = $this->ParseUrl($url);
+        if ($pu['type'] != 'path') {
             trigger_error('unlink(): error in URL', E_USER_ERROR);
         }
-        Samba::clearstatcache($url);
+        $this->clearstatcache($url);
 
-        return Samba::execute('del "' . $pu['path'] . '"', $pu);
+        return $this->execute('del "' . $pu['path'] . '"', $pu);
     }
 
     public function rename($url_from, $url_to)
     {
-        list ($from, $to) = array(Samba::ParseUrl($url_from), Samba::ParseUrl($url_to));
-        if ($from['host'] <> $to['host'] ||
-            $from['share'] <> $to['share'] ||
-            $from['user'] <> $to['user'] ||
-            $from['pass'] <> $to['pass'] ||
-            $from['domain'] <> $to['domain']
+        list ($from, $to) = array($this->ParseUrl($url_from), $this->ParseUrl($url_to));
+        if ($from['host'] != $to['host'] ||
+            $from['share'] != $to['share'] ||
+            $from['user'] != $to['user'] ||
+            $from['pass'] != $to['pass'] ||
+            $from['domain'] != $to['domain']
         ) {
             trigger_error('rename(): FROM & TO must be in same server-share-user-pass-domain', E_USER_ERROR);
         }
-        if ($from['type'] <> 'path' || $to['type'] <> 'path') {
+        if ($from['type'] != 'path' || $to['type'] != 'path') {
             trigger_error('rename(): error in URL', E_USER_ERROR);
         }
-        Samba::clearstatcache($url_from);
+        $this->clearstatcache($url_from);
 
-        return Samba::execute('rename "' . $from['path'] . '" "' . $to['path'] . '"', $to);
+        return $this->execute('rename "' . $from['path'] . '" "' . $to['path'] . '"', $to);
     }
 
     public function mkdir($url, $mode, $options)
     {
-        $pu = Samba::ParseUrl($url);
-        if ($pu['type'] <> 'path') {
+        $pu = $this->ParseUrl($url);
+        if ($pu['type'] != 'path') {
             trigger_error('mkdir(): error in URL', E_USER_ERROR);
         }
 
-        return Samba::execute('mkdir "' . $pu['path'] . '"', $pu);
+        return $this->execute('mkdir "' . $pu['path'] . '"', $pu);
     }
 
     public function rmdir($url)
     {
-        $pu = Samba::ParseUrl($url);
-        if ($pu['type'] <> 'path') {
+        $pu = $this->ParseUrl($url);
+        if ($pu['type'] != 'path') {
             trigger_error('rmdir(): error in URL', E_USER_ERROR);
         }
-        Samba::clearstatcache($url);
+        $this->clearstatcache($url);
 
-        return Samba::execute('rmdir "' . $pu['path'] . '"', $pu);
+        return $this->execute('rmdir "' . $pu['path'] . '"', $pu);
     }
 }
