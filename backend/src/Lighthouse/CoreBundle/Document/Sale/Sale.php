@@ -5,6 +5,8 @@ namespace Lighthouse\CoreBundle\Document\Sale;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use DateTime;
@@ -18,13 +20,23 @@ use DateTime;
  * @property DateTime   $createdDate
  * @property SaleProduct[]  $product
  */
-class Sale extends AbstractDocument
+class Sale extends AbstractDocument implements Storeable
 {
     /**
      * @MongoDB\Id
      * @var string
      */
     protected $id;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true
+     * )
+     * @Assert\NotBlank
+     * @var Store
+     */
+    protected $store;
 
     /**
      * @MongoDB\Date
@@ -44,6 +56,14 @@ class Sale extends AbstractDocument
      * @var SaleProduct[]
      */
     protected $products = array();
+
+    /**
+     * @return Store
+     */
+    public function getStore()
+    {
+        return $this->store;
+    }
 
     /**
      * @MongoDB\PrePersist

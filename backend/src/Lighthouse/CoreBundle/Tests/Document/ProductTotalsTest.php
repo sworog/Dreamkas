@@ -14,7 +14,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
-class InvoiceProductTest extends ContainerAwareTestCase
+class ProductTotalsTest extends ContainerAwareTestCase
 {
     /**
      * @return ManagerRegistry
@@ -34,7 +34,7 @@ class InvoiceProductTest extends ContainerAwareTestCase
         return $this->getManagerRegistry()->getManager();
     }
 
-    public function testShopProductAmountChangesOnInvoiceProductOperations()
+    public function testShopProductAmountChangesOnInOutOperations()
     {
         $this->clearMongoDb();
 
@@ -130,8 +130,6 @@ class InvoiceProductTest extends ContainerAwareTestCase
         $this->assertEquals(15, $storeProduct->amount);
         $this->assertEquals(2222, $storeProduct->lastPurchasePrice->getCount());
 
-        return;
-
         // FIXME uncomment purchase test
         // Purchase
         $purchaseProduct = new SaleProduct();
@@ -139,24 +137,26 @@ class InvoiceProductTest extends ContainerAwareTestCase
         $purchaseProduct->quantity = 5;
         $purchaseProduct->sellingPrice = new Money(1067);
 
-        $purchase = new Sale();
-        $purchase->products = array($purchaseProduct);
+        $sale = new Sale();
+        $sale->store = $store;
+        $sale->products = array($purchaseProduct);
 
-        $manager->persist($purchase);
+        $manager->persist($sale);
         $manager->flush();
 
         $storeProductRepository->refresh($storeProduct);
         $this->assertEquals(10, $storeProduct->amount);
 
-        $purchaseProduct2 = new SaleProduct();
-        $purchaseProduct2->product = $product;
-        $purchaseProduct2->quantity = 12;
-        $purchaseProduct2->sellingPrice = new Money(1067);
+        $saleProduct2 = new SaleProduct();
+        $saleProduct2->product = $product;
+        $saleProduct2->quantity = 12;
+        $saleProduct2->sellingPrice = new Money(1067);
 
-        $purchase2 = new Sale();
-        $purchase2->products = array($purchaseProduct2);
+        $sale2 = new Sale();
+        $sale2->store = $store;
+        $sale2->products = array($saleProduct2);
 
-        $manager->persist($purchase2);
+        $manager->persist($sale2);
         $manager->flush();
 
         $storeProductRepository->refresh($storeProduct);
