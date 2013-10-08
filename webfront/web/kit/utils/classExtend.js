@@ -5,8 +5,14 @@ define(function(require) {
         // Helper function to correctly set up the prototype chain, for subclasses.
         // Similar to `goog.inherits`, but uses a hash of prototype properties and
         // class properties to be extended.
-        return function(protoProps, staticProps) {
-            var parent = this;
+        return function(parent, protoProps, staticProps) {
+
+            if (typeof parent !== 'function'){
+                staticProps = protoProps;
+                protoProps = parent;
+                parent = this;
+            }
+
             var child,
                 instance = true;
 

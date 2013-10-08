@@ -6,151 +6,148 @@ define(function(require) {
     require('lodash');
 
     describe('utils/classExtend', function() {
-        var Klass;
+        var BaseClass;
 
         beforeEach(function() {
-            Klass = function() {
+            BaseClass = function() {
             };
 
-            Klass.prototype.testValue = null;
-
-            Klass.extend = classExtend;
-
+            BaseClass.prototype.testValue = null;
         });
 
-        it('base class property is not changed after extending', function() {
+        it('extend function does not affect base class', function() {
 
-            var ExtendedKlass = Klass.extend();
-            var testKlass = new ExtendedKlass();
-
-            expect(testKlass.testValue).toBeNull();
-
-        });
-
-        it('base class property is not changed after calling extend function', function() {
-
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 testValue: 'test extend field'
             });
 
-            var testKlass = new Klass();
+            var testClass = new BaseClass();
 
-            expect(testKlass.testValue).toBeNull();
+            expect(testClass.testValue).toBeNull();
 
         });
 
         it('base class extend', function() {
 
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 testValue: 'test extend field'
             });
-            var testKlass = new ExtendedKlass();
 
-            expect(testKlass.testValue).not.toBeNull();
-            expect(testKlass.testValue).toEqual('test extend field');
+            var extendedClassInstance = new ExtendedClass();
+
+            expect(extendedClassInstance.testValue).not.toBeNull();
+            expect(extendedClassInstance.testValue).toEqual('test extend field');
         });
 
         it('class instant without new', function() {
 
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 testValue: 'test extend field'
             });
-            var testKlass = ExtendedKlass();
 
-            expect(testKlass.testValue).not.toBeNull();
-            expect(testKlass.testValue).toEqual('test extend field');
+            var extendedClassInstance = ExtendedClass();
+
+            expect(extendedClassInstance.testValue).not.toBeNull();
+            expect(extendedClassInstance.testValue).toEqual('test extend field');
 
         });
 
         it('base class property is String', function() {
 
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 testValue: 'test extend field'
             });
-            var testKlass = new ExtendedKlass();
+            
+            var extendedClassInstance = new ExtendedClass();
 
-            expect(typeof testKlass.testValue).toEqual('string');
+            expect(typeof extendedClassInstance.testValue).toEqual('string');
 
         });
 
         it('base class property is Boolean', function() {
 
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 testValue: false
             });
-            var testKlass = new ExtendedKlass();
+            
+            var extendedClassInstance = new ExtendedClass();
 
-            expect(typeof testKlass.testValue).toEqual('boolean');
+            expect(typeof extendedClassInstance.testValue).toEqual('boolean');
 
         });
 
         it('base class property is Number', function() {
 
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 testValue: 12
             });
-            var testKlass = new ExtendedKlass();
+            
+            var extendedClassInstance = new ExtendedClass();
 
-            expect(typeof testKlass.testValue).toEqual('number');
+            expect(typeof extendedClassInstance.testValue).toEqual('number');
 
         });
 
         it('base class property is function', function() {
 
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 testValue: function() {
                     return 5;
                 }
             });
-            var testKlass = new ExtendedKlass();
+            
+            var extendedClassInstance = new ExtendedClass();
 
-            expect(testKlass.testValue()).toEqual(5);
+            expect(extendedClassInstance.testValue()).toEqual(5);
 
         });
 
         it('base class property is Object', function() {
 
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 testValue: {
                     a: 5
                 }
             });
-            var testKlass = new ExtendedKlass();
+            
+            var extendedClassInstance = new ExtendedClass();
 
-            expect(testKlass.testValue.a).toEqual(5);
+            expect(extendedClassInstance.testValue.a).toEqual(5);
 
         });
 
 
         it('base class property is Array', function() {
 
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 testValue: [5, 6, 7]
             });
-            var testKlass = new ExtendedKlass();
+            
+            var extendedClassInstance = new ExtendedClass();
 
-            expect(testKlass.testValue).toEqual([5, 6, 7]);
+            expect(extendedClassInstance.testValue).toEqual([5, 6, 7]);
 
         });
 
         it('calling super property', function() {
 
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 testValue: function(){
-                    return Klass.prototype.testValue
+                    return BaseClass.prototype.testValue
                 }
             });
-            var testKlass = new ExtendedKlass();
+            
+            var extendedClassInstance = new ExtendedClass();
 
-            expect(testKlass.testValue()).toBeNull();
+            expect(extendedClassInstance.testValue()).toBeNull();
 
         });
 
         it('base class property is NestedObject', function() {
 
-            Klass.prototype.nestedObject = nestedObject;
+            BaseClass.prototype.nestedObject = nestedObject;
 
-            var ExtendedKlass = Klass.extend({
+            var ExtendedClass = classExtend.call(BaseClass, {
                 nestedObject: {
                     object: {
                         object: {
@@ -160,11 +157,11 @@ define(function(require) {
                 }
             });
 
-            var testKlass = new ExtendedKlass();
+            var extendedClassInstance = new ExtendedClass();
 
-            expect(testKlass.nestedObject.object.object.string).toEqual('test string level 5');
-            expect(testKlass.nestedObject.object.object.number).toEqual(3);
-            expect(testKlass.nestedObject.object.string).toEqual('test string level 2');
+            expect(extendedClassInstance.nestedObject.object.object.string).toEqual('test string level 5');
+            expect(extendedClassInstance.nestedObject.object.object.number).toEqual(3);
+            expect(extendedClassInstance.nestedObject.object.string).toEqual('test string level 2');
 
         });
 
