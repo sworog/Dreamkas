@@ -17,7 +17,7 @@ class DocumentSerializerTest extends ContainerAwareTestCase
         $serializer = $this->getContainer()->get('serializer');
         $result = $serializer->serialize($document, 'xml');
 
-        $expectedFile = __DIR__ . '/../Fixtures/Document/Test.xml';
+        $expectedFile = $this->getFixtureFilePath('Document/Test.xml');
         $this->assertXmlStringEqualsXmlFile($expectedFile, $result);
     }
 
@@ -29,7 +29,7 @@ class DocumentSerializerTest extends ContainerAwareTestCase
         $serializer = $this->getContainer()->get('serializer');
         $result = $serializer->serialize($document, 'json');
 
-        $expectedFile = __DIR__ . '/../Fixtures/Document/Test.json';
+        $expectedFile = $this->getFixtureFilePath('Document/Test.json');
         $this->assertJsonStringEqualsJsonFile($expectedFile, $result);
     }
 

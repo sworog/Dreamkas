@@ -81,7 +81,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $manager->persist($invoiceProduct);
         $manager->flush();
 
-        $this->assertInstanceOf('\\Lighthouse\\CoreBundle\\Document\\Invoice\\Invoice', $invoiceProduct->invoice);
+        $this->assertInstanceOf(Invoice::getClassName(), $invoiceProduct->invoice);
         $this->assertEquals($invoiceProduct->invoice->id, $invoice->id);
 
         /* @var StoreProductRepository $storeProductRepository */

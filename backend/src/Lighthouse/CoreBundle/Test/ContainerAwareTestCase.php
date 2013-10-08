@@ -63,4 +63,13 @@ class ContainerAwareTestCase extends WebTestCase
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
         $jobManager->startWatchingTubes()->purgeTubes()->stopWatchingTubes();
     }
+
+    /**
+     * @param string $filePath
+     * @return string
+     */
+    protected function getFixtureFilePath($filePath)
+    {
+        return __DIR__ . '/../Tests/Fixtures/' . $filePath;
+    }
 }
