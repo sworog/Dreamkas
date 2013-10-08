@@ -5,6 +5,9 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.apache.commons.io.FileUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import project.lighthouse.autotests.robotClient.InterruptedException_Exception;
 import project.lighthouse.autotests.robotClient.SetRobotHubWS;
 import project.lighthouse.autotests.robotClient.SetRobotHubWSService;
@@ -12,9 +15,14 @@ import project.lighthouse.autotests.robotClient.SetRobotHubWSService;
 import java.io.File;
 import java.io.IOException;
 
+import static junit.framework.Assert.fail;
+
 public class RobotSteps extends ScenarioSteps {
 
     SetRobotHubWS robotPort = new SetRobotHubWSService().getSetRobotHubWSPort();
+
+    private static final String SERVER_URL = "//faro.lighthouse.cs";
+    private static final String IMPORT_FOLDER_PATH = "/centrum/reports";
 
     public RobotSteps(Pages pages) {
         super(pages);
@@ -22,30 +30,24 @@ public class RobotSteps extends ScenarioSteps {
 
     @Step
     public void prepareData() throws IOException, InterruptedException {
-        final String sourcePath = String.format("%s/xml/catalog-goods_123.xml", System.getProperty("user.dir").replace("\\", "/"));
-        final String destinationPath = "//faro.lighthouse.cs/centrum/products/source/catalog-goods_123.xml";
+        final String fileName = "purchases-data.xml";
+        final String sourcePath = String.format("%s/xml/%s", System.getProperty("user.dir").replace("\\", "/"), fileName);
+        final String destinationPath = getFolderPath(IMPORT_FOLDER_PATH) + getFileName();
         FileUtils.copyFile(new File(sourcePath), new File(destinationPath));
-        checkExportIsDone();
+    }
+
+    @Step
+    public void checkImportIsDone() throws InterruptedException {
+        final String importFolder = getFolderPath(IMPORT_FOLDER_PATH);
+        checkFolderIsEmptyLoop(importFolder);
     }
 
     @Step
     public void checkExportIsDone() throws InterruptedException {
         final String sourceFolder = "//faro.lighthouse.cs/centrum/products/source";
         final String tmpFolder = "//faro.lighthouse.cs/centrum/products/tmp";
-        Boolean sourceFolderIsEmpty = isDirectoryEmpty(sourceFolder);
-        while (!sourceFolderIsEmpty) {
-            sourceFolderIsEmpty = isDirectoryEmpty(sourceFolder);
-            Thread.sleep(1000);
-        }
-        Boolean tmpFolderIsEmpty = isDirectoryEmpty(tmpFolder);
-        while (!tmpFolderIsEmpty) {
-            tmpFolderIsEmpty = isDirectoryEmpty(tmpFolder);
-            Thread.sleep(1000);
-        }
-    }
-
-    public Boolean isDirectoryEmpty(String directoryPath) {
-        return FileUtils.getFile(directoryPath).list().length == 0;
+        checkFolderIsEmptyLoop(sourceFolder);
+        checkFolderIsEmptyLoop(tmpFolder);
     }
 
     @Step
@@ -66,6 +68,36 @@ public class RobotSteps extends ScenarioSteps {
         }
         if (!status.equals("finished;PASSED")) {
             Assert.fail(status);
+        }
+    }
+
+    private String getFileName() {
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd-MM-yyyy_HH-mm-ss");
+        return String.format("purchases-%s.xml", dtf.print(DateTime.now()));
+    }
+
+    private Boolean isDirectoryEmpty(String directoryPath) {
+        return FileUtils.getFile(directoryPath).list().length == 0;
+    }
+
+    private String getServerUrl() {
+        return SERVER_URL;
+    }
+
+    private String getFolderPath(String folderPath) {
+        return getServerUrl() + folderPath + "/";
+    }
+
+    private void checkFolderIsEmptyLoop(String folderPath) throws InterruptedException {
+        Boolean folderIsEmpty = isDirectoryEmpty(folderPath);
+        int count = 0;
+        while (!folderIsEmpty && count < 50) {
+            folderIsEmpty = isDirectoryEmpty(folderPath);
+            Thread.sleep(1000);
+            count++;
+        }
+        if (!folderIsEmpty && count < 50) {
+            fail("The folder is still not empty after timeOut");
         }
     }
 }

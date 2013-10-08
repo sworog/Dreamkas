@@ -26,7 +26,7 @@ public class RobotUserSteps {
         robotSteps.waitForStatus(uuid);
     }
 
-    @Given("the robot prepares products data")
+    @Given("the robot prepares import purchase data")
     public void givenTheRobotPreparesData() throws IOException, InterruptedException {
         robotSteps.prepareData();
     }
@@ -34,5 +34,10 @@ public class RobotUserSteps {
     @Given("the robot waits for complete export")
     public void givenTheRobotWaitsForCompleteExport() throws InterruptedException {
         robotSteps.checkExportIsDone();
+    }
+
+    @Given("the robot waits the import folder become empty")
+    public void givenTheRobotWaitsTheImportFolderBecomeEmpty() throws InterruptedException {
+        robotSteps.checkImportIsDone();
     }
 }
