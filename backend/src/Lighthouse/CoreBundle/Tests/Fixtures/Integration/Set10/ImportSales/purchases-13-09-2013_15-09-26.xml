@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<purchases count="3">
+    <purchase discountAmount="0.0" amount="24.2" saletime="2013-09-13T15:07:47.621+04:00" number="2" shift="7" cash="1" shop="666" operDay="2013-09-13+04:00" operationType="true" userName="Админ Админ Админ" tabNumber="123213123">
+        <positions>
+            <position amount="24.2" costWithDiscount="24.2" discountValue="0.0" ndsSum="0.0" nds="0.0" cost="24.2" count="1.0" barCode="34342478239479230479023" goodsCode="Кит-Кат-343424" departNumber="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="24.2" typeClass="CashPaymentEntity"/>
+        </payments>
+    </purchase>
+    <purchase discountAmount="0.0" amount="24.55" saletime="2013-09-13T15:07:20.622+04:00" number="4" shift="4" cash="2" shop="777" operDay="2013-09-13+04:00" operationType="true" userName="Админ Админ Админ" tabNumber="123213123">
+        <positions>
+            <position amount="24.55" costWithDiscount="24.55" discountValue="0.0" ndsSum="0.0" nds="0.0" cost="24.55" count="1.0" barCode="34342478239479230479023" goodsCode="Кит-Кат-343424" departNumber="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="4444.0" typeClass="CashPaymentEntity"/>
+            <payment description="" amount="4419.45" typeClass="CashChangePaymentEntity"/>
+        </payments>
+    </purchase>
+    <purchase discountAmount="0.0" amount="24.55" saletime="2013-09-13T15:07:45.123+04:00" number="5" shift="4" cash="2" shop="777" operDay="2013-09-13+04:00" operationType="true" userName="Админ Админ Админ" tabNumber="123213123">
+        <positions>
+            <position amount="24.55" costWithDiscount="24.55" discountValue="0.0" ndsSum="0.0" nds="0.0" cost="24.55" count="1.0" barCode="34342478239479230479023" goodsCode="Кит-Кат-343424" departNumber="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="24.55" typeClass="CashPaymentEntity"/>
+        </payments>
+    </purchase>
+</purchases>
