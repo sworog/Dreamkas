@@ -2,9 +2,12 @@ define(function(require) {
     //requirements
     require('lodash');
 
-    return function(path){
+    return function(object, path){
 
-        var object = this;
+        if (typeof object === 'string'){
+            path = object;
+            object = this;
+        }
 
         if (typeof object['get:' + path] === 'function'){
             return object['get:' + path]();

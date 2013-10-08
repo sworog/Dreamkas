@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<goods-catalog>
+	<good marking-of-the-good="46091758">
+		<name>Шар Чупа Чупс Смешарики Машина времени шокол.25г</name>
+		<bar-code code="46091758">
+			<count>1</count>
+			<default-code>true</default-code>
+		</bar-code>
+		<product-type>ProductPieceEntity</product-type>
+		<price-entry price="50.77">
+			<begin-date>2011-05-12T00:00:00.000</begin-date>
+			<end-date>2061-05-12T23:59:59.000</end-date>
+			<number>1</number>
+			<department number="1">
+				<name>1</name>
+			</department>
+		</price-entry>
+		<vat>18</vat>
+		<group id="@218">
+			<name>Жевательные резинки, конфеты</name>
+			<parent-group id="60627">
+				<name>Кондитерские изделия</name>
+				<parent-group id="@1000">
+					<name>Бакалейный отдел</name>
+				</parent-group>
+			</parent-group>
+		</group>
+		<measure-type id="1006">
+			<name>ШТ</name>
+		</measure-type>
+		<manufacturer id="43">
+			<name>Россия</name>
+		</manufacturer>
+		<plugin-property key="precision" value="0.001"/>
+	</good>
+    <good marking-of-the-good="4008713700510">
+        <name>Шарики Брюгген Чокин Крипс рисовые шок.250г</name>
+        <bar-code code="4008713700510">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <bar-code code="4008713700428">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <bar-code code="25359565">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="94.00">
+            <begin-date>2011-05-12T00:00:00.000</begin-date>
+            <end-date>2061-05-12T23:59:59.000</end-date>
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>18</vat>
+        <group id="@211">
+            <name>Мюсли, каши, хлопья</name>
+            <parent-group id="60628">
+                <name>Крупы, каши, макаронные изделия</name>
+                <parent-group id="@1000">
+                    <name>Бакалейный отдел</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1006">
+            <name>шт</name>
+        </measure-type>
+        <manufacturer id="44">
+            <name>Германия</name>
+        </manufacturer>
+        <plugin-property key="precision" value="0.001"/>
+    </good>
+    <good marking-of-the-good="5050582541748">
+        <name>CD-ROM Категория 1</name>
+        <bar-code code="5050582541748">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="144.00">
+            <begin-date>2011-05-12T00:00:00.000</begin-date>
+            <end-date>2061-05-12T23:59:59.000</end-date>
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>18</vat>
+        <group id="199206">
+            <name>Диски</name>
+            <parent-group id="164700">
+                <name>Нон-фуд</name>
+                <parent-group id="50514">
+                    <name>Сопутствующий отдел</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1006">
+            <name>Шт.</name>
+        </measure-type>
+        <manufacturer id="43">
+            <name>Россия</name>
+        </manufacturer>
+        <plugin-property key="precision" value="0.001"/>
+    </good>
+    <good marking-of-the-good="4607108478029">
+        <name>CD-ROM Категория 3</name>
+        <bar-code code="4607108478029">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="297.00">
+            <begin-date>2011-05-12T00:00:00.000</begin-date>
+            <end-date>2061-05-12T23:59:59.000</end-date>
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>18</vat>
+        <group id="199206">
+            <name>Диски</name>
+            <parent-group id="164700">
+                <name>Нон-фуд</name>
+                <parent-group id="50514">
+                    <name>Сопутствующий отдел</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1006">
+            <name>ШТ.</name>
+        </measure-type>
+        <manufacturer id="43">
+            <name>Россия</name>
+        </manufacturer>
+        <plugin-property key="precision" value="0.001"/>
+    </good>
+    <good marking-of-the-good="2809733">
+        <name>Шашлык из курицы (филе) п/ф Кулинария</name>
+        <bar-code code="2809733">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductWeightEntity</product-type>
+        <price-entry price="440.00">
+            <begin-date>2011-05-12T00:00:00.000</begin-date>
+            <end-date>2061-05-12T23:59:59.000</end-date>
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>18</vat>
+        <group id="130453">
+            <name>Блюда из птицы собственного производства</name>
+            <parent-group id="136048">
+                <name>Блюда из птицы</name>
+                <parent-group id="93441">
+                    <name>Кулинария ЛЭНД</name>
+                    <parent-group id="93637">
+                        <name>Производство ЛЭНД</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>КГ</name>
+        </measure-type>
+        <manufacturer id="126">
+            <name>Кулинария Лэнд</name>
+        </manufacturer>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="plu-number" value="816"/>
+        <plugin-property key="description-on-scale-screen" value="Шашлык из курицы (филе) п/ф Кулинария"/>
+        <plugin-property key="name-on-scale-screen" value="Шашлык из курицы (филе) п/ф Кулинария"/>
+    </good>
+    <good marking-of-the-good="4607108476919">
+        <name>CD-ROM Категория 2</name>
+        <bar-code code="4607108476919">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="236.00">
+            <begin-date>2011-05-12T00:00:00.000</begin-date>
+            <end-date>2061-05-12T23:59:59.000</end-date>
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>18</vat>
+        <group id="199206">
+            <name>Диски</name>
+            <parent-group id="164700">
+                <name>Нон-фуд</name>
+                <parent-group id="50514">
+                    <name>Сопутствующий отдел</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1006">
+            <name>кг.</name>
+        </measure-type>
+        <manufacturer id="43">
+            <name>Россия</name>
+        </manufacturer>
+        <plugin-property key="precision" value="0.001"/>
+    </good>
+    <good marking-of-the-good="4690241016456">
+        <name>CD-ROM Категория 4</name>
+        <bar-code code="4690241016456">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="342.00">
+            <begin-date>2011-05-12T00:00:00.000</begin-date>
+            <end-date>2061-05-12T23:59:59.000</end-date>
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>18</vat>
+        <group id="199206">
+            <name>Диски</name>
+            <parent-group id="164700">
+                <name>Нон-фуд</name>
+                <parent-group id="50514">
+                    <name>Сопутствующий отдел</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1006">
+            <name>Кг</name>
+        </measure-type>
+        <manufacturer id="43">
+            <name>Россия</name>
+        </manufacturer>
+        <plugin-property key="precision" value="0.001"/>
+    </good>
+    <good marking-of-the-good="4690241016456">
+        <name>CD-ROM Категория 4</name>
+        <bar-code code="4690241016456">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="342.00">
+            <begin-date>2011-05-12T00:00:00.000</begin-date>
+            <end-date>2061-05-12T23:59:59.000</end-date>
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>18</vat>
+        <group id="199206">
+            <name>Диски</name>
+            <parent-group id="164700">
+                <name>Нон-фуд</name>
+                <parent-group id="50514">
+                    <name>Сопутствующий отдел</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1006">
+            <name>кг</name>
+        </measure-type>
+        <manufacturer id="43">
+            <name>Россия</name>
+        </manufacturer>
+        <plugin-property key="precision" value="0.001"/>
+    </good>
+    <good marking-of-the-good="4770237043342">
+        <name>Творог Сваля зернист. 7% с абрикосами 150г</name>
+        <bar-code code="4770237043342">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <bar-code code="25523072">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="47.00">
+            <begin-date>2011-05-12T00:00:00.000</begin-date>
+            <end-date>2061-05-12T23:59:59.000</end-date>
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>10</vat>
+        <group id="50944">
+            <name>Творог и творожные</name>
+            <parent-group id="60632">
+                <name>Молоко и молочные</name>
+                <parent-group id="50515">
+                    <name>Гастрономический отдел</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1006">
+            <name>Центнер</name>
+        </measure-type>
+        <manufacturer id="77">
+            <name>Литва</name>
+        </manufacturer>
+        <plugin-property key="precision" value="0.001"/>
+    </good>
+</goods-catalog>

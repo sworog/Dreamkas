@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10;
+namespace Lighthouse\CoreBundle\Integration\Set10\Export;
 
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
@@ -68,7 +68,7 @@ class ExportProductsWorker implements WorkerInterface
     }
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\Job\Job $job
+     * @param Job $job
      * @return mixed result of work
      */
     public function work(Job $job)
@@ -139,22 +139,14 @@ class ExportProductsWorker implements WorkerInterface
     public function validateConfig()
     {
         $this->configRepository->clear();
-        $url = $this->configRepository->findOneBy(array('name' => Set10::URL_CONFIG_NAME));
-        if (!$url || $url->value == '') {
+        $url = $this->configRepository->findValueByName(Set10Export::URL_CONFIG_NAME, '');
+        if ('' == $url) {
             return false;
-        } else {
-            $this->set10Url = $url->value;
         }
 
-        $login = $this->configRepository->findOneBy(array('name' => Set10::LOGIN_CONFIG_NAME));
-        if ($login) {
-            $this->set10Login = $login->value;
-        }
-
-        $password = $this->configRepository->findOneBy(array('name' => Set10::PASSWORD_CONFIG_NAME));
-        if ($password) {
-            $this->set10Password = $password->value;
-        }
+        $this->set10Url = $url;
+        $this->set10Login = $this->configRepository->findValueByName(Set10Export::LOGIN_CONFIG_NAME, '');
+        $this->set10Password = $this->configRepository->findValueByName(Set10Export::PASSWORD_CONFIG_NAME, '');
 
         return true;
     }

@@ -1,34 +1,43 @@
 define(function(require) {
     //requirements
-    var get = require('./get'),
-        objectFixture = require('../fixtures/object');
+    var get = require('./get');
 
     require('lodash');
 
     describe('utils/get', function(){
 
-        it('get method', function() {
+        var object = {};
 
-            var object = _.extend({
-                get: get
-            }, objectFixture);
+        beforeEach(function(){
+            object = {
+                nullValue: null,
+                trueValue: true,
+                falseValue: false,
+                stringValue: 'string value',
+                numberValue: 1,
+                zeroValue: 0,
+                undefinedValue: undefined,
+                functionValue: function(){
+                    return 'function value'
+                }
+            };
 
-            expect(object.get('string')).toEqual('test string level 1');
-            expect(object.get('number')).toEqual(1);
-            expect(object.get('array')).toEqual(['a1 level 1', 'a2 level 1', 'a3 level 1', 'a4 level 1']);
-            expect(object.get('bool')).toEqual(false);
-            expect(object.get('func')).toEqual('test string level 11');
-            expect(object.get('undefinedValue')).toEqual(undefined);
+            object.objectValue = _.clone(object);
+        });
 
-            expect(object.get('object.object.object.string')).toEqual('test string level 4');
-            expect(object.get('object.object.object.number')).toEqual(4);
-            expect(object.get('object.object.object.array')).toEqual(['a1 level 4', 'a2 level 4', 'a3 level 4', 'a4 level 4']);
-            expect(object.get('object.object.object.bool')).toEqual(true);
-            expect(object.get('object.object.object.func')).toEqual('test string level 11');
-            expect(object.get('object.object.object.undefinedValue')).toEqual(undefined);
-            expect(object.get('object.undefinedValue.object')).toEqual(undefined);
+        it('get does not affect object properties', function() {
 
-            expect(object.get('value')).toEqual('test string level 11');
+            var originalObject = _.cloneDeep(object);
+
+            get(object, 'nullValue');
+            get(object, 'trueValue');
+            get(object, 'falseValue');
+            get(object, 'stringValue');
+            get(object, 'numberValue');
+            get(object, 'zeroValue');
+            get(object, 'undefinedValue');
+            get(object, 'functionValue');
+            get(object, 'objectValue');
 
         });
     });
