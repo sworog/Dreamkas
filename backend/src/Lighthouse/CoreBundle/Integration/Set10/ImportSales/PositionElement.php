@@ -30,6 +30,14 @@ class PositionElement
     /**
      * @return string
      */
+    public function getCostWithDiscount()
+    {
+        return (string) $this->xml['costWithDiscount'];
+    }
+
+    /**
+     * @return string
+     */
     public function getCount()
     {
         return (string) $this->xml['count'];

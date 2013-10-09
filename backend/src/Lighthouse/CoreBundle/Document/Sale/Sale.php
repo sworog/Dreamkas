@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Sale;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
@@ -18,7 +19,7 @@ use DateTime;
  *
  * @property int        $id
  * @property DateTime   $createdDate
- * @property SaleProduct[]  $product
+ * @property SaleProduct[]|ArrayCollection  $products
  */
 class Sale extends AbstractDocument implements Storeable
 {
@@ -53,9 +54,14 @@ class Sale extends AbstractDocument implements Storeable
      *
      * @Assert\NotBlank(message="lighthouse.validation.errors.sale.product_empty")
      * @Assert\Valid(traverse=true)
-     * @var SaleProduct[]
+     * @var SaleProduct[]|ArrayCollection
      */
     protected $products = array();
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     /**
      * @return Store

@@ -16,10 +16,7 @@ class ImportSalesXmlParserTest extends ContainerAwareTestCase
      */
     protected function createXmlParser($xmlFile = 'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml')
     {
-        $moneyTransformer = new MoneyModelTransformer();
-        $xmlParser = new ImportSalesXmlParser($moneyTransformer);
-        $xmlParser->setXmlFilePath($this->getFixtureFilePath($xmlFile));
-        return $xmlParser;
+        return new ImportSalesXmlParser($this->getFixtureFilePath($xmlFile));
     }
 
     public function testReadPurchasesCount()

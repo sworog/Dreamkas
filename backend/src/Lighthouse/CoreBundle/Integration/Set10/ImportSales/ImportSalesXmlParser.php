@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10\ImportSales;
 
-use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use XMLReader;
 use DOMDocument;
 
@@ -14,26 +13,9 @@ class ImportSalesXmlParser
     protected $xmlReader;
 
     /**
-     * @var MoneyModelTransformer
-     */
-    protected $moneyModelTransformer;
-
-    /**
-     * @param MoneyModelTransformer $moneyModelTransformer
-     *
-     * @DI\InjectParams({
-     *      "moneyModelTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model"),
-     * })
-     */
-    public function __construct(MoneyModelTransformer $moneyModelTransformer)
-    {
-        $this->moneyModelTransformer = $moneyModelTransformer;
-    }
-
-    /**
      * @param string $xmlFilePath
      */
-    public function setXmlFilePath($xmlFilePath)
+    public function __construct($xmlFilePath)
     {
         $this->createXmlReader($xmlFilePath);
     }
