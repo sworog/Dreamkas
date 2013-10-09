@@ -7,6 +7,11 @@ use Lighthouse\CoreBundle\Samba\Samba as SambaBase;
 
 class Samba extends ContainerAwareTestCase
 {
+	public function onConsecutiveCallsArray(array $array)
+	{
+		return new \PHPUnit_Framework_MockObject_Stub_ConsecutiveCalls($array);
+	}
+
     /**
      * @param $url
      * @param $expectedParsedUrl
@@ -331,78 +336,7 @@ EOF;
 	    $openDirInfo = explode("\n", $openDirInfo);
 	    $openDirInfo[] = false;
 
-	    $expectedDirInfo = array(
-		    'info' => array(
-			    'success' => array(
-				    'success',
-				    'folder',
-				    'attr' => 'D',
-				    'size' => 0,
-				    'time' => 1380789766,
-			    ),
-			    'test' => array(
-				    'test',
-				    'file',
-				    'attr' => 'A',
-				    'size' => 2,
-				    'time' => 1372439631,
-			    ),
-			    'error' => array(
-				    'error',
-				    'folder',
-				    'attr' => 'D',
-				    'size' => 0,
-				    'time' => 1378911191,
-			    ),
-			    'tmp' => array(
-				    'tmp',
-				    'folder',
-				    'attr' => 'D',
-				    'size' => 0,
-				    'time' => 1380789766,
-			    ),
-			    'source' => array(
-				    'source',
-				    'folder',
-				    'attr' => 'D',
-				    'size' => 0,
-				    'time' => 1380789766,
-			    ),
-			    'catalog-goods_1234-13-09-2013_11-30-14.xml' => array(
-				    'catalog-goods_1234-13-09-2013_11-30-14.xml',
-				    'file',
-				    'attr' => 'A',
-				    'size' => 1120,
-				    'time' => 1379057353,
-			    ),
-			    'catalog-goods_1378998029.xml' => array(
-				    'catalog-goods_1378998029.xml',
-				    'file',
-				    'attr' => 'A',
-				    'size' => 70,
-				    'time' => 1378998030,
-			    ),
-			    'catalog-goods_1379058741.xml' => array(
-				    'catalog-goods_1379058741.xml',
-				    'file',
-				    'attr' => 'A',
-				    'size' => 3917,
-				    'time' => 1379058742,
-			    ),
-		    ),
-		    'folder' => array(
-			    'success',
-			    'error',
-			    'tmp',
-			    'source'
-		    ),
-		    'file' => array(
-			    'test',
-			    'catalog-goods_1234-13-09-2013_11-30-14.xml',
-			    'catalog-goods_1378998029.xml',
-			    'catalog-goods_1379058741.xml',
-		    ),
-	    );
+	    $expectedDirInfo = $this->getDirInfoArray();
 
 	    $sambaMock = $this->getMock(
 		    '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
@@ -423,8 +357,130 @@ EOF;
 	    $this->assertEquals($expectedDirInfo, $dirInfo);
     }
 
-	public function onConsecutiveCallsArray(array $array)
+	public function testDirOpenDirMethod()
 	{
-		return new \PHPUnit_Framework_MockObject_Stub_ConsecutiveCalls($array);
+		$urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
+		$urlDir = "smb://user:password@host/base_path/to/dir";
+		$urlHost = "smb://user:password@host";
+
+		$sambaMock = $this->getMock(
+			'\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+			array('look', 'execute')
+		);
+
+		$lookInfo = array(
+			"disk" => array("centrum"),
+			"server" => array("vm6"),
+			"workgroup" => array("cmag", "mygroup"),
+		);
+
+		$sambaMock
+			->expects($this->once())
+			->method('look')
+			->will($this->returnValue($lookInfo));
+
+		$sambaMock->dir_opendir($urlHost, array());
+
+		$this->assertEquals(array("centrum"), $sambaMock->dir);
+
+
+		$sambaMock
+			->expects($this->any())
+			->method('execute')
+			->will($this->returnValue($this->getDirInfoArray()));
+
+		$sambaMock->dir_opendir($urlDir, array());
+
+		$expectedDir = array(
+			'success',
+			'test',
+			'error',
+			'tmp',
+			'source',
+			'catalog-goods_1234-13-09-2013_11-30-14.xml',
+			'catalog-goods_1378998029.xml',
+			'catalog-goods_1379058741.xml',
+		);
+		$this->assertEquals($expectedDir , $sambaMock->dir);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getDirInfoArray()
+	{
+		$expectedDirInfo = array(
+			'info' => array(
+				'success' => array(
+					'success',
+					'folder',
+					'attr' => 'D',
+					'size' => 0,
+					'time' => 1380789766,
+				),
+				'test' => array(
+					'test',
+					'file',
+					'attr' => 'A',
+					'size' => 2,
+					'time' => 1372439631,
+				),
+				'error' => array(
+					'error',
+					'folder',
+					'attr' => 'D',
+					'size' => 0,
+					'time' => 1378911191,
+				),
+				'tmp' => array(
+					'tmp',
+					'folder',
+					'attr' => 'D',
+					'size' => 0,
+					'time' => 1380789766,
+				),
+				'source' => array(
+					'source',
+					'folder',
+					'attr' => 'D',
+					'size' => 0,
+					'time' => 1380789766,
+				),
+				'catalog-goods_1234-13-09-2013_11-30-14.xml' => array(
+					'catalog-goods_1234-13-09-2013_11-30-14.xml',
+					'file',
+					'attr' => 'A',
+					'size' => 1120,
+					'time' => 1379057353,
+				),
+				'catalog-goods_1378998029.xml' => array(
+					'catalog-goods_1378998029.xml',
+					'file',
+					'attr' => 'A',
+					'size' => 70,
+					'time' => 1378998030,
+				),
+				'catalog-goods_1379058741.xml' => array(
+					'catalog-goods_1379058741.xml',
+					'file',
+					'attr' => 'A',
+					'size' => 3917,
+					'time' => 1379058742,
+				),
+			),
+			'folder' => array(
+				'success',
+				'error',
+				'tmp',
+				'source'
+			),
+			'file' => array(
+				'test',
+				'catalog-goods_1234-13-09-2013_11-30-14.xml',
+				'catalog-goods_1378998029.xml',
+				'catalog-goods_1379058741.xml',
+			),
+		);
+		return $expectedDirInfo;
 	}
 }
