@@ -1,15 +1,15 @@
 define(function(require) {
     //requirements
-    var app = require('../core/app');
+    var get = require('./get');
 
-    return function(resource, method){
+    return function(permissions, resourcePath, method){
 
         method = method || 'GET';
 
         var isAllow = false,
-            resourcePermissions = app.permissions[resource];
+            resourcePermissions = get(permissions, resourcePath);
 
-        if (resourcePermissions && resourcePermissions === 'all'){
+        if (resourcePermissions === 'all'){
             isAllow = true;
         } else if(typeof resourcePermissions === 'string') {
             isAllow = resourcePermissions === method;

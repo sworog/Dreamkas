@@ -13,11 +13,11 @@ define(function(require) {
             'jquery.require': url('./libs/jquery/jquery.require'),
             'jquery.maskedinput': url('./libs/jquery/jquery.maskedinput'),
 
-            'tpl': url('./utils/tpl'),
-            'templateCompiler': url('./utils/template'),
+            'amd-loader': url('./libs/require/amd-loader'),
+            'tpl': url('./utils/templateLoader'),
+            'templateCompiler': url('./utils/templateCompiler'),
 
-            'i18n': url('./libs/require/i18n'),
-            'dictionary': url('./dictionary')
+            'i18n': url('./libs/require/i18n')
         },
         packages: [
             {

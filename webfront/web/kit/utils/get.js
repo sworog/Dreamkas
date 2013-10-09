@@ -2,9 +2,17 @@ define(function(require) {
     //requirements
     require('lodash');
 
-    return function(path){
+    return function(object, path, thisArg){
 
-        var object = this;
+        switch (typeof object){
+            case 'undefined':
+                return;
+            case 'string':
+                thisArg = path;
+                path = object;
+                object = this;
+                break;
+        }
 
         if (typeof object['get:' + path] === 'function'){
             return object['get:' + path]();
@@ -20,7 +28,7 @@ define(function(require) {
         _.every(segments, function(segment){
 
             if (typeof attr[segment] === 'function'){
-                attr = attr[segment].call(object);
+                attr = attr[segment].call(thisArg || object);
             } else {
                 attr = attr[segment];
             }

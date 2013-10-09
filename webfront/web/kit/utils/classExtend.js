@@ -2,12 +2,14 @@ define(function(require) {
         //requirements
         var deepExtend = require('./deepExtend');
 
+        require('lodash');
+
         // Helper function to correctly set up the prototype chain, for subclasses.
         // Similar to `goog.inherits`, but uses a hash of prototype properties and
         // class properties to be extended.
         return function(parent, protoProps, staticProps) {
 
-            if (typeof parent !== 'function'){
+            if (_.isPlainObject(parent)){
                 staticProps = protoProps;
                 protoProps = parent;
                 parent = this;

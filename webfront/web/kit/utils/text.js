@@ -1,14 +1,14 @@
 define(function(require) {
     //requirements
-    var dictionary = require('dictionary');
+    var get = require('./get');
 
     require('lodash');
 
-    return function(text) {
+    return function(dictionary, text) {
         var result = '';
 
         if (text && typeof text === 'string'){
-            result = dictionary[text] || text;
+            result = get(dictionary, text) || text;
         }
 
         return result;

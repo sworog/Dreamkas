@@ -56,7 +56,7 @@ define(function(require) {
         get: function(path) {
             var model = this;
 
-            return get.call(model, 'attributes.' + path);
+            return get(model, 'attributes.' + path);
         },
         fetch: function(options) {
             return Backbone.Model.prototype.fetch.call(this, _.extend({

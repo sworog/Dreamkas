@@ -9,7 +9,7 @@ define(function(require) {
         var computeAttr = function() {
             var object = this,
                 depAttrs = _.map(depsArray, function(depPath) {
-                    return object.get ? object.get(depPath) : get.call(object, depPath);
+                    return object.get ? object.get(depPath) : get(object, depPath);
                 });
 
             return getter.apply(object, depAttrs);

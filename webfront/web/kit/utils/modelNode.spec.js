@@ -5,7 +5,7 @@ define(function(require) {
 
     require('jquery');
 
-    describe('utils/modelAttr', function(){
+    describe('utils/modelNode', function(){
 
         var model;
 

@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
-    var Block = require('./block'),
+    var app = require('./app'),
+        Block = require('./block'),
         Backbone = require('backbone'),
         Router = require('./router'),
         isAllow = require('../utils/isAllow');
@@ -26,14 +27,14 @@ define(function(require) {
             switch (typeof page.permissions) {
                 case 'object':
                     accessDenied = _.some(page.permissions, function(value, key) {
-                        return !isAllow(key, value);
+                        return !isAllow(app.permissions, key, value);
                     });
                     break;
                 case 'function':
                     accessDenied = page.permissions();
                     break;
                 case 'string':
-                    accessDenied = isAllow(page.permissions);
+                    accessDenied = isAllow(app.permissions, page.permissions);
                     break;
             }
 

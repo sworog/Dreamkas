@@ -2,10 +2,10 @@ define(function(require) {
     //requirements
     var setter = require('../utils/setter'),
         getter = require('../utils/getter'),
-        Backbone = require('backbone'),
         cookie = require('../libs/cookie');
 
     require('lodash');
+    require('backbone');
 
     var router = new Backbone.Router();
 
