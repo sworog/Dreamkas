@@ -108,7 +108,7 @@ class Samba
         $options = '-O ' . escapeshellarg(self::SMB4PHP_SMBOPTIONS);
         $output = $this->getProcessResource($params, $auth, $options, $port);
         $info = array();
-        while ($line = $this->fgets($output)) {
+        while (($line = $this->fgets($output)) !== false) {
             list ($tag, $regs, $i) = array('skip', array(), array());
             reset(self::$regexp);
             foreach (self::$regexp as $r => $t) {

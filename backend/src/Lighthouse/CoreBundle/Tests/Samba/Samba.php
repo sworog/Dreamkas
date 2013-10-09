@@ -279,28 +279,36 @@ class Samba extends ContainerAwareTestCase
             ->expects($this->any())
             ->method('fgets')
             ->will($this->onConsecutiveCalls(
-                    "Anonymous login successful",
-                    "Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]",
-                    "",
-                    "\tSharename       Type      Comment",
-                    "\t---------       ----      -------",
-                    "\tIPC$            IPC       IPC Service (Centrum Server Lighthouse)",
-                    "\tcentrum         Disk      Centrum ERP integration",
-                    "Anonymous login successful",
-                    "Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]",
-                    "",
-                    "\tServer               Comment",
-                    "\t---------            -------",
-                    "\tVM6                  Centrum Server Lighthouse",
-                    "",
-                    "\tWorkgroup            Master",
-                    "\t---------            -------",
-                    "\tCMAG                 SHOP1",
-                    "\tMYGROUP              VM6"));
+		            "Anonymous login successful",
+		            "Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]",
+		            "",
+		            "\tSharename       Type      Comment",
+		            "\t---------       ----      -------",
+		            "\tIPC$            IPC       IPC Service (Centrum Server Lighthouse)",
+		            "\tcentrum         Disk      Centrum ERP integration",
+		            "Anonymous login successful",
+		            "Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]",
+		            "",
+		            "\tServer               Comment",
+		            "\t---------            -------",
+		            "\tVM6                  Centrum Server Lighthouse",
+		            "",
+		            "\tWorkgroup            Master",
+		            "\t---------            -------",
+		            "\tCMAG                 SHOP1",
+		            "\tMYGROUP              VM6",
+		            false
+	        ));
+	    $expectedLookInfo = array(
+		    "disk" => array("centrum"),
+		    "server" => array("vm6"),
+		    "workgroup" => array("cmag", "mygroup"),
+	    );
 
         $parsedUrl = $sambaMock->parseUrl($urlFile);
 
         $lookInfo = $sambaMock->client('-L test.host', $parsedUrl);
-        $this->assertEquals(array('qwe' => 'qwe'), $lookInfo);
+        $this->assertEquals($expectedLookInfo, $lookInfo);
+
     }
 }
