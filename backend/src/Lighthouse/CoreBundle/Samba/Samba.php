@@ -16,6 +16,38 @@ class Samba
     const SMB4PHP_VERSION = "0.8";
 
     public static $smb_cache = array('stat' => array (), 'dir' => array ());
+    
+    public static $regexp = array(
+        '^added interface ip=(.*) bcast=(.*) nmask=(.*)$' => 'skip',
+        'Anonymous login successful' => 'skip',
+        '^Domain=\[(.*)\] OS=\[(.*)\] Server=\[(.*)\]$' => 'skip',
+        '^\tSharename[ ]+Type[ ]+Comment$' => 'shares',
+        '^\t---------[ ]+----[ ]+-------$' => 'skip',
+        '^\tServer   [ ]+Comment$' => 'servers',
+        '^\t---------[ ]+-------$' => 'skip',
+        '^\tWorkgroup[ ]+Master$' => 'workg',
+        '^\t(.*)[ ]+(Disk|IPC)[ ]+IPC.*$' => 'skip',
+        '^\tIPC\\\$(.*)[ ]+IPC' => 'skip',
+        '^\t(.*)[ ]+(Disk)[ ]+(.*)$' => 'share',
+        '^\t(.*)[ ]+(Printer)[ ]+(.*)$' => 'skip',
+        '([0-9]+) blocks of size ([0-9]+)\. ([0-9]+) blocks available' => 'skip',
+        'Got a positive name query response from ' => 'skip',
+        '^(session setup failed): (.*)$' => 'error',
+        '^(.*): ERRSRV - ERRbadpw' => 'error',
+        '^Error returning browse list: (.*)$' => 'error',
+        '^tree connect failed: (.*)$' => 'error',
+        '^(Connection to .* failed)$' => 'error',
+        '^NT_STATUS_(.*) ' => 'error',
+        '^NT_STATUS_(.*)\$' => 'error',
+        'ERRDOS - ERRbadpath \((.*).\)' => 'error',
+        'cd (.*): (.*)$' => 'error',
+        '^cd (.*): NT_STATUS_(.*)' => 'error',
+        '^\t(.*)$' => 'srvorwg',
+        '^([0-9]+)[ ]+([0-9]+)[ ]+(.*)$' => 'skip',
+        '^Job ([0-9]+) cancelled' => 'skip',
+        '^[ ]+(.*)[ ]+([0-9]+)[ ]+(Mon|Tue|Wed|Thu|Fri|Sat|Sun)[ ](Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[ ]+([0-9]+)[ ]+([0-9]{2}:[0-9]{2}:[0-9]{2})[ ]([0-9]{4})$' => 'files',
+        '^message start: ERRSRV - (ERRmsgoff)' => 'error'
+    );
 
     public function parseUrl($url)
     {
@@ -63,40 +95,7 @@ class Samba
 
     public function client($params, $purl)
     {
-
-        static $regexp = array(
-            '^added interface ip=(.*) bcast=(.*) nmask=(.*)$' => 'skip',
-            'Anonymous login successful' => 'skip',
-            '^Domain=\[(.*)\] OS=\[(.*)\] Server=\[(.*)\]$' => 'skip',
-            '^\tSharename[ ]+Type[ ]+Comment$' => 'shares',
-            '^\t---------[ ]+----[ ]+-------$' => 'skip',
-            '^\tServer   [ ]+Comment$' => 'servers',
-            '^\t---------[ ]+-------$' => 'skip',
-            '^\tWorkgroup[ ]+Master$' => 'workg',
-            '^\t(.*)[ ]+(Disk|IPC)[ ]+IPC.*$' => 'skip',
-            '^\tIPC\\\$(.*)[ ]+IPC' => 'skip',
-            '^\t(.*)[ ]+(Disk)[ ]+(.*)$' => 'share',
-            '^\t(.*)[ ]+(Printer)[ ]+(.*)$' => 'skip',
-            '([0-9]+) blocks of size ([0-9]+)\. ([0-9]+) blocks available' => 'skip',
-            'Got a positive name query response from ' => 'skip',
-            '^(session setup failed): (.*)$' => 'error',
-            '^(.*): ERRSRV - ERRbadpw' => 'error',
-            '^Error returning browse list: (.*)$' => 'error',
-            '^tree connect failed: (.*)$' => 'error',
-            '^(Connection to .* failed)$' => 'error',
-            '^NT_STATUS_(.*) ' => 'error',
-            '^NT_STATUS_(.*)\$' => 'error',
-            'ERRDOS - ERRbadpath \((.*).\)' => 'error',
-            'cd (.*): (.*)$' => 'error',
-            '^cd (.*): NT_STATUS_(.*)' => 'error',
-            '^\t(.*)$' => 'srvorwg',
-            '^([0-9]+)[ ]+([0-9]+)[ ]+(.*)$' => 'skip',
-            '^Job ([0-9]+) cancelled' => 'skip',
-            '^[ ]+(.*)[ ]+([0-9]+)[ ]+(Mon|Tue|Wed|Thu|Fri|Sat|Sun)[ ](Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[ ]+([0-9]+)[ ]+([0-9]{2}:[0-9]{2}:[0-9]{2})[ ]([0-9]{4})$' => 'files',
-            '^message start: ERRSRV - (ERRmsgoff)' => 'error'
-        );
-
-        if ($this->SMB4PHP_AUTHMODE == 'env') {
+        if (self::SMB4PHP_AUTHMODE == 'env') {
             putenv("USER={$purl['user']}%{$purl['pass']}");
             $auth = '';
         } else {
@@ -106,16 +105,13 @@ class Samba
             $auth .= ' -W ' . escapeshellarg($purl['domain']);
         }
         $port = ($purl['port'] != 139 ? ' -p ' . escapeshellarg($purl['port']) : '');
-        $options = '-O ' . escapeshellarg($this->SMB4PHP_SMBOPTIONS);
-        $output = popen(
-            $this->SMB4PHP_SMBCLIENT . " -N {$auth} {$options} {$port} {$options} {$params} 2>/dev/null",
-            'r'
-        );
+        $options = '-O ' . escapeshellarg(self::SMB4PHP_SMBOPTIONS);
+        $output = $this->getProcessResource($params, $auth, $options, $port);
         $info = array();
-        while ($line = fgets($output, 4096)) {
+        while ($line = $this->fgets($output)) {
             list ($tag, $regs, $i) = array('skip', array(), array());
-            reset($regexp);
-            foreach ($regexp as $r => $t) {
+            reset(self::$regexp);
+            foreach (self::$regexp as $r => $t) {
                 if (preg_match('/' . $r . '/', $line, $regs)) {
                     $tag = $t;
                     break;
@@ -184,7 +180,7 @@ class Samba
                 }
             }
         }
-        pclose($output);
+        $this->closeProcessResource($output);
 
         return $info;
     }
@@ -318,5 +314,39 @@ class Samba
         $this->clearstatcache($url);
 
         return $this->execute('rmdir "' . $pu['path'] . '"', $pu);
+    }
+
+    /**
+     * @param $params
+     * @param $auth
+     * @param $options
+     * @param $port
+     * @return resource
+     */
+    public function getProcessResource($params, $auth, $options, $port)
+    {
+        $output = popen(
+            self::SMB4PHP_SMBCLIENT . " -N {$auth} {$options} {$port} {$options} {$params} 2>/dev/null",
+            'r'
+        );
+
+        return $output;
+    }
+
+    /**
+     * @param $output
+     * @return string
+     */
+    public function fgets($output)
+    {
+        return $line = fgets($output, 4096);
+    }
+
+    /**
+     * @param $output
+     */
+    public function closeProcessResource($output)
+    {
+        pclose($output);
     }
 }

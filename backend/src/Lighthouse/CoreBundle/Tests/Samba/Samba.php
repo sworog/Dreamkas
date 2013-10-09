@@ -264,6 +264,43 @@ class Samba extends ContainerAwareTestCase
 
     public function testUrlStatMethod()
     {
+        $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
 
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\Samba',
+            array(
+                'getProcessResource',
+                'fgets',
+                'closeProcessResource',
+            )
+        );
+
+        $sambaMock
+            ->expects($this->any())
+            ->method('fgets')
+            ->will($this->onConsecutiveCalls(
+                    "Anonymous login successful",
+                    "Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]",
+                    "",
+                    "\tSharename       Type      Comment",
+                    "\t---------       ----      -------",
+                    "\tIPC$            IPC       IPC Service (Centrum Server Lighthouse)",
+                    "\tcentrum         Disk      Centrum ERP integration",
+                    "Anonymous login successful",
+                    "Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]",
+                    "",
+                    "\tServer               Comment",
+                    "\t---------            -------",
+                    "\tVM6                  Centrum Server Lighthouse",
+                    "",
+                    "\tWorkgroup            Master",
+                    "\t---------            -------",
+                    "\tCMAG                 SHOP1",
+                    "\tMYGROUP              VM6"));
+
+        $parsedUrl = $sambaMock->parseUrl($urlFile);
+
+        $lookInfo = $sambaMock->client('-L test.host', $parsedUrl);
+        $this->assertEquals(array('qwe' => 'qwe'), $lookInfo);
     }
 }
