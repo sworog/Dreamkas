@@ -26,10 +26,10 @@ class SambaStreamWrapper extends Samba
 
             return true;
         }
-        $pu = Samba::ParseUrl($url);
+        $pu = $this->ParseUrl($url);
         switch ($pu['type']) {
             case 'host':
-                if ($o = Samba::look($pu)) {
+                if ($o = $this->look($pu)) {
                     $this->dir = $o['disk'];
                     $this->dir_index = 0;
                 } else {
@@ -38,12 +38,12 @@ class SambaStreamWrapper extends Samba
                 break;
             case 'share':
             case 'path':
-                if ($o = Samba::execute('dir "' . $pu['path'] . '\*"', $pu)) {
+                if ($o = $this->execute('dir "' . $pu['path'] . '\*"', $pu)) {
                     $this->dir = array_keys($o['info']);
                     $this->dir_index = 0;
                     $this->adddircache($url, $this->dir);
                     foreach ($o['info'] as $name => $info) {
-                        Samba::addstatcache($url . '/' . urlencode($name), $info);
+                        $this->addstatcache($url . '/' . urlencode($name), $info);
                     }
                 } else {
                     $this->dir = array();
@@ -104,7 +104,7 @@ class SambaStreamWrapper extends Samba
     {
         $this->url = $url;
         $this->mode = $mode;
-        $this->parsed_url = $pu = Samba::ParseUrl($url);
+        $this->parsed_url = $pu = $this->ParseUrl($url);
         if ($pu['type'] <> 'path') {
             trigger_error('stream_open(): error in URL', E_USER_ERROR);
         }
@@ -115,7 +115,7 @@ class SambaStreamWrapper extends Samba
             case 'a':
             case 'a+':
                 $this->tmpfile = tempnam('/tmp', 'smb.down.');
-                Samba::execute('get "' . $pu['path'] . '" "' . $this->tmpfile . '"', $pu);
+                $this->execute('get "' . $pu['path'] . '" "' . $this->tmpfile . '"', $pu);
                 break;
             case 'w':
             case 'w+':
@@ -165,15 +165,15 @@ class SambaStreamWrapper extends Samba
     public function stream_flush()
     {
         if ($this->mode <> 'r' && $this->need_flush) {
-            Samba::clearstatcache($this->url);
-            Samba::execute('put "' . $this->tmpfile . '" "' . $this->parsed_url['path'] . '"', $this->parsed_url);
+            $this->clearstatcache($this->url);
+            $this->execute('put "' . $this->tmpfile . '" "' . $this->parsed_url['path'] . '"', $this->parsed_url);
             $this->need_flush = false;
         }
     }
 
     public function stream_stat()
     {
-        return Samba::urlStat($this->url);
+        return $this->urlStat($this->url);
     }
 
     public function __destruct()

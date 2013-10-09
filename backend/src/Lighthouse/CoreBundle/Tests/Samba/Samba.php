@@ -108,7 +108,7 @@ class Samba extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path/to/dir/file.doc";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\Samba', array('client'));
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('client'));
 
         $parsedUrl = $sambaMock->parseUrl($url);
 
@@ -124,7 +124,7 @@ class Samba extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path/to/dir/file.doc";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\Samba', array('client'));
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('client'));
 
         $parsedUrl = $sambaMock->parseUrl($url);
 
@@ -142,7 +142,7 @@ class Samba extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path/to/dir/file.doc";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\Samba', array('execute'));
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
         $parsedUrl = $sambaMock->parseUrl($url);
 
         $expectedExecuteCommand = 'del "to\dir\file.doc"';
@@ -160,7 +160,7 @@ class Samba extends ContainerAwareTestCase
         $url = "smb://user:password@host/base_path/to/dir/file.doc";
         $urlNew = "smb://user:password@host/base_path/to/dir/file_new.doc";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\Samba', array('execute'));
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
         $parsedUrl = $sambaMock->parseUrl($url);
         $parsedUrlNew = $sambaMock->parseUrl($urlNew);
 
@@ -178,7 +178,7 @@ class Samba extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path/to/dir";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\Samba', array('execute'));
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
         $parsedUrl = $sambaMock->parseUrl($url);
 
         $expectedExecuteCommand = 'mkdir "to\dir"';
@@ -195,7 +195,7 @@ class Samba extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path/to/dir";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\Samba', array('execute'));
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
         $parsedUrl = $sambaMock->parseUrl($url);
 
         $expectedExecuteCommand = 'rmdir "to\dir"';
@@ -213,7 +213,7 @@ class Samba extends ContainerAwareTestCase
         $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
         $urlDir = "smb://user:password@host/base_path/to/dir";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\Samba', array('execute'));
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
 
         $this->assertFalse($sambaMock->getstatcache($urlFile));
         $this->assertFalse($sambaMock->getstatcache($urlDir));
@@ -262,12 +262,13 @@ class Samba extends ContainerAwareTestCase
         $this->assertFalse($sambaMock->getstatcache($urlDir));
     }
 
-    public function testUrlStatMethod()
+    public function testClientMethod()
     {
         $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
+	    $urlDir = "smb://user:password@host/base_path/to/dir";
 
         $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\Samba',
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
             array(
                 'getProcessResource',
                 'fgets',
@@ -305,10 +306,125 @@ class Samba extends ContainerAwareTestCase
 		    "workgroup" => array("cmag", "mygroup"),
 	    );
 
-        $parsedUrl = $sambaMock->parseUrl($urlFile);
+        $parsedUrlFile = $sambaMock->parseUrl($urlFile);
+	    $parsedUrlDir = $sambaMock->parseUrl($urlDir);
 
-        $lookInfo = $sambaMock->client('-L test.host', $parsedUrl);
+        $lookInfo = $sambaMock->client('-L test.host', $parsedUrlFile);
         $this->assertEquals($expectedLookInfo, $lookInfo);
 
+		$openDirInfo = <<<EOF
+Anonymous login successful
+Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]
+  .                                   D        0  Fri Sep 13 11:13:28 2013
+  ..                                  D        0  Thu Sep  5 16:54:33 2013
+  success                             D        0  Thu Oct  3 12:42:46 2013
+  test                                A        2  Fri Jun 28 21:13:51 2013
+  error                               D        0  Wed Sep 11 18:53:11 2013
+  tmp                                 D        0  Thu Oct  3 12:42:46 2013
+  source                              D        0  Thu Oct  3 12:42:46 2013
+  catalog-goods_1234-13-09-2013_11-30-14.xml      A     1120  Fri Sep 13 11:29:13 2013
+  catalog-goods_1378998029.xml        A       70  Thu Sep 12 19:00:30 2013
+  catalog-goods_1379058741.xml        A     3917  Fri Sep 13 11:52:22 2013
+
+                37382 blocks of size 524288. 29328 blocks available
+EOF;
+	    $openDirInfo = explode("\n", $openDirInfo);
+	    $openDirInfo[] = false;
+
+	    $expectedDirInfo = array(
+		    'info' => array(
+			    'success' => array(
+				    'success',
+				    'folder',
+				    'attr' => 'D',
+				    'size' => 0,
+				    'time' => 1380789766,
+			    ),
+			    'test' => array(
+				    'test',
+				    'file',
+				    'attr' => 'A',
+				    'size' => 2,
+				    'time' => 1372439631,
+			    ),
+			    'error' => array(
+				    'error',
+				    'folder',
+				    'attr' => 'D',
+				    'size' => 0,
+				    'time' => 1378911191,
+			    ),
+			    'tmp' => array(
+				    'tmp',
+				    'folder',
+				    'attr' => 'D',
+				    'size' => 0,
+				    'time' => 1380789766,
+			    ),
+			    'source' => array(
+				    'source',
+				    'folder',
+				    'attr' => 'D',
+				    'size' => 0,
+				    'time' => 1380789766,
+			    ),
+			    'catalog-goods_1234-13-09-2013_11-30-14.xml' => array(
+				    'catalog-goods_1234-13-09-2013_11-30-14.xml',
+				    'file',
+				    'attr' => 'A',
+				    'size' => 1120,
+				    'time' => 1379057353,
+			    ),
+			    'catalog-goods_1378998029.xml' => array(
+				    'catalog-goods_1378998029.xml',
+				    'file',
+				    'attr' => 'A',
+				    'size' => 70,
+				    'time' => 1378998030,
+			    ),
+			    'catalog-goods_1379058741.xml' => array(
+				    'catalog-goods_1379058741.xml',
+				    'file',
+				    'attr' => 'A',
+				    'size' => 3917,
+				    'time' => 1379058742,
+			    ),
+		    ),
+		    'folder' => array(
+			    'success',
+			    'error',
+			    'tmp',
+			    'source'
+		    ),
+		    'file' => array(
+			    'test',
+			    'catalog-goods_1234-13-09-2013_11-30-14.xml',
+			    'catalog-goods_1378998029.xml',
+			    'catalog-goods_1379058741.xml',
+		    ),
+	    );
+
+	    $sambaMock = $this->getMock(
+		    '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+		    array(
+			    'getProcessResource',
+			    'fgets',
+			    'closeProcessResource',
+		    )
+	    );
+
+	    $sambaMock
+		    ->expects($this->any())
+		    ->method('fgets')
+		    ->will($this->onConsecutiveCallsArray($openDirInfo));
+
+	    $dirInfo = $sambaMock->execute('dir "' . $parsedUrlDir['path'] . '\*""', $parsedUrlDir);
+
+	    $this->assertEquals($expectedDirInfo, $dirInfo);
     }
+
+	public function onConsecutiveCallsArray(array $array)
+	{
+		return new \PHPUnit_Framework_MockObject_Stub_ConsecutiveCalls($array);
+	}
 }
