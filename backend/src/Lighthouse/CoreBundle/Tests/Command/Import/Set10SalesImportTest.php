@@ -84,6 +84,26 @@ class Set10SalesImportTest extends WebTestCase
         );
     }
 
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @expectedExceptionMessage Failed to read directory
+     */
+    public function testInvalidDirectoryIsFile()
+    {
+        $tmpDir = '/tmp/' . uniqid('lighthouse_');
+        mkdir($tmpDir);
+        $file1 = $this->copyFixtureFileToDir(
+            'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml',
+            $tmpDir
+        );
+
+        $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $file1);
+
+        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array());
+    }
+
     public function testImportInvalidXmlFile()
     {
         $tmpDir = '/tmp/' . uniqid('lighthouse_');

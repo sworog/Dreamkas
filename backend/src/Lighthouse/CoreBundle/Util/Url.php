@@ -140,10 +140,10 @@ class Url
             $url.= '@';
         }
         if ($this->issetPart(self::HOST)) {
-            $url.= $this->getPart(self::HOST);
+            $url.= $this->getPart(self::HOST) . '/';
         }
         if ($this->issetPart(self::PATH)) {
-            $url.= '/' . ltrim($this->getPart(self::PATH), '/');
+            $url.= ltrim($this->getPart(self::PATH), '/');
         }
         if ($this->issetPart(self::QUERY)) {
             $url.= '?' . $this->getPart(self::QUERY);
