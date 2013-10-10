@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var isAllow = require('kit/utils/isAllow'),
-        text = require('kit/utils/text'),
+        translate = require('kit/utils/translate'),
         dictionary = require('dictionary'),
         app = require('app');
 
@@ -9,8 +9,8 @@ define(function(require) {
         isAllow: function(resource, method){
             return isAllow(app.permissions, resource, method);
         },
-        text: function(text){
-            return text(dictionary, text);
+        translate: function(text){
+            return translate(dictionary, text);
         },
         modelNode: require('kit/utils/modelNode'),
         formatPrice: require('utils/formatPrice'),

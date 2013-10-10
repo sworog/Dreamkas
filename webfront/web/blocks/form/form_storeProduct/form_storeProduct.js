@@ -149,7 +149,7 @@ define(function(require) {
                     block.$rounding.addClass('preloader_spinner');
                     roundPrice(price, rounding).done(function(data){
                         block.$rounding.removeClass('preloader_spinner');
-                        block.$rounding.html('(' + LH.formatPrice(data.price) + ' руб. - округлено ' + LH.text(rounding) + ')');
+                        block.$rounding.html('(' + LH.formatPrice(data.price) + ' руб. - округлено ' + LH.translate(rounding) + ')');
                     });
                 } else {
                     block.$rounding.hide();

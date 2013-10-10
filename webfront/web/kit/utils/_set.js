@@ -5,14 +5,14 @@ define(function(require) {
 
     require('lodash');
 
-    return function set(object, path, value, extra) {
+    return function set(object, path, data, extra) {
 
         var keyPath = object,
             setValue;
 
         if (typeof path === 'string'){
-            value = pathToObject(path, value);
-            set(object, null, value, extra);
+            data = pathToObject(path, data);
+            set(object, null, data, extra);
             return;
         }
 
@@ -23,8 +23,12 @@ define(function(require) {
             }
         }, extra);
 
+        _.each(data, function(value, key){
+
+        });
+
         if(typeof object.trigger === 'function'){
-            object.trigger('set:' + path, value);
+            object.trigger('set:' + path, data);
         }
     }
 });
