@@ -9,6 +9,34 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class Set10SalesImportTest extends WebTestCase
 {
+    /**
+     * @var string
+     */
+    protected $prefix = 'lighthouse';
+
+    protected function tearDown()
+    {
+        $this->clearTempFiles();
+        parent::tearDown();
+    }
+
+    protected function clearTempFiles()
+    {
+        $tmp = new \DirectoryIterator('/tmp/');
+        /* @var \DirectoryIterator $dir */
+        foreach ($tmp as $dir) {
+            if ($dir->isDir() && 0 === strpos($dir->getFilename(), $this->prefix)) {
+                $it = new \RecursiveDirectoryIterator($dir->getPathname());
+                foreach (new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST) as $file) {
+                    if ($file->isFile()) {
+                        unlink($file->getPathname());
+                    }
+                }
+                rmdir($dir->getPathname());
+            }
+        }
+    }
+
     public function testExecute()
     {
         $this->createStore('197');
@@ -30,8 +58,7 @@ class Set10SalesImportTest extends WebTestCase
             )
         );
 
-        $tmpDir = '/tmp/' . uniqid('lighthouse_');
-        mkdir($tmpDir);
+        $tmpDir = $this->createTempDir();
         $file1 = $this->copyFixtureFileToDir(
             'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml',
             $tmpDir
@@ -56,7 +83,6 @@ class Set10SalesImportTest extends WebTestCase
 
         $this->assertFileNotExists($file1);
         $this->assertFileNotExists($file2);
-        rmdir($tmpDir);
     }
 
     /**
@@ -90,8 +116,7 @@ class Set10SalesImportTest extends WebTestCase
      */
     public function testInvalidDirectoryIsFile()
     {
-        $tmpDir = '/tmp/' . uniqid('lighthouse_');
-        mkdir($tmpDir);
+        $tmpDir = $this->createTempDir();
         $file1 = $this->copyFixtureFileToDir(
             'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml',
             $tmpDir
@@ -106,8 +131,7 @@ class Set10SalesImportTest extends WebTestCase
 
     public function testImportInvalidXmlFile()
     {
-        $tmpDir = '/tmp/' . uniqid('lighthouse_');
-        mkdir($tmpDir);
+        $tmpDir = $this->createTempDir();
         $file1 = $this->copyFixtureFileToDir(
             'Integration/Set10/ImportSales/purchases-invalid.xml',
             $tmpDir
@@ -122,10 +146,19 @@ class Set10SalesImportTest extends WebTestCase
 
         $display = $commandTester->getDisplay();
         $this->assertContains('Failed to import sales', $display);
-        $this->assertContains('Deleting "purchases', $display);
+        $this->assertContains('Deleting "' . $this->prefix, $display);
 
         $this->assertFileNotExists($file1);
-        rmdir($tmpDir);
+    }
+
+    /**
+     * @return string
+     */
+    protected function createTempDir()
+    {
+        $tmpDir = '/tmp/' . uniqid($this->prefix) . '/';
+        mkdir($tmpDir);
+        return $tmpDir;
     }
 
     /**
@@ -136,7 +169,7 @@ class Set10SalesImportTest extends WebTestCase
     protected function copyFixtureFileToDir($file, $dir)
     {
         $source = $this->getFixtureFilePath($file);
-        $destination = $dir . '/' . uniqid('purchases-') . '.xml';
+        $destination = $dir . '/' . uniqid($this->prefix) . '.xml';
         copy($source, $destination);
         return $destination;
     }
