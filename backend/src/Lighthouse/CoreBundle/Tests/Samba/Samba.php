@@ -7,10 +7,10 @@ use Lighthouse\CoreBundle\Samba\Samba as SambaBase;
 
 class Samba extends ContainerAwareTestCase
 {
-	public function onConsecutiveCallsArray(array $array)
-	{
-		return new \PHPUnit_Framework_MockObject_Stub_ConsecutiveCalls($array);
-	}
+    public function onConsecutiveCallsArray(array $array)
+    {
+        return new \PHPUnit_Framework_MockObject_Stub_ConsecutiveCalls($array);
+    }
 
     /**
      * @param $url
@@ -270,7 +270,7 @@ class Samba extends ContainerAwareTestCase
     public function testClientMethod()
     {
         $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
-	    $urlDir = "smb://user:password@host/base_path/to/dir";
+        $urlDir = "smb://user:password@host/base_path/to/dir";
 
         $sambaMock = $this->getMock(
             '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
@@ -285,39 +285,39 @@ class Samba extends ContainerAwareTestCase
             ->expects($this->any())
             ->method('fgets')
             ->will($this->onConsecutiveCalls(
-		            "Anonymous login successful",
-		            "Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]",
-		            "",
-		            "\tSharename       Type      Comment",
-		            "\t---------       ----      -------",
-		            "\tIPC$            IPC       IPC Service (Centrum Server Lighthouse)",
-		            "\tcentrum         Disk      Centrum ERP integration",
-		            "Anonymous login successful",
-		            "Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]",
-		            "",
-		            "\tServer               Comment",
-		            "\t---------            -------",
-		            "\tVM6                  Centrum Server Lighthouse",
-		            "",
-		            "\tWorkgroup            Master",
-		            "\t---------            -------",
-		            "\tCMAG                 SHOP1",
-		            "\tMYGROUP              VM6",
-		            false
-	        ));
-	    $expectedLookInfo = array(
-		    "disk" => array("centrum"),
-		    "server" => array("vm6"),
-		    "workgroup" => array("cmag", "mygroup"),
-	    );
+                "Anonymous login successful",
+                "Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]",
+                "",
+                "\tSharename       Type      Comment",
+                "\t---------       ----      -------",
+                "\tIPC$            IPC       IPC Service (Centrum Server Lighthouse)",
+                "\tcentrum         Disk      Centrum ERP integration",
+                "Anonymous login successful",
+                "Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]",
+                "",
+                "\tServer               Comment",
+                "\t---------            -------",
+                "\tVM6                  Centrum Server Lighthouse",
+                "",
+                "\tWorkgroup            Master",
+                "\t---------            -------",
+                "\tCMAG                 SHOP1",
+                "\tMYGROUP              VM6",
+                false
+            ));
+        $expectedLookInfo = array(
+            "disk" => array("centrum"),
+            "server" => array("vm6"),
+            "workgroup" => array("cmag", "mygroup"),
+        );
 
         $parsedUrlFile = $sambaMock->parseUrl($urlFile);
-	    $parsedUrlDir = $sambaMock->parseUrl($urlDir);
+        $parsedUrlDir = $sambaMock->parseUrl($urlDir);
 
         $lookInfo = $sambaMock->client('-L test.host', $parsedUrlFile);
         $this->assertEquals($expectedLookInfo, $lookInfo);
 
-		$openDirInfo = <<<EOF
+        $openDirInfo = <<<EOF
 Anonymous login successful
 Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]
   .                                   D        0  Fri Sep 13 11:13:28 2013
@@ -333,154 +333,238 @@ Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]
 
                 37382 blocks of size 524288. 29328 blocks available
 EOF;
-	    $openDirInfo = explode("\n", $openDirInfo);
-	    $openDirInfo[] = false;
+        $openDirInfo = explode("\n", $openDirInfo);
+        $openDirInfo[] = false;
 
-	    $expectedDirInfo = $this->getDirInfoArray();
+        $expectedDirInfo = $this->getDirInfoArray();
 
-	    $sambaMock = $this->getMock(
-		    '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-		    array(
-			    'getProcessResource',
-			    'fgets',
-			    'closeProcessResource',
-		    )
-	    );
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array(
+                'getProcessResource',
+                'fgets',
+                'closeProcessResource',
+            )
+        );
 
-	    $sambaMock
-		    ->expects($this->any())
-		    ->method('fgets')
-		    ->will($this->onConsecutiveCallsArray($openDirInfo));
+        $sambaMock
+            ->expects($this->any())
+            ->method('fgets')
+            ->will($this->onConsecutiveCallsArray($openDirInfo));
 
-	    $dirInfo = $sambaMock->execute('dir "' . $parsedUrlDir['path'] . '\*""', $parsedUrlDir);
+        $dirInfo = $sambaMock->execute('dir "' . $parsedUrlDir['path'] . '\*""', $parsedUrlDir);
 
-	    $this->assertEquals($expectedDirInfo, $dirInfo);
+        $this->assertEquals($expectedDirInfo, $dirInfo);
     }
 
-	public function testDirOpenDirMethod()
-	{
-		$urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
-		$urlDir = "smb://user:password@host/base_path/to/dir";
-		$urlHost = "smb://user:password@host";
+    public function testUrlStatMethod()
+    {
+        $urlFile = "smb://user:password@host/base_path/catalog-goods_1378998029.xml";
+        $urlDir = "smb://user:password@host/base_path/success";
+        $urlHost = "smb://user:password@host";
+        $urlShare = "smb://user:password@host/base_path";
 
-		$sambaMock = $this->getMock(
-			'\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-			array('look', 'execute')
-		);
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('look', 'execute')
+        );
+        
+        $lookInfo = array(
+            "disk" => array("centrum"),
+            "server" => array("vm6"),
+            "workgroup" => array("cmag", "mygroup"),
+        );
 
-		$lookInfo = array(
-			"disk" => array("centrum"),
-			"server" => array("vm6"),
-			"workgroup" => array("cmag", "mygroup"),
-		);
+        $sambaMock
+            ->expects($this->any())
+            ->method('look')
+            ->will($this->returnValue($lookInfo));
 
-		$sambaMock
-			->expects($this->once())
-			->method('look')
-			->will($this->returnValue($lookInfo));
+        $sambaMock
+            ->expects($this->any())
+            ->method('execute')
+            ->will($this->returnValue($this->getDirInfoArray()));
+        
+        $expectedStatInfoHost = stat("/tmp");
+        
+        $actualStatInfoHost = $sambaMock->url_stat($urlHost);
+        $this->assertEquals($expectedStatInfoHost, $actualStatInfoHost);
+        
+        
+        $expectedStatInfoDir = stat("/tmp");
+        $expectedStatInfoDir[7] = $expectedStatInfoDir['size'] = 0;
+        $expectedStatInfoDir[8]
+            = $expectedStatInfoDir[9]
+            = $expectedStatInfoDir[10]
+            = $expectedStatInfoDir['atime']
+            = $expectedStatInfoDir['mtime']
+            = $expectedStatInfoDir['ctime']
+            = 1380789766;
 
-		$sambaMock->dir_opendir($urlHost, array());
+        $actualStatInfoDir = $sambaMock->url_stat($urlDir);
+        $this->assertEquals($expectedStatInfoDir, $actualStatInfoDir);
 
-		$this->assertEquals(array("centrum"), $sambaMock->dir);
+
+        $expectedStatInfoFile = stat('/etc/passwd');
+        $expectedStatInfoFile[7] = $expectedStatInfoFile['size'] = 70;
+        $expectedStatInfoFile[8]
+            = $expectedStatInfoFile[9]
+            = $expectedStatInfoFile[10]
+            = $expectedStatInfoFile['atime']
+            = $expectedStatInfoFile['mtime']
+            = $expectedStatInfoFile['ctime']
+            = 1378998030;
+
+        $actualStatInfoFile = $sambaMock->url_stat($urlFile);
+        $this->assertEquals($expectedStatInfoFile, $actualStatInfoFile);
 
 
-		$sambaMock
-			->expects($this->any())
-			->method('execute')
-			->will($this->returnValue($this->getDirInfoArray()));
+        $shareLookInfo = array(
+            "disk" => array("base_path"),
+            "server" => array("vm6"),
+            "workgroup" => array("cmag", "mygroup"),
+        );
 
-		$sambaMock->dir_opendir($urlDir, array());
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('look')
+        );
 
-		$expectedDir = array(
-			'success',
-			'test',
-			'error',
-			'tmp',
-			'source',
-			'catalog-goods_1234-13-09-2013_11-30-14.xml',
-			'catalog-goods_1378998029.xml',
-			'catalog-goods_1379058741.xml',
-		);
-		$this->assertEquals($expectedDir , $sambaMock->dir);
-	}
+        $sambaMock
+            ->expects($this->any())
+            ->method('look')
+            ->will($this->returnValue($shareLookInfo));
 
-	/**
-	 * @return array
-	 */
-	public function getDirInfoArray()
-	{
-		$expectedDirInfo = array(
-			'info' => array(
-				'success' => array(
-					'success',
-					'folder',
-					'attr' => 'D',
-					'size' => 0,
-					'time' => 1380789766,
-				),
-				'test' => array(
-					'test',
-					'file',
-					'attr' => 'A',
-					'size' => 2,
-					'time' => 1372439631,
-				),
-				'error' => array(
-					'error',
-					'folder',
-					'attr' => 'D',
-					'size' => 0,
-					'time' => 1378911191,
-				),
-				'tmp' => array(
-					'tmp',
-					'folder',
-					'attr' => 'D',
-					'size' => 0,
-					'time' => 1380789766,
-				),
-				'source' => array(
-					'source',
-					'folder',
-					'attr' => 'D',
-					'size' => 0,
-					'time' => 1380789766,
-				),
-				'catalog-goods_1234-13-09-2013_11-30-14.xml' => array(
-					'catalog-goods_1234-13-09-2013_11-30-14.xml',
-					'file',
-					'attr' => 'A',
-					'size' => 1120,
-					'time' => 1379057353,
-				),
-				'catalog-goods_1378998029.xml' => array(
-					'catalog-goods_1378998029.xml',
-					'file',
-					'attr' => 'A',
-					'size' => 70,
-					'time' => 1378998030,
-				),
-				'catalog-goods_1379058741.xml' => array(
-					'catalog-goods_1379058741.xml',
-					'file',
-					'attr' => 'A',
-					'size' => 3917,
-					'time' => 1379058742,
-				),
-			),
-			'folder' => array(
-				'success',
-				'error',
-				'tmp',
-				'source'
-			),
-			'file' => array(
-				'test',
-				'catalog-goods_1234-13-09-2013_11-30-14.xml',
-				'catalog-goods_1378998029.xml',
-				'catalog-goods_1379058741.xml',
-			),
-		);
-		return $expectedDirInfo;
-	}
+        $expectedStatInfoShare = stat("/tmp");
+
+        $actualStatInfoShare = $sambaMock->url_stat($urlShare);
+        $this->assertEquals($expectedStatInfoShare, $actualStatInfoShare);
+    }
+
+    public function testDirOpenDirMethod()
+    {
+        $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
+        $urlDir = "smb://user:password@host/base_path/to/dir";
+        $urlHost = "smb://user:password@host";
+
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('look', 'execute')
+        );
+
+        $lookInfo = array(
+            "disk" => array("centrum"),
+            "server" => array("vm6"),
+            "workgroup" => array("cmag", "mygroup"),
+        );
+
+        $sambaMock
+            ->expects($this->once())
+            ->method('look')
+            ->will($this->returnValue($lookInfo));
+
+        $sambaMock->dir_opendir($urlHost, array());
+
+        $this->assertEquals(array("centrum"), $sambaMock->dir);
+
+
+        $sambaMock
+            ->expects($this->any())
+            ->method('execute')
+            ->will($this->returnValue($this->getDirInfoArray()));
+
+        $sambaMock->dir_opendir($urlDir, array());
+
+        $expectedDir = array(
+            'success',
+            'test',
+            'error',
+            'tmp',
+            'source',
+            'catalog-goods_1234-13-09-2013_11-30-14.xml',
+            'catalog-goods_1378998029.xml',
+            'catalog-goods_1379058741.xml',
+        );
+        $this->assertEquals($expectedDir , $sambaMock->dir);
+    }
+
+    /**
+     * @return array
+     */
+    public function getDirInfoArray()
+    {
+        $expectedDirInfo = array(
+            'info' => array(
+                'success' => array(
+                    'success',
+                    'folder',
+                    'attr' => 'D',
+                    'size' => 0,
+                    'time' => 1380789766,
+                ),
+                'test' => array(
+                    'test',
+                    'file',
+                    'attr' => 'A',
+                    'size' => 2,
+                    'time' => 1372439631,
+                ),
+                'error' => array(
+                    'error',
+                    'folder',
+                    'attr' => 'D',
+                    'size' => 0,
+                    'time' => 1378911191,
+                ),
+                'tmp' => array(
+                    'tmp',
+                    'folder',
+                    'attr' => 'D',
+                    'size' => 0,
+                    'time' => 1380789766,
+                ),
+                'source' => array(
+                    'source',
+                    'folder',
+                    'attr' => 'D',
+                    'size' => 0,
+                    'time' => 1380789766,
+                ),
+                'catalog-goods_1234-13-09-2013_11-30-14.xml' => array(
+                    'catalog-goods_1234-13-09-2013_11-30-14.xml',
+                    'file',
+                    'attr' => 'A',
+                    'size' => 1120,
+                    'time' => 1379057353,
+                ),
+                'catalog-goods_1378998029.xml' => array(
+                    'catalog-goods_1378998029.xml',
+                    'file',
+                    'attr' => 'A',
+                    'size' => 70,
+                    'time' => 1378998030,
+                ),
+                'catalog-goods_1379058741.xml' => array(
+                    'catalog-goods_1379058741.xml',
+                    'file',
+                    'attr' => 'A',
+                    'size' => 3917,
+                    'time' => 1379058742,
+                ),
+            ),
+            'folder' => array(
+                'success',
+                'error',
+                'tmp',
+                'source'
+            ),
+            'file' => array(
+                'test',
+                'catalog-goods_1234-13-09-2013_11-30-14.xml',
+                'catalog-goods_1378998029.xml',
+                'catalog-goods_1379058741.xml',
+            ),
+        );
+        return $expectedDirInfo;
+    }
 }
