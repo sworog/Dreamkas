@@ -3,7 +3,7 @@ define(function(require) {
     var Block = require('../../core/block'),
         setter = require('../../utils/setter'),
         form2js = require('../../libs/form2js'),
-        text = require('../../utils/text');
+        translate = require('../../utils/translate');
 
     require('lodash');
     require('backbone');

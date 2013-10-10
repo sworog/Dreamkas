@@ -1,10 +1,10 @@
 define(function(require) {
     //requirements
-    var text = require('./text');
+    var translate = require('./translate');
 
     require('lodash');
 
-    describe('utils/text', function(){
+    describe('utils/translate', function(){
         var dictionary = {},
             dict;
 
@@ -21,30 +21,30 @@ define(function(require) {
 
             var originalDictionary = _.clone(dictionary);
 
-            text(dictionary, 'string');
-            text(dictionary, 'object.string');
+            translate(dictionary, 'string');
+            translate(dictionary, 'object.string');
 
             expect(originalDictionary).toEqual(dictionary);
         });
 
         it('get string from dictionary', function(){
-            expect(text(dictionary, 'string')).toBe('test string');
+            expect(translate(dictionary, 'string')).toBe('test string');
         });
 
         it('get string from dictionary nested object', function(){
-            expect(text(dictionary, 'object.string')).toBe('test object string');
+            expect(translate(dictionary, 'object.string')).toBe('test object string');
         });
 
         it('get nonexistent string from dictionary', function(){
-            expect(text(dictionary, 'nonexistent string')).toBe('nonexistent string');
+            expect(translate(dictionary, 'nonexistent string')).toBe('nonexistent string');
         });
 
         it('get string from undefined dictionary', function(){
-            expect(text(dict, 'nonexistent string')).toBe('nonexistent string');
+            expect(translate(dict, 'nonexistent string')).toBe('nonexistent string');
         });
 
         it('get number from dictionary', function(){
-            expect(text(dict, 2)).toBe(2);
+            expect(translate(dict, 2)).toBe(2);
         });
     });
 });

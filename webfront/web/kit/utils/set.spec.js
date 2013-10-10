@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var set = require('./set');
+    var set = require('./_set');
 
     require('lodash');
 

@@ -4,7 +4,7 @@ define(function(require) {
         extendClass = require('../utils/extendClass'),
         setter = require('../utils/setter'),
         getter = require('../utils/getter'),
-        text = require('../utils/text');
+        translate = require('../utils/translate');
 
     require('jquery.require');
     require('lodash');
