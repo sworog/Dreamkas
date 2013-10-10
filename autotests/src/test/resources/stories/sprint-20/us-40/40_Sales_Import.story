@@ -1,7 +1,6 @@
 Meta:
 @us 40
 @sprint 20
-@test
 
 Narrative:
 As a user
