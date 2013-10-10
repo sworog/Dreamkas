@@ -62,12 +62,14 @@ class Set10SalesImport extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $dirUrl = null;
         try {
-            $output->write(sprintf('Reading remote directory "%s" ... ', $this->remoteDirectory->getDirUrl()));
+            $dirUrl = $this->remoteDirectory->getDirUrl();
+            $output->write(sprintf('Reading remote directory "%s" ... ', $dirUrl));
             $files = $this->remoteDirectory->read();
             $output->writeln('Done');
         } catch (\Exception $e) {
-            $this->logException($e);
+            $this->logException($e, $dirUrl);
             throw $e;
         }
 
@@ -77,10 +79,10 @@ class Set10SalesImport extends Command
                 $parser = new ImportSalesXmlParser($file->getPathname());
                 $this->importer->import($parser, $output);
                 foreach ($this->importer->getErrors() as $error) {
-                    $this->logException($error['exception']);
+                    $this->logException($error['exception'], $dirUrl, $file->getPathname());
                 }
             } catch (\Exception $e) {
-                $this->logException($e);
+                $this->logException($e, $dirUrl, $file->getPathname());
                 $output->writeln(sprintf('<error>Failed to import sales</error>: %s', $e->getMessage()));
             }
             $output->writeln('');
@@ -94,9 +96,18 @@ class Set10SalesImport extends Command
 
     /**
      * @param \Exception $e
+     * @param string $url
+     * @param string $file
      */
-    protected function logException(\Exception $e)
+    protected function logException(\Exception $e, $url = null, $file = null)
     {
-        $this->logRepository->createLog('Sales import fail: ' . $e->getMessage());
+        $message = 'Sales import fail: ' . $e->getMessage() . PHP_EOL;
+        if ($url) {
+            $message.= 'Url: ' . $url . PHP_EOL;
+        }
+        if ($file) {
+            $message.= 'File: ' . $file . PHP_EOL;
+        }
+        $this->logRepository->createLog($message);
     }
 }

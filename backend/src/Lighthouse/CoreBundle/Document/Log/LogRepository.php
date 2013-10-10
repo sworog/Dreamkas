@@ -20,4 +20,12 @@ class LogRepository extends DocumentRepository
 
         $this->save($log);
     }
+
+    /**
+     * @return \Doctrine\ODM\MongoDB\Cursor
+     */
+    public function findAll()
+    {
+        return $this->findBy(array(), array('date' => -1));
+    }
 }
