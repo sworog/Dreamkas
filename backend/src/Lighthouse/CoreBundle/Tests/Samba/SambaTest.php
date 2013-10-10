@@ -667,7 +667,38 @@ EOF;
             'catalog-goods_1378998029.xml',
             'catalog-goods_1379058741.xml',
         );
-        $this->assertEquals($expectedDir , $sambaMock->dir);
+
+        $this->assertEquals($expectedDir, $sambaMock->dir);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testDirOpenDirExceptionHostNotLook()
+    {
+        $urlHost = "smb://user:password@host";
+
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('look')
+        );
+
+        $sambaMock->dir_opendir($urlHost, '');
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testDirOpenDirExceptionErrorType()
+    {
+        $urlHost = "smb://";
+
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('look')
+        );
+
+        $sambaMock->dir_opendir($urlHost, '');
     }
 
     /**
@@ -748,5 +779,35 @@ EOF;
             ),
         );
         return $expectedDirInfo;
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testStreamOpenExceptionHost()
+    {
+        $urlHost = "smb://user:password@host";
+
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('look')
+        );
+
+        $sambaMock->stream_open($urlHost, '', '', '');
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testStreamOpenExceptionShare()
+    {
+        $urlHost = "smb://user:password@host/share";
+
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('look')
+        );
+
+        $sambaMock->stream_open($urlHost, '', '', '');
     }
 }

@@ -33,7 +33,7 @@ class SambaStreamWrapper extends Samba
                     $this->dir = $o['disk'];
                     $this->dir_index = 0;
                 } else {
-                    trigger_error("dir_opendir(): list failed for host '{$pu['host']}'", E_USER_WARNING);
+                    throw new SambaWrapperException("dir_opendir(): list failed for host '{$pu['host']}'");
                 }
                 break;
             case 'share':
@@ -51,7 +51,7 @@ class SambaStreamWrapper extends Samba
                 }
                 break;
             default:
-                trigger_error('dir_opendir(): error in URL', E_USER_ERROR);
+                throw new SambaWrapperException('dir_opendir(): error in URL', E_USER_ERROR);
         }
 
         return true;
@@ -105,8 +105,8 @@ class SambaStreamWrapper extends Samba
         $this->url = $url;
         $this->mode = $mode;
         $this->parsed_url = $pu = $this->ParseUrl($url);
-        if ($pu['type'] <> 'path') {
-            trigger_error('stream_open(): error in URL', E_USER_ERROR);
+        if ($pu['type'] != 'path') {
+            throw new SambaWrapperException('stream_open(): error in URL');
         }
         switch ($mode) {
             case 'r':
@@ -164,7 +164,7 @@ class SambaStreamWrapper extends Samba
 
     public function stream_flush()
     {
-        if ($this->mode <> 'r' && $this->need_flush) {
+        if ($this->mode != 'r' && $this->need_flush) {
             $this->clearstatcache($this->url);
             $this->execute('put "' . $this->tmpfile . '" "' . $this->parsed_url['path'] . '"', $this->parsed_url);
             $this->need_flush = false;
@@ -173,12 +173,12 @@ class SambaStreamWrapper extends Samba
 
     public function stream_stat()
     {
-        return $this->urlStat($this->url);
+        return $this->url_stat($this->url);
     }
 
     public function __destruct()
     {
-        if ($this->tmpfile <> '') {
+        if ($this->tmpfile != '') {
             if ($this->need_flush) {
                 $this->stream_flush();
             }
