@@ -169,7 +169,7 @@ class Samba
                         : array();
                     break;
                 case 'error':
-                    throw new SambaWrapperException($regs[1]);
+                    throw new SambaWrapperException($regs[0]);
             }
             if ($i) {
                 switch ($i[1]) {
@@ -208,7 +208,7 @@ class Samba
                 if ($lookInfo = $this->look($parsedUrl)) {
                     $stat = stat("/tmp");
                 } else {
-                    trigger_error("url_stat(): list failed for host ''", E_USER_WARNING);
+                    throw new SambaWrapperException("url_stat(): list failed for host '{$parsedUrl['host']}'");
                 }
                 break;
             case 'share':
@@ -223,7 +223,9 @@ class Samba
                         }
                     }
                     if (!$found) {
-                        trigger_error("url_stat(): disk resource '{}' not found in '{}'", E_USER_WARNING);
+                        throw new SambaWrapperException(
+                            "url_stat(): disk resource '{$lowerShare}' not found in '{$parsedUrl['host']}'"
+                        );
                     }
                 }
                 break;
@@ -234,14 +236,14 @@ class Samba
                     if (isset ($output['info'][$name])) {
                         $stat = $this->addstatcache($url, $output['info'][$name]);
                     } else {
-                        trigger_error("url_stat(): path '{$parsedUrl['path']}' not found", E_USER_WARNING);
+                        throw new SambaWrapperException("url_stat(): path '{$parsedUrl['path']}' not found");
                     }
                 } else {
-                    trigger_error("url_stat(): dir failed for path '{$parsedUrl['path']}'", E_USER_WARNING);
+                    throw new SambaWrapperException("url_stat(): dir failed for path '{$parsedUrl['path']}'");
                 }
                 break;
             default:
-                trigger_error('error in URL', E_USER_ERROR);
+                throw new SambaWrapperException('error in URL');
         }
 
         return $stat;

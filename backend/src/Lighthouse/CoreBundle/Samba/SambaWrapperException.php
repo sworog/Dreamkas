@@ -2,6 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Samba;
 
-class SambaWrapperException extends \Exception
+class SambaWrapperException extends \RuntimeException
 {
 }

@@ -2,10 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Tests\Samba;
 
+use Lighthouse\CoreBundle\Samba\SambaWrapperException;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
-use Lighthouse\CoreBundle\Samba\Samba as SambaBase;
+use Lighthouse\CoreBundle\Samba\Samba;
 
-class Samba extends ContainerAwareTestCase
+class SambaTest extends ContainerAwareTestCase
 {
     public function onConsecutiveCallsArray(array $array)
     {
@@ -32,7 +33,7 @@ class Samba extends ContainerAwareTestCase
             'scheme' => 'smb',
         );
 
-        $samba = new SambaBase();
+        $samba = new Samba();
 
         $parsedUrl = $samba->parseUrl($url);
 
@@ -457,6 +458,107 @@ EOF;
 
         $actualStatInfoShare = $sambaMock->url_stat($urlShare);
         $this->assertEquals($expectedStatInfoShare, $actualStatInfoShare);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testUrlStatHostException()
+    {
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('look')
+        );
+
+        $urlHost = "smb://user:password@host";
+
+        $sambaMock->url_stat($urlHost);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testUrlStatShareException()
+    {
+        $shareLookInfo = array(
+            "disk" => array("centrum"),
+            "server" => array("vm6"),
+            "workgroup" => array("cmag", "mygroup"),
+        );
+
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('look')
+        );
+
+        $sambaMock
+            ->expects($this->any())
+            ->method('look')
+            ->will($this->returnValue($shareLookInfo));
+
+        $urlShare = "smb://user:password@host/base_path";
+
+        $sambaMock->url_stat($urlShare);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testUrlStatPathException()
+    {
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('execute')
+        );
+
+        $urlDir = "smb://user:password@host/base_path/success";
+
+        $sambaMock->url_stat($urlDir);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testUrlStatNotTypeUrlException()
+    {
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array('execute')
+        );
+
+        $url = "smb://";
+
+        $sambaMock->url_stat($url);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testUrlStatNotFoundPath()
+    {
+        $executeOutput = <<<EOF
+Anonymous login successful
+Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]
+NT_STATUS_NO_SUCH_FILE listing \reportsw
+EOF;
+
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array(
+                'getProcessResource',
+                'fgets',
+                'closeProcessResource',
+            )
+        );
+
+        $sambaMock
+            ->expects($this->any())
+            ->method('fgets')
+            ->will($this->onConsecutiveCallsArray(explode("\n", $executeOutput)));
+
+        $urlDir = "smb://user:password@host/base_path/success";
+
+        $actualUrlStat = $sambaMock->url_stat($urlDir);
     }
 
     public function testDirOpenDirMethod()
