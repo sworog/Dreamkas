@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Import;
 
+use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ImportSalesXmlParser;
 use Lighthouse\CoreBundle\Integration\Set10\ImportSales\RemoteDirectory;
 use Lighthouse\CoreBundle\Integration\Set10\ImportSales\SalesImporter;
@@ -27,24 +28,30 @@ class Set10SalesImport extends Command
     protected $remoteDirectory;
 
     /**
+     * @var LogRepository
+     */
+    protected $logRepository;
+
+    /**
      * @DI\InjectParams({
      *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import_sales.importer"),
      *      "remoteDirectory" = @DI\Inject("lighthouse.core.integration.set10.import_sales.remote_directory"),
+     *      "logRepository" = @DI\Inject("lighthouse.core.document.repository.log")
      * })
      * @param SalesImporter $importer
      * @param RemoteDirectory $remoteDirectory
+     * @param LogRepository $logRepository
      */
-    public function __construct(SalesImporter $importer, RemoteDirectory $remoteDirectory)
-    {
-        parent::__construct();
+    public function __construct(
+        SalesImporter $importer,
+        RemoteDirectory $remoteDirectory,
+        LogRepository $logRepository
+    ) {
+        parent::__construct('lighthouse:import:sales');
 
         $this->importer = $importer;
         $this->remoteDirectory = $remoteDirectory;
-    }
-
-    protected function configure()
-    {
-        $this->setName('lighthouse:import:sales');
+        $this->logRepository = $logRepository;
     }
 
     /**
@@ -54,16 +61,25 @@ class Set10SalesImport extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->write(sprintf('Reading remote directory "%s" ... ', $this->remoteDirectory->getDirUrl()));
-        $files = $this->remoteDirectory->read();
-        $output->writeln('Done');
+        try {
+            $output->write(sprintf('Reading remote directory "%s" ... ', $this->remoteDirectory->getDirUrl()));
+            $files = $this->remoteDirectory->read();
+            $output->writeln('Done');
+        } catch (\Exception $e) {
+            $this->logException($e);
+            throw $e;
+        }
 
         foreach ($files as $file) {
             try {
                 $output->writeln(sprintf('Importing "%s"', $file->getFilename()));
                 $parser = new ImportSalesXmlParser($file->getPathname());
                 $this->importer->import($parser, $output);
+                foreach ($this->importer->getErrors() as $error) {
+                    $this->logException($error['exception']);
+                }
             } catch (\Exception $e) {
+                $this->logException($e);
                 $output->writeln(sprintf('<error>Failed to import sales</error>: %s', $e->getMessage()));
             }
             $output->writeln('');
@@ -73,5 +89,13 @@ class Set10SalesImport extends Command
         }
 
         $output->writeln('Finished importing');
+    }
+
+    /**
+     * @param \Exception $e
+     */
+    protected function logException(\Exception $e)
+    {
+        $this->logRepository->createLog('Sales import fail: ' . $e->getMessage());
     }
 }

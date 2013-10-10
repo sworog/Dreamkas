@@ -51,6 +51,11 @@ class SalesImporter
     protected $batchSize = 1000;
 
     /**
+     * @var array
+     */
+    protected $errors = array();
+
+    /**
      * @DI\InjectParams({
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "saleRepository" = @DI\Inject("lighthouse.core.document.repository.sale"),
@@ -85,7 +90,7 @@ class SalesImporter
      */
     public function import(ImportSalesXmlParser $parser, OutputInterface $output, $batchSize = null)
     {
-        $errors = array();
+        $this->errors = array();
         $count = 0;
         $batchSize = ($batchSize) ?: $this->batchSize;
         $dm = $this->saleRepository->getDocumentManager();
@@ -105,19 +110,19 @@ class SalesImporter
                 }
             } catch (ValidationFailedException $e) {
                 $output->write('<error>V</error>');
-                $errors[] = array(
+                $this->errors[] = array(
                     'exception' => $e
                 );
             } catch (\Exception $e) {
                 $output->write('<error>E</error>');
-                $errors[] = array(
+                $this->errors[] = array(
                     'exception' => $e
                 );
             }
         }
         $dm->flush();
 
-        $this->outputErrors($output, $errors);
+        $this->outputErrors($output, $this->errors);
     }
 
     /**
@@ -138,6 +143,14 @@ class SalesImporter
                 );
             }
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 
     /**

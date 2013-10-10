@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
 use Lighthouse\CoreBundle\Command\Import\Set10SalesImport;
+use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Set10Import;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -12,7 +13,7 @@ class Set10SalesImportTest extends WebTestCase
     /**
      * @var string
      */
-    protected $prefix = 'lighthouse';
+    protected $prefix = 'lighthouse_sales_';
 
     protected function tearDown()
     {
@@ -83,6 +84,11 @@ class Set10SalesImportTest extends WebTestCase
 
         $this->assertFileNotExists($file1);
         $this->assertFileNotExists($file2);
+
+        /* @var ConfigRepository $configRepository */
+        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $configRepository->findAll();
+        $this->assertCount(2, $cursor);
     }
 
     /**
@@ -146,7 +152,7 @@ class Set10SalesImportTest extends WebTestCase
 
         $display = $commandTester->getDisplay();
         $this->assertContains('Failed to import sales', $display);
-        $this->assertContains('Deleting "' . $this->prefix, $display);
+        $this->assertContains('Deleting "purchases-', $display);
 
         $this->assertFileNotExists($file1);
     }
@@ -156,8 +162,9 @@ class Set10SalesImportTest extends WebTestCase
      */
     protected function createTempDir()
     {
-        $tmpDir = '/tmp/' . uniqid($this->prefix) . '/';
+        $tmpDir = '/tmp/' . uniqid($this->prefix, true) . '/';
         mkdir($tmpDir);
+        clearstatcache();
         return $tmpDir;
     }
 
@@ -169,7 +176,7 @@ class Set10SalesImportTest extends WebTestCase
     protected function copyFixtureFileToDir($file, $dir)
     {
         $source = $this->getFixtureFilePath($file);
-        $destination = $dir . '/' . uniqid($this->prefix) . '.xml';
+        $destination = $dir . '/' . uniqid('purchases-') . '.xml';
         copy($source, $destination);
         return $destination;
     }
