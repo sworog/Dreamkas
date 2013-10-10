@@ -44,13 +44,6 @@ class RemoteDirectory
         $dirUrl = $this->getDirUrl();
         try {
             $directory = new \DirectoryIterator($dirUrl);
-            if (!$directory->isDir()) {
-                throw new RuntimeException(sprintf('Directory "%s" is not a directory', $dirUrl));
-            } elseif (!$directory->isReadable()) {
-                throw new RuntimeException(sprintf('Directory "%s" is not readable', $dirUrl));
-            } elseif (!$directory->isWritable()) {
-                throw new RuntimeException(sprintf('Directory "%s" is not writable', $dirUrl));
-            }
         } catch (\RuntimeException $e) {
             throw new RuntimeException(sprintf('Failed to read directory "%s": %s', $dirUrl, $e->getMessage()));
         }
