@@ -11,7 +11,7 @@ define(function(require) {
             'dashboard(/)': require('pages/common/dashboard'),
             'sale(/)': require('pages/common/sale'),
             'balance(/)': require('pages/common/balance'),
-            'log(/)': require('pages/common/log'),
+            'logs(/)': require('pages/common/log'),
             'settings(/)': require('pages/common/settings'),
 
             //invoices
