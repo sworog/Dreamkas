@@ -280,7 +280,7 @@ class Samba
     {
         $pu = $this->parseUrl($url);
         if ($pu['type'] != 'path') {
-            trigger_error('unlink(): error in URL', E_USER_ERROR);
+            throw new SambaWrapperException('unlink(): error in URL');
         }
         $this->clearstatcache($url);
 
@@ -296,10 +296,10 @@ class Samba
             $from['pass'] != $to['pass'] ||
             $from['domain'] != $to['domain']
         ) {
-            trigger_error('rename(): FROM & TO must be in same server-share-user-pass-domain', E_USER_ERROR);
+            throw new SambaWrapperException('rename(): FROM & TO must be in same server-share-user-pass-domain');
         }
         if ($from['type'] != 'path' || $to['type'] != 'path') {
-            trigger_error('rename(): error in URL', E_USER_ERROR);
+            throw new SambaWrapperException('rename(): error in URL');
         }
         $this->clearstatcache($url_from);
 
@@ -310,7 +310,7 @@ class Samba
     {
         $pu = $this->parseUrl($url);
         if ($pu['type'] != 'path') {
-            trigger_error('mkdir(): error in URL', E_USER_ERROR);
+            throw new SambaWrapperException('mkdir(): error in URL');
         }
 
         return $this->execute('mkdir "' . $pu['path'] . '"', $pu);
@@ -320,7 +320,7 @@ class Samba
     {
         $pu = $this->parseUrl($url);
         if ($pu['type'] != 'path') {
-            trigger_error('rmdir(): error in URL', E_USER_ERROR);
+            throw new SambaWrapperException('rmdir(): error in URL');
         }
         $this->clearstatcache($url);
 

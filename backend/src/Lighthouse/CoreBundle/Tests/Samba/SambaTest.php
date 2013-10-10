@@ -161,6 +161,18 @@ class SambaTest extends ContainerAwareTestCase
         $sambaMock->unlink($url);
     }
 
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testUnLinkExceptionNotAPath()
+    {
+        $url = "smb://user:password@host/base_path";
+
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+
+        $sambaMock->unlink($url);
+    }
+
     public function testRenameMethod()
     {
         $url = "smb://user:password@host/base_path/to/dir/file.doc";
@@ -176,6 +188,32 @@ class SambaTest extends ContainerAwareTestCase
             ->expects($this->once())
             ->method('execute')
             ->with($this->equalTo($expectedExecuteCommand), $this->equalTo($parsedUrlNew));
+
+        $sambaMock->rename($url, $urlNew);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testRenameExceptionOnNotOneServer()
+    {
+        $url = "smb://user:password@host/base_path/to/dir/file.doc";
+        $urlNew = "smb://user:password@new_host/base_path/to/dir/file_new.doc";
+
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+
+        $sambaMock->rename($url, $urlNew);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testRenameExceptionNotAPath()
+    {
+        $url = "smb://user:password@host/base_path";
+        $urlNew = "smb://user:password@host/base_path";
+
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
 
         $sambaMock->rename($url, $urlNew);
     }
@@ -197,6 +235,18 @@ class SambaTest extends ContainerAwareTestCase
         $sambaMock->mkdir($url, '', '');
     }
 
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testMkDirExceptionNotAPath()
+    {
+        $url = "smb://user:password@host/base_path";
+
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+
+        $sambaMock->mkdir($url, '', '');
+    }
+
     public function testRmDirMethod()
     {
         $url = "smb://user:password@host/base_path/to/dir";
@@ -210,6 +260,18 @@ class SambaTest extends ContainerAwareTestCase
             ->expects($this->once())
             ->method('execute')
             ->with($this->equalTo($expectedExecuteCommand), $this->equalTo($parsedUrl));
+
+        $sambaMock->rmdir($url);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testRmDirExceptionNotAPath()
+    {
+        $url = "smb://user:password@host/base_path";
+
+        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
 
         $sambaMock->rmdir($url);
     }
