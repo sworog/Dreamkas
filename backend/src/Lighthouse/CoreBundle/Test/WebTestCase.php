@@ -253,6 +253,19 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @param array $skus
+     * @return array
+     */
+    protected function createProductsBySku(array $skus)
+    {
+        $products = array();
+        foreach ($skus as $sku) {
+            $products[$sku] = $this->createProduct(array('sku' => $sku));
+        }
+        return $products;
+    }
+
+    /**
      * @param $productId
      * @param $invoiceId
      * @return array
