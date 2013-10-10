@@ -169,7 +169,7 @@ class Samba
                         : array();
                     break;
                 case 'error':
-                    trigger_error($regs[1], E_USER_ERROR);
+                    throw new SambaWrapperException($regs[1]);
             }
             if ($i) {
                 switch ($i[1]) {

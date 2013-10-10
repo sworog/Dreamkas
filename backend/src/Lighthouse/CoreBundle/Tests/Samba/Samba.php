@@ -355,6 +355,24 @@ EOF;
         $dirInfo = $sambaMock->execute('dir "' . $parsedUrlDir['path'] . '\*""', $parsedUrlDir);
 
         $this->assertEquals($expectedDirInfo, $dirInfo);
+
+        $sambaMock = $this->getMock(
+            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
+            array(
+                'getProcessResource',
+                'fgets',
+                'closeProcessResource',
+            )
+        );
+        $sambaMock
+            ->expects($this->any())
+            ->method('fgets')
+            ->will($this->onConsecutiveCallsArray(array('tree connect failed: test')));
+
+
+        $this->setExpectedException('\Lighthouse\CoreBundle\Samba\SambaWrapperException');
+
+        $sambaMock->client('-L ' . escapeshellarg($urlDir), $parsedUrlDir);
     }
 
     public function testUrlStatMethod()
