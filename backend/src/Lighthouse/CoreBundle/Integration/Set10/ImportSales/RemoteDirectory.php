@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Integration\Set10\ImportSales;
 
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
+use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Set10Import;
 use Lighthouse\CoreBundle\Util\Url;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -34,12 +35,25 @@ class RemoteDirectory
     }
 
     /**
+     * @throws \Lighthouse\CoreBundle\Exception\RuntimeException
      * @return \SplFileInfo[]
      */
     public function read()
     {
         $files = array();
-        $directory = new \DirectoryIterator($this->getDirUrl());
+        $dirUrl = $this->getDirUrl();
+        try {
+            $directory = new \DirectoryIterator($dirUrl);
+            if (!$directory->isDir()) {
+                throw new RuntimeException(sprintf('Directory "%s" is not a directory', $dirUrl));
+            } elseif (!$directory->isReadable()) {
+                throw new RuntimeException(sprintf('Directory "%s" is not readable', $dirUrl));
+            } elseif (!$directory->isWritable()) {
+                throw new RuntimeException(sprintf('Directory "%s" is not writable', $dirUrl));
+            }
+        } catch (\RuntimeException $e) {
+            throw new RuntimeException(sprintf('Failed to read directory "%s"', $dirUrl));
+        }
         /* @var \DirectoryIterator $file */
         foreach ($directory as $file) {
             if ($file->isFile() && 'xml' == $file->getExtension()) {
@@ -50,7 +64,8 @@ class RemoteDirectory
     }
 
     /**
-     * @param $filePath
+     * @param string $filePath
+     * @return bool
      */
     public function deleteFile($filePath)
     {

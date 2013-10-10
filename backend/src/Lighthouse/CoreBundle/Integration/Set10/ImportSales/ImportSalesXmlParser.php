@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10\ImportSales;
 
+use Lighthouse\CoreBundle\Exception\RuntimeException;
 use XMLReader;
 use DOMDocument;
 
@@ -26,7 +27,7 @@ class ImportSalesXmlParser
     protected function createXmlReader($xmlFilePath)
     {
         $this->xmlReader = new XMLReader();
-        $this->xmlReader->open($xmlFilePath, 'UTF-8');
+        $this->xmlReader->open($xmlFilePath, 'UTF-8', LIBXML_NOERROR | LIBXML_NOWARNING);
     }
 
     /**
@@ -45,13 +46,19 @@ class ImportSalesXmlParser
     }
 
     /**
+     * @throws \Lighthouse\CoreBundle\Exception\RuntimeException
      * @return PurchaseElement|false
      */
     public function readNextElement()
     {
         while ($this->xmlReader->read()) {
             if (XMLReader::ELEMENT === $this->xmlReader->nodeType && 'purchase' == $this->xmlReader->name) {
-                $domNode = $this->xmlReader->expand();
+                /* FIXME */
+                $domNode = @$this->xmlReader->expand();
+                if (false === $domNode) {
+                    $error = libxml_get_last_error();
+                    throw new RuntimeException(sprintf('Failed to parse "purchase" xml node: %s', $error->message));
+                }
                 $doc = new DOMDocument('1.0', 'UTF-8');
                 return simplexml_import_dom($doc->importNode($domNode, true), PurchaseElement::getClassName());
             }

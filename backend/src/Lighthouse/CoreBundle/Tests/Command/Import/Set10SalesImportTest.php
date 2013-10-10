@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
+use Lighthouse\CoreBundle\Command\Import\Set10SalesImport;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Set10Import;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -55,6 +56,55 @@ class Set10SalesImportTest extends WebTestCase
 
         $this->assertFileNotExists($file1);
         $this->assertFileNotExists($file2);
+        rmdir($tmpDir);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @expectedExceptionMessage Failed to read directory
+     * @dataProvider invalidDirectoryProvider
+     */
+    public function testInvalidDirectory($url)
+    {
+        $this->createConfig(Set10Import::URL_CONFIG_NAME, $url);
+
+        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array());
+    }
+
+    /**
+     * @return array
+     */
+    public function invalidDirectoryProvider()
+    {
+        return array(
+            array('file://invalid/path'),
+            //array('smb://invalid.host/invalid/path'),
+        );
+    }
+
+    public function testImportInvalidXmlFile()
+    {
+        $tmpDir = '/tmp/' . uniqid('lighthouse_');
+        mkdir($tmpDir);
+        $file1 = $this->copyFixtureFileToDir(
+            'Integration/Set10/ImportSales/purchases-invalid.xml',
+            $tmpDir
+        );
+
+        $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
+
+        /* @var Set10SalesImport $command */
+        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array());
+
+        $display = $commandTester->getDisplay();
+        $this->assertContains('Failed to import sales', $display);
+        $this->assertContains('Deleting "purchases', $display);
+
+        $this->assertFileNotExists($file1);
         rmdir($tmpDir);
     }
 

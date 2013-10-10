@@ -63,12 +63,13 @@ class Set10SalesImport extends Command
                 $output->writeln(sprintf('Importing "%s"', $file->getFilename()));
                 $parser = new ImportSalesXmlParser($file->getPathname());
                 $this->importer->import($parser, $output);
-                $this->remoteDirectory->deleteFile($file);
             } catch (\Exception $e) {
-                $output->writeln('<error>Failed to import sales</error>');
-                $output->writeln($e);
+                $output->writeln(sprintf('<error>Failed to import sales</error>: %s', $e->getMessage()));
             }
             $output->writeln('');
+            $output->writeln(sprintf('Deleting "%s" ... ', $file->getFilename()));
+            $this->remoteDirectory->deleteFile($file);
+            $output->writeln('Done');
         }
 
         $output->writeln('Finished importing');
