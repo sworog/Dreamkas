@@ -20,6 +20,10 @@ define(function(require) {
                 undefinedValue: undefined,
                 functionValue: function(){
                     return _.clone(object);
+                },
+                value: 'value',
+                'get:value': function(){
+                    return 'get value throw getter function'
                 }
             };
 
@@ -92,6 +96,10 @@ define(function(require) {
 
         it('get value from undefined object', function(){
             expect(get(obj, 'nonexistentValue')).toBeUndefined();
+        });
+
+        it('get value throw getter function', function(){
+            expect(get(object, 'value')).toBe('get value throw getter function');
         });
 
     });

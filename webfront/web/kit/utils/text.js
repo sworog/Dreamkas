@@ -5,9 +5,9 @@ define(function(require) {
     require('lodash');
 
     return function(dictionary, text) {
-        var result = '';
+        var result = text;
 
-        if (text && typeof text === 'string'){
+        if (typeof text === 'string'){
             result = get(dictionary, text) || text;
         }
 

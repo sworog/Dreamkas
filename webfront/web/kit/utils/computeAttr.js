@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var get = require();
+    var get = require('./get');
 
     require('lodash');
 

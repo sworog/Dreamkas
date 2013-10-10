@@ -42,5 +42,9 @@ define(function(require) {
         it('get string from undefined dictionary', function(){
             expect(text(dict, 'nonexistent string')).toBe('nonexistent string');
         });
+
+        it('get number from dictionary', function(){
+            expect(text(dict, 2)).toBe(2);
+        });
     });
 });

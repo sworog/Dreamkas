@@ -2,9 +2,11 @@ define(function(require) {
     //requirements
     var get = require('./get');
 
-    return function(permissions, resourcePath, method){
+    require('lodash');
 
-        method = method || 'GET';
+    return function(permissions, resourcePath, methodList){
+
+        methodList = methodList || 'GET';
 
         var isAllow = false,
             resourcePermissions = get(permissions, resourcePath);
@@ -12,9 +14,15 @@ define(function(require) {
         if (resourcePermissions === 'all'){
             isAllow = true;
         } else if(typeof resourcePermissions === 'string') {
-            isAllow = resourcePermissions === method;
-        } else if(resourcePermissions){
-            isAllow = _.indexOf(resourcePermissions, method) >= 0;
+            isAllow = resourcePermissions === methodList;
+        }
+
+        if(_.isArray(resourcePermissions) && typeof methodList === 'string'){
+            isAllow = _.indexOf(resourcePermissions, methodList) >= 0;
+        }
+
+        if(_.isArray(resourcePermissions) && _.isArray(methodList)){
+            isAllow = _.intersection(resourcePermissions, methodList).length === methodList.length;
         }
 
         return isAllow;

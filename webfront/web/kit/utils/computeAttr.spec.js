@@ -1,36 +1,43 @@
 define(function(require) {
     //requirements
     var Model = require('../core/model'),
+        get = require('./get'),
         computeAttr = require('./computeAttr');
 
     require('lodash');
 
     describe('utils/computeAttr', function() {
 
-        var model;
+        var model, object;
 
         beforeEach(function() {
-            model = new Model({
+            object = {
                 a: 1,
                 b: 2,
                 computedAttr: computeAttr(['a', 'b'], function(a, b) {
                     return a + b;
                 })
-            })
+            };
+
+            model = new Model(object);
         });
 
         it('computed attribute in model', function(){
-
             expect(model.get('computedAttr')).toEqual(3);
-
         });
 
-        it('computed attribute change', function(){
+        it('computed attribute in object', function(){
+            expect(get(object, 'computedAttr')).toEqual(3);
+        });
 
+        it('model computed attribute change', function(){
             model.set('a', 5);
-
             expect(model.get('computedAttr')).toEqual(7);
+        });
 
+        it('object computed attribute change', function(){
+            object.a = 5;
+            expect(get(object, 'computedAttr')).toEqual(7);
         });
 
         it('computed attribute trigger', function(){
@@ -62,7 +69,6 @@ define(function(require) {
 
             expect(handler).toHaveBeenCalledWith(model, 4, options);
             expect(handler.calls.length).toEqual(2);
-
         });
 
     });

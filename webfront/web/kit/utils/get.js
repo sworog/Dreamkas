@@ -21,10 +21,6 @@ define(function(require) {
         var attr = object,
             segments = path.split('.');
 
-        if (attr === null || typeof attr === 'undefined'){
-            return undefined;
-        }
-
         _.every(segments, function(segment){
 
             if (typeof attr[segment] === 'function'){

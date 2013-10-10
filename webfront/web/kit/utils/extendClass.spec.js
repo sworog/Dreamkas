@@ -1,11 +1,11 @@
 define(function(require) {
     //requirements
-    var classExtend = require('./classExtend'),
+    var extendClass = require('./extendClass'),
         nestedObject = require('../fixtures/object');
 
     require('lodash');
 
-    describe('utils/classExtend', function() {
+    describe('utils/extendClass', function() {
         var BaseClass;
 
         beforeEach(function() {
@@ -17,19 +17,18 @@ define(function(require) {
 
         it('extend function does not affect base class', function() {
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 testValue: 'test extend field'
             });
 
             var testClass = new BaseClass();
 
             expect(testClass.testValue).toBeNull();
-
         });
 
         it('base class extend', function() {
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 testValue: 'test extend field'
             });
 
@@ -41,7 +40,7 @@ define(function(require) {
 
         it('class instant without new', function() {
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 testValue: 'test extend field'
             });
 
@@ -49,48 +48,44 @@ define(function(require) {
 
             expect(extendedClassInstance.testValue).not.toBeNull();
             expect(extendedClassInstance.testValue).toEqual('test extend field');
-
         });
 
         it('base class property is String', function() {
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 testValue: 'test extend field'
             });
             
             var extendedClassInstance = new ExtendedClass();
 
             expect(typeof extendedClassInstance.testValue).toEqual('string');
-
         });
 
         it('base class property is Boolean', function() {
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 testValue: false
             });
             
             var extendedClassInstance = new ExtendedClass();
 
             expect(typeof extendedClassInstance.testValue).toEqual('boolean');
-
         });
 
         it('base class property is Number', function() {
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 testValue: 12
             });
             
             var extendedClassInstance = new ExtendedClass();
 
             expect(typeof extendedClassInstance.testValue).toEqual('number');
-
         });
 
         it('base class property is function', function() {
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 testValue: function() {
                     return 5;
                 }
@@ -99,12 +94,11 @@ define(function(require) {
             var extendedClassInstance = new ExtendedClass();
 
             expect(extendedClassInstance.testValue()).toEqual(5);
-
         });
 
         it('base class property is Object', function() {
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 testValue: {
                     a: 5
                 }
@@ -113,25 +107,23 @@ define(function(require) {
             var extendedClassInstance = new ExtendedClass();
 
             expect(extendedClassInstance.testValue.a).toEqual(5);
-
         });
 
 
         it('base class property is Array', function() {
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 testValue: [5, 6, 7]
             });
             
             var extendedClassInstance = new ExtendedClass();
 
             expect(extendedClassInstance.testValue).toEqual([5, 6, 7]);
-
         });
 
         it('calling super property', function() {
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 testValue: function(){
                     return BaseClass.prototype.testValue
                 }
@@ -140,14 +132,13 @@ define(function(require) {
             var extendedClassInstance = new ExtendedClass();
 
             expect(extendedClassInstance.testValue()).toBeNull();
-
         });
 
         it('base class property is NestedObject', function() {
 
             BaseClass.prototype.nestedObject = nestedObject;
 
-            var ExtendedClass = classExtend.call(BaseClass, {
+            var ExtendedClass = extendClass.call(BaseClass, {
                 nestedObject: {
                     object: {
                         object: {
@@ -162,9 +153,27 @@ define(function(require) {
             expect(extendedClassInstance.nestedObject.object.object.string).toEqual('test string level 5');
             expect(extendedClassInstance.nestedObject.object.object.number).toEqual(3);
             expect(extendedClassInstance.nestedObject.object.string).toEqual('test string level 2');
-
         });
 
-    });
+        it('extendClass without prototype properties', function() {
+            var ExtendedClass = extendClass(BaseClass, null, {
+                testValue: 'test extend static field'
+            });
 
+            var extendedClassInstance = new ExtendedClass();
+
+            expect(extendedClassInstance.testValue).toBeNull();
+            expect(ExtendedClass.testValue).toBe('test extend static field');
+        });
+
+        it('using extendClass as function', function() {
+            var ExtendedClass = extendClass(BaseClass, {
+                testValue: 'test extend field'
+            });
+
+            var extendedClassInstance = new ExtendedClass();
+
+            expect(extendedClassInstance.testValue).toBe('test extend field');
+        });
+    });
 });

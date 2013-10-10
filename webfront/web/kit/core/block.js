@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var deepExtend = require('../utils/deepExtend'),
-        classExtend = require('../utils/classExtend'),
+        extendClass = require('../utils/extendClass'),
         setter = require('../utils/setter'),
         getter = require('../utils/getter'),
         text = require('../utils/text');
@@ -126,7 +126,7 @@ define(function(require) {
             }
         });
 
-    Block.extend = classExtend;
+    Block.extend = extendClass;
 
     return Block;
 });

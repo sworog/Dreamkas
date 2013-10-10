@@ -39,10 +39,10 @@ module.exports = function(config) {
             'utils/**/!(*.spec.js)*.js': 'coverage'
         },
 
-//        coverageReporter: {
-//            type: 'html',
-//            dir: './coverage/'
-//        },
+        coverageReporter: {
+            type: 'html',
+            dir: './coverage/'
+        },
 
 
         // web server port
