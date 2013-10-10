@@ -52,7 +52,7 @@ class RemoteDirectory
                 throw new RuntimeException(sprintf('Directory "%s" is not writable', $dirUrl));
             }
         } catch (\RuntimeException $e) {
-            throw new RuntimeException(sprintf('Failed to read directory "%s"', $dirUrl));
+            throw new RuntimeException(sprintf('Failed to read directory "%s": %s', $dirUrl, $e->getMessage()));
         }
         /* @var \DirectoryIterator $file */
         foreach ($directory as $file) {
