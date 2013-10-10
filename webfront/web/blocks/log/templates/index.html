@@ -1,0 +1,41 @@
+<!-- @jobsCollection -->
+<div class="log__column">
+    <h2>Задачи</h2>
+    <% jobsCollection.each(function(jobModel){ %>
+    <div class="log__item" id="<%= jobModel.get('id') %>" status="<%= jobModel.get('status') %>"
+         type="<%= jobModel.get('type') %>">
+        <div class="log__time">
+            <%= moment(jobModel.get('dateCreated')).format('DD.MM.YYYY HH:mm') %>
+        </div>
+        <div class="log__title">
+            <%- LH.text(jobModel.get('type')) %>
+        </div>
+        <% if(jobModel.get('productVersion')){ %>
+        <div class="log__productName">
+            <%- jobModel.get('productVersion').name %>
+        </div>
+        <% } %>
+        <div class="log__status">
+            <%- LH.text(jobModel.get('status')) %>
+        </div>
+        <% if(jobModel.get('finalMessage')){ %>
+        <div class="log__finalMessage">
+            <%- LH.text(jobModel.get('finalMessage')) %>
+        </div>
+        <% } %>
+    </div>
+    <% }) %>
+</div>
+<div class="log__column">
+    <h2>Лог</h2>
+    <% logCollection.each(function(logItemModel){ %>
+    <div class="log__item" id="<%= logItemModel.get('id') %>">
+        <div class="log__time">
+        <%= moment(logItemModel.get('date')).format('DD.MM.YYYY HH:mm') %>
+        </div>
+        <div class="log__finalMessage">
+        <%- LH.text(logItemModel.get('message')) %>
+        </div>
+    </div>
+    <% }) %>
+</div>

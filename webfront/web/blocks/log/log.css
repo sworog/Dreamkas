@@ -2,36 +2,43 @@
 
 }
 
-.jobs__item{
-    padding: 20px 10px;
+.log__item {
+    padding: 20px 0;
     border-bottom: 1px solid #eee;
 }
 
-.jobs__item:last-child{
+.log__item:last-child{
     border-bottom: none;
     padding-bottom: 0;
 }
 
-.jobs__item:first-child{
+.log__item:first-child{
     padding-top: 0;
 }
 
-.jobs__time{
+.log__time {
     font-size: 11px;
     padding-bottom: 4px;
 }
 
-.jobs__title{
+.log__title {
     font-weight: bold;
     font-size: 16px;
     padding-bottom: 5px;
 }
 
-.jobs__productName{
+.log__productName {
     padding-bottom: 5px;
 }
 
-.jobs__status{
+.log__status {
     font-size: 11px;
     padding-bottom: 4px;
+}
+
+.log__column{
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 0 50px 0 0;
 }

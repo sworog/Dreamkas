@@ -3,8 +3,9 @@ define(function(require) {
     var Block = require('kit/core/block');
 
     return Block.extend({
-        __name__: 'jobs',
+        __name__: 'log',
         jobsCollection: null,
-        template: require('tpl!blocks/jobs/templates/index.html')
+        logCollection: null,
+        template: require('tpl!blocks/log/templates/index.html')
     });
 });
