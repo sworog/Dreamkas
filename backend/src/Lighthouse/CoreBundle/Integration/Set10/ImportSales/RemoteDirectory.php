@@ -24,6 +24,11 @@ class RemoteDirectory
     protected $dirUrl;
 
     /**
+     * @var string
+     */
+    protected $filePrefix = 'purchases-';
+
+    /**
      * @DI\InjectParams({
      *      "configRepository" = @DI\Inject("lighthouse.core.document.repository.config")
      * })
@@ -49,11 +54,26 @@ class RemoteDirectory
         }
         /* @var \DirectoryIterator $file */
         foreach ($directory as $file) {
-            if ($file->isFile() && 'xml' == $file->getExtension()) {
+            if ($file->isFile() && $this->isValidFile($file)) {
                 $files[] = new \SplFileInfo($file->getPathname());
             }
         }
         return $files;
+    }
+
+    /**
+     * @param \SplFileInfo $file
+     * @return bool
+     */
+    protected function isValidFile(\SplFileInfo $file)
+    {
+        if ('xml' != $file->getExtension()) {
+            return false;
+        } elseif (null !== $this->filePrefix && 0 !== strpos($file->getFilename(), $this->filePrefix)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**

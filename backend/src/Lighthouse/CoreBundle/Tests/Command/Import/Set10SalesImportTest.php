@@ -157,6 +157,59 @@ class Set10SalesImportTest extends WebTestCase
         $this->assertFileNotExists($file1);
     }
 
+    public function testOnlyPurchaseFilesImported()
+    {
+        $this->createStore('197');
+        $this->createProductsBySku(
+            array(
+                '1',
+                '3',
+                '7',
+                '8594403916157',
+                '2873168',
+                '2809727',
+                '25525687',
+                '55557',
+                '8594403110111',
+                '4601501082159',
+            )
+        );
+
+        $tmpDir = $this->createTempDir();
+        $file1 = $this->copyFixtureFileToDir(
+            'Integration/Set10/ImportSales/purchases-invalid.xml',
+            $tmpDir,
+            'checks-'
+        );
+        $file2 = $this->copyFixtureFileToDir(
+            'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml',
+            $tmpDir
+        );
+        $file3 = $this->copyFixtureFileToDir(
+            'Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml',
+            $tmpDir,
+            'purchases-',
+            'ico'
+        );
+
+        $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
+
+        /* @var Set10SalesImport $command */
+        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array());
+
+        $display = $commandTester->getDisplay();
+        $this->assertNotContains(sprintf('Importing "%s"', basename($file1)), $display);
+        $this->assertNotContains(sprintf('Importing "%s"', basename($file3)), $display);
+        $this->assertContains(sprintf('Importing "%s"', basename($file2)), $display);
+        $this->assertContains(sprintf('Deleting "%s"', basename($file2)), $display);
+
+        $this->assertFileExists($file1);
+        $this->assertFileNotExists($file2);
+        $this->assertFileExists($file3);
+    }
+
     /**
      * @return string
      */
@@ -171,12 +224,13 @@ class Set10SalesImportTest extends WebTestCase
     /**
      * @param string $file
      * @param string $dir
+     * @param string $prefix
      * @return string
      */
-    protected function copyFixtureFileToDir($file, $dir)
+    protected function copyFixtureFileToDir($file, $dir, $prefix = 'purchases-', $extension = 'xml')
     {
         $source = $this->getFixtureFilePath($file);
-        $destination = $dir . '/' . uniqid('purchases-') . '.xml';
+        $destination = $dir . '/' . uniqid($prefix) . '.' . $extension;
         copy($source, $destination);
         return $destination;
     }
