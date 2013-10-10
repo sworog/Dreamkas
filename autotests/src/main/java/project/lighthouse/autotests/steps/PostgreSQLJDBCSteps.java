@@ -30,7 +30,7 @@ public class PostgreSQLJDBCSteps extends ScenarioSteps {
             tableHasEmptyRows = postgreSQLJDBC.tableHasEmptyRows();
             count++;
         }
-        if (!tableHasEmptyRows && count < 50) {
+        if (!tableHasEmptyRows && count == 50) {
             fail("The table is still empty after timeout!");
         }
     }

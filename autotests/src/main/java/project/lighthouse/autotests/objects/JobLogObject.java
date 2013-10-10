@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.objects;
 
-public class LogObject {
+public class JobLogObject {
 
     String id;
     String type;
@@ -13,7 +13,7 @@ public class LogObject {
     String dateFinished;
     String duration;
 
-    public LogObject(String id, String type, String status, String title, String product, String statusText) {
+    public JobLogObject(String id, String type, String status, String title, String product, String statusText) {
         this.id = id;
         this.type = type;
         this.status = status;

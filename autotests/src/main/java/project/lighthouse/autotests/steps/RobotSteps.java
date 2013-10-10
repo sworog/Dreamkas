@@ -29,8 +29,7 @@ public class RobotSteps extends ScenarioSteps {
     }
 
     @Step
-    public void prepareData() throws IOException, InterruptedException {
-        final String fileName = "purchases-data.xml";
+    public void prepareData(String fileName) throws IOException, InterruptedException {
         final String sourcePath = String.format("%s/xml/%s", System.getProperty("user.dir").replace("\\", "/"), fileName);
         final String destinationPath = getFolderPath(IMPORT_FOLDER_PATH) + getFileName();
         FileUtils.copyFile(new File(sourcePath), new File(destinationPath));
@@ -91,12 +90,12 @@ public class RobotSteps extends ScenarioSteps {
     private void checkFolderIsEmptyLoop(String folderPath) throws InterruptedException {
         Boolean folderIsEmpty = isDirectoryEmpty(folderPath);
         int count = 0;
-        while (!folderIsEmpty && count < 50) {
+        while (!folderIsEmpty && count < 61) {
             folderIsEmpty = isDirectoryEmpty(folderPath);
             Thread.sleep(1000);
             count++;
         }
-        if (!folderIsEmpty && count < 50) {
+        if (!folderIsEmpty && count == 61) {
             fail("The folder is still not empty after timeOut");
         }
     }
