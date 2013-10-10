@@ -109,10 +109,13 @@ class Samba
         $output = $this->getProcessResource($params, $auth, $options, $port);
         $info = array();
         while (($line = $this->fgets($output)) !== false) {
-            list ($tag, $regs, $i) = array('skip', array(), array());
+            $tag = 'skip';
+            $regs = array();
+            $i = array();
+
             reset(self::$regexp);
-            foreach (self::$regexp as $r => $t) {
-                if (preg_match('/' . $r . '/', $line, $regs)) {
+            foreach (self::$regexp as $regexp => $t) {
+                if (preg_match('/' . $regexp . '/', $line, $regs)) {
                     $tag = $t;
                     break;
                 }
@@ -173,10 +176,13 @@ class Samba
                     case 'file':
                     case 'folder':
                         $info['info'][$i[0]] = $i;
+                        $info[$i[1]][] = $i[0];
+                        break;
                     case 'disk':
                     case 'server':
                     case 'workgroup':
                         $info[$i[1]][] = $i[0];
+                        break;
                 }
             }
         }
@@ -190,24 +196,27 @@ class Samba
 
     public function url_stat($url, $flags = STREAM_URL_STAT_LINK)
     {
-        if ($s = $this->getstatcache($url)) {
-            return $s;
+        if ($statFromCache = $this->getstatcache($url)) {
+            return $statFromCache;
         }
-        list ($stat, $pu) = array(array(), $this->ParseUrl($url));
-        switch ($pu['type']) {
+
+        $stat = array();
+        $parsedUrl = $this->parseUrl($url);
+
+        switch ($parsedUrl['type']) {
             case 'host':
-                if ($o = $this->look($pu)) {
+                if ($lookInfo = $this->look($parsedUrl)) {
                     $stat = stat("/tmp");
                 } else {
                     trigger_error("url_stat(): list failed for host ''", E_USER_WARNING);
                 }
                 break;
             case 'share':
-                if ($o = $this->look($pu)) {
+                if ($lookInfo = $this->look($parsedUrl)) {
                     $found = false;
-                    $lshare = strtolower($pu['share']); # fix by Eric Leung
-                    foreach ($o['disk'] as $s) {
-                        if ($lshare == strtolower($s)) {
+                    $lowerShare = strtolower($parsedUrl['share']); # fix by Eric Leung
+                    foreach ($lookInfo['disk'] as $share) {
+                        if ($lowerShare == strtolower($share)) {
                             $found = true;
                             $stat = stat("/tmp");
                             break;
@@ -219,16 +228,16 @@ class Samba
                 }
                 break;
             case 'path':
-                if ($o = $this->execute('dir "' . $pu['path'] . '"', $pu)) {
-                    $p = explode("\\", $pu['path']);
-                    $name = $p[count($p) - 1];
-                    if (isset ($o['info'][$name])) {
-                        $stat = $this->addstatcache($url, $o['info'][$name]);
+                if ($output = $this->execute('dir "' . $parsedUrl['path'] . '"', $parsedUrl)) {
+                    $path = explode("\\", $parsedUrl['path']);
+                    $name = $path[count($path) - 1];
+                    if (isset ($output['info'][$name])) {
+                        $stat = $this->addstatcache($url, $output['info'][$name]);
                     } else {
-                        trigger_error("url_stat(): path '{$pu['path']}' not found", E_USER_WARNING);
+                        trigger_error("url_stat(): path '{$parsedUrl['path']}' not found", E_USER_WARNING);
                     }
                 } else {
-                    trigger_error("url_stat(): dir failed for path '{$pu['path']}'", E_USER_WARNING);
+                    trigger_error("url_stat(): dir failed for path '{$parsedUrl['path']}'", E_USER_WARNING);
                 }
                 break;
             default:
@@ -240,12 +249,12 @@ class Samba
 
     public function addstatcache($url, $info)
     {
-        $is_file = (strpos($info['attr'], 'D') === false);
-        $s = ($is_file) ? stat('/etc/passwd') : stat('/tmp');
-        $s[7] = $s['size'] = $info['size'];
-        $s[8] = $s[9] = $s[10] = $s['atime'] = $s['mtime'] = $s['ctime'] = $info['time'];
+        $isFile = (strpos($info['attr'], 'D') === false);
+        $stat = ($isFile) ? stat('/etc/passwd') : stat('/tmp');
+        $stat[7] = $stat['size'] = $info['size'];
+        $stat[8] = $stat[9] = $stat[10] = $stat['atime'] = $stat['mtime'] = $stat['ctime'] = $info['time'];
 
-        return self::$smb_cache['stat'][$url] = $s;
+        return self::$smb_cache['stat'][$url] = $stat;
     }
 
     public function getstatcache($url)
@@ -267,7 +276,7 @@ class Samba
 
     public function unlink($url)
     {
-        $pu = $this->ParseUrl($url);
+        $pu = $this->parseUrl($url);
         if ($pu['type'] != 'path') {
             trigger_error('unlink(): error in URL', E_USER_ERROR);
         }
@@ -278,7 +287,7 @@ class Samba
 
     public function rename($url_from, $url_to)
     {
-        list ($from, $to) = array($this->ParseUrl($url_from), $this->ParseUrl($url_to));
+        list ($from, $to) = array($this->parseUrl($url_from), $this->parseUrl($url_to));
         if ($from['host'] != $to['host'] ||
             $from['share'] != $to['share'] ||
             $from['user'] != $to['user'] ||
@@ -297,7 +306,7 @@ class Samba
 
     public function mkdir($url, $mode, $options)
     {
-        $pu = $this->ParseUrl($url);
+        $pu = $this->parseUrl($url);
         if ($pu['type'] != 'path') {
             trigger_error('mkdir(): error in URL', E_USER_ERROR);
         }
@@ -307,7 +316,7 @@ class Samba
 
     public function rmdir($url)
     {
-        $pu = $this->ParseUrl($url);
+        $pu = $this->parseUrl($url);
         if ($pu['type'] != 'path') {
             trigger_error('rmdir(): error in URL', E_USER_ERROR);
         }
