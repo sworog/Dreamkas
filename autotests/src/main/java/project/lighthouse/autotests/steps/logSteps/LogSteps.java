@@ -3,6 +3,8 @@ package project.lighthouse.autotests.steps.logSteps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import project.lighthouse.autotests.pages.logPages.JobsPage;
 import project.lighthouse.autotests.pages.logPages.LogPage;
 
@@ -87,6 +89,6 @@ public class LogSteps extends ScenarioSteps {
 
     @Step
     public void assertLastSimpleLogMessage(String expectedMessage) {
-        assertEquals(logPage.getLastLogObject().getMessage(), expectedMessage);
+        Assert.assertThat(logPage.getLastLogObject().getMessage(), Matchers.containsString(expectedMessage));
     }
 }
