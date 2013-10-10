@@ -54,6 +54,10 @@ lighthouse.core.job:
     resource: Lighthouse\CoreBundle\Controller\JobController
     type:     rest
 
+lighthouse.core.log:
+    resource: Lighthouse\CoreBundle\Controller\LogController
+    type:     rest
+
 lighthouse.core.rounding:
     resource: Lighthouse\CoreBundle\Controller\RoundingController
     type:     rest
