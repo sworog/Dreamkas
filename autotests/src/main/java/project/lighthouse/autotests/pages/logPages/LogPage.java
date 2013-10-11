@@ -35,7 +35,6 @@ public class LogPage extends CommonPageObject {
     }
 
     public SimpleLogObject getLastLogObject() {
-        List<SimpleLogObject> simpleLogObjects = getSimpleLogMessages();
-        return simpleLogObjects.get(0);
+        return getSimpleLogMessages().get(0);
     }
 }

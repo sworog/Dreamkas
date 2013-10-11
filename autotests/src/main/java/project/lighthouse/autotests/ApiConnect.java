@@ -303,6 +303,14 @@ public class ApiConnect {
         return false;
     }
 
+    public String setSet10ImportUrl(String value) throws IOException, JSONException {
+        JSONObject jsonObject = new JSONObject(executeSimpleGetRequest(UrlHelper.getApiUrl("/configs/by/name?query=set10-import-url"), true));
+        String targetUrl = UrlHelper.getApiUrl("/configs/" + jsonObject.getString("id"));
+        return executePutRequest(targetUrl, new JSONObject()
+                .put("name", "set10-import-url")
+                .put("value", value));
+    }
+
     private void setHeaders(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) throws IOException, JSONException {
         httpEntityEnclosingRequestBase.setHeader("Accept", "application/json");
         httpEntityEnclosingRequestBase.setHeader("Authorization", "Bearer " + getAccessToken());
