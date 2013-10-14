@@ -102,9 +102,8 @@ class SalesImportTest extends WebTestCase
 
     public function testImportDoubleSales()
     {
-        $this->createStore('777');
-        $this->createStore('666');
-        $this->createProductsBySku(
+        $storeIds = $this->createStores(array('777', '666'));
+        $productIds = $this->createProductsBySku(
             array(
                 'Кит-Кат-343424',
             )
@@ -115,6 +114,9 @@ class SalesImportTest extends WebTestCase
 
         $this->assertStringStartsWith('...', $output->getDisplay());
 
+        $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
+        $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
+
         $output = new TestOutput();
         $this->import('Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml', $output);
 
@@ -124,5 +126,8 @@ class SalesImportTest extends WebTestCase
         $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[2]);
         $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[3]);
         $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[4]);
+
+        $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
+        $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
     }
 }
