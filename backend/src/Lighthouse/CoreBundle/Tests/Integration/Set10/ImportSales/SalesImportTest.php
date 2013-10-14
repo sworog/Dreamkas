@@ -37,7 +37,7 @@ class SalesImportTest extends WebTestCase
             '8594403916157' => -1,
             '2873168' => 0,
             '2809727' => 0,
-            '25525687' => -159,
+            '25525687' => -157,
             '55557' => -1,
             '8594403110111' => -1,
             '4601501082159' => -1,
@@ -47,11 +47,11 @@ class SalesImportTest extends WebTestCase
         $output = new TestOutput();
         $this->import('Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml', $output);
 
-        $this->assertStringStartsWith('.V............V.....', $output->getDisplay());
+        $this->assertStringStartsWith('.V............SSS...', $output->getDisplay());
         $lines = $output->getLines();
+        $this->assertCount(4, $lines);
         $this->assertContains('Errors', $lines[1]);
         $this->assertContains('products[1].quantity', $lines[2]);
-        $this->assertContains('products[1].quantity', $lines[3]);
 
         foreach ($skuAmounts as $sku => $amount) {
             $this->assertStoreProductTotals($storeId, $productIds[$sku], $amount);
@@ -78,11 +78,11 @@ class SalesImportTest extends WebTestCase
         $output = new TestOutput();
         $this->import('Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml', $output, 6);
 
-        $this->assertStringStartsWith('.E....F......F..E...F..', $output->getDisplay());
+        $this->assertStringStartsWith('.E....F......F..SSS.F..', $output->getDisplay());
         $lines = $output->getLines();
+        $this->assertCount(4, $lines);
         $this->assertContains('Errors', $lines[1]);
         $this->assertContains('Product with sku "2873168" not found', $lines[2]);
-        $this->assertContains('Product with sku "2873168" not found', $lines[3]);
     }
 
     public function testImportWithNotFoundShops()

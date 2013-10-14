@@ -101,12 +101,16 @@ class SalesImporter
             $count++;
             try {
                 $sale = $this->createSale($purchaseElement);
-                $this->validate($sale);
-                $dm->persist($sale);
-                $output->write('.');
-                if (0 == $count % $batchSize) {
-                    $dm->flush();
-                    $output->write('<info>F</info>');
+                if (!$sale) {
+                    $output->write('<info>S</info>');
+                } else {
+                    $this->validate($sale);
+                    $dm->persist($sale);
+                    $output->write('.');
+                    if (0 == $count % $batchSize) {
+                        $dm->flush();
+                        $output->write('<info>F</info>');
+                    }
                 }
             } catch (ValidationFailedException $e) {
                 $output->write('<error>V</error>');
@@ -162,6 +166,9 @@ class SalesImporter
      */
     public function createSale(PurchaseElement $purchaseElement)
     {
+        if (false === $purchaseElement->getOperationType()) {
+            return null;
+        }
         $sale = new Sale();
         $sale->createdDate = $purchaseElement->getSaleDateTime();
         $sale->store = $this->getStore($purchaseElement->getShop());
