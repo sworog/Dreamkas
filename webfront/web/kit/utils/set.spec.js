@@ -139,7 +139,7 @@ define(function(require) {
 
             set(object, 'testValue', testInstance);
 
-            expect(object.testValue()).toBe(testInstance);
+            expect(object.testValue).toBe(testInstance);
         });
     });
 });
