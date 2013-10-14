@@ -162,10 +162,24 @@ class SalesImporter
         $sale = new Sale();
         $sale->createdDate = $purchaseElement->getSaleDateTime();
         $sale->store = $this->getStore($purchaseElement->getShop());
+        $sale->hash = $this->createSaleHash($purchaseElement);
         foreach ($purchaseElement->getPositions() as $positionElement) {
             $sale->products->add($this->createSaleProduct($positionElement));
         }
         return $sale;
+    }
+
+    /**
+     * @param PurchaseElement $purchaseElement
+     * @return string
+     */
+    protected function createSaleHash(PurchaseElement $purchaseElement)
+    {
+        $hashStr = '';
+        foreach ($purchaseElement->attributes() as $attr) {
+            $hashStr.= sprintf('%s:%s;', $attr->getName(), $attr);
+        }
+        return md5($hashStr);
     }
 
     /**

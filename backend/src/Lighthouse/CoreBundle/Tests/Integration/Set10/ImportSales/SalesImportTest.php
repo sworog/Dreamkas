@@ -31,16 +31,16 @@ class SalesImportTest extends WebTestCase
         $this->createStore('197');
         $this->createProductsBySku(
             array(
-                1,
-                3,
-                7,
-                8594403916157,
-                2873168,
-                2809727,
-                25525687,
-                55557,
-                8594403110111,
-                4601501082159,
+                '1',
+                '3',
+                '7',
+                '8594403916157',
+                '2873168',
+                '2809727',
+                '25525687',
+                '55557',
+                '8594403110111',
+                '4601501082159',
             )
         );
 
@@ -98,5 +98,31 @@ class SalesImportTest extends WebTestCase
         $lines = $output->getLines();
         $this->assertContains('Errors', $lines[1]);
         $this->assertContains('Store with number "666" not found', $lines[2]);
+    }
+
+    public function testImportDoubleSales()
+    {
+        $this->createStore('777');
+        $this->createStore('666');
+        $this->createProductsBySku(
+            array(
+                'Кит-Кат-343424',
+            )
+        );
+
+        $output = new TestOutput();
+        $this->import('Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml', $output);
+
+        $this->assertStringStartsWith('...', $output->getDisplay());
+
+        $output = new TestOutput();
+        $this->import('Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml', $output);
+
+        $this->assertStringStartsWith('VVV', $output->getDisplay());
+        $lines = $output->getLines();
+        $this->assertContains('Errors', $lines[1]);
+        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[2]);
+        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[3]);
+        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[4]);
     }
 }
