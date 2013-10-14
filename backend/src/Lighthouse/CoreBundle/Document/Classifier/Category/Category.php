@@ -53,12 +53,4 @@ class Category extends AbstractNode
     {
         return $this->group;
     }
-
-    /**
-     * @return AbstractNode[]|SubCategory
-     */
-    public function getChildren()
-    {
-        return $this->subCategories;
-    }
 }

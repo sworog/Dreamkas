@@ -40,12 +40,4 @@ class Group extends AbstractNode
     {
         return null;
     }
-
-    /**
-     * @return Category[]|ArrayCollection
-     */
-    public function getChildren()
-    {
-        return $this->categories;
-    }
 }
