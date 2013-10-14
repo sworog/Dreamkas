@@ -15,9 +15,9 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             'karma.main.js',
-            {pattern: './**/*.html', included: false},
+            {pattern: 'kit/**/*.html', included: false},
             {pattern: 'kit/config.js', included: false},
-            {pattern: './**/*.js', included: false}
+            {pattern: 'kit/**/*.js', included: false}
         ],
 
 
@@ -33,18 +33,18 @@ module.exports = function(config) {
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
         reporters: ['dots', 'coverage'],
 
-//        preprocessors: {
-//            // source files, that you wanna generate coverage for
-//            // do not include tests or libraries
-//            // (these files will be instrumented by Istanbul),
-//            'kit/core/**/!(*.spec.js)*.js': 'coverage',
-//            'kit/utils/**/!(*.spec.js)*.js': 'coverage'
-//        },
+        preprocessors: {
+            // source files, that you wanna generate coverage for
+            // do not include tests or libraries
+            // (these files will be instrumented by Istanbul),
+            'kit/core/**/!(*.spec.js)*.js': 'coverage',
+            'kit/utils/**/!(*.spec.js)*.js': 'coverage'
+        },
 
-//        coverageReporter: {
-//            type: 'html',
-//            dir: './coverage/'
-//        },
+        coverageReporter: {
+            type: 'html',
+            dir: './coverage/'
+        },
 
 
         // web server port
