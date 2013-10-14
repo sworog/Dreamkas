@@ -3,18 +3,10 @@
 namespace Lighthouse\CoreBundle\Integration\Set10\Import;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
-use SimpleXMLElement;
+use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
 
 class GoodElement extends SimpleXMLElement
 {
-    /**
-     * @return string
-     */
-    public static function getClassName()
-    {
-        return get_called_class();
-    }
-
     /**
      * @return string
      */

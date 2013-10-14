@@ -16,7 +16,7 @@ class Set10ProductTest extends ContainerAwareTestCase
         $commandTester = new CommandTester($command);
 
         $input = array(
-            'file' => __DIR__ . "/../../Fixtures/Integration/Set10/Import/goods.xml",
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/goods.xml'),
             'batch-size' => 4
         );
 

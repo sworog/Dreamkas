@@ -12,8 +12,11 @@ define(function(require) {
 
         if (typeof path === 'string'){
             data = pathToObject(path, data);
-            set(object, null, data, extra);
+            set(object, data, extra);
             return;
+        } else {
+            extra = data;
+            data = path;
         }
 
         extra = deepExtend({
@@ -24,11 +27,15 @@ define(function(require) {
         }, extra);
 
         _.each(data, function(value, key){
+            if (_.isPlainObject(value)){
 
+            } else {
+                object[key] = value;
+
+                if(typeof object.trigger === 'function'){
+                    object.trigger('set:' + path, data);
+                }
+            }
         });
-
-        if(typeof object.trigger === 'function'){
-            object.trigger('set:' + path, data);
-        }
     }
 });

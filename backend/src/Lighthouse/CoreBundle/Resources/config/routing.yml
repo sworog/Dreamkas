@@ -16,10 +16,6 @@ lighthouse.core.invoice.product:
     parent:   lighthouse.core.invoice
     type:     rest
 
-lighthouse.core.purchase:
-    resource: Lighthouse\CoreBundle\Controller\PurchaseController
-    type:     rest
-
 lighthouse.core.write-off:
     resource: Lighthouse\CoreBundle\Controller\WriteOffController
     parent:   lighthouse.core.store
@@ -56,6 +52,10 @@ lighthouse.core.user:
 
 lighthouse.core.job:
     resource: Lighthouse\CoreBundle\Controller\JobController
+    type:     rest
+
+lighthouse.core.log:
+    resource: Lighthouse\CoreBundle\Controller\LogController
     type:     rest
 
 lighthouse.core.rounding:

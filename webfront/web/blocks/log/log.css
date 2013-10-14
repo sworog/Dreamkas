@@ -1,0 +1,45 @@
+.jobs{
+
+}
+
+.log__item {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.log__item:last-child{
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.log__item:first-child{
+    padding-top: 0;
+}
+
+.log__time {
+    font-size: 11px;
+    padding-bottom: 4px;
+}
+
+.log__title {
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+.log__productName {
+    padding-bottom: 5px;
+}
+
+.log__status {
+    font-size: 11px;
+    padding-bottom: 4px;
+}
+
+.log__column{
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0 50px 0 0;
+}

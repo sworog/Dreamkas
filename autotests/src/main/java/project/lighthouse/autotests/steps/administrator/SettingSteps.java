@@ -33,4 +33,9 @@ public class SettingSteps extends ScenarioSteps {
     public void saveSettingsButtonClick() {
         settingsPage.saveSettingButtonClick();
     }
+
+    @Step
+    public void saveImportSettingsClick() {
+        settingsPage.saveImportSettingsClick();
+    }
 }

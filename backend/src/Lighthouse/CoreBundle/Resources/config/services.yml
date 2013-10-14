@@ -49,11 +49,11 @@ services:
         arguments:
             - LighthouseCoreBundle:TrialBalance\TrialBalance
 
-    lighthouse.core.document.repository.purchase:
+    lighthouse.core.document.repository.sale:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Purchase\PurchaseRepository
+        class: Lighthouse\CoreBundle\Document\Sale\SaleRepository
         arguments:
-            - LighthouseCoreBundle:Purchase\Purchase
+            - LighthouseCoreBundle:Sale\Sale
 
     lighthouse.core.document.repository.writeoff:
         parent: doctrine_mongodb.odm.repository
@@ -126,3 +126,8 @@ services:
             parent: doctrine_mongodb.odm.repository
             arguments:
                 - LighthouseCoreBundle:Config\Config
+
+    lighthouse.core.document.repository.log:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseCoreBundle:Log\Log

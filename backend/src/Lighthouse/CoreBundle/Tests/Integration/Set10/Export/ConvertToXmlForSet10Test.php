@@ -500,7 +500,7 @@ EOF;
 
         $files = glob($xmlFilePath . "/source/*");
         $this->assertXmlFileEqualsXmlFile(
-            __DIR__ . "/../../../Fixtures/Integration/Set10/ExportProducts.xml",
+            $this->getFixtureFilePath('Integration/Set10/Export/ExportProducts.xml'),
             array_pop($files)
         );
     }
