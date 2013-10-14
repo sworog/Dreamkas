@@ -102,7 +102,7 @@ class SalesImporter
             try {
                 $sale = $this->createSale($purchaseElement);
                 if (!$sale) {
-                    $output->write('<info>S</info>');
+                    $output->write('<error>S</error>');
                 } else {
                     $this->validate($sale);
                     $dm->persist($sale);
