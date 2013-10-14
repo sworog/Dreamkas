@@ -12,7 +12,7 @@ public class PreLoader {
 
     public PreLoader(WebDriver driver) {
         this.driver = driver;
-        waiter = new Waiter(driver, 5000);
+        waiter = new Waiter(driver, 5);
     }
 
     public void await() {

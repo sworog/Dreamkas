@@ -1063,11 +1063,8 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testAveragePurchasePrice()
     {
-        $this->markTestSkipped('Purchase is not storeable');
         $productId = $this->createProduct();
         $productId2 = $this->createProduct('2');
-
-        $purchaseId = $this->createPurchaseWithProduct($productId, 79.99, 13, '-2 days');
 
         $invoiceId1 = $this->createInvoice(
             array(
@@ -1095,7 +1092,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertProduct($productId, array('averagePurchasePrice' => 26));
+        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 26));
 
         $invoiceId2 = $this->createInvoice(
             array(
@@ -1110,7 +1107,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertProduct($productId, array('averagePurchasePrice' => 27));
+        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 27));
 
         $invoiceId3 = $this->createInvoice(
             array(
@@ -1125,7 +1122,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertProduct($productId, array('averagePurchasePrice' => 28.6));
+        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 28.6));
 
         $accessToken = $this->auth($this->departmentManager);
 
@@ -1139,7 +1136,11 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertProduct($productId, array('averagePurchasePrice' => 27, 'lastPurchasePrice' => 29));
+        $this->assertStoreProduct(
+            $this->storeId,
+            $productId,
+            array('averagePurchasePrice' => 27, 'lastPurchasePrice' => 29)
+        );
 
         $this->clientJsonRequest(
             $accessToken,
@@ -1151,7 +1152,11 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertProduct($productId, array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26));
+        $this->assertStoreProduct(
+            $this->storeId,
+            $productId,
+            array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26)
+        );
 
         $this->clientJsonRequest(
             $accessToken,
@@ -1163,7 +1168,11 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertProduct($productId, array('averagePurchasePrice' => null, 'lastPurchasePrice' => 23.33));
+        $this->assertStoreProduct(
+            $this->storeId,
+            $productId,
+            array('averagePurchasePrice' => null, 'lastPurchasePrice' => 23.33)
+        );
     }
 
     public function testAveragePurchasePriceRounded()

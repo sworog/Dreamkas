@@ -53,4 +53,9 @@ public class LogPageUserSteps {
     public void thenTheUserWaitsForTheLastSet10ExportLogMessageSuccessStatus() {
         logSteps.waitLastSet10ExportProductLogMessageSuccessStatus();
     }
+
+    @Then("the user checks the last simple log message is '$expectedMessage'")
+    public void thenTheUSerChecksTheLastSimpleLogMessage(String expectedMessage) {
+        logSteps.assertLastSimpleLogMessage(expectedMessage);
+    }
 }

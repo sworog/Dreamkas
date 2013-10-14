@@ -8,8 +8,8 @@ use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\Purchase\Purchase;
-use Lighthouse\CoreBundle\Document\Purchase\Product\PurchaseProduct;
+use Lighthouse\CoreBundle\Document\Sale\Sale;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceCollection;
@@ -18,6 +18,7 @@ use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Versionable\VersionFactory;
 
 class TrialBalanceTest extends ContainerAwareTestCase
 {
@@ -40,7 +41,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Versionable\VersionFactory
+     * @return VersionFactory
      */
     protected function getVersionFactory()
     {
@@ -191,10 +192,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->assertTrue(null === $trialBalance);
     }
 
-    public function testCreateTrialBalanceByPurchase()
+    public function testCreateTrialBalanceBySale()
     {
-        $this->markTestSkipped();
-
         $this->clearMongoDb();
 
         $manager = $this->getManager();
@@ -205,21 +204,31 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $product = $this->createProduct();
 
-        $purchase = new Purchase();
+        $store = new Store();
+        $store->number = '42';
+        $store->address = '42';
+        $store->contacts = '42';
 
-        $purchaseProduct = new PurchaseProduct();
-        $purchaseProduct->purchase = $purchase;
-        $purchaseProduct->product = $product;
-        $purchaseProduct->quantity = 3;
-        $purchaseProduct->sellingPrice = new Money(79.99);
+        /* @var StoreProductRepository $storeProductRepository */
+        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
+        $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
 
-        $purchase->products = array($purchaseProduct);
+        $sale = new Sale();
+        $sale->store = $store;
 
-        $manager->persist($purchase);
-        $manager->persist($purchaseProduct);
+        $saleProduct = new SaleProduct();
+        $saleProduct->sale = $sale;
+        $saleProduct->product = $product;
+        $saleProduct->quantity = 3;
+        $saleProduct->sellingPrice = new Money(79.99);
+
+        $sale->products = array($saleProduct);
+
+        $manager->persist($sale);
+        $manager->persist($saleProduct);
         $manager->flush();
 
-        $trialBalance = $trialBalanceRepository->findOneByStoreProduct($product);
+        $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
         $this->assertEquals(79.99, $trialBalance->price->getCount());
         $this->assertEquals(-3, $trialBalance->quantity);

@@ -47,7 +47,7 @@ lighthouse:
 
             invoice:
                 dates_compare: Дата накладной не должна быть старше даты приемки
-            purchase:
+            sale:
                 product_empty: Должен присутствовать хотя бы один товар
             group:
                 name.unique: Такая группа уже есть

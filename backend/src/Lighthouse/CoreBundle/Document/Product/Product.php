@@ -46,6 +46,10 @@ class Product extends AbstractDocument implements VersionableInterface
     const RETAIL_PRICE_PREFERENCE_PRICE = 'retailPrice';
     const RETAIL_PRICE_PREFERENCE_MARKUP = 'retailMarkup';
 
+    const UNITS_KG = 'kg';
+    const UNITS_LITER = 'liter';
+    const UNITS_UNIT = 'unit';
+
     /**
      * @Serializer\Exclude
      * @var array

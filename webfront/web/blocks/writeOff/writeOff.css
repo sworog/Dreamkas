@@ -114,14 +114,14 @@
     margin: 0;
 }
 
-.writeOff__dataInputControls[lh_field_error]:before{
-    content: attr(lh_field_error);
+.writeOff__dataInputControls[data-error]:before{
+    content: attr(data-error);
     display: block;
     color: #c60f13;
     padding: 0 0 10px;
 }
 
-.writeOff__dataInputControls[lh_field_error]:after{
+.writeOff__dataInputControls[data-error]:after{
     display: none;
 }
 

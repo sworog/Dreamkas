@@ -8,6 +8,7 @@ public class ButtonFacade {
 
     WebDriver webDriver;
     String xpath = "//*[@class='button']";
+    String browserName;
 
     private static final String BUTTON_XPATH_PATTERN = "//*[contains(@class, 'button') and normalize-space(text())='%s']";
 
@@ -16,6 +17,7 @@ public class ButtonFacade {
     public ButtonFacade(WebDriver webDriver) {
         this.webDriver = webDriver;
         commonActions = new CommonActions(webDriver);
+        browserName = commonActions.getCapabilities().getBrowserName();
     }
 
     public ButtonFacade(WebDriver driver, String buttonTextName) {
@@ -33,18 +35,16 @@ public class ButtonFacade {
     }
 
     public void click() {
-        String browserName = commonActions.getCapabilities().getBrowserName();
         if (browserName.equals("firefox") && commonActions.visibleWebElementHasTagName(xpath, "span")) {
-            commonActions.elementClickByFirefox(By.xpath(xpath + "/input"));
+            commonActions.elementSubmit(By.xpath(xpath));
         } else {
             commonActions.elementClick(By.xpath(xpath));
         }
     }
 
     public void catalogClick() {
-        String browserName = commonActions.getCapabilities().getBrowserName();
         if (browserName.equals("firefox") && commonActions.webElementHasTagName(xpath, "span")) {
-            commonActions.elementClickByFirefox(By.xpath(xpath + "/input"));
+            commonActions.catalogElementSubmit(By.xpath(xpath));
         } else {
             commonActions.catalogElementClick(By.xpath(xpath));
         }

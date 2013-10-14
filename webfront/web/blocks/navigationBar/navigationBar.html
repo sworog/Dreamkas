@@ -2,7 +2,7 @@
     <% if(currentUserModel.get('id')) { %>
 
     <% if(LH.isAllow('groups')){ %>
-    <a href="/catalog">Каталог</a>
+    <a href="/catalog">Товары</a>
     <% } %>
 
     <% if(LH.isAllow('stores/{store}/groups') && currentUserModel.stores && currentUserModel.stores.length){ %>
@@ -37,7 +37,7 @@
     <a href="/settings">Настройки</a>
     <% } %>
 
-    <a href="/jobs">Лог</a>
+    <a href="/logs">Лог</a>
 
     <% } %>
 </div>

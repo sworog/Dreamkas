@@ -126,8 +126,10 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void tryTochildrenItemNavigateAndClickByFindByLocator(String elementName) {
-        By finBy = items.get(elementName).getFindBy();
-        shouldNotBeVisible(finBy);
+        try {
+            childrenItemNavigateAndClickByFindByLocator(elementName);
+        } catch (Exception ignored) {
+        }
     }
 
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {

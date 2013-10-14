@@ -19,6 +19,6 @@
     </td>
     <td>
         <span name="amount"><%- model.get('amount') || 0 %></span>
-        <span name="units"><%- LH.units(model.get('units'), 'smallShort') %></span>
+        <span name="units"><%- LH.units(model.get('product').units, 'smallShort') %></span>
     </td>
 </tr>
