@@ -111,11 +111,13 @@ class SalesImporter
             } catch (ValidationFailedException $e) {
                 $output->write('<error>V</error>');
                 $this->errors[] = array(
+                    'count' => $count,
                     'exception' => $e
                 );
             } catch (\Exception $e) {
                 $output->write('<error>E</error>');
                 $this->errors[] = array(
+                    'count' => $count,
                     'exception' => $e
                 );
             }
@@ -137,7 +139,8 @@ class SalesImporter
             foreach ($errors as $error) {
                 $output->writeln(
                     sprintf(
-                        '<comment></comment> - %s',
+                        '<comment>Sale #%d</comment> - %s',
+                        $error['count'] - 1,
                         $error['exception']->getMessage()
                     )
                 );

@@ -28,21 +28,21 @@ class SalesImportTest extends WebTestCase
 
     public function testImportWithSeveralInvalidCounts()
     {
-        $this->createStore('197');
-        $this->createProductsBySku(
-            array(
-                '1',
-                '3',
-                '7',
-                '8594403916157',
-                '2873168',
-                '2809727',
-                '25525687',
-                '55557',
-                '8594403110111',
-                '4601501082159',
-            )
+        $storeId = $this->createStore('197');
+
+        $skuAmounts = array(
+            '1' => -112,
+            '3' => -10,
+            '7' => -1,
+            '8594403916157' => -1,
+            '2873168' => 0,
+            '2809727' => 0,
+            '25525687' => -159,
+            '55557' => -1,
+            '8594403110111' => -1,
+            '4601501082159' => -1,
         );
+        $productIds = $this->createProductsBySku(array_keys($skuAmounts));
 
         $output = new TestOutput();
         $this->import('Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml', $output);
@@ -52,6 +52,10 @@ class SalesImportTest extends WebTestCase
         $this->assertContains('Errors', $lines[1]);
         $this->assertContains('products[1].quantity', $lines[2]);
         $this->assertContains('products[1].quantity', $lines[3]);
+
+        foreach ($skuAmounts as $sku => $amount) {
+            $this->assertStoreProductTotals($storeId, $productIds[$sku], $amount);
+        }
     }
 
     public function testImportWithNotFoundProducts()
