@@ -6,36 +6,18 @@ define(function(require) {
     require('lodash');
 
     return function set(object, path, data, extra) {
-
-        var keyPath = object,
-            setValue;
-
-        if (typeof path === 'string'){
-            data = pathToObject(path, data);
-            set(object, data, extra);
-            return;
-        } else {
-            extra = data;
+        
+        if (_.isPlainObject(path)) {
             data = path;
+            path = null;
         }
 
-        extra = deepExtend({
-            canceled: false,
-            cancel: function() {
-                this.canceled = true;
-            }
-        }, extra);
-
-        _.each(data, function(value, key){
-            if (_.isPlainObject(value)){
-
-            } else {
-                object[key] = value;
-
-                if(typeof object.trigger === 'function'){
-                    object.trigger('set:' + path, data);
-                }
-            }
-        });
+        if (_.isPlainObject(data)) {
+            _.each(data, function(value, pathPart) {
+                set(object, (path ? path + '.' : '') + pathPart, value, extra);
+            });
+        } else {
+            deepExtend(object, pathToObject(path, data));
+        }
     }
 });

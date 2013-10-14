@@ -14,11 +14,6 @@ define(function(require) {
             }
         }, extra);
 
-        if (_.isObject(path)) {
-            set(object, null, path, extra);
-            return;
-        }
-
         if (typeof object['set:' + path] === 'function') {
             setValue = object['set:' + path](value, extra);
         }

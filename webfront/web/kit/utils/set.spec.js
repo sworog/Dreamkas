@@ -141,5 +141,31 @@ define(function(require) {
 
             expect(object.testValue).toBe(testInstance);
         });
+
+        it('set plain object value by hash', function() {
+
+            var plainObject = {
+                a: 1,
+                b: 2
+            };
+
+            set(object, {
+                testValue: plainObject
+            });
+
+            expect(object.testValue).toEqual(plainObject);
+        });
+
+        it('set plain object value by path', function() {
+
+            var plainObject = {
+                a: 1,
+                b: 2
+            };
+
+            set(object, 'testValue', plainObject);
+
+            expect(object.testValue).toEqual(plainObject);
+        });
     });
 });
