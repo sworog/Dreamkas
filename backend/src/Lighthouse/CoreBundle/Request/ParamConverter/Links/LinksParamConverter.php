@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Request\ParamConverter;
+namespace Lighthouse\CoreBundle\Request\ParamConverter\Links;
 
 use Lighthouse\CoreBundle\Response\DocumentResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;

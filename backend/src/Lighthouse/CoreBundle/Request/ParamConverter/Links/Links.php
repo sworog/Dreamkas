@@ -1,7 +1,8 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Request\ParamConverter;
+namespace Lighthouse\CoreBundle\Request\ParamConverter\Links;
 
+use Lighthouse\CoreBundle\Request\ParamConverter\Links\Link;
 use Traversable;
 use IteratorAggregate;
 use ArrayIterator;
