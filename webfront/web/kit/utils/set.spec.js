@@ -1,14 +1,15 @@
 define(function(require) {
     //requirements
-    var set = require('./_set');
+    var set = require('./set');
 
     require('lodash');
+    require('backbone');
 
     describe('utils/set', function() {
 
         var object = {};
 
-        beforeEach(function(){
+        beforeEach(function() {
             object = {};
         });
 
@@ -166,6 +167,100 @@ define(function(require) {
             set(object, 'testValue', plainObject);
 
             expect(object.testValue).toEqual(plainObject);
+        });
+
+        it('set:callback', function() {
+
+            var spy = jasmine.createSpy();
+
+            object = {
+                'set:testValue': spy
+            };
+
+            set(object, 'testValue', 1);
+
+            expect(spy).toHaveBeenCalledWith(1, undefined);
+        });
+
+        it('set:callback modify data', function() {
+
+            var spy = jasmine.createSpy().andReturn('test string');
+
+            object = {
+                'set:testValue': function(testValue){
+                    return 'string' + testValue;
+                }
+            };
+
+            set(object, 'testValue', 1);
+
+            expect(object.testValue).toBe('string1');
+        });
+
+        it('set event', function() {
+
+            var spy = jasmine.createSpy();
+
+            _.extend(object, Backbone.Events);
+
+            object.on('set:testValue', spy);
+
+            set(object, 'testValue', 1);
+
+            expect(spy).toHaveBeenCalledWith(1, undefined);
+        });
+
+        it('set complex object', function() {
+
+            var spy = jasmine.createSpy();
+
+            var plainObject = {
+                a: 1,
+                b: 2
+            };
+
+            _.extend(object, {
+                'set:testValue': function(testValue){
+                    testValue.a = testValue.a * 2;
+                    testValue.b = testValue.b * 2;
+                },
+                'set:testValue.a': function(a){
+                    return a + 1;
+                },
+                'set:testValue.b': function(b){
+                    return b + 1;
+                }
+            }, Backbone.Events);
+
+            object.on('set:testValue.a', spy);
+            object.on('set:testValue.b', spy);
+            object.on('set:testValue', spy);
+
+            set(object, 'testValue', plainObject);
+
+            expect(object.testValue.a).toBe(3);
+            expect(object.testValue.b).toBe(5);
+
+            expect(spy).toHaveBeenCalledWith(3, undefined);
+            expect(spy).toHaveBeenCalledWith(5, undefined);
+            expect(spy).toHaveBeenCalledWith(plainObject, undefined);
+
+        });
+
+        it ('does not set same data', function(){
+
+            var spy = jasmine.createSpy();
+
+            _.extend(object, {
+                testValue: 1,
+                'set:testValue': spy
+            }, Backbone.Events);
+
+            object.on('set:testValue', spy);
+
+            set(object, 'testValue', 1);
+
+            expect(spy).not.toHaveBeenCalled();
         });
     });
 });

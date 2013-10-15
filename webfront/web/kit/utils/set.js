@@ -1,50 +1,47 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('./deepExtend');
+    var deepExtend = require('./deepExtend'),
+        get = require('./get'),
+        getChanges = require('./getChanges'),
+        pathToObject = require('./pathToObject');
 
-    return function set(object, path, value, extra) {
+    require('lodash');
 
-        var keyPath = object,
-            setValue;
+    function set(object, path, data, e) {
 
-        extra = deepExtend({
-            canceled: false,
-            cancel: function() {
-                this.canceled = true;
+        var setData;
+
+        if (_.isPlainObject(path)) {
+            data = path;
+            path = null;
+
+            if (_.isEmpty(data)){
+                return;
             }
-        }, extra);
-
-        if (typeof object['set:' + path] === 'function') {
-            setValue = object['set:' + path](value, extra);
         }
 
-        if (extra.canceled) {
-            extra.canceled = false;
-            return;
+        if (typeof object['set:' + (path || '*')] === 'function') {
+            setData = object['set:' + (path || '*')](data, e);
+            data = typeof setData === 'undefined' ? data : setData;
         }
 
-        if (setValue !== undefined) {
-            value = setValue;
+        if (typeof object.trigger === 'function') {
+            object.trigger('set' + (path ? ':' + path : ''), _.cloneDeep(data), _.cloneDeep(e));
         }
 
-        if (_.isObject(value) && !_.isElement(value) && !_.isArray(value)) {
-            _.each(value, function(value, pathPart) {
-                object.set(path + '.' + pathPart, value, extra);
+        if (_.isPlainObject(data)) {
+            _.forOwn(data, function(value, pathPart) {
+                set(object, (path ? path + '.' : '') + pathPart, value, e);
             });
-        } else {
-            _.each(path.split('.'), function(pathPart, index, path) {
-                if (typeof keyPath[pathPart] == 'undefined') {
-                    keyPath[pathPart] = {};
-                }
-
-                if (index == (path.length - 1)) {
-                    keyPath[pathPart] = value;
-                } else {
-                    keyPath = keyPath[pathPart];
-                }
-            });
+        } else if (get(object, path) !== data) {
+            deepExtend(object, pathToObject(path, data));
         }
+    }
 
-        object.trigger('set:' + path, value);
+    return function(object, path, data, e){
+
+        data = typeof path === 'string' ? pathToObject(path, data) : path;
+
+        return set(object, getChanges(data, object), e);
     }
 });
