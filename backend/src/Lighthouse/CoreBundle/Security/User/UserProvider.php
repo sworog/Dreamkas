@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Security\User;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
+use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -34,7 +35,7 @@ class UserProvider implements UserProviderInterface
     protected $encoderFactory;
 
     /**
-     * @var ValidatorInterface
+     * @var ValidatorInterface|ExceptionalValidator
      */
     protected $validator;
 
@@ -42,7 +43,7 @@ class UserProvider implements UserProviderInterface
      * @DI\InjectParams({
      *      "userRepository" = @DI\Inject("lighthouse.core.document.repository.user"),
      *      "encoderFactory" = @DI\Inject("security.encoder_factory"),
-     *      "validator"      = @DI\Inject("validator")
+     *      "validator"      = @DI\Inject("lighthouse.core.validator")
      * })
      *
      * @param UserRepository $userRepository
@@ -128,23 +129,11 @@ class UserProvider implements UserProviderInterface
     public function updateUser(UserInterface $user, $validate = false)
     {
         if ($validate) {
-            $this->validate($user);
+            $this->validator->validate($user);
         }
 
         $this->userRepository->getDocumentManager()->persist($user);
         $this->userRepository->getDocumentManager()->flush();
-    }
-
-    /**
-     * @param UserInterface $user
-     * @throws ValidationFailedException
-     */
-    protected function validate(UserInterface $user)
-    {
-        $constraintViolationList = $this->validator->validate($user);
-        if ($constraintViolationList->count() > 0) {
-            throw new ValidationFailedException($constraintViolationList);
-        }
     }
 
     /**
@@ -156,7 +145,7 @@ class UserProvider implements UserProviderInterface
     {
         if ($validate) {
             $user->password = $password;
-            $this->validate($user);
+            $this->validator->validate($user);
         }
         $this->setPassword($user, $password);
         $this->updateUser($user);

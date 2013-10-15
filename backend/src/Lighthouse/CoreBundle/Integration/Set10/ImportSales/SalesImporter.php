@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\Sale\SaleRepository;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
+use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Validator\ValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -36,7 +37,7 @@ class SalesImporter
     protected $storeRepository;
 
     /**
-     * @var ValidatorInterface
+     * @var ValidatorInterface|ExceptionalValidator
      */
     protected $validator;
 
@@ -60,7 +61,7 @@ class SalesImporter
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "saleRepository" = @DI\Inject("lighthouse.core.document.repository.sale"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
-     *      "validator" = @DI\Inject("validator"),
+     *      "validator" = @DI\Inject("lighthouse.core.validator"),
      *      "moneyTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model")
      * })
      * @param ProductRepository $productRepository
@@ -86,7 +87,7 @@ class SalesImporter
     /**
      * @param ImportSalesXmlParser $parser
      * @param OutputInterface $output
-     * @param null $batchSize
+     * @param int $batchSize
      */
     public function import(ImportSalesXmlParser $parser, OutputInterface $output, $batchSize = null)
     {
@@ -95,8 +96,6 @@ class SalesImporter
         $batchSize = ($batchSize) ?: $this->batchSize;
         $dm = $this->saleRepository->getDocumentManager();
 
-        $totalCount = $parser->readPurchasesCount();
-
         while ($purchaseElement = $parser->readNextElement()) {
             $count++;
             try {
@@ -104,7 +103,7 @@ class SalesImporter
                 if (!$sale) {
                     $output->write('<error>S</error>');
                 } else {
-                    $this->validate($sale);
+                    $this->validator->validate($sale, null, true, true);
                     $dm->persist($sale);
                     $output->write('.');
                     if (0 == $count % $batchSize) {
@@ -244,18 +243,6 @@ class SalesImporter
             return (int) $quantity;
         } else {
             return $quantity;
-        }
-    }
-
-    /**
-     * @param Sale $sale
-     * @throws ValidationFailedException
-     */
-    protected function validate(Sale $sale)
-    {
-        $constraintViolationList = $this->validator->validate($sale, null, true, true);
-        if ($constraintViolationList->count() > 0) {
-            throw new ValidationFailedException($constraintViolationList);
         }
     }
 }

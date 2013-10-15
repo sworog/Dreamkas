@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
+use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Validator\ValidatorInterface;
 
@@ -21,7 +22,7 @@ class Set10ProductImporter
     protected $dm;
 
     /**
-     * @var ValidatorInterface
+     * @var ValidatorInterface|ExceptionalValidator
      */
     protected $validator;
 
@@ -38,7 +39,7 @@ class Set10ProductImporter
     /**
      * @DI\InjectParams({
      *      "dm" = @DI\Inject("doctrine_mongodb.odm.document_manager"),
-     *      "validator" = @DI\Inject("validator")
+     *      "validator" = @DI\Inject("lighthouse.core.validator")
      * })
      * @param ObjectManager $dm,
      * @param ValidatorInterface $validator
@@ -71,7 +72,7 @@ class Set10ProductImporter
             $flushCount++;
             $lineCount++;
             try {
-                $this->validate($product);
+                $this->validator->validate($product);
                 $this->dm->persist($product);
                 if ($verbose) {
                     $output->writeln(sprintf('<info>Persist product "%s"</info>', $product->name));
@@ -153,18 +154,6 @@ class Set10ProductImporter
                     )
                 );
             }
-        }
-    }
-
-    /**
-     * @param Product $product
-     * @throws ValidationFailedException
-     */
-    protected function validate(Product $product)
-    {
-        $constraintViolationList = $this->validator->validate($product);
-        if ($constraintViolationList->count() > 0) {
-            throw new ValidationFailedException($constraintViolationList);
         }
     }
 }
