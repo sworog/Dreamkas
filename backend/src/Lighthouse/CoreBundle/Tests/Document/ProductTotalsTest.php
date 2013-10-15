@@ -138,6 +138,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $purchaseProduct->sellingPrice = new Money(1067);
 
         $sale = new Sale();
+        $sale->hash = md5(uniqid('sale', true));
         $sale->store = $store;
         $sale->products = array($purchaseProduct);
 
@@ -153,6 +154,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $saleProduct2->sellingPrice = new Money(1067);
 
         $sale2 = new Sale();
+        $sale2->hash = md5(uniqid('sale', true));
         $sale2->store = $store;
         $sale2->products = array($saleProduct2);
 

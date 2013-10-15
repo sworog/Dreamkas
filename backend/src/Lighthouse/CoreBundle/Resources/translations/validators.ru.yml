@@ -48,7 +48,8 @@ lighthouse:
             invoice:
                 dates_compare: Дата накладной не должна быть старше даты приемки
             sale:
-                product_empty: Должен присутствовать хотя бы один товар
+                product.empty: Должен присутствовать хотя бы один товар
+                hash.unique: Такая продажа уже зарегистрированна в системе
             group:
                 name.unique: Такая группа уже есть
             category:

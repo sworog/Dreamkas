@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Request\ParamConverter;
+namespace Lighthouse\CoreBundle\Request\ParamConverter\Links;
 
 use Lighthouse\CoreBundle\Response\DocumentResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
@@ -113,6 +113,6 @@ class LinksParamConverter implements ParamConverterInterface
      */
     public function supports(ConfigurationInterface $configuration)
     {
-        return 'Lighthouse\\CoreBundle\\Request\\ParamConverter\\Links' == $configuration->getClass();
+        return Links::getClassName() === $configuration->getClass();
     }
 }

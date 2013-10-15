@@ -698,6 +698,19 @@ class WebTestCase extends ContainerAwareTestCase
         return $response['id'];
     }
 
+    /**
+     * @param array $numbers
+     * @return array
+     */
+    public function createStores(array $numbers)
+    {
+        $storeIds = array();
+        foreach ($numbers as $number) {
+            $storeIds[$number] = $this->createStore($number);
+        }
+        return $storeIds;
+    }
+
     public function createDepartment(
         $storeId = null,
         $number = 'отдел_42',

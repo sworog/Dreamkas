@@ -35,12 +35,4 @@ class SubCategory extends AbstractNode
     {
         return $this->category;
     }
-
-    /**
-     * @return array|\Lighthouse\CoreBundle\Document\Classifier\AbstractNode[]
-     */
-    public function getChildren()
-    {
-        return array();
-    }
 }

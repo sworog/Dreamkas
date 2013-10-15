@@ -33,6 +33,19 @@ class PurchaseElement extends SimpleXMLElement
     }
 
     /**
+     * @return bool
+     */
+    public function getOperationType()
+    {
+        switch ((string) $this['operationType']) {
+            case 'true':
+                return true;
+            case 'false':
+                return false;
+        }
+    }
+
+    /**
      * @return PositionElement[]
      */
     public function getPositions()

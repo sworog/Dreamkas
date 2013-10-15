@@ -101,21 +101,27 @@ class SalesImporter
             $count++;
             try {
                 $sale = $this->createSale($purchaseElement);
-                $this->validate($sale);
-                $dm->persist($sale);
-                $output->write('.');
-                if (0 == $count % $batchSize) {
-                    $dm->flush();
-                    $output->write('<info>F</info>');
+                if (!$sale) {
+                    $output->write('<error>S</error>');
+                } else {
+                    $this->validate($sale);
+                    $dm->persist($sale);
+                    $output->write('.');
+                    if (0 == $count % $batchSize) {
+                        $dm->flush();
+                        $output->write('<info>F</info>');
+                    }
                 }
             } catch (ValidationFailedException $e) {
                 $output->write('<error>V</error>');
                 $this->errors[] = array(
+                    'count' => $count,
                     'exception' => $e
                 );
             } catch (\Exception $e) {
                 $output->write('<error>E</error>');
                 $this->errors[] = array(
+                    'count' => $count,
                     'exception' => $e
                 );
             }
@@ -137,7 +143,8 @@ class SalesImporter
             foreach ($errors as $error) {
                 $output->writeln(
                     sprintf(
-                        '<comment></comment> - %s',
+                        '<comment>Sale #%d</comment> - %s',
+                        $error['count'] - 1,
                         $error['exception']->getMessage()
                     )
                 );
@@ -159,13 +166,30 @@ class SalesImporter
      */
     public function createSale(PurchaseElement $purchaseElement)
     {
+        if (false === $purchaseElement->getOperationType()) {
+            return null;
+        }
         $sale = new Sale();
         $sale->createdDate = $purchaseElement->getSaleDateTime();
         $sale->store = $this->getStore($purchaseElement->getShop());
+        $sale->hash = $this->createSaleHash($purchaseElement);
         foreach ($purchaseElement->getPositions() as $positionElement) {
             $sale->products->add($this->createSaleProduct($positionElement));
         }
         return $sale;
+    }
+
+    /**
+     * @param PurchaseElement $purchaseElement
+     * @return string
+     */
+    protected function createSaleHash(PurchaseElement $purchaseElement)
+    {
+        $hashStr = '';
+        foreach ($purchaseElement->attributes() as $attr) {
+            $hashStr.= sprintf('%s:%s;', $attr->getName(), $attr);
+        }
+        return md5($hashStr);
     }
 
     /**

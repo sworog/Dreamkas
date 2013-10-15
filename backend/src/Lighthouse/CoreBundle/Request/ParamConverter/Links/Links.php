@@ -1,7 +1,8 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Request\ParamConverter;
+namespace Lighthouse\CoreBundle\Request\ParamConverter\Links;
 
+use Lighthouse\CoreBundle\Request\ParamConverter\Links\Link;
 use Traversable;
 use IteratorAggregate;
 use ArrayIterator;
@@ -12,6 +13,14 @@ class Links implements IteratorAggregate
      * @var Link[]|ArrayIterator
      */
     protected $iterator;
+
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
+    }
 
     public function __construct()
     {
