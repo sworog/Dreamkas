@@ -1,11 +1,11 @@
 define(function(require) {
     //requirements
     var Backbone = require('backbone'),
-        _ = require('lodash'),
         deepExtend = require('../utils/deepExtend'),
-        classExtend = require('../utils/classExtend');
+        extendClass = require('../utils/extendClass');
 
     require('backbone.queryparams');
+    require('lodash');
 
     Backbone.Router.namedParameters = true;
 
@@ -40,7 +40,7 @@ define(function(require) {
         }
     });
 
-    Router.extend = classExtend;
+    Router.extend = extendClass;
 
     return Router;
 });

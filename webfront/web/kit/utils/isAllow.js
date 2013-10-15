@@ -1,20 +1,28 @@
 define(function(require) {
     //requirements
-    var app = require('app');
+    var get = require('./get');
 
-    return function(resource, method){
+    require('lodash');
 
-        method = method || 'GET';
+    return function(permissions, resourcePath, methodList){
+
+        methodList = methodList || 'GET';
 
         var isAllow = false,
-            resourcePermissions = app.permissions[resource];
+            resourcePermissions = get(permissions, resourcePath);
 
-        if (resourcePermissions && resourcePermissions === 'all'){
+        if (resourcePermissions === 'all'){
             isAllow = true;
         } else if(typeof resourcePermissions === 'string') {
-            isAllow = resourcePermissions === method;
-        } else if(resourcePermissions){
-            isAllow = _.indexOf(resourcePermissions, method) >= 0;
+            isAllow = resourcePermissions === methodList;
+        }
+
+        if(_.isArray(resourcePermissions) && typeof methodList === 'string'){
+            isAllow = _.indexOf(resourcePermissions, methodList) >= 0;
+        }
+
+        if(_.isArray(resourcePermissions) && _.isArray(methodList)){
+            isAllow = _.intersection(resourcePermissions, methodList).length === methodList.length;
         }
 
         return isAllow;

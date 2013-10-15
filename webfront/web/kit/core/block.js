@@ -1,14 +1,15 @@
 define(function(require) {
     //requirements
-    var Backbone = require('backbone'),
-        $ = require('jquery'),
-        _ = require('lodash'),
-        deepExtend = require('../utils/deepExtend'),
-        classExtend = require('../utils/classExtend'),
-        setter = require('../mixins/setter'),
-        getter = require('../mixins/getter');
+    var deepExtend = require('../utils/deepExtend'),
+        extendClass = require('../utils/extendClass'),
+        setter = require('../utils/setter'),
+        getter = require('../utils/getter'),
+        translate = require('../utils/translate');
 
     require('jquery.require');
+    require('lodash');
+    require('backbone');
+    require('jquery');
 
     var Block = Backbone.View
         .extend(setter)
@@ -16,6 +17,7 @@ define(function(require) {
         .extend({
             __name__: null,
             template: function(){},
+            dictionary: {},
 
             className: null,
             addClass: null,
@@ -64,6 +66,9 @@ define(function(require) {
                 block.startListening();
             },
             initialize: function() {
+            },
+            text: function(text){
+                return text(this.get('dictionary'), text);
             },
             render: function() {
                 var block = this,
@@ -121,7 +126,7 @@ define(function(require) {
             }
         });
 
-    Block.extend = classExtend;
+    Block.extend = extendClass;
 
     return Block;
 });

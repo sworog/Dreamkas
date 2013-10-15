@@ -4,10 +4,14 @@ require(
         paths: {
             'backbone.syphon': 'libs/backbone/backbone.syphon',
 
-            'jquery.ui': 'libs/jquery-ui/ui/minified/jquery-ui.min',
+            'jquery.ui': 'libs/jquery-ui/ui/minified/jquery-ui.min'
         },
         shim: {
             'libs/lhAutocomplete': ['jquery.ui'],
             'jquery.ui': ['jquery']
         }
-    }, ['app']);
+    }, ['kit/config'], function(){
+        require({
+           dictionary: 'dictionary'
+        }, ['app']);
+    });

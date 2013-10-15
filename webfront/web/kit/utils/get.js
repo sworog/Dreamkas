@@ -1,20 +1,30 @@
 define(function(require) {
     //requirements
-    var _ = require('lodash');
+    require('lodash');
 
-    return function(path){
-        var object = this,
-            attr = this,
-            segments = path.split('.');
+    return function(object, path, thisArg){
 
-        if (attr === null || typeof attr === 'undefined'){
-            return undefined;
+        switch (typeof object){
+            case 'undefined':
+                return;
+            case 'string':
+                thisArg = path;
+                path = object;
+                object = this;
+                break;
         }
+
+        if (typeof object['get:' + path] === 'function'){
+            return object['get:' + path]();
+        }
+
+        var attr = object,
+            segments = path.split('.');
 
         _.every(segments, function(segment){
 
-            if (_.isFunction(attr[segment])){
-                attr = attr[segment].call(object)
+            if (typeof attr[segment] === 'function'){
+                attr = attr[segment].call(thisArg || object);
             } else {
                 attr = attr[segment];
             }

@@ -1,8 +1,8 @@
 <tr href="/stores/<%- model.get('store') %>/departments/<%- model.id %>">
     <td>
-        <%= LH.attr(model, 'number') %>
+        <%= LH.modelNode(model, 'number') %>
     </td>
     <td>
-        <%= LH.attr(model, 'name') %>
+        <%= LH.modelNode(model, 'name') %>
     </td>
 </tr>

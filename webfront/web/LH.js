@@ -1,8 +1,18 @@
 define(function(require) {
-    window.LH = window.Lighthouse = _.extend({
-        isAllow: require('kit/utils/isAllow'),
-        text: require('kit/utils/text'),
-        attr: require('kit/utils/attr'),
+    //requirements
+    var isAllow = require('kit/utils/isAllow'),
+        translate = require('kit/utils/translate'),
+        dictionary = require('dictionary'),
+        app = require('app');
+
+    return window.LH = window.Lighthouse = _.extend({
+        isAllow: function(resource, method){
+            return isAllow(app.permissions, resource, method);
+        },
+        translate: function(text){
+            return translate(dictionary, text);
+        },
+        modelNode: require('kit/utils/modelNode'),
         formatPrice: require('utils/formatPrice'),
         isEmptyJSON: require('utils/isEmptyJSON'),
         normalizePrice: require('utils/normalizePrice'),

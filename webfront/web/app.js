@@ -5,7 +5,7 @@ define(function(require) {
         Backbone = require('backbone'),
         _ = require('lodash'),
         currentUserModel = require('models/currentUser'),
-        cookie = require('kit/utils/cookie');
+        cookie = require('kit/libs/cookie');
 
     app.locale = 'root';
 

@@ -1,0 +1,7 @@
+{
+    "devDependencies": {
+        "karma": "~0.10",
+        "karma-coverage": "~0.1.0",
+        "karma-teamcity-reporter": "~0.1.0"
+    }
+}

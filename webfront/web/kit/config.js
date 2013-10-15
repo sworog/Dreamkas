@@ -1,33 +1,39 @@
-require({
-    baseUrl: '/',
-    //urlArgs: 'bust=' +  (new Date()).getTime(),
-    paths: {
-        'backbone': 'kit/libs/backbone/backbone',
-        'backbone.queryparams': 'kit/libs/backbone/backbone.queryparams',
+define(function(require) {
 
-        'lodash': 'kit/libs/lodash',
+    var url = require.toUrl;
 
-        'jquery': 'kit/libs/jquery/jquery-2.0.3',
-        'jquery.require': 'kit/libs/jquery/jquery.require',
-        'jquery.maskedinput': 'kit/libs/jquery/jquery.maskedinput',
+    requirejs.config({
+        paths: {
+            'backbone': url('./libs/backbone/backbone'),
+            'backbone.queryparams': url('./libs/backbone/backbone.queryparams'),
 
-        'tpl': 'kit/utils/tpl',
-        'templateCompiler': 'kit/utils/template',
+            'lodash': url('./libs/lodash'),
 
-        'i18n': 'kit/libs/require/i18n'
-    },
-    packages: [
-        {
-            name: 'moment',
-            location: 'kit/libs/moment',
-            main: 'moment'
-        }
-    ],
-    shim: {
-        backbone: {
-            deps: ['lodash', 'jquery'],
-            exports: 'Backbone'
+            'jquery': url('./libs/jquery/jquery-2.0.3'),
+            'jquery.require': url('./libs/jquery/jquery.require'),
+            'jquery.maskedinput': url('./libs/jquery/jquery.maskedinput'),
+
+            'amd-loader': url('./libs/require/amd-loader'),
+            'tpl': url('./utils/templateLoader'),
+            'templateCompiler': url('./utils/templateCompiler'),
+
+            'i18n': url('./libs/require/i18n')
         },
-        'backbone.queryparams': ['backbone']
-    }
+        packages: [
+            {
+                name: 'moment',
+                location: url('./libs/moment'),
+                main: 'moment'
+            }
+        ],
+        shim: {
+            backbone: {
+                deps: ['lodash', 'jquery'],
+                exports: 'Backbone'
+            },
+            'backbone.queryparams': ['backbone']
+        }
+    });
 });
+
+

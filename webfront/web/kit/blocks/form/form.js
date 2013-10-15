@@ -1,15 +1,20 @@
 define(function(require) {
     //requirements
     var Block = require('../../core/block'),
-        Backbone = require('backbone'),
-        setter = require('../../mixins/setter'),
+        setter = require('../../utils/setter'),
         form2js = require('../../libs/form2js'),
-        text = require('../../utils/text');
+        translate = require('../../utils/translate');
+
+    require('lodash');
+    require('backbone');
 
     var router = new Backbone.Router();
 
     return Block.extend({
         __name__: 'form',
+        dictionary: _.extend(
+            require('i18n!./nls/errors')
+        ),
         className: 'form',
         tagName: 'form',
         model: new Backbone.Model,
@@ -111,21 +116,21 @@ define(function(require) {
                         fieldErrors = data.errors.join('. ');
                         block.$('[name="' + field + '"]')
                             .closest('.form__field')
-                            .attr('data-error', text(fieldErrors));
+                            .attr('data-error', block.text(fieldErrors));
                     }
                 });
             }
 
             if (errors.error) {
-                block.$controls.attr('data-error', text(errors.error));
+                block.$controls.attr('data-error', block.text(errors.error));
             }
 
             if (errors.description) {
-                block.$controls.attr('data-error', text(errors.description));
+                block.$controls.attr('data-error', block.text(errors.description));
             }
 
             if (errors.error_description) {
-                block.$controls.attr('data-error', text(errors.error_description));
+                block.$controls.attr('data-error', block.text(errors.error_description));
             }
         },
         removeErrors: function() {
@@ -135,7 +140,7 @@ define(function(require) {
         showSuccessMessage: function() {
             var block = this;
 
-            block.$submitButton.after('<span class="form__successMessage">' + text(_.result(block, 'successMessage')) + '</span>')
+            block.$submitButton.after('<span class="form__successMessage">' + block.text(_.result(block, 'successMessage')) + '</span>')
         },
         removeSuccessMessage: function() {
             var block = this;

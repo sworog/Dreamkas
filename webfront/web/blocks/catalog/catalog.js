@@ -8,7 +8,7 @@ define(function(require) {
             Tooltip_catalogGroupMenu = require('blocks/tooltip/tooltip_catalogGroupMenu/tooltip_catalogGroupMenu'),
             Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
             params = require('pages/catalog/params'),
-            cookie = require('kit/utils/cookie');
+            cookie = require('kit/libs/cookie');
 
         var authorizationHeader = 'Bearer ' + cookie.get('token'),
             exportUrl = LH.baseApiUrl + '/integration/export/products';

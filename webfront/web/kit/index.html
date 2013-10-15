@@ -2,24 +2,13 @@
 <html>
 <head>
     <title>Lighthouse</title>
+    <link rel="stylesheet" href="./main.css" />
 </head>
 <body>
 Welcome to Lighthouse!
-<script src="/kit/libs/require/require.min.js"></script>
-<script src="/kit/config.js"></script>
+<script src="./libs/require/require.min.js"></script>
 <script>
-    require.config({
-        packages: [
-            {
-                name: 'kit',
-                location: '/base'
-            }
-        ]
-    });
-
-    require(['kit/utils/classExtend'], function(classExtend){
-        console.log(classExtend);
-    });
+    require(['config']);
 </script>
 </body>
 </html>

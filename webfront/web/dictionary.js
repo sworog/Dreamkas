@@ -1,5 +1,6 @@
 define(function(require) {
     //requirements
+    require('lodash');
 
     return _.extend(
         require('i18n!nls/common'),

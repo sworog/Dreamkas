@@ -2,7 +2,7 @@ define(function(require) {
         //requirements
         var Form = require('kit/blocks/form/form'),
             WriteOffProduct = require('models/writeOffProduct'),
-            cookie = require('kit/utils/cookie');
+            cookie = require('kit/libs/cookie');
 
         return Form.extend({
             __name__: 'form_writeOffProduct',

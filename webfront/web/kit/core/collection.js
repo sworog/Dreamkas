@@ -1,7 +1,8 @@
 define(function(require) {
     //requirements
-    var Backbone = require('backbone'),
-        _ = require('lodash');
+    var Backbone = require('backbone');
+
+    require('lodash');
 
     return Backbone.Collection.extend({
         fetch: function(options) {

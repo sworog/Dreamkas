@@ -4,7 +4,7 @@ define(function(require) {
             InputDate = require('kit/blocks/inputDate/inputDate'),
             Form_writeOffProduct = require('blocks/form/form_writeOffProduct/form_writeOffProduct'),
             Table_writeOffProducts = require('blocks/table/table_writeOffProducts/table_writeOffProducts'),
-            cookie = require('kit/utils/cookie'),
+            cookie = require('kit/libs/cookie'),
             form2js = require('kit/libs/form2js');
 
         return Block.extend({

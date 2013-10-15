@@ -37,7 +37,7 @@ define(function(require) {
                             block.hide();
                         },
                         error: function(model, response) {
-                            alert(LH.text(response.responseJSON.message));
+                            alert(LH.translate(response.responseJSON.message));
                         }
                     });
                 }

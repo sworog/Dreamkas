@@ -4,7 +4,7 @@ define(function(require) {
 
     var TestPage = Page.extend({
         __name__: 'page_test',
-        string: 'testString',
+        string: 'test',
         a: {
             b: {
                 c: 'test'
