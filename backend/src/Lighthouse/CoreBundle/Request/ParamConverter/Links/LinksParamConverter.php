@@ -113,6 +113,6 @@ class LinksParamConverter implements ParamConverterInterface
      */
     public function supports(ConfigurationInterface $configuration)
     {
-        return 'Lighthouse\\CoreBundle\\Request\\ParamConverter\\Links' == $configuration->getClass();
+        return Links::getClassName() === $configuration->getClass();
     }
 }

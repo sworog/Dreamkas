@@ -14,6 +14,14 @@ class Links implements IteratorAggregate
      */
     protected $iterator;
 
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
+    }
+
     public function __construct()
     {
         $this->iterator = new ArrayIterator();
