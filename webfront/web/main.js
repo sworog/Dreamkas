@@ -3,7 +3,7 @@ require(
         baseUrl: '/',
         paths: {
             'backbone.syphon': 'libs/backbone/backbone.syphon',
-
+            'dictionary': 'dictionary',
             'jquery.ui': 'libs/jquery-ui/ui/minified/jquery-ui.min'
         },
         shim: {
@@ -11,7 +11,5 @@ require(
             'jquery.ui': ['jquery']
         }
     }, ['kit/config'], function(){
-        require({
-           dictionary: 'dictionary'
-        }, ['app']);
+        require(['app']);
     });

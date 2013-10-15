@@ -71,13 +71,15 @@
     border-bottom: 4px solid transparent;
     padding: 0 8px 5px;
     white-space: nowrap;
-    cursor: pointer;
+    color: #000;
     margin-right: 20px;
 }
 
 .page__tabItem_active{
     border-bottom-color: #1FB18A;
     color: #1FB18A;
+    cursor: default !important;
+    text-decoration: none !important;
 }
 
 .page__tabsContent{

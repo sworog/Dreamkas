@@ -32,7 +32,7 @@ define(function(require) {
                     });
 
                     _.each(model.attributes, function(attrValue, attrKey) {
-                        if (_.intersection(attrValue.__dependencies__, _.keys(changedAttributes)).length) {
+                        if (typeof attrValue === 'function' && _.intersection(attrValue.__dependencies__, _.keys(changedAttributes)).length) {
                             model.trigger('change:' + attrKey, model, model.get(attrKey), options);
                         }
                     });

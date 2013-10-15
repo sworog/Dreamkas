@@ -60,8 +60,6 @@ define(function(require) {
             $.when(page.catalogGroupModel.fetch()).then(function(){
                 page.render();
 
-                console.log(page.catalogGroupModel);
-
                 new CatalogGroup({
                     el: document.getElementById('catalogGroup'),
                     editMode: pageParams.editMode,

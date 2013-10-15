@@ -15,13 +15,13 @@
     </a>
 </h1>
 <div class="page__tabs">
-    <div class="page__tabItem page__tabItem_active" rel="subCategoryList">
+    <a class="page__tabItem page__tabItem_active" rel="subCategoryList">
         Подкатегории
-    </div>
+    </a>
     <% if(LH.isAllow('categories', 'PUT::{category}')) { %>
-    <div class="page__tabItem" rel="categoryProperties">
+    <a class="page__tabItem" rel="categoryProperties">
         Свойства
-    </div>
+    </a>
     <% } %>
 </div>
 <div class="page__tabsContent">
@@ -42,13 +42,13 @@
                 </a>
             </h4>
             <div class="page__tabs">
-                <div class="page__tabItem page__tabItem_active" rel="productList">
+                <a class="page__tabItem page__tabItem_active" rel="productList">
                     Продукты
-                </div>
+                </a>
                 <% if(LH.isAllow('subcategories', 'PUT::{subCategory}')) { %>
-                <div class="page__tabItem" rel="subCategoryProperties">
+                <a class="page__tabItem" rel="subCategoryProperties">
                     Свойства
-                </div>
+                </a>
                 <% } %>
             </div>
             <div class="page__tabsContent">

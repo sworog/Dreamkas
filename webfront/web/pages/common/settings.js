@@ -3,7 +3,7 @@ define(function(require) {
     var Page = require('kit/core/page'),
         Form_exportSettings = require('blocks/form/form_exportSettings/form_exportSettings'),
         Form_importSettings = require('blocks/form/form_importSettings/form_importSettings'),
-        cookie = require('kit/utils/cookie');
+        cookie = require('kit/libs/cookie');
 
     var authorizationHeader = 'Bearer ' + cookie.get('token'),
         configUrl = LH.baseApiUrl + '/configs/by/name';
