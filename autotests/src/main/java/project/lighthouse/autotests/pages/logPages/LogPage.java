@@ -23,7 +23,7 @@ public class LogPage extends CommonPageObject {
         return waiter.getVisibleWebElements(By.xpath("//*[@class='log__item']"));
     }
 
-    private List<SimpleLogObject> getSimpleLogMessages() {
+    public List<SimpleLogObject> getSimpleLogMessages() {
         List<WebElement> logMessageWebElements = getSimpleLogMessageWebElements();
         List<SimpleLogObject> logMessages = new ArrayList<>();
         for (WebElement logMessageWebElement : logMessageWebElements) {
