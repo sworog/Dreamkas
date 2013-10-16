@@ -442,4 +442,30 @@ class WriteOffControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
     }
+
+    public function testGetWriteOffNotFoundInAnotherStore()
+    {
+        $storeId2 = $this->createStore('43');
+        $this->linkDepartmentManagers($storeId2, $this->departmentManager->id);
+
+        $writeOffId = $this->createWriteOff('444', null, $this->storeId, $this->departmentManager);
+
+        $accessToken = $this->auth($this->departmentManager);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/writeoffs/' . $writeOffId
+        );
+
+        $this->assertResponseCode(404);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId
+        );
+
+        $this->assertResponseCode(200);
+    }
 }

@@ -874,4 +874,40 @@ class WriteOffProductControllerTest extends WebTestCase
             ),
         );
     }
+
+    public function testGetWriteOffProductNotFoundFromAnotherStore()
+    {
+        $storeId2 = $this->createStore('43');
+        $this->linkDepartmentManagers($storeId2, $this->departmentManager->id);
+
+        $productId = $this->createProduct();
+        $writeOffId = $this->createWriteOff('431', null, $this->storeId, $this->departmentManager);
+        $writeOffProductId = $this->createWriteOffProduct(
+            $writeOffId,
+            $productId,
+            19.25,
+            2,
+            'Порча',
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $accessToken = $this->auth($this->departmentManager);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId2 . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId
+        );
+
+        $this->assertResponseCode(404);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId
+        );
+
+        $this->assertResponseCode(200);
+    }
 }

@@ -612,9 +612,6 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($invoiceProductId, 'id', $getJson);
 
-        // TODO Suppressed this check because it is not related to tests and fails (
-        //$this->assertEquals($postJson, $getJson);
-
         $this->clientJsonRequest(
             $accessToken,
             'GET',
