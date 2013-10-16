@@ -171,15 +171,19 @@ define(function(require) {
 
         it('set:callback', function() {
 
-            var spy = jasmine.createSpy();
+            var spyTestValue = jasmine.createSpy('testValue'),
+                spyAll = jasmine.createSpy('all');
+
 
             object = {
-                'set:testValue': spy
+                'set:testValue': spyTestValue,
+                'set:*': spyAll
             };
 
             set(object, 'testValue', 1);
 
-            expect(spy).toHaveBeenCalledWith(1, undefined);
+            expect(spyTestValue).toHaveBeenCalledWith(1, undefined);
+            expect(spyAll).toHaveBeenCalledWith({ testValue : 1 }, undefined);
         });
 
         it('set:callback modify data', function() {

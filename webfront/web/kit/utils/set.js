@@ -11,15 +11,6 @@ define(function(require) {
 
         var setData;
 
-        if (_.isPlainObject(path)) {
-            data = path;
-            path = null;
-
-            if (_.isEmpty(data)){
-                return;
-            }
-        }
-
         if (typeof object['set:' + (path || '*')] === 'function') {
             setData = object['set:' + (path || '*')](data, e);
             data = typeof setData === 'undefined' ? data : setData;
@@ -33,15 +24,22 @@ define(function(require) {
             _.forOwn(data, function(value, pathPart) {
                 set(object, (path ? path + '.' : '') + pathPart, value, e);
             });
-        } else if (get(object, path) !== data) {
+        } else {
             deepExtend(object, pathToObject(path, data));
         }
+
+        return data;
     }
 
     return function(object, path, data, e){
 
         data = typeof path === 'string' ? pathToObject(path, data) : path;
+        data = getChanges(data, object);
 
-        return set(object, getChanges(data, object), e);
+        if (_.isEmpty(data)){
+            return {};
+        } else {
+            return set(object, null, data, e);
+        }
     }
 });
