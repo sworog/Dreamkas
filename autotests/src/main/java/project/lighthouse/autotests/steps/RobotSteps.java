@@ -30,7 +30,7 @@ public class RobotSteps extends ScenarioSteps {
 
     @Step
     public void prepareData(String fileName) throws IOException, InterruptedException {
-        final String sourcePath = String.format("%s/xml/%s", System.getProperty("user.dir").replace("\\", "/"), fileName);
+        final String sourcePath = String.format("%s/xml/purchases/%s", System.getProperty("user.dir").replace("\\", "/"), fileName);
         final String destinationPath = getFolderPath(IMPORT_FOLDER_PATH) + getFileName();
         FileUtils.copyFile(new File(sourcePath), new File(destinationPath));
     }

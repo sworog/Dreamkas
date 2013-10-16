@@ -65,4 +65,10 @@ public class RobotUserSteps {
         final String fileName = "purchases-clone-data.xml";
         robotSteps.prepareData(fileName);
     }
+
+    @Given("the robot prepares import return data")
+    public void givenTheRoborPreparesImportReturnData() throws IOException, InterruptedException {
+        final String fileName = "purchases-return-data.xml";
+        robotSteps.prepareData(fileName);
+    }
 }
