@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
+use Lighthouse\CoreBundle\Document\Invoice\InvoicesFilter;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -65,16 +66,18 @@ class InvoiceController extends AbstractRestController
 
     /**
      * @param Store $store
+     * @param InvoicesFilter $filter
      * @return View|InvoiceCollection
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )
+     * @Rest\Route("stores/{store}/invoices")
      */
-    public function getInvoicesAction(Store $store)
+    public function getInvoicesAction(Store $store, InvoicesFilter $filter)
     {
         /* @var LoggableCursor $cursor */
-        $cursor = $this->documentRepository->findByStore($store->id);
+        $cursor = $this->documentRepository->findByStore($store->id, $filter);
         $collection = new InvoiceCollection($cursor);
         return $collection;
     }

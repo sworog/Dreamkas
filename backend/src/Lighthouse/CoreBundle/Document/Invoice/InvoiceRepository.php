@@ -2,17 +2,27 @@
 
 namespace Lighthouse\CoreBundle\Document\Invoice;
 
+use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
 class InvoiceRepository extends DocumentRepository
 {
     /**
      * @param string $storeId
-     * @return \Doctrine\ODM\MongoDB\Cursor
+     * @param InvoicesFilter $filter
+     * @return Cursor
      */
-    public function findByStore($storeId)
+    public function findByStore($storeId, InvoicesFilter $filter)
     {
-        return $this->findBy(array('store' => $storeId));
+        $criteria = array('store' => $storeId);
+        if ($filter->hasSkuOrSupplierInvoiceSku()) {
+            $criteria['$or'] = array(
+                array('sku' => $filter->getSkuOrSupplierInvoiceSku()),
+                array('supplierInvoiceSku' => $filter->getSkuOrSupplierInvoiceSku()),
+            );
+        }
+        $cursor = $this->findBy($criteria);
+        return $cursor;
     }
 
     /**

@@ -602,4 +602,102 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
     }
+
+    /**
+     * @param string $query
+     * @param int $count
+     * @param array $assertions
+     *
+     * @dataProvider invoiceFilterProvider
+     */
+    public function testInvoicesFilter($query, $count, array $assertions = array())
+    {
+        $productId1 = $this->createProduct('111');
+        $productId2 = $this->createProduct('222');
+        $productId3 = $this->createProduct('333');
+
+        $invoiceData1 = array(
+            'sku' => '1234-89',
+            'supplierInvoiceSku' => 'ФРГ-1945'
+        );
+
+        $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
+        $this->createInvoiceProduct($invoiceId1, $productId1, 10, 6.98, $this->storeId, $this->departmentManager);
+
+        $invoiceData2 = array(
+            'sku' => '866-89',
+            'supplierInvoiceSku' => '1234-89'
+        );
+
+        $invoiceId2 = $this->createInvoice($invoiceData2, $this->storeId, $this->departmentManager);
+        $this->createInvoiceProduct($invoiceId2, $productId2, 5, 10.12, $this->storeId, $this->departmentManager);
+
+        $invoiceData3 = array(
+            'sku' => '7561-89',
+            'supplierInvoiceSku' => '7561-89'
+        );
+
+        $invoiceId3 = $this->createInvoice($invoiceData3, $this->storeId, $this->departmentManager);
+        $this->createInvoiceProduct($invoiceId3, $productId3, 7, 67.32, $this->storeId, $this->departmentManager);
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices',
+            null,
+            array('skuOrSupplierInvoiceSku' => $query)
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount($count, '*.id', $response);
+        $this->performJsonAssertions($response, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function invoiceFilterProvider()
+    {
+        return array(
+            'one by sku' => array(
+                '866-89',
+                1,
+                array(
+                    '0.sku' => '866-89'
+                )
+            ),
+            'one by supplierInvoiceSku' => array(
+                'ФРГ-1945',
+                1,
+                array(
+                    '0.supplierInvoiceSku' => 'ФРГ-1945'
+                )
+            ),
+            'one by both sku and supplierInvoiceSku' => array(
+                '7561-89',
+                1,
+                array(
+                    '0.supplierInvoiceSku' => '7561-89',
+                    '0.sku' => '7561-89'
+                )
+            ),
+            'none found: not existing sku' => array(
+                '1234',
+                0,
+            ),
+            'none found: empty sku' => array(
+                '',
+                0,
+            ),
+            'two: one by sku and one by supplierInvoiceSku' => array(
+                '1234-89',
+                2,
+                array(
+                    '0.sku' => '1234-89',
+                    '1.supplierInvoiceSku' => '1234-89',
+                )
+            ),
+        );
+    }
 }
