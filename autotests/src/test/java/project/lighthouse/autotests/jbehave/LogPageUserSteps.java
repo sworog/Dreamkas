@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
+import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.logSteps.LogSteps;
 
 public class LogPageUserSteps {
@@ -57,5 +58,10 @@ public class LogPageUserSteps {
     @Then("the user checks the last simple log message is '$expectedMessage'")
     public void thenTheUSerChecksTheLastSimpleLogMessage(String expectedMessage) {
         logSteps.assertLastSimpleLogMessage(expectedMessage);
+    }
+
+    @Then("the user checks log messages $simpleLogMessagesTable")
+    public void thenTheUserCheckLogMessages(ExamplesTable simpleLogMessagesTable) {
+        logSteps.assertSimpleLogMessages(simpleLogMessagesTable);
     }
 }
