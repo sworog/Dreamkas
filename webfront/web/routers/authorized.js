@@ -16,6 +16,7 @@ define(function(require) {
             //invoices
             'invoices(/)': require('pages/invoice/list'),
             'invoices/create(/)': require('pages/invoice/form'),
+            'invoices/search(/)': require('pages/invoice/search'),
             'invoices/:invoiceId(/)': require('pages/invoice/view'),
 
             //users
