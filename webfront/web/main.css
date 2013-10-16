@@ -20,6 +20,7 @@
 @import "blocks/catalogCategory/catalogCategory.css";
 @import "blocks/store/store.css";
 @import "blocks/log/log.css";
+@import "blocks/invoiceList/invoiceList.css";
 
 
 body {

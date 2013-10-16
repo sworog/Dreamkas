@@ -33,6 +33,7 @@ define(function(require) {
                     formData = form2js(this.el, '.', false),
                     submit;
 
+                block.formData = formData;
                 block.trigger('submit:start', formData);
                 block.submitStart(formData);
 
@@ -59,8 +60,9 @@ define(function(require) {
 
             Block.prototype.findElements.apply(block, arguments);
 
-            block.$submitButton = block.$el.find('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
-            block.$controls = block.$submitButton.closest(".form__controls");
+            block.$submitButton = block.$('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
+            block.$results = block.$('.form__results');
+            block.$controls = block.$submitButton.closest('.form__controls');
         },
         submit: function(formData) {
             var block = this;

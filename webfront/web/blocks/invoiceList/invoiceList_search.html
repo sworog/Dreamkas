@@ -1,0 +1,18 @@
+<!-- @invoicesCollection -->
+<!-- @searchQuery -->
+
+<% var invoiceList = require('tpl!blocks/invoiceList/invoiceList.html') %>
+<% if (!invoicesCollection.length) { %>
+<h3>Мы не смогли накладную с номером <%- searchQuery.skuOrSupplierInvoiceSku %></h3>
+<% } %>
+<% if (invoicesCollection.length === 1) { %>
+<h3>Накладная нашлась!</h3>
+<% } %>
+<% if (invoicesCollection.length > 1) { %>
+<h3>Накладная нашлась! Да не одна, а целых <%- invoicesCollection.length %>!</h3>
+<% } %>
+<% if (invoicesCollection.length) { %>
+<%= invoiceList({
+    invoicesCollection: invoicesCollection
+}) %>
+<% } %>
