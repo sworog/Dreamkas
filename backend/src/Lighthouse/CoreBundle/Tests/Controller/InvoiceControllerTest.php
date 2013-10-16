@@ -687,6 +687,10 @@ class InvoiceControllerTest extends WebTestCase
                 0,
             ),
             'none found: empty sku' => array(
+                '7561',
+                0,
+            ),
+            'none found: partial sku' => array(
                 '',
                 0,
             ),
