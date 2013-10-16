@@ -8,7 +8,7 @@
             <%= moment(jobModel.get('dateCreated')).format('DD.MM.YYYY HH:mm') %>
         </div>
         <div class="log__title">
-            <%- LH.text(jobModel.get('type')) %>
+            <%- LH.translate(jobModel.get('type')) %>
         </div>
         <% if(jobModel.get('productVersion')){ %>
         <div class="log__productName">
@@ -16,11 +16,11 @@
         </div>
         <% } %>
         <div class="log__status">
-            <%- LH.text(jobModel.get('status')) %>
+            <%- LH.translate(jobModel.get('status')) %>
         </div>
         <% if(jobModel.get('finalMessage')){ %>
         <div class="log__finalMessage">
-            <%- LH.text(jobModel.get('finalMessage')) %>
+            <%- LH.translate(jobModel.get('finalMessage')) %>
         </div>
         <% } %>
     </div>
@@ -34,7 +34,7 @@
         <%= moment(logItemModel.get('date')).format('DD.MM.YYYY HH:mm') %>
         </div>
         <div class="log__finalMessage">
-        <%- LH.text(logItemModel.get('message')) %>
+        <%- LH.translate(logItemModel.get('message')) %>
         </div>
     </div>
     <% }) %>

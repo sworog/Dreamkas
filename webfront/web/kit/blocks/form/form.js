@@ -118,21 +118,21 @@ define(function(require) {
                         fieldErrors = data.errors.join('. ');
                         block.$('[name="' + field + '"]')
                             .closest('.form__field')
-                            .attr('data-error', block.text(fieldErrors));
+                            .attr('data-error', block.translate(fieldErrors));
                     }
                 });
             }
 
             if (errors.error) {
-                block.$controls.attr('data-error', block.text(errors.error));
+                block.$controls.attr('data-error', block.translate(errors.error));
             }
 
             if (errors.description) {
-                block.$controls.attr('data-error', block.text(errors.description));
+                block.$controls.attr('data-error', block.translate(errors.description));
             }
 
             if (errors.error_description) {
-                block.$controls.attr('data-error', block.text(errors.error_description));
+                block.$controls.attr('data-error', block.translate(errors.error_description));
             }
         },
         removeErrors: function() {
@@ -142,7 +142,7 @@ define(function(require) {
         showSuccessMessage: function() {
             var block = this;
 
-            block.$submitButton.after('<span class="form__successMessage">' + block.text(_.result(block, 'successMessage')) + '</span>')
+            block.$submitButton.after('<span class="form__successMessage">' + block.translate(_.result(block, 'successMessage')) + '</span>')
         },
         removeSuccessMessage: function() {
             var block = this;

@@ -67,8 +67,8 @@ define(function(require) {
             },
             initialize: function() {
             },
-            text: function(text){
-                return text(this.get('dictionary'), text);
+            translate: function(text){
+                return translate(this.get('dictionary'), text);
             },
             render: function() {
                 var block = this,

@@ -1,3 +1,5 @@
+<% var invoice = require('tpl!blocks/invoice/templates/index.html') %>
+
 <div class="localNavigation">
     <h2><a class="localNavigation__link" href="/invoices">Накладные</a></h2>
     <a class="localNavigation__link" href="/invoices/search">Поиск накладной</a>
@@ -5,10 +7,14 @@
 </div>
 
 <div style="margin-left: 285px;">
-    <div class="page__controls">
-        <a class="page__controlsLink invoice__editLink">Редактировать</a>
-        <a class="page__controlsLink invoice__stopEditLink">Завершить редактирование</a>
-    </div>
+    <div id="invoice">
+        <div class="page__controls">
+            <a class="page__controlsLink invoice__editLink">Редактировать</a>
+            <a class="page__controlsLink invoice__stopEditLink">Завершить редактирование</a>
+        </div>
 
-    <div id="invoice"></div>
+        <%= invoice({
+            invoiceModel: invoiceModel
+        }) %>
+    </div>
 </div>
