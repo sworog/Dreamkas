@@ -5,9 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Meta;
 use Lighthouse\CoreBundle\Document\Meta\MetaCollection;
 use Lighthouse\CoreBundle\Document\Meta\MetaDocument;
 use Lighthouse\CoreBundle\Document\Meta\MetaGeneratorInterface;
-use Lighthouse\CoreBundle\Document\Product\ProductCollection;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use Lighthouse\CoreBundle\Types\Money;
 
 class MetaContainerTest extends WebTestCase
 {

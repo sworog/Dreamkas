@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Document\Meta;
 
+use JMS\Serializer\Annotation as Serializer;
+
 class MetaDocument
 {
     /**
@@ -11,6 +13,7 @@ class MetaDocument
 
     /**
      * @var mixed
+     * @Serializer\Inline
      */
     protected $element;
 

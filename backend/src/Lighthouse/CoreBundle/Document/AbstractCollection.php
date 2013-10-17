@@ -9,7 +9,7 @@ use Doctrine\MongoDB\Cursor;
 class AbstractCollection extends ArrayCollection
 {
     /**
-     * @param array|Cursor $elements
+     * @param array|Cursor|Collection $elements
      */
     public function __construct($elements = array())
     {

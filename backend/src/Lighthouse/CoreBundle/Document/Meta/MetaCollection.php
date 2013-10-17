@@ -5,28 +5,17 @@ namespace Lighthouse\CoreBundle\Document\Meta;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Document\AbstractCollection;
+use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Meta\MetaGeneratorInterface;
 use ArrayIterator;
 
-class MetaCollection extends ArrayCollection
+class MetaCollection extends AbstractCollection
 {
     /**
      * @var MetaGeneratorInterface[]
      */
     protected $metaGenerators = array();
-
-    /**
-     * @param array|Cursor $elements
-     */
-    public function __construct($elements = array())
-    {
-        if ($elements instanceof Cursor) {
-            $elements = $elements->toArray(false);
-        } elseif ($elements instanceof Collection) {
-            $elements = $elements->toArray();
-        }
-        parent::__construct($elements);
-    }
 
     /**
      * @param MetaGeneratorInterface $metaGenerator
