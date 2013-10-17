@@ -654,6 +654,80 @@ class InvoiceControllerTest extends WebTestCase
         $this->performJsonAssertions($response, $assertions);
     }
 
+    public function testInvoicesFilterOrder()
+    {
+        $productId1 = $this->createProduct('111');
+        $productId2 = $this->createProduct('222');
+
+        $invoiceData1 = array(
+            'sku' => '1234-89',
+            'supplierInvoiceSku' => 'ФРГ-1945',
+            'supplierInvoiceDate' => '2013-03-17T09:12:33+0400',
+            'acceptanceDate' => '2013-03-17T16:12:33+0400',
+        );
+
+        $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
+        $this->createInvoiceProduct($invoiceId1, $productId1, 10, 6.98, $this->storeId, $this->departmentManager);
+
+        $invoiceData2 = array(
+            'sku' => '866-89',
+            'supplierInvoiceSku' => '1234-89',
+            'supplierInvoiceDate' => '2013-03-16T11:23:45+0400',
+            'acceptanceDate' => '2013-03-16T14:54:23+0400'
+        );
+
+        $invoiceId2 = $this->createInvoice($invoiceData2, $this->storeId, $this->departmentManager);
+        $this->createInvoiceProduct($invoiceId2, $productId2, 5, 10.12, $this->storeId, $this->departmentManager);
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices',
+            null,
+            array('skuOrSupplierInvoiceSku' => '1234-89')
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(2, '*.id', $response);
+        Assert::assertJsonPathEquals('1234-89', '0.sku', $response);
+        Assert::assertJsonPathEquals('866-89', '1.sku', $response);
+
+        $invoiceData3 = array(
+            'sku' => '1235-89',
+            'supplierInvoiceSku' => 'ФРГ-1945',
+            'supplierInvoiceDate' => '2013-03-14T19:34:13+0400',
+            'acceptanceDate' => '2013-03-15T16:12:33+0400'
+        );
+
+        $invoiceId3 = $this->createInvoice($invoiceData3, $this->storeId, $this->departmentManager);
+        $this->createInvoiceProduct($invoiceId3, $productId1, 10, 6.98, $this->storeId, $this->departmentManager);
+
+        $invoiceData4 = array(
+            'sku' => '867-89',
+            'supplierInvoiceSku' => '1235-89',
+            'supplierInvoiceDate' => '2013-03-16T08:24:23+0400',
+            'acceptanceDate' => '2013-03-16T14:54:23+0400'
+        );
+
+        $invoiceId4 = $this->createInvoice($invoiceData4, $this->storeId, $this->departmentManager);
+        $this->createInvoiceProduct($invoiceId4, $productId2, 5, 10.12, $this->storeId, $this->departmentManager);
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices',
+            null,
+            array('skuOrSupplierInvoiceSku' => '1235-89')
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(2, '*.id', $response);
+        Assert::assertJsonPathEquals('867-89', '0.sku', $response);
+        Assert::assertJsonPathEquals('1235-89', '1.sku', $response);
+    }
+
     /**
      * @return array
      */

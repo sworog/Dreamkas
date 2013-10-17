@@ -15,13 +15,14 @@ class InvoiceRepository extends DocumentRepository
     public function findByStore($storeId, InvoicesFilter $filter)
     {
         $criteria = array('store' => $storeId);
+        $sort = array('acceptanceDate' => -1);
         if ($filter->hasSkuOrSupplierInvoiceSku()) {
             $criteria['$or'] = array(
                 array('sku' => $filter->getSkuOrSupplierInvoiceSku()),
                 array('supplierInvoiceSku' => $filter->getSkuOrSupplierInvoiceSku()),
             );
         }
-        $cursor = $this->findBy($criteria);
+        $cursor = $this->findBy($criteria, $sort);
         return $cursor;
     }
 
