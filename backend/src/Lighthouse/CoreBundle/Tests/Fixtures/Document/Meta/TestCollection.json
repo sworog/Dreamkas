@@ -4,7 +4,7 @@
         "name": "name_1",
         "desc": "description_1",
         "orderDate": "01.03.2013",
-        "meta": {
+        "_meta": {
             "test_meta1": "test_meta_value1"
         }
     },
@@ -13,7 +13,7 @@
         "name": "name_2",
         "desc": "description_2",
         "orderDate": "02.03.2013",
-        "meta": {
+        "_meta": {
             "test_meta2": "test_meta_value2"
         }
     },
@@ -22,7 +22,7 @@
         "name": "name_3",
         "desc": "description_3",
         "orderDate": "03.03.2013",
-        "meta": {
+        "_meta": {
             "test_meta3": "test_meta_value3"
         }
     },
@@ -31,7 +31,7 @@
         "name": "name_4",
         "desc": "description_4",
         "orderDate": "04.03.2013",
-        "meta": {
+        "_meta": {
             "test_meta4": "test_meta_value4"
         }
     },
@@ -40,7 +40,7 @@
         "name": "name_5",
         "desc": "description_5",
         "orderDate": "05.03.2013",
-        "meta": {
+        "_meta": {
             "test_meta5": "test_meta_value5"
         }
     }

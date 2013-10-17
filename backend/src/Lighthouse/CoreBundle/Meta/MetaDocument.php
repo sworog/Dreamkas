@@ -7,6 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 class MetaDocument
 {
     /**
+     * @Serializer\SerializedName("_meta")
      * @var array
      */
     protected $meta = array();

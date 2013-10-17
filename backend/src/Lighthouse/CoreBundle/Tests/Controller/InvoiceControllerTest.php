@@ -654,6 +654,63 @@ class InvoiceControllerTest extends WebTestCase
         $this->performJsonAssertions($response, $assertions);
     }
 
+    /**
+     * @return array
+     */
+    public function invoiceFilterProvider()
+    {
+        return array(
+            'one by sku' => array(
+                '866-89',
+                1,
+                array(
+                    '0.sku' => '866-89',
+                    '0._meta.highlights.sku' => true,
+                )
+            ),
+            'one by supplierInvoiceSku' => array(
+                'ФРГ-1945',
+                1,
+                array(
+                    '0.supplierInvoiceSku' => 'ФРГ-1945',
+                    '0._meta.highlights.supplierInvoiceSku' => true,
+                )
+            ),
+            'one by both sku and supplierInvoiceSku' => array(
+                '7561-89',
+                1,
+                array(
+                    '0.supplierInvoiceSku' => '7561-89',
+                    '0.sku' => '7561-89',
+                    '0._meta.highlights.sku' => true,
+                    '0._meta.highlights.supplierInvoiceSku' => true,
+                )
+            ),
+            'none found: not existing sku' => array(
+                '1234',
+                0,
+            ),
+            'none found: empty sku' => array(
+                '7561',
+                0,
+            ),
+            'none found: partial sku' => array(
+                '',
+                0,
+            ),
+            'two: one by sku and one by supplierInvoiceSku' => array(
+                '1234-89',
+                2,
+                array(
+                    '0.sku' => '1234-89',
+                    '1.supplierInvoiceSku' => '1234-89',
+                    '0._meta.highlights.sku' => true,
+                    '1._meta.highlights.supplierInvoiceSku' => true,
+                )
+            ),
+        );
+    }
+
     public function testInvoicesFilterOrder()
     {
         $productId1 = $this->createProduct('111');
@@ -726,56 +783,5 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathCount(2, '*.id', $response);
         Assert::assertJsonPathEquals('867-89', '0.sku', $response);
         Assert::assertJsonPathEquals('1235-89', '1.sku', $response);
-    }
-
-    /**
-     * @return array
-     */
-    public function invoiceFilterProvider()
-    {
-        return array(
-            'one by sku' => array(
-                '866-89',
-                1,
-                array(
-                    '0.sku' => '866-89'
-                )
-            ),
-            'one by supplierInvoiceSku' => array(
-                'ФРГ-1945',
-                1,
-                array(
-                    '0.supplierInvoiceSku' => 'ФРГ-1945'
-                )
-            ),
-            'one by both sku and supplierInvoiceSku' => array(
-                '7561-89',
-                1,
-                array(
-                    '0.supplierInvoiceSku' => '7561-89',
-                    '0.sku' => '7561-89'
-                )
-            ),
-            'none found: not existing sku' => array(
-                '1234',
-                0,
-            ),
-            'none found: empty sku' => array(
-                '7561',
-                0,
-            ),
-            'none found: partial sku' => array(
-                '',
-                0,
-            ),
-            'two: one by sku and one by supplierInvoiceSku' => array(
-                '1234-89',
-                2,
-                array(
-                    '0.sku' => '1234-89',
-                    '1.supplierInvoiceSku' => '1234-89',
-                )
-            ),
-        );
     }
 }
