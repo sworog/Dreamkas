@@ -39,7 +39,7 @@ class LoadDataFixturesDoctrine extends DoctrineODMCommand
             ->addOption(
                 'dm',
                 null,
-                InputOption::VALUE_REQUIRED,
+                InputOption::VALUE_OPTIONAL,
                 'The document manager to use for this command.'
             )
             ->addOption(
@@ -74,8 +74,9 @@ EOT
     {
         /** @var $doctrine \Doctrine\Common\Persistence\ManagerRegistry */
         $doctrine = $this->getContainer()->get('doctrine_mongodb');
+        $dmName = $input->getOption('dm') ?: $this->getContainer()->get('doctrine_mongodb')->getDefaultManagerName();
         /** @var DocumentManager $dm */
-        $dm = $doctrine->getManager($input->getOption('dm'));
+        $dm = $doctrine->getManager($dmName);
 
         if ($input->isInteractive() && !$input->getOption('append')) {
             $dialog = $this->getHelperSet()->get('dialog');
