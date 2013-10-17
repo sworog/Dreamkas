@@ -142,6 +142,9 @@ class Url
         if ($this->issetPart(self::HOST)) {
             $url.= $this->getPart(self::HOST);
         }
+        if ($this->issetPart(self::PORT)) {
+            $url.= ':' . $this->getPart(self::PORT);
+        }
         if ($this->issetPart(self::PATH)) {
             $url.= '/' . ltrim($this->getPart(self::PATH), '/');
         }
