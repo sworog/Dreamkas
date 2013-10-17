@@ -4,7 +4,9 @@ namespace Lighthouse\CoreBundle\Tests\Command;
 
 use Lighthouse\CoreBundle\Command\LoadDataFixturesDoctrine;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
+use Lighthouse\CoreBundle\Test\TestOutput;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
@@ -153,5 +155,30 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
 
         $this->assertEquals($expected, $display);
         $this->assertNotContains('> purging database', $display);
+    }
+
+    public function testExecuteThroughApplication()
+    {
+        $container = $this->getContainer();
+        $kernel = $container->get('kernel');
+        $application = new Application($kernel);
+
+        $input = new ArgvInput(
+            array(
+                'app/console',
+                'doctrine:fixtures:load'
+            )
+        );
+        $input->setInteractive(false);
+        $output = new TestOutput();
+        $application->doRun($input, $output);
+
+        $expected = '  > purging database
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
+  > loading Lighthouse\\CoreBundle\DataFixtures\\ODM\\LoadUserData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
+';
+
+        $this->assertEquals($expected, $output->getDisplay());
     }
 }
