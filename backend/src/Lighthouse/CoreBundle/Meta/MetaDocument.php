@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Meta;
+namespace Lighthouse\CoreBundle\Meta;
 
 use JMS\Serializer\Annotation as Serializer;
 

@@ -2,9 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Tests\Meta;
 
-use Lighthouse\CoreBundle\Document\Meta\MetaCollection;
-use Lighthouse\CoreBundle\Document\Meta\MetaDocument;
-use Lighthouse\CoreBundle\Document\Meta\MetaGeneratorInterface;
+use Lighthouse\CoreBundle\Meta\MetaCollection;
+use Lighthouse\CoreBundle\Meta\MetaDocument;
+use Lighthouse\CoreBundle\Meta\MetaGeneratorInterface;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class MetaContainerTest extends WebTestCase
@@ -37,7 +37,7 @@ class MetaContainerTest extends WebTestCase
         $productsData = $this->getProductsData();
 
         $mockMetaGenerator = $this->getMock(
-            '\Lighthouse\CoreBundle\Document\Meta\MetaGeneratorInterface'
+            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
         );
 
         $productsMeta = array(
@@ -116,11 +116,11 @@ class MetaContainerTest extends WebTestCase
         $products = $this->createProductsBySku(array('1', '2', '3'));
 
         $mockMetaGeneratorOne = $this->getMock(
-            '\Lighthouse\CoreBundle\Document\Meta\MetaGeneratorInterface'
+            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
         );
 
         $mockMetaGeneratorTwo = $this->getMock(
-            '\Lighthouse\CoreBundle\Document\Meta\MetaGeneratorInterface'
+            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
         );
 
         $returnMetaGeneratorOne = array(
@@ -259,7 +259,6 @@ class MetaContainerTest extends WebTestCase
             ),
         );
 
-        $productRepository = $this->getContainer()->get('lighthouse.core.document.repository.product');
         for ($key = 1; $key < count($productsData) + 1; $key++) {
             $productsData[$key]['id'] = $this->createProduct($productsData[$key], $productsData[$key]['subCategory']);
         }

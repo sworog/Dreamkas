@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Serializer;
 
-use Lighthouse\CoreBundle\Document\Meta\MetaCollection;
+use Lighthouse\CoreBundle\Meta\MetaCollection;
 use Lighthouse\CoreBundle\Serializer\Handler\CollectionHandler;
 use Lighthouse\CoreBundle\Serializer\Handler\MoneyHandler;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;

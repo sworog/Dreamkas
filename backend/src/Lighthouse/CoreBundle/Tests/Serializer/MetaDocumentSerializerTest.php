@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Serializer;
 
-use Lighthouse\CoreBundle\Document\Meta\MetaDocument;
+use Lighthouse\CoreBundle\Meta\MetaDocument;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\Test;
 use JMS\Serializer\Serializer;

@@ -1,13 +1,14 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Meta;
+namespace Lighthouse\CoreBundle\Meta;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\AbstractCollection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\Meta\MetaGeneratorInterface;
+use Lighthouse\CoreBundle\Meta\MetaDocument;
+use Lighthouse\CoreBundle\Meta\MetaGeneratorInterface;
 use ArrayIterator;
 
 class MetaCollection extends AbstractCollection
