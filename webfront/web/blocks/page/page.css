@@ -96,3 +96,7 @@
 .page__controlsLink{
     padding: 0 5px;
 }
+
+.page__highlighted{
+    background: #ffff99;
+}

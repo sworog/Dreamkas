@@ -1,14 +1,16 @@
 <div class="invoice__title invoice__dataRow">
-    Накладная
-    <span class="invoice__editable">
-        №
-        <span name="sku" model-attr="sku">
-            <%- invoiceModel.get('sku') %>
+    <span class="<%- invoiceModel.get('_meta.highlights.sku') ? 'page__highlighted' : '' %>">
+        Накладная
+        <span class="invoice__editable">
+            №
+            <span name="sku" model-attr="sku">
+                <%- invoiceModel.get('sku') %>
+            </span>
         </span>
-    </span>
-    от
-    <span name="acceptanceDate" class="invoice__editable" model-attr="acceptanceDate">
-        <%- moment(invoiceModel.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
+        от
+        <span name="acceptanceDate" class="invoice__editable" model-attr="acceptanceDate">
+            <%- moment(invoiceModel.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
+        </span>
     </span>
 </div>
 
@@ -40,16 +42,17 @@
         </div>
     </div>
 </div>
-<div class="invoice__dataRow invoice__supplier
-    <%- (!invoiceModel.get('supplierInvoiceSku') && !invoiceModel.get('supplierInvoiceDate')) ? 'invoice__hiddenData':'' %>">
-    Входящая накладная
-    <span class="invoice__editable <%- (!invoiceModel.get('supplierInvoiceSku')) ? 'invoice__hiddenData':'' %>">
-        №
-        <span name="supplierInvoiceSku" model-attr="supplierInvoiceSku"><%- invoiceModel.get('supplierInvoiceSku') ? invoiceModel.get('supplierInvoiceSku') : 'Ввести номер' %></span>
-    </span>
-    <span class="<%- (!invoiceModel.get('supplierInvoiceDate')) ? 'invoice__hiddenData' : '' %>">
-        от <span name="supplierInvoiceDate" class="invoice__editable" model-attr="supplierInvoiceDate">
-            <%- invoiceModel.get('supplierInvoiceDate') ? moment(invoiceModel.get('supplierInvoiceDate')).format('DD.MM.YYYY') : 'Ввести дату' %>
+<div class="invoice__dataRow invoice__supplier <%- (!invoiceModel.get('supplierInvoiceSku') && !invoiceModel.get('supplierInvoiceDate')) ? 'invoice__hiddenData' : '' %>">
+    <span class="<%- invoiceModel.get('_meta.highlights.supplierInvoiceSku') ? 'page__highlighted' : '' %>">
+        Входящая накладная
+        <span class="invoice__editable <%- (!invoiceModel.get('supplierInvoiceSku')) ? 'invoice__hiddenData':'' %>">
+            №
+            <span name="supplierInvoiceSku" model-attr="supplierInvoiceSku"><%- invoiceModel.get('supplierInvoiceSku') ? invoiceModel.get('supplierInvoiceSku') : 'Ввести номер' %></span>
+        </span>
+        <span class="<%- (!invoiceModel.get('supplierInvoiceDate')) ? 'invoice__hiddenData' : '' %>">
+            от <span name="supplierInvoiceDate" class="invoice__editable" model-attr="supplierInvoiceDate">
+                <%- invoiceModel.get('supplierInvoiceDate') ? moment(invoiceModel.get('supplierInvoiceDate')).format('DD.MM.YYYY') : 'Ввести дату' %>
+            </span>
         </span>
     </span>
 </div>
