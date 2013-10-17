@@ -2,10 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
+use JMS\Serializer\Annotation as Serializer;
+
 abstract class AbstractDocument
 {
-    protected $meta = array();
-
     /**
      * @return string
      */
@@ -54,21 +54,5 @@ abstract class AbstractDocument
         }
 
         return $this;
-    }
-
-    /**
-     * @param array $meta
-     */
-    public function setMeta(array $meta)
-    {
-        $this->meta = $meta;
-    }
-
-    /**
-     * @param array $meta
-     */
-    public function addMeta(array $meta)
-    {
-        $this->meta += $meta;
     }
 }
