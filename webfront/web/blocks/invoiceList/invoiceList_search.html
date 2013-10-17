@@ -9,7 +9,7 @@
 <h3>Накладная нашлась!</h3>
 <% } %>
 <% if (invoicesCollection.length > 1) { %>
-<h3>Накладная нашлась! Да не одна, а целых <%- invoicesCollection.length %>!</h3>
+<h3>Нашлось <%- invoicesCollection.length %> накладных!</h3>
 <% } %>
 <% if (invoicesCollection.length) { %>
 <%= invoiceList({
