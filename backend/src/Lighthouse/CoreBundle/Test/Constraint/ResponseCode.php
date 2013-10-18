@@ -51,6 +51,10 @@ class ResponseCode extends \PHPUnit_Framework_Constraint
 
         if (!empty($this->responseBody)) {
             $description.= "\nResponse body: ". $this->responseBody;
+            $json = json_decode($this->responseBody, true);
+            if (JSON_ERROR_NONE === json_last_error()) {
+                $description.= "\nJSON: " . var_export($json, true);
+            }
         }
 
         return $description;
