@@ -55,11 +55,7 @@ public class InvoiceSearchPage extends CommonPageObject {
     }
 
     public void searchResultClick(String sku) {
-        waiter.getVisibleWebElement(
-                By.xpath(
-                        String.format("//*[@class='invoiceList__item' and @sku='%s']", sku)
-                )
-        ).click();
+        getInvoiceSearchObjectHashMap().get(sku).click();
     }
 
     public List<String> getHighlightTexts() {

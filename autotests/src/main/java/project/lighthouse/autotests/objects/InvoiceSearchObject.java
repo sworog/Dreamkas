@@ -16,15 +16,17 @@ public class InvoiceSearchObject {
     private String legalEntity;
     private String supplierInvoiceSku;
     private String supplierInvoiceDate;
+    private WebElement element;
 
     private InvoiceSearchObject(WebDriver driver) {
         this.driver = driver;
         waiter = new Waiter(driver, 1);
     }
 
-    public InvoiceSearchObject(WebDriver driver, WebElement webElement) {
+    public InvoiceSearchObject(WebDriver driver, WebElement element) {
         this(driver);
-        setInvoiceProperties(webElement);
+        this.element = element;
+        setInvoiceProperties(element);
     }
 
     public String getSku() {
@@ -69,5 +71,9 @@ public class InvoiceSearchObject {
         if (!waiter.invisibilityOfElementLocated(By.name("supplierInvoiceDate"))) {
             this.supplierInvoiceDate = webElement.findElement(By.name("supplierInvoiceDate")).getText();
         }
+    }
+
+    public void click() {
+        element.click();
     }
 }
