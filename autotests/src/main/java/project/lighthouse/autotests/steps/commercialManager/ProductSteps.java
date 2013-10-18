@@ -12,6 +12,7 @@ import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.product.*;
+import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductInvoicesList;
 
 import java.io.IOException;
 
@@ -24,6 +25,8 @@ public class ProductSteps extends ScenarioSteps {
     CommonPage commonPage;
     ProductApi productApi;
     CatalogApi catalogApi;
+    ProductLocalNavigation productLocalNavigation;
+    ProductInvoicesList productInvoicesList;
 
     public ProductSteps(Pages pages) {
         super(pages);
@@ -203,5 +206,15 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void checkDropDownDefaultValue(String expectedValue) {
         productCreatePage.checkDropDownDefaultValue(expectedValue);
+    }
+
+    @Step
+    public void productInvoicesLinkClick() {
+        productLocalNavigation.productInvoicesLinkClick();
+    }
+
+    @Step
+    public void checkProductInvoiceListObject(ExamplesTable examplesTable) {
+        productInvoicesList.getProductInvoiceListObjects().compareWithExampleTable(examplesTable);
     }
 }

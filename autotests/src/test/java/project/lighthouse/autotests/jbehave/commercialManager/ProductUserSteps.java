@@ -275,4 +275,14 @@ public class ProductUserSteps {
     public void thenTheUserChecksTheProductRounding(String value) {
         productSteps.checkDropDownDefaultValue(value);
     }
+
+    @When("the user clicks the product local navigation invoices link")
+    public void whenTheUSerClicksTheProductLocalNavigationInvoicesLink() {
+        productSteps.productInvoicesLinkClick();
+    }
+
+    @Then("the user checks the product invoices list contains entry $examplesTable")
+    public void thenTheUserChecksTheProductInvoicesListContainsEntry(ExamplesTable examplesTable) {
+        productSteps.checkProductInvoiceListObject(examplesTable);
+    }
 }
