@@ -431,8 +431,8 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($categoryId1, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($categoryId2, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($categoryId3, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId4, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($categoryId5, '*.id', $getResponse, false);
+        Assert::assertNotJsonPathEquals($categoryId4, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($categoryId5, '*.id', $getResponse);
 
 
         $getResponse = $this->clientJsonRequest(
@@ -446,9 +446,9 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
         Assert::assertJsonPathEquals($categoryId4, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($categoryId5, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId1, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($categoryId2, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($categoryId3, '*.id', $getResponse, false);
+        Assert::assertNotJsonPathEquals($categoryId1, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($categoryId2, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($categoryId3, '*.id', $getResponse);
     }
 
     public function testGetCategoriesNotFound()

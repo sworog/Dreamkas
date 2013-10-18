@@ -303,8 +303,8 @@ class DepartmentControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($departmentId1, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($departmentId2, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($departmentId3, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($departmentId4, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($departmentId5, '*.id', $getResponse, false);
+        Assert::assertNotJsonPathEquals($departmentId4, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($departmentId5, '*.id', $getResponse);
 
 
         $getResponse = $this->clientJsonRequest(
@@ -318,9 +318,9 @@ class DepartmentControllerTest extends WebTestCase
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
         Assert::assertJsonPathEquals($departmentId4, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($departmentId5, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($departmentId1, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($departmentId2, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($departmentId3, '*.id', $getResponse, false);
+        Assert::assertNotJsonPathEquals($departmentId1, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($departmentId2, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($departmentId3, '*.id', $getResponse);
     }
 
     public function testGetDepartmentsNotFound()

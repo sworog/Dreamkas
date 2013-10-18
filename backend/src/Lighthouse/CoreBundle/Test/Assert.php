@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Test;
 use Lighthouse\CoreBundle\Test\Constraint\ResponseCode;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Response;
+use PHPUnit_Framework_Assert;
 
 class Assert
 {
@@ -15,7 +16,7 @@ class Assert
      */
     public static function assertResponseCode($expectedCode, $actual, $message = '')
     {
-        \PHPUnit_Framework_Assert::assertThat(
+        PHPUnit_Framework_Assert::assertThat(
             $expectedCode,
             new ResponseCode($actual),
             $message
@@ -37,7 +38,7 @@ class Assert
         $notFoundValues = array();
         foreach ($values as $value) {
             try {
-                \PHPUnit_Framework_Assert::assertEquals($expected, $value, $message);
+                PHPUnit_Framework_Assert::assertEquals($expected, $value, $message);
                 $found++;
             } catch (\PHPUnit_Framework_ExpectationFailedException $e) {
                 $notFoundValues[] = \PHPUnit_Util_Type::export($value);
@@ -61,7 +62,18 @@ class Assert
             );
         }
 
-        \PHPUnit_Framework_Assert::assertTrue($result, $message);
+        PHPUnit_Framework_Assert::assertTrue($result, $message);
+    }
+
+    /**
+     * @param $expected
+     * @param $path
+     * @param $json
+     * @param string $message
+     */
+    public static function assertNotJsonPathEquals($expected, $path, $json, $message = '')
+    {
+        static::assertJsonPathEquals($expected, $path, $json, false, $message);
     }
 
     /**
@@ -75,7 +87,7 @@ class Assert
     {
         $jsonPath = new JsonPath($json, $path);
         $values = $jsonPath->getValues();
-        \PHPUnit_Framework_Assert::assertEquals($expected, $values, $message, 0, 10, $canonicalize);
+        PHPUnit_Framework_Assert::assertEquals($expected, $values, $message, 0, 10, $canonicalize);
     }
 
     /**
@@ -118,7 +130,7 @@ class Assert
             );
         }
 
-        \PHPUnit_Framework_Assert::assertTrue($result, $message);
+        PHPUnit_Framework_Assert::assertTrue($result, $message);
     }
 
     /**
@@ -133,7 +145,7 @@ class Assert
         }
         $jsonPath = new JsonPath($json, $path);
         $found = $jsonPath->isFound();
-        \PHPUnit_Framework_Assert::assertTrue($found, $message);
+        PHPUnit_Framework_Assert::assertTrue($found, $message);
     }
 
     /**
@@ -148,7 +160,7 @@ class Assert
         }
         $jsonPath = new JsonPath($json, $path);
         $found = $jsonPath->isFound();
-        \PHPUnit_Framework_Assert::assertFalse($found, $message);
+        PHPUnit_Framework_Assert::assertFalse($found, $message);
     }
 
     /**
@@ -166,6 +178,6 @@ class Assert
             $message = sprintf("JSON path '%s' actual size %d matches expected size %d", $path, $actual, $expected);
         }
 
-        \PHPUnit_Framework_Assert::assertEquals($expected, $actual, $message);
+        PHPUnit_Framework_Assert::assertEquals($expected, $actual, $message);
     }
 }

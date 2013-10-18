@@ -298,8 +298,8 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, 1);
         Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, 1);
         Assert::assertJsonPathEquals($storeUser3->id, '*.id', $managersJson, 1);
-        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($depUser1->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
 
         $this->linkStoreManagers($storeId1, $storeUser1->id);
 
@@ -314,11 +314,11 @@ class StoreControllerManagementTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(2, '*.id', $managersJson);
-        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($storeUser1->id, '*.id', $managersJson);
         Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, 1);
         Assert::assertJsonPathEquals($storeUser3->id, '*.id', $managersJson, 1);
-        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($depUser1->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
 
         //
         $storeId2 = $this->createStore('43');
@@ -336,11 +336,11 @@ class StoreControllerManagementTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(1, '*.id', $managersJson);
-        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($storeUser1->id, '*.id', $managersJson);
         Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, 1);
-        Assert::assertJsonPathEquals($storeUser3->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($storeUser3->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($depUser1->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
 
         // Check that second store has same candidates
         $managersJson = $this->clientJsonRequest(
@@ -354,11 +354,11 @@ class StoreControllerManagementTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(1, '*.id', $managersJson);
-        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($storeUser1->id, '*.id', $managersJson);
         Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, 1);
-        Assert::assertJsonPathEquals($storeUser3->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($storeUser3->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($depUser1->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
 
         //
         $this->linkStoreManagers($storeId2, $storeUser2->id);
@@ -711,8 +711,8 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, 1);
         Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, 1);
         Assert::assertJsonPathEquals($depUser3->id, '*.id', $managersJson, 1);
-        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($storeUser1->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($storeUser2->id, '*.id', $managersJson);
 
         $this->linkDepartmentManagers($storeId1, $depUser1->id);
 
@@ -727,11 +727,11 @@ class StoreControllerManagementTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(2, '*.id', $managersJson);
-        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($depUser1->id, '*.id', $managersJson);
         Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, 1);
         Assert::assertJsonPathEquals($depUser3->id, '*.id', $managersJson, 1);
-        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($storeUser1->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($storeUser2->id, '*.id', $managersJson);
 
         //
         $storeId2 = $this->createStore('43');
@@ -749,11 +749,11 @@ class StoreControllerManagementTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(1, '*.id', $managersJson);
-        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($depUser1->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
         Assert::assertJsonPathEquals($depUser3->id, '*.id', $managersJson, 1);
-        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($storeUser1->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($storeUser2->id, '*.id', $managersJson);
 
         // Check that second store has same candidates
         $managersJson = $this->clientJsonRequest(
@@ -767,11 +767,11 @@ class StoreControllerManagementTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(1, '*.id', $managersJson);
-        Assert::assertJsonPathEquals($depUser1->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($depUser2->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($depUser1->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
         Assert::assertJsonPathEquals($depUser3->id, '*.id', $managersJson, 1);
-        Assert::assertJsonPathEquals($storeUser1->id, '*.id', $managersJson, false);
-        Assert::assertJsonPathEquals($storeUser2->id, '*.id', $managersJson, false);
+        Assert::assertNotJsonPathEquals($storeUser1->id, '*.id', $managersJson);
+        Assert::assertNotJsonPathEquals($storeUser2->id, '*.id', $managersJson);
 
         //
         $this->linkDepartmentManagers($storeId2, $depUser3->id);

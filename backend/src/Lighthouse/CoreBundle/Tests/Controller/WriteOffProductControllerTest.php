@@ -627,8 +627,8 @@ class WriteOffProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($writeOffProduct1, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($writeOffProduct2, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($writeOffProduct3, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($writeOffProduct4, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($writeOffProduct5, '*.id', $getResponse, false);
+        Assert::assertNotJsonPathEquals($writeOffProduct4, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($writeOffProduct5, '*.id', $getResponse);
 
         $request = new JsonRequest('/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId2 . '/products');
         $getResponse = $this->jsonRequest($request, $accessToken);
@@ -638,9 +638,9 @@ class WriteOffProductControllerTest extends WebTestCase
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
         Assert::assertJsonPathEquals($writeOffProduct4, '*.id', $getResponse, 1);
         Assert::assertJsonPathEquals($writeOffProduct5, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($writeOffProduct1, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($writeOffProduct2, '*.id', $getResponse, false);
-        Assert::assertJsonPathEquals($writeOffProduct3, '*.id', $getResponse, false);
+        Assert::assertNotJsonPathEquals($writeOffProduct1, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($writeOffProduct2, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($writeOffProduct3, '*.id', $getResponse);
     }
 
     public function testGetWriteOffProductsActionNotFound()
