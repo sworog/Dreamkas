@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects;
+package project.lighthouse.autotests.objects.api;
 
 import org.json.JSONArray;
 import org.json.JSONException;

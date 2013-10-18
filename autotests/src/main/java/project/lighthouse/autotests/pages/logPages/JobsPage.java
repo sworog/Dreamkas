@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.objects.JobLogObject;
+import project.lighthouse.autotests.objects.log.JobLogObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +33,7 @@ public class JobsPage extends CommonPageObject {
         List<WebElement> logMessageWebElements = getJobLogMessageWebElements();
         List<JobLogObject> logMessages = new ArrayList<>();
         for (WebElement logMessageWebElement : logMessageWebElements) {
-            String id = logMessageWebElement.getAttribute("id");
-            String type = logMessageWebElement.getAttribute("type");
-            String status = logMessageWebElement.getAttribute("status");
-            String title = logMessageWebElement.findElement(By.xpath("//*[@class='jobs__title']")).getText();
-            String product = null;
-            if (isElementVisible(By.xpath("//*[@class='jobs__productName']"))) {
-                product = logMessageWebElement.findElement(By.xpath("//*[@class='jobs__productName']")).getText();
-            }
-            String statusText = logMessageWebElement.findElement(By.xpath("//*[@class='jobs__status']")).getText();
-            JobLogObject jobLogObject = new JobLogObject(id, type, status, title, product, statusText);
+            JobLogObject jobLogObject = new JobLogObject(getDriver(), logMessageWebElement);
             logMessages.add(jobLogObject);
         }
         return logMessages;

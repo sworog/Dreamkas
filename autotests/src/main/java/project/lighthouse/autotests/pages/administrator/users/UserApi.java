@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.administrator.users;
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.objects.User;
+import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.pages.administrator.api.AdministratorApi;
 
 import java.io.IOException;

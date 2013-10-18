@@ -7,9 +7,9 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
-import project.lighthouse.autotests.objects.Category;
-import project.lighthouse.autotests.objects.Group;
-import project.lighthouse.autotests.objects.SubCategory;
+import project.lighthouse.autotests.objects.api.Category;
+import project.lighthouse.autotests.objects.api.Group;
+import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.product.*;
 

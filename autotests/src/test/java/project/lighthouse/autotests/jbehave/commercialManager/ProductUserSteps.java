@@ -7,8 +7,8 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.objects.Category;
-import project.lighthouse.autotests.objects.Group;
+import project.lighthouse.autotests.objects.api.Category;
+import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
 
 import java.io.IOException;

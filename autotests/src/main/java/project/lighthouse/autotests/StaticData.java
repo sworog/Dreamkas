@@ -1,6 +1,6 @@
 package project.lighthouse.autotests;
 
-import project.lighthouse.autotests.objects.*;
+import project.lighthouse.autotests.objects.api.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

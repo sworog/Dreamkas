@@ -5,7 +5,7 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
-import project.lighthouse.autotests.objects.Store;
+import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.pages.commercialManager.catalog.*;
 
 import java.io.IOException;

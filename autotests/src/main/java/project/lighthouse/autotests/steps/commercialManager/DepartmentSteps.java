@@ -6,8 +6,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.objects.Department;
-import project.lighthouse.autotests.objects.Store;
+import project.lighthouse.autotests.objects.api.Department;
 import project.lighthouse.autotests.pages.commercialManager.department.DepartmentApi;
 import project.lighthouse.autotests.pages.commercialManager.department.DepartmentCardPage;
 import project.lighthouse.autotests.pages.commercialManager.department.DepartmentCreatePage;
@@ -43,14 +42,14 @@ public class DepartmentSteps extends ScenarioSteps {
 
     @Step
     public void checkDepartmentDataInList(ExamplesTable departmentData) {
-        for (Map<String,String> column : departmentData.getRows()) {
+        for (Map<String, String> column : departmentData.getRows()) {
             storeCardPage.findModelFieldContaining("department", column.get("elementName"), column.get("value"));
         }
     }
 
     @Step
     public void checkDepartmentDataInCard(ExamplesTable departmentData) {
-        for (Map<String,String> column : departmentData.getRows()) {
+        for (Map<String, String> column : departmentData.getRows()) {
             departmentCardPage.findModelFieldContaining("department", column.get("elementName"), column.get("value"));
         }
     }
@@ -72,7 +71,7 @@ public class DepartmentSteps extends ScenarioSteps {
     }
 
     @Step
-    public void navigateToDepartmentPage(String departmentId, String storeId){
+    public void navigateToDepartmentPage(String departmentId, String storeId) {
         departmentCardPage.navigateToDepartmentCardPage(departmentId, storeId);
     }
 

@@ -3,10 +3,10 @@ package project.lighthouse.autotests.pages.commercialManager.catalog;
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.objects.Category;
-import project.lighthouse.autotests.objects.Group;
-import project.lighthouse.autotests.objects.Store;
-import project.lighthouse.autotests.objects.SubCategory;
+import project.lighthouse.autotests.objects.api.Category;
+import project.lighthouse.autotests.objects.api.Group;
+import project.lighthouse.autotests.objects.api.Store;
+import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.pages.commercialManager.api.CommercialManagerApi;
 
 import java.io.IOException;

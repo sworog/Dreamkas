@@ -3,8 +3,8 @@ package project.lighthouse.autotests.pages.commercialManager.department;
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.objects.Department;
-import project.lighthouse.autotests.objects.Store;
+import project.lighthouse.autotests.objects.api.Department;
+import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.pages.commercialManager.api.CommercialManagerApi;
 
 import java.io.IOException;

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.UrlHelper;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.SelectByVisibleText;
-import project.lighthouse.autotests.objects.Store;
+import project.lighthouse.autotests.objects.api.Store;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;

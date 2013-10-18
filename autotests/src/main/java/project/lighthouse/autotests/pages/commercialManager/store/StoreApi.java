@@ -2,7 +2,7 @@ package project.lighthouse.autotests.pages.commercialManager.store;
 
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.objects.Store;
+import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.pages.commercialManager.api.CommercialManagerApi;
 
 import java.io.IOException;

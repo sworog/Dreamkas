@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.objects.SimpleLogObject;
+import project.lighthouse.autotests.objects.log.SimpleLogObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +24,9 @@ public class LogPage extends CommonPageObject {
     }
 
     public List<SimpleLogObject> getSimpleLogMessages() {
-        List<WebElement> logMessageWebElements = getSimpleLogMessageWebElements();
         List<SimpleLogObject> logMessages = new ArrayList<>();
-        for (WebElement logMessageWebElement : logMessageWebElements) {
-            String message = logMessageWebElement.findElement(By.xpath("//*[@class='log__finalMessage']")).getText();
-            SimpleLogObject simpleLogObject = new SimpleLogObject(message);
+        for (WebElement logMessageWebElement : getSimpleLogMessageWebElements()) {
+            SimpleLogObject simpleLogObject = new SimpleLogObject(getDriver(), logMessageWebElement);
             logMessages.add(simpleLogObject);
         }
         return logMessages;
