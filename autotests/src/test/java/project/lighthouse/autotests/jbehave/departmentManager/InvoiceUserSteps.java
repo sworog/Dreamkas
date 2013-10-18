@@ -26,6 +26,8 @@ public class InvoiceUserSteps {
     @Steps
     UserSteps userSteps;
 
+    private ExamplesTable examplesTable;
+
     @Given("there is the invoice '$invoiceSku' with product '$productName' name, '$productSku' sku, '$productBarCode' barcode, '$productUnits' units")
     public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
         invoiceSteps.createInvoiceThroughPostWithData(invoiceSku, productName, productSku, productBarCode, productUnits);
@@ -39,6 +41,12 @@ public class InvoiceUserSteps {
     @Given("there is the invoice with sku '$sku' in the store with number '$number' ruled by department manager with name '$userName'")
     public void givenThereIsTheInvoiceInTheStore(String sku, String number, String userName) throws IOException, JSONException {
         invoiceSteps.createInvoiceThroughPost(sku, number, userName);
+    }
+
+    @Given("there is the invoice in the store with number '$number' ruled by department manager with name '$userName' with values $exampleTable")
+    public void givenThereIsTheInvoiceInTheStoreWithValues(String number, String userName, ExamplesTable examplesTable) throws IOException, JSONException {
+        invoiceSteps.createInvoiceThroughPost(number, userName, examplesTable);
+        this.examplesTable = examplesTable;
     }
 
     @Given("the user is on the invoice create page")
@@ -246,4 +254,49 @@ public class InvoiceUserSteps {
         invoiceSteps.checkItemIsNotPresent(elementName);
     }
 
+    //Search objects
+    @When("the user searches invoice by sku or supplier sku '$value'")
+    public void whenTheUserSearchesInvoices(String value) {
+        invoiceSteps.searchInput(value);
+    }
+
+    @When("the user clicks the invoice search buttton and starts the search")
+    public void whenTheUserClicksTheInvoiceSearhButton() {
+        invoiceSteps.searchButtonClick();
+    }
+
+    @When("the user clicks the local navigation invoice search link")
+    public void whenTheUserClicksTheLocalNavigationInvoiceSearchLink() {
+        invoiceSteps.searchLinkClick();
+    }
+
+    @Then("the user checks the invoice with sku '$sku' in search results")
+    public void thenTheUserChecksTheInvoiceInSearchResults(String sku) {
+        invoiceSteps.checkHasInvoice(sku);
+    }
+
+    @Then("the user checks the invoice with sku '$sku' in search results has values $examplesTable")
+    public void thenTheUserChekcsTheInvoiceWithSkuHasValues(String sku, ExamplesTable examplesTable) {
+        invoiceSteps.checkInvoiceProperties(sku, examplesTable);
+    }
+
+    @Then("the user checks the invoice with sku '$sku' in search results with stored values")
+    public void thenTheUserChekcsTheInvoiceWithStoredValues(String sku) {
+        invoiceSteps.checkInvoiceProperties(sku, examplesTable);
+    }
+
+    @Then("the user checks the form results text is '$text'")
+    public void thenTheUserChecksTheFormREsultText(String text) {
+        invoiceSteps.checkFormResultsText(text);
+    }
+
+    @When("the user clicks on the search result invoice with sku '$sku'")
+    public void whenTheUserClickOnTheSearchResultInvoice(String sku) {
+        invoiceSteps.searchResultClick(sku);
+    }
+
+    @Then("the user checks the highlighted text is '$expectedHighlightedText'")
+    public void thenTheUserChecksTheHighLightedText(String expectedHighlightedText) {
+        invoiceSteps.checkHighlightsText(expectedHighlightedText);
+    }
 }

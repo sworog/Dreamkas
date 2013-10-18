@@ -59,4 +59,12 @@ public class Waiter {
         }
         return null;
     }
+
+    public Boolean invisibilityOfElementLocated(By findBy) {
+        try {
+            return waiter.until(ExpectedConditions.invisibilityOfElementLocated(findBy));
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

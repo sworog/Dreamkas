@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.steps.departmentManager;
 
+import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -7,13 +8,12 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.DateTime;
+import project.lighthouse.autotests.objects.InvoiceSearchObject;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductApi;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceApi;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrowsing;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceCreatePage;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceListPage;
+import project.lighthouse.autotests.pages.departmentManager.invoice.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class InvoiceSteps extends ScenarioSteps {
 
@@ -23,6 +23,9 @@ public class InvoiceSteps extends ScenarioSteps {
     InvoiceApi invoiceApi;
     ProductApi productApi;
     CommonPage commonPage;
+
+    InvoiceSearchPage invoiceSearchPage;
+    InvoiceLocalNavigation invoiceLocalNavigation;
 
     public InvoiceSteps(Pages pages) {
         super(pages);
@@ -42,6 +45,11 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void createInvoiceThroughPost(String invoiceName, String storeName, String userName) throws IOException, JSONException {
         invoiceApi.createInvoiceThroughPost(invoiceName, storeName, userName);
+    }
+
+    @Step
+    public void createInvoiceThroughPost(String storeName, String userName, ExamplesTable examplesTable) throws IOException, JSONException {
+        invoiceApi.createInvoiceThroughPost(storeName, userName, examplesTable);
     }
 
     @Step
@@ -213,5 +221,86 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void checkItemIsNotPresent(String elementName) {
         invoiceBrowsing.checkItemIsNotPresent(elementName);
+    }
+
+    @Step
+    public void searchInput(String searchInput) {
+        invoiceSearchPage.input("skuOrSupplierInvoiceSku", searchInput);
+    }
+
+    @Step
+    public void searchButtonClick() {
+        invoiceSearchPage.searchButtonClick();
+    }
+
+    @Step
+    public void searchLinkClick() {
+        invoiceLocalNavigation.searchLinkClick();
+    }
+
+    @Step
+    public void checkFormResultsText(String text) {
+        Assert.assertEquals(text, invoiceSearchPage.getFormResultsText());
+    }
+
+    @Step
+    public void checkHasInvoice(String sku) {
+        if (!invoiceSearchPage.getInvoiceSearchObjectHashMap().containsKey(sku)) {
+            Assert.fail(String.format("There is no invoice with such sku '%s'", sku));
+        }
+    }
+
+    @Step
+    public void checkInvoiceProperties(String sku, ExamplesTable examplesTable) {
+        InvoiceSearchObject invoiceSearchObject = invoiceSearchPage.getInvoiceSearchObjectHashMap().get(sku);
+        for (Map<String, String> row : examplesTable.getRows()) {
+            String elementName = row.get("elementName");
+            String elementValue = row.get("elementValue");
+            switch (elementName) {
+                case "sku":
+                    Assert.assertEquals(elementValue, invoiceSearchObject.getSku());
+                    break;
+                case "acceptanceDate":
+                    Assert.assertEquals(elementValue, invoiceSearchObject.getAcceptanceDate());
+                    break;
+                case "supplier":
+                    Assert.assertEquals(elementValue, invoiceSearchObject.getSupplier());
+                    break;
+                case "accepter":
+                    Assert.assertEquals(elementValue, invoiceSearchObject.getAccepter());
+                    break;
+                case "legalEntity":
+                    Assert.assertEquals(elementValue, invoiceSearchObject.getLegalEntity());
+                    break;
+                case "supplierInvoiceSku":
+                    Assert.assertEquals(elementValue, invoiceSearchObject.getSupplierInvoiceSku());
+                    break;
+                case "supplierInvoiceDate":
+                    Assert.assertEquals(elementValue, invoiceSearchObject.getSupplierInvoiceDate());
+                    break;
+                default:
+                    Assert.fail(String.format("No such elementName '%s'", elementName));
+                    break;
+            }
+        }
+    }
+
+    @Step
+    public void searchResultClick(String sku) {
+        invoiceSearchPage.searchResultClick(sku);
+    }
+
+    @Step
+    public void checkHighlightsText(String expectedHighlightedText) {
+        Boolean isEqual = false;
+        for (String actualHighlightText : invoiceSearchPage.getHighlightTexts()) {
+            if (actualHighlightText.equals(expectedHighlightedText)) {
+                isEqual = true;
+            }
+        }
+        if (!isEqual) {
+            String errorMessage = String.format("Actual: '%s', Expected: '%s'", invoiceSearchPage.getHighlightTexts(), expectedHighlightedText);
+            Assert.fail(errorMessage);
+        }
     }
 }

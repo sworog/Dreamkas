@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
-import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
+import project.lighthouse.autotests.elements.Buttons.localNavigation.NavigationLinkFacade;
 
 @DefaultUrl("/invoices")
 public class InvoiceListPage extends InvoiceCreatePage {
@@ -19,7 +19,7 @@ public class InvoiceListPage extends InvoiceCreatePage {
     }
 
     public void invoiceListItemCreate() {
-        new ButtonFacade(getDriver(), "Новая накладная").click();
+        new NavigationLinkFacade(getDriver(), "Создать накладную").click();
     }
 
     public void listItemClick(String skuValue) {

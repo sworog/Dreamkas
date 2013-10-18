@@ -1,5 +1,7 @@
 package project.lighthouse.autotests.pages.departmentManager.invoice;
 
+import junit.framework.Assert;
+import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.ApiConnect;
@@ -14,6 +16,7 @@ import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
 import project.lighthouse.autotests.pages.departmentManager.api.DepartmentManagerApi;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class InvoiceApi extends DepartmentManagerApi {
 
@@ -34,6 +37,44 @@ public class InvoiceApi extends DepartmentManagerApi {
 
     public Invoice createInvoiceThroughPost(String invoiceName, String storeName, String userName) throws JSONException, IOException {
         Invoice invoice = new Invoice(invoiceName, "supplier", DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "accepter", "legalEntity", "", "");
+        String storeId = StaticData.stores.get(storeName).getId();
+        invoice.setStoreId(storeId);
+        return new ApiConnect(userName, "lighthouse").createInvoiceThroughPost(invoice);
+    }
+
+    public Invoice createInvoiceThroughPost(String storeName, String userName, ExamplesTable examplesTable) throws JSONException, IOException {
+        String sku = "", acceptanceDate = "", supplier = "", accepter = "", legalEntity = "", supplierInvoiceSku = "", supplierInvoiceDate = "";
+        for (Map<String, String> row : examplesTable.getRows()) {
+            String elementName = row.get("elementName");
+            String elementValue = row.get("elementValue");
+            switch (elementName) {
+                case "sku":
+                    sku = elementValue;
+                    break;
+                case "acceptanceDate":
+                    acceptanceDate = elementValue;
+                    break;
+                case "supplier":
+                    supplier = elementValue;
+                    break;
+                case "accepter":
+                    accepter = elementValue;
+                    break;
+                case "legalEntity":
+                    legalEntity = elementValue;
+                    break;
+                case "supplierInvoiceSku":
+                    supplierInvoiceSku = elementValue;
+                    break;
+                case "supplierInvoiceDate":
+                    supplierInvoiceDate = elementValue;
+                    break;
+                default:
+                    Assert.fail(String.format("No such elementName '%s'", elementName));
+                    break;
+            }
+        }
+        Invoice invoice = new Invoice(sku, supplier, acceptanceDate, accepter, legalEntity, supplierInvoiceSku, supplierInvoiceDate);
         String storeId = StaticData.stores.get(storeName).getId();
         invoice.setStoreId(storeId);
         return new ApiConnect(userName, "lighthouse").createInvoiceThroughPost(invoice);

@@ -18,7 +18,7 @@ public class SettingUserSteps {
     SettingSteps settingSteps;
 
     ExamplesTable valuesTable;
-    private Boolean isSet10ImportUrlSet;
+    private Boolean isSet10ImportUrlSet = false;
 
     @AfterStory
     public void afterStory() throws IOException, JSONException {
