@@ -26,6 +26,6 @@ class LogRepository extends DocumentRepository
      */
     public function findAll()
     {
-        return $this->findBy(array(), array('date' => -1));
+        return $this->findBy(array(), array('date' => self::SORT_DESC));
     }
 }

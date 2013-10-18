@@ -6,6 +6,9 @@ use Doctrine\ODM\MongoDB\DocumentRepository as BaseRepository;
 
 class DocumentRepository extends BaseRepository
 {
+    const SORT_ASC = 1;
+    const SORT_DESC = -1;
+
     /**
      * @return AbstractDocument
      */

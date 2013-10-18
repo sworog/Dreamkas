@@ -11,6 +11,6 @@ class JobRepository extends DocumentRepository
      */
     public function findAll()
     {
-        return $this->findBy(array(), array('dateCreated' => -1));
+        return $this->findBy(array(), array('dateCreated' => self::SORT_DESC));
     }
 }

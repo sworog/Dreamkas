@@ -15,7 +15,7 @@ class InvoiceRepository extends DocumentRepository
     public function findByStore($storeId, InvoicesFilter $filter)
     {
         $criteria = array('store' => $storeId);
-        $sort = array('acceptanceDate' => -1);
+        $sort = array('acceptanceDate' => self::SORT_DESC);
         if ($filter->hasSkuOrSupplierInvoiceSku()) {
             $criteria['$or'] = array(
                 array('sku' => $filter->getSkuOrSupplierInvoiceSku()),

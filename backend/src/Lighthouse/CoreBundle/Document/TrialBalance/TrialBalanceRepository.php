@@ -68,8 +68,8 @@ class TrialBalanceRepository extends DocumentRepository
         // Ugly hack to force document refresh
         $hints = array(Query::HINT_REFRESH => true);
         $sort = array(
-            'createdDate' => -1,
-            '_id' => -1,
+            'createdDate' => self::SORT_DESC,
+            '_id' => self::SORT_DESC,
         );
         return $this->uow->getDocumentPersister($this->documentName)->load($criteria, null, $hints, 0, $sort);
     }
@@ -85,8 +85,8 @@ class TrialBalanceRepository extends DocumentRepository
         // Ugly hack to force document refresh
         $hints = array(Query::HINT_REFRESH => true);
         $sort = array(
-            'createdDate' => -1,
-            '_id' => -1,
+            'createdDate' => self::SORT_DESC,
+            '_id' => self::SORT_DESC,
         );
         return $this->uow->getDocumentPersister($this->documentName)->load($criteria, null, $hints, 0, $sort);
     }
