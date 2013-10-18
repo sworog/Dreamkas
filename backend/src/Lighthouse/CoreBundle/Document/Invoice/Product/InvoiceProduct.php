@@ -63,6 +63,12 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $totalPrice;
 
     /**
+     * @MongoDB\Date
+     * @var \DateTime
+     */
+    protected $acceptanceDate;
+
+    /**
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Invoice\Invoice",
      *     simple=true
@@ -84,13 +90,38 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $product;
 
     /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
+     * @Serializer\Exclude
+     * @var Product
+     */
+    protected $originalProduct;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
+     * @Serializer\Exclude
+     * @var Store
+     */
+    protected $store;
+
+    /**
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */
-    public function updateTotalPrice()
+    public function beforeSave()
     {
         $this->totalPrice = new Money();
         $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
+        $this->acceptanceDate = $this->invoice->acceptanceDate;
+        $this->store = $this->invoice->store;
+        $this->originalProduct = $this->product->getObject();
     }
 
     /**

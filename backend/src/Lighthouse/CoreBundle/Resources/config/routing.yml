@@ -11,7 +11,7 @@ lighthouse.core.invoice:
     parent:   lighthouse.core.store
     type:     rest
 
-lighthouse.core.invoice.product:
+lighthouse.core.invoice_product:
     resource: Lighthouse\CoreBundle\Controller\InvoiceProductController
     parent:   lighthouse.core.invoice
     type:     rest
@@ -21,7 +21,7 @@ lighthouse.core.write-off:
     parent:   lighthouse.core.store
     type:     rest
 
-lighthouse.core.write-off.product:
+lighthouse.core.write-off_product:
     resource: Lighthouse\CoreBundle\Controller\WriteOffProductController
     parent:   lighthouse.core.write-off
     type:     rest

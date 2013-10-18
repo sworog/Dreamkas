@@ -916,7 +916,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productsData[0]['id'], '*.id', $getResponse);
         Assert::assertJsonPathEquals($productsData[2]['id'], '*.id', $getResponse);
 
-        Assert::assertJsonPathEquals($productsData[1]['id'], '*.id', $getResponse, false);
+        Assert::assertNotJsonPathEquals($productsData[1]['id'], '*.id', $getResponse);
     }
 
     public function testDeleteProductsActionUpdateAmountAndInvoiceTotals()
@@ -953,7 +953,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productsData[0]['id'], '*.id', $getResponse);
         Assert::assertJsonPathEquals($productsData[2]['id'], '*.id', $getResponse);
 
-        Assert::assertJsonPathEquals($productsData[1]['id'], '*.id', $getResponse, false);
+        Assert::assertNotJsonPathEquals($productsData[1]['id'], '*.id', $getResponse);
 
         $this->assertStoreProductTotals($this->storeId, $productId, 11, $productsData[2]['price']);
         $this->assertInvoiceTotals($invoiceId, 117.19, 2);
@@ -1352,5 +1352,53 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertEquals('Кефир 5%', $firstProduct->name);
         $this->assertEquals('Кефир 1%', $secondProduct->name);
+    }
+
+    public function testGetProductInvoiceProducts()
+    {
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
+        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'sku' => 'кефир_5%', 'purchasePrice' => 35.64));
+        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'sku' => 'кефир_0%', 'purchasePrice' => 42.15));
+
+        $invoiceId1 = $this->createInvoice(
+            array(
+                'sku' => 'MU-866',
+                'acceptanceDate' => '2013-10-18T09:39:47+0400'
+            ),
+            $this->storeId,
+            $this->departmentManager
+        );
+        $invoiceProductId11 = $this->createInvoiceProduct($invoiceId1, $productId1, 100, 36.70);
+        $invoiceProductId13 = $this->createInvoiceProduct($invoiceId1, $productId3, 20, 42.90);
+
+        $invoiceId2 = $this->createInvoice(
+            array(
+                'sku' => 'MU-864',
+                'acceptanceDate' => '2013-10-18T12:22:00+0400'
+            ),
+            $this->storeId,
+            $this->departmentManager
+        );
+        $invoiceProductId21 = $this->createInvoiceProduct($invoiceId2, $productId1, 120, 37.20);
+        $invoiceProductId22 = $this->createInvoiceProduct($invoiceId2, $productId2, 200, 35.80);
+
+        $accessToken = $this->factory->auth($this->departmentManager);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId1 . '/invoiceProducts'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($invoiceProductId13, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($invoiceProductId22, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($invoiceProductId11, '1.id', $getResponse);
+        Assert::assertJsonPathEquals($invoiceProductId21, '0.id', $getResponse);
+        Assert::assertJsonPathEquals($invoiceId1, '1.invoice.id', $getResponse);
+        Assert::assertJsonPathEquals($invoiceId2, '0.invoice.id', $getResponse);
+        Assert::assertNotJsonHasPath('*.store', $getResponse);
+        Assert::assertNotJsonHasPath('*.originalProduct', $getResponse);
     }
 }

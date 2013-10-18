@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\InvoiceProductType;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,6 +103,18 @@ class InvoiceProductController extends AbstractRestController
     {
         $this->checkInvoiceStore($invoice, $store);
         $invoiceProducts = $this->getDocumentRepository()->findByInvoice($invoice->id);
+        return new InvoiceProductCollection($invoiceProducts);
+    }
+
+    /**
+     * @param Store $store
+     * @param Product $product
+     * @return InvoiceProductCollection
+     * @Rest\Route("stores/{store}/products/{product}/invoiceProducts")
+     */
+    public function getProductInvoiceProductsAction(Store $store, Product $product)
+    {
+        $invoiceProducts = $this->documentRepository->findByStoreAndProduct($store->id, $product->id);
         return new InvoiceProductCollection($invoiceProducts);
     }
 
