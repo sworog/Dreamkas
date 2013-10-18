@@ -1,10 +1,10 @@
-<div class="page__header">
-    <a href="/catalog" class="page__backLink"><%- 'Товарный справочник' %></a>
-    <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%- productModel.subCategory.category.group.id %>" class="page__backLink"><%- productModel.subCategory.category.group.name %></a>
-    <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%- productModel.subCategory.category.group.id %>/<%= productModel.subCategory.category.id %>" class="page__backLink"><%- productModel.subCategory.category.name %></a>
-    <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%- productModel.subCategory.category.group.id %>/<%= productModel.subCategory.category.id %>/<%= productModel.subCategory.id %>" class="page__backLink"><%- productModel.subCategory.name %></a>
+<div class="localNavigation">
+    <a class="localNavigation__link localNavigation__link_active" href="/products/<%- productModel.id %>">Свойства</a>
+    <a class="localNavigation__link" href="/products/<%- productModel.id %>/invoices">Накладные</a>
 </div>
-<div id="product"></div>
+
+<div style="margin-left: 285px;">
+
+    <div id="product"></div>
+
+</div>

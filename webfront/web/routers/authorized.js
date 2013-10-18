@@ -30,6 +30,7 @@ define(function(require) {
             'products/edit/:productId(/)': require('pages/product/form'),
             'products/create(/)': require('pages/product/form'),
             'products/:productId(/)': require('pages/product/view'),
+            'products/:productId/invoices': require('pages/product/invoices'),
 
             //writeOffs
             'writeOffs(/)': require('pages/writeOff/list'),
