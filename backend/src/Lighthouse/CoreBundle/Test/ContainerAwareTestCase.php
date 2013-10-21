@@ -16,6 +16,21 @@ class ContainerAwareTestCase extends WebTestCase
      */
     protected static $appDebug = false;
 
+    /**
+     * @var bool
+     */
+    protected $_inIsolation = false;
+
+    /**
+     * @param bool $inIsolation
+     */
+    public function setInIsolation($inIsolation)
+    {
+        parent::setInIsolation($inIsolation);
+        $this->_inIsolation = $inIsolation;
+
+    }
+
     public static function setUpBeforeClass()
     {
         self::$appDebug = (boolean) getenv('SYMFONY_DEBUG') ?: false;
@@ -79,7 +94,9 @@ class ContainerAwareTestCase extends WebTestCase
      */
     protected function onNotSuccessfulTest(Exception $e)
     {
-        $e = SerializableException::factory($e);
+        if ($this->_inIsolation) {
+            $e = SerializableException::factory($e);
+        }
         parent::onNotSuccessfulTest($e);
     }
 }
