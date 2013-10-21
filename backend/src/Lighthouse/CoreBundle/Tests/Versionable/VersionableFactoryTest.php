@@ -14,31 +14,33 @@ use Lighthouse\CoreBundle\Versionable\VersionRepository;
 class VersionableFactoryTest extends ContainerAwareTestCase
 {
     /**
-     * @var DocumentManager
+     * @return VersionFactory
      */
-    protected $dm;
+    protected function getVersionFactory()
+    {
+        return $this->getContainer()->get('lighthouse.core.versionable.factory');
+    }
 
     /**
-     * @var VersionFactory
+     * @return DocumentManager
      */
-    protected $versionFactory;
-
-    protected function setUp()
+    protected function getDocumentManager()
     {
-        $this->versionFactory = $this->getContainer()->get('lighthouse.core.versionable.factory');
-        $this->dm = $this->getContainer()->get('doctrine_mongodb.odm.document_manager');
+        return $this->getContainer()->get('doctrine_mongodb.odm.document_manager');
     }
 
     public function testCreateVersionable()
     {
         $this->clearMongoDb();
 
+        $dm = $this->getDocumentManager();
+
         $product = $this->createProduct();
 
-        $this->dm->persist($product);
-        $this->dm->flush();
+        $dm->persist($product);
+        $dm->flush();
 
-        $productVersion = $this->versionFactory->createDocumentVersion($product);
+        $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
 
         $version = $productVersion->getVersion();
 
@@ -49,8 +51,8 @@ class VersionableFactoryTest extends ContainerAwareTestCase
         $this->assertNotNull($productVersion->getVersion());
         $this->assertSame($product, $productVersion->getObject());
 
-        $this->dm->persist($productVersion);
-        $this->dm->flush();
+        $dm->persist($productVersion);
+        $dm->flush();
 
         $this->assertEquals($version, $productVersion->getVersion());
     }
@@ -59,22 +61,24 @@ class VersionableFactoryTest extends ContainerAwareTestCase
     {
         $this->clearMongoDb();
 
+        $dm = $this->getDocumentManager();
+
         $product = $this->createProduct();
 
-        $this->dm->persist($product);
-        $this->dm->flush();
+        $dm->persist($product);
+        $dm->flush();
 
         /* @var VersionRepository $productVersionRepo */
         $productVersionRepo = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
         $productVersion = $productVersionRepo->findOrCreateByDocument($product);
 
-        $state = $this->dm->getUnitOfWork()->getDocumentState($productVersion);
+        $state = $dm->getUnitOfWork()->getDocumentState($productVersion);
         $this->assertEquals(UnitOfWork::STATE_NEW, $state);
 
-        $this->dm->persist($productVersion);
-        $this->dm->flush();
+        $dm->persist($productVersion);
+        $dm->flush();
 
-        $state = $this->dm->getUnitOfWork()->getDocumentState($productVersion);
+        $state = $dm->getUnitOfWork()->getDocumentState($productVersion);
         $this->assertEquals(UnitOfWork::STATE_MANAGED, $state);
 
         $foundProductVersion = $productVersionRepo->findOrCreateByDocument($product);

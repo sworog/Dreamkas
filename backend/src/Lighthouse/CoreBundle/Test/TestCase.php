@@ -2,10 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
-use PHPUnit_Framework_Exception;
 use PHPUnit_Framework_TestCase;
 use Exception;
-use PHPUnit_Util_InvalidArgumentHelper;
 
 class TestCase extends PHPUnit_Framework_TestCase
 {

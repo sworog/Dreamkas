@@ -21,16 +21,6 @@ class ContainerAwareTestCase extends WebTestCase
      */
     protected $_inIsolation = false;
 
-    /**
-     * @param bool $inIsolation
-     */
-    public function setInIsolation($inIsolation)
-    {
-        parent::setInIsolation($inIsolation);
-        $this->_inIsolation = $inIsolation;
-
-    }
-
     public static function setUpBeforeClass()
     {
         self::$appDebug = (boolean) getenv('SYMFONY_DEBUG') ?: false;
@@ -87,6 +77,15 @@ class ContainerAwareTestCase extends WebTestCase
     protected function getFixtureFilePath($filePath)
     {
         return __DIR__ . '/../Tests/Fixtures/' . $filePath;
+    }
+
+    /**
+     * @param bool $inIsolation
+     */
+    public function setInIsolation($inIsolation)
+    {
+        parent::setInIsolation($inIsolation);
+        $this->_inIsolation = $inIsolation;
     }
 
     /**
