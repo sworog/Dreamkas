@@ -10,6 +10,7 @@ define(function(require) {
     return Page.extend({
         __name__: 'page_product_view',
         productId: null,
+        currentUserModel: currentUserModel,
         partials: {
             '#content': require('tpl!./templates/invoices.html')
         },
