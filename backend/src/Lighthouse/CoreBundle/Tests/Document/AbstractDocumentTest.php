@@ -2,9 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document;
 
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\Test;
 
-class AbstractDocumentTest extends \PHPUnit_Framework_TestCase
+class AbstractDocumentTest extends TestCase
 {
     public function testGetSetProperties()
     {

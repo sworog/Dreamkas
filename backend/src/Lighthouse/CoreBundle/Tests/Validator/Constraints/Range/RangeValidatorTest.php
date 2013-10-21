@@ -2,12 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Range;
 
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\RangeValidator;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use stdClass;
 
-class RangeValidatorTest extends \PHPUnit_Framework_TestCase
+class RangeValidatorTest extends TestCase
 {
     /**
      * @var ExecutionContextInterface

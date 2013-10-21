@@ -3,8 +3,9 @@
 namespace Lighthouse\CoreBundle\Tests\Document;
 
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Test\TestCase;
 
-class InvoiceTest extends \PHPUnit_Framework_TestCase
+class InvoiceTest extends TestCase
 {
     public function testConstruct()
     {

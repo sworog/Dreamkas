@@ -2,9 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Types;
 
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
-class MoneyTest extends \PHPUnit_Framework_TestCase
+class MoneyTest extends TestCase
 {
     /**
      * @dataProvider validValueProvider

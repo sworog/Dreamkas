@@ -2,13 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\Chain;
 use Lighthouse\CoreBundle\Validator\Constraints\ChainValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
-class ChainValidatorTest extends \PHPUnit_Framework_TestCase
+class ChainValidatorTest extends TestCase
 {
     /**
      * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject

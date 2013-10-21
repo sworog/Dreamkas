@@ -3,9 +3,10 @@
 namespace Lighthouse\CoreBundle\Tests\DataTransformer;
 
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Types\Money;
 
-class MoneyModelTransformerTest extends \PHPUnit_Framework_TestCase
+class MoneyModelTransformerTest extends TestCase
 {
     /**
      * @dataProvider invalidTransformValueProvider

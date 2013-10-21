@@ -3,9 +3,10 @@
 namespace Lighthouse\CoreBundle\Tests\Command;
 
 use Lighthouse\CoreBundle\Command\RecalculateAveragePurchasePriceCommand;
+use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class RecalculateAveragePurchasePriceCommandTest extends \PHPUnit_Framework_TestCase
+class RecalculateAveragePurchasePriceCommandTest extends TestCase
 {
     public function testExecute()
     {

@@ -2,9 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Util;
 
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Util\Url;
 
-class UrlTest extends \PHPUnit_Framework_TestCase
+class UrlTest extends TestCase
 {
     public function testParts()
     {

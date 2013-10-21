@@ -6,6 +6,7 @@ use AppKernel;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Container;
+use Exception;
 
 class ContainerAwareTestCase extends WebTestCase
 {
@@ -71,5 +72,14 @@ class ContainerAwareTestCase extends WebTestCase
     protected function getFixtureFilePath($filePath)
     {
         return __DIR__ . '/../Tests/Fixtures/' . $filePath;
+    }
+
+    /**
+     * @param Exception $e
+     */
+    protected function onNotSuccessfulTest(Exception $e)
+    {
+        $e = SerializableException::factory($e);
+        parent::onNotSuccessfulTest($e);
     }
 }

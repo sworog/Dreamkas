@@ -3,9 +3,10 @@
 namespace Lighthouse\CoreBundle\Tests\Command;
 
 use Lighthouse\CoreBundle\Command\CommandManager;
+use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Command\Command;
 
-class CommandManagerTest extends \PHPUnit_Framework_TestCase
+class CommandManagerTest extends TestCase
 {
     public function testGetAll()
     {

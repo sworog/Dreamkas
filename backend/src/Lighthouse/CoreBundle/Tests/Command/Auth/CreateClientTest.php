@@ -4,9 +4,10 @@ namespace Lighthouse\CoreBundle\Tests\Command\Auth;
 
 use Lighthouse\CoreBundle\Command\Auth\CreateClient;
 use Lighthouse\CoreBundle\Document\Auth\Client;
+use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class CreateClientTest extends \PHPUnit_Framework_TestCase
+class CreateClientTest extends TestCase
 {
     /**
      * @dataProvider argumentsProvider

@@ -3,12 +3,13 @@
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Compare;
 
 use DateTime;
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Tests\Validator\Constraints\CompareObjectFixture;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompareValidator;
 use Symfony\Component\Validator\ExecutionContext;
 
-class DatesCompareValidatorTest extends \PHPUnit_Framework_TestCase
+class DatesCompareValidatorTest extends TestCase
 {
     /**
      * @var ExecutionContext

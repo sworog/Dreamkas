@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Range;
 
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassMoneyRange;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassMoneyRangeValidator;
@@ -11,7 +12,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use stdClass;
 
-class ClassMoneyRangeValidatorTest extends \PHPUnit_Framework_TestCase
+class ClassMoneyRangeValidatorTest extends TestCase
 {
     /**
      * @var ExecutionContextInterface

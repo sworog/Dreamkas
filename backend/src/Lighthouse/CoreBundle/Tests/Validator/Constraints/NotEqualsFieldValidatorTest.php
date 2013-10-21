@@ -2,9 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\NotEqualsField;
 
-class NotEqualsFieldValidatorTest extends \PHPUnit_Framework_TestCase
+class NotEqualsFieldValidatorTest extends TestCase
 {
     public function testAnnotation()
     {

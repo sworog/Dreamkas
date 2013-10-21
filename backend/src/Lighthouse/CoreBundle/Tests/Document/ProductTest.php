@@ -3,8 +3,9 @@
 namespace Lighthouse\CoreBundle\Tests\Document;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Test\TestCase;
 
-class ProductTest extends \PHPUnit_Framework_TestCase
+class ProductTest extends TestCase
 {
     public function testConstruct()
     {

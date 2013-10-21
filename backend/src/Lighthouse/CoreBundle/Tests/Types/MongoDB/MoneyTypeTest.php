@@ -2,10 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Tests\Types\MongoDB;
 
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Types\Money;
 use Doctrine\ODM\MongoDB\Types\Type;
 
-class MoneyTypeTest extends \PHPUnit_Framework_TestCase
+class MoneyTypeTest extends TestCase
 {
     protected $moneyTypeClassName = 'Lighthouse\\CoreBundle\\Types\\MongoDB\\MoneyType';
 

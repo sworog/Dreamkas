@@ -2,13 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Compare;
 
+use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Tests\Validator\Constraints\CompareObjectFixture;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompareValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ExecutionContext;
 
-class NumbersCompareValidatorTest extends \PHPUnit_Framework_TestCase
+class NumbersCompareValidatorTest extends TestCase
 {
     /**
      * @var ExecutionContext
