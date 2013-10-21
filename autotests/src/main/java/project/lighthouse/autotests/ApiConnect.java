@@ -94,6 +94,7 @@ public class ApiConnect {
             throws JSONException, IOException {
         Product product = StaticData.products.get(productSku);
         Invoice invoice = StaticData.invoices.get(invoiceName);
+        // TODO: Нужно проверять найдены ли такой товар и такая накладная
         if (!hasInvoiceProduct(invoice, product)) {
             String apiUrl = String.format("%s%s/%s/products.json", UrlHelper.getApiUrl(""), invoice.getApiUrl(), invoice.getId());
             String productJsonData = InvoiceProduct.getJsonObject(product.getId(), quantity, price).toString();
