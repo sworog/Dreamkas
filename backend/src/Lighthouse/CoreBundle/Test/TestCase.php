@@ -10,7 +10,7 @@ class TestCase extends PHPUnit_Framework_TestCase
     /**
      * @var bool
      */
-    protected $isolated;
+    protected $isolated = false;
 
     /**
      * @param bool $inIsolation
