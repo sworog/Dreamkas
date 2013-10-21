@@ -32,7 +32,7 @@ select {
     font-family: proximanova-regular;
 }
 
-input {
+input, textarea {
     font-family: proximanova-regular;
 }
 
