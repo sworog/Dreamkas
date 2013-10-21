@@ -12,7 +12,7 @@ use Symfony\Component\Validator\ExecutionContext;
 class DatesCompareValidatorTest extends TestCase
 {
     /**
-     * @var ExecutionContext
+     * @var ExecutionContext|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $context;
 

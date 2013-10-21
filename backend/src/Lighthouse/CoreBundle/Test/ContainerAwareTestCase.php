@@ -19,7 +19,7 @@ class ContainerAwareTestCase extends WebTestCase
     /**
      * @var bool
      */
-    protected $_inIsolation = false;
+    protected $isolated = false;
 
     public static function setUpBeforeClass()
     {
@@ -82,10 +82,10 @@ class ContainerAwareTestCase extends WebTestCase
     /**
      * @param bool $inIsolation
      */
-    public function setInIsolation($inIsolation)
+    public function setIsolated($inIsolation)
     {
-        parent::setInIsolation($inIsolation);
-        $this->_inIsolation = $inIsolation;
+        parent::setIsolated($inIsolation);
+        $this->isolated = $inIsolation;
     }
 
     /**
@@ -93,7 +93,7 @@ class ContainerAwareTestCase extends WebTestCase
      */
     protected function onNotSuccessfulTest(Exception $e)
     {
-        if ($this->_inIsolation) {
+        if ($this->isolated) {
             $e = SerializableException::factory($e);
         }
         parent::onNotSuccessfulTest($e);

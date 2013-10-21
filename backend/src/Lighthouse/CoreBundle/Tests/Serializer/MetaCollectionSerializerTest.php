@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Tests\Serializer;
 
 use Lighthouse\CoreBundle\Meta\MetaCollection;
-use Lighthouse\CoreBundle\Serializer\Handler\CollectionHandler;
 use Lighthouse\CoreBundle\Serializer\Handler\MoneyHandler;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\Test;

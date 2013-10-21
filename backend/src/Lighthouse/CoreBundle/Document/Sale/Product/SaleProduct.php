@@ -19,7 +19,7 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  * @property Money      $sellingPrice
  * @property int        $quantity
  * @property Money      $totalSellingPrice
- * @property DateTime   $createdDate
+ * @property \DateTime  $createdDate
  * @property Product    $product
  * @property Sale       $sale
  */

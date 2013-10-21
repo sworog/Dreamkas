@@ -2,10 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Service\AveragePriceService;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Versionable\VersionRepository;
 
 class InvoiceProductControllerTest extends WebTestCase
 {
@@ -1341,6 +1341,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->createInvoiceProduct($invoiceId, $productId, 10, 10.12);
 
+        /* @var VersionRepository $productVersionRepository */
         $productVersionRepository = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
 
         $productVersions = $productVersionRepository->findAllByDocumentId($productId);

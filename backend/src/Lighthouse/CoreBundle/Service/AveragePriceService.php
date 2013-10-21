@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Service;
 
-use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use JMS\DiExtraBundle\Annotation as DI;

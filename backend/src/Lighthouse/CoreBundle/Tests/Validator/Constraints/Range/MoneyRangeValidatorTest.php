@@ -12,7 +12,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
 class MoneyRangeValidatorTest extends TestCase
 {
     /**
-     * @var ExecutionContextInterface
+     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $context;
 

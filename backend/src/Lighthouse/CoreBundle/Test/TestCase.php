@@ -10,15 +10,15 @@ class TestCase extends PHPUnit_Framework_TestCase
     /**
      * @var bool
      */
-    protected $_inIsolation;
+    protected $isolated;
 
     /**
      * @param bool $inIsolation
      */
-    public function setInIsolation($inIsolation)
+    public function setIsolated($inIsolation)
     {
-        parent::setInIsolation($inIsolation);
-        $this->_inIsolation = $inIsolation;
+        parent::setIsolated($inIsolation);
+        $this->isolated = $inIsolation;
 
     }
 
@@ -27,7 +27,7 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     protected function onNotSuccessfulTest(Exception $e)
     {
-        if ($this->_inIsolation) {
+        if ($this->isolated) {
             $e = SerializableException::factory($e);
         }
         parent::onNotSuccessfulTest($e);

@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportSales;
 
-use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ImportSalesXmlParser;
 use Lighthouse\CoreBundle\Integration\Set10\ImportSales\PurchaseElement;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;

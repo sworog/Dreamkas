@@ -3,12 +3,11 @@
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Export;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Integration\Set10\Export\ExportProductsWorker;
 use Lighthouse\CoreBundle\Integration\Set10\Export\Set10Export;
-use Lighthouse\CoreBundle\Integration\Set10\Set10ProductConverter;
+use Lighthouse\CoreBundle\Integration\Set10\Export\Set10ProductConverter;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;

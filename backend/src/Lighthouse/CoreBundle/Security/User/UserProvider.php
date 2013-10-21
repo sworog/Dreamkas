@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Security\User;
 
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
-use Lighthouse\CoreBundle\Exception\ValidationFailedException;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;

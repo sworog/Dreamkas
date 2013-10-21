@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Integration\Set10\Import;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\Console\Output\OutputInterface;

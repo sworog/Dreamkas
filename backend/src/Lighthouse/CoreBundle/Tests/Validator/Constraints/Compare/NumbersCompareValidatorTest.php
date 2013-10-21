@@ -7,12 +7,12 @@ use Lighthouse\CoreBundle\Tests\Validator\Constraints\CompareObjectFixture;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompareValidator;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 class NumbersCompareValidatorTest extends TestCase
 {
     /**
-     * @var ExecutionContext
+     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $context;
 

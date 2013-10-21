@@ -52,8 +52,10 @@ class JsonPath
     /**
      * @param array $array
      * @param string $path
-     * @return array|mixed
+     * @param bool $suppressNotFound
      * @throws \DomainException
+     * @throws \Exception
+     * @return array|mixed
      */
     protected function path(array $array, $path, $suppressNotFound = false)
     {

@@ -59,7 +59,7 @@ class UrlTest extends TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      * @expectedExceptionMessage Invalid url part
      */
     public function testInvalidPart()
@@ -69,7 +69,7 @@ class UrlTest extends TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      * @expectedExceptionMessage Failed to parse url
      */
     public function testInvalidUrl()

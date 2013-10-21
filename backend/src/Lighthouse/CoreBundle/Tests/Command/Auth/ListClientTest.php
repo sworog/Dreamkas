@@ -2,11 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\Auth;
 
-use Lighthouse\CoreBundle\Command\Auth\CreateClient;
 use Lighthouse\CoreBundle\Command\Auth\ListClient;
 use Lighthouse\CoreBundle\Document\Auth\Client;
 use Lighthouse\CoreBundle\Test\TestCase;
-use OAuth2\OAuth2;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class ListClientTest extends TestCase

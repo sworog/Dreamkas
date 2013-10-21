@@ -7,7 +7,6 @@ use Doctrine\ODM\MongoDB\Query\Expr;
 use Doctrine\ODM\MongoDB\Query\Query;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
-use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 
 class TrialBalanceRepository extends DocumentRepository
@@ -54,8 +53,8 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
-     * @param Product $storeProduct
-     * @param \Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct $invoiceProduct
+     * @param StoreProduct $storeProduct
+     * @param InvoiceProduct $invoiceProduct
      * @return TrialBalance
      */
     public function findOneByStoreProduct(StoreProduct $storeProduct, InvoiceProduct $invoiceProduct = null)

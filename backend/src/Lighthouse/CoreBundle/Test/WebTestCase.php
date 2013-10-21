@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
-use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
@@ -334,7 +333,9 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $number
      * @param int $date timestamp
-     * @return mixed
+     * @param string $storeId
+     * @param User $departmentManager
+     * @return string
      */
     protected function createWriteOff(
         $number = '431-6782',
@@ -374,6 +375,8 @@ class WebTestCase extends ContainerAwareTestCase
      * @param float $price
      * @param int $quantity
      * @param string $cause
+     * @param string $storeId
+     * @param User $manager
      * @return string
      */
     protected function createWriteOffProduct(
@@ -383,7 +386,7 @@ class WebTestCase extends ContainerAwareTestCase
         $quantity = 10,
         $cause = 'Порча',
         $storeId = null,
-        $manager = null
+        User $manager = null
     ) {
         $manager = ($manager) ?: $this->departmentManager;
         $storeId = ($storeId) ?: $this->storeId;
@@ -529,6 +532,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $storeId
      * @param string $productId
      * @param int $amount
+     * @param float $lastPurchasePrice
      */
     protected function assertStoreProductTotals($storeId, $productId, $amount, $lastPurchasePrice = null)
     {
@@ -764,7 +768,6 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $storeId
      * @param string|array $userIds
-     * @param string $rel
      */
     public function linkStoreManagers($storeId, $userIds)
     {

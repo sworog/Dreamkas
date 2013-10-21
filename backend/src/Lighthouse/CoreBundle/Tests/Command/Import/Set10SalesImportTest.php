@@ -28,6 +28,7 @@ class Set10SalesImportTest extends WebTestCase
         foreach ($tmp as $dir) {
             if ($dir->isDir() && 0 === strpos($dir->getFilename(), $this->prefix)) {
                 $it = new \RecursiveDirectoryIterator($dir->getPathname());
+                /* @var \SplFileInfo $file */
                 foreach (new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST) as $file) {
                     if ($file->isFile()) {
                         unlink($file->getPathname());
@@ -225,6 +226,7 @@ class Set10SalesImportTest extends WebTestCase
      * @param string $file
      * @param string $dir
      * @param string $prefix
+     * @param string $extension
      * @return string
      */
     protected function copyFixtureFileToDir($file, $dir, $prefix = 'purchases-', $extension = 'xml')

@@ -8,8 +8,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
- *
- *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Config\ConfigRepository"
  * )

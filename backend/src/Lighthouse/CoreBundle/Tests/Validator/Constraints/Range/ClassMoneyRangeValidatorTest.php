@@ -8,7 +8,6 @@ use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassMoneyRange;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassMoneyRangeValidator;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use stdClass;
 

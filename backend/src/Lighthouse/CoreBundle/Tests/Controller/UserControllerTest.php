@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 class UserControllerTest extends WebTestCase
 {
@@ -175,6 +176,7 @@ class UserControllerTest extends WebTestCase
         $userRepository->clear();
         $userModel = $userRepository->find($id);
 
+        /* @var PasswordEncoderInterface $encoder */
         $encoder = $this->getContainer()->get('security.encoder_factory')->getEncoder($userModel);
         $passwordHash = $encoder->encodePassword($userData['password'], $userModel->getSalt());
 

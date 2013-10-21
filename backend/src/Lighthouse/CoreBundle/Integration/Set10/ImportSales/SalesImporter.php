@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Sale\SaleRepository;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
@@ -185,6 +186,7 @@ class SalesImporter
     protected function createSaleHash(PurchaseElement $purchaseElement)
     {
         $hashStr = '';
+        /* @var \SimpleXMLElement $attr */
         foreach ($purchaseElement->attributes() as $attr) {
             $hashStr.= sprintf('%s:%s;', $attr->getName(), $attr);
         }

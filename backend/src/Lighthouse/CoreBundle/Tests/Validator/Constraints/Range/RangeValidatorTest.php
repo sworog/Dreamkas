@@ -11,7 +11,7 @@ use stdClass;
 class RangeValidatorTest extends TestCase
 {
     /**
-     * @var ExecutionContextInterface
+     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $context;
 

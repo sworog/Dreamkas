@@ -10,7 +10,6 @@ use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Job\JobRepository;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use Symfony\Component\Form\AbstractType;
 
 class IntegrationController extends FOSRestController
 {

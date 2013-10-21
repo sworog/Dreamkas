@@ -52,8 +52,8 @@ class StoreRepository extends DocumentRepository
     public function findByManagers($userId)
     {
         $query = $this->createQueryBuilder();
-        $query->addOr($query->expr()->field('departmentManagers')->equals($userId));
-        $query->addOr($query->expr()->field('storeManagers')->equals($userId));
+        $query->addOr($query->expr()->field('departmentManagers')->equals($userId)->getQuery());
+        $query->addOr($query->expr()->field('storeManagers')->equals($userId)->getQuery());
 
         return $query->getQuery()->execute();
     }

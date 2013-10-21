@@ -61,7 +61,7 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Could not find any fixtures to load in:
      */
     public function testFixturesEmptyFolder()

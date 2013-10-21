@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Versionable;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
@@ -40,6 +41,7 @@ class VersionableFactoryTest extends ContainerAwareTestCase
         $dm->persist($product);
         $dm->flush();
 
+        /* @var ProductVersion $productVersion */
         $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
 
         $version = $productVersion->getVersion();

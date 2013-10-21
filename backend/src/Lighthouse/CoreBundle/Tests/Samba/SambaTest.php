@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Samba;
 
-use Lighthouse\CoreBundle\Samba\SambaWrapperException;
+use Lighthouse\CoreBundle\Samba\SambaStreamWrapper;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Samba\Samba;
 
@@ -629,6 +629,7 @@ EOF;
         $urlDir = "smb://user:password@host/base_path/to/dir";
         $urlHost = "smb://user:password@host";
 
+        /* @var SambaStreamWrapper|\PHPUnit_Framework_MockObject_MockObject $sambaMock*/
         $sambaMock = $this->getMock(
             '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
             array('look', 'execute')

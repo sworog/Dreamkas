@@ -6,12 +6,14 @@ use Doctrine\Bundle\MongoDBBundle\Command\DoctrineODMCommand;
 use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor;
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader as DataFixturesLoader;
 use JMS\DiExtraBundle\Annotation as DI;
 use InvalidArgumentException;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
  * @DI\Service("lighthouse.core.command.load_data_fixtures_doctrine")
@@ -79,6 +81,7 @@ EOT
         $dm = $doctrine->getManager($dmName);
 
         if ($input->isInteractive() && !$input->getOption('append')) {
+            /* @var DialogHelper $dialog */
             $dialog = $this->getHelperSet()->get('dialog');
             if (!$dialog->askConfirmation(
                 $output,
@@ -94,6 +97,7 @@ EOT
             $paths = is_array($dirOrFile) ? $dirOrFile : array($dirOrFile);
         } else {
             $paths = array();
+            /* @var BundleInterface $bundle */
             foreach ($this->getApplication()->getKernel()->getBundles() as $bundle) {
                 $paths[] = $bundle->getPath().'/DataFixtures/ODM';
             }
