@@ -24,17 +24,16 @@ class SerializableException extends Exception implements PHPUnit_Framework_SelfD
      */
     protected function formatMessage(Exception $e)
     {
-        $message = "";
+        $message = '';
 
         while ($e) {
+
+            $message.= ($message) ? "\nCaused by\n" : '';
 
             $message.= PHPUnit_Framework_TestFailure::exceptionToString($e). "\n";
             $message.= PHPUnit_Util_Filter::getFilteredStacktrace($e);
 
             $e = $e->getPrevious();
-            if ($e) {
-                $message.= "\nCaused by\n";
-            }
         }
 
         return $message;
