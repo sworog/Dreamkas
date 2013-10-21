@@ -1,15 +1,21 @@
-<tbody>
-    <% _.forEach(collection, function(model){ %>
-        <tr>
-            <td>
-                Дата
-            </td>
-            <td>
-                Приход
-            </td>
-            <td>
-                Цена
-            </td>
-        </tr>
+<table class="table table_productInvoices">
+    <tbody>
+    <% collection.forEach(function(model){ %>
+    <tr>
+        <td>
+            <%- moment(model.get('acceptanceDate')).format('DD.MM.YYYY') %>
+        </td>
+        <td>
+            + <%- model.get('quantity') %>
+            <%- LH.units(model.get('product.units'), 'smallShort') %>
+        </td>
+        <td>
+            по <%- model.get('price') %> р.
+        </td>
+        <td>
+            = <%- model.get('totalPrice') %> р.
+        </td>
+    </tr>
     <% }) %>
-</tbody>
+    </tbody>
+</table>

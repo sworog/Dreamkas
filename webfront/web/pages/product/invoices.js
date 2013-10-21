@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Page = require('kit/core/page'),
-        Product = require('blocks/product/product'),
+        ProductInvoicesCollection = require('collections/productInvoices'),
         ProductModel = require('models/product'),
         StoreProductModel = require('models/storeProduct'),
         currentUserModel = require('models/currentUser'),
@@ -14,7 +14,7 @@ define(function(require) {
         partials: {
             '#content': require('tpl!./templates/invoices.html')
         },
-        initialize: function(productId) {
+        initialize: function(params) {
             var page = this;
 
             if (
@@ -37,7 +37,11 @@ define(function(require) {
                 });
             }
 
-            $.when(page.model.fetch()).then(function(){
+            page.productInvoicesCollection = new ProductInvoicesCollection({
+                productId: params.productId
+            });
+
+            $.when(page.model.fetch(), page.productInvoicesCollection.fetch()).then(function(){
 
                 page.productModel = page.model.get('product') || page.model.toJSON();
                 page.storeProductModel = page.model.get('store') ? page.model.toJSON() : null;

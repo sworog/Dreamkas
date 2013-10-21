@@ -1,5 +1,6 @@
 <!-- @productModel -->
 <!-- @productInvoicesCollection -->
+<!-- @currentUserModel -->
 
 <% var table_productInvoices = require('tpl!blocks/table/table_productInvoices/table_productInvoices.html'); %>
 
@@ -11,5 +12,7 @@
 </div>
 
 <div style="margin-left: 285px;">
-
+    <%= table_productInvoices({
+        collection: productInvoicesCollection
+    }) %>
 </div>
