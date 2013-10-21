@@ -5,7 +5,7 @@ imports:
 doctrine_mongodb:
     connections:
         default:
-            server: mongodb://example:27017
+            server: mongodb://localhost:27017
             options: {}
     default_database: %database_name%_%kernel.environment%
     document_managers:
