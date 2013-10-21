@@ -82,9 +82,9 @@ class ContainerAwareTestCase extends WebTestCase
     /**
      * @param bool $inIsolation
      */
-    public function setIsolated($inIsolation)
+    public function setInIsolation($inIsolation)
     {
-        parent::setIsolated($inIsolation);
+        parent::setInIsolation($inIsolation);
         $this->isolated = $inIsolation;
     }
 
