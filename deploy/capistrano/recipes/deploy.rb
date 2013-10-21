@@ -92,6 +92,8 @@ namespace :deploy do
         set :branch, `git rev-parse --abbrev-ref HEAD`.delete("\n") || "master" unless exists?(:branch)
         set :host, branch unless exists?(:host)
 
+        set :force, exists?(:force) ? true : false
+
         set :application, "#{host}.#{stage}.#{app_end}"
         set :deploy_to,   "/var/www/#{application}"
         set :symfony_env_prod, exists?(:symfony_env) ? symfony_env : stage
@@ -156,7 +158,7 @@ namespace :deploy do
     namespace :remove do
 
         task :default, :roles => :app, :except => { :no_release => true } do
-            if Capistrano::CLI.ui.ask("Are you sure drop " + application_url.yellow + " (y/n)") == 'y'
+            if force || Capistrano::CLI.ui.ask("Are you sure drop " + application_url.yellow + " (y/n)") == 'y'
                 begin
                     mongodb
                 rescue Exception => error
