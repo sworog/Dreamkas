@@ -3,20 +3,41 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Exception;
+use PHPUnit_Framework_TestFailure;
+use PHPUnit_Util_Filter;
+use PHPUnit_Framework_SelfDescribing;
 
-class SerializableException extends Exception
+class SerializableException extends Exception implements PHPUnit_Framework_SelfDescribing
 {
     /**
-     * @var \Exception
+     * @param Exception $e
      */
-    protected $previous;
+    public function __construct(Exception $e)
+    {
+        $message = $this->formatMessage($e);
+        parent::__construct($message);
+    }
 
     /**
-     * @param \Exception $e
+     * @param Exception $e
+     * @return string
      */
-    public function __construct(\Exception $e)
+    protected function formatMessage(Exception $e)
     {
-        parent::__construct((string) $e, $e->getCode(), $e);
+        $message = "";
+
+        while ($e) {
+
+            $message.= PHPUnit_Framework_TestFailure::exceptionToString($e). "\n";
+            $message.= PHPUnit_Util_Filter::getFilteredStacktrace($e);
+
+            $e = $e->getPrevious();
+            if ($e) {
+                $message.= "\nCaused by\n";
+            }
+        }
+
+        return $message;
     }
 
     /**
@@ -24,7 +45,17 @@ class SerializableException extends Exception
      */
     public function __sleep()
     {
-        return array('message', 'code');
+        return array('message');
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->getMessage();
     }
 
     /**
