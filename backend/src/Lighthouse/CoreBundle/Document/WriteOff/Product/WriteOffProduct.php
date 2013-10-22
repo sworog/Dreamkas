@@ -6,12 +6,14 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @MongoDB\Document(
@@ -94,15 +96,39 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      */
     protected $writeOff;
 
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
+     * @Serializer\Exclude
+     * @var Product
+     */
+    protected $originalProduct;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
+     * @Serializer\Exclude
+     * @var Store
+     */
+    protected $store;
 
     /**
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */
-    public function updateTotalPrice()
+    public function beforeSave()
     {
         $this->totalPrice = new Money();
         $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
+        $this->createdDate = $this->writeOff->date;
+        $this->store = $this->writeOff->store;
+        $this->originalProduct = $this->product->getObject();
     }
 
     /**

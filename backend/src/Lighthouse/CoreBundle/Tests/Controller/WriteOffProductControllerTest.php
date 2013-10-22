@@ -910,4 +910,49 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
     }
+
+    public function testGetProductWriteOffProducts()
+    {
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
+        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'sku' => 'кефир_5%', 'purchasePrice' => 35.64));
+        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'sku' => 'кефир_0%', 'purchasePrice' => 42.15));
+
+        $writeOffId1 = $this->createWriteOff(
+            'MU-866',
+            '2013-10-18T09:39:47+0400',
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $writeOffProductId11 = $this->createWriteOffProduct($writeOffId1, $productId1, 100, 36.70);
+        $writeOffProductId13 = $this->createWriteOffProduct($writeOffId1, $productId3, 20, 42.90);
+
+        $writeOffId2 = $this->createWriteOff(
+            'MU-864',
+            '2013-10-18T12:22:00+0400',
+            $this->storeId,
+            $this->departmentManager
+        );
+        $writeOffProductId21 = $this->createWriteOffProduct($writeOffId2, $productId1, 120, 37.20);
+        $writeOffProductId22 = $this->createWriteOffProduct($writeOffId2, $productId2, 200, 35.80);
+
+        $accessToken = $this->factory->auth($this->departmentManager);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId1 . '/writeOffProducts'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($writeOffProductId13, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($writeOffProductId22, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOffProductId11, '1.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOffProductId21, '0.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOffId1, '1.writeOff.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOffId2, '0.writeOff.id', $getResponse);
+        Assert::assertNotJsonHasPath('*.store', $getResponse);
+        Assert::assertNotJsonHasPath('*.originalProduct', $getResponse);
+    }
 }

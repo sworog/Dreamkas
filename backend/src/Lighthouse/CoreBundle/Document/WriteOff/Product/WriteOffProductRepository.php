@@ -16,4 +16,21 @@ class WriteOffProductRepository extends DocumentRepository
         $cursor = $this->findBy(array('writeOff' => $writeOff->id));
         return new WriteOffProductCollection($cursor);
     }
+
+    /**
+     * @param string $storeId
+     * @param string $productId
+     * @return Cursor
+     */
+    public function findByStoreAndProduct($storeId, $productId)
+    {
+        $criteria = array(
+            'store' => $storeId,
+            'originalProduct' => $productId,
+        );
+        $sort = array(
+            'createdDate' => self::SORT_DESC,
+        );
+        return $this->findBy($criteria, $sort);
+    }
 }

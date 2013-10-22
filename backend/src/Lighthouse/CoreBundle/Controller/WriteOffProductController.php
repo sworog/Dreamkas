@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\View\View;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductCollection;
@@ -110,6 +111,18 @@ class WriteOffProductController extends AbstractRestController
     {
         $this->checkWriteoffStore($store, $writeOff);
         return $this->documentRepository->findAllByWriteOff($writeOff);
+    }
+
+    /**
+     * @param Store $store
+     * @param Product $product
+     * @return InvoiceProductCollection
+     * @Rest\Route("stores/{store}/products/{product}/writeOffProducts")
+     */
+    public function getProductWriteOffProductsAction(Store $store, Product $product)
+    {
+        $writeOffProducts = $this->documentRepository->findByStoreAndProduct($store->id, $product->id);
+        return new WriteOffProductCollection($writeOffProducts);
     }
 
     /**
