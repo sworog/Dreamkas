@@ -779,8 +779,8 @@ class WriteOffProductControllerTest extends WebTestCase
         $writeOffProductId1 = $this->createWriteOffProduct(
             $writeOffId1,
             $productId,
-            20,
             2,
+            20,
             'Бой',
             $this->storeId,
             $this->departmentManager
@@ -789,8 +789,8 @@ class WriteOffProductControllerTest extends WebTestCase
         $writeOffProductId2 = $this->createWriteOffProduct(
             $writeOffId2,
             $productId,
-            10,
             1,
+            10,
             'Порча',
             $storeId2,
             $departmentManager2
@@ -885,8 +885,8 @@ class WriteOffProductControllerTest extends WebTestCase
         $writeOffProductId = $this->createWriteOffProduct(
             $writeOffId,
             $productId,
-            19.25,
             2,
+            19.25,
             'Порча',
             $this->storeId,
             $this->departmentManager

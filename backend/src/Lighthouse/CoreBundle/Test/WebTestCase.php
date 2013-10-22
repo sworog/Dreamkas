@@ -345,7 +345,7 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @param string $number
-     * @param int $date timestamp
+     * @param string $date timestamp
      * @param string $storeId
      * @param User $departmentManager
      * @return string
@@ -395,8 +395,8 @@ class WebTestCase extends ContainerAwareTestCase
     protected function createWriteOffProduct(
         $writeOffId,
         $productId,
-        $price = 5.99,
         $quantity = 10,
+        $price = 5.99,
         $cause = 'Порча',
         $storeId = null,
         User $manager = null
