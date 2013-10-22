@@ -10,10 +10,10 @@
             <%- LH.units(model.get('product.units'), 'smallShort') %>
         </td>
         <td>
-            по <%= LH.modelNode(model, 'price') %> р.
+            по <%= LH.modelNode(model, 'priceFormatted') %> р.
         </td>
         <td>
-            = <%= LH.modelNode(model, 'totalPrice') %> р.
+            = <%= LH.modelNode(model, 'totalPriceFormatted') %> р.
         </td>
     </tr>
     <% }) %>
