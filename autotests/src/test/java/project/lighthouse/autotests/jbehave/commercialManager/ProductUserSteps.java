@@ -285,4 +285,14 @@ public class ProductUserSteps {
     public void thenTheUserChecksTheProductInvoicesListContainsEntry(ExamplesTable examplesTable) {
         productSteps.checkProductInvoiceListObject(examplesTable);
     }
+
+    @Then("the user check invoice product line '$date', '$quantity', '$price', '$totalPrice' data")
+    public void thenTheUserCheckInvoiceProductLine(String date, String quantity, String price, String totalPrice) {
+        productSteps.checkProductInvoiceLine(date, quantity, price, totalPrice);
+    }
+
+    @When("the user clicks invoice sku '$sku'")
+    public void whenTheUserClicksInvoiceSku(String sku) {
+        productSteps.productInvoiceListClick(sku);
+    }
 }

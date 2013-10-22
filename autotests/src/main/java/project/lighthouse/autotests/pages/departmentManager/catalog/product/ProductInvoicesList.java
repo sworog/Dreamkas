@@ -1,5 +1,7 @@
 package project.lighthouse.autotests.pages.departmentManager.catalog.product;
 
+import junit.framework.Assert;
+import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,7 +26,9 @@ public class ProductInvoicesList extends CommonPageObject {
     }
 
     private List<WebElement> getProductInvoicesListWebElements() {
-        return waiter.getVisibleWebElements(By.xpath("//*[@class='element']"));
+        WebElementFacade table = find(By.xpath("//table"));
+        return table.findElements(By.xpath("//*[@name='invoice']"));
+//        return waiter.getPresentWebElements(By.xpath("//*[@name='invoice']"));
     }
 
     public ProductInvoiceListObjectsList getProductInvoiceListObjects() {
@@ -34,5 +38,17 @@ public class ProductInvoicesList extends CommonPageObject {
             productInvoiceListObjects.add(productInvoiceListObject);
         }
         return productInvoiceListObjects;
+    }
+
+    public void invoiceSkuClick(String sku) {
+        By by = By.xpath(String.format("//table//tr[@invoice-sku='%s']", sku));
+        findVisibleElement(by).click();
+    }
+
+    public void checkInvoiceData(String date, String quantity, String price, String totalPrice) {
+        Assert.assertEquals(findModelFieldContaining("productInvoice", "acceptanceDateFormatted", date).getText(), date);
+        Assert.assertEquals(findModelFieldContaining("productInvoice", "quantity", quantity).getText(), quantity);
+        Assert.assertEquals(findModelFieldContaining("productInvoice", "priceFormatted", price).getText(), price);
+        Assert.assertEquals(findModelFieldContaining("productInvoice", "totalPriceFormatted", totalPrice).getText(), totalPrice);
     }
 }

@@ -217,4 +217,14 @@ public class ProductSteps extends ScenarioSteps {
     public void checkProductInvoiceListObject(ExamplesTable examplesTable) {
         productInvoicesList.getProductInvoiceListObjects().compareWithExampleTable(examplesTable);
     }
+
+    @Step
+    public void checkProductInvoiceLine(String date, String quantity, String price, String totalPrice) {
+        productInvoicesList.checkInvoiceData(date, quantity, price, totalPrice);
+    }
+
+    @Step
+    public void productInvoiceListClick(String sku) {
+        productInvoicesList.invoiceSkuClick(sku);
+    }
 }
