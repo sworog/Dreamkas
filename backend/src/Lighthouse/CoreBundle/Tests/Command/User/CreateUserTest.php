@@ -21,6 +21,12 @@ class CreateUserTest extends ContainerAwareTestCase
         $this->userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
     }
 
+    protected function tearDown()
+    {
+        $this->userProvider = null;
+        parent::tearDown();
+    }
+
     /**
      * @return CreateUser
      */

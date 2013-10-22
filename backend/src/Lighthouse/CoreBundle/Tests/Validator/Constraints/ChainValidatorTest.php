@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Validator\Constraints\Chain;
 use Lighthouse\CoreBundle\Validator\Constraints\ChainValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
 class ChainValidatorTest extends TestCase
@@ -16,6 +17,9 @@ class ChainValidatorTest extends TestCase
      */
     protected $context;
 
+    /**
+     * @var ConstraintViolationListInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     protected $violations;
 
     /**
@@ -48,6 +52,7 @@ class ChainValidatorTest extends TestCase
     public function tearDown()
     {
         $this->context = null;
+        $this->violations = null;
         $this->validator = null;
     }
 
