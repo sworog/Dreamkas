@@ -13,7 +13,7 @@ class WriteOffProductControllerTest extends WebTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->initStoreDepartmentManager();
+        $this->setUpStoreDepartmentManager();
     }
 
     /**

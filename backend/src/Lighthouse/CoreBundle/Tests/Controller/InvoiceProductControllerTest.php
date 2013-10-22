@@ -12,7 +12,7 @@ class InvoiceProductControllerTest extends WebTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->initStoreDepartmentManager();
+        $this->setUpStoreDepartmentManager();
     }
     /**
      * @dataProvider postActionProvider

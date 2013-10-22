@@ -11,7 +11,7 @@ class WriteOffControllerTest extends WebTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->initStoreDepartmentManager();
+        $this->setUpStoreDepartmentManager();
     }
     
     public function testPostAction()

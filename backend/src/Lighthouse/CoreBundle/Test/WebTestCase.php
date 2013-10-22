@@ -43,8 +43,31 @@ class WebTestCase extends ContainerAwareTestCase
     {
         parent::tearDown();
 
+        $this->tearDownStoreDepartmentManager();
+
         $this->factory = null;
         $this->client = null;
+    }
+
+    /**
+     *
+     */
+    protected function setUpStoreDepartmentManager()
+    {
+        $this->departmentManager = $this->createUser('Краузе В.П.', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->storeId = $this->createStore();
+
+        $this->factory->linkDepartmentManagers($this->storeId, $this->departmentManager->id);
+    }
+
+    protected function tearDownStoreDepartmentManager()
+    {
+        if (null !== $this->storeId) {
+            $this->storeId = null;
+        }
+        if (null !== $this->departmentManager) {
+            $this->departmentManager = null;
+        }
     }
 
     /**
@@ -967,16 +990,5 @@ class WebTestCase extends ContainerAwareTestCase
     protected function getUserResourceUri($userId)
     {
         return $this->factory->getUserResourceUri($userId);
-    }
-
-    /**
-     *
-     */
-    protected function initStoreDepartmentManager()
-    {
-        $this->departmentManager = $this->createUser('Краузе В.П.', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->storeId = $this->createStore();
-
-        $this->linkDepartmentManagers($this->storeId, $this->departmentManager->id);
     }
 }
