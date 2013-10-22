@@ -3,17 +3,17 @@
     <% collection.forEach(function(model){ %>
     <tr>
         <td>
-            <%- moment(model.get('acceptanceDate')).format('DD.MM.YYYY') %>
+            <%= LH.modelNode(model, 'acceptanceDateFormatted') %>
         </td>
         <td>
-            + <%- model.get('quantity') %>
+            + <%= LH.modelNode(model, 'quantity') %>
             <%- LH.units(model.get('product.units'), 'smallShort') %>
         </td>
         <td>
-            по <%- model.get('price') %> р.
+            по <%= LH.modelNode(model, 'price') %> р.
         </td>
         <td>
-            = <%- model.get('totalPrice') %> р.
+            = <%= LH.modelNode(model, 'totalPrice') %> р.
         </td>
     </tr>
     <% }) %>
