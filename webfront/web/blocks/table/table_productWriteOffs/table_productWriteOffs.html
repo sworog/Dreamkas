@@ -1,0 +1,21 @@
+<table class="table table_productInvoices">
+    <tbody>
+    <% collection.forEach(function(model){ %>
+    <tr>
+        <td>
+            <%= LH.modelNode(model, 'acceptanceDateFormatted') %>
+        </td>
+        <td>
+            + <%= LH.modelNode(model, 'quantity') %>
+            <%- LH.units(model.get('product.units'), 'smallShort') %>
+        </td>
+        <td>
+            по <%= LH.modelNode(model, 'price') %> р.
+        </td>
+        <td>
+            = <%= LH.modelNode(model, 'totalPrice') %> р.
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>

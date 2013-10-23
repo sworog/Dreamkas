@@ -1,7 +1,9 @@
 define(function(require) {
     //requirements
     var Form = require('kit/blocks/form/form'),
-        invoiceList_search = require('tpl!blocks/invoiceList/invoiceList_search.html');
+        invoiceList_search = require('tpl!blocks/invoiceList/invoiceList_search.html'),
+        InvoiceProductsCollection = require('collections/invoiceProducts'),
+        Table_invoiceProducts = require('blocks/table/table_invoiceProducts/table_invoiceProducts');
 
     return Form.extend({
         __name__: 'form_invoiceSearch',
@@ -15,6 +17,16 @@ define(function(require) {
                         invoicesCollection: block.invoicesCollection,
                         searchQuery: block.formData
                     }));
+
+                    block.invoicesCollection.forEach(function(invoiceModel){
+                        new Table_invoiceProducts({
+                            collection: new InvoiceProductsCollection(invoiceModel.get('products') || [], {
+                                invoiceId: invoiceModel.id,
+                                storeId: invoiceModel.get('store.id')
+                            }),
+                            el: block.el.getElementsByClassName('invoice__productsTable')
+                        });
+                    });
                 }
             }
         },

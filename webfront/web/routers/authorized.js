@@ -31,6 +31,7 @@ define(function(require) {
             'products/create(/)': require('pages/product/form'),
             'products/:productId(/)': require('pages/product/view'),
             'products/:productId/invoices': require('pages/product/invoices'),
+            'products/:productId/writeoffs': require('pages/product/writeOffs'),
 
             //writeOffs
             'writeOffs(/)': require('pages/writeOff/list'),

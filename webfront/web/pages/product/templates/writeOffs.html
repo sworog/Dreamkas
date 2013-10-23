@@ -1,0 +1,32 @@
+<!-- @productModel -->
+<!-- @productWriteOffsCollection -->
+<!-- @currentUserModel -->
+
+<% var table_productWriteOffs = require('tpl!blocks/table/table_productWriteOffs/table_productWriteOffs.html'); %>
+
+<div class="localNavigation">
+    <a class="localNavigation__link" href="/products/<%- productModel.id %>">Свойства</a>
+    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET') && currentUserModel.stores.length) { %>
+        <a class="localNavigation__link" href="/products/<%- productModel.id %>/invoices">Приходы</a>
+        <a class="localNavigation__link localNavigation__link_active" href="/products/<%- productModel.id %>/writeoffs">Списания</a>
+    <% } %>
+</div>
+
+<div style="margin-left: 285px;">
+
+    <h1 name="name" class="product__name">
+        <%= productModel.name %>
+    </h1>
+
+    <div class="product__sku" name="sku">
+        <%- productModel.sku %>
+    </div>
+
+    <% if(productWriteOffsCollection.length) { %>
+        <%= table_productWriteOffs({
+            collection: productWriteOffsCollection
+        }) %>
+    <% } else { %>
+        <h2>Списаний товара еще не было</h2>
+    <% } %>
+</div>
