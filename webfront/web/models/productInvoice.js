@@ -14,6 +14,12 @@ define(function(require) {
         defaults: {
             acceptanceDateFormatted: computeAttr(['acceptanceDate'], function(acceptanceDate){
                 return moment(acceptanceDate).format('DD.MM.YYYY');
+            }),
+            totalPriceFormatted: computeAttr(['totalPrice'], function(totalPrice){
+                return LH.formatPrice(totalPrice);
+            }),
+            priceFormatted: computeAttr(['price'], function(price){
+                return LH.formatPrice(price);
             })
         }
     });
