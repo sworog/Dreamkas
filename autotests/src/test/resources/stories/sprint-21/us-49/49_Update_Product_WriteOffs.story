@@ -140,19 +140,19 @@ Given there is the subCategory with name 'ProductsUpdateWriteOffSubCategory' rel
 And there is the product with 'Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г' name, '7300330094020 ' sku, '7300330094025 ' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateWriteOffGroup', category named 'ProductsUpdateWriteOffCategory', subcategory named 'ProductsUpdateWriteOffSubCategory'
 And there is the writeOff in the store with number 'UIBS-FF' ruled by department manager with name 'departmentManager-UIBS-FF' with values
 | elementName | elementValue |
-| number | WOUIBS-FF-01 |
+| number | WOUIBS-FF-05 |
 | date | 02.04.2013 |
-And the user adds the product to the write off with number 'WOUIBS-FF-01' with sku '7300330094020', quantity '1', price '12,34, cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
+And the user adds the product to the write off with number 'WOUIBS-FF-05' with sku '7300330094020', quantity '1', price '12,34, cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
 And the user navigates to the product with sku '7300330094020'
 When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse' password
 And the user clicks the product local navigation writeoffs link
 Then the user checks the product writeOff list contains entry
 | createdDateFormatted | quantity | priceFormatted | totalPriceFormatted |
 | 02.04.2013 | 1 | 12,34 | 12,34 |
-When the user clicks on the product writeOff with 'WOUIBS-FF-01' number
+When the user clicks on the product writeOff with 'WOUIBS-FF-05' number
 Then the user checks write off elements values
 | elementName | value |
-| writeOff number review | WOUIBS-FF-01 |
+| writeOff number review | WOUIBS-FF-05 |
 | writeOff date review | 02.04.2013 |
 And the user checks the write off product with '7300330094020' sku is present
 And the user checks the product with '7300330094020' sku has elements on the write off page
