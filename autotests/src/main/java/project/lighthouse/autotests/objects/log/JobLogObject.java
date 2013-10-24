@@ -54,11 +54,11 @@ public class JobLogObject {
         this.id = element.getAttribute("id");
         this.type = element.getAttribute("type");
         this.status = element.getAttribute("status");
-        this.title = element.findElement(By.xpath("//*[@class='jobs__title']")).getText();
+        this.title = element.findElement(By.xpath(".//*[@class='jobs__title']")).getText();
         this.product = null;
-        if (!waiter.invisibilityOfElementLocated(By.xpath("//*[@class='jobs__productName']"))) {
-            this.product = element.findElement(By.xpath("//*[@class='jobs__productName']")).getText();
+        if (!waiter.invisibilityOfElementLocated(By.xpath(".//*[@class='jobs__productName']"))) {
+            this.product = element.findElement(By.xpath(".//*[@class='jobs__productName']")).getText();
         }
-        this.statusText = element.findElement(By.xpath("//*[@class='jobs__status']")).getText();
+        this.statusText = element.findElement(By.xpath(".//*[@class='jobs__status']")).getText();
     }
 }

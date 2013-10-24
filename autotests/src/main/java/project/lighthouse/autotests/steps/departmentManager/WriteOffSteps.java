@@ -37,6 +37,11 @@ public class WriteOffSteps extends ScenarioSteps {
     }
 
     @Step
+    public void createWriteOffThroughPost(String storeName, String userName, ExamplesTable examplesTable) throws JSONException, IOException {
+        writeOffApi.createWriteOffThrougPost(storeName, userName, examplesTable);
+    }
+
+    @Step
     public void createWriteOffThroughPost(String writeOffNumber, String productName, String productSku, String productBarCode, String productUnits, String purchasePrice,
                                           String quantity, String price, String cause)
             throws IOException, JSONException {

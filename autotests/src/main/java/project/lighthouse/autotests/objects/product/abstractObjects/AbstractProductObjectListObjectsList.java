@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects;
+package project.lighthouse.autotests.objects.product.abstractObjects;
 
 import junit.framework.Assert;
 import org.jbehave.core.model.ExamplesTable;
@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ProductInvoiceListObjectsList extends ArrayList<ProductInvoiceListObject> {
+public class AbstractProductObjectListObjectsList extends ArrayList<AbstractProductObjectList> {
 
     public void compareWithExampleTable(ExamplesTable examplesTable) {
 
         List<Map<String, String>> notFoundRows = new ArrayList<>();
         for (Map<String, String> row : examplesTable.getRows()) {
             Boolean found = false;
-            for (ProductInvoiceListObject productInvoiceListObject : this) {
-                if (productInvoiceListObject.rowIsEqual(row)) {
+            for (AbstractProductObjectList abstractProductObjectList : this) {
+                if (abstractProductObjectList.rowIsEqual(row)) {
                     found = true;
                     break;
                 }
@@ -25,7 +25,7 @@ public class ProductInvoiceListObjectsList extends ArrayList<ProductInvoiceListO
             }
         }
         if (notFoundRows.size() > 0) {
-            String errorMessage = String.format("These rows are nt found: %s", notFoundRows.toArray());
+            String errorMessage = String.format("These rows are not found: '%s'.", notFoundRows.toString());
             Assert.fail(errorMessage);
         }
     }

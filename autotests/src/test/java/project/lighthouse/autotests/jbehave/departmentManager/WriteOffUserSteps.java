@@ -78,6 +78,11 @@ public class WriteOffUserSteps {
         writeOffSteps.navigatoToWriteOffPage(writeNumber);
     }
 
+    @Given("there is the writeOff in the store with number '$number' ruled by department manager with name '$userName' with values $exampleTable")
+    public void givenThereIsTheWriteOffInTheStoreWithValues(String number, String userName, ExamplesTable examplesTable) throws IOException, JSONException {
+        writeOffSteps.createWriteOffThroughPost(number, userName, examplesTable);
+    }
+
     @When("the user inputs '$inputValue' in the '$elementName' field on the write off page")
     @Alias("the user inputs '$inputValue' in the write off '$elementName' field")
     public void whenTheUserInputsTextInTheFieldOnTheWriteOffPage(String inputValue, String elementName) {

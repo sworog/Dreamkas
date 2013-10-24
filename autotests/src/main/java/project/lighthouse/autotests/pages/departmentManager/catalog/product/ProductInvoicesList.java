@@ -1,14 +1,13 @@
 package project.lighthouse.autotests.pages.departmentManager.catalog.product;
 
 import junit.framework.Assert;
-import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.NonType;
-import project.lighthouse.autotests.objects.ProductInvoiceListObject;
-import project.lighthouse.autotests.objects.ProductInvoiceListObjectsList;
+import project.lighthouse.autotests.objects.product.ProductInvoiceListObject;
+import project.lighthouse.autotests.objects.product.ProductInvoiceListObjectsList;
 
 import java.util.List;
 
@@ -26,21 +25,20 @@ public class ProductInvoicesList extends CommonPageObject {
     }
 
     private List<WebElement> getProductInvoicesListWebElements() {
-        WebElementFacade table = find(By.xpath("//table"));
-        return table.findElements(By.xpath("//*[@name='invoice']"));
-//        return waiter.getPresentWebElements(By.xpath("//*[@name='invoice']"));
+        return waiter.getVisibleWebElements(By.xpath("//*[@name='invoice']"));
     }
 
     public ProductInvoiceListObjectsList getProductInvoiceListObjects() {
         ProductInvoiceListObjectsList productInvoiceListObjects = new ProductInvoiceListObjectsList();
         for (WebElement element : getProductInvoicesListWebElements()) {
-            ProductInvoiceListObject productInvoiceListObject = new ProductInvoiceListObject(getDriver(), element);
+            ProductInvoiceListObject productInvoiceListObject = new ProductInvoiceListObject(element);
             productInvoiceListObjects.add(productInvoiceListObject);
         }
         return productInvoiceListObjects;
     }
 
     public void invoiceSkuClick(String sku) {
+        //TODO fix xpath
         By by = By.xpath(String.format("//table//tr[@invoice-sku='%s']", sku));
         findVisibleElement(by).click();
     }

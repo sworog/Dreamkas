@@ -13,6 +13,8 @@ public class CommonUserSteps {
     @Steps
     CommonSteps commonSteps;
 
+    String storedUrl;
+
     @Then("the user checks that he is on the '$pageObjectName'")
     public void TheTheUserChecksThatHeIsOnTheProductListPage(String pageObjectName) {
         commonSteps.checkTheRequiredPageIsOpen(pageObjectName);
@@ -78,5 +80,15 @@ public class CommonUserSteps {
     @Pending
     public void about(String description, String details) {
         //pending
+    }
+
+    @Given("the user stores the current url")
+    public void givenTheUserStoresTheCurrentUrl() {
+        storedUrl = commonSteps.getDriver().getCurrentUrl();
+    }
+
+    @Given("the user navigates to the stored url")
+    public void givenTheUserNavigatesToTheStoredUrl() {
+        commonSteps.getDriver().navigate().to(storedUrl);
     }
 }

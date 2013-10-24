@@ -17,4 +17,8 @@ public class ProductLocalNavigation extends CommonPageObject {
     public void productInvoicesLinkClick() {
         new NavigationLinkFacade(getDriver(), "Приходы").click();
     }
+
+    public void productWriteOffsLinkClick() {
+        new NavigationLinkFacade(getDriver(), "Списания").click();
+    }
 }

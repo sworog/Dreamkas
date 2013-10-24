@@ -7,7 +7,6 @@ As a user
 I want to perform an action
 So that I can achieve a business goal
 
-
 Scenario: Nothing found
 
 Given there is the user with name 'departmentManager-UIBS-FF', position 'departmentManager-UIBS-FF', username 'departmentManager-UIBS-FF', password 'lighthouse', role 'departmentManager'
@@ -18,8 +17,6 @@ And the user navigates to the product with sku '7300330094025'
 When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse' password
 And the user clicks the product local navigation invoices link
 Then the user checks page contains text 'Приходов товара еще не было'
-
-
 
 Scenario: Found one invoice
 
@@ -40,7 +37,6 @@ And the user navigates to the product with sku '7300330094025'
 When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse' password
 And the user clicks the product local navigation invoices link
 Then the user check invoice product line '02.04.2013', '1', '100,00', '100,00' data
-
 
 Scenario: Found more invoices
 

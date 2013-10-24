@@ -19,7 +19,7 @@ public class SimpleLogObject {
     }
 
     private void setProperty(WebElement element) {
-        this.message = element.findElement(By.xpath("//*[@class='log__finalMessage']")).getText();
+        this.message = element.findElement(By.xpath(".//*[@class='log__finalMessage']")).getText();
     }
 
     public String getMessage() {

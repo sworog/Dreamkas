@@ -1,5 +1,7 @@
 package project.lighthouse.autotests.pages.departmentManager.writeOff;
 
+import junit.framework.Assert;
+import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.ApiConnect;
@@ -14,6 +16,7 @@ import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
 import project.lighthouse.autotests.pages.departmentManager.api.DepartmentManagerApi;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class WriteOffApi extends DepartmentManagerApi {
 
@@ -34,6 +37,29 @@ public class WriteOffApi extends DepartmentManagerApi {
 
     public WriteOff createWriteOffThroughPost(String writeOffNumber, String storeName, String userName) throws JSONException, IOException {
         WriteOff writeOff = new WriteOff(writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN));
+        String storeId = StaticData.stores.get(storeName).getId();
+        writeOff.setStoreId(storeId);
+        return new ApiConnect(userName, "lighthouse").createWriteOffThroughPost(writeOff);
+    }
+
+    public WriteOff createWriteOffThrougPost(String storeName, String userName, ExamplesTable examplesTable) throws JSONException, IOException {
+        String number = "", date = "";
+        for (Map<String, String> row : examplesTable.getRows()) {
+            String elementName = row.get("elementName");
+            String elementValue = row.get("elementValue");
+            switch (elementName) {
+                case "number":
+                    number = elementValue;
+                    break;
+                case "date":
+                    date = elementValue;
+                    break;
+                default:
+                    Assert.fail(String.format("No such elementName '%s'", elementName));
+                    break;
+            }
+        }
+        WriteOff writeOff = new WriteOff(number, date);
         String storeId = StaticData.stores.get(storeName).getId();
         writeOff.setStoreId(storeId);
         return new ApiConnect(userName, "lighthouse").createWriteOffThroughPost(writeOff);

@@ -13,6 +13,7 @@ import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.product.*;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductInvoicesList;
+import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
 
 import java.io.IOException;
 
@@ -27,6 +28,7 @@ public class ProductSteps extends ScenarioSteps {
     CatalogApi catalogApi;
     ProductLocalNavigation productLocalNavigation;
     ProductInvoicesList productInvoicesList;
+    ProductWriteOffList productWriteOffList;
 
     public ProductSteps(Pages pages) {
         super(pages);
@@ -226,5 +228,29 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void productInvoiceListClick(String sku) {
         productInvoicesList.invoiceSkuClick(sku);
+    }
+
+    @Step
+    public void productWriteOffsLinkClick() {
+        productLocalNavigation.productWriteOffsLinkClick();
+    }
+
+    @Step
+    public void productWriteOffLinkIsNotPresent() {
+        try {
+            productLocalNavigation.productWriteOffsLinkClick();
+            Assert.fail("the product local navigation writeoffs link is present!");
+        } catch (Exception ignored) {
+        }
+    }
+
+    @Step
+    public void checkProductWriteOffListObject(ExamplesTable examplesTable) {
+        productWriteOffList.getProductInvoiceListObjects().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void productWriteOffListObjectClick(String number) {
+        productWriteOffList.productWriteOffListObjectClick(number);
     }
 }
