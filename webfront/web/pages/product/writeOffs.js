@@ -17,10 +17,7 @@ define(function(require) {
         initialize: function(params) {
             var page = this;
 
-            if (
-                !LH.isAllow('products', 'GET::{product}')
-                && (!LH.isAllow('stores/{store}/products/{product}') || !currentUserModel.stores.length)
-            ){
+            if (!currentUserModel.stores.length || !LH.isAllow('stores/{store}/writeoffs', 'GET')){
                 new Page403();
                 return;
             }
@@ -31,14 +28,15 @@ define(function(require) {
                 });
             }
 
-            if (LH.isAllow('stores/{store}/products/{product}', 'GET') && currentUserModel.stores.length) {
+            if (LH.isAllow('stores/{store}/products/{product}', 'GET')) {
                 page.model = new StoreProductModel({
                     id: page.productId
                 });
             }
 
             page.productWriteOffsCollection = new ProductWriteOffsCollection({
-                productId: params.productId
+                productId: params.productId,
+                storeId: currentUserModel.stores.at(0).id
             });
 
             $.when(page.model.fetch(), page.productWriteOffsCollection.fetch()).then(function(){

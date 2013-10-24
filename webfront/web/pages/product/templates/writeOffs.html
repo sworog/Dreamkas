@@ -6,8 +6,11 @@
 
 <div class="localNavigation">
     <a class="localNavigation__link" href="/products/<%- productModel.id %>">Свойства</a>
-    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET') && currentUserModel.stores.length) { %>
+    <% if (LH.isAllow('stores/{store}/invoices', 'GET') && currentUserModel.stores.length) { %>
         <a class="localNavigation__link" href="/products/<%- productModel.id %>/invoices">Приходы</a>
+    <% } %>
+
+    <% if (LH.isAllow('stores/{store}/writeoffs', 'GET') && currentUserModel.stores.length) { %>
         <a class="localNavigation__link localNavigation__link_active" href="/products/<%- productModel.id %>/writeoffs">Списания</a>
     <% } %>
 </div>

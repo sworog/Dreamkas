@@ -7,9 +7,10 @@ define(function(require) {
         model: require('models/productInvoice'),
         initialize: function(opt) {
             this.productId = opt.productId;
+            this.storeId = opt.storeId;
         },
         url: function() {
-            return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/products/' + this.productId + '/invoiceProducts'
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/products/' + this.productId + '/invoiceProducts'
         }
     });
 });
