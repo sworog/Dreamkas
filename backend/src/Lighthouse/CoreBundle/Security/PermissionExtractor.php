@@ -9,6 +9,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Nelmio\ApiDocBundle\Extractor\ApiDocExtractor;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use ReflectionMethod;
 
 /**
  * @DI\Service("lighthouse.core.security.permissions_extractor")
@@ -83,7 +84,7 @@ class PermissionExtractor
         foreach ($extraction as $extract) {
             $resourceName = $this->normalizeResourceName($extract['resource']);
             $verb = $this->getMethodVerb($extract['annotation'], $extract['resource']);
-            $resources[$resourceName][$verb] = $this->parseAnnotation($extract['annotation']);
+            $resources[$resourceName][$verb] = $this->getRolesFromAnnotation($extract['annotation']);
         }
 
         return $resources;
@@ -126,31 +127,58 @@ class PermissionExtractor
 
     /**
      * @param ApiDoc $apiDoc
-     * @return bool|array
+     * @return bool|array array of roles or true if everyone have access to method
      */
-    protected function parseAnnotation(ApiDoc $apiDoc)
+    protected function getRolesFromAnnotation(ApiDoc $apiDoc)
     {
         $controller = $apiDoc->getRoute()->getDefault('_controller');
         $method = $this->apiDocExtractor->getReflectionMethod($controller);
-        $secure = $this->reader->getMethodAnnotation($method, 'JMS\\SecurityExtraBundle\\Annotation\\Secure');
-        $roles = ($secure) ? $secure->roles : true;
+        $roles = true;
+        $roles = $this->mergeRoles($roles, $this->getRolesFromSecureAnnotation($method));
+        $roles = $this->mergeRoles($roles, $this->getRolesFromSecureParamAnnotation($method));
+        return $roles;
+    }
+
+    /**
+     * @param bool|array $roles
+     * @param bool|array $moreRoles
+     * @return bool|array
+     */
+    protected function mergeRoles($roles, $moreRoles)
+    {
+        if (true === $roles) {
+            return (true === $moreRoles) ? true : $moreRoles;
+        } else {
+            return (true === $moreRoles) ? $roles : array_merge($roles, $moreRoles);
+        }
+    }
+
+    /**
+     * @param \ReflectionMethod $method
+     * @return array|bool
+     */
+    protected function getRolesFromSecureAnnotation(ReflectionMethod $method)
+    {
+        $secure = $this->reader->getMethodAnnotation(
+            $method,
+            'JMS\\SecurityExtraBundle\\Annotation\\Secure'
+        );
+        return ($secure) ? $secure->roles : true;
+    }
+
+    /**
+     * @param ReflectionMethod $method
+     * @return array|bool
+     */
+    protected function getRolesFromSecureParamAnnotation(ReflectionMethod $method)
+    {
         // Parse SecureParams Annotation
+        // @var SecureParam $secureParam
         $secureParam = $this->reader->getMethodAnnotation(
             $method,
             'JMS\\SecurityExtraBundle\\Annotation\\SecureParam'
         );
-        if ($secureParam) {
-            foreach ($secureParam->permissions as $attribute) {
-                if ($this->storeManagerVoter->supportsAttribute($attribute)) {
-                    if (true === $roles) {
-                        $roles = array();
-                    }
-                    $roles[] = $this->storeManagerVoter->getRoleByAttribute($attribute);
-                }
-            }
-        }
-
-        return $roles;
+        return ($secureParam) ? $this->storeManagerVoter->getRolesByAttributes($secureParam->permissions) : true;
     }
 
     /**

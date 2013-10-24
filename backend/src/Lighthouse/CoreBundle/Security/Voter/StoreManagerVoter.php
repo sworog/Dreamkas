@@ -94,4 +94,19 @@ class StoreManagerVoter implements VoterInterface
             return $this->roleAttributes[$attribute];
         }
     }
+
+    /**
+     * @param array $attributes
+     * @return array roles
+     */
+    public function getRolesByAttributes(array $attributes)
+    {
+        $roles = array();
+        foreach ($attributes as $attribute) {
+            if ($this->supportsAttribute($attribute)) {
+                $roles[] = $this->getRoleByAttribute($attribute);
+            }
+        }
+        return $roles;
+    }
 }

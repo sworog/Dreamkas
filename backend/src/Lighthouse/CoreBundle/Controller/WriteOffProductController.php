@@ -118,6 +118,7 @@ class WriteOffProductController extends AbstractRestController
      * @param Product $product
      * @return InvoiceProductCollection
      * @Rest\Route("stores/{store}/products/{product}/writeOffProducts")
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getProductWriteOffProductsAction(Store $store, Product $product)
