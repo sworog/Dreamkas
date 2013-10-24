@@ -111,6 +111,7 @@ class InvoiceProductController extends AbstractRestController
      * @param Product $product
      * @return InvoiceProductCollection
      * @Rest\Route("stores/{store}/products/{product}/invoiceProducts")
+     * @ApiDoc
      */
     public function getProductInvoiceProductsAction(Store $store, Product $product)
     {
