@@ -7,13 +7,13 @@ define(function(require) {
     require('moment');
 
     return Model.extend({
-        modelName: 'productInvoice',
+        modelName: 'productWriteOff',
         urlRoot: function() {
             return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/products/' + this.get('product').id + '/writeOffProducts';
         },
         defaults: {
-            acceptanceDateFormatted: computeAttr(['acceptanceDate'], function(acceptanceDate){
-                return moment(acceptanceDate).format('DD.MM.YYYY');
+            createdDateFormatted: computeAttr(['createdDate'], function(createdDate){
+                return moment(createdDate).format('DD.MM.YYYY');
             }),
             totalPriceFormatted: computeAttr(['totalPrice'], function(totalPrice){
                 return LH.formatPrice(totalPrice);

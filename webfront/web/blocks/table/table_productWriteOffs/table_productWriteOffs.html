@@ -3,7 +3,7 @@
     <% collection.forEach(function(model){ %>
     <tr writeoff-number="<%- model.get('writeOff.number') %>" name="writeOff" href="/writeOffs/<%- model.get('writeOff.id') %>">
         <td>
-            <%= LH.modelNode(model, 'acceptanceDateFormatted') %>
+            <%= LH.modelNode(model, 'createdDateFormatted') %>
         </td>
         <td>
             - <%= LH.modelNode(model, 'quantity') %>
