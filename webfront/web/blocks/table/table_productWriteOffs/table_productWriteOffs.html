@@ -1,7 +1,7 @@
 <table class="table table_productInvoices">
     <tbody>
     <% collection.forEach(function(model){ %>
-    <tr>
+    <tr writeoff-number="<%- model.get('writeOff.number') %>" name="writeOff" href="/writeOffs/<%- model.get('writeOff.id') %>">
         <td>
             <%= LH.modelNode(model, 'acceptanceDateFormatted') %>
         </td>
