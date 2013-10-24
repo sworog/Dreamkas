@@ -1401,5 +1401,13 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($invoiceId2, '0.invoice.id', $getResponse);
         Assert::assertNotJsonHasPath('*.store', $getResponse);
         Assert::assertNotJsonHasPath('*.originalProduct', $getResponse);
+
+        Assert::assertJsonHasPath('0.acceptanceDate', $getResponse);
+        Assert::assertJsonHasPath('0.invoice.acceptanceDate', $getResponse);
+        $this->assertEquals($getResponse[0]['acceptanceDate'], $getResponse[0]['invoice']['acceptanceDate']);
+
+        Assert::assertJsonHasPath('1.acceptanceDate', $getResponse);
+        Assert::assertJsonHasPath('1.invoice.acceptanceDate', $getResponse);
+        $this->assertEquals($getResponse[1]['acceptanceDate'], $getResponse[1]['invoice']['acceptanceDate']);
     }
 }
