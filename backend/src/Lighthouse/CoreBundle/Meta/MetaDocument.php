@@ -18,9 +18,20 @@ class MetaDocument
      */
     protected $element;
 
+    /**
+     * @param $element
+     */
     public function __construct($element)
     {
         $this->element = $element;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getElement()
+    {
+        return $this->element;
     }
 
     /**

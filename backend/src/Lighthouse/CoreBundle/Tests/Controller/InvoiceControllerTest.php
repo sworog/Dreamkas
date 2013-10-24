@@ -707,6 +707,14 @@ class InvoiceControllerTest extends WebTestCase
                     '1._meta.highlights.supplierInvoiceSku' => true,
                 )
             ),
+            'one by sku check invoice products' => array(
+                '866-89',
+                1,
+                array(
+                    '0.sku' => '866-89',
+                    '0._meta.highlights.sku' => true,
+                )
+            ),
         );
     }
 

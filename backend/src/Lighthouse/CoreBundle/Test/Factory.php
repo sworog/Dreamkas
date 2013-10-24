@@ -245,7 +245,7 @@ class Factory
     {
         if (!isset($this->departmentManagers[$storeId])) {
             $username = 'departmentManagerStore' . $storeId;
-            $manager = $this->getUser($username, self::USER_DEFAULT_PASSWORD, User::ROLE_STORE_MANAGER);
+            $manager = $this->getUser($username, self::USER_DEFAULT_PASSWORD, User::ROLE_DEPARTMENT_MANAGER);
             $this->linkDepartmentManagers($storeId, $manager->id);
 
             $this->departmentManagers[$storeId] = $manager;

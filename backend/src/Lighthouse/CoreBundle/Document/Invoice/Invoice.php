@@ -2,9 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Document\Invoice;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Types\Money;
@@ -13,6 +16,12 @@ use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompare;
 use DateTime;
 
 /**
+ * @property string $id
+ * @property Store  $store
+ * @property string $sku
+ * @property string $supplier
+ * @property Collection|InvoiceProduct[] $products
+ *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository"
  * )
@@ -123,10 +132,24 @@ class Invoice extends AbstractDocument implements Storeable
     protected $itemsCount;
 
     /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct",
+     *      simple=true,
+     *      cascade="persist",
+     *      mappedBy="invoice"
+     * )
+     *
+     * @Assert\Valid(traverse=true)
+     * @var InvoiceProduct[]
+     */
+    protected $products;
+
+    /**
      *
      */
     public function __construct()
     {
+        $this->products = new InvoiceProductCollection();
         $this->createdDate = new DateTime();
         $this->sumTotal = new Money(0);
     }

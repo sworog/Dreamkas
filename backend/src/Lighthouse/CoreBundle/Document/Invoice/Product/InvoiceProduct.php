@@ -72,7 +72,10 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     /**
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Invoice\Invoice",
-     *     simple=true
+     *     simple=true,
+     *     cascade="persist",
+     *     inversedBy="products"
+     *
      * )
      * @Assert\NotBlank
      * @var Invoice
