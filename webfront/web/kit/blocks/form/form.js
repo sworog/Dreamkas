@@ -12,9 +12,7 @@ define(function(require) {
 
     return Block.extend({
         __name__: 'form',
-        dictionary: _.extend(
-            require('i18n!./nls/errors')
-        ),
+        dictionary: require('i18n!./nls/errors'),
         className: 'form',
         tagName: 'form',
         model: new Backbone.Model,

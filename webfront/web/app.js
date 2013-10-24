@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var app = require('kit/core/app'),
+        Block = require('kit/core/block'),
         $ = require('jquery'),
         Backbone = require('backbone'),
         _ = require('lodash'),
@@ -8,6 +9,8 @@ define(function(require) {
         cookie = require('kit/libs/cookie');
 
     app.locale = 'root';
+
+    Block.prototype.dictionary = require('dictionary');
 
     var sync = Backbone.sync,
         loading,

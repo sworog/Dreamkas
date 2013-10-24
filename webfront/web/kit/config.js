@@ -1,4 +1,6 @@
 define(function(require) {
+    //requirements
+    var cookie = require('./libs/cookie');
 
     var url = require.toUrl;
 
@@ -32,6 +34,13 @@ define(function(require) {
                 exports: 'Backbone'
             },
             'backbone.queryparams': ['backbone']
+        },
+        config: {
+            //Set the config for the i18n
+            //module ID
+            i18n: {
+                locale: cookie.get('locale') || 'root'
+            }
         }
     });
 });
