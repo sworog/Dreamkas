@@ -53,7 +53,8 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
         $display = $commandTester->getDisplay();
         $expected = '  > purging database
   > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
-  > loading Lighthouse\\CoreBundle\DataFixtures\\ODM\\LoadUserData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
   > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
 ';
 
@@ -96,7 +97,8 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
         $display = $commandTester->getDisplay();
         $expected = '  > purging database
   > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
-  > loading Lighthouse\\CoreBundle\DataFixtures\\ODM\\LoadUserData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
   > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
 ';
 
@@ -149,7 +151,8 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
 
         $display = $commandTester->getDisplay();
         $expected = '  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
-  > loading Lighthouse\\CoreBundle\DataFixtures\\ODM\\LoadUserData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
   > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
 ';
 
@@ -175,7 +178,8 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
 
         $expected = '  > purging database
   > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
-  > loading Lighthouse\\CoreBundle\DataFixtures\\ODM\\LoadUserData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
   > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
 ';
 
