@@ -236,7 +236,7 @@ Scenario: Invoice with product found
 Given there is the user with name 'departmentManager-UIBS-NF', position 'departmentManager-UIBS-NF', username 'departmentManager-UIBS-NF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-NF' managed by department manager named 'departmentManager-UIBS-NF'
 Given there is the subCategory with name 'ProductsUpdateInvoiceSubCategory' related to group named 'ProductsUpdateInvoiceGroup' and category named 'ProductsUpdateInvoiceCategory'
-And there is the product with 'Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г' name, '7300330094021 ' sku, '7300330094025 ' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateInvoiceGroup', category named 'ProductsUpdateInvoiceCategory', subcategory named 'ProductsUpdateInvoiceSubCategory'
+And there is the product with 'Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г' name, '7300330094021' sku, '7300330094025' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateInvoiceGroup', category named 'ProductsUpdateInvoiceCategory', subcategory named 'ProductsUpdateInvoiceSubCategory'
 And there is the invoice in the store with number 'UIBS-NF' ruled by department manager with name 'departmentManager-UIBS-NF' with values
 | elementName | elementValue |
 | sku | Invoice-UIBS-NF-10 |
