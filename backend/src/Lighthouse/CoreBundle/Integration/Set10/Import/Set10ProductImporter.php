@@ -71,7 +71,7 @@ class Set10ProductImporter
             $flushCount++;
             $lineCount++;
             try {
-                $this->validator->validate($product);
+                $this->validator->validate($product, null, true, true);
                 $this->dm->persist($product);
                 if ($verbose) {
                     $output->writeln(sprintf('<info>Persist product "%s"</info>', $product->name));
