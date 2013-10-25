@@ -1,10 +1,12 @@
 package project.lighthouse.autotests.steps;
 
+import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.objects.error.ValidationErrorsCollection;
 
 public class CommonSteps extends ScenarioSteps {
 
@@ -21,22 +23,29 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void checkErrorMessages(ExamplesTable errorMessageTable) {
-        commonPage.checkErrorMessages(errorMessageTable);
+        new ValidationErrorsCollection(getDriver()).matchesWithExampleTable(errorMessageTable);
     }
 
     @Step
     public void checkErrorMessage(String message) {
-        commonPage.checkErrorMessage(message);
+        new ValidationErrorsCollection(getDriver()).matchesWithMessage(message);
     }
 
     @Step
     public void checkNoErrorMessages() {
-        commonPage.checkNoErrorMessages();
+        try {
+            String errorMessage = String.format("Present messages: '%s'", new ValidationErrorsCollection(getDriver()).getActualMessages());
+            Assert.fail(errorMessage);
+        } catch (Exception ignored) {
+        }
     }
 
     @Step
     public void checkNoErrorMessages(ExamplesTable errorMessageTable) {
-        commonPage.checkNoErrorMessages(errorMessageTable);
+        try {
+            new ValidationErrorsCollection(getDriver()).notMatchesWithExampleTable(errorMessageTable);
+        } catch (Exception ignored) {
+        }
     }
 
     @Step
