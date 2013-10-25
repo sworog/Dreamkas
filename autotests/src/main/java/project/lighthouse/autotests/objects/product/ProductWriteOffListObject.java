@@ -24,11 +24,6 @@ public class ProductWriteOffListObject extends AbstractProductObjectList {
         setProperties();
     }
 
-    @Override
-    public String getValues() {
-        return String.format("%s, %s, %s, %s", acceptanceDateFormatted, quantity, priceFormatted, totalPriceFormatted);
-    }
-
     public void setProperties() {
         acceptanceDateFormatted = element.findElement(By.xpath(".//*[@model_attr='createdDateFormatted']")).getText();
         quantity = element.findElement(By.xpath(".//*[@model_attr='quantity']")).getText();

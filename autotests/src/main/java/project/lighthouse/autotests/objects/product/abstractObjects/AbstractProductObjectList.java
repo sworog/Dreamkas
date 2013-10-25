@@ -12,8 +12,6 @@ abstract public class AbstractProductObjectList {
         this.element = element;
     }
 
-    abstract public String getValues();
-
     abstract public void setProperties();
 
     public void click() {

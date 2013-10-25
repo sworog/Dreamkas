@@ -6,39 +6,35 @@ import project.lighthouse.autotests.objects.product.abstractObjects.AbstractProd
 
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-
 public class ProductInvoiceListObject extends AbstractProductObjectList {
 
-    private String date;
-    private String number;
-    private String price;
+    private String acceptanceDateFormatted;
+    private String quantity;
+    private String priceFormatted;
+    private String totalPriceFormatted;
+    private String invoiceSku;
+
+    public String getInvoiceSku() {
+        return invoiceSku;
+    }
 
     public ProductInvoiceListObject(WebElement element) {
         super(element);
         setProperties();
     }
 
-    @Override
-    public String getValues() {
-        return String.format("%s, %s, %s", date, number, price);
-    }
-
     public void setProperties() {
-        date = element.findElement(By.xpath(".//")).getText();
-        number = element.findElement(By.xpath(".//")).getText();
-        price = element.findElement(By.xpath(".//")).getText();
-    }
-
-    public void compareWithExamplesTableRow(Map<String, String> row) {
-        assertEquals(date, row.get("date"));
-        assertEquals(number, row.get("number"));
-        assertEquals(price, row.get("price"));
+        acceptanceDateFormatted = element.findElement(By.xpath(".//*[@model_attr='acceptanceDateFormatted']")).getText();
+        quantity = element.findElement(By.xpath(".//*[@model_attr='quantity']")).getText();
+        priceFormatted = element.findElement(By.xpath(".//*[@model_attr='priceFormatted']")).getText();
+        totalPriceFormatted = element.findElement(By.xpath(".//*[@model_attr='totalPriceFormatted']")).getText();
+        invoiceSku = element.getAttribute("invoice-sku");
     }
 
     public Boolean rowIsEqual(Map<String, String> row) {
-        return date.equals(row.get("date")) &&
-                number.equals(row.get("number")) &&
-                price.equals(row.get("price"));
+        return acceptanceDateFormatted.equals(row.get("acceptanceDateFormatted")) &&
+                quantity.equals(row.get("quantity")) &&
+                priceFormatted.equals(row.get("priceFormatted")) &&
+                totalPriceFormatted.equals(row.get("totalPriceFormatted"));
     }
 }

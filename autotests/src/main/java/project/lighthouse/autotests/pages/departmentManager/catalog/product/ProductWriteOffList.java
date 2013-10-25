@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.pages.departmentManager.catalog.product;
 
+import junit.framework.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,12 +40,17 @@ public class ProductWriteOffList extends CommonPageObject {
     }
 
     public void productWriteOffListObjectClick(String number) {
-        ProductWriteOffListObjectList productObjectLists = getProductInvoiceListObjects();
-        for (AbstractProductObjectList abstractProductObjectList : productObjectLists) {
+        Boolean found = false;
+        for (AbstractProductObjectList abstractProductObjectList : getProductInvoiceListObjects()) {
             ProductWriteOffListObject productWriteOffListObject = (ProductWriteOffListObject) abstractProductObjectList;
             if (productWriteOffListObject.getNumber().equals(number)) {
+                found = true;
                 productWriteOffListObject.click();
             }
+        }
+        if (!found) {
+            String errorMessage = String.format("There is no writeOff with '%s' to click!", number);
+            Assert.fail(errorMessage);
         }
     }
 }

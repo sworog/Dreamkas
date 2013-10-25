@@ -8,6 +8,7 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.NonType;
 import project.lighthouse.autotests.objects.product.ProductInvoiceListObject;
 import project.lighthouse.autotests.objects.product.ProductInvoiceListObjectsList;
+import project.lighthouse.autotests.objects.product.abstractObjects.AbstractProductObjectList;
 
 import java.util.List;
 
@@ -19,9 +20,10 @@ public class ProductInvoicesList extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("date", new NonType(this, "date"));
-        items.put("number", new NonType(this, "number"));
-        items.put("price", new NonType(this, "price"));
+        items.put("acceptanceDateFormatted", new NonType(this, "acceptanceDateFormatted"));
+        items.put("quantity", new NonType(this, "quantity"));
+        items.put("priceFormatted", new NonType(this, "priceFormatted"));
+        items.put("totalPriceFormatted", new NonType(this, "totalPriceFormatted"));
     }
 
     private List<WebElement> getProductInvoicesListWebElements() {
@@ -38,15 +40,17 @@ public class ProductInvoicesList extends CommonPageObject {
     }
 
     public void invoiceSkuClick(String sku) {
-        //TODO fix xpath
-        By by = By.xpath(String.format("//table//tr[@invoice-sku='%s']", sku));
-        findVisibleElement(by).click();
-    }
-
-    public void checkInvoiceData(String date, String quantity, String price, String totalPrice) {
-        Assert.assertEquals(findModelFieldContaining("productInvoice", "acceptanceDateFormatted", date).getText(), date);
-        Assert.assertEquals(findModelFieldContaining("productInvoice", "quantity", quantity).getText(), quantity);
-        Assert.assertEquals(findModelFieldContaining("productInvoice", "priceFormatted", price).getText(), price);
-        Assert.assertEquals(findModelFieldContaining("productInvoice", "totalPriceFormatted", totalPrice).getText(), totalPrice);
+        Boolean found = false;
+        for (AbstractProductObjectList abstractProductObjectList : getProductInvoiceListObjects()) {
+            ProductInvoiceListObject productInvoiceListObject = (ProductInvoiceListObject) abstractProductObjectList;
+            if (productInvoiceListObject.getInvoiceSku().equals(sku)) {
+                found = true;
+                productInvoiceListObject.click();
+            }
+        }
+        if (!found) {
+            String errorMessage = String.format("There is no invoice with '%s' to click!", sku);
+            Assert.fail(errorMessage);
+        }
     }
 }

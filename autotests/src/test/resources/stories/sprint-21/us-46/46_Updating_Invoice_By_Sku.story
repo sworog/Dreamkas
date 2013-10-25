@@ -236,7 +236,7 @@ Scenario: Invoice with product found
 Given there is the user with name 'departmentManager-UIBS-NF', position 'departmentManager-UIBS-NF', username 'departmentManager-UIBS-NF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-NF' managed by department manager named 'departmentManager-UIBS-NF'
 Given there is the subCategory with name 'ProductsUpdateInvoiceSubCategory' related to group named 'ProductsUpdateInvoiceGroup' and category named 'ProductsUpdateInvoiceCategory'
-And there is the product with 'Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г' name, '7300330094021' sku, '7300330094025' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateInvoiceGroup', category named 'ProductsUpdateInvoiceCategory', subcategory named 'ProductsUpdateInvoiceSubCategory'
+And there is the product with 'Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г' name, '7300330094019' sku, '7300330094025' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateInvoiceGroup', category named 'ProductsUpdateInvoiceCategory', subcategory named 'ProductsUpdateInvoiceSubCategory'
 And there is the invoice in the store with number 'UIBS-NF' ruled by department manager with name 'departmentManager-UIBS-NF' with values
 | elementName | elementValue |
 | sku | Invoice-UIBS-NF-10 |
@@ -246,7 +246,7 @@ And there is the invoice in the store with number 'UIBS-NF' ruled by department 
 | legalEntity | legalEntity |
 | supplierInvoiceSku | supplierInvoiceSku |
 | supplierInvoiceDate | 02.04.2013 |
-And the user adds the product to the invoice with name 'Invoice-UIBS-NF-10' with sku '7300330094021', quantity '2', price '12,51' in the store ruled by 'departmentManager-UIBS-NF'
+And the user adds the product to the invoice with name 'Invoice-UIBS-NF-10' with sku '7300330094019', quantity '2', price '12,51' in the store ruled by 'departmentManager-UIBS-NF'
 And the user is on the invoice list page
 When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse' password
 And the user clicks the local navigation invoice search link
@@ -255,10 +255,10 @@ And the user clicks the invoice search buttton and starts the search
 Then the user checks the form results text is 'Накладная нашлась!'
 And the user checks the invoice with sku 'Invoice-UIBS-NF-10' in search results
 And the user checks the invoice with sku 'Invoice-UIBS-NF-10' in search results with stored values
-Then the user checks the product with '7300330094021' sku has values
+Then the user checks the product with '7300330094019' sku has values
 | elementName | value |
 | productName | Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г |
-| productSku | 7300330094021 |
+| productSku | 7300330094019 |
 | productBarcode | 7300330094025 |
 | productUnits | шт. |
 | productAmount | 2 |
