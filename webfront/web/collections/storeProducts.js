@@ -6,9 +6,14 @@ define(function(require) {
             model: require('models/storeProduct'),
             initialize: function(models, opt) {
                 this.storeId = opt.storeId;
+                this.subCategory = opt.subCategory;
             },
             url: function() {
-                return LH.baseApiUrl + '/stores/' + this.storeId + '/products'
+                if (this.subCategory){
+                    return LH.baseApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subCategory + '/products'
+                } else {
+                    return LH.baseApiUrl + '/stores/' + this.storeId + '/products'
+                }
             }
         });
     }

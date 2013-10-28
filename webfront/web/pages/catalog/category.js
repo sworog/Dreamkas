@@ -68,6 +68,7 @@ define(function(require) {
             });
 
             page.storeProductsCollection = new StoreProductsCollection([], {
+                subCategory: params.catalogSubCategoryId,
                 storeId: pageParams.storeId
             });
 
