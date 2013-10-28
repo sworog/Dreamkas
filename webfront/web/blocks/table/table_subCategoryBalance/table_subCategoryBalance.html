@@ -1,0 +1,27 @@
+<!-- @collection -->
+
+<table class="table table_balance">
+    <thead>
+    <tr>
+        <th>Артикул</th>
+        <th>Название</th>
+        <th>Количество</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% collection.forEach(function(model){ %>
+    <tr name="amountItem">
+        <td name="sku">111
+            <%- model.get('product.sku') %>
+        </td>
+        <td name="name">
+            <%- model.get('product.name') %>
+        </td>
+        <td>
+            <span name="amount"><%- model.get('amount') || 0 %></span>
+            <span name="units"><%- LH.units(model.get('product.units'), 'smallShort') %></span>
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>

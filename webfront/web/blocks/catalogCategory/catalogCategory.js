@@ -54,20 +54,6 @@ define(function(require) {
                         retailMarkupMin: block.catalogCategoryModel.get('retailMarkupMin')
                     })
                 });
-            },
-            'click .catalogCategory__subCategoryLink': function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-
-                var block = this,
-                    $target = $(e.currentTarget);
-
-                router.navigate(router.toFragment($target.attr('href'), {
-                    editMode: pageParams.editMode,
-                    storeId: pageParams.storeId
-                }));
-
-                block.set('catalogSubCategoryId', $target.attr('subCategory_id'));
             }
         },
         listeners: {
