@@ -16,7 +16,7 @@ class LoadStoresData extends ContainerAware implements FixtureInterface
      *
      * @param ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $store666 = new Store();
         $store666->number = '666';
