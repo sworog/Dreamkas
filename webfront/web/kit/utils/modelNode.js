@@ -1,19 +1,28 @@
 define(function(require) {
     //requirements
-    var translate = require('./translate'),
+    var getText = require('./getText'),
         get = require('./get');
 
     require('jquery');
 
-    return function(model, attr){
-        var nodeTemplate = '<span model_name="' + model.modelName + '" model_id="' + model.id + '" model_attr="' + attr + '">' + translate(get(model, 'dictionary'), model.get(attr)) + '</span>';
+    function ensureAttr(model, attr) {
+        var attrValue = model.get(attr);
+
+        return getText(get(model, 'dictionary'), typeof attrValue === 'undefined' ? '' : attrValue);
+    }
+
+    return function(model, attr) {
+        var text = ensureAttr(model, attr),
+            nodeTemplate = '<span model_name="' + model.modelName + '" model_id="' + model.id + '" model_attr="' + attr + '">' + text + '</span>';
 
         var handlers = {};
 
-        handlers['change:' + attr] = function(){
+        handlers['change:' + attr] = function() {
+            var text = ensureAttr(model, attr);
+
             $('body')
                 .find('[model_id="' + model.id + '"][model_attr="' + attr + '"]')
-                .html(translate(get(model, 'dictionary'), model.get(attr)));
+                .html(text);
         };
 
         model.listenTo(model, handlers);

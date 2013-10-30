@@ -138,7 +138,7 @@ class StoreProductRepository extends DocumentRepository
 
         $cursor = $this->findBy(
             array(
-                'product' => array('$in' => array_keys($products)),
+                'subCategory' => $subCategory->id,
                 'store' => $store->id
             )
         );
