@@ -10,14 +10,7 @@ public class ValidationError {
         return message;
     }
 
-    private WebElement element;
-
     public ValidationError(WebElement element) {
-        this.element = element;
-        setProperties();
-    }
-
-    private void setProperties() {
         message = element.getAttribute("data-error");
     }
 }
