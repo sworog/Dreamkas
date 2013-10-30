@@ -6,14 +6,16 @@ define(function(require) {
     require('jquery');
 
     return function(model, attr){
-        var nodeTemplate = '<span model_name="' + model.modelName + '" model_id="' + model.id + '" model_attr="' + attr + '">' + translate(get(model, 'dictionary'), model.get(attr)) + '</span>';
+        var attrValue = model.get(attr),
+            text = translate(get(model, 'dictionary'), typeof attrValue === 'undefined' ? '' : attrValue),
+            nodeTemplate = '<span model_name="' + model.modelName + '" model_id="' + model.id + '" model_attr="' + attr + '">' + text + '</span>';
 
         var handlers = {};
 
         handlers['change:' + attr] = function(){
             $('body')
                 .find('[model_id="' + model.id + '"][model_attr="' + attr + '"]')
-                .html(translate(get(model, 'dictionary'), model.get(attr)));
+                .html(text);
         };
 
         model.listenTo(model, handlers);

@@ -23,7 +23,7 @@ define(function(require) {
             }),
             retailPricePreference: 'retailMarkup',
             averagePurchasePriceFormatted: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice){
-                return averagePurchasePrice ? LH.formatPrice(averagePurchasePrice) + ' р.' : '&mdash;'
+                return averagePurchasePrice ? (LH.formatPrice(averagePurchasePrice) + ' р.') : '&mdash;'
             }),
             lastPurchasePriceFormatted: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice){
                 return (lastPurchasePrice ? LH.formatPrice(lastPurchasePrice) : LH.formatPrice(this.get('product.purchasePrice'))) + ' р.'
