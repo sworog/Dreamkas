@@ -1,25 +1,36 @@
 <!-- @collection -->
 
-<table class="table table_balance">
+<table class="table table_subCategoryBalance">
     <thead>
     <tr>
-        <th>Артикул</th>
         <th>Название</th>
+        <th>Штрихкод</th>
         <th>Количество</th>
+        <th>Средняя ЗЦ</th>
+        <th>Последняя ЗЦ</th>
     </tr>
     </thead>
     <tbody>
     <% collection.forEach(function(model){ %>
     <tr name="amountItem">
-        <td name="sku">
-            <%- model.get('product.sku') %>
-        </td>
-        <td name="name">
-            <%- model.get('product.name') %>
+        <td>
+            <%= LH.modelNode(model, 'product.name') %>
+            <div style="font-size: 11px;">
+                <%= LH.modelNode(model, 'product.sku') %>
+            </div>
         </td>
         <td>
-            <span name="amount"><%- model.get('amount') || 0 %></span>
-            <span name="units"><%- LH.units(model.get('product.units'), 'smallShort') %></span>
+            <%= LH.modelNode(model, 'product.barcode') %>
+        </td>
+        <td>
+            <%= LH.modelNode(model, 'amount') %>
+            <%= LH.modelNode(model, 'unitsFormatted') %>
+        </td>
+        <td>
+            <%= LH.modelNode(model, 'averagePurchasePriceFormatted') %>
+        </td>
+        <td>
+            <%= LH.modelNode(model, 'lastPurchasePriceFormatted') %>
         </td>
     </tr>
     <% }) %>
