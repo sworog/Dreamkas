@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Test;
 
 use AppKernel;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use PHPUnit_Framework_TestResult;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Exception;
@@ -24,6 +25,13 @@ class ContainerAwareTestCase extends WebTestCase
     public static function setUpBeforeClass()
     {
         self::$appDebug = (boolean) getenv('SYMFONY_DEBUG') ?: false;
+    }
+
+    public static function loadKernelClass()
+    {
+        if (null === static::$class) {
+            static::$class = static::getKernelClass();
+        }
     }
 
     /**
@@ -97,5 +105,15 @@ class ContainerAwareTestCase extends WebTestCase
             $e = SerializableException::factory($e);
         }
         parent::onNotSuccessfulTest($e);
+    }
+
+    /**
+     * @param PHPUnit_Framework_TestResult $result
+     * @return PHPUnit_Framework_TestResult
+     */
+    public function run(PHPUnit_Framework_TestResult $result = null)
+    {
+        static::loadKernelClass();
+        return parent::run($result);
     }
 }
