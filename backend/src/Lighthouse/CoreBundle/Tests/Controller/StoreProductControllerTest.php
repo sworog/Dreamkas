@@ -949,4 +949,111 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(9.99, '*.lastPurchasePrice', $response, 1);
         Assert::assertJsonPathEquals(12.99, '*.lastPurchasePrice', $response, 1);
     }
+
+    public function testPurchasePriceTotalsAndAmountAreReturnedUsingGetSubcategoryProductsMethod()
+    {
+        $groupId = $this->createGroup('1', false);
+        $categoryId = $this->createCategory($groupId, '1.1', false);
+        $subCategoryId1 = $this->createSubCategory($categoryId, '1.1.1', false);
+        $subCategoryId2 = $this->createSubCategory($categoryId, '1.1.2', false);
+        $productId1 = $this->createProduct('1', $subCategoryId1);
+        $productId2 = $this->createProduct('2', $subCategoryId2);
+        $storeId = $this->createStore('666');
+        $departmentManager = $this->factory->getDepartmentManager($storeId);
+
+        $invoiceId0 = $this->createInvoice(
+            array(
+                'sku' => '-31 days',
+                'acceptanceDate' => date('c', strtotime('-31 days'))
+            ),
+            $storeId,
+            $departmentManager
+        );
+        $this->createInvoiceProduct($invoiceId0, $productId1, 10, 23.33, $storeId, $departmentManager);
+
+        $invoiceId1 = $this->createInvoice(
+            array(
+                'sku' => '-3 days',
+                'acceptanceDate' => date('c', strtotime('-3 days'))
+            ),
+            $storeId,
+            $departmentManager
+        );
+
+        $this->createInvoiceProduct($invoiceId1, $productId1, 10, 26, $storeId, $departmentManager);
+        $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67, $storeId, $departmentManager);
+
+        $invoiceId2 = $this->createInvoice(
+            array(
+                'sku' => '-2 days',
+                'acceptanceDate' => date('c', strtotime('-2 days'))
+            ),
+            $storeId,
+            $departmentManager
+        );
+
+        $this->createInvoiceProduct($invoiceId2, $productId1, 5, 29, $storeId, $departmentManager);
+
+        $invoiceId3 = $this->createInvoice(
+            array(
+                'sku' => '-1 days',
+                'acceptanceDate' => date('c', strtotime('-1 days'))
+            ),
+            $storeId,
+            $departmentManager
+        );
+
+        $this->createInvoiceProduct($invoiceId3, $productId1, 10, 31, $storeId, $departmentManager);
+
+        /* @var $averagePriceService AveragePriceService */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        $averagePriceService->recalculateAveragePrice();
+
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+
+        $allProductsResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.product.id', $allProductsResponse);
+        Assert::assertJsonPathEquals('28.60', '*.averagePurchasePrice', $allProductsResponse, 1);
+        Assert::assertJsonPathEquals('31.00', '*.lastPurchasePrice', $allProductsResponse, 1);
+        Assert::assertJsonPathEquals('35', '*.amount', $allProductsResponse, 1);
+
+        Assert::assertJsonPathEquals('34.67', '*.averagePurchasePrice', $allProductsResponse, 1);
+        Assert::assertJsonPathEquals('34.67', '*.lastPurchasePrice', $allProductsResponse, 1);
+        Assert::assertJsonPathEquals('6', '*.amount', $allProductsResponse, 1);
+
+        $category1ProductsResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId1 . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.product.id', $category1ProductsResponse);
+        Assert::assertJsonPathEquals($productId1, '0.product.id', $category1ProductsResponse);
+        Assert::assertJsonPathEquals('28.60', '0.averagePurchasePrice', $category1ProductsResponse);
+        Assert::assertJsonPathEquals('31.00', '0.lastPurchasePrice', $category1ProductsResponse);
+        Assert::assertJsonPathEquals('35', '0.amount', $category1ProductsResponse);
+
+        $category2ProductsResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId2 . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.product.id', $category2ProductsResponse);
+        Assert::assertJsonPathEquals($productId2, '0.product.id', $category2ProductsResponse);
+        Assert::assertJsonPathEquals('34.67', '0.averagePurchasePrice', $category2ProductsResponse);
+        Assert::assertJsonPathEquals('34.67', '0.lastPurchasePrice', $category2ProductsResponse);
+        Assert::assertJsonPathEquals('6', '0.amount', $category2ProductsResponse);
+    }
 }
