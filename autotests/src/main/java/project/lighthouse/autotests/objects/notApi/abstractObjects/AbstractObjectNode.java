@@ -1,0 +1,21 @@
+package project.lighthouse.autotests.objects.notApi.abstractObjects;
+
+import org.openqa.selenium.WebElement;
+
+import java.util.Map;
+
+public class AbstractObjectNode extends AbstractObject {
+
+    public AbstractObjectNode(WebElement element) {
+        super(element);
+    }
+
+    @Override
+    public void setProperties() {
+    }
+
+    @Override
+    public Boolean rowIsEqual(Map<String, String> row) {
+        return null;
+    }
+}

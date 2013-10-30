@@ -6,7 +6,7 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.CommonPage;
-import project.lighthouse.autotests.objects.error.ValidationErrorsCollection;
+import project.lighthouse.autotests.objects.notApi.error.ValidationErrorsCollection;
 
 public class CommonSteps extends ScenarioSteps {
 

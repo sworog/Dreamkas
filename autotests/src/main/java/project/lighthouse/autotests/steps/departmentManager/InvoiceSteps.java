@@ -8,7 +8,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.DateTime;
-import project.lighthouse.autotests.objects.InvoiceSearchObject;
+import project.lighthouse.autotests.objects.notApi.InvoiceSearchObject;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductApi;
 import project.lighthouse.autotests.pages.departmentManager.invoice.*;
 

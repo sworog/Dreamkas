@@ -3,14 +3,11 @@ package project.lighthouse.autotests.pages.departmentManager.catalog.product;
 import junit.framework.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.NonType;
-import project.lighthouse.autotests.objects.product.ProductWriteOffListObject;
-import project.lighthouse.autotests.objects.product.ProductWriteOffListObjectList;
-import project.lighthouse.autotests.objects.product.abstractObjects.AbstractProductObjectList;
-
-import java.util.List;
+import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractObject;
+import project.lighthouse.autotests.objects.notApi.product.WriteOffListObject;
+import project.lighthouse.autotests.objects.notApi.product.WriteOffListObjectList;
 
 public class ProductWriteOffList extends CommonPageObject {
 
@@ -26,23 +23,14 @@ public class ProductWriteOffList extends CommonPageObject {
         items.put("totalPriceFormatted", new NonType(this, "totalPriceFormatted"));
     }
 
-    private List<WebElement> getProductWriteOffListWebElements() {
-        return waiter.getVisibleWebElements(By.xpath("//*[@name='writeOff']"));
-    }
-
-    public ProductWriteOffListObjectList getProductInvoiceListObjects() {
-        ProductWriteOffListObjectList productInvoiceListObjects = new ProductWriteOffListObjectList();
-        for (WebElement element : getProductWriteOffListWebElements()) {
-            ProductWriteOffListObject productInvoiceListObject = new ProductWriteOffListObject(element);
-            productInvoiceListObjects.add(productInvoiceListObject);
-        }
-        return productInvoiceListObjects;
+    public WriteOffListObjectList getProductInvoiceListObjects() {
+        return new WriteOffListObjectList(getDriver(), By.name("writeOff"));
     }
 
     public void productWriteOffListObjectClick(String number) {
         Boolean found = false;
-        for (AbstractProductObjectList abstractProductObjectList : getProductInvoiceListObjects()) {
-            ProductWriteOffListObject productWriteOffListObject = (ProductWriteOffListObject) abstractProductObjectList;
+        for (AbstractObject abstractObject : getProductInvoiceListObjects()) {
+            WriteOffListObject productWriteOffListObject = (WriteOffListObject) abstractObject;
             if (productWriteOffListObject.getNumber().equals(number)) {
                 found = true;
                 productWriteOffListObject.click();

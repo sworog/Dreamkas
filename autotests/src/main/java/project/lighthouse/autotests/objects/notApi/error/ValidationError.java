@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.error;
+package project.lighthouse.autotests.objects.notApi.error;
 
 import org.openqa.selenium.WebElement;
 

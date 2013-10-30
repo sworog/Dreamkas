@@ -7,7 +7,7 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.PreLoader;
-import project.lighthouse.autotests.objects.InvoiceSearchObject;
+import project.lighthouse.autotests.objects.notApi.InvoiceSearchObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
