@@ -393,6 +393,8 @@ class WriteOffControllerTest extends WebTestCase
             '/api/1/stores/' . $this->storeId . '/writeoffs'
         );
 
+        $this->assertResponseCode(200);
+
         Assert::assertJsonPathCount(2, '*.id', $response);
         Assert::assertJsonPathEquals($writeOffId, '*.id', $response, 1);
         Assert::assertJsonPathEquals($writeOffId2, '*.id', $response, 1);
@@ -571,14 +573,9 @@ class WriteOffControllerTest extends WebTestCase
         $productId1 = $this->createProduct('111');
         $productId2 = $this->createProduct('222');
 
-        $writeOffData1 = array(
-            'number' => '1234-89',
-            'date' => '2013-03-17T16:12:33+0400',
-        );
-
         $writeOffId1 = $this->createWriteOff(
-            $writeOffData1['number'],
-            $writeOffData1['date'],
+            '1234-89',
+            '2013-03-17T16:12:33+0400',
             $this->storeId,
             $this->departmentManager
         );
@@ -592,14 +589,9 @@ class WriteOffControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $writeOffData2 = array(
-            'number' => '1234-89',
-            'date' => '2013-03-16T14:54:23+0400'
-        );
-
         $writeOffId2 = $this->createWriteOff(
-            $writeOffData2['number'],
-            $writeOffData2['date'],
+            '1234-89',
+            '2013-03-16T14:54:23+0400',
             $this->storeId,
             $this->departmentManager
         );
@@ -630,14 +622,9 @@ class WriteOffControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('1234-89', '1.number', $response);
         Assert::assertJsonPathEquals('2013-03-16T14:54:23+0400', '1.date', $response);
 
-        $writeOffData3 = array(
-            'number' => '1235-89',
-            'date' => '2013-03-15T16:12:33+0400'
-        );
-
         $writeOffId3 = $this->createWriteOff(
-            $writeOffData3['number'],
-            $writeOffData3['date'],
+            '1234-89',
+            '2013-03-15T16:12:33+0400',
             $this->storeId,
             $this->departmentManager
         );
@@ -651,14 +638,9 @@ class WriteOffControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $writeOffData4 = array(
-            'number' => '867-89',
-            'date' => '2013-03-16T14:54:23+0400'
-        );
-
         $writeOffId4 = $this->createWriteOff(
-            $writeOffData4['number'],
-            $writeOffData4['date'],
+            '867-89',
+            '2013-03-16T14:54:23+0400',
             $this->storeId,
             $this->departmentManager
         );
@@ -678,7 +660,7 @@ class WriteOffControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $this->storeId . '/writeoffs',
             null,
-            array('number' => '1235-89')
+            array('number' => '1234-89')
         );
 
         $this->assertResponseCode(200);
