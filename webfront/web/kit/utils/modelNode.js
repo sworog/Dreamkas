@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var getText = require('./getText'),
+    var getText = require('./translate'),
         get = require('./get');
 
     require('jquery');
