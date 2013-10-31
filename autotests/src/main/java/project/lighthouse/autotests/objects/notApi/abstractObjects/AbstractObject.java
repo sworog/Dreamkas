@@ -10,6 +10,7 @@ abstract public class AbstractObject {
 
     public AbstractObject(WebElement element) {
         this.element = element;
+        setProperties();
     }
 
     abstract public void setProperties();

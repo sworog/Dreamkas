@@ -208,7 +208,7 @@ public class WriteOffSteps extends ScenarioSteps {
 
     @Step
     public void writeOffSearch(String number) {
-        writeOffSearchPage.input("searchString", number);
+        writeOffSearchPage.input("number", number);
     }
 
     @Step

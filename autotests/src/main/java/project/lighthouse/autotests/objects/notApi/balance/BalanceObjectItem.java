@@ -18,7 +18,6 @@ public class BalanceObjectItem extends AbstractObjectNode {
 
     public BalanceObjectItem(WebElement element) {
         super(element);
-        setProperties();
     }
 
     @Override

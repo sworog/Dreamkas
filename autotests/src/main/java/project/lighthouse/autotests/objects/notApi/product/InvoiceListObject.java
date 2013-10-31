@@ -16,7 +16,6 @@ public class InvoiceListObject extends AbstractObjectNode {
 
     public InvoiceListObject(WebElement element) {
         super(element);
-        setProperties();
     }
 
     public void setProperties() {

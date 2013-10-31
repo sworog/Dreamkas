@@ -17,7 +17,6 @@ public class WriteOffListObject extends AbstractObjectNode {
 
     public WriteOffListObject(WebElement element) {
         super(element);
-        setProperties();
     }
 
     public void setProperties() {

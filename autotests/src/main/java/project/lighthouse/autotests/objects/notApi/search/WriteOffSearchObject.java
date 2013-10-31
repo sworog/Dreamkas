@@ -18,8 +18,8 @@ public class WriteOffSearchObject extends AbstractSearchObjectNode {
 
     @Override
     public void setProperties() {
-        number = element.findElement(By.xpath(".//*[@name=number]")).getText();
-        date = element.findElement(By.xpath(".//*[@name=date]")).getText();
+        number = element.findElement(By.xpath(".//*[@name='number']")).getText();
+        date = element.findElement(By.xpath(".//*[@name='date']")).getText();
     }
 
     @Override
