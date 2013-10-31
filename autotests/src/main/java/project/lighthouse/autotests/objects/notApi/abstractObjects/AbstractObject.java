@@ -19,4 +19,6 @@ abstract public class AbstractObject {
     }
 
     abstract public Boolean rowIsEqual(Map<String, String> row);
+
+    abstract public String getObjectLocator();
 }

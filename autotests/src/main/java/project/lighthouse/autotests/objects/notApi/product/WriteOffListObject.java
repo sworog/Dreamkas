@@ -13,10 +13,6 @@ public class WriteOffListObject extends AbstractObjectNode {
     private String priceFormatted;
     private String totalPriceFormatted;
 
-    public String getNumber() {
-        return number;
-    }
-
     private String number;
 
     public WriteOffListObject(WebElement element) {
@@ -37,5 +33,10 @@ public class WriteOffListObject extends AbstractObjectNode {
                 quantity.equals(row.get("quantity")) &&
                 priceFormatted.equals(row.get("priceFormatted")) &&
                 totalPriceFormatted.equals(row.get("totalPriceFormatted"));
+    }
+
+    @Override
+    public String getObjectLocator() {
+        return number;
     }
 }

@@ -16,7 +16,7 @@ When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse
 And the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku 'Янехочуискатьнакладныеяхочуплатье'
 And the user clicks the invoice search buttton and starts the search
-Then the user checks the form results text is 'Мы не смогли накладную с номером Янехочуискатьнакладныеяхочуплатье'
+Then the user checks the form results text is 'Мы не смогли найти накладную с номером Янехочуискатьнакладныеяхочуплатье'
 
 Scenario: Invoice results found by sku
 

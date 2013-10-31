@@ -16,15 +16,14 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
     public AbstractObjectCollection(WebDriver webDriver, By findBy) {
         List<WebElement> webElementList = new Waiter(webDriver).getVisibleWebElements(findBy);
         for (WebElement element : webElementList) {
-            AbstractObjectNode abstractObjectNode = createNode(element);
-            add(abstractObjectNode);
+            AbstractObject abstractObject = createNode(element);
+            add(abstractObject);
         }
     }
 
-    abstract public AbstractObjectNode createNode(WebElement element);
+    abstract public AbstractObject createNode(WebElement element);
 
     public void compareWithExampleTable(ExamplesTable examplesTable) {
-
         List<Map<String, String>> notFoundRows = new ArrayList<>();
         for (Map<String, String> row : examplesTable.getRows()) {
             Boolean found = false;
@@ -40,6 +39,34 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
         }
         if (notFoundRows.size() > 0) {
             String errorMessage = String.format("These rows are not found: '%s'.", notFoundRows.toString());
+            Assert.fail(errorMessage);
+        }
+    }
+
+    public void clickByLocator(String locator) {
+        Boolean found = false;
+        for (AbstractObject abstractObject : this) {
+            if (abstractObject.getObjectLocator().equals(locator)) {
+                found = true;
+                abstractObject.click();
+            }
+        }
+        if (!found) {
+            String errorMessage = String.format("There is no object with '%s' to click!", locator);
+            Assert.fail(errorMessage);
+        }
+    }
+
+    public void contains(String locator) {
+        Boolean found = false;
+        for (AbstractObject abstractObject : this) {
+            if (abstractObject.getObjectLocator().equals(locator)) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            String errorMessage = String.format("There is no object with '%s'", locator);
             Assert.fail(errorMessage);
         }
     }

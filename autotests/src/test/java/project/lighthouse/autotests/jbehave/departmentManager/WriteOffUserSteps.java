@@ -205,4 +205,9 @@ public class WriteOffUserSteps {
     public void thenTheUserChecksTheProductWithValueHasElement(String value, String elementName, String expectedValue) {
         writeOffSteps.checkListItemHasExpectedValueByFindByLocatorInList(value, elementName, expectedValue);
     }
+
+    @When("the user clicks the local navigation writeOff search link")
+    public void whenTheUserClicksTheLocalNavigationWriteOffSearchLink() {
+        writeOffSteps.searchLinkClick();
+    }
 }

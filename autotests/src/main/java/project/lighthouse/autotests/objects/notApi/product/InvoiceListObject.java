@@ -14,10 +14,6 @@ public class InvoiceListObject extends AbstractObjectNode {
     private String totalPriceFormatted;
     private String invoiceSku;
 
-    public String getInvoiceSku() {
-        return invoiceSku;
-    }
-
     public InvoiceListObject(WebElement element) {
         super(element);
         setProperties();
@@ -36,5 +32,10 @@ public class InvoiceListObject extends AbstractObjectNode {
                 quantity.equals(row.get("quantity")) &&
                 priceFormatted.equals(row.get("priceFormatted")) &&
                 totalPriceFormatted.equals(row.get("totalPriceFormatted"));
+    }
+
+    @Override
+    public String getObjectLocator() {
+        return invoiceSku;
     }
 }

@@ -18,4 +18,9 @@ public class AbstractObjectNode extends AbstractObject {
     public Boolean rowIsEqual(Map<String, String> row) {
         return null;
     }
+
+    @Override
+    public String getObjectLocator() {
+        return null;
+    }
 }
