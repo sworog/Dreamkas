@@ -90,7 +90,8 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\WriteOff\WriteOff",
      *     simple=true,
-     *     cascade="persist"
+     *     cascade="persist",
+     *     inversedBy="products"
      * )
      * @var WriteOff
      */

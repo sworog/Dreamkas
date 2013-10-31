@@ -69,7 +69,8 @@ class WriteOff extends AbstractDocument implements Storeable
      * @MongoDB\ReferenceMany(
      *      targetDocument="Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct",
      *      simple=true,
-     *      cascade="persist"
+     *      cascade="persist",
+     *      mappedBy="writeOff"
      * )
      *
      * @Assert\Valid(traverse=true)
