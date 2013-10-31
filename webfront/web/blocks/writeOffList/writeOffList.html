@@ -1,11 +1,13 @@
-<!-- @invoicesCollection -->
+<!-- @writeOffsCollection -->
 
-<% var invoice = require('tpl!blocks/invoice/templates/index.html') %>
+<% var writeOff = require('tpl!blocks/writeOff/templates/index.html') %>
 
-<% invoicesCollection.each(function(invoiceModel){ %>
-    <div sku="<%- invoiceModel.get('sku') %>" href="/invoices/<%- invoiceModel.id %>" class="invoiceList__item">
-        <%= invoice({
-            invoiceModel: invoiceModel
+<div class="writeOffList">
+    <% writeOffsCollection.each(function(writeOffModel){ %>
+    <div number="<%- writeOffModel.get('number') %>" href="/writeOffs/<%- writeOffModel.id %>" class="writeOffList__item">
+        <%= writeOff({
+            writeOffModel: writeOffModel
         }) %>
     </div>
-<% }) %>
+    <% }) %>
+</div>

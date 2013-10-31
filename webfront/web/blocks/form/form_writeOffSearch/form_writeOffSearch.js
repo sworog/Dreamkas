@@ -2,8 +2,8 @@ define(function(require) {
     //requirements
     var Form = require('kit/blocks/form/form'),
         writeOffList_search = require('tpl!blocks/writeOffList/writeOffList_search.html'),
-        InvoiceProductsCollection = require('collections/invoiceProducts'),
-        Table_invoiceProducts = require('blocks/table/table_invoiceProducts/table_invoiceProducts');
+        WriteOffProductsCollection = require('collections/writeOffProducts'),
+        Table_writeOffProducts = require('blocks/table/table_writeOffProducts/table_writeOffProducts');
 
     return Form.extend({
         __name__: 'form_invoiceSearch',
@@ -13,10 +13,21 @@ define(function(require) {
                 reset: function(){
                     var block = this;
 
-//                    block.$results.html(writeOffList_search({
-//                        writeOffsCollection: block.writeOffsCollection,
-//                        searchQuery: block.formData
-//                    }));
+                    block.$results.html(writeOffList_search({
+                        writeOffsCollection: block.writeOffsCollection,
+                        searchQuery: block.formData
+                    }));
+
+                    block.writeOffsCollection.forEach(function(writeOffModel, index){
+                        console.log(block.el.getElementsByClassName('writeOff__productsTable'));
+                        new Table_writeOffProducts({
+                            collection: new WriteOffProductsCollection(writeOffModel.get('products') || [], {
+                                writeOffId: writeOffModel.id,
+                                storeId: writeOffModel.get('store.id')
+                            }),
+                            el: block.el.getElementsByClassName('writeOff__productsTable')[index]
+                        });
+                    });
                 }
             }
         },
