@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\WriteOff\Product;
 
+use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 

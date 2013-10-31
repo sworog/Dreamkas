@@ -42,6 +42,8 @@ class PurchaseElement extends SimpleXMLElement
                 return true;
             case 'false':
                 return false;
+            default:
+                return null;
         }
     }
 

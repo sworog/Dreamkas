@@ -45,5 +45,4 @@ class WriteOffsFilter implements FilterInterface
             $this->number = $data['number'];
         }
     }
-
 }

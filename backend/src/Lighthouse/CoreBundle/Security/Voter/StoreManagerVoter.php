@@ -92,6 +92,8 @@ class StoreManagerVoter implements VoterInterface
     {
         if (isset($this->roleAttributes[$attribute])) {
             return $this->roleAttributes[$attribute];
+        } else {
+            return null;
         }
     }
 

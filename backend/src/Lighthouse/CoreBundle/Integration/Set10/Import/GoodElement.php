@@ -41,6 +41,7 @@ class GoodElement extends SimpleXMLElement
                 return (string) $barCode['code'];
             }
         }
+        return null;
     }
 
     /**
@@ -77,6 +78,7 @@ class GoodElement extends SimpleXMLElement
                 return (string) $price['price'];
             }
         }
+        return null;
     }
 
     /**
