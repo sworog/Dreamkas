@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.objects.log.JobLogObject;
+import project.lighthouse.autotests.objects.notApi.log.JobLogObject;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.log;
+package project.lighthouse.autotests.objects.notApi.log;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

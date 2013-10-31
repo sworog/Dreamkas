@@ -1,0 +1,38 @@
+<!-- @collection -->
+
+<table class="table table_subCategoryBalance">
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Штрихкод</th>
+        <th>Количество</th>
+        <th>Средняя ЗЦ</th>
+        <th>Последняя ЗЦ</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% collection.forEach(function(model){ %>
+    <tr name="amountItem">
+        <td>
+            <%= LH.modelNode(model, 'product.name') %>
+            <div style="font-size: 11px;">
+                <%= LH.modelNode(model, 'product.sku') %>
+            </div>
+        </td>
+        <td>
+            <%= LH.modelNode(model, 'product.barcode') %>
+        </td>
+        <td>
+            <%= LH.modelNode(model, 'amount') %>
+            <%= LH.modelNode(model, 'unitsFormatted') %>
+        </td>
+        <td>
+            <%= LH.modelNode(model, 'averagePurchasePriceFormatted') %>
+        </td>
+        <td>
+            <%= LH.modelNode(model, 'lastPurchasePriceFormatted') %>
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>

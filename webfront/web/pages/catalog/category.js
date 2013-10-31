@@ -4,6 +4,7 @@ define(function(require) {
         pageParams = require('pages/catalog/params'),
         CatalogCategoryBlock = require('blocks/catalogCategory/catalogCategory'),
         CatalogProductsCollection = require('collections/catalogProducts'),
+        StoreProductsCollection = require('collections/storeProducts'),
         СatalogGroupModel = require('models/catalogGroup'),
         currentUserModel = require('models/currentUser'),
         Page403 = require('pages/errors/403');
@@ -12,13 +13,14 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_catalog_category',
+        section: 'products',
         partials: {
             '#content': require('tpl!./templates/category.html')
         },
-        initialize: function(params){
+        initialize: function(params) {
             var page = this;
 
-            if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0){
+            if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0) {
                 _.extend(pageParams, params);
             } else {
                 _.extend(pageParams, {
@@ -26,21 +28,21 @@ define(function(require) {
                 }, params)
             }
 
-            if (currentUserModel.stores.length){
+            if (currentUserModel.stores.length) {
                 pageParams.storeId = currentUserModel.stores.at(0).id;
             }
 
-            if (!pageParams.storeId && !LH.isAllow('categories', 'GET::{category}')){
+            if (!pageParams.storeId && !LH.isAllow('categories', 'GET::{category}')) {
                 new Page403();
                 return;
             }
 
-            if (pageParams.storeId && !LH.isAllow('stores/{store}/categories/{category}')){
+            if (pageParams.storeId && !LH.isAllow('stores/{store}/categories/{category}')) {
                 new Page403();
                 return;
             }
 
-            if (page.referrer && page.referrer.__name__ === 'page_product_form'){
+            if (page.referrer && page.referrer.__name__ === 'page_product_form') {
                 pageParams.editMode = true;
             }
 
@@ -65,22 +67,36 @@ define(function(require) {
                 storeId: pageParams.storeId
             });
 
-            $.when(page.catalogGroupModel.fetch(), params.catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {}).then(function(){
-
-                page.catalogCategoryModel = page.catalogGroupModel.categories.get(params.catalogCategoryId);
-                page.catalogSubCategoriesCollection = page.catalogCategoryModel.subCategories;
-
-                page.render();
-
-                new CatalogCategoryBlock({
-                    el: document.getElementById('catalogCategory'),
-                    catalogCategoryModel: page.catalogCategoryModel,
-                    catalogSubCategoriesCollection: page.catalogSubCategoriesCollection,
-                    catalogSubCategoryId: params.catalogSubCategoryId,
-                    catalogProductsCollection: page.catalogProductsCollection,
-                    editMode: pageParams.editMode
-                })
+            page.storeProductsCollection = new StoreProductsCollection([], {
+                subCategory: params.catalogSubCategoryId,
+                storeId: pageParams.storeId
             });
+
+            $.when(
+                    page.catalogGroupModel.fetch(),
+                    params.catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {},
+                    pageParams.storeId ? page.storeProductsCollection.fetch() : {}
+                ).then(function() {
+
+                    page.catalogCategoryModel = page.catalogGroupModel.categories.get(params.catalogCategoryId);
+                    page.catalogSubCategoriesCollection = page.catalogCategoryModel.subCategories;
+
+                    page.render();
+
+                    console.log(page.storeProductsCollection);
+
+                    new CatalogCategoryBlock({
+                        el: document.getElementById('catalogCategory'),
+                        catalogCategoryModel: page.catalogCategoryModel,
+                        catalogSubCategoriesCollection: page.catalogSubCategoriesCollection,
+                        catalogSubCategoryId: params.catalogSubCategoryId,
+                        catalogProductsCollection: page.catalogProductsCollection,
+                        storeProductsCollection: page.storeProductsCollection,
+                        editMode: pageParams.editMode,
+                        section: page.section,
+                        storeId: pageParams.storeId
+                    })
+                });
         }
     });
 });

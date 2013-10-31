@@ -6,7 +6,7 @@
     <% } %>
 
     <% if(LH.isAllow('stores/{store}/groups') && currentUserModel.stores && currentUserModel.stores.length){ %>
-    <a href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>">Каталог</a>
+    <a href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>">Товары</a>
     <% } %>
 
     <% if(LH.isAllow('stores/{store}/invoices') && currentUserModel.stores && currentUserModel.stores.length){ %>

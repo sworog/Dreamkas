@@ -1,14 +1,14 @@
-package project.lighthouse.autotests.objects.product.abstractObjects;
+package project.lighthouse.autotests.objects.notApi.abstractObjects;
 
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
 
-abstract public class AbstractProductObjectList {
+abstract public class AbstractObject {
 
     public WebElement element;
 
-    public AbstractProductObjectList(WebElement element) {
+    public AbstractObject(WebElement element) {
         this.element = element;
     }
 

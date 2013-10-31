@@ -1,6 +1,7 @@
 define(function(require) {
     // requirements
     var Model = require('kit/core/model'),
+        computeAttr = require('kit/utils/computeAttr'),
         currentUserModel = require('models/currentUser');
 
     return Model.extend({
@@ -16,7 +17,21 @@ define(function(require) {
             return LH.baseApiUrl + '/products'
         },
         defaults: {
-            retailPricePreference: 'retailMarkup'
+            amount: 0,
+            unitsFormatted: computeAttr(['product.units'], function(){
+                return LH.units(this.get('product.units'), 'smallShort');
+            }),
+            retailPricePreference: 'retailMarkup',
+            averagePurchasePriceFormatted: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice){
+                return averagePurchasePrice ? (LH.formatPrice(averagePurchasePrice) + ' р.') : '&mdash;'
+            }),
+            purchasePriceFormatted: computeAttr(['product.purchasePrice'], function(purchasePrice){
+                return purchasePrice ? (LH.formatPrice(purchasePrice) + ' р.') : '&mdash;';
+            }),
+            lastPurchasePriceFormatted: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice){
+                var purchasePriceFormatted = this.get('product.purchasePrice') ? (LH.formatPrice(this.get('product.purchasePrice')) + ' р.') : '&mdash;';
+                return lastPurchasePrice ? (LH.formatPrice(lastPurchasePrice) + ' р.') : purchasePriceFormatted;
+            })
         },
         saveData: [
             'retailPrice',

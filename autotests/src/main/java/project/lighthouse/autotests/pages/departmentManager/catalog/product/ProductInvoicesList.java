@@ -3,14 +3,11 @@ package project.lighthouse.autotests.pages.departmentManager.catalog.product;
 import junit.framework.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.NonType;
-import project.lighthouse.autotests.objects.product.ProductInvoiceListObject;
-import project.lighthouse.autotests.objects.product.ProductInvoiceListObjectsList;
-import project.lighthouse.autotests.objects.product.abstractObjects.AbstractProductObjectList;
-
-import java.util.List;
+import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractObject;
+import project.lighthouse.autotests.objects.notApi.product.InvoiceCollection;
+import project.lighthouse.autotests.objects.notApi.product.InvoiceListObject;
 
 public class ProductInvoicesList extends CommonPageObject {
 
@@ -26,23 +23,14 @@ public class ProductInvoicesList extends CommonPageObject {
         items.put("totalPriceFormatted", new NonType(this, "totalPriceFormatted"));
     }
 
-    private List<WebElement> getProductInvoicesListWebElements() {
-        return waiter.getVisibleWebElements(By.xpath("//*[@name='invoice']"));
-    }
-
-    public ProductInvoiceListObjectsList getProductInvoiceListObjects() {
-        ProductInvoiceListObjectsList productInvoiceListObjects = new ProductInvoiceListObjectsList();
-        for (WebElement element : getProductInvoicesListWebElements()) {
-            ProductInvoiceListObject productInvoiceListObject = new ProductInvoiceListObject(element);
-            productInvoiceListObjects.add(productInvoiceListObject);
-        }
-        return productInvoiceListObjects;
+    public InvoiceCollection getProductInvoiceListObjects() {
+        return new InvoiceCollection(getDriver(), By.name("invoice"));
     }
 
     public void invoiceSkuClick(String sku) {
         Boolean found = false;
-        for (AbstractProductObjectList abstractProductObjectList : getProductInvoiceListObjects()) {
-            ProductInvoiceListObject productInvoiceListObject = (ProductInvoiceListObject) abstractProductObjectList;
+        for (AbstractObject abstractObject : getProductInvoiceListObjects()) {
+            InvoiceListObject productInvoiceListObject = (InvoiceListObject) abstractObject;
             if (productInvoiceListObject.getInvoiceSku().equals(sku)) {
                 found = true;
                 productInvoiceListObject.click();
