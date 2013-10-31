@@ -1,0 +1,11 @@
+<!-- @invoicesCollection -->
+
+<% var invoice = require('tpl!blocks/invoice/templates/index.html') %>
+
+<% invoicesCollection.each(function(invoiceModel){ %>
+    <div sku="<%- invoiceModel.get('sku') %>" href="/invoices/<%- invoiceModel.id %>" class="invoiceList__item">
+        <%= invoice({
+            invoiceModel: invoiceModel
+        }) %>
+    </div>
+<% }) %>

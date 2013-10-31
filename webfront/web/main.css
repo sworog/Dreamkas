@@ -21,6 +21,7 @@
 @import "blocks/store/store.css";
 @import "blocks/log/log.css";
 @import "blocks/invoiceList/invoiceList.css";
+@import "blocks/writeOffList/writeOffList.css";
 
 
 body {

@@ -36,6 +36,7 @@ define(function(require) {
             //writeOffs
             'writeOffs(/)': require('pages/writeOff/list'),
             'writeOffs/create(/)': require('pages/writeOff/form'),
+            'writeOffs/search(/)': require('pages/writeOff/search'),
             'writeOffs/:writeOffId(/)': require('pages/writeOff/view'),
 
             //catalog
