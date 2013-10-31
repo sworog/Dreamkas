@@ -1,9 +1,9 @@
-.invoiceList__item{
+.writeOffList__item{
     border: 1px solid #eee;
     padding: 20px;
     margin-bottom: 20px;
 }
 
-.invoiceList__item:hover {
+.writeOffList__item:hover {
     border-color: #ccc;
 }
