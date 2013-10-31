@@ -25,8 +25,12 @@ define(function(require) {
             averagePurchasePriceFormatted: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice){
                 return averagePurchasePrice ? (LH.formatPrice(averagePurchasePrice) + ' р.') : '&mdash;'
             }),
+            purchasePriceFormatted: computeAttr(['product.purchasePrice'], function(purchasePrice){
+                return purchasePrice ? (LH.formatPrice(purchasePrice) + ' р.') : '&mdash;';
+            }),
             lastPurchasePriceFormatted: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice){
-                return (lastPurchasePrice ? LH.formatPrice(lastPurchasePrice) : LH.formatPrice(this.get('product.purchasePrice'))) + ' р.'
+                var purchasePriceFormatted = this.get('product.purchasePrice') ? (LH.formatPrice(this.get('product.purchasePrice')) + ' р.') : '&mdash;';
+                return lastPurchasePrice ? (LH.formatPrice(lastPurchasePrice) + ' р.') : purchasePriceFormatted;
             })
         },
         saveData: [
