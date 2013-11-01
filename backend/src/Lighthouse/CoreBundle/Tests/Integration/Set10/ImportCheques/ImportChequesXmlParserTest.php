@@ -1,21 +1,21 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportSales;
+namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportCheques;
 
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ImportSalesXmlParser;
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\PurchaseElement;
+use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\ImportChequesXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\PurchaseElement;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use DateTime;
 
-class ImportSalesXmlParserTest extends ContainerAwareTestCase
+class ImportChequesXmlParserTest extends ContainerAwareTestCase
 {
     /**
      * @param string $xmlFile
-     * @return ImportSalesXmlParser
+     * @return ImportChequesXmlParser
      */
-    protected function createXmlParser($xmlFile = 'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml')
+    protected function createXmlParser($xmlFile = 'Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml')
     {
-        return new ImportSalesXmlParser($this->getFixtureFilePath($xmlFile));
+        return new ImportChequesXmlParser($this->getFixtureFilePath($xmlFile));
     }
 
     public function testReadPurchasesCount()
@@ -58,7 +58,7 @@ class ImportSalesXmlParserTest extends ContainerAwareTestCase
         $this->assertCount(1, $positions);
 
         $position = $positions[0];
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Integration\\Set10\\ImportSales\\PositionElement', $position);
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Integration\\Set10\\ImportCheques\\PositionElement', $position);
 
         $this->assertEquals('3.5', $position->getCost());
         $this->assertEquals('10.0', $position->getCount());

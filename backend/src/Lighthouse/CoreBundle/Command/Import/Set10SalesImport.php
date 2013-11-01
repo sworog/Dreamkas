@@ -3,9 +3,9 @@
 namespace Lighthouse\CoreBundle\Command\Import;
 
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ImportSalesXmlParser;
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\RemoteDirectory;
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ChequesImporter;
+use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\ImportChequesXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\RemoteDirectory;
+use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\ChequesImporter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -76,7 +76,7 @@ class Set10SalesImport extends Command
         foreach ($files as $file) {
             try {
                 $output->writeln(sprintf('Importing "%s"', $file->getFilename()));
-                $parser = new ImportSalesXmlParser($file->getPathname());
+                $parser = new ImportChequesXmlParser($file->getPathname());
                 $this->importer->import($parser, $output);
                 foreach ($this->importer->getErrors() as $error) {
                     $this->logException($error['exception'], $dirUrl, $file->getPathname());

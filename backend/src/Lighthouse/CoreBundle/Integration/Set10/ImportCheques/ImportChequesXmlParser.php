@@ -1,12 +1,12 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\ImportSales;
+namespace Lighthouse\CoreBundle\Integration\Set10\ImportCheques;
 
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use XMLReader;
 use DOMDocument;
 
-class ImportSalesXmlParser
+class ImportChequesXmlParser
 {
     /**
      * @var XMLReader

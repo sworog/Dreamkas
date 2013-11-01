@@ -1,14 +1,14 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportSales;
+namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportCheques;
 
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ImportSalesXmlParser;
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ChequesImporter;
+use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\ImportChequesXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\ChequesImporter;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Tests\Integration\IntegrationTestCase;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SalesImportTest extends IntegrationTestCase
+class ChequesImportTest extends IntegrationTestCase
 {
     public function testImportWithSeveralInvalidCounts()
     {
@@ -29,7 +29,7 @@ class SalesImportTest extends IntegrationTestCase
         $productIds = $this->createProductsBySku(array_keys($skuAmounts));
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml', $output);
+        $this->import('Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml', $output);
 
         $this->assertStringStartsWith('.V............V.....', $output->getDisplay());
         $lines = $output->getLines();
@@ -60,7 +60,7 @@ class SalesImportTest extends IntegrationTestCase
         );
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml', $output, 6);
+        $this->import('Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml', $output, 6);
 
         $this->assertStringStartsWith('.E....F......F..E...F..', $output->getDisplay());
         $lines = $output->getLines();
@@ -81,7 +81,7 @@ class SalesImportTest extends IntegrationTestCase
         );
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml', $output);
+        $this->import('Integration/Set10/ImportCheques/purchases-13-09-2013_15-09-26.xml', $output);
 
         $this->assertStringStartsWith('E..', $output->getDisplay());
         $lines = $output->getLines();
@@ -99,7 +99,7 @@ class SalesImportTest extends IntegrationTestCase
         );
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml', $output);
+        $this->import('Integration/Set10/ImportCheques/purchases-13-09-2013_15-09-26.xml', $output);
 
         $this->assertStringStartsWith('...', $output->getDisplay());
 
@@ -107,7 +107,7 @@ class SalesImportTest extends IntegrationTestCase
         $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml', $output);
+        $this->import('Integration/Set10/ImportCheques/purchases-13-09-2013_15-09-26.xml', $output);
 
         $this->assertStringStartsWith('VVV', $output->getDisplay());
         $lines = $output->getLines();

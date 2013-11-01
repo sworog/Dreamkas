@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\ImportSales;
+namespace Lighthouse\CoreBundle\Integration\Set10\ImportCheques;
 
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
@@ -80,11 +80,11 @@ class ChequesImporter
     }
 
     /**
-     * @param ImportSalesXmlParser $parser
+     * @param ImportChequesXmlParser $parser
      * @param OutputInterface $output
      * @param int $batchSize
      */
-    public function import(ImportSalesXmlParser $parser, OutputInterface $output, $batchSize = null)
+    public function import(ImportChequesXmlParser $parser, OutputInterface $output, $batchSize = null)
     {
         $this->errors = array();
         $count = 0;

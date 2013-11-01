@@ -21,7 +21,7 @@ class RestitutionImportTest extends IntegrationTestCase
         $productIds = $this->createProductsBySku(array_keys($skuAmounts));
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/RestitutionImport/purchases-with-restitution.xml', $output);
+        $this->import('Integration/Set10/ImportCheques/purchases-with-restitution.xml', $output);
 
         $this->assertStringStartsWith('....', $output->getDisplay());
         $lines = $output->getLines();

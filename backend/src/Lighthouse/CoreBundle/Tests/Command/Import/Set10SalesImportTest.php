@@ -62,11 +62,11 @@ class Set10SalesImportTest extends WebTestCase
 
         $tmpDir = $this->createTempDir();
         $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml',
+            'Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml',
             $tmpDir
         );
         $file2 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml',
+            'Integration/Set10/ImportCheques/purchases-13-09-2013_15-09-26.xml',
             $tmpDir
         );
 
@@ -125,7 +125,7 @@ class Set10SalesImportTest extends WebTestCase
     {
         $tmpDir = $this->createTempDir();
         $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml',
+            'Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml',
             $tmpDir
         );
 
@@ -140,7 +140,7 @@ class Set10SalesImportTest extends WebTestCase
     {
         $tmpDir = $this->createTempDir();
         $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-invalid.xml',
+            'Integration/Set10/ImportCheques/purchases-invalid.xml',
             $tmpDir
         );
 
@@ -178,16 +178,16 @@ class Set10SalesImportTest extends WebTestCase
 
         $tmpDir = $this->createTempDir();
         $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-invalid.xml',
+            'Integration/Set10/ImportCheques/purchases-invalid.xml',
             $tmpDir,
             'checks-'
         );
         $file2 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml',
+            'Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml',
             $tmpDir
         );
         $file3 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml',
+            'Integration/Set10/ImportCheques/purchases-13-09-2013_15-09-26.xml',
             $tmpDir,
             'purchases-',
             'ico'

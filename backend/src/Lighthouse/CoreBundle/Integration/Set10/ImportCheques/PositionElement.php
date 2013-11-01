@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\ImportSales;
+namespace Lighthouse\CoreBundle\Integration\Set10\ImportCheques;
 
 use SimpleXMLElement;
 
