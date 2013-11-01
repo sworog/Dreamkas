@@ -5,6 +5,9 @@ namespace Lighthouse\CoreBundle\Integration\Set10\ImportSales;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\Restitution\Product\RestitutionProduct;
+use Lighthouse\CoreBundle\Document\Restitution\Restitution;
+use Lighthouse\CoreBundle\Document\Restitution\RestitutionRepository;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Sale\SaleRepository;
@@ -18,19 +21,14 @@ use Symfony\Component\Validator\ValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.integration.set10.import_sales.importer")
+ * @DI\Service("lighthouse.core.integration.set10.import_cheques.importer")
  */
-class SalesImporter
+class ChequesImporter
 {
     /**
      * @var ProductRepository
      */
     protected $productRepository;
-
-    /**
-     * @var SaleRepository
-     */
-    protected $saleRepository;
 
     /**
      * @var StoreRepository
@@ -60,26 +58,22 @@ class SalesImporter
     /**
      * @DI\InjectParams({
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
-     *      "saleRepository" = @DI\Inject("lighthouse.core.document.repository.sale"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
      *      "validator" = @DI\Inject("lighthouse.core.validator"),
      *      "moneyTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model")
      * })
      * @param ProductRepository $productRepository
-     * @param SaleRepository $saleRepository
      * @param StoreRepository $storeRepository
      * @param ValidatorInterface $validator
      * @param MoneyModelTransformer $moneyTransformer
      */
     public function __construct(
         ProductRepository $productRepository,
-        SaleRepository $saleRepository,
         StoreRepository $storeRepository,
         ValidatorInterface $validator,
         MoneyModelTransformer $moneyTransformer
     ) {
         $this->productRepository = $productRepository;
-        $this->saleRepository = $saleRepository;
         $this->storeRepository = $storeRepository;
         $this->validator = $validator;
         $this->moneyTransformer = $moneyTransformer;
@@ -95,17 +89,17 @@ class SalesImporter
         $this->errors = array();
         $count = 0;
         $batchSize = ($batchSize) ?: $this->batchSize;
-        $dm = $this->saleRepository->getDocumentManager();
+        $dm = $this->productRepository->getDocumentManager();
 
         while ($purchaseElement = $parser->readNextElement()) {
             $count++;
             try {
-                $sale = $this->createSale($purchaseElement);
-                if (!$sale) {
+                $cheque = $this->createCheque($purchaseElement);
+                if (!$cheque) {
                     $output->write('<error>S</error>');
                 } else {
-                    $this->validator->validate($sale, null, true, true);
-                    $dm->persist($sale);
+                    $this->validator->validate($cheque, null, true, true);
+                    $dm->persist($cheque);
                     $output->write('.');
                     if (0 == $count % $batchSize) {
                         $dm->flush();
@@ -162,17 +156,29 @@ class SalesImporter
 
     /**
      * @param PurchaseElement $purchaseElement
+     * @return Sale|Restitution|null
+     */
+    public function createCheque(PurchaseElement $purchaseElement)
+    {
+        if (true === $purchaseElement->getOperationType()) {
+            return $this->createSale($purchaseElement);
+        } elseif (false === $purchaseElement->getOperationType()) {
+            return $this->createRestitution($purchaseElement);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param PurchaseElement $purchaseElement
      * @return Sale
      */
     public function createSale(PurchaseElement $purchaseElement)
     {
-        if (false === $purchaseElement->getOperationType()) {
-            return null;
-        }
         $sale = new Sale();
         $sale->createdDate = $purchaseElement->getSaleDateTime();
         $sale->store = $this->getStore($purchaseElement->getShop());
-        $sale->hash = $this->createSaleHash($purchaseElement);
+        $sale->hash = $this->createChequeHash($purchaseElement);
         foreach ($purchaseElement->getPositions() as $positionElement) {
             $sale->products->add($this->createSaleProduct($positionElement));
         }
@@ -181,9 +187,25 @@ class SalesImporter
 
     /**
      * @param PurchaseElement $purchaseElement
+     * @return Sale
+     */
+    public function createRestitution(PurchaseElement $purchaseElement)
+    {
+        $sale = new Restitution();
+        $sale->createdDate = $purchaseElement->getSaleDateTime();
+        $sale->store = $this->getStore($purchaseElement->getShop());
+        $sale->hash = $this->createChequeHash($purchaseElement);
+        foreach ($purchaseElement->getPositions() as $positionElement) {
+            $sale->products->add($this->createRestitutionProduct($positionElement));
+        }
+        return $sale;
+    }
+
+    /**
+     * @param PurchaseElement $purchaseElement
      * @return string
      */
-    protected function createSaleHash(PurchaseElement $purchaseElement)
+    protected function createChequeHash(PurchaseElement $purchaseElement)
     {
         $hashStr = '';
         /* @var \SimpleXMLElement $attr */
@@ -204,6 +226,21 @@ class SalesImporter
         $saleProduct->sellingPrice = $this->moneyTransformer->reverseTransform($positionElement->getCostWithDiscount());
         $saleProduct->product = $this->getProduct($positionElement->getGoodsCode());
         return $saleProduct;
+    }
+
+    /**
+     * @param PositionElement $positionElement
+     * @return RestitutionProduct
+     */
+    public function createRestitutionProduct(PositionElement $positionElement)
+    {
+        $restitutionProduct = new RestitutionProduct();
+        $restitutionProduct->quantity = $this->roundQuantity($positionElement->getCount());
+        $restitutionProduct->sellingPrice = $this->
+            moneyTransformer->
+            reverseTransform($positionElement->getCostWithDiscount());
+        $restitutionProduct->product = $this->getProduct($positionElement->getGoodsCode());
+        return $restitutionProduct;
     }
 
     /**

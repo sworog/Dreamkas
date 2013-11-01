@@ -149,7 +149,7 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
      */
     public function increaseAmount()
     {
-        return false;
+        return true;
     }
 
     /**

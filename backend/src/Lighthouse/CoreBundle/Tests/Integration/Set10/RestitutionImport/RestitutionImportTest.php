@@ -25,9 +25,7 @@ class RestitutionImportTest extends IntegrationTestCase
 
         $this->assertStringStartsWith('....', $output->getDisplay());
         $lines = $output->getLines();
-        $this->assertCount(4, $lines);
-        $this->assertContains('Errors', $lines[1]);
-        $this->assertContains('products[1].quantity', $lines[2]);
+        $this->assertCount(1, $lines);
 
         foreach ($skuAmounts as $sku => $amount) {
             $this->assertStoreProductTotals($storeId, $productIds[$sku], $amount);
