@@ -25,7 +25,7 @@ public class ThenSearchSteps {
         writeOffSteps.writeOffHighLightTextCheck(expectedText);
     }
 
-    @Then("the user checks the writeOff search result list contains entry with stored values")
+    @Then("the user checks the writeOff search result list contains stored values entry")
     public void thenTheUserChecksTheInvoiceSearchResult() {
         writeOffSteps.compareWithExampleTable();
     }
