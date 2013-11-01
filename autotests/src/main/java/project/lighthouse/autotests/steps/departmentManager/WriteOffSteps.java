@@ -7,6 +7,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.helper.ExampleTableConverter;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductApi;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.*;
 
@@ -21,6 +22,8 @@ public class WriteOffSteps extends ScenarioSteps {
     ProductApi productApi;
     WriteOffSearchPage writeOffSearchPage;
     WriteOffLocalNavigation writeOffLocalNavigation;
+
+    private ExamplesTable examplesTable;
 
     public WriteOffSteps(Pages pages) {
         super(pages);
@@ -39,6 +42,7 @@ public class WriteOffSteps extends ScenarioSteps {
     @Step
     public void createWriteOffThroughPost(String storeName, String userName, ExamplesTable examplesTable) throws JSONException, IOException {
         writeOffApi.createWriteOffThrougPost(storeName, userName, examplesTable);
+        this.examplesTable = examplesTable;
     }
 
     @Step
@@ -233,6 +237,11 @@ public class WriteOffSteps extends ScenarioSteps {
     @Step
     public void compareWithExampleTable(ExamplesTable examplesTable) {
         writeOffSearchPage.getWriteOffSearchObjectCollection().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void compareWithExampleTable() {
+        writeOffSearchPage.getWriteOffSearchObjectCollection().compareWithExampleTable(ExampleTableConverter.convert(examplesTable));
     }
 
     @Step

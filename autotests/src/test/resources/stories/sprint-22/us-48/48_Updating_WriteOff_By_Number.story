@@ -1,6 +1,7 @@
 Meta:
 @sprint 22
 @us 48
+@test
 
 Narrative:
 As a user
@@ -33,9 +34,7 @@ And the user searches writeOff by number 'SCPBC-10'
 And the user clicks the writeOff search buttton and starts the search
 Then the user checks the form results text is 'Нашлось списание'
 And the user checks the writeOff with sku 'SCPBC-10' in search results
-And the user checks the writeOff search result list contains entry
-| number | date |
-| SCPBC-10 | 02.04.2013 |
+And the user checks the writeOff search result list contains entry with stored values
 And the user checks writeOff highlighted text is 'Списание № SCPBC-10 от 02.04.2013'
 
 Scenario: WriteOff with product found by number
