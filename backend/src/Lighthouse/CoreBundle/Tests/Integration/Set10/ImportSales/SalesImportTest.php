@@ -3,29 +3,13 @@
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportSales;
 
 use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ImportSalesXmlParser;
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\SalesImporter;
+use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ChequesImporter;
 use Lighthouse\CoreBundle\Test\TestOutput;
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Tests\Integration\IntegrationTestCase;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SalesImportTest extends WebTestCase
+class SalesImportTest extends IntegrationTestCase
 {
-    /**
-     * @param string $xmlFile
-     * @param OutputInterface $output
-     * @param int $batchSize
-     * @return SalesImporter
-     */
-    protected function import($xmlFile, OutputInterface $output = null, $batchSize = null)
-    {
-        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import_sales.importer');
-        $xmlFile = $this->getFixtureFilePath($xmlFile);
-        $parser = new ImportSalesXmlParser($xmlFile);
-        $output = ($output) ?: new TestOutput();
-        $importer->import($parser, $output, $batchSize);
-        return $importer;
-    }
-
     public function testImportWithSeveralInvalidCounts()
     {
         $storeId = $this->createStore('197');
@@ -37,7 +21,7 @@ class SalesImportTest extends WebTestCase
             '8594403916157' => -1,
             '2873168' => 0,
             '2809727' => 0,
-            '25525687' => -157,
+            '25525687' => -155,
             '55557' => -1,
             '8594403110111' => -1,
             '4601501082159' => -1,
@@ -47,9 +31,9 @@ class SalesImportTest extends WebTestCase
         $output = new TestOutput();
         $this->import('Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml', $output);
 
-        $this->assertStringStartsWith('.V............SSS...', $output->getDisplay());
+        $this->assertStringStartsWith('.V............V.....', $output->getDisplay());
         $lines = $output->getLines();
-        $this->assertCount(4, $lines);
+        $this->assertCount(5, $lines);
         $this->assertContains('Errors', $lines[1]);
         $this->assertContains('products[1].quantity', $lines[2]);
 
@@ -78,11 +62,12 @@ class SalesImportTest extends WebTestCase
         $output = new TestOutput();
         $this->import('Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml', $output, 6);
 
-        $this->assertStringStartsWith('.E....F......F..SSS.F..', $output->getDisplay());
+        $this->assertStringStartsWith('.E....F......F..E...F..', $output->getDisplay());
         $lines = $output->getLines();
-        $this->assertCount(4, $lines);
+        $this->assertCount(5, $lines);
         $this->assertContains('Errors', $lines[1]);
         $this->assertContains('Product with sku "2873168" not found', $lines[2]);
+        $this->assertContains('Product with sku "2873168" not found', $lines[3]);
     }
 
     public function testImportWithNotFoundShops()

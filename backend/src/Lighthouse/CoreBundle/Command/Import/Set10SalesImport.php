@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Command\Import;
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ImportSalesXmlParser;
 use Lighthouse\CoreBundle\Integration\Set10\ImportSales\RemoteDirectory;
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\SalesImporter;
+use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ChequesImporter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,7 +18,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 class Set10SalesImport extends Command
 {
     /**
-     * @var SalesImporter
+     * @var ChequesImporter
      */
     protected $importer;
 
@@ -34,16 +34,16 @@ class Set10SalesImport extends Command
 
     /**
      * @DI\InjectParams({
-     *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import_sales.importer"),
+     *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import_cheques.importer"),
      *      "remoteDirectory" = @DI\Inject("lighthouse.core.integration.set10.import_sales.remote_directory"),
      *      "logRepository" = @DI\Inject("lighthouse.core.document.repository.log")
      * })
-     * @param SalesImporter $importer
+     * @param ChequesImporter $importer
      * @param RemoteDirectory $remoteDirectory
      * @param LogRepository $logRepository
      */
     public function __construct(
-        SalesImporter $importer,
+        ChequesImporter $importer,
         RemoteDirectory $remoteDirectory,
         LogRepository $logRepository
     ) {
