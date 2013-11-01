@@ -10,6 +10,11 @@
     <% if (LH.isAllow('stores/{store}/writeoffs', 'GET') && currentUserModel.stores.length) { %>
         <a class="localNavigation__link" href="/products/<%- productModel.id %>/writeoffs">Списания</a>
     <% } %>
+
+    <% if (LH.isAllow('stores/{store}/writeoffs', 'GET') && currentUserModel.stores.length) { %>
+        <a class="localNavigation__link" href="/products/<%- productModel.id %>/returns">Возвраты</a>
+    <% } %>
+
 </div>
 
 <div style="margin-left: 285px;">

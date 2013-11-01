@@ -1,0 +1,21 @@
+<table class="table table_productReturns">
+    <tbody>
+    <% collection.forEach(function(model){ %>
+    <tr name="return">
+        <td>
+            <%= LH.modelNode(model, 'createdDateFormatted') %>
+        </td>
+        <td>
+            - <%= LH.modelNode(model, 'quantity') %>
+            <%- LH.units(model.get('product.units'), 'smallShort') %>
+        </td>
+        <td>
+            по <%= LH.modelNode(model, 'priceFormatted') %> р.
+        </td>
+        <td>
+            = <%= LH.modelNode(model, 'totalPriceFormatted') %> р.
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
