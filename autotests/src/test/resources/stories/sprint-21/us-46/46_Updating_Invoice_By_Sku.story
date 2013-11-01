@@ -38,7 +38,7 @@ And the user searches invoice by sku or supplier sku 'Invoice-UIBS-NF-1'
 And the user clicks the invoice search buttton and starts the search
 Then the user checks the form results text is 'Накладная нашлась!'
 And the user checks the invoice with sku 'Invoice-UIBS-NF-1' in search results
-And the user checks the invoice with sku 'Invoice-UIBS-NF-1' in search results with stored values
+And the user checks the invoice search result list contains entry with stored values
 And the user checks the highlighted text is 'Накладная № Invoice-UIBS-NF-1 от 02.04.2013 16:23'
 
 Scenario: Invoice results found by supplier sku
@@ -61,7 +61,7 @@ And the user searches invoice by sku or supplier sku 'Invoice-SS-UIBS-NF-2'
 And the user clicks the invoice search buttton and starts the search
 Then the user checks the form results text is 'Накладная нашлась!'
 Then the user checks the invoice with sku 'Invoice-UIBS-NF-2' in search results
-And the user checks the invoice with sku 'Invoice-UIBS-NF-2' in search results with stored values
+And the user checks the invoice search result list contains entry with stored values
 And the user checks the highlighted text is 'Входящая накладная № Invoice-SS-UIBS-NF-2 от 02.04.2013'
 
 Scenario: Invoice results found by sku and supplier sku
@@ -210,7 +210,7 @@ And the user searches invoice by sku or supplier sku 'Invoice-UIBS-NF-9'
 And the user clicks the invoice search buttton and starts the search
 Then the user checks the form results text is 'Накладная нашлась!'
 Then the user checks the invoice with sku 'Invoice-UIBS-NF-9' in search results
-And the user checks the invoice with sku 'Invoice-UIBS-NF-9' in search results with stored values
+And the user checks the invoice search result list contains entry with stored values
 When the user clicks on the search result invoice with sku 'Invoice-UIBS-NF-9'
 When the user clicks edit button and starts invoice edition
 When the user edits 'sku' element with new value 'Invoice-UIBS-NF-9-Edited' and verify the 'head' changes
@@ -254,7 +254,7 @@ And the user searches invoice by sku or supplier sku 'Invoice-UIBS-NF-10'
 And the user clicks the invoice search buttton and starts the search
 Then the user checks the form results text is 'Накладная нашлась!'
 And the user checks the invoice with sku 'Invoice-UIBS-NF-10' in search results
-And the user checks the invoice with sku 'Invoice-UIBS-NF-10' in search results with stored values
+And the user checks the invoice search result list contains entry with stored values
 Then the user checks the product with '7300330094019' sku has values
 | elementName | value |
 | productName | Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г |

@@ -19,11 +19,11 @@ public class InvoiceListObject extends AbstractObjectNode {
     }
 
     public void setProperties() {
-        acceptanceDateFormatted = element.findElement(By.xpath(".//*[@model_attr='acceptanceDateFormatted']")).getText();
-        quantity = element.findElement(By.xpath(".//*[@model_attr='quantity']")).getText();
-        priceFormatted = element.findElement(By.xpath(".//*[@model_attr='priceFormatted']")).getText();
-        totalPriceFormatted = element.findElement(By.xpath(".//*[@model_attr='totalPriceFormatted']")).getText();
-        invoiceSku = element.getAttribute("invoice-sku");
+        acceptanceDateFormatted = getElement().findElement(By.xpath(".//*[@model_attr='acceptanceDateFormatted']")).getText();
+        quantity = getElement().findElement(By.xpath(".//*[@model_attr='quantity']")).getText();
+        priceFormatted = getElement().findElement(By.xpath(".//*[@model_attr='priceFormatted']")).getText();
+        totalPriceFormatted = getElement().findElement(By.xpath(".//*[@model_attr='totalPriceFormatted']")).getText();
+        invoiceSku = getElement().getAttribute("invoice-sku");
     }
 
     public Boolean rowIsEqual(Map<String, String> row) {

@@ -14,6 +14,10 @@ import java.util.Map;
 abstract public class AbstractObjectCollection extends ArrayList<AbstractObject> {
 
     public AbstractObjectCollection(WebDriver webDriver, By findBy) {
+        init(webDriver, findBy);
+    }
+
+    public void init(WebDriver webDriver, By findBy) {
         List<WebElement> webElementList = new Waiter(webDriver).getVisibleWebElements(findBy);
         for (WebElement element : webElementList) {
             AbstractObject abstractObject = createNode(element);

@@ -22,13 +22,13 @@ public class BalanceObjectItem extends AbstractObjectNode {
 
     @Override
     public void setProperties() {
-        sku = element.findElement(By.xpath(".//*[@model_attr='product.sku']")).getText();
-        name = element.findElement(By.xpath(".//*[@model_attr='product.name']")).getText();
-        barcode = element.findElement(By.xpath(".//*[@model_attr='product.barcode']")).getText();
-        balance = element.findElement(By.xpath(".//*[@model_attr='amount']")).getText();
-        units = element.findElement(By.xpath(".//*[@model_attr='unitsFormatted']")).getText();
-        averagePurchasePrice = element.findElement(By.xpath(".//*[@model_attr='averagePurchasePriceFormatted']")).getText();
-        lastPurchasePrice = element.findElement(By.xpath(".//*[@model_attr='lastPurchasePriceFormatted']")).getText();
+        sku = getElement().findElement(By.xpath(".//*[@model_attr='product.sku']")).getText();
+        name = getElement().findElement(By.xpath(".//*[@model_attr='product.name']")).getText();
+        barcode = getElement().findElement(By.xpath(".//*[@model_attr='product.barcode']")).getText();
+        balance = getElement().findElement(By.xpath(".//*[@model_attr='amount']")).getText();
+        units = getElement().findElement(By.xpath(".//*[@model_attr='unitsFormatted']")).getText();
+        averagePurchasePrice = getElement().findElement(By.xpath(".//*[@model_attr='averagePurchasePriceFormatted']")).getText();
+        lastPurchasePrice = getElement().findElement(By.xpath(".//*[@model_attr='lastPurchasePriceFormatted']")).getText();
     }
 
     @Override
