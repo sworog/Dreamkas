@@ -6,11 +6,10 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
-import project.lighthouse.autotests.objects.notApi.log.SimpleLogObject;
+import project.lighthouse.autotests.objects.notApi.log.LogObjectCollection;
 import project.lighthouse.autotests.pages.logPages.JobsPage;
 import project.lighthouse.autotests.pages.logPages.LogPage;
 
-import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
@@ -99,11 +98,11 @@ public class LogSteps extends ScenarioSteps {
 
     @Step
     public void assertSimpleLogMessages(ExamplesTable simpleLogMessagesTable) {
-        List<SimpleLogObject> simpleLogObjects = logPage.getSimpleLogMessages();
+        LogObjectCollection logObjectCollection = logPage.getLogObjectCollection();
         int index = 0;
         for (Map<String, String> row : simpleLogMessagesTable.getRows()) {
             String expectedMessage = row.get("logMessage");
-            Assert.assertThat(simpleLogObjects.get(index).getMessage(), Matchers.containsString(expectedMessage));
+            Assert.assertThat(logObjectCollection.get(index).getMessage(), Matchers.containsString(expectedMessage));
             index++;
         }
     }
