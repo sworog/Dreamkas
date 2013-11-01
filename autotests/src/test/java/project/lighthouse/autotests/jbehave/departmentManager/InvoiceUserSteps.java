@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.helper.ExampleTableConverter;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceApi;
 import project.lighthouse.autotests.steps.administrator.UserSteps;
 import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
@@ -275,14 +276,9 @@ public class InvoiceUserSteps {
         invoiceSteps.checkHasInvoice(sku);
     }
 
-    @Then("the user checks the invoice with sku '$sku' in search results has values $examplesTable")
-    public void thenTheUserChekcsTheInvoiceWithSkuHasValues(String sku, ExamplesTable examplesTable) {
-        invoiceSteps.checkInvoiceProperties(sku, examplesTable);
-    }
-
-    @Then("the user checks the invoice with sku '$sku' in search results with stored values")
-    public void thenTheUserChekcsTheInvoiceWithStoredValues(String sku) {
-        invoiceSteps.checkInvoiceProperties(sku, examplesTable);
+    @Then("the user checks the invoice search result list contains entry with stored values")
+    public void thenTheUserChecksTheInvoiceSearchResult() {
+        invoiceSteps.invoiceCompareWithExampleTable(ExampleTableConverter.convert(examplesTable));
     }
 
     @Then("the user checks the form results text is '$text'")

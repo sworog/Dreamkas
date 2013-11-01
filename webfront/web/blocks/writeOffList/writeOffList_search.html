@@ -4,21 +4,19 @@
 <% var writeOffList = require('tpl!blocks/writeOffList/writeOffList.html') %>
 
 <div class="writeOffList_search">
-<% if (!writeOffsCollection.length) { %>
-<h3>Мы не смогли найти списание с номером <%- searchQuery.number %></h3>
-<% } %>
+    <% if (!writeOffsCollection.length) { %>
+    <h3>Мы не смогли найти списание с номером <%- searchQuery.number %></h3>
+    <% } else if (writeOffsCollection.length === 1) { %>
+    <h3>Нашлось 1 списание</h3>
+    <% } else if (writeOffsCollection.length > 4) { %>
+    <h3>Нашлось <%- writeOffsCollection.length %> списаний</h3>
+    <% } else { %>
+    <h3>Нашлось <%- writeOffsCollection.length %> списания</h3>
+    <% } %>
 
-<% if (writeOffsCollection.length === 1) { %>
-<h3>Нашлась 1 накладная</h3>
-<% } %>
-
-<% if (writeOffsCollection.length > 1) { %>
-<h3>Нашлось <%- writeOffsCollection.length %> накладных!</h3>
-<% } %>
-
-<% if (writeOffsCollection.length) { %>
+    <% if (writeOffsCollection.length) { %>
     <%= writeOffList({
         writeOffsCollection: writeOffsCollection
     }) %>
-<% } %>
+    <% } %>
 </div>

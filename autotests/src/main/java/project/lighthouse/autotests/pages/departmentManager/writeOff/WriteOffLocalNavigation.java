@@ -15,7 +15,7 @@ public class WriteOffLocalNavigation extends CommonPageObject {
     }
 
     public void searchLinkClick() {
-        new NavigationLinkFacade(getDriver(), "Поиск cписания").click();
+        new NavigationLinkFacade(getDriver(), "Поиск списания").click();
     }
 
     public void createInvoiceLinkClick() {

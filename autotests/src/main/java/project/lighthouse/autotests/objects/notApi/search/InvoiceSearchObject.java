@@ -4,11 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractSearchObjectNode;
 
-public class InvoiceSearchObject {
+import java.util.Map;
 
-    private WebDriver driver;
-    private Waiter waiter;
+public class InvoiceSearchObject extends AbstractSearchObjectNode {
+
     private String sku;
     private String acceptanceDate;
     private String supplier;
@@ -16,64 +17,42 @@ public class InvoiceSearchObject {
     private String legalEntity;
     private String supplierInvoiceSku;
     private String supplierInvoiceDate;
-    private WebElement element;
 
-    private InvoiceSearchObject(WebDriver driver) {
-        this.driver = driver;
-        waiter = new Waiter(driver, 1);
+    public InvoiceSearchObject(WebDriver webDriver, WebElement element) {
+        super(element, webDriver);
     }
 
-    public InvoiceSearchObject(WebDriver driver, WebElement element) {
-        this(driver);
-        this.element = element;
-        setInvoiceProperties(element);
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public String getAcceptanceDate() {
-        return acceptanceDate;
-    }
-
-    public String getSupplier() {
-        return supplier;
-    }
-
-    public String getAccepter() {
-        return accepter;
-    }
-
-    public String getLegalEntity() {
-        return legalEntity;
-    }
-
-    public String getSupplierInvoiceSku() {
-        return supplierInvoiceSku;
-    }
-
-    public String getSupplierInvoiceDate() {
-        return supplierInvoiceDate;
-    }
-
-    private void setInvoiceProperties(WebElement webElement) {
-        this.sku = webElement.findElement(By.name("sku")).getText();
-        this.acceptanceDate = webElement.findElement(By.name("acceptanceDate")).getText();
-        this.supplier = webElement.findElement(By.name("supplier")).getText();
-        this.accepter = webElement.findElement(By.name("accepter")).getText();
-        this.legalEntity = webElement.findElement(By.name("legalEntity")).getText();
+    @Override
+    public void setProperties() {
+        Waiter waiter = new Waiter(getWebDriver(), 0);
+        this.sku = getElement().findElement(By.name("sku")).getText();
+        this.acceptanceDate = getElement().findElement(By.name("acceptanceDate")).getText();
+        this.supplier = getElement().findElement(By.name("supplier")).getText();
+        this.accepter = getElement().findElement(By.name("accepter")).getText();
+        this.legalEntity = getElement().findElement(By.name("legalEntity")).getText();
         this.supplierInvoiceSku = null;
         if (!waiter.invisibilityOfElementLocated(By.name("supplierInvoiceSku"))) {
-            this.supplierInvoiceSku = webElement.findElement(By.name("supplierInvoiceSku")).getText();
+            this.supplierInvoiceSku = getElement().findElement(By.name("supplierInvoiceSku")).getText();
         }
         this.supplierInvoiceDate = null;
         if (!waiter.invisibilityOfElementLocated(By.name("supplierInvoiceDate"))) {
-            this.supplierInvoiceDate = webElement.findElement(By.name("supplierInvoiceDate")).getText();
+            this.supplierInvoiceDate = getElement().findElement(By.name("supplierInvoiceDate")).getText();
         }
     }
 
-    public void click() {
-        element.click();
+    @Override
+    public String getObjectLocator() {
+        return sku;
+    }
+
+    @Override
+    public Boolean rowIsEqual(Map<String, String> row) {
+        return sku.equals(row.get("sku")) &&
+                acceptanceDate.equals(row.get("acceptanceDate")) &&
+                supplier.equals(row.get("supplier")) &&
+                accepter.equals(row.get("accepter")) &&
+                legalEntity.equals(row.get("legalEntity")) &&
+                supplierInvoiceSku.equals(row.get("supplierInvoiceSku")) &&
+                supplierInvoiceDate.equals(row.get("supplierInvoiceDate"));
     }
 }

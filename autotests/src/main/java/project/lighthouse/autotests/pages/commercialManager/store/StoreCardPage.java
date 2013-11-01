@@ -3,9 +3,9 @@ package project.lighthouse.autotests.pages.commercialManager.store;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.UrlHelper;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.SelectByVisibleText;
+import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.Store;
 
 import static junit.framework.Assert.assertEquals;

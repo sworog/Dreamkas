@@ -1,4 +1,6 @@
-package project.lighthouse.autotests;
+package project.lighthouse.autotests.helper;
+
+import project.lighthouse.autotests.StaticData;
 
 public class UrlHelper {
 

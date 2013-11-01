@@ -16,7 +16,7 @@ When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' 
 And the user clicks the local navigation writeOff search link
 And the user searches writeOff by number 'Янехочуискатьсписанияяхочуплатье'
 And the user clicks the writeOff search buttton and starts the search
-Then the user checks the form results text is 'Мы не смогли накладную с номером Янехочуискатьсписанияяхочуплатье'
+Then the user checks the form results text is 'Мы не смогли найти списание с номером Янехочуискатьсписанияяхочуплатье'
 
 Scenario: WriteOff found by number
 
@@ -31,12 +31,32 @@ When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' 
 And the user clicks the local navigation writeOff search link
 And the user searches writeOff by number 'SCPBC-10'
 And the user clicks the writeOff search buttton and starts the search
-Then the user checks the form results text is 'Списание нашлось!'
+Then the user checks the form results text is 'Нашлось 1 списание'
 And the user checks the writeOff with sku 'SCPBC-10' in search results
-And the user checks the writeOff search result list contains entry
-| number | date |
-| SCPBC-10 | 02.04.2013 |
-And the user checks writeOff highlighted text is 'Списание № Invoice-UIBS-NF-1 от 02.04.2013 16:23'
+And the user checks the writeOff search result list contains stored values entry
+And the user checks writeOff highlighted text is 'Списание № SCPBC-10 от 02.04.2013'
+
+Scenario: Two writeOffs found by number
+
+Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
+And there is the writeOff in the store with number 'SCPBC' ruled by department manager with name 'departmentManager-SCPBC' with values
+| elementName | elementValue |
+| number | SCPBC-10 |
+| date | 02.04.2013 |
+And the user opens write off list page
+When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
+And the user clicks the local navigation writeOff create link
+And the user inputs 'SCPBC-10' in the 'writeOff number' field on the write off page
+And the user inputs '24.10.2012' in the 'writeOff date' field on the write off page
+And the user continues the write off creation
+And the user clicks the local navigation writeOff search link
+And the user searches writeOff by number 'SCPBC-10'
+And the user clicks the writeOff search buttton and starts the search
+Then the user checks the form results text is 'Нашлось 2 списания'
+And the user checks the writeOff with sku 'SCPBC-10' in search results
+And the user checks the writeOff search result list contains stored values entry
+And the user checks writeOff highlighted text is 'Списание № SCPBC-10 от 02.04.2013'
 
 Scenario: WriteOff with product found by number
 
@@ -49,14 +69,19 @@ And there is the writeOff in the store with number 'SCPBC' ruled by department m
 | number | SCPBC-11 |
 | date | 02.04.2013 |
 And the user adds the product to the write off with number 'SCPBC-11' with sku 'SCPBC-sku-11', quantity '1', price '12,34, cause 'Плохо продавался' in the store ruled by 'departmentManager-SCPBC'
-Then the user checks the form results text is 'Списание нашлось!'
+And the user opens write off list page
+When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
+And the user clicks the local navigation writeOff search link
+And the user searches writeOff by number 'SCPBC-11'
+And the user clicks the writeOff search buttton and starts the search
+Then the user checks the form results text is 'Нашлось 1 списание'
 And the user checks the writeOff with sku 'SCPBC-11' in search results
 Then the user checks write off elements values
 | elementName | value |
 | writeOff number review | SCPBC-11 |
 | writeOff date review | 02.04.2013 |
-And the user checks the write off product with 'SCPBC-11' sku is present
-And the user checks the product with 'SCPBC-11' sku has elements on the write off page
+And the user checks the write off product with 'SCPBC-sku-11' sku is present
+And the user checks the product with 'SCPBC-sku-11' sku has elements on the write off page
 | elementName | value |
 | writeOff product name review | SCPBC-name-11 |
 | writeOff product sku review | SCPBC-sku-11 |
@@ -80,15 +105,20 @@ And there is the writeOff in the store with number 'SCPBC' ruled by department m
 | number | SCPBC-12 |
 | date | 02.04.2013 |
 And the user adds the product to the write off with number 'SCPBC-12' with sku 'SCPBC-sku-11', quantity '1', price '12,34, cause 'Плохо продавался' in the store ruled by 'departmentManager-SCPBC'
-Then the user checks the form results text is 'Списание нашлось!'
+And the user opens write off list page
+When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
+And the user clicks the local navigation writeOff search link
+And the user searches writeOff by number 'SCPBC-12'
+And the user clicks the writeOff search buttton and starts the search
+Then the user checks the form results text is 'Нашлось 1 списание'
 And the user checks the writeOff with sku 'SCPBC-12' in search results
 When the user clicks on the search result writeOff with number 'SCPBC-12'
 Then the user checks write off elements values
 | elementName | value |
-| writeOff number review | SCPBC-11 |
+| writeOff number review | SCPBC-12 |
 | writeOff date review | 02.04.2013 |
-And the user checks the write off product with 'SCPBC-11' sku is present
-And the user checks the product with 'SCPBC-11' sku has elements on the write off page
+And the user checks the write off product with 'SCPBC-sku-11' sku is present
+And the user checks the product with 'SCPBC-sku-11' sku has elements on the write off page
 | elementName | value |
 | writeOff product name review | SCPBC-name-11 |
 | writeOff product sku review | SCPBC-sku-11 |

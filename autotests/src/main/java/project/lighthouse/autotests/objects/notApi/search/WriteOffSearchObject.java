@@ -11,15 +11,14 @@ public class WriteOffSearchObject extends AbstractSearchObjectNode {
     private String number;
     private String date;
 
-
     public WriteOffSearchObject(WebElement element) {
         super(element);
     }
 
     @Override
     public void setProperties() {
-        number = element.findElement(By.xpath(".//*[@name=number]")).getText();
-        date = element.findElement(By.xpath(".//*[@name=date]")).getText();
+        number = getElement().findElement(By.xpath(".//*[@name='number']")).getText();
+        date = getElement().findElement(By.xpath(".//*[@name='date']")).getText();
     }
 
     @Override

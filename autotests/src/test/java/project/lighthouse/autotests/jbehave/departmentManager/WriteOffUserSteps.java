@@ -142,7 +142,7 @@ public class WriteOffUserSteps {
 
     @When("the user creates write off from write off list page")
     public void whenTheUserCreatesWriteOff() {
-        writeOffSteps.writeOffItemListCreate();
+        writeOffSteps.createInvoiceLinkClick();
     }
 
     @When("the user goes to the write off list page by clicking the link")
@@ -209,5 +209,10 @@ public class WriteOffUserSteps {
     @When("the user clicks the local navigation writeOff search link")
     public void whenTheUserClicksTheLocalNavigationWriteOffSearchLink() {
         writeOffSteps.searchLinkClick();
+    }
+
+    @When("the user clicks the local navigation writeOff create link")
+    public void whenTheUserClicksTheLocalNavigationWriteOffCreateLink() {
+        writeOffSteps.createInvoiceLinkClick();
     }
 }
