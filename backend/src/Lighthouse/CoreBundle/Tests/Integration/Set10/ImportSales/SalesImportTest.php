@@ -5,27 +5,11 @@ namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportSales;
 use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ImportSalesXmlParser;
 use Lighthouse\CoreBundle\Integration\Set10\ImportSales\SalesImporter;
 use Lighthouse\CoreBundle\Test\TestOutput;
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Tests\Integration\IntegrationTestCase;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SalesImportTest extends WebTestCase
+class SalesImportTest extends IntegrationTestCase
 {
-    /**
-     * @param string $xmlFile
-     * @param OutputInterface $output
-     * @param int $batchSize
-     * @return SalesImporter
-     */
-    protected function import($xmlFile, OutputInterface $output = null, $batchSize = null)
-    {
-        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import_sales.importer');
-        $xmlFile = $this->getFixtureFilePath($xmlFile);
-        $parser = new ImportSalesXmlParser($xmlFile);
-        $output = ($output) ?: new TestOutput();
-        $importer->import($parser, $output, $batchSize);
-        return $importer;
-    }
-
     public function testImportWithSeveralInvalidCounts()
     {
         $storeId = $this->createStore('197');
