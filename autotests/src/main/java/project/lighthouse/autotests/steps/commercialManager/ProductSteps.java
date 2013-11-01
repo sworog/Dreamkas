@@ -13,6 +13,7 @@ import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.product.*;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductInvoicesList;
+import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductReturnList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class ProductSteps extends ScenarioSteps {
     ProductLocalNavigation productLocalNavigation;
     ProductInvoicesList productInvoicesList;
     ProductWriteOffList productWriteOffList;
+    ProductReturnList productReturnList;
 
     public ProductSteps(Pages pages) {
         super(pages);
@@ -247,5 +249,15 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void productWriteOffListObjectClick(String number) {
         productWriteOffList.productWriteOffListObjectClick(number);
+    }
+
+    @Step
+    public void productReturnsLinkClick() {
+        productLocalNavigation.productReturnsLinkClick();
+    }
+
+    @Step
+    public void checkProductReturnListObject(ExamplesTable examplesTable) {
+        productReturnList.getReturnListObjectCollection().compareWithExampleTable(examplesTable);
     }
 }

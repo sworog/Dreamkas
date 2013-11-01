@@ -14,6 +14,11 @@ public class WhenSteps {
         productSteps.productWriteOffsLinkClick();
     }
 
+    @When("the user clicks the product local navigation returns link")
+    public void whenTheUSerClicksTheProductLocalNavigationReturnsLink() {
+        productSteps.productReturnsLinkClick();
+    }
+
     @When("the user clicks on the product writeOff with '$number' number")
     public void whenTheUserClicksOnTheProductWriteOff(String number) {
         productSteps.productWriteOffListObjectClick(number);

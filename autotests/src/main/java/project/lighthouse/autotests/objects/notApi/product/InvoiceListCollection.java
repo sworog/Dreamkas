@@ -6,9 +6,9 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractObjectCollection;
 import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractObjectNode;
 
-public class InvoiceCollection extends AbstractObjectCollection {
+public class InvoiceListCollection extends AbstractObjectCollection {
 
-    public InvoiceCollection(WebDriver webDriver, By findBy) {
+    public InvoiceListCollection(WebDriver webDriver, By findBy) {
         super(webDriver, findBy);
     }
 

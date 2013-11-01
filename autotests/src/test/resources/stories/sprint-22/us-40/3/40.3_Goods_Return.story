@@ -1,14 +1,14 @@
 Meta:
-@sprint 21
-@us 40.2
+@sprint 22
+@us 40.3
 
 Narrative:
-As a заведующий отдела, при получении данных о продажах из SR10
-I want to чтобы чеки возврата не изменяли актуальные товарные остатки
+As a user
+I want to perform an action
+So that I can achieve a business goal
 
-Scenario: Sales return (xml)
+Scenario: Returns checking
 
-Given skipped. Info: 'Skipped story', Details: 'Not actual'
 Given the user opens the settings page
 And the user logs in as 'watchman'
 When the user input values on the setting page
@@ -35,8 +35,11 @@ And the user inputs '26,99' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the 'retailPrice' value is '26,99'
-Given the user opens amount list page
-Then the user checks the product with '4008577061437' sku has 'amounts amount' element equal to '0' on amounts page
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+When the user opens product balance tab
+Then the user checks the product balance list contains entry
+| sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
+| 4008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 4008577061437 | 0 | шт. | — | 26,99 р. |
 When the user logs out
 Given the user navigates to the product with sku '4008577061437'
 When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
@@ -46,26 +49,34 @@ And the user inputs '25,50' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the 'retailPrice' value is '25,50'
-Given the user opens amount list page
-Then the user checks the product with '4008577061437' sku has 'amounts amount' element equal to '0' on amounts page
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+When the user opens product balance tab
+Then the user checks the product balance list contains entry
+| sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
+| 4008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 4008577061437 | 0 | шт. | — | 25,50 |
 When the user logs out
 Given the robot prepares import return data
 And the robot waits the import folder become empty
-And the user opens amount list page
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
-Then the user checks the product with '4008577061437' sku has 'amounts amount' element equal to '0' on amounts page
+When the user opens product balance tab
+Then the user checks the product balance list contains entry
+| sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
+| 4008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 4008577061437 | 2 | шт. | — | 26,99 р. |
+Given the user navigates to the product with sku '4008577061437'
+When the user clicks the product local navigation returns link
+Then the user checks the product return list contains entry
+| date | quantity | price | totalPrice |
+| 2013.10.03 | 2 | 26,99 | 53,98 |
 When the user logs out
-Given the user opens amount list page
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
-Then the user checks the product with '4008577061437' sku has 'amounts amount' element equal to '0' on amounts page
-When the user logs out
-Given the robot prepares import return data
-And the robot waits the import folder become empty
-Given the user opens amount list page
-When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
-Then the user checks the product with '4008577061437' sku has 'amounts amount' element equal to '0' on amounts page
-When the user logs out
-Given the user opens amount list page
-When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
-Then the user checks the product with '4008577061437' sku has 'amounts amount' element equal to '0' on amounts page
-When the user logs out
+When the user opens product balance tab
+Then the user checks the product balance list contains entry
+| sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
+| 4008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 4008577061437 | 3 | шт. | — | 25,50 |
+Given the user navigates to the product with sku '4008577061437'
+When the user clicks the product local navigation returns link
+Then the user checks the product return list contains entry
+| date | quantity | price | totalPrice |
+| 2013.10.03 | 3 | 25,50 | 76,50 |

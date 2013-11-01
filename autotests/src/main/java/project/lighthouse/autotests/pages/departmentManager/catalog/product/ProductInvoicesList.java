@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.NonType;
-import project.lighthouse.autotests.objects.notApi.product.InvoiceCollection;
+import project.lighthouse.autotests.objects.notApi.product.InvoiceListCollection;
 
 public class ProductInvoicesList extends CommonPageObject {
 
@@ -20,8 +20,8 @@ public class ProductInvoicesList extends CommonPageObject {
         items.put("totalPriceFormatted", new NonType(this, "totalPriceFormatted"));
     }
 
-    public InvoiceCollection getProductInvoiceListObjects() {
-        return new InvoiceCollection(getDriver(), By.name("invoice"));
+    public InvoiceListCollection getProductInvoiceListObjects() {
+        return new InvoiceListCollection(getDriver(), By.name("invoice"));
     }
 
     public void invoiceSkuClick(String sku) {
