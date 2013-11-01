@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Page = require('kit/core/page'),
-        ProductReturnssCollection = require('collections/productWriteOffs'),
+        ProductReturnsCollection = require('collections/productReturns'),
         ProductModel = require('models/product'),
         StoreProductModel = require('models/storeProduct'),
         currentUserModel = require('models/currentUser'),
@@ -34,7 +34,7 @@ define(function(require) {
                 });
             }
 
-            page.productReturnsCollection = new ProductReturnssCollection({
+            page.productReturnsCollection = new ProductReturnsCollection({
                 productId: params.productId,
                 storeId: currentUserModel.stores.at(0).id
             });
