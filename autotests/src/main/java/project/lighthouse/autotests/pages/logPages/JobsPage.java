@@ -26,7 +26,7 @@ public class JobsPage extends CommonPageObject {
     }
 
     private List<WebElement> getJobLogMessageWebElements() {
-        return waiter.getVisibleWebElements(By.xpath("//*[@class='jobs__item']"));
+        return waiter.getVisibleWebElements(By.xpath("//*[@class='log__item']"));
     }
 
     private List<JobLogObject> getJobLogMessages() {
