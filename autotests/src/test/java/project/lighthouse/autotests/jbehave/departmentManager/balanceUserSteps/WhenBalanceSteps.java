@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.When;
 import project.lighthouse.autotests.steps.departmentManager.BalanceSteps;
 
-public class WhenSteps {
+public class WhenBalanceSteps {
 
     @Steps
     BalanceSteps balanceSteps;
@@ -13,6 +13,4 @@ public class WhenSteps {
     public void whenTheUserOpensProductBalanceTab() {
         balanceSteps.balanceTabClick();
     }
-
-
 }

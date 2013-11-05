@@ -9,6 +9,10 @@ So that I can achieve a business goal
 
 Scenario: Returns checking
 
+Meta:
+@id s22u40.3t1
+@description the balance of two products increase after product return is processed by system (subCategory product balance page, product returns page).
+
 Given the user opens the settings page
 And the user logs in as 'watchman'
 When the user input values on the setting page

@@ -9,6 +9,10 @@ In order to понять когда и сколько едениц товара 
 
 Scenario: Subcategory product balance checking
 
+Meta:
+@id s22u50.1t1
+@description subcategory page have balance tab, balance table have all required data
+
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
 Given there is the subCategory with name 'SCPBC-defaultSubCategory' related to group named 'SCPBC-defaultGroup' and category named 'SCPBC-defaultCategory'
@@ -22,6 +26,10 @@ Then the user checks the product balance list contains entry
 
 Scenario: Subcategory product balance not required fields checking
 
+Meta:
+@id s22u50.1t2
+@description balance data table render not required produt fields correctly
+
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
 Given there is the subCategory with name 'SCPBC-defaultSubCategory' related to group named 'SCPBC-defaultGroup' and category named 'SCPBC-defaultCategory'
@@ -34,6 +42,10 @@ Then the user checks the product balance list contains entry
 | SCPBC-sku-1 | SCPBC-name-1 | | 0 | шт. | — | — |
 
 Scenario: Subcategory product balance after writeOff
+
+Meta:
+@id s22u50.1t3
+@description balance deacrese after writeOff with product is created
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
@@ -58,6 +70,10 @@ Then the user checks the product balance list contains entry
 
 Scenario: Subcategory product balance after invoice
 
+Meta:
+@id s22u50.1t4
+@description balance increase after invoice with product is created
+
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
 Given there is the subCategory with name 'SCPBC-defaultSubCategory' related to group named 'SCPBC-defaultGroup' and category named 'SCPBC-defaultCategory'
@@ -76,6 +92,10 @@ Then the user checks the product balance list contains entry
 
 
 Scenario: Subcategory product balance with average price checking
+
+Meta:
+@id s22u50.1t5
+@description balance table average price column contains product correct data
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
@@ -111,6 +131,32 @@ When the user opens product balance tab
 Then the user checks the product balance list contains entry
 | sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
 | SCPBC-sku-4 | SCPBC-name-4 | SCPBC-barcode-4 | 3 | шт. | 130,33 р. | 123,00 р. |
+
+Scenario: No product balance tab for storeManager
+
+Meta:
+@id s22u50.1t6
+@description no product balance tab availabile for store manager
+
+Given there is the user with name 'NPBTFST-1', position 'NPBTFST-1', username 'NPBTFST-1', password 'lighthouse', role 'storeManager'
+And there is the store with number 'NPBTFST' managed by 'NPBTFST-1'
+Given there is the subCategory with name 'SCPBC-defaultSubCategory' related to group named 'SCPBC-defaultGroup' and category named 'SCPBC-defaultCategory'
+And there is the product with 'NPBTF-name-1' name, 'SCPBC-sku-1' sku, 'SCPBC-barcode-1' barcode, 'unit' units, '12,34' purchasePrice of group named 'SCPBC-defaultGroup', category named 'SCPBC-defaultCategory', subcategory named 'SCPBC-defaultSubCategory'
+And the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
+When the user logs in using 'NPBTFST-1' userName and 'lighthouse' password
+Then the user checks product balance tab is not visible
+
+Scenario: No product balance tab for commercialManager
+
+Meta:
+@id s22u50.1t7
+@description no product balance tab availabile for commercial manager
+
+Given there is the subCategory with name 'SCPBC-defaultSubCategory' related to group named 'SCPBC-defaultGroup' and category named 'SCPBC-defaultCategory'
+And there is the product with 'NPBTF-name-1' name, 'SCPBC-sku-1' sku, 'SCPBC-barcode-1' barcode, 'unit' units, '12,34' purchasePrice of group named 'SCPBC-defaultGroup', category named 'SCPBC-defaultCategory', subcategory named 'SCPBC-defaultSubCategory'
+And the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
+Given the user logs in as 'commercialManager'
+Then the user checks product balance tab is not visible
 
 
 

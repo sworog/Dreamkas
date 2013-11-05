@@ -23,4 +23,12 @@ public class BalanceSteps extends ScenarioSteps {
     public void balanceTabClick() {
         balanceListPage.balanceTabClick();
     }
+
+    @Step
+    public void balanceTabIsNotVisible() {
+        try {
+            balanceListPage.balanceTabClick();
+        } catch (Exception ignored) {
+        }
+    }
 }

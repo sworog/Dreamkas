@@ -9,6 +9,10 @@ So that I can achieve a business goal
 
 Scenario: Nothing found
 
+Meta:
+@id s22u48t1
+@description nothing found with non exist writeOff number
+
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
 And the user opens write off list page
@@ -19,6 +23,10 @@ And the user clicks the writeOff search buttton and starts the search
 Then the user checks the form results text is 'Мы не смогли найти списание с номером Янехочуискатьсписанияяхочуплатье'
 
 Scenario: WriteOff found by number
+
+Meta:
+@id s22u48t2
+@description writeOff with number can be found
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
@@ -37,6 +45,10 @@ And the user checks the writeOff search result list contains stored values entry
 And the user checks writeOff highlighted text is 'Списание № SCPBC-10 от 02.04.2013'
 
 Scenario: Two writeOffs found by number
+
+Meta:
+@id s22u48t3
+@description two writeOffs with equal numbers can be found
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
@@ -59,6 +71,10 @@ And the user checks the writeOff search result list contains stored values entry
 And the user checks writeOff highlighted text is 'Списание № SCPBC-10 от 02.04.2013'
 
 Scenario: WriteOff with product found by number
+
+Meta:
+@id s22u48t4
+@description writeOffs with product can be found
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
@@ -95,6 +111,10 @@ Then the user checks write off elements values
 | totalSum | 12,34 |
 
 Scenario: WriteOff with product found by number click
+
+Meta:
+@id s22u48t5
+@description writeOffs with product can be found, the result is clickable and leads to writeOff page
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
