@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Invoice\Product;
 
-use Doctrine\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
 class InvoiceProductRepository extends DocumentRepository
@@ -22,5 +22,14 @@ class InvoiceProductRepository extends DocumentRepository
             'acceptanceDate' => self::SORT_DESC,
         );
         return $this->findBy($criteria, $sort);
+    }
+
+    /**
+     * @param $invoiceId
+     * @return Cursor
+     */
+    public function findByInvoice($invoiceId)
+    {
+        return $this->findBy(array('invoice' => $invoiceId));
     }
 }

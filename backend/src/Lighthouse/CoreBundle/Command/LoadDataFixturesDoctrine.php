@@ -3,9 +3,11 @@
 namespace Lighthouse\CoreBundle\Command;
 
 use Doctrine\Bundle\MongoDBBundle\Command\DoctrineODMCommand;
+use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor;
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,6 +20,8 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 /**
  * @DI\Service("lighthouse.core.command.load_data_fixtures_doctrine")
  * @DI\Tag("console.command")
+ *
+ * @method Application getApplication
  */
 class LoadDataFixturesDoctrine extends DoctrineODMCommand
 {
@@ -74,7 +78,7 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var $doctrine \Doctrine\Common\Persistence\ManagerRegistry */
+        /** @var ManagerRegistry $doctrine */
         $doctrine = $this->getContainer()->get('doctrine_mongodb');
         $dmName = $input->getOption('dm') ?: $this->getContainer()->get('doctrine_mongodb')->getDefaultManagerName();
         /** @var DocumentManager $dm */
@@ -97,9 +101,10 @@ EOT
             $paths = is_array($dirOrFile) ? $dirOrFile : array($dirOrFile);
         } else {
             $paths = array();
-            /* @var BundleInterface $bundle */
-            foreach ($this->getApplication()->getKernel()->getBundles() as $bundle) {
-                $paths[] = $bundle->getPath().'/DataFixtures/ODM';
+            /* @var Application $application */
+            $application = $this->getApplication();
+            foreach ($application->getKernel()->getBundles() as $bundle) {
+                $paths[] = $bundle->getPath() . '/DataFixtures/ODM';
             }
         }
 

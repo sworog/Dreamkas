@@ -67,11 +67,17 @@ class CollectionHandler implements SubscribingHandlerInterface, EventSubscriberI
             /* @var ClassMetadata $itemMetadata */
             $itemMetadata = $this->metadataFactory->getMetadataForClass(get_class($item));
 
-            $itemNode = $visitor->document->createElement($itemMetadata->xmlRootName);
-            $visitor->getCurrentNode()->appendChild($itemNode);
+            /* @var \DOMDocument $document */
+            $document = $visitor->document;
+            $itemNode = $document->createElement($itemMetadata->xmlRootName);
+            /* @var \DOMDocument $currentNode */
+            $currentNode = $visitor->getCurrentNode();
+            $currentNode->appendChild($itemNode);
             $visitor->setCurrentNode($itemNode);
 
-            $visitor->getNavigator()->accept($item, null, $context);
+            /* @var GraphNavigator $navigator */
+            $navigator = $visitor->getNavigator();
+            $navigator->accept($item, null, $context);
 
             $visitor->revertCurrentNode();
         }

@@ -84,8 +84,7 @@ class ProductController extends AbstractRestController
             case 'sku':
             case 'barcode':
                 $query = $this->getRequest()->get('query');
-                $cursor = $this->getDocumentRepository()
-                    ->searchEntry($property, $query);
+                $cursor = $this->documentRepository->searchEntry($property, $query);
                 break;
             default:
                 $cursor = array();

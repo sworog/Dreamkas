@@ -74,7 +74,7 @@ class DepartmentController extends AbstractRestController
      */
     public function getStoreDepartmentsAction(Store $store)
     {
-        $cursor = $this->getDocumentRepository()->findByStore($store->id);
+        $cursor = $this->documentRepository->findByStore($store->id);
         $collection = new DepartmentCollection($cursor);
         return $collection;
     }

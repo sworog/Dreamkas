@@ -8,6 +8,7 @@ use Doctrine\ODM\MongoDB\Query\Query;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
+use MongoId;
 
 class TrialBalanceRepository extends DocumentRepository
 {
@@ -32,7 +33,7 @@ class TrialBalanceRepository extends DocumentRepository
     {
         $reasonTypes = array();
         foreach ($reasons as $reason) {
-            $reasonTypes[$reason->getReasonType()][] = new \MongoId($reason->getReasonId());
+            $reasonTypes[$reason->getReasonType()][] = new MongoId($reason->getReasonId());
         }
 
         $query = $this->createQueryBuilder()->find();
@@ -61,7 +62,7 @@ class TrialBalanceRepository extends DocumentRepository
     {
         $criteria = array('storeProduct' => $storeProduct->id);
         if (null !== $invoiceProduct) {
-            $criteria['reason.$id'] = array('$ne' => new \MongoId($invoiceProduct->id));
+            $criteria['reason.$id'] = array('$ne' => new MongoId($invoiceProduct->id));
             //$criteria['reason.$ref'] = array('$ne' => 'InvoiceProduct');
         }
         // Ugly hack to force document refresh

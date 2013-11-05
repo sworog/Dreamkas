@@ -9,6 +9,7 @@ use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\VisitorInterface;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -53,7 +54,7 @@ class RoundingHandler implements SubscribingHandlerInterface, EventSubscriberInt
     }
 
     /**
-     * @param VisitorInterface $visitor
+     * @param VisitorInterface|JsonSerializationVisitor $visitor
      * @param AbstractRounding $value
      * @param array $type
      * @param Context $context
