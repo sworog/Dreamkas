@@ -2,12 +2,8 @@ package project.lighthouse.autotests.pages.logPages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.objects.notApi.log.SimpleLogObject;
-
-import java.util.ArrayList;
-import java.util.List;
+import project.lighthouse.autotests.objects.notApi.log.SimpleLogObjectCollection;
 
 public class LogPage extends CommonPageObject {
 
@@ -19,20 +15,7 @@ public class LogPage extends CommonPageObject {
     public void createElements() {
     }
 
-    private List<WebElement> getSimpleLogMessageWebElements() {
-        return waiter.getVisibleWebElements(By.xpath("//*[@class='log__item']"));
-    }
-
-    public List<SimpleLogObject> getSimpleLogMessages() {
-        List<SimpleLogObject> logMessages = new ArrayList<>();
-        for (WebElement logMessageWebElement : getSimpleLogMessageWebElements()) {
-            SimpleLogObject simpleLogObject = new SimpleLogObject(getDriver(), logMessageWebElement);
-            logMessages.add(simpleLogObject);
-        }
-        return logMessages;
-    }
-
-    public SimpleLogObject getLastLogObject() {
-        return getSimpleLogMessages().get(0);
+    public SimpleLogObjectCollection getSimpleLogObjectCollection() {
+        return new SimpleLogObjectCollection(getDriver(), By.xpath("//*[@class='log__item']"));
     }
 }
