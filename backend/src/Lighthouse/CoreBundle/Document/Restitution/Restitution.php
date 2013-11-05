@@ -18,7 +18,7 @@ use DateTime;
  *     repositoryClass="Lighthouse\CoreBundle\Document\Restitution\RestitutionRepository"
  * )
  *
- * @Unique(fields="hash", message="lighthouse.validation.errors.backoff.hash.unique")
+ * @Unique(fields="hash", message="lighthouse.validation.errors.return.hash.unique")
  *
  * @property int        $id
  * @property DateTime   $createdDate
@@ -65,7 +65,7 @@ class Restitution extends AbstractDocument implements Storeable
      *      cascade="persist"
      * )
      *
-     * @Assert\NotBlank(message="lighthouse.validation.errors.backoff.product.empty")
+     * @Assert\NotBlank(message="lighthouse.validation.errors.return.product.empty")
      * @Assert\Valid(traverse=true)
      * @var RestitutionProduct[]|ArrayCollection
      */
@@ -95,7 +95,7 @@ class Restitution extends AbstractDocument implements Storeable
         }
 
         foreach ($this->products as $product) {
-            $product->backOff = $this;
+            $product->return = $this;
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Integration\Set10\ImportCheques;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Restitution\Product\RestitutionProduct;
 use Lighthouse\CoreBundle\Document\Restitution\Restitution;
 use Lighthouse\CoreBundle\Document\Restitution\RestitutionRepository;
@@ -15,7 +16,9 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
+use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
+use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Validator\ValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -34,6 +37,11 @@ class ChequesImporter
      * @var StoreRepository
      */
     protected $storeRepository;
+
+    /**
+     * @var VersionRepository
+     */
+    protected $productVersionRepository;
 
     /**
      * @var ValidatorInterface|ExceptionalValidator
@@ -59,22 +67,26 @@ class ChequesImporter
      * @DI\InjectParams({
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
+     *      "productVersionRepository" = @DI\Inject("lighthouse.core.document.repository.product_version"),
      *      "validator" = @DI\Inject("lighthouse.core.validator"),
      *      "moneyTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model")
      * })
      * @param ProductRepository $productRepository
      * @param StoreRepository $storeRepository
+     * @param VersionRepository $productVersionRepository
      * @param ValidatorInterface $validator
      * @param MoneyModelTransformer $moneyTransformer
      */
     public function __construct(
         ProductRepository $productRepository,
         StoreRepository $storeRepository,
+        VersionRepository $productVersionRepository,
         ValidatorInterface $validator,
         MoneyModelTransformer $moneyTransformer
     ) {
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
+        $this->productVersionRepository = $productVersionRepository;
         $this->validator = $validator;
         $this->moneyTransformer = $moneyTransformer;
     }
@@ -223,7 +235,7 @@ class ChequesImporter
     {
         $saleProduct = new SaleProduct();
         $saleProduct->quantity = $this->roundQuantity($positionElement->getCount());
-        $saleProduct->sellingPrice = $this->moneyTransformer->reverseTransform($positionElement->getCostWithDiscount());
+        $saleProduct->sellingPrice = $this->transformPrice($positionElement->getCostWithDiscount());
         $saleProduct->product = $this->getProduct($positionElement->getGoodsCode());
         return $saleProduct;
     }
@@ -236,11 +248,28 @@ class ChequesImporter
     {
         $restitutionProduct = new RestitutionProduct();
         $restitutionProduct->quantity = $this->roundQuantity($positionElement->getCount());
-        $restitutionProduct->sellingPrice = $this->
-            moneyTransformer->
-            reverseTransform($positionElement->getCostWithDiscount());
-        $restitutionProduct->product = $this->getProduct($positionElement->getGoodsCode());
+        $restitutionProduct->sellingPrice = $this->transformPrice($positionElement->getCostWithDiscount());
+        $restitutionProduct->product = $this->getProductVersion($positionElement->getGoodsCode());
         return $restitutionProduct;
+    }
+
+    /**
+     * @param string $price
+     * @return Money
+     */
+    protected function transformPrice($price)
+    {
+        return $this->moneyTransformer->reverseTransform($price);
+    }
+
+    /**
+     * @param string $sku
+     * @return ProductVersion
+     */
+    protected function getProductVersion($sku)
+    {
+        $product = $this->getProduct($sku);
+        return $this->productVersionRepository->findOrCreateByDocument($product);
     }
 
     /**
@@ -248,7 +277,7 @@ class ChequesImporter
      * @throws RuntimeException
      * @return Product
      */
-    public function getProduct($sku)
+    protected function getProduct($sku)
     {
         $product = $this->productRepository->findOneBy(array('sku' => $sku));
         if (!$product) {

@@ -26,15 +26,15 @@
         </payments>
         <discountCards/>
     </purchase>
-    <purchase discountAmount="4.0" amount="36.0" number="8" saletime="2012-05-12T19:47:33.418+04:00" shift="30" cash="7"
+    <purchase discountAmount="2.0" amount="38.0" number="8" saletime="2012-05-12T19:47:33.418+04:00" shift="30" cash="7"
               operDay="2012-05-12T00:00:00.000+04:00" operationType="false" userName="Иванов Иван  Иванович"
               tabNumber="1" shop="197">
         <positions>
-            <position amount="36.0" costWithDiscount="36.0" discountValue="4.0" ndsSum="0.0" nds="18.0" cost="40.0"
+            <position amount="38.0" costWithDiscount="38.0" discountValue="2.0" ndsSum="0.0" nds="18.0" cost="40.0"
                       count="1.0" barCode="4" goodsCode="4" departNumber="51" order="1"/>
         </positions>
         <payments>
-            <payment description="" amount="36.0" typeClass="CashPaymentEntity"/>
+            <payment description="" amount="38.0" typeClass="CashPaymentEntity"/>
         </payments>
         <discountCards/>
     </purchase>

@@ -4,23 +4,29 @@ namespace Lighthouse\CoreBundle\Document\Restitution\Product;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Restitution\Restitution;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
+use JMS\Serializer\Annotation as Serializer;
+use DateTime;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(
+ *      repositoryClass="Lighthouse\CoreBundle\Document\Restitution\Product\RestitutionProductRepository"
+ * )
  *
- * @property int        $id
- * @property Money      $sellingPrice
- * @property int        $quantity
- * @property Money      $totalSellingPrice
- * @property \DateTime  $createdDate
- * @property Product    $product
+ * @property int            $id
+ * @property Money          $sellingPrice
+ * @property int            $quantity
+ * @property Money          $totalSellingPrice
+ * @property DateTime      $createdDate
+ * @property ProductVersion $product
  * @property Restitution    $backOff
  */
 class RestitutionProduct extends AbstractDocument implements Reasonable
@@ -60,17 +66,17 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
 
     /**
      * @MongoDB\Date
-     * @var \DateTime
+     * @var DateTime
      */
     protected $createdDate;
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,
      *     cascade="persist"
      * )
-     * @var Product
+     * @var ProductVersion
      */
     protected $product;
 
@@ -82,7 +88,30 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
      * )
      * @var Restitution
      */
-    protected $backOff;
+    protected $return;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     simple=true,
+     *     cascade="persist"
+     * )
+     * @var Product
+     * @Serializer\Exclude
+     */
+    protected $originalProduct;
+
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
+     * @Serializer\Exclude
+     * @var Store
+     */
+    protected $store;
 
     /**
      * @MongoDB\PrePersist
@@ -93,7 +122,9 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
         $this->totalSellingPrice = new Money();
         $this->totalSellingPrice->setCountByQuantity($this->sellingPrice, $this->quantity, true);
 
-        $this->createdDate = $this->backOff->createdDate;
+        $this->createdDate = $this->return->createdDate;
+        $this->store = $this->return->store;
+        $this->originalProduct = $this->product->getObject();
     }
 
     /**
@@ -157,6 +188,6 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonParent()
     {
-        return $this->backOff;
+        return $this->return;
     }
 }
