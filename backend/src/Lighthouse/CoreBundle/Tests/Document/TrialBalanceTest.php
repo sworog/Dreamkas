@@ -169,7 +169,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $this->assertCount(1, $endTrialBalance);
 
-        /** @var \Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance $endTrialBalance */
+        /** @var TrialBalance $endTrialBalance */
         $endTrialBalance = $endTrialBalance->current();
         $this->assertEquals(9, $endTrialBalance->quantity);
         $this->assertEquals(899.91, $endTrialBalance->totalPrice->getCount());

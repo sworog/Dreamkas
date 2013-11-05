@@ -2,11 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportCheques;
 
-use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\ImportChequesXmlParser;
-use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\ChequesImporter;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Tests\Integration\IntegrationTestCase;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class ChequesImportTest extends IntegrationTestCase
 {

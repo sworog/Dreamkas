@@ -15,7 +15,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader as DataFixturesLoader;
 use JMS\DiExtraBundle\Annotation as DI;
 use InvalidArgumentException;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
  * @DI\Service("lighthouse.core.command.load_data_fixtures_doctrine")

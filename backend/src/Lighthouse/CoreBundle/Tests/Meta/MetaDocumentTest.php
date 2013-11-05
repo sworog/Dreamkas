@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Meta;
 
-use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerInterface;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
