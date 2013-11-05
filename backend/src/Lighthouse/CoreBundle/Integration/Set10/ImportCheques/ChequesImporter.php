@@ -248,7 +248,7 @@ class ChequesImporter
     {
         $restitutionProduct = new RestitutionProduct();
         $restitutionProduct->quantity = $this->roundQuantity($positionElement->getCount());
-        $restitutionProduct->sellingPrice = $this->transformPrice($positionElement->getCostWithDiscount());
+        $restitutionProduct->price = $this->transformPrice($positionElement->getCostWithDiscount());
         $restitutionProduct->product = $this->getProductVersion($positionElement->getGoodsCode());
         return $restitutionProduct;
     }

@@ -119,4 +119,29 @@ class ChequesImportTest extends IntegrationTestCase
         $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
         $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
     }
+
+    public function testReturnsImport()
+    {
+        $storeId = $this->createStore('197');
+
+        $skuAmounts = array(
+            '1' => 1,
+            '2' => 0,
+            '3' => 24,
+            '4' => -23,
+        );
+
+        $productIds = $this->createProductsBySku(array_keys($skuAmounts));
+
+        $output = new TestOutput();
+        $this->import('Integration/Set10/ImportCheques/purchases-with-restitution.xml', $output);
+
+        $this->assertStringStartsWith('....', $output->getDisplay());
+        $lines = $output->getLines();
+        $this->assertCount(1, $lines);
+
+        foreach ($skuAmounts as $sku => $amount) {
+            $this->assertStoreProductTotals($storeId, $productIds[$sku], $amount);
+        }
+    }
 }

@@ -22,10 +22,10 @@ use DateTime;
  * )
  *
  * @property int            $id
- * @property Money          $sellingPrice
+ * @property Money          $price
  * @property int            $quantity
- * @property Money          $totalSellingPrice
- * @property DateTime      $createdDate
+ * @property Money          $totalPrice
+ * @property DateTime       $createdDate
  * @property ProductVersion $product
  * @property Restitution    $backOff
  */
@@ -44,7 +44,7 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
      * @LighthouseAssert\Money(notBlank=true, zero=true)
      * @var Money
      */
-    protected $sellingPrice;
+    protected $price;
 
     /**
      * Количество
@@ -62,7 +62,7 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
      * @MongoDB\Field(type="money")
      * @var Money
      */
-    protected $totalSellingPrice;
+    protected $totalPrice;
 
     /**
      * @MongoDB\Date
@@ -119,8 +119,8 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
      */
     public function updateTotalSellingPrice()
     {
-        $this->totalSellingPrice = new Money();
-        $this->totalSellingPrice->setCountByQuantity($this->sellingPrice, $this->quantity, true);
+        $this->totalPrice = new Money();
+        $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
 
         $this->createdDate = $this->return->createdDate;
         $this->store = $this->return->store;
@@ -172,7 +172,7 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
      */
     public function getProductPrice()
     {
-        return $this->sellingPrice;
+        return $this->price;
     }
 
     /**
