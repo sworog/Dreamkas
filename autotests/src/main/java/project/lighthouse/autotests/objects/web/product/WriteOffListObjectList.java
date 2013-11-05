@@ -1,10 +1,10 @@
-package project.lighthouse.autotests.objects.notApi.product;
+package project.lighthouse.autotests.objects.web.product;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractObjectCollection;
-import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
 
 public class WriteOffListObjectList extends AbstractObjectCollection {
 

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.notApi.abstractObjects;
+package project.lighthouse.autotests.objects.web.abstractObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

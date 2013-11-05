@@ -4,8 +4,8 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.objects.notApi.log.JobLogObject;
-import project.lighthouse.autotests.objects.notApi.log.JobLogObjectCollection;
+import project.lighthouse.autotests.objects.web.log.JobLogObject;
+import project.lighthouse.autotests.objects.web.log.JobLogObjectCollection;
 
 @DefaultUrl("/logs")
 public class JobsPage extends CommonPageObject {

@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.logPages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.objects.notApi.log.SimpleLogObjectCollection;
+import project.lighthouse.autotests.objects.web.log.SimpleLogObjectCollection;
 
 public class LogPage extends CommonPageObject {
 

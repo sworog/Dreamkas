@@ -6,7 +6,7 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.PreLoader;
-import project.lighthouse.autotests.objects.notApi.search.WriteOffSearchObjectCollection;
+import project.lighthouse.autotests.objects.web.search.WriteOffSearchObjectCollection;
 
 public class WriteOffSearchPage extends CommonPageObject {
 

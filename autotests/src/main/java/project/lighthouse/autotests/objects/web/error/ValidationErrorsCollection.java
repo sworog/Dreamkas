@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.notApi.error;
+package project.lighthouse.autotests.objects.web.error;
 
 import junit.framework.Assert;
 import org.jbehave.core.model.ExamplesTable;

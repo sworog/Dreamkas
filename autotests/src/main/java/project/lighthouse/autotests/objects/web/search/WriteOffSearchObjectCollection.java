@@ -1,10 +1,10 @@
-package project.lighthouse.autotests.objects.notApi.search;
+package project.lighthouse.autotests.objects.web.search;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractSearchObjectCollection;
-import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractSearchObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractSearchObjectCollection;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractSearchObjectNode;
 
 public class WriteOffSearchObjectCollection extends AbstractSearchObjectCollection {
 

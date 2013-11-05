@@ -1,8 +1,8 @@
-package project.lighthouse.autotests.objects.notApi.product;
+package project.lighthouse.autotests.objects.web.product;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
 
 import java.util.Map;
 

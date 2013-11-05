@@ -1,11 +1,11 @@
-package project.lighthouse.autotests.objects.notApi.log;
+package project.lighthouse.autotests.objects.web.log;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
-import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractObject;
-import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractObjectCollection;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
 
 import java.util.ArrayList;
 import java.util.List;

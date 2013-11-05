@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.departmentManager.balance;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.objects.notApi.balance.BalanceObjectCollection;
+import project.lighthouse.autotests.objects.web.balance.BalanceObjectCollection;
 
 public class BalanceListPage extends CommonPageObject {
 
