@@ -1,11 +1,11 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Restitution;
+namespace Lighthouse\CoreBundle\Document\Returne;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Lighthouse\CoreBundle\Document\Restitution\Product\RestitutionProduct;
+use Lighthouse\CoreBundle\Document\Returne\Product\ReturnProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,7 +15,8 @@ use DateTime;
 
 /**
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\Restitution\RestitutionRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\Returne\ReturnRepository",
+ *     collection="Return"
  * )
  *
  * @Unique(fields="hash", message="lighthouse.validation.errors.return.hash.unique")
@@ -24,9 +25,9 @@ use DateTime;
  * @property DateTime   $createdDate
  * @property string     $hash
  * @property Store      $store
- * @property RestitutionProduct[]|ArrayCollection  $products
+ * @property ReturnProduct[]|ArrayCollection  $products
  */
-class Restitution extends AbstractDocument implements Storeable
+class Returne extends AbstractDocument implements Storeable
 {
     /**
      * @MongoDB\Id
@@ -60,14 +61,14 @@ class Restitution extends AbstractDocument implements Storeable
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\Restitution\Product\RestitutionProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\Returne\Product\ReturnProduct",
      *      simple=true,
      *      cascade="persist"
      * )
      *
      * @Assert\NotBlank(message="lighthouse.validation.errors.return.product.empty")
      * @Assert\Valid(traverse=true)
-     * @var RestitutionProduct[]|ArrayCollection
+     * @var ReturnProduct[]|ArrayCollection
      */
     protected $products = array();
 

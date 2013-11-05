@@ -1,11 +1,11 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Restitution\Product;
+namespace Lighthouse\CoreBundle\Document\Returne\Product;
 
 use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
-class RestitutionProductRepository extends DocumentRepository
+class ReturnProductRepository extends DocumentRepository
 {
     /**
      * @param string $storeId

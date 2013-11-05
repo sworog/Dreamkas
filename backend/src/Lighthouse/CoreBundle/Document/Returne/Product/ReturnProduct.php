@@ -1,14 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Restitution\Product;
+namespace Lighthouse\CoreBundle\Document\Returne\Product;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\Restitution\Restitution;
+use Lighthouse\CoreBundle\Document\Returne\Returne;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,7 +17,7 @@ use DateTime;
 
 /**
  * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Document\Restitution\Product\RestitutionProductRepository"
+ *      repositoryClass="Lighthouse\CoreBundle\Document\Returne\Product\ReturnProductRepository"
  * )
  *
  * @property int            $id
@@ -27,9 +26,9 @@ use DateTime;
  * @property Money          $totalPrice
  * @property DateTime       $createdDate
  * @property ProductVersion $product
- * @property Restitution    $backOff
+ * @property Returne        $return
  */
-class RestitutionProduct extends AbstractDocument implements Reasonable
+class ReturnProduct extends AbstractDocument implements Reasonable
 {
     /**
      * @MongoDB\Id
@@ -82,11 +81,11 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Restitution\Restitution",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Returne\Returne",
      *     simple=true,
      *     cascade="persist"
      * )
-     * @var Restitution
+     * @var Returne
      */
     protected $return;
 
@@ -117,7 +116,7 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */
-    public function updateTotalSellingPrice()
+    public function beforeSave()
     {
         $this->totalPrice = new Money();
         $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
@@ -140,7 +139,7 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonType()
     {
-        return 'RestitutionProduct';
+        return 'ReturnProduct';
     }
 
     /**
@@ -184,7 +183,7 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
     }
 
     /**
-     * @return Storeable
+     * @return Returne
      */
     public function getReasonParent()
     {

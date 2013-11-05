@@ -5,24 +5,27 @@ namespace Lighthouse\CoreBundle\Document\Sale\Product;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
+use JMS\Serializer\Annotation as Serializer;
 use DateTime;
 
 /**
  * @MongoDB\Document
  *
- * @property int        $id
- * @property Money      $price
- * @property int        $quantity
- * @property Money      $totalPrice
- * @property DateTime   $createdDate
- * @property Product    $product
- * @property Sale       $sale
+ * @property int            $id
+ * @property Money          $price
+ * @property int            $quantity
+ * @property Money          $totalPrice
+ * @property DateTime       $createdDate
+ * @property ProductVersion $product
+ * @property Sale           $sale
  */
 class SaleProduct extends AbstractDocument implements Reasonable
 {
@@ -67,11 +70,11 @@ class SaleProduct extends AbstractDocument implements Reasonable
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,
      *     cascade="persist"
      * )
-     * @var Product
+     * @var ProductVersion
      */
     protected $product;
 
@@ -85,16 +88,41 @@ class SaleProduct extends AbstractDocument implements Reasonable
      */
     protected $sale;
 
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
+     * @Serializer\Exclude
+     * @var Product
+     */
+    protected $originalProduct;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
+     * @Serializer\Exclude
+     * @var Store
+     */
+    protected $store;
+
     /**
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */
-    public function updateTotalSellingPrice()
+    public function beforeSave()
     {
         $this->totalPrice = new Money();
         $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
 
         $this->createdDate = $this->sale->createdDate;
+        $this->store = $this->sale->store;
+        $this->originalProduct = $this->product->getObject();
     }
 
     /**
@@ -134,7 +162,7 @@ class SaleProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonProduct()
     {
-        return $this->product;
+        return $this->product->getObject();
     }
 
     /**

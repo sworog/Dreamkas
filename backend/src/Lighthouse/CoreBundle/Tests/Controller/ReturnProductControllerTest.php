@@ -24,14 +24,14 @@ class ReturnProductControllerTest extends WebTestCase
         return $importer;
     }
 
-    public function testGetProductRestitutionProducts()
+    public function testGetProductReturnProducts()
     {
         $storeId = $this->createStore('197');
         $departmentManager = $this->factory->getDepartmentManager($storeId);
 
         $products = $this->createProductsBySku(array('1', '2', '3', '4'));
 
-        $importer = $this->importCheques('Integration/Set10/ImportCheques/purchases-with-restitution.xml');
+        $importer = $this->importCheques('Integration/Set10/ImportCheques/purchases-with-returns.xml');
         $this->assertCount(0, $importer->getErrors(), 'Failed asserting no import errors');
 
         $accessToken = $this->factory->auth($departmentManager);

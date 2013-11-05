@@ -6,9 +6,9 @@ use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\Restitution\Product\RestitutionProduct;
-use Lighthouse\CoreBundle\Document\Restitution\Restitution;
-use Lighthouse\CoreBundle\Document\Restitution\RestitutionRepository;
+use Lighthouse\CoreBundle\Document\Returne\Product\ReturnProduct;
+use Lighthouse\CoreBundle\Document\Returne\Returne;
+use Lighthouse\CoreBundle\Document\Returne\ReturnRepository;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Sale\SaleRepository;
@@ -106,7 +106,7 @@ class ChequesImporter
         while ($purchaseElement = $parser->readNextElement()) {
             $count++;
             try {
-                $cheque = $this->createCheque($purchaseElement);
+                $cheque = $this->createReceipt($purchaseElement);
                 if (!$cheque) {
                     $output->write('<error>S</error>');
                 } else {
@@ -168,14 +168,14 @@ class ChequesImporter
 
     /**
      * @param PurchaseElement $purchaseElement
-     * @return Sale|Restitution|null
+     * @return Sale|Returne|null
      */
-    public function createCheque(PurchaseElement $purchaseElement)
+    public function createReceipt(PurchaseElement $purchaseElement)
     {
         if (true === $purchaseElement->getOperationType()) {
             return $this->createSale($purchaseElement);
         } elseif (false === $purchaseElement->getOperationType()) {
-            return $this->createRestitution($purchaseElement);
+            return $this->createReturn($purchaseElement);
         } else {
             return null;
         }
@@ -190,7 +190,7 @@ class ChequesImporter
         $sale = new Sale();
         $sale->createdDate = $purchaseElement->getSaleDateTime();
         $sale->store = $this->getStore($purchaseElement->getShop());
-        $sale->hash = $this->createChequeHash($purchaseElement);
+        $sale->hash = $this->createReceiptHash($purchaseElement);
         foreach ($purchaseElement->getPositions() as $positionElement) {
             $sale->products->add($this->createSaleProduct($positionElement));
         }
@@ -201,14 +201,14 @@ class ChequesImporter
      * @param PurchaseElement $purchaseElement
      * @return Sale
      */
-    public function createRestitution(PurchaseElement $purchaseElement)
+    public function createReturn(PurchaseElement $purchaseElement)
     {
-        $sale = new Restitution();
+        $sale = new Returne();
         $sale->createdDate = $purchaseElement->getSaleDateTime();
         $sale->store = $this->getStore($purchaseElement->getShop());
-        $sale->hash = $this->createChequeHash($purchaseElement);
+        $sale->hash = $this->createReceiptHash($purchaseElement);
         foreach ($purchaseElement->getPositions() as $positionElement) {
-            $sale->products->add($this->createRestitutionProduct($positionElement));
+            $sale->products->add($this->createReturnProduct($positionElement));
         }
         return $sale;
     }
@@ -217,7 +217,7 @@ class ChequesImporter
      * @param PurchaseElement $purchaseElement
      * @return string
      */
-    protected function createChequeHash(PurchaseElement $purchaseElement)
+    protected function createReceiptHash(PurchaseElement $purchaseElement)
     {
         $hashStr = '';
         /* @var \SimpleXMLElement $attr */
@@ -236,21 +236,21 @@ class ChequesImporter
         $saleProduct = new SaleProduct();
         $saleProduct->quantity = $this->roundQuantity($positionElement->getCount());
         $saleProduct->price = $this->transformPrice($positionElement->getCostWithDiscount());
-        $saleProduct->product = $this->getProduct($positionElement->getGoodsCode());
+        $saleProduct->product = $this->getProductVersion($positionElement->getGoodsCode());
         return $saleProduct;
     }
 
     /**
      * @param PositionElement $positionElement
-     * @return RestitutionProduct
+     * @return ReturnProduct
      */
-    public function createRestitutionProduct(PositionElement $positionElement)
+    public function createReturnProduct(PositionElement $positionElement)
     {
-        $restitutionProduct = new RestitutionProduct();
-        $restitutionProduct->quantity = $this->roundQuantity($positionElement->getCount());
-        $restitutionProduct->price = $this->transformPrice($positionElement->getCostWithDiscount());
-        $restitutionProduct->product = $this->getProductVersion($positionElement->getGoodsCode());
-        return $restitutionProduct;
+        $returnProduct = new ReturnProduct();
+        $returnProduct->quantity = $this->roundQuantity($positionElement->getCount());
+        $returnProduct->price = $this->transformPrice($positionElement->getCostWithDiscount());
+        $returnProduct->product = $this->getProductVersion($positionElement->getGoodsCode());
+        return $returnProduct;
     }
 
     /**
