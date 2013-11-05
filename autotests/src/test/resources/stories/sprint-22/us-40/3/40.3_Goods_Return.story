@@ -84,3 +84,29 @@ When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
 | 2013.10.03 | 3 | 25,50 | 76,50 |
+
+Scenario: No returns tab for storeManager
+
+Meta:
+@id s22u40.3t4
+@description no product balance tab availabile for store manager
+
+Given there is the user with name 'NRTF-1', position 'NRTF-1', username 'NRTF-1', password 'lighthouse', role 'storeManager'
+And there is the store with number 'NRTF' managed by 'NRTF-1'
+Given there is the subCategory with name 'SCPBC-defaultSubCategory' related to group named 'SCPBC-defaultGroup' and category named 'SCPBC-defaultCategory'
+And there is the product with 'NPBTF-name-1' name, 'SCPBC-sku-1' sku, 'SCPBC-barcode-1' barcode, 'unit' units, '12,34' purchasePrice of group named 'SCPBC-defaultGroup', category named 'SCPBC-defaultCategory', subcategory named 'SCPBC-defaultSubCategory'
+And the user navigates to the product with sku 'SCPBC-sku-1'
+When the user logs in using 'NRTF-1' userName and 'lighthouse' password
+Then the user checks the local navigation return link is not visible
+
+Scenario: No returns tab for commercialManager
+
+Meta:
+@id s22u40.3t3
+@description no product balance tab availabile for commercial manager
+
+Given there is the subCategory with name 'SCPBC-defaultSubCategory' related to group named 'SCPBC-defaultGroup' and category named 'SCPBC-defaultCategory'
+And there is the product with 'NPBTF-name-1' name, 'SCPBC-sku-1' sku, 'SCPBC-barcode-1' barcode, 'unit' units, '12,34' purchasePrice of group named 'SCPBC-defaultGroup', category named 'SCPBC-defaultCategory', subcategory named 'SCPBC-defaultSubCategory'
+And the user navigates to the product with sku 'SCPBC-sku-1'
+Given the user logs in as 'commercialManager'
+Then the user checks the local navigation return link is not visible

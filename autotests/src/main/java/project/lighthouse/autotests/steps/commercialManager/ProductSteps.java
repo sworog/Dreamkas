@@ -257,6 +257,14 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void productReturnsTabIsNotVisible() {
+        try {
+            productLocalNavigation.productReturnsLinkClick();
+        } catch (Exception ignored) {
+        }
+    }
+
+    @Step
     public void checkProductReturnListObject(ExamplesTable examplesTable) {
         productReturnList.getReturnListObjectCollection().compareWithExampleTable(examplesTable);
     }

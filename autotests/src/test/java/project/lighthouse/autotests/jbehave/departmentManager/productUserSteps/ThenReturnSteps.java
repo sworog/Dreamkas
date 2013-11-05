@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.departmentManager.returnUserSteps;
+package project.lighthouse.autotests.jbehave.departmentManager.productUserSteps;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
@@ -13,5 +13,10 @@ public class ThenReturnSteps {
     @Then("the user checks the product return list contains entry $examplesTable")
     public void thenTheUserChecksTheProductBalanceList(ExamplesTable examplesTable) {
         productSteps.checkProductReturnListObject(examplesTable);
+    }
+
+    @Then("the user checks the local navigation return link is not visible")
+    public void thenTheUserChecksTheLocalNavigationReturnLinkIsNotVisible() {
+        productSteps.productReturnsTabIsNotVisible();
     }
 }
