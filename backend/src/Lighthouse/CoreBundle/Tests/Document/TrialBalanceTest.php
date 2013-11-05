@@ -203,6 +203,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $productRepository = $this->getContainer()->get('lighthouse.core.document.repository.product');
 
         $product = $this->createProduct();
+        $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
 
         $store = new Store();
         $store->number = '42';
@@ -218,7 +219,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $saleProduct = new SaleProduct();
         $saleProduct->sale = $sale;
-        $saleProduct->product = $product;
+        $saleProduct->product = $productVersion;
         $saleProduct->quantity = 3;
         $saleProduct->price = new Money(79.99);
 
