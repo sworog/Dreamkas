@@ -4,8 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.objects.notApi.abstractObjects.AbstractObjectNode;
 
-public class JobLogObject {
+public class JobLogObject extends AbstractObjectNode {
 
     String id;
     String type;
@@ -13,52 +14,42 @@ public class JobLogObject {
     String title;
     String statusText;
     String product;
-    String dateCreated;
-    String dateStarted;
-    String dateFinished;
-    String duration;
-    WebDriver driver;
-    Waiter waiter;
 
-    private JobLogObject(WebDriver driver) {
-        this.driver = driver;
-        waiter = new Waiter(driver, 1);
-    }
-
-    public JobLogObject(WebDriver driver, WebElement element) {
-        this(driver);
-        setProperties(element);
+    public JobLogObject(WebElement element, WebDriver webDriver) {
+        super(element, webDriver);
     }
 
     public String getType() {
-        return this.type;
-    }
-
-    public String getProduct() {
-        return this.product;
+        return type;
     }
 
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     public String getTitle() {
-        return this.title;
+        return title;
+    }
+
+    public String getProduct() {
+        return product;
     }
 
     public String getStatusText() {
-        return this.statusText;
+        return statusText;
     }
 
-    private void setProperties(WebElement element) {
-        this.id = element.getAttribute("id");
-        this.type = element.getAttribute("type");
-        this.status = element.getAttribute("status");
-        this.title = element.findElement(By.xpath(".//*[@class='log__title']")).getText();
-        this.product = null;
+    @Override
+    public void setProperties() {
+        Waiter waiter = new Waiter(getWebDriver(), 0);
+        id = getElement().getAttribute("id");
+        type = getElement().getAttribute("type");
+        status = getElement().getAttribute("status");
+        title = getElement().findElement(By.xpath(".//*[@class='log__title']")).getText();
+        product = null;
         if (!waiter.invisibilityOfElementLocated(By.xpath(".//*[@class='log__productName']"))) {
-            this.product = element.findElement(By.xpath(".//*[@class='log__productName']")).getText();
+            product = getElement().findElement(By.xpath(".//*[@class='log__productName']")).getText();
         }
-        this.statusText = element.findElement(By.xpath(".//*[@class='log__status']")).getText();
+        statusText = getElement().findElement(By.xpath(".//*[@class='log__status']")).getText();
     }
 }
