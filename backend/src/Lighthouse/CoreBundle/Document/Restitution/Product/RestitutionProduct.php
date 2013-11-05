@@ -164,7 +164,7 @@ class RestitutionProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonProduct()
     {
-        return $this->product;
+        return $this->product->getObject();
     }
 
     /**

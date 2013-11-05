@@ -627,6 +627,7 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/products/{product}.*' => array(
                         'GET',
                         'GET::invoiceProducts',
+                        'GET::returnProducts',
                         'GET::writeOffProducts'
                     ),
                     'stores/{store}/groups.*' => array(
