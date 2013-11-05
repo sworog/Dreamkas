@@ -26,7 +26,7 @@ Then the user sees success message 'Настройки успешно сохра
 When the user logs out
 Given there is the subCategory with name 'ProductsExportSubCategory' related to group named 'ProductsExportGroup' and category named 'ProductsExportCategory'
 And the user sets subCategory 'ProductsExportSubCategory' mark up with max '30' and min '0' values
-And there is the product with 'Профитроли Коппенрат&Вайс Бэйлис 280г' name, '4008577061437' sku, '4008577061437' barcode, 'unit' units, '20,80' purchasePrice of group named 'ProductsExportGroup', category named 'ProductsExportCategory', subcategory named 'ProductsExportSubCategory'
+And there is the product with 'Профитроли Коппенрат&Вайс Бэйлис 280г' name, '1008577061437' sku, '1008577061437' barcode, 'unit' units, '20,80' purchasePrice of group named 'ProductsExportGroup', category named 'ProductsExportCategory', subcategory named 'ProductsExportSubCategory'
 And there is the user with name 'ReturnDepartmentManager', position 'ReturnDepartmentManager', username 'ReturnDepartmentManager', password 'lighthouse', role 'departmentManager'
 And there is the user with name 'ReturnDepartmentManager2', position 'ReturnDepartmentManager2', username 'ReturnDepartmentManager2', password 'lighthouse', role 'departmentManager'
 And there is the store with number '6666' managed by department manager named 'ReturnDepartmentManager'
@@ -36,13 +36,14 @@ When the user logs in using 'ReturnDepartmentManager' userName and 'lighthouse' 
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
-| 4008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 4008577061437 | 0 | шт. | — | 20,80 р. |When the user logs out
+| 1008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 0 | шт. | — | 20,80 р. |
+When the user logs out
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ReturnDepartmentManager2' userName and 'lighthouse' password
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
-| 4008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 4008577061437 | 0 | шт. | — | 20,80 р. |
+| 1008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 0 | шт. | — | 20,80 р. |
 When the user logs out
 Given the robot prepares import return data
 And the robot waits the import folder become empty
@@ -51,29 +52,29 @@ When the user logs in using 'ReturnDepartmentManager' userName and 'lighthouse' 
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
 | sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
-| 4008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 4008577061437 | 2 | шт. | — | 20,80 р. |
-Given the user navigates to the product with sku '4008577061437'
+| 1008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 2 | шт. | — | 20,80 р. |
+Given the user navigates to the product with sku '1008577061437'
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
-| 2013.10.03 | 2 | 26,99 | 53,98 |
+| 03.10.2013 | 2 | 26,99 | 53,98 |
 When the user logs out
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ReturnDepartmentManager2' userName and 'lighthouse' password
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
 | sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
-| 4008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 4008577061437 | 3 | шт. | — | 20,80 р. |
-Given the user navigates to the product with sku '4008577061437'
+| 1008577061437 | Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 3 | шт. | — | 20,80 р. |
+Given the user navigates to the product with sku '1008577061437'
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
-| 2013.10.03 | 3 | 25,50 | 76,50 |
+| 03.10.2013 | 3 | 25,50 | 76,50 |
 
 Scenario: No returns tab for storeManager
 
 Meta:
-@id s22u40.3t4
+@id s22u40.3t2
 @description no product balance tab availabile for store manager
 
 Given there is the user with name 'NRTF-1', position 'NRTF-1', username 'NRTF-1', password 'lighthouse', role 'storeManager'

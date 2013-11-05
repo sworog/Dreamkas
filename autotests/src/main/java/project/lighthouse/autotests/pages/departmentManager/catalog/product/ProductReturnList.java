@@ -16,6 +16,6 @@ public class ProductReturnList extends CommonPageObject {
     }
 
     public ReturnListObjectCollection getReturnListObjectCollection() {
-        return new ReturnListObjectCollection(getDriver(), By.xpath("return"));
+        return new ReturnListObjectCollection(getDriver(), By.name("return"));
     }
 }
