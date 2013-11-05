@@ -81,7 +81,7 @@ class Set10SalesImportTest extends WebTestCase
         $this->assertContains(basename($file1), $display);
         $this->assertContains("...\n", $display);
         $this->assertContains(basename($file2), $display);
-        $this->assertContains(".V............SSS...\n", $display);
+        $this->assertContains(".V............V.....\n", $display);
 
         $this->assertFileNotExists($file1);
         $this->assertFileNotExists($file2);
@@ -89,7 +89,7 @@ class Set10SalesImportTest extends WebTestCase
         /* @var ConfigRepository $configRepository */
         $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
         $cursor = $configRepository->findAll();
-        $this->assertCount(1, $cursor);
+        $this->assertCount(2, $cursor);
     }
 
     /**

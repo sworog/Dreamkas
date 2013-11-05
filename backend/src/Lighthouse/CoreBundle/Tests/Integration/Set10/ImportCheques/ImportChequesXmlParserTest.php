@@ -58,7 +58,10 @@ class ImportChequesXmlParserTest extends ContainerAwareTestCase
         $this->assertCount(1, $positions);
 
         $position = $positions[0];
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Integration\\Set10\\ImportCheques\\PositionElement', $position);
+        $this->assertInstanceOf(
+            'Lighthouse\\CoreBundle\\Integration\\Set10\\ImportCheques\\PositionElement',
+            $position
+        );
 
         $this->assertEquals('3.5', $position->getCost());
         $this->assertEquals('10.0', $position->getCount());
