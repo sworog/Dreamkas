@@ -9,7 +9,7 @@ define(function(require) {
             this.storeId = opt.storeId;
         },
         url: function() {
-            return LH.baseApiUrl + '/stores/' + this.storeId + '/products/' + this.productId + '/writeOffProducts'
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/products/' + this.productId + '/returnProducts'
         }
     });
 });

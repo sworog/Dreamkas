@@ -9,7 +9,7 @@ define(function(require) {
     return Model.extend({
         modelName: 'productReturn',
         urlRoot: function() {
-            return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/products/' + this.get('product').id + '/writeOffProducts';
+            return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/products/' + this.get('product').id + '/returnProducts';
         },
         defaults: {
             createdDateFormatted: computeAttr(['createdDate'], function(createdDate){
