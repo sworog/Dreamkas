@@ -11,15 +11,16 @@ use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
+use DateTime;
 
 /**
  * @MongoDB\Document
  *
  * @property int        $id
- * @property Money      $sellingPrice
+ * @property Money      $price
  * @property int        $quantity
- * @property Money      $totalSellingPrice
- * @property \DateTime  $createdDate
+ * @property Money      $totalPrice
+ * @property DateTime   $createdDate
  * @property Product    $product
  * @property Sale       $sale
  */
@@ -38,7 +39,7 @@ class SaleProduct extends AbstractDocument implements Reasonable
      * @LighthouseAssert\Money(notBlank=true, zero=true)
      * @var Money
      */
-    protected $sellingPrice;
+    protected $price;
 
     /**
      * Количество
@@ -56,11 +57,11 @@ class SaleProduct extends AbstractDocument implements Reasonable
      * @MongoDB\Field(type="money")
      * @var Money
      */
-    protected $totalSellingPrice;
+    protected $totalPrice;
 
     /**
      * @MongoDB\Date
-     * @var \DateTime
+     * @var DateTime
      */
     protected $createdDate;
 
@@ -90,8 +91,8 @@ class SaleProduct extends AbstractDocument implements Reasonable
      */
     public function updateTotalSellingPrice()
     {
-        $this->totalSellingPrice = new Money();
-        $this->totalSellingPrice->setCountByQuantity($this->sellingPrice, $this->quantity, true);
+        $this->totalPrice = new Money();
+        $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
 
         $this->createdDate = $this->sale->createdDate;
     }
@@ -113,7 +114,7 @@ class SaleProduct extends AbstractDocument implements Reasonable
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getReasonDate()
     {
@@ -141,7 +142,7 @@ class SaleProduct extends AbstractDocument implements Reasonable
      */
     public function getProductPrice()
     {
-        return $this->sellingPrice;
+        return $this->price;
     }
 
     /**

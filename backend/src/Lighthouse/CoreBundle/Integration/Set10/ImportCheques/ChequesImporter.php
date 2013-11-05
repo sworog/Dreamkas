@@ -235,7 +235,7 @@ class ChequesImporter
     {
         $saleProduct = new SaleProduct();
         $saleProduct->quantity = $this->roundQuantity($positionElement->getCount());
-        $saleProduct->sellingPrice = $this->transformPrice($positionElement->getCostWithDiscount());
+        $saleProduct->price = $this->transformPrice($positionElement->getCostWithDiscount());
         $saleProduct->product = $this->getProduct($positionElement->getGoodsCode());
         return $saleProduct;
     }

@@ -220,7 +220,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $saleProduct->sale = $sale;
         $saleProduct->product = $product;
         $saleProduct->quantity = 3;
-        $saleProduct->sellingPrice = new Money(79.99);
+        $saleProduct->price = new Money(79.99);
 
         $sale->products = array($saleProduct);
 
