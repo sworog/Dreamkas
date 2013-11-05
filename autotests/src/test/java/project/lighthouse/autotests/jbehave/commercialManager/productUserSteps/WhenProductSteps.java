@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.When;
 import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
 
-public class WhenSteps {
+public class WhenProductSteps {
 
     @Steps
     ProductSteps productSteps;

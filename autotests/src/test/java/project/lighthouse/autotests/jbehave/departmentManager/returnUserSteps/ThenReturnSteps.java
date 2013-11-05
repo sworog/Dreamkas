@@ -5,7 +5,7 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
 
-public class ThenSteps {
+public class ThenReturnSteps {
 
     @Steps
     ProductSteps productSteps;
