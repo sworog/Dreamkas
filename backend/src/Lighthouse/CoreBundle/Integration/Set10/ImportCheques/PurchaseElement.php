@@ -33,6 +33,14 @@ class PurchaseElement extends SimpleXMLElement
     }
 
     /**
+     * @return string
+     */
+    public function getAmount()
+    {
+        return (string) $this['amount'];
+    }
+
+    /**
      * @return bool
      */
     public function getOperationType()

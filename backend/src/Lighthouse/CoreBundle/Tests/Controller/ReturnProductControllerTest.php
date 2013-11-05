@@ -115,6 +115,10 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($products['4'], '*.product.id', $getResponse4, 2);
 
         Assert::assertJsonPathEquals($storeId, '0.return.store.id', $getResponse4);
+        Assert::assertJsonPathEquals(1, '0.return.itemsCount', $getResponse4);
+        Assert::assertJsonPathEquals('38.00', '0.return.sumTotal', $getResponse4);
+        Assert::assertJsonPathEquals(1, '1.return.itemsCount', $getResponse4);
+        Assert::assertJsonPathEquals('36.00', '1.return.sumTotal', $getResponse4);
         Assert::assertJsonPathEquals('2012-05-12T19:47:33+0400', '0.return.createdDate', $getResponse4);
         Assert::assertJsonPathEquals('2012-05-12T19:46:32+0400', '1.return.createdDate', $getResponse4);
 
@@ -128,5 +132,16 @@ class ReturnProductControllerTest extends WebTestCase
 
         Assert::assertNotJsonHasPath('*.store', $getResponse4);
         Assert::assertNotJsonHasPath('*.originalProduct', $getResponse4);
+
+        // check return with product '1' and '3'
+        $return1 = $getResponse1[0]['return'];
+        $return3 = $getResponse3[0]['return'];
+        // unset products because
+        // return3 does not have product3 but have product1
+        // return1 does not have product1 but have product3
+        unset($return1['products'], $return3['products']);
+        $this->assertEquals($return1, $return3);
+        Assert::assertJsonPathEquals(2, 'itemsCount', $return1);
+        Assert::assertJsonPathEquals('5596.25', 'sumTotal', $return1);
     }
 }

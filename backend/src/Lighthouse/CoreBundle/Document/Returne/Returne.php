@@ -8,6 +8,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Returne\Product\ReturnProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
+use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
@@ -26,6 +27,8 @@ use DateTime;
  * @property string     $hash
  * @property Store      $store
  * @property ReturnProduct[]|ArrayCollection  $products
+ * @property Money      $sumTotal
+ * @property int        $itemsCount
  */
 class Returne extends AbstractDocument implements Storeable
 {
@@ -37,7 +40,7 @@ class Returne extends AbstractDocument implements Storeable
 
     /**
      * @MongoDB\Date
-     * @var \DateTime
+     * @var DateTime
      */
     protected $createdDate;
 
@@ -70,8 +73,25 @@ class Returne extends AbstractDocument implements Storeable
      * @Assert\Valid(traverse=true)
      * @var ReturnProduct[]|ArrayCollection
      */
-    protected $products = array();
+    protected $products;
 
+    /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $sumTotal;
+
+    /**
+     * Количество позиций
+     *
+     * @MongoDB\Int
+     * @var int
+     */
+    protected $itemsCount;
+
+    /**
+     *
+     */
     public function __construct()
     {
         $this->products = new ArrayCollection();

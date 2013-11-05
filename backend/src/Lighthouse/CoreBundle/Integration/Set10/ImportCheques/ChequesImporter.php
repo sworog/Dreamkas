@@ -194,6 +194,8 @@ class ChequesImporter
         foreach ($purchaseElement->getPositions() as $positionElement) {
             $sale->products->add($this->createSaleProduct($positionElement));
         }
+        $sale->itemsCount = count($sale->products);
+        $sale->sumTotal = $this->transformPrice($purchaseElement->getAmount());
         return $sale;
     }
 
@@ -203,14 +205,16 @@ class ChequesImporter
      */
     public function createReturn(PurchaseElement $purchaseElement)
     {
-        $sale = new Returne();
-        $sale->createdDate = $purchaseElement->getSaleDateTime();
-        $sale->store = $this->getStore($purchaseElement->getShop());
-        $sale->hash = $this->createReceiptHash($purchaseElement);
+        $return = new Returne();
+        $return->createdDate = $purchaseElement->getSaleDateTime();
+        $return->store = $this->getStore($purchaseElement->getShop());
+        $return->hash = $this->createReceiptHash($purchaseElement);
         foreach ($purchaseElement->getPositions() as $positionElement) {
-            $sale->products->add($this->createReturnProduct($positionElement));
+            $return->products->add($this->createReturnProduct($positionElement));
         }
-        return $sale;
+        $return->itemsCount = count($return->products);
+        $return->sumTotal = $this->transformPrice($purchaseElement->getAmount());
+        return $return;
     }
 
     /**
@@ -219,10 +223,15 @@ class ChequesImporter
      */
     protected function createReceiptHash(PurchaseElement $purchaseElement)
     {
-        $hashStr = '';
+        $attributes = array();
         /* @var \SimpleXMLElement $attr */
         foreach ($purchaseElement->attributes() as $attr) {
-            $hashStr.= sprintf('%s:%s;', $attr->getName(), $attr);
+            $attributes[$attr->getName()] = (string) $attr;
+        }
+        ksort($attributes);
+        $hashStr = '';
+        foreach ($attributes as $name => $value) {
+            $hashStr.= sprintf('%s:%s;', $name, $value);
         }
         return md5($hashStr);
     }
