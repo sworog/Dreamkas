@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\ChequesImporter;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\ImportChequesXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -12,13 +12,13 @@ class ReturnProductControllerTest extends WebTestCase
 {
     /**
      * @param string $xmlFile
-     * @return \Lighthouse\CoreBundle\Integration\Set10\Import\Sales\ChequesImporter
+     * @return \Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter
      */
     protected function importCheques($xmlFile)
     {
         $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import_cheques.importer');
         $xmlFilePath = $this->getFixtureFilePath($xmlFile);
-        $xmlParser = new ImportChequesXmlParser($xmlFilePath);
+        $xmlParser = new SalesXmlParser($xmlFilePath);
         $output = new TestOutput();
         $importer->import($xmlParser, $output);
         return $importer;

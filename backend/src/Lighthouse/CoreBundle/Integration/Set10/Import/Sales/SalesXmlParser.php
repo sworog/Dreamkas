@@ -7,7 +7,7 @@ use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\PurchaseElement;
 use XMLReader;
 use DOMDocument;
 
-class ImportChequesXmlParser
+class SalesXmlParser
 {
     /**
      * @var XMLReader

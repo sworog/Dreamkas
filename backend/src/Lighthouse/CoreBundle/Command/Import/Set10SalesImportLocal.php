@@ -3,8 +3,8 @@
 namespace Lighthouse\CoreBundle\Command\Import;
 
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\ImportChequesXmlParser;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\ChequesImporter;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,7 +19,7 @@ use Exception;
 class Set10SalesImportLocal extends Command
 {
     /**
-     * @var ChequesImporter
+     * @var SalesImporter
      */
     protected $importer;
 
@@ -33,11 +33,11 @@ class Set10SalesImportLocal extends Command
      *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import_cheques.importer"),
      *      "logRepository" = @DI\Inject("lighthouse.core.document.repository.log")
      * })
-     * @param ChequesImporter $importer
+     * @param SalesImporter $importer
      * @param LogRepository $logRepository
      */
     public function __construct(
-        ChequesImporter $importer,
+        SalesImporter $importer,
         LogRepository $logRepository
     ) {
         parent::__construct('lighthouse:import:sales:local');
@@ -68,7 +68,7 @@ class Set10SalesImportLocal extends Command
 
         try {
             $output->writeln(sprintf('Importing "%s"', $filePath));
-            $parser = new ImportChequesXmlParser($filePath);
+            $parser = new SalesXmlParser($filePath);
             $this->importer->import($parser, $output, $batchSize);
             foreach ($this->importer->getErrors() as $error) {
                 $this->logException($error['exception'], $filePath);

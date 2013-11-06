@@ -24,7 +24,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 /**
  * @DI\Service("lighthouse.core.integration.set10.import_cheques.importer")
  */
-class ChequesImporter
+class SalesImporter
 {
     /**
      * @var ProductRepository
@@ -90,11 +90,11 @@ class ChequesImporter
     }
 
     /**
-     * @param ImportChequesXmlParser $parser
+     * @param SalesXmlParser $parser
      * @param OutputInterface $output
      * @param int $batchSize
      */
-    public function import(ImportChequesXmlParser $parser, OutputInterface $output, $batchSize = null)
+    public function import(SalesXmlParser $parser, OutputInterface $output, $batchSize = null)
     {
         $this->errors = array();
         $count = 0;

@@ -3,9 +3,9 @@
 namespace Lighthouse\CoreBundle\Command\Import;
 
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\ImportChequesXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\RemoteDirectory;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\ChequesImporter;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,7 +18,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 class Set10SalesImport extends Command
 {
     /**
-     * @var ChequesImporter
+     * @var SalesImporter
      */
     protected $importer;
 
@@ -38,12 +38,12 @@ class Set10SalesImport extends Command
      *      "remoteDirectory" = @DI\Inject("lighthouse.core.integration.set10.import_sales.remote_directory"),
      *      "logRepository" = @DI\Inject("lighthouse.core.document.repository.log")
      * })
-     * @param ChequesImporter $importer
+     * @param SalesImporter $importer
      * @param RemoteDirectory $remoteDirectory
      * @param LogRepository $logRepository
      */
     public function __construct(
-        ChequesImporter $importer,
+        SalesImporter $importer,
         RemoteDirectory $remoteDirectory,
         LogRepository $logRepository
     ) {
@@ -76,7 +76,7 @@ class Set10SalesImport extends Command
         foreach ($files as $file) {
             try {
                 $output->writeln(sprintf('Importing "%s"', $file->getFilename()));
-                $parser = new ImportChequesXmlParser($file->getPathname());
+                $parser = new SalesXmlParser($file->getPathname());
                 $this->importer->import($parser, $output);
                 foreach ($this->importer->getErrors() as $error) {
                     $this->logException($error['exception'], $dirUrl, $file->getPathname());
