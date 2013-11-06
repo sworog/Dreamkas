@@ -58,7 +58,7 @@ class Set10ProductTest extends ContainerAwareTestCase
     public function testArguments($file, $batchSize, $expectedFile, $expectedBatchSize)
     {
         $parser = $this->getMock(
-            'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Set10ProductImportXmlParser',
+            'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Products\\Set10ProductImportXmlParser',
             array(),
             array(),
             '',
@@ -71,7 +71,7 @@ class Set10ProductTest extends ContainerAwareTestCase
             ->with($this->equalTo($expectedFile));
 
         $importer = $this->getMock(
-            'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Set10ProductImporter',
+            'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Products\\Set10ProductImporter',
             array(),
             array(),
             '',
@@ -99,7 +99,7 @@ class Set10ProductTest extends ContainerAwareTestCase
             'batch-size' => $batchSize
         );
 
-        $exitCode = $commandTester->execute($input);
+        $commandTester->execute($input);
     }
 
     public function argumentsProvider()

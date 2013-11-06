@@ -3,8 +3,8 @@
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Integration\Set10\Import\GoodElement;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Set10ProductImportXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\GoodElement;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 
 class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
@@ -16,7 +16,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
     protected function createXmlParser($xmlFilePath = 'Integration/Set10/Import/goods.xml')
     {
         $xmlFilePath = $this->getFixtureFilePath($xmlFilePath);
-        $parser = $this->getContainer()->get('lighthouse.core.integration.set10.product_xml_parser');
+        $parser = $this->getContainer()->get('lighthouse.core.integration.set10.import.products.xml_parser');
         $parser->setXmlFilePath($xmlFilePath);
         return $parser;
     }

@@ -4,9 +4,10 @@ namespace Lighthouse\CoreBundle\Integration\Set10\ImportCheques;
 
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Set10Import;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10Import;
 use Lighthouse\CoreBundle\Util\Url;
 use JMS\DiExtraBundle\Annotation as DI;
+use SplFileInfo;
 
 /**
  * @DI\Service("lighthouse.core.integration.set10.import_sales.remote_directory")
@@ -55,7 +56,7 @@ class RemoteDirectory
         /* @var \DirectoryIterator $file */
         foreach ($directory as $file) {
             if ($file->isFile() && $this->isValidFile($file)) {
-                $files[] = new \SplFileInfo($file->getPathname());
+                $files[] = new SplFileInfo($file->getPathname());
             }
         }
         return $files;

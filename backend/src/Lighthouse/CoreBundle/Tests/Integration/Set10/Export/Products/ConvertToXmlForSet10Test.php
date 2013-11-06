@@ -1,13 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Export;
+namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Export\Products;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Integration\Set10\Export\ExportProductsWorker;
-use Lighthouse\CoreBundle\Integration\Set10\Export\Set10Export;
-use Lighthouse\CoreBundle\Integration\Set10\Export\Set10ProductConverter;
+use Lighthouse\CoreBundle\Integration\Set10\Export\Products\ExportProductsWorker;
+use Lighthouse\CoreBundle\Integration\Set10\Export\Products\Set10Export;
+use Lighthouse\CoreBundle\Integration\Set10\Export\Products\Set10ProductConverter;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -209,7 +209,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
         $productsData = $this->initBase();
 
         /** @var Set10ProductConverter $converter */
-        $converter = $this->getContainer()->get('lighthouse.core.service.convert.set10.product');
+        $converter = $this->getContainer()->get('lighthouse.core.integration.set10.export.products.converter');
 
         $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model']);
         $expectedXmlProduct11 = <<<EOF
@@ -506,8 +506,8 @@ EOF;
 
     public function testExportWorkerGetUrl()
     {
-        /** @var ExportProductsWorker $worker */
-        $worker = $this->getContainer()->get("lighthouse.core.job.integration.set10.export_products");
+        /** @var \Lighthouse\CoreBundle\Integration\Set10\Export\Products\ExportProductsWorker $worker */
+        $worker = $this->getContainer()->get("lighthouse.core.integration.set10.export.products.worker");
 
         $configUrlId = $this->createConfig(Set10Export::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");
 
@@ -591,44 +591,44 @@ EOF;
     public function testWorkerValidateConfig()
     {
         /** @var ExportProductsWorker $worker */
-        $worker = $this->getContainer()->get("lighthouse.core.job.integration.set10.export_products");
+        $worker = $this->getContainer()->get('lighthouse.core.integration.set10.export.products.worker');
 
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $configLoginId = $this->createConfig(Set10Export::LOGIN_CONFIG_NAME, "user");
+        $configLoginId = $this->createConfig(Set10Export::LOGIN_CONFIG_NAME, 'user');
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $configPasswordId = $this->createConfig(Set10Export::PASSWORD_CONFIG_NAME, "password");
+        $configPasswordId = $this->createConfig(Set10Export::PASSWORD_CONFIG_NAME, 'password');
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, "");
+        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, '');
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, "");
+        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, '');
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $configUrlId = $this->createConfig(Set10Export::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");
+        $configUrlId = $this->createConfig(Set10Export::URL_CONFIG_NAME, 'smb://test:test@host/centrum/products/');
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
 
-        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, '');
         $validateResult = $worker->validateConfig();
         $this->assertFalse($validateResult);
 
-        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, "file:///tmp/qwe");
+        $this->updateConfig($configUrlId, Set10Export::URL_CONFIG_NAME, 'file:///tmp/qwe');
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
 
-        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, "user");
+        $this->updateConfig($configLoginId, Set10Export::LOGIN_CONFIG_NAME, 'user');
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
 
-        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, "password");
+        $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, 'password');
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
     }

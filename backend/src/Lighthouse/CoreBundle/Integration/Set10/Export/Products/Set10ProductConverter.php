@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\Export;
+namespace Lighthouse\CoreBundle\Integration\Set10\Export\Products;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
@@ -8,10 +8,10 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Types\Money;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * @DI\Service("lighthouse.core.service.convert.set10.product")
+ * @DI\Service("lighthouse.core.integration.set10.export.products.converter")
  */
 class Set10ProductConverter
 {
@@ -25,6 +25,9 @@ class Set10ProductConverter
      */
     protected $moneyModelTransformer;
 
+    /**
+     * @var TranslatorInterface
+     */
     protected $translator;
 
     /**
@@ -37,7 +40,7 @@ class Set10ProductConverter
     public function __construct(
         StoreProductRepository $storeProductRepository,
         MoneyModelTransformer $moneyModelTransformer,
-        Translator $translator
+        TranslatorInterface $translator
     ) {
         $this->storeProductRepository = $storeProductRepository;
         $this->moneyModelTransformer = $moneyModelTransformer;

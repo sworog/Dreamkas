@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\Import;
+namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
 class Set10Import
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\Import;
+namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;

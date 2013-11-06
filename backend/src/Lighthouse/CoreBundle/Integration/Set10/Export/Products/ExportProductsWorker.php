@@ -1,16 +1,18 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\Export;
+namespace Lighthouse\CoreBundle\Integration\Set10\Export\Products;
 
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Job\Job;
+use Lighthouse\CoreBundle\Integration\Set10\Export\Products\Set10Export;
+use Lighthouse\CoreBundle\Integration\Set10\Export\Products\Set10ProductConverter;
 use Lighthouse\CoreBundle\Job\Worker\WorkerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.job.integration.set10.export_products")
+ * @DI\Service("lighthouse.core.integration.set10.export.products.worker")
  * @DI\Tag("job.worker")
  */
 class ExportProductsWorker implements WorkerInterface
@@ -36,7 +38,7 @@ class ExportProductsWorker implements WorkerInterface
 
     /**
      * @DI\InjectParams({
-     *      "converter" = @DI\Inject("lighthouse.core.service.convert.set10.product"),
+     *      "converter" = @DI\Inject("lighthouse.core.integration.set10.export.products.converter"),
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "configRepository" = @DI\Inject("lighthouse.core.document.repository.config"),
      * })

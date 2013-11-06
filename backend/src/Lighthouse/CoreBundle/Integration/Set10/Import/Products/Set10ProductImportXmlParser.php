@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\Import;
+namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
@@ -13,7 +13,7 @@ use XMLReader;
 use DOMDocument;
 
 /**
- * @DI\Service("lighthouse.core.integration.set10.product_xml_parser")
+ * @DI\Service("lighthouse.core.integration.set10.import.products.xml_parser")
  */
 class Set10ProductImportXmlParser
 {

@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
 use Lighthouse\CoreBundle\Command\Import\Set10SalesImport;
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Set10Import;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10Import;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 

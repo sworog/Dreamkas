@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\Export;
+namespace Lighthouse\CoreBundle\Integration\Set10\Export\Products;
 
 use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
 

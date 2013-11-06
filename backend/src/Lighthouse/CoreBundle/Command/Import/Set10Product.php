@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Command\Import;
 
-use Lighthouse\CoreBundle\Integration\Set10\Import\Set10ProductImporter;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Set10ProductImportXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,7 +39,7 @@ class Set10Product extends Command
 
     /**
      * @DI\InjectParams({
-     *      "parser" = @DI\Inject("lighthouse.core.integration.set10.product_xml_parser")
+     *      "parser" = @DI\Inject("lighthouse.core.integration.set10.import.products.xml_parser")
      * })
      * @param Set10ProductImportXmlParser $parser
      */
