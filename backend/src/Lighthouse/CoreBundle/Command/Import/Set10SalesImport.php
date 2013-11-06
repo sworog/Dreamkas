@@ -34,7 +34,7 @@ class Set10SalesImport extends Command
 
     /**
      * @DI\InjectParams({
-     *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import_cheques.importer"),
+     *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import.sales.importer"),
      *      "remoteDirectory" = @DI\Inject("lighthouse.core.integration.set10.import_sales.remote_directory"),
      *      "logRepository" = @DI\Inject("lighthouse.core.document.repository.log")
      * })

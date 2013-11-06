@@ -2,10 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import\Sales;
 
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Test\TestOutput;
-use Lighthouse\CoreBundle\Tests\Integration\IntegrationTestCase;
+use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Component\Console\Output\OutputInterface;
 
-class ChequesImportTest extends IntegrationTestCase
+class SalesImporterTest extends WebTestCase
 {
     public function testImportWithSeveralInvalidCounts()
     {
@@ -26,7 +29,7 @@ class ChequesImportTest extends IntegrationTestCase
         $productIds = $this->createProductsBySku(array_keys($skuAmounts));
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml', $output);
+        $this->import('purchases-14-05-2012_9-18-29.xml', $output);
 
         $this->assertStringStartsWith('.V............V.....', $output->getDisplay());
         $lines = $output->getLines();
@@ -57,7 +60,7 @@ class ChequesImportTest extends IntegrationTestCase
         );
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml', $output, 6);
+        $this->import('purchases-14-05-2012_9-18-29.xml', $output, 6);
 
         $this->assertStringStartsWith('.E....F......F..E...F..', $output->getDisplay());
         $lines = $output->getLines();
@@ -78,7 +81,7 @@ class ChequesImportTest extends IntegrationTestCase
         );
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportCheques/purchases-13-09-2013_15-09-26.xml', $output);
+        $this->import('purchases-13-09-2013_15-09-26.xml', $output);
 
         $this->assertStringStartsWith('E..', $output->getDisplay());
         $lines = $output->getLines();
@@ -96,7 +99,7 @@ class ChequesImportTest extends IntegrationTestCase
         );
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportCheques/purchases-13-09-2013_15-09-26.xml', $output);
+        $this->import('purchases-13-09-2013_15-09-26.xml', $output);
 
         $this->assertStringStartsWith('...', $output->getDisplay());
 
@@ -104,7 +107,7 @@ class ChequesImportTest extends IntegrationTestCase
         $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportCheques/purchases-13-09-2013_15-09-26.xml', $output);
+        $this->import('purchases-13-09-2013_15-09-26.xml', $output);
 
         $this->assertStringStartsWith('VVV', $output->getDisplay());
         $lines = $output->getLines();
@@ -131,7 +134,7 @@ class ChequesImportTest extends IntegrationTestCase
         $productIds = $this->createProductsBySku(array_keys($skuAmounts));
 
         $output = new TestOutput();
-        $this->import('Integration/Set10/ImportCheques/purchases-with-returns.xml', $output);
+        $this->import('purchases-with-returns.xml', $output);
 
         $this->assertStringStartsWith('....', $output->getDisplay());
         $lines = $output->getLines();
@@ -140,5 +143,22 @@ class ChequesImportTest extends IntegrationTestCase
         foreach ($skuAmounts as $sku => $amount) {
             $this->assertStoreProductTotals($storeId, $productIds[$sku], $amount);
         }
+    }
+
+    /**
+     * @param string $xmlFile
+     * @param OutputInterface $output
+     * @param int $batchSize
+     * @return SalesImporter
+     */
+    protected function import($xmlFile, OutputInterface $output = null, $batchSize = null)
+    {
+        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.sales.importer');
+        $xmlFile = $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $xmlFile);
+        $parser = new SalesXmlParser($xmlFile);
+        $output = ($output) ? : new TestOutput();
+        $importer->import($parser, $output, $batchSize);
+
+        return $importer;
     }
 }

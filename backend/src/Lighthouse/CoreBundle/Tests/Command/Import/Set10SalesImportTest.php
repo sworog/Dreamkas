@@ -61,14 +61,8 @@ class Set10SalesImportTest extends WebTestCase
         );
 
         $tmpDir = $this->createTempDir();
-        $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml',
-            $tmpDir
-        );
-        $file2 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportCheques/purchases-13-09-2013_15-09-26.xml',
-            $tmpDir
-        );
+        $file1 = $this->copyFixtureFileToDir('purchases-14-05-2012_9-18-29.xml', $tmpDir);
+        $file2 = $this->copyFixtureFileToDir('purchases-13-09-2013_15-09-26.xml', $tmpDir);
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
@@ -124,10 +118,7 @@ class Set10SalesImportTest extends WebTestCase
     public function testInvalidDirectoryIsFile()
     {
         $tmpDir = $this->createTempDir();
-        $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml',
-            $tmpDir
-        );
+        $file1 = $this->copyFixtureFileToDir('purchases-14-05-2012_9-18-29.xml', $tmpDir);
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $file1);
 
@@ -139,10 +130,7 @@ class Set10SalesImportTest extends WebTestCase
     public function testImportInvalidXmlFile()
     {
         $tmpDir = $this->createTempDir();
-        $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportCheques/purchases-invalid.xml',
-            $tmpDir
-        );
+        $file1 = $this->copyFixtureFileToDir('purchases-invalid.xml', $tmpDir);
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
@@ -177,21 +165,9 @@ class Set10SalesImportTest extends WebTestCase
         );
 
         $tmpDir = $this->createTempDir();
-        $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportCheques/purchases-invalid.xml',
-            $tmpDir,
-            'checks-'
-        );
-        $file2 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml',
-            $tmpDir
-        );
-        $file3 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportCheques/purchases-13-09-2013_15-09-26.xml',
-            $tmpDir,
-            'purchases-',
-            'ico'
-        );
+        $file1 = $this->copyFixtureFileToDir('purchases-invalid.xml', $tmpDir, 'checks-');
+        $file2 = $this->copyFixtureFileToDir('purchases-14-05-2012_9-18-29.xml', $tmpDir);
+        $file3 = $this->copyFixtureFileToDir('purchases-13-09-2013_15-09-26.xml', $tmpDir, 'purchases-', 'ico');
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
@@ -231,7 +207,7 @@ class Set10SalesImportTest extends WebTestCase
      */
     protected function copyFixtureFileToDir($file, $dir, $prefix = 'purchases-', $extension = 'xml')
     {
-        $source = $this->getFixtureFilePath($file);
+        $source = $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $file);
         $destination = $dir . '/' . uniqid($prefix) . '.' . $extension;
         copy($source, $destination);
         return $destination;

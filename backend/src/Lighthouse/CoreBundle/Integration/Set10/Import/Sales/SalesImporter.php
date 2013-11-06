@@ -22,7 +22,7 @@ use Symfony\Component\Validator\ValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.integration.set10.import_cheques.importer")
+ * @DI\Service("lighthouse.core.integration.set10.import.sales.importer")
  */
 class SalesImporter
 {
@@ -104,12 +104,12 @@ class SalesImporter
         while ($purchaseElement = $parser->readNextElement()) {
             $count++;
             try {
-                $cheque = $this->createReceipt($purchaseElement);
-                if (!$cheque) {
+                $receipt = $this->createReceipt($purchaseElement);
+                if (!$receipt) {
                     $output->write('<error>S</error>');
                 } else {
-                    $this->validator->validate($cheque, null, true, true);
-                    $dm->persist($cheque);
+                    $this->validator->validate($receipt, null, true, true);
+                    $dm->persist($receipt);
                     $output->write('.');
                     if (0 == $count % $batchSize) {
                         $dm->flush();

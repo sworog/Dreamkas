@@ -34,7 +34,7 @@ class Set10SalesImportLocalTest extends WebTestCase
         );
 
         $input = array(
-            'file' => $this->getFixtureFilePath('Integration/Set10/ImportCheques/' . $file)
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $file)
         );
 
         /* @var Set10SalesImportLocal $command */
@@ -77,7 +77,7 @@ class Set10SalesImportLocalTest extends WebTestCase
         $file = 'purchases-invalid.xml';
 
         $input = array(
-            'file' => $this->getFixtureFilePath('Integration/Set10/ImportCheques/' . $file),
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $file),
         );
         /* @var Set10SalesImportLocal $command */
         $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import_local');

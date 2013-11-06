@@ -1,19 +1,19 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportCheques;
+namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import\Sales;
 
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\PurchaseElement;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use DateTime;
 
-class ImportChequesXmlParserTest extends ContainerAwareTestCase
+class SalesXmlParserTest extends ContainerAwareTestCase
 {
     /**
      * @param string $xmlFile
      * @return SalesXmlParser
      */
-    protected function createXmlParser($xmlFile = 'Integration/Set10/ImportCheques/purchases-14-05-2012_9-18-29.xml')
+    protected function createXmlParser($xmlFile = 'Integration/Set10/Import/Sales/purchases-14-05-2012_9-18-29.xml')
     {
         return new SalesXmlParser($this->getFixtureFilePath($xmlFile));
     }

@@ -13,7 +13,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
      * @param string $xmlFilePath
      * @return Set10ProductImportXmlParser
      */
-    protected function createXmlParser($xmlFilePath = 'Integration/Set10/Import/goods.xml')
+    protected function createXmlParser($xmlFilePath = 'Integration/Set10/Import/Products/goods.xml')
     {
         $xmlFilePath = $this->getFixtureFilePath($xmlFilePath);
         $parser = $this->getContainer()->get('lighthouse.core.integration.set10.import.products.xml_parser');
@@ -72,7 +72,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
     public function testMeasurementCaseSensitiveParsing()
     {
-        $parser = $this->createXmlParser('Integration/Set10/Import/goods-measurement.xml');
+        $parser = $this->createXmlParser('Integration/Set10/Import/Products/goods-measurement.xml');
 
         $expected = array(
             Product::UNITS_UNIT,

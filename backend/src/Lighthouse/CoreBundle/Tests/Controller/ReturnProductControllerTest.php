@@ -14,9 +14,9 @@ class ReturnProductControllerTest extends WebTestCase
      * @param string $xmlFile
      * @return \Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter
      */
-    protected function importCheques($xmlFile)
+    protected function importSales($xmlFile)
     {
-        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import_cheques.importer');
+        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.sales.importer');
         $xmlFilePath = $this->getFixtureFilePath($xmlFile);
         $xmlParser = new SalesXmlParser($xmlFilePath);
         $output = new TestOutput();
@@ -31,7 +31,7 @@ class ReturnProductControllerTest extends WebTestCase
 
         $products = $this->createProductsBySku(array('1', '2', '3', '4'));
 
-        $importer = $this->importCheques('Integration/Set10/ImportCheques/purchases-with-returns.xml');
+        $importer = $this->importSales('Integration/Set10/Import/Sales/purchases-with-returns.xml');
         $this->assertCount(0, $importer->getErrors(), 'Failed asserting no import errors');
 
         $accessToken = $this->factory->auth($departmentManager);
