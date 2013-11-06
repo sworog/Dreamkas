@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Command\Import\Set10ProductsImport;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class Set10ProductTest extends ContainerAwareTestCase
+class Set10ProductsImportTest extends ContainerAwareTestCase
 {
     public function testExecute()
     {

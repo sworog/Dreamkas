@@ -67,7 +67,7 @@ class Set10SalesImportLocal extends Command
         $batchSize = $input->getArgument('batch-size');
 
         try {
-            $output->writeln(sprintf('Importing "%s"', $filePath));
+            $output->writeln(sprintf('Importing "%s"', basename($filePath)));
             $parser = new SalesXmlParser($filePath);
             $this->importer->import($parser, $output, $batchSize);
             foreach ($this->importer->getErrors() as $error) {
@@ -78,6 +78,7 @@ class Set10SalesImportLocal extends Command
             $output->writeln(sprintf('<error>Failed to import sales</error>: %s', $e->getMessage()));
         }
 
+        $output->writeln('');
         $output->writeln('Finished importing');
     }
 

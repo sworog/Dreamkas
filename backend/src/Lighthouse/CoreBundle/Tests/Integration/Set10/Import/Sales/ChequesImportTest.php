@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportCheques;
+namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import\Sales;
 
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Tests\Integration\IntegrationTestCase;
