@@ -17,7 +17,7 @@ define(function(require) {
         initialize: function(params) {
             var page = this;
 
-            if (!currentUserModel.stores.length || !LH.isAllow('stores/{store}/writeoffs', 'GET')){
+            if (!currentUserModel.stores.length || !LH.isAllow('stores/{store}/products/{product}', 'GET::writeOffProducts')){
                 new Page403();
                 return;
             }
@@ -28,7 +28,7 @@ define(function(require) {
                 });
             }
 
-            if (LH.isAllow('stores/{store}/products/{product}', 'GET')) {
+            if (LH.isAllow('stores/{store}/products/{product}', 'GET::writeOffProducts')) {
                 page.model = new StoreProductModel({
                     id: page.productId
                 });

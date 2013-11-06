@@ -17,7 +17,7 @@ define(function(require) {
         initialize: function(params) {
             var page = this;
 
-            if (!currentUserModel.stores.length || !LH.isAllow('stores/{store}/invoices', 'GET')){
+            if (!currentUserModel.stores.length || !LH.isAllow('stores/{store}/products/{product}', 'GET::invoiceProducts')){
                 new Page403();
                 return;
             }
@@ -28,7 +28,7 @@ define(function(require) {
                 });
             }
 
-            if (LH.isAllow('stores/{store}/products/{product}', 'GET')) {
+            if (LH.isAllow('stores/{store}/products/{product}', 'GET::invoiceProducts')) {
                 page.model = new StoreProductModel({
                     id: page.productId
                 });
