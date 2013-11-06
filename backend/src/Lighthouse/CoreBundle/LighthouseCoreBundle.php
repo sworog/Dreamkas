@@ -14,6 +14,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Doctrine\ODM\MongoDB\Types\Type;
+use ReflectionProperty;
 
 class LighthouseCoreBundle extends Bundle
 {
@@ -61,7 +62,35 @@ class LighthouseCoreBundle extends Bundle
 
     public function boot()
     {
+        $this->modifyContainerParameters();
         $this->changeMongoDbConnectionsDbNames();
+    }
+
+    protected function modifyContainerParameters()
+    {
+        if (isset($_SERVER['SYMFONY__KERNEL__POOL_POSITION_NAME'])) {
+            $postfix = $_SERVER['SYMFONY__KERNEL__POOL_POSITION_NAME'];
+            $this->modifyContainerParameter('lighthouse.core.job.tube.prefix', $postfix);
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param string $appendValue
+     * @return bool
+     */
+    protected function modifyContainerParameter($name, $appendValue)
+    {
+        if ($this->container->hasParameter($name)) {
+            $parametersReflection = new \ReflectionProperty($this->container, 'parameters');
+            $parametersReflection->setAccessible(true);
+            $parameters = $parametersReflection->getValue($this->container);
+            $parameters[$name].= $appendValue;
+            $parametersReflection->setValue($this->container, $parameters);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     protected function changeMongoDbConnectionsDbNames()
