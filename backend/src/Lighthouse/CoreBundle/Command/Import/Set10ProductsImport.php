@@ -11,10 +11,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.command.import.set10_product")
+ * @DI\Service("lighthouse.core.command.import.set10_products_import")
  * @DI\Tag("console.command")
  */
-class Set10Product extends Command
+class Set10ProductsImport extends Command
 {
     /**
      * @var Set10ProductImporter
@@ -28,7 +28,7 @@ class Set10Product extends Command
 
     /**
      * @DI\InjectParams({
-     *      "importer" = @DI\Inject("lighthouse.core.integration.set10.importer")
+     *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import.products.importer")
      * })
      * @param Set10ProductImporter $importer
      */

@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Validator\ValidatorInterface;
 
 /**
- * @DI\Service("lighthouse.core.integration.set10.importer")
+ * @DI\Service("lighthouse.core.integration.set10.import.products.importer")
  */
 class Set10ProductImporter
 {

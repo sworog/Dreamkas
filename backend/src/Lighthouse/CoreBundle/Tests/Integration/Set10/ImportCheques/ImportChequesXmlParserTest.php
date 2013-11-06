@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\ImportCheques;
 
-use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\ImportChequesXmlParser;
-use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\PurchaseElement;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\ImportChequesXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\PurchaseElement;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use DateTime;
 
@@ -59,7 +59,7 @@ class ImportChequesXmlParserTest extends ContainerAwareTestCase
 
         $position = $positions[0];
         $this->assertInstanceOf(
-            'Lighthouse\\CoreBundle\\Integration\\Set10\\ImportCheques\\PositionElement',
+            'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Sales\\PositionElement',
             $position
         );
 

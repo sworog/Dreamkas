@@ -1,8 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\ImportCheques;
+namespace Lighthouse\CoreBundle\Integration\Set10\Import\Sales;
 
 use Lighthouse\CoreBundle\Exception\RuntimeException;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\PurchaseElement;
 use XMLReader;
 use DOMDocument;
 

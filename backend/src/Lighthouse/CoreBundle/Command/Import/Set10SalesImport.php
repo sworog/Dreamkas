@@ -3,16 +3,16 @@
 namespace Lighthouse\CoreBundle\Command\Import;
 
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
-use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\ImportChequesXmlParser;
-use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\RemoteDirectory;
-use Lighthouse\CoreBundle\Integration\Set10\ImportCheques\ChequesImporter;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\ImportChequesXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\RemoteDirectory;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\ChequesImporter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.command.integration.sales_import")
+ * @DI\Service("lighthouse.core.command.import.set10_sales_import")
  * @DI\Tag("console.command")
  */
 class Set10SalesImport extends Command

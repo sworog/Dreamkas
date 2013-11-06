@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
-use Lighthouse\CoreBundle\Command\Import\Set10Product;
+use Lighthouse\CoreBundle\Command\Import\Set10ProductsImport;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -12,7 +12,8 @@ class Set10ProductTest extends ContainerAwareTestCase
     {
         $this->clearMongoDb();
 
-        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_product');
+        /* @var Set10ProductsImport $command */
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_products_import');
         $commandTester = new CommandTester($command);
 
         $input = array(
@@ -88,7 +89,7 @@ class Set10ProductTest extends ContainerAwareTestCase
             );
 
 
-        $command = new Set10Product();
+        $command = new Set10ProductsImport();
         $command->setParserProvider($parser);
         $command->setImporterProvider($importer);
 

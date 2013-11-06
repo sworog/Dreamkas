@@ -72,7 +72,7 @@ class Set10SalesImportTest extends WebTestCase
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
-        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
 
@@ -101,7 +101,7 @@ class Set10SalesImportTest extends WebTestCase
     {
         $this->createConfig(Set10Import::URL_CONFIG_NAME, $url);
 
-        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
     }
@@ -131,7 +131,7 @@ class Set10SalesImportTest extends WebTestCase
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $file1);
 
-        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
     }
@@ -147,7 +147,7 @@ class Set10SalesImportTest extends WebTestCase
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
         /* @var Set10SalesImport $command */
-        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
 
@@ -196,7 +196,7 @@ class Set10SalesImportTest extends WebTestCase
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
         /* @var Set10SalesImport $command */
-        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
 

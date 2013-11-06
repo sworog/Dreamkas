@@ -33,7 +33,7 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
 
         $parser = $this->createXmlParser();
         /* @var Set10ProductImporter $importer */
-        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.importer');
+        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.products.importer');
         $output = new NullOutput();
         $importer->import($parser, $output);
 

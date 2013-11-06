@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Set10\ImportCheques;
+namespace Lighthouse\CoreBundle\Integration\Set10\Import\Sales;
 
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
