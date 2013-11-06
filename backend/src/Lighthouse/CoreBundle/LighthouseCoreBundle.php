@@ -2,6 +2,9 @@
 
 namespace Lighthouse\CoreBundle;
 
+use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
+use Doctrine\MongoDB\Connection;
+use Doctrine\ODM\MongoDB\Configuration;
 use Lighthouse\CoreBundle\Command\CommandManager;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddCommandAsServicePass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddJobWorkersPass;
@@ -22,8 +25,15 @@ class LighthouseCoreBundle extends Bundle
 
     protected function registerMongoTypes()
     {
-        Type::registerType('money', 'Lighthouse\CoreBundle\Types\MongoDB\MoneyType');
-        Type::registerType('timestamp', 'Lighthouse\CoreBundle\Types\MongoDB\TimestampType');
+        Type::registerType('money', 'Lighthouse\\CoreBundle\\Types\\MongoDB\\MoneyType');
+        Type::registerType('timestamp', 'Lighthouse\\CoreBundle\\Types\\MongoDB\\TimestampType');
+    }
+
+    protected function addStreamWrappers()
+    {
+        if (!in_array('smb', stream_get_wrappers())) {
+            stream_wrapper_register('smb', 'Lighthouse\\CoreBundle\\Samba\\SambaStreamWrapper');
+        }
     }
 
     /**
@@ -49,10 +59,24 @@ class LighthouseCoreBundle extends Bundle
         $application->addCommands($commandManager->getAll());
     }
 
-    public function addStreamWrappers()
+    public function boot()
     {
-        if (!in_array('smb', stream_get_wrappers())) {
-            stream_wrapper_register('smb', 'Lighthouse\CoreBundle\Samba\SambaStreamWrapper');
+        $this->changeMongoDbConnectionsDbNames();
+    }
+
+    protected function changeMongoDbConnectionsDbNames()
+    {
+        if (isset($_SERVER['SYMFONY__KERNEL__POOL_POSITION_NAME'])) {
+            /* @var ManagerRegistry $odm */
+            $odm = $this->container->get('doctrine_mongodb');
+            /* @var Connection $connection */
+            foreach ($odm->getConnections() as $connection) {
+                /* @var Configuration $configuration */
+                $configuration = $connection->getConfiguration();
+                $defaultDb = $configuration->getDefaultDB();
+                $defaultDb.= $_SERVER['SYMFONY__KERNEL__POOL_POSITION_NAME'];
+                $configuration->setDefaultDB($defaultDb);
+            }
         }
     }
 }
