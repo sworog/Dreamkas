@@ -461,7 +461,7 @@ class WebTestCase extends ContainerAwareTestCase
                 '/api/1/groups'
             );
 
-            if (count($postResponse)) {
+            if (is_array($postResponse)) {
                 foreach ($postResponse as $value) {
                     if ($value['name'] == $name) {
                         return $value['id'];
@@ -588,7 +588,7 @@ class WebTestCase extends ContainerAwareTestCase
                 '/api/1/groups/'. $groupId .'/categories'
             );
 
-            if (count($postResponse)) {
+            if (is_array($postResponse)) {
                 foreach ($postResponse as $value) {
                     if ($value['name'] == $name) {
                         return $value['id'];
@@ -639,7 +639,7 @@ class WebTestCase extends ContainerAwareTestCase
 
             $this->assertResponseCode(200);
 
-            if (count($postResponse)) {
+            if (is_array($postResponse)) {
                 foreach ($postResponse as $value) {
                     if ($value['name'] == $name) {
                         return $value['id'];
@@ -689,7 +689,7 @@ class WebTestCase extends ContainerAwareTestCase
                 '/api/1/stores'
             );
 
-            if (count($postResponse)) {
+            if (is_array($postResponse)) {
                 foreach ($postResponse as $value) {
                     if (is_array($value) && array_key_exists('number', $value) && $value['number'] == $number) {
                         return $value['id'];
@@ -753,7 +753,7 @@ class WebTestCase extends ContainerAwareTestCase
                 '/api/1/stores/' . $storeId . '/departments'
             );
 
-            if (count($postResponse)) {
+            if (is_array($postResponse)) {
                 foreach ($postResponse as $value) {
                     if (is_array($value) && array_key_exists('number', $value) && $value['number'] == $number) {
                         return $value['id'];
