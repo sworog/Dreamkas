@@ -21,12 +21,20 @@ class Set10SalesImportTest extends WebTestCase
         parent::tearDown();
     }
 
+    /**
+     * @return string
+     */
+    protected function getDirPrefix()
+    {
+        return $this->prefix . $this->getPoolPosition();
+    }
+
     protected function clearTempFiles()
     {
         $tmp = new \DirectoryIterator('/tmp/');
         /* @var \DirectoryIterator $dir */
         foreach ($tmp as $dir) {
-            if ($dir->isDir() && 0 === strpos($dir->getFilename(), $this->prefix)) {
+            if ($dir->isDir() && 0 === strpos($dir->getFilename(), $this->getDirPrefix())) {
                 $it = new \RecursiveDirectoryIterator($dir->getPathname());
                 /* @var \SplFileInfo $file */
                 foreach (new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST) as $file) {
@@ -192,7 +200,7 @@ class Set10SalesImportTest extends WebTestCase
      */
     protected function createTempDir()
     {
-        $tmpDir = '/tmp/' . uniqid($this->prefix, true) . '/';
+        $tmpDir = '/tmp/' . uniqid($this->getDirPrefix(), true) . '/';
         mkdir($tmpDir);
         clearstatcache();
         return $tmpDir;

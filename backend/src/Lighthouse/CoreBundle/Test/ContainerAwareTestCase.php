@@ -17,6 +17,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     public static function setUpBeforeClass()
     {
+        parent::setUpBeforeClass();
         self::$appDebug = (boolean) getenv('SYMFONY_DEBUG') ?: false;
     }
 
