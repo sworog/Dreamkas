@@ -35,7 +35,7 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
+    exception_controller: 'Lighthouse\CoreBundle\Controller\ExceptionController::showAction'
 
 # Assetic Configuration
 assetic:
@@ -70,7 +70,7 @@ fos_rest:
     format_listener:
         default_priorities:
             - json
-            - "*/*"
+            #- "*/*"
     routing_loader:
         default_format: json
     view:
