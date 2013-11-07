@@ -133,4 +133,4 @@ leezy_pheanstalk:
 
 lighthouse_core:
     job:
-        tube_prefix: "%kernel.environment%_%database_name%_"
+        tube_prefix: "%database_name%_%kernel.environment%"

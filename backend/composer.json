@@ -26,7 +26,8 @@
         "nelmio/api-doc-bundle": "~2.3",
         "ekino/newrelic-bundle": "~1.0",
         "doctrine/data-fixtures": "~1.0@dev",
-        "leezy/pheanstalk-bundle": "2.1.3"
+        "leezy/pheanstalk-bundle": "2.1.3",
+        "munkie/karzer": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -58,7 +59,6 @@
         "phpunit/php-code-coverage": "~1.2",
         "phpmd/phpmd": "~1.4",
         "squizlabs/php_codesniffer": "~1.5",
-        "pdepend/pdepend": "~1.1",
-        "munkie/karzer": "dev-master"
+        "pdepend/pdepend": "~1.1"
     }
 }
