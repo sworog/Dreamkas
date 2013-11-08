@@ -75,7 +75,7 @@ define(function(require) {
             $.when(
                     page.catalogGroupModel.fetch(),
                     params.catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {},
-                    pageParams.storeId ? page.storeProductsCollection.fetch() : {}
+                    pageParams.storeId && params.catalogSubCategoryId ? page.storeProductsCollection.fetch() : {}
                 ).then(function() {
 
                     page.catalogCategoryModel = page.catalogGroupModel.categories.get(params.catalogCategoryId);
