@@ -8,12 +8,10 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.DateTime;
-import project.lighthouse.autotests.objects.InvoiceSearchObject;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductApi;
 import project.lighthouse.autotests.pages.departmentManager.invoice.*;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class InvoiceSteps extends ScenarioSteps {
 
@@ -245,62 +243,22 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void checkHasInvoice(String sku) {
-        if (!invoiceSearchPage.getInvoiceSearchObjectHashMap().containsKey(sku)) {
-            Assert.fail(String.format("There is no invoice with such sku '%s'", sku));
-        }
+        invoiceSearchPage.getInvoiceSearchObjectCollection().contains(sku);
     }
 
     @Step
-    public void checkInvoiceProperties(String sku, ExamplesTable examplesTable) {
-        InvoiceSearchObject invoiceSearchObject = invoiceSearchPage.getInvoiceSearchObjectHashMap().get(sku);
-        for (Map<String, String> row : examplesTable.getRows()) {
-            String elementName = row.get("elementName");
-            String elementValue = row.get("elementValue");
-            switch (elementName) {
-                case "sku":
-                    Assert.assertEquals(elementValue, invoiceSearchObject.getSku());
-                    break;
-                case "acceptanceDate":
-                    Assert.assertEquals(elementValue, invoiceSearchObject.getAcceptanceDate());
-                    break;
-                case "supplier":
-                    Assert.assertEquals(elementValue, invoiceSearchObject.getSupplier());
-                    break;
-                case "accepter":
-                    Assert.assertEquals(elementValue, invoiceSearchObject.getAccepter());
-                    break;
-                case "legalEntity":
-                    Assert.assertEquals(elementValue, invoiceSearchObject.getLegalEntity());
-                    break;
-                case "supplierInvoiceSku":
-                    Assert.assertEquals(elementValue, invoiceSearchObject.getSupplierInvoiceSku());
-                    break;
-                case "supplierInvoiceDate":
-                    Assert.assertEquals(elementValue, invoiceSearchObject.getSupplierInvoiceDate());
-                    break;
-                default:
-                    Assert.fail(String.format("No such elementName '%s'", elementName));
-                    break;
-            }
-        }
+    public void invoiceCompareWithExampleTable(ExamplesTable examplesTable) {
+        invoiceSearchPage.getInvoiceSearchObjectCollection().compareWithExampleTable(examplesTable);
+
     }
 
     @Step
     public void searchResultClick(String sku) {
-        invoiceSearchPage.searchResultClick(sku);
+        invoiceSearchPage.getInvoiceSearchObjectCollection().clickByLocator(sku);
     }
 
     @Step
     public void checkHighlightsText(String expectedHighlightedText) {
-        Boolean isEqual = false;
-        for (String actualHighlightText : invoiceSearchPage.getHighlightTexts()) {
-            if (actualHighlightText.equals(expectedHighlightedText)) {
-                isEqual = true;
-            }
-        }
-        if (!isEqual) {
-            String errorMessage = String.format("Actual: '%s', Expected: '%s'", invoiceSearchPage.getHighlightTexts(), expectedHighlightedText);
-            Assert.fail(errorMessage);
-        }
+        invoiceSearchPage.getInvoiceSearchObjectCollection().containsHighLightText(expectedHighlightedText);
     }
 }

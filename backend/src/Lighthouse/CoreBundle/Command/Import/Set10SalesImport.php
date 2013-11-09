@@ -3,16 +3,16 @@
 namespace Lighthouse\CoreBundle\Command\Import;
 
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\ImportSalesXmlParser;
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\RemoteDirectory;
-use Lighthouse\CoreBundle\Integration\Set10\ImportSales\SalesImporter;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\RemoteDirectory;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.command.integration.sales_import")
+ * @DI\Service("lighthouse.core.command.import.set10_sales_import")
  * @DI\Tag("console.command")
  */
 class Set10SalesImport extends Command
@@ -34,7 +34,7 @@ class Set10SalesImport extends Command
 
     /**
      * @DI\InjectParams({
-     *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import_sales.importer"),
+     *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import.sales.importer"),
      *      "remoteDirectory" = @DI\Inject("lighthouse.core.integration.set10.import_sales.remote_directory"),
      *      "logRepository" = @DI\Inject("lighthouse.core.document.repository.log")
      * })
@@ -76,7 +76,7 @@ class Set10SalesImport extends Command
         foreach ($files as $file) {
             try {
                 $output->writeln(sprintf('Importing "%s"', $file->getFilename()));
-                $parser = new ImportSalesXmlParser($file->getPathname());
+                $parser = new SalesXmlParser($file->getPathname());
                 $this->importer->import($parser, $output);
                 foreach ($this->importer->getErrors() as $error) {
                     $this->logException($error['exception'], $dirUrl, $file->getPathname());

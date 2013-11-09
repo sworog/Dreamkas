@@ -393,6 +393,8 @@ class WriteOffControllerTest extends WebTestCase
             '/api/1/stores/' . $this->storeId . '/writeoffs'
         );
 
+        $this->assertResponseCode(200);
+
         Assert::assertJsonPathCount(2, '*.id', $response);
         Assert::assertJsonPathEquals($writeOffId, '*.id', $response, 1);
         Assert::assertJsonPathEquals($writeOffId2, '*.id', $response, 1);
@@ -467,5 +469,207 @@ class WriteOffControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+    }
+
+    /**
+     * @param string $query
+     * @param int $count
+     * @param array $assertions
+     *
+     * @dataProvider writeOffFilterProvider
+     */
+    public function testWriteOffsFilter($query, $count, array $assertions = array())
+    {
+        $productId1 = $this->createProduct('111');
+        $productId2 = $this->createProduct('222');
+        $productId3 = $this->createProduct('333');
+
+        $writeOffData1 = array(
+            'number' => '1234-89',
+        );
+
+        $writeOffId1 = $this->createWriteOff($writeOffData1['number'], null, $this->storeId, $this->departmentManager);
+        $this->createWriteOffProduct(
+            $writeOffId1,
+            $productId1,
+            10,
+            6.98,
+            null,
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $writeOffData2 = array(
+            'number' => '866-89',
+        );
+
+        $writeOffId2 = $this->createWriteOff($writeOffData2['number'], null, $this->storeId, $this->departmentManager);
+        $this->createWriteOffProduct(
+            $writeOffId2,
+            $productId2,
+            5,
+            10.12,
+            null,
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $writeOffData3 = array(
+            'number' => '7561-89',
+        );
+
+        $writeOffId3 = $this->createWriteOff($writeOffData3['number'], null, $this->storeId, $this->departmentManager);
+        $this->createWriteOffProduct(
+            $writeOffId3,
+            $productId3,
+            7,
+            67.32,
+            null,
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/writeoffs',
+            null,
+            array('number' => $query)
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount($count, '*.id', $response);
+        $this->performJsonAssertions($response, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function writeOffFilterProvider()
+    {
+        return array(
+            'one by number' => array(
+                '866-89',
+                1,
+                array(
+                    '0.number' => '866-89',
+                    '0._meta.highlights.number' => true,
+                )
+            ),
+            'none found: not existing number' => array(
+                '1234',
+                0,
+            ),
+            'none found: empty number' => array(
+                '',
+                0,
+            ),
+        );
+    }
+
+    public function testWriteOffsFilterOrder()
+    {
+        $productId1 = $this->createProduct('111');
+        $productId2 = $this->createProduct('222');
+
+        $writeOffId1 = $this->createWriteOff(
+            '1234-89',
+            '2013-03-17T16:12:33+0400',
+            $this->storeId,
+            $this->departmentManager
+        );
+        $this->createWriteOffProduct(
+            $writeOffId1,
+            $productId1,
+            10,
+            6.98,
+            null,
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $writeOffId2 = $this->createWriteOff(
+            '1234-89',
+            '2013-03-16T14:54:23+0400',
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $this->createWriteOffProduct(
+            $writeOffId2,
+            $productId2,
+            5,
+            10.12,
+            null,
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/writeoffs',
+            null,
+            array('number' => '1234-89')
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(2, '*.id', $response);
+        Assert::assertJsonPathEquals('1234-89', '0.number', $response);
+        Assert::assertJsonPathEquals('2013-03-17T16:12:33+0400', '0.date', $response);
+        Assert::assertJsonPathEquals('1234-89', '1.number', $response);
+        Assert::assertJsonPathEquals('2013-03-16T14:54:23+0400', '1.date', $response);
+
+        $writeOffId3 = $this->createWriteOff(
+            '1234-89',
+            '2013-03-15T16:12:33+0400',
+            $this->storeId,
+            $this->departmentManager
+        );
+        $this->createWriteOffProduct(
+            $writeOffId3,
+            $productId1,
+            10,
+            6.98,
+            null,
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $writeOffId4 = $this->createWriteOff(
+            '867-89',
+            '2013-03-16T14:54:23+0400',
+            $this->storeId,
+            $this->departmentManager
+        );
+        $this->createWriteOffProduct(
+            $writeOffId4,
+            $productId2,
+            5,
+            10.12,
+            null,
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/writeoffs',
+            null,
+            array('number' => '1234-89')
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(3, '*.id', $response);
+        Assert::assertJsonPathEquals('1234-89', '0.number', $response);
+        Assert::assertJsonPathEquals('2013-03-17T16:12:33+0400', '0.date', $response);
+        Assert::assertJsonPathEquals('1234-89', '1.number', $response);
+        Assert::assertJsonPathEquals('2013-03-16T14:54:23+0400', '1.date', $response);
+        Assert::assertJsonPathEquals('1234-89', '2.number', $response);
+        Assert::assertJsonPathEquals('2013-03-15T16:12:33+0400', '2.date', $response);
     }
 }

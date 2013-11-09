@@ -12,7 +12,6 @@ public class InvoiceLocalNavigation extends CommonPageObject {
 
     @Override
     public void createElements() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void searchLinkClick() {

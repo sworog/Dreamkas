@@ -142,7 +142,7 @@ public class WriteOffUserSteps {
 
     @When("the user creates write off from write off list page")
     public void whenTheUserCreatesWriteOff() {
-        writeOffSteps.writeOffItemListCreate();
+        writeOffSteps.createInvoiceLinkClick();
     }
 
     @When("the user goes to the write off list page by clicking the link")
@@ -204,5 +204,15 @@ public class WriteOffUserSteps {
     @Then("the user checks the product with '$value' sku has '$name' element equal to '$expectedValue' on write off list page")
     public void thenTheUserChecksTheProductWithValueHasElement(String value, String elementName, String expectedValue) {
         writeOffSteps.checkListItemHasExpectedValueByFindByLocatorInList(value, elementName, expectedValue);
+    }
+
+    @When("the user clicks the local navigation writeOff search link")
+    public void whenTheUserClicksTheLocalNavigationWriteOffSearchLink() {
+        writeOffSteps.searchLinkClick();
+    }
+
+    @When("the user clicks the local navigation writeOff create link")
+    public void whenTheUserClicksTheLocalNavigationWriteOffCreateLink() {
+        writeOffSteps.createInvoiceLinkClick();
     }
 }

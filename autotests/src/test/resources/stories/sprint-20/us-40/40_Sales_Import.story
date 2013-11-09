@@ -73,11 +73,19 @@ When the user input values on the setting page
 And the user clicks import save button on the setting page
 Then the user sees success message 'Настройки успешно сохранены'
 When the user logs out
+Given there is the subCategory with name 'ProductsExportSubCategory' related to group named 'ProductsExportGroup' and category named 'ProductsExportCategory'
+And the user sets subCategory 'ProductsExportSubCategory' mark up with max '30' and min '0' values
+And there is the user with name 'ProductsExportStoreManager', position 'ProductsExportStoreManager', username 'ProductsExportStoreManager', password 'lighthouse', role 'storeManager'
+And there is the user with name 'ProductsExportStoreManager2', position 'ProductsExportStoreManager2', username 'ProductsExportStoreManager2', password 'lighthouse', role 'storeManager'
+And there is the store with number '666' managed by 'ProductsExportStoreManager'
+And there is the store with number '777' managed by 'ProductsExportStoreManager2'
 Given the robot prepares import purchase data with no such product
 And the robot waits the import folder become empty
 Given the user logs in as 'commercialManager'
 And the user opens the log page
-Then the user checks the last simple log message is 'Sales import fail: Product with sku "871085219077834" not found'
+Then the user checks the last simple log message
+| logMessage |
+| Sales import fail: Product with sku "871085219077834" not found |
 
 Scenario: Import no store exist data (xml)
 
@@ -96,7 +104,9 @@ Given the robot prepares import purchase data with no exist store
 And the robot waits the import folder become empty
 Given the user logs in as 'commercialManager'
 And the user opens the log page
-Then the user checks the last simple log message is 'Sales import fail: Store with number "3455453453" not found'
+Then the user checks the last simple log message
+| logMessage |
+| Sales import fail: Store with number "3455453453" not found |
 
 Scenario: Import currupted data (xml)
 
@@ -115,5 +125,7 @@ Given the robot prepares import purchase data with currupted data
 And the robot waits the import folder become empty
 Given the user logs in as 'commercialManager'
 And the user opens the log page
-Then the user checks the last simple log message is 'Sales import fail: Failed to parse "purchase" xml node: Couldn't find end of Start Tag position'
+Then the user checks the last simple log message
+| logMessage |
+| Sales import fail: Failed to parse "purchase" xml node: Couldn't find end of Start Tag position |
 

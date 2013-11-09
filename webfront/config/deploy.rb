@@ -12,7 +12,7 @@ set :deploy_to,   "{#deploy_to_base}#{application}"
 set :deploy_via,  :remote_cache_subfolder
 set :deploy_subdir, "webfront/web"
 
-set :repository,  "git@git.lighthouse.cs:watchmen/lighthouse.git"
+set :repository,  "git@bitbucket.org:lhcs/lighthouse.git"
 set :scm,         :git
 
 ssh_options[:forward_agent] = true

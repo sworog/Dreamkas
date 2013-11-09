@@ -3,15 +3,9 @@ package project.lighthouse.autotests.steps.logSteps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
-import org.junit.Assert;
-import project.lighthouse.autotests.objects.log.SimpleLogObject;
 import project.lighthouse.autotests.pages.logPages.JobsPage;
 import project.lighthouse.autotests.pages.logPages.LogPage;
-
-import java.util.List;
-import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
@@ -93,18 +87,7 @@ public class LogSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertLastSimpleLogMessage(String expectedMessage) {
-        Assert.assertThat(logPage.getLastLogObject().getMessage(), Matchers.containsString(expectedMessage));
-    }
-
-    @Step
-    public void assertSimpleLogMessages(ExamplesTable simpleLogMessagesTable) {
-        List<SimpleLogObject> simpleLogObjects = logPage.getSimpleLogMessages();
-        int index = 0;
-        for (Map<String, String> row : simpleLogMessagesTable.getRows()) {
-            String expectedMessage = row.get("logMessage");
-            Assert.assertThat(simpleLogObjects.get(index).getMessage(), Matchers.containsString(expectedMessage));
-            index++;
-        }
+    public void assertLastSimpleLogMessage(ExamplesTable simpleLogMessagesTable) {
+        logPage.getSimpleLogObjectCollection().compareWithExampleTable(simpleLogMessagesTable);
     }
 }

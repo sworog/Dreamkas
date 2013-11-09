@@ -32,16 +32,19 @@ define(function(require) {
             'products/:productId(/)': require('pages/product/view'),
             'products/:productId/invoices': require('pages/product/invoices'),
             'products/:productId/writeoffs': require('pages/product/writeOffs'),
+            'products/:productId/returns': require('pages/product/returns'),
 
             //writeOffs
             'writeOffs(/)': require('pages/writeOff/list'),
             'writeOffs/create(/)': require('pages/writeOff/form'),
+            'writeOffs/search(/)': require('pages/writeOff/search'),
             'writeOffs/:writeOffId(/)': require('pages/writeOff/view'),
 
             //catalog
             'catalog(/)': require('pages/catalog/catalog'),
             'catalog/:catalogGroupId(/)': require('pages/catalog/group'),
             'catalog/:catalogGroupId/:catalogCategoryId(/)(:catalogSubCategoryId)': require('pages/catalog/category'),
+            'catalog/:catalogGroupId/:catalogCategoryId/:catalogSubCategoryId(/)(:section)': require('pages/catalog/category'),
 
             //stores
             'stores(/)': require('pages/store/list'),

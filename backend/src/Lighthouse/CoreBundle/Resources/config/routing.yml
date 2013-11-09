@@ -26,6 +26,10 @@ lighthouse.core.write-off_product:
     parent:   lighthouse.core.write-off
     type:     rest
 
+lighthouse.core.return_product:
+    resource: Lighthouse\CoreBundle\Controller\ReturnProductController
+    type:     rest
+
 lighthouse.core.group:
     resource: Lighthouse\CoreBundle\Controller\GroupController
     type:     rest

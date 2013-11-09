@@ -1,17 +1,22 @@
-<div class="page__controls">
-    <a class="page__controlsLink writeOff__editLink"><%- 'Редактировать' %></a>
-    <a class="page__controlsLink writeOff__stopEditLink"><%- 'Завершить редактирование' %></a>
-</div>
+<%
+/**
+ *
+ *  @writeOffModel
+ */
+%>
+
+<% var writeOff__head = require('tpl!blocks/writeOff/templates/head.html') %>
+<% var writeOff__footer = require('tpl!blocks/writeOff/templates/footer.html') %>
 
 <div class="writeOff__content">
     <div class="writeOff__head">
-        <%= templates.head({
+        <%= writeOff__head({
             writeOffModel: writeOffModel
         }) %>
     </div>
     <table class="writeOff__productsTable table"></table>
     <div class="writeOff__footer">
-        <%= templates.footer({
+        <%= writeOff__footer({
             writeOffModel: writeOffModel
         }) %>
     </div>

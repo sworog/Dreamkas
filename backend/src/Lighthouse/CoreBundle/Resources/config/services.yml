@@ -55,6 +55,18 @@ services:
         arguments:
             - LighthouseCoreBundle:Sale\Sale
 
+    lighthouse.core.document.repository.return:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Returne\ReturnRepository
+        arguments:
+            - LighthouseCoreBundle:Returne\Returne
+
+    lighthouse.core.document.repository.return.product:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Returne\Product\ReturnProductRepository
+        arguments:
+            - LighthouseCoreBundle:Returne\Product\ReturnProduct
+
     lighthouse.core.document.repository.writeoff:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository

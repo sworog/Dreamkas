@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.common;
 
 import net.thucydides.core.pages.PageObject;
-import net.thucydides.core.pages.WebElementFacade;
 import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
@@ -13,7 +12,6 @@ import project.lighthouse.autotests.elements.Autocomplete;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceListPage;
 
-import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.*;
@@ -112,49 +110,6 @@ public class CommonPage extends PageObject {
         checkFieldLength(elementName, fieldLength, length);
     }
 
-    public void checkErrorMessages(ExamplesTable errorMessageTable) {
-        for (Map<String, String> row : errorMessageTable.getRows()) {
-            String expectedErrorMessage = row.get("error message");
-            checkErrorMessage(expectedErrorMessage);
-        }
-    }
-
-    public void checkErrorMessage(String expectedErrorMessage) {
-        String xpath = String.format("//*[contains(@data-error,'%s')]", expectedErrorMessage);
-        if (!isPresent(xpath)) {
-            String errorXpath = "//*[@data-error]";
-            String errorMessage;
-            if (isPresent(errorXpath)) {
-                errorMessage = getErrorMessages(errorXpath);
-            } else {
-                errorMessage = "There are no error field validation messages on the page!";
-            }
-            fail(errorMessage);
-        }
-    }
-
-    public String getErrorMessages(String xpath) {
-        List<WebElementFacade> webElementList = findAll(By.xpath(xpath));
-        StringBuilder builder = new StringBuilder("Validation errors are present: ");
-        for (WebElementFacade element : webElementList) {
-            builder.append(element.getAttribute("data-error"));
-        }
-        return builder.toString();
-    }
-
-    public void checkNoErrorMessages(ExamplesTable errorMessageTable) {
-        for (Map<String, String> row : errorMessageTable.getRows()) {
-            String expectedErrorMessage = row.get("error message");
-            String xpath = String.format("//*[contains(@data-error,'%s')]", expectedErrorMessage);
-            assertFalse(getErrorMessages(xpath), isPresent(xpath));
-        }
-    }
-
-    public void checkNoErrorMessages() {
-        String xpath = "//*[@data-error]";
-        assertFalse(getErrorMessages(xpath), isPresent(xpath));
-    }
-
     public void setValue(CommonItem item, String value) {
         item.setValue(value);
     }
@@ -207,7 +162,7 @@ public class CommonPage extends PageObject {
             fail(
                     String.format("Alert is present! Alert text: '%s'", alert.getText())
             );
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 

@@ -8,6 +8,7 @@ I want to чтобы чеки возврата не изменяли актуа�
 
 Scenario: Sales return (xml)
 
+Given skipped. Info: 'Skipped story', Details: 'Not actual'
 Given the user opens the settings page
 And the user logs in as 'watchman'
 When the user input values on the setting page

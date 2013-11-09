@@ -2,12 +2,16 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffCollection;
+use Lighthouse\CoreBundle\Document\WriteOff\WriteOffHighlightGenerator;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository;
+use Lighthouse\CoreBundle\Document\WriteOff\WriteOffsFilter;
 use Lighthouse\CoreBundle\Form\WriteOffType;
+use Lighthouse\CoreBundle\Meta\MetaCollection;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -79,16 +83,25 @@ class WriteOffController extends AbstractRestController
 
     /**
      * @param Store $store
-     * @return WriteOffCollection
+     * @param WriteOffsFilter $filter
+     * @return WriteOffCollection|MetaCollection
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
      * )
+     * @Rest\Route("stores/{store}/writeoffs")
      */
-    public function getWriteoffsAction(Store $store)
+    public function getWriteoffsAction(Store $store, WriteOffsFilter $filter)
     {
-        $cursor = $this->documentRepository->findByStore($store->id);
-        $collection = new WriteOffCollection($cursor);
+        /** @var Cursor $cursor */
+        $cursor = $this->documentRepository->findByStore($store->id, $filter);
+        if ($filter->hasNumber()) {
+            $highlightGenerator = new WriteOffHighlightGenerator($filter);
+            $collection = new MetaCollection($cursor);
+            $collection->addMetaGenerator($highlightGenerator);
+        } else {
+            $collection = new WriteOffCollection($cursor);
+        }
         return $collection;
     }
 

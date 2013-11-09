@@ -55,13 +55,13 @@ public class LogPageUserSteps {
         logSteps.waitLastSet10ExportProductLogMessageSuccessStatus();
     }
 
-    @Then("the user checks the last simple log message is '$expectedMessage'")
-    public void thenTheUSerChecksTheLastSimpleLogMessage(String expectedMessage) {
-        logSteps.assertLastSimpleLogMessage(expectedMessage);
+    @Then("the user checks the last simple log message $examplesTable")
+    public void thenTheUSerChecksTheLastSimpleLogMessage(ExamplesTable examplesTable) {
+        logSteps.assertLastSimpleLogMessage(examplesTable);
     }
 
     @Then("the user checks log messages $simpleLogMessagesTable")
     public void thenTheUserCheckLogMessages(ExamplesTable simpleLogMessagesTable) {
-        logSteps.assertSimpleLogMessages(simpleLogMessagesTable);
+        logSteps.assertLastSimpleLogMessage(simpleLogMessagesTable);
     }
 }

@@ -102,7 +102,7 @@ class InvoiceProductController extends AbstractRestController
     public function getProductsAction(Store $store, Invoice $invoice)
     {
         $this->checkInvoiceStore($invoice, $store);
-        $invoiceProducts = $this->getDocumentRepository()->findByInvoice($invoice->id);
+        $invoiceProducts = $this->documentRepository->findByInvoice($invoice->id);
         return new InvoiceProductCollection($invoiceProducts);
     }
 

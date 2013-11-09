@@ -1,6 +1,21 @@
-<div class="page__header">
-    <a href="/writeOffs" class="page__backLink">
-        Списания
-    </a>
+<% var writeOff = require('tpl!blocks/writeOff/templates/index.html') %>
+
+<div class="localNavigation">
+    <h2><a class="localNavigation__link" href="/writeOffs">Список списаний</a></h2>
+    <a class="localNavigation__link" href="/writeOffs/search">Поиск списания</a>
+    <a class="localNavigation__link" href="/writeOffs/create">Создать списание</a>
 </div>
-<div id="writeOff"></div>
+
+<div style="margin-left: 285px;">
+    <div id="writeOff">
+        <div class="page__controls">
+            <a class="page__controlsLink writeOff__editLink"><%- 'Редактировать' %></a>
+            <a class="page__controlsLink writeOff__stopEditLink"><%- 'Завершить редактирование' %></a>
+        </div>
+
+        <%= writeOff({
+            writeOffModel: writeOffModel
+        }) %>
+
+    </div>
+</div>

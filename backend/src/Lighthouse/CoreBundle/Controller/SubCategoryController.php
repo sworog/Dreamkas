@@ -94,7 +94,7 @@ class SubCategoryController extends AbstractRestController
      */
     public function getCategorySubcategoriesAction(Category $category)
     {
-        $cursor = $this->getDocumentRepository()->findByCategory($category->id);
+        $cursor = $this->documentRepository->findByCategory($category->id);
         return new SubCategoryCollection($cursor);
     }
 
@@ -107,7 +107,7 @@ class SubCategoryController extends AbstractRestController
      */
     public function getStoreCategorySubcategoriesAction(Store $store, Category $category)
     {
-        $cursor = $this->getDocumentRepository()->findByCategory($category->id);
+        $cursor = $this->documentRepository->findByCategory($category->id);
         return new SubCategoryCollection($cursor);
     }
 

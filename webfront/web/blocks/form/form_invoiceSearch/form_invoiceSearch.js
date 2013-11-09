@@ -18,13 +18,13 @@ define(function(require) {
                         searchQuery: block.formData
                     }));
 
-                    block.invoicesCollection.forEach(function(invoiceModel){
+                    block.invoicesCollection.forEach(function(invoiceModel, index){
                         new Table_invoiceProducts({
                             collection: new InvoiceProductsCollection(invoiceModel.get('products') || [], {
                                 invoiceId: invoiceModel.id,
                                 storeId: invoiceModel.get('store.id')
                             }),
-                            el: block.el.getElementsByClassName('invoice__productsTable')
+                            el: block.el.getElementsByClassName('invoice__productsTable')[index]
                         });
                     });
                 }

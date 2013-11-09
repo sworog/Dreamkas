@@ -239,6 +239,16 @@ class Factory
 
     /**
      * @param string $storeId
+     * @return \stdClass
+     */
+    public function authAsStoreManager($storeId)
+    {
+        $storeManager = $this->getStoreManager($storeId);
+        return $this->auth($storeManager);
+    }
+
+    /**
+     * @param string $storeId
      * @return User
      */
     public function getDepartmentManager($storeId)
@@ -251,6 +261,16 @@ class Factory
             $this->departmentManagers[$storeId] = $manager;
         }
         return $this->departmentManagers[$storeId];
+    }
+
+    /**
+     * @param string $storeId
+     * @return \stdClass
+     */
+    public function authAsDepartmentManager($storeId)
+    {
+        $storeManager = $this->getDepartmentManager($storeId);
+        return $this->auth($storeManager);
     }
 
     /**

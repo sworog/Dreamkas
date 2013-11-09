@@ -1,13 +1,15 @@
 <div class="writeOff__title writeOff__dataRow">
-    Списание
-    <span class="writeOff__editable">
-        №
-        <span name="number" model-attr="number">
-            <%- writeOffModel.get('number') %>
+    <span class="<%- writeOffModel.get('_meta.highlights.number') ? 'page__highlighted' : '' %>">
+        Списание
+        <span class="writeOff__editable">
+            №
+            <span name="number" model-attr="number">
+                <%- writeOffModel.get('number') %>
+            </span>
         </span>
-    </span>
-    от
-    <span name="date" class="writeOff__editable" model-attr="date">
-        <%- moment(writeOffModel.get('date')).format('DD.MM.YYYY') %>
+        от
+        <span name="date" class="writeOff__editable" model-attr="date">
+            <%- moment(writeOffModel.get('date')).format('DD.MM.YYYY') %>
+        </span>
     </span>
 </div>

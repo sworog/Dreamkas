@@ -204,26 +204,54 @@ namespace :symfony do
         end
     end
 
-    desc "Import products catalog from file, required: -S file=<..>"
-    task :import_xml do
+    namespace :import do
+        desc "Import products catalog from file, required: -S file=<..>"
+        task :products do
+            raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
 
-        raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
+            set :xml_file_path, file
+            set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import.xml"
 
-        set :xml_file_path, file
-        set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import.xml"
-
-        if File.exists?(remote_temp_file_path)
-            begin
-                run "#{try_sudo} rm #{remote_temp_file_path}"
+            if File.exists?(remote_temp_file_path)
+                begin
+                    run "#{try_sudo} rm #{remote_temp_file_path}"
+                end
             end
+
+            puts "--> Uploading xml file".yellow
+            top.upload(xml_file_path, remote_temp_file_path)
+
+            puts "--> Import products".yellow
+            stream "cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:import:products #{remote_temp_file_path} --env=#{symfony_env_prod}"
+            capifony_puts_ok
         end
 
-        puts "--> Uploading xml file".yellow
-        top.upload(xml_file_path, remote_temp_file_path)
+        namespace :sales do
+            task :local do
+                raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
 
-        puts "--> Import products".yellow
-        stream "cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:import:products #{remote_temp_file_path} --env=#{symfony_env_prod}"
-        capifony_puts_ok
+                set :xml_file_path, file
+                set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import_sales.xml"
+
+                if File.exists?(remote_temp_file_path)
+                    begin
+                        run "#{try_sudo} rm #{remote_temp_file_path}"
+                    end
+                end
+
+                puts "--> Uploading xml file".yellow
+                top.upload(xml_file_path, remote_temp_file_path)
+
+                puts "--> Import products".yellow
+                stream "cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:import:sales:local #{remote_temp_file_path} --env=#{symfony_env_prod}"
+                capifony_puts_ok
+            end
+        end
+    end
+
+    task :import_xml do
+        puts "--> This task is deprecated. Use symfony:import:products instead"
+        symfony.import.products
     end
 
 end

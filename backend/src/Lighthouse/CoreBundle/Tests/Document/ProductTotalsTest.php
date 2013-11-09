@@ -130,17 +130,16 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $this->assertEquals(15, $storeProduct->amount);
         $this->assertEquals(2222, $storeProduct->lastPurchasePrice->getCount());
 
-        // FIXME uncomment purchase test
         // Purchase
-        $purchaseProduct = new SaleProduct();
-        $purchaseProduct->product = $product;
-        $purchaseProduct->quantity = 5;
-        $purchaseProduct->sellingPrice = new Money(1067);
+        $saleProduct = new SaleProduct();
+        $saleProduct->product = $productVersion;
+        $saleProduct->quantity = 5;
+        $saleProduct->price = new Money(1067);
 
         $sale = new Sale();
         $sale->hash = md5(uniqid('sale', true));
         $sale->store = $store;
-        $sale->products = array($purchaseProduct);
+        $sale->products = array($saleProduct);
 
         $manager->persist($sale);
         $manager->flush();
@@ -149,9 +148,9 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $this->assertEquals(10, $storeProduct->amount);
 
         $saleProduct2 = new SaleProduct();
-        $saleProduct2->product = $product;
+        $saleProduct2->product = $productVersion;
         $saleProduct2->quantity = 12;
-        $saleProduct2->sellingPrice = new Money(1067);
+        $saleProduct2->price = new Money(1067);
 
         $sale2 = new Sale();
         $sale2->hash = md5(uniqid('sale', true));

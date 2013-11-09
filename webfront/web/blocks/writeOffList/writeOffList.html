@@ -1,0 +1,13 @@
+<!-- @writeOffsCollection -->
+
+<% var writeOff = require('tpl!blocks/writeOff/templates/index.html') %>
+
+<div class="writeOffList">
+    <% writeOffsCollection.each(function(writeOffModel){ %>
+    <div number="<%- writeOffModel.get('number') %>" href="/writeOffs/<%- writeOffModel.id %>" class="writeOffList__item">
+        <%= writeOff({
+            writeOffModel: writeOffModel
+        }) %>
+    </div>
+    <% }) %>
+</div>

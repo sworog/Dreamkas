@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\View\View;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;

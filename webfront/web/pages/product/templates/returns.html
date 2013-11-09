@@ -1,0 +1,47 @@
+<%
+/**
+ *
+ * @productModel
+ * @productReturnsCollection
+ * @currentUserModel
+ */
+%>
+
+<% var table_productReturns = require('tpl!blocks/table/table_productReturns/table_productReturns.html'); %>
+
+
+<div class="localNavigation">
+
+    <a class="localNavigation__link" href="/products/<%- productModel.id %>">Свойства</a>
+    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET::invoiceProducts') && currentUserModel.stores.length) { %>
+    <a class="localNavigation__link" href="/products/<%- productModel.id %>/invoices">Приходы</a>
+    <% } %>
+
+    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET::writeOffProducts') && currentUserModel.stores.length) { %>
+    <a class="localNavigation__link" href="/products/<%- productModel.id %>/writeoffs">Списания</a>
+    <% } %>
+
+    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET::returnProducts') && currentUserModel.stores.length) { %>
+    <a class="localNavigation__link localNavigation__link_active" href="/products/<%- productModel.id %>/returns">Возвраты</a>
+    <% } %>
+
+</div>
+
+<div style="margin-left: 285px;">
+
+    <h1 name="name" class="product__name">
+        <%= productModel.name %>
+    </h1>
+
+    <div class="product__sku" name="sku">
+        <%- productModel.sku %>
+    </div>
+
+    <% if(productReturnsCollection.length) { %>
+    <%= table_productReturns({
+        collection: productReturnsCollection
+    }) %>
+    <% } else { %>
+    <h2>Возвратов товара еще не было</h2>
+    <% } %>
+</div>

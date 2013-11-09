@@ -7,10 +7,9 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.helper.ExampleTableConverter;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductApi;
-import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffApi;
-import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffListPage;
-import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffPage;
+import project.lighthouse.autotests.pages.departmentManager.writeOff.*;
 
 import java.io.IOException;
 
@@ -21,6 +20,10 @@ public class WriteOffSteps extends ScenarioSteps {
     WriteOffListPage writeOffListPage;
     WriteOffApi writeOffApi;
     ProductApi productApi;
+    WriteOffSearchPage writeOffSearchPage;
+    WriteOffLocalNavigation writeOffLocalNavigation;
+
+    private ExamplesTable examplesTable;
 
     public WriteOffSteps(Pages pages) {
         super(pages);
@@ -39,6 +42,7 @@ public class WriteOffSteps extends ScenarioSteps {
     @Step
     public void createWriteOffThroughPost(String storeName, String userName, ExamplesTable examplesTable) throws JSONException, IOException {
         writeOffApi.createWriteOffThrougPost(storeName, userName, examplesTable);
+        this.examplesTable = examplesTable;
     }
 
     @Step
@@ -199,5 +203,49 @@ public class WriteOffSteps extends ScenarioSteps {
     @Step
     public void goToTheWriteOffListPage() {
         writeOffListPage.goToTheWriteOffListPage();
+    }
+
+    @Step
+    public void searchLinkClick() {
+        writeOffLocalNavigation.searchLinkClick();
+    }
+
+    @Step
+    public void writeOffSearch(String number) {
+        writeOffSearchPage.input("number", number);
+    }
+
+    @Step
+    public void searchButtonClick() {
+        writeOffSearchPage.searchButtonClick();
+    }
+
+    public void createInvoiceLinkClick() {
+        writeOffLocalNavigation.createInvoiceLinkClick();
+    }
+
+    @Step
+    public void writeOffSearchResultClick(String number) {
+        writeOffSearchPage.getWriteOffSearchObjectCollection().clickByLocator(number);
+    }
+
+    @Step
+    public void writeOffSearchResultCheck(String number) {
+        writeOffSearchPage.getWriteOffSearchObjectCollection().contains(number);
+    }
+
+    @Step
+    public void compareWithExampleTable(ExamplesTable examplesTable) {
+        writeOffSearchPage.getWriteOffSearchObjectCollection().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void compareWithExampleTable() {
+        writeOffSearchPage.getWriteOffSearchObjectCollection().compareWithExampleTable(ExampleTableConverter.convert(examplesTable));
+    }
+
+    @Step
+    public void writeOffHighLightTextCheck(String expectedHighLightedText) {
+        writeOffSearchPage.getWriteOffSearchObjectCollection().containsHighLightText(expectedHighLightedText);
     }
 }

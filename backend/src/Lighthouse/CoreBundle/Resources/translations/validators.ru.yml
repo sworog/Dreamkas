@@ -50,6 +50,9 @@ lighthouse:
             sale:
                 product.empty: Должен присутствовать хотя бы один товар
                 hash.unique: Такая продажа уже зарегистрированна в системе
+            return:
+                product.empty: Должен присутствовать хотя бы один товар
+                hash.unique: Такой возврат уже зарегистрированна в системе
             group:
                 name.unique: Такая группа уже есть
             category:

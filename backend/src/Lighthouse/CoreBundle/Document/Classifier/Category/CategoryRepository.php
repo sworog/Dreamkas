@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier\Category;
 
+use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
 class CategoryRepository extends DocumentRepository
@@ -19,5 +20,14 @@ class CategoryRepository extends DocumentRepository
             ->getQuery();
         $count = $query->execute();
         return $count;
+    }
+
+    /**
+     * @param string $groupId
+     * @return Cursor
+     */
+    public function findByGroup($groupId)
+    {
+        return $this->findBy(array('group' => $groupId));
     }
 }

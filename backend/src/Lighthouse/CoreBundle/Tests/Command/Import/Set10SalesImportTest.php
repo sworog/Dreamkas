@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
 use Lighthouse\CoreBundle\Command\Import\Set10SalesImport;
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Set10Import;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10Import;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -61,18 +61,12 @@ class Set10SalesImportTest extends WebTestCase
         );
 
         $tmpDir = $this->createTempDir();
-        $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml',
-            $tmpDir
-        );
-        $file2 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml',
-            $tmpDir
-        );
+        $file1 = $this->copyFixtureFileToDir('purchases-14-05-2012_9-18-29.xml', $tmpDir);
+        $file2 = $this->copyFixtureFileToDir('purchases-13-09-2013_15-09-26.xml', $tmpDir);
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
-        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
 
@@ -81,7 +75,7 @@ class Set10SalesImportTest extends WebTestCase
         $this->assertContains(basename($file1), $display);
         $this->assertContains("...\n", $display);
         $this->assertContains(basename($file2), $display);
-        $this->assertContains(".V............SSS...\n", $display);
+        $this->assertContains(".V............V.....\n", $display);
 
         $this->assertFileNotExists($file1);
         $this->assertFileNotExists($file2);
@@ -89,7 +83,7 @@ class Set10SalesImportTest extends WebTestCase
         /* @var ConfigRepository $configRepository */
         $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
         $cursor = $configRepository->findAll();
-        $this->assertCount(1, $cursor);
+        $this->assertCount(2, $cursor);
     }
 
     /**
@@ -101,7 +95,7 @@ class Set10SalesImportTest extends WebTestCase
     {
         $this->createConfig(Set10Import::URL_CONFIG_NAME, $url);
 
-        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
     }
@@ -124,14 +118,11 @@ class Set10SalesImportTest extends WebTestCase
     public function testInvalidDirectoryIsFile()
     {
         $tmpDir = $this->createTempDir();
-        $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml',
-            $tmpDir
-        );
+        $file1 = $this->copyFixtureFileToDir('purchases-14-05-2012_9-18-29.xml', $tmpDir);
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $file1);
 
-        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
     }
@@ -139,15 +130,12 @@ class Set10SalesImportTest extends WebTestCase
     public function testImportInvalidXmlFile()
     {
         $tmpDir = $this->createTempDir();
-        $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-invalid.xml',
-            $tmpDir
-        );
+        $file1 = $this->copyFixtureFileToDir('purchases-invalid.xml', $tmpDir);
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
         /* @var Set10SalesImport $command */
-        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
 
@@ -177,26 +165,14 @@ class Set10SalesImportTest extends WebTestCase
         );
 
         $tmpDir = $this->createTempDir();
-        $file1 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-invalid.xml',
-            $tmpDir,
-            'checks-'
-        );
-        $file2 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-14-05-2012_9-18-29.xml',
-            $tmpDir
-        );
-        $file3 = $this->copyFixtureFileToDir(
-            'Integration/Set10/ImportSales/purchases-13-09-2013_15-09-26.xml',
-            $tmpDir,
-            'purchases-',
-            'ico'
-        );
+        $file1 = $this->copyFixtureFileToDir('purchases-invalid.xml', $tmpDir, 'checks-');
+        $file2 = $this->copyFixtureFileToDir('purchases-14-05-2012_9-18-29.xml', $tmpDir);
+        $file3 = $this->copyFixtureFileToDir('purchases-13-09-2013_15-09-26.xml', $tmpDir, 'purchases-', 'ico');
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
         /* @var Set10SalesImport $command */
-        $command = $this->getContainer()->get('lighthouse.core.command.integration.sales_import');
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
 
@@ -231,7 +207,7 @@ class Set10SalesImportTest extends WebTestCase
      */
     protected function copyFixtureFileToDir($file, $dir, $prefix = 'purchases-', $extension = 'xml')
     {
-        $source = $this->getFixtureFilePath($file);
+        $source = $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $file);
         $destination = $dir . '/' . uniqid($prefix) . '.' . $extension;
         copy($source, $destination);
         return $destination;

@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Factory;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Versionable\VersionRepository;
 
 class WriteOffProductControllerTest extends WebTestCase
 {
@@ -743,6 +744,7 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->createWriteOffProduct($writeOffId, $productId);
 
+        /* @var VersionRepository $productVersionRepository*/
         $productVersionRepository = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
 
         $productVersions = $productVersionRepository->findAllByDocumentId($productId);

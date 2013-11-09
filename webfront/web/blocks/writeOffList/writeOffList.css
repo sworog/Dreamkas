@@ -1,0 +1,9 @@
+.writeOffList__item{
+    border: 1px solid #eee;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.writeOffList__item:hover {
+    border-color: #ccc;
+}
