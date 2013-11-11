@@ -29,7 +29,7 @@ class Set10SalesImportTest extends WebTestCase
      */
     protected function getDirPrefix()
     {
-        return $this->prefix . $this->getPoolPosition();
+        return $this->prefix . $this->getPoolPosition() . '_';
     }
 
     protected function clearTempFiles()
