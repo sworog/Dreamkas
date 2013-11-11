@@ -65,4 +65,12 @@ public class Waiter {
             return false;
         }
     }
+
+    public Boolean isElementVisible(By findBy) {
+        try {
+            return getPresentWebElement(findBy).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

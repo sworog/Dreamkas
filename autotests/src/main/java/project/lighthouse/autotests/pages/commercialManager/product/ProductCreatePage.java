@@ -100,7 +100,7 @@ public class ProductCreatePage extends CommonPageObject {
     public void retailPriceHintClick() {
         By retailPriceHintFindBy = items.get("retailPriceHint").getFindBy();
         By retailMarkupHintFindBy = items.get("retailMarkupHint").getFindBy();
-        if (isElementVisible(retailPriceHintFindBy) && !isElementVisible(retailMarkupHintFindBy)) {
+        if (waiter.isElementVisible(retailPriceHintFindBy) && !waiter.isElementVisible(retailMarkupHintFindBy)) {
             findVisibleElement(retailPriceHintFindBy).click();
         }
     }
