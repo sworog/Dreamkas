@@ -18,7 +18,10 @@ public class StaticData {
     public static HashMap<String, Department> departments = new HashMap<>();
     public static HashMap<String, OauthAuthorizeData> userTokens = new HashMap<>();
     public static HashMap<String, ArrayList<Product>> subCategoryProducts = new HashMap<>();
-    public static Integer TIMEOUT = 5000;
+
+    public static Integer DEFAULT_TIMEOUT = 10;
+    public static Integer DEFAULT_PRE_LOADER_TIMEOUT = 5;
+
     public static String WEB_DRIVER_BASE_URL;
 
     public static String retailMarkupMax;

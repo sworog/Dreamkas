@@ -2,6 +2,7 @@ package project.lighthouse.autotests.elements;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.Waiter;
 
 public class PreLoader {
@@ -12,7 +13,7 @@ public class PreLoader {
 
     public PreLoader(WebDriver driver) {
         this.driver = driver;
-        waiter = new Waiter(driver, 5);
+        waiter = new Waiter(driver, StaticData.DEFAULT_PRE_LOADER_TIMEOUT);
     }
 
     public void await() {

@@ -15,7 +15,7 @@ public class Waiter {
     WebDriverWait waiter;
 
     public Waiter(WebDriver driver) {
-        this(driver, StaticData.TIMEOUT / 1000);
+        this(driver, StaticData.DEFAULT_TIMEOUT);
     }
 
     public Waiter(WebDriver driver, long timeout) {
