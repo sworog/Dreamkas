@@ -620,4 +620,4 @@ When the user inputs '1' in the 'writeOff product quantity' field on the write o
 And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Не более 1000 |
+| Не более 1000 символов |

@@ -664,7 +664,7 @@ Then the user checks 'inline writeOff cause' write off field contains only '1001
 When the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Не более 1000 |
+| Не более 1000 символов |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
