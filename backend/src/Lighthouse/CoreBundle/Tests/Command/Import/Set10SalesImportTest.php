@@ -3,10 +3,13 @@
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
 use Lighthouse\CoreBundle\Command\Import\Set10SalesImport;
-use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
+use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10Import;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use DirectoryIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class Set10SalesImportTest extends WebTestCase
 {
@@ -31,13 +34,13 @@ class Set10SalesImportTest extends WebTestCase
 
     protected function clearTempFiles()
     {
-        $tmp = new \DirectoryIterator('/tmp/');
-        /* @var \DirectoryIterator $dir */
+        $tmp = new DirectoryIterator('/tmp/');
+        /* @var DirectoryIterator $dir */
         foreach ($tmp as $dir) {
             if ($dir->isDir() && 0 === strpos($dir->getFilename(), $this->getDirPrefix())) {
-                $it = new \RecursiveDirectoryIterator($dir->getPathname());
+                $it = new RecursiveDirectoryIterator($dir->getPathname());
                 /* @var \SplFileInfo $file */
-                foreach (new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST) as $file) {
+                foreach (new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST) as $file) {
                     if ($file->isFile()) {
                         unlink($file->getPathname());
                     }
@@ -88,9 +91,9 @@ class Set10SalesImportTest extends WebTestCase
         $this->assertFileNotExists($file1);
         $this->assertFileNotExists($file2);
 
-        /* @var ConfigRepository $configRepository */
-        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
-        $cursor = $configRepository->findAll();
+        /* @var LogRepository $logRepository */
+        $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $logRepository->findAll();
         $this->assertCount(2, $cursor);
     }
 
