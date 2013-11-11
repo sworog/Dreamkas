@@ -167,23 +167,9 @@ class RoundingControllerTest extends WebTestCase
             'invalid string' => array(
                 'aaaa',
                 array(
-                    'children.price.errors.0' => 'Цена не должна быть меньше или равна нулю.'
+                    'children.price.errors.0' => 'Цена не должна быть меньше или равна нулю'
                 )
             ),
-            /*
-            'no price' => array(
-                null,
-                array(
-                    'children.price.errors.0' => 'a'
-                )
-            ),
-            'empty price' => array(
-                '',
-                array(
-                    'children.price.errors.0' => 'a'
-                )
-            )
-            */
         );
     }
 }

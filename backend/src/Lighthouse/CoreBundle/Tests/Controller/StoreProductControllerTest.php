@@ -293,7 +293,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена не должна быть меньше или равна нулю.',
+                    'children.retailPrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
                     'children.retailMarkup.errors.1' => null,
                     'children.retailMarkup.errors' => null,
                 )
@@ -305,7 +305,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой.',
+                    'children.retailPrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
                     'children.retailMarkup.errors.1' => null,
                     'children.retailMarkup.errors' => null,
                 )
@@ -343,78 +343,6 @@ class StoreProductControllerTest extends WebTestCase
                     'subCategory' => null,
                 )
             ),
-            /*
-            'invalid markup less than 0 when no min max product markup provided' => array(
-                400,
-                array(
-                    'retailMarkup' => -2,
-                    'retailPricePreference' => 'retailMarkup',
-                ),
-                array(
-                    'children.retailMarkup.errors.0' => 'Наценка должна быть больше или равна 0%',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailPrice.errors' => null,
-                ),
-                array(
-                    'retailMarkupMin' => null,
-                    'retailMarkupMax' => null,
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            'valid markup equals 0 when no min max product markup provided' => array(
-                200,
-                array(
-                    'retailMarkup' => 0,
-                    'retailPricePreference' => 'retailMarkup',
-                ),
-                array(
-                    'retailMarkup' => 0,
-                    'retailPrice' => '30.48',
-                    'children' => null,
-                ),
-                array(
-                    'retailMarkupMin' => null,
-                    'retailMarkupMax' => null,
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            'invalid price less than purchasePrice when no min max product markup provided' => array(
-                400,
-                array(
-                    'retailPrice' => 30.45,
-                    'retailPricePreference' => 'retailPrice',
-                ),
-                array(
-                    'children.retailPrice.errors.0' => 'Цена продажи должна быть больше или равна цене закупки.',
-                    'children.retailPrice.errors.1' => null,
-                    'children.retailMarkup.errors' => null,
-                ),
-                array(
-                    'purchasePrice' => 30.48,
-                    'retailMarkupMin' => null,
-                    'retailMarkupMax' => null,
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            'valid price equals purchasePrice when no min max product markup provided' => array(
-                200,
-                array(
-                    'retailPrice' => 30.48,
-                    'retailPricePreference' => 'retailPrice',
-                ),
-                array(
-                    'retailPrice' => '30.48',
-                    'retailMarkup' => '0',
-                    'children' => null,
-                ),
-                array(
-                    'purchasePrice' => 30.48,
-                    'retailMarkupMin' => null,
-                    'retailMarkupMax' => null,
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            */
             'invalid retail price entered when no min max product markup provided' => array(
                 400,
                 array(
