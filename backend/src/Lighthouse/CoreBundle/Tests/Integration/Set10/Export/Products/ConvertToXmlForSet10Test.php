@@ -178,7 +178,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
             'retailPricePreference' => 'retailMarkup',
         );
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $storeManager1AccessToken,
             'PUT',
             '/api/1/stores/' . $storesData[1]['id'] . '/products/' . $productsData[1]['id'],
@@ -192,7 +192,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
             'retailPricePreference' => 'retailPrice',
         );
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $storeManager2AccessToken,
             'PUT',
             '/api/1/stores/' . $storesData[2]['id'] . '/products/' . $productsData[3]['id'],
@@ -426,7 +426,7 @@ EOF;
 
     public function testWriteRemoteFile()
     {
-        $productData = $this->initBase();
+        $this->initBase();
 
         $xmlFilePath = "/tmp/lighthouse_unit_test";
         if (file_exists($xmlFilePath)) {

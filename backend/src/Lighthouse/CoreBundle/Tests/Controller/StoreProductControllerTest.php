@@ -431,7 +431,7 @@ class StoreProductControllerTest extends WebTestCase
     {
         $accessToken = $this->auth($this->storeManager, 'password');
 
-        $getResponse = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/stores/' . $this->storeId . '/products/' . $this->productId

@@ -528,7 +528,7 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetUserStoreNotFound()
     {
-        $storeId1 = $this->createStore();
+        $this->createStore();
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
 
         $accessToken = $this->auth($storeUser1);
@@ -550,7 +550,7 @@ class StoreControllerManagementTest extends WebTestCase
      */
     public function testGetUserStoreForbidden($role)
     {
-        $storeId1 = $this->createStore();
+        $this->createStore();
         $storeUser1 = $this->createUser('user1', 'password', $role);
 
         $accessToken = $this->auth($storeUser1);

@@ -86,7 +86,7 @@ class CreateUserTest extends ContainerAwareTestCase
 
         $this->assertEquals(0, $exitCode1);
 
-        $exitCode2 = $commandTester->execute($input);
+        $commandTester->execute($input);
     }
 
     /**

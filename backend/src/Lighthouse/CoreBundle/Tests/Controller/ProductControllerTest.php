@@ -118,7 +118,7 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'POST',
             '/api/1/products'
@@ -135,7 +135,7 @@ class ProductControllerTest extends WebTestCase
 
         $postData['subCategory'] = $this->createSubCategory();
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'POST',
             '/api/1/products',
@@ -303,7 +303,7 @@ class ProductControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathContains('Эта форма не должна содержать дополнительных полей', 'errors.0', $response);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/products/' . $newId
@@ -311,7 +311,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(404);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/products/' . $id
@@ -421,7 +421,7 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/products/1111'
@@ -482,7 +482,7 @@ class ProductControllerTest extends WebTestCase
         for ($i = 0; $i < 5; $i++) {
             $postData['name'] = 'Кефир' . $i;
             $postData['sku'] = 'sku' . $i;
-            $response = $this->clientJsonRequest(
+            $this->clientJsonRequest(
                 $accessToken,
                 'POST',
                 '/api/1/products',

@@ -1129,8 +1129,8 @@ class SubCategoryControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
-        Assert::assertJsonPathEquals('nearest50', 'category.rounding.name', $postResponse);
-        Assert::assertJsonPathEquals('nearest50', 'category.group.rounding.name', $postResponse);
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $getResponse);
+        Assert::assertJsonPathEquals('nearest50', 'category.rounding.name', $getResponse);
+        Assert::assertJsonPathEquals('nearest50', 'category.group.rounding.name', $getResponse);
     }
 }

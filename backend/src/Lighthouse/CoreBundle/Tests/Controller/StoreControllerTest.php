@@ -34,7 +34,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testStoreUnique()
     {
-        $storeId = $this->createStore("42");
+        $this->createStore("42");
 
         $storeData = array(
             'number' => '42',
@@ -346,7 +346,7 @@ class StoreControllerTest extends WebTestCase
             );
         }
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             $method,
             $url,

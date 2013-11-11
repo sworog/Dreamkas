@@ -158,7 +158,7 @@ class ConfigControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('test-config-value', 'value', $response);
         Assert::assertJsonPathEquals($configId, 'id', $response);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/configs/by/name' . '?query=not-exists'

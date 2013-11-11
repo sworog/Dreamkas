@@ -165,7 +165,7 @@ class UserControllerTest extends WebTestCase
             'password'  => '',
         );
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'PUT',
             '/api/1/users/' . $id,

@@ -309,14 +309,14 @@ class GroupControllerTest extends WebTestCase
         $categoryId1 = $this->createCategory($groupId, '1.1');
         $categoryId2 = $this->createCategory($groupId, '1.2');
 
-        $subCategory1 = $this->createSubCategory($categoryId1, '1.1.1');
-        $subCategory2 = $this->createSubCategory($categoryId1, '1.1.2');
-        $subCategory3 = $this->createSubCategory($categoryId1, '1.1.3');
+        $this->createSubCategory($categoryId1, '1.1.1');
+        $this->createSubCategory($categoryId1, '1.1.2');
+        $this->createSubCategory($categoryId1, '1.1.3');
 
-        $subCategory4 = $this->createSubCategory($categoryId2, '1.2.1');
-        $subCategory5 = $this->createSubCategory($categoryId2, '1.2.2');
-        $subCategory6 = $this->createSubCategory($categoryId2, '1.2.3');
-        $subCategory7 = $this->createSubCategory($categoryId2, '1.2.4');
+        $this->createSubCategory($categoryId2, '1.2.1');
+        $this->createSubCategory($categoryId2, '1.2.2');
+        $this->createSubCategory($categoryId2, '1.2.3');
+        $this->createSubCategory($categoryId2, '1.2.4');
 
         $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
 

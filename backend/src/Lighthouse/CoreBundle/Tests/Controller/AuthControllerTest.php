@@ -107,7 +107,7 @@ class AuthControllerTest extends WebTestCase
     {
         $authClient = $this->createAuthClient();
 
-        $user = $this->createUser('test', 'password');
+        $this->createUser('test', 'password');
 
         $authParams = array(
             'grant_type' => 'password',

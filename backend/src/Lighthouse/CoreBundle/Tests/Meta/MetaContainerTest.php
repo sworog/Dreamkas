@@ -113,7 +113,7 @@ class MetaContainerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $products = $this->createProductsBySku(array('1', '2', '3'));
+        $this->createProductsBySku(array('1', '2', '3'));
 
         $mockMetaGeneratorOne = $this->getMock(
             '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'

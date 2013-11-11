@@ -199,8 +199,6 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $manager = $this->getManager();
         /** @var \Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
-        /** @var \Lighthouse\CoreBundle\Document\Product\ProductRepository $productRepository */
-        $productRepository = $this->getContainer()->get('lighthouse.core.document.repository.product');
 
         $product = $this->createProduct();
         $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
@@ -284,6 +282,10 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $manager->flush($writeOffProduct);
 
         $afterEditTrialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
+
+        $this->assertEquals(77.99, $afterEditTrialBalance->price->getCount());
+        $this->assertEquals(-7, $afterEditTrialBalance->quantity);
+        $this->assertEquals(545.93, $afterEditTrialBalance->totalPrice->getCount());
 
         $this->assertEquals(77.99, $trialBalance->price->getCount());
         $this->assertEquals(-7, $trialBalance->quantity);

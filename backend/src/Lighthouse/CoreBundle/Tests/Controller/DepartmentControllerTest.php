@@ -385,7 +385,7 @@ class DepartmentControllerTest extends WebTestCase
                 );
         }
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             $method,
             $url,

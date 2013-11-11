@@ -1080,7 +1080,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->storeId,
             $this->departmentManager
         );
-        $invoiceProductIdOld = $this->createInvoiceProduct($invoiceIdOld, $productId, 10, 23.33);
+        $this->createInvoiceProduct($invoiceIdOld, $productId, 10, 23.33);
 
         $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
         $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67);
