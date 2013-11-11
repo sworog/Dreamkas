@@ -243,7 +243,7 @@ Then the user checks 'name' pop up field contains only '101' symbols
 When the user clicks the create new group button in pop up
 Then the user sees error messages
 | error message |
-| Не более 100 |
+| Не более 100 символов |
 
 Scenario: Category validation name is required
 
@@ -301,7 +301,7 @@ Then the user checks 'name' pop up field contains only '101' symbols
 When the user accept pop up menu changes
 Then the user sees error messages
 | error message |
-| Не более 100 |
+| Не более 100 символов |
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
@@ -366,7 +366,7 @@ Then the user checks 'name' pop up field contains only '101' symbols
 When the user accept pop up menu changes
 Then the user sees error messages
 | error message |
-| Не более 100 |
+| Не более 100 символов |
 When the user clicks on end edition link and ends the edition
 And the user logs out
 
