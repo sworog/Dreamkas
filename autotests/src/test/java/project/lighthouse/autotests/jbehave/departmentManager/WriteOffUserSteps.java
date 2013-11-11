@@ -145,11 +145,6 @@ public class WriteOffUserSteps {
         writeOffSteps.createInvoiceLinkClick();
     }
 
-    @When("the user goes to the write off list page by clicking the link")
-    public void goToTheWriteOffListPage() {
-        writeOffSteps.goToTheWriteOffListPage();
-    }
-
     @Then("the user checks write off elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
         writeOffSteps.checkCardValue("", checkValuesTable);

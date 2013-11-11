@@ -201,11 +201,6 @@ public class WriteOffSteps extends ScenarioSteps {
     }
 
     @Step
-    public void goToTheWriteOffListPage() {
-        writeOffListPage.goToTheWriteOffListPage();
-    }
-
-    @Step
     public void searchLinkClick() {
         writeOffLocalNavigation.searchLinkClick();
     }
