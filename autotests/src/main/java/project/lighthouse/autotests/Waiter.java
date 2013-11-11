@@ -11,15 +11,13 @@ import java.util.List;
 
 public class Waiter {
 
-    WebDriver driver;
-    WebDriverWait waiter;
+    private WebDriverWait waiter;
 
     public Waiter(WebDriver driver) {
         this(driver, StaticData.DEFAULT_TIMEOUT);
     }
 
     public Waiter(WebDriver driver, long timeout) {
-        this.driver = driver;
         waiter = new WebDriverWait(driver, timeout);
     }
 

@@ -74,7 +74,7 @@ public class AuthorizationPage extends UserCreatePage {
 
     public void checkUser(String userName) {
         String userXpath = "//*[@class='navigationBar__userName']";
-        String actualUserName = find(By.xpath(userXpath)).getText();
+        String actualUserName = findVisibleElement(By.xpath(userXpath)).getText();
         assertEquals(
                 String.format("The user name is '%s'. Should be '%s'.", actualUserName, userName),
                 userName, actualUserName

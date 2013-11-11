@@ -7,12 +7,10 @@ import project.lighthouse.autotests.Waiter;
 
 public class PreLoader {
 
-    WebDriver driver;
-    Waiter waiter;
+    private Waiter waiter;
     private static final String PRE_LOADER_XPATH = "//*[*[contains(@class, 'preloader_rows')] and *[not(contains(@class, 'preloader_spinner'))]]";
 
     public PreLoader(WebDriver driver) {
-        this.driver = driver;
         waiter = new Waiter(driver, StaticData.DEFAULT_PRE_LOADER_TIMEOUT);
     }
 
