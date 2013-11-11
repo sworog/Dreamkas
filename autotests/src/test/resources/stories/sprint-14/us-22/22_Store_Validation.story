@@ -17,7 +17,7 @@ Given there is created store and user starts to edit it and fills form with
 | number | @ $% |
 Then the user sees error messages
 | error message |
-| Значение недопустимо |
+| Значение недопустимо. |
 
 Scenario: Empty store number
 

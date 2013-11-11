@@ -10,14 +10,14 @@ Meta:
 @us 23
 @debug us:23:validation
 
-Scenario: Invalid store number
+Scenario: Invalid department number
 
 Given there is created department and user starts to edit it and fills form with
 | elementName | value |
 | number | @ $% |
 Then the user sees error messages
 | error message |
-| Значение недопустимо |
+| Значение недопустимо. |
 
 Scenario: Empty department number
 
