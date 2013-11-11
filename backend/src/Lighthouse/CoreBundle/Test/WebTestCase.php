@@ -544,13 +544,13 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $storeId
      * @param string $productId
-     * @param int $amount
+     * @param int $inventory
      * @param float $lastPurchasePrice
      */
-    protected function assertStoreProductTotals($storeId, $productId, $amount, $lastPurchasePrice = null)
+    protected function assertStoreProductTotals($storeId, $productId, $inventory, $lastPurchasePrice = null)
     {
         $assertions = array(
-            'amount' => $amount,
+            'inventory' => $inventory,
             'lastPurchasePrice' => $lastPurchasePrice
         );
 

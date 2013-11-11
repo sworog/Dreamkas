@@ -88,27 +88,27 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
         $storeProduct = $storeProductRepository->findByStoreIdProductId($store->id, $product->id);
 
-        $this->assertEquals(10, $storeProduct->amount);
+        $this->assertEquals(10, $storeProduct->inventory);
 
         $invoiceProduct->quantity = 3;
         $manager->persist($invoiceProduct);
         $manager->flush();
 
         $storeProductRepository->refresh($storeProduct);
-        $this->assertEquals(3, $storeProduct->amount);
+        $this->assertEquals(3, $storeProduct->inventory);
 
         $invoiceProduct->quantity = 4;
         $manager->persist($invoiceProduct);
         $manager->flush();
 
         $storeProductRepository->refresh($storeProduct);
-        $this->assertEquals(4, $storeProduct->amount);
+        $this->assertEquals(4, $storeProduct->inventory);
 
         $manager->remove($invoiceProduct);
         $manager->flush();
 
         $storeProductRepository->refresh($storeProduct);
-        $this->assertEquals(0, $storeProduct->amount);
+        $this->assertEquals(0, $storeProduct->inventory);
 
         $invoiceProduct1 = new InvoiceProduct();
         $invoiceProduct1->price = new Money(1111);
@@ -127,7 +127,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $manager->flush();
 
         $storeProductRepository->refresh($storeProduct);
-        $this->assertEquals(15, $storeProduct->amount);
+        $this->assertEquals(15, $storeProduct->inventory);
         $this->assertEquals(2222, $storeProduct->lastPurchasePrice->getCount());
 
         // Purchase
@@ -145,7 +145,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $manager->flush();
 
         $storeProductRepository->refresh($storeProduct);
-        $this->assertEquals(10, $storeProduct->amount);
+        $this->assertEquals(10, $storeProduct->inventory);
 
         $saleProduct2 = new SaleProduct();
         $saleProduct2->product = $productVersion;
@@ -161,6 +161,6 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $manager->flush();
 
         $storeProductRepository->refresh($storeProduct);
-        $this->assertEquals(-2, $storeProduct->amount);
+        $this->assertEquals(-2, $storeProduct->inventory);
     }
 }

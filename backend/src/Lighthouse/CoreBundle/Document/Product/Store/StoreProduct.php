@@ -9,7 +9,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\StoreProduct\RetailPrice as AssertRetailPrice;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @property Money  $retailPrice
@@ -19,7 +19,7 @@ use JMS\Serializer\Annotation\Exclude;
  * @property Product $product
  * @property SubCategory $subCategory
  * @property Store  $store
- * @property int    $amount
+ * @property int    $inventory
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository"
@@ -32,7 +32,7 @@ class StoreProduct extends AbstractDocument
     /**
      * @MongoDB\Id(strategy="NONE")
      * @var string
-     * @Exclude
+     * @Serializer\Exclude
      */
     protected $id;
 
@@ -77,7 +77,7 @@ class StoreProduct extends AbstractDocument
      *     cascade="persist"
      * )
      * @var SubCategory
-     * @Exclude
+     * @Serializer\Exclude
      */
     protected $subCategory;
 
@@ -96,7 +96,19 @@ class StoreProduct extends AbstractDocument
      * @MongoDB\Increment
      * @var int
      */
-    protected $amount = 0;
+    protected $inventory = 0;
+
+    /**
+     * @MongoDB\Float
+     * @var float
+     */
+    protected $inventoryRatio;
+
+    /**
+     * @MongoDB\Float
+     * @var float
+     */
+    protected $inventoryDays;
 
     /**
      * @MongoDB\Field(type="money")
@@ -109,4 +121,13 @@ class StoreProduct extends AbstractDocument
      * @var Money
      */
     protected $averagePurchasePrice;
+
+    /**
+     * @Serializer\VirtualProperty
+     * @return int
+     */
+    public function getAmount()
+    {
+        return $this->inventory;
+    }
 }

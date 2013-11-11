@@ -37,8 +37,8 @@ class SalesImporterTest extends WebTestCase
         $this->assertContains('Errors', $lines[1]);
         $this->assertContains('products[1].quantity', $lines[2]);
 
-        foreach ($skuAmounts as $sku => $amount) {
-            $this->assertStoreProductTotals($storeId, $productIds[$sku], $amount);
+        foreach ($skuAmounts as $sku => $inventory) {
+            $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
         }
     }
 
@@ -140,8 +140,8 @@ class SalesImporterTest extends WebTestCase
         $lines = $output->getLines();
         $this->assertCount(1, $lines);
 
-        foreach ($skuAmounts as $sku => $amount) {
-            $this->assertStoreProductTotals($storeId, $productIds[$sku], $amount);
+        foreach ($skuAmounts as $sku => $inventory) {
+            $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
         }
     }
 

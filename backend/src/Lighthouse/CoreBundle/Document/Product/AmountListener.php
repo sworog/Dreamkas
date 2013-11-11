@@ -43,7 +43,7 @@ class AmountListener extends AbstractMongoDBListener
         if ($document instanceof Reasonable) {
             $storeProduct = $this->getStoreProduct($document);
             $sign = ($document->increaseAmount()) ? 1 : -1;
-            $storeProduct->amount = $storeProduct->amount + ($document->getProductQuantity() * $sign);
+            $storeProduct->inventory = $storeProduct->inventory + ($document->getProductQuantity() * $sign);
             $eventArgs->getDocumentManager()->persist($storeProduct);
         }
     }
@@ -58,7 +58,7 @@ class AmountListener extends AbstractMongoDBListener
         if ($document instanceof Reasonable) {
             $storeProduct = $this->getStoreProduct($document);
             $sign = ($document->increaseAmount()) ? 1 : -1;
-            $storeProduct->amount = $storeProduct->amount - ($document->getProductQuantity() * $sign);
+            $storeProduct->inventory = $storeProduct->inventory - ($document->getProductQuantity() * $sign);
         }
     }
 
@@ -97,10 +97,10 @@ class AmountListener extends AbstractMongoDBListener
             $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $document->getProductQuantity();
             $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $document->getProductQuantity();
 
-            $oldProduct->amount = $oldProduct->amount + $oldQuantity * $sign;
+            $oldProduct->inventory = $oldProduct->inventory + $oldQuantity * $sign;
             $this->computeChangeSet($dm, $oldProduct);
 
-            $newProduct->amount = $newProduct->amount - $newQuantity * $sign;
+            $newProduct->inventory = $newProduct->inventory - $newQuantity * $sign;
             $dm->persist($newProduct);
             $this->computeChangeSet($dm, $newProduct);
         } else {
@@ -111,7 +111,7 @@ class AmountListener extends AbstractMongoDBListener
             }
 
             $storeProduct = $this->getStoreProduct($document);
-            $storeProduct->amount = $storeProduct->amount + $quantityDiff;
+            $storeProduct->inventory = $storeProduct->inventory + $quantityDiff;
             $this->computeChangeSet($dm, $storeProduct);
         }
     }

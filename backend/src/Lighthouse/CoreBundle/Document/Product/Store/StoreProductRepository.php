@@ -329,7 +329,6 @@ class StoreProductRepository extends DocumentRepository
         $query = $this
             ->createQueryBuilder()
             ->findAndUpdate()
-            //->returnNew(true)
             ->field('id')->equals($storeProductId)
             ->field('averagePurchasePrice')->set($roundedAveragePurchasePrice, true)
             ->field('averagePurchasePriceNotCalculate')->unsetField();

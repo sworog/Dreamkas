@@ -9,6 +9,8 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use MongoId;
+use MongoDate;
+use MongoCode;
 
 class TrialBalanceRepository extends DocumentRepository
 {
@@ -96,8 +98,8 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function calculateAveragePurchasePrice()
     {
-        $dateStart = new \MongoDate(strtotime("-30 day 00:00"));
-        $dateEnd = new \MongoDate(strtotime("00:00"));
+        $dateStart = new MongoDate(strtotime("-30 day 00:00"));
+        $dateEnd = new MongoDate(strtotime("00:00"));
 
         $query = $this
             ->createQueryBuilder()
@@ -105,7 +107,7 @@ class TrialBalanceRepository extends DocumentRepository
             ->field('createdDate')->lt($dateEnd)
             ->field('reason.$ref')->equals('InvoiceProduct')
             ->map(
-                new \MongoCode(
+                new MongoCode(
                     "function() {
                         emit(
                             this.storeProduct,
@@ -118,7 +120,7 @@ class TrialBalanceRepository extends DocumentRepository
                 )
             )
             ->reduce(
-                new \MongoCode(
+                new MongoCode(
                     "function(storeProductId, obj) {
                         var reducedObj = {totalPrice: 0, quantity: 0}
                         for (var item in obj) {
@@ -130,7 +132,7 @@ class TrialBalanceRepository extends DocumentRepository
                 )
             )
             ->finalize(
-                new \MongoCode(
+                new MongoCode(
                     "function(storeProductId, obj) {
                         if (obj.quantity > 0) {
                             obj.averagePrice = obj.totalPrice / obj.quantity;
