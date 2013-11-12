@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Types;
 use DateTime;
 use MongoTimestamp;
 use MongoDate;
+use DateTimeZone;
 
 class DateTimestamp extends DateTime
 {
@@ -13,7 +14,18 @@ class DateTimestamp extends DateTime
      */
     public $inc;
 
-
+    /**
+     * @param string $time
+     * @param DateTimeZone $timezone
+     */
+    public function __construct($time = 'now', DateTimeZone $timezone = null)
+    {
+        if ($time instanceof DateTime) {
+            $timezone = ($timezone) ?: $time->getTimezone();
+            $time = '@' . $time->getTimestamp();
+        }
+        parent::__construct($time, $timezone);
+    }
 
     /**
      * @return string

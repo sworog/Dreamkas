@@ -25,4 +25,12 @@ class DocumentRepository extends BaseRepository
         $this->getDocumentManager()->persist($document);
         $this->getDocumentManager()->flush($document);
     }
+
+    /**
+     * @return bool
+     */
+    public function isCollectionEmpty()
+    {
+        return $this->findAll()->limit(1)->count() == 0;
+    }
 }

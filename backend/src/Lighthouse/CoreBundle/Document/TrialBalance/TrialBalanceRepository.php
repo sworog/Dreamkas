@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Types\DatePeriod;
 use Lighthouse\CoreBundle\Types\DateTimestamp;
 use MongoId;
 use MongoDate;
@@ -100,13 +101,16 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function calculateAveragePurchasePrice()
     {
-        $dateStart = new MongoDate(strtotime("-30 day 00:00"));
-        $dateEnd = new MongoDate(strtotime("00:00"));
+        if ($this->isCollectionEmpty()) {
+            return array();
+        }
+
+        $datePeriod = new DatePeriod("-30 day 00:00", "00:00");
 
         $query = $this
             ->createQueryBuilder()
-            ->field('createdDate')->gt($dateStart)
-            ->field('createdDate')->lt($dateEnd)
+            ->field('createdDate')->gt($datePeriod->getStartDate()->getMongoDate())
+            ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
             ->field('reason.$ref')->equals(InvoiceProduct::REASON_TYPE)
             ->map(
                 new MongoCode(
@@ -156,14 +160,16 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function calculateInventoryRatio()
     {
-        $dateStart = new DateTimestamp(strtotime("-30 day 00:00"));
-        $dateEnd = new DateTimestamp(strtotime("00:00"));
-        $dateInterval = $dateEnd->diff($dateStart);
-        $days = $dateInterval->days;
+        if ($this->isCollectionEmpty()) {
+            return array();
+        }
+
+        $datePeriod = new DatePeriod("-30 day 00:00", "00:00");
+        $days = $datePeriod->diff()->days;
         $query = $this
             ->createQueryBuilder()
-            ->field('createdDate')->gt($dateStart->getMongoDate())
-            ->field('createdDate')->lt($dateEnd->getMongoDate())
+            ->field('createdDate')->gt($datePeriod->getStartDate()->getMongoDate())
+            ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
             ->field('reason.$ref')->equals(SaleProduct::REASON_TYPE)
             ->map(
                 new MongoCode(
