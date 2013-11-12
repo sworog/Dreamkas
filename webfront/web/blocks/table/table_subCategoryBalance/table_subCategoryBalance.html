@@ -22,60 +22,68 @@
         </td>
         <td>
             <div>
-                <div class="table_subCategoryBalance__valueHint">
-                    <span class="table__rowHiddenElement">
+                <div style="width: 100px; float: right;">
+                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
                         Остаток, <%= LH.modelNode(model, 'unitsFormatted') %>
                     </span>
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <%= LH.modelNode(model, 'amount') %>
+                    <%= LH.modelNode(model, 'amount') %><span class="table_subCategoryBalance__floatValue">,123</span>
                 </div>
             </div>
             <div>
-                <div class="table_subCategoryBalance__valueHint">
-                    <span class="table__rowHiddenElement">
+                <div style="width: 100px; float: right;">
+                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
                         ССО, <%= LH.modelNode(model, 'unitsFormatted') %>
                     </span>
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <%= LH.modelNode(model, 'amount') %>
+                    <%= LH.modelNode(model, 'amount') %><span class="table_subCategoryBalance__floatValue">,345</span>
                 </div>
             </div>
             <div>
-                <div class="table_subCategoryBalance__valueHint">
-                    <span class="table__rowHiddenElement">
+                <div style="width: 100px; float: right;">
+                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
                         УСЗ, дн.
                     </span>
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <%= LH.modelNode(model, 'amount') %>
+                    <%= LH.modelNode(model, 'amount') %><span class="table_subCategoryBalance__floatValue">,2</span>
                 </div>
             </div>
         </td>
         <td>
             <div>
-                <div class="table_subCategoryBalance__valueHint">
-                    <span class="table__rowHiddenElement">
+                <div style="width: 100px; float: right;">
+                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
                         Последняя
                     </span>
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <%= LH.modelNode(model, 'lastPurchasePriceFormatted') %>
+                    <% if (model.get('lastPurchasePrice') || model.get('product.purchasePrice')){ %>
+                        <%= LH.modelNode(model, 'lastPurchasePriceInt') %><span class="table_subCategoryBalance__floatValue">,<%= LH.modelNode(model, 'lastPurchasePriceFloat') %></span><span class="table_subCategoryBalance__valueHint">р.</span>
+                    <% } else { %>
+                        &mdash;
+                    <% } %>
                 </div>
             </div>
             <div>
-                <div class="table_subCategoryBalance__valueHint">
-                    <span class="table__rowHiddenElement">
+                <div style="width: 100px; float: right;">
+                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
                         Средняя
                     </span>
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <%= LH.modelNode(model, 'averagePurchasePriceFormatted') %>
+                    <% if (model.get('averagePurchasePrice')){ %>
+                        <%= LH.modelNode(model, 'averagePurchasePriceInt') %><span class="table_subCategoryBalance__floatValue">,<%= LH.modelNode(model, 'averagePurchasePriceFloat') %></span><span class="table_subCategoryBalance__valueHint">р.</span>
+                    <% } else { %>
+                        &mdash;
+                    <% } %>
                 </div>
             </div>
         </td>

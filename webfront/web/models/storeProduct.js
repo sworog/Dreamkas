@@ -23,7 +23,13 @@ define(function(require) {
             }),
             retailPricePreference: 'retailMarkup',
             averagePurchasePriceFormatted: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice){
-                return averagePurchasePrice ? (LH.formatPrice(averagePurchasePrice) + ' р.') : '&mdash;'
+                return averagePurchasePrice ? (LH.formatPrice(averagePurchasePrice) + ' р.') : '&mdash;';
+            }),
+            averagePurchasePriceInt: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice){
+                return averagePurchasePrice ? String.prototype.split.call(averagePurchasePrice, '.')[0] : '';
+            }),
+            averagePurchasePriceFloat: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice){
+                return averagePurchasePrice ? String.prototype.split.call(averagePurchasePrice, '.')[1] : '';
             }),
             purchasePriceFormatted: computeAttr(['product.purchasePrice'], function(purchasePrice){
                 return purchasePrice ? (LH.formatPrice(purchasePrice) + ' р.') : '&mdash;';
@@ -31,6 +37,14 @@ define(function(require) {
             lastPurchasePriceFormatted: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice){
                 var purchasePriceFormatted = this.get('product.purchasePrice') ? (LH.formatPrice(this.get('product.purchasePrice')) + ' р.') : '&mdash;';
                 return lastPurchasePrice ? (LH.formatPrice(lastPurchasePrice) + ' р.') : purchasePriceFormatted;
+            }),
+            lastPurchasePriceInt: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice){
+                lastPurchasePrice = lastPurchasePrice || this.get('product.purchasePrice');
+                return lastPurchasePrice ? String.prototype.split.call(lastPurchasePrice, '.')[0] : '';
+            }),
+            lastPurchasePriceFloat: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice){
+                lastPurchasePrice = lastPurchasePrice || this.get('product.purchasePrice');
+                return lastPurchasePrice ? String.prototype.split.call(lastPurchasePrice, '.')[1] : '';
             })
         },
         saveData: [
