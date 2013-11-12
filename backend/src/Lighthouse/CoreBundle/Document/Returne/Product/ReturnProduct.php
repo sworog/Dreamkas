@@ -30,6 +30,8 @@ use DateTime;
  */
 class ReturnProduct extends AbstractDocument implements Reasonable
 {
+    const REASON_TYPE = 'ReturnProduct';
+
     /**
      * @MongoDB\Id
      * @var string

@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Service\AveragePriceService;
+use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -934,8 +934,8 @@ class StoreProductControllerTest extends WebTestCase
 
         $this->createInvoiceProduct($invoiceId3, $productId1, 10, 31, $storeId, $departmentManager);
 
-        /* @var $averagePriceService AveragePriceService */
-        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        /* @var $averagePriceService StoreProductMetricsCalculator */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
         $accessToken = $this->factory->authAsStoreManager($storeId);

@@ -7,9 +7,9 @@ use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.service.average_price")
+ * @DI\Service("lighthouse.core.service.product.metrics_calculator")
  */
-class AveragePriceService
+class StoreProductMetricsCalculator
 {
     /**
      * @var StoreProductRepository
@@ -23,8 +23,8 @@ class AveragePriceService
 
     /**
      * @DI\InjectParams({
-     *     "storeProductRepository"=@DI\Inject("lighthouse.core.document.repository.store_product"),
-     *     "trialBalanceRepository"=@DI\Inject("lighthouse.core.document.repository.trial_balance")
+     *     "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
+     *     "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance")
      * })
      *
      * @param StoreProductRepository $storeProductRepository
@@ -48,5 +48,15 @@ class AveragePriceService
         }
 
         $this->storeProductRepository->resetAveragePurchasePriceNotCalculate();
+    }
+
+    public function recalculateInventoryRatio()
+    {
+        $this->storeProductRepository->setFieldToNotCalculate('inventoryRatio');
+        $results = $this->trialBalanceRepository->calculateInventoryRatio();
+        foreach ($results as $result) {
+            $this->storeProductRepository->updateInventoryRatio($results['_id'], $result['value']['inventoryRatio']);
+        }
+        $this->storeProductRepository->resetFieldNotCalculate('inventoryRatio');
     }
 }

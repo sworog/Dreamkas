@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use Lighthouse\CoreBundle\Security\PermissionExtractor;
-use Lighthouse\CoreBundle\Service\AveragePriceService;
+use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -15,8 +15,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class ServiceController extends FOSRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.service.average_price")
-     * @var AveragePriceService
+     * @DI\Inject("lighthouse.core.service.product.metrics_calculator")
+     * @var StoreProductMetricsCalculator
      */
     protected $averagePriceService;
 

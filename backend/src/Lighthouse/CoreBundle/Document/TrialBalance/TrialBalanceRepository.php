@@ -8,6 +8,8 @@ use Doctrine\ODM\MongoDB\Query\Query;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Types\DateTimestamp;
 use MongoId;
 use MongoDate;
 use MongoCode;
@@ -105,7 +107,7 @@ class TrialBalanceRepository extends DocumentRepository
             ->createQueryBuilder()
             ->field('createdDate')->gt($dateStart)
             ->field('createdDate')->lt($dateEnd)
-            ->field('reason.$ref')->equals('InvoiceProduct')
+            ->field('reason.$ref')->equals(InvoiceProduct::REASON_TYPE)
             ->map(
                 new MongoCode(
                     "function() {
@@ -141,6 +143,64 @@ class TrialBalanceRepository extends DocumentRepository
                         }
                         return obj;
                     }"
+                )
+            )
+            ->out(array('inline' => true));
+
+        return $query->getQuery()->execute();
+    }
+
+
+    /**
+     * @return array
+     */
+    public function calculateInventoryRatio()
+    {
+        $dateStart = new DateTimestamp(strtotime("-30 day 00:00"));
+        $dateEnd = new DateTimestamp(strtotime("00:00"));
+        $dateInterval = $dateEnd->diff($dateStart);
+        $days = $dateInterval->days;
+        $query = $this
+            ->createQueryBuilder()
+            ->field('createdDate')->gt($dateStart->getMongoDate())
+            ->field('createdDate')->lt($dateEnd->getMongoDate())
+            ->field('reason.$ref')->equals(SaleProduct::REASON_TYPE)
+            ->map(
+                new MongoCode(
+                    "function() {
+                        emit(
+                            this.storeProduct,
+                            {
+                                quantity: this.quantity
+                            }
+                        )
+                    }"
+                )
+            )
+            ->reduce(
+                new MongoCode(
+                    "function (storeProductId, obj) {
+                        var reducedObj = {quantity: 0}
+                        for (var item in obj) {
+                            reducedObj.quantity += obj[item].quantity;
+                        }
+                        return reducedObj;
+                    }"
+                )
+            )
+            ->finalize(
+                new MongoCode(
+                    sprintf(
+                        "function(storeProductId, obj) {
+                            if (obj.quantity > 0) {
+                                obj.inventoryRatio = obj.quantity / %d;
+                            } else {
+                                obj.inventoryRatio = null;
+                            }
+                            return obj;
+                        }",
+                        $days
+                    )
                 )
             )
             ->out(array('inline' => true));

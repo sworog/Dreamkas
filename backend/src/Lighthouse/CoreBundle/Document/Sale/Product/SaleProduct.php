@@ -29,6 +29,8 @@ use DateTime;
  */
 class SaleProduct extends AbstractDocument implements Reasonable
 {
+    const REASON_TYPE = 'SaleProduct';
+
     /**
      * @MongoDB\Id
      * @var string
@@ -138,7 +140,7 @@ class SaleProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonType()
     {
-        return 'SaleProduct';
+        return self::REASON_TYPE;
     }
 
     /**

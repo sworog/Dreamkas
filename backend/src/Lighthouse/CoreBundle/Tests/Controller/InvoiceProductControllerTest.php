@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Service\AveragePriceService;
+use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
@@ -1085,8 +1085,8 @@ class InvoiceProductControllerTest extends WebTestCase
         $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
         $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67);
 
-        /* @var $averagePriceService AveragePriceService */
-        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        /* @var $averagePriceService StoreProductMetricsCalculator */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 26));
@@ -1199,8 +1199,8 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
         $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67);
 
-        /* @var $averagePriceService AveragePriceService */
-        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        /* @var $averagePriceService StoreProductMetricsCalculator */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 24.67));
@@ -1224,8 +1224,8 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->createInvoiceProduct($invoiceId, $productId, 10, 26);
 
-        /* @var $averagePriceService AveragePriceService */
-        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        /* @var $averagePriceService StoreProductMetricsCalculator */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertStoreProduct(

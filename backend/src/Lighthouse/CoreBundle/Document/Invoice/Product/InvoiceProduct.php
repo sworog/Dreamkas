@@ -29,6 +29,8 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class InvoiceProduct extends AbstractDocument implements Reasonable
 {
+    const REASON_TYPE = 'InvoiceProduct';
+
     /**
      * @MongoDB\Id
      * @var string
@@ -141,7 +143,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonType()
     {
-        return 'InvoiceProduct';
+        return self::REASON_TYPE;
     }
 
     /**

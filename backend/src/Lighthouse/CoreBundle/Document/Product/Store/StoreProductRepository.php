@@ -338,23 +338,57 @@ class StoreProductRepository extends DocumentRepository
 
     public function setAllAveragePurchasePriceToNotCalculate()
     {
-        $query = $this->createQueryBuilder()
-            ->update()
-            ->multiple(true)
-            ->field('averagePurchasePrice')->notEqual(null)
-            ->field('averagePurchasePriceNotCalculate')->set(true, true);
-
-        $query->getQuery()->execute();
+        $this->setFieldToNotCalculate('averagePurchasePrice');
     }
 
     public function resetAveragePurchasePriceNotCalculate()
     {
+        $this->resetFieldNotCalculate('averagePurchasePrice');
+    }
+
+    /**
+     * @param string $storeProductId
+     * @param float  $inventoryRatio
+     */
+    public function updateInventoryRatio($storeProductId, $inventoryRatio)
+    {
+        $inventoryDays = (null === $inventoryRatio) ? null : 1 / $inventoryRatio;
+        $query = $this
+            ->createQueryBuilder()
+            ->findAndUpdate()
+            ->field('id')->equals($storeProductId)
+            ->field('inventoryRatio')->set($inventoryRatio, true)
+            ->field('inventoryDays')->set($inventoryDays, true)
+            ->field('inventoryRatioNotCalculate')->unsetField();
+
+        $query->getQuery()->execute();
+    }
+
+    /**
+     * @param string $field
+     */
+    public function setFieldToNotCalculate($field)
+    {
         $query = $this->createQueryBuilder()
             ->update()
             ->multiple(true)
-            ->field('averagePurchasePriceNotCalculate')->equals(true)
-            ->field('averagePurchasePrice')->set(null, true)
-            ->field('averagePurchasePriceNotCalculate')->unsetField();
+            ->field($field)->notEqual(null)
+            ->field("{$field}NotCalculate")->set(true, true);
+
+        $query->getQuery()->execute();
+    }
+
+    /**
+     * @param string $field
+     */
+    public function resetFieldNotCalculate($field)
+    {
+        $query = $this->createQueryBuilder()
+            ->update()
+            ->multiple(true)
+            ->field("{$field}NotCalculate")->equals(true)
+            ->field($field)->set(null, true)
+            ->field("{$field}NotCalculate")->unsetField();
 
         $query->getQuery()->execute();
     }

@@ -30,6 +30,8 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class WriteOffProduct extends AbstractDocument implements Reasonable
 {
+    const REASON_TYPE = 'WriteOffProduct';
+
     /**
      * @MongoDB\Id
      * @var string
@@ -145,7 +147,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonType()
     {
-        return 'WriteOffProduct';
+        return self::REASON_TYPE;
     }
 
     /**
