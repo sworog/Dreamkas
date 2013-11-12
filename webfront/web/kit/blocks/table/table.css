@@ -12,25 +12,46 @@
     position: static !important;
 }
 
-.table td, .table th{
-    padding: 12px;
-}
-
-.table tbody td, .table tbody th{
+.table > tbody > tr > td, .table > thead > tr > th{
     vertical-align: middle;
     border-bottom: 1px solid #eee;
     border-top: 1px solid #eee;
     font-weight: normal;
-}
-
-.table th{
+    padding: 12px;
     text-align: left;
 }
 
-.table thead th{
+.table > thead > tr > th{
     border-bottom: 1px solid #ddd;
+    border-top: none;
+    font-weight: bold;
 }
 
-.table tbody tr:hover{
+.table > tbody > tr:hover{
     background: #fffee2 !important;
+}
+
+.table__rowHiddenElement{
+    visibility: hidden;
+    font-size: 12px;
+    color: #95a5a6;
+}
+
+.table tr:hover .table__rowHiddenElement{
+    visibility: visible;
+}
+
+.table_subCategoryBalance > tbody > tr > td{
+    vertical-align: top;
+}
+
+.table_subCategoryBalance__value{
+    text-align: right;
+    overflow: hidden;
+    padding-right: 5px;
+}
+
+.table_subCategoryBalance__valueHint{
+    float: right;
+    width: 100px;
 }

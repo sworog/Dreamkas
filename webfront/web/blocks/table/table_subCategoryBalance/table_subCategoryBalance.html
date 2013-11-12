@@ -3,11 +3,9 @@
 <table class="table table_subCategoryBalance">
     <thead>
     <tr>
-        <th>Название</th>
-        <th>Штрихкод</th>
-        <th>Количество</th>
-        <th>Средняя ЗЦ</th>
-        <th>Последняя ЗЦ</th>
+        <th>Товар</th>
+        <th style="text-align: right; padding-right: 110px;">Запас</th>
+        <th>Закупочные цены</th>
     </tr>
     </thead>
     <tbody>
@@ -15,22 +13,71 @@
     <tr name="amountItem">
         <td>
             <%= LH.modelNode(model, 'product.name') %>
+            <div style="font-size: 11px; float: right">
+                <%= LH.modelNode(model, 'product.barcode') %>
+            </div>
             <div style="font-size: 11px;">
                 <%= LH.modelNode(model, 'product.sku') %>
             </div>
         </td>
         <td>
-            <%= LH.modelNode(model, 'product.barcode') %>
+            <div>
+                <div class="table_subCategoryBalance__valueHint">
+                    <span class="table__rowHiddenElement">
+                        Остаток, <%= LH.modelNode(model, 'unitsFormatted') %>
+                    </span>
+                </div>
+
+                <div class="table_subCategoryBalance__value">
+                    <%= LH.modelNode(model, 'amount') %>
+                </div>
+            </div>
+            <div>
+                <div class="table_subCategoryBalance__valueHint">
+                    <span class="table__rowHiddenElement">
+                        ССО, <%= LH.modelNode(model, 'unitsFormatted') %>
+                    </span>
+                </div>
+
+                <div class="table_subCategoryBalance__value">
+                    <%= LH.modelNode(model, 'amount') %>
+                </div>
+            </div>
+            <div>
+                <div class="table_subCategoryBalance__valueHint">
+                    <span class="table__rowHiddenElement">
+                        УСЗ, дн.
+                    </span>
+                </div>
+
+                <div class="table_subCategoryBalance__value">
+                    <%= LH.modelNode(model, 'amount') %>
+                </div>
+            </div>
         </td>
         <td>
-            <%= LH.modelNode(model, 'amount') %>
-            <%= LH.modelNode(model, 'unitsFormatted') %>
-        </td>
-        <td>
-            <%= LH.modelNode(model, 'averagePurchasePriceFormatted') %>
-        </td>
-        <td>
-            <%= LH.modelNode(model, 'lastPurchasePriceFormatted') %>
+            <div>
+                <div class="table_subCategoryBalance__valueHint">
+                    <span class="table__rowHiddenElement">
+                        Последняя
+                    </span>
+                </div>
+
+                <div class="table_subCategoryBalance__value">
+                    <%= LH.modelNode(model, 'lastPurchasePriceFormatted') %>
+                </div>
+            </div>
+            <div>
+                <div class="table_subCategoryBalance__valueHint">
+                    <span class="table__rowHiddenElement">
+                        Средняя
+                    </span>
+                </div>
+
+                <div class="table_subCategoryBalance__value">
+                    <%= LH.modelNode(model, 'averagePurchasePriceFormatted') %>
+                </div>
+            </div>
         </td>
     </tr>
     <% }) %>
