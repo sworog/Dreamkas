@@ -117,7 +117,7 @@ And the user inputs '0,5' in 'retailPriceMin' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена продажи должна быть больше или равна цене закупки. |
+| Цена продажи должна быть больше или равна цене закупки |
 
 Scenario: Edit product retail price range validation positive
 
@@ -200,4 +200,4 @@ And the user inputs '2' in 'retailPriceMin' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена продажи должна быть больше или равна цене закупки. |
+| Цена продажи должна быть больше или равна цене закупки |
