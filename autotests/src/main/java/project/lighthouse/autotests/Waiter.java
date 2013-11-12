@@ -1,9 +1,8 @@
 package project.lighthouse.autotests;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import jline.internal.Nullable;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -69,6 +68,30 @@ public class Waiter {
     public Boolean isElementVisible(By findBy) {
         try {
             return getPresentWebElement(findBy).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Boolean invisibilityOfElementLocated(final WebElement parentElement, final By childFindBy) {
+        try {
+            return waiter.until(new ExpectedCondition<Boolean>() {
+                @Override
+                public Boolean apply(@Nullable org.openqa.selenium.WebDriver input) {
+                    try {
+                        return !(parentElement.findElement(childFindBy).isDisplayed());
+                    } catch (NoSuchElementException e) {
+                        return true;
+                    } catch (StaleElementReferenceException e) {
+                        return true;
+                    }
+                }
+
+                @Override
+                public String toString() {
+                    return String.format("element to no longer be visible: %s", childFindBy);
+                }
+            });
         } catch (Exception e) {
             return false;
         }

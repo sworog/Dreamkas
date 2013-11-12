@@ -3,7 +3,6 @@ package project.lighthouse.autotests.objects.web.search;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractSearchObjectNode;
 
 import java.util.Map;
@@ -24,20 +23,13 @@ public class InvoiceSearchObject extends AbstractSearchObjectNode {
 
     @Override
     public void setProperties() {
-        Waiter waiter = new Waiter(getWebDriver(), 0);
-        this.sku = getElement().findElement(By.name("sku")).getText();
-        this.acceptanceDate = getElement().findElement(By.name("acceptanceDate")).getText();
-        this.supplier = getElement().findElement(By.name("supplier")).getText();
-        this.accepter = getElement().findElement(By.name("accepter")).getText();
-        this.legalEntity = getElement().findElement(By.name("legalEntity")).getText();
-        this.supplierInvoiceSku = null;
-        if (!waiter.invisibilityOfElementLocated(By.name("supplierInvoiceSku"))) {
-            this.supplierInvoiceSku = getElement().findElement(By.name("supplierInvoiceSku")).getText();
-        }
-        this.supplierInvoiceDate = null;
-        if (!waiter.invisibilityOfElementLocated(By.name("supplierInvoiceDate"))) {
-            this.supplierInvoiceDate = getElement().findElement(By.name("supplierInvoiceDate")).getText();
-        }
+        sku = getElement().findElement(By.name("sku")).getText();
+        acceptanceDate = getElement().findElement(By.name("acceptanceDate")).getText();
+        supplier = getElement().findElement(By.name("supplier")).getText();
+        accepter = getElement().findElement(By.name("accepter")).getText();
+        legalEntity = getElement().findElement(By.name("legalEntity")).getText();
+        supplierInvoiceSku = setProperty(By.name("supplierInvoiceSku"));
+        supplierInvoiceDate = setProperty(By.name("supplierInvoiceDate"));
     }
 
     @Override

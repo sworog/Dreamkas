@@ -1,7 +1,9 @@
 package project.lighthouse.autotests.objects.web.abstractObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.Waiter;
 
 import java.util.Map;
 
@@ -38,4 +40,14 @@ abstract public class AbstractObject {
     abstract public Boolean rowIsEqual(Map<String, String> row);
 
     abstract public String getObjectLocator();
+
+    public String setProperty(By findBy) {
+        Waiter waiter = new Waiter(webDriver, 0);
+        if (!waiter.invisibilityOfElementLocated(getElement(), findBy)) {
+            return getElement().findElement(findBy).getText();
+        } else {
+            return "";
+        }
+
+    }
 }

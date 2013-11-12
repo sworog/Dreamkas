@@ -3,7 +3,6 @@ package project.lighthouse.autotests.objects.web.log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
 
 public class JobLogObject extends AbstractObjectNode {
@@ -41,17 +40,11 @@ public class JobLogObject extends AbstractObjectNode {
 
     @Override
     public void setProperties() {
-        Waiter waiter = new Waiter(getWebDriver(), 0);
         id = getElement().getAttribute("id");
         type = getElement().getAttribute("type");
         status = getElement().getAttribute("status");
-        if (!waiter.invisibilityOfElementLocated(By.xpath(".//*[@class='log__title']"))) {
-            title = getElement().findElement(By.xpath(".//*[@class='log__title']")).getText();
-        }
-        product = null;
-        if (!waiter.invisibilityOfElementLocated(By.xpath(".//*[@class='log__productName']"))) {
-            product = getElement().findElement(By.xpath(".//*[@class='log__productName']")).getText();
-        }
+        title = setProperty(By.xpath(".//*[@class='log__title']"));
+        product = setProperty(By.xpath(".//*[@class='log__productName']"));
         statusText = getElement().findElement(By.xpath(".//*[@class='log__status']")).getText();
     }
 }
