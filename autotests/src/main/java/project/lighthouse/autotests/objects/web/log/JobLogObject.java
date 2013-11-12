@@ -8,12 +8,12 @@ import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNo
 
 public class JobLogObject extends AbstractObjectNode {
 
-    String id;
-    String type;
-    String status;
-    String title;
-    String statusText;
-    String product;
+    private String id;
+    private String type;
+    private String status;
+    private String title;
+    private String statusText;
+    private String product;
 
     public JobLogObject(WebElement element, WebDriver webDriver) {
         super(element, webDriver);
@@ -45,7 +45,9 @@ public class JobLogObject extends AbstractObjectNode {
         id = getElement().getAttribute("id");
         type = getElement().getAttribute("type");
         status = getElement().getAttribute("status");
-        title = getElement().findElement(By.xpath(".//*[@class='log__title']")).getText();
+        if (!waiter.invisibilityOfElementLocated(By.xpath(".//*[@class='log__title']"))) {
+            title = getElement().findElement(By.xpath(".//*[@class='log__title']")).getText();
+        }
         product = null;
         if (!waiter.invisibilityOfElementLocated(By.xpath(".//*[@class='log__productName']"))) {
             product = getElement().findElement(By.xpath(".//*[@class='log__productName']")).getText();
