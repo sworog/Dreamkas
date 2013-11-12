@@ -45,6 +45,6 @@ public class JobLogObject extends AbstractObjectNode {
         status = getElement().getAttribute("status");
         title = setProperty(By.xpath(".//*[@class='log__title']"));
         product = setProperty(By.xpath(".//*[@class='log__productName']"));
-        statusText = getElement().findElement(By.xpath(".//*[@class='log__status']")).getText();
+        statusText = setProperty(By.xpath(".//*[@class='log__status']"));
     }
 }
