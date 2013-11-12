@@ -402,7 +402,7 @@ class WriteOffControllerTest extends WebTestCase
 
     public function testDepartmentManagerCantGetWriteOffsFromAnotherStore()
     {
-        $storeId2 = $this->createStore('43');
+        $storeId2 = $this->factory->getStore('43');
         $departmentManager2 = $this->createUser('Депардье Ж.К.М.', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
@@ -447,7 +447,7 @@ class WriteOffControllerTest extends WebTestCase
 
     public function testGetWriteOffNotFoundInAnotherStore()
     {
-        $storeId2 = $this->createStore('43');
+        $storeId2 = $this->factory->getStore('43');
         $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $writeOffId = $this->createWriteOff('444', null, $this->storeId, $this->departmentManager);

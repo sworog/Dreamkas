@@ -35,7 +35,7 @@ class StoreProductControllerTest extends WebTestCase
         $this->storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
 
         $this->productId = $this->createProduct();
-        $this->storeId = $this->createStore();
+        $this->storeId = $this->factory->getStore();
 
         $this->factory->linkStoreManagers($this->storeManager->id, $this->storeId);
     }
@@ -792,7 +792,7 @@ class StoreProductControllerTest extends WebTestCase
     public function testGetStoreProductsAction()
     {
         $storeId1 = $this->storeId;
-        $storeId2 = $this->createStore('2', '2', '2');
+        $storeId2 = $this->factory->getStore('2', '2', '2');
 
         $departmentManager1 = $this->createUser('dm1', 'password', 'ROLE_DEPARTMENT_MANAGER');
         $departmentManager2 = $this->createUser('dm2', 'password', 'ROLE_DEPARTMENT_MANAGER');
@@ -887,7 +887,7 @@ class StoreProductControllerTest extends WebTestCase
         $subCategoryId2 = $this->createSubCategory($categoryId, '1.1.2', false);
         $productId1 = $this->createProduct('1', $subCategoryId1);
         $productId2 = $this->createProduct('2', $subCategoryId2);
-        $storeId = $this->createStore('666');
+        $storeId = $this->factory->getStore('666');
         $departmentManager = $this->factory->getDepartmentManager($storeId);
 
         $invoiceId0 = $this->createInvoice(
@@ -988,7 +988,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testAmountAndInventoryFieldsPresentAndHaveSameValues()
     {
-        $storeId = $this->createStore('1');
+        $storeId = $this->factory->getStore('1');
         $departmentManager = $this->factory->getDepartmentManager($storeId);
         $productId = $this->createProduct('1');
         $invoiceStoreId1 = $this->createInvoice(array('sku' => 'invoice1'), $storeId, $departmentManager);

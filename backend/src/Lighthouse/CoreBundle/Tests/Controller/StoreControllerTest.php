@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Test\Assert;
 
@@ -34,7 +35,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testStoreUnique()
     {
-        $this->createStore("42");
+        $this->factory->getStore("42");
 
         $storeData = array(
             'number' => '42',
@@ -95,7 +96,7 @@ class StoreControllerTest extends WebTestCase
      */
     public function testPutStoreValidation($expectedCode, array $data, array $assertions = array())
     {
-        $storeId = $this->createStore();
+        $storeId = $this->factory->getStore();
 
         $storeData = $data + array(
                 'number' => 'магазин_номер-32',
@@ -227,16 +228,9 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStores()
     {
-        $storesIds = array();
-        for ($i = 0; $i < 5; $i++) {
-            $storesIds[$i] = $this->createStore(
-                'номер_' . $i,
-                'адрес ' . $i,
-                'контакты ' . $i
-            );
-        }
+        $storesIds = $this->getStores(array(0, 1, 2, 3, 4));
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -293,12 +287,12 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStoreWithDepartments()
     {
-        $storeId = $this->createStore('1');
+        $storeId = $this->factory->getStore('1');
 
         $departmentId1 = $this->createDepartment($storeId, '1-1');
         $departmentId2 = $this->createDepartment($storeId, '1-2');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -326,7 +320,7 @@ class StoreControllerTest extends WebTestCase
      */
     public function testAccessStore($url, $method, $role, $responseCode, $requestData = null)
     {
-        $storeId = $this->createStore();
+        $storeId = $this->factory->getStore();
 
         $url = str_replace(
             array(

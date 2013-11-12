@@ -12,7 +12,7 @@ class SalesImporterTest extends WebTestCase
 {
     public function testImportWithSeveralInvalidCounts()
     {
-        $storeId = $this->createStore('197');
+        $storeId = $this->factory->getStore('197');
 
         $skuAmounts = array(
             '1' => -112,
@@ -44,7 +44,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportWithNotFoundProducts()
     {
-        $this->createStore('197');
+        $this->factory->getStore('197');
         $this->createProductsBySku(
             array(
                 '1',
@@ -72,7 +72,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportWithNotFoundShops()
     {
-        $this->createStore('777');
+        $this->factory->getStore('777');
         $this->createProductsBySku(
             array(
                 'Кит-Кат-343424',
@@ -91,7 +91,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportDoubleSales()
     {
-        $storeIds = $this->createStores(array('777', '666'));
+        $storeIds = $this->getStores(array('777', '666'));
         $productIds = $this->createProductsBySku(
             array(
                 'Кит-Кат-343424',
@@ -122,7 +122,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testReturnsImport()
     {
-        $storeId = $this->createStore('197');
+        $storeId = $this->factory->getStore('197');
 
         $skuAmounts = array(
             '1' => 1,

@@ -765,7 +765,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $expectedCode,
         array $data = null
     ) {
-        $storeId2 = $this->createStore('43');
+        $storeId2 = $this->factory->getStore('43');
         $departmentManager2 = $this->createUser(
             'depUser2',
             Factory::USER_DEFAULT_PASSWORD,
@@ -879,7 +879,7 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testGetWriteOffProductNotFoundFromAnotherStore()
     {
-        $storeId2 = $this->createStore('43');
+        $storeId2 = $this->factory->getStore('43');
         $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $productId = $this->createProduct();

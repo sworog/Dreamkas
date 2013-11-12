@@ -72,7 +72,7 @@ class Set10ProductImportXmlParser
     }
 
     /**
-     * @return GoodElement
+     * @return GoodElement|boolean
      */
     public function readNextNode()
     {

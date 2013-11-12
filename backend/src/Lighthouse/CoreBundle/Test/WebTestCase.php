@@ -54,10 +54,8 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function setUpStoreDepartmentManager()
     {
-        $this->departmentManager = $this->createUser('Краузе В.П.', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->storeId = $this->createStore();
-
-        $this->factory->linkDepartmentManagers($this->departmentManager->id, $this->storeId);
+        $this->storeId = $this->factory->getStore();
+        $this->departmentManager = $this->factory->getDepartmentManager($this->storeId);
     }
 
     /**
@@ -112,11 +110,8 @@ class WebTestCase extends ContainerAwareTestCase
      * @param User $departmentManager
      * @return mixed
      */
-    protected function createInvoice(array $modifiedData = array(), $storeId = null, User $departmentManager = null)
+    protected function createInvoice(array $modifiedData, $storeId, User $departmentManager)
     {
-        $storeId = ($storeId) ?: $this->createStore('42', '42', '42', true);
-        $departmentManager = ($departmentManager) ?: $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
-
         $accessToken = $this->auth($departmentManager);
 
         $invoiceData = $modifiedData + array(
@@ -350,15 +345,8 @@ class WebTestCase extends ContainerAwareTestCase
      * @param User $departmentManager
      * @return string
      */
-    protected function createWriteOff(
-        $number = '431-6782',
-        $date = null,
-        $storeId = null,
-        User $departmentManager = null
-    ) {
-        $storeId = ($storeId) ?: $this->createStore('42', '42', '42', true);
-        $departmentManager = ($departmentManager) ?: $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
-
+    protected function createWriteOff($number, $date, $storeId, User $departmentManager)
+    {
         $accessToken = $this->auth($departmentManager);
 
         $date = $date ? : date('c', strtotime('-1 day'));
@@ -719,11 +707,11 @@ class WebTestCase extends ContainerAwareTestCase
      * @param array $numbers
      * @return array
      */
-    public function createStores(array $numbers)
+    public function getStores(array $numbers)
     {
         $storeIds = array();
         foreach ($numbers as $number) {
-            $storeIds[$number] = $this->createStore($number);
+            $storeIds[$number] = $this->factory->getStore($number);
         }
         return $storeIds;
     }
@@ -735,7 +723,7 @@ class WebTestCase extends ContainerAwareTestCase
         $ifNotExists = true
     ) {
         if ($storeId == null) {
-            $storeId = $this->createStore();
+            $storeId = $this->factory->getStore();
         }
 
         $storeData = array(

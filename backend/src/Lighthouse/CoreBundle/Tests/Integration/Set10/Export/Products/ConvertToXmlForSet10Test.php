@@ -41,7 +41,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
      */
     public function initBase()
     {
-        $administratorAccessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
         $storeManager1User = $this->createUser('storeManager1', 'password', 'ROLE_STORE_MANAGER');
         $storeManager1AccessToken = $this->auth($storeManager1User);
         $storeManager2User = $this->createUser('storeManager2', 'password', 'ROLE_STORE_MANAGER');
@@ -67,15 +66,15 @@ class ConvertToXmlForSet10Test extends WebTestCase
         $storesData = array(
             1 => array(
                 'number' => '1',
-                'id' => $this->createStore('1'),
+                'id' => $this->factory->getStore('1'),
             ),
             2 => array(
                 'number' => '2',
-                'id' => $this->createStore('2'),
+                'id' => $this->factory->getStore('2'),
             ),
             3 => array(
                 'number' => '3',
-                'id' => $this->createStore('3'),
+                'id' => $this->factory->getStore('3'),
             ),
         );
         $this->factory->linkStoreManagers($storeManager1User->id, $storesData[1]['id']);

@@ -52,9 +52,9 @@ class Set10SalesImportTest extends WebTestCase
 
     public function testExecute()
     {
-        $this->createStore('197');
-        $this->createStore('666');
-        $this->createStore('777');
+        $this->factory->getStore('197');
+        $this->factory->getStore('666');
+        $this->factory->getStore('777');
         $this->createProductsBySku(
             array(
                 '1',
@@ -159,7 +159,7 @@ class Set10SalesImportTest extends WebTestCase
 
     public function testOnlyPurchaseFilesImported()
     {
-        $this->createStore('197');
+        $this->factory->getStore('197');
         $this->createProductsBySku(
             array(
                 '1',

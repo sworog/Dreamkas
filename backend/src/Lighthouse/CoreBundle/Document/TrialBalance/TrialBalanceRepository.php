@@ -10,9 +10,7 @@ use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Types\DatePeriod;
-use Lighthouse\CoreBundle\Types\DateTimestamp;
 use MongoId;
-use MongoDate;
 use MongoCode;
 
 class TrialBalanceRepository extends DocumentRepository

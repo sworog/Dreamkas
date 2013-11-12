@@ -892,7 +892,7 @@ class CategoryControllerTest extends WebTestCase
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
-        $storeId = $this->createStore();
+        $storeId = $this->factory->getStore();
 
         $this->factory->linkManagers($storeId, $storeManager->id, $rel);
 
@@ -918,8 +918,8 @@ class CategoryControllerTest extends WebTestCase
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
-        $storeId1 = $this->createStore('42');
-        $storeId2 = $this->createStore('43');
+        $storeId1 = $this->factory->getStore('42');
+        $storeId2 = $this->factory->getStore('43');
 
         $this->factory->linkManagers($storeId1, $storeManager->id, $rel);
 
@@ -945,7 +945,7 @@ class CategoryControllerTest extends WebTestCase
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
-        $storeId = $this->createStore();
+        $storeId = $this->factory->getStore();
 
         $accessToken = $this->auth($storeManager, 'password');
 
@@ -969,7 +969,7 @@ class CategoryControllerTest extends WebTestCase
     {
         $manager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
-        $storeId = $this->createStore();
+        $storeId = $this->factory->getStore();
 
         $this->factory->linkManagers($storeId, $manager->id, $rel);
 
