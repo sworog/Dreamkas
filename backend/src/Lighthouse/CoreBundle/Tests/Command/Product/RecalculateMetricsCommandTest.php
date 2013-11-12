@@ -1,12 +1,12 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Command;
+namespace Lighthouse\CoreBundle\Tests\Command\Product;
 
 use Lighthouse\CoreBundle\Command\Product\RecalculateMetricsCommand;
 use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class RecalculateAveragePurchasePriceCommandTest extends TestCase
+class RecalculateMetricsCommandTest extends TestCase
 {
     public function testExecute()
     {
