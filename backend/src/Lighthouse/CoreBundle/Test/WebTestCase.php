@@ -57,7 +57,7 @@ class WebTestCase extends ContainerAwareTestCase
         $this->departmentManager = $this->createUser('Краузе В.П.', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $this->storeId = $this->createStore();
 
-        $this->factory->linkDepartmentManagers($this->storeId, $this->departmentManager->id);
+        $this->factory->linkDepartmentManagers($this->departmentManager->id, $this->storeId);
     }
 
     /**
@@ -242,7 +242,7 @@ class WebTestCase extends ContainerAwareTestCase
             $productData['sku'].= $extra;
         }
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $method = ($putProductId) ? 'PUT' : 'POST';
         $url = '/api/1/products' . (($putProductId) ? '/' . $putProductId : '');
         $request = new JsonRequest($url, $method, $productData);
@@ -776,24 +776,6 @@ class WebTestCase extends ContainerAwareTestCase
         Assert::assertJsonPathEquals($storeData['name'], 'name', $response);
 
         return $response['id'];
-    }
-
-    /**
-     * @param string $storeId
-     * @param string|array $userIds
-     */
-    public function linkStoreManagers($storeId, $userIds)
-    {
-        $this->factory->linkStoreManagers($storeId, $userIds);
-    }
-
-    /**
-     * @param string $storeId
-     * @param string|string[] $userIds
-     */
-    public function linkDepartmentManagers($storeId, $userIds)
-    {
-        $this->factory->linkDepartmentManagers($storeId, $userIds);
     }
 
     /**

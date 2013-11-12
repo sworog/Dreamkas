@@ -624,7 +624,7 @@ class InvoiceProductControllerTest extends WebTestCase
     public function testGetInvoiceProductNotFoundFromAnotherStore()
     {
         $storeId2 = $this->createStore('43');
-        $this->linkDepartmentManagers($storeId2, $this->departmentManager->id);
+        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);

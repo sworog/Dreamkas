@@ -233,7 +233,7 @@ class StoreControllerManagementTest extends WebTestCase
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
         $storeId = $this->createStore();
-        $this->linkStoreManagers($storeId, array($storeUser1->id, $storeUser2->id));
+        $this->factory->linkStoreManagers(array($storeUser1->id, $storeUser2->id), $storeId);
 
         $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $accessToken = $this->auth($commUser, 'password');
@@ -301,7 +301,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertNotJsonPathEquals($depUser1->id, '*.id', $managersJson);
         Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
 
-        $this->linkStoreManagers($storeId1, $storeUser1->id);
+        $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -323,7 +323,7 @@ class StoreControllerManagementTest extends WebTestCase
         //
         $storeId2 = $this->createStore('43');
 
-        $this->linkStoreManagers($storeId2, $storeUser3->id);
+        $this->factory->linkStoreManagers($storeUser3->id, $storeId2);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -361,7 +361,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
 
         //
-        $this->linkStoreManagers($storeId2, $storeUser2->id);
+        $this->factory->linkStoreManagers($storeUser2->id, $storeId2);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -390,7 +390,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $accessToken = $this->authAsRole($role);
 
-        $this->linkStoreManagers($storeId1, $storeUser1->id);
+        $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -434,7 +434,7 @@ class StoreControllerManagementTest extends WebTestCase
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
 
-        $this->linkStoreManagers($storeId1, $storeUser1->id);
+        $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -510,7 +510,7 @@ class StoreControllerManagementTest extends WebTestCase
         $storeId1 = $this->createStore();
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
 
-        $this->linkStoreManagers($storeId1, $storeUser1->id);
+        $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
 
         $accessToken = $this->auth($storeUser1);
 
@@ -573,8 +573,8 @@ class StoreControllerManagementTest extends WebTestCase
         $storeUser1 = $this->createUser('user1', 'password', User::ROLE_STORE_MANAGER);
         $storeUser2 = $this->createUser('user2', 'password', User::ROLE_STORE_MANAGER);
 
-        $this->linkStoreManagers($storeId1, $storeUser1->id);
-        $this->linkStoreManagers($storeId2, $storeUser2->id);
+        $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
+        $this->factory->linkStoreManagers($storeUser2->id, $storeId2);
 
         $accessToken = $this->auth($storeUser1);
 
@@ -617,7 +617,7 @@ class StoreControllerManagementTest extends WebTestCase
         $storeUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $storeId = $this->createStore();
 
-        $this->linkDepartmentManagers($storeId, $storeUser1->id);
+        $this->factory->linkDepartmentManagers($storeUser1->id, $storeId);
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -639,7 +639,7 @@ class StoreControllerManagementTest extends WebTestCase
         $depUser1 = $this->createUser('storeUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $depUser2 = $this->createUser('storeUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $storeId = $this->createStore();
-        $this->linkDepartmentManagers($storeId, array($depUser1->id, $depUser2->id));
+        $this->factory->linkDepartmentManagers(array($depUser1->id, $depUser2->id), $storeId);
 
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -714,7 +714,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertNotJsonPathEquals($storeUser1->id, '*.id', $managersJson);
         Assert::assertNotJsonPathEquals($storeUser2->id, '*.id', $managersJson);
 
-        $this->linkDepartmentManagers($storeId1, $depUser1->id);
+        $this->factory->linkDepartmentManagers($depUser1->id, $storeId1);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -736,7 +736,7 @@ class StoreControllerManagementTest extends WebTestCase
         //
         $storeId2 = $this->createStore('43');
 
-        $this->linkDepartmentManagers($storeId2, $depUser2->id);
+        $this->factory->linkDepartmentManagers($depUser2->id, $storeId2);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -774,7 +774,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertNotJsonPathEquals($storeUser2->id, '*.id', $managersJson);
 
         //
-        $this->linkDepartmentManagers($storeId2, $depUser3->id);
+        $this->factory->linkDepartmentManagers($depUser3->id, $storeId2);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,

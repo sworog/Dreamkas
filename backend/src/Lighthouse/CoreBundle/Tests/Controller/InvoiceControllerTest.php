@@ -123,7 +123,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testGetInvoiceNotFoundInAnotherStore()
     {
         $storeId2 = $this->createStore('43');
-        $this->linkDepartmentManagers($storeId2, $this->departmentManager->id);
+        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
 
@@ -561,7 +561,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $storeId2 = $this->createStore('43');
         $departmentManager2 = $this->createUser('Депардье Ж.К.М.', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->linkDepartmentManagers($storeId2, $departmentManager2->id);
+        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $accessToken1 = $this->auth($this->departmentManager);
         $accessToken2 = $this->auth($departmentManager2);

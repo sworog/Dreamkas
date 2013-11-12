@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
@@ -10,6 +12,7 @@ use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\Client;
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
+use Lighthouse\CoreBundle\Types\DateTimestamp;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Factory
@@ -17,6 +20,7 @@ class Factory
     const CLIENT_DEFAULT_SECRET = 'secret';
 
     const USER_DEFAULT_PASSWORD = 'password';
+    const STORE_DEFAULT_NUMBER = '1';
 
     /**
      * @var ContainerInterface
@@ -57,6 +61,11 @@ class Factory
      * @var array
      */
     protected $accessTokens = array();
+
+    /**
+     * @var array
+     */
+    protected $stores = array();
 
     /**
      * @param ContainerInterface $container
@@ -225,12 +234,13 @@ class Factory
      * @param string $storeId
      * @return User
      */
-    public function getStoreManager($storeId)
+    public function getStoreManager($storeId = null)
     {
+        $storeId = $this->getStoreById($storeId);
         if (!isset($this->storeManagers[$storeId])) {
             $username = 'storeManagerStore' . $storeId;
             $manager = $this->getUser($username, self::USER_DEFAULT_PASSWORD, User::ROLE_STORE_MANAGER);
-            $this->linkStoreManagers($storeId, $manager->id);
+            $this->linkStoreManagers($manager->id, $storeId);
 
             $this->storeManagers[$storeId] = $manager;
         }
@@ -241,8 +251,9 @@ class Factory
      * @param string $storeId
      * @return \stdClass
      */
-    public function authAsStoreManager($storeId)
+    public function authAsStoreManager($storeId = null)
     {
+        $storeId = $this->getStoreById($storeId);
         $storeManager = $this->getStoreManager($storeId);
         return $this->auth($storeManager);
     }
@@ -251,12 +262,13 @@ class Factory
      * @param string $storeId
      * @return User
      */
-    public function getDepartmentManager($storeId)
+    public function getDepartmentManager($storeId = null)
     {
+        $storeId = $this->getStoreById($storeId);
         if (!isset($this->departmentManagers[$storeId])) {
             $username = 'departmentManagerStore' . $storeId;
             $manager = $this->getUser($username, self::USER_DEFAULT_PASSWORD, User::ROLE_DEPARTMENT_MANAGER);
-            $this->linkDepartmentManagers($storeId, $manager->id);
+            $this->linkDepartmentManagers($manager->id, $storeId);
 
             $this->departmentManagers[$storeId] = $manager;
         }
@@ -267,8 +279,9 @@ class Factory
      * @param string $storeId
      * @return \stdClass
      */
-    public function authAsDepartmentManager($storeId)
+    public function authAsDepartmentManager($storeId = null)
     {
+        $storeId = $this->getStoreById($storeId);
         $storeManager = $this->getDepartmentManager($storeId);
         return $this->auth($storeManager);
     }
@@ -294,21 +307,71 @@ class Factory
     }
 
     /**
-     * @param string $storeId
      * @param array $userIds
+     * @param string $storeId
      */
-    public function linkStoreManagers($storeId, $userIds)
+    public function linkStoreManagers($userIds, $storeId = null)
     {
+        $storeId = $this->getStoreById($storeId);
         $this->linkManagers($storeId, $userIds, Store::REL_STORE_MANAGERS);
     }
 
     /**
-     * @param $storeId
      * @param array $userIds
+     * @param string $storeId
      */
-    public function linkDepartmentManagers($storeId, $userIds)
+    public function linkDepartmentManagers($userIds, $storeId = null)
     {
+        $storeId = $this->getStoreById($storeId);
         $this->linkManagers($storeId, $userIds, Store::REL_DEPARTMENT_MANAGERS);
+    }
+
+    /**
+     * @param string $number
+     * @param string $address
+     * @param string $contacts
+     * @return mixed
+     */
+    public function createStore(
+        $number = self::STORE_DEFAULT_NUMBER,
+        $address = self::STORE_DEFAULT_NUMBER,
+        $contacts = self::STORE_DEFAULT_NUMBER
+    ) {
+        $storeData = array(
+            'number' => $number,
+            'address' => $address,
+            'contacts' => $contacts,
+        );
+        $jsonRequest = new JsonRequest('/api/1/stores', 'POST', $storeData);
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $response = $this->client->jsonRequest($jsonRequest, $accessToken);
+
+        Assert::assertResponseCode(201, $this->client);
+        Assert::assertJsonHasPath('id', $response);
+
+        return $response['id'];
+    }
+
+    /**
+     * @param string $number
+     * @return mixed
+     */
+    public function getStore($number = self::STORE_DEFAULT_NUMBER)
+    {
+        if (!isset($this->stores[$number])) {
+            $this->stores[$number] = $this->createStore($number, $number, $number);
+        }
+        return $this->stores[$number];
+    }
+
+    /**
+     * @param string $storeId
+     * @return string
+     */
+    public function getStoreById($storeId = null)
+    {
+        return $storeId ?: $this->getStore();
     }
 
     /**

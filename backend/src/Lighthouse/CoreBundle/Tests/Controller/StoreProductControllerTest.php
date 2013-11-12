@@ -37,7 +37,7 @@ class StoreProductControllerTest extends WebTestCase
         $this->productId = $this->createProduct();
         $this->storeId = $this->createStore();
 
-        $this->linkStoreManagers($this->storeId, $this->storeManager->id);
+        $this->factory->linkStoreManagers($this->storeManager->id, $this->storeId);
     }
 
     public function testGetActionNoStoreProductCreated()
@@ -458,7 +458,7 @@ class StoreProductControllerTest extends WebTestCase
     public function testDepartmentManagerAccessHasStore()
     {
         $departmentManager = $this->createUser('Василиса Петровна Бздых', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->linkDepartmentManagers($this->storeId, $departmentManager->id);
+        $this->factory->linkDepartmentManagers($departmentManager->id, $this->storeId);
 
         $accessToken = $this->auth($departmentManager, 'password');
 
@@ -797,8 +797,8 @@ class StoreProductControllerTest extends WebTestCase
         $departmentManager1 = $this->createUser('dm1', 'password', 'ROLE_DEPARTMENT_MANAGER');
         $departmentManager2 = $this->createUser('dm2', 'password', 'ROLE_DEPARTMENT_MANAGER');
 
-        $this->linkDepartmentManagers($storeId1, $departmentManager1->id);
-        $this->linkDepartmentManagers($storeId2, $departmentManager2->id);
+        $this->factory->linkDepartmentManagers($departmentManager1->id, $storeId1);
+        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $productId1 = $this->productId;
         $productId2 = $this->createProduct('2');

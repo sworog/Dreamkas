@@ -469,7 +469,7 @@ class WriteOffProductControllerTest extends WebTestCase
     {
         $storeId = $this->storeId;
         $departmentManager = $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
-        $this->linkDepartmentManagers($storeId, $departmentManager->id);
+        $this->factory->linkDepartmentManagers($departmentManager->id, $storeId);
 
         $productId1 = $this->createProduct(1);
         $productId2 = $this->createProduct(2);
@@ -771,7 +771,7 @@ class WriteOffProductControllerTest extends WebTestCase
             Factory::USER_DEFAULT_PASSWORD,
             User::ROLE_DEPARTMENT_MANAGER
         );
-        $this->linkDepartmentManagers($storeId2, $departmentManager2->id);
+        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $productId = $this->createProduct();
 
@@ -880,7 +880,7 @@ class WriteOffProductControllerTest extends WebTestCase
     public function testGetWriteOffProductNotFoundFromAnotherStore()
     {
         $storeId2 = $this->createStore('43');
-        $this->linkDepartmentManagers($storeId2, $this->departmentManager->id);
+        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $productId = $this->createProduct();
         $writeOffId = $this->createWriteOff('431', null, $this->storeId, $this->departmentManager);
