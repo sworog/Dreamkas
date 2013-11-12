@@ -82,7 +82,7 @@ public class GroupPage extends CommonPageObject {
 
     public void check(String name) {
         String classTitleXpath = getItemXpath(name);
-        find(By.xpath(classTitleXpath)).shouldBeVisible();
+        findVisibleElement(By.xpath(classTitleXpath));
     }
 
     public String getItemXpath(String name) {
@@ -129,7 +129,7 @@ public class GroupPage extends CommonPageObject {
         String xpath = String.format(
                 "//*[@class='catalog__groupItem' and *[@class='catalog__groupTitle']//*[@model_name='catalogGroup' and text()='%s'] and *[@class='catalog__categoryList']//*[@model_name='catalogCategory' and text()='%s']]",
                 parent, item);
-        find(By.xpath(xpath)).shouldBeVisible();
+        findVisibleElement(By.xpath(xpath));
     }
 
     public void checkFieldLength(String elementName, int fieldLength) {
