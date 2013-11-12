@@ -255,7 +255,7 @@ And the user inputs '12,123' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Цена не должна содержать больше 2 цифр после запятой. |
+| Цена не должна содержать больше 2 цифр после запятой |
 
 Scenario: Invoice product price validation sub zero
 
@@ -268,7 +268,7 @@ And the user inputs '-1' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Invoice product price validation zero
 
