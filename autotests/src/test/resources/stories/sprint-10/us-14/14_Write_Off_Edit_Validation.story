@@ -476,7 +476,7 @@ And the user inputs '12,123' in the 'inline writeOff product price' field on the
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна содержать больше 2 цифр после запятой. |
+| Цена не должна содержать больше 2 цифр после запятой |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
@@ -492,7 +492,7 @@ And the user inputs '-1' in the 'inline writeOff product price' field on the wri
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
@@ -508,7 +508,7 @@ And the user inputs '0' in the 'inline writeOff product price' field on the writ
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
@@ -524,7 +524,7 @@ And the user inputs 'harry' in the 'inline writeOff product price' field on the 
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
@@ -540,7 +540,7 @@ And the user inputs 'HARRY' in the 'inline writeOff product price' field on the 
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
@@ -556,7 +556,7 @@ And the user inputs 'цена' in the 'inline writeOff product price' field on t
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
@@ -572,7 +572,7 @@ And the user inputs 'ЦЕНА' in the 'inline writeOff product price' field on t
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out
@@ -588,7 +588,7 @@ And the user inputs ';№?:"?*:№"' in the 'inline writeOff product price' fiel
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
 And the user logs out

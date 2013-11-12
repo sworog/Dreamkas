@@ -430,7 +430,7 @@ And the user inputs '12,123' in the 'writeOff product price' field on the write 
 When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Цена не должна содержать больше 2 цифр после запятой. |
+| Цена не должна содержать больше 2 цифр после запятой |
 
 Scenario: Write off product price validation sub zero
 
@@ -446,7 +446,7 @@ And the user inputs '-1' in the 'writeOff product price' field on the write off 
 When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Write off product price validation zero
 
@@ -462,7 +462,7 @@ And the user inputs '0' in the 'writeOff product price' field on the write off p
 When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Write off product price validation String en small register
 
@@ -478,7 +478,7 @@ And the user inputs 'harry' in the 'writeOff product price' field on the write o
 When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Write off product price validation String en big register
 
@@ -494,7 +494,7 @@ And the user inputs 'HARRY' in the 'writeOff product price' field on the write o
 When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Write off product price validation String rus small register
 
@@ -510,7 +510,7 @@ And the user inputs 'цена' in the 'writeOff product price' field on the writ
 When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Write off product price validation String rus big register
 
@@ -526,7 +526,7 @@ And the user inputs 'Цена' in the 'writeOff product price' field on the writ
 When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Write off product price validation symbols
 
@@ -542,7 +542,7 @@ And the user inputs '@#$#$#' in the 'writeOff product price' field on the write 
 When the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Write off product price validation length good
 
