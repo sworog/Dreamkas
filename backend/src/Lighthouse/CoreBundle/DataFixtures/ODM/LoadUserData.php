@@ -25,7 +25,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $this->getUserProvider()->createNewUser(
-            'admin',
+            'administrator',
             'lighthouse',
             'Сережа',
             User::ROLE_ADMINISTRATOR,
