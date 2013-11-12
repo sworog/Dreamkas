@@ -1,9 +1,13 @@
 namespace :symfony do
 
+    def console_command(command)
+        "sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} #{command} --env=#{symfony_env_prod}'"
+    end
+
     desc "Run custom command. Add '-s command=<command goes here>' option"
     task :console do
         prompt_with_default(:command, "list") unless exists?(:command)
-        stream "sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} #{command} --env=#{symfony_env_prod}'"
+        stream console_command(command)
     end
 
     namespace :doctrine do
@@ -137,7 +141,7 @@ namespace :symfony do
         namespace :client do
 
             def create_auth_client(secret, public_id)
-                capture "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:auth:client:create #{secret} #{public_id} --env=#{symfony_env_prod}'", :once => true
+                capture console_command("lighthouse:auth:client:create #{secret} #{public_id}"), :once => true
             end
 
             desc "Create API client, required: -S public_id=<..> -S secret=<..>"
@@ -160,7 +164,7 @@ namespace :symfony do
             desc "List API clients"
             task :list, :roles => :app, :except => { :no_release => true } do
                 puts "--> List auth clients"
-                puts capture "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:auth:client:list --env=#{symfony_env_prod}'", :once => true
+                puts capture console_command("lighthouse:auth:client:list"), :once => true
             end
         end
     end
@@ -168,7 +172,7 @@ namespace :symfony do
     namespace :user do
 
         def create_api_user(username, userpass, userrole)
-            capture "cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:user:create #{username} #{userpass} #{userrole} --env=#{symfony_env_prod}"
+            capture console_command("lighthouse:user:create #{username} #{userpass} #{userrole}")
         end
 
         desc "Create user, required: -S username=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default)"
@@ -222,7 +226,7 @@ namespace :symfony do
             top.upload(xml_file_path, remote_temp_file_path)
 
             puts "--> Import products".yellow
-            stream "cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:import:products #{remote_temp_file_path} --env=#{symfony_env_prod}"
+            stream console_command("lighthouse:import:products #{remote_temp_file_path}")
             capifony_puts_ok
         end
 
@@ -243,7 +247,7 @@ namespace :symfony do
                 top.upload(xml_file_path, remote_temp_file_path)
 
                 puts "--> Import products".yellow
-                stream "cd #{latest_release} && #{php_bin} #{symfony_console} lighthouse:import:sales:local #{remote_temp_file_path} --env=#{symfony_env_prod}"
+                stream console_command("lighthouse:import:sales:local #{remote_temp_file_path}")
                 capifony_puts_ok
             end
         end
