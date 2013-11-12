@@ -16,7 +16,7 @@ public class ConsoleCommand {
     }
 
     private String getAbsoluteFolderPath(String folder) {
-        return System.getProperty("user.dir").concat("/").concat(folder);
+        return new File(System.getProperty("user.dir")).getParent().concat("\\").concat(folder);
     }
 
     public String exec(String command) throws IOException, InterruptedException {
@@ -28,23 +28,23 @@ public class ConsoleCommand {
     }
 
     private String cmd(String command, String host) {
-        return String.format("%s -S host=%s", command, host);
+        return String.format("cmd /c \"%s -S host=%s\"", command, host);
     }
 
     private String readOutput(Process process) throws IOException {
-        BufferedReader reader = new BufferedReader(
-            new InputStreamReader(process.getInputStream())
+        BufferedReader inputStream = new BufferedReader(
+                new InputStreamReader(process.getInputStream())
         );
-        String output = new String();
-        String line = reader.readLine();
-        while (line != null) {
-            output = output.concat(stripAnsiCodes(line)).concat("\n");
-            line = reader.readLine();
+        BufferedReader errorStream = new BufferedReader(new
+                InputStreamReader(process.getErrorStream()));
+        String s;
+        String output = "";
+        while ((s = inputStream.readLine()) != null) {
+            output = output.concat(s).concat("\n");
+        }
+        while ((s = errorStream.readLine()) != null) {
+            output = output.concat(s).concat("\n");
         }
         return output;
-    }
-
-    private String stripAnsiCodes(String input) {
-        return input.replaceAll("\u001B\\[[;\\d]*m", "");
     }
 }

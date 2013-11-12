@@ -48,6 +48,5 @@ abstract public class AbstractObject {
         } else {
             return "";
         }
-
     }
 }
