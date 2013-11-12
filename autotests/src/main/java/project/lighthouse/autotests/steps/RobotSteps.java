@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import project.lighthouse.autotests.console.ConsoleCommand;
+import project.lighthouse.autotests.console.ConsoleCommandResult;
 import project.lighthouse.autotests.robotClient.InterruptedException_Exception;
 import project.lighthouse.autotests.robotClient.SetRobotHubWS;
 import project.lighthouse.autotests.robotClient.SetRobotHubWSService;
@@ -103,6 +104,9 @@ public class RobotSteps extends ScenarioSteps {
 
     @Step
     public void runConsoleCommand(String command, String folder) throws IOException, InterruptedException {
-        new ConsoleCommand(folder, System.getProperty("init")).exec(command);
+        ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, System.getProperty("init")).exec(command);
+        if (!consoleCommandResult.isOk()) {
+            Assert.fail(consoleCommandResult.getOutput());
+        }
     }
 }
