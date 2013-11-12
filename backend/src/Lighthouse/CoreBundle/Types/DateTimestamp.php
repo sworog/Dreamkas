@@ -13,6 +13,8 @@ class DateTimestamp extends DateTime
      */
     public $inc;
 
+
+
     /**
      * @return string
      */
@@ -46,7 +48,7 @@ class DateTimestamp extends DateTime
      */
     public function getMongoDate()
     {
-        if (0 == $this->usec) {
+        if (0 == $this->getUsec()) {
             return new MongoDate($this->getTimestamp());
         } else {
             return new MongoDate($this->getTimestamp(), $this->getUsec());

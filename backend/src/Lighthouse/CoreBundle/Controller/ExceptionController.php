@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\ExceptionController as BaseExceptionController;
 use FOS\RestBundle\View\ViewHandler;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 use Lighthouse\CoreBundle\Util\Rest\ExceptionWrapper;

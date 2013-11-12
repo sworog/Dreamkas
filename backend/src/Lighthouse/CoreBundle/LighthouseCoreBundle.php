@@ -2,9 +2,6 @@
 
 namespace Lighthouse\CoreBundle;
 
-use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
-use Doctrine\MongoDB\Connection;
-use Doctrine\ODM\MongoDB\Configuration;
 use Lighthouse\CoreBundle\Command\CommandManager;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddCommandAsServicePass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddJobWorkersPass;
@@ -14,7 +11,6 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Doctrine\ODM\MongoDB\Types\Type;
-use ReflectionProperty;
 
 class LighthouseCoreBundle extends Bundle
 {

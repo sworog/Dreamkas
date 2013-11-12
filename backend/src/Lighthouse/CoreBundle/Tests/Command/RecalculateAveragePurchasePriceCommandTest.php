@@ -11,7 +11,7 @@ class RecalculateAveragePurchasePriceCommandTest extends TestCase
     public function testExecute()
     {
         $mock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Service\\AveragePriceService',
+            'Lighthouse\\CoreBundle\\Service\\StoreProductMetricsCalculator',
             array(),
             array(),
             '',
@@ -20,8 +20,7 @@ class RecalculateAveragePurchasePriceCommandTest extends TestCase
         $mock->expects($this->once())
             ->method('recalculateAveragePrice');
 
-        $command = new RecalculateMetricsCommand();
-        $command->setMetricsCalculator($mock);
+        $command = new RecalculateMetricsCommand($mock);
 
         $commandTester = new CommandTester($command);
 

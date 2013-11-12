@@ -620,7 +620,7 @@ EOF;
 
         $urlDir = "smb://user:password@host/base_path/success";
 
-        $actualUrlStat = $sambaMock->url_stat($urlDir);
+        $sambaMock->url_stat($urlDir);
     }
 
     public function testDirOpenDirMethod()
