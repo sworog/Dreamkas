@@ -82,7 +82,7 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public boolean loginFormIsVisible() {
-        return commonPage.isElementVisible(By.id("form_login"));
+        return waiter.isElementVisible(By.id("form_login"));
     }
 
     public void loginFormIsPresent() {
