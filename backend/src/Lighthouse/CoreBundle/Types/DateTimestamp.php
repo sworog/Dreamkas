@@ -86,7 +86,7 @@ class DateTimestamp extends DateTime
         if (null !== $usec) {
             return static::createFromFormat('U.u', $timestamp . '.' . $usec);
         } else {
-            return static::createFromFormat('U', $timestamp . '.' . $usec);
+            return static::createFromFormat('U', $timestamp);
         }
     }
 }
