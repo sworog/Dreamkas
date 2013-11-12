@@ -1,4 +1,6 @@
-package project.lighthouse.autotests;
+package project.lighthouse.autotests.console;
+
+import junit.framework.Assert;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,12 +21,20 @@ public class ConsoleCommand {
         return new File(System.getProperty("user.dir")).getParent().concat("\\").concat(folder);
     }
 
-    public String exec(String command) throws IOException, InterruptedException {
+    private ConsoleCommandResult getResult(String command) throws IOException, InterruptedException {
         String cmd = cmd(command, host);
         File dir = new File(folder);
         Process process = Runtime.getRuntime().exec(cmd, null, dir);
         process.waitFor();
-        return readOutput(process);
+        return new ConsoleCommandResult(process.exitValue(), readOutput(process));
+    }
+
+    public ConsoleCommandResult exec(String command) throws IOException, InterruptedException {
+        ConsoleCommandResult consoleCommandResult = getResult(command);
+        if (!consoleCommandResult.isOk()) {
+            Assert.fail(consoleCommandResult.getOutput());
+        }
+        return consoleCommandResult;
     }
 
     private String cmd(String command, String host) {

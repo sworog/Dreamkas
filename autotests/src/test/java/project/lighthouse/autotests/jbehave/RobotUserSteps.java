@@ -71,4 +71,10 @@ public class RobotUserSteps {
         final String fileName = "purchases-return-data.xml";
         robotSteps.prepareData(fileName);
     }
+
+    @Given("the robot runs the prepare fixture data command for inventory testing")
+    public void givenTheRobotRunsThePrepareFixtureDataCommand() throws IOException, InterruptedException {
+        String consoleCommand = String.format("cap autotests symfony:import:sales:local -S file=%s", System.getProperty("user.dir") + "xml/fixtures/sales/sales.xml");
+        robotSteps.runConsoleCommand(consoleCommand, "backend");
+    }
 }
