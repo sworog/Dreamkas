@@ -5,6 +5,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
 
@@ -18,8 +19,17 @@ public class SimpleLogObjectCollection extends AbstractObjectCollection {
     }
 
     @Override
+    public void init(WebDriver webDriver, By findBy) {
+        List<WebElement> webElementList = new Waiter(webDriver).getVisibleWebElements(findBy);
+        for (WebElement element : webElementList) {
+            SimpleLogObject simpleLogObject = new SimpleLogObject(element, webDriver);
+            add(simpleLogObject);
+        }
+    }
+
+    @Override
     public AbstractObject createNode(WebElement element) {
-        return new SimpleLogObject(element);
+        return null;
     }
 
     @Override
