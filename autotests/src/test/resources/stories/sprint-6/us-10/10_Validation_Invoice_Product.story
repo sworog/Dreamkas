@@ -316,7 +316,7 @@ And the user inputs '12,123' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна содержать больше 2 цифр после запятой. |
+| Цена не должна содержать больше 2 цифр после запятой |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 And the user logs out
@@ -333,7 +333,7 @@ And the user inputs '-1' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 And the user logs out
@@ -350,7 +350,7 @@ And the user inputs '0' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 And the user logs out
@@ -367,7 +367,7 @@ And the user inputs 'harry' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 And the user logs out
@@ -384,7 +384,7 @@ And the user inputs 'HARRY' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 And the user logs out
@@ -401,7 +401,7 @@ And the user inputs 'цена' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 And the user logs out
@@ -418,7 +418,7 @@ And the user inputs 'ЦЕНА' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 And the user logs out
@@ -435,7 +435,7 @@ And the user inputs '"#$#$#' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 And the user logs out
