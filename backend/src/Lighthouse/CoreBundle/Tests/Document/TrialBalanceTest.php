@@ -143,7 +143,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $manager->persist($invoice);
         $manager->flush();
 
-        /** @var \Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository $trialBalanceRepository */
+        /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
         /** @var TrialBalanceCollection $startTrialBalance */
         $startTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
@@ -169,11 +169,11 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $this->assertCount(1, $endTrialBalance);
 
-        /** @var TrialBalance $endTrialBalance */
-        $endTrialBalance = $endTrialBalance->current();
-        $this->assertEquals(9, $endTrialBalance->quantity);
-        $this->assertEquals(899.91, $endTrialBalance->totalPrice->getCount());
-        $this->assertEquals(99.99, $endTrialBalance->price->getCount());
+        /** @var TrialBalance $endTrialBalanceItem */
+        $endTrialBalanceItem = $endTrialBalance->current();
+        $this->assertEquals(9, $endTrialBalanceItem->quantity);
+        $this->assertEquals(899.91, $endTrialBalanceItem->totalPrice->getCount());
+        $this->assertEquals(99.99, $endTrialBalanceItem->price->getCount());
 
         $invoiceProduct->quantity = 10;
         $manager->persist($invoiceProduct);

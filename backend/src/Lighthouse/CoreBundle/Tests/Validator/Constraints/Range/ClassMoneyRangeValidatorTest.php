@@ -14,7 +14,7 @@ use stdClass;
 class ClassMoneyRangeValidatorTest extends TestCase
 {
     /**
-     * @var ExecutionContextInterface
+     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $context;
 
