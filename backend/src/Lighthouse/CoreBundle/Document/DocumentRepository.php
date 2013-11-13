@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
+use Doctrine\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\DocumentRepository as BaseRepository;
 
 class DocumentRepository extends BaseRepository
@@ -31,6 +32,8 @@ class DocumentRepository extends BaseRepository
      */
     public function isCollectionEmpty()
     {
-        return $this->findAll()->limit(1)->count() == 0;
+        /* @var Cursor $cursor */
+        $cursor = $this->findAll();
+        return 0 == $cursor->limit(1)->count();
     }
 }

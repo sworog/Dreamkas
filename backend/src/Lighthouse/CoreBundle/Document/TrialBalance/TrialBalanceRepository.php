@@ -16,6 +16,15 @@ use MongoCode;
 class TrialBalanceRepository extends DocumentRepository
 {
     /**
+     * @param $storeProductId
+     * @return Cursor
+     */
+    public function findByStoreProduct($storeProductId)
+    {
+        return $this->findBy(array('storeProduct' => $storeProductId));
+    }
+
+    /**
      * @param Reasonable $reason
      * @return TrialBalance
      */
