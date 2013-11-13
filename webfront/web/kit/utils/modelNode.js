@@ -5,13 +5,13 @@ define(function(require) {
     require('jquery');
 
     return function(model, attr) {
-        var nodeTemplate = '<span model="' + model.modelName + '" model-id="' + model.id + '" model-attr="' + attr + '">' + (model.get(attr) || '') + '</span>';
+        var nodeTemplate = '<span model="' + model.modelName + '" model-id="' + model.id + '" model-attribute="' + attr + '">' + (model.get(attr) || '') + '</span>';
 
         var handlers = {};
 
         handlers['change:' + attr] = function() {
             $('body')
-                .find('[model-id="' + model.id + '"][model-attr="' + attr + '"]')
+                .find('[model-id="' + model.id + '"][model-attribute="' + attr + '"]')
                 .html(model.get(attr) || '');
         };
 
