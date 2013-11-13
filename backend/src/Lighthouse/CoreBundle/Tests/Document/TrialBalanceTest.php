@@ -230,7 +230,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
         $this->assertEquals(79.99, $trialBalance->price->getCount());
-        $this->assertEquals(-3, $trialBalance->quantity);
+        $this->assertEquals(3, $trialBalance->quantity);
         $this->assertEquals(239.97, $trialBalance->totalPrice->getCount());
     }
 
@@ -273,7 +273,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
         $this->assertEquals(79.99, $trialBalance->price->getCount());
-        $this->assertEquals(-3, $trialBalance->quantity);
+        $this->assertEquals(3, $trialBalance->quantity);
         $this->assertEquals(239.97, $trialBalance->totalPrice->getCount());
 
         // Edit
@@ -284,11 +284,11 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $afterEditTrialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
         $this->assertEquals(77.99, $afterEditTrialBalance->price->getCount());
-        $this->assertEquals(-7, $afterEditTrialBalance->quantity);
+        $this->assertEquals(7, $afterEditTrialBalance->quantity);
         $this->assertEquals(545.93, $afterEditTrialBalance->totalPrice->getCount());
 
         $this->assertEquals(77.99, $trialBalance->price->getCount());
-        $this->assertEquals(-7, $trialBalance->quantity);
+        $this->assertEquals(7, $trialBalance->quantity);
         $this->assertEquals(545.93, $trialBalance->totalPrice->getCount());
 
         // Delete
