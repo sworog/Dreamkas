@@ -5,12 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
 
+import java.util.HashMap;
 import java.util.Map;
 
 abstract public class AbstractObject {
 
     private WebElement element;
     private WebDriver webDriver;
+    public Map<String, ObjectProperty> objectPropertyMap = new HashMap();
 
     public AbstractObject(WebElement element) {
         this.element = element;
@@ -48,5 +50,13 @@ abstract public class AbstractObject {
         } else {
             return "";
         }
+    }
+
+    public ObjectProperty getObjectProperty(String propertyName) {
+        return objectPropertyMap.get(propertyName);
+    }
+
+    public void setObjectProperty(WebElement element, String propertyName, By propertyFindBy) {
+        objectPropertyMap.put(propertyName, new ObjectProperty(element, propertyFindBy));
     }
 }

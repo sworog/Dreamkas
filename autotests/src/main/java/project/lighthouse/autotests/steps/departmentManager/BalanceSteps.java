@@ -31,4 +31,9 @@ public class BalanceSteps extends ScenarioSteps {
         } catch (Exception ignored) {
         }
     }
+
+    @Step
+    public void clickPropertyByLocator(String locator, String propertyLocator) {
+        balanceListPage.getBalanceObjectCollection().clickPropertyByLocator(locator, propertyLocator);
+    }
 }

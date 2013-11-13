@@ -61,6 +61,20 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
         }
     }
 
+    public void clickPropertyByLocator(String locator, String propertyName) {
+        Boolean found = false;
+        for (AbstractObject abstractObject : this) {
+            if (abstractObject.getObjectLocator().equals(locator)) {
+                found = true;
+                abstractObject.getObjectProperty(propertyName).click();
+            }
+        }
+        if (!found) {
+            String errorMessage = String.format("There is no object with '%s' to click!", locator);
+            Assert.fail(errorMessage);
+        }
+    }
+
     public void contains(String locator) {
         Boolean found = false;
         for (AbstractObject abstractObject : this) {

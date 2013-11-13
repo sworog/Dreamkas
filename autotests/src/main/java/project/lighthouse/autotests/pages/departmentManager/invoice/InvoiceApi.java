@@ -36,7 +36,11 @@ public class InvoiceApi extends DepartmentManagerApi {
     }
 
     public Invoice createInvoiceThroughPost(String invoiceName, String storeName, String userName) throws JSONException, IOException {
-        Invoice invoice = new Invoice(invoiceName, "supplier", DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "accepter", "legalEntity", "", "");
+        return createInvoiceThroughPost(invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), storeName, userName);
+    }
+
+    public Invoice createInvoiceThroughPost(String invoiceName, String date, String storeName, String userName) throws JSONException, IOException {
+        Invoice invoice = new Invoice(invoiceName, "supplier", date, "accepter", "legalEntity", "", "");
         String storeId = StaticData.stores.get(storeName).getId();
         invoice.setStoreId(storeId);
         return new ApiConnect(userName, "lighthouse").createInvoiceThroughPost(invoice);

@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.ExampleTableConverter;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceApi;
 import project.lighthouse.autotests.steps.administrator.UserSteps;
@@ -42,6 +43,11 @@ public class InvoiceUserSteps {
     @Given("there is the invoice with sku '$sku' in the store with number '$number' ruled by department manager with name '$userName'")
     public void givenThereIsTheInvoiceInTheStore(String sku, String number, String userName) throws IOException, JSONException {
         invoiceSteps.createInvoiceThroughPost(sku, number, userName);
+    }
+
+    @Given("there is the invoice with sku '$sku' and '$date' in the store with number '$number' ruled by department manager with name '$userName'")
+    public void givenThereIsTheInvoiceInTheStore(String sku, String date, String number, String userName) throws IOException, JSONException {
+        invoiceSteps.createInvoiceThroughPost(sku, new DateTimeHelper(date).convertDateTime(), number, userName);
     }
 
     @Given("there is the invoice in the store with number '$number' ruled by department manager with name '$userName' with values $exampleTable")
