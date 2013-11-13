@@ -12,9 +12,9 @@
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <thucydides.version>0.9.204</thucydides.version>
-        <thucydides.jbehave.version>0.9.103</thucydides.jbehave.version>
-        <thucydides.maven.version>0.9.103</thucydides.maven.version>
+        <thucydides.version>0.9.224</thucydides.version>
+        <thucydides.jbehave.version>0.9.222</thucydides.jbehave.version>
+        <thucydides.maven.version>0.9.224</thucydides.maven.version>
         <thucydides.browser.width>1280</thucydides.browser.width>
         <thucydides.browser.height>1024</thucydides.browser.height>
         <thucydides.outputDirectory>${project.reporting.outputDirectory}/thucydides</thucydides.outputDirectory>
