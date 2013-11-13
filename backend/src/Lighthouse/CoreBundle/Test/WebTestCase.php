@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
+use PHPUnit_Framework_ExpectationFailedException;
 
 /**
  * @codeCoverageIgnore
@@ -110,8 +111,9 @@ class WebTestCase extends ContainerAwareTestCase
      * @param User $departmentManager
      * @return mixed
      */
-    protected function createInvoice(array $modifiedData, $storeId, User $departmentManager)
+    protected function createInvoice(array $modifiedData, $storeId, User $departmentManager = null)
     {
+        $departmentManager = ($departmentManager) ?: $this->factory->getDepartmentManager($storeId);
         $accessToken = $this->auth($departmentManager);
 
         $invoiceData = $modifiedData + array(
@@ -151,6 +153,7 @@ class WebTestCase extends ContainerAwareTestCase
     {
         $manager = ($manager) ?: $this->departmentManager;
         $storeId = ($storeId) ?: $this->storeId;
+        $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
 
         $accessToken = $this->auth($manager);
 
@@ -513,7 +516,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $productId
      * @param array $assertions
      */
-    protected function assertStoreProduct($storeId, $productId, array $assertions)
+    protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {
         $storeManager = $this->factory->getStoreManager($storeId);
         $accessToken = $this->factory->auth($storeManager);
@@ -526,7 +529,16 @@ class WebTestCase extends ContainerAwareTestCase
 
         $this->assertResponseCode(200);
 
-        $this->performJsonAssertions($storeProductJson, $assertions);
+        try {
+            $this->performJsonAssertions($storeProductJson, $assertions);
+        } catch (PHPUnit_Framework_ExpectationFailedException $e) {
+            $message.= $e->getMessage();
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                $message,
+                $e->getComparisonFailure(),
+                $e->getPrevious()
+            );
+        }
     }
 
     /**
