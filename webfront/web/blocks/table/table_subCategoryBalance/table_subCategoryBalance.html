@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <% collection.forEach(function(model){ %>
-    <tr name="amountItem">
+    <tr name="inventoryItem">
         <td>
             <%= LH.modelNode(model, 'product.name') %>
             <div style="font-size: 11px; float: right">
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <%= LH.modelNode(model, 'amount') %><span class="table_subCategoryBalance__floatValue">,123</span>
+                    <%= LH.modelNode(model, 'inventory') %><span class="table_subCategoryBalance__floatValue">,123</span>
                 </div>
             </div>
             <div>
@@ -40,7 +40,11 @@
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <%= LH.modelNode(model, 'amount') %><span class="table_subCategoryBalance__floatValue">,345</span>
+                    <% if (model.get('averageDailySales')){ %>
+                        <%= LH.modelNode(model, 'averageDailySalesInt') %><span class="table_subCategoryBalance__floatValue">,<%= LH.modelNode(model, 'averageDailySalesFloat') %></span>
+                    <% } else { %>
+                        &mdash;
+                    <% } %>
                 </div>
             </div>
             <div>
@@ -51,7 +55,11 @@
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <%= LH.modelNode(model, 'amount') %><span class="table_subCategoryBalance__floatValue">,2</span>
+                    <% if (model.get('inventoryDays')){ %>
+                        <%= LH.modelNode(model, 'inventoryDaysInt') %><span class="table_subCategoryBalance__floatValue">,<%= LH.modelNode(model, 'inventoryDaysFloat') %></span>
+                    <% } else { %>
+                        &mdash;
+                    <% } %>
                 </div>
             </div>
         </td>

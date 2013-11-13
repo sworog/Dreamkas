@@ -1,4 +1,4 @@
-<tr name="amountItem">
+<tr name="inventoryItem">
     <td name="sku">
         <%- model.get('product').sku %>
     </td>
@@ -18,7 +18,7 @@
         <%- model.get('lastPurchasePrice') ? LH.formatPrice(model.get('lastPurchasePrice')) : LH.formatPrice(model.get('product').purchasePrice) %> р.
     </td>
     <td>
-        <span name="amount"><%- model.get('amount') || 0 %></span>
+        <span name="inventory"><%- model.get('inventory') || 0 %></span>
         <span name="units"><%- LH.units(model.get('product').units, 'smallShort') %></span>
     </td>
 </tr>
