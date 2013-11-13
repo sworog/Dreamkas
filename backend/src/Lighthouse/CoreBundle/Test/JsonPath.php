@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
+use DomainException;
+
 class JsonPath
 {
     const DELIMITER = '.';
@@ -117,7 +119,7 @@ class JsonPath
             }
         } while ($keys);
 
-        throw new \DomainException("Json path " .$this->path. " not found");
+        throw new DomainException("Json path " .$this->path. " not found");
     }
 
     /**
@@ -128,7 +130,7 @@ class JsonPath
         try {
             $this->getValues();
             return true;
-        } catch (\DomainException $e) {
+        } catch (DomainException $e) {
             return false;
         }
     }
@@ -145,7 +147,7 @@ class JsonPath
             } else {
                 $count = 1;
             }
-        } catch (\DomainException $e) {
+        } catch (DomainException $e) {
             $count = 0;
         }
 
