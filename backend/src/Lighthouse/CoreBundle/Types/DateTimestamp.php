@@ -9,6 +9,8 @@ use DateTimeZone;
 
 class DateTimestamp extends DateTime
 {
+    const RFC3339_USEC = 'Y-m-d\TH:i:s.uP';
+
     /**
      * @var int
      */
