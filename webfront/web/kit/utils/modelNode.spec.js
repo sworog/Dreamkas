@@ -18,12 +18,11 @@ define(function(require) {
         });
 
         afterEach(function(){
-            $('[model_id="' + model.id + '"]').remove();
+            $('[model-id="' + model.id + '"]').remove();
         });
 
         it('attr span text', function(){
-
-            expect($('[model_id="' + model.id + '"][model_attr="testValue"]').text()).toEqual('testValue');
+            expect($('[model-id="' + model.id + '"][model-attribute="testValue"]').text()).toEqual('testValue');
 
         });
 
@@ -31,7 +30,7 @@ define(function(require) {
 
             model.set('testValue', 'newValue');
 
-            expect($('[model_id="' + model.id + '"][model_attr="testValue"]').text()).toEqual('newValue');
+            expect($('[model-id="' + model.id + '"][model-attribute="testValue"]').text()).toEqual('newValue');
 
         });
 
