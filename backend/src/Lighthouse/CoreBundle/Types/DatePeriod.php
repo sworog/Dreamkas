@@ -23,7 +23,7 @@ class DatePeriod
     public function __construct($startDate, $endDate)
     {
         $this->startDate = $this->convertDate($startDate);
-        $this->endDate = $this->convertDate($startDate);
+        $this->endDate = $this->convertDate($endDate);
     }
 
     /**
