@@ -12,11 +12,10 @@
     position: static !important;
 }
 
-.table > tbody > tr > td, .table > thead > tr > th{
+.table > tbody > tr > td, .table > tbody > tr > th{
     vertical-align: middle;
     border-bottom: 1px solid #eee;
     border-top: 1px solid #eee;
-    font-weight: normal;
     padding: 12px;
     text-align: left;
 }
@@ -24,43 +23,10 @@
 .table > thead > tr > th{
     border-bottom: 1px solid #ddd;
     border-top: none;
-    font-weight: bold;
+    text-align: left;
+    padding: 12px;
 }
 
 .table > tbody > tr:hover{
     background: #fffee2 !important;
-}
-
-.table__rowHiddenElement{
-    visibility: hidden;
-}
-
-.table tr:hover .table__rowHiddenElement{
-    visibility: visible;
-}
-
-.table_subCategoryBalance > tbody > tr > td{
-    vertical-align: top;
-}
-
-.table_subCategoryBalance__value{
-    text-align: right;
-    overflow: hidden;
-    padding-right: 5px;
-}
-
-.table_subCategoryBalance__floatValue {
-    width: 30px;
-    text-align: left;
-    color: #7f8c8d;
-    display: inline-block;
-}
-
-.table_subCategoryBalance tr:hover .table_subCategoryBalance__floatValue{
-    color: #000;
-}
-
-.table_subCategoryBalance__valueHint{
-    font-size: 12px;
-    color: #95a5a6;
 }
