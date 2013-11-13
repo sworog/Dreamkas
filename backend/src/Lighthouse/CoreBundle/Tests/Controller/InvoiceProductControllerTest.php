@@ -1060,7 +1060,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testAveragePurchasePrice()
     {
-        $productId = $this->createProduct();
+        $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
 
         $invoiceId1 = $this->createInvoice(
@@ -1080,16 +1080,16 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->storeId,
             $this->departmentManager
         );
-        $this->createInvoiceProduct($invoiceIdOld, $productId, 10, 23.33);
+        $this->createInvoiceProduct($invoiceIdOld, $productId1, 10, 23.33);
 
-        $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
+        $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId1, 10, 26);
         $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67);
 
         /* @var $averagePriceService StoreProductMetricsCalculator */
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 26));
+        $this->assertStoreProduct($this->storeId, $productId1, array('averagePurchasePrice' => 26));
 
         $invoiceId2 = $this->createInvoice(
             array(
@@ -1100,11 +1100,11 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $invoiceProductId2 = $this->createInvoiceProduct($invoiceId2, $productId, 5, 29);
+        $invoiceProductId2 = $this->createInvoiceProduct($invoiceId2, $productId1, 5, 29);
 
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 27));
+        $this->assertStoreProduct($this->storeId, $productId1, array('averagePurchasePrice' => 27));
 
         $invoiceId3 = $this->createInvoice(
             array(
@@ -1115,11 +1115,11 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $invoiceProductId3 = $this->createInvoiceProduct($invoiceId3, $productId, 10, 31);
+        $invoiceProductId3 = $this->createInvoiceProduct($invoiceId3, $productId1, 10, 31);
 
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 28.6));
+        $this->assertStoreProduct($this->storeId, $productId1, array('averagePurchasePrice' => 28.6));
 
         $accessToken = $this->auth($this->departmentManager);
 
@@ -1135,7 +1135,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $this->storeId,
-            $productId,
+            $productId1,
             array('averagePurchasePrice' => 27, 'lastPurchasePrice' => 29)
         );
 
@@ -1151,7 +1151,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $this->storeId,
-            $productId,
+            $productId1,
             array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26)
         );
 
@@ -1167,7 +1167,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $this->storeId,
-            $productId,
+            $productId1,
             array('averagePurchasePrice' => null, 'lastPurchasePrice' => 23.33)
         );
     }
