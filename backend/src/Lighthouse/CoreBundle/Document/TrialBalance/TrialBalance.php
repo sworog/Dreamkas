@@ -21,7 +21,7 @@ use DateTime;
  * @property float          $quantity
  * @property Money          $totalPrice
  * @property Money          $price
- * @property DateTime      $createdDate
+ * @property DateTime       $createdDate
  * @property StoreProduct   $storeProduct
  * @property Reasonable     $reason
  *
@@ -100,6 +100,16 @@ class TrialBalance extends AbstractDocument
     protected $storeProduct;
 
     /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
+     * @var Store
+     */
+    protected $store;
+
+    /**
      * Основание
      * @MongoDB\ReferenceOne(
      *      discriminatorField="reasonType",
@@ -114,11 +124,6 @@ class TrialBalance extends AbstractDocument
      */
     protected $reason;
 
-    /**
-     * @var Store
-     */
-    protected $store;
-
     public function __construct()
     {
         $this->createdDate = new DateTime;
@@ -132,5 +137,6 @@ class TrialBalance extends AbstractDocument
     {
         $this->totalPrice = new Money();
         $this->totalPrice->setCountByQuantity($this->price, abs($this->quantity));
+        $this->store = $this->storeProduct->store;
     }
 }

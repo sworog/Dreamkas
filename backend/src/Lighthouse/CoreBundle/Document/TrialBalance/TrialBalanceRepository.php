@@ -206,7 +206,7 @@ class TrialBalanceRepository extends DocumentRepository
                     sprintf(
                         "function(storeProductId, obj) {
                             if (obj.quantity > 0) {
-                                obj.inventoryRatio = obj.quantity / %d;
+                                obj.inventoryRatio = %d / obj.quantity;
                             } else {
                                 obj.inventoryRatio = null;
                             }

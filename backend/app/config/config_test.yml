@@ -19,8 +19,8 @@ ekino_new_relic:
     application_name: Lighthouse API tests
 
 doctrine_mongodb:
-    default_database: "%database_name%_%kernel.environment%_%karzer.thread%"
+    default_database: "%database_name%_%kernel.environment%%karzer.thread%"
 
 lighthouse_core:
     job:
-        tube_prefix: "%database_name%_%kernel.environment%_%karzer.thread%"
+        tube_prefix: "%database_name%_%kernel.environment%%karzer.thread%"

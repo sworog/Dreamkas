@@ -55,7 +55,7 @@ class StoreProductMetricsCalculator
         $this->storeProductRepository->setFieldToNotCalculate('inventoryRatio');
         $results = $this->trialBalanceRepository->calculateInventoryRatio();
         foreach ($results as $result) {
-            $this->storeProductRepository->updateInventoryRatio($results['_id'], $result['value']['inventoryRatio']);
+            $this->storeProductRepository->updateInventoryRatio($result['_id'], $result['value']['inventoryRatio']);
         }
         $this->storeProductRepository->resetFieldNotCalculate('inventoryRatio');
     }

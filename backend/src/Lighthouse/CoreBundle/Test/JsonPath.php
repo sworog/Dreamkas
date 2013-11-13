@@ -119,7 +119,7 @@ class JsonPath
             }
         } while ($keys);
 
-        throw new DomainException("Json path " .$this->path. " not found");
+        throw new DomainException(sprintf("Json path '%s' not found", $this->path));
     }
 
     /**

@@ -205,7 +205,6 @@ class Set10SalesImportTest extends WebTestCase
     {
         $tmpDir = '/tmp/' . uniqid($this->getDirPrefix(), true) . '/';
         mkdir($tmpDir);
-        clearstatcache();
         return $tmpDir;
     }
 

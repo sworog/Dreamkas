@@ -108,7 +108,7 @@ class StoreProduct extends AbstractDocument
      * @MongoDB\Float
      * @var float
      */
-    protected $inventoryDays;
+    protected $averageDailySales;
 
     /**
      * @MongoDB\Field(type="money")
@@ -129,5 +129,18 @@ class StoreProduct extends AbstractDocument
     public function getAmount()
     {
         return $this->inventory;
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @return int
+     */
+    public function getInventoryDays()
+    {
+        if ($this->inventory > 0) {
+            return $this->inventory * $this->inventoryRatio;
+        } else {
+            return 0;
+        }
     }
 }

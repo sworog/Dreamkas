@@ -514,7 +514,9 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $storeId
      * @param string $productId
-     * @param array $assertions
+     * @param array  $assertions
+     * @param string $message
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
     protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {
@@ -532,7 +534,7 @@ class WebTestCase extends ContainerAwareTestCase
         try {
             $this->performJsonAssertions($storeProductJson, $assertions);
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
-            $message.= $e->getMessage();
+            $message.= ($message) ? '. ' . $e->getMessage() : $e->getMessage();
             throw new PHPUnit_Framework_ExpectationFailedException(
                 $message,
                 $e->getComparisonFailure(),
