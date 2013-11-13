@@ -16,14 +16,19 @@
     padding-right: 5px;
 }
 
-.table_subCategoryBalance__floatValue {
-    width: 30px;
+.table_subCategoryBalance .layout__floatPart {
+    width: 35px;
     text-align: left;
     color: #7f8c8d;
     display: inline-block;
 }
 
-.table_subCategoryBalance tr:hover .table_subCategoryBalance__floatValue{
+.table_subCategoryBalance [model-attr="lastPurchasePriceElement"] .layout__floatPart,
+.table_subCategoryBalance [model-attr="averagePurchasePriceElement"] .layout__floatPart {
+    width: 25px;
+}
+
+.table_subCategoryBalance tr:hover .layout__floatPart{
     color: #000;
 }
 

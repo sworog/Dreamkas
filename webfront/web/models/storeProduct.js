@@ -19,57 +19,60 @@ define(function(require) {
         defaults: {
             inventory: 0,
 
-            inventoryDaysInt: computeAttr(['inventoryDays'], function(inventoryDays){
-                return inventoryDays ? String.prototype.split.call(inventoryDays, '.')[0] : '';
+            inventoryElement: computeAttr(['inventory'], function(inventoryDays) {
+                return String.prototype.split.call(inventoryDays, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(inventoryDays, '.')[1] || '000') + '</span>'
             }),
 
-            inventoryDaysFloat: computeAttr(['inventoryDays'], function(inventoryDays){
-                return inventoryDays ? String.prototype.split.call(inventoryDays, '.')[1] : '';
+            inventoryDaysElement: computeAttr(['inventoryDays'], function(inventoryDays) {
+                if (inventoryDays) {
+                    return String.prototype.split.call(inventoryDays, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(inventoryDays, '.')[1] || '0') + '</span>'
+                } else {
+                    return '&mdash;';
+                }
             }),
 
-            averageDailySalesInt: computeAttr(['averageDailySales'], function(averageDailySales){
-                return averageDailySales ? String.prototype.split.call(averageDailySales, '.')[0] : '';
+            averageDailySalesElement: computeAttr(['averageDailySales'], function(averageDailySales) {
+                if (averageDailySales) {
+                    return String.prototype.split.call(averageDailySales, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(averageDailySales, '.')[1] || '000') + '</span>'
+                } else {
+                    return '&mdash;';
+                }
             }),
 
-            averageDailySalesFloat: computeAttr(['averageDailySales'], function(averageDailySales){
-                return averageDailySales ? String.prototype.split.call(averageDailySales, '.')[1] : '';
-            }),
-
-            unitsFormatted: computeAttr(['product.units'], function(){
+            unitsFormatted: computeAttr(['product.units'], function() {
                 return LH.units(this.get('product.units'), 'smallShort');
             }),
 
             retailPricePreference: 'retailMarkup',
 
-            averagePurchasePriceFormatted: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice){
+            averagePurchasePriceFormatted: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice) {
                 return averagePurchasePrice ? (LH.formatPrice(averagePurchasePrice) + ' р.') : '&mdash;';
             }),
 
-            averagePurchasePriceInt: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice){
-                return averagePurchasePrice ? String.prototype.split.call(averagePurchasePrice, '.')[0] : '';
+            averagePurchasePriceElement: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice) {
+                if (averagePurchasePrice) {
+                    return String.prototype.split.call(averagePurchasePrice, '.')[0] + '<span class="layout__floatPart">,' + String.prototype.split.call(averagePurchasePrice, '.')[1] + '</span>'
+                } else {
+                    return '&mdash;';
+                }
             }),
 
-            averagePurchasePriceFloat: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice){
-                return averagePurchasePrice ? String.prototype.split.call(averagePurchasePrice, '.')[1] : '';
-            }),
-
-            purchasePriceFormatted: computeAttr(['product.purchasePrice'], function(purchasePrice){
+            purchasePriceFormatted: computeAttr(['product.purchasePrice'], function(purchasePrice) {
                 return purchasePrice ? (LH.formatPrice(purchasePrice) + ' р.') : '&mdash;';
             }),
 
-            lastPurchasePriceFormatted: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice){
+            lastPurchasePriceFormatted: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice) {
                 var purchasePriceFormatted = this.get('product.purchasePrice') ? (LH.formatPrice(this.get('product.purchasePrice')) + ' р.') : '&mdash;';
                 return lastPurchasePrice ? (LH.formatPrice(lastPurchasePrice) + ' р.') : purchasePriceFormatted;
             }),
 
-            lastPurchasePriceInt: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice){
+            lastPurchasePriceElement: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice) {
                 lastPurchasePrice = lastPurchasePrice || this.get('product.purchasePrice');
-                return lastPurchasePrice ? String.prototype.split.call(lastPurchasePrice, '.')[0] : '';
-            }),
-
-            lastPurchasePriceFloat: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice){
-                lastPurchasePrice = lastPurchasePrice || this.get('product.purchasePrice');
-                return lastPurchasePrice ? String.prototype.split.call(lastPurchasePrice, '.')[1] : '';
+                if (lastPurchasePrice) {
+                    return String.prototype.split.call(lastPurchasePrice, '.')[0] + '<span class="layout__floatPart">,' + String.prototype.split.call(lastPurchasePrice, '.')[1] + '</span>'
+                } else {
+                    return '&mdash;';
+                }
             })
         },
         saveData: [

@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <%= LH.modelNode(model, 'inventory') %><span class="table_subCategoryBalance__floatValue">,123</span>
+                    <%= LH.modelNode(model, 'inventoryElement') %>
                 </div>
             </div>
             <div>
@@ -40,11 +40,7 @@
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <% if (model.get('averageDailySales')){ %>
-                        <%= LH.modelNode(model, 'averageDailySalesInt') %><span class="table_subCategoryBalance__floatValue">,<%= LH.modelNode(model, 'averageDailySalesFloat') %></span>
-                    <% } else { %>
-                        &mdash;
-                    <% } %>
+                    <%= LH.modelNode(model, 'averageDailySalesElement') %>
                 </div>
             </div>
             <div>
@@ -55,11 +51,7 @@
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <% if (model.get('inventoryDays')){ %>
-                        <%= LH.modelNode(model, 'inventoryDaysInt') %><span class="table_subCategoryBalance__floatValue">,<%= LH.modelNode(model, 'inventoryDaysFloat') %></span>
-                    <% } else { %>
-                        &mdash;
-                    <% } %>
+                    <%= LH.modelNode(model, 'inventoryDaysElement') %>
                 </div>
             </div>
         </td>
@@ -72,11 +64,7 @@
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <% if (model.get('lastPurchasePrice') || model.get('product.purchasePrice')){ %>
-                        <%= LH.modelNode(model, 'lastPurchasePriceInt') %><span class="table_subCategoryBalance__floatValue">,<%= LH.modelNode(model, 'lastPurchasePriceFloat') %></span><span class="table_subCategoryBalance__valueHint">р.</span>
-                    <% } else { %>
-                        &mdash;
-                    <% } %>
+                    <%= LH.modelNode(model, 'lastPurchasePriceElement') %>
                 </div>
             </div>
             <div>
@@ -87,11 +75,7 @@
                 </div>
 
                 <div class="table_subCategoryBalance__value">
-                    <% if (model.get('averagePurchasePrice')){ %>
-                        <%= LH.modelNode(model, 'averagePurchasePriceInt') %><span class="table_subCategoryBalance__floatValue">,<%= LH.modelNode(model, 'averagePurchasePriceFloat') %></span><span class="table_subCategoryBalance__valueHint">р.</span>
-                    <% } else { %>
-                        &mdash;
-                    <% } %>
+                    <%= LH.modelNode(model, 'averagePurchasePriceElement') %>
                 </div>
             </div>
         </td>

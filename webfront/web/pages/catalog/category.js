@@ -83,8 +83,6 @@ define(function(require) {
 
                     page.render();
 
-                    console.log(page.storeProductsCollection);
-
                     new CatalogCategoryBlock({
                         el: document.getElementById('catalogCategory'),
                         catalogCategoryModel: page.catalogCategoryModel,
