@@ -30,7 +30,7 @@ public class ConsoleCommandSteps extends ScenarioSteps {
         File patternFile = new File(directoryPath + "/salesPattern.xml");
         String filePath = directoryPath + "/sales.xml";
         new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-5days").convertDate(), new File(filePath));
-        String consoleCommand = String.format("cap autotests symfony:import:sales:local -S file=%s", filePath);
+        String consoleCommand = String.format("bundle exec cap autotests symfony:import:sales:local -S file=%s", filePath);
         runConsoleCommand(consoleCommand, "backend");
     }
 
@@ -41,13 +41,13 @@ public class ConsoleCommandSteps extends ScenarioSteps {
         File patternFile = new File(directoryPath + "/negativeSalesPattern.xml");
         String filePath = directoryPath + "/negativeSales.xml";
         new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-" + days + "days").convertDate(), new File(filePath));
-        String consoleCommand = String.format("cap autotests symfony:import:sales:local -S file=%s", filePath);
+        String consoleCommand = String.format("bundle exec cap autotests symfony:import:sales:local -S file=%s", filePath);
         runConsoleCommand(consoleCommand, "backend");
     }
 
     @Step
     public void runCapAutoTestsSymfonyProductsRecalculateMetrics() throws IOException, InterruptedException {
-        String consoleCommand = "cap autotests symfony:products:recalculate_metrics";
+        String consoleCommand = "bundle exec cap autotests symfony:products:recalculate_metrics";
         runConsoleCommand(consoleCommand, "backend");
     }
 
