@@ -6,20 +6,24 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Types\Decimal;
 use Lighthouse\CoreBundle\Types\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\StoreProduct\RetailPrice as AssertRetailPrice;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @property Money  $retailPrice
- * @property float  $retailMarkup
- * @property string $retailPricePreference
- * @property Money  $roundedRetailPrice
- * @property Product $product
+ * @property Product    $product
+ * @property Store      $store
  * @property SubCategory $subCategory
- * @property Store  $store
- * @property int    $inventory
+ * @property Money      $retailPrice
+ * @property float      $retailMarkup
+ * @property string     $retailPricePreference
+ * @property Money      $roundedRetailPrice
+ * @property int        $inventory
+ * @property float      $averageDailySales
+ * @property Money      $lastPurchasePrice
+ * @property Money      $averagePurchasePrice
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository"
@@ -94,15 +98,17 @@ class StoreProduct extends AbstractDocument
     /**
      * Остаток
      * @MongoDB\Increment
+     * @Serializer\Accessor(getter="getInventoryDecimal")
      * @var int
      */
     protected $inventory = 0;
 
     /**
      * @MongoDB\Float
+     * @Serializer\Accessor(getter="getAverageDailySalesDecimal")
      * @var float
      */
-    protected $averageDailySales;
+    protected $averageDailySales = 0;
 
     /**
      * @MongoDB\Field(type="money")
@@ -119,6 +125,7 @@ class StoreProduct extends AbstractDocument
     /**
      * @Serializer\VirtualProperty
      * @return int
+     * @deprecated
      */
     public function getAmount()
     {
@@ -126,7 +133,6 @@ class StoreProduct extends AbstractDocument
     }
 
     /**
-     * @Serializer\VirtualProperty
      * @return float
      */
     public function getInventoryDays()
@@ -136,5 +142,35 @@ class StoreProduct extends AbstractDocument
         } else {
             return 0;
         }
+    }
+
+    /*
+     * Dummy method to format values for serailizer
+     */
+
+    /**
+     * @Serializer\SerializedName("inventoryDays")
+     * @Serializer\VirtualProperty
+     * @return Decimal
+     */
+    public function getInventoryDaysDecimal()
+    {
+        return Decimal::createFromFloat($this->getInventoryDays(), 1);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAverageDailySalesDecimal()
+    {
+        return Decimal::createFromFloat($this->averageDailySales, 2)->toString();
+    }
+
+    /**
+     * @return string
+     */
+    public function getInventoryDecimal()
+    {
+        return Decimal::createFromFloat($this->inventory, 2)->toString();
     }
 }
