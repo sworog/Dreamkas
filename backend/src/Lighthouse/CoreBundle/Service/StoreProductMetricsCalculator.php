@@ -38,6 +38,9 @@ class StoreProductMetricsCalculator
         $this->trialBalanceRepository = $trialBalanceRepository;
     }
 
+    /**
+     * @return int
+     */
     public function recalculateAveragePrice()
     {
         $this->storeProductRepository->setAllAveragePurchasePriceToNotCalculate();
@@ -48,15 +51,22 @@ class StoreProductMetricsCalculator
         }
 
         $this->storeProductRepository->resetAveragePurchasePriceNotCalculate();
+
+        return count($results);
     }
 
-    public function recalculateInventoryRatio()
+    /**
+     * @return int
+     */
+    public function recalculateDailyAverageSales()
     {
-        $this->storeProductRepository->setFieldToNotCalculate('inventoryRatio');
-        $results = $this->trialBalanceRepository->calculateInventoryRatio();
+        $this->storeProductRepository->setFieldToNotCalculate('dailyAverageSales');
+        $results = $this->trialBalanceRepository->calculateDailyAverageSales();
         foreach ($results as $result) {
-            $this->storeProductRepository->updateInventoryRatio($result['_id'], $result['value']['inventoryRatio']);
+            $this->storeProductRepository->updateAverageDailySales($result['_id'], $result['value']['dailyAverageSales']);
         }
-        $this->storeProductRepository->resetFieldNotCalculate('inventoryRatio');
+        $this->storeProductRepository->resetFieldNotCalculate('dailyAverageSales');
+
+        return count($results);
     }
 }

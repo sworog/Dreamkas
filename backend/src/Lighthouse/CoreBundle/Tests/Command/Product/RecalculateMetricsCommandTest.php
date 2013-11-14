@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\Product;
 
-use Lighthouse\CoreBundle\Command\Product\RecalculateMetricsCommand;
+use Lighthouse\CoreBundle\Command\Products\RecalculateMetricsCommand;
 use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -17,7 +17,11 @@ class RecalculateMetricsCommandTest extends TestCase
             '',
             false
         );
-        $mock->expects($this->once())
+        $mock
+            ->expects($this->once())
+            ->method('recalculateAveragePrice');
+        $mock
+            ->expects($this->once())
             ->method('recalculateAveragePrice');
 
         $command = new RecalculateMetricsCommand($mock);

@@ -23,7 +23,7 @@ class TrailBalanceRepositoryTest extends ContainerAwareTestCase
         $result = $trailBalanceRepository->calculateAveragePurchasePrice();
         $this->assertCount(0, $result);
 
-        $result = $trailBalanceRepository->calculateInventoryRatio();
+        $result = $trailBalanceRepository->calculateDailyAverageSales();
         $this->assertCount(0, $result);
     }
 }

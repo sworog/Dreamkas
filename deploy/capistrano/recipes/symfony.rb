@@ -261,7 +261,7 @@ namespace :symfony do
     namespace :products do
         desc "Recalculate products metrics"
         task :recalculate_metrics, :roles => :app, :except => { :no_release => true } do
-            capture console_command("lighthouse:product:recalculate_metrics"), :once => true
+            capture console_command("lighthouse:products:recalculate_metrics"), :once => true
         end
     end
 

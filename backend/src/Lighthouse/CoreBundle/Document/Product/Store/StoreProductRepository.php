@@ -348,16 +348,14 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param string $storeProductId
-     * @param float  $inventoryRatio
+     * @param float  $averageDailySales
      */
-    public function updateInventoryRatio($storeProductId, $inventoryRatio)
+    public function updateAverageDailySales($storeProductId, $averageDailySales = null)
     {
-        $averageDailySales = (null === $inventoryRatio) ? null : 1 / $inventoryRatio;
         $query = $this
             ->createQueryBuilder()
             ->findAndUpdate()
             ->field('id')->equals($storeProductId)
-            ->field('inventoryRatio')->set($inventoryRatio, true)
             ->field('averageDailySales')->set($averageDailySales, true)
             ->field('inventoryRatioNotCalculate')->unsetField();
 

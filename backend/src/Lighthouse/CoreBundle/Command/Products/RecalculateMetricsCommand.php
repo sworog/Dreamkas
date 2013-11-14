@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Command\Product;
+namespace Lighthouse\CoreBundle\Command\Products;
 
 use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -52,7 +52,7 @@ class RecalculateMetricsCommand extends Command
         $output->writeln("<info>Recalculate started</info>");
 
         $this->metricsCalculator->recalculateAveragePrice();
-        $this->metricsCalculator->recalculateInventoryRatio();
+        $this->metricsCalculator->recalculateDailyAverageSales();
 
         $output->writeln("<info>Recalculate finished</info>");
 

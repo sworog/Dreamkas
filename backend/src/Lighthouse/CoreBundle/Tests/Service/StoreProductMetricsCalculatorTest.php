@@ -100,7 +100,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 30,
                 'inventory' => 18,
                 'inventoryDays' => 0,
-                'inventoryRatio' => null,
                 'averageDailySales' => null,
             ),
             '1' => array(
@@ -108,7 +107,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 1000,
                 'inventory' => 888,
                 'inventoryDays' => 261.17647058824,
-                'inventoryRatio' => 0.29411764705882,
                 'averageDailySales' => 3.4,
             ),
             '3' => array(
@@ -116,7 +114,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 20,
                 'inventory' => 10,
                 'inventoryDays' => 30,
-                'inventoryRatio' => 3,
                 'averageDailySales' => 0.33333333333333,
             ),
             '7' => array(
@@ -124,7 +121,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 3,
                 'inventory' => 2,
                 'inventoryDays' => 60,
-                'inventoryRatio' => 30,
                 'averageDailySales' => 0.033333333333333,
             ),
             '8594403916157' => array(
@@ -132,7 +128,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 1,
                 'inventory' => -1,
                 'inventoryDays' => 0,
-                'inventoryRatio' => 15,
                 'averageDailySales' => 0.066666666666667,
             ),
             '2873168' => array(
@@ -140,7 +135,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 30,
                 'inventory' => 9,
                 'inventoryDays' => 12.857142857143,
-                'inventoryRatio' => 1.4285714285714,
                 'averageDailySales' => 0.7,
             ),
             '2809727' => array(
@@ -148,7 +142,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 30,
                 'inventory' => 5,
                 'inventoryDays' => 6,
-                'inventoryRatio' => 1.2,
                 'averageDailySales' => 0.83333333333333,
             ),
             '25525687' => array(
@@ -156,7 +149,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 180,
                 'inventory' => 23,
                 'inventoryDays' => 4.3949044585987,
-                'inventoryRatio' => 0.19108280254777,
                 'averageDailySales' => 5.2333333333333,
             ),
             '55557' => array(
@@ -164,7 +156,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 11,
                 'inventory' => 10,
                 'inventoryDays' => 300,
-                'inventoryRatio' => 30,
                 'averageDailySales' => 0.033333333333333,
             ),
             '8594403110111' => array(
@@ -172,7 +163,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 1500,
                 'inventory' => 212,
                 'inventoryDays' => 4.9378881987578,
-                'inventoryRatio' => 0.023291925465839,
                 'averageDailySales' => 42.933333333333,
             ),
             '4601501082159' => array(
@@ -180,7 +170,6 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'accepted' => 167,
                 'inventory' => 33,
                 'inventoryDays' => 7.3880597014925,
-                'inventoryRatio' => 0.22388059701493,
                 'averageDailySales' => 4.4666666666667,
             )
         );
@@ -202,12 +191,11 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
 
         /* @var StoreProductMetricsCalculator $metricsCalculator */
         $metricsCalculator = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
-        $metricsCalculator->recalculateInventoryRatio();
+        $metricsCalculator->recalculateDailyAverageSales();
 
-        foreach ($products as $sku => $product) {
+        foreach ($products as $product) {
             $assertions = array(
                 'inventory' => $product['inventory'],
-                'inventoryRatio' => $product['inventoryRatio'],
                 'averageDailySales' => $product['averageDailySales'],
                 'inventoryDays' => $product['inventoryDays'],
             );

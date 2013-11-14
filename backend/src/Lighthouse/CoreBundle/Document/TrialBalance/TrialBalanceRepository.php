@@ -165,7 +165,7 @@ class TrialBalanceRepository extends DocumentRepository
     /**
      * @return array
      */
-    public function calculateInventoryRatio()
+    public function calculateDailyAverageSales()
     {
         if ($this->isCollectionEmpty()) {
             return array();
@@ -206,9 +206,9 @@ class TrialBalanceRepository extends DocumentRepository
                     sprintf(
                         "function(storeProductId, obj) {
                             if (obj.quantity > 0) {
-                                obj.inventoryRatio = %d / obj.quantity;
+                                obj.dailyAverageSales = obj.quantity / %d;
                             } else {
-                                obj.inventoryRatio = null;
+                                obj.dailyAverageSales = null;
                             }
                             return obj;
                         }",

@@ -102,12 +102,6 @@ class StoreProduct extends AbstractDocument
      * @MongoDB\Float
      * @var float
      */
-    protected $inventoryRatio;
-
-    /**
-     * @MongoDB\Float
-     * @var float
-     */
     protected $averageDailySales;
 
     /**
@@ -133,12 +127,12 @@ class StoreProduct extends AbstractDocument
 
     /**
      * @Serializer\VirtualProperty
-     * @return int
+     * @return float
      */
     public function getInventoryDays()
     {
-        if ($this->inventory > 0) {
-            return $this->inventory * $this->inventoryRatio;
+        if ($this->inventory > 0 && $this->averageDailySales > 0) {
+            return $this->inventory / $this->averageDailySales;
         } else {
             return 0;
         }
