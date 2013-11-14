@@ -45,7 +45,7 @@ public class InvoiceUserSteps {
         invoiceSteps.createInvoiceThroughPost(sku, number, userName);
     }
 
-    @Given("there is the invoice with sku '$sku' and '$date' in the store with number '$number' ruled by department manager with name '$userName'")
+    @Given("there is the date invoice with sku '$sku' and date '$date' in the store with number '$number' ruled by department manager with name '$userName'")
     public void givenThereIsTheInvoiceInTheStore(String sku, String date, String number, String userName) throws IOException, JSONException {
         invoiceSteps.createInvoiceThroughPost(sku, new DateTimeHelper(date).convertDateTime(), number, userName);
     }

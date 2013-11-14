@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.objects.web.abstractObjects;
 
 import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -48,17 +49,7 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
     }
 
     public void clickByLocator(String locator) {
-        Boolean found = false;
-        for (AbstractObject abstractObject : this) {
-            if (abstractObject.getObjectLocator().equals(locator)) {
-                found = true;
-                abstractObject.click();
-            }
-        }
-        if (!found) {
-            String errorMessage = String.format("There is no object with '%s' to click!", locator);
-            Assert.fail(errorMessage);
-        }
+        getAbstractObjectByLocator(locator).click();
     }
 
     public void clickPropertyByLocator(String locator, String propertyName) {
@@ -76,16 +67,16 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
     }
 
     public void contains(String locator) {
-        Boolean found = false;
+        getAbstractObjectByLocator(locator);
+    }
+
+    public AbstractObject getAbstractObjectByLocator(String locator) {
         for (AbstractObject abstractObject : this) {
             if (abstractObject.getObjectLocator().equals(locator)) {
-                found = true;
-                break;
+                return abstractObject;
             }
         }
-        if (!found) {
-            String errorMessage = String.format("There is no object with '%s'", locator);
-            Assert.fail(errorMessage);
-        }
+        String errorMessage = String.format("There is no object with locator '%s'", locator);
+        throw new AssertionFailedError(errorMessage);
     }
 }

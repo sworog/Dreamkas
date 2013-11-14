@@ -16,7 +16,7 @@ public class BalanceListPage extends CommonPageObject {
     }
 
     public BalanceObjectCollection getBalanceObjectCollection() {
-        return new BalanceObjectCollection(getDriver(), By.name("amountItem"));
+        return new BalanceObjectCollection(getDriver(), By.name("inventoryItem"));
     }
 
     public void balanceTabClick() {

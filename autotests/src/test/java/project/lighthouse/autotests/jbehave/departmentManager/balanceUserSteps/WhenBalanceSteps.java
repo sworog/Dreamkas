@@ -14,8 +14,8 @@ public class WhenBalanceSteps {
         balanceSteps.balanceTabClick();
     }
 
-    @When("the user clicks on the product name link of the inventory table item by '$sku'")
+    @When("the user clicks on the inventory table item by '$sku'")
     public void whenTheUserClicksOnTheProductNameLinkOfTheInventoryTableItemBySku(String sku) {
-        balanceSteps.clickPropertyByLocator(sku, "productName");
+        balanceSteps.clickPropertyByLocator(sku);
     }
 }
