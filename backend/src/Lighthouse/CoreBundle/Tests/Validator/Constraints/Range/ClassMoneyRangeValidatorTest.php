@@ -19,13 +19,13 @@ class ClassMoneyRangeValidatorTest extends TestCase
     protected $context;
 
     /**
-     * @var \Lighthouse\CoreBundle\Validator\Constraints\Range\ClassMoneyRangeValidator
+     * @var ClassMoneyRangeValidator
      */
     protected $validator;
 
     public function setUp()
     {
-        $this->context = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
         $moneyTransformer = new MoneyModelTransformer();
         $this->validator = new ClassMoneyRangeValidator($moneyTransformer);
         $this->validator->initialize($this->context);

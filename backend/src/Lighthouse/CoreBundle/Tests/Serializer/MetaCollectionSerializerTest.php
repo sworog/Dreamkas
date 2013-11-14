@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Serializer;
 
 use Lighthouse\CoreBundle\Meta\MetaCollection;
-use Lighthouse\CoreBundle\Serializer\Handler\MoneyHandler;
+use Lighthouse\CoreBundle\Meta\MetaGeneratorInterface;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\Test;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\TestCollection;
@@ -31,6 +31,7 @@ class MetaCollectionSerializerTest extends ContainerAwareTestCase
             )
         );
 
+        /* @var MetaGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject $mockMetaGenerator */
         $mockMetaGenerator = $this->getMock(
             '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
         );

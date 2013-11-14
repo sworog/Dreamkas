@@ -382,8 +382,9 @@ class StoreControllerManagementTest extends WebTestCase
     public function testGetStoreManagersPermissionForbidden($role)
     {
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
-        $storeUser3 = $this->createUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
+
+        $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $this->createUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
 
         $storeId1 = $this->factory->getStore();
 
@@ -431,7 +432,8 @@ class StoreControllerManagementTest extends WebTestCase
     {
         $storeId1 = $this->factory->getStore();
         $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+
+        $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
 
         $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
 
@@ -677,7 +679,7 @@ class StoreControllerManagementTest extends WebTestCase
     {
         $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notfoundstore/departmentManagers');
+        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notFoundStore/departmentManagers');
 
         $this->assertResponseCode(404);
 

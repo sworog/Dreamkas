@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Command\Product;
 
 use Lighthouse\CoreBundle\Command\Products\RecalculateMetricsCommand;
+use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -10,6 +11,7 @@ class RecalculateMetricsCommandTest extends TestCase
 {
     public function testExecute()
     {
+        /* @var StoreProductMetricsCalculator|\PHPUnit_Framework_MockObject_MockObject $mock */
         $mock = $this->getMock(
             'Lighthouse\\CoreBundle\\Service\\StoreProductMetricsCalculator',
             array(),
@@ -22,7 +24,7 @@ class RecalculateMetricsCommandTest extends TestCase
             ->method('recalculateAveragePrice');
         $mock
             ->expects($this->once())
-            ->method('recalculateAveragePrice');
+            ->method('recalculateDailyAverageSales');
 
         $command = new RecalculateMetricsCommand($mock);
 

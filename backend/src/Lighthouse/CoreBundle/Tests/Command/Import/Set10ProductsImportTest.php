@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
 use Lighthouse\CoreBundle\Command\Import\Set10ProductsImport;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -58,6 +60,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
      */
     public function testArguments($file, $batchSize, $expectedFile, $expectedBatchSize)
     {
+        /* @var $parser Set10ProductImportXmlParser|\PHPUnit_Framework_MockObject_MockObject */
         $parser = $this->getMock(
             'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Products\\Set10ProductImportXmlParser',
             array(),
@@ -71,6 +74,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
             ->method('setXmlFilePath')
             ->with($this->equalTo($expectedFile));
 
+        /* @var $importer Set10ProductImporter|\PHPUnit_Framework_MockObject_MockObject */
         $importer = $this->getMock(
             'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Products\\Set10ProductImporter',
             array(),

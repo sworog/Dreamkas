@@ -77,6 +77,7 @@ class Set10SalesImportTest extends WebTestCase
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
+        /* @var Set10SalesImport $command */
         $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
@@ -106,6 +107,7 @@ class Set10SalesImportTest extends WebTestCase
     {
         $this->createConfig(Set10Import::URL_CONFIG_NAME, $url);
 
+        /* @var Set10SalesImport $command*/
         $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
@@ -133,6 +135,7 @@ class Set10SalesImportTest extends WebTestCase
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $file1);
 
+        /* @var Set10SalesImport $command */
         $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());

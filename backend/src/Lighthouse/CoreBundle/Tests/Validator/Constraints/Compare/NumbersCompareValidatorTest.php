@@ -23,7 +23,7 @@ class NumbersCompareValidatorTest extends TestCase
 
     public function setUp()
     {
-        $this->context = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
         $this->validator = new NumbersCompareValidator();
         $this->validator->initialize($this->context);
     }

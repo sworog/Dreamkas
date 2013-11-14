@@ -403,14 +403,7 @@ EOF;
 
         $expectedDirInfo = $this->getDirInfoArray();
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array(
-                'getProcessResource',
-                'fgets',
-                'closeProcessResource',
-            )
-        );
+        $sambaMock = $this->getSambaMock(array('getProcessResource', 'fgets', 'closeProcessResource'));
 
         $sambaMock
             ->expects($this->any())
@@ -421,14 +414,7 @@ EOF;
 
         $this->assertEquals($expectedDirInfo, $dirInfo);
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array(
-                'getProcessResource',
-                'fgets',
-                'closeProcessResource',
-            )
-        );
+        $sambaMock = $this->getSambaMock(array('getProcessResource', 'fgets', 'closeProcessResource'));
         $sambaMock
             ->expects($this->any())
             ->method('fgets')
@@ -505,10 +491,7 @@ EOF;
             "workgroup" => array("cmag", "mygroup"),
         );
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('look')
-        );
+        $sambaMock = $this->getSambaMock(array('look'));
 
         $sambaMock
             ->expects($this->any())
@@ -605,7 +588,6 @@ EOF;
 
     public function testDirOpenDirMethod()
     {
-        $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
         $urlDir = "smb://user:password@host/base_path/to/dir";
         $urlHost = "smb://user:password@host";
 

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\Auth;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Lighthouse\CoreBundle\Command\Auth\ListClient;
 use Lighthouse\CoreBundle\Document\Auth\Client;
 use Lighthouse\CoreBundle\Test\TestCase;
@@ -11,6 +12,7 @@ class ListClientTest extends TestCase
 {
     public function testExecute()
     {
+        /* @var ObjectRepository|\PHPUnit_Framework_MockObject_MockObject $clientRepositoryMock*/
         $clientRepositoryMock = $this->getMock(
             'Doctrine\\Common\\Persistence\\ObjectRepository',
             array(),

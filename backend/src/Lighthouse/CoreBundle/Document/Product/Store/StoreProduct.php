@@ -145,7 +145,7 @@ class StoreProduct extends AbstractDocument
     }
 
     /*
-     * Dummy method to format values for serailizer
+     * Dummy method to format values for serializer
      */
 
     /**

@@ -11,7 +11,7 @@ class MetaContainerTest extends WebTestCase
 {
     /**
      * @param MetaGeneratorInterface|MetaGeneratorInterface[] $metaGenerators
-     * @return MetaCollection
+     * @return MetaCollection|MetaDocument[]
      */
     public function getProductCollectionWithMetaGenerators($metaGenerators)
     {
@@ -36,6 +36,7 @@ class MetaContainerTest extends WebTestCase
 
         $productsData = $this->getProductsData();
 
+        /* @var $mockMetaGenerator MetaGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject */
         $mockMetaGenerator = $this->getMock(
             '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
         );

@@ -1023,7 +1023,7 @@ class SubCategoryControllerTest extends WebTestCase
         $groupId2 = $this->createGroup('2');
 
         $categoryId1 = $this->createCategory($groupId1, '1.1');
-        $categoryId2 = $this->createCategory($groupId1, '1.2');
+        $this->createCategory($groupId1, '1.2');
 
         $categoryId3 = $this->createCategory($groupId2, '2.1');
         $categoryId4 = $this->createCategory($groupId2, '2.2');

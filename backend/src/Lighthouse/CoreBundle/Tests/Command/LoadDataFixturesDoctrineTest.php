@@ -6,8 +6,10 @@ use Lighthouse\CoreBundle\Command\LoadDataFixturesDoctrine;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
 {
@@ -23,6 +25,7 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
     protected function getCommand()
     {
         $container = $this->getContainer();
+        /* @var KernelInterface $kernel */
         $kernel = $container->get('kernel');
         $application = new Application($kernel);
         /* @var LoadDataFixturesDoctrine $command */
@@ -78,6 +81,7 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
     {
         $command = $this->getCommand();
 
+        /* @var $dialogHelperMock DialogHelper|\PHPUnit_Framework_MockObject_MockObject */
         $dialogHelperMock = $this->getMock(
             'Symfony\\Component\\Console\\Helper\\DialogHelper',
             array('askConfirmation')
@@ -109,6 +113,7 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
     {
         $command = $this->getCommand();
 
+        /* @var $dialogHelperMock DialogHelper|\PHPUnit_Framework_MockObject_MockObject */
         $dialogHelperMock = $this->getMock(
             'Symfony\\Component\\Console\\Helper\\DialogHelper',
             array('askConfirmation')
@@ -133,6 +138,7 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
     {
         $command = $this->getCommand();
 
+        /* @var $dialogHelperMock DialogHelper|\PHPUnit_Framework_MockObject_MockObject */
         $dialogHelperMock = $this->getMock(
             'Symfony\\Component\\Console\\Helper\\DialogHelper',
             array('askConfirmation')
@@ -162,8 +168,8 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
 
     public function testExecuteThroughApplication()
     {
-        $container = $this->getContainer();
-        $kernel = $container->get('kernel');
+        /* @var KernelInterface $kernel */
+        $kernel = $this->getContainer()->get('kernel');
         $application = new Application($kernel);
 
         $input = new ArgvInput(

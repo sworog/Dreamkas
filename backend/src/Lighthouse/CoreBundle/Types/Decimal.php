@@ -71,7 +71,7 @@ class Decimal
      * @param int $precision
      * @return Decimal
      */
-    static public function createFromFloat($float, $precision)
+    public static function createFromFloat($float, $precision)
     {
         $count = round(self::getDivider($precision) * $float);
         return new self($count, $precision);

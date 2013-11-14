@@ -46,7 +46,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
         $storeManager2User = $this->createUser('storeManager2', 'password', 'ROLE_STORE_MANAGER');
         $storeManager2AccessToken = $this->auth($storeManager2User);
         $storeManager3User = $this->createUser('storeManager3', 'password', 'ROLE_STORE_MANAGER');
-        $storeManager3AccessToken = $this->auth($storeManager3User);
 
         $groupData = array(
             'name' => 'Группа',
