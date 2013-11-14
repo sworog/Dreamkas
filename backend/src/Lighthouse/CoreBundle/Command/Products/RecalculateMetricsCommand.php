@@ -27,7 +27,7 @@ class RecalculateMetricsCommand extends Command
      */
     public function __construct(StoreProductMetricsCalculator $metricsCalculator)
     {
-        parent::__construct();
+        parent::__construct('lighthouse:products:recalculate_metrics');
 
         $this->metricsCalculator = $metricsCalculator;
     }
@@ -37,9 +37,7 @@ class RecalculateMetricsCommand extends Command
      */
     protected function configure()
     {
-        $this
-            ->setName('lighthouse:product:recalculate_metrics')
-            ->setDescription('Recalculate Product metrics');
+        $this->setDescription('Recalculate Product metrics');
     }
 
     /**
