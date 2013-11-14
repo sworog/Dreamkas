@@ -8,6 +8,7 @@ use JMS\Serializer\Metadata\Driver\DoctrineTypeDriver;
 use Metadata\Driver\DriverInterface;
 use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;
+use ReflectionClass;
 
 /**
  * @DI\Service("lighthouse.core.serializer.metadata.driver.document", public=false)
@@ -37,10 +38,10 @@ class DocumentDriver extends DoctrineTypeDriver
     }
 
     /**
-     * @param \ReflectionClass $class
-     * @return \Metadata\ClassMetadata
+     * @param ReflectionClass $class
+     * @return ClassMetadata
      */
-    public function loadMetadataForClass(\ReflectionClass $class)
+    public function loadMetadataForClass(ReflectionClass $class)
     {
         $metadata = parent::loadMetadataForClass($class);
 
