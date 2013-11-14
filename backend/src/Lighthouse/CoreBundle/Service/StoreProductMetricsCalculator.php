@@ -47,7 +47,10 @@ class StoreProductMetricsCalculator
 
         $results = $this->trialBalanceRepository->calculateAveragePurchasePrice();
         foreach ($results as $result) {
-            $this->storeProductRepository->updateAveragePurchasePrice($result['_id'], $result['value']['averagePrice']);
+            $this->storeProductRepository->updateAveragePurchasePrice(
+                $result['_id'],
+                $result['value']['averagePrice']
+            );
         }
 
         $this->storeProductRepository->resetAveragePurchasePriceNotCalculate();
@@ -63,7 +66,10 @@ class StoreProductMetricsCalculator
         $this->storeProductRepository->setFieldToNotCalculate('dailyAverageSales');
         $results = $this->trialBalanceRepository->calculateDailyAverageSales();
         foreach ($results as $result) {
-            $this->storeProductRepository->updateAverageDailySales($result['_id'], $result['value']['dailyAverageSales']);
+            $this->storeProductRepository->updateAverageDailySales(
+                $result['_id'],
+                $result['value']['dailyAverageSales']
+            );
         }
         $this->storeProductRepository->resetFieldNotCalculate('dailyAverageSales');
 
