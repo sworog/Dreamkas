@@ -73,7 +73,7 @@ abstract public class CommonPageObject extends PageObject {
     }
 
     public WebElement findModelFieldContaining(String modelName, String fieldName, String expectedValue) {
-        By by = By.xpath(String.format("//span[@model_name='%s' and @model_attr='%s' and contains(text(), '%s')]", modelName, fieldName, expectedValue));
+        By by = By.xpath(String.format("//span[@model_name='%s' and @model-attribute='%s' and contains(text(), '%s')]", modelName, fieldName, expectedValue));
         return findVisibleElement(by);
     }
 }

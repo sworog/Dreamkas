@@ -19,10 +19,10 @@ public class ReturnListObject extends AbstractObjectNode {
 
     @Override
     public void setProperties() {
-        createdDateFormatted = getElement().findElement(By.xpath(".//*[@model_attr='createdDateFormatted']")).getText();
-        quantity = getElement().findElement(By.xpath(".//*[@model_attr='quantity']")).getText();
-        priceFormatted = getElement().findElement(By.xpath(".//*[@model_attr='priceFormatted']")).getText();
-        totalPriceFormatted = getElement().findElement(By.xpath(".//*[@model_attr='totalPriceFormatted']")).getText();
+        createdDateFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='createdDateFormatted']")).getText();
+        quantity = getElement().findElement(By.xpath(".//*[@model-attribute='quantity']")).getText();
+        priceFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='priceFormatted']")).getText();
+        totalPriceFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='totalPriceFormatted']")).getText();
     }
 
     @Override

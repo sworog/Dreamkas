@@ -31,7 +31,7 @@ public class StoreCardPage extends CommonPageObject {
 
     public void checkStoreCardHeader(String header) {
         String storeNumber = findVisibleElement(
-                By.xpath("//*[@model_attr='number' and @model_name='store']")
+                By.xpath("//*[@model-attribute='number' and @model_name='store']")
         ).getText();
         assertEquals(
                 String.format("Store number should be '%s', but it's '%s'", header, storeNumber),
@@ -66,7 +66,7 @@ public class StoreCardPage extends CommonPageObject {
     public WebElement findPromotedStoreManager(String value) {
         return findVisibleElement(
                 By.xpath(
-                        String.format("//*[not(contains(@class, 'store__storeManagerItem preloader_rows'))]/*[@model_attr='name' and @model_name='user' and text()='%s']", value)
+                        String.format("//*[not(contains(@class, 'store__storeManagerItem preloader_rows'))]/*[@model-attribute='name' and @model_name='user' and text()='%s']", value)
                 )
         );
     }
@@ -74,7 +74,7 @@ public class StoreCardPage extends CommonPageObject {
     public WebElement findPromotedDepartmentManager(String value) {
         return findVisibleElement(
                 By.xpath(
-                        String.format("//*[not(contains(@class, 'store__departmentManagerItem preloader_rows'))]/*[@model_attr='name' and @model_name='user' and text()='%s']", value)
+                        String.format("//*[not(contains(@class, 'store__departmentManagerItem preloader_rows'))]/*[@model-attribute='name' and @model_name='user' and text()='%s']", value)
                 )
         );
     }

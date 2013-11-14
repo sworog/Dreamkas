@@ -29,7 +29,7 @@ public class StoreListPage extends CommonPageObject {
     public void checkStoreListItem(String columnName, String expectedValue) {
         findVisibleElement(
                 By.xpath(
-                        String.format("//span[@model_attr='%s' and contains(text(), '%s')]", columnName, expectedValue)
+                        String.format("//span[@model-attribute='%s' and contains(text(), '%s')]", columnName, expectedValue)
                 )
         );
     }
@@ -37,7 +37,7 @@ public class StoreListPage extends CommonPageObject {
     public WebElement findStoreRowInList(String storeNumber) {
         return findVisibleElement(
                 By.xpath(
-                        String.format("//td/span[@model_attr='number' and contains(text(), '%s')]/..", storeNumber)
+                        String.format("//td/span[@model-attribute='number' and contains(text(), '%s')]/..", storeNumber)
                 )
         );
     }
