@@ -3,6 +3,7 @@
         "recipe[apt::default]",
         "recipe[nginx]",
         "recipe[mongodb::10gen_repo]",
+        "recipe[mongodb]",
         "recipe[php]",
         "recipe[php-fpm]",
         "recipe[beanstalkd]",
@@ -19,13 +20,21 @@
         "pools": ["www"],
         "pool": {
             "www": {
-                "user": "wathcman",
+                "user": "watchman",
                 "group": "www-data",
                 "max_children": 10,
                 "start_servers": 4,
                 "min_spare_servers": 2,
-                "max_spare_servers": 6
+                "max_spare_servers": 6,
+                "listen": "/var/run/php5-fpm.sock"
             }
         }
+    },
+    "beanstalkd": {
+        "opts": {
+            "l": "0.0.0.0",
+            "p": "11300"
+        },
+        "start_during_boot": true
     }
 }

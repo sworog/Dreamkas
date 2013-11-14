@@ -20,19 +20,19 @@ cookbook_file "nginx_404.html" do
   mode "0644"
 end
 
-
-template "#{node.nginx.dir}/sites-available/lighthouse_backend.conf" do
-  source "nginx/backend.conf.erb"
+cookbook_file "favicon.ico" do
+  path "/var/www/nginx/favicon.ico"
+  action :create
+  owner "watchman"
   mode "0644"
 end
 
-template "#{node.nginx.dir}/sites-available/lighthouse_webfront.conf" do
-  source "nginx/webfront.conf.erb"
+template "#{node.nginx.dir}/sites-available/lighthouse.conf" do
+  source "nginx/lighthouse.conf.erb"
   mode "0644"
 end
 
-nginx_site "lighthouse_backend.conf"
-nginx_site "lighthouse_webfront.conf"
+nginx_site "lighthouse.conf"
 
 #############################################
 # cron

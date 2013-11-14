@@ -5,6 +5,7 @@
 #############################################
 package "vim"
 package "htop"
+package "curl"
 
 #############################################
 # users
@@ -58,5 +59,10 @@ end
 package "make"
 
 php_pear "mongo" do
+  action :install
+end
+
+package "libpcre3-dev"
+php_pear "apc" do
   action :install
 end
