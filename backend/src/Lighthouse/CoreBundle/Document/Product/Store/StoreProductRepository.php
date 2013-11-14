@@ -338,12 +338,12 @@ class StoreProductRepository extends DocumentRepository
 
     public function setAllAveragePurchasePriceToNotCalculate()
     {
-        $this->setFieldToNotCalculate('averagePurchasePrice');
+        $this->setFieldToNotCalculate('averagePurchasePrice', null);
     }
 
     public function resetAveragePurchasePriceNotCalculate()
     {
-        $this->resetFieldNotCalculate('averagePurchasePrice');
+        $this->resetFieldNotCalculate('averagePurchasePrice', null);
     }
 
     /**
@@ -364,13 +364,14 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param string $field
+     * @param mixed $value
      */
-    public function setFieldToNotCalculate($field)
+    public function setFieldToNotCalculate($field, $value = null)
     {
         $query = $this->createQueryBuilder()
             ->update()
             ->multiple(true)
-            ->field($field)->notEqual(null)
+            ->field($field)->notEqual($value)
             ->field("{$field}NotCalculate")->set(true, true);
 
         $query->getQuery()->execute();
@@ -378,14 +379,15 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param string $field
+     * @param mixed $value
      */
-    public function resetFieldNotCalculate($field)
+    public function resetFieldNotCalculate($field, $value = null)
     {
         $query = $this->createQueryBuilder()
             ->update()
             ->multiple(true)
             ->field("{$field}NotCalculate")->equals(true)
-            ->field($field)->set(null, true)
+            ->field($field)->set($value, true)
             ->field("{$field}NotCalculate")->unsetField();
 
         $query->getQuery()->execute();
