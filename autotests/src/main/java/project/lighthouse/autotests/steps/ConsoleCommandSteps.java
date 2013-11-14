@@ -56,7 +56,8 @@ public class ConsoleCommandSteps extends ScenarioSteps {
         String host = StaticData.WEB_DRIVER_BASE_URL.replaceAll("http://(.*).autotests.webfront.lighthouse.cs", "$1");
         ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, host).exec(command);
         if (!consoleCommandResult.isOk()) {
-            Assert.fail(consoleCommandResult.getOutput());
+            String errorMessage = String.format("Output: '%s'. Command: '%s'. Host: '%s'.", consoleCommandResult.getOutput(), command, host);
+            Assert.fail(errorMessage);
         }
     }
 }
