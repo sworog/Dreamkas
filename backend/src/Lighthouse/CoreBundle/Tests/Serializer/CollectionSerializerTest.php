@@ -75,17 +75,4 @@ class CollectionSerializerTest extends ContainerAwareTestCase
             $this->assertArrayHasKey('method', $event);
         }
     }
-
-    public function testMoneyHandlerGetSubscribingMethods()
-    {
-        $methods = MoneyHandler::getSubscribingMethods();
-        $this->assertInternalType('array', $methods);
-        foreach ($methods as $method) {
-            $this->assertInternalType('array', $method);
-            $this->assertArrayHasKey('method', $method);
-            $this->assertArrayHasKey('type', $method);
-            $this->assertArrayHasKey('direction', $method);
-            $this->assertArrayHasKey('format', $method);
-        }
-    }
 }
