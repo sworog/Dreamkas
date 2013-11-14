@@ -1,38 +1,77 @@
+#############################################
 # nginx
+#############################################
+directory "/var/www" do
+  action :create
+  owner "watchman"
+  group "watchman"
+end
+
+directory "/var/www/nginx" do
+  action :create
+  owner "watchman"
+  group "watchman"
+end
+
+cookbook_file "nginx_404.html" do
+  path "/var/www/nginx/404.html"
+  action :create
+  owner "watchman"
+  mode "0644"
+end
+
+
 template "#{node.nginx.dir}/sites-available/lighthouse_backend.conf" do
-  source "backend.conf.erb"
+  source "nginx/backend.conf.erb"
   mode "0644"
 end
 
 template "#{node.nginx.dir}/sites-available/lighthouse_webfront.conf" do
-  source "webfront.conf.erb"
+  source "nginx/webfront.conf.erb"
   mode "0644"
 end
 
 nginx_site "lighthouse_backend.conf"
 nginx_site "lighthouse_webfront.conf"
 
+#############################################
 # cron
-
-include_recipe "cron"
-
-cookbook_file "lh-run-command.sh" do
+#############################################
+cookbook_file "cron_lh-run-command.sh" do
   path "/usr/local/bin/lh-run-command.sh"
   action :create
   owner "watchman"
   mode "0744"
 end
 
-cron_d "import_sales" do
-  minute  "*/1"
-  command "/usr/local/bin/lh-run-commmand.sh 'ligthouse:import:sales'"
-  user    "watchman"
+cookbook_file "cron_lighthouse" do
+  path "/etc/cron.d/lighthouse"
+  action :create
+  mode "0644"
+  owner "root"
 end
 
-cron_d "recal_average_purchase_price" do
-  minute  20
-  houre   4
-  command "/usr/local/bin/lh-run-commmand.sh 'ligthouse:recalculate-average-purchase-price'"
-  user    "watchman"
+#############################################
+#supervisord
+#############################################
+package "supervisor"
+
+service "supervisor" do
+  reload_command "supervisorctl update"
 end
 
+cookbook_file "supervisord_init" do
+  path "/etc/init.d/supervisor"
+  action :create
+  mode "0744"
+  owner "root"
+  group "root"
+end
+
+cookbook_file "supervisord_default" do
+  path "/etc/default/supervisor"
+  action :create
+  mode "0644"
+  owner "root"
+  group "root"
+end

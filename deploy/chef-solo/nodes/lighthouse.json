@@ -1,13 +1,14 @@
 {
     "run_list": [
+        "recipe[apt::default]",
         "recipe[nginx]",
         "recipe[mongodb::10gen_repo]",
         "recipe[php]",
         "recipe[php-fpm]",
         "recipe[beanstalkd]",
 
-        "recipe[lighthouse::hosts]",
-        "recipe[lighthouse]"
+        "recipe[lighthouse]",
+        "recipe[lighthouse::hosts]"
     ],
     "php": {
         "directives": {
@@ -16,15 +17,15 @@
     },
     "php-fpm": {
         "pools": ["www"],
-	"pool": {
-	    "www": {
-	        "user": "wathcman",
-		"group": "www-data",
-		"max_children": 10,
-		"start_servers": 4,
-		"min_spare_servers": 2,
-		"max_spare_servers": 6
-	    }
-	}
+        "pool": {
+            "www": {
+                "user": "wathcman",
+                "group": "www-data",
+                "max_children": 10,
+                "start_servers": 4,
+                "min_spare_servers": 2,
+                "max_spare_servers": 6
+            }
+        }
     }
 }

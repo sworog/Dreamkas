@@ -24,4 +24,3 @@ cookbook 'php'
 cookbook 'nginx'
 cookbook 'cron'
 cookbook 'beanstalkd'
-
