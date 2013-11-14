@@ -10,9 +10,10 @@
     </thead>
     <tbody>
     <% collection.forEach(function(model){ %>
-    <tr name="inventoryItem">
+    <tr name="inventoryItem" href="/products/<%- model.get('id') %>">
         <td>
             <%= LH.modelNode(model, 'product.name') %>
+            <div style="clear: both;"></div>
             <div style="font-size: 11px; float: right">
                 <%= LH.modelNode(model, 'product.barcode') %>
             </div>
