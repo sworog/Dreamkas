@@ -1,0 +1,30 @@
+{
+    "run_list": [
+        "recipe[nginx]",
+        "recipe[mongodb::10gen_repo]",
+        "recipe[php]",
+        "recipe[php-fpm]",
+        "recipe[beanstalkd]",
+
+        "recipe[lighthouse::hosts]",
+        "recipe[lighthouse]"
+    ],
+    "php": {
+        "directives": {
+            "date.timezone": "Europe/Moscow"
+        }
+    },
+    "php-fpm": {
+        "pools": ["www"],
+	"pool": {
+	    "www": {
+	        "user": "wathcman",
+		"group": "www-data",
+		"max_children": 10,
+		"start_servers": 4,
+		"min_spare_servers": 2,
+		"max_spare_servers": 6
+	    }
+	}
+    }
+}
