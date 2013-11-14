@@ -1,6 +1,7 @@
 namespace :symfony do
 
     def console_command(command)
+        check_app_deployed
         "sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} #{command} --env=#{symfony_env_prod}'"
     end
 
@@ -21,6 +22,11 @@ namespace :symfony do
                 end
 
             end
+        end
+
+        desc "Load data fixtures"
+        task :load_fixtures, :roles => :app, :except => { :no_release => true } do
+            puts capture console_command("doctrine:fixtures:load #{doctrine_em_flag} --no-interaction"), :once => true
         end
     end
 
@@ -231,7 +237,8 @@ namespace :symfony do
         end
 
         namespace :sales do
-            task :local do
+            desc "Upload and import sales xml"
+            task :local, :roles => :app, :except => { :no_release => true } do
                 raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
 
                 set :xml_file_path, file

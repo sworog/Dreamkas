@@ -1,10 +1,17 @@
 require 'time_diff'
 
-namespace :deploy do
+def remote_folder_exists?(path)
+    'true' ==  capture("if [ -d #{path} ]; then echo 'true'; fi").strip
+end
 
-    def remote_folder_exists?(path)
-        'true' ==  capture("if [ -d #{path} ]; then echo 'true'; fi").strip
+def check_app_deployed
+    unless remote_folder_exists?(deploy_to)
+        capifony_pretty_print "--> You have not deployed your app yet".red
+        raise "You have not deployed your app yet"
     end
+end
+
+namespace :deploy do
 
     desc "Check & setup environment if needed"
     task :setup_if_needed, :roles => :app, :except => { :no_release => true } do
