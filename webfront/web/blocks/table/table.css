@@ -18,15 +18,10 @@
 }
 
 .table_subCategoryBalance .layout__floatPart {
-    width: 35px;
+    width: 25px;
     text-align: left;
     color: #95a5a6;
     display: inline-block;
-}
-
-.table_subCategoryBalance [model-attribute="lastPurchasePriceElement"] .layout__floatPart,
-.table_subCategoryBalance [model-attribute="averagePurchasePriceElement"] .layout__floatPart {
-    width: 25px;
 }
 
 .table_subCategoryBalance tr:hover .layout__floatPart{

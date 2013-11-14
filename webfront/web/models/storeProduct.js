@@ -18,25 +18,19 @@ define(function(require) {
         },
         defaults: {
             inventory: 0,
+            inventoryDays: 0,
+            averageDailySales: 0,
 
-            inventoryElement: computeAttr(['inventory'], function(inventoryDays) {
-                return String.prototype.split.call(inventoryDays, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(inventoryDays, '.')[1] || '000') + '</span>'
+            inventoryElement: computeAttr(['inventory'], function(inventory) {
+                return String.prototype.split.call(inventory, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(inventory, '.')[1] || '00') + '</span>'
             }),
 
             inventoryDaysElement: computeAttr(['inventoryDays'], function(inventoryDays) {
-                if (inventoryDays) {
-                    return String.prototype.split.call(inventoryDays, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(inventoryDays, '.')[1] || '0') + '</span>'
-                } else {
-                    return '&mdash;';
-                }
+                return String.prototype.split.call(inventoryDays, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(inventoryDays, '.')[1] || '0') + '</span>'
             }),
 
             averageDailySalesElement: computeAttr(['averageDailySales'], function(averageDailySales) {
-                if (averageDailySales) {
-                    return String.prototype.split.call(averageDailySales, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(averageDailySales, '.')[1] || '000') + '</span>'
-                } else {
-                    return '&mdash;';
-                }
+                return String.prototype.split.call(averageDailySales, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(averageDailySales, '.')[1] || '00') + '</span>'
             }),
 
             unitsFormatted: computeAttr(['product.units'], function() {
