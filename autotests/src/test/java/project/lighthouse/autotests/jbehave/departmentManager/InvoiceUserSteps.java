@@ -7,7 +7,7 @@ import org.json.JSONException;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.ExampleTableConverter;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceApi;
-import project.lighthouse.autotests.steps.administrator.UserSteps;
+import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
 import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
 import project.lighthouse.autotests.steps.departmentManager.InvoiceSteps;
@@ -26,7 +26,7 @@ public class InvoiceUserSteps {
     CatalogSteps catalogSteps;
 
     @Steps
-    UserSteps userSteps;
+    UserApiSteps userApiSteps;
 
     private ExamplesTable examplesTable;
 
@@ -70,7 +70,7 @@ public class InvoiceUserSteps {
 
     @Given("before steps")
     public void beforeSteps() throws IOException, JSONException {
-        userSteps.getUser(InvoiceApi.DEFAULT_USER_NAME);
+        userApiSteps.getUser(InvoiceApi.DEFAULT_USER_NAME);
         catalogSteps.promoteDepartmentManager(storeSteps.createStore(), InvoiceApi.DEFAULT_USER_NAME);
     }
 

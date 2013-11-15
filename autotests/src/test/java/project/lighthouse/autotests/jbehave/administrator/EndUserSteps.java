@@ -8,6 +8,7 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.steps.administrator.UserSteps;
+import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 
 import java.io.IOException;
 
@@ -15,6 +16,9 @@ public class EndUserSteps {
 
     @Steps
     UserSteps userSteps;
+
+    @Steps
+    UserApiSteps userApiSteps;
 
     @Given("the user opens create new user page")
     public void givenTheUserOpensCreateNewUserPage() {
@@ -24,17 +28,17 @@ public class EndUserSteps {
     @Given("there is the user with name '$name', position '$position', username '$userName', password '$password', role '$role'")
     @Alias("there is the user with name '$name', position '$position', <userName>, password '$password', role '$role'")
     public void givenThereIsTheUser(String name, String position, String userName, String password, String role) throws IOException, JSONException {
-        userSteps.createUserThroughPost(name, position, userName, password, role);
+        userApiSteps.createUserThroughPost(name, position, userName, password, role);
     }
 
     @Given("there is the user with <userName>, password '$password', role '$role'")
     public void givenThereIsTheUser(String userName, String password, String role) throws IOException, JSONException {
-        userSteps.createUserThroughPost(userName, userName, userName, password, role);
+        userApiSteps.createUserThroughPost(userName, userName, userName, password, role);
     }
 
     @Given("the user navigates to the user page with username '$login'")
     public void givenTheUserNavigatesToTheUserPage(String login) throws JSONException {
-        userSteps.navigateToTheUserPage(login);
+        userApiSteps.navigateToTheUserPage(login);
     }
 
     @Given("the user is on the users list page")
