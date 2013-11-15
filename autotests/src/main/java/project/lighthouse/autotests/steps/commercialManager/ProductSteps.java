@@ -260,6 +260,7 @@ public class ProductSteps extends ScenarioSteps {
     public void productReturnsTabIsNotVisible() {
         try {
             productLocalNavigation.productReturnsLinkClick();
+            Assert.fail("Products return tab is visible!");
         } catch (Exception ignored) {
         }
     }

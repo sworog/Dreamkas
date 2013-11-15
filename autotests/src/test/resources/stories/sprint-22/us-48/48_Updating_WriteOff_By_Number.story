@@ -7,15 +7,15 @@ As a user
 I want to perform an action
 So that I can achieve a business goal
 
+GivenStories: precondition/aPreconditionToStoryUs48.story
+
 Scenario: Nothing found
 
 Meta:
-@id s22u48t1
+@id s22u48s1
 @description nothing found with non exist writeOff number
 
-Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
-And the user opens write off list page
+Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 And the user clicks the local navigation writeOff search link
 And the user searches writeOff by number 'Янехочуискатьсписанияяхочуплатье'
@@ -25,16 +25,14 @@ Then the user checks the form results text is 'Мы не смогли найти
 Scenario: WriteOff found by number
 
 Meta:
-@id s22u48t2
+@id s22u48s2
 @description writeOff with number can be found
 
-Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
-And there is the writeOff in the store with number 'SCPBC' ruled by department manager with name 'departmentManager-SCPBC' with values
+Given there is the writeOff in the store with number 'SCPBC' ruled by department manager with name 'departmentManager-SCPBC' with values
 | elementName | elementValue |
 | number | SCPBC-10 |
 | date | 02.04.2013 |
-And the user opens write off list page
+Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 And the user clicks the local navigation writeOff search link
 And the user searches writeOff by number 'SCPBC-10'
@@ -47,16 +45,14 @@ And the user checks writeOff highlighted text is 'Списание № SCPBC-10 
 Scenario: Two writeOffs found by number
 
 Meta:
-@id s22u48t3
+@id s22u48s3
 @description two writeOffs with equal numbers can be found
 
-Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
-And there is the writeOff in the store with number 'SCPBC' ruled by department manager with name 'departmentManager-SCPBC' with values
+Given there is the writeOff in the store with number 'SCPBC' ruled by department manager with name 'departmentManager-SCPBC' with values
 | elementName | elementValue |
 | number | SCPBC-10 |
 | date | 02.04.2013 |
-And the user opens write off list page
+Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 And the user clicks the local navigation writeOff create link
 And the user inputs 'SCPBC-10' in the 'writeOff number' field on the write off page
@@ -73,19 +69,10 @@ And the user checks writeOff highlighted text is 'Списание № SCPBC-10 
 Scenario: WriteOff with product found by number
 
 Meta:
-@id s22u48t4
+@id s22u48s4
 @description writeOffs with product can be found
 
-Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
-Given there is the subCategory with name 'SCPBC-defaultSubCategory' related to group named 'SCPBC-defaultGroup' and category named 'SCPBC-defaultCategory'
-And there is the product with 'SCPBC-name-11' name, 'SCPBC-sku-11' sku, 'SCPBC-barcode-11' barcode, 'unit' units, '12,34' purchasePrice of group named 'SCPBC-defaultGroup', category named 'SCPBC-defaultCategory', subcategory named 'SCPBC-defaultSubCategory'
-And there is the writeOff in the store with number 'SCPBC' ruled by department manager with name 'departmentManager-SCPBC' with values
-| elementName | elementValue |
-| number | SCPBC-11 |
-| date | 02.04.2013 |
-And the user adds the product to the write off with number 'SCPBC-11' with sku 'SCPBC-sku-11', quantity '1', price '12,34, cause 'Плохо продавался' in the store ruled by 'departmentManager-SCPBC'
-And the user opens write off list page
+Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 And the user clicks the local navigation writeOff search link
 And the user searches writeOff by number 'SCPBC-11'
@@ -113,19 +100,11 @@ Then the user checks write off elements values
 Scenario: WriteOff with product found by number click
 
 Meta:
-@id s22u48t5
+@id s22u48s5
 @description writeOffs with product can be found, the result is clickable and leads to writeOff page
+@smoke
 
-Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'SCPBC' managed by department manager named 'departmentManager-SCPBC'
-Given there is the subCategory with name 'SCPBC-defaultSubCategory' related to group named 'SCPBC-defaultGroup' and category named 'SCPBC-defaultCategory'
-And there is the product with 'SCPBC-name-11' name, 'SCPBC-sku-11' sku, 'SCPBC-barcode-11' barcode, 'unit' units, '12,34' purchasePrice of group named 'SCPBC-defaultGroup', category named 'SCPBC-defaultCategory', subcategory named 'SCPBC-defaultSubCategory'
-And there is the writeOff in the store with number 'SCPBC' ruled by department manager with name 'departmentManager-SCPBC' with values
-| elementName | elementValue |
-| number | SCPBC-12 |
-| date | 02.04.2013 |
-And the user adds the product to the write off with number 'SCPBC-12' with sku 'SCPBC-sku-11', quantity '1', price '12,34, cause 'Плохо продавался' in the store ruled by 'departmentManager-SCPBC'
-And the user opens write off list page
+Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 And the user clicks the local navigation writeOff search link
 And the user searches writeOff by number 'SCPBC-12'
