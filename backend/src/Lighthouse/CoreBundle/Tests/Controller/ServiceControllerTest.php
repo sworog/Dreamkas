@@ -7,18 +7,17 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class ServiceControllerTest extends WebTestCase
 {
-    public function testRecalculateAveragePurchasePriceAction()
+    public function testRecalculateAveragePurchasePriceActionNotFound()
     {
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/service/recalculate-average-purchase-price'
         );
 
-        $this->assertResponseCode(200);
-        Assert::assertJsonPathEquals(true, 'ok', $response);
+        $this->assertResponseCode(404);
     }
 
     public function testPermissionsAction()
