@@ -10,7 +10,7 @@ In order to понять когда и сколько едениц товара 
 Scenario: Subcategory product balance checking
 
 Meta:
-@id s22u50.1t1
+@id s22u50.1s1
 @description subcategory page have balance tab, balance table have all required data
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
@@ -21,13 +21,14 @@ And the user navigates to the subCategory 'SCPBC-defaultSubCategory', category '
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
-| sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
-| SCPBC-sku | SCPBC-name | SCPBC-barcode | 0 | шт. | — | 12,34 р. |
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SCPBC-name | SCPBC-sku | SCPBC-barcode | 0,00 | 0,00 | 0,0 | 12,34 р. | — |
+
 
 Scenario: Subcategory product balance not required fields checking
 
 Meta:
-@id s22u50.1t2
+@id s22u50.1s2
 @description balance data table render not required produt fields correctly
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
@@ -38,13 +39,13 @@ And the user navigates to the subCategory 'SCPBC-defaultSubCategory', category '
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
-| sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
-| SCPBC-sku-1 | SCPBC-name-1 | | 0 | шт. | — | — |
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SCPBC-name-1 | SCPBC-sku-1 | | 0,00 | 0,00 | 0,0 | — | — |
 
 Scenario: Subcategory product balance after writeOff
 
 Meta:
-@id s22u50.1t3
+@id s22u50.1s3
 @description balance deacrese after writeOff with product is created
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
@@ -65,13 +66,13 @@ And the user navigates to the subCategory 'SCPBC-defaultSubCategory', category '
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
-| sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
-| SCPBC-sku-2 | SCPBC-name-2 | SCPBC-barcode-2 | 1 | шт. | — | 100,00 р. |
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SCPBC-name-2 | SCPBC-sku-2 | SCPBC-barcode-2 | 1,00 | 0,00 | 0,0 | 100,00 р. | — |
 
 Scenario: Subcategory product balance after invoice
 
 Meta:
-@id s22u50.1t4
+@id s22u50.1s4
 @description balance increase after invoice with product is created
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
@@ -87,14 +88,14 @@ And the user navigates to the subCategory 'SCPBC-defaultSubCategory', category '
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
-| sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
-| SCPBC-sku-3 | SCPBC-name-3 | SCPBC-barcode-3 | -1 | шт. | — | 12,34 р. |
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SCPBC-name-3 | SCPBC-sku-3 | SCPBC-barcode-3 | -1,00 | 0,00 | 0,0 | 12,34 р. | — |
 
 
 Scenario: Subcategory product balance with average price checking
 
 Meta:
-@id s22u50.1t5
+@id s22u50.1s5
 @description balance table average price column contains product correct data
 
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
@@ -129,13 +130,13 @@ Given starting average price calculation
 And the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
-| sku | name | barcode | balance | units | averagePurchasePrice | lastPurchasePrice |
-| SCPBC-sku-4 | SCPBC-name-4 | SCPBC-barcode-4 | 3 | шт. | 130,33 р. | 123,00 р. |
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SCPBC-name-4 | SCPBC-sku-4 | SCPBC-barcode-4 | 3,00 | 0,00 | 0,0 | 123,00 р. | 130,33 р. |
 
 Scenario: No product balance tab for storeManager
 
 Meta:
-@id s22u50.1t6
+@id s22u50.1s6
 @description no product balance tab availabile for store manager
 
 Given there is the user with name 'NPBTFST-1', position 'NPBTFST-1', username 'NPBTFST-1', password 'lighthouse', role 'storeManager'
@@ -149,7 +150,7 @@ Then the user checks product balance tab is not visible
 Scenario: No product balance tab for commercialManager
 
 Meta:
-@id s22u50.1t7
+@id s22u50.1s7
 @description no product balance tab availabile for commercial manager
 
 Given there is the subCategory with name 'SCPBC-defaultSubCategory' related to group named 'SCPBC-defaultGroup' and category named 'SCPBC-defaultCategory'
