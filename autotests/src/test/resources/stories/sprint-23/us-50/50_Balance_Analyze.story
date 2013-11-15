@@ -17,7 +17,7 @@ Meta:
 @smoke
 
 Given the user runs the prepare fixture data cap command for inventory testing
-And the user runs the recalculate_metrics cap comand
+And the user runs the recalculate_metrics cap command
 Given the user navigates to the subCategory 'defaultSubCategory-s23u50', category 'defaultCategory-s23u50', group 'defaultGroup-s23u50' product list page
 When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse' password
 And the user opens product balance tab
@@ -98,7 +98,7 @@ Meta:
 @description inventory ratio dosnt evaluate for today transactions
 
 Given the user runs the prepare fixture data cap command for negative inventory testing - '0' days
-And the user runs the recalculate_metrics cap comand
+And the user runs the recalculate_metrics cap command
 Given the user navigates to the subCategory 'defaultSubCategory-s23u50', category 'defaultCategory-s23u50', group 'defaultGroup-s23u50' product list page
 When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse' password
 And the user opens product balance tab
@@ -113,7 +113,7 @@ Meta:
 @description inventory ratio dosnt evaluate for older than 31 days transactions
 
 Given the user runs the prepare fixture data cap command for negative inventory testing - '31' days
-And the user runs the recalculate_metrics cap comand
+And the user runs the recalculate_metrics cap command
 Given the user navigates to the subCategory 'defaultSubCategory-s23u50', category 'defaultCategory-s23u50', group 'defaultGroup-s23u50' product list page
 When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse' password
 And the user opens product balance tab

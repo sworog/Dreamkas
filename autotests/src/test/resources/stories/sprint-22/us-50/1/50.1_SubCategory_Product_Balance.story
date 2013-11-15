@@ -64,14 +64,13 @@ Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
 | SCPBC-name-3 | SCPBC-sku-3 | SCPBC-barcode-3 | -1,00 | 0,00 | 0,0 | 12,34 р. | — |
 
-
 Scenario: Subcategory product balance with average price checking
 
 Meta:
 @id s22u50.1s5
 @description balance table average price column contains product correct data
 
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 And the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 When the user opens product balance tab
