@@ -3,8 +3,6 @@
 namespace Lighthouse\CoreBundle\Serializer\Handler;
 
 use JMS\Serializer\Context;
-use JMS\Serializer\EventDispatcher\Events;
-use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\Serializer\JsonSerializationVisitor;
@@ -19,9 +17,11 @@ use Symfony\Component\Translation\TranslatorInterface;
  *      "format": "json",
  *      "direction": "serialization",
  * })
- * @DI\Tag("jms_serializer.event_subscriber")
+ * @DI\Tag("jms_serializer.event_listener", attributes={
+ *      "event": "serializer.pre_serialize"
+ * })
  */
-class RoundingHandler implements EventSubscriberInterface
+class RoundingHandler
 {
     /**
      * @var TranslatorInterface
@@ -67,22 +67,9 @@ class RoundingHandler implements EventSubscriberInterface
     }
 
     /**
-     * @return array
-     */
-    public static function getSubscribedEvents()
-    {
-        return array(
-            array(
-                'event' => Events::PRE_SERIALIZE,
-                'method' => 'onPreSerialize'
-            ),
-        );
-    }
-
-    /**
      * @param PreSerializeEvent $event
      */
-    public function onPreSerialize(PreSerializeEvent $event)
+    public function onSerializerPreSerialize(PreSerializeEvent $event)
     {
         if ($event->getObject() instanceof AbstractRounding) {
             $event->setType(AbstractRounding::TYPE);

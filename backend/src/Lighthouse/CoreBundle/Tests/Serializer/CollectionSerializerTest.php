@@ -50,15 +50,4 @@ class CollectionSerializerTest extends ContainerAwareTestCase
         }
         return $collection;
     }
-
-    public function testCollectionSubscriberGetSubscribedEvents()
-    {
-        $events = CollectionHandler::getSubscribedEvents();
-        $this->assertInternalType('array', $events);
-        foreach ($events as $event) {
-            $this->assertInternalType('array', $event);
-            $this->assertArrayHasKey('event', $event);
-            $this->assertArrayHasKey('method', $event);
-        }
-    }
 }
