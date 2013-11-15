@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Types\MongoDB;
+namespace Lighthouse\CoreBundle\MongoDB\Types;
 
 use Doctrine\ODM\MongoDB\Types\Type;
 use Lighthouse\CoreBundle\Types\Money;

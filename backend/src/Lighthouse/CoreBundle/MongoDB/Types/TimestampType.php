@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Types\MongoDB;
+namespace Lighthouse\CoreBundle\MongoDB\Types;
 
 use Doctrine\ODM\MongoDB\Types\TimestampType as BaseTimestampType;
 use Lighthouse\CoreBundle\Types\DateTimestamp;
