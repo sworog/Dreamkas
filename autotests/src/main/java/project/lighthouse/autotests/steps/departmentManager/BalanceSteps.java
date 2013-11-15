@@ -37,6 +37,7 @@ public class BalanceSteps extends ScenarioSteps {
     public void balanceTabIsNotVisible() {
         try {
             balanceListPage.balanceTabClick();
+            Assert.fail("Products balance tab is visible!");
         } catch (Exception ignored) {
         }
     }
