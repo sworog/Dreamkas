@@ -93,7 +93,7 @@ class TrialBalanceRepository extends DocumentRepository
     public function findOneReasonInvoiceProductByProduct(StoreProduct $storeProduct)
     {
         $criteria = array('storeProduct' => $storeProduct->id);
-        $criteria['reason.$ref'] = 'InvoiceProduct';
+        $criteria['reason.$ref'] = InvoiceProduct::REASON_TYPE;
         // Ugly hack to force document refresh
         $hints = array(Query::HINT_REFRESH => true);
         $sort = array(
