@@ -18,9 +18,9 @@ class SalesImporterTest extends WebTestCase
             '1' => -112,
             '3' => -10,
             '7' => -1,
-            '8594403916157' => -1,
-            '2873168' => 0,
-            '2809727' => 0,
+            '8594403916157' => -3,
+            '2873168' => -0.43,
+            '2809727' => -50,
             '25525687' => -155,
             '55557' => -1,
             '8594403110111' => -1,
@@ -31,11 +31,9 @@ class SalesImporterTest extends WebTestCase
         $output = new TestOutput();
         $this->import('purchases-14-05-2012_9-18-29.xml', $output);
 
-        $this->assertStringStartsWith('.V............V.....', $output->getDisplay());
+        $this->assertStringStartsWith('....................', $output->getDisplay());
         $lines = $output->getLines();
-        $this->assertCount(5, $lines);
-        $this->assertContains('Errors', $lines[1]);
-        $this->assertContains('products[1].quantity', $lines[2]);
+        $this->assertCount(3, $lines);
 
         foreach ($skuAmounts as $sku => $inventory) {
             $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
@@ -125,9 +123,9 @@ class SalesImporterTest extends WebTestCase
         $storeId = $this->factory->getStore('197');
 
         $skuAmounts = array(
-            '1' => 1,
+            '1' => 2.57,
             '2' => 0,
-            '3' => 24,
+            '3' => 27.58,
             '4' => -23,
         );
 
