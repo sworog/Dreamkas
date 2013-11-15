@@ -1,4 +1,5 @@
 Meta:
+@smoke
 @us 40.3
 @id s22u40.3s1
 @id s22u40.3s2
