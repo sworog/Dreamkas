@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Types\MongoDB;
+namespace Lighthouse\CoreBundle\Tests\MongoDB\Types;
 
 use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Types\Money;
@@ -8,7 +8,10 @@ use Doctrine\ODM\MongoDB\Types\Type;
 
 class MoneyTypeTest extends TestCase
 {
-    protected $moneyTypeClassName = 'Lighthouse\\CoreBundle\\Types\\MongoDB\\MoneyType';
+    /**
+     * @var string
+     */
+    protected $moneyTypeClassName = 'Lighthouse\\CoreBundle\\MongoDB\\Types\\MoneyType';
 
     public function testType()
     {
