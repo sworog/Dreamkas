@@ -7,7 +7,6 @@ use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\Serializer\GraphNavigator;
-use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -17,33 +16,34 @@ use Metadata\MetadataFactoryInterface;
 
 /**
  * @DI\Service("lighthouse.core.serializer.handler.collection")
- * @DI\Tag("jms_serializer.subscribing_handler")
+ * @DI\Tag("jms_serializer.handler", attributes={
+ *      "type": "Collection",
+ *      "format": "json",
+ *      "direction": "serialization"
+ * })
+ * @DI\Tag("jms_serializer.handler", attributes={
+ *      "type": "Collection",
+ *      "format": "xml",
+ *      "direction": "serialization"
+ * })
  * @DI\Tag("jms_serializer.event_subscriber")
  */
-class CollectionHandler implements SubscribingHandlerInterface, EventSubscriberInterface
+class CollectionHandler implements EventSubscriberInterface
 {
     /**
-     * @DI\Inject("jms_serializer.metadata_factory")
      * @var MetadataFactoryInterface
      */
-    public $metadataFactory;
+    protected $metadataFactory;
 
     /**
-     * @return array
+     * @DI\InjectParams({
+     *      "metadataFactory" = @DI\Inject("jms_serializer.metadata_factory")
+     * })
+     * @param MetadataFactoryInterface $metadataFactory
      */
-    public static function getSubscribingMethods()
+    public function __construct(MetadataFactoryInterface $metadataFactory)
     {
-        $methods = array();
-        $formats = array('xml' => 'Xml', 'json' => 'Json');
-        foreach ($formats as $format => $methodSuffix) {
-            $methods[] = array(
-                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
-                'format' => $format,
-                'type' => 'Collection',
-                'method' => 'serializeCollectionTo' . $methodSuffix,
-            );
-        }
-        return $methods;
+        $this->metadataFactory = $metadataFactory;
     }
 
     /**

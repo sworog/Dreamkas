@@ -6,6 +6,8 @@ use Lighthouse\CoreBundle\Types\Money;
 
 abstract class AbstractRounding
 {
+    const TYPE = 'Rounding';
+
     /**
      * @return string
      */

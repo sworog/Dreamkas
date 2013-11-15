@@ -6,8 +6,6 @@ use JMS\Serializer\Context;
 use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
-use JMS\Serializer\GraphNavigator;
-use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\VisitorInterface;
@@ -16,10 +14,14 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * @DI\Service("lighthouse.core.serializer.handler.rounding")
- * @DI\Tag("jms_serializer.subscribing_handler")
+ * @DI\Tag("jms_serializer.handler", attributes={
+ *      "type": "Rounding",
+ *      "format": "json",
+ *      "direction": "serialization",
+ * })
  * @DI\Tag("jms_serializer.event_subscriber")
  */
-class RoundingHandler implements SubscribingHandlerInterface, EventSubscriberInterface
+class RoundingHandler implements EventSubscriberInterface
 {
     /**
      * @var TranslatorInterface
@@ -38,30 +40,18 @@ class RoundingHandler implements SubscribingHandlerInterface, EventSubscriberInt
     }
 
     /**
-     * @return array
-     */
-    public static function getSubscribingMethods()
-    {
-        $methods = array(
-            array(
-                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
-                'format' => 'json',
-                'type' => 'rounding',
-                'method' => 'serializeToJson',
-            )
-        );
-        return $methods;
-    }
-
-    /**
      * @param VisitorInterface|JsonSerializationVisitor $visitor
      * @param AbstractRounding $value
      * @param array $type
      * @param Context $context
      * @return array
      */
-    public function serializeToJson(VisitorInterface $visitor, AbstractRounding $value, array $type, Context $context)
-    {
+    public function serializeRoundingToJson(
+        VisitorInterface $visitor,
+        AbstractRounding $value,
+        array $type,
+        Context $context
+    ) {
         $title = $this->translator->trans($value->getTitle(), array(), 'rounding');
 
         $data = array(
@@ -95,7 +85,7 @@ class RoundingHandler implements SubscribingHandlerInterface, EventSubscriberInt
     public function onPreSerialize(PreSerializeEvent $event)
     {
         if ($event->getObject() instanceof AbstractRounding) {
-            $event->setType('rounding');
+            $event->setType(AbstractRounding::TYPE);
         }
     }
 }
