@@ -79,20 +79,10 @@ Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
 | SCPBC-name-4 | SCPBC-sku-4 | SCPBC-barcode-4 | 3,00 | 0,00 | 0,0 | 123,00 р. | 130,33 р. |
 
-Scenario: No product balance tab for storeManager
-
-Meta:
-@id s22u50.1s6
-@description no product balance tab availabile for store manager
-
-Given the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
-When the user logs in using 'NPBTFST-1' userName and 'lighthouse' password
-Then the user checks product balance tab is not visible
-
 Scenario: No product balance tab for commercialManager
 
 Meta:
-@id s22u50.1s7
+@id s22u50.1s6
 @description no product balance tab availabile for commercial manager
 
 Given the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page

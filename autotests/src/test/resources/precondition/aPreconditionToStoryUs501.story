@@ -7,7 +7,6 @@ Meta:
 @id s22u50.1s4
 @id s22u50.1s5
 @id s22u50.1s6
-@id s22u50.1s7
 
 Scenario: Precondition scenario
 Given there is the user with name 'departmentManager-SCPBC', position 'departmentManager-SCPBC', username 'departmentManager-SCPBC', password 'lighthouse', role 'departmentManager'
