@@ -24,7 +24,7 @@ set :use_sudo, false
 default_run_options[:pty] = true
 
 set :use_composer, true
-set :update_vendors, true
+set :update_vendors, false
 
 set :use_set_permissions,   false
 
