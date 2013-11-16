@@ -1,9 +1,9 @@
-package project.lighthouse.autotests.pages.departmentManager.writeOff;
+package project.lighthouse.autotests.steps.api.departmentManager;
 
 import junit.framework.Assert;
+import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.ApiConnect;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.DateTime;
@@ -13,21 +13,20 @@ import project.lighthouse.autotests.objects.api.WriteOff;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
-import project.lighthouse.autotests.steps.api.departmentManager.DepartmentManagerApi;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class WriteOffApi extends DepartmentManagerApi {
+public class WriteOffApiSteps extends DepartmentManagerApi {
 
     StoreApi storeApi = new StoreApi(getDriver());
     UserApiSteps userApiSteps = new UserApiSteps();
     CatalogApi catalogApi = new CatalogApi(getDriver());
 
-    public WriteOffApi(WebDriver driver) throws JSONException {
-        super(driver);
+    public WriteOffApiSteps() throws JSONException {
     }
 
+    @Step
     public WriteOff createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
         Store store = storeApi.createStoreThroughPost();
         User user = userApiSteps.getUser(DEFAULT_USER_NAME);
@@ -35,6 +34,7 @@ public class WriteOffApi extends DepartmentManagerApi {
         return createWriteOffThroughPost(writeOffNumber, store.getNumber(), user.getUserName());
     }
 
+    @Step
     public WriteOff createWriteOffThroughPost(String writeOffNumber, String storeName, String userName) throws JSONException, IOException {
         WriteOff writeOff = new WriteOff(writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN));
         String storeId = StaticData.stores.get(storeName).getId();
@@ -42,6 +42,7 @@ public class WriteOffApi extends DepartmentManagerApi {
         return new ApiConnect(userName, "lighthouse").createWriteOffThroughPost(writeOff);
     }
 
+    @Step
     public WriteOff createWriteOffThrougPost(String storeName, String userName, ExamplesTable examplesTable) throws JSONException, IOException {
         String number = "", date = "";
         for (Map<String, String> row : examplesTable.getRows()) {
@@ -65,6 +66,7 @@ public class WriteOffApi extends DepartmentManagerApi {
         return new ApiConnect(userName, "lighthouse").createWriteOffThroughPost(writeOff);
     }
 
+    @Step
     public WriteOff createWriteOffThroughPost(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws IOException, JSONException {
         WriteOff writeOff = createWriteOffThroughPost(writeOffNumber);
@@ -79,22 +81,26 @@ public class WriteOffApi extends DepartmentManagerApi {
         return writeOff;
     }
 
+    @Step
     public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause, String userName) throws JSONException, IOException {
         new ApiConnect(userName, "lighthouse").addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause);
     }
 
+    @Step
     public void createWriteOffAndNavigateToIt(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws JSONException, IOException {
         createWriteOffThroughPost(writeOffNumber, productSku, quantity, price, cause);
         navigateToWriteOffPage(writeOffNumber);
     }
 
+    @Step
     public void createWriteOffAndNavigateToIt(String writeOffNumber)
             throws JSONException, IOException {
         createWriteOffThroughPost(writeOffNumber);
         navigateToWriteOffPage(writeOffNumber);
     }
 
+    @Step
     public void navigateToWriteOffPage(String writeOffNumber) throws JSONException {
         String writeOffPageUrl = apiConnect.getWriteOffPageUrl(writeOffNumber);
         getDriver().navigate().to(writeOffPageUrl);

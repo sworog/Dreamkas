@@ -5,7 +5,7 @@ import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.helper.ExampleTableConverter;
-import project.lighthouse.autotests.jbehave.api.departmentManager.EndInvoiceApiSteps;
+import project.lighthouse.autotests.jbehave.api.EndInvoiceApiSteps;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
 import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.api.departmentManager;
+package project.lighthouse.autotests.jbehave.api;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
