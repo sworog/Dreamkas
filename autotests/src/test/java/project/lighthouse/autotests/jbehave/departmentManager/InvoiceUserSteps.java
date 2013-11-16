@@ -4,10 +4,10 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.ExampleTableConverter;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceApi;
+import project.lighthouse.autotests.jbehave.api.departmentManager.EndInvoiceApiSteps;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
+import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
 import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
 import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
 import project.lighthouse.autotests.steps.departmentManager.InvoiceSteps;
@@ -28,34 +28,6 @@ public class InvoiceUserSteps {
     @Steps
     UserApiSteps userApiSteps;
 
-    private ExamplesTable examplesTable;
-
-    @Given("there is the invoice '$invoiceSku' with product '$productName' name, '$productSku' sku, '$productBarCode' barcode, '$productUnits' units")
-    public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
-        invoiceSteps.createInvoiceThroughPostWithData(invoiceSku, productName, productSku, productBarCode, productUnits);
-    }
-
-    @Given("there is the invoice with '$sku' sku")
-    public void givenThereIsTheInvoiceWithSku(String sku) throws JSONException, IOException {
-        invoiceSteps.createInvoiceThroughPost(sku);
-    }
-
-    @Given("there is the invoice with sku '$sku' in the store with number '$number' ruled by department manager with name '$userName'")
-    public void givenThereIsTheInvoiceInTheStore(String sku, String number, String userName) throws IOException, JSONException {
-        invoiceSteps.createInvoiceThroughPost(sku, number, userName);
-    }
-
-    @Given("there is the date invoice with sku '$sku' and date '$date' in the store with number '$number' ruled by department manager with name '$userName'")
-    public void givenThereIsTheInvoiceInTheStore(String sku, String date, String number, String userName) throws IOException, JSONException {
-        invoiceSteps.createInvoiceThroughPost(sku, new DateTimeHelper(date).convertDateTime(), number, userName);
-    }
-
-    @Given("there is the invoice in the store with number '$number' ruled by department manager with name '$userName' with values $exampleTable")
-    public void givenThereIsTheInvoiceInTheStoreWithValues(String number, String userName, ExamplesTable examplesTable) throws IOException, JSONException {
-        invoiceSteps.createInvoiceThroughPost(number, userName, examplesTable);
-        this.examplesTable = examplesTable;
-    }
-
     @Given("the user is on the invoice create page")
     public void givenTheUserIsOnTheInvoiceCreatePage() throws IOException, JSONException {
         beforeSteps();
@@ -70,18 +42,8 @@ public class InvoiceUserSteps {
 
     @Given("before steps")
     public void beforeSteps() throws IOException, JSONException {
-        userApiSteps.getUser(InvoiceApi.DEFAULT_USER_NAME);
-        catalogSteps.promoteDepartmentManager(storeSteps.createStore(), InvoiceApi.DEFAULT_USER_NAME);
-    }
-
-    @Given("the user navigates to the invoice page with name '$invoiceName'")
-    public void givenTheUserNavigatesToTheInvoicePage(String invoiceName) throws JSONException {
-        invoiceSteps.navigateToTheInvoicePage(invoiceName);
-    }
-
-    @Given("the user adds the product to the invoice with name '$invoiceName' with sku '$productSku', quantity '$quantity', price '$price' in the store ruled by '$userName'")
-    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price, String userName) throws IOException, JSONException {
-        invoiceSteps.addProductToInvoice(invoiceName, productSku, quantity, price, userName);
+        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
+        catalogSteps.promoteDepartmentManager(storeSteps.createStore(), InvoiceApiSteps.DEFAULT_USER_NAME);
     }
 
     @When("the user inputs '$inputText' in the invoice '$elementName' field")
@@ -284,7 +246,7 @@ public class InvoiceUserSteps {
 
     @Then("the user checks the invoice search result list contains entry with stored values")
     public void thenTheUserChecksTheInvoiceSearchResult() {
-        invoiceSteps.invoiceCompareWithExampleTable(ExampleTableConverter.convert(examplesTable));
+        invoiceSteps.invoiceCompareWithExampleTable(ExampleTableConverter.convert(EndInvoiceApiSteps.examplesTable));
     }
 
     @Then("the user checks the form results text is '$text'")

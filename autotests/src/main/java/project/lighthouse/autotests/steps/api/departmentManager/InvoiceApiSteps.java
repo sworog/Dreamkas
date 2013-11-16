@@ -1,9 +1,9 @@
-package project.lighthouse.autotests.pages.departmentManager.invoice;
+package project.lighthouse.autotests.steps.api.departmentManager;
 
 import junit.framework.Assert;
+import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.ApiConnect;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.DateTime;
@@ -12,22 +12,21 @@ import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
-import project.lighthouse.autotests.pages.departmentManager.api.DepartmentManagerApi;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class InvoiceApi extends DepartmentManagerApi {
+public class InvoiceApiSteps extends DepartmentManagerApi {
 
-    StoreApi storeApi = new StoreApi(getDriver());
+    StoreApi storeApi = new StoreApi();
     UserApiSteps userApiSteps = new UserApiSteps();
-    CatalogApi catalogApi = new CatalogApi(getDriver());
+    CatalogApi catalogApi = new CatalogApi();
 
-    public InvoiceApi(WebDriver driver) throws JSONException {
-        super(driver);
+    public InvoiceApiSteps() throws JSONException {
     }
 
+    @Step
     public Invoice createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
         Store store = storeApi.createStoreThroughPost();
         User user = userApiSteps.getUser(DEFAULT_USER_NAME);
@@ -35,10 +34,12 @@ public class InvoiceApi extends DepartmentManagerApi {
         return createInvoiceThroughPost(invoiceName, store.getNumber(), user.getUserName());
     }
 
+    @Step
     public Invoice createInvoiceThroughPost(String invoiceName, String storeName, String userName) throws JSONException, IOException {
         return createInvoiceThroughPost(invoiceName, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), storeName, userName);
     }
 
+    @Step
     public Invoice createInvoiceThroughPost(String invoiceName, String date, String storeName, String userName) throws JSONException, IOException {
         Invoice invoice = new Invoice(invoiceName, "supplier", date, "accepter", "legalEntity", "", "");
         String storeId = StaticData.stores.get(storeName).getId();
@@ -46,6 +47,7 @@ public class InvoiceApi extends DepartmentManagerApi {
         return new ApiConnect(userName, "lighthouse").createInvoiceThroughPost(invoice);
     }
 
+    @Step
     public Invoice createInvoiceThroughPost(String storeName, String userName, ExamplesTable examplesTable) throws JSONException, IOException {
         String sku = "", acceptanceDate = "", supplier = "", accepter = "", legalEntity = "", supplierInvoiceSku = "", supplierInvoiceDate = "";
         for (Map<String, String> row : examplesTable.getRows()) {
@@ -84,11 +86,13 @@ public class InvoiceApi extends DepartmentManagerApi {
         return new ApiConnect(userName, "lighthouse").createInvoiceThroughPost(invoice);
     }
 
+    @Step
     public void createInvoiceThroughPostAndNavigateToIt(String invoiceName) throws JSONException, IOException {
         createInvoiceThroughPost(invoiceName);
         navigateToTheInvoicePage(invoiceName);
     }
 
+    @Step
     public void createInvoiceThroughPostWithProductAndNavigateToIt(String invoiceName, String productSku) throws IOException, JSONException {
         createInvoiceThroughPost(invoiceName);
         addProductToInvoice(invoiceName, productSku, "1", "1", DEFAULT_USER_NAME);
@@ -102,10 +106,12 @@ public class InvoiceApi extends DepartmentManagerApi {
         navigateToTheInvoicePage(invoiceName);
     }
 
+    @Step
     public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price, String userName) throws JSONException, IOException {
         new ApiConnect(userName, "lighthouse").addProductToInvoice(invoiceName, productSku, quantity, price);
     }
 
+    @Step
     public void navigateToTheInvoicePage(String invoiceName) throws JSONException {
         String invoicePageUrl = apiConnect.getInvoicePageUrl(invoiceName);
         getDriver().navigate().to(invoicePageUrl);

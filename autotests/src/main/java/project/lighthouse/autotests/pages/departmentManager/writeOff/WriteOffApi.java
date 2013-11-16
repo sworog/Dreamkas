@@ -12,8 +12,8 @@ import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.objects.api.WriteOff;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
-import project.lighthouse.autotests.pages.departmentManager.api.DepartmentManagerApi;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
+import project.lighthouse.autotests.steps.api.departmentManager.DepartmentManagerApi;
 
 import java.io.IOException;
 import java.util.Map;
