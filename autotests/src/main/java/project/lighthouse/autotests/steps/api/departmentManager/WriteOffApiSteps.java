@@ -10,16 +10,16 @@ import project.lighthouse.autotests.elements.DateTime;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.objects.api.WriteOff;
-import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
+import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
 
 import java.io.IOException;
 import java.util.Map;
 
 public class WriteOffApiSteps extends DepartmentManagerApi {
 
-    StoreApi storeApi = new StoreApi();
+    StoreApiSteps storeApiSteps = new StoreApiSteps();
     UserApiSteps userApiSteps = new UserApiSteps();
     CatalogApiSteps catalogApiSteps = new CatalogApiSteps();
 
@@ -28,7 +28,7 @@ public class WriteOffApiSteps extends DepartmentManagerApi {
 
     @Step
     public WriteOff createWriteOffThroughPost(String writeOffNumber) throws IOException, JSONException {
-        Store store = storeApi.createStoreThroughPost();
+        Store store = storeApiSteps.createStoreThroughPost();
         User user = userApiSteps.getUser(DEFAULT_USER_NAME);
         catalogApiSteps.promoteDepartmentManager(store, user.getUserName());
         return createWriteOffThroughPost(writeOffNumber, store.getNumber(), user.getUserName());

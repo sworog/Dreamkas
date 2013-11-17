@@ -8,8 +8,8 @@ import project.lighthouse.autotests.helper.ExampleTableConverter;
 import project.lighthouse.autotests.jbehave.api.EndInvoiceApiSteps;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
+import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
 import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
-import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
 import project.lighthouse.autotests.steps.departmentManager.InvoiceSteps;
 
 import java.io.IOException;
@@ -20,13 +20,13 @@ public class InvoiceUserSteps {
     InvoiceSteps invoiceSteps;
 
     @Steps
-    StoreSteps storeSteps;
-
-    @Steps
     UserApiSteps userApiSteps;
 
     @Steps
     CatalogApiSteps catalogApiSteps;
+
+    @Steps
+    StoreApiSteps storeApiSteps;
 
     @Given("the user is on the invoice create page")
     public void givenTheUserIsOnTheInvoiceCreatePage() throws IOException, JSONException {
@@ -43,7 +43,7 @@ public class InvoiceUserSteps {
     @Given("before steps")
     public void beforeSteps() throws IOException, JSONException {
         userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
-        catalogApiSteps.promoteDepartmentManager(storeSteps.createStore(), InvoiceApiSteps.DEFAULT_USER_NAME);
+        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
     }
 
     @When("the user inputs '$inputText' in the invoice '$elementName' field")
