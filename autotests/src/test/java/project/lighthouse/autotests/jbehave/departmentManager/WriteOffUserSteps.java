@@ -8,8 +8,8 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
+import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
-import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
 import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
 import project.lighthouse.autotests.steps.departmentManager.WriteOffSteps;
 
@@ -24,10 +24,10 @@ public class WriteOffUserSteps {
     StoreSteps storeSteps;
 
     @Steps
-    CatalogSteps catalogSteps;
+    UserApiSteps userApiSteps;
 
     @Steps
-    UserApiSteps userApiSteps;
+    CatalogApiSteps catalogApiSteps;
 
     @Given("the user opens the write off create page")
     public void givenTheUserOpensTheWriteOffCreatePage() throws IOException, JSONException {
@@ -37,7 +37,7 @@ public class WriteOffUserSteps {
 
     public void beforeSteps() throws IOException, JSONException {
         userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
-        catalogSteps.promoteDepartmentManager(storeSteps.createStore(), InvoiceApiSteps.DEFAULT_USER_NAME);
+        catalogApiSteps.promoteDepartmentManager(storeSteps.createStore(), InvoiceApiSteps.DEFAULT_USER_NAME);
     }
 
     @When("the user inputs '$inputValue' in the '$elementName' field on the write off page")

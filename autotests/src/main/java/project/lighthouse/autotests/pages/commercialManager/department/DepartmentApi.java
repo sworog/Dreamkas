@@ -1,18 +1,16 @@
 package project.lighthouse.autotests.pages.commercialManager.department;
 
 import org.json.JSONException;
-import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.api.Department;
 import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.pages.commercialManager.api.CommercialManagerApi;
+import project.lighthouse.autotests.steps.api.commercialManager.CommercialManagerApi;
 
 import java.io.IOException;
 
 public class DepartmentApi extends CommercialManagerApi {
 
-    public DepartmentApi(WebDriver driver) throws JSONException {
-        super(driver);
+    public DepartmentApi() throws JSONException {
     }
 
     public Department createStoreDepartmentThroughPost(String number, String name, String storeName) throws IOException, JSONException {

@@ -10,9 +10,9 @@ import project.lighthouse.autotests.elements.DateTime;
 import project.lighthouse.autotests.objects.api.Invoice;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.User;
-import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
+import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 
 import java.io.IOException;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
 
     StoreApi storeApi = new StoreApi();
     UserApiSteps userApiSteps = new UserApiSteps();
-    CatalogApi catalogApi = new CatalogApi();
+    CatalogApiSteps catalogApiSteps = new CatalogApiSteps();
 
     public InvoiceApiSteps() throws JSONException {
     }
@@ -30,7 +30,7 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
     public Invoice createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
         Store store = storeApi.createStoreThroughPost();
         User user = userApiSteps.getUser(DEFAULT_USER_NAME);
-        catalogApi.promoteDepartmentManager(store, user.getUserName());
+        catalogApiSteps.promoteDepartmentManager(store, user.getUserName());
         return createInvoiceThroughPost(invoiceName, store.getNumber(), user.getUserName());
     }
 

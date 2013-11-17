@@ -1,16 +1,14 @@
 package project.lighthouse.autotests.pages.commercialManager.store;
 
 import org.json.JSONException;
-import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.pages.commercialManager.api.CommercialManagerApi;
+import project.lighthouse.autotests.steps.api.commercialManager.CommercialManagerApi;
 
 import java.io.IOException;
 
 public class StoreApi extends CommercialManagerApi {
 
-    public StoreApi(WebDriver driver) throws JSONException {
-        super(driver);
+    public StoreApi() throws JSONException {
     }
 
     public Store createStoreThroughPost() throws IOException, JSONException {

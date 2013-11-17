@@ -10,11 +10,11 @@ import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.objects.api.Category;
 import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.product.*;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductInvoicesList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductReturnList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
+import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 
 import java.io.IOException;
 
@@ -26,7 +26,7 @@ public class ProductSteps extends ScenarioSteps {
     ProductListPage productListPage;
     CommonPage commonPage;
     ProductApi productApi;
-    CatalogApi catalogApi;
+    CatalogApiSteps catalogApiSteps;
     ProductLocalNavigation productLocalNavigation;
     ProductInvoicesList productInvoicesList;
     ProductWriteOffList productWriteOffList;
@@ -72,14 +72,14 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void openProductCreatePage() throws JSONException, IOException {
-        catalogApi.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
-        catalogApi.navigateToSubCategoryProductCreatePageUrl(SubCategory.DEFAULT_NAME);
+        catalogApiSteps.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
+        catalogApiSteps.navigateToSubCategoryProductCreatePageUrl(SubCategory.DEFAULT_NAME);
     }
 
     @Step
     public void openProductListPage() throws IOException, JSONException {
-        catalogApi.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
-        catalogApi.navigateToSubCategoryProductListPageUrlWihEditModeOn(SubCategory.DEFAULT_NAME, Category.DEFAULT_NAME, Group.DEFAULT_NAME);
+        catalogApiSteps.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
+        catalogApiSteps.navigateToSubCategoryProductListPageUrlWihEditModeOn(SubCategory.DEFAULT_NAME, Category.DEFAULT_NAME, Group.DEFAULT_NAME);
     }
 
     @Step
