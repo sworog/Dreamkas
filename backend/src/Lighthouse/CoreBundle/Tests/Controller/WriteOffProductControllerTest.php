@@ -975,9 +975,9 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $writeOffProductId11 = $this->createWriteOffProduct($writeOffId1, $productId1, 99.99, 36.78);
-        $writeOffProductId12 = $this->createWriteOffProduct($writeOffId1, $productId2, 0.4, 21.77);
-        $writeOffProductId13 = $this->createWriteOffProduct($writeOffId1, $productId3, 7.77, 42.99);
+        $this->createWriteOffProduct($writeOffId1, $productId1, 99.99, 36.78);
+        $this->createWriteOffProduct($writeOffId1, $productId2, 0.4, 21.77);
+        $this->createWriteOffProduct($writeOffId1, $productId3, 7.77, 42.99);
 
         $accessToken = $this->factory->auth($this->departmentManager);
         $getResponse = $this->clientJsonRequest(
@@ -1002,8 +1002,8 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(1, '*.id', $getResponse);
         Assert::assertJsonPathEquals(8.71, "*.totalPrice", $getResponse);
-        Assert::assertJsonPathEquals(0.4, "*.price", $getResponse);
-        Assert::assertJsonPathEquals(21.77, "*.quantity", $getResponse);
+        Assert::assertJsonPathEquals(0.4, "*.quantity", $getResponse);
+        Assert::assertJsonPathEquals(21.77, "*.price", $getResponse);
 
 
         $getResponse = $this->clientJsonRequest(

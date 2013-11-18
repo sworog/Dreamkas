@@ -1457,8 +1457,8 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(1, '*.id', $getResponse);
         Assert::assertJsonPathEquals(8.71, "*.totalPrice", $getResponse);
-        Assert::assertJsonPathEquals(0.4, "*.price", $getResponse);
-        Assert::assertJsonPathEquals(21.77, "*.quantity", $getResponse);
+        Assert::assertJsonPathEquals(0.4, "*.quantity", $getResponse);
+        Assert::assertJsonPathEquals(21.77, "*.price", $getResponse);
 
 
         $getResponse = $this->clientJsonRequest(

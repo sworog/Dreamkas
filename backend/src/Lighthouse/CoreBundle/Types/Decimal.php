@@ -133,7 +133,7 @@ class Decimal implements Numeric
             case self::ROUND_HALF_UP:
                 $rounder = bcdiv('5', self::getDivider($roundPrecision), $roundPrecision);
                 break;
-            case self::ROUND_HALF_DOWN;
+            case self::ROUND_HALF_DOWN:
             default:
                 $rounder = '0';
                 break;
