@@ -10,22 +10,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SalesImporterTest extends WebTestCase
 {
-    public function testImportWithSeveralInvalidCounts()
+    public function testProductInventoryChangedAfterImport()
     {
-        $this->markTestSkipped('Float count are valid');
         $storeId = $this->factory->getStore('197');
 
         $skuAmounts = array(
-            '1' => -112,
-            '3' => -10,
-            '7' => -1,
-            '8594403916157' => -3,
-            '2873168' => -0.43,
-            '2809727' => -50,
-            '25525687' => -155,
-            '55557' => -1,
-            '8594403110111' => -1,
-            '4601501082159' => -1,
+            '1' => '-112',
+            '3' => '-10',
+            '7' => '-1',
+            '8594403916157' => '-1',
+            '2873168' => '0',
+            '2809727' => '0',
+            '25525687' => '-155',
+            '55557' => '-1',
+            '8594403110111' => '-1',
+            '4601501082159' => '-1',
         );
         $productIds = $this->createProductsBySku(array_keys($skuAmounts));
 
@@ -33,8 +32,6 @@ class SalesImporterTest extends WebTestCase
         $this->import('purchases-14-05-2012_9-18-29.xml', $output);
 
         $this->assertStringStartsWith('....................', $output->getDisplay());
-        $lines = $output->getLines();
-        $this->assertCount(3, $lines);
 
         foreach ($skuAmounts as $sku => $inventory) {
             $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
