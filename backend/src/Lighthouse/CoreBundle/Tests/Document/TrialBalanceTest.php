@@ -18,6 +18,7 @@ use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\NumericFactory;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
 
 class TrialBalanceTest extends ContainerAwareTestCase
@@ -46,6 +47,30 @@ class TrialBalanceTest extends ContainerAwareTestCase
     protected function getVersionFactory()
     {
         return $this->getContainer()->get('lighthouse.core.versionable.factory');
+    }
+
+    /**
+     * @return NumericFactory
+     */
+    protected function getNumericFactory()
+    {
+        return $this->getContainer()->get('lighthouse.core.types.numeric.factory');
+    }
+
+    /**
+     * @return TrialBalanceRepository
+     */
+    protected function getTrialBalanceRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
+    }
+
+    /**
+     * @return StoreProductRepository
+     */
+    protected function getStoreProductRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.store_product');
     }
 
     public function testConstruct()
@@ -120,7 +145,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $store->contacts = '42';
 
         $invoiceData = array(
-            'sku' => 'sdfwfsf232',
+            'sku' => 'product232',
             'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
@@ -131,8 +156,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $product = $this->createProduct();
 
-        /* @var StoreProductRepository $storeProductRepository */
-        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
+        $storeProductRepository = $this->getStoreProductRepository();
         $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
 
         $invoice = new Invoice();
@@ -143,9 +167,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $manager->persist($invoice);
         $manager->flush();
 
-        /** @var TrialBalanceRepository $trialBalanceRepository */
-        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
-        /** @var TrialBalanceCollection $startTrialBalance */
+        $trialBalanceRepository = $this->getTrialBalanceRepository();
+
         $startTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
         $startTrialBalance = new TrialBalanceCollection($startTrialBalanceCursor);
 
@@ -162,8 +185,6 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $manager->persist($invoiceProduct);
         $manager->flush();
 
-
-        /** @var TrialBalanceCollection $endTrialBalance */
         $endTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
         $endTrialBalance = new TrialBalanceCollection($endTrialBalanceCursor);
 
@@ -197,8 +218,9 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->clearMongoDb();
 
         $manager = $this->getManager();
-        /** @var \Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository $trialBalanceRepository */
-        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
+        $numericFactory = $this->getNumericFactory();
+
+        $trialBalanceRepository = $this->getTrialBalanceRepository();
 
         $product = $this->createProduct();
         $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
@@ -208,8 +230,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $store->address = '42';
         $store->contacts = '42';
 
-        /* @var StoreProductRepository $storeProductRepository */
-        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
+        $storeProductRepository = $this->getStoreProductRepository();
         $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
 
         $sale = new Sale();
@@ -218,8 +239,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $saleProduct = new SaleProduct();
         $saleProduct->sale = $sale;
         $saleProduct->product = $productVersion;
-        $saleProduct->quantity = 3;
-        $saleProduct->price = new Money(7999);
+        $saleProduct->quantity = $numericFactory->createQuantity(3);
+        $saleProduct->price = $numericFactory->createMoney(79.99);
 
         $sale->products = array($saleProduct);
 
@@ -239,8 +260,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->clearMongoDb();
 
         $manager = $this->getManager();
-        /* @var TrialBalanceRepository $trialBalanceRepository */
-        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
+        $trialBalanceRepository = $this->getTrialBalanceRepository();
 
         $product = $this->createProduct();
         $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
@@ -250,8 +270,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $store->address = '42';
         $store->contacts = '42';
 
-        /* @var StoreProductRepository $storeProductRepository */
-        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
+        $storeProductRepository = $this->getStoreProductRepository();
         $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
 
         $writeOff = new WriteOff();
