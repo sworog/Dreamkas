@@ -194,9 +194,6 @@ class ReturnProduct extends AbstractDocument implements Reasonable
      */
     public function setQuantity(Quantity $quantity)
     {
-        if (!$quantity instanceof Quantity) {
-            $quantity = Quantity::createFromNumeric($quantity);
-        }
         $this->quantity = $quantity;
     }
 }

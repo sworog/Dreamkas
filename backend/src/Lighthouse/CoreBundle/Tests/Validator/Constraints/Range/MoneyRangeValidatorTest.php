@@ -24,7 +24,7 @@ class MoneyRangeValidatorTest extends TestCase
     public function setUp()
     {
         $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $moneyTransformer = new MoneyModelTransformer();
+        $moneyTransformer = new MoneyModelTransformer(2);
         $this->validator = new MoneyRangeValidator($moneyTransformer);
         $this->validator->initialize($this->context);
     }

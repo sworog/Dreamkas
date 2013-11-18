@@ -191,11 +191,8 @@ class SaleProduct extends AbstractDocument implements Reasonable
     /**
      * @param Quantity $quantity
      */
-    public function setQuantity($quantity)
+    public function setQuantity(Quantity $quantity)
     {
-        if (!$quantity instanceof Quantity) {
-            $quantity = Quantity::createFromNumeric($quantity);
-        }
         $this->quantity = $quantity;
     }
 }
