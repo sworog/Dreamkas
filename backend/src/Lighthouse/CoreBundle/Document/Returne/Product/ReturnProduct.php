@@ -9,8 +9,8 @@ use Lighthouse\CoreBundle\Document\Returne\Returne;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
-use Lighthouse\CoreBundle\Types\Decimal;
 use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use JMS\Serializer\Annotation as Serializer;
@@ -23,7 +23,7 @@ use DateTime;
  *
  * @property int            $id
  * @property Money          $price
- * @property Decimal        $quantity
+ * @property Quantity       $quantity
  * @property Money          $totalPrice
  * @property DateTime       $createdDate
  * @property ProductVersion $product
@@ -53,7 +53,7 @@ class ReturnProduct extends AbstractDocument implements Reasonable
      * @MongoDB\Field(type="decimal")
      * @Assert\NotBlank
      * @LighthouseAssert\Range\Range(gt=0)
-     * @var Decimal
+     * @var Quantity
      */
     protected $quantity;
 
@@ -150,7 +150,7 @@ class ReturnProduct extends AbstractDocument implements Reasonable
     }
 
     /**
-     * @return Decimal
+     * @return float
      */
     public function getProductQuantity()
     {
@@ -194,6 +194,9 @@ class ReturnProduct extends AbstractDocument implements Reasonable
      */
     public function setQuantity(Quantity $quantity)
     {
+        if (!$quantity instanceof Quantity) {
+            $quantity = Quantity::createFromNumeric($quantity);
+        }
         $this->quantity = $quantity;
     }
 }

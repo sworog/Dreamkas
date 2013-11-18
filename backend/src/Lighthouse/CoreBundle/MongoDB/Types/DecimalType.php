@@ -38,6 +38,13 @@ class DecimalType extends Type
      */
     public function closureToPHP()
     {
-        return '$return = null !== $value ? new Decimal($value->count, $value->precision) : null;';
+        return <<<EOS
+if (null !== \$value) {
+    \$return = new \\Lighthouse\\CoreBundle\\Types\\Decimal(\$value['count'], \$value['precision']);
+} else {
+    \$return = null;
+}
+EOS;
+
     }
 }

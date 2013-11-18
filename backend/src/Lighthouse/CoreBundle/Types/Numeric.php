@@ -4,6 +4,8 @@ namespace Lighthouse\CoreBundle\Types;
 
 interface Numeric
 {
+    const TYPE = 'Numeric';
+
     /**
      * @return int|float
      */
