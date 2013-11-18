@@ -39,7 +39,8 @@ class LighthouseCoreExtension extends Extension
             $config['job']['worker']['reserve_timeout']
         );
 
-        $container->setParameter('lighthouse.core.money.precision', $config['money']['precision']);
+        $container->setParameter('lighthouse.core.precision.money', $config['precision']['money']);
+        $container->setParameter('lighthouse.core.precision.quantity', $config['precision']['quantity']);
         $container->setParameter('lighthouse.core.rounding.default', $config['rounding']['default']);
     }
 }

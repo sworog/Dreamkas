@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
         $nodeBuilder = $rootNode->children();
 
         $this->addJobConfig($nodeBuilder);
-        $this->addMoneyConfig($nodeBuilder);
+        $this->addPrecisionConfig($nodeBuilder);
         $this->addRoundingConfig($nodeBuilder);
 
         return $treeBuilder;
@@ -61,14 +61,18 @@ class Configuration implements ConfigurationInterface
     /**
      * @param NodeBuilder $nodeBuilder
      */
-    protected function addMoneyConfig(NodeBuilder $nodeBuilder)
+    protected function addPrecisionConfig(NodeBuilder $nodeBuilder)
     {
         $nodeBuilder
-            ->arrayNode('money')
+            ->arrayNode('precision')
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->integerNode('precision')
+                    ->integerNode('money')
                         ->defaultValue(2)
+                    ->end()
+                    ->integerNode('quantity')
+                        ->defaultValue(3)
+                    ->end()
         ;
     }
 
