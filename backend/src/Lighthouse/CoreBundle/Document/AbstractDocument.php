@@ -34,7 +34,10 @@ abstract class AbstractDocument
      */
     public function __set($name, $value)
     {
-        if (property_exists($this, $name)) {
+        if (method_exists($this, 'set' . $name)) {
+            $this->{'set' . $name}($value);
+            return;
+        } elseif (property_exists($this, $name)) {
             $this->$name = $value;
             return;
         }

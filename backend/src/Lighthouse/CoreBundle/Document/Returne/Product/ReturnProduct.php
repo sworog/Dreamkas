@@ -188,4 +188,12 @@ class ReturnProduct extends AbstractDocument implements Reasonable
     {
         return $this->return;
     }
+
+    /**
+     * @param Quantity $quantity
+     */
+    public function setQuantity(Quantity $quantity)
+    {
+        $this->quantity = $quantity;
+    }
 }

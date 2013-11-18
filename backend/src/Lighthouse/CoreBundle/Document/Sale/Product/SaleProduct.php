@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Decimal;
 use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use JMS\Serializer\Annotation as Serializer;
@@ -185,5 +186,16 @@ class SaleProduct extends AbstractDocument implements Reasonable
     public function getReasonParent()
     {
         return $this->sale;
+    }
+
+    /**
+     * @param Quantity $quantity
+     */
+    public function setQuantity($quantity)
+    {
+        if (!$quantity instanceof Quantity) {
+            $quantity = Quantity::createFromNumeric($quantity);
+        }
+        $this->quantity = $quantity;
     }
 }
