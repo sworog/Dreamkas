@@ -3,6 +3,7 @@ package project.lighthouse.autotests;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 
+@Deprecated
 public interface CommonViewInterface {
 
     void itemCheck(String value);

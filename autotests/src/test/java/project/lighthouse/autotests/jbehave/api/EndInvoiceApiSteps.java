@@ -99,8 +99,6 @@ public class EndInvoiceApiSteps {
         }
         invoiceApiSteps.createInvoiceThroughPost(sku, acceptanceDate, supplier, accepter, legalEntity, supplierInvoiceSku, supplierInvoiceDate, number, userName);
         EndInvoiceApiSteps.examplesTable = examplesTable;
-
-
     }
 
     @Given("the user navigates to the invoice page with name '$invoiceName'")

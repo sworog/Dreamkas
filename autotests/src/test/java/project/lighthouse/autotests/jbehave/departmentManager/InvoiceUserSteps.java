@@ -142,6 +142,7 @@ public class InvoiceUserSteps {
         invoiceSteps.childrenElementClick(elementName, elementClassName);
     }
 
+    @Deprecated
     @When("the user clicks on '$parentElementName' element of invoice product with '$invoiceSku' sku to edit")
     public void whenTheUserClicksOnElementOfInvoiceProductWithSkuToEdit(String parentElementName, String invoiceSku) {
         invoiceSteps.childrentItemClickByFindByLocator(parentElementName, invoiceSku);

@@ -160,6 +160,7 @@ public class InvoiceSteps extends ScenarioSteps {
         invoiceBrowsing.childrenElementClick(elementName, elementClassName);
     }
 
+    @Deprecated
     @Step
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         invoiceBrowsing.childrentItemClickByFindByLocator(parentElementName, elementName);
@@ -223,5 +224,15 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void checkHighlightsText(String expectedHighlightedText) {
         invoiceSearchPage.getInvoiceSearchObjectCollection().containsHighLightText(expectedHighlightedText);
+    }
+
+    @Step
+    public void objectPropertyClick(String objectLocator, String objectPropertyName) {
+        invoiceBrowsing.getInvoiceProductsCollection().clickPropertyByLocator(objectLocator, objectPropertyName);
+    }
+
+    @Step
+    public void objectPropertyInput(String locator, String propertyName, String value) {
+        invoiceBrowsing.getInvoiceProductsCollection().inputPropertyByLocator(locator, propertyName, value);
     }
 }

@@ -3,9 +3,9 @@ Meta:
 @us 50
 
 Narrative:
-As a user
-I want to perform an action
-So that I can achieve a business goal
+As a заведующий отделом,
+I want to просматривать остатки товаров подкатегории
+In order to понять когда и сколько едениц товара мне требуется заказать у поставщика
 
 GivenStories: precondition/aPreconditionToStoryUs50.story
 
