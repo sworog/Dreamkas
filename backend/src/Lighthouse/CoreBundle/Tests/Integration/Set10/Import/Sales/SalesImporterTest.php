@@ -126,9 +126,9 @@ class SalesImporterTest extends WebTestCase
         $storeId = $this->factory->getStore('197');
 
         $skuAmounts = array(
-            '1' => 2.57,
+            '1' => -0.57,
             '2' => 0,
-            '3' => 27.58,
+            '3' => 20.424,
             '4' => -23,
         );
 

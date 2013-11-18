@@ -24,6 +24,6 @@ class StoreProductTest extends ContainerAwareTestCase
 
         $this->assertEquals('12.35', $json['averageDailySales']);
         $this->assertEquals('12.3', $json['inventoryDays']);
-        $this->assertEquals('152.14', $json['inventory']);
+        $this->assertEquals('152.145', $json['inventory']);
     }
 }
