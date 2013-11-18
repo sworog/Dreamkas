@@ -19,7 +19,7 @@ class SalesImporterTest extends WebTestCase
             '3' => '-10',
             '7' => '-1',
             '8594403916157' => '-1',
-            '2873168' => '0',
+            '2873168' => '0.008',
             '2809727' => '0',
             '25525687' => '-155',
             '55557' => '-1',
@@ -34,7 +34,12 @@ class SalesImporterTest extends WebTestCase
         $this->assertStringStartsWith('....................', $output->getDisplay());
 
         foreach ($skuAmounts as $sku => $inventory) {
-            $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
+            $this->assertStoreProduct(
+                $storeId,
+                $productIds[$sku],
+                array('inventory' => $inventory),
+                sprintf('Product #%s inventory assertion failed', $sku)
+            );
         }
     }
 

@@ -20,7 +20,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property float      $retailMarkup
  * @property string     $retailPricePreference
  * @property Money      $roundedRetailPrice
- * @property int        $inventory
+ * @property float      $inventory
  * @property float      $averageDailySales
  * @property Money      $lastPurchasePrice
  * @property Money      $averagePurchasePrice
@@ -171,6 +171,6 @@ class StoreProduct extends AbstractDocument
      */
     public function getInventoryDecimal()
     {
-        return Decimal::createFromNumeric($this->inventory, 2)->toString();
+        return Decimal::createFromNumeric($this->inventory, 3)->toString();
     }
 }
