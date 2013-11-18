@@ -2,20 +2,17 @@
 
 namespace Lighthouse\CoreBundle\Form\Types;
 
-use Lighthouse\CoreBundle\DataTransformer\FloatViewTransformer;
-use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\DataTransformer\QuantityTransformer;
-use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType as BaseMoneyType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * @DI\Service("form.type.quantity")
  * @DI\Tag("form.type", attributes={"alias"="quantity"})
  */
-class QuantityType extends BaseMoneyType
+class QuantityType extends AbstractType
 {
     /**
      * @var QuantityTransformer
@@ -48,11 +45,21 @@ class QuantityType extends BaseMoneyType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        parent::setDefaultOptions($resolver);
         $resolver->setDefaults(
             array(
+                'compound' => false,
                 'invalid_message' => 'lighthouse.validation.errors.quantity.negative'
             )
         );
+    }
+
+    /**
+     * Returns the name of this type.
+     *
+     * @return string The name of this type
+     */
+    public function getName()
+    {
+        return 'quantity';
     }
 }
