@@ -9,6 +9,7 @@ import project.lighthouse.autotests.objects.api.SubCategory;
 
 import java.io.IOException;
 
+//TODO move all logic to high-level class
 public class ProductApiSteps extends CommercialManagerApi {
 
     public ProductApiSteps() throws JSONException {
