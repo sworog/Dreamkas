@@ -5,21 +5,15 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.DateTime;
-import project.lighthouse.autotests.pages.commercialManager.product.ProductApi;
 import project.lighthouse.autotests.pages.departmentManager.invoice.*;
-
-import java.io.IOException;
 
 public class InvoiceSteps extends ScenarioSteps {
 
     InvoiceCreatePage invoiceCreatePage;
     InvoiceListPage invoiceListPage;
     InvoiceBrowsing invoiceBrowsing;
-    InvoiceApi invoiceApi;
-    ProductApi productApi;
     CommonPage commonPage;
 
     InvoiceSearchPage invoiceSearchPage;
@@ -27,42 +21,6 @@ public class InvoiceSteps extends ScenarioSteps {
 
     public InvoiceSteps(Pages pages) {
         super(pages);
-    }
-
-    @Step
-    public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
-        invoiceApi.createInvoiceThroughPostAndNavigateToIt(invoiceName);
-    }
-
-    @Step
-    public void createInvoiceThroughPostWithData(String invoiceName, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
-        productApi.сreateProductThroughPost(productName, productSku, productBarCode, productUnits, "123");
-        invoiceApi.createInvoiceThroughPostWithProductAndNavigateToIt(invoiceName, productSku);
-    }
-
-    @Step
-    public void createInvoiceThroughPost(String invoiceName, String storeName, String userName) throws IOException, JSONException {
-        invoiceApi.createInvoiceThroughPost(invoiceName, storeName, userName);
-    }
-
-    @Step
-    public void createInvoiceThroughPost(String invoiceName, String date, String storeName, String userName) throws IOException, JSONException {
-        invoiceApi.createInvoiceThroughPost(invoiceName, date, storeName, userName);
-    }
-
-    @Step
-    public void createInvoiceThroughPost(String storeName, String userName, ExamplesTable examplesTable) throws IOException, JSONException {
-        invoiceApi.createInvoiceThroughPost(storeName, userName, examplesTable);
-    }
-
-    @Step
-    public void navigateToTheInvoicePage(String invoiceName) throws JSONException {
-        invoiceApi.navigateToTheInvoicePage(invoiceName);
-    }
-
-    @Step
-    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price, String userName) throws IOException, JSONException {
-        invoiceApi.addProductToInvoice(invoiceName, productSku, quantity, price, userName);
     }
 
     @Step

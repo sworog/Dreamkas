@@ -1,28 +1,39 @@
-package project.lighthouse.autotests.pages.administrator.users;
+package project.lighthouse.autotests.steps.api.administrator;
 
+import net.thucydides.core.annotations.Step;
+import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
-import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.ApiConnect;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.api.User;
-import project.lighthouse.autotests.pages.administrator.api.AdministratorApi;
+import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
 
 import java.io.IOException;
 
-public class UserApi extends AdministratorApi {
+public class UserApiSteps extends ScenarioSteps {
 
-    public UserApi(WebDriver driver) throws JSONException {
-        super(driver);
+    private ApiConnect apiConnect;
+
+    UserCreatePage userCreatePage;
+
+    public UserApiSteps() throws JSONException {
+        apiConnect = new ApiConnect("administrator", "lighthouse");
     }
 
+    @Step
     public User createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
-        return apiConnect.createUserThroughPost(name, position, login, password, role);
+        //TODO move replaceSelectedValue in Helper class
+        String updatedRole = userCreatePage.replaceSelectedValue(role);
+        return apiConnect.createUserThroughPost(name, position, login, password, updatedRole);
     }
 
+    @Step
     public void navigateToTheUserPage(String userName) throws JSONException {
         String userPageUrl = apiConnect.getUserPageUrl(userName);
         getDriver().navigate().to(userPageUrl);
     }
 
+    @Step
     public User getUser(String userName) throws IOException, JSONException {
         if (!StaticData.users.containsKey(userName)) {
             return apiConnect.getUser(userName);
