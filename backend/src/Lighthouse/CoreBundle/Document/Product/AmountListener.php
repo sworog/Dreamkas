@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Types\Quantity;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"prePersist", "preRemove", "onFlush"})
@@ -43,7 +44,7 @@ class AmountListener extends AbstractMongoDBListener
         if ($document instanceof Reasonable) {
             $storeProduct = $this->getStoreProduct($document);
             $sign = ($document->increaseAmount()) ? 1 : -1;
-            $storeProduct->inventory = $storeProduct->inventory + ($document->getProductQuantity() * $sign);
+            $storeProduct->inventory = $storeProduct->inventory + ($document->getProductQuantity()->toNumber() * $sign);
             $eventArgs->getDocumentManager()->persist($storeProduct);
         }
     }
@@ -58,7 +59,7 @@ class AmountListener extends AbstractMongoDBListener
         if ($document instanceof Reasonable) {
             $storeProduct = $this->getStoreProduct($document);
             $sign = ($document->increaseAmount()) ? 1 : -1;
-            $storeProduct->inventory = $storeProduct->inventory - ($document->getProductQuantity() * $sign);
+            $storeProduct->inventory = $storeProduct->inventory - ($document->getProductQuantity()->toNumber() * $sign);
         }
     }
 
@@ -105,7 +106,7 @@ class AmountListener extends AbstractMongoDBListener
             $this->computeChangeSet($dm, $newProduct);
         } else {
             if (isset($changeSet['quantity'])) {
-                $quantityDiff = ($changeSet['quantity'][0] - $changeSet['quantity'][1]) * $sign;
+                $quantityDiff = ($changeSet['quantity'][0]->toNumber() - $changeSet['quantity'][1]->toNumber()) * $sign;
             } else {
                 $quantityDiff = 0;
             }

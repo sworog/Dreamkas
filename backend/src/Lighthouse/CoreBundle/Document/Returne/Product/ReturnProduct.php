@@ -150,11 +150,11 @@ class ReturnProduct extends AbstractDocument implements Reasonable
     }
 
     /**
-     * @return float
+     * @return Quantity
      */
     public function getProductQuantity()
     {
-        return $this->quantity->toNumber();
+        return $this->quantity;
     }
 
     /**

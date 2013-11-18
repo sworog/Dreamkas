@@ -135,7 +135,7 @@ class TrialBalance extends AbstractDocument
      */
     public function updateTotalPrice()
     {
-        $this->totalPrice = $this->price->mul(abs($this->quantity));
+        $this->totalPrice = $this->price->mul($this->quantity);
         $this->store = $this->storeProduct->store;
     }
 }

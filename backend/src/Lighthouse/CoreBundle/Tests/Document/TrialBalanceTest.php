@@ -175,12 +175,13 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->assertCount(0, $startTrialBalance);
 
         $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
+        $numericFactory = $this->getNumericFactory();
 
         $invoiceProduct = new InvoiceProduct();
         $invoiceProduct->product = $productVersion;
         $invoiceProduct->invoice = $invoice;
-        $invoiceProduct->price = new Money(99);
-        $invoiceProduct->quantity = 9;
+        $invoiceProduct->price = $numericFactory->createMoney(0.99);
+        $invoiceProduct->quantity = $numericFactory->createQuantity(9);
 
         $manager->persist($invoiceProduct);
         $manager->flush();
@@ -196,7 +197,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->assertEquals(99, $endTrialBalanceItem->price->getCount());
         $this->assertEquals(891, $endTrialBalanceItem->totalPrice->getCount());
 
-        $invoiceProduct->quantity = 10;
+        $invoiceProduct->quantity = $numericFactory->createQuantity(10);
         $manager->persist($invoiceProduct);
         $manager->flush();
 
@@ -270,6 +271,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $store->address = '42';
         $store->contacts = '42';
 
+        $numericFactory = $this->getNumericFactory();
         $storeProductRepository = $this->getStoreProductRepository();
         $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
 
@@ -279,8 +281,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $writeOffProduct = new WriteOffProduct();
         $writeOffProduct->writeOff = $writeOff;
         $writeOffProduct->product = $productVersion;
-        $writeOffProduct->quantity = 3;
-        $writeOffProduct->price = new Money(7999);
+        $writeOffProduct->quantity = $numericFactory->createQuantity(3);
+        $writeOffProduct->price = $numericFactory->createMoney(79.99);
         $writeOffProduct->cause = 'Плохой товар';
 
         $writeOff->products = array($writeOffProduct);
@@ -296,8 +298,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->assertEquals(23997, $trialBalance->totalPrice->getCount());
 
         // Edit
-        $writeOffProduct->price = new Money(7799);
-        $writeOffProduct->quantity = 7;
+        $writeOffProduct->price = $numericFactory->createMoney(77.99);
+        $writeOffProduct->quantity = $numericFactory->createQuantity(7);
         $manager->flush($writeOffProduct);
 
         $afterEditTrialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);

@@ -84,7 +84,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $invoiceProduct->price = $numericFactory->createMoney('10.10');
         $invoiceProduct->invoice = $invoice;
         $invoiceProduct->product = $productVersion;
-        $invoiceProduct->quantity = 10;
+        $invoiceProduct->quantity = $numericFactory->createQuantity(10);
 
         $manager->persist($store);
         $manager->persist($product);
@@ -101,14 +101,14 @@ class ProductTotalsTest extends ContainerAwareTestCase
 
         $this->assertEquals(10, $storeProduct->inventory);
 
-        $invoiceProduct->quantity = 3;
+        $invoiceProduct->quantity = $numericFactory->createQuantity(3);
         $manager->persist($invoiceProduct);
         $manager->flush();
 
         $storeProductRepository->refresh($storeProduct);
         $this->assertEquals(3, $storeProduct->inventory);
 
-        $invoiceProduct->quantity = 4;
+        $invoiceProduct->quantity = $numericFactory->createQuantity(4);
         $manager->persist($invoiceProduct);
         $manager->flush();
 
@@ -125,13 +125,13 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $invoiceProduct1->price = $numericFactory->createMoney(11.11);
         $invoiceProduct1->invoice = $invoice;
         $invoiceProduct1->product = $productVersion;
-        $invoiceProduct1->quantity = 10;
+        $invoiceProduct1->quantity = $numericFactory->createQuantity(10);
 
         $invoiceProduct2 = new InvoiceProduct();
         $invoiceProduct2->price = $numericFactory->createMoney(22.22);
         $invoiceProduct2->invoice = $invoice;
         $invoiceProduct2->product = $productVersion;
-        $invoiceProduct2->quantity = 5;
+        $invoiceProduct2->quantity = $numericFactory->createQuantity(5);
 
         $manager->persist($invoiceProduct1);
         $manager->persist($invoiceProduct2);
