@@ -156,7 +156,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $invoiceProduct = new InvoiceProduct();
         $invoiceProduct->product = $productVersion;
         $invoiceProduct->invoice = $invoice;
-        $invoiceProduct->price = new Money(99.99);
+        $invoiceProduct->price = new Money(99);
         $invoiceProduct->quantity = 9;
 
         $manager->persist($invoiceProduct);
@@ -172,8 +172,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         /** @var TrialBalance $endTrialBalanceItem */
         $endTrialBalanceItem = $endTrialBalance->current();
         $this->assertEquals(9, $endTrialBalanceItem->quantity);
-        $this->assertEquals(899.91, $endTrialBalanceItem->totalPrice->getCount());
-        $this->assertEquals(99.99, $endTrialBalanceItem->price->getCount());
+        $this->assertEquals(99, $endTrialBalanceItem->price->getCount());
+        $this->assertEquals(891, $endTrialBalanceItem->totalPrice->getCount());
 
         $invoiceProduct->quantity = 10;
         $manager->persist($invoiceProduct);
@@ -182,8 +182,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
         $this->assertEquals(10, $trialBalance->quantity);
-        $this->assertEquals(999.9, $trialBalance->totalPrice->getCount());
-        $this->assertEquals(99.99, $trialBalance->price->getCount());
+        $this->assertEquals(99, $trialBalance->price->getCount());
+        $this->assertEquals(990, $trialBalance->totalPrice->getCount());
 
         $manager->remove($invoiceProduct);
         $manager->flush();
@@ -219,7 +219,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $saleProduct->sale = $sale;
         $saleProduct->product = $productVersion;
         $saleProduct->quantity = 3;
-        $saleProduct->price = new Money(79.99);
+        $saleProduct->price = new Money(7999);
 
         $sale->products = array($saleProduct);
 
@@ -229,9 +229,9 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
-        $this->assertEquals(79.99, $trialBalance->price->getCount());
+        $this->assertEquals(7999, $trialBalance->price->getCount());
         $this->assertEquals(3, $trialBalance->quantity);
-        $this->assertEquals(239.97, $trialBalance->totalPrice->getCount());
+        $this->assertEquals(23997, $trialBalance->totalPrice->getCount());
     }
 
     public function testCreateTrialBalanceByWriteOffCRUD()
@@ -261,7 +261,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $writeOffProduct->writeOff = $writeOff;
         $writeOffProduct->product = $productVersion;
         $writeOffProduct->quantity = 3;
-        $writeOffProduct->price = new Money(79.99);
+        $writeOffProduct->price = new Money(7999);
         $writeOffProduct->cause = 'Плохой товар';
 
         $writeOff->products = array($writeOffProduct);
@@ -272,24 +272,24 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
-        $this->assertEquals(79.99, $trialBalance->price->getCount());
+        $this->assertEquals(7999, $trialBalance->price->getCount());
         $this->assertEquals(3, $trialBalance->quantity);
-        $this->assertEquals(239.97, $trialBalance->totalPrice->getCount());
+        $this->assertEquals(23997, $trialBalance->totalPrice->getCount());
 
         // Edit
-        $writeOffProduct->price = new Money(77.99);
+        $writeOffProduct->price = new Money(7799);
         $writeOffProduct->quantity = 7;
         $manager->flush($writeOffProduct);
 
         $afterEditTrialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
-        $this->assertEquals(77.99, $afterEditTrialBalance->price->getCount());
+        $this->assertEquals(7799, $afterEditTrialBalance->price->getCount());
         $this->assertEquals(7, $afterEditTrialBalance->quantity);
-        $this->assertEquals(545.93, $afterEditTrialBalance->totalPrice->getCount());
+        $this->assertEquals(54593, $afterEditTrialBalance->totalPrice->getCount());
 
-        $this->assertEquals(77.99, $trialBalance->price->getCount());
+        $this->assertEquals(7799, $trialBalance->price->getCount());
         $this->assertEquals(7, $trialBalance->quantity);
-        $this->assertEquals(545.93, $trialBalance->totalPrice->getCount());
+        $this->assertEquals(54593, $trialBalance->totalPrice->getCount());
 
         // Delete
         $manager->remove($writeOffProduct);
