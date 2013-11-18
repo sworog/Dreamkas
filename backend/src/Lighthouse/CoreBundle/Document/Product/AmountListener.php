@@ -98,10 +98,10 @@ class AmountListener extends AbstractMongoDBListener
             $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $document->getProductQuantity();
             $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $document->getProductQuantity();
 
-            $oldProduct->inventory = $oldProduct->inventory + $oldQuantity * $sign;
+            $oldProduct->inventory = $oldProduct->inventory + $oldQuantity->toNumber() * $sign;
             $this->computeChangeSet($dm, $oldProduct);
 
-            $newProduct->inventory = $newProduct->inventory - $newQuantity * $sign;
+            $newProduct->inventory = $newProduct->inventory - $newQuantity->toNumber() * $sign;
             $dm->persist($newProduct);
             $this->computeChangeSet($dm, $newProduct);
         } else {
