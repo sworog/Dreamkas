@@ -22,7 +22,7 @@ class LighthouseCoreBundle extends Bundle
 
     protected function registerMongoTypes()
     {
-        Type::registerType('decimal', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\DecimalType');
+        Type::registerType('quantity', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\QuantityType');
         Type::registerType('money', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\MoneyType');
         Type::registerType('timestamp', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\TimestampType');
     }

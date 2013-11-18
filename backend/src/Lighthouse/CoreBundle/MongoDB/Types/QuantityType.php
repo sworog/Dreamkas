@@ -3,12 +3,12 @@
 namespace Lighthouse\CoreBundle\MongoDB\Types;
 
 use Doctrine\ODM\MongoDB\Types\Type;
-use Lighthouse\CoreBundle\Types\Decimal;
+use Lighthouse\CoreBundle\Types\Quantity;
 
-class DecimalType extends Type
+class QuantityType extends Type
 {
     /**
-     * @param Decimal $value
+     * @param Quantity $value
      * @return array|mixed
      */
     public function convertToDatabaseValue($value)
@@ -22,7 +22,7 @@ class DecimalType extends Type
      */
     public function convertToPHPValue($value)
     {
-        return null !== $value ? new Decimal($value->count, $value->precision) : null;
+        return null !== $value ? new Quantity($value->count, $value->precision) : null;
     }
 
     /**
@@ -40,7 +40,7 @@ class DecimalType extends Type
     {
         return <<<EOS
 if (null !== \$value) {
-    \$return = new \\Lighthouse\\CoreBundle\\Types\\Decimal(\$value['count'], \$value['precision']);
+    \$return = new \\Lighthouse\\CoreBundle\\Types\\Quantity(\$value['count'], \$value['precision']);
 } else {
     \$return = null;
 }

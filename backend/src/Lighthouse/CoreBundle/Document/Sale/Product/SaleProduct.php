@@ -50,7 +50,7 @@ class SaleProduct extends AbstractDocument implements Reasonable
 
     /**
      * Количество
-     * @MongoDB\Field(type="decimal")
+     * @MongoDB\Field(type="quantity")
      * @Assert\NotBlank
      * @LighthouseAssert\Range\Range(gt=0)
      * @var Decimal
