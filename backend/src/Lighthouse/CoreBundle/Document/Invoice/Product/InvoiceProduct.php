@@ -123,8 +123,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      */
     public function beforeSave()
     {
-        $this->totalPrice = new Money();
-        $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
+        $this->totalPrice = $this->price->mul($this->quantity);
         $this->acceptanceDate = $this->invoice->acceptanceDate;
         $this->store = $this->invoice->store;
         $this->originalProduct = $this->product->getObject();

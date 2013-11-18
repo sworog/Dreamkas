@@ -14,7 +14,9 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
+use Lighthouse\CoreBundle\Types\Decimal;
 use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Quantity;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -309,15 +311,10 @@ class SalesImporter
 
     /**
      * @param string $count
-     * @return float
+     * @return Quantity
      */
     protected function roundQuantity($count)
     {
-        $quantity = (float) $count;
-        if ((float) (int) $quantity === $quantity) {
-            return (int) $quantity;
-        } else {
-            return $quantity;
-        }
+        return Quantity::createFromNumeric($count);
     }
 }

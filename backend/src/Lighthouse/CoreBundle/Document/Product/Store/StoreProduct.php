@@ -155,7 +155,7 @@ class StoreProduct extends AbstractDocument
      */
     public function getInventoryDaysDecimal()
     {
-        return Decimal::createFromFloat($this->getInventoryDays(), 1);
+        return Decimal::createFromNumeric($this->getInventoryDays(), 1);
     }
 
     /**
@@ -163,7 +163,7 @@ class StoreProduct extends AbstractDocument
      */
     public function getAverageDailySalesDecimal()
     {
-        return Decimal::createFromFloat($this->averageDailySales, 2)->toString();
+        return Decimal::createFromNumeric($this->averageDailySales, 2)->toString();
     }
 
     /**
@@ -171,6 +171,6 @@ class StoreProduct extends AbstractDocument
      */
     public function getInventoryDecimal()
     {
-        return Decimal::createFromFloat($this->inventory, 2)->toString();
+        return Decimal::createFromNumeric($this->inventory, 2)->toString();
     }
 }

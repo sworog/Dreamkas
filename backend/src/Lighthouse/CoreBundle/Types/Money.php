@@ -4,19 +4,15 @@ namespace Lighthouse\CoreBundle\Types;
 
 use Lighthouse\CoreBundle\Service\RoundService;
 
-class Money implements Nullable
+class Money extends Decimal implements Nullable
 {
     /**
-     * @var int
+     * @param int $count
+     * @param int $precision
      */
-    protected $count;
-
-    /**
-     * @param int|Money $count
-     */
-    public function __construct($count = null)
+    public function __construct($count = null, $precision = 2)
     {
-        $this->setCount($count);
+        parent::__construct($count, $precision);
     }
 
     /**
@@ -30,18 +26,10 @@ class Money implements Nullable
             $count = $count->getCount();
         }
         if ($round) {
-            $count = $this->round($count);
+            $count = (int) RoundService::round($count);
         }
         $this->count = $count;
         return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCount()
-    {
-        return $this->count;
     }
 
     /**
@@ -50,29 +38,5 @@ class Money implements Nullable
     public function isNull()
     {
         return '' === $this->count || null === $this->count;
-    }
-
-    /**
-     * @param float $count
-     * @return int
-     */
-    public function round($count)
-    {
-        return (int) RoundService::round($count);
-    }
-
-    /**
-     * @param int|Money $count
-     * @param int $quantity
-     * @param bool $round
-     * @return $this
-     */
-    public function setCountByQuantity($count, $quantity, $round = false)
-    {
-        if ($count instanceof self) {
-            $count = $count->getCount();
-        }
-        $count *= $quantity;
-        return $this->setCount($count, $round);
     }
 }

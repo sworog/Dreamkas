@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Serializer;
+namespace Lighthouse\CoreBundle\Tests\Service;
 
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;

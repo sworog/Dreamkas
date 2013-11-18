@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Types\Decimal;
 use Lighthouse\CoreBundle\Types\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
@@ -21,7 +22,7 @@ use DateTime;
  *
  * @property int            $id
  * @property Money          $price
- * @property int            $quantity
+ * @property Decimal        $quantity
  * @property Money          $totalPrice
  * @property DateTime       $createdDate
  * @property ProductVersion $product
@@ -48,13 +49,10 @@ class SaleProduct extends AbstractDocument implements Reasonable
 
     /**
      * Количество
-     * @MongoDB\Int
+     * @MongoDB\Field(type="decimal")
      * @Assert\NotBlank
-     * @LighthouseAssert\Chain({
-     *   @LighthouseAssert\NotFloat,
-     *   @LighthouseAssert\Range\Range(gt=0)
-     * })
-     * @var int
+     * @LighthouseAssert\Range\Range(gt=0)
+     * @var Decimal
      */
     protected $quantity;
 
@@ -90,7 +88,6 @@ class SaleProduct extends AbstractDocument implements Reasonable
      */
     protected $sale;
 
-
     /**
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
@@ -119,8 +116,7 @@ class SaleProduct extends AbstractDocument implements Reasonable
      */
     public function beforeSave()
     {
-        $this->totalPrice = new Money();
-        $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
+        $this->totalPrice = $this->price->mul($this->quantity);
 
         $this->createdDate = $this->sale->createdDate;
         $this->store = $this->sale->store;
@@ -152,11 +148,11 @@ class SaleProduct extends AbstractDocument implements Reasonable
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getProductQuantity()
     {
-        return $this->quantity;
+        return $this->quantity->toNumber();
     }
 
     /**

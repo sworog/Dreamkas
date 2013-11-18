@@ -2,9 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Types;
 
-class Decimal
+class Decimal implements Numeric
 {
     const NAME = 'Decimal';
+
+    const ROUND_HALF_UP = PHP_ROUND_HALF_UP;
+    const ROUND_HALF_DOWN = PHP_ROUND_HALF_DOWN;
 
     /**
      * @var int
@@ -29,7 +32,7 @@ class Decimal
     {
         $this->count = $count;
         $this->precision = $precision;
-        $this->divider = self::getDivider($precision);
+        $this->divider = static::getDivider($precision);
     }
 
     /**
@@ -58,12 +61,87 @@ class Decimal
     }
 
     /**
+     * @return float
+     */
+    public function toNumber()
+    {
+        return (float) $this->toString();
+    }
+
+    /**
      * @return string
      */
     public function toString()
     {
-        $value = $this->count / $this->divider;
-        return sprintf("%.{$this->precision}f", $value);
+        return bcdiv($this->count, $this->divider, $this->precision);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
+
+    /**
+     * @param string|Numeric|float|int $operand
+     * @param int $roundMode
+     * @return Decimal
+     */
+    public function mul($operand, $roundMode = self::ROUND_HALF_UP)
+    {
+        return static::calc('bcmul', $this->toString(), $operand, $this->precision, $roundMode);
+    }
+
+    /**
+     * @param string|Numeric|float|int $operand
+     * @param int $roundMode
+     * @return Decimal
+     */
+    public function div($operand, $roundMode = self::ROUND_HALF_UP)
+    {
+        return static::calc('bcdiv', $this->toString(), $operand, $this->precision, $roundMode);
+    }
+
+    /**
+     * @param string $operation
+     * @param string $operandLeft
+     * @param string $operandRight
+     * @param int $precision
+     * @param int $roundMode
+     * @internal param string $operand
+     * @return Decimal
+     */
+    public static function calc($operation, $operandLeft, $operandRight, $precision, $roundMode = self::ROUND_HALF_UP)
+    {
+        $result = call_user_func($operation, (string) $operandLeft, (string) $operandRight, $precision + 1);
+        $rounded = static::round($result, $precision, $roundMode);
+        return static::createFromNumeric($rounded, $precision);
+    }
+
+    /**
+     * @param string $operand
+     * @param int $precision
+     * @param int $roundMode
+     * @return string
+     */
+    public static function round($operand, $precision, $roundMode = self::ROUND_HALF_UP)
+    {
+        $roundPrecision = $precision + 1;
+        switch ($roundMode) {
+            case self::ROUND_HALF_UP:
+                $rounder = bcdiv('5', self::getDivider($roundPrecision), $roundPrecision);
+                break;
+            case self::ROUND_HALF_DOWN;
+            default:
+                $rounder = '0';
+                break;
+        }
+        if (-1 == bccomp($operand, '0', $roundPrecision)) {
+            $rounder = bcdiv($rounder, '-1', $roundPrecision);
+        }
+        return bcadd((string) $operand, $rounder, $precision);
     }
 
     /**
@@ -71,9 +149,10 @@ class Decimal
      * @param int $precision
      * @return Decimal
      */
-    public static function createFromFloat($float, $precision)
+    public static function createFromNumeric($float, $precision)
     {
-        $count = round(self::getDivider($precision) * $float);
-        return new self($count, $precision);
+        $result = bcmul((string) $float, static::getDivider($precision), $precision + 1);
+        $count = (int) static::round($result, 0);
+        return new static($count, $precision);
     }
 }

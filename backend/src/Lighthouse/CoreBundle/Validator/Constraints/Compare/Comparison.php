@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Exception\NullValueException;
+use Lighthouse\CoreBundle\Types\Numeric;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class Comparison
@@ -51,7 +52,11 @@ class Comparison
     {
         if (null === $value) {
             throw new NullValueException('value');
-        } elseif (!is_numeric($value)) {
+        }
+        if ($value instanceof Numeric) {
+            $value = $value->toNumber();
+        }
+        if (!is_numeric($value)) {
             throw new UnexpectedTypeException($value, 'numeric');
         }
         return $value;

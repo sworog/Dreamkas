@@ -130,9 +130,7 @@ class Set10ProductImportXmlParser
     {
         $salePrice = $good->getPrice();
         $salePriceMoney = $this->moneyModelTransformer->reverseTransform($salePrice);
-
-        $purchasePrice = new Money();
-        $purchasePrice->setCountByQuantity($salePriceMoney, 0.80, true);
+        $purchasePrice = $salePriceMoney->mul(0.80);
         return $purchasePrice;
     }
 
