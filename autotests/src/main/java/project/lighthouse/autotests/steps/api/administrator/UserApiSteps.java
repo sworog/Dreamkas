@@ -22,6 +22,7 @@ public class UserApiSteps extends ScenarioSteps {
 
     @Step
     public User createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
+        //TODO move replaceSelectedValue in Helper class
         String updatedRole = userCreatePage.replaceSelectedValue(role);
         return apiConnect.createUserThroughPost(name, position, login, password, updatedRole);
     }

@@ -5,6 +5,8 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.helper.DateTimeHelper;
+import project.lighthouse.autotests.objects.api.SubCategory;
+import project.lighthouse.autotests.steps.api.commercialManager.ProductApiSteps;
 import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
 
 import java.io.IOException;
@@ -16,9 +18,12 @@ public class EndInvoiceApiSteps {
     @Steps
     InvoiceApiSteps invoiceApiSteps;
 
+    @Steps
+    ProductApiSteps productApiSteps;
+
     @Given("there is the invoice '$invoiceSku' with product '$productName' name, '$productSku' sku, '$productBarCode' barcode, '$productUnits' units")
     public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
-        productApi.сreateProductThroughPost(productName, productSku, productBarCode, productUnits, "123");
+        productApiSteps.createProductThroughPost(productName, productSku, productBarCode, productUnits, "123", SubCategory.DEFAULT_NAME);
         invoiceApiSteps.createInvoiceThroughPostWithProductAndNavigateToIt(invoiceSku, productSku);
     }
 

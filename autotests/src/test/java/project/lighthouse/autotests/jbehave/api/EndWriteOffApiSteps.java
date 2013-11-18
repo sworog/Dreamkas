@@ -6,6 +6,8 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.objects.api.SubCategory;
+import project.lighthouse.autotests.steps.api.commercialManager.ProductApiSteps;
 import project.lighthouse.autotests.steps.api.departmentManager.WriteOffApiSteps;
 import project.lighthouse.autotests.steps.departmentManager.WriteOffSteps;
 
@@ -15,6 +17,9 @@ public class EndWriteOffApiSteps {
 
     @Steps
     WriteOffApiSteps writeOffApiSteps;
+
+    @Steps
+    ProductApiSteps productApiSteps;
 
     @Given("there is the write off with number '$writeOffNumber'")
     public void givenThereIsTheWriteOffWithNumber(String writeOffNumber) throws IOException, JSONException {
@@ -64,7 +69,7 @@ public class EndWriteOffApiSteps {
 
     public void createProduct(String productSku, String productName, String productBarCode, String productUnits, String purchasePrice) throws IOException, JSONException {
         if (!StaticData.products.containsKey(productSku)) {
-            productApi.сreateProductThroughPost(productSku, productName, productBarCode, productUnits, purchasePrice);
+            productApiSteps.createProductThroughPost(productName, productSku, productBarCode, productUnits, purchasePrice, SubCategory.DEFAULT_NAME);
         }
     }
 }
