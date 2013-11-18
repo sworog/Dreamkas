@@ -6,6 +6,7 @@
 package "vim"
 package "htop"
 package "curl"
+package "git"
 
 #############################################
 # users
@@ -45,6 +46,7 @@ cookbook_file "ssh_rsa_privite_key" do
   path "/home/watchman/.ssh/id_rsa"
   owner "watchman"
   group "watchman"
+  mode "0600"
 end
 
 cookbook_file "authorized_keys" do

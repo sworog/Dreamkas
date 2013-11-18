@@ -6,6 +6,8 @@ SITE
     bluepill (2.3.0)
       rsyslog (>= 0.0.0)
     build-essential (1.4.2)
+    composer (0.0.5)
+      php (>= 0.0.0)
     cron (1.2.8)
     mysql (4.0.4)
       build-essential (~> 1.4)
@@ -37,9 +39,9 @@ SITE
 GIT
   remote: https://github.com/edelight/chef-mongodb
   ref: master
-  sha: f1a4d93a6ee66739f30e6fe9b5abcddf67dbc5b3
+  sha: c5a8a03d610991612ae77cae1a2f8d2f338fbe06
   specs:
-    mongodb (0.13.6)
+    mongodb (0.14.1)
       apt (>= 1.8.2)
       python (>= 0.0.0)
       runit (>= 1.1.6)
@@ -56,6 +58,7 @@ GIT
 
 DEPENDENCIES
   beanstalkd (>= 0)
+  composer (>= 0)
   cron (>= 0)
   mongodb (>= 0)
   nginx (>= 0)
