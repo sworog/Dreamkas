@@ -66,8 +66,8 @@ class Set10SalesImportLocalTest extends WebTestCase
             ),
             array(
                 'purchases-14-05-2012_9-18-29.xml',
-                ".V............V.....\n",
-                2
+                "....................\n",
+                0
             ),
         );
     }
