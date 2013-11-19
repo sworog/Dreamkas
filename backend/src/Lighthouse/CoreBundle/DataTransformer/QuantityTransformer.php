@@ -49,13 +49,14 @@ class QuantityTransformer implements DataTransformerInterface
 
     /**
      * @param mixed $value
-     * @return mixed|void
+     * @return Quantity|null
      */
     public function reverseTransform($value)
     {
         if ('' === $value || null === $value) {
-            $value = null;
+            return null;
+        } else {
+            return $this->numericFactory->createQuantity($value);
         }
-        return $this->numericFactory->createQuantity($value);
     }
 }

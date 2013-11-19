@@ -84,8 +84,6 @@ class InventoryListener extends AbstractMongoDBListener
      */
     public function updateProductOnFlush(DocumentManager $dm, Reasonable $document)
     {
-        $sign = ($document->increaseAmount()) ? -1 : 1;
-
         $uow = $dm->getUnitOfWork();
 
         $changeSet = $uow->getDocumentChangeSet($document);
@@ -97,11 +95,11 @@ class InventoryListener extends AbstractMongoDBListener
             $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $document->getProductQuantity();
             $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $document->getProductQuantity();
 
-            $oldInventoryDiff = $oldQuantity->sign($document->increaseAmount())->toNumber();
+            $oldInventoryDiff = $oldQuantity->sign(!$document->increaseAmount())->toNumber();
             $oldStoreProduct->inventory = $oldStoreProduct->inventory + $oldInventoryDiff;
             $this->computeChangeSet($dm, $oldStoreProduct);
 
-            $newInventoryDiff = $newQuantity->sign($document->increaseAmount())->toNumber();
+            $newInventoryDiff = $newQuantity->sign(!$document->increaseAmount())->toNumber();
             $newStoreProduct->inventory = $newStoreProduct->inventory - $newInventoryDiff;
             $dm->persist($newStoreProduct);
             $this->computeChangeSet($dm, $newStoreProduct);
@@ -111,7 +109,7 @@ class InventoryListener extends AbstractMongoDBListener
                 $quantity0 = $changeSet['quantity'][0];
                 /* @var Quantity $quantity1 */
                 $quantity1 = $changeSet['quantity'][1];
-                $quantityDiff = $quantity0->sub($quantity1)->sign($document->increaseAmount())->toNumber();
+                $quantityDiff = $quantity1->sub($quantity0)->sign($document->increaseAmount())->toNumber();
             } else {
                 $quantityDiff = 0;
             }

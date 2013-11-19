@@ -85,6 +85,14 @@ class Decimal implements Numeric
     }
 
     /**
+     * @return Decimal
+     */
+    public function __clone()
+    {
+        return static::createFromNumeric($this->toString(), $this->getPrecision());
+    }
+
+    /**
      * @param boolean $flag invert value if flag is false
      * @return Decimal
      */
@@ -180,12 +188,13 @@ class Decimal implements Numeric
     /**
      * @param float|string $float
      * @param int $precision
+     * @param int $roundMode
      * @return Decimal
      */
-    public static function createFromNumeric($float, $precision)
+    public static function createFromNumeric($float, $precision, $roundMode = self::ROUND_HALF_UP)
     {
         $result = bcmul((string) $float, static::getDivider($precision), $precision + 1);
-        $count = (int) static::round($result, 0);
+        $count = (int) static::round($result, 0, $roundMode);
         return new static($count, $precision);
     }
 }

@@ -85,4 +85,35 @@ class DecimalTest extends TestCase
             array('12.11', 2, '4.4', Decimal::ROUND_HALF_DOWN, '2.75', 275),
         );
     }
+
+    /**
+     * @param string $numeric
+     * @param int $precision
+     * @param mixed $sign
+     * @param string $expectedResult
+     * @param int $expectedCount
+     * @dataProvider signProvider
+     */
+    public function testSign($numeric, $precision, $sign, $expectedResult, $expectedCount)
+    {
+        $decimal = Decimal::createFromNumeric($numeric, $precision);
+        $result = $decimal->sign($sign);
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Numeric\\Decimal', $result);
+        $this->assertEquals($expectedResult, $result->toString());
+        $this->assertEquals($precision, $result->getPrecision());
+        $this->assertEquals($expectedCount, $result->getCount());
+    }
+
+    /**
+     * @return array
+     */
+    public function signProvider()
+    {
+        return array(
+            array('12.11', 2, true, '12.11', 1211),
+            array('12.11', 2, false, '-12.11', -1211),
+            array('-12.11', 2, true, '-12.11', -1211),
+            array('-12.11', 2, false, '12.11', 1211),
+        );
+    }
 }
