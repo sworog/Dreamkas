@@ -3,12 +3,13 @@
 namespace Lighthouse\CoreBundle\DataFixtures\ODM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 
-class LoadCatalogData implements FixtureInterface
+class LoadCatalogData implements FixtureInterface, OrderedFixtureInterface
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -47,5 +48,15 @@ class LoadCatalogData implements FixtureInterface
         $manager->persist($subCategory3);
 
         $manager->flush();
+    }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    function getOrder()
+    {
+        return 40;
     }
 }
