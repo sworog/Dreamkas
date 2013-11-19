@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
+use Lighthouse\RawValue;
 use Symfony\Component\Validator\Constraint;
 
 class PrecisionValidator extends ConstraintValidator
@@ -17,7 +18,7 @@ class PrecisionValidator extends ConstraintValidator
             return;
         }
 
-        if ($value instanceof Decimal) {
+        if ($value instanceof RawValue) {
             if (null === $value->getRaw()) {
                 return;
             }

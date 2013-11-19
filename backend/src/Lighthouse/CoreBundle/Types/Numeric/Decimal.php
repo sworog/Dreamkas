@@ -2,7 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Types\Numeric;
 
-class Decimal implements Numeric
+use Lighthouse\RawValue;
+
+class Decimal implements Numeric, RawValue
 {
     const NAME = 'Decimal';
 
