@@ -53,6 +53,44 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->assertCount($expectedLogEntriesCount, $cursor);
     }
 
+    public function testExecuteWithErrors()
+    {
+        $this->factory->getStore('197');
+        $this->createProductsBySku(
+            array(
+                '8594403916157',
+                '2873168',
+                '2809727',
+                '25525687',
+                '55557',
+                '8594403110111',
+                '4601501082159',
+                'Кит-Кат-343424',
+            )
+        );
+
+        $input = array(
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/purchases-14-05-2012_9-18-29.xml')
+        );
+
+        /* @var Set10SalesImportLocal $command */
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import_local');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute($input);
+
+        $display = $commandTester->getDisplay();
+
+        $this->assertContains("E......E.........EEE\n", $display);
+        $this->assertContains('Product with sku "1" not found', $display);
+        $this->assertContains('Product with sku "7" not found', $display);
+        $this->assertContains('Product with sku "3" not found', $display);
+
+        /* @var ConfigRepository $configRepository */
+        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $configRepository->findAll();
+        $this->assertCount(5, $cursor);
+    }
+
     /**
      * @return array
      */
