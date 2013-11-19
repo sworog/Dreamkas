@@ -273,15 +273,15 @@ define(function(require) {
 
                 block.set('dataEditing', true);
 
-                if (!$dataElement.attr('model-attr')) {
-                    $dataElement = $el.find('[model-attr]');
+                if (!$dataElement.attr('model-attribute')) {
+                    $dataElement = $el.find('[model-attribute]');
                 }
 
                 if ($dataRow.prop('tagName') === 'TR') {
                     dataInputControls = '<tr class="writeOff__dataInputControlsTr"><td class="writeOff__dataInputControlsTd" colspan="' + $dataRow.find('td').length + '">' + dataInputControls + '</td></tr>'
                 }
 
-                switch ($dataElement.attr('model-attr')) {
+                switch ($dataElement.attr('model-attribute')) {
                     case 'product':
                         $dataElement.append(block.templates.dataInputAutocomplete({
                             $dataElement: $dataElement
@@ -289,14 +289,17 @@ define(function(require) {
                         block.autocompleteToInput($dataElement.find("[lh_product_autocomplete]"));
                         break;
 
+                    case 'quantityElement':
+                        $dataElement.append(block.templates.dataInput({
+                            $dataElement: $dataElement,
+                            name: 'quantity'
+                        }));
+                        break;
+
                     case 'date':
                         $dataElement.append(block.templates.dataInput({
                             $dataElement: $dataElement
                         }));
-                        new InputDate({
-                            el: $dataElement.find('.inputText')[0],
-                            noTime: true
-                        });
                         break;
 
                     default:
