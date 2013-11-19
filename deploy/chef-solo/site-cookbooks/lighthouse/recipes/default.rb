@@ -54,6 +54,10 @@ end
 #############################################
 package "make"
 
+package "php5-intl" do
+  action :install
+end
+
 php_pear "mongo" do
   action :install
 end

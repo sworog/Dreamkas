@@ -38,5 +38,8 @@
                 "server_url": "http://teamcity.lighthouse.cs/"
             }
         }
+    },
+    "mognodb": {
+        "smallfiles": true
     }
 }

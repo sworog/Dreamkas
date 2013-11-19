@@ -8,4 +8,20 @@ php_pear "xdebug" do
   action :install
 end
 
+php_pear_channel "badoo.github.com" do
+  action :discover
+end
+
+php_pear "PHPUnit_TestListener_TeamCity" do
+  action :install
+  channel "badoo.github.com"
+  preferred_state "beta"
+end
+
+cookbook_file "TestListener.php" do
+  action :create
+  path "/usr/share/php/PHPUnit/Extensions/TeamCity/TestListener.php"
+  mode "0664"
+end
+
 package "parallel"

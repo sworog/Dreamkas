@@ -21,5 +21,8 @@
             "p": "11300"
         },
         "start_during_boot": true
+    },
+    "mognodb": {
+        "smallfiles": true
     }
 }
