@@ -7,6 +7,8 @@ lighthouse:
                 negative: Цена не должна быть меньше или равна нулю
                 max: Цена не должна быть больше {{ limit }}
                 not_blank: Заполните это поле
+            quantity:
+                negative: Значение должно быть числом
             float:
                 invalid_message: Значение должно быть числом
             length: Не более {{ limit }} символа|Не более {{ limit }} символов|Не более {{ limit }} символов

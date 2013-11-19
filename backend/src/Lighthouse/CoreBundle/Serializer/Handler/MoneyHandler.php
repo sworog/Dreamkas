@@ -7,14 +7,14 @@ use JMS\Serializer\VisitorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\DataTransformer\FloatViewTransformer;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 /**
  * @DI\Service("lighthouse.core.serializer.handler.money")
  * @DI\Tag(
  *      "jms_serializer.handler",
  *      attributes={
- *          "type": "Lighthouse\CoreBundle\Types\Money",
+ *          "type": "Lighthouse\CoreBundle\Types\Numeric\Money",
  *          "format": "json",
  *          "direction": "serialization",
  *          "method": "serializeMoney"
@@ -23,7 +23,7 @@ use Lighthouse\CoreBundle\Types\Money;
  * @DI\Tag(
  *      "jms_serializer.handler",
  *      attributes={
- *          "type": "Lighthouse\CoreBundle\Types\Money",
+ *          "type": "Lighthouse\CoreBundle\Types\Numeric\Money",
  *          "format": "xml",
  *          "direction": "serialization",
  *          "method": "serializeMoney"

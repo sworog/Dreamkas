@@ -23,6 +23,7 @@
 @import "blocks/log/log.css";
 @import "blocks/invoiceList/invoiceList.css";
 @import "blocks/writeOffList/writeOffList.css";
+@import "blocks/layout/layout.css";
 
 
 body {

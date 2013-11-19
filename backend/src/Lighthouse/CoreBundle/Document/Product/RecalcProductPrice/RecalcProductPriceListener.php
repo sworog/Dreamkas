@@ -30,7 +30,7 @@ class RecalcProductPriceListener extends AbstractMongoDBListener
      *      "jobManager" = @DI\Inject("lighthouse.core.job.manager")
      * })
      * @param RecalcProductPriceFactory $factory
-     * @param \Lighthouse\CoreBundle\Job\JobManager $jobManager
+     * @param JobManager $jobManager
      */
     public function __construct(RecalcProductPriceFactory $factory, JobManager $jobManager)
     {

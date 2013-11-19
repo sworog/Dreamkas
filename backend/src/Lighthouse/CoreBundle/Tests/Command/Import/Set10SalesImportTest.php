@@ -87,7 +87,7 @@ class Set10SalesImportTest extends WebTestCase
         $this->assertContains(basename($file1), $display);
         $this->assertContains("...\n", $display);
         $this->assertContains(basename($file2), $display);
-        $this->assertContains(".V............V.....\n", $display);
+        $this->assertContains("....................\n", $display);
 
         $this->assertFileNotExists($file1);
         $this->assertFileNotExists($file2);
@@ -95,7 +95,48 @@ class Set10SalesImportTest extends WebTestCase
         /* @var LogRepository $logRepository */
         $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
         $cursor = $logRepository->findAll();
-        $this->assertCount(2, $cursor);
+        $this->assertCount(0, $cursor);
+    }
+
+    public function testExecuteWithErrors()
+    {
+        $this->factory->getStore('197');
+        $this->createProductsBySku(
+            array(
+                '8594403916157',
+                '2873168',
+                '2809727',
+                '25525687',
+                '55557',
+                '8594403110111',
+                '4601501082159'
+            )
+        );
+
+        $tmpDir = $this->createTempDir();
+        $file1 = $this->copyFixtureFileToDir('purchases-14-05-2012_9-18-29.xml', $tmpDir);
+
+        $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
+
+        /* @var Set10SalesImport $command */
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array());
+
+        $display = $commandTester->getDisplay();
+
+        $this->assertContains(basename($file1), $display);
+        $this->assertContains("E......E.........EEE\n", $display);
+        $this->assertContains('Product with sku "1" not found', $display);
+        $this->assertContains('Product with sku "7" not found', $display);
+        $this->assertContains('Product with sku "3" not found', $display);
+
+        $this->assertFileNotExists($file1);
+
+        /* @var LogRepository $logRepository */
+        $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $logRepository->findAll();
+        $this->assertCount(5, $cursor);
     }
 
     /**

@@ -17,7 +17,7 @@ class NumbersCompareValidatorTest extends TestCase
     protected $context;
 
     /**
-     * @var \Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompareValidator
+     * @var NumbersCompareValidator
      */
     protected $validator;
 

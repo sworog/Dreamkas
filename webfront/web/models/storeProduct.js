@@ -46,9 +46,8 @@ define(function(require) {
             averagePurchasePriceElement: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice) {
                 if (averagePurchasePrice) {
                     return String.prototype.split.call(averagePurchasePrice, '.')[0] +
-                        '<span class="layout__floatPart">,' +
-                            String.prototype.split.call(averagePurchasePrice, '.')[1] +
-                        '</span>' +
+                        ',' +
+                        String.prototype.split.call(averagePurchasePrice, '.')[1] +
                         '<span class="layout__currency"> р.</span>'
                 } else {
                     return '&mdash;';
@@ -68,9 +67,8 @@ define(function(require) {
                 lastPurchasePrice = lastPurchasePrice || this.get('product.purchasePrice');
                 if (lastPurchasePrice) {
                     return String.prototype.split.call(lastPurchasePrice, '.')[0] +
-                        '<span class="layout__floatPart">,' +
+                        ',' +
                         String.prototype.split.call(lastPurchasePrice, '.')[1] +
-                        '</span>' +
                         '<span class="layout__currency"> р.</span>'
                 } else {
                     return '&mdash;';

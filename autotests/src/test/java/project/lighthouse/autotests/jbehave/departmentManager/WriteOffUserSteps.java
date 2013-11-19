@@ -7,10 +7,10 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceApi;
-import project.lighthouse.autotests.steps.administrator.UserSteps;
-import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
-import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
+import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
+import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
+import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
+import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
 import project.lighthouse.autotests.steps.departmentManager.WriteOffSteps;
 
 import java.io.IOException;
@@ -21,13 +21,13 @@ public class WriteOffUserSteps {
     WriteOffSteps writeOffSteps;
 
     @Steps
-    StoreSteps storeSteps;
+    UserApiSteps userApiSteps;
 
     @Steps
-    CatalogSteps catalogSteps;
+    CatalogApiSteps catalogApiSteps;
 
     @Steps
-    UserSteps userSteps;
+    StoreApiSteps storeApiSteps;
 
     @Given("the user opens the write off create page")
     public void givenTheUserOpensTheWriteOffCreatePage() throws IOException, JSONException {
@@ -36,51 +36,8 @@ public class WriteOffUserSteps {
     }
 
     public void beforeSteps() throws IOException, JSONException {
-        userSteps.getUser(InvoiceApi.DEFAULT_USER_NAME);
-        catalogSteps.promoteDepartmentManager(storeSteps.createStore(), InvoiceApi.DEFAULT_USER_NAME);
-    }
-
-    @Given("there is the write off with number '$writeOffNumber'")
-    public void givenThereIsTheWriteOffWithNumber(String writeOffNumber) throws IOException, JSONException {
-        writeOffSteps.createWriteOffThroughPost(writeOffNumber);
-    }
-
-    @Given("there is the write off with number '$writeOffNumber' in the store with number '$storeNumber' ruled by user with name '$userName'")
-    @Alias("there is the write off with sku '$writeOffNumber' in the store with number '$storeNumber' ruled by user with name '$userName'")
-    public void givenThereIsTheWriteOffWithNumberInTheStoreRuledByUser(String writeOffNumber, String storeNumber, String userName) throws IOException, JSONException {
-        writeOffSteps.createWriteOffThroughPost(writeOffNumber, storeNumber, userName);
-    }
-
-    @Given("there is the write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
-    public void givenThereIsTheWriteOffWithProduct(String writeOffNumber, String productSku, String quantity, String price, String cause)
-            throws IOException, JSONException {
-        writeOffSteps.createWriteOffThroughPost(writeOffNumber, productSku, productSku, productSku, "kg", "15", quantity, price, cause);
-    }
-
-    @Given("the user adds the product to the write off with number '$writeOffNumber' with sku '$productSku', quantity '$quantity', price '$price, cause '$cause' in the store ruled by '$userName'")
-    public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause, String userName) throws IOException, JSONException {
-        writeOffSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, userName);
-    }
-
-    @Given("the user navigates to new write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
-    public void givenThereIsTheWriteOffWithProductWithNavigation(String writeOffNumber, String productSku, String productUnits, String purchasePrice, String quantity, String price, String cause)
-            throws IOException, JSONException {
-        writeOffSteps.createWriteOffAndNavigateToIt(writeOffNumber, productSku, productSku, productSku, productUnits, purchasePrice, quantity, price, cause);
-    }
-
-    @Given("navigate to new write off with '$writeOffNumber' number")
-    public void givenThereIsTheWriteOffWithProductWithNavigation(String writeOffNumber) throws IOException, JSONException {
-        writeOffSteps.createWriteOffAndNavigateToIt(writeOffNumber);
-    }
-
-    @Given("the user navigates to the write off with number '$writeOffNumber'")
-    public void givenNavigateToTheWriteOffWithNumber(String writeNumber) throws JSONException {
-        writeOffSteps.navigatoToWriteOffPage(writeNumber);
-    }
-
-    @Given("there is the writeOff in the store with number '$number' ruled by department manager with name '$userName' with values $exampleTable")
-    public void givenThereIsTheWriteOffInTheStoreWithValues(String number, String userName, ExamplesTable examplesTable) throws IOException, JSONException {
-        writeOffSteps.createWriteOffThroughPost(number, userName, examplesTable);
+        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
+        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
     }
 
     @When("the user inputs '$inputValue' in the '$elementName' field on the write off page")
@@ -175,6 +132,7 @@ public class WriteOffUserSteps {
         writeOffSteps.itemCheckIsNotPresent(value);
     }
 
+    @Deprecated
     @When("the user clicks on '$parentElementName' element of write off product with '$invoiceSku' sku to edit")
     public void whenTheUserClicksOnElementOfInvoiceProductWithSkuToEdit(String parentElementName, String invoiceSku) {
         writeOffSteps.childrentItemClickByFindByLocator(parentElementName, invoiceSku);

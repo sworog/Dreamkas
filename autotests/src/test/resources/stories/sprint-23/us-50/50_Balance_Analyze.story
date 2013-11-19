@@ -3,9 +3,9 @@ Meta:
 @us 50
 
 Narrative:
-As a user
-I want to perform an action
-So that I can achieve a business goal
+As a заведующий отделом,
+I want to просматривать остатки товаров подкатегории
+In order to понять когда и сколько едениц товара мне требуется заказать у поставщика
 
 GivenStories: precondition/aPreconditionToStoryUs50.story
 
@@ -17,15 +17,15 @@ Meta:
 @smoke
 
 Given the user runs the prepare fixture data cap command for inventory testing
-And the user runs the recalculate_metrics cap comand
+And the user runs the recalculate_metrics cap command
 Given the user navigates to the subCategory 'defaultSubCategory-s23u50', category 'defaultCategory-s23u50', group 'defaultGroup-s23u50' product list page
 When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse' password
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Балык свиной в/с в/об Матера | 2800465 | 2800465 | 39,00 | 0,17 | 234,0 | 312,80 р. | 298,64 р. |
-| Балык Ломберный с/к в/с ТД Рублевский | 2805223 | 2805223 | 32,00 | 0,37 | 87,3 | 678,40 р. | 682,59 р. |
-| Ассорти Читтерио мясное нар.140г | 80469353 | 80469353 | 33,00 | 1,13 | 29,1 | 449,60 р. | 459,81 р. |
+| Балык свиной в/с в/об Матера | 2800465 | 2800465 | 39,000 | 0,17 | 234,0 | 312,80 р. | 298,64 р. |
+| Балык Ломберный с/к в/с ТД Рублевский | 2805223 | 2805223 | 32,000 | 0,37 | 87,3 | 678,40 р. | 682,59 р. |
+| Ассорти Читтерио мясное нар.140г | 80469353 | 80469353 | 33,000 | 1,13 | 29,1 | 449,60 р. | 459,81 р. |
 
 Scenario: Inventory item productName is a link and its clickable
 
@@ -63,7 +63,7 @@ When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse'
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-s23u50-1 | sku-s23u50-1 | barcode-s23u50-1 | 0,00 | 0,00 | 0,0 | — | — |
+| name-s23u50-1 | sku-s23u50-1 | barcode-s23u50-1 | 0,000 | 0,00 | 0,0 | — | — |
 
 Scenario: Inventory table has got the product with no sales (0)
 
@@ -76,7 +76,7 @@ When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse'
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-s23u50-1 | sku-s23u50-1 | barcode-s23u50-1 | 0,00 | 0,00 | 0,0 | — | — |
+| name-s23u50-1 | sku-s23u50-1 | barcode-s23u50-1 | 0,000 | 0,00 | 0,0 | — | — |
 
 Scenario: Inventory table has got the product with no inventory (0)
 
@@ -89,7 +89,7 @@ When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse'
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-s23u50-1 | sku-s23u50-1 | barcode-s23u50-1 | 0,00 | 0,00 | 0,0 | — | — |
+| name-s23u50-1 | sku-s23u50-1 | barcode-s23u50-1 | 0,000 | 0,00 | 0,0 | — | — |
 
 Scenario: Inventory ratio dosnt evaluate for today transactions
 
@@ -98,13 +98,13 @@ Meta:
 @description inventory ratio dosnt evaluate for today transactions
 
 Given the user runs the prepare fixture data cap command for negative inventory testing - '0' days
-And the user runs the recalculate_metrics cap comand
+And the user runs the recalculate_metrics cap command
 Given the user navigates to the subCategory 'defaultSubCategory-s23u50', category 'defaultCategory-s23u50', group 'defaultGroup-s23u50' product list page
 When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse' password
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-s23u50-2 | 280046544 | 280046544 | 90,00 | 0,00 | 0,0 | 120,00 р. | 120,00 р. |
+| name-s23u50-2 | 280046544 | 280046544 | 90,000 | 0,00 | 0,0 | 120,00 р. | 120,00 р. |
 
 Scenario: Inventory ratio dosnt evaluate for older than 30 days transactions
 
@@ -113,13 +113,13 @@ Meta:
 @description inventory ratio dosnt evaluate for older than 31 days transactions
 
 Given the user runs the prepare fixture data cap command for negative inventory testing - '31' days
-And the user runs the recalculate_metrics cap comand
+And the user runs the recalculate_metrics cap command
 Given the user navigates to the subCategory 'defaultSubCategory-s23u50', category 'defaultCategory-s23u50', group 'defaultGroup-s23u50' product list page
 When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse' password
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-s23u50-2 | 280046544 | 280046544 | 80,00 | 0,00 | 0,0 | 120,00 р. | 120,00 р. |
+| name-s23u50-2 | 280046544 | 280046544 | 80,000 | 0,00 | 0,0 | 120,00 р. | 120,00 р. |
 
 Scenario: Mouse hover over inventory items
 

@@ -6,8 +6,8 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Types\Decimal;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\StoreProduct\RetailPrice as AssertRetailPrice;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
@@ -20,7 +20,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property float      $retailMarkup
  * @property string     $retailPricePreference
  * @property Money      $roundedRetailPrice
- * @property int        $inventory
+ * @property float      $inventory
  * @property float      $averageDailySales
  * @property Money      $lastPurchasePrice
  * @property Money      $averagePurchasePrice
@@ -155,7 +155,7 @@ class StoreProduct extends AbstractDocument
      */
     public function getInventoryDaysDecimal()
     {
-        return Decimal::createFromFloat($this->getInventoryDays(), 1);
+        return Decimal::createFromNumeric($this->getInventoryDays(), 1);
     }
 
     /**
@@ -163,7 +163,7 @@ class StoreProduct extends AbstractDocument
      */
     public function getAverageDailySalesDecimal()
     {
-        return Decimal::createFromFloat($this->averageDailySales, 2)->toString();
+        return Decimal::createFromNumeric($this->averageDailySales, 2)->toString();
     }
 
     /**
@@ -171,6 +171,6 @@ class StoreProduct extends AbstractDocument
      */
     public function getInventoryDecimal()
     {
-        return Decimal::createFromFloat($this->inventory, 2)->toString();
+        return Decimal::createFromNumeric($this->inventory, 3)->toString();
     }
 }

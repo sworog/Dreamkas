@@ -12,7 +12,7 @@ public class ObjectProperty {
     public ObjectProperty(WebElement element, By FindBy) {
         this.findBy = FindBy;
         this.element = element.findElement(findBy);
-        text = element.getText();
+        text = this.element.getText();
     }
 
     public By getFindBy() {
@@ -25,5 +25,11 @@ public class ObjectProperty {
 
     public void click() {
         element.click();
+    }
+
+    public void input(String value) {
+        WebElement input = element.findElement(By.tagName("input"));
+        input.clear();
+        input.sendKeys(value);
     }
 }

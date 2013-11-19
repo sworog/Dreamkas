@@ -153,7 +153,7 @@
     <purchase discountAmount="621.81" amount="5596.25" number="6" saletime="2012-05-12T19:31:44.492+04:00" shift="30" cash="7" operDay="2012-05-12T00:00:00.000+04:00" operationType="false" userName="Иванов Иван  Иванович" tabNumber="1" shop="197">
         <positions>
             <position amount="513.0" costWithDiscount="513.0" discountValue="57.0" ndsSum="0.0" nds="18.0" cost="570.0" count="1.0" barCode="8594403916157" goodsCode="8594403916157" departNumber="1" order="3"/>
-            <position amount="583.25" costWithDiscount="2777.38" discountValue="64.81" ndsSum="0.0" nds="18.0" cost="3086.0" count="0.21" barCode="2873168" goodsCode="2873168" departNumber="1" order="2"/>
+            <position amount="583.25" costWithDiscount="2777.38" discountValue="64.81" ndsSum="0.0" nds="18.0" cost="3086.0" count="0.218" barCode="2873168" goodsCode="2873168" departNumber="1" order="2"/>
             <position amount="4500.0" costWithDiscount="180.0" discountValue="500.0" ndsSum="0.0" nds="18.0" cost="200.0" count="25.0" barCode="2809727" goodsCode="2809727" departNumber="1" order="1"/>
         </positions>
         <payments>

@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\DataTransformer;
 
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Form\DataTransformerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -15,19 +15,17 @@ class MoneyModelTransformer implements DataTransformerInterface
     /**
      * @var int
      */
-    protected $precision = 2;
+    protected $precision;
 
     /**
      * @DI\InjectParams({
-     *      "precision"=@DI\Inject("%lighthouse.core.money.precision%")
+     *      "precision"=@DI\Inject("%lighthouse.core.precision.money%")
      * })
      * @param int $precision
      */
-    public function __construct($precision = null)
+    public function __construct($precision)
     {
-        if (null !== $precision) {
-            $this->precision = (int) $precision;
-        }
+        $this->precision = (int) $precision;
     }
 
     /**

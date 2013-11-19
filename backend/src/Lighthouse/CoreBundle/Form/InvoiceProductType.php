@@ -24,7 +24,7 @@ class InvoiceProductType extends AbstractType
                 )
             )
             ->add('price', 'money')
-            ->add('quantity', 'text');
+            ->add('quantity', 'quantity');
     }
 
     /**

@@ -19,7 +19,7 @@ class SambaTest extends ContainerAwareTestCase
      */
     protected function getSambaMock(array $methods)
     {
-        return $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', $methods);
+        return $this->getMock('\\Lighthouse\\CoreBundle\\Samba\\SambaStreamWrapper', $methods);
     }
 
     /**
@@ -421,7 +421,7 @@ EOF;
             ->will($this->onConsecutiveCallsArray(array('tree connect failed: test')));
 
 
-        $this->setExpectedException('\Lighthouse\CoreBundle\Samba\SambaWrapperException');
+        $this->setExpectedException('\\Lighthouse\\CoreBundle\\Samba\\SambaWrapperException');
 
         $sambaMock->client('-L ' . escapeshellarg($urlDir), $parsedUrlDir);
     }

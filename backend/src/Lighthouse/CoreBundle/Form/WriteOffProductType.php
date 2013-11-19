@@ -24,7 +24,7 @@ class WriteOffProductType extends AbstractType
                 )
             )
             ->add('price', 'money')
-            ->add('quantity', 'text')
+            ->add('quantity', 'quantity')
             ->add('cause', 'text');
     }
 

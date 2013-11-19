@@ -22,8 +22,9 @@ class LighthouseCoreBundle extends Bundle
 
     protected function registerMongoTypes()
     {
-        Type::registerType('money', 'Lighthouse\\CoreBundle\\Types\\MongoDB\\MoneyType');
-        Type::registerType('timestamp', 'Lighthouse\\CoreBundle\\Types\\MongoDB\\TimestampType');
+        Type::registerType('quantity', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\QuantityType');
+        Type::registerType('money', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\MoneyType');
+        Type::registerType('timestamp', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\TimestampType');
     }
 
     protected function addStreamWrappers()

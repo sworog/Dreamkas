@@ -43,7 +43,7 @@ class RecalcProductPriceWorker implements WorkerInterface
     }
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\Job\Job|RecalcProductPriceJob $job
+     * @param Job|RecalcProductPriceJob $job
      * @return mixed
      */
     public function work(Job $job)

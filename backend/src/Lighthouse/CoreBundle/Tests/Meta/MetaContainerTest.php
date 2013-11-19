@@ -38,7 +38,7 @@ class MetaContainerTest extends WebTestCase
 
         /* @var $mockMetaGenerator MetaGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject */
         $mockMetaGenerator = $this->getMock(
-            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
+            '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
         );
 
         $productsMeta = array(
@@ -117,11 +117,11 @@ class MetaContainerTest extends WebTestCase
         $this->createProductsBySku(array('1', '2', '3'));
 
         $mockMetaGeneratorOne = $this->getMock(
-            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
+            '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
         );
 
         $mockMetaGeneratorTwo = $this->getMock(
-            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
+            '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
         );
 
         $returnMetaGeneratorOne = array(

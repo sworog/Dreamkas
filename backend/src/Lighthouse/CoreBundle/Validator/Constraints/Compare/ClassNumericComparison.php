@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Exception\NullValueException;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -45,7 +45,7 @@ class ClassNumericComparison extends Comparison
     /**
      * @param string $field
      * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @throws \Lighthouse\CoreBundle\Exception\NullValueException
+     * @throws NullValueException
      * @return Money|null
      */
     public function getObjectValue($field)

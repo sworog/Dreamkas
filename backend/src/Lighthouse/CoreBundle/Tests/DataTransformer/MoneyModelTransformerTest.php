@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\DataTransformer;
 
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Test\TestCase;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 class MoneyModelTransformerTest extends TestCase
 {
@@ -15,7 +15,7 @@ class MoneyModelTransformerTest extends TestCase
      */
     public function testTransformInvalidValue($value)
     {
-        $transformer = new MoneyModelTransformer();
+        $transformer = new MoneyModelTransformer(2);
         $transformer->transform($value);
     }
 
@@ -51,7 +51,6 @@ class MoneyModelTransformerTest extends TestCase
             array(null, null, null),
             array(null, null, 2),
             array(new Money(1000), 10, 2),
-            array(new Money(1000), 10, null),
             array(new Money(1112), 11.12, 2),
             array(new Money(1112), 111.2, 1),
             array(new Money(1112), 1.112, 3),

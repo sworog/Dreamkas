@@ -504,7 +504,7 @@ EOF;
 
     public function testExportWorkerGetUrl()
     {
-        /** @var \Lighthouse\CoreBundle\Integration\Set10\Export\Products\ExportProductsWorker $worker */
+        /** @var ExportProductsWorker $worker */
         $worker = $this->getContainer()->get("lighthouse.core.integration.set10.export.products.worker");
 
         $configUrlId = $this->createConfig(Set10Export::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");

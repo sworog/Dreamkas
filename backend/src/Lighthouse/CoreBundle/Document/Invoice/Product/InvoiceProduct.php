@@ -10,17 +10,18 @@ use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @property string $id
- * @property int    $quantity
- * @property Money  $price
- * @property Money  $totalPrice
- * @property Invoice $invoice
+ * @property string     $id
+ * @property Quantity   $quantity
+ * @property Money      $price
+ * @property Money      $totalPrice
+ * @property Invoice    $invoice
  * @property ProductVersion $product
  *
  * @MongoDB\Document(
@@ -39,13 +40,13 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
 
     /**
      * Количество
-     * @MongoDB\Int
+     * @MongoDB\Field(type="quantity")
      * @Assert\NotBlank
      * @LighthouseAssert\Chain({
-     *   @LighthouseAssert\NotFloat,
-     *   @LighthouseAssert\Range\Range(gt=0)
+     *  @LighthouseAssert\Precision(3),
+     *  @LighthouseAssert\Range\Range(gt=0)
      * })
-     * @var int
+     * @var Quantity
      */
     protected $quantity;
 
@@ -123,8 +124,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      */
     public function beforeSave()
     {
-        $this->totalPrice = new Money();
-        $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
+        $this->totalPrice = $this->price->mul($this->quantity);
         $this->acceptanceDate = $this->invoice->acceptanceDate;
         $this->store = $this->invoice->store;
         $this->originalProduct = $this->product->getObject();
@@ -155,7 +155,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     }
 
     /**
-     * @return int
+     * @return Quantity
      */
     public function getProductQuantity()
     {
@@ -192,5 +192,13 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     public function getReasonParent()
     {
         return $this->invoice;
+    }
+
+    /**
+     * @param Quantity $quantity
+     */
+    public function setQuantity(Quantity $quantity)
+    {
+        $this->quantity = $quantity;
     }
 }

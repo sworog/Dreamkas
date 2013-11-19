@@ -56,7 +56,8 @@ abstract public class AbstractObject {
         return objectPropertyMap.get(propertyName);
     }
 
-    public void setObjectProperty(WebElement element, String propertyName, By propertyFindBy) {
+    public ObjectProperty setObjectProperty(String propertyName, By propertyFindBy) {
         objectPropertyMap.put(propertyName, new ObjectProperty(element, propertyFindBy));
+        return getObjectProperty(propertyName);
     }
 }

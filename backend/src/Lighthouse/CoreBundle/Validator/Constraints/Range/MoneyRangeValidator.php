@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyComparison;
 use Symfony\Component\Validator\Constraint;

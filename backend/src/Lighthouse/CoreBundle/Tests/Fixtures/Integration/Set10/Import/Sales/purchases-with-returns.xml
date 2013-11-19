@@ -46,6 +46,10 @@
                       count="1.0" barCode="3" goodsCode="3" departNumber="1" order="2"/>
             <position amount="4500.0" costWithDiscount="180.0" discountValue="500.0" ndsSum="0.0" nds="18.0"
                       cost="200.0" count="25.0" barCode="4" goodsCode="4" departNumber="1" order="1"/>
+            <position amount="36.0" costWithDiscount="36.0" discountValue="4.0" ndsSum="0.0" nds="18.0" cost="40.0"
+                      count="1.57" barCode="1" goodsCode="1" departNumber="51" order="1"/>
+            <position amount="36.0" costWithDiscount="36.0" discountValue="4.0" ndsSum="0.0" nds="18.0" cost="40.0"
+                      count="3.576" barCode="3" goodsCode="3" departNumber="51" order="1"/>
         </positions>
         <payments>
             <payment description="" amount="6000.0" typeClass="CashPaymentEntity"/>

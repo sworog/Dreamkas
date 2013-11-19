@@ -151,7 +151,7 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Document\User\User
+     * @return User
      */
     public function createUser()
     {

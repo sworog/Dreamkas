@@ -19,8 +19,8 @@ public class ConsoleComandsUserSteps {
         consoleCommandSteps.runFixtureCommand();
     }
 
-    @Given("the user runs the recalculate_metrics cap comand")
-    public void givenTheRobotRunsTheRecalculateMetricsCapComand() throws IOException, InterruptedException {
+    @Given("the user runs the recalculate_metrics cap command")
+    public void givenTheRobotRunsTheRecalculateMetricsCapCommand() throws IOException, InterruptedException {
         consoleCommandSteps.runCapAutoTestsSymfonyProductsRecalculateMetrics();
     }
 

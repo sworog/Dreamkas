@@ -11,7 +11,7 @@ use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Service\RoundService;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\DiExtraBundle\Annotation as DI;
 
 class StoreProductRepository extends DocumentRepository
@@ -292,10 +292,11 @@ class StoreProductRepository extends DocumentRepository
      */
     protected function calcRetailPrice($retailMarkup, Money $purchasePrice = null)
     {
-        $retailPrice = new Money();
         if (null !== $retailMarkup && '' !== $retailMarkup && null !== $purchasePrice) {
             $percent = 1 + ($retailMarkup / 100);
-            $retailPrice->setCountByQuantity($purchasePrice, $percent, true);
+            $retailPrice = $purchasePrice->mul($percent);
+        } else {
+            $retailPrice = new Money();
         }
         return $retailPrice;
     }

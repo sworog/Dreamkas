@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Test;
 use AppKernel;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
+use Lighthouse\CoreBundle\Job\JobManager;
 use Symfony\Component\DependencyInjection\Container;
 
 class ContainerAwareTestCase extends SymfonyWebTestCase
@@ -60,7 +61,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     protected function clearJobs()
     {
-        /* @var \Lighthouse\CoreBundle\Job\JobManager $jobManager */
+        /* @var JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
         $jobManager->startWatchingTubes()->purgeTubes()->stopWatchingTubes();
     }

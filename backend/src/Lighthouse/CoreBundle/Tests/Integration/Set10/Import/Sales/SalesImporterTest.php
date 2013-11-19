@@ -10,35 +10,36 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SalesImporterTest extends WebTestCase
 {
-    public function testImportWithSeveralInvalidCounts()
+    public function testProductInventoryChangedAfterImport()
     {
         $storeId = $this->factory->getStore('197');
 
         $skuAmounts = array(
-            '1' => -112,
-            '3' => -10,
-            '7' => -1,
-            '8594403916157' => -1,
-            '2873168' => 0,
-            '2809727' => 0,
-            '25525687' => -155,
-            '55557' => -1,
-            '8594403110111' => -1,
-            '4601501082159' => -1,
+            '1' => '-112',
+            '3' => '-10',
+            '7' => '-1',
+            '8594403916157' => '-1',
+            '2873168' => '0.008',
+            '2809727' => '0',
+            '25525687' => '-155',
+            '55557' => '-1',
+            '8594403110111' => '-1',
+            '4601501082159' => '-1',
         );
         $productIds = $this->createProductsBySku(array_keys($skuAmounts));
 
         $output = new TestOutput();
         $this->import('purchases-14-05-2012_9-18-29.xml', $output);
 
-        $this->assertStringStartsWith('.V............V.....', $output->getDisplay());
-        $lines = $output->getLines();
-        $this->assertCount(5, $lines);
-        $this->assertContains('Errors', $lines[1]);
-        $this->assertContains('products[1].quantity', $lines[2]);
+        $this->assertStringStartsWith('....................', $output->getDisplay());
 
         foreach ($skuAmounts as $sku => $inventory) {
-            $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
+            $this->assertStoreProduct(
+                $storeId,
+                $productIds[$sku],
+                array('inventory' => $inventory),
+                sprintf('Product #%s inventory assertion failed', $sku)
+            );
         }
     }
 
@@ -125,9 +126,9 @@ class SalesImporterTest extends WebTestCase
         $storeId = $this->factory->getStore('197');
 
         $skuAmounts = array(
-            '1' => 1,
+            '1' => -0.57,
             '2' => 0,
-            '3' => 24,
+            '3' => 20.424,
             '4' => -23,
         );
 

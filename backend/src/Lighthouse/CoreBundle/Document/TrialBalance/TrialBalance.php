@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
 
 /**
@@ -135,8 +135,7 @@ class TrialBalance extends AbstractDocument
      */
     public function updateTotalPrice()
     {
-        $this->totalPrice = new Money();
-        $this->totalPrice->setCountByQuantity($this->price, abs($this->quantity));
+        $this->totalPrice = $this->price->mul($this->quantity);
         $this->store = $this->storeProduct->store;
     }
 }
