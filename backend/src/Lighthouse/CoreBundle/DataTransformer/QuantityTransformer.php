@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Form\DataTransformerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 /**
  * @DI\Service("lighthouse.core.data_transformer.quantity")
@@ -31,7 +32,7 @@ class QuantityTransformer implements DataTransformerInterface
 
     /**
      * @param mixed $value
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      * @return mixed|void
      */
     public function transform($value)
@@ -49,6 +50,7 @@ class QuantityTransformer implements DataTransformerInterface
 
     /**
      * @param mixed $value
+     * @throws TransformationFailedException
      * @return Quantity|null
      */
     public function reverseTransform($value)
@@ -56,6 +58,10 @@ class QuantityTransformer implements DataTransformerInterface
         if ('' === $value || null === $value) {
             return null;
         } else {
+            $value = str_replace(',', '.', (string) $value);
+            if (!is_numeric($value)) {
+                throw new TransformationFailedException('', 0, new UnexpectedTypeException($value, 'float'));
+            }
             return $this->numericFactory->createQuantity($value);
         }
     }

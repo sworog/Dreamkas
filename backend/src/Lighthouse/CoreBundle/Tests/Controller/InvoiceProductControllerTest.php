@@ -325,13 +325,35 @@ class InvoiceProductControllerTest extends WebTestCase
                 201,
                 array('quantity' => 2.5),
             ),
+            'float quantity with coma' => array(
+                201,
+                array('quantity' => '2,5'),
+            ),
             'float quantity very float' => array(
                 400,
-                array('quantity' => 2.555),
+                array('quantity' => 2.5555),
                 array(
                     'children.quantity.errors.0'
                     =>
-                    'Количество не должно содержать больше 2 цифр после запятой'
+                    'Количество не должно содержать больше 3 цифр после запятой'
+                )
+            ),
+            'float quantity very float with coma' => array(
+                400,
+                array('quantity' => '2,5555'),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Количество не должно содержать больше 3 цифр после запятой'
+                )
+            ),
+            'not numeric quantity' => array(
+                400,
+                array('quantity' => 'abc'),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть числом'
                 )
             ),
             /***********************************************************************************************
