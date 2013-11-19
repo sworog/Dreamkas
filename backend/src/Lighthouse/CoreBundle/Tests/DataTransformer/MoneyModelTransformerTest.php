@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\DataTransformer;
 
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Test\TestCase;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 class MoneyModelTransformerTest extends TestCase
 {

@@ -99,7 +99,7 @@ class VersionFactory
     /**
      * @param VersionableInterface $object
      * @return ClassMetadata
-     * @throws \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @throws RuntimeException
      */
     protected function getClassVersionable(VersionableInterface $object)
     {

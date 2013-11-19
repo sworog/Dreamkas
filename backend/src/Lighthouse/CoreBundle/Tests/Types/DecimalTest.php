@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Types;
 
 use Lighthouse\CoreBundle\Test\TestCase;
-use Lighthouse\CoreBundle\Types\Decimal;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 
 class DecimalTest extends TestCase
 {
@@ -11,7 +11,7 @@ class DecimalTest extends TestCase
     {
         $decimal = Decimal::createFromNumeric("12.11", 2);
 
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Decimal', $decimal);
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Numeric\\Decimal', $decimal);
         $this->assertEquals(2, $decimal->getPrecision());
         $this->assertEquals(1211, $decimal->getCount());
         $this->assertEquals('12.11', $decimal->toNumber());
@@ -32,7 +32,7 @@ class DecimalTest extends TestCase
     {
         $decimal = Decimal::createFromNumeric($numeric, $precision);
         $result = $decimal->mul($operand, $roundMode);
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Decimal', $result);
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Numeric\\Decimal', $result);
         $this->assertEquals($expectedResult, $result->toString());
         $this->assertEquals($precision, $result->getPrecision());
         $this->assertEquals($expectedCount, $result->getCount());
@@ -63,7 +63,7 @@ class DecimalTest extends TestCase
     {
         $decimal = Decimal::createFromNumeric($numeric, $precision);
         $result = $decimal->div($operand, $roundMode);
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Decimal', $result);
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Numeric\\Decimal', $result);
         $this->assertEquals($expectedResult, $result->toString());
         $this->assertEquals($precision, $result->getPrecision());
         $this->assertEquals($expectedCount, $result->getCount());

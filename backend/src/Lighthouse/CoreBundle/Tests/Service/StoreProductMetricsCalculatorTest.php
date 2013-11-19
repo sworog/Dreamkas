@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use Lighthouse\CoreBundle\Types\DateTimestamp;
+use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 
 class StoreProductMetricsCalculatorTest extends WebTestCase
 {

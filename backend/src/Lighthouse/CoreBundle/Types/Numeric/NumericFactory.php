@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Types;
+namespace Lighthouse\CoreBundle\Types\Numeric;
 
 use JMS\DiExtraBundle\Annotation as DI;
 

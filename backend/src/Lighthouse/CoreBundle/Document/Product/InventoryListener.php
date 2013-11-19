@@ -11,12 +11,12 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
-use Lighthouse\CoreBundle\Types\Quantity;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"prePersist", "preRemove", "onFlush"})
  */
-class AmountListener extends AbstractMongoDBListener
+class InventoryListener extends AbstractMongoDBListener
 {
     /**
      * @var StoreProductRepository
@@ -106,7 +106,11 @@ class AmountListener extends AbstractMongoDBListener
             $this->computeChangeSet($dm, $newProduct);
         } else {
             if (isset($changeSet['quantity'])) {
-                $quantityDiff = ($changeSet['quantity'][0]->toNumber() - $changeSet['quantity'][1]->toNumber()) * $sign;
+                /* @var Quantity $quantity0 */
+                $quantity0 = $changeSet['quantity'][0];
+                /* @var Quantity $quantity1 */
+                $quantity1 = $changeSet['quantity'][1];
+                $quantityDiff = ($quantity0->toNumber() - $quantity1->toNumber()) * $sign;
             } else {
                 $quantityDiff = 0;
             }

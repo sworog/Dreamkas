@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
-use Lighthouse\CoreBundle\Types\Money as MoneyType;
+use Lighthouse\CoreBundle\Types\Numeric\Money as MoneyType;
 use Symfony\Component\Validator\Constraint;
 
 class MoneyValidator extends ConstraintValidator

@@ -41,7 +41,7 @@ class RemoteDirectory
     }
 
     /**
-     * @throws \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @throws RuntimeException
      * @return \SplFileInfo[]
      */
     public function read()

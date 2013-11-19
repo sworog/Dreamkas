@@ -1,8 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Types;
+namespace Lighthouse\CoreBundle\Types\Numeric;
 
 use Lighthouse\CoreBundle\Service\RoundService;
+use Lighthouse\CoreBundle\Types\Nullable;
 
 class Money extends Decimal implements Nullable
 {

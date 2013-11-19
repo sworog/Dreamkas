@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\DataTransformer;
 
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Form\DataTransformerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Form\Exception\TransformationFailedException;

@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Types;
 
 use Lighthouse\CoreBundle\Test\TestCase;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 class MoneyTest extends TestCase
 {

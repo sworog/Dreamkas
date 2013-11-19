@@ -48,7 +48,7 @@ class CollectionHandler
 
     /**
      * @param XmlSerializationVisitor $visitor
-     * @param \Lighthouse\CoreBundle\Document\AbstractCollection $collection
+     * @param AbstractCollection $collection
      * @param array $type
      * @param Context $context
      */

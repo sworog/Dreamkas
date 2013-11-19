@@ -33,7 +33,7 @@ class MetaCollectionSerializerTest extends ContainerAwareTestCase
 
         /* @var MetaGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject $mockMetaGenerator */
         $mockMetaGenerator = $this->getMock(
-            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
+            '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
         );
 
         $mockMetaGenerator

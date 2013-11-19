@@ -82,7 +82,7 @@ class InvoiceControllerTest extends WebTestCase
         return array(
             'invoice' => array(
                 'data' => array(
-                    'sku' => 'sdfwfsf232',
+                    'sku' => 'product232',
                     'supplier' => 'ООО "Поставщик"',
                     'acceptanceDate' => '2013-03-18 12:56',
                     'accepter' => 'Приемных Н.П.',
@@ -92,7 +92,7 @@ class InvoiceControllerTest extends WebTestCase
                 ),
                 // Assertions xpath
                 'assertions' => array(
-                    'sku' => 'sdfwfsf232',
+                    'sku' => 'product232',
                     'supplier' => 'ООО "Поставщик"',
                     'acceptanceDate' => '2013-03-18T12:56:00+0400',
                     'accepter' => 'Приемных Н.П.',
@@ -266,7 +266,7 @@ class InvoiceControllerTest extends WebTestCase
     public function putInvoiceDataProvider()
     {
         $data = array(
-            'sku' => 'sdfwfsf232',
+            'sku' => 'product232',
             'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
@@ -275,7 +275,7 @@ class InvoiceControllerTest extends WebTestCase
             'supplierInvoiceDate' => '17.03.2013'
         );
         $assertions = array(
-            'sku' => 'sdfwfsf232',
+            'sku' => 'product232',
             'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => '2013-03-18T12:56:00+0400',
             'accepter' => 'Приемных Н.П.',

@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Types;
 
 use Lighthouse\CoreBundle\Test\TestCase;
-use Lighthouse\CoreBundle\Types\DateTimestamp;
+use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 
 class DateTimestampTest extends TestCase
 {

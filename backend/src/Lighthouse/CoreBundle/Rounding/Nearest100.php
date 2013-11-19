@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Rounding;
 
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 /**
  * @DI\Service("lighthouse.core.rounding.nearest100")

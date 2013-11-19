@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Document\Product;
 
-use Lighthouse\CoreBundle\Types\Money;
-use Lighthouse\CoreBundle\Types\Quantity;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 interface Productable
 {

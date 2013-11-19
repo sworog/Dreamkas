@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\ClassMoneyComparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare;

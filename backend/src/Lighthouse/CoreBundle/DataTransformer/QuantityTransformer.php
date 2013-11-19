@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\DataTransformer;
 
-use Lighthouse\CoreBundle\Types\NumericFactory;
-use Lighthouse\CoreBundle\Types\Quantity;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Form\DataTransformerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Form\Exception\TransformationFailedException;

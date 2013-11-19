@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Types;
 
 use Lighthouse\CoreBundle\Test\TestCase;
-use Lighthouse\CoreBundle\Types\DatePeriod;
+use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 
 class DatePeriodTest extends TestCase
 {

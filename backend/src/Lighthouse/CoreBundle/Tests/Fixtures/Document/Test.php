@@ -3,8 +3,8 @@
 namespace Lighthouse\CoreBundle\Tests\Fixtures\Document;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\Serializer\Annotation as Serializer;
-use Lighthouse\CoreBundle\Types\Money;
 
 class Test extends AbstractDocument
 {

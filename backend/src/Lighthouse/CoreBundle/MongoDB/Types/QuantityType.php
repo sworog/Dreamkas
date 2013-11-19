@@ -3,7 +3,8 @@
 namespace Lighthouse\CoreBundle\MongoDB\Types;
 
 use Doctrine\ODM\MongoDB\Types\Type;
-use Lighthouse\CoreBundle\Types\Quantity;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 class QuantityType extends Type
 {
@@ -40,7 +41,7 @@ class QuantityType extends Type
     {
         return <<<EOS
 if (null !== \$value) {
-    \$return = new \\Lighthouse\\CoreBundle\\Types\\Quantity(\$value['count'], \$value['precision']);
+    \$return = new \\Lighthouse\\CoreBundle\\Types\\Numeric\\Quantity(\$value['count'], \$value['precision']);
 } else {
     \$return = null;
 }

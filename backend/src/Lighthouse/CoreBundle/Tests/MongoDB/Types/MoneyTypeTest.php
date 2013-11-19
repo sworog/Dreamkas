@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\MongoDB\Types;
 
 use Lighthouse\CoreBundle\Test\TestCase;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Doctrine\ODM\MongoDB\Types\Type;
 
 class MoneyTypeTest extends TestCase
@@ -24,7 +24,7 @@ class MoneyTypeTest extends TestCase
         $this->assertEquals(1000, $dbValue);
 
         $phpValue = $moneyType->convertToPHPValue(1000);
-        $this->assertInstanceOf('Lighthouse\CoreBundle\Types\Money', $phpValue);
+        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Numeric\\Money', $phpValue);
         $this->assertEquals(1000, $phpValue->getCount());
 
         $this->assertContains('$return ', $moneyType->closureToPHP());

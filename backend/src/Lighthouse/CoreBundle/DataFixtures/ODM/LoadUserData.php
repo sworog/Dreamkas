@@ -5,12 +5,13 @@ namespace Lighthouse\CoreBundle\DataFixtures\ODM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class LoadUserData extends ContainerAware implements FixtureInterface
 {
     /**
-     * @return \Lighthouse\CoreBundle\Security\User\UserProvider
+     * @return UserProvider
      */
     protected function getUserProvider()
     {

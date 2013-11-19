@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\MongoDB\Types;
 
 use Doctrine\ODM\MongoDB\Types\TimestampType as BaseTimestampType;
-use Lighthouse\CoreBundle\Types\DateTimestamp;
+use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use MongoTimestamp;
 
 class TimestampType extends BaseTimestampType
@@ -38,12 +38,12 @@ class TimestampType extends BaseTimestampType
      */
     public function closureToMongo()
     {
-        return 'if ($value instanceof \Lighthouse\CoreBundle\Types\DateTimestamp) {
+        return 'if ($value instanceof \\Lighthouse\\CoreBundle\\Types\\Date\\DateTimestamp) {
             $return = $value->getMongoTimestamp();
-        } elseif ($value instanceof \MongoTimestamp) {
+        } elseif ($value instanceof \\MongoTimestamp) {
             $return = $value;
         } elseif (null !== $value) {
-            $return = new \MongoTimestamp($value);
+            $return = new \\MongoTimestamp($value);
         } else {
             $return = null;
         }';
@@ -54,8 +54,8 @@ class TimestampType extends BaseTimestampType
      */
     public function closureToPHP()
     {
-        return 'if ($value instanceof \MongoTimestamp) {
-            $return = \Lighthouse\CoreBundle\Types\DateTimestamp::createFromMongoTimestamp($value);
+        return 'if ($value instanceof \\MongoTimestamp) {
+            $return = \\Lighthouse\\CoreBundle\\Types\\Date\\DateTimestamp::createFromMongoTimestamp($value);
         } elseif (null !== $value) {
             $return = (string) $value;
         } else {

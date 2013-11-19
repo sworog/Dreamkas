@@ -6,8 +6,8 @@ use JMS\Serializer\Context;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\Serializer\VisitorInterface;
-use Lighthouse\CoreBundle\Types\Money;
-use Lighthouse\CoreBundle\Types\Numeric;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Numeric;
 
 /**
  * @DI\Service("lighthouse.core.serializer.handler.decimal")

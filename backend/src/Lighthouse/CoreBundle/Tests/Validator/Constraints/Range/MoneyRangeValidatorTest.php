@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Range;
 
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Test\TestCase;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\MoneyRange;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\MoneyRangeValidator;
 use Symfony\Component\Validator\ExecutionContextInterface;

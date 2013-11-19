@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Rounding;
 
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 abstract class AbstractRounding
 {

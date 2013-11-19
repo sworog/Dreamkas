@@ -46,7 +46,7 @@ class SalesXmlParser
     }
 
     /**
-     * @throws \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @throws RuntimeException
      * @return PurchaseElement|false
      */
     public function readNextElement()

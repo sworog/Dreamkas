@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\MongoDB\Types;
 
 use Doctrine\ODM\MongoDB\Types\Type;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 class MoneyType extends Type
 {
@@ -30,7 +30,7 @@ class MoneyType extends Type
      */
     public function closureToPHP()
     {
-        return '$return = new \Lighthouse\CoreBundle\Types\Money($value);';
+        return '$return = new \\Lighthouse\\CoreBundle\\Types\\Numeric\\Money($value);';
     }
 
     /**

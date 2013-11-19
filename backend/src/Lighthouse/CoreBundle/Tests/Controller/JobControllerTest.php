@@ -234,7 +234,7 @@ class JobControllerTest extends WebTestCase
         $dm = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
         $dm->clear();
 
-        /* @var \Lighthouse\CoreBundle\Job\JobManager $jobManager */
+        /* @var JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
 
         $jobManager->startWatchingTubes();

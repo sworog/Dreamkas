@@ -112,7 +112,7 @@ class AuthControllerTest extends WebTestCase
         $authParams = array(
             'grant_type' => 'password',
             'username' => 'test',
-            'password' => 'invalidpassword',
+            'password' => 'invalidPassword',
             'client_id' => $authClient->getPublicId(),
             'client_secret' => $authClient->getSecret()
         );

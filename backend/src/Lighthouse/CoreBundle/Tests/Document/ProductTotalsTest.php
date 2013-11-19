@@ -12,7 +12,7 @@ use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
-use Lighthouse\CoreBundle\Types\NumericFactory;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use DateTime;
 
 class ProductTotalsTest extends ContainerAwareTestCase
