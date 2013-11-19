@@ -1,14 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Product;
+namespace Lighthouse\CoreBundle\Document\Product\Store;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
-use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
-use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
@@ -43,8 +42,8 @@ class InventoryListener extends AbstractMongoDBListener
 
         if ($document instanceof Reasonable) {
             $storeProduct = $this->getStoreProduct($document);
-            $sign = ($document->increaseAmount()) ? 1 : -1;
-            $storeProduct->inventory = $storeProduct->inventory + ($document->getProductQuantity()->toNumber() * $sign);
+            $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount())->toNumber();
+            $storeProduct->inventory = $storeProduct->inventory + $inventoryDiff;
             $eventArgs->getDocumentManager()->persist($storeProduct);
         }
     }
@@ -58,8 +57,8 @@ class InventoryListener extends AbstractMongoDBListener
 
         if ($document instanceof Reasonable) {
             $storeProduct = $this->getStoreProduct($document);
-            $sign = ($document->increaseAmount()) ? 1 : -1;
-            $storeProduct->inventory = $storeProduct->inventory - ($document->getProductQuantity()->toNumber() * $sign);
+            $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount())->toNumber();
+            $storeProduct->inventory = $storeProduct->inventory - $inventoryDiff;
         }
     }
 
@@ -92,25 +91,27 @@ class InventoryListener extends AbstractMongoDBListener
         $changeSet = $uow->getDocumentChangeSet($document);
 
         if ($this->isProductChanged($changeSet)) {
-            $oldProduct = $this->getStoreProduct($document, $changeSet['product'][0]);
-            $newProduct = $this->getStoreProduct($document, $changeSet['product'][1]);
+            $oldStoreProduct = $this->getStoreProduct($document, $changeSet['product'][0]);
+            $newStoreProduct = $this->getStoreProduct($document, $changeSet['product'][1]);
 
             $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $document->getProductQuantity();
             $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $document->getProductQuantity();
 
-            $oldProduct->inventory = $oldProduct->inventory + $oldQuantity->toNumber() * $sign;
-            $this->computeChangeSet($dm, $oldProduct);
+            $oldInventoryDiff = $oldQuantity->sign($document->increaseAmount())->toNumber();
+            $oldStoreProduct->inventory = $oldStoreProduct->inventory + $oldInventoryDiff;
+            $this->computeChangeSet($dm, $oldStoreProduct);
 
-            $newProduct->inventory = $newProduct->inventory - $newQuantity->toNumber() * $sign;
-            $dm->persist($newProduct);
-            $this->computeChangeSet($dm, $newProduct);
+            $newInventoryDiff = $newQuantity->sign($document->increaseAmount())->toNumber();
+            $newStoreProduct->inventory = $newStoreProduct->inventory - $newInventoryDiff;
+            $dm->persist($newStoreProduct);
+            $this->computeChangeSet($dm, $newStoreProduct);
         } else {
             if (isset($changeSet['quantity'])) {
                 /* @var Quantity $quantity0 */
                 $quantity0 = $changeSet['quantity'][0];
                 /* @var Quantity $quantity1 */
                 $quantity1 = $changeSet['quantity'][1];
-                $quantityDiff = ($quantity0->toNumber() - $quantity1->toNumber()) * $sign;
+                $quantityDiff = $quantity0->sub($quantity1)->sign($document->increaseAmount())->toNumber();
             } else {
                 $quantityDiff = 0;
             }

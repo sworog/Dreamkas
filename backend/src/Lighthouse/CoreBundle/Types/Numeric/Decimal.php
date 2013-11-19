@@ -85,6 +85,19 @@ class Decimal implements Numeric
     }
 
     /**
+     * @param boolean $flag invert value if flag is false
+     * @return Decimal
+     */
+    public function sign($flag)
+    {
+        if (false === $flag) {
+            return $this->mul(-1);
+        } else {
+            return clone $this;
+        }
+    }
+
+    /**
      * @param string|Numeric|float|int $operand
      * @param int $roundMode
      * @return Decimal
@@ -102,6 +115,26 @@ class Decimal implements Numeric
     public function div($operand, $roundMode = self::ROUND_HALF_UP)
     {
         return static::calc('bcdiv', $this->toString(), $operand, $this->precision, $roundMode);
+    }
+
+    /**
+     * @param string $operand
+     * @param int $roundMode
+     * @return Decimal
+     */
+    public function add($operand, $roundMode = self::ROUND_HALF_UP)
+    {
+        return static::calc('bcadd', $this->toString(), $operand, $this->precision, $roundMode);
+    }
+
+    /**
+     * @param string $operand
+     * @param int $roundMode
+     * @return Decimal
+     */
+    public function sub($operand, $roundMode = self::ROUND_HALF_UP)
+    {
+        return static::calc('bcsub', $this->toString(), $operand, $this->precision, $roundMode);
     }
 
     /**
