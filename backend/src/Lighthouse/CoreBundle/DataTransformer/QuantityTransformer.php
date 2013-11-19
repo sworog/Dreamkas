@@ -62,7 +62,9 @@ class QuantityTransformer implements DataTransformerInterface
             if (!is_numeric($value)) {
                 throw new TransformationFailedException('', 0, new UnexpectedTypeException($value, 'float'));
             }
-            return $this->numericFactory->createQuantity($value);
+            $quantity = $this->numericFactory->createQuantity($value);
+            $quantity->setRaw($value);
+            return $quantity;
         }
     }
 }

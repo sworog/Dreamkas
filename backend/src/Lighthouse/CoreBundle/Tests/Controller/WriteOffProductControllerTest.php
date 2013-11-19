@@ -107,7 +107,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                    'Количество не должно содержать больше 3 цифр после запятой'
+                    'Значение не должно содержать больше 3 цифр после запятой'
                 )
             ),
             'float quantity with coma' => array(
@@ -120,7 +120,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                    'Количество не должно содержать больше 3 цифр после запятой'
+                    'Значение не должно содержать больше 3 цифр после запятой'
                 )
             ),
             'not numeric quantity' => array(

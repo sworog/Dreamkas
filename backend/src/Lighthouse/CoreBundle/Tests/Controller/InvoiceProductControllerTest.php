@@ -335,7 +335,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                    'Количество не должно содержать больше 3 цифр после запятой'
+                    'Значение не должно содержать больше 3 цифр после запятой'
                 )
             ),
             'float quantity very float with coma' => array(
@@ -344,7 +344,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                    'Количество не должно содержать больше 3 цифр после запятой'
+                    'Значение не должно содержать больше 3 цифр после запятой'
                 )
             ),
             'not numeric quantity' => array(

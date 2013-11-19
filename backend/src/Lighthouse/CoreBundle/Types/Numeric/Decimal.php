@@ -25,6 +25,11 @@ class Decimal implements Numeric
     protected $divider;
 
     /**
+     * @var string
+     */
+    protected $raw;
+
+    /**
      * @param int $count
      * @param int $precision
      */
@@ -33,6 +38,22 @@ class Decimal implements Numeric
         $this->count = $count;
         $this->precision = $precision;
         $this->divider = static::getDivider($precision);
+    }
+
+    /**
+     * @param string $raw
+     */
+    public function setRaw($raw)
+    {
+        $this->raw = $raw;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRaw()
+    {
+        return $this->raw;
     }
 
     /**
