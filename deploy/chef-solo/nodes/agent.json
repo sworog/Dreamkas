@@ -1,0 +1,42 @@
+{
+    "run_list": [
+        "recipe[apt::default]",
+        "recipe[mongodb::10gen_repo]",
+        "recipe[mongodb]",
+        "recipe[php]",
+        "recipe[composer]",
+        "recipe[beanstalkd]",
+        "recipe[java]",
+
+        "recipe[lighthouse]",
+        "recipe[lighthouse::tests]",
+        "recipe[lighthouse::vpn]",
+        "recipe[teamcity::agent]",
+        "recipe[lighthouse::agent]"
+    ],
+    "php": {
+        "directives": {
+            "date.timezone": "Europe/Moscow"
+        }
+    },
+    "beanstalkd": {
+        "opts": {
+            "l": "0.0.0.0",
+            "p": "11300"
+        },
+        "start_during_boot": true
+    },
+    "java": {
+        "oracle": {
+            "accept_oracle_download_terms": true
+        },
+        "install_flavor": "oracle"
+    },
+    "teamcity": {
+        "agents": {
+            "default": {
+                "server_url": "http://teamcity.lighthouse.cs/"
+            }
+        }
+    }
+}

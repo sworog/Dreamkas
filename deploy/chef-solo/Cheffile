@@ -20,8 +20,12 @@ cookbook 'mongodb',
 cookbook 'php-fpm',
     :git => 'https://github.com/yevgenko/cookbook-php-fpm'
 
+cookbook 'teamcity',
+         :git => 'https://github.com/mswart/chef-teamcity'
+
 cookbook 'php'
 cookbook 'composer'
 cookbook 'nginx'
 cookbook 'cron'
 cookbook 'beanstalkd'
+cookbook 'java'

@@ -7,6 +7,7 @@ package "vim"
 package "htop"
 package "curl"
 package "git"
+package "mc"
 
 #############################################
 # users
@@ -16,14 +17,8 @@ user "watchman" do
   password "$1$Cgi1/uGL$zUZsBGlvxDjrX0YpahCvq/"
   shell "/bin/bash"
   home "/home/watchman"
+  supports :manage_home => true
 end
-
-directory "/home/watchman" do
-  action :create
-  owner "watchman"
-  group "watchman"
-end
-
 cookbook_file "sudo_watchman" do
   path "/etc/sudoers.d/watchman"
   owner "root"
@@ -34,7 +29,6 @@ end
 #############################################
 # system
 #############################################
-package "git"
 
 directory "/home/watchman/.ssh" do
   action :create

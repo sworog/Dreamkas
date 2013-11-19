@@ -1,0 +1,1 @@
+*/1 * * * * root /usr/local/bin/vpn_up_if_down.sh
