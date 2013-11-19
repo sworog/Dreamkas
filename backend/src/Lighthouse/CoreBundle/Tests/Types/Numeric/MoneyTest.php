@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Types;
+namespace Lighthouse\CoreBundle\Tests\Types\Numeric;
 
 use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;

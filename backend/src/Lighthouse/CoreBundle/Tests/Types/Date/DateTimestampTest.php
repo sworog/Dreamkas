@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Types;
+namespace Lighthouse\CoreBundle\Tests\Types\Date;
 
 use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
