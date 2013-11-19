@@ -23,7 +23,9 @@
     </td>
     <td>
         <span class="writeOff__editable" style="white-space: nowrap">
-            <%= LH.modelNode(model, 'quantityElement') %>
+            <span name="productAmount">
+                <%= LH.modelNode(model, 'quantityElement') %>
+            </span>
             <span name="productUnits">
                 <%- LH.units(model.get('product').units, 'smallShort') %>
             </span>
