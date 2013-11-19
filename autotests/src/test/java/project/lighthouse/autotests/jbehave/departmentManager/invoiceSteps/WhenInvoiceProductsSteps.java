@@ -9,7 +9,6 @@ public class WhenInvoiceProductsSteps {
     @Steps
     InvoiceSteps invoiceSteps;
 
-
     @When("the user clicks on property named '$propertyName' of invoice product named '$locator'")
     public void propertyClick(String locator, String propertyName) {
         invoiceSteps.objectPropertyClick(locator, propertyName);

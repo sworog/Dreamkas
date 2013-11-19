@@ -57,8 +57,8 @@ Then the user checks the product balance list contains entry
 Scenario: Invoice quantity validation negative - 0,0003
 
 Meta:
-@id
-@description
+@id s23u52s4
+@description negative product quantity input 0,0003, see the validation message
 
 Given the user navigates to the invoice page with name 'invoice-2352-1'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
@@ -71,13 +71,13 @@ Then the user sees error messages
 Scenario: Invoice edit quantity validation negative - 0,0003
 
 Meta:
-@id
-@description
+@id s23u52s5
+@description negative product quantity input 6,7689, see the validation message
 
 Given the user navigates to the invoice page with name 'invoice-2352-2'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
 And the user clicks on property named 'productAmount' of invoice product named 'sku-2352-2'
-And the user inputs the value '6,768' in property named 'productAmount' of invoice product named 'sku-2352-2'
+And the user inputs the value '6,7689' in property named 'productAmount' of invoice product named 'sku-2352-2'
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
@@ -86,17 +86,12 @@ Then the user sees error messages
 Scenario: WriteOff quantity validation negative - 0,0003
 
 Meta:
-@id
-@description
-
-Given there is the writeOff in the store with number 'writeOff-2352-2' ruled by department manager with name 'departmentManager-s23u52' with values
-| elementName | elementValue |
-| number | SCPBC-11 |
-| date | 02.04.2013 |
+@id s23u52s6
+@description negative product quantity input 0,6789, see the validation message
 
 Given the user navigates to the write off with number 'writeOff-2352-2'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
-When the user clicks edit button and starts write off edition
+And the user clicks edit button and starts write off edition
 And the user inputs 'name-2352-2' in the 'writeOff product name autocomplete' field on the write off page
 When the user inputs '0,6789' in the write off product 'writeOff product quantity' field
 And the user presses the add product button and add the product to write off
@@ -107,19 +102,14 @@ Then the user sees error messages
 Scenario: WriteOff edit quantity validation negative - 0,0003
 
 Meta:
-@id
-@description
-Given there is the writeOff in the store with number 'writeOff-2352-2' ruled by department manager with name 'departmentManager-s23u52' with values
-| elementName | elementValue |
-| number | SCPBC-11 |
-| date | 02.04.2013 |
-And the user adds the product to the write off with number 'SCPBC-12' with sku 'SCPBC-sku-11', quantity '1', price '12,34, cause 'Плохо продавался' in the store ruled by 'departmentManager-s23u52'
+@id s23u52s7
+@description negative product quantity input 0,6789, see the validation message
 
-Given the user navigates to the write off with number 'writeOff-2352-2'
+Given the user navigates to the write off with number 'writeOff-2352-3'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product quantity review' element of write off product with 'sku-2352-2' sku to edit
-And the user inputs '0,6789' in the 'inline writeOff product quantity' field on the write off page
+And the user clicks on property named 'productAmount' of writeOff product named 'sku-2352-2'
+And the user inputs the value '0,6789' in property named 'productAmount' of writeOff product named 'sku-2352-2'
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |

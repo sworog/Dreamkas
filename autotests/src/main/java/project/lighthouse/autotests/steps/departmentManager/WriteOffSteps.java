@@ -116,6 +116,7 @@ public class WriteOffSteps extends ScenarioSteps {
         writeOffPage.elementClick(elementName);
     }
 
+    @Deprecated
     @Step
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         writeOffPage.childrentItemClickByFindByLocator(parentElementName, elementName);
@@ -183,5 +184,15 @@ public class WriteOffSteps extends ScenarioSteps {
     @Step
     public void writeOffHighLightTextCheck(String expectedHighLightedText) {
         writeOffSearchPage.getWriteOffSearchObjectCollection().containsHighLightText(expectedHighLightedText);
+    }
+
+    @Step
+    public void clickPropertyByLocator(String locator, String propertyName) {
+        writeOffPage.getWriteOffProductCollection().clickPropertyByLocator(locator, propertyName);
+    }
+
+    @Step
+    public void inputPropertyByLocator(String locator, String propertyName, String value) {
+        writeOffPage.getWriteOffProductCollection().inputPropertyByLocator(locator, propertyName, value);
     }
 }

@@ -20,6 +20,7 @@ public interface CommonViewInterface {
 
     void childrenItemClickByClassName(String elementName, String elementClassName);
 
+    @Deprecated
     void childrentItemClickByFindByLocator(String elementName, By by);
 
     void childrenItemNavigateAndClickByFindByLocator(String elementName, By by);
