@@ -300,6 +300,10 @@ define(function(require) {
                         $dataElement.append(block.templates.dataInput({
                             $dataElement: $dataElement
                         }));
+                        new InputDate({
+                            el: $dataElement.find('.inputText')[0],
+                            noTime: true
+                        });
                         break;
 
                     default:
