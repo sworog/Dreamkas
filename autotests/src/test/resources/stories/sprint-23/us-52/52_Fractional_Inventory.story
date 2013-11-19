@@ -45,14 +45,13 @@ Meta:
 @smoke
 
 Given the robot prepares import sales data for story 52
-!--prepare the document
 And the robot waits the import folder become empty
 Given the user navigates to the subCategory 'defaultSubCategory-s23u52', category 'defaultCategory-s23u52', group 'defaultGroup-s23u52' product list page
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Черемша | 235212345 | 235212345 | 2,363 | 0,00 | 0,0 | 252,99 р. | — |
+| Черемша | 235212345 | 235212345 | -2,363 | 0,00 | 0,0 | 252,99 р. | — |
 
 Scenario: Invoice quantity validation negative - 0,0003
 
