@@ -21,7 +21,7 @@ When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse'
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-2352 | sku-2352 | barcode-2352 | 3,675 | 0,00 | 0,0 | 134,80 р. | — |
+| name-2352 | sku-2352 | barcode-2352 | 3,675 | 0,00 | 0,0 | 126,99 р. | — |
 
 Scenario: Adding writeOff product with fractional quantity
 
@@ -35,7 +35,7 @@ When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse'
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-2352-1 | sku-2352-1 | barcode-2352-1 | 4,671 | 0,00 | 0,0 | 134,80 р. | — |
+| name-2352-1 | sku-2352-1 | barcode-2352-1 | -4,671 | 0,00 | 0,0 | 134,80 р. | — |
 
 Scenario: Making sale product with fractional quantity
 
@@ -65,9 +65,9 @@ And the user inputs '0,0003' in the invoice product 'productAmount' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Значение должно быть больше 0 |
+| Значение не должно содержать больше 3 цифр после запятой |
 
-Scenario: Invoice edit quantity validation negative - 0,0003
+Scenario: Invoice edit quantity validation negative - 6,7689
 
 Meta:
 @id s23u52s5
@@ -80,9 +80,9 @@ And the user inputs the value '6,7689' in property named 'productAmount' of invo
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть больше 0 |
+| Значение не должно содержать больше 3 цифр после запятой |
 
-Scenario: WriteOff quantity validation negative - 0,0003
+Scenario: WriteOff quantity validation negative - 0,6789
 
 Meta:
 @id s23u52s6
@@ -96,7 +96,7 @@ When the user inputs '0,6789' in the write off product 'writeOff product quantit
 And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Значение должно быть больше 0 |
+| Значение не должно содержать больше 3 цифр после запятой |
 
 Scenario: WriteOff edit quantity validation negative - 0,0003
 
@@ -108,8 +108,8 @@ Given the user navigates to the write off with number 'writeOff-2352-3'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
 When the user clicks edit button and starts write off edition
 And the user clicks on property named 'productAmount' of writeOff product named 'sku-2352-2'
-And the user inputs the value '0,6789' in property named 'productAmount' of writeOff product named 'sku-2352-2'
+And the user inputs the value '0,0003' in property named 'productAmount' of writeOff product named 'sku-2352-2'
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть больше 0 |
+| Значение не должно содержать больше 3 цифр после запятой |
