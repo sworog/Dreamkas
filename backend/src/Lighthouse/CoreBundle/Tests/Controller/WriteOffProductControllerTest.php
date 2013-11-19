@@ -46,11 +46,12 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->assertResponseCode($expectedCode);
 
-        foreach ($assertions as $path => $expected) {
-            Assert::assertJsonPathContains($expected, $path, $postResponse);
-        }
+        $this->performJsonAssertions($postResponse, $assertions, true);
     }
 
+    /**
+     * @return array
+     */
     public function validationWriteOffProductProvider()
     {
         return array(
@@ -121,6 +122,18 @@ class WriteOffProductControllerTest extends WebTestCase
                     'children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой'
+                )
+            ),
+            'float quantity very float only one message' => array(
+                400,
+                array('quantity' => '2,5555'),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение не должно содержать больше 3 цифр после запятой',
+                    'children.quantity.errors.1'
+                    =>
+                    null
                 )
             ),
             'not numeric quantity' => array(

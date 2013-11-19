@@ -42,8 +42,10 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      * Количество
      * @MongoDB\Field(type="quantity")
      * @Assert\NotBlank
-     * @LighthouseAssert\Precision(3)
-     * @LighthouseAssert\Range\Range(gt=0)
+     * @LighthouseAssert\Chain({
+     *  @LighthouseAssert\Precision(3),
+     *  @LighthouseAssert\Range\Range(gt=0)
+     * })
      * @var Quantity
      */
     protected $quantity;
