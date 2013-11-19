@@ -55,7 +55,7 @@ class LoadCatalogData implements FixtureInterface, OrderedFixtureInterface
      *
      * @return integer
      */
-    function getOrder()
+    public function getOrder()
     {
         return 40;
     }

@@ -102,7 +102,7 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
     /**
      * @return integer
      */
-    function getOrder()
+    public function getOrder()
     {
         return 30;
     }

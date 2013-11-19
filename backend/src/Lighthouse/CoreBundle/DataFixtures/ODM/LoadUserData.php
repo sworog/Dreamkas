@@ -64,7 +64,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface, OrderedFi
      *
      * @return integer
      */
-    function getOrder()
+    public function getOrder()
     {
         return 20;
     }

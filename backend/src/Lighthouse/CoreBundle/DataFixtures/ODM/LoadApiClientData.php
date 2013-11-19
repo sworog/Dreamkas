@@ -25,7 +25,7 @@ class LoadApiClientData extends ContainerAware implements FixtureInterface, Orde
     /**
      * @return integer
      */
-    function getOrder()
+    public function getOrder()
     {
         return 10;
     }
