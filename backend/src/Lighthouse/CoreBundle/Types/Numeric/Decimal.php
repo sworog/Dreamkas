@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Types\Numeric;
 
-use Lighthouse\RawValue;
+use Lighthouse\CoreBundle\Types\RawValue;
 
 class Decimal implements Numeric, RawValue
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse;
+namespace Lighthouse\CoreBundle\Types;
 
 interface RawValue
 {
