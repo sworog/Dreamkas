@@ -59,6 +59,7 @@ And the user navigates to invoice product addition
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
+
 Scenario: Invoice Supplier validation is required
 
 Given the user is on the invoice list page

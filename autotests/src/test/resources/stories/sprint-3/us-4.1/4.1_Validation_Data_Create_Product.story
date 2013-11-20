@@ -192,7 +192,6 @@ And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'VBVCF678' sku is present
 
-
 Scenario: Create product validation - Vendor field validation
 
 Given the user is on the product list page
@@ -224,7 +223,6 @@ When the user clicks the create button
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
-
 
 Scenario: Create product validation - VendorCountry field validation
 
@@ -318,7 +316,6 @@ Then the user sees error messages
 | Выберите единицу измерения |
 | Цена не должна быть меньше или равна нулю |
 | Выберите ставку НДС |
-
 
 Scenario: Create product validation - Purchase price validation String+Symbols+Num
 
