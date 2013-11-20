@@ -1559,7 +1559,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $this->createInvoiceProduct($invoiceId1, $productId1, 99.99, 33.44);
+        $this->createInvoiceProduct($invoiceId1, $productId1, 99.99, 33.44, null, null, false);
 
         $accessToken = $this->factory->auth($this->departmentManager);
         $getResponse = $this->clientJsonRequest(

@@ -840,8 +840,24 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
-        $this->createInvoiceProduct($invoiceId1, $productId1, 10.77, 5.92, $this->storeId, $this->departmentManager);
-        $this->createInvoiceProduct($invoiceId1, $productId2, 99.99, 33.44, $this->storeId, $this->departmentManager);
+        $this->createInvoiceProduct(
+            $invoiceId1,
+            $productId1,
+            10.77,
+            5.92,
+            $this->storeId,
+            $this->departmentManager,
+            false
+        );
+        $this->createInvoiceProduct(
+            $invoiceId1,
+            $productId2,
+            99.99,
+            33.44,
+            $this->storeId,
+            $this->departmentManager,
+            false
+        );
 
         $accessToken = $this->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
