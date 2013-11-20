@@ -1532,14 +1532,14 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
-        Assert::assertJsonPathCount(1, '*.id', $getResponse);
-        Assert::assertJsonPathEquals(3677.63, "*.totalPrice", $getResponse);
-        Assert::assertJsonPathEquals(3343.67, "*.totalPriceWithoutVAT", $getResponse);
-        Assert::assertJsonPathEquals(333.96, "*.totalAmountVAT", $getResponse);
-        Assert::assertJsonPathEquals(36.78, "*.price", $getResponse);
-        Assert::assertJsonPathEquals(33.44, "*.priceWithoutVAT", $getResponse);
-        Assert::assertJsonPathEquals(3.34, "*.amountVAT", $getResponse);
-        Assert::assertJsonPathEquals(99.99, "*.quantity", $getResponse);
+        Assert::assertJsonPathCount(1, '0.id', $getResponse);
+        Assert::assertJsonPathEquals(3677.63, "0.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(3343.66, "0.totalPriceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(333.97, "0.totalAmountVAT", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.price", $getResponse);
+        Assert::assertJsonPathEquals(33.44, "0.priceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(3.34, "0.amountVAT", $getResponse);
+        Assert::assertJsonPathEquals(99.99, "0.quantity", $getResponse);
     }
 
     /**
@@ -1571,8 +1571,8 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(1, '*.id', $getResponse);
         Assert::assertJsonPathEquals(3677.63, "*.totalPrice", $getResponse);
-        Assert::assertJsonPathEquals(3343.67, "*.totalPriceWithoutVAT", $getResponse);
-        Assert::assertJsonPathEquals(333.96, "*.totalAmountVAT", $getResponse);
+        Assert::assertJsonPathEquals(3343.66, "*.totalPriceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(333.97, "*.totalAmountVAT", $getResponse);
         Assert::assertJsonPathEquals(36.78, "*.price", $getResponse);
         Assert::assertJsonPathEquals(33.44, "*.priceWithoutVAT", $getResponse);
         Assert::assertJsonPathEquals(3.34, "*.amountVAT", $getResponse);
