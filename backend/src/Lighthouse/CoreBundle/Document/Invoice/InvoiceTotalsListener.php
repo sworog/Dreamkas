@@ -38,7 +38,15 @@ class InvoiceTotalsListener extends AbstractMongoDBListener
 
         if ($document instanceof InvoiceProduct) {
             $totalPriceDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalPrice');
-            $this->invoiceRepository->updateTotals($document->invoice, 1, $totalPriceDiff);
+            $totalPriceWithoutVATDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalPriceWithoutVAT');
+            $totalAmountVATDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalAmountVAT');
+            $this->invoiceRepository->updateTotals(
+                $document->invoice,
+                1,
+                $totalPriceDiff,
+                $totalPriceWithoutVATDiff,
+                $totalAmountVATDiff
+            );
         }
     }
 
@@ -51,7 +59,15 @@ class InvoiceTotalsListener extends AbstractMongoDBListener
 
         if ($document instanceof InvoiceProduct) {
             $totalPriceDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalPrice');
-            $this->invoiceRepository->updateTotals($document->invoice, 0, $totalPriceDiff);
+            $totalPriceWithoutVATDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalPriceWithoutVAT');
+            $totalAmountVATDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalAmountVAT');
+            $this->invoiceRepository->updateTotals(
+                $document->invoice,
+                0,
+                $totalPriceDiff,
+                $totalPriceWithoutVATDiff,
+                $totalAmountVATDiff
+            );
         }
     }
 
@@ -63,7 +79,13 @@ class InvoiceTotalsListener extends AbstractMongoDBListener
         $document = $eventArgs->getDocument();
 
         if ($document instanceof InvoiceProduct) {
-            $this->invoiceRepository->updateTotals($document->invoice, -1, $document->totalPrice->getCount() * -1);
+            $this->invoiceRepository->updateTotals(
+                $document->invoice,
+                -1,
+                $document->totalPrice->getCount() * -1,
+                $document->totalPriceWithoutVAT->getCount() * -1,
+                $document->totalAmountVAT->getCount() * -1
+            );
         }
     }
 }
