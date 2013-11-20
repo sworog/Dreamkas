@@ -40,4 +40,19 @@ class Money extends Decimal implements Nullable
     {
         return '' === $this->count || null === $this->count;
     }
+
+    /**
+     * @param float|string $numeric
+     * @param int $precision
+     * @param int $roundMode
+     * @return Decimal
+     */
+    public static function createFromNumeric($numeric, $precision, $roundMode = self::ROUND_HALF_UP)
+    {
+        if (null === $numeric || '' === $numeric) {
+            return new static(null, $precision);
+        } else {
+            return parent::createFromNumeric($numeric, $precision, $roundMode);
+        }
+    }
 }

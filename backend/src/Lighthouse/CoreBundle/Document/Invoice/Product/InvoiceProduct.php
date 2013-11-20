@@ -20,9 +20,14 @@ use JMS\Serializer\Annotation as Serializer;
  * @property string     $id
  * @property Quantity   $quantity
  * @property Money      $price
+ * @property Money      $priceWithoutVAT
  * @property Money      $totalPrice
+ * @property Money      $totalPriceWithoutVAT
+ * @property Money      $amountVAT
+ * @property DateTime   $acceptanceDate
  * @property Invoice    $invoice
  * @property ProductVersion $product
+ * @property Store      $store
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository"

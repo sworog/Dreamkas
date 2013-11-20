@@ -16,10 +16,21 @@ use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompare;
 use DateTime;
 
 /**
- * @property string $id
- * @property Store  $store
- * @property string $sku
- * @property string $supplier
+ * @property string     $id
+ * @property Store      $store
+ * @property string     $sku
+ * @property string     $supplier
+ * @property DateTime   $acceptanceDate
+ * @property string     $accepter
+ * @property string     $legalEntity
+ * @property string     $supplierInvoiceSku
+ * @property DateTime   $supplierInvoiceDate
+ * @property DateTime   $createdDate
+ * @property Money      $sumTotal
+ * @property Money      $sumTotalWithoutVAT
+ * @property Money      $totalAmountVAT
+ * @property int        $itemsCount
+ * @property boolean    $includesVAT
  * @property Collection|InvoiceProduct[] $products
  *
  * @MongoDB\Document(

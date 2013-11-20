@@ -44,10 +44,15 @@ class NumericFactory
 
     /**
      * @param string|float|int $value
+     * @param bool $setRaw
      * @return Decimal
      */
-    public function createMoney($value)
+    public function createMoney($value, $setRaw = false)
     {
-        return Money::createFromNumeric($value, $this->moneyPrecision);
+        $money = Money::createFromNumeric($value, $this->moneyPrecision);
+        if ($setRaw) {
+            $money->setRaw($value);
+        }
+        return $money;
     }
 }
