@@ -235,4 +235,14 @@ public class InvoiceSteps extends ScenarioSteps {
     public void objectPropertyInput(String locator, String propertyName, String value) {
         invoiceBrowsing.getInvoiceProductsCollection().inputPropertyByLocator(locator, propertyName, value);
     }
+
+    @Step
+    public void compareWithExampleTable(ExamplesTable examplesTable) {
+        invoiceBrowsing.getInvoiceProductsCollection().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void itemClick(String itemName) {
+        invoiceBrowsing.itemClick(itemName);
+    }
 }

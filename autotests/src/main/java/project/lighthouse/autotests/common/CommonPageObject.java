@@ -64,6 +64,10 @@ abstract public class CommonPageObject extends PageObject {
         commonActions.elementClick(findBy);
     }
 
+    public void itemClick(String itemName) {
+        items.get(itemName).click();
+    }
+
     public void inputTable(ExamplesTable inputTable) {
         commonActions.inputTable(inputTable);
     }

@@ -264,4 +264,9 @@ public class InvoiceUserSteps {
     public void thenTheUserChecksTheHighLightedText(String expectedHighlightedText) {
         invoiceSteps.checkHighlightsText(expectedHighlightedText);
     }
+
+    @When("the user clicks on item named '$itemName'")
+    public void whenTheUserClicksOnItem(String itemName) {
+        invoiceSteps.itemClick(itemName);
+    }
 }

@@ -15,6 +15,10 @@ public class ProductApiSteps extends CommercialManagerApi {
     public ProductApiSteps() throws JSONException {
     }
 
+    public Product createProductThroughPost(Product product, SubCategory subCategory) throws IOException, JSONException {
+        return apiConnect.createProductThroughPost(product, subCategory);
+    }
+
     public Product createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
                                             String subCategoryName) throws JSONException, IOException {
         return createProductThroughPostDefault(name, sku, barcode, units, purchasePrice, Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName, null);
