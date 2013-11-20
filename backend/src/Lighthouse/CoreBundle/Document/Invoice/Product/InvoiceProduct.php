@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
@@ -25,6 +26,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property Money      $totalPriceWithoutVAT
  * @property Money      $amountVAT
  * @property DateTime   $acceptanceDate
+ * @property Money      $totalAmountVAT
  * @property Invoice    $invoice
  * @property ProductVersion $product
  * @property Store      $store
@@ -85,11 +87,18 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $totalPriceWithoutVAT;
 
     /**
-     * Сумма НДС
+     * НДС в деньгах
      * @MongoDB\Field(type="money")
      * @var Money
      */
     protected $amountVAT;
+
+    /**
+     * Сумма НДС
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $totalAmountVAT;
 
     /**
      * @MongoDB\Date
@@ -149,7 +158,19 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      */
     public function beforeSave()
     {
-        $this->totalPrice = $this->price->mul($this->quantity);
+        $decimalVAT = Decimal::createFromNumeric($this->product->vat * 0.01, 2);
+        if ($this->invoice->includesVAT) {
+            // Расчёт цены без НДС из цены с НДС
+            $this->priceWithoutVAT = $this->price->div($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
+            $this->amountVAT = $this->priceWithoutVAT->sub($this->price->toString())->invert();
+        } else {
+            // Расчёт цены с НДС из цены без НДС
+            $this->price = $this->priceWithoutVAT->mul($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
+            $this->amountVAT= $this->priceWithoutVAT->mul($decimalVAT, Decimal::ROUND_HALF_EVEN);
+        }
+        $this->totalPrice = $this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+        $this->totalPriceWithoutVAT = $this->priceWithoutVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+        $this->totalAmountVAT = $this->amountVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
         $this->acceptanceDate = $this->invoice->acceptanceDate;
         $this->store = $this->invoice->store;
         $this->originalProduct = $this->product->getObject();
