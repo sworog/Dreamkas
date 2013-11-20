@@ -12,7 +12,8 @@ define(function(require) {
         saveData: [
             'product',
             'quantity',
-            'price'
+            'price',
+            'priceWithVAT'
         ],
         defaults: {
             quantityElement: compute(['quantity'], function(quantity){

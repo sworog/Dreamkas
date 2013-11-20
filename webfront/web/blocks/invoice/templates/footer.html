@@ -1,5 +1,16 @@
-Итого
-<span name="totalProducts" class="invoice__totalProducts"><%- invoiceModel.get('itemsCount') %></span>
-позиций на сумму
-<span name="totalSum" class="invoice__totalSum"><%- LH.formatPrice(invoiceModel.get('sumTotal')) %></span>
-рублей
+<div>
+    Итого
+    <span name="totalProducts" class="invoice__totalProducts"><%- invoiceModel.get('itemsCount') %></span>
+    позиций на сумму
+    <span name="totalSum" class="invoice__totalSum"><%- LH.formatPrice(invoiceModel.get('sumTotal')) %></span>
+    рублей
+</div>
+<div>
+    НДС <%- LH.formatPrice(invoiceModel.get('sumTotal')) %> рублей
+</div>
+<div>
+    <label>
+        <input class="invoice__includesVATCheckbox" <%- invoiceModel.get('includesVAT') ? 'checked' : '' %> name="includesVAT" type="checkbox" />
+        Цена включает НДС
+    </label>
+</div>

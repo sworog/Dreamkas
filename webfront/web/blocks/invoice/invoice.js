@@ -42,6 +42,10 @@ define(function(require) {
                     destroy: function() {
                         var block = this;
                         block.invoiceModel.fetch();
+                    },
+                    reset: function(){
+                        var block = this;
+                        block.productsTable.render();
                     }
                 }
             },
@@ -155,6 +159,18 @@ define(function(require) {
                     var block = this;
                     e.preventDefault();
                     block.removeDataInput();
+                },
+                'change .invoice__includesVATCheckbox': function(e){
+                    var block = this,
+                        $checkbox = $(e.target);
+
+                    var save = block.invoiceModel.save({
+                        includesVAT: $checkbox.is(':checked')
+                    });
+
+                    save.done(function(){
+                        block.invoiceProductsCollection.reset(block.invoiceModel.get('products'));
+                    });
                 }
             },
             initialize: function() {
@@ -180,6 +196,8 @@ define(function(require) {
                 } else {
                     block.$el.removeClass('invoice_editMode');
                 }
+
+                block.$includesVATCheckbox.prop('disabled', !val);
             },
             'set:dataEditing': function(val) {
                 var block = this;

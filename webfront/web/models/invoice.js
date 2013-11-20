@@ -11,6 +11,10 @@ define(function(require) {
             }
         },
 
+        defaults: {
+            includesVAT: true
+        },
+
         dateFormat: 'dd.mm.yy',
         datePrintFormat: "dd.mm.yyyy",
         timeFormat: 'HH:mm',
@@ -22,6 +26,7 @@ define(function(require) {
             'acceptanceDate',
             'accepter',
             'legalEntity',
+            'includesVAT',
             'supplierInvoiceSku',
             'supplierInvoiceDate'
         ]

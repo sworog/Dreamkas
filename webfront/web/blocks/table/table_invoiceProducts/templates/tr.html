@@ -36,8 +36,8 @@
             <span>
                 по
             </span>
-            <span name="productPrice" model-attribute="price">
-                <%- LH.formatPrice(model.get('price')) %>
+            <span name="productPrice" model-attribute="<%- model.get('invoice.includesVAT') ? 'priceWithVAT' : 'price' %>">
+                <%- model.get('invoice.includesVAT') ? LH.formatPrice(model.get('priceWithVAT')) : LH.formatPrice(model.get('price')) %>
             </span>
             <span>
                 р.
@@ -45,7 +45,7 @@
         </span>
     </td>
     <td>
-        <span style="white-space: nowrap">
+        <div style="white-space: nowrap">
             <span>
                 =
             </span>
@@ -55,7 +55,10 @@
             <span>
                 р.
             </span>
-        </span>
+        </div>
+        <div style="white-space: nowrap">
+            <%- LH.formatPrice(model.get('totalPrice')) %> НДС <%- model.get('product.vat') %> %
+        </div>
     </td>
     <td style="width: 1px;">
         <span class="invoice__removeLink"><%- 'удалить' %></span>
