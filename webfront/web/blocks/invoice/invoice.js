@@ -162,7 +162,10 @@ define(function(require) {
                 },
                 'change .invoice__includesVATCheckbox': function(e){
                     var block = this,
-                        $checkbox = $(e.target);
+                        $checkbox = $(e.target),
+                        $label = $checkbox.closest('label');
+
+                    $label.addClass('preloader_spinner');
 
                     var save = block.invoiceModel.save({
                         includesVAT: $checkbox.is(':checked')
@@ -170,6 +173,7 @@ define(function(require) {
 
                     save.done(function(){
                         block.invoiceProductsCollection.reset(block.invoiceModel.get('products'));
+                        $label.removeClass('preloader_spinner');
                     });
                 }
             },
