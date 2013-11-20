@@ -124,6 +124,7 @@ class WebTestCase extends ContainerAwareTestCase
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceSku' => '1248373',
             'supplierInvoiceDate' => '17.03.2013',
+            'includesVAT' => 'true',
         );
 
         $postResponse = $this->clientJsonRequest(

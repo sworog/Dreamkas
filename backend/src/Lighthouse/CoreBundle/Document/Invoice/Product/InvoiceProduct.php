@@ -60,11 +60,32 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $price;
 
     /**
+     * Закупочная цена без НДС
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $priceWithoutVAT;
+
+    /**
      * Сумма
      * @MongoDB\Field(type="money")
      * @var Money
      */
     protected $totalPrice;
+
+    /**
+     * Сумма без НДС
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $totalPriceWithoutVAT;
+
+    /**
+     * Сумма НДС
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $amountVAT;
 
     /**
      * @MongoDB\Date

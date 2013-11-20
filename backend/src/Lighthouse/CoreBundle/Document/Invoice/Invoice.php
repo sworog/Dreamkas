@@ -124,6 +124,24 @@ class Invoice extends AbstractDocument implements Storeable
     protected $sumTotal;
 
     /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $sumTotalWithoutVAT;
+
+    /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $totalAmountVAT;
+
+    /**
+     * @MongoDB\Boolean
+     * @var
+     */
+    protected $includesVAT = true;
+
+    /**
      * Количество позиций
      *
      * @MongoDB\Int
