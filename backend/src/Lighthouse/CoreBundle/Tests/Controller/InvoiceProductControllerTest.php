@@ -1516,7 +1516,7 @@ class InvoiceProductControllerTest extends WebTestCase
             array(
                 'sku' => 'MU-866',
                 'acceptanceDate' => '2013-10-18T09:39:47+0400',
-                'includesVAT' => 'true',
+                'includesVAT' => true,
             ),
             $this->storeId,
             $this->departmentManager
@@ -1553,7 +1553,7 @@ class InvoiceProductControllerTest extends WebTestCase
             array(
                 'sku' => 'MU-866',
                 'acceptanceDate' => '2013-10-18T09:39:47+0400',
-                'includesVAT' => 'false',
+                'includesVAT' => false,
             ),
             $this->storeId,
             $this->departmentManager

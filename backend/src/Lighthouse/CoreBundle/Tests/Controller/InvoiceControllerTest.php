@@ -802,7 +802,7 @@ class InvoiceControllerTest extends WebTestCase
             'supplierInvoiceSku' => 'ФРГ-1945',
             'supplierInvoiceDate' => '2013-03-17T09:12:33+0400',
             'acceptanceDate' => '2013-03-17T16:12:33+0400',
-            'includesVAT' => 'true',
+            'includesVAT' => true,
         );
 
         $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
@@ -836,7 +836,7 @@ class InvoiceControllerTest extends WebTestCase
             'supplierInvoiceSku' => 'ФРГ-1945',
             'supplierInvoiceDate' => '2013-03-17T09:12:33+0400',
             'acceptanceDate' => '2013-03-17T16:12:33+0400',
-            'includesVAT' => 'false',
+            'includesVAT' => false,
         );
 
         $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
