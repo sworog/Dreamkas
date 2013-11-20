@@ -26,7 +26,7 @@ class InvoiceType extends AbstractType
             ->add('accepter', 'text')
             ->add('legalEntity', 'text')
             ->add('supplierInvoiceSku', 'text')
-            ->add('includesVAT', 'text')
+            ->add('includesVAT', 'checkbox')
             ->add(
                 'supplierInvoiceDate',
                 'datetime',
