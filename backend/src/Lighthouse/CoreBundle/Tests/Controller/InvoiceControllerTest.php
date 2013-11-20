@@ -817,8 +817,9 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
-        Assert::assertJsonPathEquals(3752.8, 'totalPrice', $response);
-        Assert::assertJsonPathEquals(3407.43, 'totalPriceWithoutVAT', $response);
+        Assert::assertJsonPathEquals(true, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(3752.8, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(3407.43, 'sumTotalWithoutVAT', $response);
         Assert::assertJsonPathEquals(345.37, 'totalAmountVAT', $response);
     }
 
@@ -850,8 +851,9 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
-        Assert::assertJsonPathEquals(3752.8, 'totalPrice', $response);
-        Assert::assertJsonPathEquals(3407.43, 'totalPriceWithoutVAT', $response);
+        Assert::assertJsonPathEquals(false, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(3752.8, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(3407.43, 'sumTotalWithoutVAT', $response);
         Assert::assertJsonPathEquals(345.37, 'totalAmountVAT', $response);
     }
 }
