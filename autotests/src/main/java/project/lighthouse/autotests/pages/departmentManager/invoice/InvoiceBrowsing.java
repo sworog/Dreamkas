@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.PreLoader;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductsCollection;
 
 public class InvoiceBrowsing extends InvoiceCreatePage {

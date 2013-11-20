@@ -10,6 +10,7 @@ import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.*;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 
 import java.util.Map;
 

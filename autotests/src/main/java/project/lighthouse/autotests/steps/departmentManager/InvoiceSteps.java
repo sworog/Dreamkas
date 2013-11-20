@@ -7,6 +7,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.DateTime;
+import project.lighthouse.autotests.elements.preLoader.CheckBoxPreLoader;
 import project.lighthouse.autotests.pages.departmentManager.invoice.*;
 
 public class InvoiceSteps extends ScenarioSteps {
@@ -244,5 +245,20 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void itemClick(String itemName) {
         invoiceBrowsing.itemClick(itemName);
+    }
+
+    @Step
+    public void checkTheStateOfCheckBox(String itemName, String state) {
+        String checkBoxState = invoiceBrowsing.getItemAttribute(itemName, "checked");
+        switch (state) {
+            case "":
+            case "12":
+                break;
+        }
+    }
+
+    @Step
+    public void checkBoxPreLoaderWait() {
+        new CheckBoxPreLoader(getDriver()).await();
     }
 }
