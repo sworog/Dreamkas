@@ -40,6 +40,7 @@ public class EndInvoiceApiSteps {
 
     @Given("there is the invoice '$invoiceSku' with product '$productName' name, '$productSku' sku, '$productBarCode' barcode, '$productUnits' units")
     public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
+        catalogApiSteps.createDefaultSubCategoryThroughPost();
         productApiSteps.createProductThroughPost(productName, productSku, productBarCode, productUnits, "123", SubCategory.DEFAULT_NAME);
         givenThereIsTheInvoiceWithSku(invoiceSku);
         invoiceApiSteps.addProductToInvoice(invoiceSku, productSku, "1", "1", "departmentManager");
