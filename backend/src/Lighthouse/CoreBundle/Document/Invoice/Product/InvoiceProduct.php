@@ -32,6 +32,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository"
  * )
+ * @LighthouseAssert\InvoiceProduct\Vat
  */
 class InvoiceProduct extends AbstractDocument implements Reasonable
 {
@@ -58,8 +59,6 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     /**
      * Закупочная цена
      * @MongoDB\Field(type="money")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Money(notBlank=true)
      * @var Money
      */
     protected $price;
