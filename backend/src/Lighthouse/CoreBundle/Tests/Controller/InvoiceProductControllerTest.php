@@ -1654,5 +1654,40 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(36.78, "0.priceWithoutVAT", $getResponse);
         Assert::assertJsonPathEquals(3.68, "0.amountVAT", $getResponse);
         Assert::assertJsonPathEquals(99.99, "0.quantity", $getResponse);
+
+
+
+        $invoiceData['includesVAT'] = true;
+
+        $invoiceResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1,
+            $invoiceData
+        );
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals(true, 'includesVAT', $invoiceResponse);
+        Assert::assertJsonPathEquals(3677.63, 'sumTotal', $invoiceResponse);
+        Assert::assertJsonPathEquals(3343.66, 'sumTotalWithoutVAT', $invoiceResponse);
+        Assert::assertJsonPathEquals(333.97, 'totalAmountVAT', $invoiceResponse);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId1 . '/invoiceProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(3677.63, "0.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(3343.66, "0.totalPriceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(333.97, "0.totalAmountVAT", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.priceEntered", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.price", $getResponse);
+        Assert::assertJsonPathEquals(33.44, "0.priceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(3.34, "0.amountVAT", $getResponse);
+        Assert::assertJsonPathEquals(99.99, "0.quantity", $getResponse);
     }
 }

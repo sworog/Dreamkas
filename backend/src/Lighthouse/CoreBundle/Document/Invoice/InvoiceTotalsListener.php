@@ -83,9 +83,7 @@ class InvoiceTotalsListener extends AbstractMongoDBListener
 
         if ($document instanceof Invoice) {
             $changeSet = $this->getDocumentChangesSet($eventArgs);
-            if (array_key_exists('includesVAT', $changeSet)
-                && $document->includesVAT != $changeSet['includesVAT']
-            ) {
+            if (array_key_exists('includesVAT', $changeSet)) {
                 $this->invoiceProductRepository->recalcVATByInvoice($document);
             }
         }
