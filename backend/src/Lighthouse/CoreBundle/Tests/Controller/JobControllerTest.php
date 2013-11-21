@@ -313,7 +313,7 @@ class JobControllerTest extends WebTestCase
      * @param $productId
      * @param array $assertions
      */
-    protected function assertStoreProduct($storeId, $productId, array $assertions)
+    protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {
         $storeManager = $this->getStoreManager($storeId);
 
