@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\DependencyInjection;
+namespace Lighthouse\CoreBundle\Tests\DependencyInjection;
 
 use Lighthouse\CoreBundle\DependencyInjection\LighthouseCoreExtension;
 use Lighthouse\CoreBundle\Test\TestCase;

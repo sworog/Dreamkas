@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\InvoiceProduct;
+namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\InvoiceProduct;
 
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
