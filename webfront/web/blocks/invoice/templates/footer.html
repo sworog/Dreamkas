@@ -6,7 +6,7 @@
     рублей
 </div>
 <div>
-    НДС <%- LH.formatPrice(invoiceModel.get('totalAmountVAT')) %> рублей
+    НДС <%= LH.modelNode(invoiceModel, 'totalAmountVATFormatted') %> рублей
 </div>
 <div>
     <label>

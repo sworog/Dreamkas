@@ -57,7 +57,7 @@
             </span>
         </div>
         <div style="white-space: nowrap">
-            <%- LH.formatPrice(model.get('totalAmountVAT')) %> НДС <%- model.get('product.vat') %> %
+            <%= LH.modelNode(model, 'totalAmountVATFormatted') %> НДС <%= LH.modelNode(model, 'product.vat') %> %
         </div>
     </td>
     <td style="width: 1px;">

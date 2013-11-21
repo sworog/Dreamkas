@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
+        compute = require('kit/utils/computeAttr'),
         currentUserModel = require('models/currentUser');
 
     return Model.extend({
@@ -12,7 +13,10 @@ define(function(require) {
         },
 
         defaults: {
-            includesVAT: true
+            includesVAT: true,
+            totalAmountVATFormatted: compute(['totalAmountVAT'], function(totalAmountVAT){
+                return LH.formatPrice(totalAmountVAT)
+            })
         },
 
         dateFormat: 'dd.mm.yy',

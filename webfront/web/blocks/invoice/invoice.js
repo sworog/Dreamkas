@@ -172,7 +172,12 @@ define(function(require) {
                     });
 
                     save.done(function(){
-                        block.invoiceProductsCollection.reset(block.invoiceModel.get('products'));
+                        var products = _.map(block.invoiceModel.get('products'), function(product){
+                            product.invoice = block.invoiceModel.toJSON();
+                            return product;
+                        });
+
+                        block.invoiceProductsCollection.reset(products);
                         $label.removeClass('preloader_spinner');
                     });
                 }
@@ -201,7 +206,7 @@ define(function(require) {
                     block.$el.removeClass('invoice_editMode');
                 }
 
-                block.$includesVATCheckbox.prop('disabled', !val);
+                block.$('[name="includesVAT"]').prop('disabled', !val);
             },
             'set:dataEditing': function(val) {
                 var block = this;
@@ -213,6 +218,8 @@ define(function(require) {
                 } else {
                     block.$el.removeClass('invoice_dataEditing');
                 }
+
+                block.$('[name="includesVAT"]').prop('disabled', val);
             },
             showRemoveConfirm: function(invoiceProductId) {
                 var block = this,
