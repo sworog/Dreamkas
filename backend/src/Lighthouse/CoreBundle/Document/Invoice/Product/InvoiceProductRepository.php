@@ -52,7 +52,7 @@ class InvoiceProductRepository extends DocumentRepository
         }
         foreach ($invoiceProducts as $invoiceProduct) {
             /** @var $invoiceProduct InvoiceProduct */
-            $invoiceProduct->fake = !$invoiceProduct->fake;
+            $invoiceProduct->calculatePrices();
             $this->getDocumentManager()->persist($invoiceProduct);
         }
 

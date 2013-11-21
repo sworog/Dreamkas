@@ -180,7 +180,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $invoiceProduct = new InvoiceProduct();
         $invoiceProduct->product = $productVersion;
         $invoiceProduct->invoice = $invoice;
-        $invoiceProduct->price = $numericFactory->createMoney(0.99);
+        $invoiceProduct->priceEntered = $numericFactory->createMoney(0.99);
         $invoiceProduct->quantity = $numericFactory->createQuantity(9);
 
         $manager->persist($invoiceProduct);

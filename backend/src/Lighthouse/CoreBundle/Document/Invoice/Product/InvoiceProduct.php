@@ -162,33 +162,15 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $store;
 
     /**
-     * @MongoDB\Boolean
-     * @Serializer\Exclude
-     * @var boolean
-     */
-    protected $fake = true;
-
-    /**
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */
     public function beforeSave()
     {
-        $decimalVAT = Decimal::createFromNumeric($this->product->vat * 0.01, 2);
-        if ($this->invoice->includesVAT) {
-            // Расчёт цены без НДС из цены с НДС
-            $this->price = $this->priceEntered;
-            $this->priceWithoutVAT = $this->price->div($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
-            $this->amountVAT = $this->priceWithoutVAT->sub($this->price->toString())->invert();
-        } else {
-            // Расчёт цены с НДС из цены без НДС
-            $this->priceWithoutVAT = $this->priceEntered;
-            $this->price = $this->priceWithoutVAT->mul($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
-            $this->amountVAT= $this->priceWithoutVAT->mul($decimalVAT, Decimal::ROUND_HALF_EVEN);
-        }
         $this->totalPrice = $this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
         $this->totalPriceWithoutVAT = $this->priceWithoutVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
         $this->totalAmountVAT = $this->amountVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+
         $this->acceptanceDate = $this->invoice->acceptanceDate;
         $this->store = $this->invoice->store;
         $this->originalProduct = $this->product->getObject();
@@ -264,5 +246,33 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     public function setQuantity(Quantity $quantity)
     {
         $this->quantity = $quantity;
+    }
+
+    public function setPriceEntered($enteredPrice)
+    {
+        $this->priceEntered = $enteredPrice;
+        $this->calculatePrices();
+    }
+
+    public function calculatePrices()
+    {
+        // Если продукт не найден, то не сичтаем ничего
+        // TODO: Подумать над изменением
+        if (null == $this->product) {
+            return;
+        }
+
+        $decimalVAT = Decimal::createFromNumeric($this->product->vat * 0.01, 2);
+        if ($this->invoice->includesVAT) {
+            // Расчёт цены без НДС из цены с НДС
+            $this->price = $this->priceEntered;
+            $this->priceWithoutVAT = $this->price->div($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
+            $this->amountVAT = $this->priceWithoutVAT->sub($this->price->toString())->invert();
+        } else {
+            // Расчёт цены с НДС из цены без НДС
+            $this->priceWithoutVAT = $this->priceEntered;
+            $this->price = $this->priceWithoutVAT->mul($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
+            $this->amountVAT = $this->priceWithoutVAT->mul($decimalVAT, Decimal::ROUND_HALF_EVEN);
+        }
     }
 }

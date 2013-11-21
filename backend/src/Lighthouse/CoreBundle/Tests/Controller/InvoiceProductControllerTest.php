@@ -132,7 +132,8 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceProductData
         );
 
-        $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
+//        $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
+        $this->assertResponseCode(400);
         $this->assertTrue(isset($response['children']['product']['errors'][0]));
         $this->assertContains('Такого товара не существует', $response['children']['product']['errors'][0]);
     }
@@ -1022,7 +1023,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->assertStoreProductTotals($this->storeId, $productId, 15, $invoiceProducts[1]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 15, $invoiceProducts[1]['priceEntered']);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -1032,7 +1033,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->assertStoreProductTotals($this->storeId, $productId, 5, $invoiceProducts[1]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 5, $invoiceProducts[1]['priceEntered']);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -1075,7 +1076,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertStoreProductTotals($this->storeId, $productId, 16, $invoiceProducts[2]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 16, $invoiceProducts[2]['priceEntered']);
 
         $newProductId = $this->createProduct('NEW');
         $newInvoiceProductDataNewProduct = $invoiceProducts[2];
@@ -1092,8 +1093,8 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertStoreProductTotals($this->storeId, $productId, 15, $newInvoiceProductData['price']);
-        $this->assertStoreProductTotals($this->storeId, $newProductId, 1, $newInvoiceProductDataNewProduct['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 15, $newInvoiceProductData['priceEntered']);
+        $this->assertStoreProductTotals($this->storeId, $newProductId, 1, $newInvoiceProductDataNewProduct['priceEntered']);
     }
 
     public function testAveragePurchasePrice()
@@ -1256,6 +1257,7 @@ class InvoiceProductControllerTest extends WebTestCase
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceSku' => '1248373',
             'supplierInvoiceDate' => '17.03.2013',
+            'includesVAT' => true,
         );
 
         $invoiceId = $this->createInvoice($invoiceData, $this->storeId, $this->departmentManager);
