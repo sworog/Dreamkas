@@ -20,6 +20,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @property string     $id
  * @property Quantity   $quantity
+ * @property Money      $priceEntered
  * @property Money      $price
  * @property Money      $priceWithoutVAT
  * @property Money      $totalPrice
@@ -34,7 +35,6 @@ use JMS\Serializer\Annotation as Serializer;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository"
  * )
- * @LighthouseAssert\InvoiceProduct\Vat
  */
 class InvoiceProduct extends AbstractDocument implements Reasonable
 {
@@ -57,6 +57,15 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      * @var Quantity
      */
     protected $quantity;
+
+    /**
+     * Введённая цена
+     * @MongoDB\Field(type="money")
+     * @Assert\NotBlank
+     * @LighthouseAssert\Money(notBlank=true)
+     * @var Money
+     */
+    protected $priceEntered;
 
     /**
      * Закупочная цена
@@ -153,6 +162,13 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $store;
 
     /**
+     * @MongoDB\Boolean
+     * @Serializer\Exclude
+     * @var boolean
+     */
+    protected $fake = true;
+
+    /**
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */
@@ -161,10 +177,12 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
         $decimalVAT = Decimal::createFromNumeric($this->product->vat * 0.01, 2);
         if ($this->invoice->includesVAT) {
             // Расчёт цены без НДС из цены с НДС
+            $this->price = $this->priceEntered;
             $this->priceWithoutVAT = $this->price->div($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
             $this->amountVAT = $this->priceWithoutVAT->sub($this->price->toString())->invert();
         } else {
             // Расчёт цены с НДС из цены без НДС
+            $this->priceWithoutVAT = $this->priceEntered;
             $this->price = $this->priceWithoutVAT->mul($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
             $this->amountVAT= $this->priceWithoutVAT->mul($decimalVAT, Decimal::ROUND_HALF_EVEN);
         }

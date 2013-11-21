@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Invoice\Product;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 
 class InvoiceProductRepository extends DocumentRepository
 {
@@ -25,11 +26,37 @@ class InvoiceProductRepository extends DocumentRepository
     }
 
     /**
-     * @param $invoiceId
+     * @param string|Invoice $invoice
      * @return Cursor
      */
-    public function findByInvoice($invoiceId)
+    public function findByInvoice($invoice)
     {
+        if ($invoice instanceof Invoice) {
+            $invoiceId = $invoice->id;
+        } else {
+            $invoiceId = $invoice;
+        }
+
         return $this->findBy(array('invoice' => $invoiceId));
+    }
+
+    /**
+     * @param string|Invoice $invoice
+     * @return bool
+     */
+    public function recalcVATByInvoice($invoice)
+    {
+        $invoiceProducts = $this->findByInvoice($invoice);
+        if (count($invoiceProducts) == 0) {
+            return true;
+        }
+        foreach ($invoiceProducts as $invoiceProduct) {
+            /** @var $invoiceProduct InvoiceProduct */
+            $invoiceProduct->fake = !$invoiceProduct->fake;
+            $this->getDocumentManager()->persist($invoiceProduct);
+        }
+
+        $this->getDocumentManager()->flush();
+        return true;
     }
 }

@@ -157,8 +157,7 @@ class WebTestCase extends ContainerAwareTestCase
         $quantity,
         $price,
         $storeId = null,
-        $manager = null,
-        $includesVAT = null
+        $manager = null
     ) {
         $manager = ($manager) ?: $this->departmentManager;
         $storeId = ($storeId) ?: $this->storeId;
@@ -166,28 +165,11 @@ class WebTestCase extends ContainerAwareTestCase
 
         $accessToken = $this->auth($manager);
 
-        if ($includesVAT === null) {
-            $invoiceJson = $this->clientJsonRequest(
-                $accessToken,
-                'GET',
-                '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId
-            );
-
-            $this->assertResponseCode(200);
-
-            $includesVAT = $invoiceJson['includesVAT'];
-        }
-
         $invoiceProductData = array(
             'product' => $productId,
             'quantity' => $quantity,
+            'priceEntered' => $price,
         );
-
-        if ($includesVAT) {
-            $invoiceProductData['price'] = $price;
-        } else {
-            $invoiceProductData['priceWithoutVAT'] = $price;
-        }
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,

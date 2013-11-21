@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"postPersist", "postUpdate", "postRemove"})
@@ -18,15 +19,25 @@ class InvoiceTotalsListener extends AbstractMongoDBListener
     protected $invoiceRepository;
 
     /**
+     * @var InvoiceProductRepository
+     */
+    protected $invoiceProductRepository;
+
+    /**
      * @DI\InjectParams({
-     *     "invoiceRepository"=@DI\Inject("lighthouse.core.document.repository.invoice")
+     *     "invoiceRepository"=@DI\Inject("lighthouse.core.document.repository.invoice"),
+     *     "invoiceProductRepository"=@DI\Inject("lighthouse.core.document.repository.invoice_product")
      * })
      *
      * @param InvoiceRepository $invoiceRepository
+     * @param InvoiceProductRepository $invoiceProductRepository
      */
-    public function __construct(InvoiceRepository $invoiceRepository)
-    {
+    public function __construct(
+        InvoiceRepository $invoiceRepository,
+        InvoiceProductRepository $invoiceProductRepository
+    ) {
         $this->invoiceRepository = $invoiceRepository;
+        $this->invoiceProductRepository = $invoiceProductRepository;
     }
 
     /**
@@ -68,6 +79,13 @@ class InvoiceTotalsListener extends AbstractMongoDBListener
                 $totalPriceWithoutVATDiff,
                 $totalAmountVATDiff
             );
+        }
+
+        if ($document instanceof Invoice) {
+            $changeSet = $this->getDocumentChangesSet($eventArgs);
+            if ($document->includesVAT != $changeSet['includesVAT']) {
+                $this->invoiceProductRepository->recalcVATByInvoice($document);
+            }
         }
     }
 
