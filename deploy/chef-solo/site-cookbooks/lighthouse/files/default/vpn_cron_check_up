@@ -1,1 +1,2 @@
-*/1 * * * * root /usr/local/bin/vpn_up_if_down.sh
+*/1 * * * * root /usr/local/bin/vpn_check_up.sh
+

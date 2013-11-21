@@ -25,6 +25,7 @@ default_run_options[:pty] = true
 
 set :use_composer, true
 set :update_vendors, false
+set :composer_bin, "/usr/bin/composer"
 
 set :use_set_permissions,   false
 
