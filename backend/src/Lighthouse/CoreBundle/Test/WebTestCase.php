@@ -294,19 +294,19 @@ class WebTestCase extends ContainerAwareTestCase
             array(
                 'product' => $productId,
                 'quantity' => 10,
-                'price' => 11.12,
+                'priceEntered' => 11.12,
                 'productAmount' => 10,
             ),
             array(
                 'product' => $productId,
                 'quantity' => 5,
-                'price' => 12.76,
+                'priceEntered' => 12.76,
                 'productAmount' => 15,
             ),
             array(
                 'product' => $productId,
                 'quantity' => 1,
-                'price' => 5.99,
+                'priceEntered' => 5.99,
                 'productAmount' => 16,
             ),
         );
@@ -317,7 +317,7 @@ class WebTestCase extends ContainerAwareTestCase
 
             $invoiceProductData = array(
                 'quantity' => $row['quantity'],
-                'price' => $row['price'],
+                'priceEntered' => $row['priceEntered'],
                 'product' => $row['product'],
             );
 
