@@ -5,7 +5,8 @@ define(function(require) {
     require('jquery');
 
     return function(model, attr) {
-        var nodeTemplate = '<span model="' + model.modelName + '" model-id="' + model.id + '" model-attribute="' + attr + '">' + (model.get(attr) || '') + '</span>';
+        var text = typeof model.get(attr) === 'undefined' ? '' : model.get(attr);
+        var nodeTemplate = '<span model="' + model.modelName + '" model-id="' + model.id + '" model-attribute="' + attr + '">' + text + '</span>';
 
         var handlers = {};
 
