@@ -59,6 +59,7 @@
         "phpunit/php-code-coverage": "~1.2",
         "phpmd/phpmd": "~1.4",
         "squizlabs/php_codesniffer": "~1.5",
-        "pdepend/pdepend": "~1.1"
+        "pdepend/pdepend": "~1.1",
+        "munkie/phpunit-teamcity-testlistener": "dev-master"
     }
 }
