@@ -33,7 +33,7 @@ public class EndProductApiSteps {
         return productApiSteps.createProductThroughPost(product, subCategory);
     }
 
-    @Given("there is the product in subCategory with name '$' with data $exampleTable")
+    @Given("there is the product in subCategory with name '$subCategoryName' with data $exampleTable")
     public void givenThereIsTheProductWithData(String subCategoryName, ExamplesTable examplesTable) throws IOException, JSONException {
         String name = "", units = "", vat = "", purchasePrice = "", barcode = "",
                 sku = "", vendorCountry = "", vendor = "", info = "", retailMarkupMax = "",

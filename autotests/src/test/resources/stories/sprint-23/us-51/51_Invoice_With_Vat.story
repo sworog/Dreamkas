@@ -3,129 +3,163 @@ Meta:
 @us 51
 
 Narrative:
-As a user
-I want to perform an action
-So that I can achieve a business goal
+As a заведующий отделом,
+I want to при приемке товара видеть ставку НДС и сумму НДС каждого принимаего товара, сумму НДС регистрируемой накладной, а также содержит ли цена приемки НДС,
+In order to не допустить ошибок в учете налогов при приемке
+
+GivenStories: precondition/us-51/aPreconditionToStoryUs51.story
 
 Scenario: The checkbox is active by default
 
-Given there is the user with name 'departmentManager-s23u51', position 'departmentManager-s23u51', username 'departmentManager-s23u51', password 'lighthouse', role 'departmentManager'
-And there is the store with number '2351' managed by department manager named 'departmentManager-s23u51'
-And there is the subCategory with name 'defaultSubCategory-s23u51' related to group named 'defaultGroup-s23u51' and category named 'defaultCategory-s23u51'
-And the user sets subCategory 'defaultSubCategory-s23u51' mark up with max '10' and min '0' values
+Meta:
+@id s23u51s1
+@description
+@smoke
 
-And the user is on the invoice create page
-And there is the invoice in the store with number '2351' ruled by department manager with name 'departmentManager-s23u51' with values
-| elementName | elementValue |
-| sku | invoice-2351 |
-| acceptanceDate | 19.11.2013 16:23 |
-| supplier | supplier |
-| accepter | accepter |
-| legalEntity | legalEntity |
-| supplierInvoiceSku | supplierInvoiceSku |
-| supplierInvoiceDate | 19.11.2013 |
+Given the user is on the invoice list page
+When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
+And the user clicks the create button on the invoice list page
+And the user inputs data to the invoice
+| elementName  | value |
+| sku | invoice-2351-0 |
+| acceptanceDate | 02.04.2013 16:23 |
+| supplier | Поставщик |
+| accepter | Иван Петрович Петрович |
+| legalEntity | Компания |
+| supplierInvoiceSku | 123456 |
+| supplierInvoiceDate | 01.04.2013 |
+And the user navigates to invoice product addition
+Then the user checks the checkbox 'includesVAT' is 'checked'
+
+Scenario: Checkbox text
+
+Meta:
+@id s23u51s2
+@description
+
+GivenStories: precondition/us-51/aPreconditionToScenarioS2.story
 
 Given the user navigates to the invoice page with name 'invoice-2351'
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
 Then the user checks the checkbox 'includesVAT' is 'checked'
-And the user checks page contains text 'Цены включают НДС'
-When the user clicks edit button and starts write off edition
+And the user checks the checkbox 'includesVAT' text is 'Цена включает НДС'
+When the user clicks finish edit link and ends the invoice edition
 Then the user checks the checkbox 'includesVAT' is 'checked'
-And the user checks page contains text 'Цены включают НДС'
+And the user checks the checkbox 'includesVAT' text is 'Цена включает НДС'
 
 Scenario: The invoice with/without vat 10%
 
-Given there is the user with name 'departmentManager-s23u51', position 'departmentManager-s23u51', username 'departmentManager-s23u51', password 'lighthouse', role 'departmentManager'
-And there is the store with number '2351' managed by department manager named 'departmentManager-s23u51'
-And there is the subCategory with name 'defaultSubCategory-s23u51' related to group named 'defaultGroup-s23u51' and category named 'defaultCategory-s23u51'
-And the user sets subCategory 'defaultSubCategory-s23u51' mark up with max '10' and min '0' values
+Meta:
+@id s23u51s3
+@description
+@smoke
 
-Given there is the product in subCategory with name 'defaultSubCategory-s23u51' with data
-| name | name-2351 |
-| units | unit |
-| vat | 10 |
-| purchasePrice | 134,80 |
-| barcode | barcode-2351 |
-| sku | sku-2351 |
-| vendorCountry |  |
-| vendor |  |
-| info |  |
-| retailMarkupMax |  |
-| retailMarkupMin |  |
-| rounding |  |
-
-And there is the invoice in the store with number '2351' ruled by department manager with name 'departmentManager-s23u51' with values
-| elementName | elementValue |
-| sku | invoice-2351-1 |
-| acceptanceDate | 19.11.2013 16:23 |
-| supplier | supplier |
-| accepter | accepter |
-| legalEntity | legalEntity |
-| supplierInvoiceSku | supplierInvoiceSku |
-| supplierInvoiceDate | 19.11.2013 |
-And the user adds the product to the invoice with name 'invoice-2351-1' with sku 'sku-2351', quantity '4,500', price '126,99' in the store ruled by 'departmentManager-s23u51'
+GivenStories: precondition/us-51/aPreconditionToScenarioS3.story
 
 Given the user navigates to the invoice page with name 'invoice-2351-1'
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
 Then the user checks the invoice products list contains entry
 | productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351 | sku-2351 | barcode-2351 | 4,500 | кг | 126,99 | 126,99 | 126,99 | 10 |
-
+| name-2351 | sku-2351 | barcode-2351 | 7,000 | шт. | 100,00 | 700,00 | 63,63 р. | 10 |
+| name-2351-01 | sku-2351-01 | barcode-2351-01 | 15,000 | шт. | 120,00 | 1800,00 | 274,65 р. | 18 |
+And the user checks invoice elements values
+| elementName | value |
+| totalProducts | 2 |
+| totalSum | 2500,00 |
+| totalVat | 338,28 |
 Then the user checks the checkbox 'includesVAT' is 'checked'
 When the user clicks on item named 'includesVAT'
 Then the user waits for checkBoxPreloader
 Then the user checks the checkbox 'includesVAT' is 'unChecked'
 Then the user checks the invoice products list contains entry
 | productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351 | sku-2351 | barcode-2351 | 4,500 | кг | 126,99 | 126,99 | 126,99 | 10 |
+| name-2351 | sku-2351 | barcode-2351 | 7,000 | шт. | 100,00 | 770,00 | 70,00 р. | 10 |
+| name-2351-01 | sku-2351-01 | barcode-2351-01 | 15,000 | шт. | 120,00 | 2124,00 | 324,00 р. | 18 |
+And the user checks invoice elements values
+| elementName | value |
+| totalProducts | 2 |
+| totalSum | 2894,00 |
+| totalVat | 394,00 |
 
 Scenario: The invoice with/without vat 0%
 
-Given there is the user with name 'departmentManager-s23u51', position 'departmentManager-s23u51', username 'departmentManager-s23u51', password 'lighthouse', role 'departmentManager'
-And there is the store with number '2351' managed by department manager named 'departmentManager-s23u51'
-And there is the subCategory with name 'defaultSubCategory-s23u51' related to group named 'defaultGroup-s23u51' and category named 'defaultCategory-s23u51'
-And the user sets subCategory 'defaultSubCategory-s23u51' mark up with max '10' and min '0' values
+Meta:
+@id s23u51s4
+@description
 
-Given there is the product in subCategory with name 'defaultSubCategory-s23u51' with data
-| name | name-2351-1 |
-| units | unit |
-| vat | 0 |
-| purchasePrice | 134,80 |
-| barcode | barcode-2351-1 |
-| sku | sku-2351-1 |
-| vendorCountry |  |
-| vendor |  |
-| info |  |
-| retailMarkupMax |  |
-| retailMarkupMin |  |
-| rounding |  |
+GivenStories: precondition/us-51/aPreconditionToScenarioS4.story
 
-And there is the invoice in the store with number '2351' ruled by department manager with name 'departmentManager-s23u51' with values
-| elementName | elementValue |
-| sku | invoice-2351-1 |
-| acceptanceDate | 19.11.2013 16:23 |
-| supplier | supplier |
-| accepter | accepter |
-| legalEntity | legalEntity |
-| supplierInvoiceSku | supplierInvoiceSku |
-| supplierInvoiceDate | 19.11.2013 |
-And the user adds the product to the invoice with name 'invoice-2351-1' with sku 'sku-2351-1', quantity '4,500', price '126,99' in the store ruled by 'departmentManager-s23u51'
-
-Given the user navigates to the invoice page with name 'invoice-2351-1'
+Given the user navigates to the invoice page with name 'invoice-2351-2'
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
 Then the user checks the invoice products list contains entry
 | productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351 | sku-2351 | barcode-2351 | 4,500 | кг | 126,99 | 126,99 | 126,99 | 0 |
-
+| name-2351-1 | sku-2351-1 | barcode-2351-1 | 4,555 | шт. | 145,50 | 662,75 | 0,00 р. | 0 |
 Then the user checks the checkbox 'includesVAT' is 'checked'
 When the user clicks on item named 'includesVAT'
 Then the user waits for checkBoxPreloader
 Then the user checks the checkbox 'includesVAT' is 'unChecked'
 Then the user checks the invoice products list contains entry
 | productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351 | sku-2351 | barcode-2351 | 4,500 | кг | 126,99 | 126,99 | 126,99 | 0 |
+| name-2351-1 | sku-2351-1 | barcode-2351-1 | 4,555 | шт. | 145,50 | 662,75 | 0,00 р. | 0 |
 
 Scenario: The checkbox is not clickable in view mode
 
+Meta:
+@id s23u51s5
+@description
+@smoke
+
+GivenStories: precondition/us-51/aPreconditionToScenarioS5.story
+
+Given the user navigates to the invoice page with name 'invoice-2351-3'
+When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
+When the user clicks finish edit link and ends the invoice edition
+Then the user checks the invoice products list contains entry
+| productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
+| name-2351-2 | sku-2351-2 | barcode-2351-2 | 15,000 | шт. | 120,00 | 1800,00 | 274,65 р. | 18 |
+Then the user checks the checkbox 'includesVAT' is 'checked'
+When the user clicks on item named 'includesVAT'
+Then the user waits for checkBoxPreloader
+Then the user checks the checkbox 'includesVAT' is 'checked'
+Then the user checks the invoice products list contains entry
+| productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
+| name-2351-2 | sku-2351-2 | barcode-2351-2 | 15,000 | шт. | 120,00 | 1800,00 | 274,65 р. | 18 |
+
 Scenario: Average and last price are not changed if the price with/without vat
+
+Meta:
+@id s23u51s6
+@description
+@smoke
+
+GivenStories: precondition/us-51/aPreconditionToScenarioS6.story
+
+Given the user navigates to the subCategory 'defaultSubCategory-s23u51', category 'defaultCategory-s23u51', group 'defaultGroup-s23u51' product list page
+When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
+When the user opens product balance tab
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| name-2351-3 | sku-2351-3 | barcode-2351-3 | 10,000 | 0,00 | 0,0 | 100,00 р. | 100,00 р. |
+| name-2351-4 | sku-2351-4 | barcode-2351-4 | 10,000 | 0,00 | 0,0 | 110,00 р. | 110,00 р. |
+
+Scenario: Vat is not changed in already invoiceProduct if product have new vat
+
+Meta:
+@id s23u51s7
+@description
+
+GivenStories: precondition/us-51/aPreconditionToScenarioS7.story
+
+Given the user navigates to the invoice page with name 'invoice-2351-6'
+When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
+Then the user checks the invoice products list contains entry
+| productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
+| name-2351-6 | sku-2351-6 | barcode-2351-6 | 10,000 | шт. | 100,00 | 1000,00 | 90,90 р. | 10 |
+Given the user navigates to the invoice page with name 'invoice-2351-7'
+Then the user checks the invoice products list contains entry
+| name-2351-6 | sku-2351-6 | barcode-2351-6 | 10,000 | шт. | 100,00 | 1000,00 | 0,00 р. | 0 |
+
+
+
+
 

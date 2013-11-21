@@ -33,9 +33,8 @@ public class InvoiceProductObject extends AbstractObjectNode {
         units = setObjectProperty("productUnits", By.name("productUnits"));
         price = setObjectProperty("productPrice", By.name("productPrice"));
         sum = setObjectProperty("productSum", By.name("productSum"));
-
-        vatSum = setObjectProperty("vatSum", By.name("vatSum"));
-        vat = setObjectProperty("vat", By.name("vat"));
+        vatSum = setObjectProperty("vatSum", By.xpath(".//*[@model-attribute='productTotalAmountVATFormatted']"));
+        vat = setObjectProperty("vat", By.xpath(".//*[@model-attribute='product.vat']"));
     }
 
     @Override

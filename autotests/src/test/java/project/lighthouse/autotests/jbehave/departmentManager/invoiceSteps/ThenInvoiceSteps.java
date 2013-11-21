@@ -18,4 +18,9 @@ public class ThenInvoiceSteps {
     public void thenTheUserWaitsForCheckboxPreLoader() {
         invoiceSteps.checkBoxPreLoaderWait();
     }
+
+    @Then("the user checks the checkbox '$itemName' text is '$expectedText'")
+    public void thenTheUserChecksTheCheckBoxText(String itemName, String expectedText) {
+        invoiceSteps.checkTheCheckBoxText(itemName, expectedText);
+    }
 }

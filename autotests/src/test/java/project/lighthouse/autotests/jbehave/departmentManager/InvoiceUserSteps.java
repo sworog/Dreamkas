@@ -51,6 +51,11 @@ public class InvoiceUserSteps {
         invoiceSteps.input(elementName, inputText);
     }
 
+    @When("the user inputs data to the invoice $examplesTable")
+    public void whenTheUserInputsDataToTheInvoice(ExamplesTable examplesTable) {
+        invoiceSteps.fieldInput(examplesTable);
+    }
+
     @When("the user clicks the invoice create button")
     @Pending
     public void whenTheUserClicksTheInvoiceCreateButton() {

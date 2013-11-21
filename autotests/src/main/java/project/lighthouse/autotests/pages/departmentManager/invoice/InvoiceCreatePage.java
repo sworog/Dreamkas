@@ -41,6 +41,8 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("totalProducts", new Input(this, "totalProducts"));
         items.put("totalSum", new Input(this, "totalSum"));
 
+        items.put("totalVat", new Input(this, By.xpath("//*[@model-attribute='totalAmountVATFormatted']")));
+
         /*View*/
         items.put("productNameView", new NonType(this, "productName"));
         items.put("productSkuView", new NonType(this, "productSku"));
