@@ -36,8 +36,8 @@
             <span>
                 по
             </span>
-            <span name="productPrice" model-attribute="<%- model.get('invoice.includesVAT') ? 'priceWithVAT' : 'price' %>">
-                <%- model.get('invoice.includesVAT') ? LH.formatPrice(model.get('priceWithVAT')) : LH.formatPrice(model.get('price')) %>
+            <span name="productPrice" model-attribute="priceEntered">
+                <%- LH.formatPrice(model.get('priceEntered')) %>
             </span>
             <span>
                 р.
