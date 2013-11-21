@@ -21,7 +21,7 @@ class PrecisionValidator extends ConstraintValidator
             return;
         }
 
-        $rounded = $value * pow(10, $constraint->decimals);
+        $rounded = $value * pow(10, $constraint->precision);
         $rounded = (float) (string) $rounded;
 
         if ($rounded - floor($rounded) > 0) {
@@ -29,7 +29,7 @@ class PrecisionValidator extends ConstraintValidator
                 $constraint->message,
                 array(
                     '{{ value }}' => $value,
-                    '{{ decimals }}' => $constraint->decimals
+                    '{{ precision }}' => $constraint->precision
                 )
             );
         }

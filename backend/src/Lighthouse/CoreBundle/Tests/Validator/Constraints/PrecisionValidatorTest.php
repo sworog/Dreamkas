@@ -12,6 +12,6 @@ class PrecisionValidatorTest extends TestCase
         $constraint = new Precision();
 
         $defaultOption = $constraint->getDefaultOption();
-        $this->assertEquals('decimals', $defaultOption);
+        $this->assertEquals('precision', $defaultOption);
     }
 }
