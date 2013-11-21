@@ -132,7 +132,6 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceProductData
         );
 
-//        $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
         $this->assertResponseCode(400);
         $this->assertTrue(isset($response['children']['product']['errors'][0]));
         $this->assertContains('Такого товара не существует', $response['children']['product']['errors'][0]);
@@ -898,30 +897,30 @@ class InvoiceProductControllerTest extends WebTestCase
                 5.99, // price of second product
                 29.95, // invoice sum total
             ),
-//            'quantity and price are not changed' => array(
-//                10, // quantity of first product
-//                9.99, // price of first product
-//                99.9, // invoice sum total
-//                10, // quantity of second product
-//                9.99, // price of second product
-//                99.9, // invoice sum total
-//            ),
-//            'quantity changed' => array(
-//                10, // quantity of first product
-//                9.99, // price of first product
-//                99.9, // invoice sum total
-//                5, // quantity of second product
-//                9.99, // price of second product
-//                49.95, // invoice sum total
-//            ),
-//            'price changed' => array(
-//                10, // quantity of first product
-//                9.99, // price of first product
-//                99.9, // invoice sum total
-//                10, // quantity of second product
-//                5.99, // price of second product
-//                59.9, // invoice sum total
-//            ),
+            'quantity and price are not changed' => array(
+                10, // quantity of first product
+                9.99, // price of first product
+                99.9, // invoice sum total
+                10, // quantity of second product
+                9.99, // price of second product
+                99.9, // invoice sum total
+            ),
+            'quantity changed' => array(
+                10, // quantity of first product
+                9.99, // price of first product
+                99.9, // invoice sum total
+                5, // quantity of second product
+                9.99, // price of second product
+                49.95, // invoice sum total
+            ),
+            'price changed' => array(
+                10, // quantity of first product
+                9.99, // price of first product
+                99.9, // invoice sum total
+                10, // quantity of second product
+                5.99, // price of second product
+                59.9, // invoice sum total
+            ),
         );
     }
 
@@ -1094,7 +1093,12 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         $this->assertStoreProductTotals($this->storeId, $productId, 15, $newInvoiceProductData['priceEntered']);
-        $this->assertStoreProductTotals($this->storeId, $newProductId, 1, $newInvoiceProductDataNewProduct['priceEntered']);
+        $this->assertStoreProductTotals(
+            $this->storeId,
+            $newProductId,
+            1,
+            $newInvoiceProductDataNewProduct['priceEntered']
+        );
     }
 
     public function testAveragePurchasePrice()
