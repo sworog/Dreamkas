@@ -3046,12 +3046,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/munkie/phpunit-teamcity-testlistener.git",
-                "reference": "7c3af67dc7f7f011372a089ba2a1ff40e987f4d6"
+                "reference": "e10070f3e613fdd0c7c2670e8071d2119d1fa7b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/munkie/phpunit-teamcity-testlistener/zipball/7c3af67dc7f7f011372a089ba2a1ff40e987f4d6",
-                "reference": "7c3af67dc7f7f011372a089ba2a1ff40e987f4d6",
+                "url": "https://api.github.com/repos/munkie/phpunit-teamcity-testlistener/zipball/e10070f3e613fdd0c7c2670e8071d2119d1fa7b6",
+                "reference": "e10070f3e613fdd0c7c2670e8071d2119d1fa7b6",
                 "shasum": ""
             },
             "require": {
@@ -3074,7 +3074,7 @@
                 }
             ],
             "description": "PHPUnit test listener for TeamCity CI Server",
-            "time": "2013-11-21 15:26:14"
+            "time": "2013-11-21 15:49:55"
         },
         {
             "name": "pdepend/pdepend",
