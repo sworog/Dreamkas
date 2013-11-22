@@ -15,9 +15,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off Edit Validation - valid number 100 symbols
 
@@ -30,8 +27,6 @@ And the user generates charData with '100' number in the 'inline writeOff number
 Then the user checks 'inline writeOff number' write off field contains only '100' symbols
 When the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off Edit Validation - number invalid 101 symbols
 
@@ -46,9 +41,6 @@ When the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off Edit Validation - date is required
 
@@ -62,9 +54,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: WriteOff date Edit validation good manual
 
@@ -76,8 +65,6 @@ And the user clicks on 'writeOff date review' write off element to edit it
 And the user inputs '!03.12.2012' in the 'inline writeOff date' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: WriteOff date Edit validation manual negative1 numbers
 
@@ -89,8 +76,6 @@ And the user clicks on 'writeOff date review' write off element to edit it
 And the user inputs '!123454567890' in the 'inline writeOff date' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: WriteOff date Edit validation manual negative1 numbers 2
 
@@ -102,8 +87,6 @@ And the user clicks on 'writeOff date review' write off element to edit it
 And the user inputs '!12345456789' in the 'inline writeOff date' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off date Edit validation manual negative2 eng symbols
 
@@ -117,9 +100,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: WriteOff date Edit validation manual negative3 rus symbols
 
@@ -133,9 +113,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: WriteOff date Edit validation manual negative symbols
 
@@ -149,9 +126,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: WriteOff date Edit validation manual negative symbols mix
 
@@ -165,9 +139,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: WriteOff date Edit validation through datepicker good
 
@@ -179,8 +150,6 @@ And the user clicks on 'writeOff date review' write off element to edit it
 And the user inputs 'todayDate' in the 'inline writeOff date' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: WriteOff edit - no product name validation
 
@@ -194,9 +163,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: WriteOff edit - no product barcode validation
 
@@ -210,9 +176,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: WriteOff edit - no product sku validation
 
@@ -226,9 +189,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off Validation - quantity is required
 
@@ -242,9 +202,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off product quantity validation sub zero
 
@@ -258,9 +215,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Значение должно быть больше 0 |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off product quantity validation zero
 
@@ -274,9 +228,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Значение должно быть больше 0 |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off product quantity validation String en small register
 
@@ -290,9 +241,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off product quantity validation String en big register
 
@@ -306,9 +254,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off product quantity validation String rus small register
 
@@ -322,9 +267,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off product quantity validation String rus big register\
 
@@ -338,9 +280,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off product quantity validation symbols
 
@@ -354,9 +293,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off product quantity positive validation
 
@@ -368,8 +304,6 @@ And the user clicks on 'writeOff product quantity review' element of write off p
 And the user inputs '1' in the 'inline writeOff product quantity' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit price validation - price is required
 
@@ -383,9 +317,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation commma
 
@@ -397,8 +328,6 @@ And the user clicks on 'writeOff product price review' element of write off prod
 And the user inputs ',78' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation dott
 
@@ -410,8 +339,6 @@ And the user clicks on 'writeOff product price review' element of write off prod
 And the user inputs '.78' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation comma
 
@@ -423,8 +350,6 @@ And the user clicks on 'writeOff product price review' element of write off prod
 And the user inputs '123,25' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation dot
 
@@ -436,8 +361,6 @@ And the user clicks on 'writeOff product price review' element of write off prod
 And the user inputs '12.56' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation one digit
 
@@ -449,8 +372,6 @@ And the user clicks on 'writeOff product price review' element of write off prod
 And the user inputs '1' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation two digits
 
@@ -462,8 +383,6 @@ And the user clicks on 'writeOff product price review' element of write off prod
 And the user inputs '99' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation three digits
 
@@ -477,9 +396,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна содержать больше 2 цифр после запятой |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation sub zero
 
@@ -493,9 +409,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation zero
 
@@ -509,9 +422,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation String en small register
 
@@ -525,9 +435,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation String en big register
 
@@ -541,9 +448,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation String rus small register
 
@@ -557,9 +461,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation String rus big register
 
@@ -573,9 +474,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation symbols
 
@@ -589,9 +487,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation length good
 
@@ -603,8 +498,6 @@ And the user clicks on 'writeOff product price review' element of write off prod
 And the user inputs '10000000' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit product price validation length negative
 
@@ -618,9 +511,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна быть больше 10000000 |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit Validation - cause is required
 
@@ -634,9 +524,6 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit Validation - cause 1000 symbols
 
@@ -649,8 +536,6 @@ And the user generates charData with '1000' number in the 'inline writeOff cause
 Then the user checks 'inline writeOff cause' write off field contains only '1000' symbols
 When the user clicks OK and accepts changes
 Then the user sees no error messages
-When the user clicks finish edit button and ends the write off edition
-And the user logs out
 
 Scenario: Write off edit Validation - cause 1001 symbols
 
@@ -665,7 +550,3 @@ When the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Не более 1000 символов |
-When the user clicks Cancel and discard changes
-And the user clicks finish edit button and ends the write off edition
-And the user logs out
-

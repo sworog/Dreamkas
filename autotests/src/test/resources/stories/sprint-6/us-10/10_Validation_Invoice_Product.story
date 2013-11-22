@@ -391,6 +391,3 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна быть больше 10000000 |
-
-
-

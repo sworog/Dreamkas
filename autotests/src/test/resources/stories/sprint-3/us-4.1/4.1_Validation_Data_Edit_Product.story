@@ -21,7 +21,6 @@ Examples:
 | 100 | vendorCountry |
 | 2000 | info |
 
-
 Scenario: Edit product validation - Field length validation negative
 
 Given there is created product with sku 'ED-NMLVN'
@@ -41,7 +40,6 @@ Examples:
 | 301 | vendor | Не более 300 символов |
 | 101 | vendorCountry | Не более 100 символов |
 | 2001 | info | Не более 2000 символов |
-
 
 Scenario: Edit product validation - Name field is required
 
