@@ -3,12 +3,13 @@
 namespace Lighthouse\CoreBundle\DataFixtures\ODM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use Lighthouse\CoreBundle\Document\Auth\Client;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoadApiClientData extends ContainerAware implements FixtureInterface
+class LoadApiClientData extends ContainerAware implements FixtureInterface, OrderedFixtureInterface
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -19,6 +20,14 @@ class LoadApiClientData extends ContainerAware implements FixtureInterface
     {
         $this->createClient('webfront', 'secret');
         $this->createClient('autotests', 'secret');
+    }
+
+    /**
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return 10;
     }
 
     /**

@@ -285,6 +285,21 @@ class StoreControllerTest extends WebTestCase
         }
     }
 
+    public function testRolesPropertyIsNotExposed()
+    {
+        $storeId = $this->factory->getStore();
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertNotJsonHasPath('roles', $getResponse);
+    }
+
     public function testGetStoreWithDepartments()
     {
         $storeId = $this->factory->getStore('1');

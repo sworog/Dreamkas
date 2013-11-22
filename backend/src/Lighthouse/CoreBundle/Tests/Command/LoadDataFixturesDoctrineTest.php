@@ -55,10 +55,10 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
         $commandTester = $this->execute();
         $display = $commandTester->getDisplay();
         $expected = '  > purging database
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
+  > loading [10] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
+  > loading [20] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
+  > loading [30] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
+  > loading [40] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
 ';
 
         $this->assertEquals($expected, $display);
@@ -100,10 +100,10 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
 
         $display = $commandTester->getDisplay();
         $expected = '  > purging database
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
+  > loading [10] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
+  > loading [20] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
+  > loading [30] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
+  > loading [40] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
 ';
 
         $this->assertEquals($expected, $display);
@@ -156,10 +156,10 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
         $commandTester->execute($input, $options);
 
         $display = $commandTester->getDisplay();
-        $expected = '  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
+        $expected = '  > loading [10] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
+  > loading [20] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
+  > loading [30] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
+  > loading [40] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
 ';
 
         $this->assertEquals($expected, $display);
@@ -183,10 +183,10 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
         $application->doRun($input, $output);
 
         $expected = '  > purging database
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
-  > loading Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
+  > loading [10] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData
+  > loading [20] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData
+  > loading [30] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadStoresData
+  > loading [40] Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadCatalogData
 ';
 
         $this->assertEquals($expected, $output->getDisplay());

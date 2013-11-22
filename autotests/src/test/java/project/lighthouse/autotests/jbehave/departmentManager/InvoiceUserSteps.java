@@ -51,6 +51,11 @@ public class InvoiceUserSteps {
         invoiceSteps.input(elementName, inputText);
     }
 
+    @When("the user inputs data to the invoice $examplesTable")
+    public void whenTheUserInputsDataToTheInvoice(ExamplesTable examplesTable) {
+        invoiceSteps.fieldInput(examplesTable);
+    }
+
     @When("the user clicks the invoice create button")
     @Pending
     public void whenTheUserClicksTheInvoiceCreateButton() {
@@ -263,5 +268,10 @@ public class InvoiceUserSteps {
     @Then("the user checks the highlighted text is '$expectedHighlightedText'")
     public void thenTheUserChecksTheHighLightedText(String expectedHighlightedText) {
         invoiceSteps.checkHighlightsText(expectedHighlightedText);
+    }
+
+    @When("the user clicks on item named '$itemName'")
+    public void whenTheUserClicksOnItem(String itemName) {
+        invoiceSteps.itemClick(itemName);
     }
 }

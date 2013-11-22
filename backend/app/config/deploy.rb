@@ -5,7 +5,7 @@ require 'capistrano/ext/multistage'
 
 set :app_end, "api"
 set :application, "api"
-set :domain,      "coquille.lighthouse.cs"
+set :domain,      "coquille.lighthouse.cs" unless exists?(:domain)
 set :deploy_to_base,   "/var/www/"
 set :deploy_to,   "#{deploy_to_base}#{application}"
 set :deploy_via,  :remote_cache_subfolder
@@ -25,6 +25,7 @@ default_run_options[:pty] = true
 
 set :use_composer, true
 set :update_vendors, false
+set :composer_bin, "/usr/bin/composer"
 
 set :use_set_permissions,   false
 
@@ -53,7 +54,7 @@ set  :keep_releases,  5
 
 logger.level = Logger::IMPORTANT
 
-before "deploy", "deploy:vpn"
+#before "deploy", "deploy:vpn"
 
 before "deploy:restart", "deploy:php:reload"
 before "deploy:restart", "deploy:supervisor:restart"

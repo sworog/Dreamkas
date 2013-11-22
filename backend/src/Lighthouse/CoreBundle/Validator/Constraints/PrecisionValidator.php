@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
-use Lighthouse\CoreBundle\Types\Numeric\Decimal;
+use Lighthouse\CoreBundle\Types\RawValue;
 use Symfony\Component\Validator\Constraint;
 
 class PrecisionValidator extends ConstraintValidator
@@ -13,18 +13,15 @@ class PrecisionValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
+        if ($value instanceof RawValue) {
+            $value = $value->getRaw();
+        }
+
         if ($this->isEmpty($value)) {
             return;
         }
 
-        if ($value instanceof Decimal) {
-            if (null === $value->getRaw()) {
-                return;
-            }
-            $value = $value->getRaw();
-        }
-
-        $rounded = $value * pow(10, $constraint->decimals);
+        $rounded = $value * pow(10, $constraint->precision);
         $rounded = (float) (string) $rounded;
 
         if ($rounded - floor($rounded) > 0) {
@@ -32,7 +29,7 @@ class PrecisionValidator extends ConstraintValidator
                 $constraint->message,
                 array(
                     '{{ value }}' => $value,
-                    '{{ decimals }}' => $constraint->decimals
+                    '{{ precision }}' => $constraint->precision
                 )
             );
         }

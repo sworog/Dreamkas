@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.elements;
+package project.lighthouse.autotests.elements.preLoader;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

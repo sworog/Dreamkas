@@ -9,6 +9,6 @@ public class InvoiceProduct {
         return new JSONObject()
                 .put("product", product)
                 .put("quantity", quantity)
-                .put("price", price);
+                .put("priceEntered", price);
     }
 }

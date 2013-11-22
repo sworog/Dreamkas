@@ -1,0 +1,6 @@
+pty "pptp vpn2.crystals.ru --nolaunchpppd"
+name domain.local\\a.borovin
+remotename PPTP
+require-mppe-128
+file /etc/ppp/options.pptp
+ipparam crystal

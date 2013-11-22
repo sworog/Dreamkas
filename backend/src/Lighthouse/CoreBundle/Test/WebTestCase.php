@@ -124,6 +124,7 @@ class WebTestCase extends ContainerAwareTestCase
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceSku' => '1248373',
             'supplierInvoiceDate' => '17.03.2013',
+            'includesVAT' => true,
         );
 
         $postResponse = $this->clientJsonRequest(
@@ -147,10 +148,17 @@ class WebTestCase extends ContainerAwareTestCase
      * @param float $price
      * @param string $storeId
      * @param User $manager
+     * @param null|boolean $includesVAT   Включен ли НДС в цену. При значении null будет сделан запрос к накладной
      * @return string
      */
-    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price, $storeId = null, $manager = null)
-    {
+    public function createInvoiceProduct(
+        $invoiceId,
+        $productId,
+        $quantity,
+        $price,
+        $storeId = null,
+        $manager = null
+    ) {
         $manager = ($manager) ?: $this->departmentManager;
         $storeId = ($storeId) ?: $this->storeId;
         $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
@@ -160,7 +168,7 @@ class WebTestCase extends ContainerAwareTestCase
         $invoiceProductData = array(
             'product' => $productId,
             'quantity' => $quantity,
-            'price' => $price
+            'priceEntered' => $price,
         );
 
         $postResponse = $this->clientJsonRequest(
@@ -286,19 +294,19 @@ class WebTestCase extends ContainerAwareTestCase
             array(
                 'product' => $productId,
                 'quantity' => 10,
-                'price' => 11.12,
+                'priceEntered' => 11.12,
                 'productAmount' => 10,
             ),
             array(
                 'product' => $productId,
                 'quantity' => 5,
-                'price' => 12.76,
+                'priceEntered' => 12.76,
                 'productAmount' => 15,
             ),
             array(
                 'product' => $productId,
                 'quantity' => 1,
-                'price' => 5.99,
+                'priceEntered' => 5.99,
                 'productAmount' => 16,
             ),
         );
@@ -309,7 +317,7 @@ class WebTestCase extends ContainerAwareTestCase
 
             $invoiceProductData = array(
                 'quantity' => $row['quantity'],
-                'price' => $row['price'],
+                'priceEntered' => $row['priceEntered'],
                 'product' => $row['product'],
             );
 

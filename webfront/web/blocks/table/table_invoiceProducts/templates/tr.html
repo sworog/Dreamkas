@@ -36,8 +36,8 @@
             <span>
                 по
             </span>
-            <span name="productPrice" model-attribute="price">
-                <%- LH.formatPrice(model.get('price')) %>
+            <span name="productPrice" model-attribute="priceEntered">
+                <%- LH.formatPrice(model.get('priceEntered')) %>
             </span>
             <span>
                 р.
@@ -45,7 +45,7 @@
         </span>
     </td>
     <td>
-        <span style="white-space: nowrap">
+        <div style="white-space: nowrap">
             <span>
                 =
             </span>
@@ -55,7 +55,10 @@
             <span>
                 р.
             </span>
-        </span>
+        </div>
+        <div style="white-space: nowrap">
+            <%= LH.modelNode(model, 'productTotalAmountVATFormatted') %> НДС <%= LH.modelNode(model, 'product.vat') %> %
+        </div>
     </td>
     <td style="width: 1px;">
         <span class="invoice__removeLink"><%- 'удалить' %></span>

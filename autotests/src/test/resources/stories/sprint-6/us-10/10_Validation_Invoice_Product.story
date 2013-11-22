@@ -5,8 +5,8 @@ Meta:
 Scenario: Invoice product edition - Invoice product amount is required
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productAmountView' element of invoice product with 'IE-IPE' sku to edit
@@ -19,8 +19,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice product price is required
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -33,8 +33,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice no product name validation
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productNameView' element of invoice product with 'IE-IPE' sku to edit
@@ -47,8 +47,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice no product barcode validation
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productBarcodeView' element of invoice product with 'IE-IPE' sku to edit
@@ -61,8 +61,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice no product sku validation
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productSkuView' element of invoice product with 'IE-IPE' sku to edit
@@ -75,8 +75,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice product amount validation sub zero
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productAmountView' element of invoice product with 'IE-IPE' sku to edit
@@ -89,8 +89,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice product amount validation zero
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productAmountView' element of invoice product with 'IE-IPE' sku to edit
@@ -103,8 +103,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice product amount validation String en small register
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productAmountView' element of invoice product with 'IE-IPE' sku to edit
@@ -117,8 +117,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice product amount validation String en big register
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productAmountView' element of invoice product with 'IE-IPE' sku to edit
@@ -131,8 +131,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice product amount validation String rus small register
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productAmountView' element of invoice product with 'IE-IPE' sku to edit
@@ -145,8 +145,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice product amount validation String rus big register
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productAmountView' element of invoice product with 'IE-IPE' sku to edit
@@ -159,8 +159,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice product amount validation symbols
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productAmountView' element of invoice product with 'IE-IPE' sku to edit
@@ -173,8 +173,8 @@ Then the user sees error messages
 Scenario: Invoice product edition - Invoice product Amount positive validation
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productAmountView' element of invoice product with 'IE-IPE' sku to edit
@@ -185,8 +185,8 @@ Then the user sees no error messages
 Scenario: Invoice product price validation commma
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -197,8 +197,8 @@ Then the user sees no error messages
 Scenario: Invoice product price validation dott
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -209,8 +209,8 @@ Then the user sees no error messages
 Scenario: Invoice product price validation comma
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -221,8 +221,8 @@ Then the user sees no error messages
 Scenario: Invoice product price validation dot
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -233,8 +233,8 @@ Then the user sees no error messages
 Scenario: Invoice product price validation one digit
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -245,8 +245,8 @@ Then the user sees no error messages
 Scenario: Invoice product price validation two digits
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -257,8 +257,8 @@ Then the user sees no error messages
 Scenario: Invoice product price validation three digits
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -271,8 +271,8 @@ Then the user sees error messages
 Scenario: Invoice product price validation sub zero
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -285,8 +285,8 @@ Then the user sees error messages
 Scenario: Invoice product price validation zero
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -299,8 +299,8 @@ Then the user sees error messages
 Scenario: Invoice product price validation String en small register
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -313,8 +313,8 @@ Then the user sees error messages
 Scenario: Invoice product price validation String en big register
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -327,8 +327,8 @@ Then the user sees error messages
 Scenario: Invoice product price validation String rus small register
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -341,8 +341,8 @@ Then the user sees error messages
 Scenario: Invoice product price validation String rus big register
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -355,8 +355,8 @@ Then the user sees error messages
 Scenario: Invoice product price validation symbols
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -369,8 +369,8 @@ Then the user sees error messages
 Scenario: Invoice product price validation length good
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -381,8 +381,8 @@ Then the user sees no error messages
 Scenario: Invoice product price validation length negative
 
 Given there is the invoice 'InvoiceProduct-IPE-Common' with product 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode, 'liter' units
-And the user logs in as 'departmentManager'
 And the user is on the invoice list page
+And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProduct-IPE-Common' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'productPriceView' element of invoice product with 'IE-IPE' sku to edit
@@ -391,5 +391,3 @@ And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
 | Цена не должна быть больше 10000000 |
-
-

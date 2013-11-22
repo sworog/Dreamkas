@@ -48,6 +48,22 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
         }
     }
 
+    public void compareObjectWithExampleTable(String locator, ExamplesTable examplesTable) {
+        AbstractObject abstractObject = getAbstractObjectByLocator(locator);
+        List<Map<String, String>> notFoundRows = new ArrayList<>();
+        for (Map<String, String> row : examplesTable.getRows()) {
+            if (abstractObject.rowIsEqual(row)) {
+                break;
+            } else {
+                notFoundRows.add(row);
+            }
+        }
+        if (notFoundRows.size() > 0) {
+            String errorMessage = String.format("These rows are not found: '%s'.", notFoundRows.toString());
+            Assert.fail(errorMessage);
+        }
+    }
+
     public void clickByLocator(String locator) {
         getAbstractObjectByLocator(locator).click();
     }

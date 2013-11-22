@@ -19,11 +19,6 @@ import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
 import java.io.IOException;
 import java.util.Map;
 
-/**
- * TODO Remove navigateToTheInvoicePage() methods from each create invoice method.
- * TODO Add the navigateToTheInvoicePage() step method to each scenario, where create invoice step is used
- */
-
 public class EndInvoiceApiSteps {
 
     public static ExamplesTable examplesTable;
@@ -45,14 +40,9 @@ public class EndInvoiceApiSteps {
 
     @Given("there is the invoice '$invoiceSku' with product '$productName' name, '$productSku' sku, '$productBarCode' barcode, '$productUnits' units")
     public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
-        catalogApiSteps.createDefaultSubCategoryThroughPost();
         productApiSteps.createProductThroughPost(productName, productSku, productBarCode, productUnits, "123", SubCategory.DEFAULT_NAME);
-        Store store = storeApiSteps.createStoreThroughPost();
-        User user = userApiSteps.getUser("departmentManager");
-        catalogApiSteps.promoteDepartmentManager(store, user.getUserName());
-        invoiceApiSteps.createInvoiceThroughPost(invoiceSku, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "supplier", "accepter", "legalEntity", "", "", store.getNumber(), user.getUserName());
+        givenThereIsTheInvoiceWithSku(invoiceSku);
         invoiceApiSteps.addProductToInvoice(invoiceSku, productSku, "1", "1", "departmentManager");
-        invoiceApiSteps.navigateToTheInvoicePage(invoiceSku);
     }
 
     @Given("there is the invoice with '$sku' sku")
@@ -66,13 +56,11 @@ public class EndInvoiceApiSteps {
     @Given("there is the invoice with sku '$sku' in the store with number '$number' ruled by department manager with name '$userName'")
     public void givenThereIsTheInvoiceInTheStore(String sku, String number, String userName) throws IOException, JSONException {
         invoiceApiSteps.createInvoiceThroughPost(sku, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "supplier", "accepter", "legalEntity", "", "", number, userName);
-        givenTheUserNavigatesToTheInvoicePage(sku);
     }
 
     @Given("there is the date invoice with sku '$sku' and date '$date' in the store with number '$number' ruled by department manager with name '$userName'")
     public void givenThereIsTheInvoiceInTheStore(String sku, String date, String number, String userName) throws IOException, JSONException {
         invoiceApiSteps.createInvoiceThroughPost(sku, new DateTimeHelper(date).convertDateTime(), "supplier", "accepter", "legalEntity", "", "", number, userName);
-        givenTheUserNavigatesToTheInvoicePage(sku);
     }
 
     @Given("there is the invoice in the store with number '$number' ruled by department manager with name '$userName' with values $exampleTable")
@@ -110,7 +98,6 @@ public class EndInvoiceApiSteps {
         }
         invoiceApiSteps.createInvoiceThroughPost(sku, acceptanceDate, supplier, accepter, legalEntity, supplierInvoiceSku, supplierInvoiceDate, number, userName);
         EndInvoiceApiSteps.examplesTable = examplesTable;
-        givenTheUserNavigatesToTheInvoicePage(sku);
     }
 
     @Given("the user navigates to the invoice page with name '$invoiceName'")

@@ -5,8 +5,10 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.DateTime;
+import project.lighthouse.autotests.elements.preLoader.CheckBoxPreLoader;
 import project.lighthouse.autotests.pages.departmentManager.invoice.*;
 
 public class InvoiceSteps extends ScenarioSteps {
@@ -41,6 +43,11 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void input(String elementName, String inputText) {
         invoiceCreatePage.input(elementName, inputText);
+    }
+
+    @Step
+    public void fieldInput(ExamplesTable examplesTable) {
+        invoiceBrowsing.fieldInput(examplesTable);
     }
 
     @Step
@@ -234,5 +241,47 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void objectPropertyInput(String locator, String propertyName, String value) {
         invoiceBrowsing.getInvoiceProductsCollection().inputPropertyByLocator(locator, propertyName, value);
+    }
+
+    @Step
+    public void compareWithExampleTable(ExamplesTable examplesTable) {
+        invoiceBrowsing.getInvoiceProductsCollection().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void itemClick(String itemName) {
+        invoiceBrowsing.itemClick(itemName);
+    }
+
+    @Step
+    public void checkTheStateOfCheckBox(String itemName, String state) {
+        String checkBoxState = invoiceBrowsing.getItemAttribute(itemName, "checked");
+        switch (state) {
+            case "checked":
+                if (checkBoxState != null) {
+                    if (!checkBoxState.equals("true")) {
+                        Assert.fail("CheckBox is not checked!");
+                    }
+                } else {
+                    Assert.fail("CheckBox is not checked!");
+                }
+                break;
+            case "unChecked":
+                if (checkBoxState != null) {
+                    Assert.fail("CheckBox is not unchecked!");
+                }
+                break;
+        }
+    }
+
+    @Step
+    public void checkTheCheckBoxText(String itemName, String text) {
+        String actualText = invoiceBrowsing.items.get(itemName).getVisibleWebElement().findElement(By.xpath(".//..")).getText();
+        Assert.assertEquals(text, actualText);
+    }
+
+    @Step
+    public void checkBoxPreLoaderWait() {
+        new CheckBoxPreLoader(getDriver()).await();
     }
 }

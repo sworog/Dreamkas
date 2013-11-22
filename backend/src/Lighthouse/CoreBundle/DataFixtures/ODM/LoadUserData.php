@@ -3,12 +3,13 @@
 namespace Lighthouse\CoreBundle\DataFixtures\ODM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoadUserData extends ContainerAware implements FixtureInterface
+class LoadUserData extends ContainerAware implements FixtureInterface, OrderedFixtureInterface
 {
     /**
      * @return UserProvider
@@ -56,5 +57,15 @@ class LoadUserData extends ContainerAware implements FixtureInterface
             User::ROLE_STORE_MANAGER,
             'и.о. директора магазина'
         );
+    }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return 20;
     }
 }

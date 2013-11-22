@@ -12,11 +12,15 @@ define(function(require) {
         saveData: [
             'product',
             'quantity',
-            'price'
+            'priceEntered',
+            'priceWithVAT'
         ],
         defaults: {
             quantityElement: compute(['quantity'], function(quantity){
                 return String.prototype.split.call(quantity, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(quantity, '.')[1] || '00') + '</span>'
+            }),
+            productTotalAmountVATFormatted: compute(['totalAmountVAT'], function(totalAmountVAT){
+                return LH.formatPrice(totalAmountVAT) + ' р.'
             })
         }
     });

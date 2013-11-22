@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
-import project.lighthouse.autotests.elements.PreLoader;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 
 @DefaultUrl("/settings")
 public class SettingsPage extends CommonPageObject {

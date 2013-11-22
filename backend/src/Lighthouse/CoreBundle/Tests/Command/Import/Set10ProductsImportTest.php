@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Set10ProductsImportTest extends ContainerAwareTestCase
 {
@@ -48,6 +49,33 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
         $this->assertNotContains('....', $display);
 
+        $this->assertContains("Done", $display);
+    }
+
+    public function testExecuteWithVerbose()
+    {
+        $this->clearMongoDb();
+
+        /* @var Set10ProductsImport $command */
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_products_import');
+        $commandTester = new CommandTester($command);
+
+        $input = array(
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
+            'batch-size' => 3
+        );
+        $options = array('verbosity' => OutputInterface::VERBOSITY_VERBOSE);
+
+        $exitCode = $commandTester->execute($input, $options);
+
+        $this->assertEquals(0, $exitCode);
+
+        $display = $commandTester->getDisplay();
+
+        $this->assertContains("Starting import", $display);
+        $this->assertNotContains('....', $display);
+        $this->assertContains("Persist product", $display);
+        $this->assertContains("Item time", $display);
         $this->assertContains("Done", $display);
     }
 

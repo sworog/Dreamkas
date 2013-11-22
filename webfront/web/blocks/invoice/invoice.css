@@ -184,3 +184,25 @@
 .invoice_dataEditing .invoice__removeLink{
     visibility: hidden;
 }
+
+.invoice label.preloader_spinner{
+    min-height: auto;
+    position: relative;
+}
+
+.invoice label.preloader_spinner *{
+    visibility: visible;
+}
+
+.invoice label.preloader_spinner input{
+    visibility: hidden;
+}
+
+.invoice label.preloader_spinner:after{
+    left: 0;
+    top: 0;
+    margin: 0;
+    width: 10px;
+    height: 10px;
+    border-width: 3px;
+}

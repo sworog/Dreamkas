@@ -791,4 +791,224 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('867-89', '0.sku', $response);
         Assert::assertJsonPathEquals('1235-89', '1.sku', $response);
     }
+
+    public function testInvoiceWithVATFields()
+    {
+        $productId1 = $this->createProduct(array('sku' => '111', 'vat' => '10'));
+        $productId2 = $this->createProduct(array('sku' => '222', 'vat' => '18'));
+
+        $invoiceData1 = array(
+            'sku' => '1234-89',
+            'supplierInvoiceSku' => 'ФРГ-1945',
+            'supplierInvoiceDate' => '2013-03-17T09:12:33+0400',
+            'acceptanceDate' => '2013-03-17T16:12:33+0400',
+            'includesVAT' => true,
+        );
+
+        $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
+        $invoiceProductId1 = $this->
+            createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78, $this->storeId, $this->departmentManager);
+        $invoiceProductId2 = $this->
+            createInvoiceProduct($invoiceId1, $productId2, 10.77, 6.98, $this->storeId, $this->departmentManager);
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals(true, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(3752.8, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(3407.42, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals(345.39, 'totalAmountVAT', $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId2
+        );
+        $this->assertResponseCode(204);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals(true, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(3677.63, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(3343.66, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals(333.97, 'totalAmountVAT', $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId1
+        );
+        $this->assertResponseCode(204);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals(true, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(0, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(0, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals(0, 'totalAmountVAT', $response);
+    }
+
+    /**
+     * Проверяем что указав цену без НДС получим данные соответствующие данным теста выше
+     */
+    public function testInvoiceWithVATFieldsWithoutVAT()
+    {
+        $productId1 = $this->createProduct(array('sku' => '111', 'vat' => '10'));
+        $productId2 = $this->createProduct(array('sku' => '222', 'vat' => '18'));
+
+        $invoiceData1 = array(
+            'sku' => '1234-89',
+            'supplierInvoiceSku' => 'ФРГ-1945',
+            'supplierInvoiceDate' => '2013-03-17T09:12:33+0400',
+            'acceptanceDate' => '2013-03-17T16:12:33+0400',
+            'includesVAT' => false,
+        );
+
+        $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
+        $invoiceProductId1 = $this->createInvoiceProduct(
+            $invoiceId1,
+            $productId1,
+            99.99,
+            33.44,
+            $this->storeId,
+            $this->departmentManager,
+            false
+        );
+        $invoiceProductId2 = $this->createInvoiceProduct(
+            $invoiceId1,
+            $productId2,
+            10.77,
+            5.92,
+            $this->storeId,
+            $this->departmentManager,
+            false
+        );
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals(false, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(3752.8, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(3407.42, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals(345.39, 'totalAmountVAT', $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId2
+        );
+        $this->assertResponseCode(204);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals(false, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(3677.63, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(3343.66, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals(333.97, 'totalAmountVAT', $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId1
+        );
+        $this->assertResponseCode(204);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals(false, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(0, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(0, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals(0, 'totalAmountVAT', $response);
+    }
+
+    public function testInvoiceChangeIncludesVAT()
+    {
+        $productId1 = $this->createProduct(array('sku' => '111', 'vat' => '10'));
+        $productId2 = $this->createProduct(array('sku' => '222', 'vat' => '18'));
+
+        $invoiceData1 = array(
+            'sku' => 'sku232',
+            'supplier' => 'ООО "Поставщик"',
+            'acceptanceDate' => '2013-03-18 12:56',
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceDate' => '17.03.2013',
+            'includesVAT' => true,
+        );
+
+        $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
+        $invoiceProductId1 = $this->
+            createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78, $this->storeId, $this->departmentManager);
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals(true, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(3677.63, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(3343.66, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals(333.97, 'totalAmountVAT', $response);
+
+        $invoiceData1['includesVAT'] = false;
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1,
+            $invoiceData1
+        );
+        $this->assertResponseCode(200);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals(false, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(4045.60, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(3677.63, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals(367.96, 'totalAmountVAT', $response);
+    }
 }

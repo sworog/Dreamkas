@@ -17,6 +17,9 @@ public class InvoiceProductObject extends AbstractObjectNode {
     private ObjectProperty price;
     private ObjectProperty sum;
 
+    private ObjectProperty vatSum;
+    private ObjectProperty vat;
+
     public InvoiceProductObject(WebElement element) {
         super(element);
     }
@@ -30,6 +33,8 @@ public class InvoiceProductObject extends AbstractObjectNode {
         units = setObjectProperty("productUnits", By.name("productUnits"));
         price = setObjectProperty("productPrice", By.name("productPrice"));
         sum = setObjectProperty("productSum", By.name("productSum"));
+        vatSum = setObjectProperty("vatSum", By.xpath(".//*[@model-attribute='productTotalAmountVATFormatted']"));
+        vat = setObjectProperty("vat", By.xpath(".//*[@model-attribute='product.vat']"));
     }
 
     @Override
@@ -40,7 +45,9 @@ public class InvoiceProductObject extends AbstractObjectNode {
                 quantity.getText().equals(row.get("productAmount")) &&
                 units.getText().equals(row.get("productUnits")) &&
                 price.getText().equals(row.get("productPrice")) &&
-                sum.getText().equals(row.get("productSum"));
+                sum.getText().equals(row.get("productSum")) &&
+                vatSum.getText().equals(row.get("vatSum")) &&
+                vat.getText().equals(row.get("vat"));
     }
 
     @Override

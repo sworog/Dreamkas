@@ -2,12 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Types\Numeric;
 
-class Decimal implements Numeric
+use Lighthouse\CoreBundle\Types\RawValue;
+
+class Decimal implements Numeric, RawValue
 {
     const NAME = 'Decimal';
 
     const ROUND_HALF_UP = PHP_ROUND_HALF_UP;
     const ROUND_HALF_DOWN = PHP_ROUND_HALF_DOWN;
+    const ROUND_HALF_EVEN = PHP_ROUND_HALF_EVEN;
 
     /**
      * @var int
@@ -114,6 +117,15 @@ class Decimal implements Numeric
     }
 
     /**
+     * Invert sign
+     * @return Decimal
+     */
+    public function invert()
+    {
+        return $this->mul(-1);
+    }
+
+    /**
      * @param boolean $flag invert value if flag is false
      * @return Decimal
      */
@@ -192,6 +204,8 @@ class Decimal implements Numeric
     {
         $roundPrecision = $precision + 1;
         switch ($roundMode) {
+            case self::ROUND_HALF_EVEN:
+                return round($operand, $precision, $roundMode);
             case self::ROUND_HALF_UP:
                 $rounder = bcdiv('5', self::getDivider($roundPrecision), $roundPrecision);
                 break;

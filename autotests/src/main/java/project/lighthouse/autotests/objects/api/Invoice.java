@@ -23,6 +23,7 @@ public class Invoice extends AbstractObject {
                 .put("legalEntity", legalEntity)
                 .put("supplierInvoiceSku", supplierInvoiceSku)
                 .put("supplierInvoiceDate", supplierInvoiceDate)
+                .put("includesVAT", true)
         );
     }
 

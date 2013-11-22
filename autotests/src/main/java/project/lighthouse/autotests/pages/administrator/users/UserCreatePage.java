@@ -6,8 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
-import project.lighthouse.autotests.elements.PreLoader;
 import project.lighthouse.autotests.elements.SelectByValue;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
 
 import java.util.HashMap;

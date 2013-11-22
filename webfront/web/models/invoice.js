@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
+        compute = require('kit/utils/computeAttr'),
         currentUserModel = require('models/currentUser');
 
     return Model.extend({
@@ -9,6 +10,13 @@ define(function(require) {
             if(currentUserModel.stores.length) {
                 return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/invoices'
             }
+        },
+
+        defaults: {
+            includesVAT: true,
+            totalAmountVATFormatted: compute(['totalAmountVAT'], function(totalAmountVAT){
+                return LH.formatPrice(totalAmountVAT)
+            })
         },
 
         dateFormat: 'dd.mm.yy',
@@ -22,6 +30,7 @@ define(function(require) {
             'acceptanceDate',
             'accepter',
             'legalEntity',
+            'includesVAT',
             'supplierInvoiceSku',
             'supplierInvoiceDate'
         ]
