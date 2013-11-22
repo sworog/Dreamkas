@@ -130,6 +130,7 @@ Scenario: Autocomplete validation 0/1/2 symbols
 
 Given there is the product with 'N-AIP1PWNAV0S' name, 'SKU-AIP1PWNAV0S' sku, 'BARCode-AIP1PWNAV0S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV0S' sku
+And the user navigates to the invoice page with name 'Invoice-AIP1PWNAV0S'
 And the user logs in as 'departmentManager'
 When the user inputs <value> in the invoice product <elementName> field
 Then the users checks no autocomplete results
@@ -150,6 +151,7 @@ Scenario: Adding invoice products - autocomplete validation 3 symbols
 
 Given there is the product with 'N-AIP1PWNAV3S' name, 'SKU-AIP1PWNAV3S' sku, 'BARCode-AIP1PWNAV3S' barcode
 And there is the invoice with 'Invoice-AIP1PWNAV3S' sku
+And the user navigates to the invoice page with name 'Invoice-AIP1PWNAV3S'
 And the user logs in as 'departmentManager'
 When the user inputs <value> in the invoice product <elementName> field
 Then the user checks <autoCompleteResult>
@@ -164,6 +166,7 @@ Scenario: Adding invoice products - autocomplete validation rus search
 
 Given there is the product with 'Имя-AIP1WNAVRS' name, 'Артикул-AIP1WNAVRS' sku, 'Баркод-AIP1WNAVRS' barcode
 And there is the invoice with 'Invoice-AIP1WNAVRS' sku
+And the user navigates to the invoice page with name 'Invoice-AIP1WNAVRS'
 And the user logs in as 'departmentManager'
 When the user inputs <value> in the invoice product <elementName> field
 Then the user checks invoice elements values
@@ -182,6 +185,7 @@ Scenario: Adding invoice products - autocomplete validation numbers search
 
 Given there is the product with '123-AIP1PWNAVNS' name, '123-AIP1PWNAVNS' sku, '123-AIP1PWNAVNS' barcode
 And there is the invoice with 'Invoice-AIP1PWNAVNS' sku
+And the user navigates to the invoice page with name 'Invoice-AIP1PWNAVNS'
 And the user logs in as 'departmentManager'
 When the user inputs <value> in the invoice product <elementName> field
 Then the user checks invoice elements values
@@ -200,6 +204,7 @@ Scenario: Adding invoice products - autocomplete validation eng search
 
 Given there is the product with 'NAME-AIP1PWNAVES' name, 'SKU-AIP1PWNAVES' sku, 'BC-AIP1PWNAVES' barcode
 And there is the invoice with 'Invoice-AIP1PWNAVES' sku
+And the user navigates to the invoice page with name 'Invoice-AIP1PWNAVES'
 And the user logs in as 'departmentManager'
 When the user inputs <value> in the invoice product <elementName> field
 Then the user checks invoice elements values
@@ -218,6 +223,7 @@ Scenario: Adding invoice products - autocomplete validation symbols search
 
 Given there is the product with '@#$-AIP1PWNAWSS' name, '@#$-AIP1PWNAWSS' sku, '@#$-AIP1PWNAWSS' barcode
 And there is the invoice with 'Invoice-AIP1PWNAWSS' sku
+And the user navigates to the invoice page with name 'Invoice-AIP1PWNAWSS'
 And the user logs in as 'departmentManager'
 When the user inputs <value> in the invoice product <elementName> field
 Then the user checks invoice elements values
@@ -236,6 +242,7 @@ Scenario: Adding invoice products - autocomplete validation small register searc
 
 Given there is the product with 'name-AIP1PWBAVSRS' name, 'sku-AIP1PWBAVSRS' sku, 'barcode-AIP1PWBAVSRS' barcode
 And there is the invoice with 'Invoice-AIP1PWBAVSRS' sku
+And the user navigates to the invoice page with name 'Invoice-AIP1PWBAVSRS'
 And the user logs in as 'departmentManager'
 When the user inputs <value> in the invoice product <elementName> field
 Then the user checks invoice elements values
@@ -254,6 +261,7 @@ Scenario: Adding invoice products - autocomplete validation big register search
 
 Given there is the product with 'Name-AIP1PWBAVBRS' name, 'Sku-AIP1PWBAVBRS' sku, 'Barcode-AIP1PWBAVBRS' barcode
 And there is the invoice with 'Invoice-AIP1PWBAVBRS' sku
+And the user navigates to the invoice page with name 'Invoice-AIP1PWBAVBRS'
 And the user logs in as 'departmentManager'
 When the user inputs <value> in the invoice product <elementName> field
 Then the user checks invoice elements values
@@ -272,6 +280,7 @@ Scenario: Clearing the fields if another autocomplete is inputed - name
 
 Given there is the product with 'Name-CLTFIAAIIN' name, 'Sku-CLTFIAAIIN' sku, 'Barcode-CLTFIAAIIN' barcode
 And there is the invoice with 'Invoice-CLTFIAAIIN' sku
+And the user navigates to the invoice page with name 'Invoice-CLTFIAAIIN'
 And the user logs in as 'departmentManager'
 When the user inputs 'Name-CLTFIAAIIN' in the invoice product 'productName' field
 Then the user checks invoice elements values
@@ -290,6 +299,7 @@ Scenario: Clearing the fields if another autocomplete is inputed - sku
 
 Given there is the product with 'Name-CLTFIAAIIS' name, 'Sku-CLTFIAAIIS' sku, 'Barcode-CLTFIAAIIS' barcode
 And there is the invoice with 'Invoice-CLTFIAAIIS' sku
+And the user navigates to the invoice page with name 'Invoice-CLTFIAAIIS'
 And the user logs in as 'departmentManager'
 When the user inputs 'Sku-CLTFIAAIIS' in the invoice product 'productSku' field
 Then the user checks invoice elements values
@@ -308,6 +318,7 @@ Scenario: Clearing the fields if another autocomplete is inputed - barcode
 
 Given there is the product with 'Name-CLTFIAAIIB' name, 'Sku-CLTFIAAIIB' sku, 'Barcode-CLTFIAAIIB' barcode
 And there is the invoice with 'Invoice-CLTFIAAIIB' sku
+And the user navigates to the invoice page with name 'Invoice-CLTFIAAIIB'
 And the user logs in as 'departmentManager'
 When the user inputs 'Barcode-CLTFIAAIIB' in the invoice product 'productBarCode' field
 Then the user checks invoice elements values

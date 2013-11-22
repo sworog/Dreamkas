@@ -1,8 +1,6 @@
 Meta:
 @us 51
 @id s23u51s3
-@noInvoiceNavigationStep
-
 
 Scenario: A scenario that prepares data
 
