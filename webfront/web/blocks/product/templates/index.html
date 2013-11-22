@@ -160,6 +160,36 @@
             <% } %>
         </td>
     </tr>
+    <tr>
+        <th>Остаток</th>
+        <td>
+            <div model="storeProduct" model-attribute="inventoryElement">
+                <%= storeProductModel.inventoryElement() %>
+                <span model="product" model-attribute="units">
+                    <%- LH.units(productModel.units, 'smallShort') %>
+                </span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th>ССО</th>
+        <td>
+            <div model="storeProduct" model-attribute="averageDailySalesElement">
+                <%= storeProductModel.averageDailySalesElement() %>
+                <span model="product" model-attribute="units">
+                    <%- LH.units(productModel.units, 'smallShort') %>
+                </span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th>УТЗ</th>
+        <td>
+            <div model="storeProduct" model-attribute="inventoryDaysElement">
+                <%= storeProductModel.inventoryDaysElement() %> дн.
+            </div>
+        </td>
+    </tr>
     <% if(LH.isAllow('stores/{store}/products/{product}', 'PUT')) { %>
     <tr>
         <td></td>
