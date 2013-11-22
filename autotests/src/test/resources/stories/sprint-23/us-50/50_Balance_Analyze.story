@@ -138,3 +138,20 @@ Then the user checks the balance list item by sku 'sku-s23u50-1' has items not v
 | Последняя |
 | Средняя |
 Then the user checks the balance list item by sku 'sku-s23u50-1' has items become visible while hovering
+
+Scenario: Check the product card have inventory, averageDailySales, inventoryDays values
+
+Meta:
+@id s23u50s9
+@description check the product card have inventory, averageDailySales, inventoryDays values
+
+Given the user navigates to the product with sku 'sku-s23u50'
+When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse' password
+Then the user checks the elements values
+| elementName | value |
+| inventory | 0,000 шт. |
+| averageDailySales | 0,00 шт. |
+| inventoryDays | 0,0 дн. |
+
+
+
