@@ -43,7 +43,6 @@ public class EndInvoiceApiSteps {
         productApiSteps.createProductThroughPost(productName, productSku, productBarCode, productUnits, "123", SubCategory.DEFAULT_NAME);
         givenThereIsTheInvoiceWithSku(invoiceSku);
         invoiceApiSteps.addProductToInvoice(invoiceSku, productSku, "1", "1", "departmentManager");
-        invoiceApiSteps.navigateToTheInvoicePage(invoiceSku);
     }
 
     @Given("there is the invoice with '$sku' sku")
