@@ -134,7 +134,7 @@ Then the user checks the balance list item by sku 'sku-s23u50-1' has items not v
 | items |
 | Остаток, шт. |
 | ССО, шт. |
-| УСЗ, дн. |
+| УТЗ, дн. |
 | Последняя |
 | Средняя |
 Then the user checks the balance list item by sku 'sku-s23u50-1' has items become visible while hovering

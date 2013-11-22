@@ -7,7 +7,7 @@ As a заведующий отделом
 I want to чтобы при продаже, приемке, списании товара учетная система корректно обрабатывала дробные значения количества
 In order была возможность работать с реальными количествами товара
 
-GivenStories: precondition/aPreconditionToStoryUs52.story
+GivenStories: precondition/us-52/aPreconditionToStoryUs52.story
 
 Scenario: Adding invoice product with fractional quantity
 
@@ -15,6 +15,8 @@ Meta:
 @id s23u52s1
 @description invoice have product with fractional quantity
 @smoke
+
+GivenStories: precondition/us-52/aPreconditionToScenarioS1.story
 
 Given the user navigates to the subCategory 'defaultSubCategory-s23u52', category 'defaultCategory-s23u52', group 'defaultGroup-s23u52' product list page
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
@@ -30,6 +32,8 @@ Meta:
 @description writeOff have product with fractional quantity
 @smoke
 
+GivenStories: precondition/us-52/aPreconditionToScenarioS2.story
+
 Given the user navigates to the subCategory 'defaultSubCategory-s23u52', category 'defaultCategory-s23u52', group 'defaultGroup-s23u52' product list page
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
 And the user opens product balance tab
@@ -44,8 +48,8 @@ Meta:
 @description import sale with fractional quantity
 @smoke
 
-Given the robot prepares import sales data for story 52
-And the robot waits the import folder become empty
+GivenStories: precondition/us-52/aPreconditionToScenarioS3.story
+
 Given the user navigates to the subCategory 'defaultSubCategory-s23u52', category 'defaultCategory-s23u52', group 'defaultGroup-s23u52' product list page
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
 And the user opens product balance tab
@@ -58,6 +62,8 @@ Scenario: Invoice quantity validation negative - 0,0003
 Meta:
 @id s23u52s4
 @description negative product quantity input 0,0003, see the validation message
+
+GivenStories: precondition/us-52/aPreconditionToScenarioS4.story
 
 Given the user navigates to the invoice page with name 'invoice-2352-1'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
@@ -72,6 +78,8 @@ Scenario: Invoice edit quantity validation negative - 6,7689
 Meta:
 @id s23u52s5
 @description negative product quantity input 6,7689, see the validation message
+
+GivenStories: precondition/us-52/aPreconditionToScenarioS5.story
 
 Given the user navigates to the invoice page with name 'invoice-2352-2'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
@@ -88,6 +96,8 @@ Meta:
 @id s23u52s6
 @description negative product quantity input 0,6789, see the validation message
 
+GivenStories: precondition/us-52/aPreconditionToScenarioS6.story
+
 Given the user navigates to the write off with number 'writeOff-2352-2'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
 And the user clicks edit button and starts write off edition
@@ -103,6 +113,8 @@ Scenario: WriteOff edit quantity validation negative - 0,0003
 Meta:
 @id s23u52s7
 @description negative product quantity input 0,6789, see the validation message
+
+GivenStories: precondition/us-52/aPreconditionToScenarioS7.story
 
 Given the user navigates to the write off with number 'writeOff-2352-3'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
