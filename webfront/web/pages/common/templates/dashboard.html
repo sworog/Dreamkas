@@ -1,10 +1,32 @@
-<% if (models.storeGrossSales){ %>
-    <div class="grossSale grossSale_store">
-        <div class="grossSale">
+<% var accounting = require('libs/accounting') %>
 
-        </div>
+<% if (_.any(models)) { %>
+<h1>Обзор</h1>
+<% } %>
+<% if (models.storeGrossSales){ %>
+<div class="grossSale grossSale_store">
+    <div class="grossSale__todayTitle">
+        Объём продаж на <%- moment(models.storeGrossSales.get('today.now.date')).startOf('hour').format('HH.mm') %>
     </div>
+    <div class="grossSale__todayValue">
+        <%- accounting.formatNumber(models.storeGrossSales.get('today.now.value'), 2, ' ', ',') %>
+    </div>
+    <div class="grossSale__yesterdayDiff">
+        На
+        <span class="grossSale__diffText <%- models.storeGrossSales.get('yesterday.now.diff') >= 0 ? 'grossSale__diffText_plus' : 'grossSale__diffText_minus'%>">
+            <%- Math.abs(models.storeGrossSales.get('yesterday.now.diff'))%>
+            <%= models.storeGrossSales.get('yesterday.now.diff') >= 0 ? 'больше' : 'меньше'%>, чем вчера (<%- accounting.formatNumber(models.storeGrossSales.get('yesterday.now.value'), 2, ' ', ',') %>)
+        </span>
+    </div>
+    <div class="grossSale__weekDiff">
+        На
+        <span class="grossSale__diffText <%- models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'grossSale__diffText_plus' : 'grossSale__diffText_minus'%>">
+            <%- Math.abs(models.storeGrossSales.get('weekAgo.now.diff'))%>
+            <%= models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'больше' : 'меньше'%>, чем вчера (<%- accounting.formatNumber(models.storeGrossSales.get('weekAgo.now.value'), 2, ' ', ',') %>)
+        </span>
+    </div>
+</div>
 <% } %>
 <% if (!_.any(models)) { %>
-    <div class="page__logo"></div>
+<div class="page__logo"></div>
 <% } %>
