@@ -268,7 +268,7 @@ Then the user sees error messages
 | error message |
 | Значение должно быть целым числом |
 
-Scenario: Write off product quantity validation String rus big register\
+Scenario: Write off product quantity validation String rus big register
 
 Given there is the write off with 'WriteOff-Edit-Val-22' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-22'

@@ -8,6 +8,7 @@ I want to чтобы данные в накладной не изменялис�
 In order to иметь возможность работать с оригинальной версией документа
 
 Scenario: Invoice data independence
+
 Given there is the invoice 'Invoice-DI-Test' with product 'Invoice-DI-Test name' name, 'Invoice-DI-Test sku' sku, 'Invoice-DI-Test barcode' barcode, 'kg' units
 And the user navigates to the product with sku 'Invoice-DI-Test sku'
 And the user logs in as 'commercialManager'

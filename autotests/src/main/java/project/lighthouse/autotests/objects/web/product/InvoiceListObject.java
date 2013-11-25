@@ -20,7 +20,7 @@ public class InvoiceListObject extends AbstractObjectNode {
 
     public void setProperties() {
         acceptanceDateFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='acceptanceDateFormatted']")).getText();
-        quantity = getElement().findElement(By.xpath(".//*[@model-attribute='quantity']")).getText();
+        quantity = getElement().findElement(By.xpath(".//*[@model-attribute='quantityElement']")).getText();
         priceFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='priceFormatted']")).getText();
         totalPriceFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='totalPriceFormatted']")).getText();
         invoiceSku = getElement().getAttribute("invoice-sku");
