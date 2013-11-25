@@ -11,7 +11,7 @@ use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Service\RoundService;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\DiExtraBundle\Annotation as DI;
 
 class StoreProductRepository extends DocumentRepository
@@ -292,10 +292,11 @@ class StoreProductRepository extends DocumentRepository
      */
     protected function calcRetailPrice($retailMarkup, Money $purchasePrice = null)
     {
-        $retailPrice = new Money();
         if (null !== $retailMarkup && '' !== $retailMarkup && null !== $purchasePrice) {
             $percent = 1 + ($retailMarkup / 100);
-            $retailPrice->setCountByQuantity($purchasePrice, $percent, true);
+            $retailPrice = $purchasePrice->mul($percent);
+        } else {
+            $retailPrice = new Money();
         }
         return $retailPrice;
     }
@@ -329,7 +330,6 @@ class StoreProductRepository extends DocumentRepository
         $query = $this
             ->createQueryBuilder()
             ->findAndUpdate()
-            //->returnNew(true)
             ->field('id')->equals($storeProductId)
             ->field('averagePurchasePrice')->set($roundedAveragePurchasePrice, true)
             ->field('averagePurchasePriceNotCalculate')->unsetField();
@@ -339,23 +339,57 @@ class StoreProductRepository extends DocumentRepository
 
     public function setAllAveragePurchasePriceToNotCalculate()
     {
-        $query = $this->createQueryBuilder()
-            ->update()
-            ->multiple(true)
-            ->field('averagePurchasePrice')->notEqual(null)
-            ->field('averagePurchasePriceNotCalculate')->set(true, true);
-
-        $query->getQuery()->execute();
+        $this->setFieldToNotCalculate('averagePurchasePrice', null);
     }
 
     public function resetAveragePurchasePriceNotCalculate()
     {
+        $this->resetFieldNotCalculate('averagePurchasePrice', null);
+    }
+
+    /**
+     * @param string $storeProductId
+     * @param float  $averageDailySales
+     */
+    public function updateAverageDailySales($storeProductId, $averageDailySales = null)
+    {
+        $query = $this
+            ->createQueryBuilder()
+            ->findAndUpdate()
+            ->field('id')->equals($storeProductId)
+            ->field('averageDailySales')->set($averageDailySales, true)
+            ->field('inventoryRatioNotCalculate')->unsetField();
+
+        $query->getQuery()->execute();
+    }
+
+    /**
+     * @param string $field
+     * @param mixed $value
+     */
+    public function setFieldToNotCalculate($field, $value = null)
+    {
         $query = $this->createQueryBuilder()
             ->update()
             ->multiple(true)
-            ->field('averagePurchasePriceNotCalculate')->equals(true)
-            ->field('averagePurchasePrice')->set(null, true)
-            ->field('averagePurchasePriceNotCalculate')->unsetField();
+            ->field($field)->notEqual($value)
+            ->field("{$field}NotCalculate")->set(true, true);
+
+        $query->getQuery()->execute();
+    }
+
+    /**
+     * @param string $field
+     * @param mixed $value
+     */
+    public function resetFieldNotCalculate($field, $value = null)
+    {
+        $query = $this->createQueryBuilder()
+            ->update()
+            ->multiple(true)
+            ->field("{$field}NotCalculate")->equals(true)
+            ->field($field)->set($value, true)
+            ->field("{$field}NotCalculate")->unsetField();
 
         $query->getQuery()->execute();
     }

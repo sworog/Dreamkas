@@ -30,9 +30,16 @@ class InvoiceRepository extends DocumentRepository
      * @param Invoice $invoice
      * @param int $itemsCountDiff
      * @param int $sumTotalDiff
+     * @param int $sumTotalWithoutVATDiff
+     * @param int $totalAmountVATDiff
      */
-    public function updateTotals(Invoice $invoice, $itemsCountDiff, $sumTotalDiff)
-    {
+    public function updateTotals(
+        Invoice $invoice,
+        $itemsCountDiff,
+        $sumTotalDiff,
+        $sumTotalWithoutVATDiff,
+        $totalAmountVATDiff
+    ) {
         $query = $this
             ->createQueryBuilder()
             ->findAndUpdate()
@@ -45,6 +52,14 @@ class InvoiceRepository extends DocumentRepository
 
         if ($sumTotalDiff <> 0) {
             $query->field('sumTotal')->inc($sumTotalDiff);
+        }
+
+        if ($sumTotalWithoutVATDiff <> 0) {
+            $query->field('sumTotalWithoutVAT')->inc($sumTotalWithoutVATDiff);
+        }
+
+        if ($totalAmountVATDiff <> 0) {
+            $query->field('totalAmountVAT')->inc($totalAmountVATDiff);
         }
 
         $query->getQuery()->execute();

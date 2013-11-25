@@ -6,6 +6,9 @@ use Lighthouse\CoreBundle\Test\Constraint\ResponseCode;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Response;
 use PHPUnit_Framework_Assert;
+use DomainException;
+use PHPUnit_Framework_ExpectationFailedException;
+use PHPUnit_Util_Type;
 
 class Assert
 {
@@ -29,19 +32,24 @@ class Assert
      * @param mixed $json
      * @param bool|int $count
      * @param string $message
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
     public static function assertJsonPathEquals($expected, $path, $json, $count = true, $message = '')
     {
         $jsonPath = new JsonPath($json, $path);
-        $values = $jsonPath->getValues(true);
+        try {
+            $values = $jsonPath->getValues(true);
+        } catch (DomainException $e) {
+            throw new PHPUnit_Framework_ExpectationFailedException($e->getMessage(), null, $e);
+        }
         $found = 0;
         $notFoundValues = array();
         foreach ($values as $value) {
             try {
                 PHPUnit_Framework_Assert::assertEquals($expected, $value, $message);
                 $found++;
-            } catch (\PHPUnit_Framework_ExpectationFailedException $e) {
-                $notFoundValues[] = \PHPUnit_Util_Type::export($value);
+            } catch (PHPUnit_Framework_ExpectationFailedException $e) {
+                $notFoundValues[] = PHPUnit_Util_Type::export($value);
             }
         }
 

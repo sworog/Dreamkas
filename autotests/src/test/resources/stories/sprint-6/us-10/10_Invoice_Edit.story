@@ -48,6 +48,7 @@ Then the user checks invoice 'head' elements  values
 Scenario: Invoice head edition stop edit link click
 
 Given there is the invoice with 'Invoice-IE-IPE-SELC' sku
+And the user navigates to the invoice page with name 'Invoice-IE-IPE-SELC'
 And the user logs in as 'departmentManager'
 And the user is on the invoice list page
 When the user open the invoice card with 'Invoice-IE-IPE-SELC' sku
@@ -63,6 +64,7 @@ Scenario: Invoice product edition name autocomplete
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE' sku
+And the user navigates to the invoice page with name 'Invoice-IE-IPE'
 And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
@@ -113,6 +115,7 @@ Scenario: Invoice product edition name autocomplete stop edit link click
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-ASELC' sku
+And the user navigates to the invoice page with name 'Invoice-IE-IPE-ASELC'
 And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
@@ -143,6 +146,7 @@ Scenario: Invoice product edition sku autocomplete
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-999' sku
+And the user navigates to the invoice page with name 'Invoice-IE-IPE-999'
 And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
@@ -193,6 +197,7 @@ Scenario: Invoice product edition sku autocomplete stop edit link click
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-ASSELC' sku
+And the user navigates to the invoice page with name 'Invoice-IE-IPE-ASSELC'
 And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
@@ -223,6 +228,7 @@ Scenario: Invoice product edition barcode autocomplete
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-1012' sku
+And the user navigates to the invoice page with name 'Invoice-IE-IPE-1012'
 And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field
@@ -273,6 +279,7 @@ Scenario: Invoice product edition barcode autocomplete stop edit link click
 Given there is the product with 'IE-IPE' name, 'IE-IPE' sku, 'IE-IPE' barcode
 And there is the product with 'IE-IPE-1' name, 'IE-IPE-1' sku, 'IE-IPE-1' barcode, 'liter' units
 And there is the invoice with 'Invoice-IE-IPE-ASBELC' sku
+And the user navigates to the invoice page with name 'Invoice-IE-IPE-ASBELC'
 And the user logs in as 'departmentManager'
 When the user inputs 'IE-IPE' in the invoice product 'productName' field
 And the user inputs '1' in the invoice product 'productAmount' field

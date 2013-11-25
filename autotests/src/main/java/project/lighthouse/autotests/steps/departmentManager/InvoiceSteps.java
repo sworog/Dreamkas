@@ -5,21 +5,17 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import org.json.JSONException;
+import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.DateTime;
-import project.lighthouse.autotests.pages.commercialManager.product.ProductApi;
+import project.lighthouse.autotests.elements.preLoader.CheckBoxPreLoader;
 import project.lighthouse.autotests.pages.departmentManager.invoice.*;
-
-import java.io.IOException;
 
 public class InvoiceSteps extends ScenarioSteps {
 
     InvoiceCreatePage invoiceCreatePage;
     InvoiceListPage invoiceListPage;
     InvoiceBrowsing invoiceBrowsing;
-    InvoiceApi invoiceApi;
-    ProductApi productApi;
     CommonPage commonPage;
 
     InvoiceSearchPage invoiceSearchPage;
@@ -27,37 +23,6 @@ public class InvoiceSteps extends ScenarioSteps {
 
     public InvoiceSteps(Pages pages) {
         super(pages);
-    }
-
-    @Step
-    public void createInvoiceThroughPost(String invoiceName) throws JSONException, IOException {
-        invoiceApi.createInvoiceThroughPostAndNavigateToIt(invoiceName);
-    }
-
-    @Step
-    public void createInvoiceThroughPostWithData(String invoiceName, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
-        productApi.сreateProductThroughPost(productName, productSku, productBarCode, productUnits, "123");
-        invoiceApi.createInvoiceThroughPostWithProductAndNavigateToIt(invoiceName, productSku);
-    }
-
-    @Step
-    public void createInvoiceThroughPost(String invoiceName, String storeName, String userName) throws IOException, JSONException {
-        invoiceApi.createInvoiceThroughPost(invoiceName, storeName, userName);
-    }
-
-    @Step
-    public void createInvoiceThroughPost(String storeName, String userName, ExamplesTable examplesTable) throws IOException, JSONException {
-        invoiceApi.createInvoiceThroughPost(storeName, userName, examplesTable);
-    }
-
-    @Step
-    public void navigateToTheInvoicePage(String invoiceName) throws JSONException {
-        invoiceApi.navigateToTheInvoicePage(invoiceName);
-    }
-
-    @Step
-    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price, String userName) throws IOException, JSONException {
-        invoiceApi.addProductToInvoice(invoiceName, productSku, quantity, price, userName);
     }
 
     @Step
@@ -78,6 +43,11 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void input(String elementName, String inputText) {
         invoiceCreatePage.input(elementName, inputText);
+    }
+
+    @Step
+    public void fieldInput(ExamplesTable examplesTable) {
+        invoiceBrowsing.fieldInput(examplesTable);
     }
 
     @Step
@@ -197,6 +167,7 @@ public class InvoiceSteps extends ScenarioSteps {
         invoiceBrowsing.childrenElementClick(elementName, elementClassName);
     }
 
+    @Deprecated
     @Step
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         invoiceBrowsing.childrentItemClickByFindByLocator(parentElementName, elementName);
@@ -260,5 +231,57 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void checkHighlightsText(String expectedHighlightedText) {
         invoiceSearchPage.getInvoiceSearchObjectCollection().containsHighLightText(expectedHighlightedText);
+    }
+
+    @Step
+    public void objectPropertyClick(String objectLocator, String objectPropertyName) {
+        invoiceBrowsing.getInvoiceProductsCollection().clickPropertyByLocator(objectLocator, objectPropertyName);
+    }
+
+    @Step
+    public void objectPropertyInput(String locator, String propertyName, String value) {
+        invoiceBrowsing.getInvoiceProductsCollection().inputPropertyByLocator(locator, propertyName, value);
+    }
+
+    @Step
+    public void compareWithExampleTable(ExamplesTable examplesTable) {
+        invoiceBrowsing.getInvoiceProductsCollection().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void itemClick(String itemName) {
+        invoiceBrowsing.itemClick(itemName);
+    }
+
+    @Step
+    public void checkTheStateOfCheckBox(String itemName, String state) {
+        String checkBoxState = invoiceBrowsing.getItemAttribute(itemName, "checked");
+        switch (state) {
+            case "checked":
+                if (checkBoxState != null) {
+                    if (!checkBoxState.equals("true")) {
+                        Assert.fail("CheckBox is not checked!");
+                    }
+                } else {
+                    Assert.fail("CheckBox is not checked!");
+                }
+                break;
+            case "unChecked":
+                if (checkBoxState != null) {
+                    Assert.fail("CheckBox is not unchecked!");
+                }
+                break;
+        }
+    }
+
+    @Step
+    public void checkTheCheckBoxText(String itemName, String text) {
+        String actualText = invoiceBrowsing.items.get(itemName).getVisibleWebElement().findElement(By.xpath(".//..")).getText();
+        Assert.assertEquals(text, actualText);
+    }
+
+    @Step
+    public void checkBoxPreLoaderWait() {
+        new CheckBoxPreLoader(getDriver()).await();
     }
 }

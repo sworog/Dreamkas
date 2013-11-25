@@ -13,7 +13,7 @@ interface WorkerInterface
     public function supports(Job $job);
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\Job\Job $job
+     * @param Job $job
      * @return mixed result of work
      */
     public function work(Job $job);

@@ -3,6 +3,7 @@ package project.lighthouse.autotests;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 
+@Deprecated
 public interface CommonViewInterface {
 
     void itemCheck(String value);
@@ -19,6 +20,7 @@ public interface CommonViewInterface {
 
     void childrenItemClickByClassName(String elementName, String elementClassName);
 
+    @Deprecated
     void childrentItemClickByFindByLocator(String elementName, By by);
 
     void childrenItemNavigateAndClickByFindByLocator(String elementName, By by);

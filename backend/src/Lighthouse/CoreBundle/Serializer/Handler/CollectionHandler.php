@@ -3,11 +3,8 @@
 namespace Lighthouse\CoreBundle\Serializer\Handler;
 
 use JMS\Serializer\Context;
-use JMS\Serializer\EventDispatcher\Events;
-use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\Serializer\GraphNavigator;
-use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -17,38 +14,41 @@ use Metadata\MetadataFactoryInterface;
 
 /**
  * @DI\Service("lighthouse.core.serializer.handler.collection")
- * @DI\Tag("jms_serializer.subscribing_handler")
- * @DI\Tag("jms_serializer.event_subscriber")
+ * @DI\Tag("jms_serializer.handler", attributes={
+ *      "type": "Collection",
+ *      "format": "json",
+ *      "direction": "serialization"
+ * })
+ * @DI\Tag("jms_serializer.handler", attributes={
+ *      "type": "Collection",
+ *      "format": "xml",
+ *      "direction": "serialization"
+ * })
+ * @DI\Tag("jms_serializer.event_listener", attributes={
+ *      "event": "serializer.pre_serialize"
+ * })
  */
-class CollectionHandler implements SubscribingHandlerInterface, EventSubscriberInterface
+class CollectionHandler
 {
     /**
-     * @DI\Inject("jms_serializer.metadata_factory")
      * @var MetadataFactoryInterface
      */
-    public $metadataFactory;
+    protected $metadataFactory;
 
     /**
-     * @return array
+     * @DI\InjectParams({
+     *      "metadataFactory" = @DI\Inject("jms_serializer.metadata_factory")
+     * })
+     * @param MetadataFactoryInterface $metadataFactory
      */
-    public static function getSubscribingMethods()
+    public function __construct(MetadataFactoryInterface $metadataFactory)
     {
-        $methods = array();
-        $formats = array('xml' => 'Xml', 'json' => 'Json');
-        foreach ($formats as $format => $methodSuffix) {
-            $methods[] = array(
-                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
-                'format' => $format,
-                'type' => 'Collection',
-                'method' => 'serializeCollectionTo' . $methodSuffix,
-            );
-        }
-        return $methods;
+        $this->metadataFactory = $metadataFactory;
     }
 
     /**
      * @param XmlSerializationVisitor $visitor
-     * @param \Lighthouse\CoreBundle\Document\AbstractCollection $collection
+     * @param AbstractCollection $collection
      * @param array $type
      * @param Context $context
      */
@@ -99,22 +99,9 @@ class CollectionHandler implements SubscribingHandlerInterface, EventSubscriberI
     }
 
     /**
-     * @return array
-     */
-    public static function getSubscribedEvents()
-    {
-        return array(
-            array(
-                'event' => Events::PRE_SERIALIZE,
-                'method' => 'onPreSerialize'
-            ),
-        );
-    }
-
-    /**
      * @param PreSerializeEvent $event
      */
-    public function onPreSerialize(PreSerializeEvent $event)
+    public function onSerializerPreSerialize(PreSerializeEvent $event)
     {
         if ($event->getObject() instanceof AbstractCollection) {
             $event->setType('Collection');

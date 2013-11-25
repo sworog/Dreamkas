@@ -7,7 +7,7 @@ use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\DiExtraBundle\Annotation as DI;
 use XMLReader;
 use DOMDocument;
@@ -72,7 +72,7 @@ class Set10ProductImportXmlParser
     }
 
     /**
-     * @return GoodElement
+     * @return GoodElement|boolean
      */
     public function readNextNode()
     {
@@ -130,9 +130,7 @@ class Set10ProductImportXmlParser
     {
         $salePrice = $good->getPrice();
         $salePriceMoney = $this->moneyModelTransformer->reverseTransform($salePrice);
-
-        $purchasePrice = new Money();
-        $purchasePrice->setCountByQuantity($salePriceMoney, 0.80, true);
+        $purchasePrice = $salePriceMoney->mul(0.80);
         return $purchasePrice;
     }
 

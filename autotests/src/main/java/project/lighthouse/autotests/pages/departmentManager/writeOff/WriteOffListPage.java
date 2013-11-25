@@ -40,9 +40,4 @@ public class WriteOffListPage extends CommonPageObject {
         By findBy = items.get(elementName).getFindBy();
         commonViewInterface.checkListItemHasExpectedValueByFindByLocator(value, elementName, findBy, expectedValue);
     }
-
-    public void goToTheWriteOffListPage() {
-        String xpath = "//*[@class='page__backLink']";
-        findVisibleElement(By.xpath(xpath)).click();
-    }
 }

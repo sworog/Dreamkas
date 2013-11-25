@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
 public class ApiConnect {
@@ -117,15 +116,6 @@ public class ApiConnect {
         String url = String.format("%s%s/%s/products", UrlHelper.getApiUrl(""), invoice.getApiUrl(), invoice.getId());
         String response = executeSimpleGetRequest(url, true);
         return new JSONArray(response);
-    }
-
-    public void averagePriceRecalculation() throws IOException, JSONException {
-        String url = UrlHelper.getApiUrl() + "/api/1/service/recalculate-average-purchase-price";
-        String response = executePostRequest(url, "");
-        assertEquals(
-                String.format("Average price recalculation failed!\nResponse: %s", response),
-                response, "{\"ok\":true}"
-        );
     }
 
     public WriteOff createWriteOffThroughPost(WriteOff writeOff) throws JSONException, IOException {

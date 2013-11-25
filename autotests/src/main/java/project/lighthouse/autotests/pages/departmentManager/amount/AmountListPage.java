@@ -11,7 +11,7 @@ import project.lighthouse.autotests.pages.commercialManager.product.ProductListP
 @DefaultUrl("/balance")
 public class AmountListPage extends ProductListPage {
 
-    public static final String ITEM_NAME = "amountItem";
+    public static final String ITEM_NAME = "inventoryItem";
     private static final String ITEM_SKU_NAME = "sku";
 
     CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);

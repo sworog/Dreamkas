@@ -34,8 +34,10 @@ public class JobLogObjectCollection extends AbstractObjectCollection {
         List<JobLogObject> logMessagesByType = new ArrayList<>();
         for (AbstractObject abstractObject : this) {
             JobLogObject jobLogObject = (JobLogObject) abstractObject;
-            if (jobLogObject.getType().equals(type)) {
-                logMessagesByType.add(jobLogObject);
+            if (jobLogObject.getType() != null) {
+                if (jobLogObject.getType().equals(type)) {
+                    logMessagesByType.add(jobLogObject);
+                }
             }
         }
         return logMessagesByType;

@@ -1,9 +1,8 @@
 package project.lighthouse.autotests;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import jline.internal.Nullable;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,15 +10,13 @@ import java.util.List;
 
 public class Waiter {
 
-    WebDriver driver;
-    WebDriverWait waiter;
+    private WebDriverWait waiter;
 
     public Waiter(WebDriver driver) {
-        this(driver, StaticData.TIMEOUT / 1000);
+        this(driver, StaticData.DEFAULT_TIMEOUT);
     }
 
     public Waiter(WebDriver driver, long timeout) {
-        this.driver = driver;
         waiter = new WebDriverWait(driver, timeout);
     }
 
@@ -63,6 +60,38 @@ public class Waiter {
     public Boolean invisibilityOfElementLocated(By findBy) {
         try {
             return waiter.until(ExpectedConditions.invisibilityOfElementLocated(findBy));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Boolean isElementVisible(By findBy) {
+        try {
+            return getPresentWebElement(findBy).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Boolean invisibilityOfElementLocated(final WebElement parentElement, final By childFindBy) {
+        try {
+            return waiter.until(new ExpectedCondition<Boolean>() {
+                @Override
+                public Boolean apply(@Nullable org.openqa.selenium.WebDriver input) {
+                    try {
+                        return !(parentElement.findElement(childFindBy).isDisplayed());
+                    } catch (NoSuchElementException e) {
+                        return true;
+                    } catch (StaleElementReferenceException e) {
+                        return true;
+                    }
+                }
+
+                @Override
+                public String toString() {
+                    return String.format("element to no longer be visible: %s", childFindBy);
+                }
+            });
         } catch (Exception e) {
             return false;
         }

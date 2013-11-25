@@ -12,18 +12,18 @@ class Precision extends Constraint
     /**
      * @var int
      */
-    public $decimals = 2;
+    public $precision = 2;
 
     /**
      * @var string
      */
-    public $message = 'lighthouse.validation.errors.precision.decimals';
+    public $message = 'lighthouse.validation.errors.precision.invalid';
 
     /**
      * @return string
      */
     public function getDefaultOption()
     {
-        return 'decimals';
+        return 'precision';
     }
 }

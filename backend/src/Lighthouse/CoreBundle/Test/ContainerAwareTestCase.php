@@ -4,12 +4,11 @@ namespace Lighthouse\CoreBundle\Test;
 
 use AppKernel;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use PHPUnit_Framework_TestResult;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Karzer\Framework\TestCase\SymfonyWebTestCase;
+use Lighthouse\CoreBundle\Job\JobManager;
 use Symfony\Component\DependencyInjection\Container;
-use Exception;
 
-class ContainerAwareTestCase extends WebTestCase
+class ContainerAwareTestCase extends SymfonyWebTestCase
 {
     /**
      * Init app with debug
@@ -17,21 +16,10 @@ class ContainerAwareTestCase extends WebTestCase
      */
     protected static $appDebug = false;
 
-    /**
-     * @var bool
-     */
-    protected $isolated = false;
-
     public static function setUpBeforeClass()
     {
+        parent::setUpBeforeClass();
         self::$appDebug = (boolean) getenv('SYMFONY_DEBUG') ?: false;
-    }
-
-    public static function loadKernelClass()
-    {
-        if (null === static::$class) {
-            static::$class = static::getKernelClass();
-        }
     }
 
     /**
@@ -73,7 +61,7 @@ class ContainerAwareTestCase extends WebTestCase
 
     protected function clearJobs()
     {
-        /* @var \Lighthouse\CoreBundle\Job\JobManager $jobManager */
+        /* @var JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
         $jobManager->startWatchingTubes()->purgeTubes()->stopWatchingTubes();
     }
@@ -85,35 +73,5 @@ class ContainerAwareTestCase extends WebTestCase
     protected function getFixtureFilePath($filePath)
     {
         return __DIR__ . '/../Tests/Fixtures/' . $filePath;
-    }
-
-    /**
-     * @param bool $inIsolation
-     */
-    public function setInIsolation($inIsolation)
-    {
-        parent::setInIsolation($inIsolation);
-        $this->isolated = $inIsolation;
-    }
-
-    /**
-     * @param Exception $e
-     */
-    protected function onNotSuccessfulTest(Exception $e)
-    {
-        if ($this->isolated) {
-            $e = SerializableException::factory($e);
-        }
-        parent::onNotSuccessfulTest($e);
-    }
-
-    /**
-     * @param PHPUnit_Framework_TestResult $result
-     * @return PHPUnit_Framework_TestResult
-     */
-    public function run(PHPUnit_Framework_TestResult $result = null)
-    {
-        static::loadKernelClass();
-        return parent::run($result);
     }
 }

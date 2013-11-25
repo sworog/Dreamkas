@@ -130,7 +130,7 @@ class ConfigControllerTest extends WebTestCase
     {
         $configId = $this->createConfig("test-config", "test-config-value");
         $configId2 = $this->createConfig("test-config2", "test-config-value2");
-        $configId3 = $this->createConfig("test-config3", "test-config-value3");
+        $this->createConfig("test-config3", "test-config-value3");
 
         $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
 
@@ -158,7 +158,7 @@ class ConfigControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('test-config-value', 'value', $response);
         Assert::assertJsonPathEquals($configId, 'id', $response);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/configs/by/name' . '?query=not-exists'

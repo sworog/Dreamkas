@@ -8,6 +8,8 @@ import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.*;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
+import project.lighthouse.autotests.objects.web.writeOff.WriteOffProductCollection;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrowsing;
 
 import java.util.Map;
@@ -132,5 +134,9 @@ public class WriteOffPage extends InvoiceBrowsing {
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         By findBy = items.get(parentElementName).getFindBy();
         commonViewInterface.childrentItemClickByFindByLocator(elementName, findBy);
+    }
+
+    public WriteOffProductCollection getWriteOffProductCollection() {
+        return new WriteOffProductCollection(getDriver(), By.name("writeOffProduct"));
     }
 }

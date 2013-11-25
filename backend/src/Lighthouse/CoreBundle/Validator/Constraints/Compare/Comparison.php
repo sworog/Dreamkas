@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Exception\NullValueException;
+use Lighthouse\CoreBundle\Types\Numeric\Numeric;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class Comparison
@@ -32,8 +33,8 @@ class Comparison
      * @param int|float $test
      * @param string $operator
      * @return bool
-     * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @throws \Lighthouse\CoreBundle\Exception\NullValueException
+     * @throws UnexpectedTypeException
+     * @throws NullValueException
      */
     public function compare($test, $operator)
     {
@@ -44,14 +45,18 @@ class Comparison
     /**
      * @param mixed $value
      * @return int|string
-     * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @throws \Lighthouse\CoreBundle\Exception\NullValueException
+     * @throws UnexpectedTypeException
+     * @throws NullValueException
      */
     protected function normalizeValue($value)
     {
         if (null === $value) {
             throw new NullValueException('value');
-        } elseif (!is_numeric($value)) {
+        }
+        if ($value instanceof Numeric) {
+            $value = $value->toNumber();
+        }
+        if (!is_numeric($value)) {
             throw new UnexpectedTypeException($value, 'numeric');
         }
         return $value;

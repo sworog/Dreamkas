@@ -6,20 +6,24 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\StoreProduct\RetailPrice as AssertRetailPrice;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @property Money  $retailPrice
- * @property float  $retailMarkup
- * @property string $retailPricePreference
- * @property Money  $roundedRetailPrice
- * @property Product $product
+ * @property Product    $product
+ * @property Store      $store
  * @property SubCategory $subCategory
- * @property Store  $store
- * @property int    $amount
+ * @property Money      $retailPrice
+ * @property float      $retailMarkup
+ * @property string     $retailPricePreference
+ * @property Money      $roundedRetailPrice
+ * @property float      $inventory
+ * @property float      $averageDailySales
+ * @property Money      $lastPurchasePrice
+ * @property Money      $averagePurchasePrice
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository"
@@ -32,7 +36,7 @@ class StoreProduct extends AbstractDocument
     /**
      * @MongoDB\Id(strategy="NONE")
      * @var string
-     * @Exclude
+     * @Serializer\Exclude
      */
     protected $id;
 
@@ -77,7 +81,7 @@ class StoreProduct extends AbstractDocument
      *     cascade="persist"
      * )
      * @var SubCategory
-     * @Exclude
+     * @Serializer\Exclude
      */
     protected $subCategory;
 
@@ -94,9 +98,17 @@ class StoreProduct extends AbstractDocument
     /**
      * Остаток
      * @MongoDB\Increment
+     * @Serializer\Accessor(getter="getInventoryDecimal")
      * @var int
      */
-    protected $amount = 0;
+    protected $inventory = 0;
+
+    /**
+     * @MongoDB\Float
+     * @Serializer\Accessor(getter="getAverageDailySalesDecimal")
+     * @var float
+     */
+    protected $averageDailySales = 0;
 
     /**
      * @MongoDB\Field(type="money")
@@ -109,4 +121,56 @@ class StoreProduct extends AbstractDocument
      * @var Money
      */
     protected $averagePurchasePrice;
+
+    /**
+     * @Serializer\VirtualProperty
+     * @return int
+     * @deprecated
+     */
+    public function getAmount()
+    {
+        return $this->inventory;
+    }
+
+    /**
+     * @return float
+     */
+    public function getInventoryDays()
+    {
+        if ($this->inventory > 0 && $this->averageDailySales > 0) {
+            return $this->inventory / $this->averageDailySales;
+        } else {
+            return 0;
+        }
+    }
+
+    /*
+     * Dummy method to format values for serializer
+     */
+
+    /**
+     * @Serializer\SerializedName("inventoryDays")
+     * @Serializer\VirtualProperty
+     * @return Decimal
+     */
+    public function getInventoryDaysDecimal()
+    {
+        return Decimal::createFromNumeric($this->getInventoryDays(), 1);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAverageDailySalesDecimal()
+    {
+        return Decimal::createFromNumeric($this->averageDailySales, 2)->toString();
+    }
+
+    /**
+     * @return string
+     */
+    public function getInventoryDecimal()
+    {
+        return Decimal::createFromNumeric($this->inventory, 3)->toString();
+    }
 }

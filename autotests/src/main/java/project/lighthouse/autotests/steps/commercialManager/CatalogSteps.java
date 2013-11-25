@@ -3,64 +3,22 @@ package project.lighthouse.autotests.steps.commercialManager;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
-import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.pages.commercialManager.catalog.*;
-
-import java.io.IOException;
+import project.lighthouse.autotests.pages.commercialManager.catalog.CategoryPage;
+import project.lighthouse.autotests.pages.commercialManager.catalog.GroupPage;
+import project.lighthouse.autotests.pages.commercialManager.catalog.MarkUpTab;
+import project.lighthouse.autotests.pages.commercialManager.catalog.SubCategoryPage;
 
 public class CatalogSteps extends ScenarioSteps {
 
     GroupPage groupPage;
     CategoryPage categoryPage;
     CommonPage commonPage;
-    CatalogApi catalogApi;
     SubCategoryPage subCategoryPage;
     MarkUpTab markUpTab;
 
     public CatalogSteps(Pages pages) {
         super(pages);
-    }
-
-    @Step
-    public void createGroupThroughPost(String groupName) throws IOException, JSONException {
-        catalogApi.createGroupThroughPost(groupName);
-    }
-
-    @Step
-    public void createCategoryThroughPost(String categoryName, String groupName) throws IOException, JSONException {
-        catalogApi.createCategoryThroughPost(categoryName, groupName);
-    }
-
-    @Step
-    public void navigateToGroupPage(String groupName) throws JSONException {
-        catalogApi.navigateToGroupPage(groupName);
-    }
-
-    @Step
-    public void navigateToCategoryPage(String categoryName, String groupName) throws JSONException {
-        catalogApi.navigateToCategoryPage(categoryName, groupName);
-    }
-
-    @Step
-    public void createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
-        catalogApi.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
-    }
-
-    @Step
-    public void createSubCategoryThroughPost(String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
-        catalogApi.createSubCategoryThroughPost(groupName, categoryName, subCategoryName, rounding);
-    }
-
-    @Step
-    public void navigateToSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
-        catalogApi.navigateToSubCategoryProductListPageUrl(subCategoryName, categoryName, groupName);
-    }
-
-    @Step
-    public void navigateToSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
-        catalogApi.navigateToSubCategoryProductCreatePageUrl(subCategoryName);
     }
 
     @Step
@@ -273,21 +231,6 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void checkSuccessMessage(String expectedMessage) {
         markUpTab.checkSuccessMessage(expectedMessage);
-    }
-
-    @Step
-    public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, String subCategoryName) throws IOException, JSONException {
-        catalogApi.setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, subCategoryName);
-    }
-
-    @Step
-    public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
-        catalogApi.promoteStoreManager(store, userName);
-    }
-
-    @Step
-    public void promoteDepartmentManager(Store store, String userName) throws IOException, JSONException {
-        catalogApi.promoteDepartmentManager(store, userName);
     }
 
     @Step

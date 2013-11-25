@@ -21,7 +21,6 @@ Examples:
 | 100 | vendorCountry |
 | 2000 | info |
 
-
 Scenario: Edit product validation - Field length validation negative
 
 Given there is created product with sku 'ED-NMLVN'
@@ -41,7 +40,6 @@ Examples:
 | 301 | vendor | Не более 300 символов |
 | 101 | vendorCountry | Не более 100 символов |
 | 2001 | info | Не более 2000 символов |
-
 
 Scenario: Edit product validation - Name field is required
 
@@ -135,14 +133,14 @@ Then the user user sees <errorMessage>
 
 Examples:
 | inputText | elementName | errorMessage |
-| 739,678 | purchasePrice | Цена не должна содержать больше 2 цифр после запятой. |
-| -152 | purchasePrice | Цена не должна быть меньше или равна нулю. |
-| -1 | purchasePrice | Цена не должна быть меньше или равна нулю. |
-| 0 | purchasePrice | Цена не должна быть меньше или равна нулю. |
-| BIG PRICE | purchasePrice | Цена не должна быть меньше или равна нулю. |
-| big price | purchasePrice | Цена не должна быть меньше или равна нулю. |
-| БОЛЬШАЯ ЦЕНА | purchasePrice | Цена не должна быть меньше или равна нулю. |
-| большая цена | purchasePrice | Цена не должна быть меньше или равна нулю. |
-| !@#$%^&*() | purchasePrice | Цена не должна быть меньше или равна нулю. |
-| %^#$Fgbdf345) | purchasePrice | Цена не должна быть меньше или равна нулю. |
+| 739,678 | purchasePrice | Цена не должна содержать больше 2 цифр после запятой |
+| -152 | purchasePrice | Цена не должна быть меньше или равна нулю |
+| -1 | purchasePrice | Цена не должна быть меньше или равна нулю |
+| 0 | purchasePrice | Цена не должна быть меньше или равна нулю |
+| BIG PRICE | purchasePrice | Цена не должна быть меньше или равна нулю |
+| big price | purchasePrice | Цена не должна быть меньше или равна нулю |
+| БОЛЬШАЯ ЦЕНА | purchasePrice | Цена не должна быть меньше или равна нулю |
+| большая цена | purchasePrice | Цена не должна быть меньше или равна нулю |
+| !@#$%^&*() | purchasePrice | Цена не должна быть меньше или равна нулю |
+| %^#$Fgbdf345) | purchasePrice | Цена не должна быть меньше или равна нулю |
 | 10000001 | purchasePrice | Цена не должна быть больше 10000000 |

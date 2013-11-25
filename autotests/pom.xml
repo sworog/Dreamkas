@@ -12,9 +12,9 @@
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <thucydides.version>0.9.204</thucydides.version>
-        <thucydides.jbehave.version>0.9.103</thucydides.jbehave.version>
-        <thucydides.maven.version>0.9.103</thucydides.maven.version>
+        <thucydides.version>0.9.224</thucydides.version>
+        <thucydides.jbehave.version>0.9.222</thucydides.jbehave.version>
+        <thucydides.maven.version>0.9.224</thucydides.maven.version>
         <thucydides.browser.width>1280</thucydides.browser.width>
         <thucydides.browser.height>1024</thucydides.browser.height>
         <thucydides.outputDirectory>${project.reporting.outputDirectory}/thucydides</thucydides.outputDirectory>
@@ -22,7 +22,6 @@
         <init>test</init>
         <webdriver.base.url>http://${init}.autotests.webfront.lighthouse.cs</webdriver.base.url>
         <webdriver.driver>firefox</webdriver.driver>
-        <webdriver.timeouts.implicitlywait>10000</webdriver.timeouts.implicitlywait>
         <thucydides.take.screenshots>FOR_FAILURES</thucydides.take.screenshots>
     </properties>
 
@@ -68,6 +67,11 @@
             <artifactId>postgresql</artifactId>
             <version>9.1-901.jdbc4</version>
         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.3</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -79,6 +83,12 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.1</version>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.11</version>

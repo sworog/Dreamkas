@@ -14,6 +14,15 @@ class SambaTest extends ContainerAwareTestCase
     }
 
     /**
+     * @param array $methods
+     * @return SambaStreamWrapper|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getSambaMock(array $methods)
+    {
+        return $this->getMock('\\Lighthouse\\CoreBundle\\Samba\\SambaStreamWrapper', $methods);
+    }
+
+    /**
      * @param $url
      * @param $expectedParsedUrl
      *
@@ -114,7 +123,7 @@ class SambaTest extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path/to/dir/file.doc";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('client'));
+        $sambaMock = $this->getSambaMock(array('client'));
 
         $parsedUrl = $sambaMock->parseUrl($url);
 
@@ -130,7 +139,7 @@ class SambaTest extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path/to/dir/file.doc";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('client'));
+        $sambaMock = $this->getSambaMock(array('client'));
 
         $parsedUrl = $sambaMock->parseUrl($url);
 
@@ -148,7 +157,7 @@ class SambaTest extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path/to/dir/file.doc";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+        $sambaMock = $this->getSambaMock(array('execute'));
         $parsedUrl = $sambaMock->parseUrl($url);
 
         $expectedExecuteCommand = 'del "to\dir\file.doc"';
@@ -168,7 +177,7 @@ class SambaTest extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+        $sambaMock = $this->getSambaMock(array('execute'));
 
         $sambaMock->unlink($url);
     }
@@ -178,8 +187,8 @@ class SambaTest extends ContainerAwareTestCase
         $url = "smb://user:password@host/base_path/to/dir/file.doc";
         $urlNew = "smb://user:password@host/base_path/to/dir/file_new.doc";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
-        $parsedUrl = $sambaMock->parseUrl($url);
+        $sambaMock = $this->getSambaMock(array('execute'));
+        $sambaMock->parseUrl($url);
         $parsedUrlNew = $sambaMock->parseUrl($urlNew);
 
         $expectedExecuteCommand = 'rename "to\dir\file.doc" "to\dir\file_new.doc"';
@@ -200,7 +209,7 @@ class SambaTest extends ContainerAwareTestCase
         $url = "smb://user:password@host/base_path/to/dir/file.doc";
         $urlNew = "smb://user:password@new_host/base_path/to/dir/file_new.doc";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+        $sambaMock = $this->getSambaMock(array('execute'));
 
         $sambaMock->rename($url, $urlNew);
     }
@@ -213,7 +222,7 @@ class SambaTest extends ContainerAwareTestCase
         $url = "smb://user:password@host/base_path";
         $urlNew = "smb://user:password@host/base_path";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+        $sambaMock = $this->getSambaMock(array('execute'));
 
         $sambaMock->rename($url, $urlNew);
     }
@@ -222,7 +231,7 @@ class SambaTest extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path/to/dir";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+        $sambaMock = $this->getSambaMock(array('execute'));
         $parsedUrl = $sambaMock->parseUrl($url);
 
         $expectedExecuteCommand = 'mkdir "to\dir"';
@@ -242,7 +251,7 @@ class SambaTest extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+        $sambaMock = $this->getSambaMock(array('execute'));
 
         $sambaMock->mkdir($url, '', '');
     }
@@ -251,7 +260,7 @@ class SambaTest extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path/to/dir";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+        $sambaMock = $this->getSambaMock(array('execute'));
         $parsedUrl = $sambaMock->parseUrl($url);
 
         $expectedExecuteCommand = 'rmdir "to\dir"';
@@ -271,7 +280,7 @@ class SambaTest extends ContainerAwareTestCase
     {
         $url = "smb://user:password@host/base_path";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+        $sambaMock = $this->getSambaMock(array('execute'));
 
         $sambaMock->rmdir($url);
     }
@@ -281,7 +290,7 @@ class SambaTest extends ContainerAwareTestCase
         $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
         $urlDir = "smb://user:password@host/base_path/to/dir";
 
-        $sambaMock = $this->getMock('\Lighthouse\CoreBundle\Samba\SambaStreamWrapper', array('execute'));
+        $sambaMock = $this->getSambaMock(array('execute'));
 
         $this->assertFalse($sambaMock->getstatcache($urlFile));
         $this->assertFalse($sambaMock->getstatcache($urlDir));
@@ -335,14 +344,7 @@ class SambaTest extends ContainerAwareTestCase
         $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
         $urlDir = "smb://user:password@host/base_path/to/dir";
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array(
-                'getProcessResource',
-                'fgets',
-                'closeProcessResource',
-            )
-        );
+        $sambaMock = $this->getSambaMock(array('getProcessResource', 'fgets', 'closeProcessResource'));
 
         $sambaMock
             ->expects($this->any())
@@ -401,14 +403,7 @@ EOF;
 
         $expectedDirInfo = $this->getDirInfoArray();
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array(
-                'getProcessResource',
-                'fgets',
-                'closeProcessResource',
-            )
-        );
+        $sambaMock = $this->getSambaMock(array('getProcessResource', 'fgets', 'closeProcessResource'));
 
         $sambaMock
             ->expects($this->any())
@@ -419,21 +414,14 @@ EOF;
 
         $this->assertEquals($expectedDirInfo, $dirInfo);
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array(
-                'getProcessResource',
-                'fgets',
-                'closeProcessResource',
-            )
-        );
+        $sambaMock = $this->getSambaMock(array('getProcessResource', 'fgets', 'closeProcessResource'));
         $sambaMock
             ->expects($this->any())
             ->method('fgets')
             ->will($this->onConsecutiveCallsArray(array('tree connect failed: test')));
 
 
-        $this->setExpectedException('\Lighthouse\CoreBundle\Samba\SambaWrapperException');
+        $this->setExpectedException('\\Lighthouse\\CoreBundle\\Samba\\SambaWrapperException');
 
         $sambaMock->client('-L ' . escapeshellarg($urlDir), $parsedUrlDir);
     }
@@ -445,10 +433,7 @@ EOF;
         $urlHost = "smb://user:password@host";
         $urlShare = "smb://user:password@host/base_path";
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('look', 'execute')
-        );
+        $sambaMock = $this->getSambaMock(array('look', 'execute'));
         
         $lookInfo = array(
             "disk" => array("centrum"),
@@ -506,10 +491,7 @@ EOF;
             "workgroup" => array("cmag", "mygroup"),
         );
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('look')
-        );
+        $sambaMock = $this->getSambaMock(array('look'));
 
         $sambaMock
             ->expects($this->any())
@@ -527,10 +509,7 @@ EOF;
      */
     public function testUrlStatHostException()
     {
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('look')
-        );
+        $sambaMock = $this->getSambaMock(array('look'));
 
         $urlHost = "smb://user:password@host";
 
@@ -548,10 +527,7 @@ EOF;
             "workgroup" => array("cmag", "mygroup"),
         );
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('look')
-        );
+        $sambaMock = $this->getSambaMock(array('look'));
 
         $sambaMock
             ->expects($this->any())
@@ -568,10 +544,7 @@ EOF;
      */
     public function testUrlStatPathException()
     {
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('execute')
-        );
+        $sambaMock = $this->getSambaMock(array('execute'));
 
         $urlDir = "smb://user:password@host/base_path/success";
 
@@ -583,10 +556,7 @@ EOF;
      */
     public function testUrlStatNotTypeUrlException()
     {
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('execute')
-        );
+        $sambaMock = $this->getSambaMock(array('execute'));
 
         $url = "smb://";
 
@@ -604,14 +574,7 @@ Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.0.33-3.39.el5_8]
 NT_STATUS_NO_SUCH_FILE listing \reportsw
 EOF;
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array(
-                'getProcessResource',
-                'fgets',
-                'closeProcessResource',
-            )
-        );
+        $sambaMock = $this->getSambaMock(array('getProcessResource', 'fgets', 'closeProcessResource'));
 
         $sambaMock
             ->expects($this->any())
@@ -620,20 +583,15 @@ EOF;
 
         $urlDir = "smb://user:password@host/base_path/success";
 
-        $actualUrlStat = $sambaMock->url_stat($urlDir);
+        $sambaMock->url_stat($urlDir);
     }
 
     public function testDirOpenDirMethod()
     {
-        $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
         $urlDir = "smb://user:password@host/base_path/to/dir";
         $urlHost = "smb://user:password@host";
 
-        /* @var SambaStreamWrapper|\PHPUnit_Framework_MockObject_MockObject $sambaMock*/
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('look', 'execute')
-        );
+        $sambaMock = $this->getSambaMock(array('look', 'execute'));
 
         $lookInfo = array(
             "disk" => array("centrum"),
@@ -679,10 +637,7 @@ EOF;
     {
         $urlHost = "smb://user:password@host";
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('look')
-        );
+        $sambaMock = $this->getSambaMock(array('look'));
 
         $sambaMock->dir_opendir($urlHost, '');
     }
@@ -694,10 +649,7 @@ EOF;
     {
         $urlHost = "smb://";
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('look')
-        );
+        $sambaMock = $this->getSambaMock(array('look'));
 
         $sambaMock->dir_opendir($urlHost, '');
     }
@@ -789,10 +741,7 @@ EOF;
     {
         $urlHost = "smb://user:password@host";
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('look')
-        );
+        $sambaMock = $this->getSambaMock(array('look'));
 
         $sambaMock->stream_open($urlHost, '', '', '');
     }
@@ -804,10 +753,7 @@ EOF;
     {
         $urlHost = "smb://user:password@host/share";
 
-        $sambaMock = $this->getMock(
-            '\Lighthouse\CoreBundle\Samba\SambaStreamWrapper',
-            array('look')
-        );
+        $sambaMock = $this->getSambaMock(array('look'));
 
         $sambaMock->stream_open($urlHost, '', '', '');
     }

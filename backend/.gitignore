@@ -6,7 +6,6 @@
 /vendor/
 /bin/
 /composer.phar
-/composer.lock
 /.idea
 /.bundle
 /app/phpunit.debug.xml

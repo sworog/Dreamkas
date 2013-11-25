@@ -18,8 +18,6 @@ When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
 Then the user checks alert text is equal to 'Категория не пуста. Сначала удалите из нее все подкатегории.'
-When the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: Can't delete not empty category from catalog page
 
@@ -31,8 +29,6 @@ When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
 Then the user checks alert text is equal to 'Категория не пуста. Сначала удалите из нее все подкатегории.'
-When the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: Can't delete not empty сategory from category page
 
@@ -44,8 +40,6 @@ When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of category 'subCategoryTestCategoryValidation' element
 And the user deletes element through pop up menu
 Then the user checks alert text is equal to 'Категория не пуста. Сначала удалите из нее все подкатегории.'
-When the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: SubCategory validation name good - 100 symbols
 
@@ -58,8 +52,6 @@ And the user generates charData with '100' number in the 'name' pop up field
 Then the user checks 'name' pop up field contains only '100' symbols
 When the user clicks the create new subCategory button in pop up
 Then the user sees no error messages
-When the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: SubCategory validation name invalid - 101 symbols
 
@@ -74,8 +66,6 @@ When the user clicks the create new subCategory button in pop up
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: SubCategory validation name is required
 
@@ -88,8 +78,6 @@ And the user clicks the create new subCategory button in pop up
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: SubCategory validation - can't create group with equal name
 
@@ -105,8 +93,6 @@ And the user clicks the create new subCategory button in pop up
 Then the user sees error messages
 | error message |
 | Подкатегория с таким названием уже существует в этой категории |
-When the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: SubCategory edit validation name good - 100 symbols
 
@@ -121,8 +107,6 @@ And the user generates charData with '100' number with string char 'f' in the 'n
 Then the user checks 'name' pop up field contains only '100' symbols
 When the user clicks the create new subCategory button in pop up
 Then the user sees no error messages
-When the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: SubCategory edit validation name invalid - 101 symbols
 
@@ -139,9 +123,6 @@ When the user clicks the create new subCategory button in pop up
 Then the user sees error messages
 | error message |
 | Не более 100 символов |
-When the user discards pop up menu changes
-And the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: SubCategory edit validation name is required
 
@@ -157,9 +138,6 @@ When the user clicks the create new subCategory button in pop up
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-When the user discards pop up menu changes
-And the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: SubCategory edit validation - can't edit the group name to the group name already created
 
@@ -175,7 +153,3 @@ When the user clicks the create new subCategory button in pop up
 Then the user sees error messages
 | error message |
 | Подкатегория с таким названием уже существует в этой категории |
-When the user discards pop up menu changes
-And the user clicks on end edition link and ends the edition
-And the user logs out
-

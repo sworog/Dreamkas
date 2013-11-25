@@ -10,41 +10,42 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SalesImporterTest extends WebTestCase
 {
-    public function testImportWithSeveralInvalidCounts()
+    public function testProductInventoryChangedAfterImport()
     {
-        $storeId = $this->createStore('197');
+        $storeId = $this->factory->getStore('197');
 
         $skuAmounts = array(
-            '1' => -112,
-            '3' => -10,
-            '7' => -1,
-            '8594403916157' => -1,
-            '2873168' => 0,
-            '2809727' => 0,
-            '25525687' => -155,
-            '55557' => -1,
-            '8594403110111' => -1,
-            '4601501082159' => -1,
+            '1' => '-112',
+            '3' => '-10',
+            '7' => '-1',
+            '8594403916157' => '-1',
+            '2873168' => '0.008',
+            '2809727' => '0',
+            '25525687' => '-155',
+            '55557' => '-1',
+            '8594403110111' => '-1',
+            '4601501082159' => '-1',
         );
         $productIds = $this->createProductsBySku(array_keys($skuAmounts));
 
         $output = new TestOutput();
         $this->import('purchases-14-05-2012_9-18-29.xml', $output);
 
-        $this->assertStringStartsWith('.V............V.....', $output->getDisplay());
-        $lines = $output->getLines();
-        $this->assertCount(5, $lines);
-        $this->assertContains('Errors', $lines[1]);
-        $this->assertContains('products[1].quantity', $lines[2]);
+        $this->assertStringStartsWith('....................', $output->getDisplay());
 
-        foreach ($skuAmounts as $sku => $amount) {
-            $this->assertStoreProductTotals($storeId, $productIds[$sku], $amount);
+        foreach ($skuAmounts as $sku => $inventory) {
+            $this->assertStoreProduct(
+                $storeId,
+                $productIds[$sku],
+                array('inventory' => $inventory),
+                sprintf('Product #%s inventory assertion failed', $sku)
+            );
         }
     }
 
     public function testImportWithNotFoundProducts()
     {
-        $this->createStore('197');
+        $this->factory->getStore('197');
         $this->createProductsBySku(
             array(
                 '1',
@@ -72,7 +73,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportWithNotFoundShops()
     {
-        $this->createStore('777');
+        $this->factory->getStore('777');
         $this->createProductsBySku(
             array(
                 'Кит-Кат-343424',
@@ -91,7 +92,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportDoubleSales()
     {
-        $storeIds = $this->createStores(array('777', '666'));
+        $storeIds = $this->getStores(array('777', '666'));
         $productIds = $this->createProductsBySku(
             array(
                 'Кит-Кат-343424',
@@ -122,12 +123,12 @@ class SalesImporterTest extends WebTestCase
 
     public function testReturnsImport()
     {
-        $storeId = $this->createStore('197');
+        $storeId = $this->factory->getStore('197');
 
         $skuAmounts = array(
-            '1' => 1,
+            '1' => -0.57,
             '2' => 0,
-            '3' => 24,
+            '3' => 20.424,
             '4' => -23,
         );
 
@@ -140,8 +141,8 @@ class SalesImporterTest extends WebTestCase
         $lines = $output->getLines();
         $this->assertCount(1, $lines);
 
-        foreach ($skuAmounts as $sku => $amount) {
-            $this->assertStoreProductTotals($storeId, $productIds[$sku], $amount);
+        foreach ($skuAmounts as $sku => $inventory) {
+            $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
         }
     }
 

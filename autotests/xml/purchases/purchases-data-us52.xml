@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<purchases count="2">
+    <purchase discountAmount="0.0" amount="252.99" saletime="2013-10-03T12:43:24.235+04:00" number="3" shift="11"
+              cash="1" shop="2352" operDay="2013-10-03+04:00" operationType="true" userName="Админ Админ Админ"
+              tabNumber="123213123">
+        <positions>
+            <position amount="252.99" costWithDiscount="252.99" discountValue="0.0" ndsSum="0.0" nds="0.0" cost="252.99"
+                      count="2.363" barCode="235212345" goodsCode="235212345" departNumber="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="252.99" typeClass="CashPaymentEntity"/>
+        </payments>
+    </purchase>
+</purchases>

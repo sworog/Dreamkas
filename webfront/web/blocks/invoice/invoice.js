@@ -42,6 +42,10 @@ define(function(require) {
                     destroy: function() {
                         var block = this;
                         block.invoiceModel.fetch();
+                    },
+                    reset: function(){
+                        var block = this;
+                        block.productsTable.render();
                     }
                 }
             },
@@ -155,6 +159,27 @@ define(function(require) {
                     var block = this;
                     e.preventDefault();
                     block.removeDataInput();
+                },
+                'change .invoice__includesVATCheckbox': function(e){
+                    var block = this,
+                        $checkbox = $(e.target),
+                        $label = $checkbox.closest('label');
+
+                    $label.addClass('preloader_spinner');
+
+                    var save = block.invoiceModel.save({
+                        includesVAT: $checkbox.is(':checked')
+                    });
+
+                    save.done(function(){
+                        var products = _.map(block.invoiceModel.get('products'), function(product){
+                            product.invoice = block.invoiceModel.toJSON();
+                            return product;
+                        });
+
+                        block.invoiceProductsCollection.reset(products);
+                        $label.removeClass('preloader_spinner');
+                    });
                 }
             },
             initialize: function() {
@@ -180,6 +205,8 @@ define(function(require) {
                 } else {
                     block.$el.removeClass('invoice_editMode');
                 }
+
+                block.$('[name="includesVAT"]').prop('disabled', !val);
             },
             'set:dataEditing': function(val) {
                 var block = this;
@@ -191,6 +218,8 @@ define(function(require) {
                 } else {
                     block.$el.removeClass('invoice_dataEditing');
                 }
+
+                block.$('[name="includesVAT"]').prop('disabled', val);
             },
             showRemoveConfirm: function(invoiceProductId) {
                 var block = this,
@@ -273,20 +302,27 @@ define(function(require) {
 
                 block.set('dataEditing', true);
 
-                if (!$dataElement.attr('model-attr')) {
-                    $dataElement = $el.find('[model-attr]');
+                if (!$dataElement.attr('model-attribute')) {
+                    $dataElement = $el.find('[model-attribute]');
                 }
 
                 if ($dataRow.prop('tagName') === 'TR') {
                     dataInputControls = '<tr class="invoice__dataInputControlsTr"><td class="invoice__dataInputControlsTd" colspan="' + $dataRow.find('td').length + '">' + dataInputControls + '</td></tr>'
                 }
 
-                switch ($dataElement.attr('model-attr')) {
+                switch ($dataElement.attr('model-attribute')) {
                     case 'product':
                         $dataElement.append(block.templates.dataInputAutocomplete({
                             $dataElement: $dataElement
                         }));
                         this.autocompleteToInput($dataElement.find("[lh_product_autocomplete]"));
+                        break;
+
+                    case 'quantityElement':
+                        $dataElement.append(block.templates.dataInput({
+                            $dataElement: $dataElement,
+                            name: 'quantity'
+                        }));
                         break;
 
                     case 'acceptanceDate':

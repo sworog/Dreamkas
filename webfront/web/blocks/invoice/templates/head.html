@@ -3,12 +3,12 @@
         Накладная
         <span class="invoice__editable">
             №
-            <span name="sku" model-attr="sku">
+            <span name="sku" model-attribute="sku">
                 <%- invoiceModel.get('sku') %>
             </span>
         </span>
         от
-        <span name="acceptanceDate" class="invoice__editable" model-attr="acceptanceDate">
+        <span name="acceptanceDate" class="invoice__editable" model-attribute="acceptanceDate">
             <%- moment(invoiceModel.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
         </span>
     </span>
@@ -17,7 +17,7 @@
 <div class="invoice__head invoice__dataRow">
     <div>
         <div class="invoice__headItem">
-        <span class="invoice__headItemData invoice__editable" name="supplier" model-attr="supplier">
+        <span class="invoice__headItemData invoice__editable" name="supplier" model-attribute="supplier">
             <%- invoiceModel.get('supplier') %>
         </span>
             <div class="invoice__headItemHint">
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="invoice__headItem">
-        <span class="invoice__headItemData invoice__editable" name="accepter" model-attr="accepter">
+        <span class="invoice__headItemData invoice__editable" name="accepter" model-attribute="accepter">
             <%- invoiceModel.get('accepter') %>
         </span>
             <div class="invoice__headItemHint">
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="invoice__headItem">
-        <span class="invoice__headItemData invoice__editable" name="legalEntity" model-attr="legalEntity">
+        <span class="invoice__headItemData invoice__editable" name="legalEntity" model-attribute="legalEntity">
             <%- invoiceModel.get('legalEntity') %>
         </span>
             <div class="invoice__headItemHint">
@@ -47,10 +47,10 @@
         Входящая накладная
         <span class="invoice__editable <%- (!invoiceModel.get('supplierInvoiceSku')) ? 'invoice__hiddenData':'' %>">
             №
-            <span name="supplierInvoiceSku" model-attr="supplierInvoiceSku"><%- invoiceModel.get('supplierInvoiceSku') ? invoiceModel.get('supplierInvoiceSku') : 'Ввести номер' %></span>
+            <span name="supplierInvoiceSku" model-attribute="supplierInvoiceSku"><%- invoiceModel.get('supplierInvoiceSku') ? invoiceModel.get('supplierInvoiceSku') : 'Ввести номер' %></span>
         </span>
         <span class="<%- (!invoiceModel.get('supplierInvoiceDate')) ? 'invoice__hiddenData' : '' %>">
-            от <span name="supplierInvoiceDate" class="invoice__editable" model-attr="supplierInvoiceDate">
+            от <span name="supplierInvoiceDate" class="invoice__editable" model-attribute="supplierInvoiceDate">
                 <%- invoiceModel.get('supplierInvoiceDate') ? moment(invoiceModel.get('supplierInvoiceDate')).format('DD.MM.YYYY') : 'Ввести дату' %>
             </span>
         </span>

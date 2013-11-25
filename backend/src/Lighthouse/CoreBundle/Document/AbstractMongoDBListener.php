@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 abstract class AbstractMongoDBListener
 {

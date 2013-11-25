@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.jbehave;
 
-import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
 import project.lighthouse.autotests.StaticData;
 
@@ -9,21 +8,22 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     private static final String BRANCH = "lighthouse.autotests.branch";
     private static final String THREADS = "lighthouse.threads";
     private static final String DEMO_MODE = "lighthouse.demo";
+    private static final String TIMEOUT = "lighthouse.timeouts.implicitlywait";
+    private static final String PRE_LOADER_TIMEOUT = "lighthouse.timeouts.preloaderwait";
 
     public AcceptanceTestSuite() {
-        setImplicitlyWaitTimeOut();
+        setWaitTimeOuts();
         setWebDriverBaseUrl();
         setThreads();
         findStoriesByBranch();
         setDemoMode();
     }
 
-    private void setImplicitlyWaitTimeOut() {
-        StaticData.TIMEOUT = getEnvironmentVariables()
-                .getPropertyAsInteger(
-                        ThucydidesSystemProperty.TIMEOUTS_IMPLICIT_WAIT.getPropertyName(),
-                        StaticData.TIMEOUT
-                );
+    private void setWaitTimeOuts() {
+        StaticData.DEFAULT_TIMEOUT = getEnvironmentVariables()
+                .getPropertyAsInteger(TIMEOUT, StaticData.DEFAULT_TIMEOUT);
+        StaticData.DEFAULT_PRE_LOADER_TIMEOUT = getEnvironmentVariables()
+                .getPropertyAsInteger(PRE_LOADER_TIMEOUT, StaticData.DEFAULT_PRE_LOADER_TIMEOUT);
     }
 
     private void setWebDriverBaseUrl() {

@@ -45,7 +45,7 @@ class DepartmentController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @param \Lighthouse\CoreBundle\Document\Department\Department $department
+     * @param Department $department
      * @return \FOS\RestBundle\View\View|Department
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
@@ -67,7 +67,7 @@ class DepartmentController extends AbstractRestController
     }
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\Store\Store $store
+     * @param Store $store
      * @return DepartmentCollection
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc

@@ -1,0 +1,30 @@
+.table__rowHiddenElement{
+    visibility: hidden;
+}
+
+.table tr:hover .table__rowHiddenElement{
+    visibility: visible;
+}
+
+.table_subCategoryBalance > tbody > tr > td{
+    vertical-align: top;
+}
+
+.table_subCategoryBalance__value{
+    text-align: right;
+    overflow: hidden;
+    padding-right: 5px;
+    white-space: nowrap;
+}
+
+.table_subCategoryBalance .layout__floatPart {
+    width: 35px;
+    text-align: left;
+    display: inline-block;
+}
+
+.table_subCategoryBalance__valueHint,
+.table_subCategoryBalance .layout__currency{
+    font-size: 12px;
+    color: #95a5a6;
+}

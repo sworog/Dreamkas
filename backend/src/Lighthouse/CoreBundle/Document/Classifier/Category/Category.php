@@ -26,7 +26,7 @@ class Category extends AbstractNode
      *     simple=true,
      *     cascade="persist"
      * )
-     * @var \Lighthouse\CoreBundle\Document\Classifier\Group\Group
+     * @var Group
      */
     protected $group;
 

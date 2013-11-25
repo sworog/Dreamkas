@@ -2,22 +2,18 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints;
 
-use Lighthouse\CoreBundle\Types\Money as MoneyType;
+use Lighthouse\CoreBundle\Types\Numeric\Money as MoneyType;
 use Symfony\Component\Validator\Constraint;
 
 class MoneyValidator extends ConstraintValidator
 {
     /**
-     * @param mixed $value
+     * @param MoneyType $value
      * @param \Symfony\Component\Validator\Constraint|Money $constraint
      */
     public function validate($value, Constraint $constraint)
     {
-        if ($value instanceof MoneyType) {
-            $value = $value->getCount();
-        }
-
-        if (null === $value || '' === $value) {
+        if ($this->isEmpty($value)) {
             if ($constraint->notBlank) {
                 $this->context->addViolation(
                     $constraint->messageNotBlank
@@ -26,21 +22,23 @@ class MoneyValidator extends ConstraintValidator
             return;
         }
 
+        $count = $value->getCount();
+
         $precision = (int) $constraint->precision;
         $divider = pow(10, $precision);
 
-        if ($value < 0 || ($value == 0 && $constraint->zero === false)) {
+        if ($count < 0 || ($count == 0 && $constraint->zero === false)) {
             $this->context->addViolation(
                 $constraint->messageNegative,
                 array(
-                    '{{ value }}' => $value
+                    '{{ value }}' => $count
                 )
             );
         }
 
-        $money = $value / $divider;
+        $money = $count / $divider;
 
-        if (null !== $constraint->max && $value > $constraint->max) {
+        if (null !== $constraint->max && $count > $constraint->max) {
             $this->context->addViolation(
                 $constraint->messageMax,
                 array(
@@ -50,7 +48,7 @@ class MoneyValidator extends ConstraintValidator
             );
         }
 
-        if ($value - floor($value) > 0) {
+        if ($count - floor($count) > 0) {
             $this->context->addViolation(
                 $constraint->messagePrecision,
                 array(

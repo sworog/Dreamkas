@@ -1,0 +1,2 @@
+*/1 * * * * root /usr/local/bin/vpn_check_up.sh
+

@@ -40,7 +40,7 @@ class Set10SalesImportLocal extends Command
         SalesImporter $importer,
         LogRepository $logRepository
     ) {
-        parent::__construct('lighthouse:import:sales:local');
+        parent::__construct();
 
         $this->importer = $importer;
         $this->logRepository = $logRepository;

@@ -38,7 +38,7 @@ class WorkerCommand extends Command
      *      "workerMaxRuntime" = @DI\Inject("%lighthouse.core.job.worker.max_runtime%"),
      *      "reserveTimeout" = @DI\Inject("%lighthouse.core.job.worker.reserve_timeout%")
      * })
-     * @param \Lighthouse\CoreBundle\Job\JobManager $jobManager
+     * @param JobManager $jobManager
      * @param int $workerMaxRuntime
      * @param int $reserveTimeout
      */

@@ -14,7 +14,9 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -52,6 +54,11 @@ class SalesImporter
     protected $moneyTransformer;
 
     /**
+     * @var NumericFactory
+     */
+    protected $numericFactory;
+
+    /**
      * @var int
      */
     protected $batchSize = 1000;
@@ -67,26 +74,30 @@ class SalesImporter
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
      *      "productVersionRepository" = @DI\Inject("lighthouse.core.document.repository.product_version"),
      *      "validator" = @DI\Inject("lighthouse.core.validator"),
-     *      "moneyTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model")
+     *      "moneyTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model"),
+     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
      * })
      * @param ProductRepository $productRepository
      * @param StoreRepository $storeRepository
      * @param VersionRepository $productVersionRepository
      * @param ValidatorInterface $validator
      * @param MoneyModelTransformer $moneyTransformer
+     * @param NumericFactory $numericFactory
      */
     public function __construct(
         ProductRepository $productRepository,
         StoreRepository $storeRepository,
         VersionRepository $productVersionRepository,
         ValidatorInterface $validator,
-        MoneyModelTransformer $moneyTransformer
+        MoneyModelTransformer $moneyTransformer,
+        NumericFactory $numericFactory
     ) {
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
         $this->productVersionRepository = $productVersionRepository;
         $this->validator = $validator;
         $this->moneyTransformer = $moneyTransformer;
+        $this->numericFactory = $numericFactory;
     }
 
     /**
@@ -241,7 +252,7 @@ class SalesImporter
     public function createSaleProduct(PositionElement $positionElement)
     {
         $saleProduct = new SaleProduct();
-        $saleProduct->quantity = $this->roundQuantity($positionElement->getCount());
+        $saleProduct->quantity = $this->createQuantity($positionElement->getCount());
         $saleProduct->price = $this->transformPrice($positionElement->getCostWithDiscount());
         $saleProduct->product = $this->getProductVersion($positionElement->getGoodsCode());
         return $saleProduct;
@@ -254,7 +265,7 @@ class SalesImporter
     public function createReturnProduct(PositionElement $positionElement)
     {
         $returnProduct = new ReturnProduct();
-        $returnProduct->quantity = $this->roundQuantity($positionElement->getCount());
+        $returnProduct->quantity = $this->createQuantity($positionElement->getCount());
         $returnProduct->price = $this->transformPrice($positionElement->getCostWithDiscount());
         $returnProduct->product = $this->getProductVersion($positionElement->getGoodsCode());
         return $returnProduct;
@@ -309,15 +320,10 @@ class SalesImporter
 
     /**
      * @param string $count
-     * @return float
+     * @return Quantity
      */
-    protected function roundQuantity($count)
+    protected function createQuantity($count)
     {
-        $quantity = (float) $count;
-        if ((float) (int) $quantity === $quantity) {
-            return (int) $quantity;
-        } else {
-            return $quantity;
-        }
+        return $this->numericFactory->createQuantity($count);
     }
 }

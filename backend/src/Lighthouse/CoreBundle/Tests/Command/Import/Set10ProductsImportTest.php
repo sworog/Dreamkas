@@ -3,8 +3,11 @@
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
 use Lighthouse\CoreBundle\Command\Import\Set10ProductsImport;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Set10ProductsImportTest extends ContainerAwareTestCase
 {
@@ -49,6 +52,33 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
         $this->assertContains("Done", $display);
     }
 
+    public function testExecuteWithVerbose()
+    {
+        $this->clearMongoDb();
+
+        /* @var Set10ProductsImport $command */
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_products_import');
+        $commandTester = new CommandTester($command);
+
+        $input = array(
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
+            'batch-size' => 3
+        );
+        $options = array('verbosity' => OutputInterface::VERBOSITY_VERBOSE);
+
+        $exitCode = $commandTester->execute($input, $options);
+
+        $this->assertEquals(0, $exitCode);
+
+        $display = $commandTester->getDisplay();
+
+        $this->assertContains("Starting import", $display);
+        $this->assertNotContains('....', $display);
+        $this->assertContains("Persist product", $display);
+        $this->assertContains("Item time", $display);
+        $this->assertContains("Done", $display);
+    }
+
     /**
      * @param $file
      * @param $batchSize
@@ -58,6 +88,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
      */
     public function testArguments($file, $batchSize, $expectedFile, $expectedBatchSize)
     {
+        /* @var $parser Set10ProductImportXmlParser|\PHPUnit_Framework_MockObject_MockObject */
         $parser = $this->getMock(
             'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Products\\Set10ProductImportXmlParser',
             array(),
@@ -71,6 +102,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
             ->method('setXmlFilePath')
             ->with($this->equalTo($expectedFile));
 
+        /* @var $importer Set10ProductImporter|\PHPUnit_Framework_MockObject_MockObject */
         $importer = $this->getMock(
             'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Products\\Set10ProductImporter',
             array(),

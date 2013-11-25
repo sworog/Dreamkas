@@ -15,6 +15,7 @@
 @import "blocks/catalog/catalog.css";
 @import "blocks/tooltip/tooltip.css";
 @import "blocks/form/form.css";
+@import "blocks/table/table.css";
 @import "blocks/navigationBar/navigationBar.css";
 @import "blocks/localNavigation/localNavigation.css";
 @import "blocks/catalogCategory/catalogCategory.css";
@@ -22,6 +23,7 @@
 @import "blocks/log/log.css";
 @import "blocks/invoiceList/invoiceList.css";
 @import "blocks/writeOffList/writeOffList.css";
+@import "blocks/layout/layout.css";
 
 
 body {

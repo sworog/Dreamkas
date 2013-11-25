@@ -12,7 +12,7 @@ class ReturnProductControllerTest extends WebTestCase
 {
     /**
      * @param string $xmlFile
-     * @return \Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter
+     * @return SalesImporter
      */
     protected function importSales($xmlFile)
     {
@@ -26,7 +26,7 @@ class ReturnProductControllerTest extends WebTestCase
 
     public function testGetProductReturnProducts()
     {
-        $storeId = $this->createStore('197');
+        $storeId = $this->factory->getStore('197');
         $departmentManager = $this->factory->getDepartmentManager($storeId);
 
         $products = $this->createProductsBySku(array('1', '2', '3', '4'));

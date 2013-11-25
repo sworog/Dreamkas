@@ -64,6 +64,14 @@ abstract public class CommonPageObject extends PageObject {
         commonActions.elementClick(findBy);
     }
 
+    public void itemClick(String itemName) {
+        items.get(itemName).click();
+    }
+
+    public String getItemAttribute(String itemName, String attribute) {
+        return items.get(itemName).getVisibleWebElement().getAttribute(attribute);
+    }
+
     public void inputTable(ExamplesTable inputTable) {
         commonActions.inputTable(inputTable);
     }
@@ -73,7 +81,7 @@ abstract public class CommonPageObject extends PageObject {
     }
 
     public WebElement findModelFieldContaining(String modelName, String fieldName, String expectedValue) {
-        By by = By.xpath(String.format("//span[@model_name='%s' and @model_attr='%s' and contains(text(), '%s')]", modelName, fieldName, expectedValue));
+        By by = By.xpath(String.format("//span[@model='%s' and @model-attribute='%s' and contains(text(), '%s')]", modelName, fieldName, expectedValue));
         return findVisibleElement(by);
     }
 }

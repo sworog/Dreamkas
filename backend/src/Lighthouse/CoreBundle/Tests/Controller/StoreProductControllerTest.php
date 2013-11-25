@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Service\AveragePriceService;
+use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -35,9 +35,9 @@ class StoreProductControllerTest extends WebTestCase
         $this->storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
 
         $this->productId = $this->createProduct();
-        $this->storeId = $this->createStore();
+        $this->storeId = $this->factory->getStore();
 
-        $this->linkStoreManagers($this->storeId, $this->storeManager->id);
+        $this->factory->linkStoreManagers($this->storeManager->id, $this->storeId);
     }
 
     public function testGetActionNoStoreProductCreated()
@@ -293,7 +293,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена не должна быть меньше или равна нулю.',
+                    'children.retailPrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
                     'children.retailMarkup.errors.1' => null,
                     'children.retailMarkup.errors' => null,
                 )
@@ -305,7 +305,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой.',
+                    'children.retailPrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
                     'children.retailMarkup.errors.1' => null,
                     'children.retailMarkup.errors' => null,
                 )
@@ -343,78 +343,6 @@ class StoreProductControllerTest extends WebTestCase
                     'subCategory' => null,
                 )
             ),
-            /*
-            'invalid markup less than 0 when no min max product markup provided' => array(
-                400,
-                array(
-                    'retailMarkup' => -2,
-                    'retailPricePreference' => 'retailMarkup',
-                ),
-                array(
-                    'children.retailMarkup.errors.0' => 'Наценка должна быть больше или равна 0%',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailPrice.errors' => null,
-                ),
-                array(
-                    'retailMarkupMin' => null,
-                    'retailMarkupMax' => null,
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            'valid markup equals 0 when no min max product markup provided' => array(
-                200,
-                array(
-                    'retailMarkup' => 0,
-                    'retailPricePreference' => 'retailMarkup',
-                ),
-                array(
-                    'retailMarkup' => 0,
-                    'retailPrice' => '30.48',
-                    'children' => null,
-                ),
-                array(
-                    'retailMarkupMin' => null,
-                    'retailMarkupMax' => null,
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            'invalid price less than purchasePrice when no min max product markup provided' => array(
-                400,
-                array(
-                    'retailPrice' => 30.45,
-                    'retailPricePreference' => 'retailPrice',
-                ),
-                array(
-                    'children.retailPrice.errors.0' => 'Цена продажи должна быть больше или равна цене закупки.',
-                    'children.retailPrice.errors.1' => null,
-                    'children.retailMarkup.errors' => null,
-                ),
-                array(
-                    'purchasePrice' => 30.48,
-                    'retailMarkupMin' => null,
-                    'retailMarkupMax' => null,
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            'valid price equals purchasePrice when no min max product markup provided' => array(
-                200,
-                array(
-                    'retailPrice' => 30.48,
-                    'retailPricePreference' => 'retailPrice',
-                ),
-                array(
-                    'retailPrice' => '30.48',
-                    'retailMarkup' => '0',
-                    'children' => null,
-                ),
-                array(
-                    'purchasePrice' => 30.48,
-                    'retailMarkupMin' => null,
-                    'retailMarkupMax' => null,
-                    'retailPricePreference' => 'retailMarkup',
-                )
-            ),
-            */
             'invalid retail price entered when no min max product markup provided' => array(
                 400,
                 array(
@@ -503,7 +431,7 @@ class StoreProductControllerTest extends WebTestCase
     {
         $accessToken = $this->auth($this->storeManager, 'password');
 
-        $getResponse = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/stores/' . $this->storeId . '/products/' . $this->productId
@@ -530,7 +458,7 @@ class StoreProductControllerTest extends WebTestCase
     public function testDepartmentManagerAccessHasStore()
     {
         $departmentManager = $this->createUser('Василиса Петровна Бздых', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->linkDepartmentManagers($this->storeId, $departmentManager->id);
+        $this->factory->linkDepartmentManagers($departmentManager->id, $this->storeId);
 
         $accessToken = $this->auth($departmentManager, 'password');
 
@@ -864,13 +792,13 @@ class StoreProductControllerTest extends WebTestCase
     public function testGetStoreProductsAction()
     {
         $storeId1 = $this->storeId;
-        $storeId2 = $this->createStore('2', '2', '2');
+        $storeId2 = $this->factory->getStore('2', '2', '2');
 
         $departmentManager1 = $this->createUser('dm1', 'password', 'ROLE_DEPARTMENT_MANAGER');
         $departmentManager2 = $this->createUser('dm2', 'password', 'ROLE_DEPARTMENT_MANAGER');
 
-        $this->linkDepartmentManagers($storeId1, $departmentManager1->id);
-        $this->linkDepartmentManagers($storeId2, $departmentManager2->id);
+        $this->factory->linkDepartmentManagers($departmentManager1->id, $storeId1);
+        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $productId1 = $this->productId;
         $productId2 = $this->createProduct('2');
@@ -890,7 +818,7 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productId2, '*.product.id', $response);
         Assert::assertJsonPathEquals($productId3, '*.product.id', $response);
 
-        Assert::assertJsonPathEquals(0, '*.amount', $response);
+        Assert::assertJsonPathEquals(0, '*.inventory', $response);
 
         $response = $this->clientJsonRequest(
             $departmentAccessToken2,
@@ -903,7 +831,7 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productId2, '*.product.id', $response);
         Assert::assertJsonPathEquals($productId3, '*.product.id', $response);
 
-        Assert::assertJsonPathEquals(0, '*.amount', $response, 3);
+        Assert::assertJsonPathEquals(0, '*.inventory', $response, 3);
 
 
         $invoice1Store1Id = $this->createInvoice(array('sku' => 'store1'), $storeId1, $departmentManager1);
@@ -921,9 +849,9 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productId2, '*.product.id', $response);
         Assert::assertJsonPathEquals($productId3, '*.product.id', $response);
 
-        Assert::assertJsonPathEquals(1, '*.amount', $response, 1);
-        Assert::assertJsonPathEquals(2, '*.amount', $response, 1);
-        Assert::assertJsonPathEquals(0, '*.amount', $response, 1);
+        Assert::assertJsonPathEquals(1, '*.inventory', $response, 1);
+        Assert::assertJsonPathEquals(2, '*.inventory', $response, 1);
+        Assert::assertJsonPathEquals(0, '*.inventory', $response, 1);
 
         Assert::assertJsonPathEquals(10.99, '*.lastPurchasePrice', $response, 1);
         Assert::assertJsonPathEquals(11.99, '*.lastPurchasePrice', $response, 1);
@@ -943,9 +871,9 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productId2, '*.product.id', $response);
         Assert::assertJsonPathEquals($productId3, '*.product.id', $response);
 
-        Assert::assertJsonPathEquals(4, '*.amount', $response, 1);
-        Assert::assertJsonPathEquals(6, '*.amount', $response, 1);
-        Assert::assertJsonPathEquals(0, '*.amount', $response, 1);
+        Assert::assertJsonPathEquals(4, '*.inventory', $response, 1);
+        Assert::assertJsonPathEquals(6, '*.inventory', $response, 1);
+        Assert::assertJsonPathEquals(0, '*.inventory', $response, 1);
 
         Assert::assertJsonPathEquals(9.99, '*.lastPurchasePrice', $response, 1);
         Assert::assertJsonPathEquals(12.99, '*.lastPurchasePrice', $response, 1);
@@ -959,7 +887,7 @@ class StoreProductControllerTest extends WebTestCase
         $subCategoryId2 = $this->createSubCategory($categoryId, '1.1.2', false);
         $productId1 = $this->createProduct('1', $subCategoryId1);
         $productId2 = $this->createProduct('2', $subCategoryId2);
-        $storeId = $this->createStore('666');
+        $storeId = $this->factory->getStore('666');
         $departmentManager = $this->factory->getDepartmentManager($storeId);
 
         $invoiceId0 = $this->createInvoice(
@@ -1006,8 +934,8 @@ class StoreProductControllerTest extends WebTestCase
 
         $this->createInvoiceProduct($invoiceId3, $productId1, 10, 31, $storeId, $departmentManager);
 
-        /* @var $averagePriceService AveragePriceService */
-        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        /* @var $averagePriceService StoreProductMetricsCalculator */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
         $accessToken = $this->factory->authAsStoreManager($storeId);
@@ -1023,11 +951,11 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathCount(3, '*.product.id', $allProductsResponse);
         Assert::assertJsonPathEquals('28.60', '*.averagePurchasePrice', $allProductsResponse, 1);
         Assert::assertJsonPathEquals('31.00', '*.lastPurchasePrice', $allProductsResponse, 1);
-        Assert::assertJsonPathEquals('35', '*.amount', $allProductsResponse, 1);
+        Assert::assertJsonPathEquals('35', '*.inventory', $allProductsResponse, 1);
 
         Assert::assertJsonPathEquals('34.67', '*.averagePurchasePrice', $allProductsResponse, 1);
         Assert::assertJsonPathEquals('34.67', '*.lastPurchasePrice', $allProductsResponse, 1);
-        Assert::assertJsonPathEquals('6', '*.amount', $allProductsResponse, 1);
+        Assert::assertJsonPathEquals('6', '*.inventory', $allProductsResponse, 1);
 
         $category1ProductsResponse = $this->clientJsonRequest(
             $accessToken,
@@ -1041,7 +969,7 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productId1, '0.product.id', $category1ProductsResponse);
         Assert::assertJsonPathEquals('28.60', '0.averagePurchasePrice', $category1ProductsResponse);
         Assert::assertJsonPathEquals('31.00', '0.lastPurchasePrice', $category1ProductsResponse);
-        Assert::assertJsonPathEquals('35', '0.amount', $category1ProductsResponse);
+        Assert::assertJsonPathEquals('35', '0.inventory', $category1ProductsResponse);
 
         $category2ProductsResponse = $this->clientJsonRequest(
             $accessToken,
@@ -1055,6 +983,29 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productId2, '0.product.id', $category2ProductsResponse);
         Assert::assertJsonPathEquals('34.67', '0.averagePurchasePrice', $category2ProductsResponse);
         Assert::assertJsonPathEquals('34.67', '0.lastPurchasePrice', $category2ProductsResponse);
-        Assert::assertJsonPathEquals('6', '0.amount', $category2ProductsResponse);
+        Assert::assertJsonPathEquals('6', '0.inventory', $category2ProductsResponse);
+    }
+
+    public function testAmountAndInventoryFieldsPresentAndHaveSameValues()
+    {
+        $storeId = $this->factory->getStore('1');
+        $departmentManager = $this->factory->getDepartmentManager($storeId);
+        $productId = $this->createProduct('1');
+        $invoiceStoreId1 = $this->createInvoice(array('sku' => 'invoice1'), $storeId, $departmentManager);
+        $this->createInvoiceProduct($invoiceStoreId1, $productId, 3, 19.99, $storeId, $departmentManager);
+        $invoiceStoreId2 = $this->createInvoice(array('sku' => 'invoice2'), $storeId, $departmentManager);
+        $this->createInvoiceProduct($invoiceStoreId2, $productId, 4, 12.99, $storeId, $departmentManager);
+
+        $accessToken = $this->factory->auth($departmentManager);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products/' . $productId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals(7, 'amount', $getResponse);
+        Assert::assertJsonPathEquals(7, 'inventory', $getResponse);
     }
 }

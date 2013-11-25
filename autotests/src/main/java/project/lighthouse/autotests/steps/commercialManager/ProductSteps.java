@@ -5,18 +5,11 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import org.json.JSONException;
 import project.lighthouse.autotests.common.CommonPage;
-import project.lighthouse.autotests.objects.api.Category;
-import project.lighthouse.autotests.objects.api.Group;
-import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.pages.commercialManager.catalog.CatalogApi;
 import project.lighthouse.autotests.pages.commercialManager.product.*;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductInvoicesList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductReturnList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
-
-import java.io.IOException;
 
 public class ProductSteps extends ScenarioSteps {
 
@@ -25,8 +18,6 @@ public class ProductSteps extends ScenarioSteps {
     ProductCardView productCardView;
     ProductListPage productListPage;
     CommonPage commonPage;
-    ProductApi productApi;
-    CatalogApi catalogApi;
     ProductLocalNavigation productLocalNavigation;
     ProductInvoicesList productInvoicesList;
     ProductWriteOffList productWriteOffList;
@@ -34,52 +25,6 @@ public class ProductSteps extends ScenarioSteps {
 
     public ProductSteps(Pages pages) {
         super(pages);
-    }
-
-    @Step
-    public void createProductPostRequestSend(String name, String sku, String barcode, String units, String purchasePrice) throws JSONException, IOException {
-        productApi.сreateProductThroughPost(name, sku, barcode, units, purchasePrice);
-    }
-
-    @Step
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
-        productApi.createProductThroughPost(name, sku, barcode, units, purchasePrice, subCategoryName);
-    }
-
-    @Step
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
-                                         String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
-        productApi.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName);
-    }
-
-    @Step
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
-                                         String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
-        productApi.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
-    }
-
-    @Step
-    public void createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
-                                         String groupName, String categoryName, String subCategoryName, String retailMarkupMax, String retailMarkupMin, String rounding) throws IOException, JSONException {
-        productApi.createProductThroughPost(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, retailMarkupMax, retailMarkupMin, rounding);
-    }
-
-
-    @Step
-    public void navigateToTheProductPage(String productSku) throws JSONException {
-        productApi.navigateToTheProductPage(productSku);
-    }
-
-    @Step
-    public void openProductCreatePage() throws JSONException, IOException {
-        catalogApi.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
-        catalogApi.navigateToSubCategoryProductCreatePageUrl(SubCategory.DEFAULT_NAME);
-    }
-
-    @Step
-    public void openProductListPage() throws IOException, JSONException {
-        catalogApi.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
-        catalogApi.navigateToSubCategoryProductListPageUrlWihEditModeOn(SubCategory.DEFAULT_NAME, Category.DEFAULT_NAME, Group.DEFAULT_NAME);
     }
 
     @Step
@@ -260,6 +205,7 @@ public class ProductSteps extends ScenarioSteps {
     public void productReturnsTabIsNotVisible() {
         try {
             productLocalNavigation.productReturnsLinkClick();
+            Assert.fail("Products return tab is visible!");
         } catch (Exception ignored) {
         }
     }

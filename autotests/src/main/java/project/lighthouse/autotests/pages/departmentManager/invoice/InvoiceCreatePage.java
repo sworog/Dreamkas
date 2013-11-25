@@ -3,8 +3,6 @@ package project.lighthouse.autotests.pages.departmentManager.invoice;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Autocomplete;
@@ -17,9 +15,6 @@ public class InvoiceCreatePage extends CommonPageObject {
 
     private static final String XPATH_PATTERN = "//*[@class='invoice__dataInput']/*[@name='%s']";
     private static final String XPATH_AC_PATTERN = "//*[@class='invoice__dataInput']/*[@lh_product_autocomplete='%s']";
-
-    @FindBy(xpath = "//*[@lh_link='close']")
-    public WebElement invoiceCloseButton;
 
     public InvoiceCreatePage(WebDriver driver) {
         super(driver);
@@ -46,6 +41,8 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("totalProducts", new Input(this, "totalProducts"));
         items.put("totalSum", new Input(this, "totalSum"));
 
+        items.put("totalVat", new Input(this, By.xpath("//*[@model-attribute='totalAmountVATFormatted']")));
+
         /*View*/
         items.put("productNameView", new NonType(this, "productName"));
         items.put("productSkuView", new NonType(this, "productSku"));
@@ -71,6 +68,7 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("inline totalProducts", new Input(this, By.xpath(String.format(XPATH_PATTERN, "totalProducts"))));
         items.put("inline totalSum", new Input(this, By.xpath(String.format(XPATH_PATTERN, "totalSum"))));
 
+        items.put("includesVAT", new NonType(this, By.name("includesVAT")));
     }
 
     public void checkFieldLength(String elementName, int fieldLength) {

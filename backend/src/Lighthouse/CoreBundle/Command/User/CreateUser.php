@@ -2,13 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Command\User;
 
-use JMS\Serializer\Serializer;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use JMS\Serializer\SerializerInterface;
 
 /**
  * @DI\Service("lighthouse.core.command.user.create_user")
@@ -22,7 +22,7 @@ class CreateUser extends Command
     protected $userProvider;
 
     /**
-     * @var Serializer
+     * @var SerializerInterface
      */
     protected $serializer;
 
@@ -83,9 +83,9 @@ class CreateUser extends Command
      * @DI\InjectParams({
      *      "serializer" = @DI\Inject("serializer")
      * })
-     * @param Serializer $serializer
+     * @param SerializerInterface $serializer
      */
-    public function setSerializer(Serializer $serializer)
+    public function setSerializer(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }

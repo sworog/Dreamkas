@@ -330,7 +330,7 @@ And the user inputs values in the user page element fields
 And the user clicks the create new user button
 Then the user sees error messages
 | error message |
-| Значение недопустимо |
+| Значение недопустимо. |
 
 Scenario: Edit mode username validation negative symbols white space
 
@@ -344,5 +344,5 @@ And the user inputs values in the user page element fields
 And the user clicks the create new user button
 Then the user sees error messages
 | error message |
-| Значение недопустимо |
+| Значение недопустимо. |
 

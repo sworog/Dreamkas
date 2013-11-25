@@ -9,7 +9,7 @@ import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.InputOnlyVisible;
-import project.lighthouse.autotests.elements.PreLoader;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 
 import static junit.framework.Assert.fail;
 
@@ -82,11 +82,11 @@ public class GroupPage extends CommonPageObject {
 
     public void check(String name) {
         String classTitleXpath = getItemXpath(name);
-        find(By.xpath(classTitleXpath)).shouldBeVisible();
+        findVisibleElement(By.xpath(classTitleXpath));
     }
 
     public String getItemXpath(String name) {
-        String classXpath = "//*[@model_name='catalogGroup' and text()='%s']";
+        String classXpath = "//*[@model='catalogGroup' and text()='%s']";
         return String.format(classXpath, name);
     }
 
@@ -127,9 +127,9 @@ public class GroupPage extends CommonPageObject {
 
     public void checkItemParent(String item, String parent) {
         String xpath = String.format(
-                "//*[@class='catalog__groupItem' and *[@class='catalog__groupTitle']//*[@model_name='catalogGroup' and text()='%s'] and *[@class='catalog__categoryList']//*[@model_name='catalogCategory' and text()='%s']]",
+                "//*[@class='catalog__groupItem' and *[@class='catalog__groupTitle']//*[@model='catalogGroup' and text()='%s'] and *[@class='catalog__categoryList']//*[@model='catalogCategory' and text()='%s']]",
                 parent, item);
-        find(By.xpath(xpath)).shouldBeVisible();
+        findVisibleElement(By.xpath(xpath));
     }
 
     public void checkFieldLength(String elementName, int fieldLength) {

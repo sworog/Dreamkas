@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\User;
 
+use JMS\Serializer\SerializerInterface;
 use Lighthouse\CoreBundle\Command\User\CreateUser;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
@@ -32,6 +33,7 @@ class CreateUserTest extends ContainerAwareTestCase
      */
     protected function getCommand()
     {
+        /* @var $serializer SerializerInterface */
         $serializer = $this->getContainer()->get('serializer');
 
         $command = new CreateUser();
@@ -86,7 +88,7 @@ class CreateUserTest extends ContainerAwareTestCase
 
         $this->assertEquals(0, $exitCode1);
 
-        $exitCode2 = $commandTester->execute($input);
+        $commandTester->execute($input);
     }
 
     /**

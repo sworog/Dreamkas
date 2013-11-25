@@ -10,6 +10,7 @@ import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.*;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 
 import java.util.Map;
 
@@ -47,6 +48,11 @@ public class ProductCreatePage extends CommonPageObject {
         items.put("subCategory", new NonType(this, "subCategory"));
         items.put("rounding", new SelectByVisibleText(this, "rounding.name"));
         items.put("rounding price", new NonType(this, By.xpath("//*[@class='productForm__rounding']")));
+
+        items.put("inventory", new NonType(this, By.xpath("//*[@model-attribute='inventoryElement']")));
+        items.put("averageDailySales", new NonType(this, By.xpath("//*[@model-attribute='averageDailySalesElement']")));
+        items.put("inventoryDays", new NonType(this, By.xpath("//*[@model-attribute='inventoryDaysElement']")));
+
     }
 
     public void fieldInput(ExamplesTable fieldInputTable) {
@@ -100,7 +106,7 @@ public class ProductCreatePage extends CommonPageObject {
     public void retailPriceHintClick() {
         By retailPriceHintFindBy = items.get("retailPriceHint").getFindBy();
         By retailMarkupHintFindBy = items.get("retailMarkupHint").getFindBy();
-        if (isElementVisible(retailPriceHintFindBy) && !isElementVisible(retailMarkupHintFindBy)) {
+        if (waiter.isElementVisible(retailPriceHintFindBy) && !waiter.isElementVisible(retailMarkupHintFindBy)) {
             findVisibleElement(retailPriceHintFindBy).click();
         }
     }

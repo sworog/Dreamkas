@@ -3,10 +3,13 @@
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
 use Lighthouse\CoreBundle\Command\Import\Set10SalesImport;
-use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
+use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10Import;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use DirectoryIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class Set10SalesImportTest extends WebTestCase
 {
@@ -21,15 +24,23 @@ class Set10SalesImportTest extends WebTestCase
         parent::tearDown();
     }
 
+    /**
+     * @return string
+     */
+    protected function getDirPrefix()
+    {
+        return $this->prefix . $this->getPoolPosition() . '_';
+    }
+
     protected function clearTempFiles()
     {
-        $tmp = new \DirectoryIterator('/tmp/');
-        /* @var \DirectoryIterator $dir */
+        $tmp = new DirectoryIterator('/tmp/');
+        /* @var DirectoryIterator $dir */
         foreach ($tmp as $dir) {
-            if ($dir->isDir() && 0 === strpos($dir->getFilename(), $this->prefix)) {
-                $it = new \RecursiveDirectoryIterator($dir->getPathname());
+            if ($dir->isDir() && 0 === strpos($dir->getFilename(), $this->getDirPrefix())) {
+                $it = new RecursiveDirectoryIterator($dir->getPathname());
                 /* @var \SplFileInfo $file */
-                foreach (new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST) as $file) {
+                foreach (new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST) as $file) {
                     if ($file->isFile()) {
                         unlink($file->getPathname());
                     }
@@ -41,9 +52,9 @@ class Set10SalesImportTest extends WebTestCase
 
     public function testExecute()
     {
-        $this->createStore('197');
-        $this->createStore('666');
-        $this->createStore('777');
+        $this->factory->getStore('197');
+        $this->factory->getStore('666');
+        $this->factory->getStore('777');
         $this->createProductsBySku(
             array(
                 '1',
@@ -66,6 +77,7 @@ class Set10SalesImportTest extends WebTestCase
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
+        /* @var Set10SalesImport $command */
         $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
@@ -75,15 +87,56 @@ class Set10SalesImportTest extends WebTestCase
         $this->assertContains(basename($file1), $display);
         $this->assertContains("...\n", $display);
         $this->assertContains(basename($file2), $display);
-        $this->assertContains(".V............V.....\n", $display);
+        $this->assertContains("....................\n", $display);
 
         $this->assertFileNotExists($file1);
         $this->assertFileNotExists($file2);
 
-        /* @var ConfigRepository $configRepository */
-        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
-        $cursor = $configRepository->findAll();
-        $this->assertCount(2, $cursor);
+        /* @var LogRepository $logRepository */
+        $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $logRepository->findAll();
+        $this->assertCount(0, $cursor);
+    }
+
+    public function testExecuteWithErrors()
+    {
+        $this->factory->getStore('197');
+        $this->createProductsBySku(
+            array(
+                '8594403916157',
+                '2873168',
+                '2809727',
+                '25525687',
+                '55557',
+                '8594403110111',
+                '4601501082159'
+            )
+        );
+
+        $tmpDir = $this->createTempDir();
+        $file1 = $this->copyFixtureFileToDir('purchases-14-05-2012_9-18-29.xml', $tmpDir);
+
+        $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
+
+        /* @var Set10SalesImport $command */
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array());
+
+        $display = $commandTester->getDisplay();
+
+        $this->assertContains(basename($file1), $display);
+        $this->assertContains("E......E.........EEE\n", $display);
+        $this->assertContains('Product with sku "1" not found', $display);
+        $this->assertContains('Product with sku "7" not found', $display);
+        $this->assertContains('Product with sku "3" not found', $display);
+
+        $this->assertFileNotExists($file1);
+
+        /* @var LogRepository $logRepository */
+        $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $logRepository->findAll();
+        $this->assertCount(5, $cursor);
     }
 
     /**
@@ -95,6 +148,7 @@ class Set10SalesImportTest extends WebTestCase
     {
         $this->createConfig(Set10Import::URL_CONFIG_NAME, $url);
 
+        /* @var Set10SalesImport $command*/
         $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
@@ -122,6 +176,7 @@ class Set10SalesImportTest extends WebTestCase
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $file1);
 
+        /* @var Set10SalesImport $command */
         $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array());
@@ -148,7 +203,7 @@ class Set10SalesImportTest extends WebTestCase
 
     public function testOnlyPurchaseFilesImported()
     {
-        $this->createStore('197');
+        $this->factory->getStore('197');
         $this->createProductsBySku(
             array(
                 '1',
@@ -192,9 +247,8 @@ class Set10SalesImportTest extends WebTestCase
      */
     protected function createTempDir()
     {
-        $tmpDir = '/tmp/' . uniqid($this->prefix, true) . '/';
+        $tmpDir = '/tmp/' . uniqid($this->getDirPrefix(), true) . '/';
         mkdir($tmpDir);
-        clearstatcache();
         return $tmpDir;
     }
 

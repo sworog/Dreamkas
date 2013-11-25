@@ -2,7 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Document\Product;
 
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 interface Productable
 {
@@ -12,7 +13,7 @@ interface Productable
     public function getReasonProduct();
 
     /**
-     * @return float
+     * @return Quantity
      */
     public function getProductQuantity();
 

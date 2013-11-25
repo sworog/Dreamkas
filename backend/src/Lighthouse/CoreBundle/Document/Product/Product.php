@@ -6,8 +6,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Versionable\VersionableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Product\RetailPrice as AssertProductRetailPrice;
@@ -195,6 +196,6 @@ class Product extends AbstractDocument implements VersionableInterface
      */
     public function getVersionClass()
     {
-        return 'Lighthouse\\CoreBundle\\Document\\Product\\Version\\ProductVersion';
+        return ProductVersion::getClassName();
     }
 }

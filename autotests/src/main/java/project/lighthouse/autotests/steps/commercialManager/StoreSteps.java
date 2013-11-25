@@ -8,12 +8,11 @@ import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.pages.commercialManager.store.StoreApi;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreCardPage;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreCreatePage;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreListPage;
+import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
 
-import java.io.IOException;
 import java.util.Map;
 
 public class StoreSteps extends ScenarioSteps {
@@ -21,7 +20,7 @@ public class StoreSteps extends ScenarioSteps {
     StoreCreatePage storeCreatePage;
     StoreListPage storeListPage;
     StoreCardPage storeCardPage;
-    StoreApi storeApi;
+    StoreApiSteps storeApiSteps;
 
     public StoreSteps(Pages pages) {
         super(pages);
@@ -79,17 +78,6 @@ public class StoreSteps extends ScenarioSteps {
             }
             storeCardPage.checkStoreCardValue(columnName, columnValue);
         }
-
-    }
-
-    @Step
-    public Store createStore(String number, String address, String contacts) throws IOException, JSONException {
-        return storeApi.createStoreThroughPost(number, address, contacts);
-    }
-
-    @Step
-    public Store createStore() throws IOException, JSONException {
-        return storeApi.createStoreThroughPost();
     }
 
     @Step
@@ -99,7 +87,7 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void navigateToStorePageByNumber(String storeNumber) throws JSONException {
-        String storeId = storeApi.getStoreId(storeNumber);
+        String storeId = storeApiSteps.getStoreId(storeNumber);
         navigateToStorePage(storeId);
     }
 

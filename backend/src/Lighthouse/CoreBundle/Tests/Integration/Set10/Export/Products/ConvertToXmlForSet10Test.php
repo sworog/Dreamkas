@@ -41,13 +41,11 @@ class ConvertToXmlForSet10Test extends WebTestCase
      */
     public function initBase()
     {
-        $administratorAccessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
         $storeManager1User = $this->createUser('storeManager1', 'password', 'ROLE_STORE_MANAGER');
         $storeManager1AccessToken = $this->auth($storeManager1User);
         $storeManager2User = $this->createUser('storeManager2', 'password', 'ROLE_STORE_MANAGER');
         $storeManager2AccessToken = $this->auth($storeManager2User);
         $storeManager3User = $this->createUser('storeManager3', 'password', 'ROLE_STORE_MANAGER');
-        $storeManager3AccessToken = $this->auth($storeManager3User);
 
         $groupData = array(
             'name' => 'Группа',
@@ -67,20 +65,20 @@ class ConvertToXmlForSet10Test extends WebTestCase
         $storesData = array(
             1 => array(
                 'number' => '1',
-                'id' => $this->createStore('1'),
+                'id' => $this->factory->getStore('1'),
             ),
             2 => array(
                 'number' => '2',
-                'id' => $this->createStore('2'),
+                'id' => $this->factory->getStore('2'),
             ),
             3 => array(
                 'number' => '3',
-                'id' => $this->createStore('3'),
+                'id' => $this->factory->getStore('3'),
             ),
         );
-        $this->linkStoreManagers($storesData[1]['id'], $storeManager1User->id);
-        $this->linkStoreManagers($storesData[2]['id'], $storeManager2User->id);
-        $this->linkStoreManagers($storesData[3]['id'], $storeManager3User->id);
+        $this->factory->linkStoreManagers($storeManager1User->id, $storesData[1]['id']);
+        $this->factory->linkStoreManagers($storeManager2User->id, $storesData[2]['id']);
+        $this->factory->linkStoreManagers($storeManager3User->id, $storesData[3]['id']);
 
         $productsData = array(
             1 => array(
@@ -178,7 +176,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
             'retailPricePreference' => 'retailMarkup',
         );
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $storeManager1AccessToken,
             'PUT',
             '/api/1/stores/' . $storesData[1]['id'] . '/products/' . $productsData[1]['id'],
@@ -192,7 +190,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
             'retailPricePreference' => 'retailPrice',
         );
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $storeManager2AccessToken,
             'PUT',
             '/api/1/stores/' . $storesData[2]['id'] . '/products/' . $productsData[3]['id'],
@@ -426,7 +424,7 @@ EOF;
 
     public function testWriteRemoteFile()
     {
-        $productData = $this->initBase();
+        $this->initBase();
 
         $xmlFilePath = "/tmp/lighthouse_unit_test";
         if (file_exists($xmlFilePath)) {
@@ -506,7 +504,7 @@ EOF;
 
     public function testExportWorkerGetUrl()
     {
-        /** @var \Lighthouse\CoreBundle\Integration\Set10\Export\Products\ExportProductsWorker $worker */
+        /** @var ExportProductsWorker $worker */
         $worker = $this->getContainer()->get("lighthouse.core.integration.set10.export.products.worker");
 
         $configUrlId = $this->createConfig(Set10Export::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");

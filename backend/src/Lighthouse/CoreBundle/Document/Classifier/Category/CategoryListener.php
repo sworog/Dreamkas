@@ -18,9 +18,9 @@ class CategoryListener
 
     /**
      * @DI\InjectParams({
-     *      "subCategoryRepository"=@DI\Inject("lighthouse.core.document.repository.classifier.subcategory")
+     *      "subCategoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.subcategory")
      * })
-     * @param \Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository $subCategoryRepository
+     * @param SubCategoryRepository $subCategoryRepository
      */
     public function __construct(SubCategoryRepository $subCategoryRepository)
     {

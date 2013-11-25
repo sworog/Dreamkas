@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -11,7 +11,7 @@ class MoneyCompareValidator extends CompareValidator
     /**
      * @param Money $value
      * @return int
-     * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @throws UnexpectedTypeException
      */
     protected function normalizeFieldValue($value)
     {

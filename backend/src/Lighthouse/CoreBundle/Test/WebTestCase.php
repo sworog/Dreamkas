@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
+use PHPUnit_Framework_ExpectationFailedException;
 
 /**
  * @codeCoverageIgnore
@@ -54,10 +55,8 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function setUpStoreDepartmentManager()
     {
-        $this->departmentManager = $this->createUser('Краузе В.П.', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->storeId = $this->createStore();
-
-        $this->factory->linkDepartmentManagers($this->storeId, $this->departmentManager->id);
+        $this->storeId = $this->factory->getStore();
+        $this->departmentManager = $this->factory->getDepartmentManager($this->storeId);
     }
 
     /**
@@ -112,11 +111,9 @@ class WebTestCase extends ContainerAwareTestCase
      * @param User $departmentManager
      * @return mixed
      */
-    protected function createInvoice(array $modifiedData = array(), $storeId = null, User $departmentManager = null)
+    protected function createInvoice(array $modifiedData, $storeId, User $departmentManager = null)
     {
-        $storeId = ($storeId) ?: $this->createStore('42', '42', '42', true);
-        $departmentManager = ($departmentManager) ?: $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
-
+        $departmentManager = ($departmentManager) ?: $this->factory->getDepartmentManager($storeId);
         $accessToken = $this->auth($departmentManager);
 
         $invoiceData = $modifiedData + array(
@@ -127,6 +124,7 @@ class WebTestCase extends ContainerAwareTestCase
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceSku' => '1248373',
             'supplierInvoiceDate' => '17.03.2013',
+            'includesVAT' => true,
         );
 
         $postResponse = $this->clientJsonRequest(
@@ -150,19 +148,27 @@ class WebTestCase extends ContainerAwareTestCase
      * @param float $price
      * @param string $storeId
      * @param User $manager
+     * @param null|boolean $includesVAT   Включен ли НДС в цену. При значении null будет сделан запрос к накладной
      * @return string
      */
-    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price, $storeId = null, $manager = null)
-    {
+    public function createInvoiceProduct(
+        $invoiceId,
+        $productId,
+        $quantity,
+        $price,
+        $storeId = null,
+        $manager = null
+    ) {
         $manager = ($manager) ?: $this->departmentManager;
         $storeId = ($storeId) ?: $this->storeId;
+        $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
 
         $accessToken = $this->auth($manager);
 
         $invoiceProductData = array(
             'product' => $productId,
             'quantity' => $quantity,
-            'price' => $price
+            'priceEntered' => $price,
         );
 
         $postResponse = $this->clientJsonRequest(
@@ -242,7 +248,7 @@ class WebTestCase extends ContainerAwareTestCase
             $productData['sku'].= $extra;
         }
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $method = ($putProductId) ? 'PUT' : 'POST';
         $url = '/api/1/products' . (($putProductId) ? '/' . $putProductId : '');
         $request = new JsonRequest($url, $method, $productData);
@@ -288,19 +294,19 @@ class WebTestCase extends ContainerAwareTestCase
             array(
                 'product' => $productId,
                 'quantity' => 10,
-                'price' => 11.12,
+                'priceEntered' => 11.12,
                 'productAmount' => 10,
             ),
             array(
                 'product' => $productId,
                 'quantity' => 5,
-                'price' => 12.76,
+                'priceEntered' => 12.76,
                 'productAmount' => 15,
             ),
             array(
                 'product' => $productId,
                 'quantity' => 1,
-                'price' => 5.99,
+                'priceEntered' => 5.99,
                 'productAmount' => 16,
             ),
         );
@@ -311,7 +317,7 @@ class WebTestCase extends ContainerAwareTestCase
 
             $invoiceProductData = array(
                 'quantity' => $row['quantity'],
-                'price' => $row['price'],
+                'priceEntered' => $row['priceEntered'],
                 'product' => $row['product'],
             );
 
@@ -350,15 +356,8 @@ class WebTestCase extends ContainerAwareTestCase
      * @param User $departmentManager
      * @return string
      */
-    protected function createWriteOff(
-        $number = '431-6782',
-        $date = null,
-        $storeId = null,
-        User $departmentManager = null
-    ) {
-        $storeId = ($storeId) ?: $this->createStore('42', '42', '42', true);
-        $departmentManager = ($departmentManager) ?: $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
-
+    protected function createWriteOff($number, $date, $storeId, User $departmentManager)
+    {
         $accessToken = $this->auth($departmentManager);
 
         $date = $date ? : date('c', strtotime('-1 day'));
@@ -461,7 +460,7 @@ class WebTestCase extends ContainerAwareTestCase
                 '/api/1/groups'
             );
 
-            if (count($postResponse)) {
+            if (is_array($postResponse)) {
                 foreach ($postResponse as $value) {
                     if ($value['name'] == $name) {
                         return $value['id'];
@@ -523,9 +522,11 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $storeId
      * @param string $productId
-     * @param array $assertions
+     * @param array  $assertions
+     * @param string $message
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
-    protected function assertStoreProduct($storeId, $productId, array $assertions)
+    protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {
         $storeManager = $this->factory->getStoreManager($storeId);
         $accessToken = $this->factory->auth($storeManager);
@@ -538,19 +539,28 @@ class WebTestCase extends ContainerAwareTestCase
 
         $this->assertResponseCode(200);
 
-        $this->performJsonAssertions($storeProductJson, $assertions);
+        try {
+            $this->performJsonAssertions($storeProductJson, $assertions);
+        } catch (PHPUnit_Framework_ExpectationFailedException $e) {
+            $message.= ($message) ? '. ' . $e->getMessage() : $e->getMessage();
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                $message,
+                $e->getComparisonFailure(),
+                $e->getPrevious()
+            );
+        }
     }
 
     /**
      * @param string $storeId
      * @param string $productId
-     * @param int $amount
+     * @param int $inventory
      * @param float $lastPurchasePrice
      */
-    protected function assertStoreProductTotals($storeId, $productId, $amount, $lastPurchasePrice = null)
+    protected function assertStoreProductTotals($storeId, $productId, $inventory, $lastPurchasePrice = null)
     {
         $assertions = array(
-            'amount' => $amount,
+            'inventory' => $inventory,
             'lastPurchasePrice' => $lastPurchasePrice
         );
 
@@ -588,7 +598,7 @@ class WebTestCase extends ContainerAwareTestCase
                 '/api/1/groups/'. $groupId .'/categories'
             );
 
-            if (count($postResponse)) {
+            if (is_array($postResponse)) {
                 foreach ($postResponse as $value) {
                     if ($value['name'] == $name) {
                         return $value['id'];
@@ -639,7 +649,7 @@ class WebTestCase extends ContainerAwareTestCase
 
             $this->assertResponseCode(200);
 
-            if (count($postResponse)) {
+            if (is_array($postResponse)) {
                 foreach ($postResponse as $value) {
                     if ($value['name'] == $name) {
                         return $value['id'];
@@ -689,7 +699,7 @@ class WebTestCase extends ContainerAwareTestCase
                 '/api/1/stores'
             );
 
-            if (count($postResponse)) {
+            if (is_array($postResponse)) {
                 foreach ($postResponse as $value) {
                     if (is_array($value) && array_key_exists('number', $value) && $value['number'] == $number) {
                         return $value['id'];
@@ -719,11 +729,11 @@ class WebTestCase extends ContainerAwareTestCase
      * @param array $numbers
      * @return array
      */
-    public function createStores(array $numbers)
+    public function getStores(array $numbers)
     {
         $storeIds = array();
         foreach ($numbers as $number) {
-            $storeIds[$number] = $this->createStore($number);
+            $storeIds[$number] = $this->factory->getStore($number);
         }
         return $storeIds;
     }
@@ -735,7 +745,7 @@ class WebTestCase extends ContainerAwareTestCase
         $ifNotExists = true
     ) {
         if ($storeId == null) {
-            $storeId = $this->createStore();
+            $storeId = $this->factory->getStore();
         }
 
         $storeData = array(
@@ -753,7 +763,7 @@ class WebTestCase extends ContainerAwareTestCase
                 '/api/1/stores/' . $storeId . '/departments'
             );
 
-            if (count($postResponse)) {
+            if (is_array($postResponse)) {
                 foreach ($postResponse as $value) {
                     if (is_array($value) && array_key_exists('number', $value) && $value['number'] == $number) {
                         return $value['id'];
@@ -776,24 +786,6 @@ class WebTestCase extends ContainerAwareTestCase
         Assert::assertJsonPathEquals($storeData['name'], 'name', $response);
 
         return $response['id'];
-    }
-
-    /**
-     * @param string $storeId
-     * @param string|array $userIds
-     */
-    public function linkStoreManagers($storeId, $userIds)
-    {
-        $this->factory->linkStoreManagers($storeId, $userIds);
-    }
-
-    /**
-     * @param string $storeId
-     * @param string|string[] $userIds
-     */
-    public function linkDepartmentManagers($storeId, $userIds)
-    {
-        $this->factory->linkDepartmentManagers($storeId, $userIds);
     }
 
     /**

@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'http://community.opscode.com/api/v1'
+
+# cookbook 'chef-client'
+
+# cookbook 'apache2', '>= 1.0.0'
+
+# cookbook 'rvm',
+#   :git => 'https://github.com/fnichol/chef-rvm'
+
+# cookbook 'postgresql',
+#   :git => 'https://github.com/findsyou/cookbooks',
+#   :ref => 'postgresql-improvements'
+
+cookbook 'mongodb',
+    :git => 'https://github.com/edelight/chef-mongodb'
+
+cookbook 'php-fpm',
+    :git => 'https://github.com/yevgenko/cookbook-php-fpm'
+
+cookbook 'teamcity',
+         :git => 'https://github.com/mswart/chef-teamcity'
+
+cookbook 'php'
+cookbook 'composer'
+cookbook 'nginx'
+cookbook 'cron'
+cookbook 'beanstalkd'
+cookbook 'java'

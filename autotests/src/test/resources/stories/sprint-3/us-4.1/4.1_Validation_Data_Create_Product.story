@@ -192,7 +192,6 @@ And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'VBVCF678' sku is present
 
-
 Scenario: Create product validation - Vendor field validation
 
 Given the user is on the product list page
@@ -224,7 +223,6 @@ When the user clicks the create button
 Then the user sees error messages
 | error message |
 | Не более 300 символов |
-
 
 Scenario: Create product validation - VendorCountry field validation
 
@@ -316,9 +314,8 @@ And the user clicks the create button
 Then the user sees error messages
 | error message |
 | Выберите единицу измерения |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 | Выберите ставку НДС |
-
 
 Scenario: Create product validation - Purchase price validation String+Symbols+Num
 
@@ -333,7 +330,7 @@ And the user inputs '%^#$Fgbdf345)' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Create product validation - Purchase price validation commma
 
@@ -430,7 +427,7 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна содержать больше 2 цифр после запятой. |
+| Цена не должна содержать больше 2 цифр после запятой |
 
 Scenario: Create product validation - Purchase price validation sub zero
 
@@ -445,7 +442,7 @@ And the user inputs '-152' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Create product validation - Purhase prise validation zero
 
@@ -460,7 +457,7 @@ And the user inputs '0' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Create product validation - Purchase price validation String en
 
@@ -475,7 +472,7 @@ And the user inputs 'Big price' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Create product validation - Purchase price validation String rus
 
@@ -490,7 +487,7 @@ And the user inputs 'Большая цена' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Create product validation - Purchase price validation symbols
 
@@ -505,7 +502,7 @@ And the user inputs '!@#$%^&*()' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю. |
+| Цена не должна быть меньше или равна нулю |
 
 Scenario: Create product validation - Purchase price validation length good
 

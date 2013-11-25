@@ -86,8 +86,6 @@ When the user clicks on start edition link and starts the edition
 And the user opens pop up menu of subCategory 'productListPage' element
 And the user deletes element through pop up menu
 Then the user checks alert text is equal to 'Подкатегория не пуста. Сначала удалите из нее все товары.'
-When the user clicks on end edition link and ends the edition
-And the user logs out
 
 Scenario: No products dashboard link for commercial manager
 

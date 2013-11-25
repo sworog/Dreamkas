@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Serializer;
 
 use Lighthouse\CoreBundle\Meta\MetaCollection;
-use Lighthouse\CoreBundle\Serializer\Handler\MoneyHandler;
+use Lighthouse\CoreBundle\Meta\MetaGeneratorInterface;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\Test;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\TestCollection;
@@ -31,8 +31,9 @@ class MetaCollectionSerializerTest extends ContainerAwareTestCase
             )
         );
 
+        /* @var MetaGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject $mockMetaGenerator */
         $mockMetaGenerator = $this->getMock(
-            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
+            '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
         );
 
         $mockMetaGenerator
@@ -75,18 +76,5 @@ class MetaCollectionSerializerTest extends ContainerAwareTestCase
             $collection->add($document);
         }
         return $collection;
-    }
-
-    public function testMoneyHandlerGetSubscribingMethods()
-    {
-        $methods = MoneyHandler::getSubscribingMethods();
-        $this->assertInternalType('array', $methods);
-        foreach ($methods as $method) {
-            $this->assertInternalType('array', $method);
-            $this->assertArrayHasKey('method', $method);
-            $this->assertArrayHasKey('type', $method);
-            $this->assertArrayHasKey('direction', $method);
-            $this->assertArrayHasKey('format', $method);
-        }
     }
 }

@@ -28,7 +28,7 @@ And the user inputs '26' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD2' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Московское-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Московское-Артикул' sku has 'amounts averagePrice' element equal to '26' on amounts page
@@ -47,7 +47,7 @@ And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD3' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Московское-Артикул' sku has 'amounts purchasePrice' element equal to '56' on amounts page
 And the user checks the product with 'Печенье-Московское-Артикул' sku has 'amounts averagePrice' element equal to '26' on amounts page
@@ -71,7 +71,7 @@ And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Питерское-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Питерское-Артикул' sku has 'amounts averagePrice' element equal to '26' on amounts page
@@ -90,7 +90,7 @@ And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD1' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Питерское-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Питерское-Артикул' sku has 'amounts averagePrice' element equal to '41' on amounts page
@@ -114,7 +114,7 @@ And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD5' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Гламурное-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Гламурное-Артикул' sku has 'amounts averagePrice' element equal to '26' on amounts page
@@ -133,7 +133,7 @@ And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD6' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Гламурное-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Гламурное-Артикул' sku has 'amounts averagePrice' element equal to '26' on amounts page
@@ -157,7 +157,7 @@ And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD8' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Астраханское-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Астраханское-Артикул' sku has 'amounts averagePrice' element equal to '26' on amounts page
@@ -176,7 +176,7 @@ And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD9' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Астраханское-Артикул' sku has 'amounts purchasePrice' element equal to '56' on amounts page
 And the user checks the product with 'Печенье-Астраханское-Артикул' sku has 'amounts averagePrice' element equal to '41' on amounts page
@@ -200,7 +200,7 @@ And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD10' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Киевское-Артикул' sku has 'amounts purchasePrice' element equal to '23,33' on amounts page
 And the user checks the product with 'Печенье-Киевское-Артикул' sku has 'amounts averagePrice' element equal to '23,33' on amounts page
@@ -219,7 +219,7 @@ And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'AVPINCICD11' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Киевское-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Киевское-Артикул' sku has 'amounts averagePrice' element equal to '24,67' on amounts page
@@ -271,7 +271,7 @@ And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Приемка-1' sku is present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Юбилейное-Артикул' sku has 'amounts purchasePrice' element equal to '31' on amounts page
 And the user checks the product with 'Печенье-Юбилейное-Артикул' sku has 'amounts averagePrice' element equal to '28,6' on amounts page
@@ -284,7 +284,7 @@ And the user clicks OK and accepts deletion
 Then the user checks the invoice product with 'Печенье-Юбилейное-Артикул' sku is not present
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the invoice product with 'Печенье-Юбилейное-Артикул' sku is not present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Юбилейное-Артикул' sku has 'amounts purchasePrice' element equal to '29' on amounts page
 And the user checks the product with 'Печенье-Юбилейное-Артикул' sku has 'amounts averagePrice' element equal to '27' on amounts page
@@ -297,7 +297,7 @@ And the user clicks OK and accepts deletion
 Then the user checks the invoice product with 'Печенье-Юбилейное-Артикул' sku is not present
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the invoice product with 'Печенье-Юбилейное-Артикул' sku is not present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Юбилейное-Артикул' sku has 'amounts purchasePrice' element equal to '26' on amounts page
 And the user checks the product with 'Печенье-Юбилейное-Артикул' sku has 'amounts averagePrice' element equal to '26' on amounts page
@@ -310,7 +310,7 @@ And the user clicks OK and accepts deletion
 Then the user checks the invoice product with 'Печенье-Юбилейное-Артикул' sku is not present
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the invoice product with 'Печенье-Юбилейное-Артикул' sku is not present
-Given starting average price calculation
+Given the user runs the recalculate_metrics cap command
 Given the user opens amount list page
 Then the user checks the product with 'Печенье-Юбилейное-Артикул' sku has 'amounts purchasePrice' element equal to '25,50' on amounts page
 And the user checks the product with 'Печенье-Юбилейное-Артикул' sku has 'amounts averagePrice' element equal to '—' on amounts page

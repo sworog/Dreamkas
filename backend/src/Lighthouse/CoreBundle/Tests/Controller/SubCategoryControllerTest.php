@@ -938,7 +938,7 @@ class SubCategoryControllerTest extends WebTestCase
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
-        $storeId = $this->createStore();
+        $storeId = $this->factory->getStore();
 
         $this->factory->linkManagers($storeId, $storeManager->id, $rel);
 
@@ -964,8 +964,8 @@ class SubCategoryControllerTest extends WebTestCase
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
-        $storeId1 = $this->createStore('42');
-        $storeId2 = $this->createStore('43');
+        $storeId1 = $this->factory->getStore('42');
+        $storeId2 = $this->factory->getStore('43');
 
         $this->factory->linkManagers($storeId1, $storeManager->id, $rel);
 
@@ -991,7 +991,7 @@ class SubCategoryControllerTest extends WebTestCase
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
-        $storeId = $this->createStore();
+        $storeId = $this->factory->getStore();
 
         $accessToken = $this->auth($storeManager, 'password');
 
@@ -1015,7 +1015,7 @@ class SubCategoryControllerTest extends WebTestCase
     {
         $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
 
-        $storeId = $this->createStore();
+        $storeId = $this->factory->getStore();
 
         $this->factory->linkManagers($storeId, $storeManager->id, $rel);
 
@@ -1023,7 +1023,7 @@ class SubCategoryControllerTest extends WebTestCase
         $groupId2 = $this->createGroup('2');
 
         $categoryId1 = $this->createCategory($groupId1, '1.1');
-        $categoryId2 = $this->createCategory($groupId1, '1.2');
+        $this->createCategory($groupId1, '1.2');
 
         $categoryId3 = $this->createCategory($groupId2, '2.1');
         $categoryId4 = $this->createCategory($groupId2, '2.2');
@@ -1129,8 +1129,8 @@ class SubCategoryControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $postResponse);
-        Assert::assertJsonPathEquals('nearest50', 'category.rounding.name', $postResponse);
-        Assert::assertJsonPathEquals('nearest50', 'category.group.rounding.name', $postResponse);
+        Assert::assertJsonPathEquals('nearest50', 'rounding.name', $getResponse);
+        Assert::assertJsonPathEquals('nearest50', 'category.rounding.name', $getResponse);
+        Assert::assertJsonPathEquals('nearest50', 'category.group.rounding.name', $getResponse);
     }
 }

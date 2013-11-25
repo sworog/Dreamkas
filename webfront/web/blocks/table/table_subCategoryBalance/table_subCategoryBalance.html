@@ -3,34 +3,82 @@
 <table class="table table_subCategoryBalance">
     <thead>
     <tr>
-        <th>Название</th>
-        <th>Штрихкод</th>
-        <th>Количество</th>
-        <th>Средняя ЗЦ</th>
-        <th>Последняя ЗЦ</th>
+        <th>Товар</th>
+        <th style="text-align: right; padding-right: 115px;">Запас</th>
+        <th style="text-align: right; padding-right: 115px;">Закупочные цены</th>
     </tr>
     </thead>
     <tbody>
     <% collection.forEach(function(model){ %>
-    <tr name="amountItem">
+    <tr name="inventoryItem" href="/products/<%- model.get('id') %>">
         <td>
             <%= LH.modelNode(model, 'product.name') %>
+            <div style="clear: both;"></div>
+            <div style="font-size: 11px; float: right">
+                <%= LH.modelNode(model, 'product.barcode') %>
+            </div>
             <div style="font-size: 11px;">
                 <%= LH.modelNode(model, 'product.sku') %>
             </div>
         </td>
         <td>
-            <%= LH.modelNode(model, 'product.barcode') %>
+            <div>
+                <div style="width: 100px; float: right;">
+                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
+                        Остаток, <%= LH.modelNode(model, 'unitsFormatted') %>
+                    </span>
+                </div>
+
+                <div class="table_subCategoryBalance__value">
+                    <%= LH.modelNode(model, 'inventoryElement') %>
+                </div>
+            </div>
+            <div>
+                <div style="width: 100px; float: right;">
+                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
+                        ССО, <%= LH.modelNode(model, 'unitsFormatted') %>
+                    </span>
+                </div>
+
+                <div class="table_subCategoryBalance__value">
+                    <%= LH.modelNode(model, 'averageDailySalesElement') %>
+                </div>
+            </div>
+            <div>
+                <div style="width: 100px; float: right;">
+                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
+                        УТЗ, дн.
+                    </span>
+                </div>
+
+                <div class="table_subCategoryBalance__value">
+                    <%= LH.modelNode(model, 'inventoryDaysElement') %>
+                </div>
+            </div>
         </td>
         <td>
-            <%= LH.modelNode(model, 'amount') %>
-            <%= LH.modelNode(model, 'unitsFormatted') %>
-        </td>
-        <td>
-            <%= LH.modelNode(model, 'averagePurchasePriceFormatted') %>
-        </td>
-        <td>
-            <%= LH.modelNode(model, 'lastPurchasePriceFormatted') %>
+            <div>
+                <div style="width: 100px; float: right;">
+                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
+                        Последняя
+                    </span>
+                </div>
+
+                <div class="table_subCategoryBalance__value">
+                    <%= LH.modelNode(model, 'lastPurchasePriceElement') %>
+                </div>
+            </div>
+            <div>
+                <div style="width: 100px; float: right;">
+                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
+                        Средняя
+                    </span>
+                </div>
+
+                <div class="table_subCategoryBalance__value">
+                    <%= LH.modelNode(model, 'averagePurchasePriceElement') %>
+                </div>
+            </div>
         </td>
     </tr>
     <% }) %>

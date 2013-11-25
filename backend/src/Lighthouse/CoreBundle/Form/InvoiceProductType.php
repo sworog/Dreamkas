@@ -23,8 +23,8 @@ class InvoiceProductType extends AbstractType
                     'invalid_message' => 'lighthouse.validation.errors.invoice_product.product.does_not_exists'
                 )
             )
-            ->add('price', 'money')
-            ->add('quantity', 'text');
+            ->add('priceEntered', 'money')
+            ->add('quantity', 'quantity');
     }
 
     /**

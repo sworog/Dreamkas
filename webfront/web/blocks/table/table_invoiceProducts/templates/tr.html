@@ -3,28 +3,28 @@
         <span name="productName"
               class="invoice__editable"
               autocomplete-name="name"
-              model-attr="product"
+              model-attribute="product"
               product-id="<%- model.get('product').id %>"><%- model.get('product').name %></span>
         <br />
         <span name="productSku"
               class="invoice__editable"
               autocomplete-name="sku"
-              model-attr="product"
+              model-attribute="product"
               product-id="<%- model.get('product').id %>"><%- model.get('product').sku %></span>
     </td>
     <td>
         <span name="productBarcode"
               class="invoice__editable <%- model.get('product').barcode ? '' : 'invoice__hiddenData' %>"
               autocomplete-name="barcode"
-              model-attr="product"
+              model-attribute="product"
               product-id="<%- model.get('product').id %>">
             <%- model.get('product').barcode ? model.get('product').barcode : 'Ввести штрихкод' %>
         </span>
     </td>
     <td>
-        <span class="invoice__editable">
-            <span name="productAmount" model-attr="quantity">
-                <%- model.get('quantity') %>
+        <span class="invoice__editable" style="white-space: nowrap">
+            <span name="productAmount">
+                <%= LH.modelNode(model, 'quantityElement') %>
             </span>
             <span name="productUnits">
                 <%- LH.units(model.get('product').units, 'smallShort') %>
@@ -32,12 +32,12 @@
         </span>
     </td>
     <td>
-        <span class="invoice__editable">
+        <span class="invoice__editable" style="white-space: nowrap">
             <span>
                 по
             </span>
-            <span name="productPrice" model-attr="price">
-                <%- LH.formatPrice(model.get('price')) %>
+            <span name="productPrice" model-attribute="priceEntered">
+                <%- LH.formatPrice(model.get('priceEntered')) %>
             </span>
             <span>
                 р.
@@ -45,15 +45,20 @@
         </span>
     </td>
     <td>
-        <span>
-            =
-        </span>
-        <span name="productSum">
-            <%- LH.formatPrice(model.get('totalPrice')) %>
-        </span>
-        <span>
-            р.
-        </span>
+        <div style="white-space: nowrap">
+            <span>
+                =
+            </span>
+            <span name="productSum">
+                <%- LH.formatPrice(model.get('totalPrice')) %>
+            </span>
+            <span>
+                р.
+            </span>
+        </div>
+        <div style="white-space: nowrap">
+            <%= LH.modelNode(model, 'productTotalAmountVATFormatted') %> НДС <%= LH.modelNode(model, 'product.vat') %> %
+        </div>
     </td>
     <td style="width: 1px;">
         <span class="invoice__removeLink"><%- 'удалить' %></span>

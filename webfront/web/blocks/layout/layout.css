@@ -1,0 +1,7 @@
+.layout__floatPart{
+    color: #95a5a6;
+}
+
+tr:hover .layout__floatPart{
+    color: #000;
+}

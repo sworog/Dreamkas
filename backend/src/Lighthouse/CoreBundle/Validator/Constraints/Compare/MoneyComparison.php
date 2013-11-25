@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
 use Lighthouse\CoreBundle\Exception\NullValueException;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class MoneyComparison extends Comparison

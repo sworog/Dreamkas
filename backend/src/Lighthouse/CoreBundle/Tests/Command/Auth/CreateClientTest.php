@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\Auth;
 
+use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use Lighthouse\CoreBundle\Command\Auth\CreateClient;
 use Lighthouse\CoreBundle\Document\Auth\Client;
 use Lighthouse\CoreBundle\Test\TestCase;
@@ -16,8 +17,9 @@ class CreateClientTest extends TestCase
      */
     public function testExecute($secret, $publicId)
     {
+        /* @var ClientManagerInterface|\PHPUnit_Framework_MockObject_MockObject $clientManagerMock */
         $clientManagerMock = $this->getMock(
-            'FOS\OAuthServerBundle\Model\ClientManagerInterface',
+            'FOS\\OAuthServerBundle\\Model\\ClientManagerInterface',
             array(),
             array(),
             '',

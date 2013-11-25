@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use Lighthouse\CoreBundle\Security\PermissionExtractor;
-use Lighthouse\CoreBundle\Service\AveragePriceService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -14,12 +13,6 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class ServiceController extends FOSRestController
 {
-    /**
-     * @DI\Inject("lighthouse.core.service.average_price")
-     * @var AveragePriceService
-     */
-    protected $averagePriceService;
-
     /**
      * @DI\Inject("serializer")
      * @var Serializer
@@ -31,17 +24,6 @@ class ServiceController extends FOSRestController
      * @var PermissionExtractor
      */
     protected $permissionExtractor;
-
-    /**
-     * @Route("service/recalculate-average-purchase-price")
-     * @Rest\View(statusCode=200)
-     * @ApiDoc
-     */
-    public function recalculateAveragePurchasePriceAction()
-    {
-        $this->averagePriceService->recalculateAveragePrice();
-        return array('ok' => true);
-    }
 
     /**
      * @Route("service/permissions")

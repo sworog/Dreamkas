@@ -8,10 +8,22 @@ use Doctrine\ODM\MongoDB\Query\Query;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use MongoId;
+use MongoCode;
 
 class TrialBalanceRepository extends DocumentRepository
 {
+    /**
+     * @param $storeProductId
+     * @return Cursor
+     */
+    public function findByStoreProduct($storeProductId)
+    {
+        return $this->findBy(array('storeProduct' => $storeProductId));
+    }
+
     /**
      * @param Reasonable $reason
      * @return TrialBalance
@@ -81,7 +93,7 @@ class TrialBalanceRepository extends DocumentRepository
     public function findOneReasonInvoiceProductByProduct(StoreProduct $storeProduct)
     {
         $criteria = array('storeProduct' => $storeProduct->id);
-        $criteria['reason.$ref'] = 'InvoiceProduct';
+        $criteria['reason.$ref'] = InvoiceProduct::REASON_TYPE;
         // Ugly hack to force document refresh
         $hints = array(Query::HINT_REFRESH => true);
         $sort = array(
@@ -96,16 +108,19 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function calculateAveragePurchasePrice()
     {
-        $dateStart = new \MongoDate(strtotime("-30 day 00:00"));
-        $dateEnd = new \MongoDate(strtotime("00:00"));
+        if ($this->isCollectionEmpty()) {
+            return array();
+        }
+
+        $datePeriod = new DatePeriod("-30 day 00:00", "00:00");
 
         $query = $this
             ->createQueryBuilder()
-            ->field('createdDate')->gt($dateStart)
-            ->field('createdDate')->lt($dateEnd)
-            ->field('reason.$ref')->equals('InvoiceProduct')
+            ->field('createdDate')->gt($datePeriod->getStartDate()->getMongoDate())
+            ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
+            ->field('reason.$ref')->equals(InvoiceProduct::REASON_TYPE)
             ->map(
-                new \MongoCode(
+                new MongoCode(
                     "function() {
                         emit(
                             this.storeProduct,
@@ -118,7 +133,7 @@ class TrialBalanceRepository extends DocumentRepository
                 )
             )
             ->reduce(
-                new \MongoCode(
+                new MongoCode(
                     "function(storeProductId, obj) {
                         var reducedObj = {totalPrice: 0, quantity: 0}
                         for (var item in obj) {
@@ -130,7 +145,7 @@ class TrialBalanceRepository extends DocumentRepository
                 )
             )
             ->finalize(
-                new \MongoCode(
+                new MongoCode(
                     "function(storeProductId, obj) {
                         if (obj.quantity > 0) {
                             obj.averagePrice = obj.totalPrice / obj.quantity;
@@ -139,6 +154,66 @@ class TrialBalanceRepository extends DocumentRepository
                         }
                         return obj;
                     }"
+                )
+            )
+            ->out(array('inline' => true));
+
+        return $query->getQuery()->execute();
+    }
+
+
+    /**
+     * @return array
+     */
+    public function calculateDailyAverageSales()
+    {
+        if ($this->isCollectionEmpty()) {
+            return array();
+        }
+
+        $datePeriod = new DatePeriod("-30 day 00:00", "00:00");
+        $days = $datePeriod->diff()->days;
+        $query = $this
+            ->createQueryBuilder()
+            ->field('createdDate')->gt($datePeriod->getStartDate()->getMongoDate())
+            ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
+            ->field('reason.$ref')->equals(SaleProduct::REASON_TYPE)
+            ->map(
+                new MongoCode(
+                    "function() {
+                        emit(
+                            this.storeProduct,
+                            {
+                                quantity: this.quantity
+                            }
+                        )
+                    }"
+                )
+            )
+            ->reduce(
+                new MongoCode(
+                    "function (storeProductId, obj) {
+                        var reducedObj = {quantity: 0}
+                        for (var item in obj) {
+                            reducedObj.quantity += obj[item].quantity;
+                        }
+                        return reducedObj;
+                    }"
+                )
+            )
+            ->finalize(
+                new MongoCode(
+                    sprintf(
+                        "function(storeProductId, obj) {
+                            if (obj.quantity > 0) {
+                                obj.dailyAverageSales = obj.quantity / %d;
+                            } else {
+                                obj.dailyAverageSales = null;
+                            }
+                            return obj;
+                        }",
+                        $days
+                    )
                 )
             )
             ->out(array('inline' => true));

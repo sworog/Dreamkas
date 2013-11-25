@@ -71,7 +71,7 @@ class WriteOffController extends AbstractRestController
     /**
      * @param Store $store
      * @param WriteOff $writeOff
-     * @return \Lighthouse\CoreBundle\Document\WriteOff\WriteOff
+     * @return WriteOff
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */

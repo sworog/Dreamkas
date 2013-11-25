@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.objects.web.abstractObjects;
 
 import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -47,31 +48,45 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
         }
     }
 
-    public void clickByLocator(String locator) {
-        Boolean found = false;
-        for (AbstractObject abstractObject : this) {
-            if (abstractObject.getObjectLocator().equals(locator)) {
-                found = true;
-                abstractObject.click();
+    public void compareObjectWithExampleTable(String locator, ExamplesTable examplesTable) {
+        AbstractObject abstractObject = getAbstractObjectByLocator(locator);
+        List<Map<String, String>> notFoundRows = new ArrayList<>();
+        for (Map<String, String> row : examplesTable.getRows()) {
+            if (abstractObject.rowIsEqual(row)) {
+                break;
+            } else {
+                notFoundRows.add(row);
             }
         }
-        if (!found) {
-            String errorMessage = String.format("There is no object with '%s' to click!", locator);
+        if (notFoundRows.size() > 0) {
+            String errorMessage = String.format("These rows are not found: '%s'.", notFoundRows.toString());
             Assert.fail(errorMessage);
         }
     }
 
+    public void clickByLocator(String locator) {
+        getAbstractObjectByLocator(locator).click();
+    }
+
+    public void clickPropertyByLocator(String locator, String propertyName) {
+        getAbstractObjectByLocator(locator).getObjectProperty(propertyName).click();
+    }
+
+    public void inputPropertyByLocator(String locator, String propertyName, String value) {
+        getAbstractObjectByLocator(locator).getObjectProperty(propertyName).input(value);
+    }
+
     public void contains(String locator) {
-        Boolean found = false;
+        getAbstractObjectByLocator(locator);
+    }
+
+    public AbstractObject getAbstractObjectByLocator(String locator) {
         for (AbstractObject abstractObject : this) {
             if (abstractObject.getObjectLocator().equals(locator)) {
-                found = true;
-                break;
+                return abstractObject;
             }
         }
-        if (!found) {
-            String errorMessage = String.format("There is no object with '%s'", locator);
-            Assert.fail(errorMessage);
-        }
+        String errorMessage = String.format("There is no object with locator '%s'", locator);
+        throw new AssertionFailedError(errorMessage);
     }
 }

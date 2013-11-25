@@ -8,7 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.PreLoader;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
+import project.lighthouse.autotests.objects.web.invoice.InvoiceProductsCollection;
 
 public class InvoiceBrowsing extends InvoiceCreatePage {
 
@@ -132,6 +133,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         }
     }
 
+    @Deprecated
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         By findBy = items.get(parentElementName).getFindBy();
         commonViewInterface.childrentItemClickByFindByLocator(elementName, findBy);
@@ -144,5 +146,9 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void checkItemIsNotPresent(String elementName) {
         commonViewInterface.itemCheckIsNotPresent(elementName);
+    }
+
+    public InvoiceProductsCollection getInvoiceProductsCollection() {
+        return new InvoiceProductsCollection(getDriver(), By.name("invoiceProduct"));
     }
 }

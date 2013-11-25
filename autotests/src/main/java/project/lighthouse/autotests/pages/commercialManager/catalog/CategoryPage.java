@@ -23,7 +23,7 @@ public class CategoryPage extends GroupPage {
 
     @Override
     public String getItemXpath(String name) {
-        String groupXpath = "//*[@model_name='catalogCategory' and text()='%s']";
+        String groupXpath = "//*[@model='catalogCategory' and text()='%s']";
         return String.format(groupXpath, name);
     }
 }

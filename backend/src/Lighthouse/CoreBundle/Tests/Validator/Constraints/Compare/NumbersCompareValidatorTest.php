@@ -17,13 +17,13 @@ class NumbersCompareValidatorTest extends TestCase
     protected $context;
 
     /**
-     * @var \Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompareValidator
+     * @var NumbersCompareValidator
      */
     protected $validator;
 
     public function setUp()
     {
-        $this->context = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
         $this->validator = new NumbersCompareValidator();
         $this->validator->initialize($this->context);
     }

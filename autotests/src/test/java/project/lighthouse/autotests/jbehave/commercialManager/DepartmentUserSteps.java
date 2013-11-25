@@ -8,6 +8,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Department;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
+import project.lighthouse.autotests.steps.api.commercialManager.DepartmentApiSteps;
 import project.lighthouse.autotests.steps.commercialManager.DepartmentSteps;
 
 import java.io.IOException;
@@ -19,6 +20,9 @@ public class DepartmentUserSteps {
     DepartmentSteps formSteps;
     @Steps
     AuthorizationSteps authorizationSteps;
+
+    @Steps
+    DepartmentApiSteps departmentApiSteps;
 
     @When("user clicks create new department button")
     public void userClicksCreateNewDepartmentButton() {
@@ -53,7 +57,7 @@ public class DepartmentUserSteps {
 
     @Given("created default store with department '$departmentNumber', '$departmentName'")
     public void createdDefaultStoreWithDepartment(String departmentNumber, String departmentName) throws IOException, JSONException {
-        Department department = formSteps.createDepartmentInDefaultStore(departmentNumber, departmentName);
+        Department department = departmentApiSteps.createStoreDepartmentThroughPost(departmentNumber, departmentName);
         formSteps.navigateToDepartmentPage(department.getId(), department.getStoreID());
         authorizationSteps.authorization("commercialManager");
 
@@ -66,7 +70,7 @@ public class DepartmentUserSteps {
 
     @Given("there is created department and user starts to edit it and fills form with $fieldsData")
     public void thereIsCreatedDepartmentAndUserStartsToEditItAndFillsForm(ExamplesTable fieldsData) throws IOException, JSONException {
-        Department department = formSteps.createDepartmentInDefaultStore();
+        Department department = departmentApiSteps.createStoreDepartmentThroughPost(Department.DEFAULT_NUMBER, Department.DEFAULT_NAME);
         formSteps.navigateToDepartmentPage(department.getId(), department.getStoreID());
         authorizationSteps.authorization("commercialManager");
         formSteps.clicksEditDepartmentLink();

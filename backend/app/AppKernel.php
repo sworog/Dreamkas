@@ -42,4 +42,22 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+    /**
+     * @return string
+     */
+    public function getCacheDir()
+    {
+        return parent::getCacheDir() . Karzer\Karzer::getThreadName();
+    }
+
+    /**
+     * @return array
+     */
+    protected function getKernelParameters()
+    {
+        $parameters = parent::getKernelParameters();
+        $parameters['karzer.thread'] = Karzer\Karzer::getThreadName();
+        return $parameters;
+    }
 }

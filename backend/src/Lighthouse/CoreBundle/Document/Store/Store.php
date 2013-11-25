@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use InvalidArgumentException;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @property string $id
@@ -29,6 +30,15 @@ class Store extends AbstractDocument
 {
     const REL_STORE_MANAGERS = 'storeManagers';
     const REL_DEPARTMENT_MANAGERS = 'departmentManagers';
+
+    /**
+     * @Exclude
+     * @var array
+     */
+    public static $roles = array(
+        self::REL_DEPARTMENT_MANAGERS => User::ROLE_DEPARTMENT_MANAGER,
+        self::REL_STORE_MANAGERS => User::ROLE_STORE_MANAGER
+    );
 
     /**
      * @MongoDB\Id
@@ -120,5 +130,18 @@ class Store extends AbstractDocument
             default:
                 throw new InvalidArgumentException(sprintf("Invalid rel '%s' given", $rel));
         }
+    }
+
+    /**
+     * @param string $rel
+     * @throws InvalidArgumentException
+     * @return string
+     */
+    public static function getRoleByRel($rel)
+    {
+        if (isset(self::$roles[$rel])) {
+            return self::$roles[$rel];
+        }
+        throw new InvalidArgumentException(sprintf("Invalid rel '%s' given", $rel));
     }
 }

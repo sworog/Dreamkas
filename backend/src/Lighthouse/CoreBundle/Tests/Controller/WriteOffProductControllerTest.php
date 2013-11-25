@@ -46,11 +46,12 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->assertResponseCode($expectedCode);
 
-        foreach ($assertions as $path => $expected) {
-            Assert::assertJsonPathContains($expected, $path, $postResponse);
-        }
+        $this->performJsonAssertions($postResponse, $assertions, true);
     }
 
+    /**
+     * @return array
+     */
     public function validationWriteOffProductProvider()
     {
         return array(
@@ -98,12 +99,50 @@ class WriteOffProductControllerTest extends WebTestCase
                 )
             ),
             'float quantity' => array(
-                400,
+                201,
                 array('quantity' => 2.5),
+            ),
+            'float quantity very float' => array(
+                400,
+                array('quantity' => 2.5555),
                 array(
                     'children.quantity.errors.0'
                     =>
-                    'Значение должно быть целым числом'
+                    'Значение не должно содержать больше 3 цифр после запятой'
+                )
+            ),
+            'float quantity with coma' => array(
+                201,
+                array('quantity' => '2,5'),
+            ),
+            'float quantity very float with coma' => array(
+                400,
+                array('quantity' => '2,5555'),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение не должно содержать больше 3 цифр после запятой'
+                )
+            ),
+            'float quantity very float only one message' => array(
+                400,
+                array('quantity' => '2,5555'),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение не должно содержать больше 3 цифр после запятой',
+                    'children.quantity.errors.1'
+                    =>
+                    null
+                )
+            ),
+            'not numeric quantity' => array(
+                400,
+                array('quantity' => 'abc'),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть числом'
                 )
             ),
             /***********************************************************************************************
@@ -469,7 +508,7 @@ class WriteOffProductControllerTest extends WebTestCase
     {
         $storeId = $this->storeId;
         $departmentManager = $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
-        $this->linkDepartmentManagers($storeId, $departmentManager->id);
+        $this->factory->linkDepartmentManagers($departmentManager->id, $storeId);
 
         $productId1 = $this->createProduct(1);
         $productId2 = $this->createProduct(2);
@@ -765,13 +804,13 @@ class WriteOffProductControllerTest extends WebTestCase
         $expectedCode,
         array $data = null
     ) {
-        $storeId2 = $this->createStore('43');
+        $storeId2 = $this->factory->getStore('43');
         $departmentManager2 = $this->createUser(
             'depUser2',
             Factory::USER_DEFAULT_PASSWORD,
             User::ROLE_DEPARTMENT_MANAGER
         );
-        $this->linkDepartmentManagers($storeId2, $departmentManager2->id);
+        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $productId = $this->createProduct();
 
@@ -879,8 +918,8 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testGetWriteOffProductNotFoundFromAnotherStore()
     {
-        $storeId2 = $this->createStore('43');
-        $this->linkDepartmentManagers($storeId2, $this->departmentManager->id);
+        $storeId2 = $this->factory->getStore('43');
+        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $productId = $this->createProduct();
         $writeOffId = $this->createWriteOff('431', null, $this->storeId, $this->departmentManager);
@@ -956,5 +995,62 @@ class WriteOffProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($writeOffId2, '0.writeOff.id', $getResponse);
         Assert::assertNotJsonHasPath('*.store', $getResponse);
         Assert::assertNotJsonHasPath('*.originalProduct', $getResponse);
+    }
+
+    public function testWriteOffProductTotalPriceWithFloatQuantity()
+    {
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
+        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'sku' => 'кефир_5%', 'purchasePrice' => 35.64));
+        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'sku' => 'кефир_0%', 'purchasePrice' => 42.15));
+
+        $writeOffId1 = $this->createWriteOff(
+            'MU-866',
+            '2013-10-18T09:39:47+0400',
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $this->createWriteOffProduct($writeOffId1, $productId1, 99.99, 36.78);
+        $this->createWriteOffProduct($writeOffId1, $productId2, 0.4, 21.77);
+        $this->createWriteOffProduct($writeOffId1, $productId3, 7.77, 42.99);
+
+        $accessToken = $this->factory->auth($this->departmentManager);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId1 . '/writeOffProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(3677.63, "*.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "*.price", $getResponse);
+        Assert::assertJsonPathEquals(99.99, "*.quantity", $getResponse);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId2 . '/writeOffProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(8.71, "*.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(0.4, "*.quantity", $getResponse);
+        Assert::assertJsonPathEquals(21.77, "*.price", $getResponse);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId3 . '/writeOffProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(334.03, "*.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(42.99, "*.price", $getResponse);
+        Assert::assertJsonPathEquals(7.77, "*.quantity", $getResponse);
     }
 }

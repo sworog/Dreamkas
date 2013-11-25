@@ -10,26 +10,30 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
-use Lighthouse\CoreBundle\Types\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use JMS\Serializer\Annotation as Serializer;
+use DateTime;
 
 /**
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository"
  * )
- * @property int        $id
+ * @property string     $id
  * @property Money      $price
- * @property int        $quantity
+ * @property Quantity   $quantity
  * @property Money      $totalPrice
- * @property \DateTime  $createdDate
+ * @property DateTime   $createdDate
  * @property string     $cause
  * @property ProductVersion    $product
  * @property WriteOff   $writeOff
  */
 class WriteOffProduct extends AbstractDocument implements Reasonable
 {
+    const REASON_TYPE = 'WriteOffProduct';
+
     /**
      * @MongoDB\Id
      * @var string
@@ -59,13 +63,13 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
 
     /**
      * Количество
-     * @MongoDB\Int
+     * @MongoDB\Field(type="quantity")
      * @Assert\NotBlank
      * @LighthouseAssert\Chain({
-     *   @LighthouseAssert\NotFloat,
-     *   @LighthouseAssert\Range\Range(gt=0)
+     *  @LighthouseAssert\Precision(3),
+     *  @LighthouseAssert\Range\Range(gt=0)
      * })
-     * @var int
+     * @var Quantity
      */
     protected $quantity;
 
@@ -125,8 +129,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      */
     public function beforeSave()
     {
-        $this->totalPrice = new Money();
-        $this->totalPrice->setCountByQuantity($this->price, $this->quantity, true);
+        $this->totalPrice = $this->price->mul($this->quantity);
         $this->createdDate = $this->writeOff->date;
         $this->store = $this->writeOff->store;
         $this->originalProduct = $this->product->getObject();
@@ -145,7 +148,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonType()
     {
-        return 'WriteOffProduct';
+        return self::REASON_TYPE;
     }
 
     /**
@@ -157,7 +160,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     }
 
     /**
-     * @return int
+     * @return Quantity
      */
     public function getProductQuantity()
     {
@@ -194,5 +197,13 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     public function getReasonParent()
     {
         return $this->writeOff;
+    }
+
+    /**
+     * @param Quantity $quantity
+     */
+    public function setQuantity(Quantity $quantity)
+    {
+        $this->quantity = $quantity;
     }
 }

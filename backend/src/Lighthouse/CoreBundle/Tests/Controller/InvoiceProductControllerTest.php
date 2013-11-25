@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Service\AveragePriceService;
+use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
@@ -24,7 +24,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceProductData = array(
             'quantity' => $quantity,
-            'price'    => $price,
+            'priceEntered'    => $price,
             'product'  => $productId,
         );
 
@@ -41,7 +41,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonHasPath('id', $responseJson);
 
         Assert::assertJsonPathEquals($quantity, 'quantity', $responseJson);
-        Assert::assertJsonPathEquals($price, 'price', $responseJson);
+        Assert::assertJsonPathEquals($price, 'priceEntered', $responseJson);
         Assert::assertJsonPathEquals($totalPrice, 'totalPrice', $responseJson);
         Assert::assertJsonPathEquals($productId, 'product.id', $responseJson);
         Assert::assertJsonPathEquals($invoiceId, 'invoice.id', $responseJson);
@@ -132,7 +132,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceProductData
         );
 
-        $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
+        $this->assertResponseCode(400);
         $this->assertTrue(isset($response['children']['product']['errors'][0]));
         $this->assertContains('Такого товара не существует', $response['children']['product']['errors'][0]);
     }
@@ -171,7 +171,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $productId = $this->createProduct($row['product']);
             $invoiceProductData = array(
                 'quantity' => $row['quantity'],
-                'price'    => $row['price'],
+                'priceEntered'    => $row['price'],
                 'product'  => $productId,
             );
 
@@ -224,7 +224,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
             $invoiceProductData = array(
                 'quantity' => $row['quantity'],
-                'price'    => $row['price'],
+                'priceEntered'    => $row['price'],
                 'product'  => $row['product'],
             );
 
@@ -255,7 +255,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceProductData = $data + array(
             'quantity' => 10,
-            'price'    => 17.68,
+            'priceEntered'    => 17.68,
             'product'  => $productId,
         );
 
@@ -269,12 +269,12 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode($expectedCode);
-
-        foreach ($assertions as $path => $expected) {
-            Assert::assertJsonPathContains($expected, $path, $response);
-        }
+        $this->performJsonAssertions($response, $assertions, true);
     }
 
+    /**
+     * @return array
+     */
     public function validationProvider()
     {
         return array(
@@ -322,12 +322,50 @@ class InvoiceProductControllerTest extends WebTestCase
                 )
             ),
             'float quantity' => array(
-                400,
+                201,
                 array('quantity' => 2.5),
+            ),
+            'float quantity with coma' => array(
+                201,
+                array('quantity' => '2,5'),
+            ),
+            'float quantity very float' => array(
+                400,
+                array('quantity' => 2.5555),
                 array(
                     'children.quantity.errors.0'
                     =>
-                    'Значение должно быть целым числом'
+                    'Значение не должно содержать больше 3 цифр после запятой'
+                )
+            ),
+            'float quantity very float with coma' => array(
+                400,
+                array('quantity' => '2,5555'),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение не должно содержать больше 3 цифр после запятой',
+                )
+            ),
+            'float quantity very float only one message' => array(
+                400,
+                array('quantity' => '2,5555'),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение не должно содержать больше 3 цифр после запятой',
+                    'children.quantity.errors.1'
+                    =>
+                    null
+                )
+            ),
+            'not numeric quantity' => array(
+                400,
+                array('quantity' => 'abc'),
+                array(
+                    'children.quantity.errors.0'
+                    =>
+                    'Значение должно быть числом'
                 )
             ),
             /***********************************************************************************************
@@ -335,101 +373,101 @@ class InvoiceProductControllerTest extends WebTestCase
              ***********************************************************************************************/
             'valid price dot' => array(
                 201,
-                array('price' => 10.89),
+                array('priceEntered' => 10.89),
             ),
             'valid price dot 79.99' => array(
                 201,
-                array('price' => 79.99),
+                array('priceEntered' => 79.99),
             ),
             'valid price coma' => array(
                 201,
-                array('price' => '10,89'),
+                array('priceEntered' => '10,89'),
             ),
             'empty price' => array(
                 400,
-                array('price' => ''),
+                array('priceEntered' => ''),
                 array(
-                    'children.price.errors.0'
+                    'children.priceEntered.errors.0'
                     =>
                     'Заполните это поле'
                 )
             ),
             'not valid price very float' => array(
                 400,
-                array('price' => '10,898'),
+                array('priceEntered' => '10,898'),
                 array(
-                    'children.price.errors.0'
+                    'children.priceEntered.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
             ),
             'not valid price very float dot' => array(
                 400,
-                array('price' => '10.898'),
+                array('priceEntered' => '10.898'),
                 array(
-                    'children.price.errors.0'
+                    'children.priceEntered.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
             ),
             'valid price very float with dot' => array(
                 201,
-                array('price' => '10.12')
+                array('priceEntered' => '10.12')
             ),
             'not valid price not a number' => array(
                 400,
-                array('price' => 'not a number'),
+                array('priceEntered' => 'not a number'),
                 array(
-                    'children.price.errors.0'
+                    'children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю',
                 ),
             ),
             'not valid price zero' => array(
                 400,
-                array('price' => 0),
+                array('priceEntered' => 0),
                 array(
-                    'children.price.errors.0'
+                    'children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю'
                 ),
             ),
             'not valid price negative' => array(
                 400,
-                array('price' => -10),
+                array('priceEntered' => -10),
                 array(
-                    'children.price.errors.0'
+                    'children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю'
                 )
             ),
             'not valid price too big 2 000 000 001' => array(
                 400,
-                array('price' => 2000000001),
+                array('priceEntered' => 2000000001),
                 array(
-                    'children.price.errors.0'
+                    'children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
             ),
             'not valid price too big 100 000 000' => array(
                 400,
-                array('price' => '100000000'),
+                array('priceEntered' => '100000000'),
                 array(
-                    'children.price.errors.0'
+                    'children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
             ),
             'valid price too big 10 000 000' => array(
                 201,
-                array('price' => '10000000'),
+                array('priceEntered' => '10000000'),
             ),
             'not valid price too big 10 000 001' => array(
                 400,
-                array('price' => '10000001'),
+                array('priceEntered' => '10000001'),
                 array(
-                    'children.price.errors.0'
+                    'children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -469,7 +507,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
             $invoiceProductData = array(
                 'quantity' => $row['quantity'],
-                'price'    => $row['price'],
+                'priceEntered'    => $row['price'],
                 'product'  => $row['product'],
             );
 
@@ -586,7 +624,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceProductData = array(
             'quantity' => 10,
-            'price'    => 17.68,
+            'priceEntered'    => 17.68,
             'product'  => $productId,
         );
 
@@ -623,8 +661,8 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductNotFoundFromAnotherStore()
     {
-        $storeId2 = $this->createStore('43');
-        $this->linkDepartmentManagers($storeId2, $this->departmentManager->id);
+        $storeId2 = $this->factory->getStore('43');
+        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
@@ -666,7 +704,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceProductData = array(
             'quantity' => $quantity,
-            'price'    => $price,
+            'priceEntered'    => $price,
             'product'  => $productId,
         );
 
@@ -698,7 +736,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $modifiedInvoiceProductData = array(
             'quantity' => $newQuantity,
-            'price' => $newPrice,
+            'priceEntered' => $newPrice,
         ) + $invoiceProductData;
 
         $responseJson = $this->clientJsonRequest(
@@ -768,7 +806,7 @@ class InvoiceProductControllerTest extends WebTestCase
         // POST invoice product
         $postData = array(
             'quantity' => $quantity1,
-            'price'    => $price1,
+            'priceEntered'    => $price1,
             'product'  => $product1Id,
         );
 
@@ -797,7 +835,7 @@ class InvoiceProductControllerTest extends WebTestCase
         // PUT invoice product with another product id
         $putData = array(
             'quantity' => $quantity2,
-            'price' => $price2,
+            'priceEntered' => $price2,
             'product'  => $product2Id,
         );
 
@@ -955,7 +993,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         Assert::assertNotJsonPathEquals($productsData[1]['id'], '*.id', $getResponse);
 
-        $this->assertStoreProductTotals($this->storeId, $productId, 11, $productsData[2]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 11, $productsData[2]['priceEntered']);
         $this->assertInvoiceTotals($invoiceId, 117.19, 2);
     }
 
@@ -971,7 +1009,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->storeId,
             $productId,
             $invoiceProducts[2]['productAmount'],
-            $invoiceProducts[2]['price']
+            $invoiceProducts[2]['priceEntered']
         );
 
         $accessToken = $this->auth($this->departmentManager);
@@ -984,7 +1022,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->assertStoreProductTotals($this->storeId, $productId, 15, $invoiceProducts[1]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 15, $invoiceProducts[1]['priceEntered']);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -994,7 +1032,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->assertStoreProductTotals($this->storeId, $productId, 5, $invoiceProducts[1]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 5, $invoiceProducts[1]['priceEntered']);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -1019,11 +1057,11 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->storeId,
             $productId,
             $invoiceProducts[2]['productAmount'],
-            $invoiceProducts[2]['price']
+            $invoiceProducts[2]['priceEntered']
         );
 
         $newInvoiceProductData = $invoiceProducts[1];
-        $newInvoiceProductData['price'] = 13.01;
+        $newInvoiceProductData['priceEntered'] = 13.01;
         unset($newInvoiceProductData['productAmount'], $newInvoiceProductData['id']);
 
         $accessToken = $this->auth($this->departmentManager);
@@ -1037,7 +1075,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertStoreProductTotals($this->storeId, $productId, 16, $invoiceProducts[2]['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 16, $invoiceProducts[2]['priceEntered']);
 
         $newProductId = $this->createProduct('NEW');
         $newInvoiceProductDataNewProduct = $invoiceProducts[2];
@@ -1054,13 +1092,18 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertStoreProductTotals($this->storeId, $productId, 15, $newInvoiceProductData['price']);
-        $this->assertStoreProductTotals($this->storeId, $newProductId, 1, $newInvoiceProductDataNewProduct['price']);
+        $this->assertStoreProductTotals($this->storeId, $productId, 15, $newInvoiceProductData['priceEntered']);
+        $this->assertStoreProductTotals(
+            $this->storeId,
+            $newProductId,
+            1,
+            $newInvoiceProductDataNewProduct['priceEntered']
+        );
     }
 
     public function testAveragePurchasePrice()
     {
-        $productId = $this->createProduct();
+        $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
 
         $invoiceId1 = $this->createInvoice(
@@ -1080,16 +1123,16 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->storeId,
             $this->departmentManager
         );
-        $invoiceProductIdOld = $this->createInvoiceProduct($invoiceIdOld, $productId, 10, 23.33);
+        $this->createInvoiceProduct($invoiceIdOld, $productId1, 10, 23.33);
 
-        $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
+        $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId1, 10, 26);
         $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67);
 
-        /* @var $averagePriceService AveragePriceService */
-        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        /* @var $averagePriceService StoreProductMetricsCalculator */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 26));
+        $this->assertStoreProduct($this->storeId, $productId1, array('averagePurchasePrice' => 26));
 
         $invoiceId2 = $this->createInvoice(
             array(
@@ -1100,11 +1143,11 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $invoiceProductId2 = $this->createInvoiceProduct($invoiceId2, $productId, 5, 29);
+        $invoiceProductId2 = $this->createInvoiceProduct($invoiceId2, $productId1, 5, 29);
 
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 27));
+        $this->assertStoreProduct($this->storeId, $productId1, array('averagePurchasePrice' => 27));
 
         $invoiceId3 = $this->createInvoice(
             array(
@@ -1115,11 +1158,11 @@ class InvoiceProductControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $invoiceProductId3 = $this->createInvoiceProduct($invoiceId3, $productId, 10, 31);
+        $invoiceProductId3 = $this->createInvoiceProduct($invoiceId3, $productId1, 10, 31);
 
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 28.6));
+        $this->assertStoreProduct($this->storeId, $productId1, array('averagePurchasePrice' => 28.6));
 
         $accessToken = $this->auth($this->departmentManager);
 
@@ -1135,7 +1178,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $this->storeId,
-            $productId,
+            $productId1,
             array('averagePurchasePrice' => 27, 'lastPurchasePrice' => 29)
         );
 
@@ -1151,7 +1194,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $this->storeId,
-            $productId,
+            $productId1,
             array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26)
         );
 
@@ -1167,7 +1210,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $this->storeId,
-            $productId,
+            $productId1,
             array('averagePurchasePrice' => null, 'lastPurchasePrice' => 23.33)
         );
     }
@@ -1199,8 +1242,8 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
         $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67);
 
-        /* @var $averagePriceService AveragePriceService */
-        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        /* @var $averagePriceService StoreProductMetricsCalculator */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 24.67));
@@ -1218,14 +1261,15 @@ class InvoiceProductControllerTest extends WebTestCase
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceSku' => '1248373',
             'supplierInvoiceDate' => '17.03.2013',
+            'includesVAT' => true,
         );
 
         $invoiceId = $this->createInvoice($invoiceData, $this->storeId, $this->departmentManager);
 
         $this->createInvoiceProduct($invoiceId, $productId, 10, 26);
 
-        /* @var $averagePriceService AveragePriceService */
-        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.average_price');
+        /* @var $averagePriceService StoreProductMetricsCalculator */
+        $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertStoreProduct(
@@ -1409,5 +1453,247 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonHasPath('1.acceptanceDate', $getResponse);
         Assert::assertJsonHasPath('1.invoice.acceptanceDate', $getResponse);
         $this->assertEquals($getResponse[1]['acceptanceDate'], $getResponse[1]['invoice']['acceptanceDate']);
+    }
+
+    public function testInvoiceProductTotalPriceWithFloatQuantity()
+    {
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
+        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'sku' => 'кефир_5%', 'purchasePrice' => 35.64));
+        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'sku' => 'кефир_0%', 'purchasePrice' => 42.15));
+
+        $invoiceId1 = $this->createInvoice(
+            array(
+                'sku' => 'MU-866',
+                'acceptanceDate' => '2013-10-18T09:39:47+0400'
+            ),
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $this->createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78);
+        $this->createInvoiceProduct($invoiceId1, $productId2, 0.4, 21.77);
+        $this->createInvoiceProduct($invoiceId1, $productId3, 7.77, 42.99);
+
+        $accessToken = $this->factory->auth($this->departmentManager);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId1 . '/invoiceProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(3677.63, "*.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "*.price", $getResponse);
+        Assert::assertJsonPathEquals(99.99, "*.quantity", $getResponse);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId2 . '/invoiceProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(8.71, "*.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(0.4, "*.quantity", $getResponse);
+        Assert::assertJsonPathEquals(21.77, "*.price", $getResponse);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId3 . '/invoiceProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(334.03, "*.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(42.99, "*.price", $getResponse);
+        Assert::assertJsonPathEquals(7.77, "*.quantity", $getResponse);
+    }
+
+    public function testInvoiceProductWithVATFields()
+    {
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
+
+        $invoiceId1 = $this->createInvoice(
+            array(
+                'sku' => 'MU-866',
+                'acceptanceDate' => '2013-10-18T09:39:47+0400',
+                'includesVAT' => true,
+            ),
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $this->createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78);
+
+        $accessToken = $this->factory->auth($this->departmentManager);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId1 . '/invoiceProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(3677.63, "0.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(3343.66, "0.totalPriceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(333.97, "0.totalAmountVAT", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.priceEntered", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.price", $getResponse);
+        Assert::assertJsonPathEquals(33.44, "0.priceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(3.34, "0.amountVAT", $getResponse);
+        Assert::assertJsonPathEquals(99.99, "0.quantity", $getResponse);
+    }
+
+    /**
+     * Проверяем что указав цену без НДС получим данные соответствующие данным теста выше
+     */
+    public function testInvoiceProductWithVATFieldsWithoutVAT()
+    {
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
+
+        $invoiceId1 = $this->createInvoice(
+            array(
+                'sku' => 'MU-866',
+                'acceptanceDate' => '2013-10-18T09:39:47+0400',
+                'includesVAT' => false,
+            ),
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $this->createInvoiceProduct($invoiceId1, $productId1, 99.99, 33.44, null, null, false);
+
+        $accessToken = $this->factory->auth($this->departmentManager);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId1 . '/invoiceProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(3677.63, "0.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(3343.66, "0.totalPriceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(333.97, "0.totalAmountVAT", $getResponse);
+        Assert::assertJsonPathEquals(33.44, "0.priceEntered", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.price", $getResponse);
+        Assert::assertJsonPathEquals(33.44, "0.priceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(3.34, "0.amountVAT", $getResponse);
+        Assert::assertJsonPathEquals(99.99, "0.quantity", $getResponse);
+    }
+
+    public function testInvoiceProductVATFieldChangeIncludesVATInInvoice()
+    {
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
+
+        $invoiceData = array(
+            'sku' => 'sku232',
+            'supplier' => 'ООО "Поставщик"',
+            'acceptanceDate' => '2013-03-18 12:56',
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceDate' => '17.03.2013',
+            'includesVAT' => true,
+        );
+
+        $invoiceId1 = $this->createInvoice(
+            $invoiceData,
+            $this->storeId,
+            $this->departmentManager
+        );
+
+        $this->createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78);
+
+        $accessToken = $this->factory->auth($this->departmentManager);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId1 . '/invoiceProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(3677.63, "0.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(3343.66, "0.totalPriceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(333.97, "0.totalAmountVAT", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.priceEntered", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.price", $getResponse);
+        Assert::assertJsonPathEquals(33.44, "0.priceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(3.34, "0.amountVAT", $getResponse);
+        Assert::assertJsonPathEquals(99.99, "0.quantity", $getResponse);
+
+
+        $invoiceData['includesVAT'] = false;
+
+        $invoiceResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1,
+            $invoiceData
+        );
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals(false, 'includesVAT', $invoiceResponse);
+        Assert::assertJsonPathEquals(4045.60, 'sumTotal', $invoiceResponse);
+        Assert::assertJsonPathEquals(3677.63, 'sumTotalWithoutVAT', $invoiceResponse);
+        Assert::assertJsonPathEquals(367.96, 'totalAmountVAT', $invoiceResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId1 . '/invoiceProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(4045.60, "0.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(3677.63, "0.totalPriceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(367.96, "0.totalAmountVAT", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.priceEntered", $getResponse);
+        Assert::assertJsonPathEquals(40.46, "0.price", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.priceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(3.68, "0.amountVAT", $getResponse);
+        Assert::assertJsonPathEquals(99.99, "0.quantity", $getResponse);
+
+
+
+        $invoiceData['includesVAT'] = true;
+
+        $invoiceResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1,
+            $invoiceData
+        );
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals(true, 'includesVAT', $invoiceResponse);
+        Assert::assertJsonPathEquals(3677.63, 'sumTotal', $invoiceResponse);
+        Assert::assertJsonPathEquals(3343.66, 'sumTotalWithoutVAT', $invoiceResponse);
+        Assert::assertJsonPathEquals(333.97, 'totalAmountVAT', $invoiceResponse);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/products/' . $productId1 . '/invoiceProducts'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals(3677.63, "0.totalPrice", $getResponse);
+        Assert::assertJsonPathEquals(3343.66, "0.totalPriceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(333.97, "0.totalAmountVAT", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.priceEntered", $getResponse);
+        Assert::assertJsonPathEquals(36.78, "0.price", $getResponse);
+        Assert::assertJsonPathEquals(33.44, "0.priceWithoutVAT", $getResponse);
+        Assert::assertJsonPathEquals(3.34, "0.amountVAT", $getResponse);
+        Assert::assertJsonPathEquals(99.99, "0.quantity", $getResponse);
     }
 }

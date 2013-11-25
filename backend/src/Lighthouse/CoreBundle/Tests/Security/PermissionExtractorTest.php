@@ -39,7 +39,6 @@ class PermissionExtractorTest extends ContainerAwareTestCase
             ),
             'others' => array(
                 '::api/1/service/permissions',
-                '::api/1/service/recalculate-average-purchase-price'
             ),
         );
         $this->assertEquals($expected, $notSecuredResources, 'There are unexpected not secured methods');

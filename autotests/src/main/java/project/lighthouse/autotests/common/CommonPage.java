@@ -128,7 +128,7 @@ public class CommonPage extends PageObject {
 
     public void checkAutoCompleteResult(String autoCompleteValue) {
         String xpathPattern = String.format(Autocomplete.AUTOCOMPLETE_XPATH_PATTERN, autoCompleteValue);
-        findBy(xpathPattern).shouldBePresent();
+        waiter.getVisibleWebElement(By.xpath(xpathPattern));
     }
 
     public void shouldContainsText(String elementName, WebElement element, String expectedValue) {

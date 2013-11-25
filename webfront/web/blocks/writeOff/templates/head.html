@@ -3,12 +3,12 @@
         Списание
         <span class="writeOff__editable">
             №
-            <span name="number" model-attr="number">
+            <span name="number" model-attribute="number">
                 <%- writeOffModel.get('number') %>
             </span>
         </span>
         от
-        <span name="date" class="writeOff__editable" model-attr="date">
+        <span name="date" class="writeOff__editable" model-attribute="date">
             <%- moment(writeOffModel.get('date')).format('DD.MM.YYYY') %>
         </span>
     </span>

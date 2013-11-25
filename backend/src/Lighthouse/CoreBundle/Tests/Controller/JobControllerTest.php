@@ -34,9 +34,9 @@ class JobControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, '*.id', $getResponse);
 
-        $storeId1 = $this->createStore('1');
-        $storeId2 = $this->createStore('2');
-        $storeId3 = $this->createStore('3');
+        $storeId1 = $this->factory->getStore('1');
+        $storeId2 = $this->factory->getStore('2');
+        $storeId3 = $this->factory->getStore('3');
 
         $productData = array(
             'sku' => 'Печенье Юбилейное',
@@ -175,9 +175,9 @@ class JobControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, '*.id', $getResponse);
 
-        $storeId1 = $this->createStore('1');
-        $storeId2 = $this->createStore('2');
-        $storeId3 = $this->createStore('3');
+        $storeId1 = $this->factory->getStore('1');
+        $storeId2 = $this->factory->getStore('2');
+        $storeId3 = $this->factory->getStore('3');
 
         $productData = array(
             'sku' => 'Печенье Юбилейное',
@@ -234,7 +234,7 @@ class JobControllerTest extends WebTestCase
         $dm = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
         $dm->clear();
 
-        /* @var \Lighthouse\CoreBundle\Job\JobManager $jobManager */
+        /* @var JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
 
         $jobManager->startWatchingTubes();
@@ -313,7 +313,7 @@ class JobControllerTest extends WebTestCase
      * @param $productId
      * @param array $assertions
      */
-    protected function assertStoreProduct($storeId, $productId, array $assertions)
+    protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {
         $storeManager = $this->getStoreManager($storeId);
 
@@ -343,7 +343,7 @@ class JobControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, '*.id', $getResponse);
 
-        $storeId = $this->createStore('1');
+        $storeId = $this->factory->getStore('1');
 
         $productData = array(
             'sku' => 'Печенье Юбилейное',

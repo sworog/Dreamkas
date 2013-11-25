@@ -11,7 +11,7 @@ class MetaContainerTest extends WebTestCase
 {
     /**
      * @param MetaGeneratorInterface|MetaGeneratorInterface[] $metaGenerators
-     * @return MetaCollection
+     * @return MetaCollection|MetaDocument[]
      */
     public function getProductCollectionWithMetaGenerators($metaGenerators)
     {
@@ -36,8 +36,9 @@ class MetaContainerTest extends WebTestCase
 
         $productsData = $this->getProductsData();
 
+        /* @var $mockMetaGenerator MetaGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject */
         $mockMetaGenerator = $this->getMock(
-            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
+            '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
         );
 
         $productsMeta = array(
@@ -113,14 +114,14 @@ class MetaContainerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $products = $this->createProductsBySku(array('1', '2', '3'));
+        $this->createProductsBySku(array('1', '2', '3'));
 
         $mockMetaGeneratorOne = $this->getMock(
-            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
+            '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
         );
 
         $mockMetaGeneratorTwo = $this->getMock(
-            '\Lighthouse\CoreBundle\Meta\MetaGeneratorInterface'
+            '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
         );
 
         $returnMetaGeneratorOne = array(
