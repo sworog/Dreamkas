@@ -134,7 +134,6 @@ Scenario: Mouse hover over inventory items
 Meta:
 @id s23u50s8
 @description while hovering the inventory item there will be some details
-@test
 
 GivenStories: precondition/us-50/aPreconditionToScenarioS8.story
 
