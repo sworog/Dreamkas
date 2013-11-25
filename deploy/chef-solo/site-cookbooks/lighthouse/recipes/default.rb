@@ -8,6 +8,7 @@ package "htop"
 package "curl"
 package "git"
 package "mc"
+package "smbclient"
 
 #############################################
 # users
