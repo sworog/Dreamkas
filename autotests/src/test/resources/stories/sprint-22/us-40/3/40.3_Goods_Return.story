@@ -7,14 +7,14 @@ As a user
 I want to perform an action
 So that I can achieve a business goal
 
-GivenStories: precondition/aPreconditionToStoryUs403.story
-
 Scenario: Returns checking
 
 Meta:
 @id s22u40.3s1
 @description the balance of two products increase after product return is processed by system (subCategory product balance page, product returns page).
 @smoke
+
+GivenStories: precondition/us-40.3/aPreconditionToScenarioS1.story
 
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ReturnDepartmentManager' userName and 'lighthouse' password
@@ -62,6 +62,8 @@ Meta:
 @id s22u40.3s2
 @description no product balance tab availabile for store manager
 
+GivenStories: precondition/us-40.3/aPreconditionToScenarioS23.story
+
 Given the user navigates to the product with sku 'SCPBC-sku-1'
 When the user logs in using 'NRTF-1' userName and 'lighthouse' password
 Then the user checks the local navigation return link is not visible
@@ -71,6 +73,8 @@ Scenario: No returns tab for commercialManager
 Meta:
 @id s22u40.3s3
 @description no product balance tab availabile for commercial manager
+
+GivenStories: precondition/us-40.3/aPreconditionToScenarioS23.story
 
 Given the user navigates to the product with sku 'SCPBC-sku-1'
 And the user logs in as 'commercialManager'
