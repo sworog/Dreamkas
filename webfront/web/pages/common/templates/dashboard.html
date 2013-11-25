@@ -1,1 +1,10 @@
-<div class="page__logo"></div>
+<% if (models.storeGrossSales){ %>
+    <div class="grossSale grossSale_store">
+        <div class="grossSale">
+
+        </div>
+    </div>
+<% } %>
+<% if (!_.any(models)) { %>
+    <div class="page__logo"></div>
+<% } %>
