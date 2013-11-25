@@ -4,7 +4,9 @@ namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,6 +28,11 @@ class Set10ProductImporter
     protected $validator;
 
     /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
+
+    /**
      * @var int
      */
     protected $batchSize = 1;
@@ -38,24 +45,32 @@ class Set10ProductImporter
     /**
      * @DI\InjectParams({
      *      "dm" = @DI\Inject("doctrine_mongodb.odm.document_manager"),
-     *      "validator" = @DI\Inject("lighthouse.core.validator")
+     *      "validator" = @DI\Inject("lighthouse.core.validator"),
+     *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product")
      * })
-     * @param ObjectManager $dm,
+     * @param ObjectManager $dm ,
      * @param ValidatorInterface $validator
+     * @param ProductRepository $productRepository
      */
-    public function __construct(ObjectManager $dm, ValidatorInterface $validator)
+    public function __construct(ObjectManager $dm, ValidatorInterface $validator, ProductRepository $productRepository)
     {
         $this->dm = $dm;
         $this->validator = $validator;
+        $this->productRepository = $productRepository;
     }
 
     /**
      * @param Set10ProductImportXmlParser $parser
      * @param OutputInterface $output
      * @param int $batchSize
+     * @param boolean $update
      */
-    public function import(Set10ProductImportXmlParser $parser, OutputInterface $output, $batchSize = null)
-    {
+    public function import(
+        Set10ProductImportXmlParser $parser,
+        OutputInterface $output,
+        $batchSize = null,
+        $update = false
+    ) {
         $errors = array();
         $memStart = memory_get_usage();
         $count = 0;
@@ -71,12 +86,21 @@ class Set10ProductImporter
             $flushCount++;
             $lineCount++;
             try {
+                $dot = '.';
+                if ($update) {
+                    $existingProduct = $this->productRepository->findOneBySku($product->sku);
+                    if ($existingProduct) {
+                        $this->productRepository->populateProductByProduct($existingProduct, $product);
+                        $product = $existingProduct;
+                        $dot = 'U';
+                    }
+                }
                 $this->validator->validate($product, null, true, true);
                 $this->dm->persist($product);
                 if ($verbose) {
                     $output->writeln(sprintf('<info>Persist product "%s"</info>', $product->name));
                 } else {
-                    $output->write('.');
+                    $output->write($dot);
                 }
             } catch (ValidationFailedException $e) {
                 $errors[] = array(

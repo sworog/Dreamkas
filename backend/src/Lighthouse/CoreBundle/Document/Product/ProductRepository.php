@@ -7,6 +7,7 @@ use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class ProductRepository extends DocumentRepository
 {
@@ -28,6 +29,15 @@ class ProductRepository extends DocumentRepository
     {
         $cursor = $this->findBy(array('subCategory' => $subCategory->id));
         return new ProductCollection($cursor);
+    }
+
+    /**
+     * @param string $sku
+     * @return Product
+     */
+    public function findOneBySku($sku)
+    {
+        return $this->findOneBy(array('sku' => $sku));
     }
 
     /**
@@ -93,5 +103,22 @@ class ProductRepository extends DocumentRepository
             $retailPrice = new Money();
         }
         return $retailPrice;
+    }
+
+    /**
+     * @param Product $originalProduct
+     * @param Product $dataProduct
+     */
+    public function populateProductByProduct(Product $originalProduct, Product $dataProduct)
+    {
+        $classMetaData = $this->getClassMetadata();
+        $accessor = PropertyAccess::createPropertyAccessor();
+        foreach ($classMetaData->reflFields as $field) {
+            $fieldName = $field->getName();
+            $value = $accessor->getValue($dataProduct, $fieldName);
+            if (null !== $value) {
+                $accessor->setValue($originalProduct, $fieldName, $value);
+            }
+        }
     }
 }

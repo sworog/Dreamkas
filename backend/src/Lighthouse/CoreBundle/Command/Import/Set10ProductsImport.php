@@ -4,9 +4,11 @@ namespace Lighthouse\CoreBundle\Command\Import;
 
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\RemoteDirectory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -54,7 +56,8 @@ class Set10ProductsImport extends Command
             ->setName('lighthouse:import:products')
             ->setDescription('Import product catalog from Set10')
             ->addArgument('file', InputArgument::REQUIRED, 'Path to xml file')
-            ->addArgument('batch-size', InputArgument::OPTIONAL, 'Batch size', 1000);
+            ->addArgument('batch-size', InputArgument::OPTIONAL, 'Batch size', 1000)
+            ->addOption('update', null, InputOption::VALUE_NONE, 'Update existing products');
     }
 
     /**
@@ -70,10 +73,11 @@ class Set10ProductsImport extends Command
 
         $filePath = $input->getArgument('file');
         $batchSize = $input->getArgument('batch-size');
+        $update = $input->getOption('update');
 
         $this->parser->setXmlFilePath($filePath);
 
-        $this->importer->import($this->parser, $output, $batchSize);
+        $this->importer->import($this->parser, $output, $batchSize, $update);
 
         $endTime = time();
 
