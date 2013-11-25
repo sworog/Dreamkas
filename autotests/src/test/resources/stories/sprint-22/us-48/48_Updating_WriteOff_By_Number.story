@@ -7,7 +7,7 @@ As a user
 I want to perform an action
 So that I can achieve a business goal
 
-GivenStories: precondition/aPreconditionToStoryUs48.story
+GivenStories: precondition/us-48/aPreconditionToStoryUs48.story
 
 Scenario: Nothing found
 
@@ -28,10 +28,8 @@ Meta:
 @id s22u48s2
 @description writeOff with number can be found
 
-Given there is the writeOff in the store with number 'SCPBC' ruled by department manager with name 'departmentManager-SCPBC' with values
-| elementName | elementValue |
-| number | SCPBC-10 |
-| date | 02.04.2013 |
+GivenStories: precondition/us-48/aPreconditionToScenarioS2.story
+
 Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
 And the user clicks the local navigation writeOff search link
@@ -48,17 +46,11 @@ Meta:
 @id s22u48s3
 @description two writeOffs with equal numbers can be found
 
-Given there is the writeOff in the store with number 'SCPBC' ruled by department manager with name 'departmentManager-SCPBC' with values
-| elementName | elementValue |
-| number | SCPBC-10 |
-| date | 02.04.2013 |
+GivenStories: precondition/us-48/aPreconditionToScenarioS3.story
+
 Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
-And the user clicks the local navigation writeOff create link
-And the user inputs 'SCPBC-10' in the 'writeOff number' field on the write off page
-And the user inputs '24.10.2012' in the 'writeOff date' field on the write off page
-And the user continues the write off creation
-And the user clicks the local navigation writeOff search link
+When the user clicks the local navigation writeOff search link
 And the user searches writeOff by number 'SCPBC-10'
 And the user clicks the writeOff search buttton and starts the search
 Then the user checks the form results text is 'Нашлось 2 списания'
@@ -71,6 +63,8 @@ Scenario: WriteOff with product found by number
 Meta:
 @id s22u48s4
 @description writeOffs with product can be found
+
+GivenStories: precondition/us-48/aPreconditionToScenarioS4.story
 
 Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
@@ -103,6 +97,8 @@ Meta:
 @id s22u48s5
 @description writeOffs with product can be found, the result is clickable and leads to writeOff page
 @smoke
+
+GivenStories: precondition/us-48/aPreconditionToScenarioS5.story
 
 Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
