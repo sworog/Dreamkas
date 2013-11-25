@@ -37,7 +37,7 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("productSku", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='sku']")));
         items.put("productBarCode", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='barcode']")));
         items.put("productAmount", new Input(this, "quantity"));
-        items.put("invoiceCost", new Input(this, "price"));
+        items.put("invoiceCost", new Input(this, "priceEntered"));
         items.put("totalProducts", new Input(this, "totalProducts"));
         items.put("totalSum", new Input(this, "totalSum"));
 
