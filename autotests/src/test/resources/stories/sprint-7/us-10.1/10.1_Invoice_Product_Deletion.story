@@ -62,7 +62,7 @@ Given there is the invoice with 'InvoiceProductdeletion-2' sku
 And there is the product with 'IE-IPD-AM' name, 'IE-IPD-AM' sku, 'IE-IPD-AM' barcode, 'liter' units
 Given the user opens amount list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'IE-IPD-AM' sku has 'amount' equal to '0' on amounts page
+Then the user checks the product with 'IE-IPD-AM' sku has 'amounts amount' element equal to '0' on amounts page
 Given the user is on the invoice list page
 When the user open the invoice card with 'InvoiceProductdeletion-2' sku
 And the user clicks edit button and starts invoice edition
@@ -74,7 +74,7 @@ Then the user checks the invoice product with 'IE-IPD-AM' sku is present
 When the user clicks finish edit button and ends the invoice edition
 Then the user checks the invoice product with 'IE-IPD-AM' sku is present
 Given the user opens amount list page
-Then the user checks the product with 'IE-IPD-AM' sku has 'amount' equal to '1' on amounts page
+Then the user checks the product with 'IE-IPD-AM' sku has 'amounts amount' element equal to '1' on amounts page
 Given the user is on the invoice list page
 When the user open the invoice card with 'InvoiceProductdeletion-2' sku
 And the user clicks edit button and starts invoice edition
@@ -82,7 +82,7 @@ And the user deletes the invoice product with 'IE-IPD-AM' sku
 And the user clicks OK and accepts deletion
 When the user clicks finish edit button and ends the invoice edition
 Given the user opens amount list page
-Then the user checks the product with 'IE-IPD-AM' sku has 'amount' equal to '0' on amounts page
+Then the user checks the product with 'IE-IPD-AM' sku has 'amounts amount' element equal to '0' on amounts page
 
 Scenario: Checks users cant delete product invoice in not edit mode - regress
 
