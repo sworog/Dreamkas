@@ -34,6 +34,7 @@ public class AmountListPage extends ProductListPage {
         items.put("amounts units", new NonType(this, "units"));
     }
 
+    @Deprecated
     public void checkAmountItemListItemWithSkuHasExpectedValue(String skuValue, String elementName, String expectedValue) {
         commonViewInterface.checkListItemWithSkuHasExpectedValue(skuValue, elementName, expectedValue);
     }

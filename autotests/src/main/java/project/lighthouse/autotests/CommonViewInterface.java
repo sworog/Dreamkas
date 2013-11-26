@@ -12,6 +12,7 @@ public interface CommonViewInterface {
 
     void itemClick(String value);
 
+    @Deprecated
     void checkListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue);
 
     void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable);

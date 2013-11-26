@@ -18,6 +18,7 @@ public class AmountSteps extends ScenarioSteps {
         amountListPage.open();
     }
 
+    @Deprecated
     @Step
     public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue) {
         amountListPage.checkAmountItemListItemWithSkuHasExpectedValue(skuValue, name, expectedValue);

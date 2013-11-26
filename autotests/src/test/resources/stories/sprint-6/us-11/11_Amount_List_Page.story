@@ -23,8 +23,8 @@ When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-ADADAD-11' sku is present
 Given the user opens amount list page
-Then the user checks the product with 'ADADAD-11' sku has 'amount' equal to '1' on amounts page
-And the user checks the product with 'ADADAD-11' sku has 'units' equal to 'кг' on amounts page
+Then the user checks the product with 'ADADAD-11' sku has 'amounts amount' element equal to '1' on amounts page
+And the user checks the product with 'ADADAD-11' sku has 'amounts units' element equal to 'кг' on amounts page
 Given there is the invoice with 'Invoice-ADADAD-112' sku
 And the user navigates to the invoice page with name 'Invoice-ADADAD-112'
 When the user inputs 'ADADAD-11' in the invoice product 'productName' field
@@ -56,8 +56,8 @@ When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-ADADAD-22' sku is present
 Given the user opens amount list page
-Then the user checks the product with 'ADADAD-22' sku has 'amount' equal to '12' on amounts page
-And the user checks the product with 'ADADAD-22' sku has 'units' equal to 'шт.' on amounts page
+Then the user checks the product with 'ADADAD-22' sku has 'amounts amount' element equal to '12' on amounts page
+And the user checks the product with 'ADADAD-22' sku has 'amounts units' element equal to 'шт.' on amounts page
 Given there is the invoice with 'Invoice-ADADAD-221' sku
 And the user navigates to the invoice page with name 'Invoice-ADADAD-221'
 When the user inputs 'ADADAD-22' in the invoice product 'productName' field
@@ -89,8 +89,8 @@ When the user clicks finish edit button and ends the invoice edition
 Given the user is on the invoice list page
 Then the user checks the invoice with 'Invoice-ADADAD-33' sku is present
 Given the user opens amount list page
-Then the user checks the product with 'ADADAD-33' sku has 'amount' equal to '45' on amounts page
-And the user checks the product with 'ADADAD-33' sku has 'units' equal to 'л' on amounts page
+Then the user checks the product with 'ADADAD-33' sku has 'amounts amount' element equal to '45' on amounts page
+And the user checks the product with 'ADADAD-33' sku has 'amounts units' element equal to 'л' on amounts page
 Given there is the invoice with 'Invoice-ADADAD-331' sku
 And the user navigates to the invoice page with name 'Invoice-ADADAD-331'
 When the user inputs 'ADADAD-33' in the invoice product 'productName' field
