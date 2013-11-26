@@ -61,8 +61,8 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void editButtonClick() {
         findVisibleElement(
-                By.xpath("//*[@class='page__controlsLink invoice__editLink']")
-        ).click();
+                By.xpath("//*[@class='page__controlsLink invoice__editLink']"));
+        evaluateJavascript("document.getElementsByClassName('page__controlsLink invoice__editLink')[0].click();");
     }
 
     public void goToTheaAdditionOfProductsLinkClick() {
