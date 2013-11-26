@@ -124,6 +124,30 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
         $this->assertContains("Done", $display);
     }
 
+    public function testImportFolder()
+    {
+        $this->clearMongoDb();
+
+        $commandTester = $this->getCommandTester();
+        $input = array(
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/GoodsFolder'),
+        );
+
+        $exitCode = $commandTester->execute($input);
+
+        $this->assertEquals(0, $exitCode);
+
+        $display = $commandTester->getDisplay();
+
+        $file1Pos = strpos($display, 'goods-catalog_01-01-2013_0-01-15.xml');
+        $file7Pos = strpos($display, 'goods-catalog_01-02-2013_0-18-28.xml');
+
+        $this->assertNotEmpty($file1Pos);
+        $this->assertNotEmpty($file7Pos);
+
+        $this->assertGreaterThan($file1Pos, $file7Pos, 'Last file should be imported before 1st');
+    }
+
     public function testExecuteWithVerbose()
     {
         $this->clearMongoDb();

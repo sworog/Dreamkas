@@ -1,0 +1,2463 @@
+<goods-catalog>
+    <good marking-of-the-good="4100001883">
+        <shop-indices>701</shop-indices>
+        <name>Скатерть PAPSTAR Шары на красн.120х180см</name>
+        <bar-code code="4002911112953" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="149.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6210">
+            <name>Скатерти</name>
+            <parent-group id="621">
+                <name>Скатерти</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100001884">
+        <shop-indices>701</shop-indices>
+        <name>Стакан PAPSTAR бумаж Шары на красн.200мл</name>
+        <bar-code code="4002911112939" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="49.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6231">
+            <name>Однораз.стак.,солом.</name>
+            <parent-group id="623">
+                <name>Одноразовая посуда для дома</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100001885">
+        <shop-indices>701</shop-indices>
+        <name>Тарелка PAPSTAR Шары на красн. 23см</name>
+        <bar-code code="4002911112946" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="69.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6230">
+            <name>Одноразовые тарелки</name>
+            <parent-group id="623">
+                <name>Одноразовая посуда для дома</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100001887">
+        <shop-indices>701</shop-indices>
+        <name>Скатерть PAPSTAR Рожд.цветок 120х180см</name>
+        <bar-code code="4002911113059" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="149.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6210">
+            <name>Скатерти</name>
+            <parent-group id="621">
+                <name>Скатерти</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100001888">
+        <shop-indices>701</shop-indices>
+        <name>Стакан PAPSTAR бумаж. Рожд.цветок 200мл</name>
+        <bar-code code="4002911112991" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="49.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6231">
+            <name>Однораз.стак.,солом.</name>
+            <parent-group id="623">
+                <name>Одноразовая посуда для дома</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100001889">
+        <shop-indices>701</shop-indices>
+        <name>Тарелка PAPSTAR Рожд.цветок 23см</name>
+        <bar-code code="4002911113042" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="69.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6230">
+            <name>Одноразовые тарелки</name>
+            <parent-group id="623">
+                <name>Одноразовая посуда для дома</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100002061">
+        <shop-indices>701</shop-indices>
+        <name>Свеча Снежинка из пузыр.воска</name>
+        <bar-code code="4607030331829" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="95.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6229">
+            <name>Прочие свечи</name>
+            <parent-group id="622">
+                <name>Свечи</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100002062">
+        <shop-indices>701</shop-indices>
+        <name>Свеча Зимний узор парафинов. в ст.крас.</name>
+        <bar-code code="4607030331942" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="119.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6229">
+            <name>Прочие свечи</name>
+            <parent-group id="622">
+                <name>Свечи</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100010029">
+        <shop-indices>701</shop-indices>
+        <name>Дрожжи Dr.Oetker 7г</name>
+        <bar-code code="4607061490014" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <bar-code code="4607061490021" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="44.50" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="4110">
+            <name>Сухие дрожжи</name>
+            <parent-group id="411">
+                <name>Ингредиенты и украшения для вы</name>
+                <parent-group id="41">
+                    <name>Приправы и консервация</name>
+                    <parent-group id="4">
+                        <name>Бакалея</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100010462">
+        <shop-indices>701</shop-indices>
+        <name>Корм Перфект Фит чувст кош с кур 190г</name>
+        <bar-code code="4008429033452" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="52.50" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="3703">
+            <name>Кошачий сухой корм</name>
+            <parent-group id="370">
+                <name>Корм для кошек</name>
+                <parent-group id="37">
+                    <name>Корм для домашних животных</name>
+                    <parent-group id="7">
+                        <name>Непродов.товары для досуга и р</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100010463">
+        <shop-indices>701</shop-indices>
+        <name>Корм Перфект Фит дом кош с кур 190г</name>
+        <bar-code code="4008429033278" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="52.50" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="3703">
+            <name>Кошачий сухой корм</name>
+            <parent-group id="370">
+                <name>Корм для кошек</name>
+                <parent-group id="37">
+                    <name>Корм для домашних животных</name>
+                    <parent-group id="7">
+                        <name>Непродов.товары для досуга и р</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100011580">
+        <shop-indices>701</shop-indices>
+        <name>Набор посуды VITESSE 7 пр., нерж.сталь</name>
+        <bar-code code="4895124413159" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="2250.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="7033">
+            <name>Металлич. кастрюли</name>
+            <parent-group id="703">
+                <name>Принадлежн-ти для пригот. пищи</name>
+                <parent-group id="70">
+                    <name>Товары для дома</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="CN">
+            <name>Китай</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100012798">
+        <shop-indices>701</shop-indices>
+        <name>Кубик Gallina Blanca куриный бульон 480г</name>
+        <bar-code code="8410300207634" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <bar-code code="84103697" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="117.10" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="4180">
+            <name>Курин.бульон.кубики</name>
+            <parent-group id="418">
+                <name>Бульонные кубики и суповые сме</name>
+                <parent-group id="41">
+                    <name>Приправы и консервация</name>
+                    <parent-group id="4">
+                        <name>Бакалея</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100012800">
+        <shop-indices>701</shop-indices>
+        <name>Кубик Gallina Blanca говяж.бул.кост.480г</name>
+        <bar-code code="8410300760221" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <bar-code code="84103222" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="117.10" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="4181">
+            <name>Говяж.бульон.кубики</name>
+            <parent-group id="418">
+                <name>Бульонные кубики и суповые сме</name>
+                <parent-group id="41">
+                    <name>Приправы и консервация</name>
+                    <parent-group id="4">
+                        <name>Бакалея</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014495">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS active baby midi 22</name>
+        <bar-code code="4015600001674" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="255.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5501">
+            <name>Подгузники, 3</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014496">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS active baby maxi 20</name>
+        <bar-code code="4015600002527" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="255.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5502">
+            <name>Подгузники, 4</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014498">
+        <shop-indices>701</shop-indices>
+        <name>Подгузн PAMPERS active baby midi 82.86</name>
+        <bar-code code="4015400265085" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="819.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5501">
+            <name>Подгузники, 3</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014499">
+        <shop-indices>701</shop-indices>
+        <name>Подгузн PAMPERS active b maxi plus 62.66</name>
+        <bar-code code="4015400264774" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="819.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5502">
+            <name>Подгузники, 4</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014500">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS active b junior 58.62</name>
+        <bar-code code="4015400264811" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="819.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5503">
+            <name>Подгузники 5, MAX</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014501">
+        <shop-indices>701</shop-indices>
+        <name>Подгузн-трус PAMPERS active boy maxi 52</name>
+        <bar-code code="4015400255420" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="654.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5502">
+            <name>Подгузники, 4</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="PL">
+            <name>Польша</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014502">
+        <shop-indices>701</shop-indices>
+        <name>Подгузн-трус PAMPERS active girl maxi 52</name>
+        <bar-code code="4015400255451" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="654.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5502">
+            <name>Подгузники, 4</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="PL">
+            <name>Польша</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014503">
+        <shop-indices>701</shop-indices>
+        <name>Подгузн-трус PAMPERS act boy junior 48</name>
+        <bar-code code="4015400255635" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="654.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5503">
+            <name>Подгузники 5, MAX</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="PL">
+            <name>Польша</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014504">
+        <shop-indices>701</shop-indices>
+        <name>Подгузн-трус PAMPERS act girl junior 48</name>
+        <bar-code code="4015400255666" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="654.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5503">
+            <name>Подгузники 5, MAX</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="PL">
+            <name>Польша</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014505">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS premium care mini 72</name>
+        <bar-code code="4015400274728" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="639.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5500">
+            <name>Подгузники, 1,2</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014506">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS premium care maxi 52</name>
+        <bar-code code="4015400278818" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="770.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5502">
+            <name>Подгузники, 4</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014507">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS sleep play midi 16</name>
+        <bar-code code="4015400122838" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="139.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5501">
+            <name>Подгузники, 3</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="PL">
+            <name>Польша</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014508">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS sleep play maxi 14</name>
+        <bar-code code="4015400166658" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="139.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5502">
+            <name>Подгузники, 4</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="PL">
+            <name>Польша</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014512">
+        <shop-indices>701</shop-indices>
+        <name>Салф дет увл PAMPERS nat clean duo 2x64</name>
+        <bar-code code="4015400439486" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="160.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5506">
+            <name>Очищающие салфетки</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014513">
+        <shop-indices>701</shop-indices>
+        <name>Салф дет увл PAMPERS sensitive см бл 56</name>
+        <bar-code code="4015400439547" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="82.90" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5506">
+            <name>Очищающие салфетки</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100014514">
+        <shop-indices>701</shop-indices>
+        <name>Салф дет увл PAMPERS baby fresh см бл 64</name>
+        <bar-code code="4015400439110" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="82.90" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5506">
+            <name>Очищающие салфетки</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="ES">
+            <name>Испания</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100018647">
+        <shop-indices>701</shop-indices>
+        <name>Свечи DUNI 26см, 6,5час.гор.белый.золото</name>
+        <bar-code code="4002215266307" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="590.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6221">
+            <name>Свечи ретро</name>
+            <parent-group id="622">
+                <name>Свечи</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="NO">
+            <name>Норвегия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100018648">
+        <shop-indices>701</shop-indices>
+        <name>Свечи DUNI 26см, 6,5час.гор.белый.серебр</name>
+        <bar-code code="4002215266314" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="590.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6221">
+            <name>Свечи ретро</name>
+            <parent-group id="622">
+                <name>Свечи</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="NO">
+            <name>Норвегия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100018649">
+        <shop-indices>701</shop-indices>
+        <name>Свечи DUNI 26см, 6,5час.горения.золотой</name>
+        <bar-code code="7321011803378" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="590.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6221">
+            <name>Свечи ретро</name>
+            <parent-group id="622">
+                <name>Свечи</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="NO">
+            <name>Норвегия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100018650">
+        <shop-indices>701</shop-indices>
+        <name>Свечи DUNI 26см, 6,5час.гор.серебряный</name>
+        <bar-code code="7321011803385" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="590.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6221">
+            <name>Свечи ретро</name>
+            <parent-group id="622">
+                <name>Свечи</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="NO">
+            <name>Норвегия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100018651">
+        <shop-indices>701</shop-indices>
+        <name>Свечи шар Вельвет DUNI 8см, 25ч.гор.зол</name>
+        <bar-code code="7321011553532" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="125.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6229">
+            <name>Прочие свечи</name>
+            <parent-group id="622">
+                <name>Свечи</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100018652">
+        <shop-indices>701</shop-indices>
+        <name>Свечи шар Вельвет DUNI 8см, 25ч.гор.сер</name>
+        <bar-code code="7321011553549" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="125.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="6229">
+            <name>Прочие свечи</name>
+            <parent-group id="622">
+                <name>Свечи</name>
+                <parent-group id="62">
+                    <name>Одноразовая посуда</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100019819">
+        <shop-indices>701</shop-indices>
+        <name>Нагрудник детский Бытпласт</name>
+        <bar-code code="4607016814322" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <bar-code code="4607016817743" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="72.50" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="5512">
+            <name>Дет.столовая посуда</name>
+            <parent-group id="551">
+                <name>Изделия для ухода за младенцам</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100023882">
+        <shop-indices>701</shop-indices>
+        <name>Кастрюля 1,75 л</name>
+        <bar-code code="4607023930602" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="850.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="7033">
+            <name>Металлич. кастрюли</name>
+            <parent-group id="703">
+                <name>Принадлежн-ти для пригот. пищи</name>
+                <parent-group id="70">
+                    <name>Товары для дома</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100023883">
+        <shop-indices>701</shop-indices>
+        <name>Ковш 1,0 л</name>
+        <bar-code code="4607023932408" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="399.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="7033">
+            <name>Металлич. кастрюли</name>
+            <parent-group id="703">
+                <name>Принадлежн-ти для пригот. пищи</name>
+                <parent-group id="70">
+                    <name>Товары для дома</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100023884">
+        <shop-indices>701</shop-indices>
+        <name>Кастрюля 1,0 л</name>
+        <bar-code code="4607023934136" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="750.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="7033">
+            <name>Металлич. кастрюли</name>
+            <parent-group id="703">
+                <name>Принадлежн-ти для пригот. пищи</name>
+                <parent-group id="70">
+                    <name>Товары для дома</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100023885">
+        <shop-indices>701</shop-indices>
+        <name>Кастрюля 3,0 л</name>
+        <bar-code code="4607023930633" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="950.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="7033">
+            <name>Металлич. кастрюли</name>
+            <parent-group id="703">
+                <name>Принадлежн-ти для пригот. пищи</name>
+                <parent-group id="70">
+                    <name>Товары для дома</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100023886">
+        <shop-indices>701</shop-indices>
+        <name>Кастрюля 4,0 л</name>
+        <bar-code code="4607023934129" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="1190.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="7033">
+            <name>Металлич. кастрюли</name>
+            <parent-group id="703">
+                <name>Принадлежн-ти для пригот. пищи</name>
+                <parent-group id="70">
+                    <name>Товары для дома</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100023887">
+        <shop-indices>701</shop-indices>
+        <name>Кастрюля 5,0 л</name>
+        <bar-code code="4607023930664" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="1250.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="7033">
+            <name>Металлич. кастрюли</name>
+            <parent-group id="703">
+                <name>Принадлежн-ти для пригот. пищи</name>
+                <parent-group id="70">
+                    <name>Товары для дома</name>
+                    <parent-group id="8">
+                        <name>Хозяйственные товары и бытовая</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100029453">
+        <shop-indices>701</shop-indices>
+        <name>Сельдь атл. Дер.рец. в м. ф.к.Матье 500г</name>
+        <bar-code code="4603942002697" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <bar-code code="4607189880070" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="167.70" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="1144">
+            <name>Пресервы рыб,мореп.</name>
+            <parent-group id="114">
+                <name>Кулинария и издел. из икры,от</name>
+                <parent-group id="11">
+                    <name>Рыба и морепродукты</name>
+                    <parent-group id="1">
+                        <name>Собственное производство</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100029454">
+        <shop-indices>701</shop-indices>
+        <name>Сельдь атл. Д.р. х.к. в м. ф.к.Матье500г</name>
+        <bar-code code="4603942002680" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <bar-code code="4607189880056" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="244.20" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="1144">
+            <name>Пресервы рыб,мореп.</name>
+            <parent-group id="114">
+                <name>Кулинария и издел. из икры,от</name>
+                <parent-group id="11">
+                    <name>Рыба и морепродукты</name>
+                    <parent-group id="1">
+                        <name>Собственное производство</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100031726">
+        <shop-indices>701</shop-indices>
+        <name>Карпаччо из индейки охл, кг</name>
+        <bar-code code="2601698" do-not-send-to-scales="false">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductWeightEntity</product-type>
+        <price-entry price="632.88" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="1344">
+            <name>Копч. мясо и птица</name>
+            <parent-group id="134">
+                <name>Мясная кулинария, от поставщик</name>
+                <parent-group id="13">
+                    <name>Кулинария</name>
+                    <parent-group id="1">
+                        <name>Собственное производство</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="2">
+            <name>КГ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100031727">
+        <shop-indices>701</shop-indices>
+        <name>Пастрома из индейки, кг</name>
+        <bar-code code="2601699" do-not-send-to-scales="false">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductWeightEntity</product-type>
+        <price-entry price="444.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="1344">
+            <name>Копч. мясо и птица</name>
+            <parent-group id="134">
+                <name>Мясная кулинария, от поставщик</name>
+                <parent-group id="13">
+                    <name>Кулинария</name>
+                    <parent-group id="1">
+                        <name>Собственное производство</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="2">
+            <name>КГ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100031728">
+        <shop-indices>701</shop-indices>
+        <name>Голень индейки варено-копченая, кг</name>
+        <bar-code code="2601700" do-not-send-to-scales="false">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductWeightEntity</product-type>
+        <price-entry price="281.88" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="1344">
+            <name>Копч. мясо и птица</name>
+            <parent-group id="134">
+                <name>Мясная кулинария, от поставщик</name>
+                <parent-group id="13">
+                    <name>Кулинария</name>
+                    <parent-group id="1">
+                        <name>Собственное производство</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="2">
+            <name>КГ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032060">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS Active Baby Midi 150</name>
+        <bar-code code="4015400265207" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="1650.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5501">
+            <name>Подгузники, 3</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032061">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS SP Midi Джамбo 78</name>
+        <bar-code code="4015400203520" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="575.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5501">
+            <name>Подгузники, 3</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032062">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS PC Midi Джамбо 60</name>
+        <bar-code code="4015400274780" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="639.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5501">
+            <name>Подгузники, 3</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032063">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS SP Mini Джамбо 88</name>
+        <bar-code code="4015400378952" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="575.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5500">
+            <name>Подгузники, 1,2</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032064">
+        <shop-indices>701</shop-indices>
+        <name>Подгузики PAMPERS NewBaby Mini Джамбо 94</name>
+        <bar-code code="4015400264613" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="695.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5500">
+            <name>Подгузники, 1,2</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="PL">
+            <name>Польша</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032065">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS PC Newborn Джамбо 78</name>
+        <bar-code code="4015400274667" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="639.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5500">
+            <name>Подгузники, 1,2</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="PL">
+            <name>Польша</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032066">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS Active Baby Maxi 132</name>
+        <bar-code code="4015400265238" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="1650.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5502">
+            <name>Подгузники, 4</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032067">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS SP Maxi Джамбо 68</name>
+        <bar-code code="4015400203551" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="575.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5502">
+            <name>Подгузники, 4</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032068">
+        <shop-indices>701</shop-indices>
+        <name>Подгузики PAMPERS Act BabyMaxi Джамбо 70</name>
+        <bar-code code="4015400244769" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="819.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5502">
+            <name>Подгузники, 4</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032069">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS ActivеBaby Junior 111</name>
+        <bar-code code="4015400265016" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="1650.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5503">
+            <name>Подгузники 5, MAX</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032071">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS SP Junior Джмбо 58</name>
+        <bar-code code="4015400203582" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="575.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5503">
+            <name>Подгузники 5, MAX</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032073">
+        <shop-indices>701</shop-indices>
+        <name>Подгузники PAMPERS PC Junior Джамбо 44</name>
+        <bar-code code="4015400278870" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="770.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="5503">
+            <name>Подгузники 5, MAX</name>
+            <parent-group id="550">
+                <name>Подгузники и влажные салфетки</name>
+                <parent-group id="55">
+                    <name>Подгузники и товары для ухода</name>
+                    <parent-group id="5">
+                        <name>Непродовольственные товары для</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="DE">
+            <name>Германия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100032846">
+        <shop-indices>701</shop-indices>
+        <name>Икра лососевая горбуша, кг</name>
+        <bar-code code="2609399" do-not-send-to-scales="false">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductWeightEntity</product-type>
+        <price-entry price="1980.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="1137">
+            <name>Икра красная</name>
+            <parent-group id="113">
+                <name>Кулинария и изделия из икры, с</name>
+                <parent-group id="11">
+                    <name>Рыба и морепродукты</name>
+                    <parent-group id="1">
+                        <name>Собственное производство</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="2">
+            <name>КГ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100033014">
+        <shop-indices>701</shop-indices>
+        <name>Икра лососевая зернистая, кг</name>
+        <bar-code code="2609404" do-not-send-to-scales="false">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductWeightEntity</product-type>
+        <price-entry price="2760.00" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="1137">
+            <name>Икра красная</name>
+            <parent-group id="113">
+                <name>Кулинария и изделия из икры, с</name>
+                <parent-group id="11">
+                    <name>Рыба и морепродукты</name>
+                    <parent-group id="1">
+                        <name>Собственное производство</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="2">
+            <name>КГ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100033274">
+        <shop-indices>701</shop-indices>
+        <name>Пакет PIRKKA</name>
+        <bar-code code="6410405061768" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="40.40" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="9340">
+            <name>Пластиковые сумки</name>
+            <parent-group id="934">
+                <name>Пластиковые пакеты</name>
+                <parent-group id="93">
+                    <name>Вспомогательные расходные м-лы</name>
+                    <parent-group id="9">
+                        <name>Администрация</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="CN">
+            <name>Китай</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+    <good marking-of-the-good="4100033726">
+        <shop-indices>701</shop-indices>
+        <name>Печень трески БЕРИНГ натуральная 120г</name>
+        <bar-code code="5702024007069" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="85.50" currency="RUB">
+            <begin-date>2013-01-01T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>10</vat>
+        <group id="3263">
+            <name>Конс. печень трески</name>
+            <parent-group id="326">
+                <name>Рыбные консервы</name>
+                <parent-group id="32">
+                    <name>Консервированные продукты</name>
+                    <parent-group id="4">
+                        <name>Бакалея</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="IS">
+            <name>Исландия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value=""/>
+        <plugin-property key="volume" value=""/>
+        <plugin-property key="composition" value=""/>
+    </good>
+</goods-catalog>

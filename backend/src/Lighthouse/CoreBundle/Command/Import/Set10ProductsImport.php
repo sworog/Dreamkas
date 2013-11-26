@@ -10,7 +10,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
-use DirectoryIterator;
+use FilesystemIterator;
+use SplFileInfo;
 
 /**
  * @DI\Service("lighthouse.core.command.import.set10_products_import")
@@ -92,17 +93,17 @@ class Set10ProductsImport extends Command
 
     /**
      * @param string $filePath
-     * @return SplFileInfo[]
+     * @return \SplFileInfo[]
      * @throws \InvalidArgumentException
      */
     protected function getFilesList($filePath)
     {
-        $file = new \SplFileInfo($filePath);
+        $file = new SplFileInfo($filePath);
         $files = array();
         if ($file->isFile()) {
             $files[] = $file;
         } elseif ($file->isDir()) {
-            $dir = new DirectoryIterator($file->getPathname());
+            $dir = new FilesystemIterator($file->getPathname(), FilesystemIterator::SKIP_DOTS);
             foreach ($dir as $file) {
                 if ($file->isFile()) {
                     $files[] = $file;
@@ -111,6 +112,9 @@ class Set10ProductsImport extends Command
         } else {
             throw new \InvalidArgumentException(sprintf('Path %s is not file or dir', $filePath));
         }
+        usort($files, function (SplFileInfo $a, SplFileInfo $b) {
+            return strcmp($a->getFilename(), $b->getFilename());
+        });
         return $files;
     }
 }
