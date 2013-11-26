@@ -1,5 +1,4 @@
-﻿
-Meta:
+﻿Meta:
 @sprint 10
 @us 14
 
@@ -190,7 +189,7 @@ Then the user sees error messages
 | error message |
 | Такого товара не существует |
 
-Scenario: Write off Validation - quantity is required
+Scenario: Write off edit Validation - quantity is required
 
 Given there is the write off with 'WriteOff-Edit-Val-16' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-16'
@@ -203,7 +202,7 @@ Then the user sees error messages
 | error message |
 | Заполните это поле |
 
-Scenario: Write off product quantity validation sub zero
+Scenario: Write off edit product quantity validation sub zero
 
 Given there is the write off with 'WriteOff-Edit-Val-17' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-17'
@@ -216,7 +215,7 @@ Then the user sees error messages
 | error message |
 | Значение должно быть больше 0 |
 
-Scenario: Write off product quantity validation zero
+Scenario: Write off edit product quantity validation zero
 
 Given there is the write off with 'WriteOff-Edit-Val-18' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-18'
@@ -229,7 +228,7 @@ Then the user sees error messages
 | error message |
 | Значение должно быть больше 0 |
 
-Scenario: Write off product quantity validation String en small register
+Scenario: Write off edit product quantity validation String en small register
 
 Given there is the write off with 'WriteOff-Edit-Val-19' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-19'
@@ -240,9 +239,9 @@ And the user inputs 'asdd' in the 'inline writeOff product quantity' field on th
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
-Scenario: Write off product quantity validation String en big register
+Scenario: Write off edit product quantity validation String en big register
 
 Given there is the write off with 'WriteOff-Edit-Val-20' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-20'
@@ -253,9 +252,9 @@ And the user inputs 'ADHF' in the 'inline writeOff product quantity' field on th
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
-Scenario: Write off product quantity validation String rus small register
+Scenario: Write off edit product quantity validation String rus small register
 
 Given there is the write off with 'WriteOff-Edit-Val-21' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-21'
@@ -266,9 +265,9 @@ And the user inputs 'рыба' in the 'inline writeOff product quantity' field o
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
-Scenario: Write off product quantity validation String rus big register
+Scenario: Write off edit product quantity validation String rus big register
 
 Given there is the write off with 'WriteOff-Edit-Val-22' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-22'
@@ -279,9 +278,9 @@ And the user inputs 'Рыба' in the 'inline writeOff product quantity' field o
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
-Scenario: Write off product quantity validation symbols
+Scenario: Write off edit product quantity validation symbols
 
 Given there is the write off with 'WriteOff-Edit-Val-23' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-23'
@@ -292,9 +291,9 @@ And the user inputs '^%#$)&' in the 'inline writeOff product quantity' field on 
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
-Scenario: Write off product quantity positive validation
+Scenario: Write off edit product quantity positive validation
 
 Given there is the write off with 'WriteOff-Edit-Val-24' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-24'
