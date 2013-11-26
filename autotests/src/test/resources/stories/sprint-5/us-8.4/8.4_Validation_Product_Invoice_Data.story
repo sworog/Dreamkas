@@ -122,7 +122,7 @@ When the user inputs 'asdd' in the invoice product 'productAmount' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Invoice product amount validation String en big register
 
@@ -136,7 +136,7 @@ When the user inputs 'ADHF' in the invoice product 'productAmount' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Invoice product amount validation String rus small register
 
@@ -150,7 +150,7 @@ When the user inputs 'домик' in the invoice product 'productAmount' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Invoice product amount validation String rus big register\
 
@@ -164,7 +164,7 @@ When the user inputs 'Домище' in the invoice product 'productAmount' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Invoice product amount validation symbols
 
@@ -178,7 +178,7 @@ When the user inputs '^%#$)&' in the invoice product 'productAmount' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Invoice product Amount positive validation
 
