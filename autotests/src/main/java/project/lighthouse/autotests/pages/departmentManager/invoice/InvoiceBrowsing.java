@@ -114,8 +114,8 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void writeOffStopEditlinkClick() {
         findVisibleElement(
-                By.xpath("//*[@class='page__controlsLink invoice__stopEditLink']")
-        ).click();
+                By.xpath("//*[@class='page__controlsLink invoice__stopEditLink']"));
+        evaluateJavascript("document.getElementsByClassName('page__controlsLink invoice__stopEditLink')[0].click();");
     }
 
     public void childrenElementClick(String elementName, String elementClassName) {
