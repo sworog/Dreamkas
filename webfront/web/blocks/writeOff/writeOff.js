@@ -42,6 +42,10 @@ define(function(require) {
                     destroy: function() {
                         var block = this;
                         block.writeOffModel.fetch();
+                    },
+                    reset: function(){
+                        var block = this;
+                        block.productsTable.render();
                     }
                 }
             },
@@ -104,22 +108,27 @@ define(function(require) {
                 'submit .writeOff__productsTable .writeOff__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
+                        $form = $(e.target),
                         data = form2js(e.target, '.', false),
-                        writeOffProductId = $(e.target).closest('[writeOff-product-id]').attr('writeOff-product-id'),
+                        writeOffProductId = $form.closest('[writeOff-product-id]').attr('writeOff-product-id'),
                         writeOffProduct = block.writeOffProductsCollection.get(writeOffProductId),
-                        $submitButton = $(e.target).find('[type="submit"]').closest('.button');
+                        $submitButton = $('[form*="' + $form.attr('id') + '"]').closest('.button').add($form.find('[type="submit"]').closest('.button'));
 
                     block.removeInlineErrors();
-                    $submitButton.addClass('preloader');
+                    $submitButton.addClass('preloader_rows');
 
-                    writeOffProduct.save(data, {
+                    writeOffProduct.set(data, {
+                        silent: true
+                    });
+
+                    writeOffProduct.save(null, {
                         success: function() {
                             block.set('dataEditing', false);
-                            $submitButton.removeClass('preloader');
+                            $submitButton.removeClass('preloader_rows');
                         },
                         error: function(data, res) {
                             block.showInlineErrors(JSON.parse(res.responseText));
-                            $submitButton.removeClass('preloader');
+                            $submitButton.removeClass('preloader_rows');
                         }
                     });
                 },

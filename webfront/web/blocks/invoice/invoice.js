@@ -108,22 +108,27 @@ define(function(require) {
                 'submit .invoice__productsTable .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
+                        $form = $(e.target),
                         data = form2js(e.target, '.', false),
-                        invoiceProductId = $(e.target).closest('[invoice-product-id]').attr('invoice-product-id'),
+                        invoiceProductId = $form.closest('[invoice-product-id]').attr('invoice-product-id'),
                         invoiceProduct = block.invoiceProductsCollection.get(invoiceProductId),
-                        $submitButton = $(e.target).find('[type="submit"]').closest('.button');
+                        $submitButton = $('[form*="' + $form.attr('id') + '"]').closest('.button').add($form.find('[type="submit"]').closest('.button'));
 
                     block.removeInlineErrors();
-                    $submitButton.addClass('preloader');
+                    $submitButton.addClass('preloader_rows');
 
-                    invoiceProduct.save(data, {
+                    invoiceProduct.set(data, {
+                        silent: true
+                    });
+
+                    invoiceProduct.save(null, {
                         success: function() {
                             block.set('dataEditing', false);
-                            $submitButton.removeClass('preloader');
+                            $submitButton.removeClass('preloader_rows');
                         },
                         error: function(data, res) {
                             block.showInlineErrors(JSON.parse(res.responseText));
-                            $submitButton.removeClass('preloader');
+                            $submitButton.removeClass('preloader_rows');
                         }
                     });
                 },
@@ -147,13 +152,6 @@ define(function(require) {
                         },
                         wait: true
                     });
-                },
-                'click .invoice__dataInputSave': function(e) {
-                    e.preventDefault();
-                    var block = this,
-                        $dataInputForm = block.$el.find('.invoice__dataInput');
-
-                    $dataInputForm.submit();
                 },
                 'click .invoice__dataInputCancel': function(e) {
                     var block = this;
