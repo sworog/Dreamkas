@@ -148,7 +148,7 @@ class Set10ProductImporter
         $flushStartTime = microtime(true);
         $flushCount = 0;
         $lineCount = 0;
-        while ($goodElement = $parser->readNextNode()) {
+        while ($goodElement = $parser->readNextElement()) {
             $count++;
             $flushCount++;
             $lineCount++;

@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import\Products;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\GoodElement;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
@@ -16,8 +17,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
     protected function createXmlParser($xmlFilePath = 'Integration/Set10/Import/Products/goods.xml')
     {
         $xmlFilePath = $this->getFixtureFilePath($xmlFilePath);
-        $parser = $this->getContainer()->get('lighthouse.core.integration.set10.import.products.xml_parser');
-        $parser->setXmlFilePath($xmlFilePath);
+        $parser = new Set10ProductImportXmlParser($xmlFilePath);
         return $parser;
     }
 
@@ -25,7 +25,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
     {
         $parser = $this->createXmlParser();
 
-        $simpleXml = $parser->readNextNode();
+        $simpleXml = $parser->readNextElement();
         $this->assertInstanceOf('\SimpleXmlElement', $simpleXml);
         $this->assertEquals('good', $simpleXml->getName());
         $this->assertNotNull($simpleXml->name);
@@ -36,7 +36,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
     {
         $parser = $this->createXmlParser();
 
-        $good = $parser->readNextNode();
+        $good = $parser->readNextElement();
         $this->assertInstanceOf(GoodElement::getClassName(), $good);
 
         $groups = $good->getGroups();
@@ -54,19 +54,19 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
     {
         $parser = $this->createXmlParser();
 
-        $good = $parser->readNextNode();
+        $good = $parser->readNextElement();
         $this->assertEquals(Product::UNITS_UNIT, $good->getUnits());
 
-        $good = $parser->readNextNode();
+        $good = $parser->readNextElement();
         $this->assertEquals(Product::UNITS_UNIT, $good->getUnits());
 
-        $good = $parser->readNextNode();
+        $good = $parser->readNextElement();
         $this->assertEquals(Product::UNITS_KG, $good->getUnits());
 
-        $good = $parser->readNextNode();
+        $good = $parser->readNextElement();
         $this->assertEquals(Product::UNITS_KG, $good->getUnits());
 
-        $good = $parser->readNextNode();
+        $good = $parser->readNextElement();
         $this->assertFalse($good);
     }
 
@@ -87,7 +87,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         );
 
         foreach ($expected as $expectedUnit) {
-            $good = $parser->readNextNode();
+            $good = $parser->readNextElement();
             $this->assertEquals($expectedUnit, $good->getUnits());
         }
     }
@@ -96,11 +96,22 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
     {
         $parser = $this->createXmlParser();
         $groupNodesCount = 0;
-        while ($good = $parser->readNextNode()) {
+        while ($good = $parser->readNextElement()) {
             $this->assertInstanceOf(GoodElement::getClassName(), $good);
             $this->assertEquals('good', $good->getName());
             $groupNodesCount++;
         }
         $this->assertEquals(4, $groupNodesCount);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Exception\RuntimeException
+     */
+    public function testInvalidXml()
+    {
+        $parser = $this->createXmlParser('Integration/Set10/Import/Products/goods-invalid.xml');
+        do {
+            $good = $parser->readNextElement();
+        } while ($good);
     }
 }

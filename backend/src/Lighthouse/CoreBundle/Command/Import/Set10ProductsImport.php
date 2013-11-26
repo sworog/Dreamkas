@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Import;
 
+use Lighthouse\CoreBundle\Exception\InvalidArgumentException;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Symfony\Component\Console\Command\Command;
@@ -25,30 +26,16 @@ class Set10ProductsImport extends Command
     protected $importer;
 
     /**
-     * @var Set10ProductImportXmlParser
-     */
-    protected $parser;
-
-    /**
      * @DI\InjectParams({
      *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import.products.importer")
      * })
      * @param Set10ProductImporter $importer
      */
-    public function setImporterProvider(Set10ProductImporter $importer)
+    public function __construct(Set10ProductImporter $importer)
     {
-        $this->importer = $importer;
-    }
+        parent::__construct();
 
-    /**
-     * @DI\InjectParams({
-     *      "parser" = @DI\Inject("lighthouse.core.integration.set10.import.products.xml_parser")
-     * })
-     * @param Set10ProductImportXmlParser $parser
-     */
-    public function setParserProvider(Set10ProductImportXmlParser $parser)
-    {
-        $this->parser = $parser;
+        $this->importer = $importer;
     }
 
     protected function configure()
@@ -58,7 +45,8 @@ class Set10ProductsImport extends Command
             ->setDescription('Import product catalog from Set10')
             ->addArgument('file', InputArgument::REQUIRED, 'Path to xml file')
             ->addArgument('batch-size', InputArgument::OPTIONAL, 'Batch size', 1000)
-            ->addOption('update', null, InputOption::VALUE_NONE, 'Update existing products');
+            ->addOption('update', null, InputOption::VALUE_NONE, 'Update existing products')
+        ;
     }
 
     /**
@@ -76,10 +64,14 @@ class Set10ProductsImport extends Command
         $batchSize = $input->getArgument('batch-size');
         $update = $input->getOption('update');
 
-        foreach ($this->getFilesList($filePath) as $file) {
-            $output->writeln(sprintf('Importing %s', $file->getFilename()));
-            $this->parser->setXmlFilePath($file->getPathname());
-            $this->importer->import($this->parser, $output, $batchSize, $update);
+        $files = $this->getFilesList($filePath);
+        $filesCount = count($files);
+        foreach ($files as $i => $file) {
+            $output->writeln('');
+            $output->writeln(sprintf('Importing %s %d of %d', $file->getFilename(), $i, $filesCount));
+            $output->writeln('');
+            $parser = new Set10ProductImportXmlParser($file->getPathname());
+            $this->importer->import($parser, $output, $batchSize, $update);
         }
 
         $endTime = time();
@@ -104,16 +96,17 @@ class Set10ProductsImport extends Command
             $files[] = $file;
         } elseif ($file->isDir()) {
             $dir = new FilesystemIterator($file->getPathname(), FilesystemIterator::SKIP_DOTS);
+            /* @var SplFileInfo $file*/
             foreach ($dir as $file) {
                 if ($file->isFile()) {
                     $files[] = $file;
                 }
             }
         } else {
-            throw new \InvalidArgumentException(sprintf('Path %s is not file or dir', $filePath));
+            throw new InvalidArgumentException(sprintf('Path %s is not file or dir', $filePath));
         }
         usort($files, function (SplFileInfo $a, SplFileInfo $b) {
-            return strcmp($a->getFilename(), $b->getFilename());
+            return strcmp($b->getFilename(), $a->getFilename());
         });
         return $files;
     }

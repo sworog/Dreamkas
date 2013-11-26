@@ -2,55 +2,26 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
-use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
-use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
-use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
-use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Types\Numeric\Money;
-use JMS\DiExtraBundle\Annotation as DI;
-use XMLReader;
-use DOMDocument;
+use Lighthouse\CoreBundle\Integration\Set10\XmlParser;
+use DOMNode;
 
-/**
- * @DI\Service("lighthouse.core.integration.set10.import.products.xml_parser")
- */
-class Set10ProductImportXmlParser
+class Set10ProductImportXmlParser extends XmlParser
 {
     /**
-     * @var XMLReader
+     * @param $name
+     * @return bool
      */
-    protected $xmlReader;
-
-    /**
-     * @param $xmlFilePath
-     */
-    public function setXmlFilePath($xmlFilePath)
+    protected function supportsNodeName($name)
     {
-        $this->createXmlReader($xmlFilePath);
+        return 'good' == $name;
     }
 
     /**
-     * @param string $xmlFilePath
+     * @param DOMNode $node
+     * @return GoodElement
      */
-    protected function createXmlReader($xmlFilePath)
+    protected function createElement(DOMNode $node)
     {
-        $this->xmlReader = new XMLReader();
-        $this->xmlReader->open($xmlFilePath, 'UTF-8');
-    }
-
-    /**
-     * @return GoodElement|boolean
-     */
-    public function readNextNode()
-    {
-        while ($this->xmlReader->read()) {
-            if (XMLReader::ELEMENT === $this->xmlReader->nodeType && 'good' == $this->xmlReader->name) {
-                $domNode = $this->xmlReader->expand();
-                $doc = new DOMDocument('1.0', 'UTF-8');
-                return simplexml_import_dom($doc->importNode($domNode, true), GoodElement::getClassName());
-            }
-        }
-        return false;
+        return simplexml_import_dom($node, GoodElement::getClassName());
     }
 }

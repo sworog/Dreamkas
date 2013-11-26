@@ -145,7 +145,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
         $this->assertNotEmpty($file1Pos);
         $this->assertNotEmpty($file7Pos);
 
-        $this->assertGreaterThan($file1Pos, $file7Pos, 'Last file should be imported before 1st');
+        $this->assertGreaterThan($file7Pos, $file1Pos, 'Last file should be imported before 1st');
     }
 
     public function testExecuteWithVerbose()
@@ -184,20 +184,6 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
     {
         $file = $expectedFile = $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml');
 
-        /* @var $parser Set10ProductImportXmlParser|\PHPUnit_Framework_MockObject_MockObject */
-        $parser = $this->getMock(
-            'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Products\\Set10ProductImportXmlParser',
-            array(),
-            array(),
-            '',
-            false
-        );
-
-        $parser
-            ->expects($this->once())
-            ->method('setXmlFilePath')
-            ->with($this->equalTo($expectedFile));
-
         /* @var $importer Set10ProductImporter|\PHPUnit_Framework_MockObject_MockObject */
         $importer = $this->getMock(
             'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Products\\Set10ProductImporter',
@@ -211,15 +197,13 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
             ->expects($this->once())
             ->method('import')
             ->with(
-                $this->equalTo($parser),
+                $this->anything(),
                 $this->anything(),
                 $this->equalTo($expectedBatchSize)
             );
 
 
-        $command = new Set10ProductsImport();
-        $command->setParserProvider($parser);
-        $command->setImporterProvider($importer);
+        $command = new Set10ProductsImport($importer);
 
         $commandTester = new CommandTester($command);
 
