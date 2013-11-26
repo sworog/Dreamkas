@@ -30,4 +30,14 @@ class CategoryRepository extends DocumentRepository
     {
         return $this->findBy(array('group' => $groupId));
     }
+
+    /**
+     * @param string $name
+     * @param string $groupId
+     * @return Category
+     */
+    public function findOneByName($name, $groupId)
+    {
+        return $this->findOneBy(array('name' => $name, 'group' => $groupId));
+    }
 }

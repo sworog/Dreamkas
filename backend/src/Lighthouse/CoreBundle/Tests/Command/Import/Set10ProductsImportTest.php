@@ -11,13 +11,28 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Set10ProductsImportTest extends ContainerAwareTestCase
 {
-    public function testExecute()
+    /**
+     * @param bool $shutdown
+     * @return CommandTester
+     */
+    protected function getCommandTester($shutdown = false)
     {
-        $this->clearMongoDb();
+        if ($shutdown) {
+            static::$kernel->shutdown();
+        }
 
         /* @var Set10ProductsImport $command */
         $command = $this->getContainer()->get('lighthouse.core.command.import.set10_products_import');
         $commandTester = new CommandTester($command);
+
+        return $commandTester;
+    }
+
+    public function testExecuteWithoutErrors()
+    {
+        $this->clearMongoDb();
+
+        $commandTester = $this->getCommandTester();
 
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
@@ -34,19 +49,76 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
         $this->assertContains('....', $display);
         $this->assertContains("Flushing", $display);
         $this->assertContains("Done", $display);
+    }
 
+    public function testDoubleExecuteWithSameFileWithoutUpdate()
+    {
+        $this->clearMongoDb();
+
+        $commandTester = $this->getCommandTester();
+
+        $input = array(
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
+            'batch-size' => 4
+        );
 
         $exitCode = $commandTester->execute($input);
 
         $this->assertEquals(0, $exitCode);
 
         $display = $commandTester->getDisplay();
+        $this->assertContains('....', $display);
+
+        // shutdown kernel to emulate two different command invokes
+        $commandTester2 = $this->getCommandTester(true);
+        $exitCode = $commandTester2->execute($input);
+
+        $this->assertEquals(0, $exitCode);
+
+        $display = $commandTester2->getDisplay();
 
         $this->assertContains("Starting import", $display);
 
         $this->assertContains('EEEE', $display);
         $this->assertContains('sku: Такой артикул уже есть', $display);
 
+        $this->assertNotContains('....', $display);
+
+        $this->assertContains("Done", $display);
+    }
+
+    public function testDoubleExecuteWithSameFileWithUpdate()
+    {
+        $this->clearMongoDb();
+
+        $commandTester = $this->getCommandTester();
+
+        $input = array(
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
+        );
+
+        $exitCode = $commandTester->execute($input);
+
+        $this->assertEquals(0, $exitCode);
+
+        $display = $commandTester->getDisplay();
+        $this->assertContains('....', $display);
+
+        // shutdown kernel to emulate two different command invokes
+        $commandTester2 = $this->getCommandTester(true);
+
+        $input['--update'] = true;
+        $exitCode = $commandTester2->execute($input);
+
+        $this->assertEquals(0, $exitCode);
+
+        $display = $commandTester2->getDisplay();
+
+        $this->assertContains("Starting import", $display);
+
+        $this->assertContains('UUUU', $display);
+
+        $this->assertNotContains('sku: Такой артикул уже есть', $display);
         $this->assertNotContains('....', $display);
 
         $this->assertContains("Done", $display);
@@ -80,14 +152,14 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
     }
 
     /**
-     * @param $file
      * @param $batchSize
-     * @param $expectedFile
      * @param $expectedBatchSize
      * @dataProvider argumentsProvider
      */
-    public function testArguments($file, $batchSize, $expectedFile, $expectedBatchSize)
+    public function testArguments($batchSize, $expectedBatchSize)
     {
+        $file = $expectedFile = $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml');
+
         /* @var $parser Set10ProductImportXmlParser|\PHPUnit_Framework_MockObject_MockObject */
         $parser = $this->getMock(
             'Lighthouse\\CoreBundle\\Integration\\Set10\\Import\\Products\\Set10ProductImportXmlParser',
@@ -135,12 +207,24 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
         $commandTester->execute($input);
     }
 
+    /**
+     * @return array
+     */
     public function argumentsProvider()
     {
         return array(
-            'default batch size' => array('file', null, 'file', 1000),
-            'batch size 5' => array('file', 5, 'file', 5),
-            'batch size string' => array('file', 'aaa', 'file', 'aaa'),
+            'default batch size' => array(
+                null,
+                1000
+            ),
+            'batch size 5' => array(
+                5,
+                5
+            ),
+            'batch size string' => array(
+                'aaa',
+                'aaa'
+            ),
         );
     }
 }

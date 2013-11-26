@@ -30,4 +30,14 @@ class SubCategoryRepository extends DocumentRepository
     {
         return $this->findBy(array('category' => $categoryId));
     }
+
+    /**
+     * @param string $name
+     * @param string $categoryId
+     * @return SubCategory
+     */
+    public function findOneByName($name, $categoryId)
+    {
+        return $this->findOneBy(array('name' => $name, 'category' => $categoryId));
+    }
 }

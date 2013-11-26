@@ -6,7 +6,9 @@ use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
+use Lighthouse\CoreBundle\Test\TestOutput;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Set10ProductImporterTest extends ContainerAwareTestCase
 {
@@ -22,7 +24,25 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
         return $parser;
     }
 
-    public function testImport()
+    /**
+     * @param Set10ProductImportXmlParser $parser
+     * @param int $batchSize
+     * @param bool $update
+     * @return TestOutput
+     */
+    public function import(
+        Set10ProductImportXmlParser $parser,
+        $batchSize = null,
+        $update = false
+    ) {
+        /* @var Set10ProductImporter $importer */
+        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.products.importer');
+        $output = new TestOutput();
+        $importer->import($parser, $output, $batchSize, $update);
+        return $output;
+    }
+
+    public function testImportOneFileImport()
     {
         $this->clearMongoDb();
 
@@ -32,10 +52,7 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
         $this->assertCount(0, $cursor);
 
         $parser = $this->createXmlParser();
-        /* @var Set10ProductImporter $importer */
-        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.products.importer');
-        $output = new NullOutput();
-        $importer->import($parser, $output);
+        $output = $this->import($parser);
 
         $cursor = $productRepository->findAll();
         $this->assertCount(4, $cursor);
