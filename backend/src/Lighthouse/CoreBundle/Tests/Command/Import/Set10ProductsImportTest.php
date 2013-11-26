@@ -235,4 +235,38 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
             ),
         );
     }
+
+    public function testImportInvalidXml()
+    {
+        $this->clearMongoDb();
+
+        $commandTester = $this->getCommandTester();
+
+        $input = array(
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods-invalid.xml'),
+        );
+
+        $exitCode = $commandTester->execute($input);
+        $this->assertEquals(0, $exitCode);
+
+        $display = $commandTester->getDisplay();
+
+        $this->assertContains('Error: Failed to parse xml: Extra content at the end of the document', $display);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Exception\InvalidArgumentException
+     */
+    public function testImportNotExistingFile()
+    {
+        $this->clearMongoDb();
+
+        $commandTester = $this->getCommandTester();
+
+        $input = array(
+            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods-invalid-not-found.xml'),
+        );
+
+        $commandTester->execute($input);
+    }
 }

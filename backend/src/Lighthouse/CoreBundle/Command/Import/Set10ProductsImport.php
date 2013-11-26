@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Command\Import;
 
 use Lighthouse\CoreBundle\Exception\InvalidArgumentException;
+use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Symfony\Component\Console\Command\Command;
@@ -71,7 +72,11 @@ class Set10ProductsImport extends Command
             $output->writeln(sprintf('Importing %s %d of %d', $file->getFilename(), $i, $filesCount));
             $output->writeln('');
             $parser = new Set10ProductImportXmlParser($file->getPathname());
-            $this->importer->import($parser, $output, $batchSize, $update);
+            try {
+                $this->importer->import($parser, $output, $batchSize, $update);
+            } catch (RuntimeException $e) {
+                $output->writeln('Error: ' . $e->getMessage());
+            }
         }
 
         $endTime = time();
