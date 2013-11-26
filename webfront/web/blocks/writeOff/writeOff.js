@@ -117,14 +117,10 @@ define(function(require) {
                     block.removeInlineErrors();
                     $submitButton.addClass('preloader_rows');
 
-                    writeOffProduct.set(data, {
-                        silent: true
-                    });
-
-                    writeOffProduct.save(null, {
+                    writeOffProduct.save(data, {
                         success: function() {
                             block.set('dataEditing', false);
-                            $submitButton.removeClass('preloader_rows');
+                            block.productsTable.render();
                         },
                         error: function(data, res) {
                             block.showInlineErrors(JSON.parse(res.responseText));
