@@ -255,7 +255,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
     }
 
     /**
-     * @expectedException \Lighthouse\CoreBundle\Exception\InvalidArgumentException
+     * @expectedException \UnexpectedValueException
      */
     public function testImportNotExistingFile()
     {

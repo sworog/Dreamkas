@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Exception\InvalidArgumentException;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
+use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -95,24 +96,8 @@ class Set10ProductsImport extends Command
      */
     protected function getFilesList($filePath)
     {
-        $file = new SplFileInfo($filePath);
-        $files = array();
-        if ($file->isFile()) {
-            $files[] = $file;
-        } elseif ($file->isDir()) {
-            $dir = new FilesystemIterator($file->getPathname(), FilesystemIterator::SKIP_DOTS);
-            /* @var SplFileInfo $file*/
-            foreach ($dir as $file) {
-                if ($file->isFile()) {
-                    $files[] = $file;
-                }
-            }
-        } else {
-            throw new InvalidArgumentException(sprintf('Path %s is not file or dir', $filePath));
-        }
-        usort($files, function (SplFileInfo $a, SplFileInfo $b) {
-            return strcmp($b->getFilename(), $a->getFilename());
-        });
+        $files = new SortableDirectoryIterator($filePath);
+        $files->sortByFilename(SortableDirectoryIterator::SORT_DESC);
         return $files;
     }
 }
