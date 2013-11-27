@@ -67,4 +67,20 @@ class ProductXmlMergerTest extends ContainerAwareTestCase
             $file
         );
     }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Exception\InvalidArgumentException
+     * @expectedExceptionMessage "unknown" is not a folder
+     */
+    public function testExecuteInvalidFolder()
+    {
+        $command = new ProductsXmlMerger();
+        $commandTester = new CommandTester($command);
+        $input = array(
+            'dir' => 'unknown',
+            'save' => tempnam('/tmp', 'file'),
+        );
+        $exitCode = $commandTester->execute($input);
+        $this->assertEquals(0, $exitCode);
+    }
 }

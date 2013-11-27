@@ -162,7 +162,7 @@ class ProductsXmlMerger extends Command
                 }
             }
         } else {
-            throw new InvalidArgumentException(sprintf('%s is not a folder', $dir));
+            throw new InvalidArgumentException(sprintf('"%s" is not a folder', $dir));
         }
         usort($files, function (SplFileInfo $a, SplFileInfo $b) {
             return $b->getMTime() - $a->getMTime();
