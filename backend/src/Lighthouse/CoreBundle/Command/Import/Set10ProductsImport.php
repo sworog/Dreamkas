@@ -69,7 +69,7 @@ class Set10ProductsImport extends Command
         $filesCount = count($files);
         foreach ($files as $i => $file) {
             $output->writeln('');
-            $output->writeln(sprintf('Importing %s %d of %d', $file->getFilename(), $i, $filesCount));
+            $output->writeln(sprintf('Importing %s %d of %d', $file->getFilename(), $i + 1, $filesCount));
             $output->writeln('');
             $parser = new Set10ProductImportXmlParser($file->getPathname());
             try {
