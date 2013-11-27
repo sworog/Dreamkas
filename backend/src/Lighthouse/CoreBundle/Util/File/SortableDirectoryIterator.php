@@ -19,9 +19,9 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
     const DEFAULT_SORT = self::SORT_ASC;
 
     /**
-     * @var FilesystemIterator
+     * @var SplFileInfo
      */
-    protected $filesystemIterator;
+    protected $fileInfo;
 
     /**
      * @var ArrayIterator|SplFileInfo[]
@@ -33,7 +33,28 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
      */
     public function __construct($path)
     {
-        $this->filesystemIterator = new FilesystemIterator($path, FilesystemIterator::SKIP_DOTS);
+        $this->fileInfo = new SplFileInfo($path);
+        $this->checkFileExists();
+    }
+
+    /**
+     * @throws \UnexpectedValueException
+     */
+    protected function checkFileExists()
+    {
+        try {
+            $this->fileInfo->getType();
+        } catch (\RuntimeException $e) {
+            throw new \UnexpectedValueException(sprintf('Path "%s" does not exist', $this->fileInfo->getPathname()));
+        }
+    }
+
+    /**
+     * @return SplFileInfo
+     */
+    public function getFileInfo()
+    {
+        return $this->fileInfo;
     }
 
     /**
@@ -43,19 +64,16 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
     {
         if (null === $this->files) {
             $this->files = new ArrayIterator();
-            foreach ($this->filesystemIterator as $file) {
-                $this->files->append($file);
+            if ($this->fileInfo->isDir()) {
+                $iterator = new FilesystemIterator($this->fileInfo->getPathname(), FilesystemIterator::SKIP_DOTS);
+                foreach ($iterator as $file) {
+                    $this->files->append($file);
+                }
+            } else {
+                $this->files->append($this->fileInfo);
             }
         }
         return $this->files;
-    }
-
-    /**
-     * @return FilesystemIterator|SplFileInfo[]
-     */
-    public function getFilesystemIterator()
-    {
-        return $this->filesystemIterator;
     }
 
     /**
@@ -168,5 +186,13 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
     {
         $this->initialize();
         return $this->files->count();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->fileInfo;
     }
 }

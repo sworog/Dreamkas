@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Command\Import;
 
 use Lighthouse\CoreBundle\Exception\InvalidArgumentException;
+use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 use Symfony\Component\Console\Command\Command;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Console\Helper\TableHelper;
@@ -146,27 +147,16 @@ class ProductsXmlMerger extends Command
 
     /**
      * @param string $dir
-     * @throws InvalidArgumentException
-     * @return SplFileInfo[]
+     * @throws \UnexpectedValueException
+     * @return SplFileInfo[]|SortableDirectoryIterator
      */
     protected function getXmlFiles($dir)
     {
-        $dirInfo = new SplFileInfo($dir);
-        $files = array();
-        if ($dirInfo->isDir()) {
-            $folderIterator = new FilesystemIterator($dirInfo->getPathname(), FilesystemIterator::SKIP_DOTS);
-            /* @var \SplFileInfo $file*/
-            foreach ($folderIterator as $file) {
-                if ($file->isFile()) {
-                    $files[] = $file;
-                }
-            }
-        } else {
-            throw new InvalidArgumentException(sprintf('"%s" is not a folder', $dir));
+        $files = new SortableDirectoryIterator($dir);
+        if (!$files->getFileInfo()->isDir()) {
+            throw new \UnexpectedValueException(sprintf('Path "%s" is not directory', $dir));
         }
-        usort($files, function (SplFileInfo $a, SplFileInfo $b) {
-            return $b->getMTime() - $a->getMTime();
-        });
+        $files->sortByTime(SortableDirectoryIterator::SORT_DESC);
         return $files;
     }
 

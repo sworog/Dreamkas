@@ -2,9 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Util\File;
 
+use Karzer\Framework\TestCase\TestCase;
 use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 
-class SortableDirectoryTest extends \PHPUnit_Framework_TestCase
+class SortableDirectoryTest extends TestCase
 {
     /**
      * @expectedException UnexpectedValueException
@@ -102,22 +103,19 @@ class SortableDirectoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($files[2]['filename'], $dir[2]->getFilename());
         $this->assertEquals($files[1]['filename'], $dir[3]->getFilename());
         $this->assertEquals($files[0]['filename'], $dir[4]->getFilename());
-
-        $filesystem = $dir->getFilesystemIterator();
-        $filesystem->rewind();
-        $this->assertNotEquals($filesystem->current()->getFilename(), $dir[0]->getFilename());
     }
 
-    public function testGetFilesystemIterator()
+    public function testGetFileInfo()
     {
         $tmpDir = $this->createDirectory();
         $this->createFiles($tmpDir);
 
         $dir = new SortableDirectoryIterator($tmpDir);
 
-        $filesystem = $dir->getFilesystemIterator();
+        $fileInfo = $dir->getFileInfo();
 
-        $this->assertEquals($tmpDir, $filesystem->getPath());
+        $this->assertEquals($tmpDir, $fileInfo->getPathname());
+        $this->assertTrue($fileInfo->isDir());
     }
 
     public function testCount()
@@ -181,6 +179,33 @@ class SortableDirectoryTest extends \PHPUnit_Framework_TestCase
 
         $value = new \SplFileInfo(__FILE__);
         $dir[0] = $value;
+    }
+
+    public function testCreateByFile()
+    {
+        $tmpDir = $this->createDirectory();
+        $files = $this->createFiles($tmpDir);
+
+        $fileData = $files[0];
+        $file = new SortableDirectoryIterator($fileData['file']);
+
+        $this->assertTrue($file->getFileInfo()->isFile());
+        $this->assertCount(1, $file);
+        $this->assertEquals($fileData['filename'], $file[0]->getFilename());
+        $this->assertEquals($fileData['file'], (string) $file[0]);
+        $this->assertEquals($fileData['file'], (string) $file);
+    }
+
+    public function testCreateByDir()
+    {
+        $tmpDir = $this->createDirectory();
+        $files = $this->createFiles($tmpDir);
+
+        $dir = new SortableDirectoryIterator($tmpDir);
+
+        $this->assertTrue($dir->getFileInfo()->isDir());
+        $this->assertCount(5, $dir);
+        $this->assertEquals($tmpDir, (string) $dir);
     }
 
     /**
