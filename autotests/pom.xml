@@ -72,6 +72,12 @@
             <artifactId>joda-time</artifactId>
             <version>2.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.jamesmurty.utils</groupId>
+            <artifactId>java-xmlbuilder</artifactId>
+            <version>0.6</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
