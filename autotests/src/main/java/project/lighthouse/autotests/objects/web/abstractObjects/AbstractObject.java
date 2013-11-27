@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.objects.web.CompareResults;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +41,8 @@ abstract public class AbstractObject {
     }
 
     abstract public Boolean rowIsEqual(Map<String, String> row);
+
+    abstract public CompareResults getCompareResults(Map<String, String> row);
 
     abstract public String getObjectLocator();
 
