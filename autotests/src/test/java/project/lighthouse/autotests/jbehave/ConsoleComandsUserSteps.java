@@ -21,7 +21,7 @@ public class ConsoleComandsUserSteps {
 
     @Given("the user runs the recalculate_metrics cap command")
     public void givenTheRobotRunsTheRecalculateMetricsCapCommand() throws IOException, InterruptedException {
-        consoleCommandSteps.runCapAutoTestsSymfonyProductsRecalculateMetrics();
+        consoleCommandSteps.runCapAutoTestsSymfonyProductsRecalculateMetricsCommand();
     }
 
     @Given("the user runs the prepare fixture data cap command for negative inventory testing - '$days' days")
@@ -33,4 +33,10 @@ public class ConsoleComandsUserSteps {
     public void givenTheRobotRunsThePrepareNegativeFixtureDataCommand2(String days) throws IOException, InterruptedException, TransformerException, ParserConfigurationException, SAXException {
         consoleCommandSteps.runNegativeFixtureCommand2(days);
     }
+
+    @Given("the user runs the symfony:env:init command")
+    public void givenTheUserRunsTheSymfonyEnvInitCommand() throws IOException, InterruptedException {
+        consoleCommandSteps.runCapAutoTestSymfonyEnvInitCommand();
+    }
+
 }

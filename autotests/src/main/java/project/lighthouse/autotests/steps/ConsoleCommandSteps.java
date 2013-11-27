@@ -57,8 +57,20 @@ public class ConsoleCommandSteps extends ScenarioSteps {
     }
 
     @Step
-    public void runCapAutoTestsSymfonyProductsRecalculateMetrics() throws IOException, InterruptedException {
+    public void runCapAutoTestsSymfonyImportSalesLocalCommand(String filePath) throws IOException, InterruptedException {
+        String consoleCommand = String.format("bundle exec cap autotests symfony:import:sales:local -S file=%s", filePath);
+        runConsoleCommand(consoleCommand, "backend");
+    }
+
+    @Step
+    public void runCapAutoTestsSymfonyProductsRecalculateMetricsCommand() throws IOException, InterruptedException {
         String consoleCommand = "bundle exec cap autotests symfony:products:recalculate_metrics";
+        runConsoleCommand(consoleCommand, "backend");
+    }
+
+    @Step
+    public void runCapAutoTestSymfonyEnvInitCommand() throws IOException, InterruptedException {
+        String consoleCommand = "bundle exec cap autotests symfony:env:init";
         runConsoleCommand(consoleCommand, "backend");
     }
 
