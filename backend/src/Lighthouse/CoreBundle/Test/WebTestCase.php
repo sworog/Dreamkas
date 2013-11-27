@@ -356,8 +356,9 @@ class WebTestCase extends ContainerAwareTestCase
      * @param User $departmentManager
      * @return string
      */
-    protected function createWriteOff($number, $date, $storeId, User $departmentManager)
+    protected function createWriteOff($number, $date, $storeId, User $departmentManager = null)
     {
+        $departmentManager = ($departmentManager) ?: $this->factory->getDepartmentManager($storeId);
         $accessToken = $this->auth($departmentManager);
 
         $date = $date ? : date('c', strtotime('-1 day'));

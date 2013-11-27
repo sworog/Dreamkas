@@ -1696,4 +1696,28 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(3.34, "0.amountVAT", $getResponse);
         Assert::assertJsonPathEquals(99.99, "0.quantity", $getResponse);
     }
+
+    public function testPutWithEmptyQuantity()
+    {
+        $storeId = $this->factory->getStore();
+        $productId = $this->createProduct();
+        $invoiceId = $this->createInvoice(array(), $storeId);
+        $invoiceProductId = $this->createInvoiceProduct($invoiceId, $productId, 1, 9.99, $storeId);
+
+        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId,
+            array(
+                'product' => $productId,
+                'priceEntered' => 9.99,
+                'quantity' => ''
+            )
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Заполните это поле', 'children.quantity.errors.0', $response);
+    }
 }

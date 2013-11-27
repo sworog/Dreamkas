@@ -35,7 +35,7 @@ define(function(require) {
                 remove: function(storeManagerModel) {
                     var block = this;
 
-                    block.$('span[model_id="' + storeManagerModel.id + '"]').closest(".store__storeManagerItem").remove();
+                    block.$('span[model-id="' + storeManagerModel.id + '"]').closest(".store__storeManagerItem").remove();
                 },
                 add: function(storeManagerModel) {
                     var block = this;

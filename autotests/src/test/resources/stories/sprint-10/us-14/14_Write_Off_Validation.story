@@ -1,5 +1,4 @@
-﻿
-Meta:
+﻿Meta:
 @sprint 10
 @us 14
 
@@ -235,7 +234,7 @@ When the user inputs 'asdd' in the write off product 'writeOff product quantity'
 And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Write off product quantity validation String en big register
 
@@ -251,7 +250,7 @@ When the user inputs 'ADHF' in the write off product 'writeOff product quantity'
 And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Write off product quantity validation String rus small register
 
@@ -267,9 +266,9 @@ When the user inputs 'домик' in the write off product 'writeOff product qua
 And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
-Scenario: Write off product quantity validation String rus big register\
+Scenario: Write off product quantity validation String rus big register
 
 Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-14'
@@ -283,7 +282,7 @@ When the user inputs 'Домище' in the write off product 'writeOff product q
 And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Write off product quantity validation symbols
 
@@ -300,7 +299,7 @@ And the user inputs '^%#$)&' in the write off product 'writeOff product quantity
 And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Write off product quantity positive validation
 

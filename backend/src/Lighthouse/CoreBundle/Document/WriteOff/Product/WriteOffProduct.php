@@ -202,7 +202,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     /**
      * @param Quantity $quantity
      */
-    public function setQuantity(Quantity $quantity)
+    public function setQuantity(Quantity $quantity = null)
     {
         $this->quantity = $quantity;
     }

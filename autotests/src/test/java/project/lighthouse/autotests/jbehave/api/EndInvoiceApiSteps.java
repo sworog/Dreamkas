@@ -7,9 +7,7 @@ import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.elements.DateTime;
 import project.lighthouse.autotests.helper.DateTimeHelper;
-import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.objects.api.User;
+import project.lighthouse.autotests.objects.api.*;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.ProductApiSteps;
@@ -40,6 +38,7 @@ public class EndInvoiceApiSteps {
 
     @Given("there is the invoice '$invoiceSku' with product '$productName' name, '$productSku' sku, '$productBarCode' barcode, '$productUnits' units")
     public void givenThereIsInvoiceWithProduct(String invoiceSku, String productName, String productSku, String productBarCode, String productUnits) throws JSONException, IOException {
+        catalogApiSteps.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
         productApiSteps.createProductThroughPost(productName, productSku, productBarCode, productUnits, "123", SubCategory.DEFAULT_NAME);
         givenThereIsTheInvoiceWithSku(invoiceSku);
         invoiceApiSteps.addProductToInvoice(invoiceSku, productSku, "1", "1", "departmentManager");
