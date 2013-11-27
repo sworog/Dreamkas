@@ -7,14 +7,14 @@ As a user
 I want to perform an action
 So that I can achieve a business goal
 
-GivenStories: precondition/aPreconditionToStoryUs403.story
-
 Scenario: Returns checking
 
 Meta:
 @id s22u40.3s1
 @description the balance of two products increase after product return is processed by system (subCategory product balance page, product returns page).
 @smoke
+
+GivenStories: precondition/us-40.3/aPreconditionToScenarioS1.story
 
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ReturnDepartmentManager' userName and 'lighthouse' password
@@ -42,7 +42,7 @@ Given the user navigates to the product with sku '1008577061437'
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
-| 03.10.2013 | 2 | 26,99 | 53,98 |
+| 03.10.2013 | 2,000 | 26,99 | 53,98 |
 When the user logs out
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ReturnDepartmentManager2' userName and 'lighthouse' password
@@ -54,13 +54,15 @@ Given the user navigates to the product with sku '1008577061437'
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
-| 03.10.2013 | 3 | 25,50 | 76,50 |
+| 03.10.2013 | 3,000 | 25,50 | 76,50 |
 
 Scenario: No returns tab for storeManager
 
 Meta:
 @id s22u40.3s2
 @description no product balance tab availabile for store manager
+
+GivenStories: precondition/us-40.3/aPreconditionToScenarioS23.story
 
 Given the user navigates to the product with sku 'SCPBC-sku-1'
 When the user logs in using 'NRTF-1' userName and 'lighthouse' password
@@ -71,6 +73,8 @@ Scenario: No returns tab for commercialManager
 Meta:
 @id s22u40.3s3
 @description no product balance tab availabile for commercial manager
+
+GivenStories: precondition/us-40.3/aPreconditionToScenarioS23.story
 
 Given the user navigates to the product with sku 'SCPBC-sku-1'
 And the user logs in as 'commercialManager'

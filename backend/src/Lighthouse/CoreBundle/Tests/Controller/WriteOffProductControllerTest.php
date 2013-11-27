@@ -1053,4 +1053,29 @@ class WriteOffProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(42.99, "*.price", $getResponse);
         Assert::assertJsonPathEquals(7.77, "*.quantity", $getResponse);
     }
+
+    public function testPutWithEmptyQuantity()
+    {
+        $storeId = $this->factory->getStore();
+        $productId = $this->createProduct();
+        $writeOffId = $this->createWriteOff('111', null, $storeId);
+        $writeOffProductId = $this->createWriteOffProduct($writeOffId, $productId, 1, 9.99, 'Порча', $storeId);
+
+        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId,
+            array(
+                'product' => $productId,
+                'price' => 9.99,
+                'quantity' => '',
+                'cause' => 'Порча'
+            )
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Заполните это поле', 'children.quantity.errors.0', $response);
+    }
 }

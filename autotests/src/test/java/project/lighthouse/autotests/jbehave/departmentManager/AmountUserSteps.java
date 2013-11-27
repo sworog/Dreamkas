@@ -15,6 +15,7 @@ public class AmountUserSteps {
         amountSteps.AmountListPageOpen();
     }
 
+    @Deprecated
     @Then("the user checks the product with '$skuValue' sku has '$name' equal to '$expectedValue' on amounts page")
     public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue) {
         amountSteps.checkProductWithSkuHasExpectedValue(skuValue, name, expectedValue);

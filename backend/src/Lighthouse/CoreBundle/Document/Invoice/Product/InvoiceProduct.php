@@ -243,12 +243,15 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     /**
      * @param Quantity $quantity
      */
-    public function setQuantity(Quantity $quantity)
+    public function setQuantity(Quantity $quantity = null)
     {
         $this->quantity = $quantity;
     }
 
-    public function setPriceEntered($enteredPrice)
+    /**
+     * @param Money $enteredPrice
+     */
+    public function setPriceEntered(Money $enteredPrice)
     {
         $this->priceEntered = $enteredPrice;
         $this->calculatePrices();

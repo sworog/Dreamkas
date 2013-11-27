@@ -445,7 +445,7 @@ And the user inputs 'неттакоготовара' in the invoice 'inline quan
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the invoice edition
 

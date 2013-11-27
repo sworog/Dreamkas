@@ -112,7 +112,7 @@ And the user inputs 'asdd' in the invoice 'inline quantity' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Invoice product edition - Invoice product amount validation String en big register
 
@@ -126,7 +126,7 @@ And the user inputs 'ADHF' in the invoice 'inline quantity' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Invoice product edition - Invoice product amount validation String rus small register
 
@@ -140,7 +140,7 @@ And the user inputs 'домик' in the invoice 'inline quantity' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Invoice product edition - Invoice product amount validation String rus big register
 
@@ -154,7 +154,7 @@ And the user inputs 'Домище' in the invoice 'inline quantity' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Invoice product edition - Invoice product amount validation symbols
 
@@ -168,7 +168,7 @@ And the user inputs '^%#$)&' in the invoice 'inline quantity' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Значение должно быть целым числом |
+| Значение должно быть числом |
 
 Scenario: Invoice product edition - Invoice product Amount positive validation
 

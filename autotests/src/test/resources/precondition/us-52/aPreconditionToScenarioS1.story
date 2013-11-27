@@ -1,6 +1,7 @@
 Meta:
 @us 52
 @id s23u52s1
+@smoke
 
 Scenario: A scenario that prepares data
 

@@ -55,6 +55,7 @@ public class EndWriteOffApiSteps {
     @Given("there is the write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
     public void givenThereIsTheWriteOffWithProduct(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws IOException, JSONException {
+        catalogApiSteps.createDefaultSubCategoryThroughPost();
         createProduct(productSku, productSku, productSku, "kg", "15");
         givenThereIsTheWriteOffWithNumber(writeOffNumber);
         writeOffApiSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, "departmentManager");

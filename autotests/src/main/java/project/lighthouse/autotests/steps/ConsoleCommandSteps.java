@@ -46,6 +46,17 @@ public class ConsoleCommandSteps extends ScenarioSteps {
     }
 
     @Step
+    public void runNegativeFixtureCommand2(String days) throws IOException, InterruptedException, TransformerException, ParserConfigurationException, SAXException {
+        //TODO refactor
+        String directoryPath = System.getProperty("user.dir") + "/xml/fixtures/sales";
+        File patternFile = new File(directoryPath + "/negativeSalesPattern1.xml");
+        String filePath = directoryPath + "/negativeSales.xml";
+        new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-" + days + "days").convertDate(), new File(filePath));
+        String consoleCommand = String.format("bundle exec cap autotests symfony:import:sales:local -S file=%s", filePath);
+        runConsoleCommand(consoleCommand, "backend");
+    }
+
+    @Step
     public void runCapAutoTestsSymfonyProductsRecalculateMetrics() throws IOException, InterruptedException {
         String consoleCommand = "bundle exec cap autotests symfony:products:recalculate_metrics";
         runConsoleCommand(consoleCommand, "backend");
