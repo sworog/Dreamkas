@@ -35,7 +35,7 @@ define(function(require) {
                 remove: function(departmentManagerModel) {
                     var block = this;
 
-                    block.$('span[model_id="' + departmentManagerModel.id + '"]').closest(".store__departmentManagerItem").remove();
+                    block.$('span[model-id="' + departmentManagerModel.id + '"]').closest(".store__departmentManagerItem").remove();
                 },
                 add: function(departmentManagerModel) {
                     var block = this;

@@ -154,7 +154,7 @@ public class EndProductApiSteps {
     }
 
     @Given("there is the product with <productSku> and <rounding> in the subcategory named '$subCategoryName'")
-    public void createProductThroughPost(String name, String units, String vat, String purchasePrice, String barcode, String sku, String vendorCountry, String vendor, String info, String categoryName, String rounding, String productSku, String subCategoryName) throws IOException, JSONException {
+    public void createProductThroughPost(String rounding, String productSku, String subCategoryName) throws IOException, JSONException {
         createProductThroughPost(productSku, productSku, productSku, "kg", "1", rounding, subCategoryName);
     }
 

@@ -49,6 +49,7 @@ public class EndStoreApiSteps {
 
     @Given("the user navigates to the store with number '$storeNumber'")
     public void givenTheUserNavigatesToTheStore(String storeNumber) throws JSONException {
-        storeSteps.navigateToStorePageByNumber(storeNumber);
+        String storeId = storeApiSteps.getStoreId(storeNumber);
+        storeSteps.navigateToStorePage(storeId);
     }
 }

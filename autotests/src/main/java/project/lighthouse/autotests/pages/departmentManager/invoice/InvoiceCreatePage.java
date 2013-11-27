@@ -37,7 +37,7 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("productSku", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='sku']")));
         items.put("productBarCode", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='barcode']")));
         items.put("productAmount", new Input(this, "quantity"));
-        items.put("invoiceCost", new Input(this, "price"));
+        items.put("invoiceCost", new Input(this, "priceEntered"));
         items.put("totalProducts", new Input(this, "totalProducts"));
         items.put("totalSum", new Input(this, "totalSum"));
 
@@ -64,7 +64,7 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("inline productSku", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "sku"))));
         items.put("inline productBarCode", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "barcode"))));
         items.put("inline quantity", new Input(this, By.xpath(String.format(XPATH_PATTERN, "quantity"))));
-        items.put("inline price", new Input(this, By.xpath(String.format(XPATH_PATTERN, "price"))));
+        items.put("inline price", new Input(this, By.xpath(String.format(XPATH_PATTERN, "priceEntered"))));
         items.put("inline totalProducts", new Input(this, By.xpath(String.format(XPATH_PATTERN, "totalProducts"))));
         items.put("inline totalSum", new Input(this, By.xpath(String.format(XPATH_PATTERN, "totalSum"))));
 

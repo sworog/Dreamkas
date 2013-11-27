@@ -46,7 +46,8 @@ class Samba
         '^([0-9]+)[ ]+([0-9]+)[ ]+(.*)$' => 'skip',
         '^Job ([0-9]+) cancelled' => 'skip',
         '^[ ]+(.*)[ ]+([0-9]+)[ ]+(Mon|Tue|Wed|Thu|Fri|Sat|Sun)[ ](Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[ ]+([0-9]+)[ ]+([0-9]{2}:[0-9]{2}:[0-9]{2})[ ]([0-9]{4})$' => 'files',
-        '^message start: ERRSRV - (ERRmsgoff)' => 'error'
+        '^message start: ERRSRV - (ERRmsgoff)' => 'error',
+        '^Connection to (.+) failed \(Error (.+)\)$' => 'error',
     );
 
     public function parseUrl($url)

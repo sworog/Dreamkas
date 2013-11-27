@@ -426,6 +426,31 @@ EOF;
         $sambaMock->client('-L ' . escapeshellarg($urlDir), $parsedUrlDir);
     }
 
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Samba\SambaWrapperException
+     */
+    public function testBadNetworkNameError()
+    {
+        $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
+        $urlDir = "smb://user:password@host/base_path/to/dir";
+
+        $sambaMock = $this->getSambaMock(array('getProcessResource', 'fgets', 'closeProcessResource'));
+
+        $sambaMock
+            ->expects($this->any())
+            ->method('fgets')
+            ->will(
+                $this->onConsecutiveCalls(
+                    "Connection to faro.lighthouse.cs failed (Error NT_STATUS_BAD_NETWORK_NAME)",
+                    false
+                )
+            );
+
+        $parsedUrlDir = $sambaMock->parseUrl($urlDir);
+
+        $lookInfo = $sambaMock->execute('dir "' . $parsedUrlDir['path'] . '\*"', $parsedUrlDir);
+    }
+
     public function testUrlStatMethod()
     {
         $urlFile = "smb://user:password@host/base_path/catalog-goods_1378998029.xml";

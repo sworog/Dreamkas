@@ -11,7 +11,6 @@ import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreCardPage;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreCreatePage;
 import project.lighthouse.autotests.pages.commercialManager.store.StoreListPage;
-import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
 
 import java.util.Map;
 
@@ -20,7 +19,6 @@ public class StoreSteps extends ScenarioSteps {
     StoreCreatePage storeCreatePage;
     StoreListPage storeListPage;
     StoreCardPage storeCardPage;
-    StoreApiSteps storeApiSteps;
 
     public StoreSteps(Pages pages) {
         super(pages);
@@ -83,12 +81,6 @@ public class StoreSteps extends ScenarioSteps {
     @Step
     public void navigateToStorePage(String id) {
         storeCardPage.navigateToStoreCardPage(id);
-    }
-
-    @Step
-    public void navigateToStorePageByNumber(String storeNumber) throws JSONException {
-        String storeId = storeApiSteps.getStoreId(storeNumber);
-        navigateToStorePage(storeId);
     }
 
     @Step

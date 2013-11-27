@@ -28,4 +28,9 @@ public class ConsoleComandsUserSteps {
     public void givenTheRobotRunsThePrepareNegativeFixtureDataCommand(String days) throws IOException, InterruptedException, TransformerException, ParserConfigurationException, SAXException {
         consoleCommandSteps.runNegativeFixtureCommand(days);
     }
+
+    @Given("the user runs the prepare fixture data cap command for negative inventory testing 2 - '$days' days")
+    public void givenTheRobotRunsThePrepareNegativeFixtureDataCommand2(String days) throws IOException, InterruptedException, TransformerException, ParserConfigurationException, SAXException {
+        consoleCommandSteps.runNegativeFixtureCommand2(days);
+    }
 }

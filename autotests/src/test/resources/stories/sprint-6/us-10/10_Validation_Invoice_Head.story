@@ -18,10 +18,10 @@ Then the user sees error messages
 
 Scenario: Invoice edition - Invoice sku validation good
 
-Given there is the invoice with 'Invoice-IE-ISVG' sku
+Given there is the invoice with 'Invoice-IE-ISVG-1' sku
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
-When the user open the invoice card with 'Invoice-IE-ISVG' sku
+When the user open the invoice card with 'Invoice-IE-ISVG-1' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'sku' element to edit it
 And the user generates charData with '100' number in the 'inline sku' invoice field
@@ -60,10 +60,10 @@ Then the user sees error messages
 
 Scenario: Invoice edition - Invoice Supplier validation good
 
-Given there is the invoice with 'Invoice-IE-ISVIR' sku
+Given there is the invoice with 'Invoice-IE-ISVIR-2' sku
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
-When the user open the invoice card with 'Invoice-IE-ISVIR' sku
+When the user open the invoice card with 'Invoice-IE-ISVIR-2' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'supplier' element to edit it
 And the user generates charData with '300' number in the 'inline supplier' invoice field
@@ -246,10 +246,10 @@ Then the user sees error messages
 
 Scenario: Invoice edition - Invoice accepter validation good
 
-Given there is the invoice with 'Invoice-IE-ISVIR' sku
+Given there is the invoice with 'Invoice-IE-ISVIR-3' sku
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
-When the user open the invoice card with 'Invoice-IE-ISVIR' sku
+When the user open the invoice card with 'Invoice-IE-ISVIR-3' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'accepter' element to edit it
 And the user generates charData with '100' number in the 'inline accepter' invoice field
@@ -288,10 +288,10 @@ Then the user sees error messages
 
 Scenario: Invoice edition - Invoice legalEntity validation good
 
-Given there is the invoice with 'Invoice-IE-ISVIR' sku
+Given there is the invoice with 'Invoice-IE-ISVIR-4' sku
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
-When the user open the invoice card with 'Invoice-IE-ISVIR' sku
+When the user open the invoice card with 'Invoice-IE-ISVIR-4' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'legalEntity' element to edit it
 And the user generates charData with '300' number in the 'inline legalEntity' invoice field
@@ -316,10 +316,10 @@ Then the user sees error messages
 
 Scenario: Invoice edition - Invoice supplierInvoiceSku validation good
 
-Given there is the invoice with 'Invoice-IE-ISVIR' sku
+Given there is the invoice with 'Invoice-IE-ISVIR-5' sku
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
-When the user open the invoice card with 'Invoice-IE-ISVIR' sku
+When the user open the invoice card with 'Invoice-IE-ISVIR-5' sku
 And the user clicks edit button and starts invoice edition
 And the user clicks on 'supplierInvoiceSku' element to edit it
 And the user generates charData with '100' number in the 'inline supplierInvoiceSku' invoice field
