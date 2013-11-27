@@ -208,6 +208,7 @@ class Set10ProductImporter
             }
         }
         $this->dm->flush();
+        $this->dm->clear();
 
         $totalTime = microtime(true) - $totalStartTime;
         $output->writeln('');
