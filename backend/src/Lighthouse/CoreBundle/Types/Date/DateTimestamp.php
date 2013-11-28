@@ -93,14 +93,20 @@ class DateTimestamp extends DateTime
     /**
      * @param int $timestamp
      * @param int $usec
+     * @param DateTimeZone $timezone
      * @return static|DateTimestamp
      */
-    public static function createFromTimestamp($timestamp, $usec = null)
+    public static function createFromTimestamp($timestamp, $usec = null, DateTimeZone $timezone = null)
     {
+        $timezone = $timezone ?: new DateTimeZone(date_default_timezone_get());
+
         if (null !== $usec) {
-            return static::createFromFormat('U.u', $timestamp . '.' . $usec);
+            $new = new self(static::createFromFormat('U.u', $timestamp . '.' . $usec));
         } else {
-            return static::createFromFormat('U', $timestamp);
+            $new = new self(static::createFromFormat('U', $timestamp));
         }
+        $new->setTimezone($timezone);
+
+        return $new;
     }
 }

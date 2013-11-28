@@ -27,7 +27,7 @@ use DateTime;
  * @property Store      $store
  * @property SaleProduct[]|ArrayCollection  $products
  * @property int        $itemsCount
- * @property Money      $totalSum
+ * @property Money      $sumTotal
  */
 class Sale extends AbstractDocument implements Storeable
 {

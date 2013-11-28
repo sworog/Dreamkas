@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
@@ -10,7 +12,9 @@ use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\Client;
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
+use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use DateTime;
 
 class Factory
 {
@@ -378,5 +382,46 @@ class Factory
     public function getUserResourceUri($userId)
     {
         return sprintf('http://localhost/api/1/users/%s', $userId);
+    }
+
+    public function createSales(array $sales)
+    {
+        $storeRepository = $this->container->get('lighthouse.core.document.repository.store');
+        /** @var VersionRepository $productVersionRepository */
+        $productVersionRepository = $this->container->get('lighthouse.core.document.repository.product_version');
+        $numericFactory = $this->container->get('lighthouse.core.types.numeric.factory');
+        $documentManager = $this->dm;
+        $saleModels = array_map(
+            function ($sale) use ($numericFactory, $productVersionRepository, $storeRepository, $documentManager) {
+                $saleModel = new Sale();
+                $saleModel->createdDate = DateTime::createFromFormat(
+                    DateTime::ISO8601,
+                    date('c', strtotime($sale['createDate']))
+                );
+                $saleModel->store = $storeRepository->find($sale['storeId']);
+                $saleModel->hash = md5(rand() . $sale['storeId']);
+                $saleModel->sumTotal = $numericFactory->createMoney($sale['sumTotal']);
+                array_map(
+                    function ($position) use ($saleModel, $numericFactory, $productVersionRepository) {
+                        $positionModel = new SaleProduct();
+                        $positionModel->price = $numericFactory->createMoney($position['price']);
+                        $positionModel->quantity = $numericFactory->createQuantity($position['quantity']);
+                        $positionModel->product = $productVersionRepository
+                            ->findOrCreateByDocumentId($position['productId']);
+                        $saleModel->products->add($positionModel);
+                    },
+                    $sale['positions']
+                );
+
+                $documentManager->persist($saleModel);
+
+                return $saleModel;
+            },
+            $sales
+        );
+
+        $this->dm->flush();
+
+        return $saleModels;
     }
 }

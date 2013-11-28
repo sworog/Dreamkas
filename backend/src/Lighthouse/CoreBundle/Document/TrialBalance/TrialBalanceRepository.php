@@ -220,4 +220,66 @@ class TrialBalanceRepository extends DocumentRepository
 
         return $query->getQuery()->execute();
     }
+
+    public function calculateGrossSales()
+    {
+        if ($this->isCollectionEmpty()) {
+            return array();
+        }
+
+        $datePeriod = new DatePeriod("-10 day 00:00", "00:00");
+        $days = $datePeriod->diff()->days;
+
+        $query = $this
+            ->createQueryBuilder()
+            ->field('createdDate')->gt($datePeriod->getStartDate()->getMongoDate())
+            ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
+            ->field('reason.$ref')->equals(SaleProduct::REASON_TYPE)
+            ->map(
+                new MongoCode(
+                    "function() {
+                        var date = this.createdDate;
+                        var createHour = date.getHours();
+                        date.setHours(0, 0, 0, 0);
+                        var key = {
+                            store: this.store,
+                            day: date
+                        }
+                        var hoursGrossSales = {
+                            0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0,
+                            12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0, 21: 0, 22: 0, 23: 0
+                        }
+                        for (var hour in hoursGrossSales) {
+                            if (hour >= createHour) {
+                                hoursGrossSales[hour] += this.totalPrice;
+                            }
+                        }
+                        emit(
+                            key,
+                            hoursGrossSales
+                        )
+                    }"
+                )
+            )
+            ->reduce(
+                new MongoCode(
+                    "function (key, hoursGrossSalesValues) {
+                        var reducedHoursGrossSales = {
+                            0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0,
+                            12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0, 21: 0, 22: 0, 23: 0
+                        }
+                        for (var item in hoursGrossSalesValues) {
+                            var hoursGrossSales = hoursGrossSalesValues[item];
+                            for (var hour in hoursGrossSales) {
+                                reducedHoursGrossSales[hour] += hoursGrossSales[hour];
+                            }
+                        }
+                        return reducedHoursGrossSales;
+                    }"
+                )
+            )
+            ->out(array('inline' => true));
+
+        return $query->getQuery()->execute();
+    }
 }

@@ -143,3 +143,8 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseCoreBundle:Log\Log
+
+    lighthouse.core.document.repository.store_gross_sales:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseCoreBundle:Report\Store\StoreGrossSalesReport
