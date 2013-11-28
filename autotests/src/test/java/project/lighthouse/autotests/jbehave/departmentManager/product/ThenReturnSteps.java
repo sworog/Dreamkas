@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.departmentManager.productUserSteps;
+package project.lighthouse.autotests.jbehave.departmentManager.product;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;

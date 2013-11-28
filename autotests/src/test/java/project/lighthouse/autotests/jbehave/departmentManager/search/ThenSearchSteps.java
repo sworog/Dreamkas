@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.departmentManager.searchSteps;
+package project.lighthouse.autotests.jbehave.departmentManager.search;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
