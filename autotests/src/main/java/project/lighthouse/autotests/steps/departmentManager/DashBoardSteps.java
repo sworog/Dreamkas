@@ -102,6 +102,16 @@ public class DashBoardSteps extends ScenarioSteps {
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleWeekDiff());
     }
 
+    @Step
+    public void assertGrossSaleYesterdayDiffTextColor(String color) {
+        Assert.assertEquals(color, dashBoardPage.getGrossSaleYesterdayDiffTextColor());
+    }
+
+    @Step
+    public void assertGrossSaleWeekDiffTextColor(String color) {
+        Assert.assertEquals(color, dashBoardPage.getGrossSaleWeekDiffTextColor());
+    }
+
     private String getFormattedDouble(double value) {
         return new DecimalFormat("#.##").format(value);
     }

@@ -6,6 +6,9 @@ import project.lighthouse.autotests.steps.departmentManager.DashBoardSteps;
 
 public class ThenDashBoardSteps {
 
+    private static final String COLOR_RED = "#FF0033";
+    private static final String COLOR_GREEN = "#1FB18A";
+
     @Steps
     DashBoardSteps dashBoardSteps;
 
@@ -72,5 +75,25 @@ public class ThenDashBoardSteps {
     @Then("the user checks the gross sale value is equal last week ago")
     public void thenTheUserChecksTheGrossSaleValueIsEqualLastWeekAgo() {
         dashBoardSteps.assertGrossSaleWeekTodayIsEqualWeekAgo();
+    }
+
+    @Then("the user checks the gross yesterday ratio text color is red")
+    public void thenTheUserChecksTheGrossYesterdayRatioTextColorIsRed() {
+        dashBoardSteps.assertGrossSaleYesterdayDiffTextColor(COLOR_RED);
+    }
+
+    @Then("the user checks the gross yesterday ratio text color is green")
+    public void thenTheUserChecksTheGrossYesterdayRatioTextColorIsGreen() {
+        dashBoardSteps.assertGrossSaleYesterdayDiffTextColor(COLOR_GREEN);
+    }
+
+    @Then("the user checks the gross week ratio text color is green")
+    public void thenTheUserChecksTheGrossWeekyRatioTextColorIsGreen() {
+        dashBoardSteps.assertGrossSaleWeekDiffTextColor(COLOR_GREEN);
+    }
+
+    @Then("the user checks the gross week ratio text color is red")
+    public void thenTheUserChecksTheGrossWeekRatioTextColorIsRed() {
+        dashBoardSteps.assertGrossSaleWeekDiffTextColor(COLOR_RED);
     }
 }

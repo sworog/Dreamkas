@@ -103,7 +103,8 @@ Given the user prepares fixture for 'Today Gross sale is more than yesterday one
 
 Given the user opens the authorization page
 When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
-Then the user checks the gross sale value is more than yesterday one
+Then the user checks the gross yesterday ratio text color is green
+And the user checks the gross sale value is more than yesterday one
 
 Scenario: Today Gross sale is less than yesterday one
 
@@ -118,7 +119,8 @@ Given the user prepares fixture for 'Today Gross sale is less than yesterday one
 
 Given the user opens the authorization page
 When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
-Then the user checks the gross sale value is less than yesterday one
+Then the user checks the gross yesterday ratio text color is red
+And the user checks the gross sale value is less than yesterday one
 
 Scenario: Today Gross sale is equal yesterday one
 
@@ -148,7 +150,8 @@ Given the user prepares fixture for 'Today Gross sale is more than last week one
 
 Given the user opens the authorization page
 When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
-Then the user checks the gross sale value is more than last week ago
+Then the user checks the gross week ratio text color is green
+And the user checks the gross sale value is more than last week ago
 
 Scenario: Today Gross sale is less than last week one
 
@@ -163,9 +166,10 @@ Given the user prepares fixture for 'Today Gross sale is less than last week one
 
 Given the user opens the authorization page
 When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
-Then the user checks the gross sale value is less than last week ago
+Then the user checks the gross week ratio text color is red
+And the user checks the gross sale value is less than last week ago
 
-Scenario: Today Gross sale is eqaul last week one
+Scenario: Today Gross sale is equal last week one
 
 Meta:
 @id s24u53.1s12
