@@ -6,6 +6,7 @@ Meta:
 @id s23u51s4
 @id s23u51s5
 @id s23u51s6
+@moke
 
 Scenario: A scenario that prepares data
 
