@@ -26,6 +26,14 @@ public class DashBoardPage extends CommonPageObject {
         return findVisibleElement(By.xpath("//*[@class='grossSale__lastWeekValue']")).getText();
     }
 
+    public String getGrossSaleYesterdayDiff() {
+        return findVisibleElement(By.xpath("//*[@class='grossSale__yesterdayDiff']")).getText();
+    }
+
+    public String getGrossSaleWeekDiff() {
+        return findVisibleElement(By.xpath("//*[@class='grossSale__weekDiff']")).getText();
+    }
+
     @Override
     public void createElements() {
     }
