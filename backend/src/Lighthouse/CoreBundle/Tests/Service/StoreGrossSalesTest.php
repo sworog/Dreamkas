@@ -107,6 +107,25 @@ class StoreGrossSalesTest extends WebTestCase
 
         $reportFor11Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 11:00');
         $this->assertEquals("1810.59", $reportFor11Hour->value->toString());
+
+
+
+        $storeGrossSalesReportService = $this->getGrossSalesReportService();
+
+        $reportFor7Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 7:00');
+        $this->assertEquals("0", $reportFor7Hour->value->toString());
+
+        $reportFor8Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 8:00');
+        $this->assertEquals("603.53", $reportFor8Hour->value->toString());
+
+        $reportFor9Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 9:00');
+        $this->assertEquals("1207.06", $reportFor9Hour->value->toString());
+
+        $reportFor10Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 10:00');
+        $this->assertEquals("1810.59", $reportFor10Hour->value->toString());
+
+        $reportFor11Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 11:00');
+        $this->assertEquals("1810.59", $reportFor11Hour->value->toString());
     }
 
     /**
