@@ -188,4 +188,18 @@ class Assert
 
         PHPUnit_Framework_Assert::assertEquals($expected, $actual, $message);
     }
+
+    /**
+     * @param string $expectedBefore
+     * @param string $expectedLater
+     * @param string $haystack
+     * @param string $message
+     */
+    public static function assertStringOccursBefore($expectedBefore, $expectedLater, $haystack, $message = '')
+    {
+        $message = ($message) ?: sprintf('Failed asserting %s occurs before %s', $expectedBefore, $expectedLater);
+        $beforePosition = strpos($haystack, $expectedBefore);
+        $laterPosition = strpos($haystack, $expectedLater);
+        PHPUnit_Framework_Assert::assertLessThan($laterPosition, $beforePosition, $message);
+    }
 }

@@ -1,0 +1,1056 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<purchases count="44">
+    <purchase discountAmount="105.0" amount="870.0" number="128" saletime="2013-11-05T21:22:30.219+02:00" shift="148" cash="14" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Абдыкалыкова Сайха Абдибаитовна" tabNumber="425769" shop="702">
+        <positions>
+            <position amount="26.2" costWithDiscount="26.2" discountValue="0.0" ndsSum="3.99" nds="18.0" cost="26.2" count="1.0" barCode="4690388011017" goodsCode="4100017847" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="345.0" costWithDiscount="115.0" discountValue="0.0" ndsSum="31.36" nds="10.0" cost="115.0" count="3.0" barCode="6414100009223" goodsCode="4100001104" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="348.8" costWithDiscount="174.4" discountValue="105.0" ndsSum="53.2" nds="18.0" cost="226.9" count="2.0" barCode="4602486000787" goodsCode="4100027956" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="39.9" costWithDiscount="39.9" discountValue="0.0" ndsSum="6.08" nds="18.0" cost="39.9" count="1.0" barCode="4620747550215" goodsCode="4100000447" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="34.9" costWithDiscount="34.9" discountValue="0.0" ndsSum="3.17" nds="10.0" cost="34.9" count="1.0" barCode="4601339002404" goodsCode="4100014188" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="30.4" costWithDiscount="30.4" discountValue="0.0" ndsSum="4.63" nds="18.0" cost="30.4" count="1.0" barCode="4607069339681" goodsCode="4100017861" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="41.9" costWithDiscount="41.9" discountValue="0.0" ndsSum="6.39" nds="18.0" cost="41.9" count="1.0" barCode="4605622000047" goodsCode="4100027108" departNumber="1" goodsUnit="1" order="5"/>
+        </positions>
+        <payments>
+            <payment description="" amount="130.0" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="1000.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_35" isDiscountPurchase="false" amount="105.0" goodCode="4100027956" positionId="4"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001829193</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="193.51" amount="1674.3" number="280" saletime="2013-11-05T21:22:37.887+02:00" shift="179" cash="9" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Ладухина Наталья Вадимовна" tabNumber="377789" shop="702">
+        <positions>
+            <position amount="33.44" costWithDiscount="220.0" discountValue="0.0" ndsSum="3.04" nds="10.0" cost="220.0" count="0.152" barCode="2608717" goodsCode="4300000241" departNumber="1" goodsUnit="2" order="4"/>
+            <position amount="71.0" costWithDiscount="71.0" discountValue="0.0" ndsSum="10.83" nds="18.0" cost="71.0" count="1.0" barCode="4607015733389" goodsCode="4100028682" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="71.0" costWithDiscount="71.0" discountValue="0.0" ndsSum="10.83" nds="18.0" cost="71.0" count="1.0" barCode="4607015733402" goodsCode="4100028681" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="28.2" costWithDiscount="28.2" discountValue="0.0" ndsSum="2.56" nds="10.0" cost="28.2" count="1.0" barCode="4600935200139" goodsCode="4100007463" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="35.2" costWithDiscount="220.0" discountValue="0.0" ndsSum="3.2" nds="10.0" cost="220.0" count="0.16" barCode="2608717" goodsCode="4300000241" departNumber="1" goodsUnit="2" order="3"/>
+            <position amount="269.6" costWithDiscount="67.4" discountValue="0.0" ndsSum="41.12" nds="18.0" cost="67.4" count="4.0" barCode="6410405083869" goodsCode="4100030214" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="84.89" costWithDiscount="84.89" discountValue="0.01" ndsSum="12.94" nds="18.0" cost="84.9" count="1.0" barCode="6410402020348" goodsCode="4100031958" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="30.9" costWithDiscount="30.9" discountValue="0.0" ndsSum="2.8" nds="10.0" cost="30.9" count="1.0" barCode="4607061251776" goodsCode="4100018373" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="33.88" costWithDiscount="220.0" discountValue="0.0" ndsSum="3.08" nds="10.0" cost="220.0" count="0.154" barCode="2608717" goodsCode="4300000241" departNumber="1" goodsUnit="2" order="13"/>
+            <position amount="328.53" costWithDiscount="699.0" discountValue="0.0" ndsSum="50.11" nds="18.0" cost="699.0" count="0.47" barCode="2648187" goodsCode="4300000601" departNumber="1" goodsUnit="2" order="12"/>
+            <position amount="36.96" costWithDiscount="220.0" discountValue="0.0" ndsSum="3.36" nds="10.0" cost="220.0" count="0.168" barCode="2608717" goodsCode="4300000241" departNumber="1" goodsUnit="2" order="14"/>
+            <position amount="599.7" costWithDiscount="199.9" discountValue="193.5" ndsSum="91.47" nds="18.0" cost="264.4" count="3.0" barCode="4602486001791" goodsCode="4100027965" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="45.2" costWithDiscount="45.2" discountValue="0.0" ndsSum="4.1" nds="10.0" cost="45.2" count="1.0" barCode="4602701003555" goodsCode="4100028778" departNumber="1" goodsUnit="1" order="11"/>
+        </positions>
+        <payments>
+            <payment description="" amount="350.0" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="2024.3" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.01" goodCode="4100031958" positionId="5"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_34" isDiscountPurchase="false" amount="193.5" goodCode="4100027965" positionId="8"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001796764</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="232.11" amount="1113.8" number="235" saletime="2013-11-05T21:22:49.513+02:00" shift="177" cash="10" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Лебедева Анна Владимировна" tabNumber="35971" shop="702">
+        <positions>
+            <position amount="209.7" costWithDiscount="69.9" discountValue="81.0" ndsSum="19.06" nds="10.0" cost="96.9" count="3.0" barCode="6408432095320" goodsCode="4100011426" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="31.99" costWithDiscount="24.95" discountValue="0.0" ndsSum="2.9" nds="10.0" cost="24.95" count="1.282" barCode="2600475" goodsCode="4100023399" departNumber="1" goodsUnit="2" order="9"/>
+            <position amount="24.4" costWithDiscount="24.4" discountValue="8.59" ndsSum="2.21" nds="10.0" cost="32.99" count="1.0" barCode="4740125532111" goodsCode="4100011404" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="33.88" costWithDiscount="220.0" discountValue="0.0" ndsSum="3.08" nds="10.0" cost="220.0" count="0.154" barCode="2608717" goodsCode="4300000241" departNumber="1" goodsUnit="2" order="16"/>
+            <position amount="40.9" costWithDiscount="40.9" discountValue="0.0" ndsSum="3.71" nds="10.0" cost="40.9" count="1.0" barCode="4600631002631" goodsCode="4100028599" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="50.8" costWithDiscount="25.4" discountValue="9.0" ndsSum="4.61" nds="10.0" cost="29.9" count="2.0" barCode="4600605019702" goodsCode="4100046206" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="92.7" costWithDiscount="30.9" discountValue="0.0" ndsSum="14.14" nds="18.0" cost="30.9" count="3.0" barCode="4750050341405" goodsCode="4100016485" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="61.8" costWithDiscount="30.9" discountValue="0.0" ndsSum="9.42" nds="18.0" cost="30.9" count="2.0" barCode="4750050341511" goodsCode="4100016486" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="185.7" costWithDiscount="61.9" discountValue="55.5" ndsSum="16.88" nds="10.0" cost="80.4" count="3.0" barCode="4601075342116" goodsCode="4100012485" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="69.0" costWithDiscount="69.0" discountValue="12.0" ndsSum="10.52" nds="18.0" cost="81.0" count="1.0" barCode="4015400436058" goodsCode="4100026150" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="50.8" costWithDiscount="25.4" discountValue="9.0" ndsSum="4.61" nds="10.0" cost="29.9" count="2.0" barCode="4600605016022" goodsCode="4100015184" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="45.2" costWithDiscount="45.2" discountValue="0.0" ndsSum="4.1" nds="10.0" cost="45.2" count="1.0" barCode="4602701003531" goodsCode="4100028780" departNumber="1" goodsUnit="1" order="15"/>
+            <position amount="94.93" costWithDiscount="94.93" discountValue="14.07" ndsSum="14.48" nds="18.0" cost="109.0" count="1.0" barCode="4015400240372" goodsCode="4100034216" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="48.8" costWithDiscount="24.4" discountValue="17.18" ndsSum="4.43" nds="10.0" cost="32.99" count="2.0" barCode="4740125532173" goodsCode="4100039534" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="24.4" costWithDiscount="24.4" discountValue="8.59" ndsSum="2.21" nds="10.0" cost="32.99" count="1.0" barCode="4740125532104" goodsCode="4100011403" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="48.8" costWithDiscount="24.4" discountValue="17.18" ndsSum="4.43" nds="10.0" cost="32.99" count="2.0" barCode="4740125532128" goodsCode="4100011405" departNumber="1" goodsUnit="1" order="7"/>
+        </positions>
+        <payments>
+            <payment description="" amount="1113.8" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_36" isDiscountPurchase="false" amount="55.5" goodCode="4100012485" positionId="1"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000179_03" isDiscountPurchase="false" amount="12.0" goodCode="4100026150" positionId="2"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000179_04" isDiscountPurchase="false" amount="14.0" goodCode="4100034216" positionId="3"/>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.07" goodCode="4100034216" positionId="3"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_44" isDiscountPurchase="false" amount="17.18" goodCode="4100039534" positionId="4"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_44" isDiscountPurchase="false" amount="8.59" goodCode="4100011404" positionId="5"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_44" isDiscountPurchase="false" amount="8.59" goodCode="4100011403" positionId="6"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_44" isDiscountPurchase="false" amount="17.18" goodCode="4100011405" positionId="7"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_47" isDiscountPurchase="false" amount="81.0" goodCode="4100011426" positionId="8"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_49" isDiscountPurchase="false" amount="9.0" goodCode="4100046206" positionId="13"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_49" isDiscountPurchase="false" amount="9.0" goodCode="4100015184" positionId="14"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001580598</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.0" amount="8075.1" number="290" saletime="2013-11-05T21:23:10.044+02:00" shift="175" cash="5" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Алехина Анастасия Николаевна" tabNumber="51246" shop="702">
+        <positions>
+            <position amount="3499.5" costWithDiscount="699.9" discountValue="0.0" ndsSum="533.82" nds="18.0" cost="699.9" count="5.0" barCode="4600266008749" goodsCode="4100046630" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="688.9" costWithDiscount="688.9" discountValue="0.0" ndsSum="105.08" nds="18.0" cost="688.9" count="1.0" barCode="4606203019014" goodsCode="4100047466" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="688.9" costWithDiscount="688.9" discountValue="0.0" ndsSum="105.08" nds="18.0" cost="688.9" count="1.0" barCode="4606203018987" goodsCode="4100047467" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="1607.8" costWithDiscount="803.9" discountValue="0.0" ndsSum="245.25" nds="18.0" cost="803.9" count="2.0" barCode="4606203018338" goodsCode="4100044924" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="1590.0" costWithDiscount="15.9" discountValue="0.0" ndsSum="242.54" nds="18.0" cost="15.9" count="100.0" barCode="8710732217127" goodsCode="4100033918" departNumber="1" goodsUnit="1" order="5"/>
+        </positions>
+        <payments>
+            <payment description="" amount="8075.1" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discountCards>
+            <discountCard>63669320001507518</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="51.04" amount="356.8" number="148" saletime="2013-11-05T21:23:15.614+02:00" shift="169" cash="4" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Короташ Денис Александрович" tabNumber="52236" shop="702">
+        <positions>
+            <position amount="200.4" costWithDiscount="33.4" discountValue="51.0" ndsSum="30.56" nds="18.0" cost="41.9" count="6.0" barCode="4600682511014" goodsCode="4100026941" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="81.36" costWithDiscount="81.36" discountValue="0.04" ndsSum="12.41" nds="18.0" cost="81.4" count="1.0" barCode="9002490210397" goodsCode="4100023352" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="72.14" costWithDiscount="208.5" discountValue="0.0" ndsSum="11.0" nds="18.0" cost="208.5" count="0.346" barCode="2608432" goodsCode="4300000065" departNumber="1" goodsUnit="2" order="1"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="4"/>
+        </positions>
+        <payments>
+            <payment description="" amount="643.2" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="1000.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_44" isDiscountPurchase="false" amount="51.0" goodCode="4100026941" positionId="2"/>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.04" goodCode="4100023352" positionId="3"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001843202</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="211.09" amount="3624.1" number="272" saletime="2013-11-05T21:23:17.155+02:00" shift="180" cash="6" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Леонова Наталья Андреевна" tabNumber="25511" shop="702">
+        <positions>
+            <position amount="100.4" costWithDiscount="100.4" discountValue="0.0" ndsSum="9.12" nds="10.0" cost="100.4" count="1.0" barCode="4607089690120" goodsCode="4100018212" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="161.2" costWithDiscount="80.6" discountValue="0.0" ndsSum="24.58" nds="18.0" cost="80.6" count="2.0" barCode="4600699501589" goodsCode="4100010309" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="398.0" costWithDiscount="199.0" discountValue="0.0" ndsSum="36.18" nds="10.0" cost="199.0" count="2.0" barCode="4601132998324" goodsCode="4100029290" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="142.94" costWithDiscount="249.9" discountValue="0.0" ndsSum="12.99" nds="10.0" cost="249.9" count="0.572" barCode="2600375" goodsCode="4100018187" departNumber="1" goodsUnit="2" order="11"/>
+            <position amount="64.9" costWithDiscount="64.9" discountValue="0.0" ndsSum="5.9" nds="10.0" cost="64.9" count="1.0" barCode="4600631004321" goodsCode="4100028589" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="32.5" costWithDiscount="32.5" discountValue="0.0" ndsSum="2.95" nds="10.0" cost="32.5" count="1.0" barCode="4607168122269" goodsCode="4100038501" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="99.8" costWithDiscount="49.9" discountValue="0.0" ndsSum="15.22" nds="18.0" cost="49.9" count="2.0" barCode="3083680002875" goodsCode="4100012831" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="101.8" costWithDiscount="50.9" discountValue="0.0" ndsSum="15.52" nds="18.0" cost="50.9" count="2.0" barCode="5900783007454" goodsCode="4100010757" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="143.44" costWithDiscount="249.9" discountValue="0.0" ndsSum="13.04" nds="10.0" cost="249.9" count="0.574" barCode="2600345" goodsCode="4100018083" departNumber="1" goodsUnit="2" order="15"/>
+            <position amount="284.7" costWithDiscount="94.9" discountValue="0.0" ndsSum="25.88" nds="10.0" cost="94.9" count="3.0" barCode="4770190055734" goodsCode="4100032685" departNumber="1" goodsUnit="1" order="17"/>
+            <position amount="11.6" costWithDiscount="2.9" discountValue="0.0" ndsSum="1.76" nds="18.0" cost="2.9" count="4.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="71.6" costWithDiscount="17.9" discountValue="0.0" ndsSum="10.92" nds="18.0" cost="17.9" count="4.0" barCode="4607190460247" goodsCode="4100039563" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="98.96" costWithDiscount="249.9" discountValue="0.0" ndsSum="8.99" nds="10.0" cost="249.9" count="0.396" barCode="2600345" goodsCode="4100018083" departNumber="1" goodsUnit="2" order="3"/>
+            <position amount="40.9" costWithDiscount="40.9" discountValue="0.0" ndsSum="3.71" nds="10.0" cost="40.9" count="1.0" barCode="4600631002631" goodsCode="4100028599" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="439.81" costWithDiscount="439.81" discountValue="211.09" ndsSum="67.08" nds="18.0" cost="650.9" count="1.0" barCode="5010852019810" goodsCode="4100027727" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="639.8" costWithDiscount="319.9" discountValue="0.0" ndsSum="97.59" nds="18.0" cost="319.9" count="2.0" barCode="4601249004055" goodsCode="4100028007" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="53.31" costWithDiscount="39.9" discountValue="0.0" ndsSum="8.13" nds="18.0" cost="39.9" count="1.336" barCode="2600516" goodsCode="4100024170" departNumber="1" goodsUnit="2" order="22"/>
+            <position amount="110.24" costWithDiscount="93.9" discountValue="0.0" ndsSum="16.81" nds="18.0" cost="93.9" count="1.174" barCode="2600722" goodsCode="4100024439" departNumber="1" goodsUnit="2" order="24"/>
+            <position amount="70.2" costWithDiscount="23.4" discountValue="0.0" ndsSum="6.38" nds="10.0" cost="23.4" count="3.0" barCode="4690388008062" goodsCode="4100017850" departNumber="1" goodsUnit="1" order="20"/>
+            <position amount="279.0" costWithDiscount="279.0" discountValue="0.0" ndsSum="42.55" nds="18.0" cost="279.0" count="1.0" barCode="7322540606362" goodsCode="4100047970" departNumber="1" goodsUnit="1" order="23"/>
+            <position amount="86.9" costWithDiscount="86.9" discountValue="0.0" ndsSum="7.9" nds="10.0" cost="86.9" count="1.0" barCode="4607042438776" goodsCode="4100021524" departNumber="1" goodsUnit="1" order="18"/>
+            <position amount="37.8" costWithDiscount="18.9" discountValue="0.0" ndsSum="5.76" nds="18.0" cost="18.9" count="2.0" barCode="4607190460223" goodsCode="4100001270" departNumber="1" goodsUnit="1" order="21"/>
+            <position amount="74.4" costWithDiscount="74.4" discountValue="0.0" ndsSum="6.76" nds="10.0" cost="74.4" count="1.0" barCode="4607016580333" goodsCode="4100025788" departNumber="1" goodsUnit="1" order="16"/>
+            <position amount="79.9" costWithDiscount="79.9" discountValue="0.0" ndsSum="7.26" nds="10.0" cost="79.9" count="1.0" barCode="4601201017642" goodsCode="4100013277" departNumber="1" goodsUnit="1" order="19"/>
+        </positions>
+        <payments>
+            <payment description="" amount="3624.1" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_61" isDiscountPurchase="false" amount="211.0" goodCode="4100027727" positionId="5"/>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.09" goodCode="4100027727" positionId="5"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320002378729</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.0" amount="876.4" number="243" saletime="2013-11-05T21:23:33.058+02:00" shift="181" cash="8" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Руссу Любовь Николаевна" tabNumber="43602" shop="702">
+        <positions>
+            <position amount="52.9" costWithDiscount="52.9" discountValue="0.0" ndsSum="8.06" nds="18.0" cost="52.9" count="1.0" barCode="4605664001132" goodsCode="4100027099" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="97.9" costWithDiscount="97.9" discountValue="0.0" ndsSum="14.93" nds="18.0" cost="97.9" count="1.0" barCode="4606338000222" goodsCode="4100008387" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="48.3" costWithDiscount="48.3" discountValue="0.0" ndsSum="4.39" nds="10.0" cost="48.3" count="1.0" barCode="6408432095788" goodsCode="4100042167" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="23.4" costWithDiscount="23.4" discountValue="0.0" ndsSum="2.12" nds="10.0" cost="23.4" count="1.0" barCode="4740125632149" goodsCode="4100011443" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="34.9" costWithDiscount="34.9" discountValue="0.0" ndsSum="5.32" nds="18.0" cost="34.9" count="1.0" barCode="4606338000291" goodsCode="4100008393" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="198.4" costWithDiscount="198.4" discountValue="0.0" ndsSum="30.26" nds="18.0" cost="198.4" count="1.0" barCode="6410405090683" goodsCode="4100017286" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="123.6" costWithDiscount="30.9" discountValue="0.0" ndsSum="18.85" nds="18.0" cost="30.9" count="4.0" barCode="4750050341405" goodsCode="4100016485" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="107.6" costWithDiscount="26.9" discountValue="0.0" ndsSum="16.41" nds="18.0" cost="26.9" count="4.0" barCode="4750050341580" goodsCode="4100016488" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="123.6" costWithDiscount="30.9" discountValue="0.0" ndsSum="18.85" nds="18.0" cost="30.9" count="4.0" barCode="4750050341511" goodsCode="4100016486" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="62.9" costWithDiscount="62.9" discountValue="0.0" ndsSum="5.71" nds="10.0" cost="62.9" count="1.0" barCode="4607089698126" goodsCode="4100018215" departNumber="1" goodsUnit="1" order="8"/>
+        </positions>
+        <payments>
+            <payment description="" amount="23.6" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="900.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.0" amount="1211.3" number="213" saletime="2013-11-05T21:23:51.016+02:00" shift="175" cash="12" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Мигинеишвили Раиса Владимировна" tabNumber="554236" shop="702">
+        <positions>
+            <position amount="89.0" costWithDiscount="89.0" discountValue="0.0" ndsSum="13.57" nds="18.0" cost="89.0" count="1.0" barCode="4620747551878" goodsCode="4100049817" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="38.0" costWithDiscount="38.0" discountValue="0.0" ndsSum="5.79" nds="18.0" cost="38.0" count="1.0" barCode="4605612430045" goodsCode="4100001393" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="214.0" costWithDiscount="214.0" discountValue="0.0" ndsSum="32.64" nds="18.0" cost="214.0" count="1.0" barCode="7622210044198" goodsCode="4100033710" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="204.0" costWithDiscount="204.0" discountValue="0.0" ndsSum="31.11" nds="18.0" cost="204.0" count="1.0" barCode="4015000999090" goodsCode="4100044684" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="59.9" costWithDiscount="59.9" discountValue="0.0" ndsSum="9.13" nds="18.0" cost="59.9" count="1.0" barCode="4605664002702" goodsCode="4100027092" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="53.4" costWithDiscount="53.4" discountValue="0.0" ndsSum="8.14" nds="18.0" cost="53.4" count="1.0" barCode="4602701000400" goodsCode="4100012020" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="49.9" costWithDiscount="49.9" discountValue="0.0" ndsSum="7.61" nds="18.0" cost="49.9" count="1.0" barCode="9783513250025" goodsCode="4100041791" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="95.0" costWithDiscount="95.0" discountValue="0.0" ndsSum="14.49" nds="18.0" cost="95.0" count="1.0" barCode="4607125451319" goodsCode="4100001149" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="183.0" costWithDiscount="183.0" discountValue="0.0" ndsSum="27.91" nds="18.0" cost="183.0" count="1.0" barCode="4015000977234" goodsCode="4100050782" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="41.4" costWithDiscount="41.4" discountValue="0.0" ndsSum="3.76" nds="10.0" cost="41.4" count="1.0" barCode="4607053473544" goodsCode="4100015163" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="71.8" costWithDiscount="35.9" discountValue="0.0" ndsSum="6.52" nds="10.0" cost="35.9" count="2.0" barCode="4602547001319" goodsCode="4100014014" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="38.0" costWithDiscount="38.0" discountValue="0.0" ndsSum="5.79" nds="18.0" cost="38.0" count="1.0" barCode="4605612410047" goodsCode="4100001392" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="71.0" costWithDiscount="71.0" discountValue="0.0" ndsSum="6.45" nds="10.0" cost="71.0" count="1.0" barCode="4680003260036" goodsCode="4100023356" departNumber="1" goodsUnit="1" order="5"/>
+        </positions>
+        <payments>
+            <payment description="" amount="1211.3" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discountCards>
+            <discountCard>63669320001746967</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.0" amount="49.9" number="129" saletime="2013-11-05T21:24:01.253+02:00" shift="148" cash="14" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Абдыкалыкова Сайха Абдибаитовна" tabNumber="425769" shop="702">
+        <positions>
+            <position amount="49.9" costWithDiscount="49.9" discountValue="0.0" ndsSum="7.61" nds="18.0" cost="49.9" count="1.0" barCode="46087089" goodsCode="4100044917" departNumber="1" goodsUnit="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="0.1" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="50.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="18.06" amount="371.4" number="149" saletime="2013-11-05T21:24:31.134+02:00" shift="169" cash="4" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Короташ Денис Александрович" tabNumber="52236" shop="702">
+        <positions>
+            <position amount="51.9" costWithDiscount="51.9" discountValue="0.0" ndsSum="7.91" nds="18.0" cost="51.9" count="1.0" barCode="4600494103063" goodsCode="4100040137" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="36.9" costWithDiscount="36.9" discountValue="18.0" ndsSum="5.62" nds="18.0" cost="54.9" count="1.0" barCode="4600494519239" goodsCode="4100020321" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="156.74" costWithDiscount="78.37" discountValue="0.06" ndsSum="23.9" nds="18.0" cost="78.4" count="2.0" barCode="4600494509582" goodsCode="4100020343" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="15.9" costWithDiscount="15.9" discountValue="0.0" ndsSum="1.44" nds="10.0" cost="15.9" count="1.0" barCode="4601367008898" goodsCode="4100028596" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="9.34" costWithDiscount="64.0" discountValue="0.0" ndsSum="1.42" nds="18.0" cost="64.0" count="0.146" barCode="2608006" goodsCode="4100032136" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="26.41" costWithDiscount="139.0" discountValue="0.0" ndsSum="4.02" nds="18.0" cost="139.0" count="0.19" barCode="2608433" goodsCode="4300000066" departNumber="1" goodsUnit="2" order="1"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="71.31" costWithDiscount="208.5" discountValue="0.0" ndsSum="10.87" nds="18.0" cost="208.5" count="0.342" barCode="2608432" goodsCode="4300000065" departNumber="1" goodsUnit="2" order="3"/>
+        </positions>
+        <payments>
+            <payment description="" amount="4628.6" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="5000.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_55" isDiscountPurchase="false" amount="18.0" goodCode="4100020321" positionId="4"/>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.06" goodCode="4100020343" positionId="7"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001843202</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.01" amount="1004.6" number="281" saletime="2013-11-05T21:24:47.427+02:00" shift="179" cash="9" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Ладухина Наталья Вадимовна" tabNumber="377789" shop="702">
+        <positions>
+            <position amount="37.4" costWithDiscount="37.4" discountValue="0.0" ndsSum="5.7" nds="18.0" cost="37.4" count="1.0" barCode="4670001494373" goodsCode="4100007792" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="65.98" costWithDiscount="32.99" discountValue="0.0" ndsSum="5.99" nds="10.0" cost="32.99" count="2.0" barCode="4740125532111" goodsCode="4100011404" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="44.9" costWithDiscount="44.9" discountValue="0.0" ndsSum="4.08" nds="10.0" cost="44.9" count="1.0" barCode="4600935000401" goodsCode="4100007481" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="38.87" costWithDiscount="299.0" discountValue="0.0" ndsSum="5.92" nds="18.0" cost="299.0" count="0.13" barCode="2601340" goodsCode="4100029644" departNumber="1" goodsUnit="2" order="15"/>
+            <position amount="47.99" costWithDiscount="47.99" discountValue="0.0" ndsSum="4.36" nds="10.0" cost="47.99" count="1.0" barCode="4650057700253" goodsCode="4100019033" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="21.9" costWithDiscount="21.9" discountValue="0.0" ndsSum="1.99" nds="10.0" cost="21.9" count="1.0" barCode="9771990693008" goodsCode="4100015829" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="47.9" costWithDiscount="47.9" discountValue="0.0" ndsSum="4.35" nds="10.0" cost="47.9" count="1.0" barCode="4602277006042" goodsCode="4100010878" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="65.98" costWithDiscount="32.99" discountValue="0.0" ndsSum="5.99" nds="10.0" cost="32.99" count="2.0" barCode="4740125532128" goodsCode="4100011405" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="40.9" costWithDiscount="40.9" discountValue="0.0" ndsSum="3.71" nds="10.0" cost="40.9" count="1.0" barCode="4600631002631" goodsCode="4100028599" departNumber="1" goodsUnit="1" order="21"/>
+            <position amount="39.9" costWithDiscount="39.9" discountValue="0.0" ndsSum="6.08" nds="18.0" cost="39.9" count="1.0" barCode="4620747550215" goodsCode="4100000447" departNumber="1" goodsUnit="1" order="20"/>
+            <position amount="39.0" costWithDiscount="39.0" discountValue="0.0" ndsSum="5.94" nds="18.0" cost="39.0" count="1.0" barCode="4607019830695" goodsCode="4100000509" departNumber="1" goodsUnit="1" order="17"/>
+            <position amount="44.8" costWithDiscount="5.6" discountValue="0.0" ndsSum="4.07" nds="10.0" cost="5.6" count="8.0" barCode="2700000009017" goodsCode="4300000204" departNumber="1" goodsUnit="1" order="16"/>
+            <position amount="41.18" costWithDiscount="39.9" discountValue="0.0" ndsSum="6.28" nds="18.0" cost="39.9" count="1.032" barCode="2600516" goodsCode="4100024170" departNumber="1" goodsUnit="2" order="19"/>
+            <position amount="42.61" costWithDiscount="39.9" discountValue="0.0" ndsSum="6.49" nds="18.0" cost="39.9" count="1.068" barCode="2600516" goodsCode="4100024170" departNumber="1" goodsUnit="2" order="18"/>
+            <position amount="97.39" costWithDiscount="97.39" discountValue="0.01" ndsSum="8.85" nds="10.0" cost="97.4" count="1.0" barCode="4600605018804" goodsCode="4100015256" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="39.4" costWithDiscount="39.4" discountValue="0.0" ndsSum="3.58" nds="10.0" cost="39.4" count="1.0" barCode="4602977001262" goodsCode="4100001981" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="48.5" costWithDiscount="48.5" discountValue="0.0" ndsSum="7.39" nds="18.0" cost="48.5" count="1.0" barCode="4601738004627" goodsCode="4100010585" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="49.5" costWithDiscount="49.5" discountValue="0.0" ndsSum="7.55" nds="18.0" cost="49.5" count="1.0" barCode="7622300510084" goodsCode="4100010584" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="54.9" costWithDiscount="54.9" discountValue="0.0" ndsSum="8.37" nds="18.0" cost="54.9" count="1.0" barCode="4600494519239" goodsCode="4100020321" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="89.8" costWithDiscount="44.9" discountValue="0.0" ndsSum="8.16" nds="10.0" cost="44.9" count="2.0" barCode="4602014007233" goodsCode="4100016706" departNumber="1" goodsUnit="1" order="3"/>
+        </positions>
+        <payments>
+            <payment description="" amount="1.0" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="1005.6" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.01" goodCode="4100015256" positionId="4"/>
+        </discounts>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="31.21" amount="371.4" number="210" saletime="2013-11-05T21:25:14.413+02:00" shift="175" cash="11" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Зотова Людмила Олеговна" tabNumber="11111" shop="702">
+        <positions>
+            <position amount="53.8" costWithDiscount="26.9" discountValue="0.0" ndsSum="8.2" nds="18.0" cost="26.9" count="2.0" barCode="2700000001387" goodsCode="4100024547" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="39.9" costWithDiscount="39.9" discountValue="15.6" ndsSum="6.08" nds="18.0" cost="55.5" count="1.0" barCode="054881012751" goodsCode="4100040208" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="24.9" costWithDiscount="24.9" discountValue="0.0" ndsSum="3.79" nds="18.0" cost="24.9" count="1.0" barCode="4606066071891" goodsCode="4100017992" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="140.37" costWithDiscount="519.9" discountValue="0.0" ndsSum="12.76" nds="10.0" cost="519.9" count="0.27" barCode="2650869" goodsCode="4100046203" departNumber="1" goodsUnit="2" order="7"/>
+            <position amount="49.89" costWithDiscount="49.89" discountValue="0.01" ndsSum="7.61" nds="18.0" cost="49.9" count="1.0" barCode="2700000006153" goodsCode="4100029101" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="22.64" costWithDiscount="59.9" discountValue="0.0" ndsSum="2.05" nds="10.0" cost="59.9" count="0.378" barCode="2649290" goodsCode="4100037941" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="39.9" costWithDiscount="39.9" discountValue="15.6" ndsSum="6.08" nds="18.0" cost="55.5" count="1.0" barCode="054881000307" goodsCode="4100040209" departNumber="1" goodsUnit="1" order="4"/>
+        </positions>
+        <payments>
+            <payment description="" amount="371.4" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.01" goodCode="4100029101" positionId="3"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_29" isDiscountPurchase="false" amount="15.6" goodCode="4100040209" positionId="4"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_29" isDiscountPurchase="false" amount="15.6" goodCode="4100040208" positionId="5"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001320706</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.02" amount="336.4" number="244" saletime="2013-11-05T21:25:14.539+02:00" shift="181" cash="8" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Руссу Любовь Николаевна" tabNumber="43602" shop="702">
+        <positions>
+            <position amount="46.4" costWithDiscount="46.4" discountValue="0.0" ndsSum="4.21" nds="10.0" cost="46.4" count="1.0" barCode="4607161624623" goodsCode="4100015167" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="99.88" costWithDiscount="99.88" discountValue="0.02" ndsSum="15.23" nds="18.0" cost="99.9" count="1.0" barCode="5900020004451" goodsCode="4100014236" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="64.8" costWithDiscount="32.4" discountValue="0.0" ndsSum="9.88" nds="18.0" cost="32.4" count="2.0" barCode="4600494000416" goodsCode="4100020306" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="50.35" costWithDiscount="99.9" discountValue="0.0" ndsSum="7.68" nds="18.0" cost="99.9" count="0.504" barCode="2600786" goodsCode="4100024569" departNumber="1" goodsUnit="2" order="7"/>
+            <position amount="42.17" costWithDiscount="59.9" discountValue="0.0" ndsSum="6.43" nds="18.0" cost="59.9" count="0.704" barCode="2601160" goodsCode="4100029103" departNumber="1" goodsUnit="2" order="6"/>
+            <position amount="29.9" costWithDiscount="29.9" discountValue="0.0" ndsSum="2.71" nds="10.0" cost="29.9" count="1.0" barCode="4810268022623" goodsCode="4100050469" departNumber="1" goodsUnit="1" order="5"/>
+        </positions>
+        <payments>
+            <payment description="" amount="336.4" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.02" goodCode="4100014236" positionId="3"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001448101</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="130.5" amount="418.2" number="245" saletime="2013-11-05T21:25:59.017+02:00" shift="181" cash="8" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Руссу Любовь Николаевна" tabNumber="43602" shop="702">
+        <positions>
+            <position amount="174.4" costWithDiscount="174.4" discountValue="52.5" ndsSum="26.6" nds="18.0" cost="226.9" count="1.0" barCode="4602486000787" goodsCode="4100027956" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="72.9" costWithDiscount="72.9" discountValue="0.0" ndsSum="11.12" nds="18.0" cost="72.9" count="1.0" barCode="4600682643296" goodsCode="4100026989" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="170.9" costWithDiscount="170.9" discountValue="78.0" ndsSum="26.06" nds="18.0" cost="248.9" count="1.0" barCode="4607805950323" goodsCode="4100047628" departNumber="1" goodsUnit="1" order="3"/>
+        </positions>
+        <payments>
+            <payment description="" amount="1.8" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="420.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_35" isDiscountPurchase="false" amount="52.5" goodCode="4100027956" positionId="2"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_42" isDiscountPurchase="false" amount="78.0" goodCode="4100047628" positionId="3"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001562653</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.02" amount="65.2" number="150" saletime="2013-11-05T21:26:05.181+02:00" shift="169" cash="4" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Короташ Денис Александрович" tabNumber="52236" shop="702">
+        <positions>
+            <position amount="49.88" costWithDiscount="49.88" discountValue="0.02" ndsSum="7.6" nds="18.0" cost="49.9" count="1.0" barCode="46087089" goodsCode="4100044917" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="15.32" costWithDiscount="39.9" discountValue="0.0" ndsSum="2.33" nds="18.0" cost="39.9" count="0.384" barCode="2600516" goodsCode="4100024170" departNumber="1" goodsUnit="2" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="54.8" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="120.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.02" goodCode="4100044917" positionId="2"/>
+        </discounts>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.01" amount="891.4" number="211" saletime="2013-11-05T21:26:24.376+02:00" shift="175" cash="11" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Зотова Людмила Олеговна" tabNumber="11111" shop="702">
+        <positions>
+            <position amount="17.8" costWithDiscount="39.9" discountValue="0.0" ndsSum="2.71" nds="18.0" cost="39.9" count="0.446" barCode="2600516" goodsCode="4100024170" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="336.0" costWithDiscount="281.88" discountValue="0.0" ndsSum="30.54" nds="10.0" cost="281.88" count="1.192" barCode="2601700" goodsCode="4100031728" departNumber="1" goodsUnit="2" order="3"/>
+            <position amount="20.14" costWithDiscount="42.49" discountValue="0.0" ndsSum="1.83" nds="10.0" cost="42.49" count="0.474" barCode="2600853" goodsCode="4100024694" departNumber="1" goodsUnit="2" order="4"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="48.5" costWithDiscount="48.5" discountValue="0.0" ndsSum="4.4" nds="10.0" cost="48.5" count="1.0" barCode="4607161622360" goodsCode="4100015149" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="82.8" costWithDiscount="41.4" discountValue="0.0" ndsSum="7.52" nds="10.0" cost="41.4" count="2.0" barCode="4607053473544" goodsCode="4100015163" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="82.26" costWithDiscount="77.9" discountValue="0.0" ndsSum="7.47" nds="10.0" cost="77.9" count="1.056" barCode="2600858" goodsCode="4100024699" departNumber="1" goodsUnit="2" order="1"/>
+            <position amount="115.71" costWithDiscount="129.0" discountValue="0.0" ndsSum="10.51" nds="10.0" cost="129.0" count="0.897" barCode="2601648" goodsCode="4100031655" departNumber="1" goodsUnit="2" order="12"/>
+            <position amount="64.89" costWithDiscount="64.89" discountValue="0.01" ndsSum="9.89" nds="18.0" cost="64.9" count="1.0" barCode="4606471510015" goodsCode="4100019469" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="42.9" costWithDiscount="42.9" discountValue="0.0" ndsSum="6.54" nds="18.0" cost="42.9" count="1.0" barCode="4607015232646" goodsCode="4100018466" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="18.6" costWithDiscount="18.6" discountValue="0.0" ndsSum="2.83" nds="18.0" cost="18.6" count="1.0" barCode="40084725" goodsCode="4100015103" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="58.9" costWithDiscount="58.9" discountValue="0.0" ndsSum="5.35" nds="10.0" cost="58.9" count="1.0" barCode="4602701200299" goodsCode="4100028770" departNumber="1" goodsUnit="1" order="7"/>
+        </positions>
+        <payments>
+            <payment description="" amount="108.6" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="1000.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.01" goodCode="4100019469" positionId="9"/>
+        </discounts>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.05" amount="930.7" number="291" saletime="2013-11-05T21:26:25.432+02:00" shift="175" cash="5" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Алехина Анастасия Николаевна" tabNumber="51246" shop="702">
+        <positions>
+            <position amount="309.95" costWithDiscount="309.95" discountValue="0.05" ndsSum="47.28" nds="18.0" cost="310.0" count="1.0" barCode="4604094012220" goodsCode="4100043402" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="35.9" costWithDiscount="35.9" discountValue="0.0" ndsSum="3.26" nds="10.0" cost="35.9" count="1.0" barCode="4602547001319" goodsCode="4100014014" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="141.6" costWithDiscount="70.8" discountValue="0.0" ndsSum="21.6" nds="18.0" cost="70.8" count="2.0" barCode="4620004391049" goodsCode="4100032306" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="29.9" costWithDiscount="29.9" discountValue="0.0" ndsSum="2.71" nds="10.0" cost="29.9" count="1.0" barCode="4602701001230" goodsCode="4100028775" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="29.33" costWithDiscount="39.9" discountValue="0.0" ndsSum="4.47" nds="18.0" cost="39.9" count="0.735" barCode="2600683" goodsCode="4100024392" departNumber="1" goodsUnit="2" order="6"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="97.0" costWithDiscount="97.0" discountValue="0.0" ndsSum="14.79" nds="18.0" cost="97.0" count="1.0" barCode="6410405054814" goodsCode="4100017271" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="52.35" costWithDiscount="39.9" discountValue="0.0" ndsSum="7.98" nds="18.0" cost="39.9" count="1.312" barCode="2600516" goodsCode="4100024170" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="28.93" costWithDiscount="39.9" discountValue="0.0" ndsSum="4.41" nds="18.0" cost="39.9" count="0.725" barCode="2600683" goodsCode="4100024392" departNumber="1" goodsUnit="2" order="5"/>
+            <position amount="93.8" costWithDiscount="46.9" discountValue="0.0" ndsSum="8.52" nds="10.0" cost="46.9" count="2.0" barCode="4607010732134" goodsCode="4100029421" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="25.14" costWithDiscount="39.9" discountValue="0.0" ndsSum="3.83" nds="18.0" cost="39.9" count="0.63" barCode="2600683" goodsCode="4100024392" departNumber="1" goodsUnit="2" order="7"/>
+            <position amount="47.5" costWithDiscount="47.5" discountValue="0.0" ndsSum="7.24" nds="18.0" cost="47.5" count="1.0" barCode="4607061251622" goodsCode="4100018372" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="36.4" costWithDiscount="36.4" discountValue="0.0" ndsSum="3.3" nds="10.0" cost="36.4" count="1.0" barCode="4602547001197" goodsCode="4100014016" departNumber="1" goodsUnit="1" order="11"/>
+        </positions>
+        <payments>
+            <payment description="" amount="930.7" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.05" goodCode="4100043402" positionId="13"/>
+        </discounts>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.01" amount="1458.8" number="229" saletime="2013-11-05T21:26:27.062+02:00" shift="171" cash="13" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Петрова Ирина  Викторовна" tabNumber="17778" shop="702">
+        <positions>
+            <position amount="10.9" costWithDiscount="10.9" discountValue="0.0" ndsSum="1.66" nds="18.0" cost="10.9" count="1.0" barCode="4605290001544" goodsCode="4100015051" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="248.99" costWithDiscount="248.99" discountValue="0.01" ndsSum="22.63" nds="10.0" cost="249.0" count="1.0" barCode="4603421352121" goodsCode="4100042405" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="147.6" costWithDiscount="36.9" discountValue="0.0" ndsSum="22.51" nds="18.0" cost="36.9" count="4.0" barCode="4670001490627" goodsCode="4100006976" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="26.79" costWithDiscount="26.79" discountValue="0.0" ndsSum="4.08" nds="18.0" cost="26.79" count="1.0" barCode="4605290001551" goodsCode="4100015053" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="16.4" costWithDiscount="16.4" discountValue="0.0" ndsSum="2.5" nds="18.0" cost="16.4" count="1.0" barCode="5000159373333" goodsCode="4100010485" departNumber="1" goodsUnit="1" order="17"/>
+            <position amount="16.4" costWithDiscount="16.4" discountValue="0.0" ndsSum="2.5" nds="18.0" cost="16.4" count="1.0" barCode="5000159373258" goodsCode="4100010489" departNumber="1" goodsUnit="1" order="16"/>
+            <position amount="152.55" costWithDiscount="50.85" discountValue="0.0" ndsSum="23.27" nds="18.0" cost="50.85" count="3.0" barCode="46105776" goodsCode="4100047463" departNumber="1" goodsUnit="1" order="19"/>
+            <position amount="82.2" costWithDiscount="27.4" discountValue="0.0" ndsSum="12.53" nds="18.0" cost="27.4" count="3.0" barCode="5024111117322" goodsCode="4100015104" departNumber="1" goodsUnit="1" order="18"/>
+            <position amount="13.87" costWithDiscount="133.4" discountValue="0.0" ndsSum="1.26" nds="10.0" cost="133.4" count="0.104" barCode="2608658" goodsCode="4300000176" departNumber="1" goodsUnit="2" order="12"/>
+            <position amount="13.34" costWithDiscount="133.4" discountValue="0.0" ndsSum="1.21" nds="10.0" cost="133.4" count="0.1" barCode="2608658" goodsCode="4300000176" departNumber="1" goodsUnit="2" order="13"/>
+            <position amount="16.4" costWithDiscount="16.4" discountValue="0.0" ndsSum="2.5" nds="18.0" cost="16.4" count="1.0" barCode="5000159404303" goodsCode="4100010494" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="16.4" costWithDiscount="16.4" discountValue="0.0" ndsSum="2.5" nds="18.0" cost="16.4" count="1.0" barCode="5000159373357" goodsCode="4100010490" departNumber="1" goodsUnit="1" order="15"/>
+            <position amount="220.88" costWithDiscount="699.0" discountValue="0.0" ndsSum="33.69" nds="18.0" cost="699.0" count="0.316" barCode="2648187" goodsCode="4300000601" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="52.9" costWithDiscount="52.9" discountValue="0.0" ndsSum="4.8" nds="10.0" cost="52.9" count="1.0" barCode="4607012591074" goodsCode="4100016768" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="53.58" costWithDiscount="26.79" discountValue="0.0" ndsSum="8.17" nds="18.0" cost="26.79" count="2.0" barCode="4605290001575" goodsCode="4100015054" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="87.4" costWithDiscount="87.4" discountValue="0.0" ndsSum="7.94" nds="10.0" cost="87.4" count="1.0" barCode="4640005250015" goodsCode="4100010194" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="68.89" costWithDiscount="68.89" discountValue="0.0" ndsSum="6.26" nds="10.0" cost="68.89" count="1.0" barCode="6408432086120" goodsCode="4100011410" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="207.51" costWithDiscount="299.0" discountValue="0.0" ndsSum="18.86" nds="10.0" cost="299.0" count="0.694" barCode="2649160" goodsCode="4100037916" departNumber="1" goodsUnit="2" order="3"/>
+        </positions>
+        <payments>
+            <payment description="" amount="1458.8" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.01" goodCode="4100042405" positionId="11"/>
+        </discounts>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="117.49" amount="1862.2" number="273" saletime="2013-11-05T21:26:52.680+02:00" shift="180" cash="6" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Леонова Наталья Андреевна" tabNumber="25511" shop="702">
+        <positions>
+            <position amount="87.01" costWithDiscount="105.6" discountValue="0.0" ndsSum="7.91" nds="10.0" cost="105.6" count="0.824" barCode="2601471" goodsCode="4100029796" departNumber="1" goodsUnit="2" order="8"/>
+            <position amount="180.49" costWithDiscount="154.0" discountValue="0.0" ndsSum="27.53" nds="18.0" cost="154.0" count="1.172" barCode="2608451" goodsCode="4300000084" departNumber="1" goodsUnit="2" order="6"/>
+            <position amount="104.0" costWithDiscount="104.0" discountValue="0.0" ndsSum="15.86" nds="18.0" cost="104.0" count="1.0" barCode="4820008121219" goodsCode="4100044037" departNumber="1" goodsUnit="1" order="24"/>
+            <position amount="39.8" costWithDiscount="19.9" discountValue="0.0" ndsSum="3.61" nds="10.0" cost="19.9" count="2.0" barCode="4602977400218" goodsCode="4100028659" departNumber="1" goodsUnit="1" order="25"/>
+            <position amount="37.8" costWithDiscount="18.9" discountValue="0.0" ndsSum="5.76" nds="18.0" cost="18.9" count="2.0" barCode="40084176" goodsCode="4100009837" departNumber="1" goodsUnit="1" order="23"/>
+            <position amount="72.9" costWithDiscount="24.3" discountValue="0.0" ndsSum="6.62" nds="10.0" cost="24.3" count="3.0" barCode="4600605014509" goodsCode="4100015229" departNumber="1" goodsUnit="1" order="22"/>
+            <position amount="24.25" costWithDiscount="24.4" discountValue="0.0" ndsSum="2.2" nds="10.0" cost="24.4" count="0.994" barCode="2600890" goodsCode="4100024738" departNumber="1" goodsUnit="2" order="4"/>
+            <position amount="83.21" costWithDiscount="105.6" discountValue="0.0" ndsSum="7.56" nds="10.0" cost="105.6" count="0.788" barCode="2601471" goodsCode="4100029796" departNumber="1" goodsUnit="2" order="7"/>
+            <position amount="24.3" costWithDiscount="24.4" discountValue="0.0" ndsSum="2.2" nds="10.0" cost="24.4" count="0.996" barCode="2600890" goodsCode="4100024738" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="195.52" costWithDiscount="92.4" discountValue="0.0" ndsSum="17.77" nds="10.0" cost="92.4" count="2.116" barCode="2601670" goodsCode="4100031677" departNumber="1" goodsUnit="2" order="5"/>
+            <position amount="24.11" costWithDiscount="24.4" discountValue="0.0" ndsSum="2.19" nds="10.0" cost="24.4" count="0.988" barCode="2600890" goodsCode="4100024738" departNumber="1" goodsUnit="2" order="1"/>
+            <position amount="27.04" costWithDiscount="24.4" discountValue="0.0" ndsSum="2.45" nds="10.0" cost="24.4" count="1.108" barCode="2600890" goodsCode="4100024738" departNumber="1" goodsUnit="2" order="3"/>
+            <position amount="39.9" costWithDiscount="39.9" discountValue="10.0" ndsSum="6.08" nds="18.0" cost="49.9" count="1.0" barCode="5413149395237" goodsCode="4100023723" departNumber="1" goodsUnit="1" order="27"/>
+            <position amount="49.0" costWithDiscount="49.0" discountValue="0.0" ndsSum="7.47" nds="18.0" cost="49.0" count="1.0" barCode="5060038502193" goodsCode="4100032084" departNumber="1" goodsUnit="1" order="26"/>
+            <position amount="59.9" costWithDiscount="59.9" discountValue="0.0" ndsSum="5.44" nds="10.0" cost="59.9" count="1.0" barCode="4601674007256" goodsCode="4100016695" departNumber="1" goodsUnit="1" order="17"/>
+            <position amount="63.9" costWithDiscount="63.9" discountValue="0.0" ndsSum="5.8" nds="10.0" cost="63.9" count="1.0" barCode="4607053477030" goodsCode="4100015161" departNumber="1" goodsUnit="1" order="16"/>
+            <position amount="49.9" costWithDiscount="49.9" discountValue="0.0" ndsSum="7.61" nds="18.0" cost="49.9" count="1.0" barCode="4630012080118" goodsCode="4100012813" departNumber="1" goodsUnit="1" order="19"/>
+            <position amount="36.89" costWithDiscount="59.89" discountValue="0.0" ndsSum="3.35" nds="10.0" cost="59.89" count="0.616" barCode="2600812" goodsCode="4100024634" departNumber="1" goodsUnit="2" order="18"/>
+            <position amount="23.9" costWithDiscount="23.9" discountValue="0.0" ndsSum="3.64" nds="18.0" cost="23.9" count="1.0" barCode="46109811" goodsCode="4100018229" departNumber="1" goodsUnit="1" order="21"/>
+            <position amount="129.81" costWithDiscount="129.81" discountValue="90.09" ndsSum="11.8" nds="10.0" cost="219.9" count="1.0" barCode="4607025363088" goodsCode="4100016400" departNumber="1" goodsUnit="1" order="20"/>
+            <position amount="124.28" costWithDiscount="239.0" discountValue="0.0" ndsSum="11.29" nds="10.0" cost="239.0" count="0.52" barCode="2648316" goodsCode="4100034629" departNumber="1" goodsUnit="2" order="12"/>
+            <position amount="79.9" costWithDiscount="79.9" discountValue="0.0" ndsSum="7.26" nds="10.0" cost="79.9" count="1.0" barCode="4601201017666" goodsCode="4100013281" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="91.2" costWithDiscount="30.4" discountValue="0.0" ndsSum="8.29" nds="10.0" cost="30.4" count="3.0" barCode="4607019905539" goodsCode="4100009647" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="29.4" costWithDiscount="29.4" discountValue="0.0" ndsSum="4.48" nds="18.0" cost="29.4" count="1.0" barCode="4600687003101" goodsCode="4100009681" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="119.0" costWithDiscount="119.0" discountValue="0.0" ndsSum="10.81" nds="10.0" cost="119.0" count="1.0" barCode="4607004890192" goodsCode="4100016597" departNumber="1" goodsUnit="1" order="15"/>
+            <position amount="58.99" costWithDiscount="58.99" discountValue="17.4" ndsSum="5.36" nds="10.0" cost="76.39" count="1.0" barCode="4601075342109" goodsCode="4100012476" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="11"/>
+        </positions>
+        <payments>
+            <payment description="" amount="1862.2" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_35" isDiscountPurchase="false" amount="17.4" goodCode="4100012476" positionId="10"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_68" isDiscountPurchase="false" amount="90.0" goodCode="4100016400" positionId="20"/>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.09" goodCode="4100016400" positionId="20"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000179_05" isDiscountPurchase="false" amount="10.0" goodCode="4100023723" positionId="27"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001722711</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.0" amount="988.0" number="292" saletime="2013-11-05T21:27:32.925+02:00" shift="175" cash="5" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Алехина Анастасия Николаевна" tabNumber="51246" shop="702">
+        <positions>
+            <position amount="79.8" costWithDiscount="39.9" discountValue="0.0" ndsSum="12.17" nds="18.0" cost="39.9" count="2.0" barCode="46107244" goodsCode="4100032748" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="257.9" costWithDiscount="257.9" discountValue="0.0" ndsSum="39.34" nds="18.0" cost="257.9" count="1.0" barCode="4860004070173" goodsCode="4100044161" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="17.4" costWithDiscount="17.4" discountValue="0.0" ndsSum="2.65" nds="18.0" cost="17.4" count="1.0" barCode="42069942" goodsCode="4100010218" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="69.8" costWithDiscount="34.9" discountValue="0.0" ndsSum="10.64" nds="18.0" cost="34.9" count="2.0" barCode="6410405048660" goodsCode="4100040411" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="72.0" costWithDiscount="72.0" discountValue="0.0" ndsSum="6.54" nds="10.0" cost="72.0" count="1.0" barCode="7613032927479" goodsCode="4100013207" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="72.0" costWithDiscount="72.0" discountValue="0.0" ndsSum="6.54" nds="10.0" cost="72.0" count="1.0" barCode="7613032601560" goodsCode="4100013209" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="32.4" costWithDiscount="32.4" discountValue="0.0" ndsSum="4.94" nds="18.0" cost="32.4" count="1.0" barCode="80741251" goodsCode="4100009827" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="32.4" costWithDiscount="32.4" discountValue="0.0" ndsSum="4.94" nds="18.0" cost="32.4" count="1.0" barCode="40084107" goodsCode="4100009826" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="95.9" costWithDiscount="95.9" discountValue="0.0" ndsSum="8.71" nds="10.0" cost="95.9" count="1.0" barCode="4600689601343" goodsCode="4100019838" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="183.6" costWithDiscount="45.9" discountValue="0.0" ndsSum="28.0" nds="18.0" cost="45.9" count="4.0" barCode="4670001490368" goodsCode="4100006970" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="71.9" costWithDiscount="71.9" discountValue="0.0" ndsSum="10.96" nds="18.0" cost="71.9" count="1.0" barCode="6410405059468" goodsCode="4100017362" departNumber="1" goodsUnit="1" order="3"/>
+        </positions>
+        <payments>
+            <payment description="" amount="12.0" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="1000.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discountCards>
+            <discountCard>63669320001740754</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.08" amount="408.7" number="246" saletime="2013-11-05T21:27:53.793+02:00" shift="181" cash="8" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Руссу Любовь Николаевна" tabNumber="43602" shop="702">
+        <positions>
+            <position amount="61.82" costWithDiscount="61.82" discountValue="0.08" ndsSum="5.62" nds="10.0" cost="61.9" count="1.0" barCode="2700000002483" goodsCode="4100024909" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="79.08" costWithDiscount="220.9" discountValue="0.0" ndsSum="12.06" nds="18.0" cost="220.9" count="0.358" barCode="2608450" goodsCode="4300000083" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="47.0" costWithDiscount="23.5" discountValue="0.0" ndsSum="7.16" nds="18.0" cost="23.5" count="2.0" barCode="4600815107718" goodsCode="4100010611" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="86.97" costWithDiscount="299.9" discountValue="0.0" ndsSum="13.26" nds="18.0" cost="299.9" count="0.29" barCode="2608439" goodsCode="4300000072" departNumber="1" goodsUnit="2" order="6"/>
+            <position amount="53.83" costWithDiscount="320.4" discountValue="0.0" ndsSum="8.21" nds="18.0" cost="320.4" count="0.168" barCode="2608435" goodsCode="4300000068" departNumber="1" goodsUnit="2" order="5"/>
+            <position amount="22.7" costWithDiscount="129.0" discountValue="0.0" ndsSum="3.46" nds="18.0" cost="129.0" count="0.176" barCode="2608399" goodsCode="4300000032" departNumber="1" goodsUnit="2" order="4"/>
+            <position amount="54.4" costWithDiscount="54.4" discountValue="0.0" ndsSum="8.29" nds="18.0" cost="54.4" count="1.0" barCode="46103345" goodsCode="4100032772" departNumber="1" goodsUnit="1" order="8"/>
+        </positions>
+        <payments>
+            <payment description="" amount="591.3" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="1000.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.08" goodCode="4100024909" positionId="3"/>
+        </discounts>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="1613.3" amount="1822.6" number="274" saletime="2013-11-05T21:28:28.186+02:00" shift="180" cash="6" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Леонова Наталья Андреевна" tabNumber="25511" shop="702">
+        <positions>
+            <position amount="209.7" costWithDiscount="69.9" discountValue="81.0" ndsSum="19.06" nds="10.0" cost="96.9" count="3.0" barCode="6408432095320" goodsCode="4100011426" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="1532.3" costWithDiscount="109.45" discountValue="1532.3" ndsSum="233.74" nds="18.0" cost="218.9" count="14.0" barCode="4770677226022" goodsCode="4100047629" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="80.6" costWithDiscount="80.6" discountValue="0.0" ndsSum="12.29" nds="18.0" cost="80.6" count="1.0" barCode="6410405105141" goodsCode="4100040466" departNumber="1" goodsUnit="1" order="3"/>
+        </positions>
+        <payments>
+            <payment description="" amount="177.4" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="2000.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_39" isDiscountPurchase="false" amount="1532.3" goodCode="4100047629" positionId="1"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_47" isDiscountPurchase="false" amount="81.0" goodCode="4100011426" positionId="2"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001518598</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="23.84" amount="654.2" number="212" saletime="2013-11-05T21:28:38.437+02:00" shift="175" cash="11" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Зотова Людмила Олеговна" tabNumber="11111" shop="702">
+        <positions>
+            <position amount="143.3" costWithDiscount="143.3" discountValue="0.0" ndsSum="13.02" nds="10.0" cost="143.3" count="1.0" barCode="4602277006080" goodsCode="4100010882" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="36.4" costWithDiscount="36.4" discountValue="0.0" ndsSum="3.3" nds="10.0" cost="36.4" count="1.0" barCode="4602547001197" goodsCode="4100014016" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="151.29" costWithDiscount="299.0" discountValue="0.0" ndsSum="13.75" nds="10.0" cost="299.0" count="0.506" barCode="2648262" goodsCode="4100034612" departNumber="1" goodsUnit="2" order="1"/>
+            <position amount="35.4" costWithDiscount="35.4" discountValue="6.59" ndsSum="3.21" nds="10.0" cost="41.99" count="1.0" barCode="4690228019562" goodsCode="4100013007" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="35.19" costWithDiscount="35.19" discountValue="0.0" ndsSum="3.19" nds="10.0" cost="35.19" count="1.0" barCode="4601075342024" goodsCode="4100012468" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="49.9" costWithDiscount="49.9" discountValue="0.0" ndsSum="7.61" nds="18.0" cost="49.9" count="1.0" barCode="2700000006153" goodsCode="4100029101" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="153.92" costWithDiscount="153.92" discountValue="0.07" ndsSum="13.99" nds="10.0" cost="153.99" count="1.0" barCode="9415007009733" goodsCode="4100014150" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="48.8" costWithDiscount="24.4" discountValue="17.18" ndsSum="4.43" nds="10.0" cost="32.99" count="2.0" barCode="4740125532128" goodsCode="4100011405" departNumber="1" goodsUnit="1" order="6"/>
+        </positions>
+        <payments>
+            <payment description="" amount="654.2" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.07" goodCode="4100014150" positionId="5"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_44" isDiscountPurchase="false" amount="17.18" goodCode="4100011405" positionId="6"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_40" isDiscountPurchase="false" amount="6.59" goodCode="4100013007" positionId="8"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669310001823395</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="5.13" amount="1771.7" number="130" saletime="2013-11-05T21:28:43.772+02:00" shift="148" cash="14" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Абдыкалыкова Сайха Абдибаитовна" tabNumber="425769" shop="702">
+        <positions>
+            <position amount="72.4" costWithDiscount="72.4" discountValue="0.0" ndsSum="11.04" nds="18.0" cost="72.4" count="1.0" barCode="6410405070845" goodsCode="4100017372" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="51.55" costWithDiscount="51.55" discountValue="0.0" ndsSum="4.68" nds="10.0" cost="51.55" count="1.0" barCode="4602547000510" goodsCode="4100014032" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="77.9" costWithDiscount="77.9" discountValue="0.0" ndsSum="7.08" nds="10.0" cost="77.9" count="1.0" barCode="6408432060311" goodsCode="4100011406" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="68.4" costWithDiscount="68.4" discountValue="0.0" ndsSum="6.21" nds="10.0" cost="68.4" count="1.0" barCode="6408432060946" goodsCode="4100011408" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="63.02" costWithDiscount="389.0" discountValue="0.0" ndsSum="9.61" nds="18.0" cost="389.0" count="0.162" barCode="2608429" goodsCode="4300000062" departNumber="1" goodsUnit="2" order="11"/>
+            <position amount="81.37" costWithDiscount="81.37" discountValue="0.03" ndsSum="12.41" nds="18.0" cost="81.4" count="1.0" barCode="6410400033296" goodsCode="4100017276" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="79.8" costWithDiscount="39.9" discountValue="0.0" ndsSum="12.17" nds="18.0" cost="39.9" count="2.0" barCode="4600536003108" goodsCode="4100050228" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="137.78" costWithDiscount="68.89" discountValue="0.0" ndsSum="12.52" nds="10.0" cost="68.89" count="2.0" barCode="6408432086120" goodsCode="4100011410" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="54.49" costWithDiscount="54.49" discountValue="0.0" ndsSum="4.95" nds="10.0" cost="54.49" count="1.0" barCode="6408432088605" goodsCode="4100042175" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="64.4" costWithDiscount="64.4" discountValue="0.0" ndsSum="5.85" nds="10.0" cost="64.4" count="1.0" barCode="4601662000207" goodsCode="4100009636" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="178.28" costWithDiscount="129.0" discountValue="0.0" ndsSum="27.19" nds="18.0" cost="129.0" count="1.382" barCode="2600517" goodsCode="4100024171" departNumber="1" goodsUnit="2" order="24"/>
+            <position amount="32.9" costWithDiscount="32.9" discountValue="5.1" ndsSum="5.01" nds="18.0" cost="38.0" count="1.0" barCode="4008871200624" goodsCode="4100001465" departNumber="1" goodsUnit="1" order="23"/>
+            <position amount="40.9" costWithDiscount="40.9" discountValue="0.0" ndsSum="3.71" nds="10.0" cost="40.9" count="1.0" barCode="4600631002631" goodsCode="4100028599" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="156.8" costWithDiscount="196.0" discountValue="0.0" ndsSum="14.25" nds="10.0" cost="196.0" count="0.8" barCode="2647555" goodsCode="4100033412" departNumber="1" goodsUnit="2" order="12"/>
+            <position amount="184.94" costWithDiscount="365.5" discountValue="0.0" ndsSum="16.81" nds="10.0" cost="365.5" count="0.506" barCode="2600127" goodsCode="4100015019" departNumber="1" goodsUnit="2" order="15"/>
+            <position amount="75.0" costWithDiscount="75.0" discountValue="0.0" ndsSum="6.81" nds="10.0" cost="75.0" count="1.0" barCode="4607019820993" goodsCode="4100028612" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="126.37" costWithDiscount="179.0" discountValue="0.0" ndsSum="19.27" nds="18.0" cost="179.0" count="0.706" barCode="2608407" goodsCode="4300000040" departNumber="1" goodsUnit="2" order="18"/>
+            <position amount="30.6" costWithDiscount="30.6" discountValue="0.0" ndsSum="2.78" nds="10.0" cost="30.6" count="1.0" barCode="4602701003470" goodsCode="4100028766" departNumber="1" goodsUnit="1" order="17"/>
+            <position amount="37.0" costWithDiscount="37.0" discountValue="0.0" ndsSum="5.64" nds="18.0" cost="37.0" count="1.0" barCode="6410405046826" goodsCode="4100031827" departNumber="1" goodsUnit="1" order="16"/>
+            <position amount="40.4" costWithDiscount="40.4" discountValue="0.0" ndsSum="3.67" nds="10.0" cost="40.4" count="1.0" barCode="4607015733419" goodsCode="4100028676" departNumber="1" goodsUnit="1" order="22"/>
+            <position amount="37.0" costWithDiscount="37.0" discountValue="0.0" ndsSum="5.64" nds="18.0" cost="37.0" count="1.0" barCode="6410405046802" goodsCode="4100031825" departNumber="1" goodsUnit="1" order="21"/>
+            <position amount="37.3" costWithDiscount="37.3" discountValue="0.0" ndsSum="3.39" nds="10.0" cost="37.3" count="1.0" barCode="4607015733822" goodsCode="4100028691" departNumber="1" goodsUnit="1" order="20"/>
+            <position amount="37.3" costWithDiscount="37.3" discountValue="0.0" ndsSum="3.39" nds="10.0" cost="37.3" count="1.0" barCode="4607015733792" goodsCode="4100028692" departNumber="1" goodsUnit="1" order="19"/>
+        </positions>
+        <payments>
+            <payment description="" amount="1771.7" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.03" goodCode="4100017276" positionId="4"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000179_08" isDiscountPurchase="false" amount="5.1" goodCode="4100001465" positionId="23"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320000825358</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="78.0" amount="239.8" number="247" saletime="2013-11-05T21:29:01.782+02:00" shift="181" cash="8" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Руссу Любовь Николаевна" tabNumber="43602" shop="702">
+        <positions>
+            <position amount="66.0" costWithDiscount="33.0" discountValue="0.0" ndsSum="6.0" nds="10.0" cost="33.0" count="2.0" barCode="4603421330280" goodsCode="4100007386" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="170.9" costWithDiscount="170.9" discountValue="78.0" ndsSum="26.06" nds="18.0" cost="248.9" count="1.0" barCode="4607805950323" goodsCode="4100047628" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="239.8" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_42" isDiscountPurchase="false" amount="78.0" goodCode="4100047628" positionId="2"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001480492</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.0" amount="5.8" number="275" saletime="2013-11-05T21:29:11.940+02:00" shift="180" cash="6" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Леонова Наталья Андреевна" tabNumber="25511" shop="702">
+        <positions>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="5.8" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.01" amount="371.4" number="282" saletime="2013-11-05T21:29:24.225+02:00" shift="179" cash="9" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Ладухина Наталья Вадимовна" tabNumber="377789" shop="702">
+        <positions>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="79.89" costWithDiscount="79.89" discountValue="0.01" ndsSum="12.18" nds="18.0" cost="79.9" count="1.0" barCode="6410405105004" goodsCode="4100042149" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="63.4" costWithDiscount="63.4" discountValue="0.0" ndsSum="9.67" nds="18.0" cost="63.4" count="1.0" barCode="4600300079865" goodsCode="4100023521" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="33.43" costWithDiscount="24.4" discountValue="0.0" ndsSum="3.03" nds="10.0" cost="24.4" count="1.37" barCode="2600894" goodsCode="4100024752" departNumber="1" goodsUnit="2" order="3"/>
+            <position amount="69.0" costWithDiscount="69.0" discountValue="0.0" ndsSum="10.52" nds="18.0" cost="69.0" count="1.0" barCode="4003790009822" goodsCode="4100006663" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="66.88" costWithDiscount="189.99" discountValue="0.0" ndsSum="10.2" nds="18.0" cost="189.99" count="0.352" barCode="2609027" goodsCode="4100032278" departNumber="1" goodsUnit="2" order="4"/>
+            <position amount="55.9" costWithDiscount="55.9" discountValue="0.0" ndsSum="8.52" nds="18.0" cost="55.9" count="1.0" barCode="4650001681584" goodsCode="4100013738" departNumber="1" goodsUnit="1" order="2"/>
+        </positions>
+        <payments>
+            <payment description="" amount="628.6" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="1000.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.01" goodCode="4100042149" positionId="6"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320002381517</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.0" amount="68.9" number="293" saletime="2013-11-05T21:29:40.073+02:00" shift="175" cash="5" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Алехина Анастасия Николаевна" tabNumber="51246" shop="702">
+        <positions>
+            <position amount="68.9" costWithDiscount="68.9" discountValue="0.0" ndsSum="10.51" nds="18.0" cost="68.9" count="1.0" barCode="46120441" goodsCode="4100035691" departNumber="1" goodsUnit="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="31.1" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="100.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="48.6" amount="228.9" number="151" saletime="2013-11-05T21:29:52.584+02:00" shift="169" cash="4" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Короташ Денис Александрович" tabNumber="52236" shop="702">
+        <positions>
+            <position amount="38.9" costWithDiscount="38.9" discountValue="0.0" ndsSum="3.53" nds="10.0" cost="38.9" count="1.0" barCode="4601686009866" goodsCode="4100028791" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="69.9" costWithDiscount="69.9" discountValue="27.0" ndsSum="6.35" nds="10.0" cost="96.9" count="1.0" barCode="6408432095320" goodsCode="4100011426" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="41.8" costWithDiscount="20.9" discountValue="10.8" ndsSum="3.8" nds="10.0" cost="26.3" count="2.0" barCode="4690228004452" goodsCode="4100013024" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="41.8" costWithDiscount="20.9" discountValue="10.8" ndsSum="3.8" nds="10.0" cost="26.3" count="2.0" barCode="4690228002090" goodsCode="4100013026" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="18.6" costWithDiscount="18.6" discountValue="0.0" ndsSum="2.83" nds="18.0" cost="18.6" count="1.0" barCode="40084725" goodsCode="4100015103" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="17.9" costWithDiscount="17.9" discountValue="0.0" ndsSum="1.62" nds="10.0" cost="17.9" count="1.0" barCode="4607015813937" goodsCode="4100028603" departNumber="1" goodsUnit="1" order="5"/>
+        </positions>
+        <payments>
+            <payment description="" amount="21.1" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="250.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_47" isDiscountPurchase="false" amount="27.0" goodCode="4100011426" positionId="1"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_41" isDiscountPurchase="false" amount="10.8" goodCode="4100013024" positionId="2"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_41" isDiscountPurchase="false" amount="10.8" goodCode="4100013026" positionId="3"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001829318</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.07" amount="251.2" number="276" saletime="2013-11-05T21:29:57.222+02:00" shift="180" cash="6" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Леонова Наталья Андреевна" tabNumber="25511" shop="702">
+        <positions>
+            <position amount="133.6" costWithDiscount="66.8" discountValue="0.0" ndsSum="20.37" nds="18.0" cost="66.8" count="2.0" barCode="6408641021790" goodsCode="4100017356" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="21.99" costWithDiscount="21.99" discountValue="0.0" ndsSum="1.99" nds="10.0" cost="21.99" count="1.0" barCode="4630002410451" goodsCode="4100019131" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="56.18" costWithDiscount="39.9" discountValue="0.0" ndsSum="8.56" nds="18.0" cost="39.9" count="1.408" barCode="2600516" goodsCode="4100024170" departNumber="1" goodsUnit="2" order="1"/>
+            <position amount="39.43" costWithDiscount="39.43" discountValue="0.07" ndsSum="6.01" nds="18.0" cost="39.5" count="1.0" barCode="6410405080646" goodsCode="4100032022" departNumber="1" goodsUnit="1" order="4"/>
+        </positions>
+        <payments>
+            <payment description="" amount="750.3" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="1001.5" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.07" goodCode="4100032022" positionId="4"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001324526</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="71.04" amount="1420.8" number="248" saletime="2013-11-05T21:30:13.999+02:00" shift="181" cash="8" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Руссу Любовь Николаевна" tabNumber="43602" shop="702">
+        <positions>
+            <position amount="26.4" costWithDiscount="26.4" discountValue="0.0" ndsSum="2.4" nds="10.0" cost="26.4" count="1.0" barCode="2099999097403" goodsCode="4100024934" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="689.7" costWithDiscount="229.9" discountValue="0.0" ndsSum="105.2" nds="18.0" cost="229.9" count="3.0" barCode="8421825902119" goodsCode="4100045931" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="139.76" costWithDiscount="69.88" discountValue="54.04" ndsSum="12.7" nds="10.0" cost="96.9" count="2.0" barCode="6408432095320" goodsCode="4100011426" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="69.9" costWithDiscount="69.9" discountValue="0.0" ndsSum="6.35" nds="10.0" cost="69.9" count="1.0" barCode="2700000001950" goodsCode="4100024638" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="29.9" costWithDiscount="29.9" discountValue="0.0" ndsSum="2.71" nds="10.0" cost="29.9" count="1.0" barCode="4602701001230" goodsCode="4100028775" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="94.11" costWithDiscount="129.99" discountValue="0.0" ndsSum="8.55" nds="10.0" cost="129.99" count="0.724" barCode="2601024" goodsCode="4100026668" departNumber="1" goodsUnit="2" order="5"/>
+            <position amount="129.0" costWithDiscount="129.0" discountValue="0.0" ndsSum="11.72" nds="10.0" cost="129.0" count="1.0" barCode="4601132791741" goodsCode="4100043548" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="19.9" costWithDiscount="19.9" discountValue="0.0" ndsSum="1.8" nds="10.0" cost="19.9" count="1.0" barCode="2099999104118" goodsCode="4100024927" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="39.9" costWithDiscount="39.9" discountValue="17.0" ndsSum="6.08" nds="18.0" cost="56.9" count="1.0" barCode="4605664002573" goodsCode="4100027105" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="11.63" costWithDiscount="55.9" discountValue="0.0" ndsSum="1.77" nds="18.0" cost="55.9" count="0.208" barCode="2600631" goodsCode="4100024320" departNumber="1" goodsUnit="2" order="10"/>
+            <position amount="9.9" costWithDiscount="9.9" discountValue="0.0" ndsSum="1.51" nds="18.0" cost="9.9" count="1.0" barCode="2700000007891" goodsCode="3000000500" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="58.01" costWithDiscount="79.9" discountValue="0.0" ndsSum="8.84" nds="18.0" cost="79.9" count="0.726" barCode="2600678" goodsCode="4100024386" departNumber="1" goodsUnit="2" order="12"/>
+            <position amount="22.79" costWithDiscount="69.9" discountValue="0.0" ndsSum="2.07" nds="10.0" cost="69.9" count="0.326" barCode="2650500" goodsCode="4100043733" departNumber="1" goodsUnit="2" order="11"/>
+            <position amount="79.9" costWithDiscount="79.9" discountValue="0.0" ndsSum="7.26" nds="10.0" cost="79.9" count="1.0" barCode="4607015701005" goodsCode="4100025052" departNumber="1" goodsUnit="1" order="13"/>
+        </positions>
+        <payments>
+            <payment description="" amount="3579.2" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="5000.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_47" isDiscountPurchase="false" amount="54.0" goodCode="4100011426" positionId="2"/>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.04" goodCode="4100011426" positionId="2"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_45" isDiscountPurchase="false" amount="17.0" goodCode="4100027105" positionId="7"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001779802</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="20.13" amount="2093.5" number="214" saletime="2013-11-05T21:30:15.575+02:00" shift="175" cash="12" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Мигинеишвили Раиса Владимировна" tabNumber="554236" shop="702">
+        <positions>
+            <position amount="83.9" costWithDiscount="83.9" discountValue="0.0" ndsSum="12.79" nds="18.0" cost="83.9" count="1.0" barCode="4605246003158" goodsCode="4100009913" departNumber="1" goodsUnit="1" order="16"/>
+            <position amount="83.9" costWithDiscount="83.9" discountValue="20.1" ndsSum="7.62" nds="10.0" cost="104.0" count="1.0" barCode="6408432052149" goodsCode="4100011229" departNumber="1" goodsUnit="1" order="19"/>
+            <position amount="52.4" costWithDiscount="52.4" discountValue="0.0" ndsSum="7.99" nds="18.0" cost="52.4" count="1.0" barCode="4605246003516" goodsCode="4100009860" departNumber="1" goodsUnit="1" order="18"/>
+            <position amount="106.97" costWithDiscount="106.97" discountValue="0.03" ndsSum="16.31" nds="18.0" cost="107.0" count="1.0" barCode="4607006371088" goodsCode="4100014243" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="111.83" costWithDiscount="315.9" discountValue="0.0" ndsSum="10.16" nds="10.0" cost="315.9" count="0.354" barCode="2600360" goodsCode="4100018146" departNumber="1" goodsUnit="2" order="25"/>
+            <position amount="78.58" costWithDiscount="94.9" discountValue="0.0" ndsSum="11.98" nds="18.0" cost="94.9" count="0.828" barCode="2600727" goodsCode="4100024449" departNumber="1" goodsUnit="2" order="24"/>
+            <position amount="43.4" costWithDiscount="43.4" discountValue="0.0" ndsSum="6.62" nds="18.0" cost="43.4" count="1.0" barCode="46108371" goodsCode="4100032775" departNumber="1" goodsUnit="1" order="27"/>
+            <position amount="19.9" costWithDiscount="19.9" discountValue="0.0" ndsSum="1.8" nds="10.0" cost="19.9" count="1.0" barCode="4690228010903" goodsCode="4100012989" departNumber="1" goodsUnit="1" order="26"/>
+            <position amount="34.87" costWithDiscount="39.9" discountValue="0.0" ndsSum="5.31" nds="18.0" cost="39.9" count="0.874" barCode="2600516" goodsCode="4100024170" departNumber="1" goodsUnit="2" order="29"/>
+            <position amount="74.4" costWithDiscount="74.4" discountValue="0.0" ndsSum="6.76" nds="10.0" cost="74.4" count="1.0" barCode="4607016580333" goodsCode="4100025788" departNumber="1" goodsUnit="1" order="28"/>
+            <position amount="59.99" costWithDiscount="59.99" discountValue="0.0" ndsSum="9.15" nds="18.0" cost="59.99" count="1.0" barCode="4860019001346" goodsCode="4100042066" departNumber="1" goodsUnit="1" order="17"/>
+            <position amount="33.8" costWithDiscount="16.9" discountValue="0.0" ndsSum="5.15" nds="18.0" cost="16.9" count="2.0" barCode="4600375041811" goodsCode="4100010640" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="19.9" costWithDiscount="19.9" discountValue="0.0" ndsSum="3.03" nds="18.0" cost="19.9" count="1.0" barCode="42203223" goodsCode="4100010252" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="64.4" costWithDiscount="64.4" discountValue="0.0" ndsSum="5.85" nds="10.0" cost="64.4" count="1.0" barCode="4601662000276" goodsCode="4100009635" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="65.4" costWithDiscount="32.7" discountValue="0.0" ndsSum="5.94" nds="10.0" cost="32.7" count="2.0" barCode="4602547000206" goodsCode="4100014033" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="89.9" costWithDiscount="89.9" discountValue="0.0" ndsSum="8.17" nds="10.0" cost="89.9" count="1.0" barCode="4607150086388" goodsCode="4100023380" departNumber="1" goodsUnit="1" order="23"/>
+            <position amount="60.0" costWithDiscount="60.0" discountValue="0.0" ndsSum="9.15" nds="18.0" cost="60.0" count="1.0" barCode="8717399851237" goodsCode="4100031812" departNumber="1" goodsUnit="1" order="22"/>
+            <position amount="151.11" costWithDiscount="219.0" discountValue="0.0" ndsSum="23.05" nds="18.0" cost="219.0" count="0.69" barCode="2608452" goodsCode="4300000085" departNumber="1" goodsUnit="2" order="4"/>
+            <position amount="75.9" costWithDiscount="75.9" discountValue="0.0" ndsSum="11.57" nds="18.0" cost="75.9" count="1.0" barCode="4607035892035" goodsCode="4100012732" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="19.9" costWithDiscount="19.9" discountValue="0.0" ndsSum="1.8" nds="10.0" cost="19.9" count="1.0" barCode="4607016580012" goodsCode="4100025791" departNumber="1" goodsUnit="1" order="21"/>
+            <position amount="329.51" costWithDiscount="324.0" discountValue="0.0" ndsSum="29.95" nds="10.0" cost="324.0" count="1.017" barCode="2600226" goodsCode="4100016422" departNumber="1" goodsUnit="2" order="20"/>
+            <position amount="16.7" costWithDiscount="16.7" discountValue="0.0" ndsSum="1.51" nds="10.0" cost="16.7" count="1.0" barCode="4607001850908" goodsCode="4100010338" departNumber="1" goodsUnit="1" order="15"/>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="181.54" costWithDiscount="189.9" discountValue="0.0" ndsSum="27.69" nds="18.0" cost="189.9" count="0.956" barCode="2646398" goodsCode="4100033220" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="64.4" costWithDiscount="64.4" discountValue="0.0" ndsSum="9.82" nds="18.0" cost="64.4" count="1.0" barCode="6410405068651" goodsCode="4100017281" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="59.9" costWithDiscount="59.9" discountValue="0.0" ndsSum="5.44" nds="10.0" cost="59.9" count="1.0" barCode="4607010733049" goodsCode="4100029404" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="29.9" costWithDiscount="29.9" discountValue="0.0" ndsSum="2.71" nds="10.0" cost="29.9" count="1.0" barCode="4601780009106" goodsCode="4100012426" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="43.9" costWithDiscount="43.9" discountValue="0.0" ndsSum="6.69" nds="18.0" cost="43.9" count="1.0" barCode="8712566262298" goodsCode="4100014160" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="31.4" costWithDiscount="31.4" discountValue="0.0" ndsSum="2.85" nds="10.0" cost="31.4" count="1.0" barCode="4607001850038" goodsCode="4100010319" departNumber="1" goodsUnit="1" order="14"/>
+        </positions>
+        <payments>
+            <payment description="" amount="6.5" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="2100.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.03" goodCode="4100014243" positionId="7"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_14" isDiscountPurchase="false" amount="20.1" goodCode="4100011229" positionId="19"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001521014</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.09" amount="1135.4" number="213" saletime="2013-11-05T21:30:18.227+02:00" shift="175" cash="11" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Зотова Людмила Олеговна" tabNumber="11111" shop="702">
+        <positions>
+            <position amount="35.2" costWithDiscount="35.2" discountValue="0.0" ndsSum="5.36" nds="18.0" cost="35.2" count="1.0" barCode="2700000009802" goodsCode="3000000651" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="53.59" costWithDiscount="53.59" discountValue="0.0" ndsSum="4.87" nds="10.0" cost="53.59" count="1.0" barCode="4607025396956" goodsCode="4100013079" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="29.9" costWithDiscount="29.9" discountValue="0.0" ndsSum="2.71" nds="10.0" cost="29.9" count="1.0" barCode="4607153852195" goodsCode="4100032444" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="40.4" costWithDiscount="40.4" discountValue="0.0" ndsSum="3.67" nds="10.0" cost="40.4" count="1.0" barCode="4605782081931" goodsCode="4100013062" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="149.9" costWithDiscount="149.9" discountValue="0.0" ndsSum="22.86" nds="18.0" cost="149.9" count="1.0" barCode="6410402015634" goodsCode="4100031847" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="69.8" costWithDiscount="34.9" discountValue="0.0" ndsSum="10.64" nds="18.0" cost="34.9" count="2.0" barCode="4607001752929" goodsCode="4100046602" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="42.9" costWithDiscount="42.9" discountValue="0.0" ndsSum="3.9" nds="10.0" cost="42.9" count="1.0" barCode="4602547001364" goodsCode="4100014030" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="149.8" costWithDiscount="149.8" discountValue="0.0" ndsSum="13.61" nds="10.0" cost="149.8" count="1.0" barCode="5760466800396" goodsCode="4100019529" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="36.4" costWithDiscount="36.4" discountValue="0.0" ndsSum="3.3" nds="10.0" cost="36.4" count="1.0" barCode="4602547001197" goodsCode="4100014016" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="102.0" costWithDiscount="51.0" discountValue="0.0" ndsSum="9.27" nds="10.0" cost="51.0" count="2.0" barCode="4602547000497" goodsCode="4100014031" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="24.4" costWithDiscount="24.4" discountValue="0.0" ndsSum="2.21" nds="10.0" cost="24.4" count="1.0" barCode="4607161623930" goodsCode="4100015210" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="34.9" costWithDiscount="34.9" discountValue="0.0" ndsSum="3.17" nds="10.0" cost="34.9" count="1.0" barCode="4607168121194" goodsCode="4100028581" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="363.31" costWithDiscount="363.31" discountValue="0.09" ndsSum="33.02" nds="10.0" cost="363.4" count="1.0" barCode="6408430039517" goodsCode="4100011201" departNumber="1" goodsUnit="1" order="2"/>
+        </positions>
+        <payments>
+            <payment description="" amount="1135.4" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.09" goodCode="4100011201" positionId="2"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001332479</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.0" amount="49.9" number="283" saletime="2013-11-05T21:30:21.302+02:00" shift="179" cash="9" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Ладухина Наталья Вадимовна" tabNumber="377789" shop="702">
+        <positions>
+            <position amount="49.9" costWithDiscount="49.9" discountValue="0.0" ndsSum="7.61" nds="18.0" cost="49.9" count="1.0" barCode="46087515" goodsCode="4100047456" departNumber="1" goodsUnit="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="0.1" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="50.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.04" amount="670.3" number="230" saletime="2013-11-05T21:31:02.996+02:00" shift="171" cash="13" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Петрова Ирина  Викторовна" tabNumber="17778" shop="702">
+        <positions>
+            <position amount="51.4" costWithDiscount="51.4" discountValue="0.0" ndsSum="7.84" nds="18.0" cost="51.4" count="1.0" barCode="4600536180007" goodsCode="4100010342" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="63.9" costWithDiscount="63.9" discountValue="0.0" ndsSum="5.8" nds="10.0" cost="63.9" count="1.0" barCode="4602277000026" goodsCode="4100010873" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="109.86" costWithDiscount="109.86" discountValue="0.04" ndsSum="9.98" nds="10.0" cost="109.9" count="1.0" barCode="4607007275804" goodsCode="4100014962" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="22.39" costWithDiscount="22.39" discountValue="0.0" ndsSum="2.03" nds="10.0" cost="22.39" count="1.0" barCode="4602547000176" goodsCode="4100014027" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="115.84" costWithDiscount="260.9" discountValue="0.0" ndsSum="17.67" nds="18.0" cost="260.9" count="0.444" barCode="2608389" goodsCode="4300000022" departNumber="1" goodsUnit="2" order="11"/>
+            <position amount="71.52" costWithDiscount="240.0" discountValue="0.0" ndsSum="10.9" nds="18.0" cost="240.0" count="0.298" barCode="2608382" goodsCode="4300000015" departNumber="1" goodsUnit="2" order="10"/>
+            <position amount="63.9" costWithDiscount="63.9" discountValue="0.0" ndsSum="5.8" nds="10.0" cost="63.9" count="1.0" barCode="4607019900619" goodsCode="4100009646" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="95.0" costWithDiscount="95.0" discountValue="0.0" ndsSum="14.49" nds="18.0" cost="95.0" count="1.0" barCode="4600702084566" goodsCode="4100025166" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="27.4" costWithDiscount="27.4" discountValue="0.0" ndsSum="4.17" nds="18.0" cost="27.4" count="1.0" barCode="80052760" goodsCode="4100009835" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="46.19" costWithDiscount="46.19" discountValue="0.0" ndsSum="4.19" nds="10.0" cost="46.19" count="1.0" barCode="4607805380311" goodsCode="4100028758" departNumber="1" goodsUnit="1" order="8"/>
+        </positions>
+        <payments>
+            <payment description="" amount="670.3" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.04" goodCode="4100014962" positionId="6"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001707928</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.0" amount="2.9" number="249" saletime="2013-11-05T21:31:54.941+02:00" shift="181" cash="8" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Руссу Любовь Николаевна" tabNumber="43602" shop="702">
+        <positions>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="2.1" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="5.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="9.0" amount="1082.8" number="277" saletime="2013-11-05T21:32:22.519+02:00" shift="180" cash="6" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Леонова Наталья Андреевна" tabNumber="25511" shop="702">
+        <positions>
+            <position amount="329.7" costWithDiscount="109.9" discountValue="0.0" ndsSum="50.29" nds="18.0" cost="109.9" count="3.0" barCode="4103210273533" goodsCode="4100007122" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="159.9" costWithDiscount="159.9" discountValue="0.0" ndsSum="24.39" nds="18.0" cost="159.9" count="1.0" barCode="5000264010482" goodsCode="4100006958" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="42.0" costWithDiscount="21.0" discountValue="0.0" ndsSum="6.4" nds="18.0" cost="21.0" count="2.0" barCode="2700000009451" goodsCode="3000000616" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="72.9" costWithDiscount="72.9" discountValue="0.0" ndsSum="11.12" nds="18.0" cost="72.9" count="1.0" barCode="46104458" goodsCode="4100031214" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="49.4" costWithDiscount="49.4" discountValue="0.0" ndsSum="7.53" nds="18.0" cost="49.4" count="1.0" barCode="3068320055008" goodsCode="4100020341" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="94.1" costWithDiscount="220.9" discountValue="0.0" ndsSum="14.35" nds="18.0" cost="220.9" count="0.426" barCode="2608450" goodsCode="4300000083" departNumber="1" goodsUnit="2" order="9"/>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="21.4" costWithDiscount="21.4" discountValue="0.0" ndsSum="3.26" nds="18.0" cost="21.4" count="1.0" barCode="2700000009574" goodsCode="3000000628" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="109.9" costWithDiscount="109.9" discountValue="0.0" ndsSum="16.76" nds="18.0" cost="109.9" count="1.0" barCode="4103210273564" goodsCode="4100007124" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="50.8" costWithDiscount="25.4" discountValue="9.0" ndsSum="4.61" nds="10.0" cost="29.9" count="2.0" barCode="4600605015377" goodsCode="4100015183" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="129.0" costWithDiscount="129.0" discountValue="0.0" ndsSum="11.72" nds="10.0" cost="129.0" count="1.0" barCode="4606272023257" goodsCode="4100023392" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="17.9" costWithDiscount="17.9" discountValue="0.0" ndsSum="1.62" nds="10.0" cost="17.9" count="1.0" barCode="4606396000011" goodsCode="4100015995" departNumber="1" goodsUnit="1" order="7"/>
+        </positions>
+        <payments>
+            <payment description="" amount="17.2" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="1100.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_49" isDiscountPurchase="false" amount="9.0" goodCode="4100015183" positionId="5"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001815671</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.06" amount="912.6" number="131" saletime="2013-11-05T21:32:24.834+02:00" shift="148" cash="14" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Абдыкалыкова Сайха Абдибаитовна" tabNumber="425769" shop="702">
+        <positions>
+            <position amount="69.9" costWithDiscount="69.9" discountValue="0.0" ndsSum="10.66" nds="18.0" cost="69.9" count="1.0" barCode="2700000000649" goodsCode="4100024339" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="239.96" costWithDiscount="59.99" discountValue="0.0" ndsSum="36.6" nds="18.0" cost="59.99" count="4.0" barCode="4860019001346" goodsCode="4100042066" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="599.84" costWithDiscount="599.84" discountValue="0.06" ndsSum="91.5" nds="18.0" cost="599.9" count="1.0" barCode="9120018455027" goodsCode="4100001925" departNumber="1" goodsUnit="1" order="2"/>
+        </positions>
+        <payments>
+            <payment description="" amount="912.6" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.06" goodCode="4100001925" positionId="2"/>
+        </discounts>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="52.35" amount="1920.0" number="214" saletime="2013-11-05T21:32:40.241+02:00" shift="175" cash="11" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Зотова Людмила Олеговна" tabNumber="11111" shop="702">
+        <positions>
+            <position amount="56.9" costWithDiscount="56.9" discountValue="0.0" ndsSum="8.67" nds="18.0" cost="56.9" count="1.0" barCode="4600702081671" goodsCode="4100025189" departNumber="1" goodsUnit="1" order="33"/>
+            <position amount="43.9" costWithDiscount="43.9" discountValue="0.0" ndsSum="6.69" nds="18.0" cost="43.9" count="1.0" barCode="8712566262298" goodsCode="4100014160" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="34.2" costWithDiscount="34.2" discountValue="0.0" ndsSum="5.21" nds="18.0" cost="34.2" count="1.0" barCode="8717399855150" goodsCode="4100037354" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="20.6" costWithDiscount="20.6" discountValue="4.8" ndsSum="1.87" nds="10.0" cost="25.4" count="1.0" barCode="4602541005801" goodsCode="4100013001" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="89.0" costWithDiscount="89.0" discountValue="0.0" ndsSum="13.57" nds="18.0" cost="89.0" count="1.0" barCode="3661163955988" goodsCode="4100021731" departNumber="1" goodsUnit="1" order="34"/>
+            <position amount="53.9" costWithDiscount="53.9" discountValue="0.0" ndsSum="8.22" nds="18.0" cost="53.9" count="1.0" barCode="5000159385473" goodsCode="4100010787" departNumber="1" goodsUnit="1" order="32"/>
+            <position amount="6.4" costWithDiscount="6.4" discountValue="0.0" ndsSum="0.97" nds="18.0" cost="6.4" count="1.0" barCode="4606706020371" goodsCode="4100002146" departNumber="1" goodsUnit="1" order="18"/>
+            <position amount="14.7" costWithDiscount="14.7" discountValue="0.0" ndsSum="1.33" nds="10.0" cost="14.7" count="1.0" barCode="4601339004989" goodsCode="4100047591" departNumber="1" goodsUnit="1" order="19"/>
+            <position amount="28.4" costWithDiscount="28.4" discountValue="0.0" ndsSum="4.33" nds="18.0" cost="28.4" count="1.0" barCode="880730125354" goodsCode="4100015353" departNumber="1" goodsUnit="1" order="16"/>
+            <position amount="15.9" costWithDiscount="15.9" discountValue="0.0" ndsSum="2.42" nds="18.0" cost="15.9" count="1.0" barCode="5900084197168" goodsCode="4100010001" departNumber="1" goodsUnit="1" order="17"/>
+            <position amount="47.9" costWithDiscount="47.9" discountValue="0.0" ndsSum="4.35" nds="10.0" cost="47.9" count="1.0" barCode="4601780005429" goodsCode="4100012436" departNumber="1" goodsUnit="1" order="22"/>
+            <position amount="150.55" costWithDiscount="230.9" discountValue="0.0" ndsSum="13.68" nds="10.0" cost="230.9" count="0.652" barCode="2601168" goodsCode="4100029149" departNumber="1" goodsUnit="2" order="23"/>
+            <position amount="72.9" costWithDiscount="72.9" discountValue="0.0" ndsSum="6.62" nds="10.0" cost="72.9" count="1.0" barCode="4770190037082" goodsCode="4100032680" departNumber="1" goodsUnit="1" order="20"/>
+            <position amount="29.9" costWithDiscount="29.9" discountValue="0.0" ndsSum="2.71" nds="10.0" cost="29.9" count="1.0" barCode="4810168001957" goodsCode="4100032469" departNumber="1" goodsUnit="1" order="21"/>
+            <position amount="102.95" costWithDiscount="102.95" discountValue="0.05" ndsSum="9.35" nds="10.0" cost="103.0" count="1.0" barCode="4650002367944" goodsCode="4100037539" departNumber="1" goodsUnit="1" order="26"/>
+            <position amount="103.0" costWithDiscount="103.0" discountValue="0.0" ndsSum="9.36" nds="10.0" cost="103.0" count="1.0" barCode="4650002367937" goodsCode="4100037540" departNumber="1" goodsUnit="1" order="27"/>
+            <position amount="103.62" costWithDiscount="315.9" discountValue="0.0" ndsSum="9.42" nds="10.0" cost="315.9" count="0.328" barCode="2600360" goodsCode="4100018146" departNumber="1" goodsUnit="2" order="24"/>
+            <position amount="59.0" costWithDiscount="59.0" discountValue="0.0" ndsSum="9.0" nds="18.0" cost="59.0" count="1.0" barCode="4607016814414" goodsCode="4100045796" departNumber="1" goodsUnit="1" order="25"/>
+            <position amount="2.9" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.44" nds="18.0" cost="2.9" count="1.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="30"/>
+            <position amount="39.9" costWithDiscount="39.9" discountValue="0.0" ndsSum="3.62" nds="10.0" cost="39.9" count="1.0" barCode="4605496001317" goodsCode="4100012759" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="47.4" costWithDiscount="47.4" discountValue="0.0" ndsSum="4.3" nds="10.0" cost="47.4" count="1.0" barCode="4607053473704" goodsCode="4100015150" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="19.9" costWithDiscount="19.9" discountValue="8.0" ndsSum="1.8" nds="10.0" cost="27.9" count="1.0" barCode="2700000008836" goodsCode="4300000156" departNumber="1" goodsUnit="1" order="15"/>
+            <position amount="44.9" costWithDiscount="44.9" discountValue="9.4" ndsSum="6.84" nds="18.0" cost="54.3" count="1.0" barCode="880730140340" goodsCode="4100015358" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="185.61" costWithDiscount="469.9" discountValue="0.0" ndsSum="16.87" nds="10.0" cost="469.9" count="0.395" barCode="2600143" goodsCode="4100015265" departNumber="1" goodsUnit="2" order="10"/>
+            <position amount="78.4" costWithDiscount="78.4" discountValue="0.0" ndsSum="11.95" nds="18.0" cost="78.4" count="1.0" barCode="4600494509582" goodsCode="4100020343" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="94.71" costWithDiscount="99.9" discountValue="0.0" ndsSum="14.44" nds="18.0" cost="99.9" count="0.948" barCode="2648729" goodsCode="4100035402" departNumber="1" goodsUnit="2" order="4"/>
+            <position amount="68.4" costWithDiscount="68.4" discountValue="0.0" ndsSum="6.21" nds="10.0" cost="68.4" count="1.0" barCode="6408432060946" goodsCode="4100011408" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="59.9" costWithDiscount="59.9" discountValue="0.0" ndsSum="5.44" nds="10.0" cost="59.9" count="1.0" barCode="4607010733049" goodsCode="4100029404" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="36.88" costWithDiscount="49.9" discountValue="0.0" ndsSum="3.35" nds="10.0" cost="49.9" count="0.739" barCode="2601697" goodsCode="4100031717" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="25.4" costWithDiscount="25.4" discountValue="0.0" ndsSum="2.3" nds="10.0" cost="25.4" count="1.0" barCode="4607072710378" goodsCode="4100009972" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="22.75" costWithDiscount="63.9" discountValue="0.0" ndsSum="2.06" nds="10.0" cost="63.9" count="0.356" barCode="2600824" goodsCode="4100024653" departNumber="1" goodsUnit="2" order="29"/>
+            <position amount="34.43" costWithDiscount="49.9" discountValue="0.0" ndsSum="3.13" nds="10.0" cost="49.9" count="0.69" barCode="2601697" goodsCode="4100031717" departNumber="1" goodsUnit="2" order="3"/>
+            <position amount="94.9" costWithDiscount="94.9" discountValue="30.1" ndsSum="8.62" nds="10.0" cost="125.0" count="1.0" barCode="4607088543069" goodsCode="4100007837" departNumber="1" goodsUnit="1" order="31"/>
+            <position amount="29.9" costWithDiscount="29.9" discountValue="0.0" ndsSum="4.56" nds="18.0" cost="29.9" count="1.0" barCode="4607017942581" goodsCode="4100047939" departNumber="1" goodsUnit="1" order="28"/>
+        </positions>
+        <payments>
+            <payment description="" amount="3080.0" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="5000.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000183_07" isDiscountPurchase="false" amount="9.4" goodCode="4100015358" positionId="11"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_43" isDiscountPurchase="false" amount="4.8" goodCode="4100013001" positionId="14"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000183_01" isDiscountPurchase="false" amount="8.0" goodCode="4300000156" positionId="15"/>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.05" goodCode="4100037539" positionId="26"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_72" isDiscountPurchase="false" amount="30.1" goodCode="4100007837" positionId="31"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001438243</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.06" amount="48.4" number="77" saletime="2013-11-05T21:32:40.747+02:00" shift="175" cash="16" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Бобровская Анна Сергеевна" tabNumber="44556" shop="702">
+        <positions>
+            <position amount="48.4" costWithDiscount="48.4" discountValue="0.06" ndsSum="7.38" nds="18.0" cost="48.46" count="1.0" barCode="46126917" goodsCode="4100047461" departNumber="1" goodsUnit="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="51.6" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="100.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.06" goodCode="4100047461" positionId="1"/>
+        </discounts>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.07" amount="1358.0" number="294" saletime="2013-11-05T21:32:50.727+02:00" shift="175" cash="5" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Алехина Анастасия Николаевна" tabNumber="51246" shop="702">
+        <positions>
+            <position amount="38.7" costWithDiscount="38.7" discountValue="0.0" ndsSum="3.51" nds="10.0" cost="38.7" count="1.0" barCode="4602701003708" goodsCode="4100028790" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="57.2" costWithDiscount="57.2" discountValue="0.0" ndsSum="8.72" nds="18.0" cost="57.2" count="1.0" barCode="4600687003668" goodsCode="4100009685" departNumber="1" goodsUnit="1" order="14"/>
+            <position amount="88.8" costWithDiscount="44.4" discountValue="0.0" ndsSum="8.07" nds="10.0" cost="44.4" count="2.0" barCode="4607053473537" goodsCode="4100015162" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="298.93" costWithDiscount="298.93" discountValue="0.07" ndsSum="27.17" nds="10.0" cost="299.0" count="1.0" barCode="4601870001430" goodsCode="4100011689" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="32.4" costWithDiscount="32.4" discountValue="0.0" ndsSum="4.94" nds="18.0" cost="32.4" count="1.0" barCode="4601593000437" goodsCode="4100010910" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="66.9" costWithDiscount="66.9" discountValue="0.0" ndsSum="10.2" nds="18.0" cost="66.9" count="1.0" barCode="8588000133925" goodsCode="4100010919" departNumber="1" goodsUnit="1" order="5"/>
+            <position amount="120.2" costWithDiscount="120.2" discountValue="0.0" ndsSum="10.92" nds="10.0" cost="120.2" count="1.0" barCode="4607007275699" goodsCode="4100014957" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="249.9" costWithDiscount="249.9" discountValue="0.0" ndsSum="22.71" nds="10.0" cost="249.9" count="1.0" barCode="4740142000914" goodsCode="4100011866" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="110.38" costWithDiscount="55.19" discountValue="0.0" ndsSum="10.03" nds="10.0" cost="55.19" count="2.0" barCode="4600765023946" goodsCode="4100014036" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="100.4" costWithDiscount="100.4" discountValue="0.0" ndsSum="9.12" nds="10.0" cost="100.4" count="1.0" barCode="4607089690120" goodsCode="4100018212" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="87.39" costWithDiscount="99.99" discountValue="0.0" ndsSum="7.94" nds="10.0" cost="99.99" count="0.874" barCode="2601085" goodsCode="4100028957" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="33.6" costWithDiscount="33.6" discountValue="0.0" ndsSum="3.05" nds="10.0" cost="33.6" count="1.0" barCode="2700000010280" goodsCode="4300000312" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="67.4" costWithDiscount="67.4" discountValue="0.0" ndsSum="10.28" nds="18.0" cost="67.4" count="1.0" barCode="4820008123312" goodsCode="4100044038" departNumber="1" goodsUnit="1" order="3"/>
+        </positions>
+        <payments>
+            <payment description="" amount="52.0" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="1410.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.07" goodCode="4100011689" positionId="7"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001520404</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.02" amount="1297.1" number="215" saletime="2013-11-05T21:32:59.540+02:00" shift="175" cash="12" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Мигинеишвили Раиса Владимировна" tabNumber="554236" shop="702">
+        <positions>
+            <position amount="53.5" costWithDiscount="53.5" discountValue="0.0" ndsSum="4.86" nds="10.0" cost="53.5" count="1.0" barCode="4607072710064" goodsCode="4100009960" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="38.2" costWithDiscount="38.2" discountValue="0.0" ndsSum="5.82" nds="18.0" cost="38.2" count="1.0" barCode="6410402004669" goodsCode="4100017260" departNumber="1" goodsUnit="1" order="6"/>
+            <position amount="29.9" costWithDiscount="29.9" discountValue="0.0" ndsSum="4.56" nds="18.0" cost="29.9" count="1.0" barCode="4607014830942" goodsCode="4100018482" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="154.5" costWithDiscount="154.5" discountValue="0.0" ndsSum="23.56" nds="18.0" cost="154.5" count="1.0" barCode="5413121359769" goodsCode="4100029536" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="44.16" costWithDiscount="99.9" discountValue="0.0" ndsSum="6.73" nds="18.0" cost="99.9" count="0.442" barCode="2600786" goodsCode="4100024569" departNumber="1" goodsUnit="2" order="14"/>
+            <position amount="109.0" costWithDiscount="109.0" discountValue="0.0" ndsSum="9.9" nds="10.0" cost="109.0" count="1.0" barCode="9329427004042" goodsCode="4100029504" departNumber="1" goodsUnit="1" order="16"/>
+            <position amount="7.4" costWithDiscount="3.7" discountValue="0.0" ndsSum="1.12" nds="18.0" cost="3.7" count="2.0" barCode="5941132001433" goodsCode="4100010039" departNumber="1" goodsUnit="1" order="12"/>
+            <position amount="31.9" costWithDiscount="31.9" discountValue="0.0" ndsSum="4.86" nds="18.0" cost="31.9" count="1.0" barCode="4820048485234" goodsCode="4100012586" departNumber="1" goodsUnit="1" order="15"/>
+            <position amount="116.9" costWithDiscount="116.9" discountValue="0.0" ndsSum="17.83" nds="18.0" cost="116.9" count="1.0" barCode="6410405058256" goodsCode="4100030234" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="49.9" costWithDiscount="49.9" discountValue="0.0" ndsSum="7.61" nds="18.0" cost="49.9" count="1.0" barCode="2700000003152" goodsCode="4100026603" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="257.88" costWithDiscount="257.88" discountValue="0.02" ndsSum="39.33" nds="18.0" cost="257.9" count="1.0" barCode="4860004070173" goodsCode="4100044161" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="24.76" costWithDiscount="43.9" discountValue="0.0" ndsSum="3.77" nds="18.0" cost="43.9" count="0.564" barCode="2601066" goodsCode="4100028901" departNumber="1" goodsUnit="2" order="11"/>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="35.9" costWithDiscount="35.9" discountValue="0.0" ndsSum="5.47" nds="18.0" cost="35.9" count="1.0" barCode="4600694402836" goodsCode="4100042038" departNumber="1" goodsUnit="1" order="2"/>
+            <position amount="38.5" costWithDiscount="38.5" discountValue="0.0" ndsSum="5.87" nds="18.0" cost="38.5" count="1.0" barCode="4600384012505" goodsCode="4100013944" departNumber="1" goodsUnit="1" order="3"/>
+            <position amount="49.9" costWithDiscount="49.9" discountValue="0.0" ndsSum="7.61" nds="18.0" cost="49.9" count="1.0" barCode="42138099" goodsCode="4100044918" departNumber="1" goodsUnit="1" order="17"/>
+            <position amount="249.0" costWithDiscount="249.0" discountValue="0.0" ndsSum="22.63" nds="10.0" cost="249.0" count="1.0" barCode="4600822004529" goodsCode="4100026907" departNumber="1" goodsUnit="1" order="5"/>
+        </positions>
+        <payments>
+            <payment description="" amount="1297.1" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.02" goodCode="4100044161" positionId="8"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001487992</discountCard>
+        </discountCards>
+    </purchase>
+    <purchase discountAmount="0.0" amount="47.9" number="215" saletime="2013-11-05T21:33:00.551+02:00" shift="175" cash="11" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Зотова Людмила Олеговна" tabNumber="11111" shop="702">
+        <positions>
+            <position amount="47.9" costWithDiscount="47.9" discountValue="0.0" ndsSum="7.3" nds="18.0" cost="47.9" count="1.0" barCode="7552009101378" goodsCode="4100034775" departNumber="1" goodsUnit="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="2.1" typeClass="CashChangePaymentEntity"/>
+            <payment description="" amount="50.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="144.41" amount="2500.0" number="152" saletime="2013-11-05T21:33:05.581+02:00" shift="169" cash="4" operDay="2013-11-05T00:00:00.000+02:00" operationType="true" userName="Короташ Денис Александрович" tabNumber="52236" shop="702">
+        <positions>
+            <position amount="39.9" costWithDiscount="39.9" discountValue="2.39" ndsSum="3.62" nds="10.0" cost="42.29" count="1.0" barCode="4607053473803" goodsCode="4100015153" departNumber="1" goodsUnit="1" order="30"/>
+            <position amount="72.8" costWithDiscount="72.8" discountValue="0.0" ndsSum="11.1" nds="18.0" cost="72.8" count="1.0" barCode="8710449988761" goodsCode="4100011646" departNumber="1" goodsUnit="1" order="29"/>
+            <position amount="199.0" costWithDiscount="199.0" discountValue="0.0" ndsSum="18.09" nds="10.0" cost="199.0" count="1.0" barCode="7613034275448" goodsCode="4100047233" departNumber="1" goodsUnit="1" order="28"/>
+            <position amount="80.4" costWithDiscount="80.4" discountValue="0.0" ndsSum="7.3" nds="10.0" cost="80.4" count="1.0" barCode="4607023232492" goodsCode="4100016381" departNumber="1" goodsUnit="1" order="8"/>
+            <position amount="159.8" costWithDiscount="79.9" discountValue="98.2" ndsSum="14.52" nds="10.0" cost="129.0" count="2.0" barCode="4607025360742" goodsCode="4100016404" departNumber="1" goodsUnit="1" order="9"/>
+            <position amount="40.8" costWithDiscount="329.0" discountValue="0.0" ndsSum="6.22" nds="18.0" cost="329.0" count="0.124" barCode="2608430" goodsCode="4300000063" departNumber="1" goodsUnit="2" order="14"/>
+            <position amount="156.58" costWithDiscount="699.0" discountValue="0.0" ndsSum="14.23" nds="10.0" cost="699.0" count="0.224" barCode="2608243" goodsCode="4300000536" departNumber="1" goodsUnit="2" order="17"/>
+            <position amount="51.47" costWithDiscount="240.5" discountValue="0.0" ndsSum="7.85" nds="18.0" cost="240.5" count="0.214" barCode="2608380" goodsCode="4300000013" departNumber="1" goodsUnit="2" order="15"/>
+            <position amount="51.55" costWithDiscount="179.0" discountValue="0.0" ndsSum="7.86" nds="18.0" cost="179.0" count="0.288" barCode="2608407" goodsCode="4300000040" departNumber="1" goodsUnit="2" order="16"/>
+            <position amount="174.1" costWithDiscount="279.0" discountValue="0.0" ndsSum="15.82" nds="10.0" cost="279.0" count="0.624" barCode="2649849" goodsCode="4100039846" departNumber="1" goodsUnit="2" order="12"/>
+            <position amount="36.9" costWithDiscount="36.9" discountValue="18.0" ndsSum="5.62" nds="18.0" cost="54.9" count="1.0" barCode="4600494519239" goodsCode="4100020321" departNumber="1" goodsUnit="1" order="19"/>
+            <position amount="113.0" costWithDiscount="113.0" discountValue="0.0" ndsSum="10.27" nds="10.0" cost="113.0" count="1.0" barCode="4670002941029" goodsCode="4100029690" departNumber="1" goodsUnit="1" order="13"/>
+            <position amount="199.91" costWithDiscount="699.0" discountValue="0.0" ndsSum="30.49" nds="18.0" cost="699.0" count="0.286" barCode="2648187" goodsCode="4300000601" departNumber="1" goodsUnit="2" order="18"/>
+            <position amount="124.49" costWithDiscount="129.0" discountValue="0.0" ndsSum="11.31" nds="10.0" cost="129.0" count="0.965" barCode="2601648" goodsCode="4100031655" departNumber="1" goodsUnit="2" order="2"/>
+            <position amount="24.4" costWithDiscount="24.4" discountValue="8.59" ndsSum="2.21" nds="10.0" cost="32.99" count="1.0" barCode="4740125532173" goodsCode="4100039534" departNumber="1" goodsUnit="1" order="21"/>
+            <position amount="24.4" costWithDiscount="24.4" discountValue="8.59" ndsSum="2.21" nds="10.0" cost="32.99" count="1.0" barCode="4740125532104" goodsCode="4100011403" departNumber="1" goodsUnit="1" order="20"/>
+            <position amount="66.4" costWithDiscount="66.4" discountValue="0.0" ndsSum="10.12" nds="18.0" cost="66.4" count="1.0" barCode="8710449989140" goodsCode="4100011645" departNumber="1" goodsUnit="1" order="23"/>
+            <position amount="24.4" costWithDiscount="24.4" discountValue="8.59" ndsSum="2.21" nds="10.0" cost="32.99" count="1.0" barCode="4740125532180" goodsCode="4100039535" departNumber="1" goodsUnit="1" order="22"/>
+            <position amount="219.85" costWithDiscount="219.85" discountValue="0.05" ndsSum="19.98" nds="10.0" cost="219.9" count="1.0" barCode="4601870000013" goodsCode="4100011687" departNumber="1" goodsUnit="1" order="27"/>
+            <position amount="41.0" costWithDiscount="41.0" discountValue="0.0" ndsSum="3.72" nds="10.0" cost="41.0" count="1.0" barCode="4602701001711" goodsCode="4100028782" departNumber="1" goodsUnit="1" order="26"/>
+            <position amount="92.88" costWithDiscount="129.0" discountValue="0.0" ndsSum="8.44" nds="10.0" cost="129.0" count="0.72" barCode="2601648" goodsCode="4100031655" departNumber="1" goodsUnit="2" order="25"/>
+            <position amount="9.9" costWithDiscount="9.9" discountValue="0.0" ndsSum="1.51" nds="18.0" cost="9.9" count="1.0" barCode="4011100091993" goodsCode="4100010831" departNumber="1" goodsUnit="1" order="24"/>
+            <position amount="108.8" costWithDiscount="54.4" discountValue="0.0" ndsSum="16.59" nds="18.0" cost="54.4" count="2.0" barCode="46103345" goodsCode="4100032772" departNumber="1" goodsUnit="1" order="10"/>
+            <position amount="65.9" costWithDiscount="65.9" discountValue="0.0" ndsSum="5.99" nds="10.0" cost="65.9" count="1.0" barCode="4810268021954" goodsCode="4100016653" departNumber="1" goodsUnit="1" order="11"/>
+            <position amount="42.53" costWithDiscount="139.0" discountValue="0.0" ndsSum="6.48" nds="18.0" cost="139.0" count="0.306" barCode="2608433" goodsCode="4300000066" departNumber="1" goodsUnit="2" order="5"/>
+            <position amount="58.0" costWithDiscount="29.0" discountValue="0.0" ndsSum="5.27" nds="10.0" cost="29.0" count="2.0" barCode="4660000320032" goodsCode="4100012592" departNumber="1" goodsUnit="1" order="4"/>
+            <position amount="18.0" costWithDiscount="18.0" discountValue="0.0" ndsSum="1.63" nds="10.0" cost="18.0" count="1.0" barCode="4602977000012" goodsCode="4100028642" departNumber="1" goodsUnit="1" order="7"/>
+            <position amount="140.04" costWithDiscount="389.0" discountValue="0.0" ndsSum="21.36" nds="18.0" cost="389.0" count="0.36" barCode="2608429" goodsCode="4300000062" departNumber="1" goodsUnit="2" order="6"/>
+            <position amount="5.8" costWithDiscount="2.9" discountValue="0.0" ndsSum="0.88" nds="18.0" cost="2.9" count="2.0" barCode="2700000011454" goodsCode="4100032110" departNumber="1" goodsUnit="1" order="1"/>
+            <position amount="57.0" costWithDiscount="28.5" discountValue="0.0" ndsSum="5.18" nds="10.0" cost="28.5" count="2.0" barCode="4601780000240" goodsCode="4100012417" departNumber="1" goodsUnit="1" order="3"/>
+        </positions>
+        <payments>
+            <payment description="" amount="2500.0" typeClass="BankCardPaymentEntity"/>
+        </payments>
+        <discounts>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_11" isDiscountPurchase="false" amount="98.2" goodCode="4100016404" positionId="9"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000180_55" isDiscountPurchase="false" amount="18.0" goodCode="4100020321" positionId="19"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_44" isDiscountPurchase="false" amount="8.59" goodCode="4100011403" positionId="20"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_44" isDiscountPurchase="false" amount="8.59" goodCode="4100039534" positionId="21"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_44" isDiscountPurchase="false" amount="8.59" goodCode="4100039535" positionId="22"/>
+            <discount advertType="DISCOUNT" AdvertActGUID="Округление" isDiscountPurchase="false" amount="0.05" goodCode="4100011687" positionId="27"/>
+            <discount advertType="SET_GOODS" AdvertActGUID="LBB01_100000181_50" isDiscountPurchase="false" amount="2.39" goodCode="4100015153" positionId="30"/>
+        </discounts>
+        <discountCards>
+            <discountCard>63669320001516089</discountCard>
+        </discountCards>
+    </purchase>
+</purchases>

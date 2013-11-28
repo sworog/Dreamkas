@@ -141,14 +141,12 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param string $storeId
      * @param string $invoiceId
      * @param string $productId
      * @param int $quantity
      * @param float $price
      * @param string $storeId
      * @param User $manager
-     * @param null|boolean $includesVAT   Включен ли НДС в цену. При значении null будет сделан запрос к накладной
      * @return string
      */
     public function createInvoiceProduct(
@@ -272,10 +270,14 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @param array $skus
+     * @param bool $unique
      * @return array
      */
-    protected function createProductsBySku(array $skus)
+    protected function createProductsBySku(array $skus, $unique = false)
     {
+        if ($unique) {
+            $skus = array_unique($skus);
+        }
         $products = array();
         foreach ($skus as $sku) {
             $products[$sku] = $this->createProduct(array('sku' => $sku));

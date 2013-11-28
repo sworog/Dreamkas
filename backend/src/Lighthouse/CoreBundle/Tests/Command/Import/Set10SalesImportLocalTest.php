@@ -4,11 +4,30 @@ namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
 use Lighthouse\CoreBundle\Command\Import\Set10SalesImportLocal;
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class Set10SalesImportLocalTest extends WebTestCase
 {
+    /**
+     * @param array|string $input
+     * @return CommandTester
+     */
+    protected function execute($input)
+    {
+        if (is_string($input)) {
+            $input = array(
+                'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $input),
+            );
+        }
+        /* @var Set10SalesImportLocal $command */
+        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import_local');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute($input);
+        return $commandTester;
+    }
+
     /**
      * @dataProvider executeProvider
      */
@@ -33,15 +52,7 @@ class Set10SalesImportLocalTest extends WebTestCase
             )
         );
 
-        $input = array(
-            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $file)
-        );
-
-        /* @var Set10SalesImportLocal $command */
-        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import_local');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute($input);
-
+        $commandTester = $this->execute($file);
         $display = $commandTester->getDisplay();
 
         $this->assertContains($file, $display);
@@ -69,14 +80,7 @@ class Set10SalesImportLocalTest extends WebTestCase
             )
         );
 
-        $input = array(
-            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/purchases-14-05-2012_9-18-29.xml')
-        );
-
-        /* @var Set10SalesImportLocal $command */
-        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import_local');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute($input);
+        $commandTester = $this->execute('purchases-14-05-2012_9-18-29.xml');
 
         $display = $commandTester->getDisplay();
 
@@ -114,16 +118,32 @@ class Set10SalesImportLocalTest extends WebTestCase
     {
         $file = 'purchases-invalid.xml';
 
-        $input = array(
-            'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $file),
-        );
-        /* @var Set10SalesImportLocal $command */
-        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import_local');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute($input);
+        $commandTester = $this->execute($file);
 
         $display = $commandTester->getDisplay();
         $this->assertContains($file, $display);
         $this->assertContains('Failed to import sales', $display);
+    }
+
+    /**
+     * @expectedException \UnexpectedValueException
+     */
+    public function testFileNotExists()
+    {
+        $this->execute('unknown.xml');
+    }
+
+    public function testImportDirectory()
+    {
+        $commandTester = $this->execute('Kesko/');
+        $display = $commandTester->getDisplay();
+        $this->assertContains('Found 2 files', $display);
+        $this->assertContains('purchases-success-2013.11.04-00.03.09.514.xml', $display);
+        $this->assertContains('purchases-success-2013.11.05-19.33.50.602.xml', $display);
+        Assert::assertStringOccursBefore(
+            'purchases-success-2013.11.04-00.03.09.514.xml',
+            'purchases-success-2013.11.05-19.33.50.602.xml',
+            $display
+        );
     }
 }
