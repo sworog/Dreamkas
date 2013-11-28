@@ -10,14 +10,10 @@ class ReportControllerTest extends WebTestCase
 {
     public function testGetReportsWithoutCalculate()
     {
-        $storeManager = $this->createUser('storeManager', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore();
-        $this->factory->linkStoreManagers($storeManager->id, $storeId);
-
-
-        $accessToken = $this->auth($storeManager, 'password');
+        $storeId = $this->factory->getStore();
+        $accessToken = $this->factory->authAsStoreManager($storeId);
         $response = $this->clientJsonRequest(
-            $storeManager,
+            $accessToken,
             'GET',
             '/api/1/store/' . $storeId . '/report/grossSale'
         );
