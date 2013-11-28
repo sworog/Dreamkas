@@ -194,12 +194,38 @@ class Assert
      * @param string $expectedLater
      * @param string $haystack
      * @param string $message
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
     public static function assertStringOccursBefore($expectedBefore, $expectedLater, $haystack, $message = '')
     {
-        $message = ($message) ?: sprintf('Failed asserting %s occurs before %s', $expectedBefore, $expectedLater);
+        if ('' == $message) {
+            $message = sprintf(
+                'Failed asserting "%s" occurs before "%s" in "%s"',
+                $expectedBefore,
+                $expectedLater,
+                $haystack
+            );
+        }
         $beforePosition = strpos($haystack, $expectedBefore);
+        if (false === $beforePosition) {
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf(
+                    'Expected before string "%s" not found in "%s"',
+                    $expectedBefore,
+                    $haystack
+                )
+            );
+        }
         $laterPosition = strpos($haystack, $expectedLater);
+        if (false === $laterPosition) {
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf(
+                    'Expected later string "%s" not found in "%s"',
+                    $expectedLater,
+                    $haystack
+                )
+            );
+        }
         PHPUnit_Framework_Assert::assertLessThan($laterPosition, $beforePosition, $message);
     }
 }

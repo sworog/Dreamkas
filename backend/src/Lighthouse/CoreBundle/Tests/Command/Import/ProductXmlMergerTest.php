@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
 use Lighthouse\CoreBundle\Command\Import\ProductsXmlMerger;
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\TableHelper;
@@ -51,13 +52,21 @@ class ProductXmlMergerTest extends ContainerAwareTestCase
         $this->assertEquals(0, $exitCode);
 
         $display = $commandTester->getDisplay();
-        $filePos1 = strpos($display, 'Processing goods-catalog_2013-11-13_22-39-03.xml');
-        $filePos2 = strpos($display, 'Processing goods-catalog_2013-11-13_22-39-02.xml');
-        $filePos3 = strpos($display, 'Processing goods-catalog_2013-11-13_22-39-01.xml');
-        $filePos4 = strpos($display, 'Processing goods-catalog_2013-11-12_10-17-58.xml');
-        $this->assertGreaterThan($filePos3, $filePos4);
-        $this->assertGreaterThan($filePos2, $filePos3);
-        $this->assertGreaterThan($filePos1, $filePos2);
+        Assert::assertStringOccursBefore(
+            'Processing goods-catalog_2013-11-13_22-39-03.xml',
+            'Processing goods-catalog_2013-11-13_22-39-02.xml',
+            $display
+        );
+        Assert::assertStringOccursBefore(
+            'Processing goods-catalog_2013-11-13_22-39-02.xml',
+            'Processing goods-catalog_2013-11-13_22-39-01.xml',
+            $display
+        );
+        Assert::assertStringOccursBefore(
+            'Processing goods-catalog_2013-11-13_22-39-01.xml',
+            'Processing goods-catalog_2013-11-12_10-17-58.xml',
+            $display
+        );
 
         $this->assertContains('.E', $display);
         $this->assertContains('Extra content at the end of the document at 1:2285', $display);

@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Command\Import;
 use Lighthouse\CoreBundle\Command\Import\Set10ProductsImport;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -139,13 +140,12 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
         $display = $commandTester->getDisplay();
 
-        $file1Pos = strpos($display, 'goods-catalog_01-01-2013_0-01-15.xml');
-        $file7Pos = strpos($display, 'goods-catalog_01-02-2013_0-18-28.xml');
-
-        $this->assertNotEmpty($file1Pos);
-        $this->assertNotEmpty($file7Pos);
-
-        $this->assertGreaterThan($file7Pos, $file1Pos, 'Last file should be imported before 1st');
+        Assert::assertStringOccursBefore(
+            'goods-catalog_01-02-2013_0-18-28.xml',
+            'goods-catalog_01-01-2013_0-01-15.xml',
+            $display,
+            'Last file should be imported before first'
+        );
     }
 
     public function testExecuteWithVerbose()
