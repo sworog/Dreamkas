@@ -18,6 +18,14 @@ public class DashBoardPage extends CommonPageObject {
         return findVisibleElement(By.xpath("//*[@class='grossSale__todayValue']")).getText();
     }
 
+    public String getGrossSaleYesterdayValue() {
+        return findVisibleElement(By.xpath("//*[@class='grossSale__yesterdayValue']")).getText();
+    }
+
+    public String getGrossSaleLastWeekValue() {
+        return findVisibleElement(By.xpath("//*[@class='grossSale__lastWeekValue']")).getText();
+    }
+
     @Override
     public void createElements() {
     }

@@ -13,6 +13,10 @@ public class DateTimeHelper {
         days = getDays(value);
     }
 
+    public DateTimeHelper(int value) {
+        days = value;
+    }
+
     public String convertDateTime() {
         return getTodayDate(DATE_TIME_PATTERN, days);
     }

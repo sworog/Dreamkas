@@ -18,4 +18,14 @@ public class ThenDashBoardSteps {
     public void thenTheUserChecksTheGrossSalesTodayValue() {
         dashBoardSteps.assertGrossSalesTodayValue();
     }
+
+    @Then("the user checks the gross sale yesterday value")
+    public void thenTheChecksTheGrossSaleYesterdayValue() {
+        dashBoardSteps.assertGrossSaleYesterdayValue();
+    }
+
+    @Then("the user checks the gross sale last week value")
+    public void thenTheUserChecksTheGrossSakeLastWeekValue() {
+        dashBoardSteps.assertGrossSaleLastWeekValue();
+    }
 }

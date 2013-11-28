@@ -3,6 +3,7 @@ package project.lighthouse.autotests.jbehave;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import org.xml.sax.SAXException;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.steps.ConsoleCommandSteps;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -37,6 +38,6 @@ public class ConsoleComandsUserSteps {
     @Given("the user runs the symfony:env:init command")
     public void givenTheUserRunsTheSymfonyEnvInitCommand() throws IOException, InterruptedException {
         consoleCommandSteps.runCapAutoTestSymfonyEnvInitCommand();
+        StaticData.clear();
     }
-
 }

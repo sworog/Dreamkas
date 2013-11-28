@@ -48,4 +48,18 @@ public class StaticData {
     public static Boolean hasDepartment(String departmentNumber) {
         return stores.containsKey(departmentNumber);
     }
+
+    public static void clear() {
+        products.clear();
+        invoices.clear();
+        writeOffs.clear();
+        groups.clear();
+        categories.clear();
+        subCategories.clear();
+        users.clear();
+        stores.clear();
+        departments.clear();
+        userTokens.clear();
+        subCategoryProducts.clear();
+    }
 }
