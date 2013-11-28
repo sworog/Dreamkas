@@ -14,6 +14,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
+use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
@@ -22,6 +23,7 @@ use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Validator\ValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use DateTime;
 
 /**
  * @DI\Service("lighthouse.core.integration.set10.import.sales.importer")
@@ -104,9 +106,14 @@ class SalesImporter
      * @param SalesXmlParser $parser
      * @param OutputInterface $output
      * @param int $batchSize
+     * @param DatePeriod $datePeriod
      */
-    public function import(SalesXmlParser $parser, OutputInterface $output, $batchSize = null)
-    {
+    public function import(
+        SalesXmlParser $parser,
+        OutputInterface $output,
+        $batchSize = null,
+        DatePeriod $datePeriod = null
+    ) {
         $this->errors = array();
         $count = 0;
         $batchSize = ($batchSize) ?: $this->batchSize;
@@ -115,7 +122,7 @@ class SalesImporter
         while ($purchaseElement = $parser->readNextElement()) {
             $count++;
             try {
-                $receipt = $this->createReceipt($purchaseElement);
+                $receipt = $this->createReceipt($purchaseElement, $datePeriod);
                 if (!$receipt) {
                     $output->write('<error>S</error>');
                 } else {
@@ -177,14 +184,15 @@ class SalesImporter
 
     /**
      * @param PurchaseElement $purchaseElement
+     * @param DatePeriod $datePeriod
      * @return Sale|Returne|null
      */
-    public function createReceipt(PurchaseElement $purchaseElement)
+    public function createReceipt(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
         if (true === $purchaseElement->getOperationType()) {
-            return $this->createSale($purchaseElement);
+            return $this->createSale($purchaseElement, $datePeriod);
         } elseif (false === $purchaseElement->getOperationType()) {
-            return $this->createReturn($purchaseElement);
+            return $this->createReturn($purchaseElement, $datePeriod);
         } else {
             return null;
         }
@@ -192,12 +200,13 @@ class SalesImporter
 
     /**
      * @param PurchaseElement $purchaseElement
+     * @param DatePeriod $datePeriod
      * @return Sale
      */
-    public function createSale(PurchaseElement $purchaseElement)
+    public function createSale(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
         $sale = new Sale();
-        $sale->createdDate = $purchaseElement->getSaleDateTime();
+        $sale->createdDate = $this->getReceiptDate($purchaseElement, $datePeriod);
         $sale->store = $this->getStore($purchaseElement->getShop());
         $sale->hash = $this->createReceiptHash($purchaseElement);
         foreach ($purchaseElement->getPositions() as $positionElement) {
@@ -210,12 +219,13 @@ class SalesImporter
 
     /**
      * @param PurchaseElement $purchaseElement
-     * @return Sale
+     * @param DatePeriod $datePeriod
+     * @return Returne
      */
-    public function createReturn(PurchaseElement $purchaseElement)
+    public function createReturn(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
         $return = new Returne();
-        $return->createdDate = $purchaseElement->getSaleDateTime();
+        $return->createdDate = $this->getReceiptDate($purchaseElement, $datePeriod);
         $return->store = $this->getStore($purchaseElement->getShop());
         $return->hash = $this->createReceiptHash($purchaseElement);
         foreach ($purchaseElement->getPositions() as $positionElement) {
@@ -224,6 +234,20 @@ class SalesImporter
         $return->itemsCount = count($return->products);
         $return->sumTotal = $this->transformPrice($purchaseElement->getAmount());
         return $return;
+    }
+
+    /**
+     * @param PurchaseElement $purchaseElement
+     * @param DatePeriod $datePeriod
+     * @return DateTime
+     */
+    protected function getReceiptDate(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
+    {
+        $purchaseDateTime = $purchaseElement->getSaleDateTime();
+        if ($datePeriod) {
+            $purchaseDateTime->add($datePeriod->diff());
+        }
+        return $purchaseDateTime;
     }
 
     /**
