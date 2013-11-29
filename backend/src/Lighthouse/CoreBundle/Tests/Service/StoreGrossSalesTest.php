@@ -89,7 +89,7 @@ class StoreGrossSalesTest extends WebTestCase
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
 
-        $storeGrossSalesReportService->recalculateGrossSales();
+        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
         $reportRepository = $this->getReportRepository();
 

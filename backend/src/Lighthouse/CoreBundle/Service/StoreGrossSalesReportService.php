@@ -39,7 +39,7 @@ class StoreGrossSalesReportService
         $this->storeGrossSalesRepository = $storeGrossSalesRepository;
     }
 
-    public function recalculateGrossSales()
+    public function recalculateStoreGrossSalesReport()
     {
         $results = $this->trialBalanceRepository->calculateGrossSales();
         foreach ($results as $result) {

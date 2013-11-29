@@ -261,7 +261,7 @@ class ReportControllerTest extends WebTestCase
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
 
-        $storeGrossSalesReportService->recalculateGrossSales();
+        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
         $response = $this->clientJsonRequest(
             $accessToken,
