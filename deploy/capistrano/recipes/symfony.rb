@@ -272,4 +272,11 @@ namespace :symfony do
         end
     end
 
+    namespace :reports do
+        desc "Recalculate reports data"
+        task :recalculate, :roles => :app, :except => { :no_release => true } do
+            capture console_command("lighthouse:reports:recalculate"), :once => true
+        end
+    end
+
 end
