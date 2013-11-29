@@ -25,6 +25,8 @@ class ReportController extends FOSRestController
      * @param Store $store
      * @param Request $request
      * @return Cursor
+     *
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @ApiDoc
      */
     public function getStoreReportGrosssalesAction(Store $store, Request $request)

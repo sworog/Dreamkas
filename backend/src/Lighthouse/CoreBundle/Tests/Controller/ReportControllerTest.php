@@ -10,7 +10,15 @@ use DateTime;
 
 class ReportControllerTest extends WebTestCase
 {
-    public function testGetReportsByTime()
+    /**
+     * @return StoreGrossSalesReportService
+     */
+    public function getGrossSalesReportService()
+    {
+        return $this->getContainer()->get('lighthouse.core.service.store.report.gross_sales');
+    }
+
+    public function testGetStoreGrossSalesReportsByTime()
     {
         $storeId = $this->factory->getStore();
         $accessToken = $this->factory->authAsStoreManager($storeId);
@@ -299,7 +307,7 @@ class ReportControllerTest extends WebTestCase
         $this->assertEquals($expected, $response);
     }
 
-    public function testGetReportsByTimeEmptyReports()
+    public function testGetStoreGrossSalesReportsByTimeEmptyReports()
     {
         $storeId = $this->factory->getStore();
         $accessToken = $this->factory->authAsStoreManager($storeId);
@@ -346,11 +354,57 @@ class ReportControllerTest extends WebTestCase
         $this->assertEquals($expected, $response);
     }
 
-    /**
-     * @return StoreGrossSalesReportService
-     */
-    public function getGrossSalesReportService()
+    public function testAccessGetStoreGrossSalesReport()
     {
-        return $this->getContainer()->get('lighthouse.core.service.store.report.gross_sales');
+        $storeId = $this->factory->getStore();
+        $storeManagerToken = $this->factory->authAsStoreManager($storeId);
+        $departmentManagerToken = $this->factory->authAsDepartmentManager($storeId);
+        $storeManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_STORE_MANAGER);
+        $commercialManagerToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $departmentManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $administratorToken = $this->factory->authAsRole(User::ROLE_ADMINISTRATOR);
+
+
+        $response = $this->clientJsonRequest(
+            $storeManagerToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/report/grosssales'
+        );
+        $this->assertResponseCode(200);
+
+        $response = $this->clientJsonRequest(
+            $departmentManagerToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/report/grosssales'
+        );
+        $this->assertResponseCode(403);
+
+        $response = $this->clientJsonRequest(
+            $storeManagerOtherStoreToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/report/grosssales'
+        );
+        $this->assertResponseCode(403);
+
+        $response = $this->clientJsonRequest(
+            $commercialManagerToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/report/grosssales'
+        );
+        $this->assertResponseCode(403);
+
+        $response = $this->clientJsonRequest(
+            $departmentManagerOtherStoreToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/report/grosssales'
+        );
+        $this->assertResponseCode(403);
+
+        $response = $this->clientJsonRequest(
+            $administratorToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/report/grosssales'
+        );
+        $this->assertResponseCode(403);
     }
 }
