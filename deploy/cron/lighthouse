@@ -1,2 +1,1 @@
-*/1 * * * * watchman /usr/local/bin/lh-run-command.sh 'lighthouse:import:sales'
-20 4 * * *  watchman /usr/local/bin/lh-run-command.sh 'lighthouse:recalculate-average-purchase-price'
+../chef-solo/site-cookbooks/lighthouse/files/default/cron_lighthouse
