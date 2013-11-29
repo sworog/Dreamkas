@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 
@@ -53,7 +54,7 @@ class LastPurchasePriceListener
     {
         $document = $eventArgs->getDocument();
 
-        if ($document instanceof TrialBalance) {
+        if ($this->documentIsReasonToUpdateLastPurchasePrice($document)) {
             $this->addProductToUpdate($document->storeProduct);
         }
     }
@@ -65,7 +66,7 @@ class LastPurchasePriceListener
     {
         $document = $eventArgs->getDocument();
 
-        if ($document instanceof TrialBalance) {
+        if ($this->documentIsReasonToUpdateLastPurchasePrice($document)) {
             /* @var DocumentManager $dm */
             $dm = $eventArgs->getDocumentManager();
             $changeSet = $dm->getUnitOfWork()->getDocumentChangeSet($document);
@@ -85,9 +86,18 @@ class LastPurchasePriceListener
     {
         $document = $eventArgs->getDocument();
 
-        if ($document instanceof TrialBalance) {
+        if ($this->documentIsReasonToUpdateLastPurchasePrice($document)) {
             $this->addProductToUpdate($document->storeProduct);
         }
+    }
+
+    /**
+     * @param mixed $document
+     * @return bool
+     */
+    protected function documentIsReasonToUpdateLastPurchasePrice($document)
+    {
+        return $document instanceof TrialBalance && $document->reason instanceof InvoiceProduct;
     }
 
     /**
