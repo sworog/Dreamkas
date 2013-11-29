@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Service;
 
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
-use Lighthouse\CoreBundle\Service\StoreGrossSalesReport;
+use Lighthouse\CoreBundle\Service\StoreGrossSalesReportService;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class StoreGrossSalesTest extends WebTestCase
@@ -129,7 +129,7 @@ class StoreGrossSalesTest extends WebTestCase
     }
 
     /**
-     * @return StoreGrossSalesReport
+     * @return StoreGrossSalesReportService
      */
     public function getGrossSalesReportService()
     {

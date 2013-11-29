@@ -10,7 +10,7 @@ use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 /**
  * @DI\Service("lighthouse.core.service.store.report.gross_sales")
  */
-class StoreGrossSalesReport
+class StoreGrossSalesReportService
 {
     /**
      * @var TrialBalanceRepository

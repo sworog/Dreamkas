@@ -74,6 +74,10 @@ lighthouse.core.integration:
     resource: Lighthouse\CoreBundle\Controller\IntegrationController
     type:     rest
 
+lighthouse.core.report:
+    resource: Lighthouse\CoreBundle\Controller\ReportController
+    type:     rest
+
 lighthouse.core.service:
     resource: Lighthouse\CoreBundle\Controller\ServiceController
     type:     annotation

@@ -227,7 +227,7 @@ class TrialBalanceRepository extends DocumentRepository
             return array();
         }
 
-        $datePeriod = new DatePeriod("-10 day 00:00", "00:00");
+        $datePeriod = new DatePeriod("-10 day 00:00", "+1 day 23:59:59");
         $days = $datePeriod->diff()->days;
 
         $query = $this
