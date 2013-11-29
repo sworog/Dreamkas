@@ -266,7 +266,7 @@ class ReportControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/report/grosssales',
+            '/api/1/stores/' . $storeId . '/reports/grossSales',
             null,
             array('time' => date('c', strtotime("10:35:47")))
         );
@@ -315,7 +315,7 @@ class ReportControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/report/grosssales',
+            '/api/1/stores/' . $storeId . '/reports/grossSales',
             null,
             array('time' => date('c', strtotime("10:35:47")))
         );
@@ -368,42 +368,42 @@ class ReportControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $storeManagerToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/report/grosssales'
+            '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(200);
 
         $response = $this->clientJsonRequest(
             $departmentManagerToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/report/grosssales'
+            '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(403);
 
         $response = $this->clientJsonRequest(
             $storeManagerOtherStoreToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/report/grosssales'
+            '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(403);
 
         $response = $this->clientJsonRequest(
             $commercialManagerToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/report/grosssales'
+            '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(403);
 
         $response = $this->clientJsonRequest(
             $departmentManagerOtherStoreToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/report/grosssales'
+            '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(403);
 
         $response = $this->clientJsonRequest(
             $administratorToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/report/grosssales'
+            '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(403);
     }

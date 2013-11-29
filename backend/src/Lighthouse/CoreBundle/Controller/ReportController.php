@@ -12,6 +12,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 class ReportController extends FOSRestController
 {
@@ -27,9 +28,10 @@ class ReportController extends FOSRestController
      * @return Cursor
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @Rest\Route("stores/{store}/reports/grossSales")
      * @ApiDoc
      */
-    public function getStoreReportGrosssalesAction(Store $store, Request $request)
+    public function getStoreReportsGrossSalesAction(Store $store, Request $request)
     {
         $time = $request->get('time', 'now');
         $result = $this->storeGrossSalesRepository->findByStoreAndDate($store, $time);
