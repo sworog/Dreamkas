@@ -35,7 +35,7 @@ abstract class XmlParser
 
     /**
      * @throws RuntimeException
-     * @return PurchaseElement|false
+     * @return SimpleXMLElement|false
      */
     public function readNextElement()
     {
