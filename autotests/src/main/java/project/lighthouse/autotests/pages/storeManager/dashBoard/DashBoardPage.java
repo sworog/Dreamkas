@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.departmentManager.dashBoard;
+package project.lighthouse.autotests.pages.storeManager.dashBoard;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

@@ -19,7 +19,7 @@ GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 Given the user prepares fixture on today from data set 1
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross sales subTitle
 And the user checks the gross sales today value
 
@@ -32,7 +32,7 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross sales subTitle
 And the user checks the gross sales today value is zero
 
@@ -48,7 +48,7 @@ GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 Given the user prepares fixture on last week from data set 1
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross sale last week value
 
 Scenario: Gross sale on the end of last week day (no sales registered)
@@ -60,7 +60,7 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross sale last week value is zero
 
 Scenario: Gross sale on yesterday
@@ -75,7 +75,7 @@ GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 Given the user prepares fixture on yesterday from data set 1
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross sale yesterday value
 
 Scenario: Gross sale on yesterday (no sales registered)
@@ -87,7 +87,7 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross sale yesterday value is zero
 
 Scenario: Today Gross sale is more than yesterday one
@@ -102,7 +102,7 @@ GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 Given the user prepares fixture for 'Today Gross sale is more than yesterday one' scenario
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross yesterday ratio text color is green
 And the user checks the gross sale value is more than yesterday one
 
@@ -118,7 +118,7 @@ GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 Given the user prepares fixture for 'Today Gross sale is less than yesterday one' scenario
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross yesterday ratio text color is red
 And the user checks the gross sale value is less than yesterday one
 
@@ -134,7 +134,7 @@ GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 Given the user prepares fixture for 'Today Gross sale is equal yesterday one' scenario
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross sale value is equal yesterday one
 
 Scenario: Today Gross sale is more than last week one
@@ -149,7 +149,7 @@ GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 Given the user prepares fixture for 'Today Gross sale is more than last week one' scenario
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross week ratio text color is green
 And the user checks the gross sale value is more than last week ago
 
@@ -165,7 +165,7 @@ GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 Given the user prepares fixture for 'Today Gross sale is less than last week one' scenario
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross week ratio text color is red
 And the user checks the gross sale value is less than last week ago
 
@@ -181,7 +181,7 @@ GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 Given the user prepares fixture for 'Today Gross sale is eqaul last week one' scenario
 
 Given the user opens the authorization page
-When the user logs in using 'departmentManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
 Then the user checks the gross sale value is equal last week ago
 
 

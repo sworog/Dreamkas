@@ -1,13 +1,13 @@
-package project.lighthouse.autotests.jbehave.departmentManager.dashboard;
+package project.lighthouse.autotests.jbehave.storeManager.dashboard;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
-import project.lighthouse.autotests.steps.departmentManager.DashBoardSteps;
+import project.lighthouse.autotests.steps.storeManager.DashBoardSteps;
 
 public class ThenDashBoardSteps {
 
-    private static final String COLOR_RED = "#FF0033";
-    private static final String COLOR_GREEN = "#1FB18A";
+    private static final String COLOR_RED = "rgba(255, 0, 51, 1)";
+    private static final String COLOR_GREEN = "rgba(31, 177, 138, 1)";
 
     @Steps
     DashBoardSteps dashBoardSteps;

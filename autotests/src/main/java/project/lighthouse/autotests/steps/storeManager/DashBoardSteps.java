@@ -1,11 +1,11 @@
-package project.lighthouse.autotests.steps.departmentManager;
+package project.lighthouse.autotests.steps.storeManager;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.joda.time.DateTime;
 import project.lighthouse.autotests.fixtures.Us_53_1_Fixture;
-import project.lighthouse.autotests.pages.departmentManager.dashBoard.DashBoardPage;
+import project.lighthouse.autotests.pages.storeManager.dashBoard.DashBoardPage;
 
 import java.text.DecimalFormat;
 
