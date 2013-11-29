@@ -3,9 +3,9 @@ define(function(require, exports, module) {
     var Model = require('kit/core/model');
 
     return Model.extend({
+        storeId: null,
         url: function(){
-            return 'http://lh.apiary.io/stores/' + this.storeId + '/reports/grossSales';
-        },
-        storeId: null
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/reports/grossSales';
+        }
     });
 });
