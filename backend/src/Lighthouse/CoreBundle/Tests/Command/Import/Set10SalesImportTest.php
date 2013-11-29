@@ -85,9 +85,9 @@ class Set10SalesImportTest extends WebTestCase
         $display = $commandTester->getDisplay();
 
         $this->assertContains(basename($file1), $display);
-        $this->assertContains("...\n", $display);
+        $this->assertContains("...F\n", $display);
         $this->assertContains(basename($file2), $display);
-        $this->assertContains("....................\n", $display);
+        $this->assertContains("....................F\n", $display);
 
         $this->assertFileNotExists($file1);
         $this->assertFileNotExists($file2);
@@ -126,7 +126,7 @@ class Set10SalesImportTest extends WebTestCase
         $display = $commandTester->getDisplay();
 
         $this->assertContains(basename($file1), $display);
-        $this->assertContains("E......E.........EEE\n", $display);
+        $this->assertContains("E......E.........EEEF\n", $display);
         $this->assertContains('Product with sku "1" not found', $display);
         $this->assertContains('Product with sku "7" not found', $display);
         $this->assertContains('Product with sku "3" not found', $display);

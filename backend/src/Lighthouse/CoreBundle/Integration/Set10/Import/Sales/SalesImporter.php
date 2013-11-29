@@ -149,8 +149,12 @@ class SalesImporter
             }
         }
         $dm->flush();
+        $dm->clear();
+        $output->write('<info>F</info>');
 
         $this->outputErrors($output, $this->errors);
+
+        $output->writeln('');
     }
 
     /**
