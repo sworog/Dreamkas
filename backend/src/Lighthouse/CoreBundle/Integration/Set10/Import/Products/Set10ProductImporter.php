@@ -144,12 +144,12 @@ class Set10ProductImporter
         $verbose = $output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL;
         $totalStartTime = microtime(true);
         $startItemTime = microtime(true);
-        $flushStartTime = microtime(true);
-        $flushCount = 0;
+        $persistsStartTime = microtime(true);
+        $persistsCount = 0;
         $lineCount = 0;
         while ($goodElement = $parser->readNextElement()) {
             $count++;
-            $flushCount++;
+            $persistsCount++;
             $lineCount++;
             try {
                 $product = $this->getProduct($goodElement, $update);
@@ -192,17 +192,25 @@ class Set10ProductImporter
                 if (0 != $lineCount) {
                     $output->writeln('');
                 }
+                $persistTime = microtime(true) - $persistsStartTime;
                 $output->write('<info>Flushing</info>');
+                $flushStartTime = microtime(true);
                 $this->dm->flush();
                 $this->dm->clear();
                 $flushTime = microtime(true) - $flushStartTime;
                 if ($verbose) {
                     $output->writeln('<info>Flushing</info>');
                 } else {
-                    $output->writeln(sprintf(' - %.02f prod/s', $flushCount / $flushTime));
+                    $output->writeln(
+                        sprintf(
+                            ' - Persist: %.02f prod/s, Flush+Clear: %d ms',
+                            $persistsCount / $persistTime,
+                            $flushTime * 1000
+                        )
+                    );
                 }
-                $flushStartTime = microtime(true);
-                $flushCount = 0;
+                $persistsStartTime = microtime(true);
+                $persistsCount = 0;
                 $lineCount = 0;
             }
         }
