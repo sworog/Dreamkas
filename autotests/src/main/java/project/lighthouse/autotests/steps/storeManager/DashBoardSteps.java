@@ -112,6 +112,15 @@ public class DashBoardSteps extends ScenarioSteps {
         Assert.assertEquals(color, dashBoardPage.getGrossSaleWeekDiffTextColor());
     }
 
+    @Step
+    public void assertGrossSaleIsNotAvailable() {
+        try {
+            dashBoardPage.getGrossSaleDivBlock();
+            Assert.fail("The gross sale block is available!");
+        } catch (Exception ignored) {
+        }
+    }
+
     private String getFormattedDouble(double value) {
         return new DecimalFormat("#.##").format(value);
     }

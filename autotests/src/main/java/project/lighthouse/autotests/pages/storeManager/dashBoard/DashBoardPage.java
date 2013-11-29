@@ -2,6 +2,7 @@ package project.lighthouse.autotests.pages.storeManager.dashBoard;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 
 public class DashBoardPage extends CommonPageObject {
@@ -40,6 +41,10 @@ public class DashBoardPage extends CommonPageObject {
 
     public String getGrossSaleWeekDiffTextColor() {
         return findVisibleElement(By.xpath("//*[@class='grossSale__weekDiff']/*[contains(@class, 'grossSale__diffText')]")).getCssValue("color");
+    }
+
+    public WebElement getGrossSaleDivBlock() {
+        return findVisibleElement(By.xpath("//*[@class='grossSale grossSale_store']"));
     }
 
     @Override

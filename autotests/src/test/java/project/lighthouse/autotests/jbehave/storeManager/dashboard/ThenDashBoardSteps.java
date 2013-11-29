@@ -96,4 +96,9 @@ public class ThenDashBoardSteps {
     public void thenTheUserChecksTheGrossWeekRatioTextColorIsRed() {
         dashBoardSteps.assertGrossSaleWeekDiffTextColor(COLOR_RED);
     }
+
+    @Then("the user checks the gross sale is not available")
+    public void thenTheUserChecksTheGrossSaleIsNotAvailable() {
+        dashBoardSteps.assertGrossSaleIsNotAvailable();
+    }
 }
