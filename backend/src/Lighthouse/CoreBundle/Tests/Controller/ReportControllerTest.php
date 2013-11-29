@@ -295,7 +295,7 @@ class ReportControllerTest extends WebTestCase
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 10:00")),
                     'value' => "1309.06",
-                    'diff' => "8.45"
+                    'diff' => "-7.79"
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 23:59:59")),

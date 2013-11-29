@@ -141,11 +141,8 @@ class StoreGrossSalesReportNow
             return;
         }
 
-        $yesterdayValue = Decimal::createFromNumeric($this->yesterday['now']['value'], 4);
-        $yesterdayDiff = $yesterdayValue->sub($todayNowValue)->div($todayNowValue)->mul(100);
-
-        $weekAgoValue = Decimal::createFromNumeric($this->weekAgo['now']['value'], 4);
-        $weekAgoDiff = $weekAgoValue->sub($todayNowValue)->div($todayNowValue)->mul(100);
+        $yesterdayDiff = ($todayNowValue->toNumber() / $this->yesterday['now']['value']->toNumber() - 1) * 100;
+        $weekAgoDiff = ($todayNowValue->toNumber() / $this->weekAgo['now']['value']->toNumber() - 1) * 100;
 
         $this->yesterday['now']['diff'] = Decimal::createFromNumeric($yesterdayDiff, 2);
         $this->weekAgo['now']['diff'] = Decimal::createFromNumeric($weekAgoDiff, 2);
