@@ -301,11 +301,9 @@ class ReportControllerTest extends WebTestCase
 
     public function testGetReportsByTimeEmptyReports()
     {
-        $storeManager = $this->createUser('storeManager', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->createStore();
-        $this->factory->linkStoreManagers($storeManager->id, $storeId);
+        $storeId = $this->factory->getStore();
+        $accessToken = $this->factory->authAsStoreManager($storeId);
 
-        $accessToken = $this->auth($storeManager, 'password');
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
