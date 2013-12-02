@@ -30,7 +30,7 @@ public class ConsoleCommandSteps extends ScenarioSteps {
         File patternFile = new File(directoryPath + "/salesPattern.xml");
         String filePath = directoryPath + "/sales.xml";
         new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-5days").convertDate(), new File(filePath));
-        String consoleCommand = String.format("bundle exec cap autotests symfony:import:sales:local -S file=%s", filePath);
+        String consoleCommand = String.format("symfony:import:sales:local -S file=%s", filePath);
         runConsoleCommand(consoleCommand, "backend");
     }
 
@@ -41,7 +41,7 @@ public class ConsoleCommandSteps extends ScenarioSteps {
         File patternFile = new File(directoryPath + "/negativeSalesPattern.xml");
         String filePath = directoryPath + "/negativeSales.xml";
         new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-" + days + "days").convertDate(), new File(filePath));
-        String consoleCommand = String.format("bundle exec cap autotests symfony:import:sales:local -S file=%s", filePath);
+        String consoleCommand = String.format("symfony:import:sales:local -S file=%s", filePath);
         runConsoleCommand(consoleCommand, "backend");
     }
 
@@ -52,40 +52,41 @@ public class ConsoleCommandSteps extends ScenarioSteps {
         File patternFile = new File(directoryPath + "/negativeSalesPattern1.xml");
         String filePath = directoryPath + "/negativeSales.xml";
         new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-" + days + "days").convertDate(), new File(filePath));
-        String consoleCommand = String.format("bundle exec cap autotests symfony:import:sales:local -S file=%s", filePath);
+        String consoleCommand = String.format("symfony:import:sales:local -S file=%s", filePath);
         runConsoleCommand(consoleCommand, "backend");
     }
 
     @Step
     public void runCapAutoTestsSymfonyImportSalesLocalCommand(String filePath) throws IOException, InterruptedException {
-        String consoleCommand = String.format("bundle exec cap autotests symfony:import:sales:local -S file=%s", filePath);
+        String consoleCommand = String.format("symfony:import:sales:local -S file=%s", filePath);
         runConsoleCommand(consoleCommand, "backend");
     }
 
     @Step
     public void runCapAutoTestsSymfonyProductsRecalculateMetricsCommand() throws IOException, InterruptedException {
-        String consoleCommand = "bundle exec cap autotests symfony:products:recalculate_metrics";
+        String consoleCommand = "symfony:products:recalculate_metrics";
         runConsoleCommand(consoleCommand, "backend");
     }
 
     @Step
     public void runCapAutoTestSymfonyEnvInitCommand() throws IOException, InterruptedException {
-        String consoleCommand = "bundle exec cap autotests symfony:env:init";
+        String consoleCommand = "symfony:env:init";
         runConsoleCommand(consoleCommand, "backend");
     }
 
     @Step
     public void runCapAutoTestsSymfonyReportsRecalculateCommand() throws IOException, InterruptedException {
-        String consoleCommand = "bundle exec cap autotests symfony:reports:recalculate";
+        String consoleCommand = "symfony:reports:recalculate";
         runConsoleCommand(consoleCommand, "backend");
     }
 
     @Step
     public void runConsoleCommand(String command, String folder) throws IOException, InterruptedException {
         String host = StaticData.WEB_DRIVER_BASE_URL.replaceAll("http://(.*).autotests.webfront.lighthouse.cs", "$1");
-        ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, host).exec(command);
+        String commandToExecute = String.format("bundle exec cap autotests %s", command);
+        ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, host).exec(commandToExecute);
         if (!consoleCommandResult.isOk()) {
-            String errorMessage = String.format("Output: '%s'. Command: '%s'. Host: '%s'.", consoleCommandResult.getOutput(), command, host);
+            String errorMessage = String.format("Output: '%s'. Command: '%s'. Host: '%s'.", consoleCommandResult.getOutput(), commandToExecute, host);
             Assert.fail(errorMessage);
         }
     }
