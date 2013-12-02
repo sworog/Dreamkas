@@ -27,7 +27,9 @@ define(function(require) {
             var page = this,
                 initData = [];
 
-            page.models.storeGrossSales = page.models.storeGrossSales();
+            page.models = {
+                storeGrossSales: page.models.storeGrossSales()
+            };
 
             if (page.models.storeGrossSales){
                 initData.push(page.models.storeGrossSales.fetch());
