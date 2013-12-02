@@ -534,4 +534,388 @@ class ReportControllerTest extends WebTestCase
 
         $this->assertEquals($expected, $response);
     }
+
+    public function testGetStoreGrossSalesByHour()
+    {
+        $storeId = $this->factory->getStore();
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+
+        $product1Id = $this->createProduct('1');
+        $product2Id = $this->createProduct('2');
+        $product3Id = $this->createProduct('3');
+
+        $sales = array(
+            array(
+                'storeId' => $storeId,
+                'createDate' => "8:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createDate' => "9:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createDate' => "10:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createDate' => "11:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+
+            array(
+                'storeId' => $storeId,
+                'createDate' => '-1 days 8:01',
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createDate' => "-1 days 9:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createDate' => "-1 days 10:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+
+            array(
+                'storeId' => $storeId,
+                'createDate' => "-7 days 8:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createDate' => "-7 days 9:01",
+                'sumTotal' => 705.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.00
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createDate' => "-7 days 10:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+        );
+
+        $this->factory->createSales($sales);
+
+        $storeGrossSalesReportService = $this->getGrossSalesReportService();
+
+        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours',
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        $expectedYesterday = array(
+            8 => array(
+                'date' => date(DateTime::ISO8601, strtotime("08:00")),
+                'runningSum' => 603.53,
+                'hourSum' => 603.53,
+            ),
+            9 => array(
+                'date' => date(DateTime::ISO8601, strtotime("09:00")),
+                'runningSum' => 1207.06,
+                'hourSum' => 603.53,
+            ),
+            10 => array(
+                'date' => date(DateTime::ISO8601, strtotime("10:00")),
+                'runningSum' => 1810.59,
+                'hourSum' => 603.53,
+            ),
+            11 => array(
+                'date' => date(DateTime::ISO8601, strtotime("11:00")),
+                'runningSum' => 0,
+                'hourSum' => 0,
+            ),
+        );
+        $expectedWeekAgo = array(
+            8 => array(
+                'date' => date(DateTime::ISO8601, strtotime("08:00")),
+                'runningSum' => 603.53,
+                'hourSum' => 603.53,
+            ),
+            9 => array(
+                'date' => date(DateTime::ISO8601, strtotime("09:00")),
+                'runningSum' => 1309.06,
+                'hourSum' => 705.53,
+            ),
+            10 => array(
+                'date' => date(DateTime::ISO8601, strtotime("10:00")),
+                'runningSum' => 1912.59,
+                'hourSum' => 603.53,
+            ),
+            11 => array(
+                'date' => date(DateTime::ISO8601, strtotime("11:00")),
+                'runningSum' => 1912.59,
+                'hourSum' => 0,
+            ),
+        );
+        for ($i = 0; $i <= 7; $i++) {
+            $expectedYesterday[$i] = array(
+                'date' => date(DateTime::ISO8601, strtotime(printf("-1 day %2d:00", $i))),
+                'runningSum' => 0,
+                'hourSum' => 0,
+            );
+            $expectedWeekAgo[$i] = array(
+                'date' => date(DateTime::ISO8601, strtotime(printf("-1 week %2d:00", $i))),
+                'runningSum' => 0,
+                'hourSum' => 0,
+            );
+        }
+        for ($i = 11; $i <= 23; $i++) {
+            $expectedYesterday[$i] = array(
+                'date' => date(DateTime::ISO8601, strtotime(printf("-1 day %2d:00", $i))),
+                'runningSum' => 1810.59,
+                'hourSum' => 0,
+            );
+            $expectedWeekAgo[$i] = array(
+                'date' => date(DateTime::ISO8601, strtotime(printf("-1 week %2d:00", $i))),
+                'runningSum' => 1912.59,
+                'hourSum' => 0,
+            );
+        }
+
+        $expected = array(
+            'today' => array(
+                0 => array(
+                    'date' => date(DateTime::ISO8601, strtotime("00:00")),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                1 => array(
+                    'date' => date(DateTime::ISO8601, strtotime("01:00")),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                2 => array(
+                    'date' => date(DateTime::ISO8601, strtotime("02:00")),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                3 => array(
+                    'date' => date(DateTime::ISO8601, strtotime("03:00")),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                4 => array(
+                    'date' => date(DateTime::ISO8601, strtotime("04:00")),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                5 => array(
+                    'date' => date(DateTime::ISO8601, strtotime("05:00")),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                6 => array(
+                    'date' => date(DateTime::ISO8601, strtotime("06:00")),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                7 => array(
+                    'date' => date(DateTime::ISO8601, strtotime("07:00")),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                8 => array(
+                    'date' => date(DateTime::ISO8601, strtotime("08:00")),
+                    'runningSum' => 603.53,
+                    'hourSum' => 603.53,
+                ),
+                9 => array(
+                    'date' => date(DateTime::ISO8601, strtotime("09:00")),
+                    'runningSum' => 1207.06,
+                    'hourSum' => 603.53,
+                ),
+            ),
+            'yesterday' => $expectedYesterday,
+            'weekAgo' => $expectedWeekAgo,
+        );
+
+        $this->assertEquals($expected, $response);
+    }
 }
