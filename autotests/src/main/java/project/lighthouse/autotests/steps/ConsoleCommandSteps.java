@@ -75,6 +75,12 @@ public class ConsoleCommandSteps extends ScenarioSteps {
     }
 
     @Step
+    public void runCapAutoTestsSymfonyReportsRecalculateCommand() throws IOException, InterruptedException {
+        String consoleCommand = "bundle exec cap autotests symfony:reports:recalculate";
+        runConsoleCommand(consoleCommand, "backend");
+    }
+
+    @Step
     public void runConsoleCommand(String command, String folder) throws IOException, InterruptedException {
         String host = StaticData.WEB_DRIVER_BASE_URL.replaceAll("http://(.*).autotests.webfront.lighthouse.cs", "$1");
         ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, host).exec(command);

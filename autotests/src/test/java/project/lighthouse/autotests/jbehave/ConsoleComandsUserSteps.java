@@ -40,4 +40,9 @@ public class ConsoleComandsUserSteps {
         consoleCommandSteps.runCapAutoTestSymfonyEnvInitCommand();
         StaticData.clear();
     }
+
+    @Given("the user runs the symfony:reports:recalculate command")
+    public void givenTheUserRunTheSymfonyReportsRecalculateCommand() throws IOException, InterruptedException {
+        consoleCommandSteps.runCapAutoTestsSymfonyReportsRecalculateCommand();
+    }
 }

@@ -14,6 +14,8 @@ Meta:
 @id s24u53.1s10
 @id s24u53.1s11
 @id s24u53.1s12
+@id s24u53.1s13
+@id s24u53.1s14
 
 Scenario: A scenario that prepares data
 
@@ -21,7 +23,7 @@ Given the user runs the symfony:env:init command
 
 Given there is the user with name 'storeManager-s24u531', position 'storeManager-s24u531', username 'storeManager-s24u531', password 'lighthouse', role 'storeManager'
 
-And there is the store with number '24531' managed by 'storeManager'
+And there is the store with number '24531' managed by 'storeManager-s24u531'
 And there is the subCategory with name 'defaultSubCategory-s24u531' related to group named 'defaultGroup-s24u531' and category named 'defaultCategory-s24u531'
 And the user sets subCategory 'defaultSubCategory-s24u531' mark up with max '10' and min '0' values
 

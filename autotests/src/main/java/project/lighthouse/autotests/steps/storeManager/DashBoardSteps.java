@@ -7,8 +7,6 @@ import org.joda.time.DateTime;
 import project.lighthouse.autotests.fixtures.Us_53_1_Fixture;
 import project.lighthouse.autotests.pages.storeManager.dashBoard.DashBoardPage;
 
-import java.text.DecimalFormat;
-
 public class DashBoardSteps extends ScenarioSteps {
 
     DashBoardPage dashBoardPage;
@@ -31,8 +29,8 @@ public class DashBoardSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertGrossSaleYesterdayValue() {
-        String expectedMessage = String.format("Вчера %s", new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(23));
+    public void assertGrossSaleSumYesterdayValue() {
+        String expectedMessage = String.format("Вчера %s", new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(24));
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleYesterdayValue());
     }
 
@@ -43,8 +41,8 @@ public class DashBoardSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertGrossSaleLastWeekValue() {
-        String expectedMessage = String.format("В %s %s", getDate(), new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(23));
+    public void assertGrossSaleSumLastWeekValue() {
+        String expectedMessage = String.format("В %s %s", getDate(), new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(24));
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleLastWeekValue());
     }
 
@@ -56,43 +54,43 @@ public class DashBoardSteps extends ScenarioSteps {
 
     @Step
     public void assertGrossSalesTodayIsMoreThenYesterday() {
-        Double todayGrossSalesValue = Double.parseDouble(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
-        Double yesterdayGrossSalesValue = Double.parseDouble(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
-        String percentage = getFormattedDouble(todayGrossSalesValue / yesterdayGrossSalesValue);
+        Double todayGrossSalesValue = getDoubleFromStringWithoutSpaces(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
+        Double yesterdayGrossSalesValue = getDoubleFromStringWithoutSpaces(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
+        String percentage = getRatio(todayGrossSalesValue, yesterdayGrossSalesValue);
         String expectedMessage = String.format("На %s%% больше, чем вчера (%s)", percentage, new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleYesterdayDiff());
     }
 
     @Step
     public void assertGrossSalesTodayIsLessThenYesterday() {
-        Double todayGrossSalesValue = Double.parseDouble(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
-        Double yesterdayGrossSalesValue = Double.parseDouble(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
-        String percentage = getFormattedDouble(todayGrossSalesValue / yesterdayGrossSalesValue);
+        Double todayGrossSalesValue = getDoubleFromStringWithoutSpaces(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
+        Double yesterdayGrossSalesValue = getDoubleFromStringWithoutSpaces(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
+        String percentage = getRatio(todayGrossSalesValue, yesterdayGrossSalesValue);
         String expectedMessage = String.format("На %s%% меньше, чем вчера (%s)", percentage, new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleYesterdayDiff());
     }
 
     @Step
     public void assertGrossSalesTodayIsEqualYesterday() {
-        String expectedMessage = String.format("Также как и вчера (%s)", new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
+        String expectedMessage = String.format("Также как и вчера (%s)", new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleYesterdayDiff());
     }
 
     @Step
     public void assertGrossSaleWeekTodayIsMoreThanWeekAgo() {
-        Double todayGrossSalesValue = Double.parseDouble(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
-        Double weekAgoGrossSalesValue = Double.parseDouble(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
-        String percentage = getFormattedDouble(todayGrossSalesValue / weekAgoGrossSalesValue);
+        Double todayGrossSalesValue = getDoubleFromStringWithoutSpaces(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
+        Double weekAgoGrossSalesValue = getDoubleFromStringWithoutSpaces(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
+        String percentage = getRatio(todayGrossSalesValue, weekAgoGrossSalesValue);
         String expectedMessage = String.format("На %s%% больше, чем в %s (%s)", percentage, getDate(), new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleWeekDiff());
     }
 
     @Step
     public void assertGrossSaleWeekTodayIsLessThanWeekAgo() {
-        Double todayGrossSalesValue = Double.parseDouble(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
-        Double weekAgoGrossSalesValue = Double.parseDouble(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
-        String percentage = getFormattedDouble(todayGrossSalesValue / weekAgoGrossSalesValue);
-        String expectedMessage = String.format("На %s%% меньше, чем в %s (%s)", percentage, getDate(), new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
+        Double todayGrossSalesValue = getDoubleFromStringWithoutSpaces(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
+        Double weekAgoGrossSalesValue = getDoubleFromStringWithoutSpaces(new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
+        String percentage = getRatio(todayGrossSalesValue, weekAgoGrossSalesValue);
+        String expectedMessage = String.format("На %s%% меньше, чем в %s (%s)", percentage, getDate(), new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet2().get(new DateTime().getHourOfDay()));
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleWeekDiff());
     }
 
@@ -121,25 +119,43 @@ public class DashBoardSteps extends ScenarioSteps {
         }
     }
 
+    @Step
+    public void assertYesterdayRatioBlockIsNotVisible() {
+        Assert.assertEquals(dashBoardPage.getGrossSaleYesterdayDiff(), "");
+    }
+
+    @Step
+    public void assertWeekRatioBlockIsNotVisible() {
+        Assert.assertEquals(dashBoardPage.getGrossSaleWeekDiff(), "");
+    }
+
+    private Double getDoubleFromStringWithoutSpaces(String stringValue) {
+        return Double.parseDouble(stringValue.replace(" ", "").replace(",", "."));
+    }
+
+    private String getRatio(Double todayValue, Double yesterdayValue) {
+        return getFormattedDouble((todayValue - yesterdayValue) / yesterdayValue * 100);
+    }
+
     private String getFormattedDouble(double value) {
-        return new DecimalFormat("#.##").format(value);
+        return String.format("%1$.2f", value).replace(",", ".").replace("-", "");
     }
 
     private String getDate() {
         switch (new DateTime().getDayOfWeek()) {
-            case 0:
-                return "прошлый понедельник";
             case 1:
-                return "прошлый вторник";
+                return "прошлый понедельник";
             case 2:
-                return "прошлую среду";
+                return "прошлый вторник";
             case 3:
-                return "прошлый четверг";
+                return "прошлую среду";
             case 4:
-                return "прошлую пятницу";
+                return "прошлый четверг";
             case 5:
-                return "прошлую субботу";
+                return "прошлую пятницу";
             case 6:
+                return "прошлую субботу";
+            case 7:
                 return "прошлое воскресение";
             default:
                 return "в аду";
