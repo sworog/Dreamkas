@@ -407,4 +407,131 @@ class ReportControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
     }
+
+    public function testGetStoreGrossSalesReportsDiffs()
+    {
+        $storeId = $this->factory->getStore();
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+
+        $product1Id = $this->createProduct('1');
+        $product2Id = $this->createProduct('2');
+        $product3Id = $this->createProduct('3');
+
+        $sales = array(
+            array(
+                'storeId' => $storeId,
+                'createDate' => "7:25",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createDate' => "-1 days 8:01",
+                'sumTotal' => 325.74,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 5,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 1,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 2,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createDate' => "-1 week 9:01",
+                'sumTotal' => 846.92,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 10,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+        );
+        $this->factory->createSales($sales);
+
+        $storeGrossSalesReportService = $this->getGrossSalesReportService();
+
+        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/reports/grossSales',
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        $expected = array(
+            'today' => array(
+                'now' => array(
+                    'date' => date(DateTime::ISO8601, strtotime("10:00")),
+                    'value' => "603.53",
+                )
+            ),
+            'yesterday' => array(
+                'now' => array(
+                    'date' => date(DateTime::ISO8601, strtotime("-1 day 10:00")),
+                    'value' => "325.74",
+                    'diff' => "85.28",
+                ),
+                'dayEnd' => array(
+                    'date' => date(DateTime::ISO8601, strtotime("-1 day 23:59:59")),
+                    'value' => "325.74",
+                ),
+            ),
+            'weekAgo' => array(
+                'now' => array(
+                    'date' => date(DateTime::ISO8601, strtotime("-7 day 10:00")),
+                    'value' => "846.92",
+                    'diff' => "-28.74"
+                ),
+                'dayEnd' => array(
+                    'date' => date(DateTime::ISO8601, strtotime("-7 day 23:59:59")),
+                    'value' => "846.92",
+                ),
+            ),
+        );
+
+        $this->assertEquals($expected, $response);
+    }
 }
