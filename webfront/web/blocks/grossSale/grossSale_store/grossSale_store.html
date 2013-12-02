@@ -52,19 +52,15 @@
 <div class="grossSale__weekDiff" style="padding-bottom: 20px;">
 
     <% if (models.storeGrossSales.get('weekAgo.now.diff') === 0) { %>
-    Так же как
+    Так же как в <%- getText(dayStringDictionary, 'string', moment(models.storeGrossSales.get('today.now.date')).day()) %>
     <% } else if (models.storeGrossSales.get('weekAgo.now.diff')) { %>
     На
     <strong class="grossSale__diffText <%- models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'grossSale__diffText_plus' : 'grossSale__diffText_minus' %>">
         <%- Math.abs(models.storeGrossSales.get('weekAgo.now.diff')) %>%
         <%= models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'больше' : 'меньше' %></strong>, чем
+        в <%- getText(dayStringDictionary, 'string', moment(models.storeGrossSales.get('today.now.date')).day()) %>
+        (<%- accounting.formatNumber(models.storeGrossSales.get('weekAgo.now.value'), 2, ' ', ',') %>)
     <% } %>
-
-    <% if (models.storeGrossSales.get('weekAgo.now.diff')) { %>
-    в <%- getText(dayStringDictionary, 'string', moment(models.storeGrossSales.get('today.now.date')).day()) %>
-    (<%- accounting.formatNumber(models.storeGrossSales.get('weekAgo.now.value'), 2, ' ', ',') %>)
-    <% } %>
-
 </div>
 <h2 class="grossSale__subTitle">
     Объём продаж на конец дня
