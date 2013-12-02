@@ -72,8 +72,7 @@ public class DashBoardSteps extends ScenarioSteps {
 
     @Step
     public void assertGrossSalesTodayIsEqualYesterday() {
-        String expectedMessage = String.format("Также как и вчера (%s)", new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
-        Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleYesterdayDiff());
+        Assert.assertEquals("Так же как вчера", dashBoardPage.getGrossSaleYesterdayDiff());
     }
 
     @Step
@@ -96,7 +95,7 @@ public class DashBoardSteps extends ScenarioSteps {
 
     @Step
     public void assertGrossSaleWeekTodayIsEqualWeekAgo() {
-        String expectedMessage = String.format("Также как и в %s (%s)", getDate(), new Us_53_1_Fixture().getGrossSalesPerHourFromDataSet1().get(new DateTime().getHourOfDay()));
+        String expectedMessage = String.format("Так же как и в %s", getDate());
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleWeekDiff());
     }
 
