@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Report\Store;
 
+use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use DateTime;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -11,12 +12,22 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 class StoreGrossSalesRepository extends DocumentRepository
 {
 
+    /**
+     * @param string $storeId
+     * @param DateTime $dayHour
+     * @return string
+     */
     public function getIdByStoreIdAndDayHour($storeId, DateTime $dayHour)
     {
         return md5($storeId . ":" . $dayHour->getTimestamp());
     }
 
-    public function updateStoreDayHourGrossSales($storeId, $dayHour, $grossSales)
+    /**
+     * @param string $storeId
+     * @param DateTime $dayHour
+     * @param int $grossSales
+     */
+    public function updateStoreDayHourGrossSales($storeId, DateTime $dayHour, $grossSales)
     {
         $reportId = $this->getIdByStoreIdAndDayHour($storeId, $dayHour);
 
@@ -46,6 +57,11 @@ class StoreGrossSalesRepository extends DocumentRepository
         return $this->find($reportId);
     }
 
+    /**
+     * @param Store $store
+     * @param string $date
+     * @return Cursor
+     */
     public function findByStoreAndDate(Store $store, $date)
     {
         $dates = $this->getDatesForFullDayReport($date);
