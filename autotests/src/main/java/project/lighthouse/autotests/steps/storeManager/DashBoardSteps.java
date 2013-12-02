@@ -95,7 +95,7 @@ public class DashBoardSteps extends ScenarioSteps {
 
     @Step
     public void assertGrossSaleWeekTodayIsEqualWeekAgo() {
-        String expectedMessage = String.format("Так же как и в %s", getDate());
+        String expectedMessage = String.format("Так же как в %s", getDate());
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleWeekDiff());
     }
 
