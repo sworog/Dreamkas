@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Model.extend({
         storeId: null,
         url: function(){
-            return 'http://lh.apiary.io' + '/stores/' + this.storeId + '/reports/grossSales';
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/reports/grossSales';
         }
     });
 });
