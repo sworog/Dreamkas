@@ -64,7 +64,7 @@ class StoreGrossSalesTest extends WebTestCase
             array(
                 'storeId' => $storeId,
                 'createDate' => "-1 days 10:01",
-                'sumTotal' => 603.53,
+                'sumTotal' => 298.68,
                 'positions' => array(
                     array(
                         'productId' => $product1Id,
@@ -75,11 +75,6 @@ class StoreGrossSalesTest extends WebTestCase
                         'productId' => $product2Id,
                         'quantity' => 3,
                         'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
                     ),
                 ),
             ),
@@ -93,39 +88,49 @@ class StoreGrossSalesTest extends WebTestCase
 
         $reportRepository = $this->getReportRepository();
 
-        $reportFor7Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 7:00');
-        $this->assertEquals("0", $reportFor7Hour->value->toString());
+        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 7:00');
+        $this->assertEquals("0", $reportForHour->runningSum->toString());
+        $this->assertEquals("0", $reportForHour->hourSum->toString());
 
-        $reportFor8Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 8:00');
-        $this->assertEquals("603.53", $reportFor8Hour->value->toString());
+        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 8:00');
+        $this->assertEquals("603.53", $reportForHour->runningSum->toString());
+        $this->assertEquals("603.53", $reportForHour->hourSum->toString());
 
-        $reportFor9Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 9:00');
-        $this->assertEquals("1207.06", $reportFor9Hour->value->toString());
+        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 9:00');
+        $this->assertEquals("1207.06", $reportForHour->runningSum->toString());
+        $this->assertEquals("603.53", $reportForHour->hourSum->toString());
 
-        $reportFor10Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 10:00');
-        $this->assertEquals("1810.59", $reportFor10Hour->value->toString());
+        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 10:00');
+        $this->assertEquals("1505.74", $reportForHour->runningSum->toString());
+        $this->assertEquals("298.68", $reportForHour->hourSum->toString());
 
-        $reportFor11Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 11:00');
-        $this->assertEquals("1810.59", $reportFor11Hour->value->toString());
+        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 11:00');
+        $this->assertEquals("1505.74", $reportForHour->runningSum->toString());
+        $this->assertEquals("0", $reportForHour->hourSum->toString());
 
 
 
-        $storeGrossSalesReportService = $this->getGrossSalesReportService();
+        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
-        $reportFor7Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 7:00');
-        $this->assertEquals("0", $reportFor7Hour->value->toString());
+        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 7:00');
+        $this->assertEquals("0", $reportForHour->runningSum->toString());
+        $this->assertEquals("0", $reportForHour->hourSum->toString());
 
-        $reportFor8Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 8:00');
-        $this->assertEquals("603.53", $reportFor8Hour->value->toString());
+        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 8:00');
+        $this->assertEquals("603.53", $reportForHour->runningSum->toString());
+        $this->assertEquals("603.53", $reportForHour->hourSum->toString());
 
-        $reportFor9Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 9:00');
-        $this->assertEquals("1207.06", $reportFor9Hour->value->toString());
+        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 9:00');
+        $this->assertEquals("1207.06", $reportForHour->runningSum->toString());
+        $this->assertEquals("603.53", $reportForHour->hourSum->toString());
 
-        $reportFor10Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 10:00');
-        $this->assertEquals("1810.59", $reportFor10Hour->value->toString());
+        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 10:00');
+        $this->assertEquals("1505.74", $reportForHour->runningSum->toString());
+        $this->assertEquals("298.68", $reportForHour->hourSum->toString());
 
-        $reportFor11Hour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 11:00');
-        $this->assertEquals("1810.59", $reportFor11Hour->value->toString());
+        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 11:00');
+        $this->assertEquals("1505.74", $reportForHour->runningSum->toString());
+        $this->assertEquals("0", $reportForHour->hourSum->toString());
     }
 
     /**

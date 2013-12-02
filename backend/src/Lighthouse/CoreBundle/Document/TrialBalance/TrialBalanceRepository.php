@@ -245,36 +245,49 @@ class TrialBalanceRepository extends DocumentRepository
                             store: this.store,
                             day: date
                         }
-                        var hoursGrossSales = {
-                            0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0,
-                            12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0, 21: 0, 22: 0, 23: 0
+                        var grossSales = {};
+                        for (var newHour = 0; newHour < 24; newHour++) {
+                            grossSales[newHour] = {
+                                runningSum: 0,
+                                hourSum: 0
+                            };
                         }
-                        for (var hour in hoursGrossSales) {
+
+                        for (var hour in grossSales) {
                             if (hour >= createHour) {
-                                hoursGrossSales[hour] += this.totalPrice;
+                                grossSales[hour].runningSum += this.totalPrice;
+                            }
+                            if (hour == createHour) {
+                                grossSales[hour].hourSum += this.totalPrice;
                             }
                         }
                         emit(
                             key,
-                            hoursGrossSales
+                            grossSales
                         )
                     }"
                 )
             )
             ->reduce(
                 new MongoCode(
-                    "function (key, hoursGrossSalesValues) {
-                        var reducedHoursGrossSales = {
-                            0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0,
-                            12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0, 21: 0, 22: 0, 23: 0
+                    "function (key, grossSalesItems) {
+                        var reducedGrossSales = {};
+                        for (var newHour = 0; newHour < 24; newHour++) {
+                            reducedGrossSales[newHour] = {
+                                runningSum: 0,
+                                hourSum: 0
+                            };
                         }
-                        for (var item in hoursGrossSalesValues) {
-                            var hoursGrossSales = hoursGrossSalesValues[item];
-                            for (var hour in hoursGrossSales) {
-                                reducedHoursGrossSales[hour] += hoursGrossSales[hour];
+
+                        for (var item in grossSalesItems) {
+                            var grossSale = grossSalesItems[item];
+                            for (var hour in grossSale) {
+                                reducedGrossSales[hour].runningSum += grossSale[hour].runningSum;
+                                reducedGrossSales[hour].hourSum += grossSale[hour].hourSum;
                             }
                         }
-                        return reducedHoursGrossSales;
+
+                        return reducedGrossSales;
                     }"
                 )
             )

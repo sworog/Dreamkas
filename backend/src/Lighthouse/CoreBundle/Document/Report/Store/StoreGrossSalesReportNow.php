@@ -62,7 +62,7 @@ class StoreGrossSalesReportNow
                     if ($report instanceof StoreGrossSalesReport) {
                         $this->today['now'] = array(
                             'date' => $report->dayHour->modify("+1 hour"),
-                            'value' => $report->value,
+                            'value' => $report->runningSum,
                         );
                     } else {
                         $this->today['now'] = array(
@@ -76,7 +76,7 @@ class StoreGrossSalesReportNow
                     if ($report instanceof StoreGrossSalesReport) {
                         $this->yesterday['now'] = array(
                             'date' => $report->dayHour->modify("+1 hour"),
-                            'value' => $report->value,
+                            'value' => $report->runningSum,
                         );
                     } else {
                         $this->yesterday['now'] = array(
@@ -91,7 +91,7 @@ class StoreGrossSalesReportNow
                     if ($report instanceof StoreGrossSalesReport) {
                         $this->yesterday['dayEnd'] = array(
                             'date' => $report->dayHour->modify("+59 min 59 sec"),
-                            'value' => $report->value,
+                            'value' => $report->runningSum,
                         );
                     } else {
                         $this->yesterday['dayEnd'] = array(
@@ -105,7 +105,7 @@ class StoreGrossSalesReportNow
                     if ($report instanceof StoreGrossSalesReport) {
                         $this->weekAgo['now'] = array(
                             'date' => $report->dayHour->modify("+1 hour"),
-                            'value' => $report->value,
+                            'value' => $report->runningSum,
                             'diff' => null,
                         );
                     } else {
@@ -120,7 +120,7 @@ class StoreGrossSalesReportNow
                     if ($report instanceof StoreGrossSalesReport) {
                         $this->weekAgo['dayEnd'] = array(
                             'date' => $report->dayHour->modify("+59 min 59 sec"),
-                            'value' => $report->value,
+                            'value' => $report->runningSum,
                         );
                     } else {
                         $this->weekAgo['dayEnd'] = array(

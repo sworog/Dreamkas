@@ -39,6 +39,9 @@ class StoreGrossSalesReportService
         $this->storeGrossSalesRepository = $storeGrossSalesRepository;
     }
 
+    /**
+     * @return int
+     */
     public function recalculateStoreGrossSalesReport()
     {
         $results = $this->trialBalanceRepository->calculateGrossSales();
@@ -50,7 +53,8 @@ class StoreGrossSalesReportService
                 $this->storeGrossSalesRepository->updateStoreDayHourGrossSales(
                     $storeId,
                     $day,
-                    $grossSales
+                    $grossSales['runningSum'],
+                    $grossSales['hourSum']
                 );
             }
         }

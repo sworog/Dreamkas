@@ -11,7 +11,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @property string     $id
  * @property Store      $store
- * @property Money      $value
+ * @property Money      $runningSum
+ * @property Money      $hourSum
  * @property DateTime   $dayHour
  *
  * @MongoDB\Document(
@@ -36,7 +37,13 @@ class StoreGrossSalesReport extends AbstractDocument
      * @MongoDB\Field(type="money")
      * @var Money
      */
-    protected $value;
+    protected $runningSum;
+
+    /**
+     * @MongoDB\Field(type="money")
+     * @var Money
+     */
+    protected $hourSum;
 
     /**
      * @MongoDB\ReferenceOne(

@@ -25,16 +25,18 @@ class StoreGrossSalesRepository extends DocumentRepository
     /**
      * @param string $storeId
      * @param DateTime $dayHour
-     * @param int $grossSales
+     * @param int $runningSum
+     * @param int $hourSum
      */
-    public function updateStoreDayHourGrossSales($storeId, DateTime $dayHour, $grossSales)
+    public function updateStoreDayHourGrossSales($storeId, DateTime $dayHour, $runningSum, $hourSum)
     {
         $reportId = $this->getIdByStoreIdAndDayHour($storeId, $dayHour);
 
         $report = new StoreGrossSalesReport();
         $report->id = $reportId;
         $report->dayHour = $dayHour;
-        $report->value = new Money($grossSales);
+        $report->runningSum = new Money($runningSum);
+        $report->hourSum = new Money($hourSum);
 
         $this->dm->persist($report);
 
@@ -74,6 +76,10 @@ class StoreGrossSalesRepository extends DocumentRepository
         return $query->getQuery()->execute();
     }
 
+    /**
+     * @param string|DateTime $date
+     * @return array
+     */
     public function getDatesForFullDayReport($date)
     {
         $dates = array(
@@ -106,6 +112,11 @@ class StoreGrossSalesRepository extends DocumentRepository
         return $dates;
     }
 
+    /**
+     * @param Store $store
+     * @param array $dates
+     * @return array
+     */
     public function getIdsByStoreAndDateArray(Store $store, $dates)
     {
         $ids = array();
