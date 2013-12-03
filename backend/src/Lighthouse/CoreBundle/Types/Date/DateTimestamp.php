@@ -46,6 +46,16 @@ class DateTimestamp extends DateTime
     }
 
     /**
+     * @param string|DateTime $time
+     * @return bool
+     */
+    public function equals($time)
+    {
+        $dateTime = new static($time);
+        return $dateTime->getTimestamp() == $this->getTimestamp();
+    }
+
+    /**
      * @return MongoTimestamp
      */
     public function getMongoTimestamp()
