@@ -87,7 +87,7 @@ public class Us_53_1_Fixture {
 
     private PurchaseXmlBuilder generateDataSet(String date, String shopNumber, String id, Double price) throws ParserConfigurationException, XPathExpressionException {
         Double doublePrice = 124.5;
-        PurchaseXmlBuilder purchaseXmlBuilder = new PurchaseXmlBuilder().createXmlPurchases("24");
+        PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("24");
         for (int i = 1; i < 25; i++) {
             Double finalPriceCount = doublePrice * i;
             String hours = String.format("%02d", i - 1);

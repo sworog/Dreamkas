@@ -6,13 +6,20 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
+/**
+ * Get new instance {@link #create(String)}
+ */
 public class PurchaseXmlBuilder {
 
     private XMLBuilder xmlBuilder;
 
-    public PurchaseXmlBuilder createXmlPurchases(String count) throws ParserConfigurationException {
-        this.xmlBuilder = XMLBuilder.create("purchases").a("count", count);
-        return this;
+
+    private PurchaseXmlBuilder(String purchasesCount) throws ParserConfigurationException {
+        this.xmlBuilder = XMLBuilder.create("purchases").a("count", purchasesCount);
+    }
+
+    public static PurchaseXmlBuilder create(String purchasesCount) throws ParserConfigurationException {
+        return new PurchaseXmlBuilder(purchasesCount);
     }
 
     public PurchaseXmlBuilder addXmlPurchase(String saleTime, String operDay, String shop, String amount, String price, String count, String id) throws XPathExpressionException {
