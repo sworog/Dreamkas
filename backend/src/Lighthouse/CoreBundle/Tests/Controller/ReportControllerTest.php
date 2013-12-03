@@ -919,4 +919,58 @@ class ReportControllerTest extends WebTestCase
 
         $this->assertEquals($expected, $response);
     }
+
+    public function testAccessGetStoreGrossSalesReportByHours()
+    {
+        $storeId = $this->factory->getStore();
+        $storeManagerToken = $this->factory->authAsStoreManager($storeId);
+        $departmentManagerToken = $this->factory->authAsDepartmentManager($storeId);
+        $storeManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_STORE_MANAGER);
+        $commercialManagerToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $departmentManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $administratorToken = $this->factory->authAsRole(User::ROLE_ADMINISTRATOR);
+
+
+        $response = $this->clientJsonRequest(
+            $storeManagerToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+        );
+        $this->assertResponseCode(200);
+
+        $response = $this->clientJsonRequest(
+            $departmentManagerToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+        );
+        $this->assertResponseCode(403);
+
+        $response = $this->clientJsonRequest(
+            $storeManagerOtherStoreToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+        );
+        $this->assertResponseCode(403);
+
+        $response = $this->clientJsonRequest(
+            $commercialManagerToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+        );
+        $this->assertResponseCode(403);
+
+        $response = $this->clientJsonRequest(
+            $departmentManagerOtherStoreToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+        );
+        $this->assertResponseCode(403);
+
+        $response = $this->clientJsonRequest(
+            $administratorToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+        );
+        $this->assertResponseCode(403);
+    }
 }
