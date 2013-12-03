@@ -81,6 +81,8 @@ fos_rest:
           json: true
         templating_formats:
             html: false
+    service:
+        view_handler: lighthouse.core.rest.view_handler
     exception:
         codes:
             'Lighthouse\CoreBundle\Exception\NotEmptyException': 409

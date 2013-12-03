@@ -19,6 +19,10 @@ services:
     doctrine:
         alias: doctrine_mongodb
 
+    lighthouse.core.rest.view_handler:
+        parent: fos_rest.view_handler.default
+        class: Lighthouse\CoreBundle\Rest\ViewHandler
+
     doctrine_mongodb.odm.repository:
         abstract: true
         class: Doctrine\ODM\MongoDB\DocumentRepository
