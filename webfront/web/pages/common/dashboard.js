@@ -15,7 +15,7 @@ define(function(require) {
             storeGrossSales: function(){
                 var storeGrossSalesModel = null;
 
-                if (currentUserModel.stores.length && LH.isAllow('stores', 'GET::{store}/reports/grossSales')){
+                if (LH.isReportsAllow(['storeGrossSales'])){
                     storeGrossSalesModel = new StoreGrossSalesModel();
                     storeGrossSalesModel.storeId = currentUserModel.stores.at(0).id
                 }

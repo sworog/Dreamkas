@@ -14,8 +14,10 @@ define(function(require) {
         translate: function(text){
             return translate(dictionary, text);
         },
+        isReportsAllow: require('utils/isReportsAllow'),
         modelNode: require('kit/utils/modelNode'),
         formatPrice: require('utils/formatPrice'),
+        formatMoney: require('utils/formatMoney'),
         isEmptyJSON: require('utils/isEmptyJSON'),
         normalizePrice: require('utils/normalizePrice'),
         prevalidateInput: require('utils/prevalidateInput'),

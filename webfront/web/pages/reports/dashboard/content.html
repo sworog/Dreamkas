@@ -1,17 +1,20 @@
 <% var templates = {
-    table_storeGrossSalesByHour: require('tpl!blocks/table/table_storeGrossSalesByHour/table_storeGrossSalesByHour.html')
+    table_storeGrossSalesByHours: require('tpl!blocks/table/table_storeGrossSalesByHours/table_storeGrossSalesByHours.html'),
+    table_grossSalesByStores: require('tpl!blocks/table/table_grossSalesByStores/table_grossSalesByStores.html')
 } %>
+
+
 
 <h1>Отчеты</h1>
 
-<% if (models.storeGrossSalesByHour) { %>
+<% if (models.storeGrossSalesByHours) { %>
 
 <h2>Продажи по часам. Магазин № <%- models.store.get('number') %></h2>
 
-<% if (models.storeGrossSalesByHour.get('today').length) { %>
-<table class="table table_storeGrossSalesByHour">
-    <%= templates.table_storeGrossSalesByHour({
-        models: _.pick(models, 'storeGrossSalesByHour')
+<% if (models.storeGrossSalesByHours.get('today').length) { %>
+<table style="margin-bottom: 40px;" class="table table_storeGrossSalesByHour">
+    <%= templates.table_storeGrossSalesByHours({
+        models: _.pick(models, 'storeGrossSalesByHours')
     }) %>
 </table>
 <% } else { %>
@@ -23,24 +26,10 @@
 <h2>Продажи по магазинам</h2>
 
 <% if (collections.grossSalesByStores.length) { %>
-<table class="table table_grossSalesByStores">
-    <thead>
-        <th>
-            Вчера
-        </th>
-        <th>
-            Позавчера
-        </th>
-        <th>
-            Неделю назад
-        </th>
-    </thead>
-    <tbody>
-    <% _.forEach(function(){})%>
-        <tr>
-
-        </tr>
-    </tbody>
+<table style="margin-bottom: 40px;" class="table table_grossSalesByStores">
+    <%= templates.table_grossSalesByStores({
+        collections: _.pick(collections, 'grossSalesByStores')
+    }) %>
 </table>
 <% } else { %>
 <p>Нет данных</p>

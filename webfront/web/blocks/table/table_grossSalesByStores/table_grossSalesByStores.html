@@ -1,0 +1,37 @@
+<%
+/**
+ *
+ * @collections.grossSalesByStores
+ */
+%>
+
+<thead>
+<th></th>
+<th>
+    Вчера
+</th>
+<th>
+    Позавчера
+</th>
+<th>
+    Неделю назад
+</th>
+</thead>
+<tbody>
+<% collections.grossSalesByStores.forEach(function(storeGrossSaleModel) { %>
+<tr>
+    <td>
+        <%- storeGrossSaleModel.get('store').number %>
+    </td>
+    <td>
+        <%- LH.formatMoney(storeGrossSaleModel.get('yesterday').runningSum) %> р.
+    </td>
+    <td>
+        <%- LH.formatMoney(storeGrossSaleModel.get('twoDaysAgo').runningSum) %> р.
+    </td>
+    <td>
+        <%- LH.formatMoney(storeGrossSaleModel.get('eightDaysAgo').runningSum) %> р.
+    </td>
+</tr>
+<% }) %>
+</tbody>

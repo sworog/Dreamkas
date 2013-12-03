@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         StoreGrossSalesByHourModel = require('models/storeGrossSalesByHours'),
-        GrossSalesByStores = require('models/grossSalesByStores'),
+        GrossSalesByStores = require('collections/grossSalesByStores'),
         currentUserModel = require('models/currentUser');
 
     require('jquery');
@@ -12,27 +12,30 @@ define(function(require, exports, module) {
         partials: {
             '#content': require('tpl!./content.html')
         },
+        permissions: function(){
+            return !LH.isReportsAllow();
+        },
         models: {
-            storeGrossSalesByHour: function(){
-                var storeGrossSalesByHourModel = null;
+            storeGrossSalesByHours: function(){
+                var storeGrossSalesByHoursModel = null;
 
-                if (currentUserModel.stores.length && LH.isAllow('stores', 'GET::{store}/reports/grossSales')){
-                    storeGrossSalesByHourModel = new StoreGrossSalesByHourModel();
-                    storeGrossSalesByHourModel.storeId = currentUserModel.stores.at(0).id
+                if (LH.isReportsAllow(['storeGrossSalesByHours'])){
+                    storeGrossSalesByHoursModel = new StoreGrossSalesByHourModel();
+                    storeGrossSalesByHoursModel.storeId = currentUserModel.stores.at(0).id
                 }
 
-                return storeGrossSalesByHourModel;
+                return storeGrossSalesByHoursModel;
             }
         },
         collections: {
             grossSalesByStores: function(){
-                var GrossSalesByStores = null;
+                var grossSalesByStores = null;
 
-                if (LH.isAllow('reports', 'GET::grossSalesByStores')){
-                    GrossSalesByStores = new GrossSalesByStores();
+                if (LH.isReportsAllow(['grossSalesByStores'])){
+                    grossSalesByStores = new GrossSalesByStores();
                 }
 
-                return GrossSalesByStores;
+                return grossSalesByStores;
             }
         },
         initialize: function(){
@@ -40,7 +43,7 @@ define(function(require, exports, module) {
                 fetchData = [];
 
             page.models = {
-                storeGrossSalesByHour: page.models.storeGrossSalesByHour(),
+                storeGrossSalesByHours: page.models.storeGrossSalesByHours(),
                 store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
             };
 
@@ -48,8 +51,8 @@ define(function(require, exports, module) {
                 grossSalesByStores: page.collections.grossSalesByStores()
             };
 
-            if (page.models.storeGrossSalesByHour){
-                fetchData.push(page.models.storeGrossSalesByHour.fetch());
+            if (page.models.storeGrossSalesByHours){
+                fetchData.push(page.models.storeGrossSalesByHours.fetch());
             }
 
             if (page.collections.grossSalesByStores){

@@ -1,0 +1,36 @@
+<%
+/**
+ *
+ * @models.storeGrossSalesByHours
+ */
+%>
+<% var moment = require('moment') %>
+<% var todayData = models.storeGrossSalesByHours.get('today').reverse() %>
+<% var yesterdayData = models.storeGrossSalesByHours.get('yesterday').reverse() %>
+<% var weekAgoData = models.storeGrossSalesByHours.get('weekAgo').reverse() %>
+
+
+<thead>
+<th></th>
+<th>Сегодня</th>
+<th>Вчера</th>
+<th>Неделю назад</th>
+</thead>
+<tbody>
+<% _.forEach(todayData, function(data, index){ %>
+<tr>
+    <td>
+        <%- moment(data.dayHour).startOf('hour').format('HH:mm') %> &mdash; <%- moment(data.dayHour).startOf('hour').add('hours', 1).format('HH:mm') %>
+    </td>
+    <td>
+        <%- LH.formatMoney(data.hourSum) %> р.
+    </td>
+    <td>
+        <%- LH.formatMoney(yesterdayData[index]['hourSum']) %> р.
+    </td>
+    <td>
+        <%- LH.formatMoney(weekAgoData[index]['hourSum']) %> р.
+    </td>
+</tr>
+<% }) %>
+</tbody>
