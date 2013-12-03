@@ -505,34 +505,34 @@ class ReportControllerTest extends WebTestCase
             'today' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("10:00")),
-                    'value' => "603.53",
+                    'value' => 603.53,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-1 day 10:00")),
-                    'value' => "325.74",
-                    'diff' => "85.28",
+                    'value' => 325.74,
+                    'diff' => 85.28,
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-1 day 23:59:59")),
-                    'value' => "325.74",
+                    'value' => 325.74,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 10:00")),
-                    'value' => "846.92",
-                    'diff' => "-28.74"
+                    'value' => 846.92,
+                    'diff' => -28.74
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 23:59:59")),
-                    'value' => "846.92",
+                    'value' => 846.92,
                 ),
             ),
         );
 
-        $this->assertEquals($expected, $response);
+        $this->assertSame($expected, $response);
     }
 
     public function testGetStoreGrossSalesByHour()

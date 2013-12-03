@@ -71,13 +71,12 @@ define(function(require) {
                 return translate(this.get('dictionary'), text);
             },
             render: function() {
-                var block = this,
-                    template = block.template(block);
+                var block = this;
 
                 //block.removeBlocks();
 
-                block.$el.html(template);
-                block.$el.require();
+                block.el.innerHTML = block.template(block);
+                $(block.el).require();
 
                 block.findElements();
 

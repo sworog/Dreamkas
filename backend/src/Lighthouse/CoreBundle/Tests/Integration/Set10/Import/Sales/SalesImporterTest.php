@@ -157,7 +157,6 @@ class SalesImporterTest extends WebTestCase
      */
     public function testImportWithDateShift($start, $end, $expectedFirstSaleDate, $expectedLastSaleDate)
     {
-        $this->markTestSkipped('Takes to much time');
         $datePeriod = new DatePeriod($start, $end);
         $skus = array(
             4100024386,

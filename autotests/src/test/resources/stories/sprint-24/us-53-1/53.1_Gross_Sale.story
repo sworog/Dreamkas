@@ -1,5 +1,5 @@
 Meta:
-@sprint 24
+@sprint 25
 @us 53.1
 
 Narrative:
@@ -17,9 +17,10 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user prepares fixture on today from data set 1
+And the user runs the symfony:reports:recalculate command
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
 Then the user checks the gross sales subTitle
 And the user checks the gross sales today value
 
@@ -32,7 +33,7 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
 Then the user checks the gross sales subTitle
 And the user checks the gross sales today value is zero
 
@@ -46,10 +47,11 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user prepares fixture on last week from data set 1
+And the user runs the symfony:reports:recalculate command
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
-Then the user checks the gross sale last week value
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
+Then the user checks the gross sale last week value on the end of the day
 
 Scenario: Gross sale on the end of last week day (no sales registered)
 
@@ -60,10 +62,10 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
 Then the user checks the gross sale last week value is zero
 
-Scenario: Gross sale on yesterday
+Scenario: Gross sale on yesterday end of the day
 
 Meta:
 @id s24u53.1s5
@@ -73,12 +75,13 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user prepares fixture on yesterday from data set 1
+And the user runs the symfony:reports:recalculate command
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
-Then the user checks the gross sale yesterday value
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
+Then the user checks the gross sale yesterday value on the end of the day
 
-Scenario: Gross sale on yesterday (no sales registered)
+Scenario: Gross sale on yesterday end of the day (no sales registered)
 
 Meta:
 @id s24u53.1s6
@@ -87,10 +90,10 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
 Then the user checks the gross sale yesterday value is zero
 
-Scenario: Today Gross sale is more than yesterday one
+Scenario: Today Gross sale ratio is more than yesterday one
 
 Meta:
 @id s24u53.1s7
@@ -100,13 +103,14 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user prepares fixture for 'Today Gross sale is more than yesterday one' scenario
+And the user runs the symfony:reports:recalculate command
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
 Then the user checks the gross yesterday ratio text color is green
 And the user checks the gross sale value is more than yesterday one
 
-Scenario: Today Gross sale is less than yesterday one
+Scenario: Today Gross sale ratio is less than yesterday one
 
 Meta:
 @id s24u53.1s8
@@ -116,13 +120,14 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user prepares fixture for 'Today Gross sale is less than yesterday one' scenario
+And the user runs the symfony:reports:recalculate command
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
 Then the user checks the gross yesterday ratio text color is red
 And the user checks the gross sale value is less than yesterday one
 
-Scenario: Today Gross sale is equal yesterday one
+Scenario: Today Gross sale ratio is equal yesterday one
 
 Meta:
 @id s24u53.1s9
@@ -132,12 +137,13 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user prepares fixture for 'Today Gross sale is equal yesterday one' scenario
+And the user runs the symfony:reports:recalculate command
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
 Then the user checks the gross sale value is equal yesterday one
 
-Scenario: Today Gross sale is more than last week one
+Scenario: Today Gross sale ratio is more than last week one
 
 Meta:
 @id s24u53.1s10
@@ -147,13 +153,14 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user prepares fixture for 'Today Gross sale is more than last week one' scenario
+And the user runs the symfony:reports:recalculate command
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
 Then the user checks the gross week ratio text color is green
 And the user checks the gross sale value is more than last week ago
 
-Scenario: Today Gross sale is less than last week one
+Scenario: Today Gross sale ratio is less than last week one
 
 Meta:
 @id s24u53.1s11
@@ -163,13 +170,14 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user prepares fixture for 'Today Gross sale is less than last week one' scenario
+And the user runs the symfony:reports:recalculate command
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
 Then the user checks the gross week ratio text color is red
 And the user checks the gross sale value is less than last week ago
 
-Scenario: Today Gross sale is equal last week one
+Scenario: Today Gross sale ratio is equal last week one
 
 Meta:
 @id s24u53.1s12
@@ -179,10 +187,35 @@ Meta:
 GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
 
 Given the user prepares fixture for 'Today Gross sale is eqaul last week one' scenario
+And the user runs the symfony:reports:recalculate command
 
 Given the user opens the authorization page
-When the user logs in using 'storeManager-s24u531' userName and 'lighthouse' password
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
 Then the user checks the gross sale value is equal last week ago
+
+Scenario: No yesterday gross ratio is shown (no sales registered)
+
+Meta:
+@id s24u53.1s13
+@description
+
+GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
+
+Given the user opens the authorization page
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
+Then the user checks the gross yesterday sales block is not visible
+
+Scenario: No week gross ratio is shown (no sales registered)
+
+Meta:
+@id s24u53.1s14
+@description
+
+GivenStories: precondition/us-53.1/aPreconditionToStoryUs53.1.story
+
+Given the user opens the authorization page
+When the user logs in using 'storeManager-s25u531' userName and 'lighthouse' password
+Then the user checks the gross week sales block is not visible
 
 
 

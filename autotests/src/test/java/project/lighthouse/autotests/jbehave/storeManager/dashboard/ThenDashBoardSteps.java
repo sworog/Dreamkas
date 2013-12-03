@@ -27,9 +27,9 @@ public class ThenDashBoardSteps {
         dashBoardSteps.assertGrossSalesTodayValueIsZero();
     }
 
-    @Then("the user checks the gross sale yesterday value")
+    @Then("the user checks the gross sale yesterday value on the end of the day")
     public void thenTheChecksTheGrossSaleYesterdayValue() {
-        dashBoardSteps.assertGrossSaleYesterdayValue();
+        dashBoardSteps.assertGrossSaleSumYesterdayValue();
     }
 
     @Then("the user checks the gross sale yesterday value is zero")
@@ -37,9 +37,9 @@ public class ThenDashBoardSteps {
         dashBoardSteps.assertGrossSaleYesterdayValueIsZero();
     }
 
-    @Then("the user checks the gross sale last week value")
+    @Then("the user checks the gross sale last week value on the end of the day")
     public void thenTheUserChecksTheGrossSakeLastWeekValue() {
-        dashBoardSteps.assertGrossSaleLastWeekValue();
+        dashBoardSteps.assertGrossSaleSumLastWeekValue();
     }
 
     @Then("the user checks the gross sale last week value is zero")
@@ -100,5 +100,15 @@ public class ThenDashBoardSteps {
     @Then("the user checks the gross sale is not available")
     public void thenTheUserChecksTheGrossSaleIsNotAvailable() {
         dashBoardSteps.assertGrossSaleIsNotAvailable();
+    }
+
+    @Then("the user checks the gross yesterday sales block is not visible")
+    public void thenTheUserCheckTheGrossYesterdaySalesBlockIsNotVisible() {
+        dashBoardSteps.assertYesterdayRatioBlockIsNotVisible();
+    }
+
+    @Then("the user checks the gross week sales block is not visible")
+    public void thenTheUserCheckTheGrossWeekSalesBlockIsNotVisible() {
+        dashBoardSteps.assertWeekRatioBlockIsNotVisible();
     }
 }

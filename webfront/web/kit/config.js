@@ -33,7 +33,8 @@ define(function(require) {
                 deps: ['lodash', 'jquery'],
                 exports: 'Backbone'
             },
-            'backbone.queryparams': ['backbone']
+            'backbone.queryparams': ['backbone'],
+            'jquery.require': ['jquery']
         },
         config: {
             //Set the config for the i18n

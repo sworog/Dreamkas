@@ -104,7 +104,7 @@ class RoundingControllerTest extends WebTestCase
 
         $this->assertResponseCode(201);
 
-        Assert::assertJsonPathContains($roundedPrice, 'price', $postResponse);
+        Assert::assertJsonPathEquals($roundedPrice, 'price', $postResponse);
     }
 
     /**

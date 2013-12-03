@@ -38,13 +38,23 @@ class StoreGrossSalesReportNow
         ),
     );
 
-    public function __construct(StoreGrossSalesReportCollection $collection, $dates, $ids)
+    /**
+     * @param StoreGrossSalesReportCollection $collection
+     * @param array $dates
+     * @param array $ids
+     */
+    public function __construct(StoreGrossSalesReportCollection $collection, array $dates, array $ids)
     {
         $this->populate($collection, $dates, $ids);
         $this->recalculateDiffs();
     }
 
-    public function populate(StoreGrossSalesReportCollection $collection, $dates, $ids)
+    /**
+     * @param StoreGrossSalesReportCollection $collection
+     * @param array $dates
+     * @param array $ids
+     */
+    public function populate(StoreGrossSalesReportCollection $collection, array $dates, array $ids)
     {
         foreach ($collection as $report) {
             foreach ($ids as $key => $value) {
@@ -144,7 +154,7 @@ class StoreGrossSalesReportNow
         $yesterdayDiff = ($todayNowValue->toNumber() / $this->yesterday['now']['value']->toNumber() - 1) * 100;
         $weekAgoDiff = ($todayNowValue->toNumber() / $this->weekAgo['now']['value']->toNumber() - 1) * 100;
 
-        $this->yesterday['now']['diff'] = Decimal::createFromNumeric($yesterdayDiff, 2);
-        $this->weekAgo['now']['diff'] = Decimal::createFromNumeric($weekAgoDiff, 2);
+        $this->yesterday['now']['diff'] = Decimal::createFromNumeric($yesterdayDiff, 2)->toNumber();
+        $this->weekAgo['now']['diff'] = Decimal::createFromNumeric($weekAgoDiff, 2)->toNumber();
     }
 }

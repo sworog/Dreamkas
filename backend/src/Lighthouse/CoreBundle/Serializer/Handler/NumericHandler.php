@@ -34,7 +34,7 @@ class NumericHandler
      */
     public function serializeNumericToJson(VisitorInterface $visitor, Numeric $value, array $type, Context $context)
     {
-        return $value->toString();
+        return $visitor->visitDouble($value->toNumber(), $type, $context);
     }
 
     /**

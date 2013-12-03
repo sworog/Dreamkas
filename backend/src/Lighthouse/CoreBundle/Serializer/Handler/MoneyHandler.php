@@ -65,12 +65,10 @@ class MoneyHandler
      */
     public function serializeMoney(VisitorInterface $visitor, Money $value, array $type, Context $context)
     {
-        $normData = $this->modelTransformer->transform($value);
-        $viewData = $this->viewTransformer->transform($normData);
-        if (null === $viewData) {
-            $serialized = $visitor->visitNull($viewData, $type, $context);
+        if ($value->isNull()) {
+            $serialized = $visitor->visitNull($value, $type, $context);
         } else {
-            $serialized = $visitor->visitString($viewData, $type, $context);
+            $serialized = $visitor->visitDouble($value->toNumber(), $type, $context);
         }
         return $serialized;
     }
