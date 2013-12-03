@@ -1,7 +1,15 @@
+<% var templates = {
+    select_userRole: require('tpl!blocks/select/select_userRole/select_userRole.html')
+} %>
+
 <h1><%- model.id ? 'Редактирование пользователя' : 'Добавление нового пользователя' %></h1>
 <div class="form__field form__field_inline">
     <label class="form__label">Роль</label>
-    <select class="select" value="<%- model.get('role') %>" name="role" require="blocks/select/select_userRole/select_userRole"></select>
+    <select class="select select_userRole" name="role">
+        <%= templates.select_userRole({
+            selected: model.get('role')
+        }) %>
+    </select>
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label">Имя</label>

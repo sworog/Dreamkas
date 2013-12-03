@@ -1,3 +1,9 @@
+<% var templates = {
+    select_unit: require('tpl!blocks/select/select_unit/select_unit.html'),
+    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.html'),
+    select_vat: require('tpl!blocks/select/select_vat/select_vat.html')
+} %>
+
 <h1><%- model.id ? 'Редактирование товара' : 'Добавление товара' %></h1>
 <fieldset class="form__fieldset">
     <div class="form__field form__field_inline">
@@ -10,11 +16,19 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Измеряется в</label>
-        <select value="<%- model.get('units') %>" class="select" name="units" require="blocks/select/select_unit/select_unit"></select>
+        <select class="select select_unit" name="units">
+            <%= templates.select_unit({
+                selected: model.get('units')
+            }) %>
+        </select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">НДС</label>
-        <select value="<%- model.get('vat') %>" class="select" name="vat" require="blocks/select/select_vat/select_vat"></select>
+        <select class="select select_vat" name="vat">
+            <%= templates.select_vat({
+                selected: model.get('vat')
+            }) %>
+        </select>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена закупки</label>
@@ -69,7 +83,11 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Округление</label>
-        <select class="select" value="<%- model.get('rounding').name || subCategoryModel.get('rounding').name || 'nearest1' %>" name="rounding.name" require="blocks/select/select_priceRoundings/select_priceRoundings"></select>
+        <select class="select select_priceRoundings" name="rounding.name">
+            <%= templates.select_priceRoundings({
+                selected: model.get('rounding').name || subCategoryModel.get('rounding').name || 'nearest1'
+            }) %>
+        </select>
     </div>
     <input type="hidden" value="<%- model.get('retailPricePreference') %>" name="retailPricePreference" />
 </fieldset>

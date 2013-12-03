@@ -1,0 +1,15 @@
+<% var values = {
+    kg: 'Килограммы',
+    unit: 'Штуки',
+    liter: 'Литры'
+}%>
+
+<option disabled>
+    единица измерения
+</option>
+
+<% _.forEach(['kg', 'unit', 'liter'], function(value, index){ %>
+    <option <%- selected === value ? 'selected' : '' %> value="<%- value %>">
+        <%- values[value] %>
+    </option>
+<% }) %>
