@@ -8,8 +8,12 @@
 
 <h2>Продажи по часам. Магазин № <%- models.store.get('number') %></h2>
 
+<% if (models.storeGrossSalesByHour.get('today').length) { %>
 <%= templates.table_storeGrossSalesByHour({
     models: _.pick(models, 'storeGrossSalesByHour')
 }) %>
+<% } else { %>
+    <p>Нет данных</p>
+<% } %>
 
 <% } %>
