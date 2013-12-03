@@ -1291,4 +1291,87 @@ class ReportControllerTest extends WebTestCase
 
         $this->assertEquals($expected, $response);
     }
+
+    public function testGetStoreGrossSalesByHourEmptyAll()
+    {
+        $storeId = $this->factory->getStore();
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+
+        $storeOtherId = $this->factory->getStore("other");
+
+        $product1Id = $this->createProduct('1');
+        $product2Id = $this->createProduct('2');
+        $product3Id = $this->createProduct('3');
+
+
+        $salesInOtherStore = array(
+            array(
+                'storeId' => $storeOtherId,
+                'createDate' => "8:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+        );
+
+        $this->factory->createSales($salesInOtherStore);
+
+
+        $storeGrossSalesReportService = $this->getGrossSalesReportService();
+
+        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours',
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        $expectedYesterday = $expectedWeekAgo = $expectedToday = array();
+
+        for ($i = 0; $i <= 9; $i++) {
+            $expectedToday[$i] = array(
+                'dayHour' => date(DateTime::ISO8601, strtotime("0{$i}:00")),
+                'runningSum' => 0,
+                'hourSum' => 0,
+            );
+            $expectedYesterday[$i] = array(
+                'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 0{$i}:00")),
+                'runningSum' => 0,
+                'hourSum' => 0,
+            );
+            $expectedWeekAgo[$i] = array(
+                'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 0{$i}:00")),
+                'runningSum' => 0,
+                'hourSum' => 0,
+            );
+        }
+
+        $expected = array(
+            'today' => $expectedToday,
+            'yesterday' => $expectedYesterday,
+            'weekAgo' => $expectedWeekAgo,
+        );
+
+        $this->assertEquals($expected, $response);
+    }
 }
