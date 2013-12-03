@@ -17,7 +17,7 @@
     <a href="/balance?storeId=<%- currentUserModel.stores.at(0).id %>">Остатки</a>
     <% } %>
 
-    <% if(LH.isAllow('stores/{store}/writeoffs') &&currentUserModel.stores && currentUserModel.stores.length){ %>
+    <% if(LH.isAllow('stores/{store}/writeoffs') && currentUserModel.stores && currentUserModel.stores.length){ %>
     <a href="/writeOffs?storeId=<%- currentUserModel.stores.at(0).id %>">Списания</a>
     <% } %>
 
@@ -27,6 +27,10 @@
 
     <% if(LH.isAllow('stores')){ %>
     <a href="/stores">Магазины</a>
+    <% } %>
+
+    <% if(LH.isAllow('stores', 'GET::{store}/reports/grossSalesByHours') && currentUserModel.stores.length){ %>
+    <a href="/reports">Отчеты</a>
     <% } %>
 
     <% if(currentUserModel.stores && currentUserModel.stores.length) { %>

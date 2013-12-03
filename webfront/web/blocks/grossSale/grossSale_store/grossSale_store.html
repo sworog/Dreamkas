@@ -28,7 +28,7 @@
 } %>
 
 <h2 class="grossSale__subTitle" style="padding-bottom: 0;">
-    Объём продаж на <%- moment(models.storeGrossSales.get('today.now.date')).startOf('hour').format('HH.mm') %>
+    Объём продаж на <%- moment(models.storeGrossSales.get('today.now.date')).startOf('hour').format('HH:mm') %>
 </h2>
 <div class="grossSale__todayValue">
     <%- accounting.formatNumber(models.storeGrossSales.get('today.now.value'), 2, ' ', ',') %>

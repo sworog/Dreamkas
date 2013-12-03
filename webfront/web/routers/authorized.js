@@ -13,6 +13,9 @@ define(function(require) {
             'logs(/)': require('pages/common/log'),
             'settings(/)': require('pages/common/settings'),
 
+            //reports
+            'reports(/)': require('pages/reports/dashboard/dashboard'),
+
             //invoices
             'invoices(/)': require('pages/invoice/list'),
             'invoices/create(/)': require('pages/invoice/form'),
