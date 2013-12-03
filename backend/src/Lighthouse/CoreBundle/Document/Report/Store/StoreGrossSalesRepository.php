@@ -24,14 +24,15 @@ class StoreGrossSalesRepository extends DocumentRepository
     }
 
     /**
-     * @param Store $store
+     * @param string $storeId
      * @param DateTime $dayHour
      * @param int $runningSum
      * @param int $hourSum
      */
-    public function updateStoreDayHourGrossSales(Store $store, DateTime $dayHour, $runningSum, $hourSum)
+    public function updateStoreDayHourGrossSales($storeId, DateTime $dayHour, $runningSum, $hourSum)
     {
-        $reportId = $this->getIdByStoreIdAndDayHour($store->id, $dayHour);
+        $reportId = $this->getIdByStoreIdAndDayHour($storeId, $dayHour);
+        $store = $this->dm->getReference(Store::getClassName(), $storeId);
 
         $report = new StoreGrossSalesReport();
         $report->id = $reportId;

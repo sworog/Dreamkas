@@ -57,12 +57,11 @@ class StoreGrossSalesReportService
         $results = $this->trialBalanceRepository->calculateGrossSales();
         foreach ($results as $result) {
             $storeId = $result['_id']['store'];
-            $store = $this->storeRepository->find((string) $storeId);
             $day = DateTimestamp::createFromMongoDate($result['_id']['day']);
             foreach ($result['value'] as $hour => $grossSales) {
                 $day->setTime($hour, 0);
                 $this->storeGrossSalesRepository->updateStoreDayHourGrossSales(
-                    $store,
+                    (string) $storeId,
                     $day,
                     $grossSales['runningSum'],
                     $grossSales['hourSum']
