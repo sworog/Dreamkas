@@ -4,37 +4,34 @@
  * @models.storeGrossSalesByHour
  */
 %>
-
 <% var moment = require('moment') %>
 <% var accounting = require('libs/accounting') %>
-
 <% var todayData = models.storeGrossSalesByHour.get('today').reverse() %>
 <% var yesterdayData = models.storeGrossSalesByHour.get('yesterday').reverse() %>
 <% var weekAgoData = models.storeGrossSalesByHour.get('weekAgo').reverse() %>
 
-<table class="table table_storeGrossSalesByHour">
-    <thead>
-    <th></th>
-    <th>Сегодня</th>
-    <th>Вчера</th>
-    <th>Неделю назад</th>
-    </thead>
-    <tbody>
-    <% _.forEach(todayData, function(data, index){ %>
-    <tr>
-        <td>
-            <%- moment(data.dayHour).startOf('hour').format('HH:mm') %> &mdash; <%- moment(data.dayHour).startOf('hour').add('hours', 1).format('HH:mm') %>
-        </td>
-        <td>
-            <%- accounting.formatNumber(data.hourSum, 2, ' ', ',') %> р.
-        </td>
-        <td>
-            <%- accounting.formatNumber(yesterdayData[index]['hourSum'], 2, ' ', ',') %> р.
-        </td>
-        <td>
-            <%- accounting.formatNumber(weekAgoData[index]['hourSum'], 2, ' ', ',') %> р.
-        </td>
-    </tr>
-    <% }) %>
-    </tbody>
-</table>
+
+<thead>
+<th></th>
+<th>Сегодня</th>
+<th>Вчера</th>
+<th>Неделю назад</th>
+</thead>
+<tbody>
+<% _.forEach(todayData, function(data, index){ %>
+<tr>
+    <td>
+        <%- moment(data.dayHour).startOf('hour').format('HH:mm') %> &mdash; <%- moment(data.dayHour).startOf('hour').add('hours', 1).format('HH:mm') %>
+    </td>
+    <td>
+        <%- accounting.formatNumber(data.hourSum, 2, ' ', ',') %> р.
+    </td>
+    <td>
+        <%- accounting.formatNumber(yesterdayData[index]['hourSum'], 2, ' ', ',') %> р.
+    </td>
+    <td>
+        <%- accounting.formatNumber(weekAgoData[index]['hourSum'], 2, ' ', ',') %> р.
+    </td>
+</tr>
+<% }) %>
+</tbody>

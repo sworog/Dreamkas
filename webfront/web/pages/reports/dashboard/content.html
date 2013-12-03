@@ -9,23 +9,40 @@
 <h2>Продажи по часам. Магазин № <%- models.store.get('number') %></h2>
 
 <% if (models.storeGrossSalesByHour.get('today').length) { %>
-<%= templates.table_storeGrossSalesByHour({
-    models: _.pick(models, 'storeGrossSalesByHour')
-}) %>
+<table class="table table_storeGrossSalesByHour">
+    <%= templates.table_storeGrossSalesByHour({
+        models: _.pick(models, 'storeGrossSalesByHour')
+    }) %>
+</table>
 <% } else { %>
-    <p>Нет данных</p>
+<p>Нет данных</p>
 <% } %>
 <% } %>
-
 <% if (collections.grossSalesByStores) { %>
 
 <h2>Продажи по магазинам</h2>
 
 <% if (collections.grossSalesByStores.length) { %>
-<%= templates.table_grossSalesByStores({
-    collections: _.pick(collections, 'grossSalesByStores')
-}) %>
+<table class="table table_grossSalesByStores">
+    <thead>
+        <th>
+            Вчера
+        </th>
+        <th>
+            Позавчера
+        </th>
+        <th>
+            Неделю назад
+        </th>
+    </thead>
+    <tbody>
+    <% _.forEach(function(){})%>
+        <tr>
+
+        </tr>
+    </tbody>
+</table>
 <% } else { %>
-    <p>Нет данных</p>
+<p>Нет данных</p>
 <% } %>
 <% } %>
