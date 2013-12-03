@@ -76,11 +76,29 @@ define(function(require) {
                 //block.removeBlocks();
 
                 block.el.innerHTML = block.template(block);
-                $(block.el).require();
+                block.requireBlocks();
 
                 block.findElements();
 
                 return block;
+            },
+            requireBlocks: function() {
+
+                var block = this,
+                    $elements = block.$('[require]');
+
+                $elements.each(function() {
+                    var el = this,
+                        url = $(el).attr('require');
+
+                    require([url], function(Module) {
+                        new Module({
+                            el: el
+                        });
+
+                        $(el).removeAttr('require');
+                    });
+                });
             },
             findElements: function() {
                 var block = this,
