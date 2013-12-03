@@ -11,7 +11,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
 
-public class PrepareFixtureSteps {
+public class GivenPrepareFixtureSteps {
 
     @Steps
     ConsoleCommandSteps consoleCommandSteps;
