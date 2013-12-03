@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStores;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
+use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportByHours;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportCollection;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportNow;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
@@ -68,7 +69,7 @@ class ReportController extends FOSRestController
         $yesterdayReports = $this->storeGrossSalesRepository->findByStoreAndDateLimitDayHour($store, $time . " -1 day");
         $weekAgoReports = $this->storeGrossSalesRepository->findByStoreAndDateLimitDayHour($store, $time . " -1 week");
 
-        $return = new GrossSalesByStores($todayReports, $yesterdayReports, $weekAgoReports, $time);
+        $return = new StoreGrossSalesReportByHours($todayReports, $yesterdayReports, $weekAgoReports, $time);
         return $return;
     }
 

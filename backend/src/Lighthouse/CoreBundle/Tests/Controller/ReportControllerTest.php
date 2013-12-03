@@ -1376,8 +1376,9 @@ class ReportControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByStore()
     {
+        $this->markTestSkipped('expected values are not calculated');
         $storeIds = $this->factory->getStores(array('1', '2', '3'));
-        // create store managers to be sure they would not get in serializion
+        // create store managers to be sure they would not get in serialization
         $this->factory->getStoreManager($storeIds['1']);
         $this->factory->getDepartmentManager($storeIds['1']);
 
@@ -1479,6 +1480,114 @@ class ReportControllerTest extends WebTestCase
         $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
 
         $this->factory->flush();
+
+        $storeGrossSalesReportService = $this->getGrossSalesReportService();
+        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
+
+        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/reports/grossSalesByStores',
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        $expectedEmptyResponse = array(
+            array(
+                'store' => array(
+                    'id' => $storeIds['1'],
+                    'number' => '1',
+                    'address' => '1',
+                    'contacts' => '1',
+                    'departments' => array(),
+                    'storeManagers' => array(),
+                    'departmentManagers' => array(),
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'twoDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'eightDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+            ),
+            array(
+                'store' => array(
+                    'id' => $storeIds['2'],
+                    'number' => '2',
+                    'address' => '2',
+                    'contacts' => '2',
+                    'departments' => array(),
+                    'storeManagers' => array(),
+                    'departmentManagers' => array(),
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'twoDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'eightDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+            ),
+            array(
+                'store' => array(
+                    'id' => $storeIds['3'],
+                    'number' => '3',
+                    'address' => '3',
+                    'contacts' => '3',
+                    'departments' => array(),
+                    'storeManagers' => array(),
+                    'departmentManagers' => array(),
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'twoDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'eightDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+            ),
+        );
+
+        $this->assertEquals($expectedEmptyResponse, $response);
+        $this->assertSame($expectedEmptyResponse, $response);
+    }
+
+    public function testGetStoreGrossSalesByStoreEmpty()
+    {
+        $storeIds = $this->factory->getStores(array('1', '2', '3'));
+        // create store managers to be sure they would not get in serialization
+        $this->factory->getStoreManager($storeIds['1']);
+        $this->factory->getDepartmentManager($storeIds['1']);
+
+        $productIds = $this->createProductsBySku(array('1', '2', '3', '4'));
 
         $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
