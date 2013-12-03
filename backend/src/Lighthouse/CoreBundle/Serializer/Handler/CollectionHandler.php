@@ -95,7 +95,7 @@ class CollectionHandler
         array $type,
         Context $context
     ) {
-        $visitor->visitArray($collection->toArray(), $type, $context);
+        return $visitor->visitArray($collection->toArray(), $type, $context);
     }
 
     /**

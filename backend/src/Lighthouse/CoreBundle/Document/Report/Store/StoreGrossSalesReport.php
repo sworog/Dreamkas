@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @property string     $id
@@ -23,6 +24,7 @@ class StoreGrossSalesReport extends AbstractDocument
 {
     /**
      * @MongoDB\Id(strategy="NONE")
+     * @Exclude
      * @var string
      */
     protected $id;
@@ -50,6 +52,7 @@ class StoreGrossSalesReport extends AbstractDocument
      *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
      *     simple=true
      * )
+     * @Exclude
      * @var Store
      */
     protected $store;

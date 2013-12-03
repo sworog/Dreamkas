@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\FOSRestController;
+use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportByHours;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportCollection;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportNow;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
@@ -40,5 +41,25 @@ class ReportController extends FOSRestController
         $ids = $this->storeGrossSalesRepository->getIdsByStoreAndDateArray($store, $dates);
         $response =  new StoreGrossSalesReportNow($collection, $dates, $ids);
         return $response;
+    }
+
+    /**
+     * @param Store $store
+     * @param Request $request
+     * @return StoreGrossSalesReportByHours
+     *
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @Rest\Route("stores/{store}/reports/grossSalesByHours")
+     * @ApiDoc
+     */
+    public function getStoreReportsGrossSalesByHoursAction(Store $store, Request $request)
+    {
+        $time = $request->get('time', 'now');
+        $todayReports = $this->storeGrossSalesRepository->findByStoreAndDateLimitDayHour($store, $time);
+        $yesterdayReports = $this->storeGrossSalesRepository->findByStoreAndDateLimitDayHour($store, $time . " -1 day");
+        $weekAgoReports = $this->storeGrossSalesRepository->findByStoreAndDateLimitDayHour($store, $time . " -1 week");
+
+        $return = new StoreGrossSalesReportByHours($todayReports, $yesterdayReports, $weekAgoReports);
+        return $return;
     }
 }

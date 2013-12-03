@@ -8,6 +8,7 @@ use DateTime;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use MongoId;
 
 class StoreGrossSalesRepository extends DocumentRepository
 {
@@ -23,17 +24,18 @@ class StoreGrossSalesRepository extends DocumentRepository
     }
 
     /**
-     * @param string $storeId
+     * @param Store $store
      * @param DateTime $dayHour
      * @param int $runningSum
      * @param int $hourSum
      */
-    public function updateStoreDayHourGrossSales($storeId, DateTime $dayHour, $runningSum, $hourSum)
+    public function updateStoreDayHourGrossSales(Store $store, DateTime $dayHour, $runningSum, $hourSum)
     {
-        $reportId = $this->getIdByStoreIdAndDayHour($storeId, $dayHour);
+        $reportId = $this->getIdByStoreIdAndDayHour($store->id, $dayHour);
 
         $report = new StoreGrossSalesReport();
         $report->id = $reportId;
+        $report->store = $store;
         $report->dayHour = $dayHour;
         $report->runningSum = new Money($runningSum);
         $report->hourSum = new Money($hourSum);
@@ -125,5 +127,28 @@ class StoreGrossSalesRepository extends DocumentRepository
         }
 
         return $ids;
+    }
+
+    /**
+     * Поиск записей с начала дня и до текущего часа в дате
+     * @param Store $store
+     * @param $date
+     * @return StoreGrossSalesReportCollection
+     */
+    public function findByStoreAndDateLimitDayHour(Store $store, $date)
+    {
+        $date = new DateTimestamp($date);
+        $date->modify("-1 hour");
+        $startDate = clone $date;
+        $startDate->setTime(0, 0, 0);
+
+        $query = $this->createQueryBuilder()
+            ->field('store')->references($store)
+            ->field('dayHour')->gte($startDate->getMongoDate())
+            ->field('dayHour')->lte($date->getMongoDate())
+            ->getQuery();
+
+        $result = $query->execute();
+        return new StoreGrossSalesReportCollection($result);
     }
 }

@@ -540,6 +540,8 @@ class ReportControllerTest extends WebTestCase
         $storeId = $this->factory->getStore();
         $accessToken = $this->factory->authAsStoreManager($storeId);
 
+        $storeOtherId = $this->factory->getStore("other");
+
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
         $product3Id = $this->createProduct('3');
@@ -776,6 +778,35 @@ class ReportControllerTest extends WebTestCase
 
         $this->factory->createSales($sales);
 
+
+        $salesInOtherStore = array(
+            array(
+                'storeId' => $storeOtherId,
+                'createDate' => "8:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+        );
+
+        $this->factory->createSales($salesInOtherStore);
+
+
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
 
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
@@ -790,124 +821,94 @@ class ReportControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $expectedYesterday = array(
+        $expectedYesterday = $expectedWeekAgo = array();
+
+        for ($i = 0; $i <= 7; $i++) {
+            $expectedYesterday[$i] = array(
+                'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 0{$i}:00")),
+                'runningSum' => 0,
+                'hourSum' => 0,
+            );
+            $expectedWeekAgo[$i] = array(
+                'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 0{$i}:00")),
+                'runningSum' => 0,
+                'hourSum' => 0,
+            );
+        }
+        $expectedYesterday += array(
             8 => array(
-                'date' => date(DateTime::ISO8601, strtotime("08:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 08:00")),
                 'runningSum' => 603.53,
                 'hourSum' => 603.53,
             ),
             9 => array(
-                'date' => date(DateTime::ISO8601, strtotime("09:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 09:00")),
                 'runningSum' => 1207.06,
                 'hourSum' => 603.53,
             ),
-            10 => array(
-                'date' => date(DateTime::ISO8601, strtotime("10:00")),
-                'runningSum' => 1810.59,
-                'hourSum' => 603.53,
-            ),
-            11 => array(
-                'date' => date(DateTime::ISO8601, strtotime("11:00")),
-                'runningSum' => 0,
-                'hourSum' => 0,
-            ),
         );
-        $expectedWeekAgo = array(
+        $expectedWeekAgo += array(
             8 => array(
-                'date' => date(DateTime::ISO8601, strtotime("08:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 08:00")),
                 'runningSum' => 603.53,
                 'hourSum' => 603.53,
             ),
             9 => array(
-                'date' => date(DateTime::ISO8601, strtotime("09:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 09:00")),
                 'runningSum' => 1309.06,
                 'hourSum' => 705.53,
             ),
-            10 => array(
-                'date' => date(DateTime::ISO8601, strtotime("10:00")),
-                'runningSum' => 1912.59,
-                'hourSum' => 603.53,
-            ),
-            11 => array(
-                'date' => date(DateTime::ISO8601, strtotime("11:00")),
-                'runningSum' => 1912.59,
-                'hourSum' => 0,
-            ),
         );
-        for ($i = 0; $i <= 7; $i++) {
-            $expectedYesterday[$i] = array(
-                'date' => date(DateTime::ISO8601, strtotime(printf("-1 day %2d:00", $i))),
-                'runningSum' => 0,
-                'hourSum' => 0,
-            );
-            $expectedWeekAgo[$i] = array(
-                'date' => date(DateTime::ISO8601, strtotime(printf("-1 week %2d:00", $i))),
-                'runningSum' => 0,
-                'hourSum' => 0,
-            );
-        }
-        for ($i = 11; $i <= 23; $i++) {
-            $expectedYesterday[$i] = array(
-                'date' => date(DateTime::ISO8601, strtotime(printf("-1 day %2d:00", $i))),
-                'runningSum' => 1810.59,
-                'hourSum' => 0,
-            );
-            $expectedWeekAgo[$i] = array(
-                'date' => date(DateTime::ISO8601, strtotime(printf("-1 week %2d:00", $i))),
-                'runningSum' => 1912.59,
-                'hourSum' => 0,
-            );
-        }
 
         $expected = array(
             'today' => array(
                 0 => array(
-                    'date' => date(DateTime::ISO8601, strtotime("00:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime("00:00")),
                     'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 1 => array(
-                    'date' => date(DateTime::ISO8601, strtotime("01:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime("01:00")),
                     'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 2 => array(
-                    'date' => date(DateTime::ISO8601, strtotime("02:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime("02:00")),
                     'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 3 => array(
-                    'date' => date(DateTime::ISO8601, strtotime("03:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime("03:00")),
                     'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 4 => array(
-                    'date' => date(DateTime::ISO8601, strtotime("04:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime("04:00")),
                     'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 5 => array(
-                    'date' => date(DateTime::ISO8601, strtotime("05:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime("05:00")),
                     'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 6 => array(
-                    'date' => date(DateTime::ISO8601, strtotime("06:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime("06:00")),
                     'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 7 => array(
-                    'date' => date(DateTime::ISO8601, strtotime("07:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime("07:00")),
                     'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 8 => array(
-                    'date' => date(DateTime::ISO8601, strtotime("08:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime("08:00")),
                     'runningSum' => 603.53,
                     'hourSum' => 603.53,
                 ),
                 9 => array(
-                    'date' => date(DateTime::ISO8601, strtotime("09:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime("09:00")),
                     'runningSum' => 1207.06,
                     'hourSum' => 603.53,
                 ),
