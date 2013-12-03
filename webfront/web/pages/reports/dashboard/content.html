@@ -1,6 +1,6 @@
 <% var templates = {
     table_storeGrossSalesByHour: require('tpl!blocks/table/table_storeGrossSalesByHour/table_storeGrossSalesByHour.html')
-}%>
+} %>
 
 <h1>Отчеты</h1>
 
@@ -15,5 +15,17 @@
 <% } else { %>
     <p>Нет данных</p>
 <% } %>
+<% } %>
 
+<% if (collections.grossSalesByStores) { %>
+
+<h2>Продажи по магазинам</h2>
+
+<% if (collections.grossSalesByStores.length) { %>
+<%= templates.table_grossSalesByStores({
+    collections: _.pick(collections, 'grossSalesByStores')
+}) %>
+<% } else { %>
+    <p>Нет данных</p>
+<% } %>
 <% } %>

@@ -2,6 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         StoreGrossSalesByHourModel = require('models/storeGrossSalesByHours'),
+        GrossSalesByStores = require('models/grossSalesByStores'),
         currentUserModel = require('models/currentUser');
 
     require('jquery');
@@ -10,9 +11,6 @@ define(function(require, exports, module) {
         __name__: module.id,
         partials: {
             '#content': require('tpl!./content.html')
-        },
-        permissions: function(){
-            return !(LH.isAllow('stores', 'GET::{store}/reports/grossSalesByHours') && currentUserModel.stores.length);
         },
         models: {
             storeGrossSalesByHour: function(){
@@ -26,20 +24,39 @@ define(function(require, exports, module) {
                 return storeGrossSalesByHourModel;
             }
         },
+        collections: {
+            grossSalesByStores: function(){
+                var GrossSalesByStores = null;
+
+                if (LH.isAllow('reports', 'GET::grossSalesByStores')){
+                    GrossSalesByStores = new GrossSalesByStores();
+                }
+
+                return GrossSalesByStores;
+            }
+        },
         initialize: function(){
             var page = this,
-                initData = [];
+                fetchData = [];
 
             page.models = {
                 storeGrossSalesByHour: page.models.storeGrossSalesByHour(),
-                store: currentUserModel.stores.at(0)
+                store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
+            };
+
+            page.collections = {
+                grossSalesByStores: page.collections.grossSalesByStores()
             };
 
             if (page.models.storeGrossSalesByHour){
-                initData.push(page.models.storeGrossSalesByHour.fetch());
+                fetchData.push(page.models.storeGrossSalesByHour.fetch());
             }
 
-            $.when.apply($, initData).done(function(){
+            if (page.collections.grossSalesByStores){
+                fetchData.push(page.collections.grossSalesByStores.fetch());
+            }
+
+            $.when.apply($, fetchData).done(function(){
                 page.render();
             });
         }

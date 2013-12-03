@@ -29,9 +29,7 @@
     <a href="/stores">Магазины</a>
     <% } %>
 
-    <% if(LH.isAllow('stores', 'GET::{store}/reports/grossSalesByHours') && currentUserModel.stores.length){ %>
     <a href="/reports">Отчеты</a>
-    <% } %>
 
     <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
     <a href="/stores/<%- currentUserModel.stores.at(0).id %>">Мой магазин</a>
