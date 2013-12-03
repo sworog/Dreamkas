@@ -1,3 +1,7 @@
+<% var templates = {
+    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.html')
+} %>
+
 <div class="form__field form__field_inline">
     <label class="form__label">Минимальная наценка</label>
     <input value="<%- model.get('retailMarkupMin') %>" class="inputText" type="text" name="retailMarkupMin"/>
@@ -10,7 +14,11 @@
 </div>
 <div class="form__field form__field_inline">
     <label class="form__label">Округление</label>
-    <select class="select" value="<%- model.get('rounding').name %>" name="rounding.name" require="blocks/select/select_priceRoundings/select_priceRoundings"></select>
+    <select class="select select_priceRoundings" name="rounding.name">
+        <%= templates.select_priceRoundings({
+            selected: model.get('rounding').name
+        }) %>
+    </select>
 </div>
 <div class="form__controls">
     <span lh-button class="button">

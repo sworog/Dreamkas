@@ -2,8 +2,6 @@ define(function(require) {
     //requirements
     var Form = require('kit/blocks/form/form');
 
-    require('blocks/select/select_userRole/select_userRole');
-
     return Form.extend({
         __name__: 'form_user',
         redirectUrl: '/users',
