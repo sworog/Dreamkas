@@ -221,14 +221,14 @@ class Decimal implements Numeric, RawValue
     }
 
     /**
-     * @param float|string $float
+     * @param float|string $numeric
      * @param int $precision
      * @param int $roundMode
      * @return Decimal
      */
-    public static function createFromNumeric($float, $precision, $roundMode = self::ROUND_HALF_UP)
+    public static function createFromNumeric($numeric, $precision, $roundMode = self::ROUND_HALF_UP)
     {
-        $result = bcmul((string) $float, static::getDivider($precision), $precision + 1);
+        $result = bcmul((string) $numeric, static::getDivider($precision), $precision + 1);
         $count = (int) static::round($result, 0, $roundMode);
         return new static($count, $precision);
     }
