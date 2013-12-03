@@ -59,7 +59,7 @@ class ReportController extends FOSRestController
         $yesterdayReports = $this->storeGrossSalesRepository->findByStoreAndDateLimitDayHour($store, $time . " -1 day");
         $weekAgoReports = $this->storeGrossSalesRepository->findByStoreAndDateLimitDayHour($store, $time . " -1 week");
 
-        $return = new StoreGrossSalesReportByHours($todayReports, $yesterdayReports, $weekAgoReports);
+        $return = new StoreGrossSalesReportByHours($todayReports, $yesterdayReports, $weekAgoReports, $time);
         return $return;
     }
 }
