@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Service\StoreGrossSalesReportService;
-use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use DateTime;
 
@@ -30,7 +29,7 @@ class ReportControllerTest extends WebTestCase
         $sales = array(
             array(
                 'storeId' => $storeId,
-                'createDate' => "8:01",
+                'createdDate' => "8:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -52,7 +51,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "9:01",
+                'createdDate' => "9:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -74,7 +73,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "10:01",
+                'createdDate' => "10:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -96,74 +95,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "11:01",
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-
-            array(
-                'storeId' => $storeId,
-                'createDate' => '-1 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createDate' => "-1 days 9:01",
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createDate' => "-1 days 10:01",
+                'createdDate' => "11:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -186,7 +118,7 @@ class ReportControllerTest extends WebTestCase
 
             array(
                 'storeId' => $storeId,
-                'createDate' => "-7 days 8:01",
+                'createdDate' => '-1 days 8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -208,7 +140,74 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "-7 days 9:01",
+                'createdDate' => "-1 days 9:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createdDate' => "-1 days 10:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+
+            array(
+                'storeId' => $storeId,
+                'createdDate' => "-7 days 8:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createdDate' => "-7 days 9:01",
                 'sumTotal' => 705.53,
                 'positions' => array(
                     array(
@@ -235,7 +234,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "-7 days 10:01",
+                'createdDate' => "-7 days 10:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -420,7 +419,7 @@ class ReportControllerTest extends WebTestCase
         $sales = array(
             array(
                 'storeId' => $storeId,
-                'createDate' => "7:25",
+                'createdDate' => "7:25",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -442,7 +441,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "-1 days 8:01",
+                'createdDate' => "-1 days 8:01",
                 'sumTotal' => 325.74,
                 'positions' => array(
                     array(
@@ -464,7 +463,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "-1 week 9:01",
+                'createdDate' => "-1 week 9:01",
                 'sumTotal' => 846.92,
                 'positions' => array(
                     array(
@@ -549,7 +548,7 @@ class ReportControllerTest extends WebTestCase
         $sales = array(
             array(
                 'storeId' => $storeId,
-                'createDate' => "8:01",
+                'createdDate' => "8:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -571,7 +570,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "9:01",
+                'createdDate' => "9:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -593,7 +592,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "10:01",
+                'createdDate' => "10:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -615,74 +614,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "11:01",
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-
-            array(
-                'storeId' => $storeId,
-                'createDate' => '-1 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createDate' => "-1 days 9:01",
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createDate' => "-1 days 10:01",
+                'createdDate' => "11:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -705,7 +637,7 @@ class ReportControllerTest extends WebTestCase
 
             array(
                 'storeId' => $storeId,
-                'createDate' => "-7 days 8:01",
+                'createdDate' => '-1 days 8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -727,7 +659,74 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "-7 days 9:01",
+                'createdDate' => "-1 days 9:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createdDate' => "-1 days 10:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+
+            array(
+                'storeId' => $storeId,
+                'createdDate' => "-7 days 8:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+            array(
+                'storeId' => $storeId,
+                'createdDate' => "-7 days 9:01",
                 'sumTotal' => 705.53,
                 'positions' => array(
                     array(
@@ -754,7 +753,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "-7 days 10:01",
+                'createdDate' => "-7 days 10:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -782,7 +781,7 @@ class ReportControllerTest extends WebTestCase
         $salesInOtherStore = array(
             array(
                 'storeId' => $storeOtherId,
-                'createDate' => "8:01",
+                'createdDate' => "8:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -988,7 +987,7 @@ class ReportControllerTest extends WebTestCase
         $sales = array(
             array(
                 'storeId' => $storeId,
-                'createDate' => "8:01",
+                'createdDate' => "8:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1010,7 +1009,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "9:01",
+                'createdDate' => "9:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1032,7 +1031,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "10:01",
+                'createdDate' => "10:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1054,7 +1053,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "11:01",
+                'createdDate' => "11:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1077,7 +1076,7 @@ class ReportControllerTest extends WebTestCase
 
             array(
                 'storeId' => $storeId,
-                'createDate' => "-7 days 8:01",
+                'createdDate' => "-7 days 8:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1099,7 +1098,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "-7 days 9:01",
+                'createdDate' => "-7 days 9:01",
                 'sumTotal' => 705.53,
                 'positions' => array(
                     array(
@@ -1126,7 +1125,7 @@ class ReportControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "-7 days 10:01",
+                'createdDate' => "-7 days 10:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1154,7 +1153,7 @@ class ReportControllerTest extends WebTestCase
         $salesInOtherStore = array(
             array(
                 'storeId' => $storeOtherId,
-                'createDate' => "8:01",
+                'createdDate' => "8:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1307,7 +1306,7 @@ class ReportControllerTest extends WebTestCase
         $salesInOtherStore = array(
             array(
                 'storeId' => $storeOtherId,
-                'createDate' => "8:01",
+                'createdDate' => "8:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(

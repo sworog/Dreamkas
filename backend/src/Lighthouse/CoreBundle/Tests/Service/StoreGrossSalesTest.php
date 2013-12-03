@@ -18,7 +18,7 @@ class StoreGrossSalesTest extends WebTestCase
         $sales = array(
             array(
                 'storeId' => $storeId,
-                'createDate' => '-1 days 8:01',
+                'createdDate' => '-1 days 8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -40,7 +40,7 @@ class StoreGrossSalesTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createDate' => "-1 days 9:01",
+                'createdDate' => "-1 days 9:01",
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -63,7 +63,7 @@ class StoreGrossSalesTest extends WebTestCase
 
             array(
                 'storeId' => $storeId,
-                'createDate' => "-1 days 10:01",
+                'createdDate' => "-1 days 10:01",
                 'sumTotal' => 298.68,
                 'positions' => array(
                     array(
