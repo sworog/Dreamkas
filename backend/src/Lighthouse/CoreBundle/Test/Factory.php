@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -12,6 +13,9 @@ use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\Client;
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use DateTime;
@@ -367,6 +371,19 @@ class Factory
     }
 
     /**
+     * @param array $numbers
+     * @return array number => storeId
+     */
+    public function getStores(array $numbers)
+    {
+        $storeIds = array();
+        foreach ($numbers as $number) {
+            $storeIds[$number] = $this->getStore($number);
+        }
+        return $storeIds;
+    }
+
+    /**
      * @param string $storeId
      * @return string
      */
@@ -384,44 +401,105 @@ class Factory
         return sprintf('http://localhost/api/1/users/%s', $userId);
     }
 
+    /**
+     * @param array $sales
+     * @return Sale[]
+     */
     public function createSales(array $sales)
     {
-        $storeRepository = $this->container->get('lighthouse.core.document.repository.store');
-        /** @var VersionRepository $productVersionRepository */
-        $productVersionRepository = $this->container->get('lighthouse.core.document.repository.product_version');
-        $numericFactory = $this->container->get('lighthouse.core.types.numeric.factory');
-        $documentManager = $this->dm;
+        $self = $this;
         $saleModels = array_map(
-            function ($sale) use ($numericFactory, $productVersionRepository, $storeRepository, $documentManager) {
-                $saleModel = new Sale();
-                $saleModel->createdDate = DateTime::createFromFormat(
-                    DateTime::ISO8601,
-                    date('c', strtotime($sale['createDate']))
-                );
-                $saleModel->store = $storeRepository->find($sale['storeId']);
-                $saleModel->hash = md5(rand() . $sale['storeId']);
-                $saleModel->sumTotal = $numericFactory->createMoney($sale['sumTotal']);
+            function ($sale) use ($self) {
+                $saleModel = $self->createSale($sale['storeId'], $sale['createdDate'], $sale['sumTotal']);
                 array_map(
-                    function ($position) use ($saleModel, $numericFactory, $productVersionRepository) {
-                        $positionModel = new SaleProduct();
-                        $positionModel->price = $numericFactory->createMoney($position['price']);
-                        $positionModel->quantity = $numericFactory->createQuantity($position['quantity']);
-                        $positionModel->product = $productVersionRepository
-                            ->findOrCreateByDocumentId($position['productId']);
-                        $saleModel->products->add($positionModel);
+                    function ($position) use ($self, $saleModel) {
+                        $self->createSaleProduct(
+                            $position['price'],
+                            $position['quantity'],
+                            $position['productId'],
+                            $saleModel
+                        );
                     },
                     $sale['positions']
                 );
-
-                $documentManager->persist($saleModel);
-
                 return $saleModel;
             },
             $sales
         );
 
-        $this->dm->flush();
+        $this->flush();
 
         return $saleModels;
+    }
+
+    public function flush()
+    {
+        $this->dm->flush();
+    }
+
+    /**
+     * @param string $storeId
+     * @param string $createdDate
+     * @param string $sumTotal
+     * @return Sale
+     */
+    public function createSale($storeId, $createdDate, $sumTotal)
+    {
+        $saleModel = new Sale();
+        $saleModel->createdDate = new DateTime($createdDate);
+        $saleModel->store = $this->dm->getReference(Store::getClassName(), $storeId);
+        $saleModel->hash = md5(rand() . $storeId);
+        $saleModel->sumTotal = $this->getNumericFactory()->createMoney($sumTotal);
+
+        $this->dm->persist($saleModel);
+
+        return $saleModel;
+    }
+    /**
+     * @param Money|string $price
+     * @param Decimal|float $quantity
+     * @param string $productId
+     * @param Sale $sale
+     * @return SaleProduct
+     */
+    public function createSaleProduct($price, $quantity, $productId, Sale $sale = null)
+    {
+        $saleProduct = new SaleProduct();
+        $saleProduct->price = $this->getNumericFactory()->createMoney($price);
+        $saleProduct->quantity = $this->getNumericFactory()->createQuantity($quantity);
+        $saleProduct->product = $this->createProductVersion($productId);
+        if ($sale) {
+            $saleProduct->sale = $sale;
+            $sale->products->add($saleProduct);
+        }
+
+        $this->dm->persist($saleProduct);
+
+        return $saleProduct;
+    }
+
+    /**
+     * @param string $productId
+     * @return ProductVersion
+     */
+    public function createProductVersion($productId)
+    {
+        return $this->getProductVersionRepository()->findOrCreateByDocumentId($productId);
+    }
+
+    /**
+     * @return NumericFactory
+     */
+    protected function getNumericFactory()
+    {
+        return $this->container->get('lighthouse.core.types.numeric.factory');
+    }
+
+    /**
+     * @return VersionRepository
+     */
+    protected function getProductVersionRepository()
+    {
+        return $this->container->get('lighthouse.core.document.repository.product_version');
     }
 }
