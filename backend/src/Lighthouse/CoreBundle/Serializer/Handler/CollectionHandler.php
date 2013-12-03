@@ -88,6 +88,7 @@ class CollectionHandler
      * @param AbstractCollection $collection
      * @param array $type
      * @param Context $context
+     * @return array|\ArrayObject|mixed
      */
     public function serializeCollectionToJson(
         JsonSerializationVisitor $visitor,

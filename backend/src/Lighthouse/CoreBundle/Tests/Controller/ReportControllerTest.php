@@ -1373,4 +1373,206 @@ class ReportControllerTest extends WebTestCase
 
         $this->assertEquals($expected, $response);
     }
+
+    public function testGetStoreGrossSalesByStore()
+    {
+        $storeIds = $this->factory->getStores(array('1', '2', '3'));
+        // create store managers to be sure they would not get in serializion
+        $this->factory->getStoreManager($storeIds['1']);
+        $this->factory->getDepartmentManager($storeIds['1']);
+
+        $productIds = $this->createProductsBySku(array('1', '2', '3', '4'));
+
+        // today, should not be counted
+        $sale = $this->factory->createSale($storeIds['1'], '8:01', 408.09);
+        $this->factory->createSaleProduct(34.77, 3, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 4, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 2, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['2'], '8:12', 145.67);
+        $this->factory->createSaleProduct(34.77, 3, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 4, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 2, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['3'], '8:03', 145.67);
+        $this->factory->createSaleProduct(34.77, 3, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 4, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 2, $productIds['3'], $sale);
+
+        // yesterday
+        $sale = $this->factory->createSale($storeIds['1'], '-1 day 8:01', 145.67);
+        $this->factory->createSaleProduct(34.77, 6, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 10, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['2'], '-1 day 8:12', 145.67);
+        $this->factory->createSaleProduct(34.77, 5, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 3, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 19, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['3'], '-1 day 8:03', 145.67);
+        $this->factory->createSaleProduct(34.77, 6, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 6, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
+
+        // 2 days ago,
+        $sale = $this->factory->createSale($storeIds['1'], '- 2 days 8:01', 145.67);
+        $this->factory->createSaleProduct(34.77, 5, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 5, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 5, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['2'], '-2 days 8:12', 145.67);
+        $this->factory->createSaleProduct(34.77, 4, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 6, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['3'], '-2 days 8:03', 145.67);
+        $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 14, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
+
+        // 7 days ago, should not be counted
+        $sale = $this->factory->createSale($storeIds['1'], '-7 days 8:01', 145.67);
+        $this->factory->createSaleProduct(34.77, 4, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 7, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 13, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['2'], '-7 days 8:12', 145.67);
+        $this->factory->createSaleProduct(34.77, 23, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 1, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 12, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['3'], '-7 days 8:03', 145.67);
+        $this->factory->createSaleProduct(34.77, 7, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 5, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
+
+        // 8 days ago
+        $sale = $this->factory->createSale($storeIds['1'], '-8 days 8:01', 145.67);
+        $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 6, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['2'], '-8 days 8:12', 145.67);
+        $this->factory->createSaleProduct(34.77, 8, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 10, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['3'], '-8 days 8:03', 145.67);
+        $this->factory->createSaleProduct(34.77, 11, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(64.79, 9, $productIds['3'], $sale);
+
+        // 9 days ago, should not be counted
+        $sale = $this->factory->createSale($storeIds['1'], '-9 days 10:01', 145.67);
+        $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 8, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['2'], '-9 days 14:12', 145.67);
+        $this->factory->createSaleProduct(34.77, 4, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 5, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 6, $productIds['3'], $sale);
+
+        $sale = $this->factory->createSale($storeIds['3'], '-9 days 16:03', 145.67);
+        $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
+        $this->factory->createSaleProduct(43.55, 1, $productIds['2'], $sale);
+        $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
+
+        $this->factory->flush();
+
+        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/reports/grossSalesByStores',
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        $expectedEmptyResponse = array(
+            array(
+                'store' => array(
+                    'id' => $storeIds['1'],
+                    'number' => '1',
+                    'address' => '1',
+                    'contacts' => '1',
+                    'departments' => array(),
+                    'storeManagers' => array(),
+                    'departmentManagers' => array(),
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'twoDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'eightDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+            ),
+            array(
+                'store' => array(
+                    'id' => $storeIds['2'],
+                    'number' => '2',
+                    'address' => '2',
+                    'contacts' => '2',
+                    'departments' => array(),
+                    'storeManagers' => array(),
+                    'departmentManagers' => array(),
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'twoDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'eightDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+            ),
+            array(
+                'store' => array(
+                    'id' => $storeIds['3'],
+                    'number' => '3',
+                    'address' => '3',
+                    'contacts' => '3',
+                    'departments' => array(),
+                    'storeManagers' => array(),
+                    'departmentManagers' => array(),
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'twoDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+                'eightDaysAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'runningSum' => 0,
+                    'hourSum' => 0,
+                ),
+            ),
+        );
+
+        $this->assertEquals($expectedEmptyResponse, $response);
+        $this->assertSame($expectedEmptyResponse, $response);
+    }
 }

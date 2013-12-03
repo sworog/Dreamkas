@@ -24,6 +24,23 @@ class StoreGrossSalesRepository extends DocumentRepository
     }
 
     /**
+     * @param DateTime $dayHour
+     * @param Store $store
+     * @return StoreGrossSalesReport
+     */
+    public function createByDayHourAndStore(DateTime $dayHour, Store $store)
+    {
+        $report = new StoreGrossSalesReport();
+        $report->id = $this->getIdByStoreIdAndDayHour($store->id, $dayHour);
+        $report->dayHour = $dayHour;
+        $report->store = $store;
+        $report->runningSum = new Money(0);
+        $report->hourSum = new Money(0);
+
+        return $report;
+    }
+
+    /**
      * @param string $storeId
      * @param DateTime $dayHour
      * @param int $runningSum
@@ -77,6 +94,15 @@ class StoreGrossSalesRepository extends DocumentRepository
             ->field('_id')->in(array_values($ids));
 
         return $query->getQuery()->execute();
+    }
+
+    /**
+     * @param DateTime[]|array $dates
+     * @return StoreGrossSalesReport[]|Cursor
+     */
+    public function findByDates(array $dates)
+    {
+        return $this->findBy(array('dayHour' => $dates));
     }
 
     /**
