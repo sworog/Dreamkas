@@ -22,7 +22,7 @@
     <tbody>
     <% _.forEach(todayData, function(data, index){ %>
     <tr name="storeGrossSalesByHourRow">
-        <td name="today.dayHour">
+        <td name="dayHour">
             <%- moment(data.dayHour).startOf('hour').format('HH:mm') %> &mdash; <%- moment(data.dayHour).startOf('hour').add('hours', 1).format('HH:mm') %>
         </td>
         <td name="today.hourSum">
