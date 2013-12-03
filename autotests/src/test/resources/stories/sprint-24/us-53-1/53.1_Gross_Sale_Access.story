@@ -1,5 +1,5 @@
 Meta:
-@sprint 25
+@sprint 24
 @us 53.1
 
 Narrative:
