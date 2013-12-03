@@ -12,4 +12,12 @@ public class MenuNavigationSteps extends ScenarioSteps {
     public void reportMenuItemClick() {
         menuNavigation.reportMenuItemClick();
     }
+
+    @Step
+    public void reportMenuItemIsNotVisible() {
+        try {
+            menuNavigation.reportMenuItemClick();
+        } catch (Exception ignored) {
+        }
+    }
 }

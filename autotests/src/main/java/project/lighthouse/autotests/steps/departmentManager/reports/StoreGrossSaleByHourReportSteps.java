@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.departmentManager;
+package project.lighthouse.autotests.steps.departmentManager.reports;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
@@ -8,9 +8,14 @@ import org.joda.time.DateTime;
 import project.lighthouse.autotests.fixtures.Us_53_2_Fixture;
 import project.lighthouse.autotests.pages.departmentManager.reports.StoreGrossSaleByHourReportPage;
 
-public class ReportsSteps extends ScenarioSteps {
+public class StoreGrossSaleByHourReportSteps extends ScenarioSteps {
 
     StoreGrossSaleByHourReportPage storeGrossSaleByHourReportPage;
+
+    @Step
+    public void openStoreGrossSaleByHourReportPage() {
+        storeGrossSaleByHourReportPage.open();
+    }
 
     @Step
     public void compareWithExampleTable() {
