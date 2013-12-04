@@ -19,17 +19,17 @@
 </thead>
 <tbody>
 <% collections.grossSalesByStores.forEach(function(storeGrossSaleModel) { %>
-<tr>
-    <td>
-        <%- storeGrossSaleModel.get('store').number %>
+<tr name="grossSalesByStoresRow">
+    <td name="store.number">
+        <%- storeGrossSaleModel.get('store.number') %>
     </td>
-    <td>
+    <td name="yesterday.runningSum">
         <%- LH.formatMoney(storeGrossSaleModel.get('yesterday.runningSum')) %> р.
     </td>
-    <td>
+    <td name="twoDaysAgo.runningSum">
         <%- LH.formatMoney(storeGrossSaleModel.get('twoDaysAgo.runningSum')) %> р.
     </td>
-    <td>
+    <td name="eightDaysAgo.runningSum">
         <%- LH.formatMoney(storeGrossSaleModel.get('eightDaysAgo.runningSum')) %> р.
     </td>
 </tr>
