@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.reports;
+package project.lighthouse.autotests.objects.web.reports.storeGrossSaleByHour;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
