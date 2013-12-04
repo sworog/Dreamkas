@@ -25,4 +25,12 @@ public class GivenFixturePrepareSteps {
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_55_2_fixture.prepareTwoDaysAgoDataForShop2().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_55_2_fixture.prepareEightDaysAgoDataForShop2().getPath());
     }
+
+    @Given("the user prepares data for us 55.2 story part two")
+    public void givenTheUserPreparesDataForUs552StoryPartTwo() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException, InterruptedException {
+        Us_55_2_Fixture us_55_2_fixture = new Us_55_2_Fixture();
+        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_55_2_fixture.prepareYesterdayDataForShop3().getPath());
+        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_55_2_fixture.prepareTwoDaysAgoDataForShop3().getPath());
+        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_55_2_fixture.prepareEightDaysAgoDataForShop3().getPath());
+    }
 }

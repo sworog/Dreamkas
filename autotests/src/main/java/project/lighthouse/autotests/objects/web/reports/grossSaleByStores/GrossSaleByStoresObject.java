@@ -33,4 +33,9 @@ public class GrossSaleByStoresObject extends AbstractObjectNode {
                 twoDaysAgoValue.equals(row.get("twoDaysAgoValue")) &&
                 eightDaysAgoValue.equals(row.get("eightDaysAgoValue"));
     }
+
+    @Override
+    public String getObjectLocator() {
+        return storeNumber;
+    }
 }
