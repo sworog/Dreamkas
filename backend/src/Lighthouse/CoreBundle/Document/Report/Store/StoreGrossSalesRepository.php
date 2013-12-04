@@ -3,12 +3,12 @@
 namespace Lighthouse\CoreBundle\Document\Report\Store;
 
 use Doctrine\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Proxy\Proxy;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use DateTime;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
-use MongoId;
 
 class StoreGrossSalesRepository extends DocumentRepository
 {
@@ -24,43 +24,54 @@ class StoreGrossSalesRepository extends DocumentRepository
     }
 
     /**
+     * @param Store $store
+     * @param DateTime $dayHour
+     * @return string
+     */
+    public function getIdByStoreAndDayHour(Store $store, DateTime $dayHour)
+    {
+        $storeId = $this->getClassMetadata()->getIdentifierValue($store);
+        return $this->getIdByStoreIdAndDayHour($storeId, $dayHour);
+    }
+
+    /**
      * @param DateTime $dayHour
      * @param Store $store
+     * @param Money $runningSum
+     * @param Money $hourSum
      * @return StoreGrossSalesReport
      */
-    public function createByDayHourAndStore(DateTime $dayHour, Store $store)
-    {
+    public function createByDayHourAndStore(
+        DateTime $dayHour,
+        Store $store,
+        Money $runningSum = null,
+        Money $hourSum = null
+    ) {
         $report = new StoreGrossSalesReport();
-        $report->id = $this->getIdByStoreIdAndDayHour($store->id, $dayHour);
+        $report->id = $this->getIdByStoreAndDayHour($store, $dayHour);
         $report->dayHour = $dayHour;
         $report->store = $store;
-        $report->runningSum = new Money(0);
-        $report->hourSum = new Money(0);
+        $report->runningSum = $runningSum ?: new Money(0);
+        $report->hourSum = $hourSum ?: new Money(0);
 
         return $report;
     }
 
     /**
-     * @param string $storeId
      * @param DateTime $dayHour
-     * @param int $runningSum
-     * @param int $hourSum
+     * @param string $storeId
+     * @param Money $runningSum
+     * @param Money $hourSum
+     * @return StoreGrossSalesReport
      */
-    public function updateStoreDayHourGrossSales($storeId, DateTime $dayHour, $runningSum, $hourSum)
-    {
-        $reportId = $this->getIdByStoreIdAndDayHour($storeId, $dayHour);
+    public function createByDayHourAndStoreId(
+        DateTime $dayHour,
+        $storeId,
+        Money $runningSum = null,
+        Money $hourSum = null
+    ) {
         $store = $this->dm->getReference(Store::getClassName(), $storeId);
-
-        $report = new StoreGrossSalesReport();
-        $report->id = $reportId;
-        $report->store = $store;
-        $report->dayHour = $dayHour;
-        $report->runningSum = new Money($runningSum);
-        $report->hourSum = new Money($hourSum);
-
-        $this->dm->persist($report);
-
-        $this->dm->flush();
+        return $this->createByDayHourAndStore($dayHour, $store, $runningSum, $hourSum);
     }
 
     /**
@@ -112,15 +123,7 @@ class StoreGrossSalesRepository extends DocumentRepository
      */
     protected function normalizeDates(array $dates)
     {
-        $queryDates = array_map(
-            function (DateTime $date) {
-                $queryDate = clone $date;
-                $queryDate->setTimezone(new \DateTimeZone('UTC'));
-                return $queryDate;
-            },
-            array_values($dates)
-        );
-        return $queryDates;
+        return array_values($dates);
     }
 
     /**
@@ -168,7 +171,7 @@ class StoreGrossSalesRepository extends DocumentRepository
     {
         $ids = array();
         foreach ($dates as $key => $value) {
-            $ids[$key] = $this->getIdByStoreIdAndDayHour($store->id, $value);
+            $ids[$key] = $this->getIdByStoreAndDayHour($store, $value);
         }
 
         return $ids;

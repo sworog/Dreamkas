@@ -221,6 +221,9 @@ class TrialBalanceRepository extends DocumentRepository
         return $query->getQuery()->execute();
     }
 
+    /**
+     * @return array
+     */
     public function calculateGrossSales()
     {
         if ($this->isCollectionEmpty()) {
@@ -228,7 +231,6 @@ class TrialBalanceRepository extends DocumentRepository
         }
 
         $datePeriod = new DatePeriod("-10 day 00:00", "+1 day 23:59:59");
-        $days = $datePeriod->diff()->days;
 
         $query = $this
             ->createQueryBuilder()

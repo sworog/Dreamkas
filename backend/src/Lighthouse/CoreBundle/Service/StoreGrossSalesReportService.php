@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 /**
  * @DI\Service("lighthouse.core.service.store.report.gross_sales")
@@ -55,19 +56,23 @@ class StoreGrossSalesReportService
     public function recalculateStoreGrossSalesReport()
     {
         $results = $this->trialBalanceRepository->calculateGrossSales();
+        $dm = $this->storeGrossSalesRepository->getDocumentManager();
         foreach ($results as $result) {
             $storeId = $result['_id']['store'];
             $day = DateTimestamp::createFromMongoDate($result['_id']['day']);
             foreach ($result['value'] as $hour => $grossSales) {
-                $day->setTime($hour, 0);
-                $this->storeGrossSalesRepository->updateStoreDayHourGrossSales(
+                $dayHour = clone $day;
+                $dayHour->setTime($hour, 0);
+                $report = $this->storeGrossSalesRepository->createByDayHourAndStoreId(
+                    $dayHour,
                     (string) $storeId,
-                    $day,
-                    $grossSales['runningSum'],
-                    $grossSales['hourSum']
+                    new Money($grossSales['runningSum']),
+                    new Money($grossSales['hourSum'])
                 );
+                $dm->persist($report);
             }
         }
+        $dm->flush();
 
         return count($results);
     }
