@@ -9,6 +9,7 @@ define(function(require) {
         if (typeof dictionaryList === 'string'){
             text = dictionaryList;
             dictionaryList = null;
+            args.splice(0, 1);
         } else {
             args.splice(0, 2);
         }

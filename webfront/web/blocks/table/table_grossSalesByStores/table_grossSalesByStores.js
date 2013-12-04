@@ -16,8 +16,8 @@ define(function(require, exports, module) {
                     $target = $(e.currentTarget),
                     modelKey = $target.data('sort-by');
 
+                block.ascending = (modelKey === block.sortBy) ? !block.ascending : false;
                 block.sortBy = modelKey;
-                block.ascending = !block.ascending;
 
                 block.collections.grossSalesByStores.comparator = function(model){
                     return block.ascending ? model.get(modelKey) : -model.get(modelKey);
