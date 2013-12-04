@@ -17,23 +17,6 @@ class Money extends Decimal implements Nullable
     }
 
     /**
-     * @param int  $count
-     * @param bool $round
-     * @return $this
-     */
-    public function setCount($count, $round = false)
-    {
-        if ($count instanceof self) {
-            $count = $count->getCount();
-        }
-        if ($round) {
-            $count = (int) RoundService::round($count);
-        }
-        $this->count = $count;
-        return $this;
-    }
-
-    /**
      * @return bool
      */
     public function isNull()
@@ -45,7 +28,7 @@ class Money extends Decimal implements Nullable
      * @param float|string $numeric
      * @param int $precision
      * @param int $roundMode
-     * @return Decimal
+     * @return Money
      */
     public static function createFromNumeric($numeric, $precision, $roundMode = self::ROUND_HALF_UP)
     {
