@@ -3,9 +3,9 @@ Meta:
 @us 53.2
 
 Narrative:
-As a user
-I want to perform an action
-So that I can achieve a business goal
+As a директор магазина
+I want to видеть сумму продаж своего магазина по часам в сравнении с суммой продаж по часам за вчера и за день неделю назад
+In order to понять в каком часу произошел провал продаж и принять меры на будущее.
 
 Scenario: The store gross sale by hour report dont contain data on current hour
 
