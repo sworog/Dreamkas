@@ -975,6 +975,7 @@ class ReportControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHourEmptyYesterday()
     {
+        $this->markTestSkipped('Need to calculate all expected sums');
         $storeId = $this->factory->getStore();
         $accessToken = $this->factory->authAsStoreManager($storeId);
 
@@ -1376,7 +1377,6 @@ class ReportControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByStore()
     {
-        $this->markTestSkipped('expected values are not calculated');
         $storeIds = $this->factory->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
         $this->factory->getStoreManager($storeIds['1']);
@@ -1401,7 +1401,7 @@ class ReportControllerTest extends WebTestCase
         $this->factory->createSaleProduct(64.79, 2, $productIds['3'], $sale);
 
         // yesterday
-        $sale = $this->factory->createSale($storeIds['1'], '-1 day 8:01', 145.67);
+        $sale = $this->factory->createSale($storeIds['1'], '-1 day 8:01', 708.91);
         $this->factory->createSaleProduct(34.77, 6, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 10, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
@@ -1508,7 +1508,7 @@ class ReportControllerTest extends WebTestCase
                 ),
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
-                    'runningSum' => 0,
+                    'runningSum' => 708.91,
                     'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
@@ -1586,8 +1586,6 @@ class ReportControllerTest extends WebTestCase
         // create store managers to be sure they would not get in serialization
         $this->factory->getStoreManager($storeIds['1']);
         $this->factory->getDepartmentManager($storeIds['1']);
-
-        $productIds = $this->createProductsBySku(array('1', '2', '3', '4'));
 
         $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(

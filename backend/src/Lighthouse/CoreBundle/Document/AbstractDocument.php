@@ -29,6 +29,19 @@ abstract class AbstractDocument
 
     /**
      * @param string $name
+     * @return bool
+     */
+    public function __isset($name)
+    {
+        if (property_exists($this, $name) && null !== $this->$name) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param string $name
      * @param mixed $value
      * @throws \Exception
      */

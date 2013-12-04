@@ -102,7 +102,25 @@ class StoreGrossSalesRepository extends DocumentRepository
      */
     public function findByDates(array $dates)
     {
-        return $this->findBy(array('dayHour' => $dates));
+        $queryDates = $this->normalizeDates($dates);
+        return $this->findBy(array('dayHour' => array('$in' => $queryDates)));
+    }
+
+    /**
+     * @param DateTime[] $dates
+     * @return DateTime[]
+     */
+    protected function normalizeDates(array $dates)
+    {
+        $queryDates = array_map(
+            function (DateTime $date) {
+                $queryDate = clone $date;
+                $queryDate->setTimezone(new \DateTimeZone('UTC'));
+                return $queryDate;
+            },
+            array_values($dates)
+        );
+        return $queryDates;
     }
 
     /**
