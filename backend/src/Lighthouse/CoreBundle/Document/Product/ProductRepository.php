@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Document\Product;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\PropertyAccess\PropertyAccess;

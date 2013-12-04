@@ -10,7 +10,6 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
-use Lighthouse\CoreBundle\Service\RoundService;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\DiExtraBundle\Annotation as DI;

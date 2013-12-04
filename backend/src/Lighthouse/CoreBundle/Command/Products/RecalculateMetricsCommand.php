@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Products;
 
-use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

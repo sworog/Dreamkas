@@ -119,6 +119,7 @@ class SalesImporter
         $batchSize = ($batchSize) ?: $this->batchSize;
         $dm = $this->productRepository->getDocumentManager();
 
+        /* @var PurchaseElement $purchaseElement */
         while ($purchaseElement = $parser->readNextElement()) {
             $count++;
             try {

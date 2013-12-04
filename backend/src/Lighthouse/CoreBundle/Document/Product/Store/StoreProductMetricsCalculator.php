@@ -1,8 +1,7 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Service;
+namespace Lighthouse\CoreBundle\Document\Product\Store;
 
-use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 

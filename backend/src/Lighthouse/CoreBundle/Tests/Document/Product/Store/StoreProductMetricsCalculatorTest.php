@@ -1,9 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Service;
+namespace Lighthouse\CoreBundle\Tests\Document\Product\Store;
 
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
-use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
@@ -15,7 +15,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
      */
     protected function createXmlBody()
     {
-        $templateFile = $this->getFixtureFilePath('Service/StoreProductMetricsCalculator/purchases.xml.tmpl');
+        $templateFile = $this->getFixtureFilePath('Integration/Set10/Import/Sales/purchases.xml.tmpl');
         $template = file_get_contents($templateFile);
         $processedTemplate  = preg_replace_callback(
             '/{{\s*(.+?)\s*}}/',
@@ -189,7 +189,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
             $this->assertStoreProduct($storeId, $product['id'], $assertions, $product['message']);
         }
 
-        /* @var StoreProductMetricsCalculator $metricsCalculator */
+        /* @var \Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator $metricsCalculator */
         $metricsCalculator = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $metricsCalculator->recalculateDailyAverageSales();
 

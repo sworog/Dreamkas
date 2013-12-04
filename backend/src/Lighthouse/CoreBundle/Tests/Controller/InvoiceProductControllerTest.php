@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;

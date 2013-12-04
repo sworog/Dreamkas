@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Command\Product;
 
 use Lighthouse\CoreBundle\Command\Products\RecalculateMetricsCommand;
-use Lighthouse\CoreBundle\Service\StoreProductMetricsCalculator;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -13,7 +13,7 @@ class RecalculateMetricsCommandTest extends TestCase
     {
         /* @var StoreProductMetricsCalculator|\PHPUnit_Framework_MockObject_MockObject $mock */
         $mock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Service\\StoreProductMetricsCalculator',
+            'Lighthouse\\CoreBundle\\Document\\Product\\Store\\StoreProductMetricsCalculator',
             array(),
             array(),
             '',
