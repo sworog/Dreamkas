@@ -5,17 +5,21 @@
  */
 %>
 
+<% var moment = require('moment') %>
+
 <thead>
 <th></th>
-<th data-sort-by="yesterday.runningSum">
-    Вчера
+<th>
+    <a data-sort-by="yesterday.runningSum">вчера</a>
 </th>
-<th data-sort-by="twoDaysAgo.runningSum">
-    Позавчера
+<th>
+    <a data-sort-by="twoDaysAgo.runningSum">позавчера</a>
 </th>
-<th data-sort-by="eightDaysAgo.runningSum">
-    Неделю назад
+<th>
+    <a data-sort-by="eightDaysAgo.runningSum">
+        <%- LH.getText('lastDay', moment(collections.grossSalesByStores.at(0).get('eightDaysAgo.dayHour')).day()) %></a>
 </th>
+
 </thead>
 <tbody>
 <% collections.grossSalesByStores.forEach(function(storeGrossSaleModel) { %>

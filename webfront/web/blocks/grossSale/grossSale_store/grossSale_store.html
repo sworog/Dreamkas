@@ -4,27 +4,7 @@
  * @models.storeGrossSales
  */
 %>
-<% var getText = require('kit/utils/getText') %>
-<% var dayStringDictionary = {
-    string: function(day) {
-        switch (day) {
-            case 1:
-                return 'прошлый понедельник';
-            case 2:
-                return 'прошлый вторник';
-            case 3:
-                return 'прошлую среду';
-            case 4:
-                return 'прошлый четверг';
-            case 5:
-                return 'прошлую пятницу';
-            case 6:
-                return 'прошлую субботу';
-            default:
-                return 'прошлое воскресение';
-        }
-    }
-} %>
+<% var moment = require('moment') %>
 
 <h2 class="grossSale__subTitle" style="padding-bottom: 0;">
     Объём продаж на <%- moment(models.storeGrossSales.get('today.now.date')).startOf('hour').format('HH:mm') %>
@@ -51,13 +31,13 @@
 <div class="grossSale__weekDiff" style="padding-bottom: 20px;">
 
     <% if (models.storeGrossSales.get('weekAgo.now.diff') === 0) { %>
-    Так же как в <%- getText(dayStringDictionary, 'string', moment(models.storeGrossSales.get('today.now.date')).day()) %>
+    Так же как в <%- LH.getText('lastDay', moment(models.storeGrossSales.get('today.now.date')).day()) %>
     <% } else if (models.storeGrossSales.get('weekAgo.now.diff')) { %>
     На
     <strong class="grossSale__diffText <%- models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'grossSale__diffText_plus' : 'grossSale__diffText_minus' %>">
         <%- Math.abs(models.storeGrossSales.get('weekAgo.now.diff')) %>%
         <%= models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'больше' : 'меньше' %></strong>, чем
-        в <%- getText(dayStringDictionary, 'string', moment(models.storeGrossSales.get('today.now.date')).day()) %>
+        в <%- LH.getText('lastDay', moment(models.storeGrossSales.get('today.now.date')).day()) %>
         (<%- LH.formatMoney(models.storeGrossSales.get('weekAgo.now.value')) %>)
     <% } %>
 </div>
@@ -75,7 +55,7 @@
     </tr>
     <tr class="grossSale__lastWeekValue">
         <td>
-            В <%- getText(dayStringDictionary, 'string', moment(models.storeGrossSales.get('today.now.date')).day()) %>
+            В <%- LH.getText('lastDay', moment(models.storeGrossSales.get('today.now.date')).day()) %>
         </td>
         <td>
             <%- LH.formatMoney(models.storeGrossSales.get('weekAgo.dayEnd.value')) %>
