@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Service\RoundService;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -280,7 +281,7 @@ class StoreProductRepository extends DocumentRepository
         $roundedMarkup = null;
         if (null !== $retailPrice && !$retailPrice->isNull() && null !== $purchasePrice) {
             $markup = (($retailPrice->getCount() / $purchasePrice->getCount()) * 100) - 100;
-            $roundedMarkup = RoundService::round($markup, 2);
+            $roundedMarkup = Decimal::createFromNumeric($markup, 2)->toNumber();
         }
         return $roundedMarkup;
     }
@@ -325,7 +326,7 @@ class StoreProductRepository extends DocumentRepository
      */
     public function updateAveragePurchasePrice($storeProductId, $averagePurchasePrice)
     {
-        $roundedAveragePurchasePrice = RoundService::round($averagePurchasePrice);
+        $roundedAveragePurchasePrice = Decimal::createFromNumeric($averagePurchasePrice, 0)->toNumber();
 
         $query = $this
             ->createQueryBuilder()

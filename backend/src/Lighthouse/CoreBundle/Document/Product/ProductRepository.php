@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Service\RoundService;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
@@ -84,7 +85,7 @@ class ProductRepository extends DocumentRepository
         $roundedMarkup = null;
         if (null !== $retailPrice && !$retailPrice->isNull() && null !== $purchasePrice && !$purchasePrice->isNull()) {
             $markup = (($retailPrice->getCount() / $purchasePrice->getCount()) * 100) - 100;
-            $roundedMarkup = RoundService::round($markup, 2);
+            $roundedMarkup = Decimal::createFromNumeric($markup, 2)->toNumber();
         }
         return $roundedMarkup;
     }
