@@ -1376,7 +1376,6 @@ class ReportControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByStore()
     {
-        $this->markTestSkipped('Need to calculate all expected sums');
         $storeIds = $this->factory->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
         $this->factory->getStoreManager($storeIds['1']);
@@ -1390,91 +1389,86 @@ class ReportControllerTest extends WebTestCase
         $this->factory->createSaleProduct(43.55, 4, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 2, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '8:12', 145.67);
+        $sale = $this->factory->createSale($storeIds['2'], '8:12', 0);
         $this->factory->createSaleProduct(34.77, 3, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 4, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 2, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '8:03', 145.67);
+        $sale = $this->factory->createSale($storeIds['3'], '8:03', 0);
         $this->factory->createSaleProduct(34.77, 3, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 4, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 2, $productIds['3'], $sale);
 
-        // yesterday
+        // yesterday, 3rd store has no sales
         $sale = $this->factory->createSale($storeIds['1'], '-1 day 8:01', 708.91);
         $this->factory->createSaleProduct(34.77, 6, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 10, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '-1 day 8:12', 145.67);
+        $sale = $this->factory->createSale($storeIds['2'], '-1 day 8:12', 1535.51);
         $this->factory->createSaleProduct(34.77, 5, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 3, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 19, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '-1 day 8:03', 145.67);
-        $this->factory->createSaleProduct(34.77, 6, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 6, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
-
         // 2 days ago,
-        $sale = $this->factory->createSale($storeIds['1'], '- 2 days 8:01', 145.67);
+        $sale = $this->factory->createSale($storeIds['1'], '- 2 days 8:01', 715.55);
         $this->factory->createSaleProduct(34.77, 5, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 5, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 5, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '-2 days 8:12', 145.67);
+        $sale = $this->factory->createSale($storeIds['2'], '-2 days 8:12', 594.75);
         $this->factory->createSaleProduct(34.77, 4, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 6, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '-2 days 8:03', 145.67);
+        $sale = $this->factory->createSale($storeIds['3'], '-2 days 8:03', 838.84);
         $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 14, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
 
         // 7 days ago, should not be counted
-        $sale = $this->factory->createSale($storeIds['1'], '-7 days 8:01', 145.67);
+        $sale = $this->factory->createSale($storeIds['1'], '-7 days 8:01', 0);
         $this->factory->createSaleProduct(34.77, 4, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 7, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 13, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '-7 days 8:12', 145.67);
+        $sale = $this->factory->createSale($storeIds['2'], '-7 days 8:12', 0);
         $this->factory->createSaleProduct(34.77, 23, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 1, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 12, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '-7 days 8:03', 145.67);
+        $sale = $this->factory->createSale($storeIds['3'], '-7 days 8:03', 0);
         $this->factory->createSaleProduct(34.77, 7, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 5, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
 
         // 8 days ago
-        $sale = $this->factory->createSale($storeIds['1'], '-8 days 8:01', 145.67);
+        $sale = $this->factory->createSale($storeIds['1'], '-8 days 8:01', 360.86);
         $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 6, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '-8 days 8:12', 145.67);
+        $sale = $this->factory->createSale($storeIds['2'], '-8 days 8:12', 748.43);
         $this->factory->createSaleProduct(34.77, 8, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 10, $productIds['2'], $sale);
         $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '-8 days 8:03', 145.67);
+        $sale = $this->factory->createSale($storeIds['3'], '-8 days 8:03', 965.58);
         $this->factory->createSaleProduct(34.77, 11, $productIds['1'], $sale);
         $this->factory->createSaleProduct(64.79, 9, $productIds['3'], $sale);
 
         // 9 days ago, should not be counted
-        $sale = $this->factory->createSale($storeIds['1'], '-9 days 10:01', 145.67);
+        $sale = $this->factory->createSale($storeIds['1'], '-9 days 10:01', 0);
         $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 8, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '-9 days 14:12', 145.67);
+        $sale = $this->factory->createSale($storeIds['2'], '-9 days 14:12', 0);
         $this->factory->createSaleProduct(34.77, 4, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 5, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 6, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '-9 days 16:03', 145.67);
+        $sale = $this->factory->createSale($storeIds['3'], '-9 days 16:03', 0);
         $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
         $this->factory->createSaleProduct(43.55, 1, $productIds['2'], $sale);
         $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
@@ -1513,12 +1507,12 @@ class ReportControllerTest extends WebTestCase
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
-                    'runningSum' => 0,
+                    'runningSum' => 715.55,
                     'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
-                    'runningSum' => 0,
+                    'runningSum' => 360.86,
                     'hourSum' => 0,
                 ),
             ),
@@ -1534,17 +1528,17 @@ class ReportControllerTest extends WebTestCase
                 ),
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
-                    'runningSum' => 0,
+                    'runningSum' => 1535.51,
                     'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
-                    'runningSum' => 0,
+                    'runningSum' => 594.75,
                     'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
-                    'runningSum' => 0,
+                    'runningSum' => 748.43,
                     'hourSum' => 0,
                 ),
             ),
@@ -1565,12 +1559,12 @@ class ReportControllerTest extends WebTestCase
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
-                    'runningSum' => 0,
+                    'runningSum' => 838.84,
                     'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
-                    'runningSum' => 0,
+                    'runningSum' => 965.58,
                     'hourSum' => 0,
                 ),
             ),
