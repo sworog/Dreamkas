@@ -2,19 +2,19 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Document\User\User;
-use Lighthouse\CoreBundle\Service\StoreGrossSalesReportService;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use DateTime;
 
 class ReportControllerTest extends WebTestCase
 {
     /**
-     * @return StoreGrossSalesReportService
+     * @return GrossSalesReportManager
      */
     public function getGrossSalesReportService()
     {
-        return $this->getContainer()->get('lighthouse.core.service.store.report.gross_sales');
+        return $this->getContainer()->get('lighthouse.core.document.report.gross_sales.manager');
     }
 
     public function testGetStoreGrossSalesReportsByTime()

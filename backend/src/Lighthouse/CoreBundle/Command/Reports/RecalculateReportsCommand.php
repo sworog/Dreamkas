@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Reports;
 
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Service\StoreGrossSalesReportService;
 use Symfony\Component\Console\Command\Command;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -15,21 +16,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 class RecalculateReportsCommand extends Command
 {
     /**
-     * @var StoreGrossSalesReportService
+     * @var GrossSalesReportManager
      */
-    protected $storeGrossSalesReportService;
+    protected $storeGrossSalesReportManager;
 
     /**
      * @DI\InjectParams({
-     *      "storeGrossSalesCalculator" = @DI\Inject("lighthouse.core.service.store.report.gross_sales")
+     *      "storeGrossSalesManager" = @DI\Inject("lighthouse.core.document.report.gross_sales.manager")
      * })
-     * @param StoreGrossSalesReportService $storeGrossSalesCalculator
+     * @param GrossSalesReportManager $storeGrossSalesManager
      */
-    public function __construct(StoreGrossSalesReportService $storeGrossSalesCalculator)
+    public function __construct(GrossSalesReportManager $storeGrossSalesManager)
     {
         parent::__construct('lighthouse:reports:recalculate');
 
-        $this->storeGrossSalesReportService = $storeGrossSalesCalculator;
+        $this->storeGrossSalesReportManager = $storeGrossSalesManager;
     }
 
     /**
@@ -49,7 +50,7 @@ class RecalculateReportsCommand extends Command
     {
         $output->writeln("<info>Recalculate reports started</info>");
 
-        $this->storeGrossSalesReportService->recalculateStoreGrossSalesReport();
+        $this->storeGrossSalesReportManager->recalculateStoreGrossSalesReport();
 
         $output->writeln("<info>Recalculate reports finished</info>");
 

@@ -11,9 +11,11 @@ use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReport;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 /**
  * @DI\Service("lighthouse.core.document.report.gross_sales.manager")
@@ -31,17 +33,28 @@ class GrossSalesReportManager
     protected $storeRepository;
 
     /**
+     * @var TrialBalanceRepository
+     */
+    protected $trialBalanceRepository;
+
+    /**
      * @DI\InjectParams({
      *      "grossSalesRepository" = @DI\Inject("lighthouse.core.document.repository.store_gross_sales"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
+     *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance")
      * })
      * @param StoreGrossSalesRepository $grossSalesRepository
      * @param StoreRepository $storeRepository
+     * @param TrialBalanceRepository $trialBalanceRepository
      */
-    public function __construct(StoreGrossSalesRepository $grossSalesRepository, StoreRepository $storeRepository)
-    {
+    public function __construct(
+        StoreGrossSalesRepository $grossSalesRepository,
+        StoreRepository $storeRepository,
+        TrialBalanceRepository $trialBalanceRepository
+    ) {
         $this->grossSalesRepository = $grossSalesRepository;
         $this->storeRepository = $storeRepository;
+        $this->trialBalanceRepository = $trialBalanceRepository;
     }
 
     /**
@@ -174,5 +187,32 @@ class GrossSalesReportManager
                 }
             }
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function recalculateStoreGrossSalesReport()
+    {
+        $results = $this->trialBalanceRepository->calculateGrossSales();
+        $dm = $this->grossSalesRepository->getDocumentManager();
+        foreach ($results as $result) {
+            $storeId = $result['_id']['store'];
+            $day = DateTimestamp::createFromMongoDate($result['_id']['day']);
+            foreach ($result['value'] as $hour => $grossSales) {
+                $dayHour = clone $day;
+                $dayHour->setTime($hour, 0);
+                $report = $this->grossSalesRepository->createByDayHourAndStoreId(
+                    $dayHour,
+                    (string) $storeId,
+                    new Money($grossSales['runningSum']),
+                    new Money($grossSales['hourSum'])
+                );
+                $dm->persist($report);
+            }
+        }
+        $dm->flush();
+
+        return count($results);
     }
 }

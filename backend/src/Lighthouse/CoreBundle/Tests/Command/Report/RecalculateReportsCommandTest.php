@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Command\Report;
 
 use Lighthouse\CoreBundle\Command\Reports\RecalculateReportsCommand;
-use Lighthouse\CoreBundle\Service\StoreGrossSalesReportService;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -11,9 +11,9 @@ class RecalculateReportsCommandTest extends TestCase
 {
     public function testExecute()
     {
-        /* @var StoreGrossSalesReportService|\PHPUnit_Framework_MockObject_MockObject $mock */
+        /* @var GrossSalesReportManager|\PHPUnit_Framework_MockObject_MockObject $mock */
         $mock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Service\\StoreGrossSalesReportService',
+            'Lighthouse\\CoreBundle\\Document\\Report\\GrossSales\\GrossSalesReportManager',
             array(),
             array(),
             '',

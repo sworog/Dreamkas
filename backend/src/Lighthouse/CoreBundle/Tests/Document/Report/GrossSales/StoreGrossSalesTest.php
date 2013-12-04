@@ -1,9 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Service;
+namespace Lighthouse\CoreBundle\Tests\Document\Report\GrossSales;
 
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
-use Lighthouse\CoreBundle\Service\StoreGrossSalesReportService;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class StoreGrossSalesTest extends WebTestCase
@@ -134,11 +134,11 @@ class StoreGrossSalesTest extends WebTestCase
     }
 
     /**
-     * @return StoreGrossSalesReportService
+     * @return GrossSalesReportManager
      */
     public function getGrossSalesReportService()
     {
-        return $this->getContainer()->get('lighthouse.core.service.store.report.gross_sales');
+        return $this->getContainer()->get('lighthouse.core.document.report.gross_sales.manager');
     }
 
     /**
