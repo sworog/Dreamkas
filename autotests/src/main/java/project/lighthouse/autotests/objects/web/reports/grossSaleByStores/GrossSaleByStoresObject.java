@@ -20,10 +20,10 @@ public class GrossSaleByStoresObject extends AbstractObjectNode {
 
     @Override
     public void setProperties() {
-        storeNumber = getElement().findElement(By.name("")).getText();
-        yesterdayValue = getElement().findElement(By.name("")).getText();
-        twoDaysAgoValue = getElement().findElement(By.name("")).getText();
-        eightDaysAgoValue = getElement().findElement(By.name("")).getText();
+        storeNumber = getElement().findElement(By.name("store.number")).getText();
+        yesterdayValue = getElement().findElement(By.name("yesterday.runningSum")).getText();
+        twoDaysAgoValue = getElement().findElement(By.name("twoDaysAgo.runningSum")).getText();
+        eightDaysAgoValue = getElement().findElement(By.name("eightDaysAgo.runningSum")).getText();
     }
 
     @Override
@@ -32,6 +32,5 @@ public class GrossSaleByStoresObject extends AbstractObjectNode {
                 yesterdayValue.equals(row.get("yesterdayValue")) &&
                 twoDaysAgoValue.equals(row.get("twoDaysAgoValue")) &&
                 eightDaysAgoValue.equals(row.get("eightDaysAgoValue"));
-
     }
 }

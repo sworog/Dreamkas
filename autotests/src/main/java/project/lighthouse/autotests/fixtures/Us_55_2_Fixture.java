@@ -17,9 +17,9 @@ public class Us_55_2_Fixture extends AbstractFixture {
 
     private static final String SHOP1 = "245521";
     private static final String SHOP2 = "245522";
-    private static final String PRODUCT_ID = "dfdfdf";
-    private static final Double PRODUCT_PRICE1 = 156.67;
-    private static final Double PRODUCT_PRICE2 = 156.67;
+    private static final String PRODUCT_ID = "24552";
+    private static final Double PRODUCT_PRICE1 = 124.5;
+    private static final Double PRODUCT_PRICE2 = 134.5;
 
     private final String yesterdayDate = new DateTimeHelper(1).convertDate();
     private final String twoDaysAgoDate = new DateTimeHelper(2).convertDate();
@@ -29,15 +29,15 @@ public class Us_55_2_Fixture extends AbstractFixture {
         List<Map<String, String>> mapList = new ArrayList<>();
         Map<String, String> shop1DataMap = new HashMap<>();
         shop1DataMap.put("storeNumber", "245521");
-        shop1DataMap.put("yesterdayValue", getGrossSalesSumOnTheEndOfTheDay());
-        shop1DataMap.put("twoDaysAgoValue", getGrossSalesSumOnTheEndOfTheDay());
-        shop1DataMap.put("eightDaysAgoValue", getGrossSalesSumOnTheEndOfTheDay());
+        shop1DataMap.put("yesterdayValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay()));
+        shop1DataMap.put("twoDaysAgoValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay()));
+        shop1DataMap.put("eightDaysAgoValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay()));
         mapList.add(shop1DataMap);
         Map<String, String> shop2DataMap = new HashMap<>();
-        shop1DataMap.put("storeNumber", "245522");
-        shop1DataMap.put("yesterdayValue", getGrossSalesSumOnTheEndOfTheDay());
-        shop1DataMap.put("twoDaysAgoValue", getGrossSalesSumOnTheEndOfTheDay());
-        shop1DataMap.put("eightDaysAgoValue", getGrossSalesSumOnTheEndOfTheDay());
+        shop2DataMap.put("storeNumber", "245522");
+        shop2DataMap.put("yesterdayValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay2()));
+        shop2DataMap.put("twoDaysAgoValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay2()));
+        shop2DataMap.put("eightDaysAgoValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay2()));
         mapList.add(shop2DataMap);
         return new ExamplesTable("").withRows(mapList);
     }
@@ -51,10 +51,10 @@ public class Us_55_2_Fixture extends AbstractFixture {
         shop1DataMap.put("eightDaysAgoValue", "0,00 р.");
         mapList.add(shop1DataMap);
         Map<String, String> shop2DataMap = new HashMap<>();
-        shop1DataMap.put("storeNumber", "245522");
-        shop1DataMap.put("yesterdayValue", "0,00 р.");
-        shop1DataMap.put("twoDaysAgoValue", "0,00 р.");
-        shop1DataMap.put("eightDaysAgoValue", "0,00 р.");
+        shop2DataMap.put("storeNumber", "245522");
+        shop2DataMap.put("yesterdayValue", "0,00 р.");
+        shop2DataMap.put("twoDaysAgoValue", "0,00 р.");
+        shop2DataMap.put("eightDaysAgoValue", "0,00 р.");
         mapList.add(shop2DataMap);
         return new ExamplesTable("").withRows(mapList);
     }
@@ -85,6 +85,14 @@ public class Us_55_2_Fixture extends AbstractFixture {
 
     private String getGrossSalesSumOnTheEndOfTheDay() {
         return generateGrossSalesSumPerHour(PRODUCT_PRICE1).get(24);
+    }
+
+    private String getGrossSalesSumOnTheEndOfTheDay2() {
+        return generateGrossSalesSumPerHour(PRODUCT_PRICE2).get(24);
+    }
+
+    private String getFormattedValue(String value) {
+        return String.format("%s р.", value);
     }
 
     @Override
