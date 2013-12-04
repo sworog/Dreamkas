@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\Serializer\Annotation as Serializer;
+use DateTime;
 
 /**
  * @property string     $id

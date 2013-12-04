@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Command\Import;
 
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\PurchaseElement;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
@@ -130,6 +131,7 @@ class Set10SalesImportLocal extends Command
         $output->writeln(sprintf('Checking "%s"', $file->getFilename()));
         try {
             $parser = new SalesXmlParser($file->getPathname());
+            /* @var PurchaseElement $purchaseElement */
             $purchaseElement = $parser->readNextElement();
         } catch (Exception $e) {
             $output->writeln(sprintf('<error>Failed to parse xml: %s</error>', $e->getMessage()));

@@ -48,6 +48,7 @@ class DateInterval extends \DateInterval
      */
     public static function createFromDateInterval(\DateInterval $parentInterval)
     {
+        /* @var DateInterval $dateInterval */
         $dateInterval = new static();
         $dateInterval->y = $parentInterval->y;
         $dateInterval->m = $parentInterval->m;

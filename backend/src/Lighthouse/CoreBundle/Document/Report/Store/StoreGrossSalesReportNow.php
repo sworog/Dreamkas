@@ -51,7 +51,7 @@ class StoreGrossSalesReportNow
 
     /**
      * @param StoreGrossSalesReportCollection $collection
-     * @param array $dates
+     * @param \DateTime[] $dates
      * @param array $ids
      */
     public function populate(StoreGrossSalesReportCollection $collection, array $dates, array $ids)

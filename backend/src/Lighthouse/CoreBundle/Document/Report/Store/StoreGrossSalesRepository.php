@@ -3,12 +3,11 @@
 namespace Lighthouse\CoreBundle\Document\Report\Store;
 
 use Doctrine\MongoDB\Cursor;
-use Doctrine\ODM\MongoDB\Proxy\Proxy;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use DateTime;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use DateTime;
 
 class StoreGrossSalesRepository extends DocumentRepository
 {

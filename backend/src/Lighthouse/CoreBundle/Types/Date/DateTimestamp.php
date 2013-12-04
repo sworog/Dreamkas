@@ -51,6 +51,7 @@ class DateTimestamp extends DateTime
      */
     public function equals($time)
     {
+        /* @var DateTimestamp $dateTime */
         $dateTime = new static($time);
         return $dateTime->getTimestamp() == $this->getTimestamp();
     }

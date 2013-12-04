@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Command\Import;
 
-use Lighthouse\CoreBundle\Exception\InvalidArgumentException;
 use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 use Symfony\Component\Console\Command\Command;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -13,7 +12,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use XMLReader;
 use SplFileInfo;
 use SplFileObject;
-use FilesystemIterator;
 use LibXMLError;
 
 /**

@@ -27,7 +27,7 @@ class StoreGrossSalesReportByHours
      * @param StoreGrossSalesReportCollection $today
      * @param StoreGrossSalesReportCollection $yesterday
      * @param StoreGrossSalesReportCollection $weekAgo
-     * @param string $time   strtotime format
+     * @param string $time   str to time format
      */
     public function __construct($today, $yesterday, $weekAgo, $time)
     {

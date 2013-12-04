@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Command\Import;
 
-use Lighthouse\CoreBundle\Exception\InvalidArgumentException;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
@@ -13,7 +12,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
-use FilesystemIterator;
 use SplFileInfo;
 
 /**

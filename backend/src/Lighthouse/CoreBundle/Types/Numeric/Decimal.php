@@ -212,7 +212,6 @@ class Decimal implements Numeric, RawValue
             case self::ROUND_HALF_DOWN:
             default:
                 $rounder = '0';
-                break;
         }
         if (-1 == bccomp($operand, '0', $roundPrecision)) {
             $rounder = bcdiv($rounder, '-1', $roundPrecision);

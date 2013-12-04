@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Integration\Set10\XmlParser;
 use DOMNode;
 
 /**
- * @method GoodElement readNextElement
+ * @method readNextElement() GoodElement
  */
 class Set10ProductImportXmlParser extends XmlParser
 {

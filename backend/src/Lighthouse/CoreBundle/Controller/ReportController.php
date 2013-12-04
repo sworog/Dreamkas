@@ -2,7 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStores;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportByHours;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportCollection;

@@ -2,10 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10\Import\Sales;
 
-use DOMNode;
 use Lighthouse\CoreBundle\Integration\Set10\XmlParser;
 use XMLReader;
+use DOMNode;
 
+/**
+ * @method PurchaseElement readNextElement()
+ */
 class SalesXmlParser extends XmlParser
 {
     /**

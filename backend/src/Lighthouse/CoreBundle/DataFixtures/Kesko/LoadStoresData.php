@@ -3,14 +3,12 @@
 namespace Lighthouse\Kesko;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Fixture\Sorter\DependentFixture;
-use FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoadStoresData extends ContainerAware implements DependentFixture, DependentFixtureInterface
+class LoadStoresData extends ContainerAware implements DependentFixtureInterface
 {
     /**
      * @param ObjectManager $manager

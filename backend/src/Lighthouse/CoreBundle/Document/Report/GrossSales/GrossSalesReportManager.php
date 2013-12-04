@@ -14,7 +14,6 @@ use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
-use DateInterval;
 
 /**
  * @DI\Service("lighthouse.core.document.report.gross_sales.manager")
@@ -139,7 +138,7 @@ class GrossSalesReportManager
 
     /**
      * @param Cursor|StoreGrossSalesReport[] $storeDayReports
-     * @param DateTime[] $dates
+     * @param DateTimestamp[] $dates
      * @return StoreGrossSalesByStores[]|GrossSalesByStoresCollection
      */
     protected function createGrossSalesByStoresCollection(Cursor $storeDayReports, array $dates)

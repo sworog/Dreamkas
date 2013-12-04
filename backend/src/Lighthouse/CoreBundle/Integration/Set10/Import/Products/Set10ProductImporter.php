@@ -15,6 +15,7 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Validator\ValidatorInterface;
