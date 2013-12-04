@@ -7,18 +7,20 @@ use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReport;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use JMS\Serializer\Annotation as Serializer;
 
-class StoreGrossSalesByStores extends GrossSales
+class GrossSales extends AbstractDocument
 {
     /**
-     * @Serializer\MaxDepth(2)
-     * @var Store
+     * @var DayGrossSales
      */
-    protected $store;
+    protected $yesterday;
+
     /**
-     * @param Store $store
+     * @var DayGrossSales
      */
-    public function __construct(Store $store)
-    {
-        $this->store = $store;
-    }
+    protected $twoDaysAgo;
+
+    /**
+     * @var DayGrossSales
+     */
+    protected $eightDaysAgo;
 }

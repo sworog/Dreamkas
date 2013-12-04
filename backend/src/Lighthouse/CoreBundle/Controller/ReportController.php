@@ -85,4 +85,17 @@ class ReportController extends FOSRestController
     {
         return $this->grossSalesReportManager->getGrossSalesByStores($time);
     }
+
+    /**
+     * @param DateTime $time
+     * @return GrossSales
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("reports/grossSales")
+     * @ApiDoc
+     */
+    public function getReportsGrossSalesAction(DateTime $time = null)
+    {
+        return $this->grossSalesReportManager->getGrossSales($time);
+    }
 }

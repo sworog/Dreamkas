@@ -114,7 +114,7 @@ class StoreGrossSalesRepository extends DocumentRepository
     public function findByDates(array $dates)
     {
         $queryDates = $this->normalizeDates($dates);
-        return $this->findBy(array('dayHour' => array('$in' => $queryDates)));
+        return $this->findBy(array('dayHour' => array('$in' => $queryDates)), array('store' => 1));
     }
 
     /**
