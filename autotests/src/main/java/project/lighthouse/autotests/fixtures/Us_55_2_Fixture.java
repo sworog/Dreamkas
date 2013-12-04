@@ -2,6 +2,7 @@ package project.lighthouse.autotests.fixtures;
 
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.helper.DateTimeHelper;
+import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -18,6 +19,7 @@ public class Us_55_2_Fixture extends AbstractFixture {
     private static final String SHOP1 = "245521";
     private static final String SHOP2 = "245522";
     private static final String PRODUCT_ID = "24552";
+    private static final String PRODUCT_ID2 = "245522";
     private static final Double PRODUCT_PRICE1 = 124.5;
     private static final Double PRODUCT_PRICE2 = 134.5;
 
@@ -29,15 +31,15 @@ public class Us_55_2_Fixture extends AbstractFixture {
         List<Map<String, String>> mapList = new ArrayList<>();
         Map<String, String> shop1DataMap = new HashMap<>();
         shop1DataMap.put("storeNumber", "245521");
-        shop1DataMap.put("yesterdayValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay()));
-        shop1DataMap.put("twoDaysAgoValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay()));
-        shop1DataMap.put("eightDaysAgoValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay()));
+        shop1DataMap.put("yesterdayValue", getGrossSalesSumOnTheEndOfTheDay());
+        shop1DataMap.put("twoDaysAgoValue", getGrossSalesSumOnTheEndOfTheDay());
+        shop1DataMap.put("eightDaysAgoValue", getGrossSalesSumOnTheEndOfTheDay());
         mapList.add(shop1DataMap);
         Map<String, String> shop2DataMap = new HashMap<>();
         shop2DataMap.put("storeNumber", "245522");
-        shop2DataMap.put("yesterdayValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay2()));
-        shop2DataMap.put("twoDaysAgoValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay2()));
-        shop2DataMap.put("eightDaysAgoValue", getFormattedValue(getGrossSalesSumOnTheEndOfTheDay2()));
+        shop2DataMap.put("yesterdayValue", getGrossSalesSumOnTheEndOfTheDay());
+        shop2DataMap.put("twoDaysAgoValue", getGrossSalesSumOnTheEndOfTheDay());
+        shop2DataMap.put("eightDaysAgoValue", getGrossSalesSumOnTheEndOfTheDay());
         mapList.add(shop2DataMap);
         return new ExamplesTable("").withRows(mapList);
     }
@@ -60,39 +62,66 @@ public class Us_55_2_Fixture extends AbstractFixture {
     }
 
     public File prepareYesterdayDataForShop1() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(yesterdayDate, SHOP1, PRODUCT_ID, PRODUCT_PRICE1);
+        return generateFileDataSet(yesterdayDate, SHOP1);
     }
 
-    public File prepareTwoDaysAgoForShop1() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(twoDaysAgoDate, SHOP1, PRODUCT_ID, PRODUCT_PRICE1);
+    public File prepareTwoDaysAgoDataForShop1() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+        return generateFileDataSet(twoDaysAgoDate, SHOP1);
     }
 
     public File prepareEightDaysAgoDataForShop1() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(eightDaysAgo, SHOP1, PRODUCT_ID, PRODUCT_PRICE1);
+        return generateFileDataSet(eightDaysAgo, SHOP1);
     }
 
     public File prepareYesterdayDataForShop2() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(yesterdayDate, SHOP2, PRODUCT_ID, PRODUCT_PRICE2);
+        return generateFileDataSet(yesterdayDate, SHOP2);
     }
 
-    public File prepareTwoDaysAgoForShop2() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(twoDaysAgoDate, SHOP2, PRODUCT_ID, PRODUCT_PRICE2);
+    public File prepareTwoDaysAgoDataForShop2() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+        return generateFileDataSet(twoDaysAgoDate, SHOP2);
     }
 
     public File prepareEightDaysAgoDataForShop2() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(eightDaysAgo, SHOP2, PRODUCT_ID, PRODUCT_PRICE2);
+        return generateFileDataSet(eightDaysAgo, SHOP2);
     }
 
     private String getGrossSalesSumOnTheEndOfTheDay() {
-        return generateGrossSalesSumPerHour(PRODUCT_PRICE1).get(24);
+        Map<Integer, Double> generatedData = generateGrossSalesSumPerHour();
+        return getFormattedValue(generateFormattedGrossSalesSumPerHour(generatedData).get(24));
     }
 
-    private String getGrossSalesSumOnTheEndOfTheDay2() {
-        return generateGrossSalesSumPerHour(PRODUCT_PRICE2).get(24);
+    private Map<Integer, Double> generateGrossSalesSumPerHour() {
+        Map<Integer, Double> grossSalesPerHourMap = new HashMap<>();
+        Double productGrossSale1 = 0.0;
+        Double productGrossSale2 = 0.0;
+        for (int i = 1; i < 25; i++) {
+            productGrossSale1 = productGrossSale1 + PRODUCT_PRICE1 * i;
+            productGrossSale2 = productGrossSale2 + PRODUCT_PRICE2 * i;
+            grossSalesPerHourMap.put(i, productGrossSale1 + productGrossSale2);
+        }
+        return grossSalesPerHourMap;
     }
 
     private String getFormattedValue(String value) {
         return String.format("%s р.", value);
+    }
+
+    private File generateFileDataSet(String date, String shopNumber) throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException {
+        PurchaseXmlBuilder purchaseXmlBuilder = generateDataSet(date, shopNumber);
+        return prepareDataFile(purchaseXmlBuilder);
+    }
+
+    private PurchaseXmlBuilder generateDataSet(String date, String shopNumber) throws ParserConfigurationException, XPathExpressionException {
+        PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("24");
+        for (int i = 1; i < 25; i++) {
+            Double finalPriceCount = PRODUCT_PRICE1 * i;
+            Double finalPriceCount2 = PRODUCT_PRICE2 * i;
+            String hours = String.format("%02d", i - 1);
+            String dateTime = getDate(date, hours);
+            purchaseXmlBuilder.addXmlPurchase(dateTime, date, shopNumber, finalPriceCount.toString(), PRODUCT_PRICE1.toString(), Integer.toString(i), PRODUCT_ID);
+            purchaseXmlBuilder.addXmlPurchase(dateTime, date, shopNumber, finalPriceCount2.toString(), PRODUCT_PRICE2.toString(), Integer.toString(i), PRODUCT_ID2);
+        }
+        return purchaseXmlBuilder;
     }
 
     @Override

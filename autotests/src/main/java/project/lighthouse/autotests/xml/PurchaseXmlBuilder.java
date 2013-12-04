@@ -13,7 +13,6 @@ public class PurchaseXmlBuilder {
 
     private XMLBuilder xmlBuilder;
 
-
     private PurchaseXmlBuilder(String purchasesCount) throws ParserConfigurationException {
         this.xmlBuilder = XMLBuilder.create("purchases").a("count", purchasesCount);
     }
