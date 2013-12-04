@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores;
+namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Types\Numeric\Money;

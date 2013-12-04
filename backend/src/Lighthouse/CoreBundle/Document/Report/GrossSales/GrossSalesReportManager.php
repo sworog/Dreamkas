@@ -3,8 +3,8 @@
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 
 use Doctrine\ODM\MongoDB\Cursor;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\DayGrossSales;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSales;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\DayGrossSales;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\StoreGrossSalesByStores;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReport;
