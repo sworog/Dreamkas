@@ -26,7 +26,7 @@
 <h2>Продажи по магазинам</h2>
 
 <% if (collections.grossSalesByStores.length) { %>
-<table style="margin-bottom: 40px;" class="table table_grossSalesByStores">
+<table id="table_grossSalesByStores" style="margin-bottom: 40px;" class="table table_grossSalesByStores">
     <%= templates.table_grossSalesByStores({
         collections: _.pick(collections, 'grossSalesByStores')
     }) %>

@@ -42,7 +42,12 @@ define(function(require, exports, module) {
         },
         blocks: {
             table_grossSalesByStores: function(){
-                var block = this;
+                var page = this;
+
+                return new Table_grossSalesByStores({
+                    el: document.getElementById('table_grossSalesByStores'),
+                    collections: _.pick(page.collections, 'grossSalesByStores')
+                });
             }
         },
         initialize: function(){
@@ -68,6 +73,10 @@ define(function(require, exports, module) {
 
             $.when.apply($, fetchData).done(function(){
                 page.render();
+
+                page.blocks = {
+                    table_grossSalesByStores: page.blocks.table_grossSalesByStores.call(page)
+                }
             });
         }
     });

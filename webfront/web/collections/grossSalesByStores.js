@@ -4,8 +4,9 @@ define(function(require, exports, module) {
 
     return Collection.extend({
         __name__: module.id,
+        model: require('kit/core/model'),
         url: function(){
-            return ('http://lh.apiary.io' || LH.baseApiUrl) + '/reports/grossSalesByStores';
+            return LH.baseApiUrl + '/reports/grossSalesByStores';
         }
     });
 });

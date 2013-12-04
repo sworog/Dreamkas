@@ -6,6 +6,7 @@ define(function(require, exports, module) {
         __name__: module.id,
         template: require('tpl!./table_grossSalesByStores.html'),
         sortBy: null,
+        ascending: true,
         collections: {
             grossSalesByStores: null
         },
@@ -15,15 +16,20 @@ define(function(require, exports, module) {
                     $target = $(e.currentTarget),
                     modelKey = $target.data('sort-by');
 
-                block.collections.grossSalesByStores.comparator = block.sortBy = modelKey;
+                block.sortBy = modelKey;
+                block.ascending = !block.ascending;
+
+                block.collections.grossSalesByStores.comparator = function(model){
+                    return block.ascending ? model.get(modelKey) : -model.get(modelKey);
+                };
+
                 block.collections.grossSalesByStores.sort();
-            }
-        },
-        listeners: {
-            'collections.grossSalesByStores': {
-                sort: function(){
-                    console.log(1);
-                }
+
+                block.render();
+
+                block.$('[data-sort-by="' + modelKey + '"]')
+                    .addClass('table__sortedHeader')
+                    .addClass('table__sortedHeader_ascending_' + block.ascending);
             }
         }
     });

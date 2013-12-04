@@ -7,13 +7,13 @@
 
 <thead>
 <th></th>
-<th data-sort-by="yesterday">
+<th data-sort-by="yesterday.runningSum">
     Вчера
 </th>
-<th data-sort-by="twoDaysAgo">
+<th data-sort-by="twoDaysAgo.runningSum">
     Позавчера
 </th>
-<th data-sort-by="eightDaysAgo">
+<th data-sort-by="eightDaysAgo.runningSum">
     Неделю назад
 </th>
 </thead>
@@ -24,13 +24,13 @@
         <%- storeGrossSaleModel.get('store').number %>
     </td>
     <td>
-        <%- LH.formatMoney(storeGrossSaleModel.get('yesterday').runningSum) %> р.
+        <%- LH.formatMoney(storeGrossSaleModel.get('yesterday.runningSum')) %> р.
     </td>
     <td>
-        <%- LH.formatMoney(storeGrossSaleModel.get('twoDaysAgo').runningSum) %> р.
+        <%- LH.formatMoney(storeGrossSaleModel.get('twoDaysAgo.runningSum')) %> р.
     </td>
     <td>
-        <%- LH.formatMoney(storeGrossSaleModel.get('eightDaysAgo').runningSum) %> р.
+        <%- LH.formatMoney(storeGrossSaleModel.get('eightDaysAgo.runningSum')) %> р.
     </td>
 </tr>
 <% }) %>
