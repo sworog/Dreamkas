@@ -2,6 +2,7 @@ define(function(require) {
     //requirements
     var Page = require('kit/core/page'),
         StoreGrossSalesModel = require('models/storeGrossSales'),
+        GrossSalesModel = require('models/grossSales'),
         currentUserModel = require('models/currentUser');
 
     require('jquery');
@@ -21,6 +22,15 @@ define(function(require) {
                 }
 
                 return storeGrossSalesModel;
+            },
+            grossSales: function(){
+                var grossSalesModel = null;
+
+                if (LH.isReportsAllow(['grossSales'])){
+                    grossSalesModel = new GrossSalesModel();
+                }
+
+                return grossSalesModel;
             }
         },
         initialize: function(){
@@ -28,11 +38,16 @@ define(function(require) {
                 initData = [];
 
             page.models = {
-                storeGrossSales: page.models.storeGrossSales()
+                storeGrossSales: page.models.storeGrossSales(),
+                grossSales: page.models.grossSales()
             };
 
             if (page.models.storeGrossSales){
                 initData.push(page.models.storeGrossSales.fetch());
+            }
+
+            if (page.models.grossSales){
+                initData.push(page.models.grossSales.fetch());
             }
 
             $.when.apply($, initData).done(function(){

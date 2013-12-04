@@ -1,0 +1,19 @@
+.grossSaless__todayValue{
+    font-size: 56px;
+}
+
+.grossSales__diffText_plus{
+    color: #1fb18a;
+}
+
+.grossSales__diffText_minus{
+    color: #FF0033;
+}
+
+.grossSales__table td{
+    padding-right: 30px;
+}
+
+.grossSales__subTitle{
+    padding-bottom: 5px;
+}

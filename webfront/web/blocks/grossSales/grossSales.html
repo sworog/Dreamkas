@@ -1,0 +1,37 @@
+<%
+/**
+ *
+ * @models.grossSales
+ */
+%>
+<% var moment = require('moment') %>
+
+<h2 class="grossSales__subTitle">
+    Объём продаж по сети
+</h2>
+<table class="grossSales__table">
+    <tr>
+        <td>
+            Вчера
+        </td>
+        <td>
+            <%- LH.formatMoney(models.grossSales.get('yesterday.runningSum')) %> р.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Позавчера
+        </td>
+        <td>
+            <%- LH.formatMoney(models.grossSales.get('twoDaysAgo.runningSum')) %> р.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            В <%- LH.getText('lastDay', moment(models.grossSales.get('eightDaysAgo.dayHour')).day()) %>
+        </td>
+        <td>
+            <%- LH.formatMoney(models.grossSales.get('eightDaysAgo.runningSum')) %> р.
+        </td>
+    </tr>
+</table>

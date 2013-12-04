@@ -1,17 +1,26 @@
 <% var templates = {
-    grossSale_store: require('tpl!blocks/grossSale/grossSale_store/grossSale_store.html')
+    grossSales: require('tpl!blocks/grossSales/grossSales.html'),
+    grossSales_store: require('tpl!blocks/grossSales/grossSales_store/grossSales_store.html')
 } %>
-
 <% if (_.any(models)) { %>
 <h1>Обзор</h1>
 
 <% if (models.storeGrossSales){ %>
-<div class="grossSale grossSale_store">
-    <%= templates.grossSale_store({
+<div class="grossSales grossSales_store">
+    <%= templates.grossSales_store({
         models: _.pick(models, 'storeGrossSales')
     }) %>
 </div>
 <% } %>
+
+<% if (models.grossSales){ %>
+<div class="grossSales">
+    <%= templates.grossSales({
+        models: _.pick(models, 'grossSales')
+    }) %>
+</div>
+<% } %>
+
 <% } else { %>
 <div class="page__logo"></div>
 <% } %>

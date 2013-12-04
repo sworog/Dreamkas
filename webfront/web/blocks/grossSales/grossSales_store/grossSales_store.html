@@ -6,19 +6,19 @@
 %>
 <% var moment = require('moment') %>
 
-<h2 class="grossSale__subTitle" style="padding-bottom: 0;">
+<h2 class="grossSales__subTitle" style="padding-bottom: 0;">
     Объём продаж на <%- moment(models.storeGrossSales.get('today.now.date')).startOf('hour').format('HH:mm') %>
 </h2>
-<div class="grossSale__todayValue">
+<div class="grossSales__todayValue">
     <%- LH.formatMoney(models.storeGrossSales.get('today.now.value')) %>
 </div>
-<div class="grossSale__yesterdayDiff">
+<div class="grossSales__yesterdayDiff">
 
     <% if (models.storeGrossSales.get('yesterday.now.diff') === 0) { %>
     Так же как вчера
     <% } else if (models.storeGrossSales.get('yesterday.now.diff')) { %>
     На
-    <strong class="grossSale__diffText <%- models.storeGrossSales.get('yesterday.now.diff') >= 0 ? 'grossSale__diffText_plus' : 'grossSale__diffText_minus' %>">
+    <strong class="grossSales__diffText <%- models.storeGrossSales.get('yesterday.now.diff') >= 0 ? 'grossSales__diffText_plus' : 'grossSales__diffText_minus' %>">
         <%- Math.abs(models.storeGrossSales.get('yesterday.now.diff')) %>%
         <%= models.storeGrossSales.get('yesterday.now.diff') >= 0 ? 'больше' : 'меньше' %></strong>, чем вчера
     <% } %>
@@ -28,24 +28,24 @@
     <% } %>
 
 </div>
-<div class="grossSale__weekDiff" style="padding-bottom: 20px;">
+<div class="grossSales__weekDiff" style="padding-bottom: 20px;">
 
     <% if (models.storeGrossSales.get('weekAgo.now.diff') === 0) { %>
     Так же как в <%- LH.getText('lastDay', moment(models.storeGrossSales.get('today.now.date')).day()) %>
     <% } else if (models.storeGrossSales.get('weekAgo.now.diff')) { %>
     На
-    <strong class="grossSale__diffText <%- models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'grossSale__diffText_plus' : 'grossSale__diffText_minus' %>">
+    <strong class="grossSales__diffText <%- models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'grossSales__diffText_plus' : 'grossSales__diffText_minus' %>">
         <%- Math.abs(models.storeGrossSales.get('weekAgo.now.diff')) %>%
         <%= models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'больше' : 'меньше' %></strong>, чем
         в <%- LH.getText('lastDay', moment(models.storeGrossSales.get('today.now.date')).day()) %>
         (<%- LH.formatMoney(models.storeGrossSales.get('weekAgo.now.value')) %>)
     <% } %>
 </div>
-<h2 class="grossSale__subTitle">
+<h2 class="grossSales__subTitle">
     Объём продаж на конец дня
 </h2>
-<table class="grossSale__table">
-    <tr class="grossSale__yesterdayValue">
+<table class="grossSales__table">
+    <tr class="grossSales__yesterdayValue">
         <td>
             Вчера
         </td>
@@ -53,7 +53,7 @@
             <%- LH.formatMoney(models.storeGrossSales.get('yesterday.dayEnd.value')) %>
         </td>
     </tr>
-    <tr class="grossSale__lastWeekValue">
+    <tr class="grossSales__lastWeekValue">
         <td>
             В <%- LH.getText('lastDay', moment(models.storeGrossSales.get('today.now.date')).day()) %>
         </td>
