@@ -3,7 +3,9 @@ define(function(require, exports, module) {
     var Page = require('kit/core/page'),
         StoreGrossSalesByHourModel = require('models/storeGrossSalesByHours'),
         GrossSalesByStores = require('collections/grossSalesByStores'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser'),
+
+        Table_grossSalesByStores = require('blocks/table/table_grossSalesByStores/table_grossSalesByStores');
 
     require('jquery');
 
@@ -36,6 +38,11 @@ define(function(require, exports, module) {
                 }
 
                 return grossSalesByStores;
+            }
+        },
+        blocks: {
+            table_grossSalesByStores: function(){
+                var block = this;
             }
         },
         initialize: function(){
