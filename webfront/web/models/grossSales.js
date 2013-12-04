@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return Model.extend({
         url: function(){
-            return LH.mockApiUrl + '/reports/grossSales';
+            return LH.baseApiUrl + '/reports/grossSales';
         }
     });
 });

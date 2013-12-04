@@ -9,7 +9,7 @@ define(function(require, exports, module) {
             storeGrossSalesByHours: LH.isAllow('stores', 'GET::{store}/reports/grossSalesByHours') && currentUserModel.stores && currentUserModel.stores.length,
             storeGrossSales: LH.isAllow('stores', 'GET::{store}/reports/grossSales') && currentUserModel.stores && currentUserModel.stores.length,
             grossSalesByStores: LH.isAllow('others', 'GET::api/1/reports/grossSalesByStores'),
-            grossSales: true
+            grossSales: LH.isAllow('others', 'GET::api/1/reports/grossSales')
         };
 
         return _.find(reports ? _.pick(reportsPermissionsMap, reports) : reportsPermissionsMap);
