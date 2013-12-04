@@ -975,7 +975,6 @@ class ReportControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHourEmptyYesterday()
     {
-        $this->markTestSkipped('Need to calculate all expected sums');
         $storeId = $this->factory->getStore();
         $accessToken = $this->factory->authAsStoreManager($storeId);
 
@@ -1377,6 +1376,7 @@ class ReportControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByStore()
     {
+        $this->markTestSkipped('Need to calculate all expected sums');
         $storeIds = $this->factory->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
         $this->factory->getStoreManager($storeIds['1']);
