@@ -18,6 +18,6 @@ public class StoreGrossSaleByHourReportPage extends CommonPageObject {
     }
 
     public StoreGrossSaleByHourElementCollection getStoreGrossSaleByHourElementCollection() {
-        return new StoreGrossSaleByHourElementCollection(getDriver(), By.xpath(""));
+        return new StoreGrossSaleByHourElementCollection(getDriver(), By.name("storeGrossSalesByHourRow"));
     }
 }

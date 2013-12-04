@@ -19,10 +19,10 @@ public class StoreGrossSaleByHourElement extends AbstractObjectNode {
 
     @Override
     public void setProperties() {
-        date = getElement().findElement(By.xpath("")).getText();
-        todayValue = getElement().findElement(By.xpath("")).getText();
-        yesterdayValue = getElement().findElement(By.xpath("")).getText();
-        weekAgoValue = getElement().findElement(By.xpath("")).getText();
+        date = getElement().findElement(By.name("dayHour")).getText();
+        todayValue = getElement().findElement(By.name("today.hourSum")).getText();
+        yesterdayValue = getElement().findElement(By.name("yesterday.hourSum")).getText();
+        weekAgoValue = getElement().findElement(By.name("weekAgo.hourSum")).getText();
     }
 
     @Override
@@ -35,6 +35,6 @@ public class StoreGrossSaleByHourElement extends AbstractObjectNode {
         return date.equals(row.get("date")) &&
                 todayValue.equals(row.get("todayValue")) &&
                 yesterdayValue.equals(row.get("yesterdayValue")) &&
-                weekAgoValue.equals(row.get("weekAgoValue."));
+                weekAgoValue.equals(row.get("weekAgoValue"));
     }
 }

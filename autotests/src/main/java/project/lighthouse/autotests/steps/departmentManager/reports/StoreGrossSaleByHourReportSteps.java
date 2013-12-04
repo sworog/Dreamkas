@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.steps.departmentManager.reports;
 
 import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
@@ -26,9 +27,11 @@ public class StoreGrossSaleByHourReportSteps extends ScenarioSteps {
     @Step
     public void notContainsCurrentHour() {
         try {
-            storeGrossSaleByHourReportPage.getStoreGrossSaleByHourElementCollection().contains(String.format("%02d:00", new DateTime().getHourOfDay()));
-            Assert.fail("The item is present!");
-        } catch (Exception ignored) {
+            String dayHours = String.format("%02d:00 — %02d:00", new DateTime().getHourOfDay(), new DateTime().getHourOfDay() + 1);
+            storeGrossSaleByHourReportPage.getStoreGrossSaleByHourElementCollection().contains(dayHours);
+            String message = String.format("The item '%s' is present!", dayHours);
+            Assert.fail(message);
+        } catch (AssertionFailedError ignored) {
         }
     }
 }
