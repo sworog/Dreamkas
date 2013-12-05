@@ -16,6 +16,9 @@ Meta:
 
 GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
 
+Given the user prepares data for us 55.1 story
+And the user runs the symfony:reports:recalculate command
+
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the gross sale by network yesterday value
@@ -28,6 +31,9 @@ Meta:
 @smoke
 
 GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
+
+Given the user prepares data for us 55.1 story
+And the user runs the symfony:reports:recalculate command
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -42,6 +48,45 @@ Meta:
 
 GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
 
+Given the user prepares data for us 55.1 story
+And the user runs the symfony:reports:recalculate command
+
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the gross sale by network eight days value
+
+Scenario: Gross sale by network yesterday value is zero (no sales registered)
+
+Meta:
+@id s24u55.1s4
+@description gross sale by network yesterday value is zero (no sales registered)
+
+GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
+
+Given the user opens the authorization page
+And the user logs in as 'commercialManager'
+Then the user checks the gross sale by network yesterday value is zero
+
+Scenario: Gross sale by network two days ago value is zero (no sales registered)
+
+Meta:
+@id s24u55.1s5
+@description gross sale by network two days ago value is zero (no sales registered)
+
+GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
+
+Given the user opens the authorization page
+And the user logs in as 'commercialManager'
+Then the user checks the gross sale by network two days value is zero
+
+Scenario: Gross sale by network eight days ago value is zero (no sales registered)
+
+Meta:
+@id s24u55.1s6
+@description gross sale by network eight days ago value is zero (no sales registered)
+
+GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
+
+Given the user opens the authorization page
+And the user logs in as 'commercialManager'
+Then the user checks the gross sale by network eight days value is zero

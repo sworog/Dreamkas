@@ -23,4 +23,19 @@ public class ThenGrossSaleByNetworkUserSteps {
     public void thenTheUserChecksTheGrossSaleByNetworkEightDaysAgoValue() {
         grossSaleByNetworkSteps.assertEightDaysAgoValue();
     }
+
+    @Then("the user checks the gross sale by network yesterday value is zero")
+    public void thenTheUserChecksTheGrossSaleByNetworkYesterdayValueIsZero() {
+        grossSaleByNetworkSteps.assertYesterdayValueIsZero();
+    }
+
+    @Then("the user checks the gross sale by network two days value is zero")
+    public void thenTheUserChecksTheGrossSaleByNetworkTwoDaysAgoValueIsZero() {
+        grossSaleByNetworkSteps.assertTwoDaysAgoValueIsZero();
+    }
+
+    @Then("the user checks the gross sale by network eight days value is zero")
+    public void thenTheUserChecksTheGrossSaleByNetworkEightDaysAgoValueIsZero() {
+        grossSaleByNetworkSteps.assertEightDaysAgoValueIsZero();
+    }
 }

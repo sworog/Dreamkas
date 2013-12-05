@@ -5,6 +5,9 @@ Meta:
 @id s24u55.1s1
 @id s24u55.1s2
 @id s24u55.1s3
+@id s24u55.1s4
+@id s24u55.1s5
+@id s24u55.1s6
 
 Scenario: A scenario that prepares data
 
@@ -18,6 +21,3 @@ And the user sets subCategory 'defaultSubCategory-s24u552' mark up with max '10'
 
 Given there is the product with 'name-24552' name, '24552' sku, '24552' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s24u552', category named 'defaultCategory-s24u552', subcategory named 'defaultSubCategory-s24u552'
 Given there is the product with 'name-245522' name, '245522' sku, '245522' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s24u552', category named 'defaultCategory-s24u552', subcategory named 'defaultSubCategory-s24u552'
-
-Given the user prepares data for us 55.1 story
-And the user runs the symfony:reports:recalculate command
