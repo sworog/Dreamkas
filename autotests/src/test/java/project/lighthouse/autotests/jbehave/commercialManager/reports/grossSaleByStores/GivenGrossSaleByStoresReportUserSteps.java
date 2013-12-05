@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.commercialManager.reports;
+package project.lighthouse.autotests.jbehave.commercialManager.reports.grossSaleByStores;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
