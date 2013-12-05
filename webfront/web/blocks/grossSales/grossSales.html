@@ -10,7 +10,7 @@
     Объём продаж по сети
 </h2>
 <table class="grossSales__table">
-    <tr>
+    <tr name="yesterday.runningSum">
         <td>
             Вчера
         </td>
@@ -18,7 +18,7 @@
             <%- LH.formatMoney(models.grossSales.get('yesterday.runningSum')) %> р.
         </td>
     </tr>
-    <tr>
+    <tr name="twoDaysAgo.runningSum">
         <td>
             Позавчера
         </td>
@@ -26,9 +26,9 @@
             <%- LH.formatMoney(models.grossSales.get('twoDaysAgo.runningSum')) %> р.
         </td>
     </tr>
-    <tr>
+    <tr name="eightDaysAgo.dayHour">
         <td>
-            В <%- LH.getText('lastDay', moment(models.grossSales.get('eightDaysAgo.dayHour')).day()) %>
+            В <%- LH.getText('for last day', moment(models.grossSales.get('eightDaysAgo.dayHour')).day()) %>
         </td>
         <td>
             <%- LH.formatMoney(models.grossSales.get('eightDaysAgo.runningSum')) %> р.
