@@ -22,33 +22,42 @@ class MoneyValidator extends ConstraintValidator
             return;
         }
 
-        $count = $value->getCount();
+        $this->validateNegative($value, $constraint);
+        $this->validateMax($value, $constraint);
+        $this->validatePrecision($value, $constraint);
+    }
 
-        $precision = (int) $constraint->precision;
-        $divider = pow(10, $precision);
-
-        if ($count < 0 || ($count == 0 && $constraint->zero === false)) {
+    /**
+     * @param MoneyType $value
+     * @param Money $constraint
+     */
+    protected function validateNegative(MoneyType $value, Money $constraint)
+    {
+        if ($value->getCount() < 0 || ($value->getCount() == 0 && $constraint->zero === false)) {
             $this->context->addViolation(
                 $constraint->messageNegative,
                 array(
-                    '{{ value }}' => $count
+                    '{{ value }}' => $value->toString()
                 )
             );
         }
+    }
 
-        $money = $count / $divider;
-
-        if (null !== $constraint->max && $count > $constraint->max) {
+    /**
+     * @param MoneyType $value
+     * @param Money $constraint
+     */
+    protected function validateMax(MoneyType $value, Money $constraint)
+    {
+        if (null !== $constraint->max && $value->toNumber() > $constraint->max) {
             $this->context->addViolation(
                 $constraint->messageMax,
                 array(
-                    '{{ value }}' => $money,
-                    '{{ limit }}' => $constraint->max / $divider,
+                    '{{ value }}' => $value->toString(),
+                    '{{ limit }}' => $constraint->max,
                 )
             );
         }
-
-        $this->validatePrecision($value, $constraint);
     }
 
     /**

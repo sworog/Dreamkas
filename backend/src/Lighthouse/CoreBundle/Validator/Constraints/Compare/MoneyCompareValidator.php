@@ -19,19 +19,16 @@ class MoneyCompareValidator extends CompareValidator
             throw new UnexpectedTypeException($value, 'Money');
         }
 
-        return $value->getCount();
+        return $value->toNumber();
     }
 
     /**
      * @param Money $value
      * @param Constraint|MoneyCompare $constraint
-     * @return mixed
+     * @return string
      */
     protected function formatMessageValue($value, Constraint $constraint)
     {
-        $precision = (int) $constraint->precision;
-        $divider = pow(10, $precision);
-
-        return $value->getCount() / $divider;
+        return $value->toString();
     }
 }

@@ -23,10 +23,10 @@ class NumbersCompareValidator extends CompareValidator
     /**
      * @param int|float $value
      * @param Constraint|NumbersCompare $constraint
-     * @return mixed
+     * @return string
      */
     protected function formatMessageValue($value, Constraint $constraint)
     {
-        return $value;
+        return (string) $value;
     }
 }

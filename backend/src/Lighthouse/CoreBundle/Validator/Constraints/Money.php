@@ -10,15 +10,9 @@ use Symfony\Component\Validator\Constraint;
 class Money extends Constraint
 {
     /**
-     * Number of digits after dot
      * @var int
      */
-    public $precision = 2;
-
-    /**
-     * @var int
-     */
-    public $max = 1000000000;
+    public $max = 10000000;
 
     /**
      * Money field should not be blank

@@ -24,7 +24,7 @@ class DatesCompareValidator extends CompareValidator
     /**
      * @param DateTime $value
      * @param Constraint|DatesCompare $constraint
-     * @return mixed
+     * @return string
      */
     protected function formatMessageValue($value, Constraint $constraint)
     {
