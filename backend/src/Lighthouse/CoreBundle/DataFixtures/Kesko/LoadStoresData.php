@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\Kesko;
+namespace Lighthouse\CoreBundle\DataFixtures\Kesko;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
