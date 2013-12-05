@@ -66,7 +66,8 @@ class Returne extends AbstractDocument implements Storeable
      * @MongoDB\ReferenceMany(
      *      targetDocument="Lighthouse\CoreBundle\Document\Returne\Product\ReturnProduct",
      *      simple=true,
-     *      cascade="persist"
+     *      cascade="persist",
+     *      mappedBy="return"
      * )
      *
      * @Assert\NotBlank(message="lighthouse.validation.errors.return.product.empty")

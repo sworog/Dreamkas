@@ -83,7 +83,8 @@ class ReturnProduct extends AbstractDocument implements Reasonable
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Returne\Returne",
      *     simple=true,
-     *     cascade="persist"
+     *     cascade="persist",
+     *     inversedBy="products"
      * )
      * @var Returne
      */
