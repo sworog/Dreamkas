@@ -8,8 +8,6 @@ Meta:
 @id s24us532s4
 @id s24us532s5
 @id s24us532s6
-@id s24us532s7
-@id s24us532s8
 
 Scenario: A scenario that prepares data
 
