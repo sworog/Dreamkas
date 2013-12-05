@@ -1,5 +1,7 @@
 package project.lighthouse.autotests.helper;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 
 public class DateTimeHelper {
@@ -32,5 +34,26 @@ public class DateTimeHelper {
 
     private String getTodayDate(String pattern, int day) {
         return new SimpleDateFormat(pattern).format(new org.joda.time.DateTime().minusDays(day).toDate());
+    }
+
+    public static String getDate() {
+        switch (new DateTime().getDayOfWeek()) {
+            case 1:
+                return "прошлый понедельник";
+            case 2:
+                return "прошлый вторник";
+            case 3:
+                return "прошлую среду";
+            case 4:
+                return "прошлый четверг";
+            case 5:
+                return "прошлую пятницу";
+            case 6:
+                return "прошлую субботу";
+            case 7:
+                return "прошлое воскресение";
+            default:
+                return "в аду";
+        }
     }
 }
