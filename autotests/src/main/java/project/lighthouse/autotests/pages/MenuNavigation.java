@@ -15,6 +15,6 @@ public class MenuNavigation extends CommonPageObject {
     }
 
     public void reportMenuItemClick() {
-        click(By.xpath("//*[@href='/reports']"));
+        findVisibleElement(By.xpath("//*[@href='/reports']")).click();
     }
 }

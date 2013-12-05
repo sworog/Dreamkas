@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.reports;
+package project.lighthouse.autotests.objects.web.reports.grossSaleByStores;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,14 +6,14 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
 
-public class StoreGrossSaleByHourElementCollection extends AbstractObjectCollection {
+public class GrossSalesByStoresCollection extends AbstractObjectCollection {
 
-    public StoreGrossSaleByHourElementCollection(WebDriver webDriver, By findBy) {
+    public GrossSalesByStoresCollection(WebDriver webDriver, By findBy) {
         super(webDriver, findBy);
     }
 
     @Override
     public AbstractObject createNode(WebElement element) {
-        return new StoreGrossSaleByHourElement(element);
+        return new GrossSaleByStoresObject(element);
     }
 }
