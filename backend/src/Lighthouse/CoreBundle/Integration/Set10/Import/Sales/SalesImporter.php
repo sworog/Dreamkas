@@ -71,6 +71,11 @@ class SalesImporter
     protected $errors = array();
 
     /**
+     * @var array
+     */
+    protected $stores = array();
+
+    /**
      * @DI\InjectParams({
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
@@ -340,7 +345,22 @@ class SalesImporter
      */
     public function getStore($storeNumber)
     {
-        $store = $this->storeRepository->findOneBy(array('number' => $storeNumber));
+        if (isset($this->stores[$storeNumber])) {
+            $storeId = $this->stores[$storeNumber];
+            if (false === $storeId) {
+                $store = null;
+            } else {
+                $store = $this->storeRepository->getReference($storeId);
+            }
+        } else {
+            $store = $this->storeRepository->findOneBy(array('number' => $storeNumber));
+            if (null === $store) {
+                $this->stores[$storeNumber] = false;
+            } else {
+                $this->stores[$storeNumber] = $store->id;
+            }
+        }
+
         if (!$store) {
             throw new RuntimeException(sprintf('Store with number "%s" not found', $storeNumber));
         }

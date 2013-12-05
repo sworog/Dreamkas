@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\DocumentRepository as BaseRepository;
+use Doctrine\ODM\MongoDB\Proxy\Proxy;
 
 class DocumentRepository extends BaseRepository
 {
@@ -35,5 +36,14 @@ class DocumentRepository extends BaseRepository
         /* @var Cursor $cursor */
         $cursor = $this->findAll();
         return 0 == $cursor->limit(1)->count();
+    }
+
+    /**
+     * @param string $id
+     * @return Proxy
+     */
+    public function getReference($id)
+    {
+        return $this->getDocumentManager()->getReference($this->getClassName(), $id);
     }
 }

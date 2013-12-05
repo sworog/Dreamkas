@@ -53,10 +53,7 @@ class VersionRepository extends DocumentRepository
      */
     public function findByDocumentVersion(VersionInterface $documentVersion)
     {
-        $criteria = array(
-            'version' => $documentVersion->getVersion(),
-        );
-        $foundDocumentVersion = $this->findOneBy($criteria);
+        $foundDocumentVersion = $this->find($documentVersion->getVersion());
         if (!$foundDocumentVersion) {
             $foundDocumentVersion = $documentVersion;
         }

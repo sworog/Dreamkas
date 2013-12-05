@@ -84,6 +84,13 @@ class Set10SalesImportLocal extends Command
 
         $output->writeln(sprintf('Found %d files', $filesCount));
 
+        /*
+        xhprof_enable(XHPROF_FLAGS_MEMORY | XHPROF_FLAGS_CPU);
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_SERVER['HTTP_HOST'] = 'lighthouse';
+        $_SERVER['REQUEST_URI'] = 'lighthouse/import/sales/local';
+        */
+
         foreach ($files as $file) {
             if ($dryRun) {
                 $this->checkDates($file, $output, $datePeriod);
@@ -94,6 +101,15 @@ class Set10SalesImportLocal extends Command
 
         $output->writeln('');
         $output->writeln('Finished importing');
+
+        /*
+        $xhProfData = xhprof_disable();
+
+        $config = require '/home/mshamin/Projects/xhprof.io/xhprof/includes/config.inc.php';
+        require_once '/home/mshamin/Projects/xhprof.io/xhprof/classes/data.php';
+        $xhprofDataObj = new \ay\xhprof\Data($config['pdo']);
+        $xhprofDataObj->save($xhProfData);
+        */
     }
 
     /**
