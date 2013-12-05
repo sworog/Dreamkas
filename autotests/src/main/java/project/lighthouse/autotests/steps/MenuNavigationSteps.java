@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.steps;
 
+import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
@@ -19,6 +20,7 @@ public class MenuNavigationSteps extends ScenarioSteps {
     public void reportMenuItemIsNotVisible() {
         try {
             menuNavigation.reportMenuItemClick();
+            Assert.fail("The menu navigation reports item link is visible!");
         } catch (Exception ignored) {
         }
     }
