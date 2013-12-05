@@ -73,7 +73,8 @@ class SaleProduct extends AbstractDocument implements Reasonable
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,
-     *     cascade="persist"
+     *     cascade="persist",
+     *     inversedBy="products"
      * )
      * @var ProductVersion
      */

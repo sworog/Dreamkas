@@ -122,7 +122,6 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      *     simple=true,
      *     cascade="persist",
      *     inversedBy="products"
-     *
      * )
      * @Assert\NotBlank
      * @var Invoice

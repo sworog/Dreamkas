@@ -65,7 +65,8 @@ class Sale extends AbstractDocument implements Storeable
      * @MongoDB\ReferenceMany(
      *      targetDocument="Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct",
      *      simple=true,
-     *      cascade="persist"
+     *      cascade="persist",
+     *      mappedBy="sale"
      * )
      *
      * @Assert\NotBlank(message="lighthouse.validation.errors.sale.product.empty")
