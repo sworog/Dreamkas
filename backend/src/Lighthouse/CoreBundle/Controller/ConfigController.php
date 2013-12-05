@@ -85,13 +85,14 @@ class ConfigController extends AbstractRestController
     }
 
     /**
+     * @param Request $request
+     * @return Config
      * @ApiDoc
      * @Secure(roles="ROLE_ADMINISTRATOR")
      */
-    public function getConfigsByNameAction()
+    public function getConfigsByNameAction(Request $request)
     {
-        $query = $this->getRequest()->get('query');
-
+        $query = $request->get('query');
         return $this->getDocumentRepository()->findOneBy(array('name' => $query));
     }
 }

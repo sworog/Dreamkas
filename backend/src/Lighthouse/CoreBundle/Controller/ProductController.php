@@ -70,12 +70,13 @@ class ProductController extends AbstractRestController
     }
 
     /**
+     * @param Request $request
      * @param string $property name, sku, barcode
      * @return ProductCollection
      * @ApiDoc
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
      */
-    public function getProductsSearchAction($property)
+    public function getProductsSearchAction(Request $request, $property)
     {
         /* @var LoggableCursor $cursor */
 
@@ -83,7 +84,7 @@ class ProductController extends AbstractRestController
             case 'name':
             case 'sku':
             case 'barcode':
-                $query = $this->getRequest()->get('query');
+                $query = $request->get('query');
                 $cursor = $this->documentRepository->searchEntry($property, $query);
                 break;
             default:
