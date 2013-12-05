@@ -26,7 +26,7 @@ namespace :symfony do
 
         desc "Load data fixtures"
         task :load_fixtures, :roles => :app, :except => { :no_release => true } do
-            puts capture console_command("doctrine:fixtures:load #{doctrine_em_flag} --no-interaction"), :once => true
+            puts capture console_command("doctrine:mongodb:fixtures:load #{doctrine_em_flag} --no-interaction"), :once => true
         end
     end
 
