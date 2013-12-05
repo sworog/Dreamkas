@@ -18,17 +18,17 @@
 </thead>
 <tbody>
 <% _.forEach(todayData, function(data, index){ %>
-<tr>
-    <td>
+<tr name="storeGrossSalesByHourRow">
+    <td name="dayHour">
         <%- moment(data.dayHour).startOf('hour').format('HH:mm') %> &mdash; <%- moment(data.dayHour).startOf('hour').add('hours', 1).format('HH:mm') %>
     </td>
-    <td>
+    <td name="today.hourSum">
         <%- LH.formatMoney(data.hourSum) %> р.
     </td>
-    <td>
+    <td name="yesterday.hourSum">
         <%- LH.formatMoney(yesterdayData[index]['hourSum']) %> р.
     </td>
-    <td>
+    <td name="weekAgo.hourSum">
         <%- LH.formatMoney(weekAgoData[index]['hourSum']) %> р.
     </td>
 </tr>
