@@ -48,14 +48,22 @@ class MoneyValidator extends ConstraintValidator
             );
         }
 
-        if ($count - floor($count) > 0) {
-            $this->context->addViolation(
-                $constraint->messagePrecision,
-                array(
-                    '{{ value }}' => $money,
-                    '{{ precision }}' => $precision
-                )
-            );
-        }
+        $this->validatePrecision($value, $constraint);
+    }
+
+    /**
+     * @param MoneyType $value
+     * @param Money $constraint
+     */
+    protected function validatePrecision(MoneyType $value, Money $constraint)
+    {
+        $precisionConstraint = new Precision(
+            array(
+                'message' => $constraint->messagePrecision,
+                'precision' => $value->getPrecision(),
+            )
+        );
+
+        $this->context->validateValue($value, $precisionConstraint);
     }
 }

@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\DataTransformer;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
 class MoneyModelTransformerTest extends TestCase
 {
@@ -15,7 +16,8 @@ class MoneyModelTransformerTest extends TestCase
      */
     public function testTransformInvalidValue($value)
     {
-        $transformer = new MoneyModelTransformer(2);
+        $numericFactory = new NumericFactory(2, 2);
+        $transformer = new MoneyModelTransformer($numericFactory);
         $transformer->transform($value);
     }
 
@@ -36,34 +38,27 @@ class MoneyModelTransformerTest extends TestCase
      * @dataProvider validTransformValueProvider
      * @param mixed $value
      * @param int $expected
-     * @param int $precision
      */
-    public function testTransform($value, $expected, $precision)
+    public function testTransform($value, $expected)
     {
-        $transformer = new MoneyModelTransformer($precision);
+        $numericFactory = new NumericFactory(2, 2);
+        $transformer = new MoneyModelTransformer($numericFactory);
         $actual = $transformer->transform($value);
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @return array
+     */
     public function validTransformValueProvider()
     {
         return array(
-            array(null, null, null),
-            array(null, null, 2),
-            array(new Money(1000), 10, 2),
-            array(new Money(1112), 11.12, 2),
-            array(new Money(1112), 111.2, 1),
-            array(new Money(1112), 1.112, 3),
-            array(new Money(null), null, null),
-            array(new Money(null), null, 1),
-            array(new Money(null), null, 2),
-            array(new Money(null), null, 3),
-            array(new Money(0), 0, 1),
-            array(new Money(0), 0, 2),
-            array(new Money(0), 0, 3),
-            array(new Money(''), null, 1),
-            array(new Money(''), null, 2),
-            array(new Money(''), null, 3),
+            array(null, null),
+            array(new Money(1000), 10.00),
+            array(new Money(1112), 11.12),
+            array(new Money(null), null),
+            array(new Money(0), 0),
+            array(new Money(''), null),
         );
     }
 
@@ -75,7 +70,8 @@ class MoneyModelTransformerTest extends TestCase
      */
     public function testReverseTransform($value, $expected, $precision)
     {
-        $transformer = new MoneyModelTransformer($precision);
+        $numericFactory = new NumericFactory(2, $precision);
+        $transformer = new MoneyModelTransformer($numericFactory);
         $actual = $transformer->reverseTransform($value);
         $this->assertEquals($expected, $actual->getCount());
     }
@@ -88,12 +84,12 @@ class MoneyModelTransformerTest extends TestCase
         return array(
             array(null, null, null),
             array('', '', null),
-            array(11.12, 11.12, 0),
-            array(11.12, 111.2, 1),
+            array(11.12, 11, 0),
+            array(11.12, 111, 1),
             array(11.12, 1112,  2),
             array(11.12, 11120,  3),
-            array('11.12', 11.12, 0),
-            array('11.12', 111.2, 1),
+            array('11.12', 11, 0),
+            array('11.12', 111, 1),
             array('11.12', 1112,  2),
             array('11.12', 11120,  3),
             array(10.89, 1089, 2),

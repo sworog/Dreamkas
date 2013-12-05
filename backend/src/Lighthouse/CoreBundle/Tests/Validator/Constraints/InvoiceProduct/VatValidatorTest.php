@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\Constraints\InvoiceProduct\Vat;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ValidatorInterface;
@@ -38,6 +39,7 @@ class VatValidatorTest extends ContainerAwareTestCase
         $validator = $this->getContainer()->get('validator');
         $constraint = new Vat();
 
+        /* @var NumericFactory $numericFactory */
         $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
 
         $invoice = new Invoice();
@@ -46,8 +48,8 @@ class VatValidatorTest extends ContainerAwareTestCase
         $invoiceProduct = new InvoiceProduct();
         $invoiceProduct->invoice = $invoice;
         $invoiceProduct->quantity = $numericFactory->createQuantity(12);
-        $invoiceProduct->price = new Money($price);
-        $invoiceProduct->priceWithoutVAT = new Money($priceWithoutVAT);
+        $invoiceProduct->price = $numericFactory->createMoney($price);
+        $invoiceProduct->priceWithoutVAT = $numericFactory->createMoney($priceWithoutVAT);
 
         $violationList = $validator->validateValue($invoiceProduct, $constraint);
 
@@ -66,45 +68,45 @@ class VatValidatorTest extends ContainerAwareTestCase
         return array(
             'includes vat, both prices present' => array(
                 true,
-                1211,
-                1211,
+                12.11,
+                12.11,
                 0
             ),
             'not includes vat, both prices present' => array(
                 false,
-                1211,
-                1211,
+                12.11,
+                12.11,
                 0
             ),
             'not includes vat, only price without vat present' => array(
                 false,
                 null,
-                1211,
+                12.11,
                 0
             ),
             'includes vat, only price with vat present' => array(
                 true,
-                1211,
+                12.11,
                 null,
                 0
             ),
             'includes vat, price with vat missing' => array(
                 true,
                 null,
-                1211,
+                12.11,
                 1,
                 array('lighthouse.validation.errors.money.not_blank')
             ),
             'not includes vat, price without vat missing' => array(
                 false,
-                1211,
+                12.11,
                 null,
                 1,
                 array('lighthouse.validation.errors.money.not_blank')
             ),
             'includes vat, price with vat has 3 digits' => array(
                 true,
-                1211.1,
+                12.111,
                 null,
                 1,
                 array('lighthouse.validation.errors.money.precision')
@@ -112,13 +114,19 @@ class VatValidatorTest extends ContainerAwareTestCase
             'not includes vat, price without vat has 3 digits' => array(
                 false,
                 null,
-                1211.1,
+                12.111,
                 1,
                 array('lighthouse.validation.errors.money.precision')
             ),
+            'not includes vat, price without vat has 3 digits but last digit is zero' => array(
+                false,
+                null,
+                '12.110',
+                0
+            ),
             'includes vat, price with vat is less than 0' => array(
                 true,
-                -1211,
+                -12.11,
                 null,
                 1,
                 array('lighthouse.validation.errors.money.negative')
@@ -126,7 +134,7 @@ class VatValidatorTest extends ContainerAwareTestCase
             'not includes vat, price without vat is less than 0' => array(
                 false,
                 null,
-                -1211,
+                -12.11,
                 1,
                 array('lighthouse.validation.errors.money.negative')
             ),

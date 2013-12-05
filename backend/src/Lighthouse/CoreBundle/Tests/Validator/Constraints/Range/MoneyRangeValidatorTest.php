@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Range;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\MoneyRange;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\MoneyRangeValidator;
 use Symfony\Component\Validator\ExecutionContextInterface;
@@ -24,7 +25,8 @@ class MoneyRangeValidatorTest extends TestCase
     public function setUp()
     {
         $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $moneyTransformer = new MoneyModelTransformer(2);
+        $numericFactory = new NumericFactory(2, 2);
+        $moneyTransformer = new MoneyModelTransformer($numericFactory);
         $this->validator = new MoneyRangeValidator($moneyTransformer);
         $this->validator->initialize($this->context);
     }

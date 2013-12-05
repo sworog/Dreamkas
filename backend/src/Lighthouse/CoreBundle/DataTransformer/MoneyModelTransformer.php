@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\DataTransformer;
 
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Symfony\Component\Form\DataTransformerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -13,79 +14,50 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class MoneyModelTransformer implements DataTransformerInterface
 {
     /**
-     * @var int
+     * @var NumericFactory
      */
-    protected $precision;
+    protected $numericFactory;
 
     /**
      * @DI\InjectParams({
-     *      "precision"=@DI\Inject("%lighthouse.core.precision.money%")
+     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
      * })
-     * @param int $precision
+     * @param NumericFactory $numericFactory
      */
-    public function __construct($precision)
+    public function __construct(NumericFactory $numericFactory)
     {
-        $this->precision = (int) $precision;
-    }
-
-    /**
-     * @param int $precision
-     * @return number
-     */
-    protected function getDivider($precision)
-    {
-        return pow(10, $precision);
-    }
-
-    /**
-     * @param int $precision
-     * @return int
-     */
-    protected function getPrecision($precision = null)
-    {
-        return ($precision) ? (int) $precision : $this->precision;
+        $this->numericFactory = $numericFactory;
     }
 
     /**
      * @param Money $value
-     * @param int $precision
      * @return string
      * @throws TransformationFailedException
      */
-    public function transform($value, $precision = null)
+    public function transform($value)
     {
         if (null === $value) {
-            $value = null;
+            $return = null;
         } elseif ($value instanceof Money) {
             if ($value->isNull()) {
-                return null;
+                $return = null;
             } else {
-                $precision = $this->getPrecision($precision);
-                $divider = $this->getDivider($precision);
-                $value = $value->getCount() / $divider;
-                $value = sprintf("%.{$precision}f", $value);
+                $return = $value->toString();
             }
         } else {
             throw new TransformationFailedException(
                 'Value should be Money type object or null. ' . gettype($value) . ' given'
             );
         }
-        return $value;
+        return $return;
     }
 
     /**
      * @param mixed $value
-     * @param int $precision
-     * @return Money|mixed
+     * @return Money
      */
-    public function reverseTransform($value, $precision = null)
+    public function reverseTransform($value)
     {
-        if (null !== $value && '' !== $value) {
-            $precision = $this->getPrecision($precision);
-            $divider = $this->getDivider($precision);
-            $value = $value * $divider;
-            $value = (float) (string) $value;
-        }
-        return new Money($value);
+        return $this->numericFactory->createMoney($value, true);
     }
 }

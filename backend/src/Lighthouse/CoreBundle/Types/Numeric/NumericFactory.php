@@ -47,7 +47,7 @@ class NumericFactory
      * @param bool $setRaw
      * @return Decimal
      */
-    public function createMoney($value, $setRaw = false)
+    public function createMoney($value, $setRaw = true)
     {
         $money = Money::createFromNumeric($value, $this->moneyPrecision);
         if ($setRaw) {
