@@ -488,10 +488,10 @@ class StoreControllerManagementTest extends WebTestCase
         $storeId = $this->factory->getStore();
         $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
 
-        $request = new JsonRequest('/api/1/stores/' . $storeId, 'OPTIONS');
+        $request = new JsonRequest('/api/1/stores/' . $storeId . '/storeManagers?candidates=1', 'OPTIONS');
         $request->addHttpHeader('Access-Control-Request-Method', 'LINK');
         $request->addHttpHeader('Access-Control-Request-Headers', 'Authorization,Link');
-        $request->addHttpHeader('Origin', 'http://localhost');
+        $request->addHttpHeader('Origin', 'http://webfront.localhost');
 
         $this->jsonRequest($request, $accessToken);
 

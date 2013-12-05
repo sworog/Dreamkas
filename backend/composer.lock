@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fae0262173f6c196de1f13591d0235b6",
+    "hash": "3aace59629695c500e679a3fd3de04cc",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -1772,21 +1772,21 @@
         },
         {
             "name": "nelmio/cors-bundle",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "target-dir": "Nelmio/CorsBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioCorsBundle.git",
-                "reference": "b0cfd058aaab87566a7638729ffd271f7a37e11a"
+                "reference": "6deee94475a9e0f29350d24bc17ea890e981faff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioCorsBundle/zipball/b0cfd058aaab87566a7638729ffd271f7a37e11a",
-                "reference": "b0cfd058aaab87566a7638729ffd271f7a37e11a",
+                "url": "https://api.github.com/repos/nelmio/NelmioCorsBundle/zipball/6deee94475a9e0f29350d24bc17ea890e981faff",
+                "reference": "6deee94475a9e0f29350d24bc17ea890e981faff",
                 "shasum": ""
             },
             "require": {
-                "symfony/framework-bundle": "~2.0"
+                "symfony/framework-bundle": "~2.1"
             },
             "require-dev": {
                 "mockery/mockery": "dev-master"
@@ -1794,7 +1794,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -1822,7 +1822,7 @@
                 "cors",
                 "crossdomain"
             ],
-            "time": "2013-08-14 09:46:02"
+            "time": "2013-10-29 13:11:23"
         },
         {
             "name": "pda/pheanstalk",

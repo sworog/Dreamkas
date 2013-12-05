@@ -330,7 +330,7 @@ class ProductControllerTest extends WebTestCase
             'HTTP_Origin' => 'www.a.com',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->clientJsonRequest(
             $accessToken,
