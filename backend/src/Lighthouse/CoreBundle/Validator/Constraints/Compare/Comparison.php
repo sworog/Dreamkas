@@ -51,7 +51,7 @@ class Comparison
     protected function normalizeValue($value)
     {
         if (null === $value) {
-            throw new NullValueException('value');
+            return null;
         }
         if ($value instanceof Numeric) {
             $value = $value->toNumber();
