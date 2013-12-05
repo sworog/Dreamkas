@@ -12,39 +12,39 @@ public class DashBoardPage extends CommonPageObject {
     }
 
     public String getGrossSaleSubTitle() {
-        return findVisibleElement(By.xpath("//*[@class='grossSale__subTitle']")).getText();
+        return findVisibleElement(By.xpath("//*[@class='grossSales__subTitle']")).getText();
     }
 
     public String getGrossSaleTodayValue() {
-        return findVisibleElement(By.xpath("//*[@class='grossSale__todayValue']")).getText();
+        return findVisibleElement(By.xpath("//*[@class='grossSales__todayValue']")).getText();
     }
 
     public String getGrossSaleYesterdayValue() {
-        return findVisibleElement(By.xpath("//*[@class='grossSale__yesterdayValue']")).getText();
+        return findVisibleElement(By.xpath("//*[@class='grossSales__yesterdayValue']")).getText();
     }
 
     public String getGrossSaleLastWeekValue() {
-        return findVisibleElement(By.xpath("//*[@class='grossSale__lastWeekValue']")).getText();
+        return findVisibleElement(By.xpath("//*[@class='grossSales__lastWeekValue']")).getText();
     }
 
     public String getGrossSaleYesterdayDiff() {
-        return findVisibleElement(By.xpath("//*[@class='grossSale__yesterdayDiff']")).getText();
+        return findVisibleElement(By.xpath("//*[@class='grossSales__yesterdayDiff']")).getText();
     }
 
     public String getGrossSaleWeekDiff() {
-        return findVisibleElement(By.xpath("//*[@class='grossSale__weekDiff']")).getText();
+        return findVisibleElement(By.xpath("//*[@class='grossSales__weekDiff']")).getText();
     }
 
     public String getGrossSaleYesterdayDiffTextColor() {
-        return findVisibleElement(By.xpath("//*[@class='grossSale__yesterdayDiff']/*[contains(@class, 'grossSale__diffText')]")).getCssValue("color");
+        return findVisibleElement(By.xpath("//*[@class='grossSales__yesterdayDiff']/*[contains(@class, 'grossSales__diffText')]")).getCssValue("color");
     }
 
     public String getGrossSaleWeekDiffTextColor() {
-        return findVisibleElement(By.xpath("//*[@class='grossSale__weekDiff']/*[contains(@class, 'grossSale__diffText')]")).getCssValue("color");
+        return findVisibleElement(By.xpath("//*[@class='grossSales__weekDiff']/*[contains(@class, 'grossSales__diffText')]")).getCssValue("color");
     }
 
     public WebElement getGrossSaleDivBlock() {
-        return findVisibleElement(By.xpath("//*[@class='grossSale grossSale_store']"));
+        return findVisibleElement(By.xpath("//*[@class='grossSales grossSales_store']"));
     }
 
     @Override
