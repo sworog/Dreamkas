@@ -37,7 +37,9 @@ public class DateTimeHelper {
     }
 
     public static String getDate() {
-        switch (new DateTime().getDayOfWeek()) {
+        switch (new DateTime().getDayOfWeek() - 1) {
+            case 0:
+                return "прошлое воскресение";
             case 1:
                 return "прошлый понедельник";
             case 2:
@@ -50,8 +52,6 @@ public class DateTimeHelper {
                 return "прошлую пятницу";
             case 6:
                 return "прошлую субботу";
-            case 7:
-                return "прошлое воскресение";
             default:
                 return "в аду";
         }
