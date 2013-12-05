@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\DataFixtures\ODM;
+namespace Lighthouse\CoreBundle\DataFixtures\MongoDB;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;

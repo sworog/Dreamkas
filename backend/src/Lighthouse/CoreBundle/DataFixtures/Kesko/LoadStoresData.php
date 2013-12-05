@@ -3,12 +3,13 @@
 namespace Lighthouse\Kesko;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoadStoresData extends ContainerAware implements DependentFixtureInterface
+class LoadStoresData extends ContainerAware implements DependentFixtureInterface, FixtureInterface
 {
     /**
      * @param ObjectManager $manager
@@ -53,8 +54,8 @@ class LoadStoresData extends ContainerAware implements DependentFixtureInterface
     public function getDependencies()
     {
         return array(
-            'Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadApiClientData',
-            'Lighthouse\\CoreBundle\\DataFixtures\\ODM\\LoadUserData',
+            'Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadApiClientData',
+            'Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadUserData',
         );
     }
 }
