@@ -31,13 +31,13 @@
 <div class="grossSale__weekDiff" style="padding-bottom: 20px;">
 
     <% if (models.storeGrossSales.get('weekAgo.now.diff') === 0) { %>
-    Так же как в <%- LH.getText('lastDay', moment(models.storeGrossSales.get('today.now.date')).day()) %>
+    Так же как в <%- LH.getText('for last day', moment(models.storeGrossSales.get('today.now.date')).day()) %>
     <% } else if (models.storeGrossSales.get('weekAgo.now.diff')) { %>
     На
     <strong class="grossSale__diffText <%- models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'grossSale__diffText_plus' : 'grossSale__diffText_minus' %>">
         <%- Math.abs(models.storeGrossSales.get('weekAgo.now.diff')) %>%
         <%= models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'больше' : 'меньше' %></strong>, чем
-        в <%- LH.getText('lastDay', moment(models.storeGrossSales.get('today.now.date')).day()) %>
+        в <%- LH.getText('for last day', moment(models.storeGrossSales.get('today.now.date')).day()) %>
         (<%- LH.formatMoney(models.storeGrossSales.get('weekAgo.now.value')) %>)
     <% } %>
 </div>
@@ -55,7 +55,7 @@
     </tr>
     <tr class="grossSale__lastWeekValue">
         <td>
-            В <%- LH.getText('lastDay', moment(models.storeGrossSales.get('today.now.date')).day()) %>
+            В <%- LH.getText('for last day', moment(models.storeGrossSales.get('today.now.date')).day()) %>
         </td>
         <td>
             <%- LH.formatMoney(models.storeGrossSales.get('weekAgo.dayEnd.value')) %>
