@@ -26,7 +26,7 @@ class LoadStoresData extends ContainerAware implements DependentFixtureInterface
 
             $storeManager = $userProvider->createNewUser(
                 'storeManager' . $storeNumber,
-                'password',
+                'lighthouse',
                 'Сторье #' . $storeNumber,
                 User::ROLE_STORE_MANAGER,
                 'Директор магазина'
@@ -34,7 +34,7 @@ class LoadStoresData extends ContainerAware implements DependentFixtureInterface
 
             $departmentManager = $userProvider->createNewUser(
                 'departmentManager' . $storeNumber,
-                'password',
+                'lighthouse',
                 'Депардье #' . $storeNumber,
                 User::ROLE_DEPARTMENT_MANAGER,
                 'Зав. отдела'
