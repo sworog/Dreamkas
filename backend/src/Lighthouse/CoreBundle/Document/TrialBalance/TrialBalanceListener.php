@@ -101,11 +101,12 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $trialBalance->reason = $document;
         $trialBalance->createdDate = $document->getReasonDate();
 
-        $dm->persist($storeProduct);
         $dm->persist($trialBalance);
 
+        $this->computeChangeSet($dm, $storeProduct);
         $this->computeChangeSet($dm, $trialBalance);
     }
+    
     /**
      * @param Reasonable $document
      * @param DocumentManager $dm
