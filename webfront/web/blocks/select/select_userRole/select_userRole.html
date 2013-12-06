@@ -2,7 +2,7 @@
     <%- LH.translate('Выберите роль пользователя') %>
 </option>
 
-<% _.forEach(['ROLE_COMMERCIAL_MANAGER', 'ROLE_STORE_MANAGER', 'ROLE_DEPARTMENT_MANAGER', 'ROLE_DEPARTMENT_MANAGER'], function(value, index){ %>
+<% _.forEach(['ROLE_COMMERCIAL_MANAGER', 'ROLE_STORE_MANAGER', 'ROLE_DEPARTMENT_MANAGER', 'ROLE_ADMINISTRATOR'], function(value, index){ %>
 <option <%- selected === value ? 'selected' : '' %> value="<%- value %>">
     <%- LH.translate(value) %>
 </option>
