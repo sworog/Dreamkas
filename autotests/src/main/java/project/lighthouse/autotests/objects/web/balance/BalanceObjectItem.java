@@ -2,8 +2,8 @@ package project.lighthouse.autotests.objects.web.balance;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.CompareResults;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
@@ -32,18 +32,6 @@ public class BalanceObjectItem extends AbstractObjectNode {
         inventoryDays = getElement().findElement(By.xpath(".//*[@model-attribute='inventoryDaysElement']")).getText();
         averagePurchasePrice = getElement().findElement(By.xpath(".//*[@model-attribute='averagePurchasePriceElement']")).getText();
         lastPurchasePrice = getElement().findElement(By.xpath(".//*[@model-attribute='lastPurchasePriceElement']")).getText();
-    }
-
-    @Override
-    public Boolean rowIsEqual(Map<String, String> row) {
-        return sku.equals(row.get("sku")) &&
-                name.equals(row.get("name")) &&
-                barcode.equals(row.get("barcode")) &&
-                inventory.equals(row.get("inventory")) &&
-                averageDailySales.equals(row.get("averageDailySales")) &&
-                inventoryDays.equals(row.get("inventoryDays")) &&
-                averagePurchasePrice.equals(row.get("averagePurchasePrice")) &&
-                lastPurchasePrice.equals(row.get("lastPurchasePrice"));
     }
 
     @Override

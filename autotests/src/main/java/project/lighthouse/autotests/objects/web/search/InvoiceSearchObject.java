@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractSearchObjectNode;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
@@ -38,13 +39,14 @@ public class InvoiceSearchObject extends AbstractSearchObjectNode {
     }
 
     @Override
-    public Boolean rowIsEqual(Map<String, String> row) {
-        return sku.equals(row.get("sku")) &&
-                acceptanceDate.equals(row.get("acceptanceDate")) &&
-                supplier.equals(row.get("supplier")) &&
-                accepter.equals(row.get("accepter")) &&
-                legalEntity.equals(row.get("legalEntity")) &&
-                supplierInvoiceSku.equals(row.get("supplierInvoiceSku")) &&
-                supplierInvoiceDate.equals(row.get("supplierInvoiceDate"));
+    public CompareResults getCompareResults(Map<String, String> row) {
+        return new CompareResults()
+                .compare("sku", sku, row.get("sku"))
+                .compare("acceptanceDate", acceptanceDate, row.get("acceptanceDate"))
+                .compare("supplier", supplier, row.get("supplier"))
+                .compare("accepter", accepter, row.get("accepter"))
+                .compare("legalEntity", legalEntity, row.get("legalEntity"))
+                .compare("supplierInvoiceSku", supplierInvoiceSku, row.get("supplierInvoiceSku"))
+                .compare("supplierInvoiceDate", supplierInvoiceDate, row.get("supplierInvoiceDate"));
     }
 }

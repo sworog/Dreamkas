@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.reports.storeGrossSaleByHour;
+package project.lighthouse.autotests.objects.web.reports.storeGrossSaleBuHour;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

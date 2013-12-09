@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
-import project.lighthouse.autotests.objects.web.CompareResults;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,26 +30,6 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
 
     abstract public AbstractObject createNode(WebElement element);
 
-//    public void compareWithExampleTable(ExamplesTable examplesTable) {
-//        List<Map<String, String>> notFoundRows = new ArrayList<>();
-//        for (Map<String, String> row : examplesTable.getRows()) {
-//            Boolean found = false;
-//            for (AbstractObject abstractObject : this) {
-//                if (abstractObject.rowIsEqual(row)) {
-//                    found = true;
-//                    break;
-//                }
-//            }
-//            if (!found) {
-//                notFoundRows.add(row);
-//            }
-//        }
-//        if (notFoundRows.size() > 0) {
-//            String errorMessage = String.format("These rows are not found: '%s'.", notFoundRows.toString());
-//            Assert.fail(errorMessage);
-//        }
-//    }
-
     public void compareWithExampleTable(ExamplesTable examplesTable) {
         Map<Map<String, String>, CompareResults> mapCompareResultsMap = new HashMap<>();
         for (Map<String, String> row : examplesTable.getRows()) {
@@ -66,22 +46,6 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
                 builder.append(message);
             }
             Assert.fail(builder.toString());
-        }
-    }
-
-    public void compareObjectWithExampleTable(String locator, ExamplesTable examplesTable) {
-        AbstractObject abstractObject = getAbstractObjectByLocator(locator);
-        List<Map<String, String>> notFoundRows = new ArrayList<>();
-        for (Map<String, String> row : examplesTable.getRows()) {
-            if (abstractObject.rowIsEqual(row)) {
-                break;
-            } else {
-                notFoundRows.add(row);
-            }
-        }
-        if (notFoundRows.size() > 0) {
-            String errorMessage = String.format("These rows are not found: '%s'.", notFoundRows.toString());
-            Assert.fail(errorMessage);
         }
     }
 

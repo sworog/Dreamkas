@@ -3,6 +3,7 @@ package project.lighthouse.autotests.objects.web.search;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractSearchObjectNode;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
@@ -27,8 +28,9 @@ public class WriteOffSearchObject extends AbstractSearchObjectNode {
     }
 
     @Override
-    public Boolean rowIsEqual(Map<String, String> row) {
-        return number.equals(row.get("number")) &&
-                date.equals(row.get("date"));
+    public CompareResults getCompareResults(Map<String, String> row) {
+        return new CompareResults()
+                .compare("number", number, row.get("number"))
+                .compare("date", date, row.get("date"));
     }
 }

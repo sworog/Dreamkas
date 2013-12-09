@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
-import project.lighthouse.autotests.objects.web.CompareResults;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +39,6 @@ abstract public class AbstractObject {
     public void click() {
         element.click();
     }
-
-    abstract public Boolean rowIsEqual(Map<String, String> row);
 
     abstract public CompareResults getCompareResults(Map<String, String> row);
 

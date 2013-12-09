@@ -3,6 +3,7 @@ package project.lighthouse.autotests.objects.web.product;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
@@ -26,10 +27,11 @@ public class ReturnListObject extends AbstractObjectNode {
     }
 
     @Override
-    public Boolean rowIsEqual(Map<String, String> row) {
-        return createdDateFormatted.equals(row.get("date")) &&
-                quantity.equals(row.get("quantity")) &&
-                priceFormatted.equals(row.get("price")) &&
-                totalPriceFormatted.equals(row.get("totalPrice"));
+    public CompareResults getCompareResults(Map<String, String> row) {
+        return new CompareResults()
+                .compare("date", createdDateFormatted, row.get("date"))
+                .compare("quantity", quantity, row.get("quantity"))
+                .compare("price", priceFormatted, row.get("price"))
+                .compare("totalPrice", totalPriceFormatted, row.get("totalPrice"));
     }
 }

@@ -2,7 +2,7 @@ package project.lighthouse.autotests.objects.web.abstractObjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.CompareResults;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
@@ -18,11 +18,6 @@ public class AbstractObjectNode extends AbstractObject {
 
     @Override
     public void setProperties() {
-    }
-
-    @Override
-    public Boolean rowIsEqual(Map<String, String> row) {
-        return null;
     }
 
     @Override

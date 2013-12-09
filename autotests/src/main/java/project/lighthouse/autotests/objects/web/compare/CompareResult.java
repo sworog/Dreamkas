@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web;
+package project.lighthouse.autotests.objects.web.compare;
 
 public class CompareResult {
 

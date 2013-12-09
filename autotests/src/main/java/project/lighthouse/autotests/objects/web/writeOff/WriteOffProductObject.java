@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
 import project.lighthouse.autotests.objects.web.abstractObjects.ObjectProperty;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
@@ -32,14 +33,16 @@ public class WriteOffProductObject extends AbstractObjectNode {
         productCause = setObjectProperty("productCause", By.name("productCause"));
     }
 
-    public Boolean rowIsEqual(Map<String, String> row) {
-        return name.getText().equals(row.get("productName")) &&
-                sku.getText().equals(row.get("productSku")) &&
-                barcode.getText().equals(row.get("productBarcode")) &&
-                quantity.getText().equals(row.get("productAmount")) &&
-                units.getText().equals(row.get("productUnits")) &&
-                price.getText().equals(row.get("productPrice")) &&
-                productCause.getText().equals(row.get("productCause"));
+    @Override
+    public CompareResults getCompareResults(Map<String, String> row) {
+        return new CompareResults()
+                .compare("productSku", sku.getText(), row.get("productSku"))
+                .compare("productName", name.getText(), row.get("productName"))
+                .compare("productBarcode", barcode.getText(), row.get("productBarcode"))
+                .compare("productAmount", quantity.getText(), row.get("productAmount"))
+                .compare("productUnits", units.getText(), row.get("productUnits"))
+                .compare("productPrice", price.getText(), row.get("productPrice"))
+                .compare("productCause", productCause.getText(), row.get("productCause"));
     }
 
     @Override

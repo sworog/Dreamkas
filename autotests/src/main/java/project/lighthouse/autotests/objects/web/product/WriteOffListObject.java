@@ -3,6 +3,7 @@ package project.lighthouse.autotests.objects.web.product;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
@@ -27,11 +28,13 @@ public class WriteOffListObject extends AbstractObjectNode {
         number = getElement().getAttribute("writeoff-number");
     }
 
-    public Boolean rowIsEqual(Map<String, String> row) {
-        return acceptanceDateFormatted.equals(row.get("createdDateFormatted")) &&
-                quantity.equals(row.get("quantity")) &&
-                priceFormatted.equals(row.get("priceFormatted")) &&
-                totalPriceFormatted.equals(row.get("totalPriceFormatted"));
+    @Override
+    public CompareResults getCompareResults(Map<String, String> row) {
+        return new CompareResults()
+                .compare("createdDateFormatted", acceptanceDateFormatted, row.get("createdDateFormatted"))
+                .compare("quantity", quantity, row.get("quantity"))
+                .compare("priceFormatted", priceFormatted, row.get("priceFormatted"))
+                .compare("totalPriceFormatted", totalPriceFormatted, row.get("totalPriceFormatted"));
     }
 
     @Override

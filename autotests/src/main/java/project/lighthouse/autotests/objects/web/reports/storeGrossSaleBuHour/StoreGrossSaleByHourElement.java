@@ -1,8 +1,9 @@
-package project.lighthouse.autotests.objects.web.reports.storeGrossSaleByHour;
+package project.lighthouse.autotests.objects.web.reports.storeGrossSaleBuHour;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
@@ -31,10 +32,11 @@ public class StoreGrossSaleByHourElement extends AbstractObjectNode {
     }
 
     @Override
-    public Boolean rowIsEqual(Map<String, String> row) {
-        return date.equals(row.get("date")) &&
-                todayValue.equals(row.get("todayValue")) &&
-                yesterdayValue.equals(row.get("yesterdayValue")) &&
-                weekAgoValue.equals(row.get("weekAgoValue"));
+    public CompareResults getCompareResults(Map<String, String> row) {
+        return new CompareResults()
+                .compare("date", date, row.get("date"))
+                .compare("todayValue", todayValue, row.get("todayValue"))
+                .compare("yesterdayValue", yesterdayValue, row.get("yesterdayValue"))
+                .compare("weekAgoValue", weekAgoValue, row.get("weekAgoValue"));
     }
 }
