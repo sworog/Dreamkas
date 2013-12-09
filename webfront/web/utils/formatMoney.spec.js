@@ -11,7 +11,19 @@ define(function(require, exports, module) {
             numeral.language('root');
 
             it('format integer number', function(){
-                expect(formatMoney('12')).toEqual('12,00');
+                expect(formatMoney(12)).toEqual('12,00');
+            });
+
+            it('format float number', function(){
+                expect(formatMoney(12.45)).toEqual('12,45');
+            });
+
+            it('format long float number', function(){
+                expect(formatMoney(12.451234)).toEqual('12,45');
+            });
+
+            it('format short float number', function(){
+                expect(formatMoney(12.4)).toEqual('12,40');
             });
         });
     });

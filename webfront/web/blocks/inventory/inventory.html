@@ -1,0 +1,12 @@
+<%
+/**
+ *
+ * @inventory
+ */
+%>
+
+<% var numeral = require('libs/numeral') %>
+
+<span class="inventory">
+    <%- numeral(inventory).format('0,0') %><span class="inventory__precision"><%- numeral(inventory).format('.0[00]') %></span>
+</span>
