@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
@@ -46,7 +45,7 @@ abstract class AbstractRestController extends FOSRestController
             $this->getDocumentRepository()->getDocumentManager()->flush();
             return $document;
         } else {
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+            return $form;
         }
     }
 

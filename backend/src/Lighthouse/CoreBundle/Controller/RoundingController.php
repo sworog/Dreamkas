@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -50,8 +49,9 @@ class RoundingController extends FOSRestController
      * @return array|View
      * @ApiDoc
      * @Rest\View(statusCode=201)
+     * @Rest\Route("roundings/{name}/round")
      */
-    public function postRoundingRoundAction($name, Request $request)
+    public function postRoundingRoundAction(Request $request, $name)
     {
         $rounding = $this->findRounding($name);
 
@@ -65,7 +65,7 @@ class RoundingController extends FOSRestController
                 'price' => $roundedPrice,
             );
         } else {
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+            return $form;
         }
     }
 

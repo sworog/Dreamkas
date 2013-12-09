@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\LoggableCursor;
-use FOS\Rest\Util\Codes;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
@@ -89,7 +88,7 @@ class UserController extends AbstractRestController
             $this->getDocumentRepository()->getDocumentManager()->flush();
             return $document;
         } else {
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+            return $form;
         }
     }
 
@@ -122,7 +121,7 @@ class UserController extends AbstractRestController
             $this->getDocumentRepository()->getDocumentManager()->flush();
             return $user;
         } else {
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+            return $form;
         }
     }
 
