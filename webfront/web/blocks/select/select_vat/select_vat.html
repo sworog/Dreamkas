@@ -8,8 +8,8 @@
     выберите ставку
 </option>
 
-<% _.forEach(['0', '10', '18'], function(value, index){ %>
-<option <%- selected === value ? 'selected' : '' %> value="<%- value %>">
+<% _.forEach([0, 10, 18], function(value, index){ %>
+<option <%- selected == value ? 'selected' : '' %> value="<%- value %>">
     <%- values[value] %>
 </option>
 <% }) %>
