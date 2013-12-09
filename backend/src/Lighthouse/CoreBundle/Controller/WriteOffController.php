@@ -15,7 +15,6 @@ use Lighthouse\CoreBundle\Meta\MetaCollection;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
-use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

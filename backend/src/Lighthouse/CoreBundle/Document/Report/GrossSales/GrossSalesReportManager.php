@@ -126,8 +126,9 @@ class GrossSalesReportManager
         $dates = $this->getDates($time, $intervals);
         $storeDayReports = $this->grossSalesRepository->findByDates($dates);
         $storeDayReports->sort(array('store' => 1));
-        /* @var Store[] $stores */
-        $stores = $this->storeRepository->findAll()->sort(array('id' => 1));
+        /* @var Store[]|Cursor $stores */
+        $stores = $this->storeRepository->findAll();
+        $stores->sort(array('id' => 1));
         $storeReports = $this->createGrossSalesByStoresCollection($storeDayReports, $dates);
         $this->fillGrossSalesByStoresCollection($storeReports, $stores, $dates);
         return $storeReports;
