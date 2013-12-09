@@ -251,7 +251,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
         $display = $commandTester->getDisplay();
 
-        $this->assertContains('Error: Failed to parse xml: Extra content at the end of the document', $display);
+        $this->assertContains("Error: Failed to parse node 'good': Extra content at the end of the document", $display);
     }
 
     /**
