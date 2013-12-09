@@ -123,10 +123,12 @@ class SalesImporter
         OutputInterface $output,
         $batchSize = null,
         DatePeriod $datePeriod = null,
-        DotHelper $dotHelper,
-        Stopwatch $stopwatch
+        DotHelper $dotHelper = null,
+        Stopwatch $stopwatch = null
     ) {
         $this->errors = array();
+        $dotHelper = ($dotHelper) ?: new DotHelper($output);
+        $stopwatch = ($stopwatch) ?: new Stopwatch();
         $count = 0;
         $batchSize = ($batchSize) ?: $this->batchSize;
         $dm = $this->productRepository->getDocumentManager();
@@ -147,13 +149,13 @@ class SalesImporter
                     }
                 }
             } catch (ValidationFailedException $e) {
-                $output->write('<error>V</error>');
+                $dotHelper->write('<error>V</error>');
                 $this->errors[] = array(
                     'count' => $count,
                     'exception' => $e
                 );
             } catch (\Exception $e) {
-                $output->write('<error>E</error>');
+                $dotHelper->write('<error>E</error>');
                 $this->errors[] = array(
                     'count' => $count,
                     'exception' => $e
