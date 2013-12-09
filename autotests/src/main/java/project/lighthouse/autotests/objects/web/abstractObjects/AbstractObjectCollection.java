@@ -33,10 +33,18 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
     public void compareWithExampleTable(ExamplesTable examplesTable) {
         Map<Map<String, String>, CompareResults> mapCompareResultsMap = new HashMap<>();
         for (Map<String, String> row : examplesTable.getRows()) {
+            Boolean found = false;
             for (AbstractObject abstractObject : this) {
-                if (!abstractObject.getCompareResults(row).isEmpty()) {
+                if (abstractObject.getCompareResults(row).isEmpty()) {
+                    this.remove(abstractObject);
+                    found = true;
+                    break;
+                } else {
                     mapCompareResultsMap.put(row, abstractObject.getCompareResults(row));
                 }
+            }
+            if (found) {
+                mapCompareResultsMap.clear();
             }
         }
         if (!mapCompareResultsMap.isEmpty()) {
