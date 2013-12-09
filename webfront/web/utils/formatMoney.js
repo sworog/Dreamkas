@@ -1,8 +1,8 @@
 define(function(require, exports, module) {
     //requirements
-    var accounting = require('libs/accounting');
+    var numeral = require('libs/numeral');
 
     return function(sum){
-        return accounting.formatNumber(sum, 2, ' ', ',');
+        return numeral(sum).format('0,0.00');
     }
 });

@@ -17,7 +17,10 @@ module.exports = function(config) {
             'karma.main.js',
             {pattern: 'kit/**/*.html', included: false},
             {pattern: 'kit/config.js', included: false},
-            {pattern: 'kit/**/*.js', included: false}
+            {pattern: 'kit/**/*.js', included: false},
+            {pattern: 'utils/**/*.js', included: false},
+            {pattern: 'libs/**/*.js', included: false},
+            {pattern: 'nls/**/*.js', included: false}
         ],
 
 
