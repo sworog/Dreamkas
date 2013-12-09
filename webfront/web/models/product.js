@@ -7,7 +7,7 @@ define(function(require) {
         modelName: 'product',
         urlRoot: LH.baseApiUrl + '/products',
         defaults: {
-            inventory: 0,
+            amount: 0,
             retailPricePreference: 'retailMarkup',
             rounding: {}
         },
