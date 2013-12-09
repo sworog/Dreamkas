@@ -3,6 +3,7 @@ package project.lighthouse.autotests.objects.web.balance;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
@@ -34,15 +35,16 @@ public class BalanceObjectItem extends AbstractObjectNode {
     }
 
     @Override
-    public Boolean rowIsEqual(Map<String, String> row) {
-        return sku.equals(row.get("sku")) &&
-                name.equals(row.get("name")) &&
-                barcode.equals(row.get("barcode")) &&
-                inventory.equals(row.get("inventory")) &&
-                averageDailySales.equals(row.get("averageDailySales")) &&
-                inventoryDays.equals(row.get("inventoryDays")) &&
-                averagePurchasePrice.equals(row.get("averagePurchasePrice")) &&
-                lastPurchasePrice.equals(row.get("lastPurchasePrice"));
+    public CompareResults getCompareResults(Map<String, String> row) {
+        return new CompareResults()
+                .compare("sku", sku, row.get("sku"))
+                .compare("name", name, row.get("name"))
+                .compare("barcode", barcode, row.get("barcode"))
+                .compare("inventory", inventory, row.get("inventory"))
+                .compare("averageDailySales", averageDailySales, row.get("averageDailySales"))
+                .compare("inventoryDays", inventoryDays, row.get("inventoryDays"))
+                .compare("averagePurchasePrice", averagePurchasePrice, row.get("averagePurchasePrice"))
+                .compare("lastPurchasePrice", lastPurchasePrice, row.get("lastPurchasePrice"));
     }
 
     @Override

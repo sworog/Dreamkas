@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
 import project.lighthouse.autotests.objects.web.abstractObjects.ObjectProperty;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
@@ -38,16 +39,17 @@ public class InvoiceProductObject extends AbstractObjectNode {
     }
 
     @Override
-    public Boolean rowIsEqual(Map<String, String> row) {
-        return name.getText().equals(row.get("productName")) &&
-                sku.getText().equals(row.get("productSku")) &&
-                barcode.getText().equals(row.get("productBarcode")) &&
-                quantity.getText().equals(row.get("productAmount")) &&
-                units.getText().equals(row.get("productUnits")) &&
-                price.getText().equals(row.get("productPrice")) &&
-                sum.getText().equals(row.get("productSum")) &&
-                vatSum.getText().equals(row.get("vatSum")) &&
-                vat.getText().equals(row.get("vat"));
+    public CompareResults getCompareResults(Map<String, String> row) {
+        return new CompareResults()
+                .compare("productSku", sku.getText(), row.get("productSku"))
+                .compare("productName", name.getText(), row.get("productName"))
+                .compare("productBarcode", barcode.getText(), row.get("productBarcode"))
+                .compare("productAmount", quantity.getText(), row.get("productAmount"))
+                .compare("productUnits", units.getText(), row.get("productUnits"))
+                .compare("productPrice", price.getText(), row.get("productPrice"))
+                .compare("productSum", sum.getText(), row.get("productSum"))
+                .compare("vatSum", vatSum.getText(), row.get("vatSum"))
+                .compare("vat", vat.getText(), row.get("vat"));
     }
 
     @Override

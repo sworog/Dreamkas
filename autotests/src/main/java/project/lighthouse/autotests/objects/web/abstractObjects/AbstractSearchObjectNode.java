@@ -3,6 +3,7 @@ package project.lighthouse.autotests.objects.web.abstractObjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class AbstractSearchObjectNode extends AbstractObject {
     }
 
     @Override
-    public Boolean rowIsEqual(Map<String, String> row) {
+    public CompareResults getCompareResults(Map<String, String> row) {
         return null;
     }
 
