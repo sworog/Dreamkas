@@ -17,7 +17,7 @@ define(function(require) {
         ],
         defaults: {
             quantityElement: compute(['quantity'], function(quantity){
-                return String.prototype.split.call(quantity, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(quantity, '.')[1] || '00') + '</span>'
+                return String.prototype.split.call(quantity, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(quantity, '.')[1] || '000') + '</span>'
             })
         }
     });
