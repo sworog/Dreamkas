@@ -175,10 +175,15 @@ class SalesImporter
      */
     protected function flush(DocumentManager $dm, OutputInterface $output, DotHelper $dotHelper, Stopwatch $stopwatch)
     {
+        $e = $stopwatch->start('flush');
+
         $dm->flush();
         $dm->clear();
+
+        $e->stop();
+
         $dotHelper->end();
-        $output->writeln('<info>Flushing</info>');
+        $output->writeln(sprintf('<info>Flushing</info> %d ms, %s bytes', $e->getDuration(), $e->getMemory()));
     }
 
     /**
