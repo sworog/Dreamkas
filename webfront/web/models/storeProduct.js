@@ -30,7 +30,7 @@ define(function(require) {
             }),
 
             averageDailySalesElement: computeAttr(['averageDailySales'], function(averageDailySales) {
-                return String.prototype.split.call(averageDailySales, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(averageDailySales, '.')[1] || '000') + '</span>'
+                return String.prototype.split.call(averageDailySales, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(averageDailySales, '.')[1] || '00') + '</span>'
             }),
 
             unitsFormatted: computeAttr(['product.units'], function() {
