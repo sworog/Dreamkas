@@ -84,7 +84,7 @@ class Set10SalesImportLocalTest extends WebTestCase
 
         $display = $commandTester->getDisplay();
 
-        $this->assertContains("E......E.........EEEF\n", $display);
+        $this->assertContains("E......E.........EEE                                      15\nFlushing", $display);
         $this->assertContains('Product with sku "1" not found', $display);
         $this->assertContains('Product with sku "7" not found', $display);
         $this->assertContains('Product with sku "3" not found', $display);
@@ -103,12 +103,12 @@ class Set10SalesImportLocalTest extends WebTestCase
         return array(
             array(
                 'purchases-13-09-2013_15-09-26.xml',
-                "...F\n",
+                "...                                                  3\nFlushing",
                 0
             ),
             array(
                 'purchases-14-05-2012_9-18-29.xml',
-                "....................F\n",
+                "....................                                 20\nFlushing",
                 0
             ),
         );

@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10\Import\Sales;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
@@ -21,6 +23,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Validator\ValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
@@ -112,12 +115,16 @@ class SalesImporter
      * @param OutputInterface $output
      * @param int $batchSize
      * @param DatePeriod $datePeriod
+     * @param DotHelper $dotHelper
+     * @param Stopwatch $stopwatch
      */
     public function import(
         SalesXmlParser $parser,
         OutputInterface $output,
         $batchSize = null,
-        DatePeriod $datePeriod = null
+        DatePeriod $datePeriod = null,
+        DotHelper $dotHelper,
+        Stopwatch $stopwatch
     ) {
         $this->errors = array();
         $count = 0;
@@ -130,14 +137,13 @@ class SalesImporter
             try {
                 $receipt = $this->createReceipt($purchaseElement, $datePeriod);
                 if (!$receipt) {
-                    $output->write('<error>S</error>');
+                    $dotHelper->write('<error>S</error>');
                 } else {
                     $this->validator->validate($receipt, null, true, true);
                     $dm->persist($receipt);
-                    $output->write('.');
+                    $dotHelper->write('<info>.</info>');
                     if (0 == $count % $batchSize) {
-                        $dm->flush();
-                        $output->write('<info>F</info>');
+                        $this->flush($dm, $output, $dotHelper, $stopwatch);
                     }
                 }
             } catch (ValidationFailedException $e) {
@@ -154,13 +160,25 @@ class SalesImporter
                 );
             }
         }
-        $dm->flush();
-        $dm->clear();
-        $output->write('<info>F</info>');
+        $this->flush($dm, $output, $dotHelper, $stopwatch);
 
         $this->outputErrors($output, $this->errors);
 
         $output->writeln('');
+    }
+
+    /**
+     * @param DocumentManager $dm
+     * @param OutputInterface $output
+     * @param DotHelper $dotHelper
+     * @param Stopwatch $stopwatch
+     */
+    protected function flush(DocumentManager $dm, OutputInterface $output, DotHelper $dotHelper, Stopwatch $stopwatch)
+    {
+        $dm->flush();
+        $dm->clear();
+        $dotHelper->end();
+        $output->writeln('<info>Flushing</info>');
     }
 
     /**

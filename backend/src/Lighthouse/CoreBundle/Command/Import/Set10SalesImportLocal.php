@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Import;
 
+use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\PurchaseElement;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
@@ -16,6 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Exception;
 use SplFileInfo;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * @DI\Service("lighthouse.core.command.import.set10_sales_import_local")
@@ -133,10 +135,12 @@ class Set10SalesImportLocal extends Command
         $batchSize = null,
         DatePeriod $datePeriod = null
     ) {
+        $dotHelper = new DotHelper($output);
+        $stopwatch = new Stopwatch();
         try {
             $output->writeln(sprintf('Importing "%s"', $file->getFilename()));
             $parser = new SalesXmlParser($file->getPathname());
-            $this->importer->import($parser, $output, $batchSize, $datePeriod);
+            $this->importer->import($parser, $output, $batchSize, $datePeriod, $dotHelper, $stopwatch);
             foreach ($this->importer->getErrors() as $error) {
                 $this->logException($error['exception'], $file);
             }
