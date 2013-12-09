@@ -127,5 +127,5 @@ Given the user logs in as 'commercialManager'
 And the user opens the log page
 Then the user checks the last simple log message
 | logMessage |
-| Sales import fail: Failed to parse "purchase" xml node: Couldn't find end of Start Tag position |
+| Sales import fail: Failed to parse node 'purchase': Couldn't find end of Start Tag position |
 
