@@ -44,7 +44,13 @@ abstract class XmlParser
                 $domNode = @$this->xmlReader->expand();
                 if (false === $domNode) {
                     $error = libxml_get_last_error();
-                    throw new RuntimeException(sprintf('Failed to parse xml: %s', $error->message));
+                    throw new RuntimeException(
+                        sprintf(
+                            'Failed to parse node \'%s\': %s',
+                            $this->xmlReader->name,
+                            $error->message
+                        )
+                    );
                 }
                 $doc = new DOMDocument('1.0', 'UTF-8');
                 return $this->createElement($doc->importNode($domNode, true));
@@ -63,8 +69,5 @@ abstract class XmlParser
      * @param DOMNode $node
      * @return SimpleXMLElement
      */
-    protected function createElement(DOMNode $node)
-    {
-        return simplexml_import_dom($node);
-    }
+    abstract protected function createElement(DOMNode $node);
 }

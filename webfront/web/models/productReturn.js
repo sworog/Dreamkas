@@ -16,13 +16,13 @@ define(function(require) {
                 return moment(createdDate).format('DD.MM.YYYY');
             }),
             totalPriceFormatted: compute(['totalPrice'], function(totalPrice){
-                return LH.formatPrice(totalPrice);
+                return LH.formatMoney(totalPrice);
             }),
             priceFormatted: compute(['price'], function(price){
-                return LH.formatPrice(price);
+                return LH.formatMoney(price);
             }),
             quantityElement: compute(['quantity'], function(quantity){
-                return String.prototype.split.call(quantity, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(quantity, '.')[1] || '00') + '</span>'
+                return String.prototype.split.call(quantity, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(quantity, '.')[1] || '000') + '</span>'
             })
         }
     });

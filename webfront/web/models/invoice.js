@@ -15,7 +15,7 @@ define(function(require) {
         defaults: {
             includesVAT: true,
             totalAmountVATFormatted: compute(['totalAmountVAT'], function(totalAmountVAT){
-                return LH.formatPrice(totalAmountVAT)
+                return LH.formatMoney(totalAmountVAT)
             })
         },
 

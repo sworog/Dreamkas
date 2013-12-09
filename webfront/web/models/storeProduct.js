@@ -22,7 +22,7 @@ define(function(require) {
             averageDailySales: 0,
 
             inventoryElement: computeAttr(['inventory'], function(inventory) {
-                return String.prototype.split.call(inventory, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(inventory, '.')[1] || '00') + '</span>'
+                return String.prototype.split.call(inventory, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(inventory, '.')[1] || '000') + '</span>'
             }),
 
             inventoryDaysElement: computeAttr(['inventoryDays'], function(inventoryDays) {
@@ -30,7 +30,7 @@ define(function(require) {
             }),
 
             averageDailySalesElement: computeAttr(['averageDailySales'], function(averageDailySales) {
-                return String.prototype.split.call(averageDailySales, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(averageDailySales, '.')[1] || '00') + '</span>'
+                return String.prototype.split.call(averageDailySales, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(averageDailySales, '.')[1] || '000') + '</span>'
             }),
 
             unitsFormatted: computeAttr(['product.units'], function() {
@@ -40,14 +40,12 @@ define(function(require) {
             retailPricePreference: 'retailMarkup',
 
             averagePurchasePriceFormatted: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice) {
-                return averagePurchasePrice ? (LH.formatPrice(averagePurchasePrice) + ' р.') : '&mdash;';
+                return averagePurchasePrice ? (LH.formatMoney(averagePurchasePrice) + ' р.') : '&mdash;';
             }),
 
             averagePurchasePriceElement: computeAttr(['averagePurchasePrice'], function(averagePurchasePrice) {
                 if (averagePurchasePrice) {
-                    return String.prototype.split.call(averagePurchasePrice, '.')[0] +
-                        ',' +
-                        String.prototype.split.call(averagePurchasePrice, '.')[1] +
+                    return LH.formatMoney(averagePurchasePrice) +
                         '<span class="layout__currency"> р.</span>'
                 } else {
                     return '&mdash;';
@@ -55,20 +53,20 @@ define(function(require) {
             }),
 
             purchasePriceFormatted: computeAttr(['product.purchasePrice'], function(purchasePrice) {
-                return purchasePrice ? (LH.formatPrice(purchasePrice) + ' р.') : '&mdash;';
+                return purchasePrice ? (LH.formatMoney(purchasePrice) + ' р.') : '&mdash;';
             }),
 
             lastPurchasePriceFormatted: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice) {
-                var purchasePriceFormatted = this.get('product.purchasePrice') ? (LH.formatPrice(this.get('product.purchasePrice')) + ' р.') : '&mdash;';
-                return lastPurchasePrice ? (LH.formatPrice(lastPurchasePrice) + ' р.') : purchasePriceFormatted;
+                var purchasePriceFormatted = this.get('product.purchasePrice') ? (LH.formatMoney(this.get('product.purchasePrice')) + ' р.') : '&mdash;';
+                return lastPurchasePrice ? (LH.formatMoney(lastPurchasePrice) + ' р.') : purchasePriceFormatted;
             }),
 
             lastPurchasePriceElement: computeAttr(['lastPurchasePrice'], function(lastPurchasePrice) {
+
                 lastPurchasePrice = lastPurchasePrice || this.get('product.purchasePrice');
+
                 if (lastPurchasePrice) {
-                    return String.prototype.split.call(lastPurchasePrice, '.')[0] +
-                        ',' +
-                        String.prototype.split.call(lastPurchasePrice, '.')[1] +
+                    return LH.formatMoney(lastPurchasePrice) +
                         '<span class="layout__currency"> р.</span>'
                 } else {
                     return '&mdash;';

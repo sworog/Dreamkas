@@ -106,6 +106,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
     /**
      * @expectedException \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @expectedExceptionMessage Failed to parse node 'good': Extra content at the end of the document
      */
     public function testInvalidXml()
     {

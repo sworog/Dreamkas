@@ -5,13 +5,17 @@ define(function(require) {
         Backbone = require('backbone'),
         _ = require('lodash'),
         currentUserModel = require('models/currentUser'),
-        cookie = require('kit/libs/cookie');
+        cookie = require('kit/libs/cookie'),
+        numeral = require('libs/numeral');
 
     require('jquery');
 
     app.locale = 'root';
 
     Block.prototype.dictionary = require('dictionary');
+
+    numeral.language(app.locale, require('i18n!nls/numeral'));
+    numeral.language(app.locale);
 
     var sync = Backbone.sync,
         loading,
