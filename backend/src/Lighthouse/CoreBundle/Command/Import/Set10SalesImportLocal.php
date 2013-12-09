@@ -61,6 +61,7 @@ class Set10SalesImportLocal extends Command
             ->addOption('start-date', null, InputOption::VALUE_OPTIONAL, 'Date of first check')
             ->addOption('end-date', null, InputOption::VALUE_OPTIONAL, 'End date')
             ->addOption('dry-run', null, InputOption::VALUE_NONE, 'End date')
+            ->addOption('profile', null, InputOption::VALUE_NONE, 'Save xhprof profile data')
         ;
     }
 
@@ -77,6 +78,7 @@ class Set10SalesImportLocal extends Command
         $startDate = $input->getOption('start-date');
         $endDate = $input->getOption('end-date');
         $dryRun = $input->getOption('dry-run');
+        $profile = $input->getOption('profile');
 
         $datePeriod = $this->getDatePeriod($startDate, $endDate);
         $files = $this->getXmlFiles($filePath);
@@ -85,9 +87,8 @@ class Set10SalesImportLocal extends Command
         $output->writeln(sprintf('Found %d files', $filesCount));
 
         \PHP_Timer::start();
-        $xhprofEnable = false;
 
-        if ($xhprofEnable) {
+        if ($profile) {
             xhprof_enable(XHPROF_FLAGS_MEMORY | XHPROF_FLAGS_CPU);
             $_SERVER['REQUEST_METHOD'] = 'POST';
             $_SERVER['HTTP_HOST'] = 'lighthouse';
@@ -108,7 +109,7 @@ class Set10SalesImportLocal extends Command
         $time = \PHP_Timer::stop();
         $output->writeln(\PHP_Timer::secondsToTimeString($time));
 
-        if ($xhprofEnable) {
+        if ($profile) {
             \PHP_Timer::start();
             $output->write('Saving xhprof data ... ');
             $xhProfData = xhprof_disable();
