@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Import;
 
+use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 use Symfony\Component\Console\Command\Command;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -31,19 +32,9 @@ class ProductsXmlMerger extends Command
     protected $mergeFile;
 
     /**
-     * @var int
+     * @var DotHelper
      */
-    protected $dotsPos = 0;
-
-    /**
-     * @var int
-     */
-    protected $dotsLength = 50;
-
-    /**
-     * @var OutputInterface
-     */
-    protected $output;
+    protected $dotHelper;
 
     /**
      * @var LibXMLError[]
@@ -64,10 +55,10 @@ class ProductsXmlMerger extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->dotHelper = new DotHelper($output);
+
         $dir = $input->getArgument('dir');
         $saveFile = $input->getArgument('save');
-
-        $this->output = $output;
 
         $this->createMergeFile($saveFile);
 
@@ -91,8 +82,8 @@ class ProductsXmlMerger extends Command
         $output->writeln(sprintf('<info>Saving %s</info>', $this->mergeFile->getPathname()));
         $this->closeMergeFile();
 
-        $this->outputErrors();
-        $this->outputStats();
+        $this->outputErrors($output);
+        $this->outputStats($output);
     }
 
     /**
@@ -126,21 +117,21 @@ class ProductsXmlMerger extends Command
                 if (!isset($this->skus[$sku])) {
                     $nodeXml = @$xmlReader->readOuterXml();
                     if ('' == $nodeXml) {
-                        $this->writeDot('<error>E</error>');
+                        $this->dotHelper->write('<error>E</error>');
                         $this->errors[] = libxml_get_last_error();
                         break;
                     } else {
                         $this->mergeFile->fwrite($nodeXml . PHP_EOL);
                         $this->skus[$sku] = 1;
-                        $this->writeDot('<info>.</info>');
+                        $this->dotHelper->write('<info>.</info>');
                     }
                 } else {
                     $this->skus[$sku]++;
-                    $this->writeDot('<comment>S</comment>');
+                    $this->dotHelper->write('<comment>S</comment>');
                 }
             }
         }
-        $this->resetDots();
+        $this->dotHelper->end();
     }
 
     /**
@@ -159,27 +150,12 @@ class ProductsXmlMerger extends Command
     }
 
     /**
-     * @param string $dot
+     * @param OutputInterface $output
      */
-    protected function writeDot($dot)
-    {
-        $this->output->write($dot);
-        if (0 == ++$this->dotsPos % $this->dotsLength) {
-            $this->output->writeln('   ' . $this->dotsPos);
-        }
-    }
-
-    protected function resetDots()
-    {
-        $missingDots = $this->dotsLength - ($this->dotsPos % $this->dotsLength);
-        $this->output->writeln(str_repeat(' ', $missingDots) . '   ' . $this->dotsPos);
-        $this->dotsPos = 0;
-    }
-
-    protected function outputErrors()
+    protected function outputErrors(OutputInterface $output)
     {
         foreach ($this->errors as $error) {
-            $this->output->writeln(
+            $output->writeln(
                 sprintf(
                     '<error>%s: %s at %s:%s</error>',
                     $error->file,
@@ -191,14 +167,17 @@ class ProductsXmlMerger extends Command
         }
     }
 
-    protected function outputStats()
+    /**
+     * @param OutputInterface $output
+     */
+    protected function outputStats(OutputInterface $output)
     {
         $total = array_sum($this->skus);
         $unique = count($this->skus);
         $average = $total / $unique;
         $max = max($this->skus);
 
-        $this->output->writeln('');
+        $output->writeln('');
         /* @var TableHelper $tableHelper */
         $tableHelper = $this->getHelper('table');
         $tableHelper->setHeaders(array('Stats'));
@@ -206,6 +185,6 @@ class ProductsXmlMerger extends Command
         $tableHelper->addRow(array('Total', $total));
         $tableHelper->addRow(array('Average', sprintf('%.1f', $average)));
         $tableHelper->addRow(array('Max', $max));
-        $tableHelper->render($this->output);
+        $tableHelper->render($output);
     }
 }
