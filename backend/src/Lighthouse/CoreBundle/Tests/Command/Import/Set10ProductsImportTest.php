@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
 use Lighthouse\CoreBundle\Command\Import\Set10ProductsImport;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;

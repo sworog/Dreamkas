@@ -89,7 +89,8 @@ class SalesImporterTest extends WebTestCase
         $output = new TestOutput();
         $this->import('purchases-13-09-2013_15-09-26.xml', $output);
 
-        $this->assertStringStartsWith("E..                                                  3\nFlushing", $output->getDisplay());
+        $display = $output->getDisplay();
+        $this->assertStringStartsWith("E..                                                  3\nFlushing", $display);
         $lines = $output->getLines();
         $this->assertContains('Errors', $lines[3]);
         $this->assertContains('Store with number "666" not found', $lines[4]);

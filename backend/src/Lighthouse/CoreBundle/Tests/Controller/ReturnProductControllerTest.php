@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Test\Assert;

@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 class SortableDirectoryTest extends TestCase
 {
     /**
-     * @expectedException UnexpectedValueException
+     * @expectedException \UnexpectedValueException
      */
     public function testInvalidDirectory()
     {
@@ -199,7 +199,7 @@ class SortableDirectoryTest extends TestCase
     public function testCreateByDir()
     {
         $tmpDir = $this->createDirectory();
-        $files = $this->createFiles($tmpDir);
+        $this->createFiles($tmpDir);
 
         $dir = new SortableDirectoryIterator($tmpDir);
 

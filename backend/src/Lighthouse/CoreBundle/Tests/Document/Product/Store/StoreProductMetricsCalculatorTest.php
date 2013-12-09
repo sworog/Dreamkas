@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Tests\Document\Product\Store;
 
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
-use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;

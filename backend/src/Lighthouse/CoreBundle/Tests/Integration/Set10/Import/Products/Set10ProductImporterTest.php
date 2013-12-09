@@ -7,8 +7,6 @@ use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Test\TestOutput;
-use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class Set10ProductImporterTest extends ContainerAwareTestCase
 {
@@ -51,7 +49,7 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
         $this->assertCount(0, $cursor);
 
         $parser = $this->createXmlParser();
-        $output = $this->import($parser);
+        $this->import($parser);
 
         $cursor = $productRepository->findAll();
         $this->assertCount(4, $cursor);

@@ -7,7 +7,7 @@ use XMLReader;
 use DOMNode;
 
 /**
- * @method PurchaseElement readNextElement()
+ * @method PurchaseElement|false readNextElement()
  */
 class SalesXmlParser extends XmlParser
 {
