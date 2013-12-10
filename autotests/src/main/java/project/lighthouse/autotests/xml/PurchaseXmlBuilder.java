@@ -22,9 +22,17 @@ public class PurchaseXmlBuilder {
     }
 
     public PurchaseXmlBuilder addXmlPurchase(String saleTime, String operDay, String shop, String amount, String price, String count, String id) throws XPathExpressionException {
+        return xmlAction(saleTime, operDay, shop, amount, price, count, id, "true");
+    }
+
+    public PurchaseXmlBuilder addXmlReturn(String saleTime, String operDay, String shop, String amount, String price, String count, String id) throws XPathExpressionException {
+        return xmlAction(saleTime, operDay, shop, amount, price, count, id, "false");
+    }
+
+    private PurchaseXmlBuilder xmlAction(String saleTime, String operDay, String shop, String amount, String price, String count, String id, String operationType) throws XPathExpressionException {
         xmlBuilder.xpathFind("//purchases")
                 .e("purchase").a("discountAmount", "0.0").a("amount", amount).a("saletime", saleTime).a("number", "3").a("shift", "11").a("cash", "1")
-                .a("shop", shop).a("operDay", operDay).a("operationType", "true").a("userName", "Админ Админ Админ").a("tabNumber", "123213123")
+                .a("shop", shop).a("operDay", operDay).a("operationType", operationType).a("userName", "Админ Админ Админ").a("tabNumber", "123213123")
                 .e("positions")
                 .e("position").a("amount", amount).a("costWithDiscount", price).a("discountValue", "0.0").a("ndsSum", "0.0").a("nds", "0.0").a("cost", price)
                 .a("count", count).a("barCode", id).a("goodsCode", id).a("departNumber", "1").a("order", "1")
