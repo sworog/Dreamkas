@@ -17,12 +17,13 @@ public interface CommonViewInterface {
 
     void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable);
 
+    @Deprecated
     void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, By findBy, String expectedValue);
 
     void childrenItemClickByClassName(String elementName, String elementClassName);
 
     @Deprecated
-    void childrentItemClickByFindByLocator(String elementName, By by);
+    void childrenItemClickByFindByLocator(String elementName, By by);
 
     void childrenItemNavigateAndClickByFindByLocator(String elementName, By by);
 }

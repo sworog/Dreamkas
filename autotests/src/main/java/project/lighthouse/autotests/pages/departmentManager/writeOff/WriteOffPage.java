@@ -89,11 +89,13 @@ public class WriteOffPage extends InvoiceBrowsing {
         commonViewInterface.itemCheckIsNotPresent(value);
     }
 
+    @Deprecated
     public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
         By findBy = items.get(elementName).getFindBy();
         commonViewInterface.checkListItemHasExpectedValueByFindByLocator(value, elementName, findBy, expectedValue);
     }
 
+    @Deprecated
     public void checkListItemHasExpectedValueByFindByLocator(String value, ExamplesTable checkValuesTable) {
         for (Map<String, String> row : checkValuesTable.getRows()) {
             String elementName = row.get("elementName");
@@ -133,7 +135,7 @@ public class WriteOffPage extends InvoiceBrowsing {
     @Override
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         By findBy = items.get(parentElementName).getFindBy();
-        commonViewInterface.childrentItemClickByFindByLocator(elementName, findBy);
+        commonViewInterface.childrenItemClickByFindByLocator(elementName, findBy);
     }
 
     public WriteOffProductCollection getWriteOffProductCollection() {

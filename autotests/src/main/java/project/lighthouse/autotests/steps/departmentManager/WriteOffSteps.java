@@ -70,11 +70,13 @@ public class WriteOffSteps extends ScenarioSteps {
         writeOffPage.itemCheckIsNotPresent(value);
     }
 
+    @Deprecated
     @Step
     public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
         writeOffPage.checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
     }
 
+    @Deprecated
     @Step
     public void checkListItemHasExpectedValueByFindByLocator(String value, ExamplesTable checkValuesTable) {
         writeOffPage.checkListItemHasExpectedValueByFindByLocator(value, checkValuesTable);
@@ -194,5 +196,10 @@ public class WriteOffSteps extends ScenarioSteps {
     @Step
     public void inputPropertyByLocator(String locator, String propertyName, String value) {
         writeOffPage.getWriteOffProductCollection().inputPropertyByLocator(locator, propertyName, value);
+    }
+
+    @Step
+    public void writeOffProductCompareWithExampleTable(ExamplesTable examplesTable) {
+        writeOffPage.getWriteOffProductCollection().compareWithExampleTable(examplesTable);
     }
 }
