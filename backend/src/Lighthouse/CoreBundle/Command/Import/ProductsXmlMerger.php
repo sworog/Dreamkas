@@ -117,17 +117,17 @@ class ProductsXmlMerger extends Command
                 if (!isset($this->skus[$sku])) {
                     $nodeXml = @$xmlReader->readOuterXml();
                     if ('' == $nodeXml) {
-                        $this->dotHelper->write('<error>E</error>');
+                        $this->dotHelper->writeError('E');
                         $this->errors[] = libxml_get_last_error();
                         break;
                     } else {
                         $this->mergeFile->fwrite($nodeXml . PHP_EOL);
                         $this->skus[$sku] = 1;
-                        $this->dotHelper->write('<info>.</info>');
+                        $this->dotHelper->writeInfo('.');
                     }
                 } else {
                     $this->skus[$sku]++;
-                    $this->dotHelper->write('<comment>S</comment>');
+                    $this->dotHelper->writeComment('S');
                 }
             }
         }

@@ -139,23 +139,23 @@ class SalesImporter
             try {
                 $receipt = $this->createReceipt($purchaseElement, $datePeriod);
                 if (!$receipt) {
-                    $dotHelper->write('<error>S</error>');
+                    $dotHelper->writeError('S');
                 } else {
                     $this->validator->validate($receipt, null, true, true);
                     $dm->persist($receipt);
-                    $dotHelper->write('<info>.</info>');
+                    $dotHelper->writeInfo('.');
                     if (0 == $count % $batchSize) {
                         $this->flush($dm, $output, $dotHelper, $stopwatch);
                     }
                 }
             } catch (ValidationFailedException $e) {
-                $dotHelper->write('<error>V</error>');
+                $dotHelper->writeError('V');
                 $this->errors[] = array(
                     'count' => $count,
                     'exception' => $e
                 );
             } catch (\Exception $e) {
-                $dotHelper->write('<error>E</error>');
+                $dotHelper->writeError('E');
                 $this->errors[] = array(
                     'count' => $count,
                     'exception' => $e
