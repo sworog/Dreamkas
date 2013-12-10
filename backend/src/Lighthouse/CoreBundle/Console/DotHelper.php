@@ -28,6 +28,11 @@ class DotHelper extends Helper
     protected $position = 0;
 
     /**
+     * @var int
+     */
+    protected $currentWidth = 0;
+
+    /**
      * @param OutputInterface $output
      */
     public function __construct(OutputInterface $output = null)
@@ -64,9 +69,15 @@ class DotHelper extends Helper
             $message = "<{$style}>" . $message . "</{$style}>";
         }
         $this->output->write($message);
-        if (0 == ++$this->position % $this->width) {
-            $this->output->writeln('   ' . $this->position);
+        $this->position++;
+        if (0 == ++$this->currentWidth % $this->width) {
+            $this->writePosition();
         }
+    }
+
+    protected function writePosition()
+    {
+        $this->output->writeln('   ' . $this->position);
     }
 
     /**
@@ -109,9 +120,12 @@ class DotHelper extends Helper
      */
     public function end($resetPosition = true)
     {
-        if (0 != $this->position % $this->width) {
-            $missingDots = $this->width - ($this->position % $this->width);
-            $this->output->writeln(str_repeat(' ', $missingDots) . '   ' . $this->position);
+        $currentWidth = $this->currentWidth % $this->width;
+        if ($currentWidth > 0) {
+            $missingDots = $this->width - $currentWidth;
+            $this->output->write(str_repeat(' ', $missingDots));
+            $this->writePosition();
+            $this->currentWidth = 0;
         }
 
         if ($resetPosition) {
