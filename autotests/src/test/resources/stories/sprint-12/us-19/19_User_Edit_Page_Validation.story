@@ -80,6 +80,7 @@ Then the user sees error messages
 
 Scenario: Edit mode role field is required
 
+Given skipped. Info: 'Select control is refactored', Details: 'Early in edit mode you can choose empty select, but after refactoring you can't'
 Given there is the user with name 'User validation', position 'User validation', username 'emnf7', password 'password', role 'commercialManager'
 And the user navigates to the user page with username 'emnf7'
 And the user logs in as 'watchman'

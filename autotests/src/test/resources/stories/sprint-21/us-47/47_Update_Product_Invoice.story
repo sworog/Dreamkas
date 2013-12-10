@@ -74,7 +74,7 @@ Then the user checks the product invoices list contains entry
 | acceptanceDateFormatted | quantity | priceFormatted | totalPriceFormatted |
 | 02.04.2013 | 1,000 | 100,00 | 100,00 |
 | 01.04.2013 | 2,000 | 99,00 | 198,00 |
-| 04.04.2013 | 33,000 | 77,00 | 2541,00 |
+| 04.04.2013 | 33,000 | 77,00 | 2 541,00 |
 When the user clicks invoice sku 'UIBS-FF-03'
 Then the user checks invoice 'head' elements  values
 | elementName | value |

@@ -13,6 +13,15 @@ public class CompareResults extends ArrayList<CompareResult> {
         return this;
     }
 
+    public CompareResults compareContain(String rowName, String actualValue, String expectedValue) {
+        if (!actualValue.contains(expectedValue)) {
+            this.add(
+                    new CompareResult(rowName, actualValue, expectedValue)
+            );
+        }
+        return this;
+    }
+
     public String getCompareRowStringResult() {
         StringBuilder builder = new StringBuilder();
         for (CompareResult compareResult : this) {
