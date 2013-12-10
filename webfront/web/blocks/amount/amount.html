@@ -8,5 +8,5 @@
 <% var numeral = require('libs/numeral') %>
 
 <span class="amount">
-    <%- numeral(value).format('0,0') %><span class="layout__precision"><%- numeral(Math.abs(value)).format('.0[00]') %></span>
+    <%- parseInt(value) %><span class="layout__precision"><%- numeral(Math.abs(value)).format('.0[00]') %></span>
 </span>
