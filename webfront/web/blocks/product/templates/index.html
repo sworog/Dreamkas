@@ -45,7 +45,7 @@
         <td>
             <% if(productModel.purchasePrice){ %>
                 <span name="purchasePrice">
-                <%- LH.formatPrice(productModel.purchasePrice) %>
+                <%- LH.formatMoney(productModel.purchasePrice) %>
                 </span>
             руб.
             <% } else { %>
@@ -92,9 +92,9 @@
             <% if(_.isNumber(productModel.retailMarkupMin) && _.isNumber(productModel.retailMarkupMax)) {
             %>
                 <span name="retailMarkupRange">
-                    <%- LH.formatPrice(productModel.retailMarkupMin) %>
+                    <%- LH.formatMoney(productModel.retailMarkupMin) %>
                     -
-                    <%- LH.formatPrice(productModel.retailMarkupMax) %>
+                    <%- LH.formatMoney(productModel.retailMarkupMax) %>
                 </span>
             %
             <% } else { %>
@@ -109,9 +109,9 @@
         <td>
             <% if(productModel.retailPriceMin && productModel.retailPriceMax){ %>
                 <span name="retailPriceRange">
-                    <%- LH.formatPrice(productModel.retailPriceMin) %>
+                    <%- LH.formatMoney(productModel.retailPriceMin) %>
                     -
-                    <%- LH.formatPrice(productModel.retailPriceMax) %>
+                    <%- LH.formatMoney(productModel.retailPriceMax) %>
                 </span>
             руб.
             <% } else { %>
@@ -135,7 +135,7 @@
         <td>
             <% if(storeProductModel.retailMarkup) { %>
                     <span name="retailMarkup">
-                        <%- LH.formatPrice(storeProductModel.retailMarkup) %>
+                        <%- LH.formatMoney(storeProductModel.retailMarkup) %>
                     </span>
             %
             <% } else { %>
@@ -150,7 +150,7 @@
         <td>
             <% if(storeProductModel.roundedRetailPrice) { %>
                     <span name="retailPrice">
-                        <%- LH.formatPrice(storeProductModel.roundedRetailPrice) %>
+                        <%- LH.formatMoney(storeProductModel.roundedRetailPrice) %>
                     </span>
             руб.
             <% } else { %>

@@ -89,7 +89,7 @@ define(function(require) {
                 if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
                     calculatedVal = '';
                 } else {
-                    calculatedVal = LH.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedVal = LH.formatMoney(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 this.$retailPriceInput
@@ -104,7 +104,7 @@ define(function(require) {
                 if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
                     calculatedVal = '';
                 } else {
-                    calculatedVal = LH.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedVal = LH.formatMoney(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 this.$retailMarkupInput
@@ -116,7 +116,7 @@ define(function(require) {
                     text;
 
                 if (price){
-                    text = LH.formatPrice(price) + ' руб.'
+                    text = LH.formatMoney(price) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -130,7 +130,7 @@ define(function(require) {
                     text;
 
                 if (markup) {
-                    text = LH.formatPrice(markup) + '%'
+                    text = LH.formatMoney(markup) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -149,7 +149,7 @@ define(function(require) {
                     block.$rounding.addClass('preloader_spinner');
                     roundPrice(price, rounding).done(function(data){
                         block.$rounding.removeClass('preloader_spinner');
-                        block.$rounding.html('(' + LH.formatPrice(data.price) + ' руб. - округлено ' + LH.translate(rounding) + ')');
+                        block.$rounding.html('(' + LH.formatMoney(data.price) + ' руб. - округлено ' + LH.translate(rounding) + ')');
                     });
                 } else {
                     block.$rounding.hide();

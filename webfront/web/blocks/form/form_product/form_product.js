@@ -108,13 +108,13 @@ define(function(require) {
                 if (retailMarkupMin === null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMin)) {
                     calculatedMinVal = '';
                 } else {
-                    calculatedMinVal = LH.formatPrice(+(retailMarkupMin / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedMinVal = LH.formatMoney(+(retailMarkupMin / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 if (retailMarkupMax == null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMax)) {
                     calculatedMaxVal = '';
                 } else {
-                    calculatedMaxVal = LH.formatPrice(+(retailMarkupMax / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedMaxVal = LH.formatMoney(+(retailMarkupMax / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 this.$retailPriceMinInput
@@ -133,13 +133,13 @@ define(function(require) {
                 if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailPriceMin)){
                     calculatedMinVal = '';
                 } else {
-                    calculatedMinVal = LH.formatPrice(+(retailPriceMin * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedMinVal = LH.formatMoney(+(retailPriceMin * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailPriceMax)){
                     calculatedMaxVal = '';
                 } else {
-                    calculatedMaxVal = LH.formatPrice(+(retailPriceMax * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedMaxVal = LH.formatMoney(+(retailPriceMax * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 this.$retailMarkupMinInput
@@ -189,7 +189,7 @@ define(function(require) {
                     text;
 
                 if (priceMin && priceMax){
-                    text = LH.formatPrice(priceMin) + " - " + LH.formatPrice(priceMax) + ' руб.'
+                    text = LH.formatMoney(priceMin) + " - " + LH.formatMoney(priceMax) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -204,7 +204,7 @@ define(function(require) {
                     text;
 
                 if (markupMin && markupMax) {
-                    text = LH.formatPrice(markupMin) + " - " + LH.formatPrice(markupMax) + '%'
+                    text = LH.formatMoney(markupMin) + " - " + LH.formatMoney(markupMax) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }

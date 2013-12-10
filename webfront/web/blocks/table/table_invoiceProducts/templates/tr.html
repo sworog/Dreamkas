@@ -37,7 +37,7 @@
                 по
             </span>
             <span name="productPrice" model-attribute="priceEntered">
-                <%- LH.formatPrice(model.get('priceEntered')) %>
+                <%- LH.formatMoney(model.get('priceEntered')) %>
             </span>
             <span>
                 р.
@@ -50,7 +50,7 @@
                 =
             </span>
             <span name="productSum">
-                <%- LH.formatPrice(model.get('totalPrice')) %>
+                <%- LH.formatMoney(model.get('totalPrice')) %>
             </span>
             <span>
                 р.

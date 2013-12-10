@@ -20,7 +20,6 @@ define(function(require) {
         getText: getText,
         isReportsAllow: require('utils/isReportsAllow'),
         modelNode: require('kit/utils/modelNode'),
-        formatPrice: require('utils/formatPrice'),
         formatMoney: require('utils/formatMoney'),
         isEmptyJSON: require('utils/isEmptyJSON'),
         normalizePrice: require('utils/normalizePrice'),
