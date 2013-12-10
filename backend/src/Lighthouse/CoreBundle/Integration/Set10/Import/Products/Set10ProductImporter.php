@@ -198,33 +198,35 @@ class Set10ProductImporter
                 $output->writeln(
                     sprintf(
                         ' - Persist: %.01f prod/s. Flush+Clear: %d ms, %.01f prod/s',
-                        count($batchPersistEvent->getPeriods()) / ($batchPersistEvent->getDuration() / 1000),
+                        $this->countSpeed($batchPersistEvent->getPeriods(), $batchPersistEvent->getDuration() / 1000),
                         $currentFlushEvent->getDuration(),
-                        count($batchPersistEvent->getPeriods()) / ($currentFlushEvent->getDuration() / 1000)
+                        $this->countSpeed($batchPersistEvent->getPeriods(), $currentFlushEvent->getDuration() / 1000)
                     )
                 );
             }
         }
 
-        $dotHelper->end(false);
-        $flushEvent = $stopwatch->start('flush');
-        $currentFlushEvent = $stopwatch->start('flush_' . $count);
-        $output->write('<info>Flushing</info>');
+        if (0 != $count % $batchSize) {
+            $dotHelper->end(false);
+            $flushEvent = $stopwatch->start('flush');
+            $currentFlushEvent = $stopwatch->start('flush_' . $count);
+            $output->write('<info>Flushing</info>');
 
-        $this->dm->flush();
-        $this->dm->clear(Product::getClassName());
+            $this->dm->flush();
+            $this->dm->clear(Product::getClassName());
 
-        $flushEvent->stop();
-        $currentFlushEvent->stop();
+            $flushEvent->stop();
+            $currentFlushEvent->stop();
 
-        $output->writeln(
-            sprintf(
-                ' - Persist: %.01f prod/s. Flush+Clear: %d ms, %.01f prod/s',
-                count($batchPersistEvent->getPeriods()) / ($batchPersistEvent->getDuration() / 1000),
-                $currentFlushEvent->getDuration(),
-                count($batchPersistEvent->getPeriods()) / ($currentFlushEvent->getDuration() / 1000)
-            )
-        );
+            $output->writeln(
+                sprintf(
+                    ' - Persist: %.01f prod/s. Flush+Clear: %d ms, %.01f prod/s',
+                    $this->countSpeed($batchPersistEvent->getPeriods(), $batchPersistEvent->getDuration() / 1000),
+                    $currentFlushEvent->getDuration(),
+                    $this->countSpeed($batchPersistEvent->getPeriods(), $currentFlushEvent->getDuration() / 1000)
+                )
+            );
+        }
 
         $allEvent->stop();
 
@@ -234,7 +236,7 @@ class Set10ProductImporter
                 '<info>Total persist</info> - %d products in %d seconds, %.01f prod/s',
                 count($persistEvent->getPeriods()),
                 $persistEvent->getDuration() / 1000,
-                count($persistEvent->getPeriods()) / ($persistEvent->getDuration() / 1000)
+                $this->countSpeed(count($persistEvent->getPeriods()), $persistEvent->getDuration() / 1000)
             )
         );
         $output->writeln(
@@ -243,7 +245,7 @@ class Set10ProductImporter
                 count($flushEvent->getPeriods()),
                 $flushEvent->getDuration() / 1000,
                 $flushEvent->getDuration() / count($flushEvent->getPeriods()),
-                count($persistEvent->getPeriods()) / ($flushEvent->getDuration() / 1000)
+                $this->countSpeed($persistEvent->getPeriods(), $flushEvent->getDuration() / 1000)
             )
         );
 
@@ -251,12 +253,29 @@ class Set10ProductImporter
             sprintf(
                 '<info>Total</info> - took %d sec, speed - %.01f prod/s, memory - %d mb',
                 $allEvent->getDuration() / 1000,
-                count($persistEvent->getPeriods()) / ($allEvent->getDuration() / 1000),
+                $this->countSpeed($persistEvent->getPeriods(), $allEvent->getDuration() / 1000),
                 $allEvent->getMemory() / 1048576
             )
         );
 
         $this->outputErrors($errors, $output);
+    }
+
+    /**
+     * @param array|int|float $count
+     * @param int|float $duration
+     * @return float
+     */
+    protected function countSpeed($count, $duration)
+    {
+        if (is_array($count) || $count instanceof \Countable) {
+            $count = count($count);
+        }
+        if ($duration > 0) {
+            return $count / $duration;
+        } else {
+            return 0;
+        }
     }
 
     /**

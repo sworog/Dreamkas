@@ -7,7 +7,6 @@ use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class Set10ProductsImportTest extends ContainerAwareTestCase
 {
@@ -36,7 +35,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
-            'batch-size' => 4
+            '--batch-size' => 4
         );
 
         $exitCode = $commandTester->execute($input);
@@ -59,7 +58,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
-            'batch-size' => 4
+            '--batch-size' => 4
         );
 
         $exitCode = $commandTester->execute($input);
@@ -147,7 +146,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
         );
     }
 
-    public function testExecuteWithVerbose()
+    public function testExecuteWithBatchSize3()
     {
         $this->clearMongoDb();
 
@@ -157,20 +156,18 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
-            'batch-size' => 3
+            '--batch-size' => 3
         );
-        $options = array('verbosity' => OutputInterface::VERBOSITY_VERBOSE);
 
-        $exitCode = $commandTester->execute($input, $options);
+        $exitCode = $commandTester->execute($input);
 
         $this->assertEquals(0, $exitCode);
 
         $display = $commandTester->getDisplay();
 
         $this->assertContains("Starting import", $display);
-        $this->assertNotContains('....', $display);
-        $this->assertContains("Persist product", $display);
-        $this->assertContains("Item time", $display);
+        $this->assertContains("...                                                  3\nFlushing", $display);
+        $this->assertContains(".                                                    4\nFlushing", $display);
         $this->assertContains("Done", $display);
     }
 
@@ -208,7 +205,7 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
         $input = array(
             'file' => $file,
-            'batch-size' => $batchSize
+            '--batch-size' => $batchSize
         );
 
         $commandTester->execute($input);
