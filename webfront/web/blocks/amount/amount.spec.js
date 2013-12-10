@@ -16,9 +16,9 @@ define(function(require, exports, module) {
             numeral.language('root');
 
             it('integer number in template', function(){
-                var $inventory = $(templates.amount({value: 123}));
+                var $inventory = $(templates.amount({value: 123000000}));
 
-                expect($.trim($inventory.text())).toEqual('123,0');
+                expect($.trim($inventory.text())).toEqual('123 000 000,0');
             });
 
             it('number with decimals in template', function(){
