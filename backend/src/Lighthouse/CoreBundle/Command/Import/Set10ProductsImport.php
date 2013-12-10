@@ -44,7 +44,7 @@ class Set10ProductsImport extends Command
             ->setName('lighthouse:import:products')
             ->setDescription('Import product catalog from Set10')
             ->addArgument('file', InputArgument::REQUIRED, 'Path to xml file')
-            ->addArgument('batch-size', InputArgument::OPTIONAL, 'Batch size', 1000)
+            ->addOption('batch-size', null, InputOption::VALUE_OPTIONAL, 'Batch size', 1000)
             ->addOption('update', null, InputOption::VALUE_NONE, 'Update existing products')
         ;
     }
@@ -61,7 +61,7 @@ class Set10ProductsImport extends Command
         $startTime = time();
 
         $filePath = $input->getArgument('file');
-        $batchSize = $input->getArgument('batch-size');
+        $batchSize = $input->getOption('batch-size');
         $update = $input->getOption('update');
 
         $files = $this->getFilesList($filePath);
