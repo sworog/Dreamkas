@@ -3,8 +3,57 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e068cba3d9ff497e217c806eae4cc359",
+    "hash": "04bb5af4392287527ce488a19e023a3a",
     "packages": [
+        {
+            "name": "clamidity/profiler-bundle",
+            "version": "dev-master",
+            "target-dir": "Clamidity/ProfilerBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/munkie/ProfilerBundle.git",
+                "reference": "cb7ad4219fa038b5423edd50d0f09eaf7930fb0f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/munkie/ProfilerBundle/zipball/cb7ad4219fa038b5423edd50d0f09eaf7930fb0f",
+                "reference": "cb7ad4219fa038b5423edd50d0f09eaf7930fb0f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.3"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "*",
+                "symfony/yaml": "2.1.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Clamidity\\ProfilerBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Shattuck",
+                    "email": "ms2474@gmail.com"
+                }
+            ],
+            "description": "XHProf Bundle for Symfony",
+            "homepage": "http://github.com/clamidity/ProfilerBundle",
+            "keywords": [
+                "Developer tools",
+                "XHProf"
+            ],
+            "support": {
+                "source": "https://github.com/munkie/ProfilerBundle/tree/master"
+            },
+            "time": "2013-12-11 13:49:46"
+        },
         {
             "name": "dflydev/markdown",
             "version": "v1.0.3",
@@ -3175,6 +3224,7 @@
         "doctrine/mongodb-odm-bundle": 20,
         "doctrine/data-fixtures": 20,
         "munkie/karzer": 20,
+        "clamidity/profiler-bundle": 20,
         "munkie/phpunit-teamcity-testlistener": 20
     },
     "platform": {

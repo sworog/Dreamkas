@@ -27,8 +27,15 @@
         "ekino/newrelic-bundle": "~1.0",
         "doctrine/data-fixtures": "~1.0@dev",
         "leezy/pheanstalk-bundle": "~2.1",
-        "munkie/karzer": "dev-master"
+        "munkie/karzer": "dev-master",
+        "clamidity/profiler-bundle": "dev-master"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/munkie/ProfilerBundle"
+        }
+    ],
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
