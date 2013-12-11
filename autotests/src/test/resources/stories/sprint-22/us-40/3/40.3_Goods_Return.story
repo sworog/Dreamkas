@@ -21,14 +21,14 @@ When the user logs in using 'ReturnDepartmentManager' userName and 'lighthouse' 
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 0,000 | 0,00 | 0,0 | 20,80 р. | — |
+| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 0,0 | 0,0 | 0,0 | 20,80 р. | — |
 When the user logs out
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ReturnDepartmentManager2' userName and 'lighthouse' password
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 0,000 | 0,00 | 0,0 | 20,80 р. | — |
+| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 0,0 | 0,0 | 0,0 | 20,80 р. | — |
 When the user logs out
 Given the robot prepares import return data
 And the robot waits the import folder become empty
@@ -37,24 +37,24 @@ When the user logs in using 'ReturnDepartmentManager' userName and 'lighthouse' 
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 2,000 | 0,00 | 0,0 | 20,80 р. | — |
+| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 2,0 | 0,0 | 0,0 | 20,80 р. | — |
 Given the user navigates to the product with sku '1008577061437'
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
-| 03.10.2013 | 2,000 | 26,99 | 53,98 |
+| 03.10.2013 | 2,0 | 26,99 | 53,98 |
 When the user logs out
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ReturnDepartmentManager2' userName and 'lighthouse' password
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 3,000 | 0,00 | 0,0 | 20,80 р. | — |
+| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 3,0 | 0,0 | 0,0 | 20,80 р. | — |
 Given the user navigates to the product with sku '1008577061437'
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
-| 03.10.2013 | 3,000 | 25,50 | 76,50 |
+| 03.10.2013 | 3,0 | 25,50 | 76,50 |
 
 Scenario: No returns tab for storeManager
 
