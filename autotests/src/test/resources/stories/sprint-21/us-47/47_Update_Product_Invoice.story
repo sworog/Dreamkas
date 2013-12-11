@@ -39,7 +39,7 @@ When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse
 And the user clicks the product local navigation invoices link
 Then the user checks the product invoices list contains entry
 | acceptanceDateFormatted | quantity | priceFormatted | totalPriceFormatted |
-| 02.04.2013 | 1,000 | 100,00 | 100,00 |
+| 02.04.2013 | 1,0 | 100,00 | 100,00 |
 
 Scenario: Found more invoices
 
@@ -72,9 +72,9 @@ When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse
 And the user clicks the product local navigation invoices link
 Then the user checks the product invoices list contains entry
 | acceptanceDateFormatted | quantity | priceFormatted | totalPriceFormatted |
-| 02.04.2013 | 1,000 | 100,00 | 100,00 |
-| 01.04.2013 | 2,000 | 99,00 | 198,00 |
-| 04.04.2013 | 33,000 | 77,00 | 2 541,00 |
+| 02.04.2013 | 1,0 | 100,00 | 100,00 |
+| 01.04.2013 | 2,0 | 99,00 | 198,00 |
+| 04.04.2013 | 33,0 | 77,00 | 2 541,00 |
 When the user clicks invoice sku 'UIBS-FF-03'
 Then the user checks invoice 'head' elements  values
 | elementName | value |
@@ -93,8 +93,8 @@ Then the user checks the product with '7300330094025' sku has values
 | productUnits | шт |
 | productAmount | 33 |
 | productPrice | 77 |
-| productSum | 2541 |
+| productSum | 2 541,00 |
 And the user checks invoice elements values
 | elementName | value |
 | totalProducts | 1 |
-| totalSum | 2541 |
+| totalSum | 2 541,00 |
