@@ -515,7 +515,7 @@ And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '10000000' in 'purchasePrice' field
 And the user clicks the create button
-Then the user checks the product with 'PPV-090' sku has 'purchasePrice' equal to '10000000'
+Then the user checks the product with 'PPV-090' sku has 'purchasePrice' equal to '10 000 000,00 р.'
 
 Scenario: Create product validation - Purchase price validation length negative
 
