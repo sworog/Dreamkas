@@ -8,6 +8,8 @@ I want to чтобы повторно выгруженные чеки не из�
 
 Scenario: Sale clone import (xml)
 
+Given the user runs the symfony:env:init command
+
 Given the user opens the settings page
 And the user logs in as 'watchman'
 When the user input values on the setting page
