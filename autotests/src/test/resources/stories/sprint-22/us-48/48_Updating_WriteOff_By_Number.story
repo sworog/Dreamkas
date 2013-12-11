@@ -9,7 +9,7 @@ So that I can achieve a business goal
 
 GivenStories: precondition/us-48/aPreconditionToStoryUs48.story
 
-Scenario: Nothing found
+Scenario: Nothing found- WriteOff
 
 Meta:
 @id s22u48s1

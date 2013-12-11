@@ -7,7 +7,7 @@ As a Когда накладная в LH не соответствует реа�
 I want to я хочу найти эту накладную в LH и исправить ошибку,
 In order to данные в LH стали правильными
 
-Scenario: Nothing found
+Scenario: Nothing found - Invoice
 
 Given there is the user with name 'departmentManager-UIBS-NF', position 'departmentManager-UIBS-NF', username 'departmentManager-UIBS-NF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-NF' managed by department manager named 'departmentManager-UIBS-NF'

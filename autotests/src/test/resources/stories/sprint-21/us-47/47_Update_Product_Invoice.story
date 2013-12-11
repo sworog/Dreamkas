@@ -7,7 +7,7 @@ As a user
 I want to perform an action
 So that I can achieve a business goal
 
-Scenario: Nothing found
+Scenario: Nothing found- Product Invoice
 
 Given there is the user with name 'departmentManager-UIBS-FF', position 'departmentManager-UIBS-FF', username 'departmentManager-UIBS-FF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-FF' managed by department manager named 'departmentManager-UIBS-FF'
