@@ -33,7 +33,7 @@ Then the user checks the elements values
 | name | Наименование1688 |
 | vendor | Производитель1688 |
 | vendorCountry | Россия1688 |
-| purchasePrice | 1231688 |
+| purchasePrice | 1 231 688,00 |
 | barcode | 1231688 |
 | unit | штука |
 | vat | 10 |
@@ -58,7 +58,7 @@ Then the user checks the elements values
 | vendor | Вендор45 |
 | vendorCountry | Вендоркантри56 |
 | vendorCountry |  |
-| purchasePrice | 8922174 |
+| purchasePrice | 8 922 174,00 |
 | barcode | 102454 |
 | unit | литр |
 | vat | 0 |
