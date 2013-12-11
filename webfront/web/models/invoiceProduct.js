@@ -17,8 +17,8 @@ define(function(require) {
         saveData: function(){
             return {
                 product: this.get('product'),
-                quantity: numeral().unformat(this.get('quantity')),
-                priceEntered: numeral().unformat(this.get('priceEntered'))
+                quantity: numeral().unformat(LH.formatAmount(this.get('quantity'))),
+                priceEntered: numeral().unformat(LH.formatMoney(this.get('priceEntered')))
             }
         },
         defaults: {

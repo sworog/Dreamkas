@@ -21,6 +21,7 @@ define(function(require) {
         isReportsAllow: require('utils/isReportsAllow'),
         modelNode: require('kit/utils/modelNode'),
         formatMoney: require('utils/formatMoney'),
+        formatAmount: require('utils/formatAmount'),
         isEmptyJSON: require('utils/isEmptyJSON'),
         prevalidateInput: require('utils/prevalidateInput'),
         units: require('utils/units')

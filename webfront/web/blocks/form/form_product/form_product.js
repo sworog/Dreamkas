@@ -101,9 +101,9 @@ define(function(require) {
                 this.$retailPricePreferenceInput.val('retailPrice');
             },
             calculateRetailPrice: function() {
-                var purchasePrice = numeral().unformat(this.$purchasePriceInput.val()),
-                    retailMarkupMin = numeral().unformat(this.$retailMarkupMinInput.val()),
-                    retailMarkupMax = numeral().unformat(this.$retailMarkupMaxInput.val()),
+                var purchasePrice = numeral().unformat(LH.formatMoney(this.$purchasePriceInput.val())),
+                    retailMarkupMin = numeral().unformat(LH.formatMoney(this.$retailMarkupMinInput.val())),
+                    retailMarkupMax = numeral().unformat(LH.formatMoney(this.$retailMarkupMaxInput.val())),
                     calculatedMinVal, calculatedMaxVal;
 
                 if (retailMarkupMin === null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMin)) {
@@ -126,9 +126,9 @@ define(function(require) {
                     .change();
             },
             calculateRetailMarkup: function() {
-                var retailPriceMin = numeral().unformat(this.$retailPriceMinInput.val()),
-                    retailPriceMax = numeral().unformat(this.$retailPriceMaxInput.val()),
-                    purchasePrice = numeral().unformat(this.$purchasePriceInput.val()),
+                var retailPriceMin = numeral().unformat(LH.formatMoney(this.$retailPriceMinInput.val())),
+                    retailPriceMax = numeral().unformat(LH.formatMoney(this.$retailPriceMaxInput.val())),
+                    purchasePrice = numeral().unformat(LH.formatMoney(this.$purchasePriceInput.val())),
                     calculatedMinVal, calculatedMaxVal;
 
                 if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailPriceMin)){

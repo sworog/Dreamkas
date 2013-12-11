@@ -83,8 +83,8 @@ define(function(require) {
             },
 
             calculateRetailPrice: function() {
-                var purchasePrice = numeral().unformat(this.model.get('product').purchasePrice),
-                    retailMarkup = numeral().unformat(this.$retailMarkupInput.val()),
+                var purchasePrice = numeral().unformat(LH.formatMoney(this.model.get('product').purchasePrice)),
+                    retailMarkup = numeral().unformat(LH.formatMoney(this.$retailMarkupInput.val())),
                     calculatedVal;
 
                 if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
@@ -98,8 +98,8 @@ define(function(require) {
                     .change();
             },
             calculateRetailMarkup: function() {
-                var purchasePrice = numeral().unformat(this.model.get('product').purchasePrice),
-                    retailPrice = numeral().unformat(this.$retailPriceInput.val()),
+                var purchasePrice = numeral().unformat(LH.formatMoney(this.model.get('product').purchasePrice)),
+                    retailPrice = numeral().unformat(LH.formatMoney(this.$retailPriceInput.val())),
                     calculatedVal;
 
                 if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
