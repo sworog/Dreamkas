@@ -119,10 +119,10 @@ define(function(require) {
                 }
 
                 this.$retailPriceMinInput
-                    .val(calculatedMinVal)
+                    .val(numeral().unformat(calculatedMinVal))
                     .change();
                 this.$retailPriceMaxInput
-                    .val(calculatedMaxVal)
+                    .val(numeral().unformat(calculatedMaxVal))
                     .change();
             },
             calculateRetailMarkup: function() {
@@ -144,10 +144,10 @@ define(function(require) {
                 }
 
                 this.$retailMarkupMinInput
-                    .val(calculatedMinVal)
+                    .val(numeral().unformat(calculatedMinVal))
                     .change();
                 this.$retailMarkupMaxInput
-                    .val(calculatedMaxVal)
+                    .val(numeral().unformat(calculatedMaxVal))
                     .change();
             },
             disablePriceInputs: function(){

@@ -272,6 +272,8 @@ define(function(require) {
             },
             showDataInput: function($el) {
                 var block = this,
+                    $invoiceProduct = $el.closest('[writeoff-product-id]'),
+                    model = $invoiceProduct.length ? block.writeOffProductsCollection.get($invoiceProduct.attr('writeoff-product-id')) : block.writeOffModel,
                     $dataElement = $el,
                     $dataRow = $el.closest('.writeOff__dataRow'),
                     dataInputControls = block.templates.dataInputControls();
@@ -289,7 +291,8 @@ define(function(require) {
                 switch ($dataElement.attr('model-attribute')) {
                     case 'product':
                         $dataElement.append(block.templates.dataInputAutocomplete({
-                            $dataElement: $dataElement
+                            $dataElement: $dataElement,
+                            model: model
                         }));
                         block.autocompleteToInput($dataElement.find("[lh_product_autocomplete]"));
                         break;
@@ -297,13 +300,15 @@ define(function(require) {
                     case 'quantityElement':
                         $dataElement.append(block.templates.dataInput({
                             $dataElement: $dataElement,
+                            model: model,
                             name: 'quantity'
                         }));
                         break;
 
                     case 'date':
                         $dataElement.append(block.templates.dataInput({
-                            $dataElement: $dataElement
+                            $dataElement: $dataElement,
+                            model: model
                         }));
                         new InputDate({
                             el: $dataElement.find('.inputText')[0],
@@ -313,7 +318,8 @@ define(function(require) {
 
                     default:
                         $dataElement.append(block.templates.dataInput({
-                            $dataElement: $dataElement
+                            $dataElement: $dataElement,
+                            model: model
                         }));
                         break;
                 }

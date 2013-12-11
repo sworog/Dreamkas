@@ -2,6 +2,6 @@
     <input class="inputText"
            type="text"
            name="<%- name || $dataElement.attr('model-attribute') %>"
-           value="<%- $.trim($dataElement.text()) %>"/>
+           value="<%- model.get(name || $dataElement.attr('model-attribute')) %>"/>
     <input type="submit" />
 </form>
