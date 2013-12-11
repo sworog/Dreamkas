@@ -1,6 +1,7 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/blocks/form/form');
+        var Form = require('kit/blocks/form/form'),
+            numeral = require('libs/numeral');
 
         return Form.extend({
             __name__: 'form_product',
@@ -100,9 +101,9 @@ define(function(require) {
                 this.$retailPricePreferenceInput.val('retailPrice');
             },
             calculateRetailPrice: function() {
-                var purchasePrice = LH.normalizePrice(this.$purchasePriceInput.val()),
-                    retailMarkupMin = LH.normalizePrice(this.$retailMarkupMinInput.val()),
-                    retailMarkupMax = LH.normalizePrice(this.$retailMarkupMaxInput.val()),
+                var purchasePrice = numeral().unformat(this.$purchasePriceInput.val()),
+                    retailMarkupMin = numeral().unformat(this.$retailMarkupMinInput.val()),
+                    retailMarkupMax = numeral().unformat(this.$retailMarkupMaxInput.val()),
                     calculatedMinVal, calculatedMaxVal;
 
                 if (retailMarkupMin === null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMin)) {
@@ -125,9 +126,9 @@ define(function(require) {
                     .change();
             },
             calculateRetailMarkup: function() {
-                var retailPriceMin = LH.normalizePrice(this.$retailPriceMinInput.val()),
-                    retailPriceMax = LH.normalizePrice(this.$retailPriceMaxInput.val()),
-                    purchasePrice = LH.normalizePrice(this.$purchasePriceInput.val()),
+                var retailPriceMin = numeral().unformat(this.$retailPriceMinInput.val()),
+                    retailPriceMax = numeral().unformat(this.$retailPriceMaxInput.val()),
+                    purchasePrice = numeral().unformat(this.$purchasePriceInput.val()),
                     calculatedMinVal, calculatedMaxVal;
 
                 if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailPriceMin)){

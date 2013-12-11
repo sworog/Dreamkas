@@ -2,7 +2,8 @@ define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
         compute = require('kit/utils/computeAttr'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser'),
+        numeral = require('libs/numeral');
 
     var templates = {
         amount: require('tpl!blocks/amount/amount.html')
@@ -13,12 +14,14 @@ define(function(require) {
         urlRoot: function() {
             return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/writeoffs/' + this.get('writeOff').id + '/products';
         },
-        saveData: [
-            'product',
-            'quantity',
-            'price',
-            'cause'
-        ],
+        saveData: function(){
+            return {
+                product: this.get('product'),
+                quantity: numeral().unformat(this.get('quantity')),
+                price: numeral().unformat(this.get('price')),
+                cause: this.get('cause')
+            }
+        },
         defaults: {
             quantityElement: compute(['quantity'], function(quantity){
                 return templates.amount({value: quantity});

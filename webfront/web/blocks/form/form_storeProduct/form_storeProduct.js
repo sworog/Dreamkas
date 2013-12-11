@@ -1,7 +1,8 @@
 define(function(require) {
         //requirements
         var Form = require('kit/blocks/form/form'),
-            roundPrice = require('utils/roundPrice');
+            roundPrice = require('utils/roundPrice'),
+            numeral = require('libs/numeral');
 
         return Form.extend({
             __name__: 'form_storeProduct',
@@ -82,8 +83,8 @@ define(function(require) {
             },
 
             calculateRetailPrice: function() {
-                var purchasePrice = LH.normalizePrice(this.model.get('product').purchasePrice),
-                    retailMarkup = LH.normalizePrice(this.$retailMarkupInput.val()),
+                var purchasePrice = numeral().unformat(this.model.get('product').purchasePrice),
+                    retailMarkup = numeral().unformat(this.$retailMarkupInput.val()),
                     calculatedVal;
 
                 if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
@@ -97,8 +98,8 @@ define(function(require) {
                     .change();
             },
             calculateRetailMarkup: function() {
-                var purchasePrice = LH.normalizePrice(this.model.get('product').purchasePrice),
-                    retailPrice = LH.normalizePrice(this.$retailPriceInput.val()),
+                var purchasePrice = numeral().unformat(this.model.get('product').purchasePrice),
+                    retailPrice = numeral().unformat(this.$retailPriceInput.val()),
                     calculatedVal;
 
                 if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){

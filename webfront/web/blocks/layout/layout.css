@@ -5,3 +5,7 @@
 tr:hover .layout__precision{
     color: #000;
 }
+
+.layout__spacer{
+    padding-right: 5px;
+}

@@ -22,7 +22,6 @@ define(function(require) {
         modelNode: require('kit/utils/modelNode'),
         formatMoney: require('utils/formatMoney'),
         isEmptyJSON: require('utils/isEmptyJSON'),
-        normalizePrice: require('utils/normalizePrice'),
         prevalidateInput: require('utils/prevalidateInput'),
         units: require('utils/units')
     }, window.LH, window.Lighthouse);

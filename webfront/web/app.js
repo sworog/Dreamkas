@@ -3,12 +3,12 @@ define(function(require) {
     var app = require('kit/core/app'),
         Block = require('kit/core/block'),
         Backbone = require('backbone'),
-        _ = require('lodash'),
         currentUserModel = require('models/currentUser'),
         cookie = require('kit/libs/cookie'),
         numeral = require('libs/numeral');
 
     require('jquery');
+    require('lodash');
 
     app.locale = 'root';
 

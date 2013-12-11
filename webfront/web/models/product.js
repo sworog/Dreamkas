@@ -1,7 +1,8 @@
 define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
-        compute = require('kit/utils/computeAttr');
+        compute = require('kit/utils/computeAttr'),
+        numeral = require('libs/numeral');
 
     return Model.extend({
         modelName: 'product',
@@ -12,15 +13,16 @@ define(function(require) {
             rounding: {}
         },
         saveData: function(){
+
             return {
                 name: this.get('name'),
                 units: this.get('units'),
                 vat: this.get('vat'),
-                purchasePrice: this.get('purchasePrice'),
-                retailPriceMin: this.get('retailPriceMin'),
-                retailPriceMax: this.get('retailPriceMax'),
-                retailMarkupMax: this.get('retailMarkupMax'),
-                retailMarkupMin: this.get('retailMarkupMin'),
+                purchasePrice: numeral().unformat(this.get('purchasePrice')),
+                retailPriceMin: numeral().unformat(this.get('retailPriceMin')),
+                retailPriceMax: numeral().unformat(this.get('retailPriceMax')),
+                retailMarkupMax: numeral().unformat(this.get('retailMarkupMax')),
+                retailMarkupMin: numeral().unformat(this.get('retailMarkupMin')),
                 retailPricePreference: this.get('retailPricePreference'),
                 barcode: this.get('barcode'),
                 sku: this.get('sku'),
