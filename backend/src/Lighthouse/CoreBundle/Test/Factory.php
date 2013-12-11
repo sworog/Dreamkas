@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
@@ -71,6 +72,11 @@ class Factory
      * @var array
      */
     protected $stores = array();
+
+    /**
+     * @var array
+     */
+    protected $storeProducts = array();
 
     /**
      * @param ContainerInterface $container
@@ -402,6 +408,22 @@ class Factory
     }
 
     /**
+     * @param string $storeId
+     * @param string $productId
+     * @return string
+     */
+    public function getStoreProduct($storeId, $productId)
+    {
+        if (!isset($this->storeProducts[$storeId]) || !isset($this->storeProducts[$storeId][$productId])) {
+            $this->storeProducts[$storeId][$productId] = $this
+                ->getStoreProductRepository()
+                ->findByStoreIdProductId($storeId, $productId);
+        }
+
+        return $this->storeProducts[$storeId][$productId];
+    }
+
+    /**
      * @param array $sales
      * @return Sale[]
      */
@@ -501,5 +523,13 @@ class Factory
     protected function getProductVersionRepository()
     {
         return $this->container->get('lighthouse.core.document.repository.product_version');
+    }
+
+    /**
+     * @return StoreProductRepository
+     */
+    protected function getStoreProductRepository()
+    {
+        return $this->container->get('lighthouse.core.document.repository.store_product');
     }
 }
