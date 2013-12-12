@@ -13,7 +13,7 @@ public class DashBoardSteps extends ScenarioSteps {
 
     @Step
     public void assertGrossSaleSubTitle() {
-        String expectedMessage = String.format("Объём продаж на %s:00", new DateTime().getHourOfDay());
+        String expectedMessage = String.format("Объём продаж на %02d:00", new DateTime().getHourOfDay());
         Assert.assertEquals(expectedMessage, dashBoardPage.getGrossSaleSubTitle());
     }
 
