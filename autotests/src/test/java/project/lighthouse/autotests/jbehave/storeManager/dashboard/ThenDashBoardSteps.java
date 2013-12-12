@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave.storeManager.dashboard;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
-import project.lighthouse.autotests.steps.storeManager.DashBoardSteps;
+import project.lighthouse.autotests.steps.storeManager.dashboard.DashBoardSteps;
 
 public class ThenDashBoardSteps {
 

@@ -1,8 +1,8 @@
-package project.lighthouse.autotests.jbehave.departmentManager.reports;
+package project.lighthouse.autotests.jbehave.storeManager.reports.grossSaleByHourReport;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
-import project.lighthouse.autotests.steps.departmentManager.reports.StoreGrossSaleByHourReportSteps;
+import project.lighthouse.autotests.steps.storeManager.reports.StoreGrossSaleByHourReportSteps;
 
 public class ThenStoreGrossSaleByHourReportUserSteps {
 

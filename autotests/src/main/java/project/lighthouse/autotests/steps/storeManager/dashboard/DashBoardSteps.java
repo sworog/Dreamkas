@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.storeManager;
+package project.lighthouse.autotests.steps.storeManager.dashboard;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;

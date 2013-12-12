@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.departmentManager.reports;
+package project.lighthouse.autotests.steps.storeManager.reports;
 
 import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
@@ -12,11 +12,6 @@ import project.lighthouse.autotests.pages.departmentManager.reports.StoreGrossSa
 public class StoreGrossSaleByHourReportSteps extends ScenarioSteps {
 
     StoreGrossSaleByHourReportPage storeGrossSaleByHourReportPage;
-
-    @Step
-    public void openStoreGrossSaleByHourReportPage() {
-        storeGrossSaleByHourReportPage.open();
-    }
 
     @Step
     public void compareWithExampleTable() {
