@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/munkie/ProfilerBundle.git",
-                "reference": "cb7ad4219fa038b5423edd50d0f09eaf7930fb0f"
+                "reference": "712c641d4bee1f9d7caf03fb1d56688d253b0d36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/munkie/ProfilerBundle/zipball/cb7ad4219fa038b5423edd50d0f09eaf7930fb0f",
-                "reference": "cb7ad4219fa038b5423edd50d0f09eaf7930fb0f",
+                "url": "https://api.github.com/repos/munkie/ProfilerBundle/zipball/712c641d4bee1f9d7caf03fb1d56688d253b0d36",
+                "reference": "712c641d4bee1f9d7caf03fb1d56688d253b0d36",
                 "shasum": ""
             },
             "require": {
@@ -52,7 +52,7 @@
             "support": {
                 "source": "https://github.com/munkie/ProfilerBundle/tree/master"
             },
-            "time": "2013-12-11 13:49:46"
+            "time": "2013-12-12 12:02:53"
         },
         {
             "name": "dflydev/markdown",
@@ -3147,16 +3147,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "0191c4f193a62915227ac7946b1600c82cc3c253"
+                "reference": "bd1e50b8c252c914881dba1dcef089219e430dbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/0191c4f193a62915227ac7946b1600c82cc3c253",
-                "reference": "0191c4f193a62915227ac7946b1600c82cc3c253",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/bd1e50b8c252c914881dba1dcef089219e430dbd",
+                "reference": "bd1e50b8c252c914881dba1dcef089219e430dbd",
                 "shasum": ""
             },
             "require": {
@@ -3213,7 +3213,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2013-11-27 22:22:42"
+            "time": "2013-12-12 03:08:49"
         }
     ],
     "aliases": [
