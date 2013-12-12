@@ -425,10 +425,11 @@ public class ApiConnect {
                 }
             } catch (JSONException e) {
                 fail(
-                        String.format("Exception message: %s. Json: %s", e.getMessage(),
+                        String.format("Exception message: %s. Json: %s. Response message: %s", e.getMessage(),
                                 mainJsonObject != null
                                         ? mainJsonObject.toString()
-                                        : null)
+                                        : null,
+                                responseMessage)
                 );
             }
             fail(
