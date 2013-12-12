@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     <% collections.grossSalesByGroups.forEach(function(grossSalesByGroupModel){ %>
-    <tr href="stores/<%- models.store.id %>/groups/<%- grossSalesByGroupModel.id %>/categories">
+    <tr href="stores/<%- models.store.id %>/groups/<%- grossSalesByGroupModel.id %>/grossSalesByCategories">
         <td>
             <%- grossSalesByGroupModel.get('name') %>
         </td>
