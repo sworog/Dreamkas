@@ -4,8 +4,9 @@
  * @collections.grossSalesByStores
  */
 %>
-
 <% var moment = require('moment') %>
+
+
 
 <thead>
 <th></th>
@@ -17,12 +18,12 @@
 </th>
 <th>
     <a data-sort-by="eightDaysAgo.runningSum">
-        <%- LH.getText('last day', moment(collections.grossSalesByStores.at(0).get('eightDaysAgo.dayHour')).day()) %></a>
+        <%- LH.getText('last day', collections.grossSalesByStores ? moment(collections.grossSalesByStores.at(0).get('eightDaysAgo.dayHour')).day() : null) %></a>
 </th>
 
 </thead>
 <tbody>
-<% collections.grossSalesByStores.forEach(function(storeGrossSaleModel) { %>
+<% _.forEach(collections.grossSalesByStores, function(storeGrossSaleModel) { %>
 <tr name="grossSalesByStoresRow">
     <td name="store.number">
         <%- storeGrossSaleModel.get('store.number') %>
