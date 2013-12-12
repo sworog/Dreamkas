@@ -11,7 +11,8 @@ define(function(require, exports, module) {
             grossSalesByStores: LH.isAllow('others', 'GET::api/1/reports/grossSalesByStores'),
             grossSales: LH.isAllow('others', 'GET::api/1/reports/grossSales'),
             grossSalesByGroups: true,
-            grossSalesByCategories: true
+            grossSalesByCategories: true,
+            grossSalesBySubcategories: true
         };
 
         return _.find(reports ? _.pick(reportsPermissionsMap, reports) : reportsPermissionsMap);

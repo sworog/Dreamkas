@@ -7,7 +7,7 @@ define(function(require) {
             __name__: 'form_product',
             defaultInputLinkText: 'Введите значение',
             model: null,
-            subCategoryModel: null,
+            subcategoryModel: null,
             template: require('tpl!blocks/form/form_product/templates/index.html'),
             events: {
                 'click .productForm__inputLink': function(e) {
@@ -55,7 +55,7 @@ define(function(require) {
                 if (block.model.id){
                     block.redirectUrl = '/products/' + block.model.id
                 } else {
-                    block.redirectUrl = '/catalog/' + block.model.get('group').id + '/' + block.model.get('category').id + '/' + block.model.get('subCategory').id
+                    block.redirectUrl = '/catalog/' + block.model.get('group').id + '/' + block.model.get('category').id + '/' + block.model.get('subcategory').id
                 }
             },
             findElements: function(){

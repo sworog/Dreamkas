@@ -6,7 +6,7 @@ define(function(require) {
             modelName: 'catalogCategory',
             urlRoot: LH.baseApiUrl + '/categories',
             nestedData: {
-                subCategories: require('collections/catalogSubCategories')
+                subCategories: require('collections/catalogSubcategories')
             },
             saveData: function(){
                 return {

@@ -63,12 +63,12 @@ define(function(require) {
             });
 
             page.catalogProductsCollection = new CatalogProductsCollection([], {
-                subCategory: params.catalogSubCategoryId,
+                subcategory: params.catalogSubCategoryId,
                 storeId: pageParams.storeId
             });
 
             page.storeProductsCollection = new StoreProductsCollection([], {
-                subCategory: params.catalogSubCategoryId,
+                subcategory: params.catalogSubCategoryId,
                 storeId: pageParams.storeId
             });
 
@@ -79,14 +79,14 @@ define(function(require) {
                 ).then(function() {
 
                     page.catalogCategoryModel = page.catalogGroupModel.categories.get(params.catalogCategoryId);
-                    page.catalogSubCategoriesCollection = page.catalogCategoryModel.subCategories;
+                    page.catalogSubcategoriesCollection = page.catalogCategoryModel.subCategories;
 
                     page.render();
 
                     new CatalogCategoryBlock({
                         el: document.getElementById('catalogCategory'),
                         catalogCategoryModel: page.catalogCategoryModel,
-                        catalogSubCategoriesCollection: page.catalogSubCategoriesCollection,
+                        catalogSubcategoriesCollection: page.catalogSubcategoriesCollection,
                         catalogSubCategoryId: params.catalogSubCategoryId,
                         catalogProductsCollection: page.catalogProductsCollection,
                         storeProductsCollection: page.storeProductsCollection,

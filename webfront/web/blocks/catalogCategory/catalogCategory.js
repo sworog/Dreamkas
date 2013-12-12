@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Editor = require('kit/blocks/editor/editor'),
         CatalogSubCategoryModel = require('models/catalogSubCategory'),
-        CatalogCategory__subCategoryList = require('blocks/catalogCategory/catalogCategory__subCategoryList'),
+        CatalogCategory__subcategoryList = require('blocks/catalogCategory/catalogCategory__subcategoryList'),
         Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
         Tooltip_catalogSubCategoryMenu = require('blocks/tooltip/tooltip_catalogSubCategoryMenu/tooltip_catalogSubCategoryMenu'),
         Tooltip_catalogSubCategoryForm = require('blocks/tooltip/tooltip_catalogSubCategoryForm/tooltip_catalogSubCategoryForm'),
@@ -19,14 +19,14 @@ define(function(require) {
         catalogCategoryModel: null,
         catalogSubCategoryId: null,
         catalogSubCategoryModel: null,
-        catalogSubCategoriesCollection: null,
+        catalogSubcategoriesCollection: null,
         catalogProductsCollection: null,
 
         template: require('tpl!blocks/catalogCategory/templates/index.html'),
         templates: {
             index: require('tpl!blocks/catalogCategory/templates/index.html'),
-            catalogCategory__subCategoryList: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryList.html'),
-            catalogCategory__subCategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')
+            catalogCategory__subcategoryList: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryList.html'),
+            catalogCategory__subcategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryItem.html')
         },
         events: {
             'click .catalog__editCategoryLink': function(e) {
@@ -46,7 +46,7 @@ define(function(require) {
 
                 block.tooltip_catalogSubCategoryForm.show({
                     $trigger: $target,
-                    collection: block.catalogSubCategoriesCollection,
+                    collection: block.catalogSubcategoriesCollection,
                     model: new CatalogSubCategoryModel({
                         category: block.catalogCategoryModel.id,
                         group: block.catalogCategoryModel.get('group'),
@@ -86,9 +86,9 @@ define(function(require) {
                 el: document.getElementById('form_catalogCategoryProperties')
             });
 
-            new CatalogCategory__subCategoryList({
-                el: document.getElementById('catalogCategory__subCategoryList'),
-                catalogSubCategoriesCollection: block.catalogSubCategoriesCollection
+            new CatalogCategory__subcategoryList({
+                el: document.getElementById('catalogCategory__subcategoryList'),
+                catalogSubcategoriesCollection: block.catalogSubcategoriesCollection
             });
 
             block.set('catalogSubCategoryId', block.catalogSubCategoryId);
@@ -136,19 +136,19 @@ define(function(require) {
         'set:catalogSubCategoryId': function(catalogSubCategoryId) {
             var block = this;
 
-            block.catalogSubCategoryModel = block.catalogSubCategoriesCollection.get(catalogSubCategoryId);
+            block.catalogSubCategoryModel = block.catalogSubcategoriesCollection.get(catalogSubCategoryId);
             block.renderProductList();
 
             block.$el
-                .find('.catalogCategory__subCategoryLink_active')
-                .removeClass('catalogCategory__subCategoryLink_active');
+                .find('.catalogCategory__subcategoryLink_active')
+                .removeClass('catalogCategory__subcategoryLink_active');
 
             if (catalogSubCategoryId){
-                block.$subCategoryLink_active = block.$el
-                    .find('.catalogCategory__subCategoryLink[subCategory_id="' + catalogSubCategoryId + '"]')
-                    .addClass('catalogCategory__subCategoryLink_active');
+                block.$subcategoryLink_active = block.$el
+                    .find('.catalogCategory__subcategoryLink[subcategory_id="' + catalogSubCategoryId + '"]')
+                    .addClass('catalogCategory__subcategoryLink_active');
 
-                block.$addProductLink.attr('href', '/products/create?subCategory=' + catalogSubCategoryId);
+                block.$addProductLink.attr('href', '/products/create?subcategory=' + catalogSubCategoryId);
 
                 block.form_catalogSubCategoryProperties = block.form_catalogSubCategoryProperties || new Form_catalogSubCategoryProperties({
                     model: block.catalogSubCategoryModel,
@@ -157,13 +157,13 @@ define(function(require) {
             }
 
             if (catalogSubCategoryId && block.catalogSubCategoryId !== catalogSubCategoryId) {
-                block.catalogProductsCollection.subCategory = catalogSubCategoryId;
-                block.$subCategoryLink_active.addClass('preloader_rows');
+                block.catalogProductsCollection.subcategory = catalogSubCategoryId;
+                block.$subcategoryLink_active.addClass('preloader_rows');
 
                 block.catalogProductsCollection.fetch({
                     success: function() {
                         block.renderProductList();
-                        block.$subCategoryLink_active.removeClass('preloader_rows');
+                        block.$subcategoryLink_active.removeClass('preloader_rows');
                     }
                 });
 

@@ -42,11 +42,13 @@ define(function(require, exports, module) {
                 return grossSalesByStores;
             },
             grossSalesByGroups: function(){
+                var page = this;
+
                 var grossSalesByGroups = null;
 
                 if (LH.isReportsAllow(['grossSalesByGroups'])){
                     grossSalesByGroups = new GrossSalesByGroupsCollection([], {
-                        storeId: currentUserModel.stores.at(0).id
+                        storeId: page.models.store.id
                     });
                 }
 
@@ -67,13 +69,12 @@ define(function(require, exports, module) {
             var page = this,
                 fetchData = [];
 
-            _.extend(page.models, {
-                storeGrossSalesByHours: page.models.storeGrossSalesByHours(),
+            page.models = _.transform(page.models, function(result, model, modelName){
+                result[modelName] = typeof model === 'funciton' ? model.call(page) : model
             });
 
-            _.extend(page.collections, {
-                grossSalesByStores: page.collections.grossSalesByStores(),
-                grossSalesByGroups: page.collections.grossSalesByGroups()
+            page.collections = _.transform(page.collections, function(result, collection, collectionName){
+                result[collectionName] = typeof collection === 'funciton' ? collection.call(page) : collection
             });
 
             if (page.models.storeGrossSalesByHours){

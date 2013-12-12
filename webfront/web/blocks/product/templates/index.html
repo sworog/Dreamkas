@@ -17,26 +17,26 @@
     <tr>
         <th>Группа</th>
         <td>
-            <a href="/catalog/<%- productModel.subCategory.category.group.id %>" name="group">
-                <%- productModel.subCategory.category.group.name %>
+            <a href="/catalog/<%- productModel.subcategory.category.group.id %>" name="group">
+                <%- productModel.subcategory.category.group.name %>
             </a>
         </td>
     </tr>
     <tr>
         <th>Категория</th>
         <td>
-            <a href="/catalog/<%- productModel.subCategory.category.group.id %>/<%= productModel.subCategory.category.id %>"
+            <a href="/catalog/<%- productModel.subcategory.category.group.id %>/<%= productModel.subcategory.category.id %>"
                name="category">
-                <%- productModel.subCategory.category.name %>
+                <%- productModel.subcategory.category.name %>
             </a>
         </td>
     </tr>
     <tr>
         <th>Подкатегория</th>
         <td>
-            <a href="/catalog/<%- productModel.subCategory.category.group.id %>/<%= productModel.subCategory.category.id %>/<%= productModel.subCategory.id %>"
-               name="subCategory">
-                <%- productModel.subCategory.name %>
+            <a href="/catalog/<%- productModel.subcategory.category.group.id %>/<%= productModel.subcategory.category.id %>/<%= productModel.subcategory.id %>"
+               name="subcategory">
+                <%- productModel.subcategory.name %>
             </a>
         </td>
     </tr>

@@ -19,31 +19,31 @@ define(function(require) {
 
             page.productModel = new ProductModel({
                 id: page.productId,
-                subCategory: page.subCategory
+                subcategory: page.subcategory
             });
 
-            page.subCategoryModel = new SubCategoryModel({
-                id: page.subCategory
+            page.subcategoryModel = new SubCategoryModel({
+                id: page.subcategory
             });
 
-            $.when(page.productId ? page.productModel.fetch() : {}, page.subCategoryModel.id ? page.subCategoryModel.fetch({parse: false}) : {}).then(function(){
+            $.when(page.productId ? page.productModel.fetch() : {}, page.subcategoryModel.id ? page.subcategoryModel.fetch({parse: false}) : {}).then(function(){
 
                 if (!page.productId){
                     page.productModel = new ProductModel({
-                        subCategory: page.subCategoryModel.toJSON(),
-                        retailMarkupMin: page.subCategoryModel.get('retailMarkupMin'),
-                        retailMarkupMax: page.subCategoryModel.get('retailMarkupMax')
+                        subcategory: page.subcategoryModel.toJSON(),
+                        retailMarkupMin: page.subcategoryModel.get('retailMarkupMin'),
+                        retailMarkupMax: page.subcategoryModel.get('retailMarkupMax')
                     }, {
                         parse: true
                     });
                 } else {
-                    page.subCategoryModel = new SubCategoryModel(page.productModel.get('subCategory'));
+                    page.subcategoryModel = new SubCategoryModel(page.productModel.get('subcategory'));
                 }
 
                 page.render();
 
                 new Form_product({
-                    subCategoryModel: page.subCategoryModel,
+                    subcategoryModel: page.subcategoryModel,
                     model: page.productModel,
                     el: document.getElementById('form_product')
                 });

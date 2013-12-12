@@ -4,9 +4,9 @@ define(function(require) {
         Tooltip_catalogSubCategoryMenu = require('blocks/tooltip/tooltip_catalogSubCategoryMenu/tooltip_catalogSubCategoryMenu');
 
     return Block.extend({
-        __name__: 'catalogCategory__subCategoryItem',
+        __name__: 'catalogCategory__subcategoryItem',
         catalogSubCategoryModel: null,
-        template: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html'),
+        template: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryItem.html'),
         events: {
             'click .catalog__editSubCategoryLink': function(e){
                 e.stopPropagation();

@@ -29,7 +29,7 @@ define(function(require) {
                 vendorCountry: this.get('vendorCountry'),
                 vendor: this.get('vendor'),
                 info: this.get('info'),
-                subCategory: this.get('subCategory'),
+                subcategory: this.get('subcategory'),
                 rounding: this.get('rounding') ? this.get('rounding').name : null
             }
         },
@@ -40,9 +40,9 @@ define(function(require) {
                 data = data.product;
             }
 
-            if (typeof data.subCategory == 'object') {
-                data.group = data.subCategory.category.group;
-                data.category = data.subCategory.category;
+            if (typeof data.subcategory == 'object') {
+                data.group = data.subcategory.category.group;
+                data.category = data.subcategory.category;
             }
 
             return data;

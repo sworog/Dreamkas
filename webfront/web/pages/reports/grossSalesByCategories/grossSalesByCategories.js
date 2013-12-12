@@ -17,14 +17,14 @@ define(function(require, exports, module) {
             store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
         },
         collections: {
-            grossSalesByCategories: function(){
+            grossSalesByCategories: function() {
                 var page = this;
 
                 var grossSalesByCategories = null;
 
-                if (LH.isReportsAllow(['grossSalesByCategories'])){
+                if (LH.isReportsAllow(['grossSalesByCategories'])) {
                     grossSalesByCategories = new GrossSalesByCategoriesCollection([], {
-                        storeId: currentUserModel.stores.at(0).id,
+                        storeId: page.models.store.id,
                         group: page.groupId
                     });
                 }
@@ -32,14 +32,14 @@ define(function(require, exports, module) {
                 return grossSalesByCategories;
             }
         },
-        initialize: function(){
+        initialize: function() {
             var page = this;
 
-            page.collections = {
+            _.extend(page.collections, {
                 grossSalesByCategories: page.collections.grossSalesByCategories.call(page)
-            };
+            });
 
-            $.when(page.collections.grossSalesByCategories.fetch()).done(function(){
+            $.when(page.collections.grossSalesByCategories.fetch()).done(function() {
                 page.render();
             });
         }

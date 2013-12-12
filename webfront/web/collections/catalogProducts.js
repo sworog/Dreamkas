@@ -6,13 +6,13 @@ define(function(require) {
             model: require('models/product'),
             url: function(){
                 if (this.storeId){
-                    return LH.baseApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subCategory + '/products'
+                    return LH.baseApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subcategory + '/products'
                 } else {
-                    return LH.baseApiUrl + '/subcategories/' + this.subCategory + '/products'
+                    return LH.baseApiUrl + '/subcategories/' + this.subcategory + '/products'
                 }
             },
             initialize: function(models, options){
-                this.subCategory = options.subCategory;
+                this.subcategory = options.subcategory;
                 this.storeId = options.storeId;
             }
         });

@@ -1,6 +1,6 @@
 <!-- @collection -->
 
-<table class="table table_subCategoryBalance">
+<table class="table table_subcategoryBalance">
     <thead>
     <tr>
         <th>Товар</th>
@@ -24,34 +24,34 @@
         <td>
             <div>
                 <div style="width: 100px; float: right;">
-                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
+                    <span class="table__rowHiddenElement table_subcategoryBalance__valueHint">
                         Остаток, <%= LH.modelNode(model, 'unitsFormatted') %>
                     </span>
                 </div>
 
-                <div class="table_subCategoryBalance__value">
+                <div class="table_subcategoryBalance__value">
                     <%= LH.modelNode(model, 'inventoryElement') %>
                 </div>
             </div>
             <div>
                 <div style="width: 100px; float: right;">
-                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
+                    <span class="table__rowHiddenElement table_subcategoryBalance__valueHint">
                         ССО, <%= LH.modelNode(model, 'unitsFormatted') %>
                     </span>
                 </div>
 
-                <div class="table_subCategoryBalance__value">
+                <div class="table_subcategoryBalance__value">
                     <%= LH.modelNode(model, 'averageDailySalesElement') %>
                 </div>
             </div>
             <div>
                 <div style="width: 100px; float: right;">
-                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
+                    <span class="table__rowHiddenElement table_subcategoryBalance__valueHint">
                         УТЗ, дн.
                     </span>
                 </div>
 
-                <div class="table_subCategoryBalance__value">
+                <div class="table_subcategoryBalance__value">
                     <%= LH.modelNode(model, 'inventoryDaysElement') %>
                 </div>
             </div>
@@ -59,23 +59,23 @@
         <td>
             <div>
                 <div style="width: 100px; float: right;">
-                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
+                    <span class="table__rowHiddenElement table_subcategoryBalance__valueHint">
                         Последняя
                     </span>
                 </div>
 
-                <div class="table_subCategoryBalance__value">
+                <div class="table_subcategoryBalance__value">
                     <%= LH.modelNode(model, 'lastPurchasePriceElement') %>
                 </div>
             </div>
             <div>
                 <div style="width: 100px; float: right;">
-                    <span class="table__rowHiddenElement table_subCategoryBalance__valueHint">
+                    <span class="table__rowHiddenElement table_subcategoryBalance__valueHint">
                         Средняя
                     </span>
                 </div>
 
-                <div class="table_subCategoryBalance__value">
+                <div class="table_subcategoryBalance__value">
                     <%= LH.modelNode(model, 'averagePurchasePriceElement') %>
                 </div>
             </div>

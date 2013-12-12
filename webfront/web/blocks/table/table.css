@@ -6,11 +6,11 @@
     visibility: visible;
 }
 
-.table_subCategoryBalance > tbody > tr > td{
+.table_subcategoryBalance > tbody > tr > td{
     vertical-align: top;
 }
 
-.table_subCategoryBalance__value{
+.table_subcategoryBalance__value{
     text-align: right;
     overflow: hidden;
     padding-right: 5px;
@@ -23,8 +23,8 @@
     display: inline-block;
 }
 
-.table_subCategoryBalance__valueHint,
-.table_subCategoryBalance .layout__currency{
+.table_subcategoryBalance__valueHint,
+.table_subcategoryBalance .layout__currency{
     font-size: 12px;
     color: #95a5a6;
 }
