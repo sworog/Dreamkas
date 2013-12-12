@@ -29,6 +29,7 @@ public class GrossSaleByStoresObject extends AbstractObject implements ObjectLoc
         eightDaysAgoValue = getElement().findElement(By.name("eightDaysAgo.runningSum")).getText();
     }
 
+    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("storeNumber", storeNumber, row.get("storeNumber"))
@@ -37,6 +38,7 @@ public class GrossSaleByStoresObject extends AbstractObject implements ObjectLoc
                 .compare("eightDaysAgoValue", eightDaysAgoValue, row.get("eightDaysAgoValue"));
     }
 
+    @Override
     public String getObjectLocator() {
         return storeNumber;
     }

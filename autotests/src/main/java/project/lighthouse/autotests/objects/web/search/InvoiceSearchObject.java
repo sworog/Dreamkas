@@ -35,10 +35,12 @@ public class InvoiceSearchObject extends AbstractSearchObjectNode implements Obj
         supplierInvoiceDate = setProperty(By.name("supplierInvoiceDate"));
     }
 
+    @Override
     public String getObjectLocator() {
         return sku;
     }
 
+    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("sku", sku, row.get("sku"))

@@ -29,6 +29,7 @@ public class InvoiceListObject extends AbstractObject implements ObjectLocatable
         invoiceSku = getElement().getAttribute("invoice-sku");
     }
 
+    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("acceptanceDateFormatted", acceptanceDateFormatted, row.get("acceptanceDateFormatted"))
@@ -37,6 +38,7 @@ public class InvoiceListObject extends AbstractObject implements ObjectLocatable
                 .compare("totalPriceFormatted", totalPriceFormatted, row.get("totalPriceFormatted"));
     }
 
+    @Override
     public String getObjectLocator() {
         return invoiceSku;
     }

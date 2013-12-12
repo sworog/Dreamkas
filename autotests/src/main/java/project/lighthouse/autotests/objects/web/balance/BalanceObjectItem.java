@@ -36,6 +36,7 @@ public class BalanceObjectItem extends AbstractObject implements ObjectLocatable
         lastPurchasePrice = getElement().findElement(By.xpath(".//*[@model-attribute='lastPurchasePriceElement']")).getText();
     }
 
+    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("sku", sku, row.get("sku"))
@@ -48,6 +49,7 @@ public class BalanceObjectItem extends AbstractObject implements ObjectLocatable
                 .compare("lastPurchasePrice", lastPurchasePrice, row.get("lastPurchasePrice"));
     }
 
+    @Override
     public String getObjectLocator() {
         return sku;
     }

@@ -28,10 +28,12 @@ public class StoreGrossSaleByHourElement extends AbstractObject implements Objec
         weekAgoValue = getElement().findElement(By.name("weekAgo.hourSum")).getText();
     }
 
+    @Override
     public String getObjectLocator() {
         return date;
     }
 
+    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("date", date, row.get("date"))

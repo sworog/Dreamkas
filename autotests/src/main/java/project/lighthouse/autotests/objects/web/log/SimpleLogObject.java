@@ -22,6 +22,7 @@ public class SimpleLogObject extends AbstractObject implements ResultComparable 
         message = setProperty(By.xpath(".//*[@class='log__finalMessage']"));
     }
 
+    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compareContain("logMessage", message, row.get("logMessage"));

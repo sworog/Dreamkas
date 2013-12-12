@@ -40,6 +40,7 @@ public class InvoiceProductObject extends AbstractObject implements ObjectLocata
         vat = setObjectProperty("vat", By.xpath(".//*[@model-attribute='product.vat']"));
     }
 
+    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("productSku", sku.getText(), row.get("productSku"))
@@ -53,6 +54,7 @@ public class InvoiceProductObject extends AbstractObject implements ObjectLocata
                 .compare("vat", vat.getText(), row.get("vat"));
     }
 
+    @Override
     public String getObjectLocator() {
         return sku.getText();
     }

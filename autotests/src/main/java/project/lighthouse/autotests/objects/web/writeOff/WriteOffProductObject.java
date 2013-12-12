@@ -35,6 +35,7 @@ public class WriteOffProductObject extends AbstractObject implements ObjectLocat
         productCause = setObjectProperty("productCause", By.name("productCause"));
     }
 
+    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("productSku", sku.getText(), row.get("productSku"))
@@ -46,6 +47,7 @@ public class WriteOffProductObject extends AbstractObject implements ObjectLocat
                 .compare("productCause", productCause.getText(), row.get("productCause"));
     }
 
+    @Override
     public String getObjectLocator() {
         return sku.getText();
     }

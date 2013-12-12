@@ -24,10 +24,12 @@ public class WriteOffSearchObject extends AbstractSearchObjectNode implements Ob
         date = getElement().findElement(By.xpath(".//*[@name='date']")).getText();
     }
 
+    @Override
     public String getObjectLocator() {
         return number;
     }
 
+    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("number", number, row.get("number"))

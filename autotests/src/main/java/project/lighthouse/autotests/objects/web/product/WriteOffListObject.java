@@ -31,6 +31,7 @@ public class WriteOffListObject extends AbstractObject implements ObjectLocatabl
         number = getElement().getAttribute("writeoff-number");
     }
 
+    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("createdDateFormatted", acceptanceDateFormatted, row.get("createdDateFormatted"))
@@ -39,6 +40,7 @@ public class WriteOffListObject extends AbstractObject implements ObjectLocatabl
                 .compare("totalPriceFormatted", totalPriceFormatted, row.get("totalPriceFormatted"));
     }
 
+    @Override
     public String getObjectLocator() {
         return number;
     }
