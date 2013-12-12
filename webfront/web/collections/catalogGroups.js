@@ -4,6 +4,7 @@ define(function(require) {
 
         return Collection.extend({
             model: require('models/catalogGroup'),
+            storeId: null,
             url: function(){
                 if (this.storeId){
                     return LH.baseApiUrl + '/stores/' + this.storeId + '/groups';

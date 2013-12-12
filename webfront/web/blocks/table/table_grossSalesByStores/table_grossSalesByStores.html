@@ -6,8 +6,6 @@
 %>
 <% var moment = require('moment') %>
 
-
-
 <thead>
 <th></th>
 <th>
@@ -23,7 +21,7 @@
 
 </thead>
 <tbody>
-<% _.forEach(collections.grossSalesByStores, function(storeGrossSaleModel) { %>
+<% !collections.grossSalesByStores || collections.grossSalesByStores.forEach(function(storeGrossSaleModel) { %>
 <tr name="grossSalesByStoresRow">
     <td name="store.number">
         <%- storeGrossSaleModel.get('store.number') %>
