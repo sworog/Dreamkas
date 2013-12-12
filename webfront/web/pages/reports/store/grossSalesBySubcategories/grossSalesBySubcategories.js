@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         currentUserModel = require('models/currentUser'),
-        GrossSalesBySubcategoriesCollection = require('collections/catalogSubcategories');
+        GrossSalesBySubcategoriesCollection = require('collections/catalogSubCategories');
 
     require('jquery');
 
