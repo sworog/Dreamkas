@@ -123,6 +123,19 @@ class StoreProductRepository extends DocumentRepository
         return $storeProduct;
     }
 
+	/**
+	 * @param string $storeId
+	 * @param string $productId
+	 * @return StoreProduct
+	 */
+	public function findOrCreateByStoreIdProductId($storeId, $productId)
+	{
+		$store = $this->dm->getReference(Store::getClassName(), $storeId);
+		$product = $this->dm->getReference(Product::getClassName(), $productId);
+
+		return $this->findOrCreateByStoreProduct($store, $product);
+	}
+
     /**
      * @param SubCategory $subCategory
      * @param Store $store

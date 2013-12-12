@@ -27,6 +27,7 @@ class ProductGrossSalesTest extends WebTestCase
     public function testCalculateProductGrossSalesHourSumCalculate()
     {
         $storeId = $this->createStore('1');
+	    $storeOtherId = $this->createStore('Other');
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
         $product3Id = $this->createProduct('3');
@@ -98,6 +99,29 @@ class ProductGrossSalesTest extends WebTestCase
                     ),
                 ),
             ),
+
+	        array(
+		        'storeId' => $storeOtherId,
+		        'createdDate' => '-1 days 8:01',
+		        'sumTotal' => 603.53,
+		        'positions' => array(
+			        array(
+				        'productId' => $product1Id,
+				        'quantity' => 3,
+				        'price' => 34.77
+			        ),
+			        array(
+				        'productId' => $product2Id,
+				        'quantity' => 3,
+				        'price' => 64.79
+			        ),
+			        array(
+				        'productId' => $product3Id,
+				        'quantity' => 7,
+				        'price' => 43.55,
+			        ),
+		        ),
+	        ),
         );
 
         $this->factory->createSales($sales);

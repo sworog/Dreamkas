@@ -417,7 +417,8 @@ class Factory
         if (!isset($this->storeProducts[$storeId]) || !isset($this->storeProducts[$storeId][$productId])) {
             $this->storeProducts[$storeId][$productId] = $this
                 ->getStoreProductRepository()
-                ->findByStoreIdProductId($storeId, $productId);
+                ->findOrCreateByStoreIdProductId($storeId, $productId)
+                ->id;
         }
 
         return $this->storeProducts[$storeId][$productId];
