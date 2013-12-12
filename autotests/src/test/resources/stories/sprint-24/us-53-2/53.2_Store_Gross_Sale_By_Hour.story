@@ -22,6 +22,7 @@ And the user runs the symfony:reports:recalculate command
 Given the user opens the authorization page
 When the user logs in using 'storeManager-s24u532' userName and 'lighthouse' password
 And the user clicks the menu report item
+And the user clicks on gross sale by hour report link
 Then the user checks the store gross sale by hour report dont contain data on current hour
 
 Scenario: The user checks the store gross sale by hour report contains correct data
@@ -39,6 +40,7 @@ And the user runs the symfony:reports:recalculate command
 Given the user opens the authorization page
 When the user logs in using 'storeManager-s24u532' userName and 'lighthouse' password
 And the user clicks the menu report item
+And the user clicks on gross sale by hour report link
 Then the user checks the store gross sale by hour report contains correct data
 
 Scenario: Can't see reports navigation menu link for watchman
@@ -67,7 +69,9 @@ Meta:
 @id s24us532s5
 @description get 403 navigating directly to reports page for watchman
 
-Given the user opens gross sale by hour report page
+GivenStories: precondition/us-53_2/aPreconditionToStoryUs53.2.story
+
+Given the user opens gross sale by hours report page of store number '24531'
 And the user logs in as 'watchman'
 Then the user sees the 403 error
 
@@ -77,6 +81,8 @@ Meta:
 @id s24us532s6
 @description get 403 navigating directly to reports page for departmentManager
 
-Given the user opens gross sale by hour report page
+GivenStories: precondition/us-53_2/aPreconditionToStoryUs53.2.story
+
+Given the user opens gross sale by hours report page of store number '24531'
 And the user logs in as 'departmentManager'
 Then the user sees the 403 error
