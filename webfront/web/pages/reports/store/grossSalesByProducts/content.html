@@ -1,20 +1,20 @@
-<h2>Продажи по группам товаров. Магазин №<%- models.store.get('number') %></h2>
+<h2>Продажи по товарам. Магазин №<%- models.store.get('number') %></h2>
 
-<% if (collections.grossSalesByGroups.length) { %>
+<% if (collections.grossSalesByProducts.length) { %>
 <table class="table">
     <thead>
     <tr>
-        <th>Категория</th>
+        <th>Продукт</th>
         <th>Сегодня</th>
         <th>Вчера</th>
         <th>Неделю назад</th>
     </tr>
     </thead>
     <tbody>
-    <% collections.grossSalesByGroups.forEach(function(groupGrossSalesModel){ %>
-    <tr href="stores/<%- models.store.id %>/groups/<%- groupGrossSalesModel.id %>/grossSalesByCategories">
+    <% collections.grossSalesByProducts.forEach(function(productGrossSalesModel){ %>
+    <tr>
         <td>
-            <%- groupGrossSalesModel.get('name') %>
+            <%- productGrossSalesModel.get('product.name') %>
         </td>
         <td>
             16 000 000 р.

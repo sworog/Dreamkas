@@ -19,6 +19,7 @@ define(function(require) {
             'stores/:storeId/reports/grossSalesByGroups(/)': require('pages/reports/store/grossSalesByGroups/grossSalesByGroups'),
             'stores/:storeId/groups/:groupId/grossSalesByCategories(/)': require('pages/reports/store/grossSalesByCategories/grossSalesByCategories'),
             'stores/:storeId/groups/:groupId/categories/:categoryId/grossSalesBySubcategories(/)': require('pages/reports/store/grossSalesBySubcategories/grossSalesBySubcategories'),
+            'stores/:storeId/groups/:groupId/categories/:categoryId/subcategories/:subcategoryId/grossSalesByProducts(/)': require('pages/reports/store/grossSalesByProducts/grossSalesByProducts'),
 
             //invoices
             'invoices(/)': require('pages/invoice/list'),

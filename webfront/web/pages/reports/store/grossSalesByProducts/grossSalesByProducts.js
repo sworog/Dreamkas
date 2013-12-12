@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         currentUserModel = require('models/currentUser'),
-        GrossSalesBySubcategoriesCollection = require('collections/catalogSubCategories');
+        GrossSalesByProductsCollection = require('collections/storeProducts');
 
     require('jquery');
 
@@ -11,23 +11,25 @@ define(function(require, exports, module) {
         storeId: null,
         groupId: null,
         categoryId: null,
+        subcategoryId: null,
         partials: {
             '#content': require('tpl!./content.html')
         },
         permissions: function(){
-            return !LH.isReportsAllow(['grossSalesBySubcategories']);
+            return !LH.isReportsAllow(['grossSalesByProducts']);
         },
         models: {
             store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
         },
         collections: {
-            grossSalesBySubcategories: function(){
+            grossSalesByProducts: function(){
                 var page = this;
 
-                return new GrossSalesBySubcategoriesCollection([], {
+                return new GrossSalesByProductsCollection([], {
                     storeId: page.models.store.id,
                     group: page.groupId,
-                    category: page.categoryId
+                    category: page.categoryId,
+                    subcategory: page.subcategoryId
                 });
             }
         },
@@ -38,7 +40,7 @@ define(function(require, exports, module) {
                 result[collectionName] = typeof collection === 'function' ? collection.call(page) : collection
             });
 
-            $.when(page.collections.grossSalesBySubcategories.fetch()).done(function(){
+            $.when(page.collections.grossSalesByProducts.fetch()).done(function(){
                 page.render();
             });
         }

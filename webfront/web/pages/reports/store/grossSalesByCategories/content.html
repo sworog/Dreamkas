@@ -11,10 +11,10 @@
     </tr>
     </thead>
     <tbody>
-    <% collections.grossSalesByCategories.forEach(function(grossSalesByCategoryModel){ %>
-    <tr href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- grossSalesByCategoryModel.id %>/grossSalesBySubcategories">
+    <% collections.grossSalesByCategories.forEach(function(categoryGrossSalesModel){ %>
+    <tr href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- categoryGrossSalesModel.id %>/grossSalesBySubcategories">
         <td>
-            <%- grossSalesByCategoryModel.get('name') %>
+            <%- categoryGrossSalesModel.get('name') %>
         </td>
         <td>
             16 000 000 р.
