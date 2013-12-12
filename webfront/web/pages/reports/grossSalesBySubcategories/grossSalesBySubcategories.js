@@ -37,8 +37,8 @@ define(function(require, exports, module) {
         initialize: function(){
             var page = this;
 
-            _.extend(page.collections, {
-                grossSalesBySubcategories: page.collections.grossSalesBySubcategories.call(page)
+            page.collections = _.transform(page.collections, function(result, collection, collectionName) {
+                result[collectionName] = typeof collection === 'function' ? collection.call(page) : collection
             });
 
             $.when(page.collections.grossSalesBySubcategories.fetch()).done(function(){

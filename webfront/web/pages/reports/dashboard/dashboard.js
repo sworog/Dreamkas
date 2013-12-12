@@ -15,14 +15,14 @@ define(function(require, exports, module) {
         partials: {
             '#content': require('tpl!./content.html')
         },
-        permissions: function(){
+        permissions: function() {
             return !LH.isReportsAllow();
         },
         models: {
-            storeGrossSalesByHours: function(){
+            storeGrossSalesByHours: function() {
                 var storeGrossSalesByHoursModel = null;
 
-                if (LH.isReportsAllow(['storeGrossSalesByHours'])){
+                if (LH.isReportsAllow(['storeGrossSalesByHours'])) {
                     storeGrossSalesByHoursModel = new StoreGrossSalesByHourModel();
                     storeGrossSalesByHoursModel.storeId = currentUserModel.stores.at(0).id
                 }
@@ -32,21 +32,21 @@ define(function(require, exports, module) {
             store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
         },
         collections: {
-            grossSalesByStores: function(){
+            grossSalesByStores: function() {
                 var grossSalesByStores = null;
 
-                if (LH.isReportsAllow(['grossSalesByStores'])){
+                if (LH.isReportsAllow(['grossSalesByStores'])) {
                     grossSalesByStores = new GrossSalesByStoresCollection();
                 }
 
                 return grossSalesByStores;
             },
-            grossSalesByGroups: function(){
+            grossSalesByGroups: function() {
                 var page = this;
 
                 var grossSalesByGroups = null;
 
-                if (LH.isReportsAllow(['grossSalesByGroups'])){
+                if (LH.isReportsAllow(['grossSalesByGroups'])) {
                     grossSalesByGroups = new GrossSalesByGroupsCollection([], {
                         storeId: page.models.store.id
                     });
@@ -56,7 +56,7 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            table_grossSalesByStores: function(){
+            table_grossSalesByStores: function() {
                 var page = this;
 
                 return new Table_grossSalesByStores({
@@ -65,37 +65,33 @@ define(function(require, exports, module) {
                 });
             }
         },
-        initialize: function(){
-            var page = this,
-                fetchData = [];
+        initialize: function() {
+            var page = this;
 
-            page.models = _.transform(page.models, function(result, model, modelName){
-                result[modelName] = typeof model === 'funciton' ? model.call(page) : model
+            page.models = _.transform(page.models, function(result, model, modelName) {
+                result[modelName] = typeof model === 'function' ? model.call(page) : model
             });
 
-            page.collections = _.transform(page.collections, function(result, collection, collectionName){
-                result[collectionName] = typeof collection === 'funciton' ? collection.call(page) : collection
+            page.collections = _.transform(page.collections, function(result, collection, collectionName) {
+                result[collectionName] = typeof collection === 'function' ? collection.call(page) : collection
             });
 
-            if (page.models.storeGrossSalesByHours){
-                fetchData.push(page.models.storeGrossSalesByHours.fetch());
-            }
+            $.when(
+                    page.models.storeGrossSalesByHours ? page.models.storeGrossSalesByHours.fetch() : null,
+                    page.collections.grossSalesByStores ? page.collections.grossSalesByStores.fetch() : null,
+                    page.collections.grossSalesByGroups ? page.collections.grossSalesByGroups.fetch() : null
+                ).done(function() {
 
-            if (page.collections.grossSalesByStores){
-                fetchData.push(page.collections.grossSalesByStores.fetch());
-            }
+                    _.extend(page.models, {
+                        store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
+                    });
 
-            if (page.collections.grossSalesByGroups){
-                fetchData.push(page.collections.grossSalesByGroups.fetch());
-            }
+                    page.render();
 
-            $.when.apply($, fetchData).done(function(){
-                page.render();
-
-                page.blocks = {
-                    table_grossSalesByStores: page.blocks.table_grossSalesByStores.call(page)
-                }
-            });
+                    page.blocks = {
+                        table_grossSalesByStores: page.blocks.table_grossSalesByStores.call(page)
+                    }
+                });
         }
     });
 });
