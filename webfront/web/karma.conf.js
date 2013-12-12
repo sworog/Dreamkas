@@ -20,6 +20,8 @@ module.exports = function(config) {
             {pattern: 'kit/**/*.js', included: false},
             {pattern: 'utils/**/*.js', included: false},
             {pattern: 'libs/**/*.js', included: false},
+            {pattern: 'blocks/**/*.js', included: false},
+            {pattern: 'blocks/**/*.html', included: false},
             {pattern: 'nls/**/*.js', included: false}
         ],
 

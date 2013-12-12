@@ -13,7 +13,7 @@
     </td>
     <td name="purchasePrice">
         <% if(model.get('purchasePrice')){ %>
-        <%- LH.formatPrice(model.get('purchasePrice')) %> р.
+        <%- LH.formatMoney(model.get('purchasePrice')) %> р.
         <% } else { %>
         &mdash;
         <% } %>

@@ -79,7 +79,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
         getWebElementItem(elementName).findElement(By.name(elementClassName)).click();
     }
 
-    public void childrentItemClickByFindByLocator(String elementName, By by) {
+    public void childrenItemClickByFindByLocator(String elementName, By by) {
         getWebElementItem(elementName).findElement(by).click();
     }
 

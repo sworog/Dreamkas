@@ -4,6 +4,10 @@ define(function(require) {
         compute = require('kit/utils/computeAttr'),
         currentUserModel = require('models/currentUser');
 
+    var templates = {
+        amount: require('tpl!blocks/amount/amount.html')
+    };
+
     require('moment');
 
     return Model.extend({
@@ -22,7 +26,7 @@ define(function(require) {
                 return LH.formatMoney(price);
             }),
             quantityElement: compute(['quantity'], function(quantity){
-                return String.prototype.split.call(quantity, '.')[0] + '<span class="layout__floatPart">,' + (String.prototype.split.call(quantity, '.')[1] || '000') + '</span>'
+                return templates.amount({value: quantity});
             })
         }
     });

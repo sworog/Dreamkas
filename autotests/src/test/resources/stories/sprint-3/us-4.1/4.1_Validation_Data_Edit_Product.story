@@ -119,7 +119,7 @@ Examples:
 | 123,26 | purchasePrice | 123,26 |
 | 789,6 | purchasePrice | 789,6 |
 | 739,67 | purchasePrice | 739,67 |
-| 10000000 | purchasePrice | 10000000 |
+| 10000000 | purchasePrice | 10 000 000,00 |
 
 Scenario: Edit product validation - Purchase price validation negative
 

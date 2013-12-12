@@ -1,17 +1,19 @@
 define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
-        compute = require('kit/utils/computeAttr');
+        compute = require('kit/utils/computeAttr'),
+        numeral = require('libs/numeral');
 
     return Model.extend({
         modelName: 'product',
         urlRoot: LH.baseApiUrl + '/products',
         defaults: {
-            inventory: 0,
+            amount: 0,
             retailPricePreference: 'retailMarkup',
             rounding: {}
         },
         saveData: function(){
+
             return {
                 name: this.get('name'),
                 units: this.get('units'),

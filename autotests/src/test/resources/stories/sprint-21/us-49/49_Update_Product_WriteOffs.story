@@ -34,7 +34,7 @@ When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse
 And the user clicks the product local navigation writeoffs link
 Then the user checks the product writeOff list contains entry
 | createdDateFormatted | quantity | priceFormatted | totalPriceFormatted |
-| 02.04.2013 | 1,000 | 12,34 | 12,34 |
+| 02.04.2013 | 1,0 | 12,34 | 12,34 |
 
 Scenario: Two products from one writeOffs
 
@@ -53,8 +53,8 @@ When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse
 And the user clicks the product local navigation writeoffs link
 Then the user checks the product writeOff list contains entry
 | createdDateFormatted | quantity | priceFormatted | totalPriceFormatted |
-| 02.04.2013 | 10,000 | 1,00 | 10,00 |
-| 02.04.2013 | 25,000 | 1,00 | 25,00 |
+| 02.04.2013 | 10,0 | 1,00 | 10,00 |
+| 02.04.2013 | 25,0 | 1,00 | 25,00 |
 
 Scenario: Two products from two writeOffs
 
@@ -77,8 +77,8 @@ When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse
 And the user clicks the product local navigation writeoffs link
 Then the user checks the product writeOff list contains entry
 | createdDateFormatted | quantity | priceFormatted | totalPriceFormatted |
-| 05.04.2013 | 3,000 | 1,00 | 3,00 |
-| 02.04.2013 | 2,000 | 1,00 | 2,00 |
+| 05.04.2013 | 3,0 | 1,00 | 3,00 |
+| 02.04.2013 | 2,0 | 1,00 | 2,00 |
 
 Scenario: No the product local navigation writeoffs link for commercialManager
 
@@ -148,7 +148,7 @@ When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse
 And the user clicks the product local navigation writeoffs link
 Then the user checks the product writeOff list contains entry
 | createdDateFormatted | quantity | priceFormatted | totalPriceFormatted |
-| 02.04.2013 | 1,000 | 12,34 | 12,34 |
+| 02.04.2013 | 1,0 | 12,34 | 12,34 |
 When the user clicks on the product writeOff with 'WOUIBS-FF-05' number
 Then the user checks write off elements values
 | elementName | value |

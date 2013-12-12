@@ -1,7 +1,11 @@
-.layout__floatPart{
+.layout__precision{
     color: #95a5a6;
 }
 
-tr:hover .layout__floatPart{
+tr:hover .layout__precision{
     color: #000;
+}
+
+.layout__spacer{
+    padding-right: 5px;
 }

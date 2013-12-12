@@ -28,7 +28,7 @@ Then the user checks the product with '1234567' sku is present
 Then the user checks the product with '1234567' sku has 'name' equal to 'Наименование56'
 Then the user checks the product with '1234567' sku has 'vendor' equal to 'Производитель56'
 Then the user checks the product with '1234567' sku has 'vendorCountry' equal to 'Россия56'
-Then the user checks the product with '1234567' sku has 'purchasePrice' equal to '12356'
+Then the user checks the product with '1234567' sku has 'purchasePrice' equal to '12 356,00 р.'
 
 
 

@@ -21,7 +21,7 @@ Then the user checks the product with 'Retail price - PCWRPR-1' sku is present
 When the user open the product card with 'Retail price - PCWRPR-1' sku
 Then the user checks the elements values
 | elementName | value |
-| purchasePrice | 12356 |
+| purchasePrice | 12 356,00 |
 | retailMarkupRange | отсутствует |
 | retailPriceRange | отсутствует |
 

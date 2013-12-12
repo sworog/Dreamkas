@@ -1,6 +1,7 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/blocks/form/form');
+        var Form = require('kit/blocks/form/form'),
+            numeral = require('libs/numeral');
 
         return Form.extend({
             __name__: 'form_product',
@@ -100,53 +101,61 @@ define(function(require) {
                 this.$retailPricePreferenceInput.val('retailPrice');
             },
             calculateRetailPrice: function() {
-                var purchasePrice = LH.normalizePrice(this.$purchasePriceInput.val()),
-                    retailMarkupMin = LH.normalizePrice(this.$retailMarkupMinInput.val()),
-                    retailMarkupMax = LH.normalizePrice(this.$retailMarkupMaxInput.val()),
+                var purchasePriceVal = this.$purchasePriceInput.val(),
+                    retailMarkupMinVal = this.$retailMarkupMinInput.val(),
+                    retailMarkupMaxVal = this.$retailMarkupMaxInput.val(),
+                    purchasePrice = $.trim(purchasePriceVal).length ? numeral().unformat(LH.formatMoney(purchasePriceVal)) : null,
+                    retailMarkupMin = $.trim(retailMarkupMinVal).length ? numeral().unformat(LH.formatMoney(retailMarkupMinVal)) : null,
+                    retailMarkupMax = $.trim(retailMarkupMaxVal).length ? numeral().unformat(LH.formatMoney(retailMarkupMaxVal)) : null,
                     calculatedMinVal, calculatedMaxVal;
 
                 if (retailMarkupMin === null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMin)) {
                     calculatedMinVal = '';
                 } else {
-                    calculatedMinVal = LH.formatPrice(+(retailMarkupMin / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedMinVal = LH.formatMoney(+(retailMarkupMin / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
-                if (retailMarkupMax == null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMax)) {
+                if (retailMarkupMax === null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkupMax)) {
                     calculatedMaxVal = '';
                 } else {
-                    calculatedMaxVal = LH.formatPrice(+(retailMarkupMax / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedMaxVal = LH.formatMoney(+(retailMarkupMax / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 this.$retailPriceMinInput
-                    .val(calculatedMinVal)
+                    .val(retailMarkupMin !== null ? numeral().unformat(calculatedMinVal) : '')
                     .change();
                 this.$retailPriceMaxInput
-                    .val(calculatedMaxVal)
+                    .val(retailMarkupMax !== null ? numeral().unformat(calculatedMaxVal) : '')
                     .change();
             },
             calculateRetailMarkup: function() {
-                var retailPriceMin = LH.normalizePrice(this.$retailPriceMinInput.val()),
-                    retailPriceMax = LH.normalizePrice(this.$retailPriceMaxInput.val()),
-                    purchasePrice = LH.normalizePrice(this.$purchasePriceInput.val()),
+                var retailPriceMinVal = this.$retailPriceMinInput.val(),
+                    retailPriceMaxVal = this.$retailPriceMaxInput.val(),
+                    purchasePriceVal = this.$purchasePriceInput.val(),
+                    retailPriceMin = $.trim(retailPriceMinVal).length ? numeral().unformat(LH.formatMoney(retailPriceMinVal)) : null,
+                    retailPriceMax = $.trim(retailPriceMaxVal).length ? numeral().unformat(LH.formatMoney(retailPriceMaxVal)) : null,
+                    purchasePrice = $.trim(purchasePriceVal).length ? numeral().unformat(LH.formatMoney(purchasePriceVal)) : null,
                     calculatedMinVal, calculatedMaxVal;
 
-                if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailPriceMin)){
+                console.log(retailPriceMin, retailPriceMax);
+
+                if (retailPriceMin === null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailPriceMin)){
                     calculatedMinVal = '';
                 } else {
-                    calculatedMinVal = LH.formatPrice(+(retailPriceMin * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedMinVal = LH.formatMoney(+(retailPriceMin * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
-                if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailPriceMax)){
+                if (retailPriceMax === null || !purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailPriceMax)){
                     calculatedMaxVal = '';
                 } else {
-                    calculatedMaxVal = LH.formatPrice(+(retailPriceMax * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedMaxVal = LH.formatMoney(+(retailPriceMax * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 this.$retailMarkupMinInput
-                    .val(calculatedMinVal)
+                    .val(retailPriceMin !== null ? numeral().unformat(calculatedMinVal) : '')
                     .change();
                 this.$retailMarkupMaxInput
-                    .val(calculatedMaxVal)
+                    .val(retailPriceMax !== null ? numeral().unformat(calculatedMaxVal) : '')
                     .change();
             },
             disablePriceInputs: function(){
@@ -189,7 +198,7 @@ define(function(require) {
                     text;
 
                 if (priceMin && priceMax){
-                    text = LH.formatPrice(priceMin) + " - " + LH.formatPrice(priceMax) + ' руб.'
+                    text = LH.formatMoney(priceMin) + " - " + LH.formatMoney(priceMax) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -204,7 +213,7 @@ define(function(require) {
                     text;
 
                 if (markupMin && markupMax) {
-                    text = LH.formatPrice(markupMin) + " - " + LH.formatPrice(markupMax) + '%'
+                    text = LH.formatMoney(markupMin) + " - " + LH.formatMoney(markupMax) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }

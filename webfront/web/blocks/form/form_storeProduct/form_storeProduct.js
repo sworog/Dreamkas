@@ -1,7 +1,8 @@
 define(function(require) {
         //requirements
         var Form = require('kit/blocks/form/form'),
-            roundPrice = require('utils/roundPrice');
+            roundPrice = require('utils/roundPrice'),
+            numeral = require('libs/numeral');
 
         return Form.extend({
             __name__: 'form_storeProduct',
@@ -82,14 +83,14 @@ define(function(require) {
             },
 
             calculateRetailPrice: function() {
-                var purchasePrice = LH.normalizePrice(this.model.get('product').purchasePrice),
-                    retailMarkup = LH.normalizePrice(this.$retailMarkupInput.val()),
+                var purchasePrice = numeral().unformat(LH.formatMoney(this.model.get('product').purchasePrice)),
+                    retailMarkup = numeral().unformat(LH.formatMoney(this.$retailMarkupInput.val())),
                     calculatedVal;
 
                 if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
                     calculatedVal = '';
                 } else {
-                    calculatedVal = LH.formatPrice(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedVal = LH.formatMoney(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 this.$retailPriceInput
@@ -97,14 +98,14 @@ define(function(require) {
                     .change();
             },
             calculateRetailMarkup: function() {
-                var purchasePrice = LH.normalizePrice(this.model.get('product').purchasePrice),
-                    retailPrice = LH.normalizePrice(this.$retailPriceInput.val()),
+                var purchasePrice = numeral().unformat(LH.formatMoney(this.model.get('product').purchasePrice)),
+                    retailPrice = numeral().unformat(LH.formatMoney(this.$retailPriceInput.val())),
                     calculatedVal;
 
                 if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
                     calculatedVal = '';
                 } else {
-                    calculatedVal = LH.formatPrice(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedVal = LH.formatMoney(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 this.$retailMarkupInput
@@ -116,7 +117,7 @@ define(function(require) {
                     text;
 
                 if (price){
-                    text = LH.formatPrice(price) + ' руб.'
+                    text = LH.formatMoney(price) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -130,7 +131,7 @@ define(function(require) {
                     text;
 
                 if (markup) {
-                    text = LH.formatPrice(markup) + '%'
+                    text = LH.formatMoney(markup) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -149,7 +150,7 @@ define(function(require) {
                     block.$rounding.addClass('preloader_spinner');
                     roundPrice(price, rounding).done(function(data){
                         block.$rounding.removeClass('preloader_spinner');
-                        block.$rounding.html('(' + LH.formatPrice(data.price) + ' руб. - округлено ' + LH.translate(rounding) + ')');
+                        block.$rounding.html('(' + LH.formatMoney(data.price) + ' руб. - округлено ' + LH.translate(rounding) + ')');
                     });
                 } else {
                     block.$rounding.hide();

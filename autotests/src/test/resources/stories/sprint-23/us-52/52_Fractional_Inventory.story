@@ -23,7 +23,7 @@ When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse'
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-2352 | sku-2352 | barcode-2352 | 3,675 | 0,00 | 0,0 | 126,99 р. | — |
+| name-2352 | sku-2352 | barcode-2352 | 3,675 | 0,0 | 0,0 | 126,99 р. | — |
 
 Scenario: Adding writeOff product with fractional quantity
 
@@ -39,7 +39,7 @@ When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse'
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-2352-1 | sku-2352-1 | barcode-2352-1 | -4,671 | 0,00 | 0,0 | 134,80 р. | — |
+| name-2352-1 | sku-2352-1 | barcode-2352-1 | -4,671 | 0,0 | 0,0 | 134,80 р. | — |
 
 Scenario: Making sale product with fractional quantity
 
@@ -55,7 +55,7 @@ When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse'
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Черемша | 235212345 | 235212345 | -2,363 | 0,00 | 0,0 | 252,99 р. | — |
+| Черемша | 235212345 | 235212345 | -2,363 | 0,0 | 0,0 | 252,99 р. | — |
 
 Scenario: Invoice quantity validation negative - 0,0003
 

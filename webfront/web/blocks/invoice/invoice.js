@@ -290,6 +290,8 @@ define(function(require) {
             },
             showDataInput: function($el) {
                 var block = this,
+                    $invoiceProduct = $el.closest('[invoice-product-id]'),
+                    model = $invoiceProduct.length ? block.invoiceProductsCollection.get($invoiceProduct.attr('invoice-product-id')) : block.invoiceModel,
                     $dataElement = $el,
                     $dataRow = $el.closest('.invoice__dataRow'),
                     dataInputControls = block.templates.dataInputControls();
@@ -307,7 +309,8 @@ define(function(require) {
                 switch ($dataElement.attr('model-attribute')) {
                     case 'product':
                         $dataElement.append(block.templates.dataInputAutocomplete({
-                            $dataElement: $dataElement
+                            $dataElement: $dataElement,
+                            model: model
                         }));
                         this.autocompleteToInput($dataElement.find("[lh_product_autocomplete]"));
                         break;
@@ -315,13 +318,15 @@ define(function(require) {
                     case 'quantityElement':
                         $dataElement.append(block.templates.dataInput({
                             $dataElement: $dataElement,
+                            model: model,
                             name: 'quantity'
                         }));
                         break;
 
                     case 'acceptanceDate':
                         $dataElement.append(block.templates.dataInput({
-                            $dataElement: $dataElement
+                            $dataElement: $dataElement,
+                            model: model
                         }));
                         new InputDate({
                             el: $dataElement.find('.inputText')[0]
@@ -330,7 +335,8 @@ define(function(require) {
 
                     case 'supplierInvoiceDate':
                         $dataElement.append(block.templates.dataInput({
-                            $dataElement: $dataElement
+                            $dataElement: $dataElement,
+                            model: model
                         }));
                         new InputDate({
                             el: $dataElement.find('.inputText')[0],
@@ -340,7 +346,8 @@ define(function(require) {
 
                     default:
                         $dataElement.append(block.templates.dataInput({
-                            $dataElement: $dataElement
+                            $dataElement: $dataElement,
+                            model: model
                         }));
                         break;
                 }

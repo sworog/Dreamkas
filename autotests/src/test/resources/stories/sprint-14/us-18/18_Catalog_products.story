@@ -32,7 +32,7 @@ Then the user checks the elements values
 | name | Наименование1689 |
 | vendor | Производитель1689 |
 | vendorCountry | Россия1689 |
-| purchasePrice | 1231689 |
+| purchasePrice | 1 231 689,00 |
 | barcode | 1231689 |
 | sku | 1689 |
 | info | Info1689 |
@@ -56,7 +56,7 @@ Then the user checks the elements values
 | name | Имя23 56 |
 | vendor | Вендор45 |
 | vendorCountry | Вендоркантри56 |
-| purchasePrice | 8922174 |
+| purchasePrice | 8 922 174,00 |
 | barcode | 102454 |
 | sku | 89489545DGF2 |
 | info | Info1689 |

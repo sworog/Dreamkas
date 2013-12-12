@@ -112,11 +112,13 @@ public class WriteOffUserSteps {
         writeOffSteps.itemCheck(value);
     }
 
+    @Deprecated
     @Then("the user checks the product with '$value' sku has '$elementName' element equal to '$expectedValue' on write off page")
     public void thenTheUserChecksTheProductWithValueHasElementEqualToExpectedValue(String value, String elementName, String expectedValue) {
         writeOffSteps.checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
     }
 
+    @Deprecated
     @Then("the user checks the product with '$value' sku has elements on the write off page $checkValuesTable")
     public void thenTheUserChecksTheProductWithValueHasElementEqualToExpectedValue(String value, ExamplesTable checkValuesTable) {
         writeOffSteps.checkListItemHasExpectedValueByFindByLocator(value, checkValuesTable);

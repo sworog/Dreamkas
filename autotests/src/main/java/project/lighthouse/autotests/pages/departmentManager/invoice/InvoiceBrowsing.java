@@ -136,7 +136,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     @Deprecated
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         By findBy = items.get(parentElementName).getFindBy();
-        commonViewInterface.childrentItemClickByFindByLocator(elementName, findBy);
+        commonViewInterface.childrenItemClickByFindByLocator(elementName, findBy);
     }
 
     public void addNewInvoiceProductButtonClick() {

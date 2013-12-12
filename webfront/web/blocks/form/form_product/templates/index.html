@@ -32,7 +32,7 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Цена закупки</label>
-        <input style="width: 150px;" value="<%- model.get('purchasePrice') ? LH.formatPrice(model.get('purchasePrice')) : '' %>" class="inputText" type="text" name="purchasePrice"/>
+        <input style="width: 150px;" value="<%- model.get('purchasePrice') || '' %>" class="inputText" type="text" name="purchasePrice"/>
         <span class="inputText__postfix">руб.</span>
     </div>
     <div class="form__field form__field_inline productForm__retailMarkupField">
@@ -63,14 +63,14 @@
         <span name="retailPrice" class="retailPrice productForm__linkedInput <%- model.get('retailPricePreference') == 'retailMarkup' ? 'productForm__hiddenInput' : '' %>">
             <input
                     style="width: 100px;"
-                    value="<%- model.get('retailPriceMin') ? LH.formatPrice(model.get('retailPriceMin')) : '' %>"
+                    value="<%- model.get('retailPriceMin') ? LH.formatMoney(model.get('retailPriceMin')) : '' %>"
                     class="inputText"
                     type="text"
                     name="retailPriceMin"/>
             -
             <input
                     style="width: 100px;"
-                    value="<%- model.get('retailPriceMax') ? LH.formatPrice(model.get('retailPriceMax')) : '' %>"
+                    value="<%- model.get('retailPriceMax') ? LH.formatMoney(model.get('retailPriceMax')) : '' %>"
                     class="inputText"
                     type="text"
                     name="retailPriceMax"/>

@@ -20,10 +20,9 @@ define(function(require) {
         getText: getText,
         isReportsAllow: require('utils/isReportsAllow'),
         modelNode: require('kit/utils/modelNode'),
-        formatPrice: require('utils/formatPrice'),
         formatMoney: require('utils/formatMoney'),
+        formatAmount: require('utils/formatAmount'),
         isEmptyJSON: require('utils/isEmptyJSON'),
-        normalizePrice: require('utils/normalizePrice'),
         prevalidateInput: require('utils/prevalidateInput'),
         units: require('utils/units')
     }, window.LH, window.Lighthouse);
