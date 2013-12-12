@@ -3,7 +3,6 @@ package project.lighthouse.autotests.objects.web.invoice;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
 
 
@@ -14,7 +13,7 @@ public class InvoiceProductsCollection extends AbstractObjectCollection {
     }
 
     @Override
-    public AbstractObject createNode(WebElement element) {
+    public InvoiceProductObject createNode(WebElement element) {
         return new InvoiceProductObject(element);
     }
 }

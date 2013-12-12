@@ -6,6 +6,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.joda.time.DateTime;
 import project.lighthouse.autotests.fixtures.Us_55_2_Fixture;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.reports.grossSaleByStores.GrossSalesByStoresCollection;
 import project.lighthouse.autotests.pages.commercialManager.reports.GrossSaleByStoresReportsPage;
 
@@ -49,30 +50,30 @@ public class GrossSaleByStoresReportsSteps extends ScenarioSteps {
     public void assertYesterdayRowSort() {
         grossSaleByStoresReportsPage.getYesterdayRowWebElement().click();
         GrossSalesByStoresCollection collection = grossSaleByStoresReportsPage.getStoreGrossSaleByHourElementCollection();
-        Assert.assertEquals("245521", collection.get(0).getObjectLocator());
-        Assert.assertEquals("245522", collection.get(1).getObjectLocator());
-        Assert.assertEquals("2455222", collection.get(2).getObjectLocator());
-        Assert.assertEquals("2455212", collection.get(3).getObjectLocator());
+        Assert.assertEquals("245521", ((ObjectLocatable) collection.get(0)).getObjectLocator());
+        Assert.assertEquals("245522", ((ObjectLocatable) collection.get(1)).getObjectLocator());
+        Assert.assertEquals("2455222", ((ObjectLocatable) collection.get(2)).getObjectLocator());
+        Assert.assertEquals("2455212", ((ObjectLocatable) collection.get(3)).getObjectLocator());
     }
 
     @Step
     public void assertTwoDaysAgoRowSort() {
         grossSaleByStoresReportsPage.getTwoDaysAgoRowWebElement().click();
         GrossSalesByStoresCollection collection = grossSaleByStoresReportsPage.getStoreGrossSaleByHourElementCollection();
-        Assert.assertEquals("245522", collection.get(0).getObjectLocator());
-        Assert.assertEquals("245521", collection.get(1).getObjectLocator());
-        Assert.assertEquals("2455222", collection.get(2).getObjectLocator());
-        Assert.assertEquals("2455212", collection.get(3).getObjectLocator());
+        Assert.assertEquals("245522", ((ObjectLocatable) collection.get(0)).getObjectLocator());
+        Assert.assertEquals("245521", ((ObjectLocatable) collection.get(1)).getObjectLocator());
+        Assert.assertEquals("2455222", ((ObjectLocatable) collection.get(2)).getObjectLocator());
+        Assert.assertEquals("2455212", ((ObjectLocatable) collection.get(3)).getObjectLocator());
     }
 
     @Step
     public void assertEightDaysAgoRowSort() {
         grossSaleByStoresReportsPage.getEightDaysAgoRowWebElement().click();
         GrossSalesByStoresCollection collection = grossSaleByStoresReportsPage.getStoreGrossSaleByHourElementCollection();
-        Assert.assertEquals("245522", collection.get(0).getObjectLocator());
-        Assert.assertEquals("245521", collection.get(1).getObjectLocator());
-        Assert.assertEquals("2455222", collection.get(2).getObjectLocator());
-        Assert.assertEquals("2455212", collection.get(3).getObjectLocator());
+        Assert.assertEquals("245522", ((ObjectLocatable) collection.get(0)).getObjectLocator());
+        Assert.assertEquals("245521", ((ObjectLocatable) collection.get(1)).getObjectLocator());
+        Assert.assertEquals("2455222", ((ObjectLocatable) collection.get(2)).getObjectLocator());
+        Assert.assertEquals("2455212", ((ObjectLocatable) collection.get(3)).getObjectLocator());
     }
 
     private String getDate() {

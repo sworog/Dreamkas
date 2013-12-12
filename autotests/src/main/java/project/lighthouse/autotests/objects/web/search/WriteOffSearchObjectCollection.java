@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractSearchObjectCollection;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractSearchObjectNode;
 
 public class WriteOffSearchObjectCollection extends AbstractSearchObjectCollection {
 
@@ -13,7 +12,7 @@ public class WriteOffSearchObjectCollection extends AbstractSearchObjectCollecti
     }
 
     @Override
-    public AbstractSearchObjectNode createNode(WebElement element) {
+    public WriteOffSearchObject createNode(WebElement element) {
         return new WriteOffSearchObject(element);
     }
 }

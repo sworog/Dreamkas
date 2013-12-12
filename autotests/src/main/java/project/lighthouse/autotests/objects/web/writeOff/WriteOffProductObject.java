@@ -2,13 +2,15 @@ package project.lighthouse.autotests.objects.web.writeOff;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.ObjectProperty;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class WriteOffProductObject extends AbstractObjectNode {
+public class WriteOffProductObject extends AbstractObject implements ObjectLocatable, ResultComparable {
 
     private ObjectProperty name;
     private ObjectProperty sku;
@@ -33,7 +35,6 @@ public class WriteOffProductObject extends AbstractObjectNode {
         productCause = setObjectProperty("productCause", By.name("productCause"));
     }
 
-    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("productSku", sku.getText(), row.get("productSku"))
@@ -45,7 +46,6 @@ public class WriteOffProductObject extends AbstractObjectNode {
                 .compare("productCause", productCause.getText(), row.get("productCause"));
     }
 
-    @Override
     public String getObjectLocator() {
         return sku.getText();
     }

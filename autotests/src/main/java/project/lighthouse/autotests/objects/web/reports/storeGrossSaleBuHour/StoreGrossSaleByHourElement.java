@@ -2,12 +2,14 @@ package project.lighthouse.autotests.objects.web.reports.storeGrossSaleBuHour;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class StoreGrossSaleByHourElement extends AbstractObjectNode {
+public class StoreGrossSaleByHourElement extends AbstractObject implements ObjectLocatable, ResultComparable {
 
     private String date;
     private String todayValue;
@@ -26,12 +28,10 @@ public class StoreGrossSaleByHourElement extends AbstractObjectNode {
         weekAgoValue = getElement().findElement(By.name("weekAgo.hourSum")).getText();
     }
 
-    @Override
     public String getObjectLocator() {
         return date;
     }
 
-    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("date", date, row.get("date"))

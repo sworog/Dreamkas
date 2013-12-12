@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,12 +37,13 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
         for (Map<String, String> row : examplesTable.getRows()) {
             Boolean found = false;
             for (AbstractObject abstractObject : this) {
-                if (abstractObject.getCompareResults(row).isEmpty()) {
+                ResultComparable resultComparable = (ResultComparable) abstractObject;
+                if (resultComparable.getCompareResults(row).isEmpty()) {
                     this.remove(abstractObject);
                     found = true;
                     break;
                 } else {
-                    mapCompareResultsMap.put(row, abstractObject.getCompareResults(row));
+                    mapCompareResultsMap.put(row, resultComparable.getCompareResults(row));
                 }
             }
             if (found) {
@@ -73,9 +76,17 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
         getAbstractObjectByLocator(locator);
     }
 
+    private Boolean locateObject(AbstractObject abstractObject, String objectLocator) {
+        if (abstractObject instanceof ObjectLocatable) {
+            return ((ObjectLocatable) abstractObject).getObjectLocator().equals(objectLocator);
+        } else {
+            return false;
+        }
+    }
+
     public AbstractObject getAbstractObjectByLocator(String locator) {
         for (AbstractObject abstractObject : this) {
-            if (abstractObject.getObjectLocator().equals(locator)) {
+            if (locateObject(abstractObject, locator)) {
                 return abstractObject;
             }
         }

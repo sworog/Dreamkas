@@ -3,9 +3,9 @@ package project.lighthouse.autotests.objects.web.log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 
-public class JobLogObject extends AbstractObjectNode {
+public class JobLogObject extends AbstractObject {
 
     private String id;
     private String type;

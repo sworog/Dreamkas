@@ -2,12 +2,14 @@ package project.lighthouse.autotests.objects.web.product;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class InvoiceListObject extends AbstractObjectNode {
+public class InvoiceListObject extends AbstractObject implements ObjectLocatable, ResultComparable {
 
     private String acceptanceDateFormatted;
     private String quantity;
@@ -27,7 +29,6 @@ public class InvoiceListObject extends AbstractObjectNode {
         invoiceSku = getElement().getAttribute("invoice-sku");
     }
 
-    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("acceptanceDateFormatted", acceptanceDateFormatted, row.get("acceptanceDateFormatted"))
@@ -36,7 +37,6 @@ public class InvoiceListObject extends AbstractObjectNode {
                 .compare("totalPriceFormatted", totalPriceFormatted, row.get("totalPriceFormatted"));
     }
 
-    @Override
     public String getObjectLocator() {
         return invoiceSku;
     }

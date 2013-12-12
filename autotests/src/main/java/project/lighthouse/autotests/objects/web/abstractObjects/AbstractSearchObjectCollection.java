@@ -3,20 +3,14 @@ package project.lighthouse.autotests.objects.web.abstractObjects;
 import junit.framework.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractSearchObjectCollection extends AbstractObjectCollection {
+abstract public class AbstractSearchObjectCollection extends AbstractObjectCollection {
 
     public AbstractSearchObjectCollection(WebDriver webDriver, By findBy) {
         super(webDriver, findBy);
-    }
-
-    @Override
-    public AbstractObject createNode(WebElement element) {
-        return null;
     }
 
     public void containsHighLightText(String expectedHighLightText) {

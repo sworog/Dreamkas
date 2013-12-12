@@ -2,12 +2,14 @@ package project.lighthouse.autotests.objects.web.reports.grossSaleByStores;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class GrossSaleByStoresObject extends AbstractObjectNode {
+public class GrossSaleByStoresObject extends AbstractObject implements ObjectLocatable, ResultComparable {
 
     private String storeNumber;
     private String yesterdayValue;
@@ -27,7 +29,6 @@ public class GrossSaleByStoresObject extends AbstractObjectNode {
         eightDaysAgoValue = getElement().findElement(By.name("eightDaysAgo.runningSum")).getText();
     }
 
-    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("storeNumber", storeNumber, row.get("storeNumber"))
@@ -36,7 +37,6 @@ public class GrossSaleByStoresObject extends AbstractObjectNode {
                 .compare("eightDaysAgoValue", eightDaysAgoValue, row.get("eightDaysAgoValue"));
     }
 
-    @Override
     public String getObjectLocator() {
         return storeNumber;
     }

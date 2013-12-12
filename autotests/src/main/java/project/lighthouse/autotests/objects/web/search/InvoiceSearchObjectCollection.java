@@ -23,4 +23,9 @@ public class InvoiceSearchObjectCollection extends AbstractSearchObjectCollectio
             add(abstractObject);
         }
     }
+
+    @Override
+    public AbstractObject createNode(WebElement element) {
+        return null;
+    }
 }

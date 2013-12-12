@@ -4,10 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractSearchObjectNode;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class WriteOffSearchObject extends AbstractSearchObjectNode {
+public class WriteOffSearchObject extends AbstractSearchObjectNode implements ObjectLocatable, ResultComparable {
 
     private String number;
     private String date;
@@ -22,12 +24,10 @@ public class WriteOffSearchObject extends AbstractSearchObjectNode {
         date = getElement().findElement(By.xpath(".//*[@name='date']")).getText();
     }
 
-    @Override
     public String getObjectLocator() {
         return number;
     }
 
-    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("number", number, row.get("number"))

@@ -2,12 +2,13 @@ package project.lighthouse.autotests.objects.web.product;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class ReturnListObject extends AbstractObjectNode {
+public class ReturnListObject extends AbstractObject implements ResultComparable {
 
     private String createdDateFormatted;
     private String quantity;

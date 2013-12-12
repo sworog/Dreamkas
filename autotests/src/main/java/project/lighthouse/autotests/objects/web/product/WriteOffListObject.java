@@ -2,12 +2,14 @@ package project.lighthouse.autotests.objects.web.product;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class WriteOffListObject extends AbstractObjectNode {
+public class WriteOffListObject extends AbstractObject implements ObjectLocatable, ResultComparable {
 
     private String acceptanceDateFormatted;
     private String quantity;
@@ -20,6 +22,7 @@ public class WriteOffListObject extends AbstractObjectNode {
         super(element);
     }
 
+    @Override
     public void setProperties() {
         acceptanceDateFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='createdDateFormatted']")).getText();
         quantity = getElement().findElement(By.xpath(".//*[@model-attribute='quantityElement']")).getText();
@@ -28,7 +31,6 @@ public class WriteOffListObject extends AbstractObjectNode {
         number = getElement().getAttribute("writeoff-number");
     }
 
-    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("createdDateFormatted", acceptanceDateFormatted, row.get("createdDateFormatted"))
@@ -37,7 +39,6 @@ public class WriteOffListObject extends AbstractObjectNode {
                 .compare("totalPriceFormatted", totalPriceFormatted, row.get("totalPriceFormatted"));
     }
 
-    @Override
     public String getObjectLocator() {
         return number;
     }

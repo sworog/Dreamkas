@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
 
 public class InvoiceListCollection extends AbstractObjectCollection {
 
@@ -13,7 +12,7 @@ public class InvoiceListCollection extends AbstractObjectCollection {
     }
 
     @Override
-    public AbstractObjectNode createNode(WebElement element) {
+    public InvoiceListObject createNode(WebElement element) {
         return new InvoiceListObject(element);
     }
 }

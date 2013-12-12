@@ -2,13 +2,15 @@ package project.lighthouse.autotests.objects.web.invoice;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectNode;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.ObjectProperty;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class InvoiceProductObject extends AbstractObjectNode {
+public class InvoiceProductObject extends AbstractObject implements ObjectLocatable, ResultComparable {
 
     private ObjectProperty name;
     private ObjectProperty sku;
@@ -38,7 +40,6 @@ public class InvoiceProductObject extends AbstractObjectNode {
         vat = setObjectProperty("vat", By.xpath(".//*[@model-attribute='product.vat']"));
     }
 
-    @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("productSku", sku.getText(), row.get("productSku"))
@@ -52,7 +53,6 @@ public class InvoiceProductObject extends AbstractObjectNode {
                 .compare("vat", vat.getText(), row.get("vat"));
     }
 
-    @Override
     public String getObjectLocator() {
         return sku.getText();
     }
