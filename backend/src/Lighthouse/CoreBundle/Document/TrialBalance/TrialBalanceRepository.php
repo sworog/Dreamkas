@@ -9,12 +9,16 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use MongoId;
 use MongoCode;
+use MongoCursor;
 
 class TrialBalanceRepository extends DocumentRepository
 {
+    const MAX_STORE_GROSS_SALES_REPORT_AGGREGATION = 150000;
+
     /**
      * @param $storeProductId
      * @return Cursor
@@ -296,5 +300,106 @@ class TrialBalanceRepository extends DocumentRepository
             ->out(array('inline' => true));
 
         return $query->getQuery()->execute();
+    }
+
+    /**
+     * @param Store[] $stores
+     * @param int $countProducts
+     * @return array
+     * @throws \Exception
+     */
+    public function calculateGrossSalesProduct($stores, $countProducts)
+    {
+        if ($this->isCollectionEmpty()) {
+            return array();
+        }
+
+        $collection = $this->getDocumentManager()->getDocumentCollection($this->getClassName());
+
+        $backupTimeout = MongoCursor::$timeout;
+        MongoCursor::$timeout = -1;
+
+        $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");
+
+        $maxHoursStep = self::MAX_STORE_GROSS_SALES_REPORT_AGGREGATION / $countProducts;
+
+        $result = array();
+
+        foreach ($stores as $store) {
+            $startDate = clone $requireDatePeriod->getStartDate();
+            $endDate = clone $startDate;
+            $endDate->modify("+{$maxHoursStep} hour");
+            if ($endDate > $requireDatePeriod->getEndDate()) {
+                $endDate = $requireDatePeriod->getEndDate();
+            } else {
+                $endDate->modify("+{$maxHoursStep} hour");
+            }
+
+            while (1) {
+                $ops = array(
+                    array(
+                        '$match' => array(
+                            'createdDate' => array(
+                                '$gte' => $startDate->getMongoDate(),
+                                '$lt' => $endDate->getMongoDate(),
+                            ),
+                            'reason.$ref' => SaleProduct::REASON_TYPE,
+                            'store' => new MongoId($store->id),
+                        ),
+                    ),
+                    array(
+                        '$sort' => array(
+                            'createdDate' => 1,
+                        )
+                    ),
+                    array(
+                        '$project' => array(
+                            'storeProduct' => 1,
+                            'totalPrice' => 1,
+                            'year' => array('$year' => '$createdDate'),
+                            'month' => array('$month' => '$createdDate'),
+                            'day' => array('$dayOfMonth' => '$createdDate'),
+                            'hour' => array('$hour' => '$createdDate'),
+                        ),
+                    ),
+                    array(
+                        '$group' => array(
+                            '_id' => array(
+                                'storeProduct' => '$storeProduct',
+                                'year' => '$year',
+                                'month' => '$month',
+                                'day' => '$day',
+                                'hour' => '$hour',
+                            ),
+                            'hourSum' => array('$sum' => '$totalPrice'),
+                        ),
+                    ),
+                );
+
+                $stepResult = $collection->getMongoCollection()->aggregate($ops);
+                if (1 == $stepResult['ok']) {
+                    $result = array_merge($result, $stepResult['result']);
+
+                    if ($endDate >= $requireDatePeriod->getEndDate()) {
+                        break;
+                    }
+
+                    $startDate = clone $endDate;
+                    $endDate->modify("+{$maxHoursStep} hour");
+                    if ($endDate > $requireDatePeriod->getEndDate()) {
+                        $endDate = $requireDatePeriod->getEndDate();
+                    }
+                } else {
+                    throw new \Exception($stepResult['errmsg']);
+                    break;
+                }
+            }
+
+
+        }
+
+        MongoCursor::$timeout = $backupTimeout;
+
+        return $result;
     }
 }

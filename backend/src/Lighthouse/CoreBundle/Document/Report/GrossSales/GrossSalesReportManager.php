@@ -3,10 +3,12 @@
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\DayGrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\StoreGrossSalesByStores;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductRepository;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReport;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -28,6 +30,11 @@ class GrossSalesReportManager
     protected $grossSalesRepository;
 
     /**
+     * @var GrossSalesProductRepository
+     */
+    protected $grossSalesProductRepository;
+
+    /**
      * @var StoreRepository
      */
     protected $storeRepository;
@@ -38,23 +45,36 @@ class GrossSalesReportManager
     protected $trialBalanceRepository;
 
     /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
+
+    /**
      * @DI\InjectParams({
      *      "grossSalesRepository" = @DI\Inject("lighthouse.core.document.repository.store_gross_sales"),
+     *      "grossSalesProductRepository" = @DI\Inject("lighthouse.core.document.repository.product_gross_sales"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
-     *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance")
+     *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
+     *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product")
      * })
      * @param StoreGrossSalesRepository $grossSalesRepository
+     * @param GrossSalesProductRepository $grossSalesProductRepository
      * @param StoreRepository $storeRepository
      * @param TrialBalanceRepository $trialBalanceRepository
+     * @param ProductRepository $productRepository
      */
     public function __construct(
         StoreGrossSalesRepository $grossSalesRepository,
+        GrossSalesProductRepository $grossSalesProductRepository,
         StoreRepository $storeRepository,
-        TrialBalanceRepository $trialBalanceRepository
+        TrialBalanceRepository $trialBalanceRepository,
+        ProductRepository $productRepository
     ) {
         $this->grossSalesRepository = $grossSalesRepository;
+        $this->grossSalesProductRepository = $grossSalesProductRepository;
         $this->storeRepository = $storeRepository;
         $this->trialBalanceRepository = $trialBalanceRepository;
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -214,5 +234,58 @@ class GrossSalesReportManager
         $dm->flush();
 
         return count($results);
+    }
+
+    /**
+     * @return int
+     */
+    public function recalculateGrossSalesProductReport()
+    {
+        $stores = $this->storeRepository->findAll()->toArray();
+        $countProducts = $this->productRepository->findAll()->count();
+
+        $results = $this->trialBalanceRepository->calculateGrossSalesProduct($stores, $countProducts);
+
+        $dm = $this->grossSalesProductRepository->getDocumentManager();
+
+        foreach ($results as $result) {
+            $storeProductId = $result['_id']['storeProduct'];
+            $year = $result['_id']['year'];
+            $month = $result['_id']['month'];
+            $day = $result['_id']['day'];
+            $hour = $result['_id']['hour'];
+            $dayHour = $this->createUTCDateByYMDH($year, $month, $day, $hour);
+            $report = $this->grossSalesProductRepository->createByDayHourAndStoreProductId(
+                $dayHour,
+                $storeProductId,
+                null,
+                new Money($result['hourSum'])
+            );
+            $dm->persist($report);
+        }
+
+        $dm->flush();
+
+        return count($results);
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param int $hour
+     * @return DateTimestamp
+     */
+    protected function createUTCDateByYMDH($year, $month, $day, $hour)
+    {
+        $dateString = sprintf(
+            "%d-%d-%dT%d:00:00Z",
+            $year,
+            $month,
+            $day,
+            $hour
+        );
+
+        return new DateTimestamp($dateString);
     }
 }
