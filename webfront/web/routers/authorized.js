@@ -15,8 +15,10 @@ define(function(require) {
 
             //reports
             'reports(/)': require('pages/reports/dashboard/dashboard'),
-            'stores/:storeId/groups/:groupId/grossSalesByCategories(/)': require('pages/reports/grossSalesByCategories/grossSalesByCategories'),
-            'stores/:storeID/groups/:groupId/categories/:categoryId/grossSalesBySubcategories(/)': require('pages/reports/grossSalesBySubcategories/grossSalesBySubcategories'),
+            'stores/:storeId/reports/grossSalesByHours': require('pages/reports/store/grossSalesByHours/grossSalesByHours'),
+            'stores/:storeId/reports/grossSalesByGroups(/)': require('pages/reports/store/grossSalesByGroups/grossSalesByGroups'),
+            'stores/:storeId/groups/:groupId/grossSalesByCategories(/)': require('pages/reports/store/grossSalesByCategories/grossSalesByCategories'),
+            'stores/:storeId/groups/:groupId/categories/:categoryId/grossSalesBySubcategories(/)': require('pages/reports/store/grossSalesBySubcategories/grossSalesBySubcategories'),
 
             //invoices
             'invoices(/)': require('pages/invoice/list'),

@@ -1,9 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
-        StoreGrossSalesByHourModel = require('models/storeGrossSalesByHours'),
         GrossSalesByStoresCollection = require('collections/grossSalesByStores'),
-        GrossSalesByGroupsCollection = require('collections/catalogGroups'),
         currentUserModel = require('models/currentUser'),
 
         Table_grossSalesByStores = require('blocks/table/table_grossSalesByStores/table_grossSalesByStores');
@@ -19,16 +17,6 @@ define(function(require, exports, module) {
             return !LH.isReportsAllow();
         },
         models: {
-            storeGrossSalesByHours: function() {
-                var storeGrossSalesByHoursModel = null;
-
-                if (LH.isReportsAllow(['storeGrossSalesByHours'])) {
-                    storeGrossSalesByHoursModel = new StoreGrossSalesByHourModel();
-                    storeGrossSalesByHoursModel.storeId = currentUserModel.stores.at(0).id
-                }
-
-                return storeGrossSalesByHoursModel;
-            },
             store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
         },
         collections: {
@@ -40,19 +28,6 @@ define(function(require, exports, module) {
                 }
 
                 return grossSalesByStores;
-            },
-            grossSalesByGroups: function() {
-                var page = this;
-
-                var grossSalesByGroups = null;
-
-                if (LH.isReportsAllow(['grossSalesByGroups'])) {
-                    grossSalesByGroups = new GrossSalesByGroupsCollection([], {
-                        storeId: page.models.store.id
-                    });
-                }
-
-                return grossSalesByGroups;
             }
         },
         blocks: {
@@ -76,22 +51,18 @@ define(function(require, exports, module) {
                 result[collectionName] = typeof collection === 'function' ? collection.call(page) : collection
             });
 
-            $.when(
-                    page.models.storeGrossSalesByHours ? page.models.storeGrossSalesByHours.fetch() : null,
-                    page.collections.grossSalesByStores ? page.collections.grossSalesByStores.fetch() : null,
-                    page.collections.grossSalesByGroups ? page.collections.grossSalesByGroups.fetch() : null
-                ).done(function() {
+            $.when(page.collections.grossSalesByStores ? page.collections.grossSalesByStores.fetch() : null).done(function() {
 
-                    _.extend(page.models, {
-                        store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
-                    });
-
-                    page.render();
-
-                    page.blocks = {
-                        table_grossSalesByStores: page.blocks.table_grossSalesByStores.call(page)
-                    }
+                _.extend(page.models, {
+                    store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
                 });
+
+                page.render();
+
+                page.blocks = {
+                    table_grossSalesByStores: page.blocks.table_grossSalesByStores.call(page)
+                }
+            });
         }
     });
 });

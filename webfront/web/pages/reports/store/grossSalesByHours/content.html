@@ -1,0 +1,16 @@
+<% var templates = {
+    table_storeGrossSalesByHours: require('tpl!blocks/table/table_storeGrossSalesByHours/table_storeGrossSalesByHours.html')
+} %>
+
+
+<h2>Продажи по часам. Магазин № <%- models.store.get('number') %></h2>
+
+<% if (models.storeGrossSalesByHours.get('today').length) { %>
+<table style="margin-bottom: 40px;" class="table table_storeGrossSalesByHour">
+    <%= templates.table_storeGrossSalesByHours({
+        models: _.pick(models, 'storeGrossSalesByHours')
+    }) %>
+</table>
+<% } else { %>
+<p>Нет данных</p>
+<% } %>
