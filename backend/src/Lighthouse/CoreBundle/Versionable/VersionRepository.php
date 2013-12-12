@@ -39,6 +39,7 @@ class VersionRepository extends DocumentRepository
      */
     public function findOrCreateByDocumentId($id)
     {
+        /* @var VersionableInterface $document */
         $document = $this->getObjectRepository()->find($id);
         if ($document) {
             return $this->findOrCreateByDocument($document);

@@ -88,6 +88,8 @@ class ProductTotalsTest extends ContainerAwareTestCase
 
         $manager->persist($store);
         $manager->persist($product);
+        $manager->flush();
+
         $manager->persist($invoice);
         $manager->persist($invoiceProduct);
         $manager->flush();

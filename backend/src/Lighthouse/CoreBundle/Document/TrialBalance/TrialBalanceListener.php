@@ -64,7 +64,8 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $this->invoiceProductRepository = $invoiceProductRepository;
         $this->storeProductRepository = $storeProductRepository;
 
-        $this->trialBalanceQueue = new SplQueue(SplQueue::IT_MODE_DELETE);
+        $this->trialBalanceQueue = new SplQueue();
+        $this->trialBalanceQueue->setIteratorMode(SplQueue::IT_MODE_DELETE);
     }
 
     /**
@@ -106,6 +107,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
     protected function onReasonablePersist(Reasonable $document, DocumentManager $dm)
     {
         $storeProduct = $this->storeProductRepository->findOrCreateByReason($document);
+        $dm->persist($storeProduct);
         $this->computeChangeSet($dm, $storeProduct);
 
         $trialBalance = new TrialBalance();
@@ -115,7 +117,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $trialBalance->reason = $document;
         $trialBalance->createdDate = $document->getReasonDate();
 
-        $this->enqueueTrialBalance($trialBalance);
+        $this->trialBalanceQueue[] = $trialBalance;
     }
     
     /**
@@ -174,24 +176,18 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
-     * @param TrialBalance $trialBalance
-     */
-    protected function enqueueTrialBalance(TrialBalance $trialBalance)
-    {
-        $this->trialBalanceQueue->enqueue($trialBalance);
-    }
-
-    /**
      * @param PostFlushEventArgs $eventArgs
      */
     public function postFlush(PostFlushEventArgs $eventArgs)
     {
-        if (0 == $this->postFlushCounter++) {
+        if (!$this->trialBalanceQueue->isEmpty() && 0 == $this->postFlushCounter) {
+            $this->postFlushCounter++;
             $dm = $eventArgs->getDocumentManager();
             foreach ($this->trialBalanceQueue as $trialBalance) {
                 $dm->persist($trialBalance);
             }
             $dm->flush();
+            $this->postFlushCounter--;
         }
     }
 }
