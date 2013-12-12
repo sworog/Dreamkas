@@ -1,5 +1,6 @@
 <h2>Продажи по категориям товаров</h2>
 
+<% if (collections.grossSalesByCategories.length) { %>
 <table class="table table_grossSalesByGroups">
     <thead>
     <tr>
@@ -10,9 +11,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr href="stores/storeID/categories/categoryID/grossSalesBySubcategories">
+    <% collections.grossSalesByCategories.forEach(function(grossSalesByCategoryModel){ %>
+    <tr href="stores/<%- models.store.id %>/categories/<%- grossSalesByCategoryModel.id %>/grossSalesBySubcategories">
         <td>
-            Молоко
+            <%- grossSalesByCategoryModel.get('name') %>
         </td>
         <td>
             16 000 000 р.
@@ -24,33 +26,9 @@
             10 000 000 р.
         </td>
     </tr>
-    <tr href="stores/storeID/categories/categoryID/grossSalesBySubcategories">
-        <td>
-            Сметана
-        </td>
-        <td>
-            25 000 000 р.
-        </td>
-        <td>
-            20 000 000 р.
-        </td>
-        <td>
-            30 000 000 р.
-        </td>
-    </tr>
-    <tr href="stores/storeID/categories/categoryID/grossSalesBySubcategories">
-        <td>
-            Сыр
-        </td>
-        <td>
-            6 000 000 р.
-        </td>
-        <td>
-            2 000 000 р.
-        </td>
-        <td>
-            3 000 000 р.
-        </td>
-    </tr>
+    <% }) %>
     </tbody>
 </table>
+<% } else { %>
+<p>Нет данных</p>
+<% } %>

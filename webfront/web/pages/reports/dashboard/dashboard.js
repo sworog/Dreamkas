@@ -28,7 +28,8 @@ define(function(require, exports, module) {
                 }
 
                 return storeGrossSalesByHoursModel;
-            }
+            },
+            store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
         },
         collections: {
             grossSalesByStores: function(){
@@ -66,15 +67,14 @@ define(function(require, exports, module) {
             var page = this,
                 fetchData = [];
 
-            page.models = {
+            _.extend(page.models, {
                 storeGrossSalesByHours: page.models.storeGrossSalesByHours(),
-                store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
-            };
+            });
 
-            page.collections = {
+            _.extend(page.collections, {
                 grossSalesByStores: page.collections.grossSalesByStores(),
                 grossSalesByGroups: page.collections.grossSalesByGroups()
-            };
+            });
 
             if (page.models.storeGrossSalesByHours){
                 fetchData.push(page.models.storeGrossSalesByHours.fetch());

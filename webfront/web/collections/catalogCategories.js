@@ -4,6 +4,8 @@ define(function(require) {
 
         return Collection.extend({
             model: require('models/catalogCategory'),
+            group: null,
+            storeId: null,
             initialize: function(models, options) {
                 this.group = options.group || options.parentModel.id;
                 this.storeId = options.storeId || options.parentModel.get('storeId');
