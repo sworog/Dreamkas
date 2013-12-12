@@ -1,27 +1,27 @@
 define(function(require) {
     //requirements
     var Block = require('kit/core/block'),
-        Tooltip_catalogSubCategoryMenu = require('blocks/tooltip/tooltip_catalogSubCategoryMenu/tooltip_catalogSubCategoryMenu');
+        Tooltip_catalogSubcategoryMenu = require('blocks/tooltip/tooltip_catalogSubcategoryMenu/tooltip_catalogSubcategoryMenu');
 
     return Block.extend({
         __name__: 'catalogCategory__subcategoryItem',
-        catalogSubCategoryModel: null,
+        catalogSubcategoryModel: null,
         template: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryItem.html'),
         events: {
-            'click .catalog__editSubCategoryLink': function(e){
+            'click .catalog__editSubcategoryLink': function(e){
                 e.stopPropagation();
                 e.preventDefault();
                 var block = this,
                     $target = $(e.target);
 
-                block.tooltip_catalogSubCategoryMenu.show({
+                block.tooltip_catalogSubcategoryMenu.show({
                     $trigger: $target,
-                    catalogSubCategoryModel: block.catalogSubCategoryModel
+                    catalogSubcategoryModel: block.catalogSubcategoryModel
                 });
             }
         },
         listeners: {
-            catalogSubCategoryModel: {
+            catalogSubcategoryModel: {
                 'destroy': function(){
                     var block = this;
 
@@ -32,7 +32,7 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            block.tooltip_catalogSubCategoryMenu = $('[block="tooltip_catalogSubCategoryMenu"]').data('tooltip_catalogSubCategoryMenu') || new Tooltip_catalogSubCategoryMenu()
+            block.tooltip_catalogSubcategoryMenu = $('[block="tooltip_catalogSubcategoryMenu"]').data('tooltip_catalogSubcategoryMenu') || new Tooltip_catalogSubcategoryMenu()
         }
     });
 });

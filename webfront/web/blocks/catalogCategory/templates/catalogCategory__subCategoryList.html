@@ -1,10 +1,10 @@
 <% if(!catalogSubcategoriesCollection || !catalogSubcategoriesCollection.length) { %>
 <div>Нет подкатегорий</div>
 <% } else { %>
-<% catalogSubcategoriesCollection.each(function(catalogSubCategoryModel){ %>
-<div class="catalogCategory__subcategoryItem" subcategory_id="<%- catalogSubCategoryModel.id %>">
+<% catalogSubcategoriesCollection.each(function(catalogSubcategoryModel){ %>
+<div class="catalogCategory__subcategoryItem" subcategory_id="<%- catalogSubcategoryModel.id %>">
     <%= templates.catalogCategory__subcategoryItem({
-        catalogSubCategoryModel: catalogSubCategoryModel
+        catalogSubcategoryModel: catalogSubcategoryModel
     }) %>
 </div>
 <% }) %>

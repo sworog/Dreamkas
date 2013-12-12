@@ -34,7 +34,7 @@
     overflow: hidden;
 }
 
-.catalogCategory__subcategoryLink .catalog__editSubCategoryLink{
+.catalogCategory__subcategoryLink .catalog__editSubcategoryLink{
     float: right;
     top: 50%;
     margin-top: -10px;

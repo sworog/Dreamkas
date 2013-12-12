@@ -3,7 +3,7 @@ define(function(require) {
         var Collection = require('kit/core/collection');
 
         return Collection.extend({
-            model: require('models/catalogSubCategory'),
+            model: require('models/catalogSubcategory'),
             initialize: function(models, options){
                 this.category = options.category || options.parentModel.id;
                 this.group = options.group || options.parentModel.get('group');

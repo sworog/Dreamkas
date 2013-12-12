@@ -1,14 +1,14 @@
 define(function(require) {
     //requirements
     var Editor = require('kit/blocks/editor/editor'),
-        CatalogSubCategoryModel = require('models/catalogSubCategory'),
+        CatalogSubcategoryModel = require('models/catalogSubcategory'),
         CatalogCategory__subcategoryList = require('blocks/catalogCategory/catalogCategory__subcategoryList'),
         Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
-        Tooltip_catalogSubCategoryMenu = require('blocks/tooltip/tooltip_catalogSubCategoryMenu/tooltip_catalogSubCategoryMenu'),
-        Tooltip_catalogSubCategoryForm = require('blocks/tooltip/tooltip_catalogSubCategoryForm/tooltip_catalogSubCategoryForm'),
+        Tooltip_catalogSubcategoryMenu = require('blocks/tooltip/tooltip_catalogSubcategoryMenu/tooltip_catalogSubcategoryMenu'),
+        Tooltip_catalogSubcategoryForm = require('blocks/tooltip/tooltip_catalogSubcategoryForm/tooltip_catalogSubcategoryForm'),
         Table_products = require('blocks/table/table_products/table_products'),
         Form_catalogCategoryProperties = require('blocks/form/form_catalogCategoryProperties/form_catalogCategoryProperties'),
-        Form_catalogSubCategoryProperties = require('blocks/form/form_catalogSubCategoryProperties/form_catalogSubCategoryProperties'),
+        Form_catalogSubcategoryProperties = require('blocks/form/form_catalogSubcategoryProperties/form_catalogSubcategoryProperties'),
         pageParams = require('pages/catalog/params');
 
     var router = new Backbone.Router();
@@ -17,8 +17,8 @@ define(function(require) {
         __name__: 'catalogCategory',
 
         catalogCategoryModel: null,
-        catalogSubCategoryId: null,
-        catalogSubCategoryModel: null,
+        catalogSubcategoryId: null,
+        catalogSubcategoryModel: null,
         catalogSubcategoriesCollection: null,
         catalogProductsCollection: null,
 
@@ -38,16 +38,16 @@ define(function(require) {
                     catalogCategoryModel: block.catalogCategoryModel
                 });
             },
-            'click .catalog__addSubCategoryLink': function(e) {
+            'click .catalog__addSubcategoryLink': function(e) {
                 e.preventDefault();
 
                 var block = this,
                     $target = $(e.target);
 
-                block.tooltip_catalogSubCategoryForm.show({
+                block.tooltip_catalogSubcategoryForm.show({
                     $trigger: $target,
                     collection: block.catalogSubcategoriesCollection,
-                    model: new CatalogSubCategoryModel({
+                    model: new CatalogSubcategoryModel({
                         category: block.catalogCategoryModel.id,
                         group: block.catalogCategoryModel.get('group'),
                         retailMarkupMax: block.catalogCategoryModel.get('retailMarkupMax'),
@@ -73,8 +73,8 @@ define(function(require) {
             Editor.prototype.initialize.call(block);
 
             block.tooltip_catalogCategoryMenu = new Tooltip_catalogCategoryMenu();
-            block.tooltip_catalogSubCategoryForm = new Tooltip_catalogSubCategoryForm();
-            block.tooltip_catalogSubCategoryMenu = new Tooltip_catalogSubCategoryMenu();
+            block.tooltip_catalogSubcategoryForm = new Tooltip_catalogSubcategoryForm();
+            block.tooltip_catalogSubcategoryMenu = new Tooltip_catalogSubcategoryMenu();
 
             block.table_products = new Table_products({
                 el: block.el.getElementsByClassName('table_products'),
@@ -91,14 +91,14 @@ define(function(require) {
                 catalogSubcategoriesCollection: block.catalogSubcategoriesCollection
             });
 
-            block.set('catalogSubCategoryId', block.catalogSubCategoryId);
+            block.set('catalogSubcategoryId', block.catalogSubcategoryId);
         },
         remove: function() {
             var block = this;
 
             block.tooltip_catalogCategoryMenu.remove();
-            block.tooltip_catalogSubCategoryForm.remove();
-            block.tooltip_catalogSubCategoryMenu.remove();
+            block.tooltip_catalogSubcategoryForm.remove();
+            block.tooltip_catalogSubcategoryMenu.remove();
 
             Editor.prototype.remove.call(block);
         },
@@ -114,8 +114,8 @@ define(function(require) {
         renderProductList: function(){
             var block = this;
 
-            if (block.catalogSubCategoryModel){
-                block.$productListTitle.html(LH.modelNode(block.catalogSubCategoryModel, 'name'));
+            if (block.catalogSubcategoryModel){
+                block.$productListTitle.html(LH.modelNode(block.catalogSubcategoryModel, 'name'));
                 block.$productList.show();
             } else {
                 block.$productList.hide();
@@ -133,31 +133,31 @@ define(function(require) {
             Editor.prototype['set:editMode'].apply(this, arguments);
             pageParams.editMode = editMode;
         },
-        'set:catalogSubCategoryId': function(catalogSubCategoryId) {
+        'set:catalogSubcategoryId': function(catalogSubcategoryId) {
             var block = this;
 
-            block.catalogSubCategoryModel = block.catalogSubcategoriesCollection.get(catalogSubCategoryId);
+            block.catalogSubcategoryModel = block.catalogSubcategoriesCollection.get(catalogSubcategoryId);
             block.renderProductList();
 
             block.$el
                 .find('.catalogCategory__subcategoryLink_active')
                 .removeClass('catalogCategory__subcategoryLink_active');
 
-            if (catalogSubCategoryId){
+            if (catalogSubcategoryId){
                 block.$subcategoryLink_active = block.$el
-                    .find('.catalogCategory__subcategoryLink[subcategory_id="' + catalogSubCategoryId + '"]')
+                    .find('.catalogCategory__subcategoryLink[subcategory_id="' + catalogSubcategoryId + '"]')
                     .addClass('catalogCategory__subcategoryLink_active');
 
-                block.$addProductLink.attr('href', '/products/create?subcategory=' + catalogSubCategoryId);
+                block.$addProductLink.attr('href', '/products/create?subcategory=' + catalogSubcategoryId);
 
-                block.form_catalogSubCategoryProperties = block.form_catalogSubCategoryProperties || new Form_catalogSubCategoryProperties({
-                    model: block.catalogSubCategoryModel,
-                    el: document.getElementById('form_catalogSubCategoryProperties')
+                block.form_catalogSubcategoryProperties = block.form_catalogSubcategoryProperties || new Form_catalogSubcategoryProperties({
+                    model: block.catalogSubcategoryModel,
+                    el: document.getElementById('form_catalogSubcategoryProperties')
                 });
             }
 
-            if (catalogSubCategoryId && block.catalogSubCategoryId !== catalogSubCategoryId) {
-                block.catalogProductsCollection.subcategory = catalogSubCategoryId;
+            if (catalogSubcategoryId && block.catalogSubcategoryId !== catalogSubcategoryId) {
+                block.catalogProductsCollection.subcategory = catalogSubcategoryId;
                 block.$subcategoryLink_active.addClass('preloader_rows');
 
                 block.catalogProductsCollection.fetch({
@@ -167,8 +167,8 @@ define(function(require) {
                     }
                 });
 
-                block.form_catalogSubCategoryProperties.model = block.catalogSubCategoryModel;
-                block.form_catalogSubCategoryProperties.render();
+                block.form_catalogSubcategoryProperties.model = block.catalogSubcategoryModel;
+                block.form_catalogSubcategoryProperties.render();
             }
         }
     });

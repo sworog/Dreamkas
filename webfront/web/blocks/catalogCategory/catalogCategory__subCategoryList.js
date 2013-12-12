@@ -17,7 +17,7 @@ define(function(require) {
                 add: function(model, collection, options) {
                     var block = this,
                         catalogCategory__subcategoryItem = new CatalogCategory__subcategoryItem({
-                            catalogSubCategoryModel: model
+                            catalogSubcategoryModel: model
                         });
 
                     if (collection.length === 1){
@@ -31,10 +31,10 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            block.catalogSubcategoriesCollection.each(function(catalogSubCategoryModel){
+            block.catalogSubcategoriesCollection.each(function(catalogSubcategoryModel){
                 new CatalogCategory__subcategoryItem({
-                    catalogSubCategoryModel: catalogSubCategoryModel,
-                    el: block.el.querySelectorAll('[subcategory_id="' + catalogSubCategoryModel.id + '"]')
+                    catalogSubcategoryModel: catalogSubcategoryModel,
+                    el: block.el.querySelectorAll('[subcategory_id="' + catalogSubcategoryModel.id + '"]')
                 })
             });
         }

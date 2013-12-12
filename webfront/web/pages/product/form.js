@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Page = require('kit/core/page'),
         ProductModel = require('models/product'),
-        SubCategoryModel = require('models/catalogSubCategory'),
+        SubcategoryModel = require('models/catalogSubcategory'),
         Form_product = require('blocks/form/form_product/form_product');
 
     return Page.extend({
@@ -22,7 +22,7 @@ define(function(require) {
                 subcategory: page.subcategory
             });
 
-            page.subcategoryModel = new SubCategoryModel({
+            page.subcategoryModel = new SubcategoryModel({
                 id: page.subcategory
             });
 
@@ -37,7 +37,7 @@ define(function(require) {
                         parse: true
                     });
                 } else {
-                    page.subcategoryModel = new SubCategoryModel(page.productModel.get('subcategory'));
+                    page.subcategoryModel = new SubcategoryModel(page.productModel.get('subcategory'));
                 }
 
                 page.render();
