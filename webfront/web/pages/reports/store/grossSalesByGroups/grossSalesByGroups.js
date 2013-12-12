@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         currentUserModel = require('models/currentUser'),
-        GrossSalesByGroupsCollection = require('collections/catalogGroups');
+        GrossSalesByGroupsCollection = require('collections/grossSalesByGroups');
 
     require('jquery');
 
@@ -22,9 +22,11 @@ define(function(require, exports, module) {
             grossSalesByGroups: function() {
                 var page = this;
 
-                return new GrossSalesByGroupsCollection([], {
-                    storeId: page.storeId
-                });
+                var grossSalesByGroupsCollection = new GrossSalesByGroupsCollection();
+
+                grossSalesByGroupsCollection.storeId = page.storeId;
+
+                return grossSalesByGroupsCollection;
             }
         },
         initialize: function() {

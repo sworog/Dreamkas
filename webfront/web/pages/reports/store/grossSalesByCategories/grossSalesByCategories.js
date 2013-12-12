@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         currentUserModel = require('models/currentUser'),
-        GrossSalesByCategoriesCollection = require('collections/catalogCategories');
+        GrossSalesByCategoriesCollection = require('collections/grossSalesByCategories');
 
     require('jquery');
 
@@ -13,6 +13,9 @@ define(function(require, exports, module) {
         partials: {
             '#content': require('tpl!./content.html')
         },
+        permissions: function(){
+            return !LH.isReportsAllow(['grossSalesByCategories']);
+        },
         models: {
             store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
         },
@@ -20,14 +23,10 @@ define(function(require, exports, module) {
             grossSalesByCategories: function() {
                 var page = this;
 
-                var grossSalesByCategories = null;
+                var grossSalesByCategories = new GrossSalesByCategoriesCollection();
 
-                if (LH.isReportsAllow(['grossSalesByCategories'])) {
-                    grossSalesByCategories = new GrossSalesByCategoriesCollection([], {
-                        storeId: page.models.store.id,
-                        group: page.groupId
-                    });
-                }
+                grossSalesByCategories.storeId = page.storeId;
+                grossSalesByCategories.groupId = page.groupId;
 
                 return grossSalesByCategories;
             }
