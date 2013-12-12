@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         currentUserModel = require('models/currentUser'),
-        GrossSalesByProductsCollection = require('collections/storeProducts');
+        GrossSalesByProductsCollection = require('collections/grossSalesByProducts');
 
     require('jquery');
 
@@ -15,32 +15,32 @@ define(function(require, exports, module) {
         partials: {
             '#content': require('tpl!./content.html')
         },
-        permissions: function(){
+        permissions: function() {
             return !LH.isReportsAllow(['grossSalesByProducts']);
         },
         models: {
             store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
         },
         collections: {
-            grossSalesByProducts: function(){
+            grossSalesByProducts: function() {
                 var page = this;
 
-                return new GrossSalesByProductsCollection([], {
-                    storeId: page.models.store.id,
-                    group: page.groupId,
-                    category: page.categoryId,
-                    subcategory: page.subcategoryId
-                });
+                var grossSalesByProductsCollection = new GrossSalesByProductsCollection();
+
+                grossSalesByProductsCollection.subcategoryId = page.subcategoryId;
+                grossSalesByProductsCollection.storeId = page.storeId;
+
+                return grossSalesByProductsCollection;
             }
         },
-        initialize: function(){
+        initialize: function() {
             var page = this;
 
             page.collections = _.transform(page.collections, function(result, collection, collectionName) {
                 result[collectionName] = typeof collection === 'function' ? collection.call(page) : collection
             });
 
-            $.when(page.collections.grossSalesByProducts.fetch()).done(function(){
+            $.when(page.collections.grossSalesByProducts.fetch()).done(function() {
                 page.render();
             });
         }

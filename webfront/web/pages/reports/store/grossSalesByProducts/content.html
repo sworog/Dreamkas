@@ -12,18 +12,18 @@
     </thead>
     <tbody>
     <% collections.grossSalesByProducts.forEach(function(productGrossSalesModel){ %>
-    <tr>
-        <td>
+    <tr name="productGrossSales">
+        <td name="product.name">
             <%- productGrossSalesModel.get('product.name') %>
         </td>
-        <td>
-            16 000 000 р.
+        <td name="today.runningSum">
+            <%- LH.formatMoney(productGrossSalesModel.get('today.runningSum')) %> р.
         </td>
-        <td>
-            12 000 000 р.
+        <td name="yesterday.runningSum">
+            <%- LH.formatMoney(productGrossSalesModel.get('yesterday.runningSum')) %> р.
         </td>
-        <td>
-            10 000 000 р.
+        <td name="weekAgo.runningSum">
+            <%- LH.formatMoney(productGrossSalesModel.get('weekAgo.runningSum')) %> р.
         </td>
     </tr>
     <% }) %>

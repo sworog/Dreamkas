@@ -12,17 +12,17 @@
     </thead>
     <tbody>
     <% collections.grossSalesBySubcategories.forEach(function(subcategoryGrossSalesModel){ %>
-    <tr href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- categoryId %>/subcategories/<%- subcategoryGrossSalesModel.id %>/grossSalesByProducts">
-        <td>
+    <tr name="subcategoryGrossSales" href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- categoryId %>/subcategories/<%- subcategoryGrossSalesModel.id %>/grossSalesByProducts">
+        <td name="subcategory.name">
             <%- subcategoryGrossSalesModel.get('name') %>
         </td>
-        <td>
+        <td name="today.runningSum">
             16 000 000 р.
         </td>
-        <td>
+        <td name="yesterday.runningSum">
             12 000 000 р.
         </td>
-        <td>
+        <td name="weekAgo.runningSum">
             10 000 000 р.
         </td>
     </tr>
