@@ -97,7 +97,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
 
         /* @var StoreProductRepository $storeProductRepository */
         $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
-        $storeProduct = $storeProductRepository->findByStoreIdProductId($store->id, $product->id);
+        $storeProduct = $storeProductRepository->findByStoreProduct($store, $product);
 
         $this->assertEquals(10, $storeProduct->inventory);
 

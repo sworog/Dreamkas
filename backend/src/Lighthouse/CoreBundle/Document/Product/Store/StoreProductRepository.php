@@ -43,13 +43,14 @@ class StoreProductRepository extends DocumentRepository
     }
 
     /**
-     * @param string $storeId
-     * @param string $productId
-     * @return StoreProduct
+     * @param Store $store
+     * @param Product $product
+     * @return object
      */
-    public function findByStoreIdProductId($storeId, $productId)
+    public function findByStoreProduct(Store $store, Product $product)
     {
-        return $this->findOneBy(array('store' => $storeId, 'product' => $productId));
+        $id = $this->getIdByStoreAndProduct($store, $product);
+        return $this->find($id);
     }
 
     /**
@@ -116,7 +117,7 @@ class StoreProductRepository extends DocumentRepository
      */
     public function findOrCreateByStoreProduct(Store $store, Product $product)
     {
-        $storeProduct = $this->findByStoreIdProductId($store->id, $product->id);
+        $storeProduct = $this->findByStoreProduct($store, $product);
         if (null === $storeProduct) {
             $storeProduct = $this->createByStoreProduct($store, $product);
         }

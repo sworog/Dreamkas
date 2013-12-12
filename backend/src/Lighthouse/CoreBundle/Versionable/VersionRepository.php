@@ -24,10 +24,10 @@ class VersionRepository extends DocumentRepository
     }
 
     /**
-     * @param $document
+     * @param VersionableInterface $document
      * @return VersionInterface|object
      */
-    public function findOrCreateByDocument($document)
+    public function findOrCreateByDocument(VersionableInterface $document)
     {
         $documentVersion = $this->versionFactory->createDocumentVersion($document);
         return $this->findByDocumentVersion($documentVersion);
