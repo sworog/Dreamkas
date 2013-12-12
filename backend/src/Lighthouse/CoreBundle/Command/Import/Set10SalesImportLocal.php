@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Import;
 
+use Clamidity\ProfilerBundle\DataCollector\XhprofCollector;
 use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\PurchaseElement;
@@ -36,21 +37,30 @@ class Set10SalesImportLocal extends Command
     protected $logRepository;
 
     /**
+     * @var XhprofCollector
+     */
+    protected $profiler;
+
+    /**
      * @DI\InjectParams({
      *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import.sales.importer"),
-     *      "logRepository" = @DI\Inject("lighthouse.core.document.repository.log")
+     *      "logRepository" = @DI\Inject("lighthouse.core.document.repository.log"),
+     *      "profiler" = @DI\Inject("data_collector.xhprof"),
      * })
      * @param SalesImporter $importer
      * @param LogRepository $logRepository
+     * @param XhprofCollector $profiler
      */
     public function __construct(
         SalesImporter $importer,
-        LogRepository $logRepository
+        LogRepository $logRepository,
+        XhprofCollector $profiler
     ) {
         parent::__construct();
 
         $this->importer = $importer;
         $this->logRepository = $logRepository;
+        $this->profiler = $profiler;
     }
 
     protected function configure()
@@ -88,13 +98,8 @@ class Set10SalesImportLocal extends Command
 
         $output->writeln(sprintf('Found %d files', $filesCount));
 
-        \PHP_Timer::start();
-
         if ($profile) {
-            xhprof_enable(XHPROF_FLAGS_MEMORY | XHPROF_FLAGS_CPU);
-            $_SERVER['REQUEST_METHOD'] = 'POST';
-            $_SERVER['HTTP_HOST'] = 'lighthouse';
-            $_SERVER['REQUEST_URI'] = 'lighthouse/import/sales/local';
+            $this->profiler->startProfiling($this->getName());
         }
 
         foreach ($files as $file) {
@@ -108,18 +113,9 @@ class Set10SalesImportLocal extends Command
         $output->writeln('');
         $output->writeln('Finished importing');
 
-        $time = \PHP_Timer::stop();
-        $output->writeln(\PHP_Timer::secondsToTimeString($time));
-
         if ($profile) {
-            \PHP_Timer::start();
-            $output->write('Saving xhprof data ... ');
-            $xhProfData = xhprof_disable();
-            $config = require '/home/mshamin/Projects/xhprof.io/xhprof/includes/config.inc.php';
-            require_once '/home/mshamin/Projects/xhprof.io/xhprof/classes/data.php';
-            $xhprofDataObj = new \ay\xhprof\Data($config['pdo']);
-            $xhprofDataObj->save($xhProfData);
-            $output->writeln('Done. Took ' . \PHP_Timer::secondsToTimeString(\PHP_Timer::stop()));
+            $runId = $this->profiler->stopProfiling();
+            $output->writeln(sprintf('Run: %s', $runId));
         }
     }
 
