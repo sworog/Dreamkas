@@ -322,9 +322,9 @@ class TrialBalanceRepository extends DocumentRepository
         $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");
 
         $maxHoursStep = (int) (self::MAX_STORE_GROSS_SALES_REPORT_AGGREGATION / $countProducts);
-	    if ($maxHoursStep < 1) {
-		    $maxHoursStep = 1;
-	    }
+        if ($maxHoursStep < 1) {
+            $maxHoursStep = 1;
+        }
 
         $result = array();
 
@@ -393,7 +393,7 @@ class TrialBalanceRepository extends DocumentRepository
                         $endDate = $requireDatePeriod->getEndDate();
                     }
                 } else {
-	                // TODO: Не забыть добавить обработку
+                    // TODO: Не забыть добавить обработку
                     throw new \Exception($stepResult['errmsg']);
                     break;
                 }
