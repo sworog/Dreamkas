@@ -4,12 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class BalanceObjectItem extends AbstractObject implements ObjectLocatable, ResultComparable {
+public class BalanceObjectItem extends AbstractObject implements ObjectLocatable, ResultComparable, ObjectClickable {
 
     private String sku;
     private String name;
@@ -52,5 +53,10 @@ public class BalanceObjectItem extends AbstractObject implements ObjectLocatable
     @Override
     public String getObjectLocator() {
         return sku;
+    }
+
+    @Override
+    public void click() {
+        getElement().click();
     }
 }

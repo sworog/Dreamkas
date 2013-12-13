@@ -5,12 +5,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractSearchObjectNode;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class InvoiceSearchObject extends AbstractSearchObjectNode implements ObjectLocatable, ResultComparable {
+public class InvoiceSearchObject extends AbstractSearchObjectNode implements ObjectLocatable, ResultComparable, ObjectClickable {
 
     private String sku;
     private String acceptanceDate;
@@ -50,5 +51,10 @@ public class InvoiceSearchObject extends AbstractSearchObjectNode implements Obj
                 .compare("legalEntity", legalEntity, row.get("legalEntity"))
                 .compare("supplierInvoiceSku", supplierInvoiceSku, row.get("supplierInvoiceSku"))
                 .compare("supplierInvoiceDate", supplierInvoiceDate, row.get("supplierInvoiceDate"));
+    }
+
+    @Override
+    public void click() {
+        getElement().click();
     }
 }

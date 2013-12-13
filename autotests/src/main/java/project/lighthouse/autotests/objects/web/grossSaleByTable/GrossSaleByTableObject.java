@@ -4,12 +4,13 @@ import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 
-public class GrossSaleByTableObject extends AbstractObject implements ObjectLocatable, ResultComparable {
+public class GrossSaleByTableObject extends AbstractObject implements ObjectLocatable, ResultComparable, ObjectClickable {
 
     private String name;
     private String todayValue;
@@ -40,5 +41,10 @@ public class GrossSaleByTableObject extends AbstractObject implements ObjectLoca
                 .compare("todayValue", todayValue, row.get("todayValue"))
                 .compare("yesterdayValue", yesterdayValue, row.get("yesterdayValue"))
                 .compare("weekAgoValue", weekAgoValue, row.get("weekAgoValue"));
+    }
+
+    @Override
+    public void click() {
+        getElement().click();
     }
 }

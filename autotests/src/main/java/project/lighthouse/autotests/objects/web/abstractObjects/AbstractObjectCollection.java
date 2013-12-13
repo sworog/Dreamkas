@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.objects.web.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
@@ -61,7 +62,7 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
     }
 
     public void clickByLocator(String locator) {
-        getAbstractObjectByLocator(locator).click();
+        ((ObjectClickable) getAbstractObjectByLocator(locator)).click();
     }
 
     public void clickPropertyByLocator(String locator, String propertyName) {

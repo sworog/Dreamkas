@@ -35,10 +35,6 @@ abstract public class AbstractObject {
 
     abstract public void setProperties();
 
-    public void click() {
-        element.click();
-    }
-
     public String setProperty(By findBy) {
         Waiter waiter = new Waiter(webDriver, 0);
         if (!waiter.invisibilityOfElementLocated(getElement(), findBy)) {
