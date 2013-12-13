@@ -14,7 +14,15 @@
     <% collections.grossSalesByProducts.forEach(function(productGrossSalesModel){ %>
     <tr name="productGrossSales">
         <td name="product.name">
-            <%- productGrossSalesModel.get('product.name') %>
+            <div>
+                <%- productGrossSalesModel.get('product.name') %>
+            </div>
+            <div style="font-size: 11px; float: right">
+                <%- productGrossSalesModel.get('product.barcode') %>
+            </div>
+            <div style="font-size: 11px;">
+                <%- productGrossSalesModel.get('product.sku') %>
+            </div>
         </td>
         <td name="today.runningSum">
             <%- LH.formatMoney(productGrossSalesModel.get('today.runningSum')) %> р.
