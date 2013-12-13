@@ -7,7 +7,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.joda.time.DateTime;
 import project.lighthouse.autotests.fixtures.Us_53_2_Fixture;
-import project.lighthouse.autotests.pages.departmentManager.reports.StoreGrossSaleByHourReportPage;
+import project.lighthouse.autotests.pages.storeManager.reports.StoreGrossSaleByHourReportPage;
 
 public class StoreGrossSaleByHourReportSteps extends ScenarioSteps {
 

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.departmentManager.reports;
+package project.lighthouse.autotests.pages.storeManager.reports;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;

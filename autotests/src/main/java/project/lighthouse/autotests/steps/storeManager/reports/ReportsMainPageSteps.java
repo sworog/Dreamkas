@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.steps.storeManager.reports;
 
 import net.thucydides.core.annotations.Step;
-import project.lighthouse.autotests.pages.departmentManager.reports.ReportsMainPage;
+import project.lighthouse.autotests.pages.storeManager.reports.ReportsMainPage;
 
 public class ReportsMainPageSteps {
 
