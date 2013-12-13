@@ -4,8 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
+import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ResultComparable;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
-import project.lighthouse.autotests.objects.web.objectInterfaces.ResultComparable;
 
 import java.util.Map;
 

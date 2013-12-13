@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.objectInterfaces;
+package project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces;
 
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
