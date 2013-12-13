@@ -133,7 +133,7 @@ leezy_pheanstalk:
             proxy: lighthouse.core.job.pheanstalk
 
 clamidity_profiler:
-    enabled: true
+    enabled: false
     location_reports: "%kernel.root_dir%/logs"
 
 lighthouse_core:
