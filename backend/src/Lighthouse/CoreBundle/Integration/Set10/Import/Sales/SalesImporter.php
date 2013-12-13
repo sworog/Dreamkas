@@ -14,6 +14,7 @@ use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
@@ -24,6 +25,7 @@ use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Stopwatch\StopwatchPeriod;
 use Symfony\Component\Validator\ValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
@@ -79,6 +81,26 @@ class SalesImporter
     protected $stores = array();
 
     /**
+     * @var array
+     */
+    protected $products = array();
+
+    /**
+     * @var array
+     */
+    protected $productVersions = array();
+
+    /**
+     * @var Stopwatch
+     */
+    protected $stopwatch;
+
+    /**
+     * @var DotHelper
+     */
+    protected $dotHelper;
+
+    /**
      * @DI\InjectParams({
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
@@ -127,65 +149,76 @@ class SalesImporter
         Stopwatch $stopwatch = null
     ) {
         $this->errors = array();
-        $dotHelper = ($dotHelper) ?: new DotHelper($output);
-        $stopwatch = ($stopwatch) ?: new Stopwatch();
+        $this->dotHelper = ($dotHelper) ?: new DotHelper($output);
+        $this->stopwatch = ($stopwatch) ?: new Stopwatch();
         $count = 0;
         $batchSize = ($batchSize) ?: $this->batchSize;
         $dm = $this->productRepository->getDocumentManager();
 
+        $allEvent = $stopwatch->start('all');
+        $parseEvent = $stopwatch->start('parse');
         /* @var PurchaseElement $purchaseElement */
         while ($purchaseElement = $parser->readNextElement()) {
+            $parseEvent->stop();
             $count++;
             try {
                 $receipt = $this->createReceipt($purchaseElement, $datePeriod);
                 if (!$receipt) {
                     $dotHelper->writeError('S');
                 } else {
+                    $persistEvent = $this->stopwatch->start('persist');
                     $this->validator->validate($receipt, null, true, true);
                     $dm->persist($receipt);
-                    $dotHelper->writeInfo('.');
+                    $persistEvent->stop();
                     if (0 == $count % $batchSize) {
-                        $this->flush($dm, $output, $dotHelper, $stopwatch);
+                        $this->flush($dm, $output);
                     }
                 }
             } catch (ValidationFailedException $e) {
                 $dotHelper->writeError('V');
                 $this->errors[] = array(
-                    'count' => $count,
+                    'count' => $count - 1,
                     'exception' => $e
                 );
             } catch (\Exception $e) {
                 $dotHelper->writeError('E');
                 $this->errors[] = array(
-                    'count' => $count,
+                    'count' => $count - 1,
                     'exception' => $e
                 );
             }
+            $allEvent->lap();
+            $parseEvent->start();
         }
-        $this->flush($dm, $output, $dotHelper, $stopwatch);
+        $parseEvent->stop();
+
+        $this->flush($dm, $output);
+        $allEvent->stop();
 
         $this->outputErrors($output, $this->errors);
-
-        $output->writeln('');
     }
 
     /**
      * @param DocumentManager $dm
      * @param OutputInterface $output
-     * @param DotHelper $dotHelper
-     * @param Stopwatch $stopwatch
      */
-    protected function flush(DocumentManager $dm, OutputInterface $output, DotHelper $dotHelper, Stopwatch $stopwatch)
+    protected function flush(DocumentManager $dm, OutputInterface $output)
     {
-        $e = $stopwatch->start('flush');
+        $this->dotHelper->end(false);
 
+        $e = $this->stopwatch->start('flush');
+
+        $output->write('<info>Flushing</info>');
         $dm->flush();
         $dm->clear();
 
         $e->stop();
 
-        $dotHelper->end();
-        $output->writeln(sprintf('<info>Flushing</info> %d ms, %s bytes', $e->getDuration(), $e->getMemory()));
+        $periods = $e->getPeriods();
+        /* @var StopwatchPeriod $lastPeriod */
+        $lastPeriod = end($periods);
+
+        $output->writeln(sprintf(' - %d ms, %s bytes', $lastPeriod->getDuration(), $lastPeriod->getMemory()));
     }
 
     /**
@@ -201,7 +234,7 @@ class SalesImporter
                 $output->writeln(
                     sprintf(
                         '<comment>Sale #%d</comment> - %s',
-                        $error['count'] - 1,
+                        $error['count'],
                         $error['exception']->getMessage()
                     )
                 );
@@ -240,15 +273,25 @@ class SalesImporter
      */
     public function createSale(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
+        $this->dotHelper->writeQuestion('.');
+        $e = $this->stopwatch->start('receipt');
         $sale = new Sale();
         $sale->createdDate = $this->getReceiptDate($purchaseElement, $datePeriod);
         $sale->store = $this->getStore($purchaseElement->getShop());
         $sale->hash = $this->createReceiptHash($purchaseElement);
+        $sale->sumTotal = $this->transformPrice($purchaseElement->getAmount());
+        $e->stop();
+        $i = 0;
         foreach ($purchaseElement->getPositions() as $positionElement) {
+            $e = $this->stopwatch->start('position');
             $sale->products->add($this->createSaleProduct($positionElement));
+            $e->stop();
+            if ($i++ > 0) {
+                $this->dotHelper->writeComment('.');
+            }
         }
         $sale->itemsCount = count($sale->products);
-        $sale->sumTotal = $this->transformPrice($purchaseElement->getAmount());
+
         return $sale;
     }
 
@@ -259,15 +302,25 @@ class SalesImporter
      */
     public function createReturn(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
+        $this->dotHelper->writeQuestion('.');
+        $e = $this->stopwatch->start('receipt');
         $return = new Returne();
         $return->createdDate = $this->getReceiptDate($purchaseElement, $datePeriod);
         $return->store = $this->getStore($purchaseElement->getShop());
         $return->hash = $this->createReceiptHash($purchaseElement);
+        $return->sumTotal = $this->transformPrice($purchaseElement->getAmount());
+        $e->stop();
+        $i = 0;
         foreach ($purchaseElement->getPositions() as $positionElement) {
+            $e = $this->stopwatch->start('position');
             $return->products->add($this->createReturnProduct($positionElement));
+            $e->stop();
+            if ($i++ > 0) {
+                $this->dotHelper->writeComment('.');
+            }
         }
         $return->itemsCount = count($return->products);
-        $return->sumTotal = $this->transformPrice($purchaseElement->getAmount());
+
         return $return;
     }
 
@@ -314,6 +367,7 @@ class SalesImporter
         $saleProduct->quantity = $this->createQuantity($positionElement->getCount());
         $saleProduct->price = $this->transformPrice($positionElement->getCostWithDiscount());
         $saleProduct->product = $this->getProductVersion($positionElement->getGoodsCode());
+
         return $saleProduct;
     }
 
@@ -345,8 +399,15 @@ class SalesImporter
      */
     protected function getProductVersion($sku)
     {
-        $product = $this->getProduct($sku);
-        return $this->productVersionRepository->findOrCreateByDocument($product);
+        if (isset($this->productVersions[$sku])) {
+            $productVersionId = $this->productVersions[$sku];
+            $productVersion = $this->productVersionRepository->getReference($productVersionId);
+        } else {
+            $product = $this->getProduct($sku);
+            $productVersion  = $this->productVersionRepository->findOrCreateByDocument($product);
+            $this->productVersions[$sku] = $productVersion->getVersion();
+        }
+        return $productVersion;
     }
 
     /**
@@ -356,7 +417,22 @@ class SalesImporter
      */
     protected function getProduct($sku)
     {
-        $product = $this->productRepository->findOneBy(array('sku' => $sku));
+        if (isset($this->products[$sku])) {
+            $productId = $this->products[$sku];
+            if (false === $productId) {
+                $product = null;
+            } else {
+                $product = $this->productRepository->getReference($productId);
+            }
+        } else {
+            $product = $this->productRepository->findOneBy(array('sku' => $sku));
+            if (null === $product) {
+                $this->products[$sku] = false;
+            } else {
+                $this->products[$sku] = $product->id;
+            }
+        }
+
         if (!$product) {
             throw new RuntimeException(sprintf('Product with sku "%s" not found', $sku));
         }

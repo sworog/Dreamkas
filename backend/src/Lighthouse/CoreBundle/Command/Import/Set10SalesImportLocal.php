@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -19,6 +20,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Exception;
 use SplFileInfo;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Stopwatch\StopwatchEvent;
 
 /**
  * @DI\Service("lighthouse.core.command.import.set10_sales_import_local")
@@ -102,11 +104,13 @@ class Set10SalesImportLocal extends Command
             $this->profiler->startProfiling($this->getName());
         }
 
+        $stopwatch = new Stopwatch();
+        $dotHelper = new DotHelper($output);
         foreach ($files as $file) {
             if ($dryRun) {
                 $this->checkDates($file, $output, $datePeriod);
             } else {
-                $this->importFile($file, $output, $batchSize, $datePeriod);
+                $this->importFile($file, $output, $batchSize, $datePeriod, $stopwatch, $dotHelper);
             }
         }
 
@@ -117,6 +121,62 @@ class Set10SalesImportLocal extends Command
             $runId = $this->profiler->stopProfiling();
             $output->writeln(sprintf('Run: %s', $runId));
         }
+
+        $this->showStats($stopwatch, $output);
+    }
+
+    /**
+     * @param Stopwatch $stopwatch
+     * @param OutputInterface $output
+     */
+    protected function showStats(Stopwatch $stopwatch, OutputInterface $output)
+    {
+        /* @var TableHelper $tableHelper */
+        $tableHelper = $this->getHelper('table');
+        $tableHelper->setPadType(STR_PAD_LEFT);
+        $tableHelper->setHeaders(array('', 'ms', 'pos/ms', 'ms/pos', '%'));
+        $events = $stopwatch->getSectionEvents('__root__');
+
+        $tableHelper->addRow($this->getEventStats('Parse', $events['parse'], $events['all'], $events['position']));
+        $tableHelper->addRow($this->getEventStats('Pos', $events['position'], $events['all'], $events['position']));
+        $tableHelper->addRow($this->getEventStats('Receipt', $events['receipt'], $events['all'], $events['position']));
+        $tableHelper->addRow($this->getEventStats('Persist', $events['persist'], $events['all'], $events['position']));
+        $tableHelper->addRow($this->getEventStats('Flush', $events['flush'], $events['all'], $events['position']));
+        $tableHelper->addRow($this->getEventStats('All', $events['all'], $events['all'], $events['position']));
+
+        $tableHelper->render($output);
+    }
+
+    /**
+     * @param string $title
+     * @param StopwatchEvent $event
+     * @param StopwatchEvent $allEvent
+     * @param StopwatchEvent $positionsEvent
+     * @return string
+     */
+    protected function getEventStats(
+        $title,
+        StopwatchEvent $event,
+        StopwatchEvent $allEvent,
+        StopwatchEvent $positionsEvent
+    ) {
+        return array(
+            $title,
+            sprintf('%d', $event->getDuration()),
+            sprintf('%.02f', $this->div(count($positionsEvent->getPeriods()), $event->getDuration())),
+            sprintf('%.03f',  $this->div($event->getDuration(), count($positionsEvent->getPeriods()))),
+            sprintf('%.02f', $this->div($event->getDuration(), $allEvent->getDuration()) * 100)
+        );
+    }
+
+    /**
+     * @param float|int $a
+     * @param float|int $b
+     * @return float|int
+     */
+    protected function div($a, $b)
+    {
+        return (0 == $b) ? 0 : $a / $b;
     }
 
     /**
@@ -124,19 +184,23 @@ class Set10SalesImportLocal extends Command
      * @param OutputInterface $output
      * @param int $batchSize
      * @param DatePeriod $datePeriod
+     * @param Stopwatch $stopwatch
+     * @param DotHelper $dotHelper
      */
     protected function importFile(
         SplFileInfo $file,
         OutputInterface $output,
         $batchSize = null,
-        DatePeriod $datePeriod = null
+        DatePeriod $datePeriod = null,
+        Stopwatch $stopwatch,
+        DotHelper $dotHelper
     ) {
-        $dotHelper = new DotHelper($output);
-        $stopwatch = new Stopwatch();
         try {
+            $output->writeln('');
             $output->writeln(sprintf('Importing "%s"', $file->getFilename()));
             $parser = new SalesXmlParser($file->getPathname());
             $this->importer->import($parser, $output, $batchSize, $datePeriod, $dotHelper, $stopwatch);
+
             foreach ($this->importer->getErrors() as $error) {
                 $this->logException($error['exception'], $file);
             }
