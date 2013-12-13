@@ -65,12 +65,15 @@ class SalesImporterTest extends WebTestCase
         $output = new TestOutput();
         $this->import('purchases-14-05-2012_9-18-29.xml', $output, 6);
 
-        $this->assertStringStartsWith('.E....F......F..E...F..', $output->getDisplay());
         $lines = $output->getLines();
-        $this->assertCount(6, $lines);
-        $this->assertContains('Errors', $lines[1]);
-        $this->assertContains('Product with sku "2873168" not found', $lines[2]);
-        $this->assertContains('Product with sku "2873168" not found', $lines[3]);
+        $this->assertCount(13, $lines);
+        $this->assertEquals("..E......                                            9", $lines[0]);
+        $this->assertEquals("......                                               15", $lines[2]);
+        $this->assertEquals("...E...                                              22", $lines[4]);
+        $this->assertEquals("..                                                   24", $lines[6]);
+        $this->assertContains('Errors', $lines[9]);
+        $this->assertContains('Product with sku "2873168" not found', $lines[10]);
+        $this->assertContains('Product with sku "2873168" not found', $lines[11]);
     }
 
     public function testImportWithNotFoundShops()
@@ -86,10 +89,11 @@ class SalesImporterTest extends WebTestCase
         $output = new TestOutput();
         $this->import('purchases-13-09-2013_15-09-26.xml', $output);
 
-        $this->assertStringStartsWith('E..', $output->getDisplay());
+        $display = $output->getDisplay();
+        $this->assertStringStartsWith(".E..                                                 4\nFlushing", $display);
         $lines = $output->getLines();
-        $this->assertContains('Errors', $lines[1]);
-        $this->assertContains('Store with number "666" not found', $lines[2]);
+        $this->assertContains('Errors', $lines[3]);
+        $this->assertContains('Store with number "666" not found', $lines[4]);
     }
 
     public function testImportDoubleSales()
@@ -112,12 +116,13 @@ class SalesImporterTest extends WebTestCase
         $output = new TestOutput();
         $this->import('purchases-13-09-2013_15-09-26.xml', $output);
 
-        $this->assertStringStartsWith('VVV', $output->getDisplay());
+        $display = $output->getDisplay();
+        $this->assertStringStartsWith(".V.V.V                                               6\nFlushing", $display);
         $lines = $output->getLines();
-        $this->assertContains('Errors', $lines[1]);
-        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[2]);
-        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[3]);
+        $this->assertContains('Errors', $lines[3]);
         $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[4]);
+        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[5]);
+        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[6]);
 
         $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
         $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
@@ -139,9 +144,10 @@ class SalesImporterTest extends WebTestCase
         $output = new TestOutput();
         $this->import('purchases-with-returns.xml', $output);
 
-        $this->assertStringStartsWith('....', $output->getDisplay());
+        $display = $output->getDisplay();
+        $this->assertStringStartsWith("........                                             8\nFlushing", $display);
         $lines = $output->getLines();
-        $this->assertCount(2, $lines);
+        $this->assertCount(3, $lines);
 
         foreach ($skuAmounts as $sku => $inventory) {
             $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
@@ -340,6 +346,7 @@ class SalesImporterTest extends WebTestCase
         $batchSize = null,
         DatePeriod $datePeriod = null
     ) {
+        /* @var SalesImporter $importer */
         $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.sales.importer');
         $xmlFile = $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $xmlFile);
         $parser = new SalesXmlParser($xmlFile);

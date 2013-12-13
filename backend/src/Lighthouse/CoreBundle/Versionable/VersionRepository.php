@@ -24,10 +24,10 @@ class VersionRepository extends DocumentRepository
     }
 
     /**
-     * @param $document
+     * @param VersionableInterface $document
      * @return VersionInterface|object
      */
-    public function findOrCreateByDocument($document)
+    public function findOrCreateByDocument(VersionableInterface $document)
     {
         $documentVersion = $this->versionFactory->createDocumentVersion($document);
         return $this->findByDocumentVersion($documentVersion);
@@ -39,6 +39,7 @@ class VersionRepository extends DocumentRepository
      */
     public function findOrCreateByDocumentId($id)
     {
+        /* @var VersionableInterface $document */
         $document = $this->getObjectRepository()->find($id);
         if ($document) {
             return $this->findOrCreateByDocument($document);
@@ -53,12 +54,10 @@ class VersionRepository extends DocumentRepository
      */
     public function findByDocumentVersion(VersionInterface $documentVersion)
     {
-        $criteria = array(
-            'version' => $documentVersion->getVersion(),
-        );
-        $foundDocumentVersion = $this->findOneBy($criteria);
+        $foundDocumentVersion = $this->find($documentVersion->getVersion());
         if (!$foundDocumentVersion) {
             $foundDocumentVersion = $documentVersion;
+            $this->dm->persist($documentVersion);
         }
         return $foundDocumentVersion;
     }

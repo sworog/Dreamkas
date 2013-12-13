@@ -32,14 +32,13 @@ class MoneyComparison extends Comparison
      */
     protected function normalizeValue($value)
     {
-        if (null === $value) {
-            throw new NullValueException('money');
-        } elseif (!$value instanceof Money) {
-            throw new UnexpectedTypeException($value, 'Money');
-        } elseif ($value->isNull()) {
-            throw new NullValueException('money');
+        if (null === $value || ($value instanceof Money && $value->isNull())) {
+            return parent::normalizeValue(null);
+        } elseif ($value instanceof Money) {
+            return parent::normalizeValue($value->getCount());
         }
-        return parent::normalizeValue($value->getCount());
+
+        throw new UnexpectedTypeException($value, 'Money');
     }
 
     /**

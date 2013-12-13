@@ -831,6 +831,7 @@ class InvoiceControllerTest extends WebTestCase
             '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId2
         );
         $this->assertResponseCode(204);
+        $this->assertNull($response);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -851,6 +852,7 @@ class InvoiceControllerTest extends WebTestCase
             '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId1
         );
         $this->assertResponseCode(204);
+        $this->assertNull($response);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -921,6 +923,7 @@ class InvoiceControllerTest extends WebTestCase
             '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId2
         );
         $this->assertResponseCode(204);
+        $this->assertNull($response);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -941,6 +944,7 @@ class InvoiceControllerTest extends WebTestCase
             '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId1
         );
         $this->assertResponseCode(204);
+        $this->assertNull($response);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -958,7 +962,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testInvoiceChangeIncludesVAT()
     {
         $productId1 = $this->createProduct(array('sku' => '111', 'vat' => '10'));
-        $productId2 = $this->createProduct(array('sku' => '222', 'vat' => '18'));
+        $this->createProduct(array('sku' => '222', 'vat' => '18'));
 
         $invoiceData1 = array(
             'sku' => 'sku232',
@@ -972,8 +976,7 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
-        $invoiceProductId1 = $this->
-            createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78, $this->storeId, $this->departmentManager);
+        $this->createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78, $this->storeId, $this->departmentManager);
 
         $accessToken = $this->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
@@ -997,7 +1000,10 @@ class InvoiceControllerTest extends WebTestCase
             $invoiceData1
         );
         $this->assertResponseCode(200);
-
+        Assert::assertJsonPathEquals(false, 'includesVAT', $response);
+        Assert::assertJsonPathEquals(4045.60, 'sumTotal', $response);
+        Assert::assertJsonPathEquals(3677.63, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals(367.96, 'totalAmountVAT', $response);
 
         $response = $this->clientJsonRequest(
             $accessToken,

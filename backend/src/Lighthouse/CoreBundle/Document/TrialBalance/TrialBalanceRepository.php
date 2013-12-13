@@ -120,9 +120,10 @@ class TrialBalanceRepository extends DocumentRepository
 
         $query = $this
             ->createQueryBuilder()
-            ->field('createdDate')->gt($datePeriod->getStartDate()->getMongoDate())
+            ->field('createdDate')->gte($datePeriod->getStartDate()->getMongoDate())
             ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
             ->field('reason.$ref')->equals(InvoiceProduct::REASON_TYPE)
+            ->sort(array('storeProduct' => 1))
             ->map(
                 new MongoCode(
                     "function() {
@@ -165,6 +166,47 @@ class TrialBalanceRepository extends DocumentRepository
         return $query->getQuery()->execute();
     }
 
+    /**
+     * @return array
+     */
+    public function calculateDailyAverageSalesAggregate()
+    {
+        $datePeriod = new DatePeriod("-30 day 00:00", "00:00");
+        $days = $datePeriod->diff()->days;
+        $collection = $this->getDocumentManager()->getDocumentCollection($this->getClassName());
+
+        $ops = array(
+            array(
+                '$match' => array(
+                    'createdDate' => array(
+                        '$gte' => $datePeriod->getStartDate()->getMongoDate(),
+                        '$lt' => $datePeriod->getEndDate()->getMongoDate(),
+                    ),
+                    'reason.$ref' => SaleProduct::REASON_TYPE
+                ),
+            ),
+            array(
+                '$sort' => array(
+                    'storeProduct' => 1,
+                ),
+            ),
+            array(
+                '$group' => array(
+                    '_id' => '$storeProduct',
+                    'total' => array('$sum' => '$quantity')
+                )
+            ),
+            array(
+                '$project' => array(
+                    'value' => array(
+                        'dailyAverageSales' => array('$divide' => array('$total', $days))
+                    )
+                )
+            )
+        );
+        $result = $collection->getMongoCollection()->aggregate($ops);
+        return $result['result'];
+    }
 
     /**
      * @return array
@@ -182,6 +224,7 @@ class TrialBalanceRepository extends DocumentRepository
             ->field('createdDate')->gt($datePeriod->getStartDate()->getMongoDate())
             ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
             ->field('reason.$ref')->equals(SaleProduct::REASON_TYPE)
+            ->sort(array('storeProduct' => 1))
             ->map(
                 new MongoCode(
                     "function() {
@@ -234,23 +277,22 @@ class TrialBalanceRepository extends DocumentRepository
             return array();
         }
 
-        $datePeriod = new DatePeriod("-10 day 00:00", "+1 day 23:59:59");
+        $datePeriod = new DatePeriod("-10 day 00:00", "+2 day 00:00");
 
+        $backupTimeout = MongoCursor::$timeout;
+        MongoCursor::$timeout = -1;
         $query = $this
             ->createQueryBuilder()
             ->field('createdDate')->gt($datePeriod->getStartDate()->getMongoDate())
             ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
             ->field('reason.$ref')->equals(SaleProduct::REASON_TYPE)
+            ->sort('store', 1)
             ->map(
                 new MongoCode(
                     "function() {
                         var date = this.createdDate;
                         var createHour = date.getHours();
                         date.setHours(0, 0, 0, 0);
-                        var key = {
-                            store: this.store,
-                            day: date
-                        }
                         var grossSales = {};
                         for (var newHour = 0; newHour < 24; newHour++) {
                             grossSales[newHour] = {
@@ -259,16 +301,16 @@ class TrialBalanceRepository extends DocumentRepository
                             };
                         }
 
-                        for (var hour in grossSales) {
-                            if (hour >= createHour) {
-                                grossSales[hour].runningSum += this.totalPrice;
-                            }
-                            if (hour == createHour) {
-                                grossSales[hour].hourSum += this.totalPrice;
-                            }
+                        grossSales[createHour].hourSum = this.totalPrice;
+
+                        for (var hour = 23; hour >= createHour; hour--) {
+                            grossSales[hour].runningSum += this.totalPrice;
                         }
                         emit(
-                            key,
+                            {
+                                store: this.store,
+                                day: date
+                            },
                             grossSales
                         )
                     }"
@@ -299,7 +341,11 @@ class TrialBalanceRepository extends DocumentRepository
             )
             ->out(array('inline' => true));
 
-        return $query->getQuery()->execute();
+        $result = $query->getQuery()->execute();
+
+        MongoCursor::$timeout = $backupTimeout;
+
+        return $result;
     }
 
     /**

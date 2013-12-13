@@ -139,10 +139,15 @@ class TrialBalanceTest extends ContainerAwareTestCase
     {
         $this->clearMongoDb();
 
+        $manager = $this->getManager();
+
         $store = new Store();
         $store->number = '42';
         $store->address = '42';
         $store->contacts = '42';
+
+        $manager->persist($store);
+        $manager->flush();
 
         $invoiceData = array(
             'sku' => 'product232',
@@ -163,7 +168,6 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $invoice->store = $store;
         $invoice->populate($invoiceData);
 
-        $manager = $this->getManager();
         $manager->persist($invoice);
         $manager->flush();
 
@@ -230,6 +234,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $store->number = '42';
         $store->address = '42';
         $store->contacts = '42';
+        $manager->persist($store);
+        $manager->flush();
 
         $storeProductRepository = $this->getStoreProductRepository();
         $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
@@ -270,6 +276,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $store->number = '42';
         $store->address = '42';
         $store->contacts = '42';
+        $manager->persist($store);
+        $manager->flush();
 
         $numericFactory = $this->getNumericFactory();
         $storeProductRepository = $this->getStoreProductRepository();

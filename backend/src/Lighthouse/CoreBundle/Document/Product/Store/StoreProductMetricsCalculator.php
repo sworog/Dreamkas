@@ -63,7 +63,7 @@ class StoreProductMetricsCalculator
     public function recalculateDailyAverageSales()
     {
         $this->storeProductRepository->setFieldToNotCalculate('dailyAverageSales', 0);
-        $results = $this->trialBalanceRepository->calculateDailyAverageSales();
+        $results = $this->trialBalanceRepository->calculateDailyAverageSalesAggregate();
         foreach ($results as $result) {
             $this->storeProductRepository->updateAverageDailySales(
                 $result['_id'],

@@ -22,7 +22,8 @@ class SubCategory extends AbstractNode
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Classifier\Category\Category",
      *     simple=true,
-     *     cascade="persist"
+     *     cascade="persist",
+     *     inversedBy="subCategories"
      * )
      * @var Category
      */

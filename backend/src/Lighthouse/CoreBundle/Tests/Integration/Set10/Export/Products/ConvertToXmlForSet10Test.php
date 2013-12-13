@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Integration\Set10\Export\Products\Set10ProductConverte
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ConvertToXmlForSet10Test extends WebTestCase
 {
@@ -427,8 +428,10 @@ EOF;
         $this->initBase();
 
         $xmlFilePath = "/tmp/lighthouse_unit_test";
-        if (file_exists($xmlFilePath)) {
-            `rm -r $xmlFilePath`;
+        /* @var Filesystem $filesystem */
+        $filesystem = $this->getContainer()->get('filesystem');
+        if ($filesystem->exists($xmlFilePath)) {
+            $filesystem->remove($xmlFilePath);
         }
         mkdir($xmlFilePath . "/source", 0777, true);
         $xmlFileUrl = "file://" . $xmlFilePath;

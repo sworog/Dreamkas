@@ -16,6 +16,7 @@ class ReturnProductControllerTest extends WebTestCase
      */
     protected function importSales($xmlFile)
     {
+        /* @var SalesImporter $importer */
         $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.sales.importer');
         $xmlFilePath = $this->getFixtureFilePath($xmlFile);
         $xmlParser = new SalesXmlParser($xmlFilePath);

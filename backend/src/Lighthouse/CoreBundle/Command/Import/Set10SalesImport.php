@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Import;
 
+use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\RemoteDirectory;
@@ -10,6 +11,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * @DI\Service("lighthouse.core.command.import.set10_sales_import")
@@ -73,11 +75,13 @@ class Set10SalesImport extends Command
             throw $e;
         }
 
+        $dotHelper = new DotHelper($output);
+        $stopwatch = new Stopwatch();
         foreach ($files as $file) {
             try {
                 $output->writeln(sprintf('Importing "%s"', $file->getFilename()));
                 $parser = new SalesXmlParser($file->getPathname());
-                $this->importer->import($parser, $output);
+                $this->importer->import($parser, $output, null, null, $dotHelper, $stopwatch);
                 foreach ($this->importer->getErrors() as $error) {
                     $this->logException($error['exception'], $dirUrl, $file->getPathname());
                 }

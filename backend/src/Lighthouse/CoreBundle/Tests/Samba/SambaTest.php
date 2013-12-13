@@ -431,7 +431,6 @@ EOF;
      */
     public function testBadNetworkNameError()
     {
-        $urlFile = "smb://user:password@host/base_path/to/dir/file.doc";
         $urlDir = "smb://user:password@host/base_path/to/dir";
 
         $sambaMock = $this->getSambaMock(array('getProcessResource', 'fgets', 'closeProcessResource'));
@@ -448,7 +447,7 @@ EOF;
 
         $parsedUrlDir = $sambaMock->parseUrl($urlDir);
 
-        $lookInfo = $sambaMock->execute('dir "' . $parsedUrlDir['path'] . '\*"', $parsedUrlDir);
+        $sambaMock->execute('dir "' . $parsedUrlDir['path'] . '\*"', $parsedUrlDir);
     }
 
     public function testUrlStatMethod()

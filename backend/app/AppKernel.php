@@ -26,7 +26,8 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new Ekino\Bundle\NewRelicBundle\EkinoNewRelicBundle(),
-            new Leezy\PheanstalkBundle\LeezyPheanstalkBundle()
+            new Leezy\PheanstalkBundle\LeezyPheanstalkBundle(),
+            new Clamidity\ProfilerBundle\ClamidityProfilerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

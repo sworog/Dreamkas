@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Integration\Set10\Import\Sales;
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10Import;
+use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 use Lighthouse\CoreBundle\Util\Url;
 use JMS\DiExtraBundle\Annotation as DI;
 use SplFileInfo;
@@ -49,10 +50,14 @@ class RemoteDirectory
         $files = array();
         $dirUrl = $this->getDirUrl();
         try {
-            $directory = new \DirectoryIterator($dirUrl);
-        } catch (\RuntimeException $e) {
+            $directory = new SortableDirectoryIterator($dirUrl);
+        } catch (\UnexpectedValueException $e) {
             throw new RuntimeException(sprintf('Failed to read directory "%s": %s', $dirUrl, $e->getMessage()));
         }
+        if (!$directory->getFileInfo()->isDir()) {
+            throw new RuntimeException(sprintf('Failed to read directory "%s": It is not a directory', $dirUrl));
+        }
+        $directory->sortByFilename(true);
         /* @var \DirectoryIterator $file */
         foreach ($directory as $file) {
             if ($file->isFile() && $this->isValidFile($file)) {

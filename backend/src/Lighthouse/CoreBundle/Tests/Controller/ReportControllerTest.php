@@ -364,42 +364,42 @@ class ReportControllerTest extends WebTestCase
         $administratorToken = $this->factory->authAsRole(User::ROLE_ADMINISTRATOR);
 
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $storeManagerToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(200);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $departmentManagerToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(403);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $storeManagerOtherStoreToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(403);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $commercialManagerToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(403);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $departmentManagerOtherStoreToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales'
         );
         $this->assertResponseCode(403);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $administratorToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales'
@@ -930,42 +930,42 @@ class ReportControllerTest extends WebTestCase
         $administratorToken = $this->factory->authAsRole(User::ROLE_ADMINISTRATOR);
 
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $storeManagerToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
         );
         $this->assertResponseCode(200);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $departmentManagerToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
         );
         $this->assertResponseCode(403);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $storeManagerOtherStoreToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
         );
         $this->assertResponseCode(403);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $commercialManagerToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
         );
         $this->assertResponseCode(403);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $departmentManagerOtherStoreToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
         );
         $this->assertResponseCode(403);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $administratorToken,
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'

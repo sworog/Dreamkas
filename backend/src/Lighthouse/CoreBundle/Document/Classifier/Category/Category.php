@@ -24,7 +24,8 @@ class Category extends AbstractNode
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Classifier\Group\Group",
      *     simple=true,
-     *     cascade="persist"
+     *     cascade="persist",
+     *     inversedBy="categories"
      * )
      * @var Group
      */

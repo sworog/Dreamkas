@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
@@ -18,6 +19,7 @@ use Lighthouse\CoreBundle\Exception\ValidationFailedException;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Validator\ValidatorInterface;
 
 /**
@@ -131,122 +133,166 @@ class Set10ProductImporter
      * @param OutputInterface $output
      * @param int $batchSize
      * @param boolean $update
+     * @param DotHelper $dotHelper
+     * @param Stopwatch $stopwatch
      */
     public function import(
         Set10ProductImportXmlParser $parser,
         OutputInterface $output,
         $batchSize = null,
-        $update = false
+        $update = false,
+        DotHelper $dotHelper = null,
+        Stopwatch $stopwatch = null
     ) {
+        $dotHelper = ($dotHelper) ?: new DotHelper($output);
+        $stopwatch = ($stopwatch) ?: new Stopwatch();
+
         $errors = array();
-        $memStart = memory_get_usage();
         $count = 0;
+
+        $allEvent = $stopwatch->start('all');
+
         $batchSize = ($batchSize) ?: $this->batchSize;
-        $verbose = $output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL;
-        $totalStartTime = microtime(true);
-        $startItemTime = microtime(true);
-        $persistsStartTime = microtime(true);
-        $persistsCount = 0;
-        $lineCount = 0;
+        $currentBatch = $count;
+
+        /* @var GoodElement $goodElement */
         while ($goodElement = $parser->readNextElement()) {
-            $count++;
-            $persistsCount++;
-            $lineCount++;
+
+            $persistEvent = $stopwatch->start('allPersist');
+            $batchPersistEvent = $stopwatch->start('persist_' . $currentBatch);
+
             try {
                 $product = $this->getProduct($goodElement, $update);
                 if ($product) {
                     $dot = ($product->id) ? 'U' : '.';
                     $this->dm->persist($product);
-                    if ($verbose) {
-                        $output->writeln(sprintf('<info>Persist product "%s"</info>', $product->name));
-                    } else {
-                        $output->write($dot);
-                    }
+                    $dotHelper->write($dot);
                 } else {
-                    $output->write('S');
+                    $dotHelper->writeComment('S');
                 }
             } catch (ValidationFailedException $e) {
                 $errors[] = array(
-                    'exception' => $e,
-                    'product' => $goodElement,
+                    'message' => $e->getMessage(),
+                    'sku' => $goodElement->getSku(),
+                    'name' => $goodElement->getGoodName(),
                 );
-                if ($verbose) {
-                    $output->writeln('<error>Error: ' . $e->getMessage() . '</error>');
-                } else {
-                    $output->write('<error>E</error>');
-                }
+                $dotHelper->writeError('E');
             }
 
-            $stopItemTime = microtime(true);
-            $itemTime = $stopItemTime - $startItemTime;
-            if ($verbose) {
-                $output->writeln(sprintf('<comment>Item time: %.02f ms</comment>', $itemTime * 1000));
-            }
-            $startItemTime = microtime(true);
+            $batchPersistEvent->stop();
+            $persistEvent->stop();
 
-            if ($this->lineWidth == $lineCount) {
-                $output->writeln(sprintf('   %s', $count));
-                $lineCount = 0;
-            }
-
-            if (0 == $count % $batchSize) {
-                if (0 != $lineCount) {
-                    $output->writeln('');
-                }
-                $persistTime = microtime(true) - $persistsStartTime;
+            if (0 == ++$count % $batchSize) {
+                $currentBatch = $count;
+                $dotHelper->end(false);
+                $flushEvent = $stopwatch->start('flush');
+                $currentFlushEvent = $stopwatch->start('flush_' . $currentBatch);
                 $output->write('<info>Flushing</info>');
-                $flushStartTime = microtime(true);
+
                 $this->dm->flush();
-                $this->dm->clear();
-                $flushTime = microtime(true) - $flushStartTime;
-                if ($verbose) {
-                    $output->writeln('<info>Flushing</info>');
-                } else {
-                    $output->writeln(
-                        sprintf(
-                            ' - Persist: %.02f prod/s, Flush+Clear: %d ms',
-                            $persistsCount / $persistTime,
-                            $flushTime * 1000
-                        )
-                    );
-                }
-                $persistsStartTime = microtime(true);
-                $persistsCount = 0;
-                $lineCount = 0;
+                $this->dm->clear(Product::getClassName());
+
+                $flushEvent->stop();
+                $currentFlushEvent->stop();
+
+                $output->writeln(
+                    sprintf(
+                        ' - Persist: %.01f prod/s. Flush+Clear: %d ms, %.01f prod/s',
+                        $this->countSpeed($batchPersistEvent->getPeriods(), $batchPersistEvent->getDuration() / 1000),
+                        $currentFlushEvent->getDuration(),
+                        $this->countSpeed($batchPersistEvent->getPeriods(), $currentFlushEvent->getDuration() / 1000)
+                    )
+                );
             }
         }
-        $this->dm->flush();
-        $this->dm->clear();
 
-        $totalTime = microtime(true) - $totalStartTime;
+        if (0 != $count % $batchSize) {
+            $dotHelper->end(false);
+            $flushEvent = $stopwatch->start('flush');
+            $currentFlushEvent = $stopwatch->start('flush_' . $count);
+            $output->write('<info>Flushing</info>');
+
+            $this->dm->flush();
+            $this->dm->clear(Product::getClassName());
+
+            $flushEvent->stop();
+            $currentFlushEvent->stop();
+
+            $output->writeln(
+                sprintf(
+                    ' - Persist: %.01f prod/s. Flush+Clear: %d ms, %.01f prod/s',
+                    $this->countSpeed($batchPersistEvent->getPeriods(), $batchPersistEvent->getDuration() / 1000),
+                    $currentFlushEvent->getDuration(),
+                    $this->countSpeed($batchPersistEvent->getPeriods(), $currentFlushEvent->getDuration() / 1000)
+                )
+            );
+        }
+
+        $allEvent->stop();
+
         $output->writeln('');
         $output->writeln(
             sprintf(
-                '<info>Total</info> - %d products in %d seconds, %.02f prod/s',
-                $count,
-                $totalTime,
-                $count / $totalTime
+                '<info>Total persist</info> - %d products in %d seconds, %.01f prod/s',
+                count($persistEvent->getPeriods()),
+                $persistEvent->getDuration() / 1000,
+                $this->countSpeed(count($persistEvent->getPeriods()), $persistEvent->getDuration() / 1000)
             )
         );
-        $memStop = memory_get_usage();
         $output->writeln(
             sprintf(
-                '<info>Memory usage</info> - start %dMB, end %dMB, diff %dMB, peak %dMB',
-                $memStart / 1048576,
-                $memStop / 1048576,
-                ($memStop - $memStart)  / 1048576,
-                memory_get_peak_usage() / 1048576
+                '<info>Total flush</info> - %d flushes in %d seconds, average %d ms, %.01f prod/s',
+                count($flushEvent->getPeriods()),
+                $flushEvent->getDuration() / 1000,
+                $flushEvent->getDuration() / count($flushEvent->getPeriods()),
+                $this->countSpeed($persistEvent->getPeriods(), $flushEvent->getDuration() / 1000)
             )
         );
+
+        $output->writeln(
+            sprintf(
+                '<info>Total</info> - took %d sec, speed - %.01f prod/s, memory - %d mb',
+                $allEvent->getDuration() / 1000,
+                $this->countSpeed($persistEvent->getPeriods(), $allEvent->getDuration() / 1000),
+                $allEvent->getMemory() / 1048576
+            )
+        );
+
+        $this->outputErrors($errors, $output);
+    }
+
+    /**
+     * @param array|int|float $count
+     * @param int|float $duration
+     * @return float
+     */
+    protected function countSpeed($count, $duration)
+    {
+        if (is_array($count) || $count instanceof \Countable) {
+            $count = count($count);
+        }
+        if ($duration > 0) {
+            return $count / $duration;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * @param array $errors
+     * @param OutputInterface $output
+     */
+    protected function outputErrors(array $errors, OutputInterface $output)
+    {
         if (count($errors) > 0) {
             $output->writeln('<error>Errors</error>');
             foreach ($errors as $error) {
                 $output->writeln(
                     sprintf(
                         '<comment>%s / %s</comment> - %s',
-                        $error['product']->getSku(),
-                        $error['product']->getGoodName(),
-                        $error['exception']->getMessage()
+                        $error['sku'],
+                        $error['name'],
+                        $error['message']
                     )
                 );
             }

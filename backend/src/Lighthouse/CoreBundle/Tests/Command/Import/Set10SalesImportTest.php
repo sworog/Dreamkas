@@ -85,9 +85,9 @@ class Set10SalesImportTest extends WebTestCase
         $display = $commandTester->getDisplay();
 
         $this->assertContains(basename($file1), $display);
-        $this->assertContains("...F\n", $display);
+        $this->assertContains("...                                                  3\nFlushing", $display);
         $this->assertContains(basename($file2), $display);
-        $this->assertContains("....................F\n", $display);
+        $this->assertContains("..........................                           29\nFlushing", $display);
 
         $this->assertFileNotExists($file1);
         $this->assertFileNotExists($file2);
@@ -126,7 +126,7 @@ class Set10SalesImportTest extends WebTestCase
         $display = $commandTester->getDisplay();
 
         $this->assertContains(basename($file1), $display);
-        $this->assertContains("E......E.........EEEF\n", $display);
+        $this->assertContains(".E...........E............E.E.E                      31\nFlushing", $display);
         $this->assertContains('Product with sku "1" not found', $display);
         $this->assertContains('Product with sku "7" not found', $display);
         $this->assertContains('Product with sku "3" not found', $display);
@@ -161,7 +161,7 @@ class Set10SalesImportTest extends WebTestCase
     {
         return array(
             array('file://invalid/path'),
-            //array('smb://invalid.host/invalid/path'),
+            array('smb://invalid.host/invalid/path'),
         );
     }
 
@@ -262,7 +262,8 @@ class Set10SalesImportTest extends WebTestCase
     protected function copyFixtureFileToDir($file, $dir, $prefix = 'purchases-', $extension = 'xml')
     {
         $source = $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $file);
-        $destination = $dir . '/' . uniqid($prefix) . '.' . $extension;
+        $copyFilename = str_replace('purchases-', $prefix, $file);
+        $destination = $dir . '/' . $copyFilename . '.' . $extension;
         copy($source, $destination);
         return $destination;
     }

@@ -4,9 +4,8 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\ExceptionController as BaseExceptionController;
 use FOS\RestBundle\View\ViewHandler;
-use Symfony\Component\HttpKernel\Exception\FlattenException;
+use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
-use Lighthouse\CoreBundle\Util\Rest\ExceptionWrapper;
 
 class ExceptionController extends BaseExceptionController
 {
@@ -23,7 +22,7 @@ class ExceptionController extends BaseExceptionController
         ViewHandler $viewHandler,
         $currentContent,
         $code,
-        FlattenException $exception,
+        $exception,
         DebugLoggerInterface $logger = null,
         $format = 'html'
     ) {
@@ -32,14 +31,5 @@ class ExceptionController extends BaseExceptionController
             $parameters['exceptions'] = $exception->toArray();
         }
         return $parameters;
-    }
-
-    /**
-     * @param array $parameters
-     * @return ExceptionWrapper
-     */
-    protected function createExceptionWrapper(array $parameters)
-    {
-        return new ExceptionWrapper($parameters);
     }
 }

@@ -309,9 +309,10 @@ class JobControllerTest extends WebTestCase
     }
 
     /**
-     * @param $storeId
-     * @param $productId
-     * @param array $assertions
+     * @param string $storeId
+     * @param string $productId
+     * @param array  $assertions
+     * @param string $message
      */
     protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {

@@ -17,3 +17,6 @@ debug:
     resource: Lighthouse\CoreBundle\Controller\DebugController
     type:     annotation
     prefix: /
+
+clamidity_profile:
+    resource: "@ClamidityProfilerBundle/Resources/config/routing.yml"

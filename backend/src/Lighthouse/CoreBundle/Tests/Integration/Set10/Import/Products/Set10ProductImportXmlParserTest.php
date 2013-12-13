@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import\Products;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\GoodElement;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;

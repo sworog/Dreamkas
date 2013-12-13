@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Exception\InvalidArgumentException;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -43,13 +44,14 @@ class StoreProductRepository extends DocumentRepository
     }
 
     /**
-     * @param string $storeId
-     * @param string $productId
+     * @param Store $store
+     * @param Product $product
      * @return StoreProduct
      */
-    public function findByStoreIdProductId($storeId, $productId)
+    public function findByStoreProduct(Store $store, Product $product)
     {
-        return $this->findOneBy(array('store' => $storeId, 'product' => $productId));
+        $id = $this->getIdByStoreAndProduct($store, $product);
+        return $this->find($id);
     }
 
     /**
@@ -102,10 +104,17 @@ class StoreProductRepository extends DocumentRepository
     /**
      * @param Store $store
      * @param Product $product
+     * @throws InvalidArgumentException
      * @return string
      */
     public function getIdByStoreAndProduct(Store $store, Product $product)
     {
+        if (null === $store->id) {
+            throw new InvalidArgumentException('Empty store id');
+        }
+        if (null === $product->id) {
+            throw new InvalidArgumentException('Empty product id');
+        }
         return md5($store->id . ':' . $product->id);
     }
 
@@ -116,7 +125,7 @@ class StoreProductRepository extends DocumentRepository
      */
     public function findOrCreateByStoreProduct(Store $store, Product $product)
     {
-        $storeProduct = $this->findByStoreIdProductId($store->id, $product->id);
+        $storeProduct = $this->findByStoreProduct($store, $product);
         if (null === $storeProduct) {
             $storeProduct = $this->createByStoreProduct($store, $product);
         }
@@ -342,7 +351,7 @@ class StoreProductRepository extends DocumentRepository
 
         $query = $this
             ->createQueryBuilder()
-            ->findAndUpdate()
+            ->update()
             ->field('id')->equals($storeProductId)
             ->field('averagePurchasePrice')->set($roundedAveragePurchasePrice, true)
             ->field('averagePurchasePriceNotCalculate')->unsetField();
@@ -368,7 +377,7 @@ class StoreProductRepository extends DocumentRepository
     {
         $query = $this
             ->createQueryBuilder()
-            ->findAndUpdate()
+            ->update()
             ->field('id')->equals($storeProductId)
             ->field('averageDailySales')->set($averageDailySales, true)
             ->field('inventoryRatioNotCalculate')->unsetField();

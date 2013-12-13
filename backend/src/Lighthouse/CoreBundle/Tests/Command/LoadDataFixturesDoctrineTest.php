@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command;
 
-use Lighthouse\CoreBundle\Command\LoadDataFixturesDoctrine;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Symfony\Bundle\FrameworkBundle\Console\Application;

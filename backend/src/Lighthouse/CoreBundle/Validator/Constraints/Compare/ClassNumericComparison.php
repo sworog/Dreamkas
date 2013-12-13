@@ -55,11 +55,10 @@ class ClassNumericComparison extends Comparison
         }
         $fieldValue = $this->accessor->getValue($this->object, $field);
         if (null === $fieldValue) {
-            throw new NullValueException($field);
-        } elseif (!is_numeric($fieldValue)) {
-            throw new UnexpectedTypeException($fieldValue, 'numeric');
-        } else {
+            return null;
+        } elseif (is_numeric($fieldValue)) {
             return $fieldValue;
         }
+        throw new UnexpectedTypeException($fieldValue, 'numeric');
     }
 }

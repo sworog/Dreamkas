@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
-use Lighthouse\CoreBundle\Exception\NullValueException;
 use Lighthouse\CoreBundle\Validator\Constraints\ClassConstraintInterface;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparator;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\Comparison;
@@ -30,10 +29,12 @@ class RangeValidator extends ConstraintValidator
     {
         try {
             $comparison = $this->createComparison($value, $constraint);
-        } catch (NullValueException $e) {
-            return;
         } catch (UnexpectedTypeException $e) {
             $this->addViolation($constraint, $constraint->invalidMessage);
+            return;
+        }
+
+        if (null === $comparison->getValue()) {
             return;
         }
 
@@ -73,7 +74,7 @@ class RangeValidator extends ConstraintValidator
         $limit = $constraint->getLimit($operator);
 
         try {
-            if (!$comparison->compare($limit, $operator)) {
+            if (null !== $limit && !$comparison->compare($limit, $operator)) {
                 $this->addViolation(
                     $constraint,
                     $constraint->getMessage($operator),
@@ -86,8 +87,6 @@ class RangeValidator extends ConstraintValidator
             }
         } catch (UnexpectedTypeException $e) {
             throw $e;
-        } catch (NullValueException $e) {
-
         }
         return true;
     }

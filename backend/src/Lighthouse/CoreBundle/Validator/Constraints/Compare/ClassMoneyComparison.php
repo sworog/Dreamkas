@@ -57,11 +57,11 @@ class ClassMoneyComparison extends MoneyComparison
         }
         $fieldValue = $this->accessor->getValue($this->object, $field);
         if (null === $fieldValue) {
-            throw new NullValueException($field);
-        } elseif (!$fieldValue instanceof MoneyType) {
-            throw new UnexpectedTypeException($fieldValue, 'Money');
-        } else {
+            return null;
+        } elseif ($fieldValue instanceof MoneyType) {
             return $fieldValue;
         }
+
+        throw new UnexpectedTypeException($fieldValue, 'Money');
     }
 }

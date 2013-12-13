@@ -88,6 +88,8 @@ class ProductTotalsTest extends ContainerAwareTestCase
 
         $manager->persist($store);
         $manager->persist($product);
+        $manager->flush();
+
         $manager->persist($invoice);
         $manager->persist($invoiceProduct);
         $manager->flush();
@@ -97,7 +99,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
 
         /* @var StoreProductRepository $storeProductRepository */
         $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
-        $storeProduct = $storeProductRepository->findByStoreIdProductId($store->id, $product->id);
+        $storeProduct = $storeProductRepository->findByStoreProduct($store, $product);
 
         $this->assertEquals(10, $storeProduct->inventory);
 
