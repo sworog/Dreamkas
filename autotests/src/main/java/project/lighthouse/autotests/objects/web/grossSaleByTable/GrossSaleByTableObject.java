@@ -23,10 +23,10 @@ public class GrossSaleByTableObject extends AbstractObject implements ObjectLoca
 
     @Override
     public void setProperties() {
-        name = getElement().findElement(By.name("")).getText();
-        todayValue = getElement().findElement(By.name("")).getText();
-        yesterdayValue = getElement().findElement(By.name("")).getText();
-        weekAgoValue = getElement().findElement(By.name("")).getText();
+        name = getElement().findElement(By.xpath("//*[contains(@name,'.name')]")).getText();
+        todayValue = getElement().findElement(By.name("today.runningSum")).getText();
+        yesterdayValue = getElement().findElement(By.name("yesterday.runningSum")).getText();
+        weekAgoValue = getElement().findElement(By.name("weekAgo.runningSum")).getText();
     }
 
     @Override

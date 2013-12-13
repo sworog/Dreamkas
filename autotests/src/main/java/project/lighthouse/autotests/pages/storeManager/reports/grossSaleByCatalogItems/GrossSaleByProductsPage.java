@@ -7,6 +7,6 @@ import project.lighthouse.autotests.objects.web.grossSaleByTable.GrossSaleByProd
 public class GrossSaleByProductsPage extends PageObject {
 
     public GrossSaleByProductsObjectCollection getGrossSaleByProductsObjectCollection() {
-        return new GrossSaleByProductsObjectCollection(getDriver(), By.name(""));
+        return new GrossSaleByProductsObjectCollection(getDriver(), By.name("productGrossSales"));
     }
 }

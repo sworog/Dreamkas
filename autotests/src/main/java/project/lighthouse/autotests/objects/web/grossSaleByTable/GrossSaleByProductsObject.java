@@ -24,12 +24,12 @@ public class GrossSaleByProductsObject extends AbstractObject implements ObjectL
 
     @Override
     public void setProperties() {
-        productName = getElement().findElement(By.name("")).getText();
-        productSku = getElement().findElement(By.name("")).getText();
-        productBarcode = setProperty(By.name(""));
-        todayValue = getElement().findElement(By.name("")).getText();
-        yesterdayValue = getElement().findElement(By.name("")).getText();
-        weekAgoValue = getElement().findElement(By.name("")).getText();
+        productName = getElement().findElement(By.name("product.name")).getText();
+        productSku = getElement().findElement(By.name("product.sku")).getText();
+        productBarcode = setProperty(By.name("product.barcode"));
+        todayValue = getElement().findElement(By.name("today.runningSum")).getText();
+        yesterdayValue = getElement().findElement(By.name("yesterday.runningSum")).getText();
+        weekAgoValue = getElement().findElement(By.name("weekAgo.runningSum")).getText();
     }
 
     @Override

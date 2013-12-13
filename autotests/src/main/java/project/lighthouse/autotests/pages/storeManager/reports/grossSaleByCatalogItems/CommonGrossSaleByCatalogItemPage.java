@@ -7,6 +7,6 @@ import project.lighthouse.autotests.objects.web.grossSaleByTable.GrossSaleByTabl
 public class CommonGrossSaleByCatalogItemPage extends PageObject {
 
     public GrossSaleByTableObjectCollection getGrossSaleByTableObjectCollection() {
-        return new GrossSaleByTableObjectCollection(getDriver(), By.name(""));
+        return new GrossSaleByTableObjectCollection(getDriver(), By.name("//*[contains(@name, 'GrossSales')]"));
     }
 }
