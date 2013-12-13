@@ -161,7 +161,7 @@ class Set10SalesImportTest extends WebTestCase
     {
         return array(
             array('file://invalid/path'),
-            //array('smb://invalid.host/invalid/path'),
+            array('smb://invalid.host/invalid/path'),
         );
     }
 
@@ -262,7 +262,8 @@ class Set10SalesImportTest extends WebTestCase
     protected function copyFixtureFileToDir($file, $dir, $prefix = 'purchases-', $extension = 'xml')
     {
         $source = $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $file);
-        $destination = $dir . '/' . uniqid($prefix) . '.' . $extension;
+        $copyFilename = str_replace('purchases-', $prefix, $file);
+        $destination = $dir . '/' . $copyFilename . '.' . $extension;
         copy($source, $destination);
         return $destination;
     }

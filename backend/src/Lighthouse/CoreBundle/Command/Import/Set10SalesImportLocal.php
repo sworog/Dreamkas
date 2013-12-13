@@ -170,7 +170,7 @@ class Set10SalesImportLocal extends Command
             $title,
             sprintf('%d', $event->getDuration()),
             sprintf('%.02f', $this->div(count($positionsEvent->getPeriods()), $event->getDuration())),
-            sprintf('%.03f',  $this->div($event->getDuration(), count($positionsEvent->getPeriods()))),
+            sprintf('%.03f', $this->div($event->getDuration(), count($positionsEvent->getPeriods()))),
             sprintf('%.02f', $this->div($event->getDuration(), $allEvent->getDuration()) * 100)
         );
     }
@@ -198,8 +198,8 @@ class Set10SalesImportLocal extends Command
         OutputInterface $output,
         $batchSize = null,
         DatePeriod $datePeriod = null,
-        Stopwatch $stopwatch,
-        DotHelper $dotHelper
+        Stopwatch $stopwatch = null,
+        DotHelper $dotHelper = null
     ) {
         try {
             $output->writeln('');

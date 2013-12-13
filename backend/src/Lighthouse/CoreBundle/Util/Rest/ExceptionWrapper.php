@@ -23,8 +23,10 @@ class ExceptionWrapper extends BaseExceptionWrapper
     public function __construct($data)
     {
         if (isset($data['errors']) && $data['errors'] instanceof Form) {
-            $this->children = $data['errors']->all();
-            $data['errors'] = $data['errors']->getErrors();
+            /* @var Form $form */
+            $form = $data['errors'];
+            $this->children = $form->all();
+            $data['errors'] = $form->getErrors();
         }
 
         if (isset($data['exceptions'])) {
