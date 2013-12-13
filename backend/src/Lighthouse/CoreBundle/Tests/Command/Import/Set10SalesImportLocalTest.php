@@ -2,30 +2,37 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
-use Lighthouse\CoreBundle\Command\Import\Set10SalesImportLocal;
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Tester\ApplicationTester;
 
 class Set10SalesImportLocalTest extends WebTestCase
 {
     /**
      * @param array|string $input
-     * @return CommandTester
+     * @return ApplicationTester
      */
     protected function execute($input)
     {
+        $arrayInput = array(
+            'command' => 'lighthouse:import:sales:local',
+        );
+
         if (is_string($input)) {
-            $input = array(
-                'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $input),
-            );
+            $arrayInput['file'] = $this->getFixtureFilePath('Integration/Set10/Import/Sales/' . $input);
+        } elseif (is_array($input)) {
+            $arrayInput = $arrayInput + $input;
         }
-        /* @var Set10SalesImportLocal $command */
-        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_sales_import_local');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute($input);
-        return $commandTester;
+
+        $application = new Application(static::$kernel);
+        $application->setAutoExit(false);
+
+        $tester = new ApplicationTester($application);
+
+        $tester->run($arrayInput);
+        return $tester;
     }
 
     /**
@@ -84,7 +91,7 @@ class Set10SalesImportLocalTest extends WebTestCase
 
         $display = $commandTester->getDisplay();
 
-        $this->assertContains("E......E.........EEE                                 20\nFlushing", $display);
+        $this->assertContains(".E...........E............E.E.E                      31\nFlushing", $display);
         $this->assertContains('Product with sku "1" not found', $display);
         $this->assertContains('Product with sku "7" not found', $display);
         $this->assertContains('Product with sku "3" not found', $display);
@@ -108,7 +115,7 @@ class Set10SalesImportLocalTest extends WebTestCase
             ),
             array(
                 'purchases-14-05-2012_9-18-29.xml',
-                "....................                                 20\nFlushing",
+                "..........................                           26\nFlushing",
                 0
             ),
         );
@@ -125,12 +132,11 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->assertContains('Failed to import sales', $display);
     }
 
-    /**
-     * @expectedException \UnexpectedValueException
-     */
     public function testFileNotExists()
     {
-        $this->execute('unknown.xml');
+        $tester = $this->execute('unknown.xml');
+        $this->assertEquals(1, $tester->getStatusCode());
+        $this->assertContains('[UnexpectedValueException]', $tester->getDisplay());
     }
 
     public function testImportDirectory()
@@ -145,5 +151,111 @@ class Set10SalesImportLocalTest extends WebTestCase
             'purchases-success-2013.11.05-19.33.50.602.xml',
             $display
         );
+    }
+
+    public function testDryRun()
+    {
+        $commandTester = $this->execute(
+            array(
+                'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/Kesko'),
+                '--dry-run' => true
+            )
+        );
+        $this->assertEquals(0, $commandTester->getStatusCode());
+        $expectedDisplay = <<<EOF
+Found 2 files
+Checking "purchases-success-2013.11.04-00.03.09.514.xml"
+First receipt date: "2013-11-04T01:52:27+0200" will be shifted to "2013-11-04T01:52:27+0200"
+Checking "purchases-success-2013.11.05-19.33.50.602.xml"
+First receipt date: "2013-11-05T21:22:30+0200" will be shifted to "2013-11-05T21:22:30+0200"
+EOF;
+        $this->assertContains($expectedDisplay, $commandTester->getDisplay());
+    }
+
+    public function testDryRunWithStartAndEndDates()
+    {
+        $commandTester = $this->execute(
+            array(
+                'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/Kesko'),
+                '--dry-run' => true,
+                '--start-date' => '2013-12-01',
+                '--end-date' => '2013-11-04'
+            )
+        );
+        $this->assertEquals(0, $commandTester->getStatusCode());
+        $expectedDisplay = <<<EOF
+Found 2 files
+Checking "purchases-success-2013.11.04-00.03.09.514.xml"
+First receipt date: "2013-11-04T01:52:27+0200" will be shifted to "2013-12-01T01:52:27+0200"
+Checking "purchases-success-2013.11.05-19.33.50.602.xml"
+First receipt date: "2013-11-05T21:22:30+0200" will be shifted to "2013-12-02T21:22:30+0200"
+EOF;
+        $this->assertContains($expectedDisplay, $commandTester->getDisplay());
+    }
+
+    public function testDryRunWithStartAndEndDatesAndInvalidFile()
+    {
+        $commandTester = $this->execute(
+            array(
+                'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/purchases-invalid.xml'),
+                '--dry-run' => true,
+                '--start-date' => '2013-12-01',
+                '--end-date' => '2013-11-04'
+            )
+        );
+        $this->assertEquals(0, $commandTester->getStatusCode());
+        $expectedDisplay = <<<EOF
+Found 1 files
+Checking "purchases-invalid.xml"
+Failed to parse xml: Failed to parse node 'purchase': Couldn't find end of Start Tag position
+EOF;
+        $this->assertContains($expectedDisplay, $commandTester->getDisplay());
+    }
+
+    public function testDryRunWithStartAndEndDatesAndEmptyFile()
+    {
+        $commandTester = $this->execute(
+            array(
+                'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/purchases-empty.xml'),
+                '--dry-run' => true,
+                '--start-date' => '2013-12-01',
+                '--end-date' => '2013-11-04'
+            )
+        );
+        $this->assertEquals(0, $commandTester->getStatusCode());
+        $expectedDisplay = <<<EOF
+Found 1 files
+Checking "purchases-empty.xml"
+No receipts found
+EOF;
+        $this->assertContains($expectedDisplay, $commandTester->getDisplay());
+    }
+
+    public function testProfile()
+    {
+        $this->factory->getStore('197');
+        $this->createProductsBySku(
+            array(
+                '1',
+                '7',
+                '8594403916157',
+                '2873168',
+                '2809727',
+                '25525687',
+                '55557',
+                '8594403110111',
+                '4601501082159',
+                'Кит-Кат-343424',
+            )
+        );
+
+        $commandTester = $this->execute(
+            array(
+                'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/purchases-14-05-2012_9-18-29.xml'),
+                '--profile' => true
+            )
+        );
+        $this->assertEquals(0, $commandTester->getStatusCode());
+        $this->assertContains('Run:', $commandTester->getDisplay());
     }
 }

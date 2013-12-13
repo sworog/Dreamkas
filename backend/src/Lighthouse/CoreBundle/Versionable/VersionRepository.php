@@ -57,6 +57,7 @@ class VersionRepository extends DocumentRepository
         $foundDocumentVersion = $this->find($documentVersion->getVersion());
         if (!$foundDocumentVersion) {
             $foundDocumentVersion = $documentVersion;
+            $this->dm->persist($documentVersion);
         }
         return $foundDocumentVersion;
     }

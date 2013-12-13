@@ -66,11 +66,11 @@ class SalesImporterTest extends WebTestCase
         $this->import('purchases-14-05-2012_9-18-29.xml', $output, 6);
 
         $lines = $output->getLines();
-        $this->assertCount(14, $lines);
-        $this->assertContains(".E....                                               6", $lines[0]);
-        $this->assertContains("......                                               6", $lines[2]);
-        $this->assertContains("..E...                                               6", $lines[4]);
-        $this->assertContains("..                                                   2", $lines[6]);
+        $this->assertCount(13, $lines);
+        $this->assertEquals("..E......                                            9", $lines[0]);
+        $this->assertEquals("......                                               15", $lines[2]);
+        $this->assertEquals("...E...                                              22", $lines[4]);
+        $this->assertEquals("..                                                   24", $lines[6]);
         $this->assertContains('Errors', $lines[9]);
         $this->assertContains('Product with sku "2873168" not found', $lines[10]);
         $this->assertContains('Product with sku "2873168" not found', $lines[11]);
@@ -90,7 +90,7 @@ class SalesImporterTest extends WebTestCase
         $this->import('purchases-13-09-2013_15-09-26.xml', $output);
 
         $display = $output->getDisplay();
-        $this->assertStringStartsWith("E..                                                  3\nFlushing", $display);
+        $this->assertStringStartsWith(".E..                                                 4\nFlushing", $display);
         $lines = $output->getLines();
         $this->assertContains('Errors', $lines[3]);
         $this->assertContains('Store with number "666" not found', $lines[4]);
@@ -117,7 +117,7 @@ class SalesImporterTest extends WebTestCase
         $this->import('purchases-13-09-2013_15-09-26.xml', $output);
 
         $display = $output->getDisplay();
-        $this->assertStringStartsWith("VVV                                                  3\nFlushing", $display);
+        $this->assertStringStartsWith(".V.V.V                                               6\nFlushing", $display);
         $lines = $output->getLines();
         $this->assertContains('Errors', $lines[3]);
         $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[4]);
@@ -145,9 +145,9 @@ class SalesImporterTest extends WebTestCase
         $this->import('purchases-with-returns.xml', $output);
 
         $display = $output->getDisplay();
-        $this->assertStringStartsWith("....                                                 4\nFlushing", $display);
+        $this->assertStringStartsWith("........                                             8\nFlushing", $display);
         $lines = $output->getLines();
-        $this->assertCount(4, $lines);
+        $this->assertCount(3, $lines);
 
         foreach ($skuAmounts as $sku => $inventory) {
             $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);

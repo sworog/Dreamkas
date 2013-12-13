@@ -6,7 +6,6 @@ use Lighthouse\CoreBundle\Exception\RuntimeException;
 use XMLReader;
 use DOMNode;
 use DOMDocument;
-use SimpleXMLElement;
 
 abstract class XmlParser
 {

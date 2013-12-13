@@ -155,8 +155,8 @@ class SalesImporter
         $batchSize = ($batchSize) ?: $this->batchSize;
         $dm = $this->productRepository->getDocumentManager();
 
-        $allEvent = $stopwatch->start('all');
-        $parseEvent = $stopwatch->start('parse');
+        $allEvent = $this->stopwatch->start('all');
+        $parseEvent = $this->stopwatch->start('parse');
         /* @var PurchaseElement $purchaseElement */
         while ($purchaseElement = $parser->readNextElement()) {
             $parseEvent->stop();
@@ -164,7 +164,7 @@ class SalesImporter
             try {
                 $receipt = $this->createReceipt($purchaseElement, $datePeriod);
                 if (!$receipt) {
-                    $dotHelper->writeError('S');
+                    $this->dotHelper->writeError('S');
                 } else {
                     $persistEvent = $this->stopwatch->start('persist');
                     $this->validator->validate($receipt, null, true, true);
@@ -175,13 +175,13 @@ class SalesImporter
                     }
                 }
             } catch (ValidationFailedException $e) {
-                $dotHelper->writeError('V');
+                $this->dotHelper->writeError('V');
                 $this->errors[] = array(
                     'count' => $count - 1,
                     'exception' => $e
                 );
             } catch (\Exception $e) {
-                $dotHelper->writeError('E');
+                $this->dotHelper->writeError('E');
                 $this->errors[] = array(
                     'count' => $count - 1,
                     'exception' => $e
@@ -401,7 +401,7 @@ class SalesImporter
     {
         if (isset($this->productVersions[$sku])) {
             $productVersionId = $this->productVersions[$sku];
-            $productVersion = $this->productVersionRepository->getReference($productVersionId);
+            $productVersion = $this->productVersionRepository->find($productVersionId);
         } else {
             $product = $this->getProduct($sku);
             $productVersion  = $this->productVersionRepository->findOrCreateByDocument($product);

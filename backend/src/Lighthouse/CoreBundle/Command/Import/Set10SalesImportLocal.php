@@ -122,7 +122,9 @@ class Set10SalesImportLocal extends Command
             $output->writeln(sprintf('Run: %s', $runId));
         }
 
-        $this->showStats($stopwatch, $output);
+        if (!$dryRun) {
+            $this->showStats($stopwatch, $output);
+        }
     }
 
     /**
@@ -131,11 +133,15 @@ class Set10SalesImportLocal extends Command
      */
     protected function showStats(Stopwatch $stopwatch, OutputInterface $output)
     {
+        $events = $stopwatch->getSectionEvents('__root__');
+        if (!isset($events['all'], $events['position'])) {
+            return;
+        }
+
         /* @var TableHelper $tableHelper */
         $tableHelper = $this->getHelper('table');
         $tableHelper->setPadType(STR_PAD_LEFT);
         $tableHelper->setHeaders(array('', 'ms', 'pos/ms', 'ms/pos', '%'));
-        $events = $stopwatch->getSectionEvents('__root__');
 
         $tableHelper->addRow($this->getEventStats('Parse', $events['parse'], $events['all'], $events['position']));
         $tableHelper->addRow($this->getEventStats('Pos', $events['position'], $events['all'], $events['position']));
