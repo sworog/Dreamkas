@@ -24,7 +24,7 @@
                 <%- productGrossSalesModel.get('product.sku') %>
             </div>
         </td>
-        <td name="today.runningSum">
+        <td style="color: red" name="today.runningSum">
             <%- LH.formatMoney(productGrossSalesModel.get('today.runningSum')) %> р.
         </td>
         <td name="yesterday.runningSum">
