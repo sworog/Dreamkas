@@ -116,6 +116,14 @@ class DotHelper extends Helper
     }
 
     /**
+     * @param string $dot
+     */
+    public function writeQuestion($dot = null)
+    {
+        $this->write($dot, 'question');
+    }
+
+    /**
      * @param bool $resetPosition
      */
     public function end($resetPosition = true)
