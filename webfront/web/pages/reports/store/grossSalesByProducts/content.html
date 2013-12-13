@@ -12,19 +12,24 @@
     </thead>
     <tbody>
     <% collections.grossSalesByProducts.forEach(function(productGrossSalesModel){ %>
+
+    <% var todaySum = productGrossSalesModel.get('today.runningSum') %>
+    <% var yesterdaySum = productGrossSalesModel.get('yesterday.runningSum') %>
+    <% var weekAgoSum = productGrossSalesModel.get('weekAgo.runningSum') %>
+
     <tr name="productGrossSales">
-        <td name="product.name">
-            <div>
+        <td>
+            <div name="product.name">
                 <%- productGrossSalesModel.get('product.name') %>
             </div>
-            <div style="font-size: 11px; float: right">
+            <div name="product.barcode" style="font-size: 11px; float: right">
                 <%- productGrossSalesModel.get('product.barcode') %>
             </div>
-            <div style="font-size: 11px;">
+            <div name="product.sku" style="font-size: 11px;">
                 <%- productGrossSalesModel.get('product.sku') %>
             </div>
         </td>
-        <td style="color: red" name="today.runningSum">
+        <td style="<%- (todaySum < yesterdaySum && todaySum < weekAgoSum) ? 'color: red' : '' %>" name="today.runningSum">
             <%- LH.formatMoney(productGrossSalesModel.get('today.runningSum')) %> р.
         </td>
         <td name="yesterday.runningSum">
