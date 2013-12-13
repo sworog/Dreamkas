@@ -1,27 +1,27 @@
 define(function(require) {
     //requirements
     var Block = require('kit/core/block'),
-        Tooltip_catalogSubcategoryMenu = require('blocks/tooltip/tooltip_catalogSubcategoryMenu/tooltip_catalogSubcategoryMenu');
+        Tooltip_catalogSubCategoryMenu = require('blocks/tooltip/tooltip_catalogSubCategoryMenu/tooltip_catalogSubCategoryMenu');
 
     return Block.extend({
-        __name__: 'catalogCategory__subcategoryItem',
-        catalogSubcategoryModel: null,
-        template: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryItem.html'),
+        __name__: 'catalogCategory__subCategoryItem',
+        catalogSubCategoryModel: null,
+        template: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html'),
         events: {
-            'click .catalog__editSubcategoryLink': function(e){
+            'click .catalog__editSubCategoryLink': function(e){
                 e.stopPropagation();
                 e.preventDefault();
                 var block = this,
                     $target = $(e.target);
 
-                block.tooltip_catalogSubcategoryMenu.show({
+                block.tooltip_catalogSubCategoryMenu.show({
                     $trigger: $target,
-                    catalogSubcategoryModel: block.catalogSubcategoryModel
+                    catalogSubCategoryModel: block.catalogSubCategoryModel
                 });
             }
         },
         listeners: {
-            catalogSubcategoryModel: {
+            catalogSubCategoryModel: {
                 'destroy': function(){
                     var block = this;
 
@@ -32,7 +32,7 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            block.tooltip_catalogSubcategoryMenu = $('[block="tooltip_catalogSubcategoryMenu"]').data('tooltip_catalogSubcategoryMenu') || new Tooltip_catalogSubcategoryMenu()
+            block.tooltip_catalogSubCategoryMenu = $('[block="tooltip_catalogSubCategoryMenu"]').data('tooltip_catalogSubCategoryMenu') || new Tooltip_catalogSubCategoryMenu()
         }
     });
 });

@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Page = require('kit/core/page'),
         ProductModel = require('models/product'),
-        SubcategoryModel = require('models/catalogSubcategory'),
+        SubCategoryModel = require('models/catalogSubCategory'),
         Form_product = require('blocks/form/form_product/form_product');
 
     return Page.extend({
@@ -19,31 +19,31 @@ define(function(require) {
 
             page.productModel = new ProductModel({
                 id: page.productId,
-                subcategory: page.subcategory
+                subCategory: page.subCategory
             });
 
-            page.subcategoryModel = new SubcategoryModel({
-                id: page.subcategory
+            page.subCategoryModel = new SubCategoryModel({
+                id: page.subCategory
             });
 
-            $.when(page.productId ? page.productModel.fetch() : {}, page.subcategoryModel.id ? page.subcategoryModel.fetch({parse: false}) : {}).then(function(){
+            $.when(page.productId ? page.productModel.fetch() : {}, page.subCategoryModel.id ? page.subCategoryModel.fetch({parse: false}) : {}).then(function(){
 
                 if (!page.productId){
                     page.productModel = new ProductModel({
-                        subcategory: page.subcategoryModel.toJSON(),
-                        retailMarkupMin: page.subcategoryModel.get('retailMarkupMin'),
-                        retailMarkupMax: page.subcategoryModel.get('retailMarkupMax')
+                        subCategory: page.subCategoryModel.toJSON(),
+                        retailMarkupMin: page.subCategoryModel.get('retailMarkupMin'),
+                        retailMarkupMax: page.subCategoryModel.get('retailMarkupMax')
                     }, {
                         parse: true
                     });
                 } else {
-                    page.subcategoryModel = new SubcategoryModel(page.productModel.get('subcategory'));
+                    page.subCategoryModel = new SubCategoryModel(page.productModel.get('subCategory'));
                 }
 
                 page.render();
 
                 new Form_product({
-                    subcategoryModel: page.subcategoryModel,
+                    subCategoryModel: page.subCategoryModel,
                     model: page.productModel,
                     el: document.getElementById('form_product')
                 });

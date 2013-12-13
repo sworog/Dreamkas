@@ -11,7 +11,7 @@ define(function(require, exports, module) {
         storeId: null,
         groupId: null,
         categoryId: null,
-        subcategoryId: null,
+        subCategoryId: null,
         partials: {
             '#content': require('tpl!./content.html')
         },
@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 
                 var grossSalesByProductsCollection = new GrossSalesByProductsCollection();
 
-                grossSalesByProductsCollection.subcategoryId = page.subcategoryId;
+                grossSalesByProductsCollection.subCategoryId = page.subCategoryId;
                 grossSalesByProductsCollection.storeId = page.storeId;
 
                 return grossSalesByProductsCollection;

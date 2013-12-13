@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         currentUserModel = require('models/currentUser'),
-        GrossSalesBySubcategoriesCollection = require('collections/grossSalesBySubcategories');
+        GrossSalesBySubCategoriesCollection = require('collections/grossSalesBySubCategories');
 
     require('jquery');
 
@@ -15,21 +15,21 @@ define(function(require, exports, module) {
             '#content': require('tpl!./content.html')
         },
         permissions: function(){
-            return !LH.isReportsAllow(['grossSalesBySubcategories']);
+            return !LH.isReportsAllow(['grossSalesBySubCategories']);
         },
         models: {
             store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
         },
         collections: {
-            grossSalesBySubcategories: function(){
+            grossSalesBySubCategories: function(){
                 var page = this;
 
-                var grossSalesBySubcategoriesCollection = new GrossSalesBySubcategoriesCollection();
+                var grossSalesBySubCategoriesCollection = new GrossSalesBySubCategoriesCollection();
 
-                grossSalesBySubcategoriesCollection.storeId = page.storeId;
-                grossSalesBySubcategoriesCollection.categoryId = page.categoryId;
+                grossSalesBySubCategoriesCollection.storeId = page.storeId;
+                grossSalesBySubCategoriesCollection.categoryId = page.categoryId;
 
-                return grossSalesBySubcategoriesCollection;
+                return grossSalesBySubCategoriesCollection;
             }
         },
         initialize: function(){
@@ -39,7 +39,7 @@ define(function(require, exports, module) {
                 result[collectionName] = typeof collection === 'function' ? collection.call(page) : collection
             });
 
-            $.when(page.collections.grossSalesBySubcategories.fetch()).done(function(){
+            $.when(page.collections.grossSalesBySubCategories.fetch()).done(function(){
                 page.render();
             });
         }

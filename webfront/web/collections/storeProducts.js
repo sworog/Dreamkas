@@ -6,11 +6,11 @@ define(function(require) {
             model: require('models/storeProduct'),
             initialize: function(models, opt) {
                 this.storeId = opt.storeId;
-                this.subcategory = opt.subcategory;
+                this.subCategory = opt.subCategory;
             },
             url: function() {
-                if (this.subcategory){
-                    return LH.baseApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subcategory + '/products'
+                if (this.subCategory){
+                    return LH.baseApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subCategory + '/products'
                 } else {
                     return LH.baseApiUrl + '/stores/' + this.storeId + '/products'
                 }

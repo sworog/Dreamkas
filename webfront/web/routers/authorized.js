@@ -18,8 +18,8 @@ define(function(require) {
             'stores/:storeId/reports/grossSalesByHours': require('pages/reports/store/grossSalesByHours/grossSalesByHours'),
             'stores/:storeId/reports/grossSalesByGroups(/)': require('pages/reports/store/grossSalesByGroups/grossSalesByGroups'),
             'stores/:storeId/groups/:groupId/grossSalesByCategories(/)': require('pages/reports/store/grossSalesByCategories/grossSalesByCategories'),
-            'stores/:storeId/groups/:groupId/categories/:categoryId/grossSalesBySubcategories(/)': require('pages/reports/store/grossSalesBySubcategories/grossSalesBySubcategories'),
-            'stores/:storeId/groups/:groupId/categories/:categoryId/subcategories/:subcategoryId/grossSalesByProducts(/)': require('pages/reports/store/grossSalesByProducts/grossSalesByProducts'),
+            'stores/:storeId/groups/:groupId/categories/:categoryId/grossSalesBySubCategories(/)': require('pages/reports/store/grossSalesBySubCategories/grossSalesBySubCategories'),
+            'stores/:storeId/groups/:groupId/categories/:categoryId/subCategories/:subCategoryId/grossSalesByProducts(/)': require('pages/reports/store/grossSalesByProducts/grossSalesByProducts'),
 
             //invoices
             'invoices(/)': require('pages/invoice/list'),
@@ -51,8 +51,8 @@ define(function(require) {
             //catalog
             'catalog(/)': require('pages/catalog/catalog'),
             'catalog/:catalogGroupId(/)': require('pages/catalog/group'),
-            'catalog/:catalogGroupId/:catalogCategoryId(/)(:catalogSubcategoryId)': require('pages/catalog/category'),
-            'catalog/:catalogGroupId/:catalogCategoryId/:catalogSubcategoryId(/)(:section)': require('pages/catalog/category'),
+            'catalog/:catalogGroupId/:catalogCategoryId(/)(:catalogSubCategoryId)': require('pages/catalog/category'),
+            'catalog/:catalogGroupId/:catalogCategoryId/:catalogSubCategoryId(/)(:section)': require('pages/catalog/category'),
 
             //stores
             'stores(/)': require('pages/store/list'),

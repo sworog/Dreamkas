@@ -1,6 +1,6 @@
 .form_catalogGroupProperties .form__label,
 .form_catalogCategoryProperties .form__label,
-.form_catalogSubcategoryProperties .form__label{
+.form_catalogSubCategoryProperties .form__label{
     white-space: nowrap;
 }
 
@@ -9,7 +9,7 @@
     text-align: right;
 }
 
-.form_catalogSubcategoryProperties .form__controls{
+.form_catalogSubCategoryProperties .form__controls{
     margin: 10px 0 0;
 }
 

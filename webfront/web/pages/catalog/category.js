@@ -63,31 +63,31 @@ define(function(require) {
             });
 
             page.catalogProductsCollection = new CatalogProductsCollection([], {
-                subcategory: params.catalogSubcategoryId,
+                subCategory: params.catalogSubCategoryId,
                 storeId: pageParams.storeId
             });
 
             page.storeProductsCollection = new StoreProductsCollection([], {
-                subcategory: params.catalogSubcategoryId,
+                subCategory: params.catalogSubCategoryId,
                 storeId: pageParams.storeId
             });
 
             $.when(
                     page.catalogGroupModel.fetch(),
-                    params.catalogSubcategoryId ? page.catalogProductsCollection.fetch() : {},
-                    pageParams.storeId && params.catalogSubcategoryId ? page.storeProductsCollection.fetch() : {}
+                    params.catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {},
+                    pageParams.storeId && params.catalogSubCategoryId ? page.storeProductsCollection.fetch() : {}
                 ).then(function() {
 
                     page.catalogCategoryModel = page.catalogGroupModel.categories.get(params.catalogCategoryId);
-                    page.catalogSubcategoriesCollection = page.catalogCategoryModel.subCategories;
+                    page.catalogSubCategoriesCollection = page.catalogCategoryModel.subCategories;
 
                     page.render();
 
                     new CatalogCategoryBlock({
                         el: document.getElementById('catalogCategory'),
                         catalogCategoryModel: page.catalogCategoryModel,
-                        catalogSubcategoriesCollection: page.catalogSubcategoriesCollection,
-                        catalogSubcategoryId: params.catalogSubcategoryId,
+                        catalogSubCategoriesCollection: page.catalogSubCategoriesCollection,
+                        catalogSubCategoryId: params.catalogSubCategoryId,
                         catalogProductsCollection: page.catalogProductsCollection,
                         storeProductsCollection: page.storeProductsCollection,
                         editMode: pageParams.editMode,

@@ -1,29 +1,29 @@
 define(function(require) {
     //requirements
     var Block = require('kit/core/block'),
-        CatalogCategory__subcategoryItem = require('blocks/catalogCategory/catalogCategory__subcategoryItem');
+        CatalogCategory__subCategoryItem = require('blocks/catalogCategory/catalogCategory__subCategoryItem');
 
     return Block.extend({
-        __name__: 'catalogCategory__subcategoryList',
-        catalogSubcategoriesCollection: null,
+        __name__: 'catalogCategory__subCategoryList',
+        catalogSubCategoriesCollection: null,
 
-        template: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryList.html'),
+        template: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryList.html'),
         templates: {
-            index: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryList.html'),
-            catalogCategory__subcategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subcategoryItem.html')
+            index: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryList.html'),
+            catalogCategory__subCategoryItem: require('tpl!blocks/catalogCategory/templates/catalogCategory__subCategoryItem.html')
         },
         listeners: {
-            catalogSubcategoriesCollection: {
+            catalogSubCategoriesCollection: {
                 add: function(model, collection, options) {
                     var block = this,
-                        catalogCategory__subcategoryItem = new CatalogCategory__subcategoryItem({
-                            catalogSubcategoryModel: model
+                        catalogCategory__subCategoryItem = new CatalogCategory__subCategoryItem({
+                            catalogSubCategoryModel: model
                         });
 
                     if (collection.length === 1){
-                        block.$el.html(catalogCategory__subcategoryItem.el);
+                        block.$el.html(catalogCategory__subCategoryItem.el);
                     } else {
-                        block.$el.prepend(catalogCategory__subcategoryItem.el);
+                        block.$el.prepend(catalogCategory__subCategoryItem.el);
                     }
                 }
             }
@@ -31,10 +31,10 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
-            block.catalogSubcategoriesCollection.each(function(catalogSubcategoryModel){
-                new CatalogCategory__subcategoryItem({
-                    catalogSubcategoryModel: catalogSubcategoryModel,
-                    el: block.el.querySelectorAll('[subcategory_id="' + catalogSubcategoryModel.id + '"]')
+            block.catalogSubCategoriesCollection.each(function(catalogSubCategoryModel){
+                new CatalogCategory__subCategoryItem({
+                    catalogSubCategoryModel: catalogSubCategoryModel,
+                    el: block.el.querySelectorAll('[subCategory_id="' + catalogSubCategoryModel.id + '"]')
                 })
             });
         }

@@ -3,7 +3,7 @@ define(function(require) {
         var Model = require('kit/core/model');
 
         return Model.extend({
-            modelName: 'catalogSubcategory',
+            modelName: 'catalogSubCategory',
             urlRoot: LH.baseApiUrl + '/subcategories',
             saveData: function(){
                 return {

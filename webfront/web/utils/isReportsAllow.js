@@ -12,7 +12,7 @@ define(function(require, exports, module) {
             grossSales: LH.isAllow('others', 'GET::api/1/reports/grossSales'),
             grossSalesByGroups: true,
             grossSalesByCategories: true,
-            grossSalesBySubcategories: true,
+            grossSalesBySubCategories: true,
             grossSalesByProducts: true
         };
 

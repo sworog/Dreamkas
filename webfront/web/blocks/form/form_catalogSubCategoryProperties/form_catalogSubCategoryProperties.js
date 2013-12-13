@@ -3,7 +3,7 @@ define(function(require) {
     var Form = require('kit/blocks/form/form');
 
     return Form.extend({
-        __name__: 'form_catalogSubcategoryProperties',
+        __name__: 'form_catalogSubCategoryProperties',
         model: null,
         successMessage: 'Свойства успешно сохранены',
         template: require('tpl!blocks/form/form_catalogGroupProperties/templates/index.html')

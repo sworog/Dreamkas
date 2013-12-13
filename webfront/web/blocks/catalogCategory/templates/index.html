@@ -1,14 +1,14 @@
 <%
 /**
  * @catalogCategoryModel
- * @catalogSubcategoriesCollection
+ * @catalogSubCategoriesCollection
  * @storeProductsCollection
  */
   %>
 
-<% var table_subcategoryBalance = require('tpl!blocks/table/table_subcategoryBalance/table_subcategoryBalance.html') %>
+<% var table_subCategoryBalance = require('tpl!blocks/table/table_subCategoryBalance/table_subCategoryBalance.html') %>
 
-<% if (LH.isAllow('subcategories', 'POST')) { %>
+<% if (LH.isAllow('subCategories', 'POST')) { %>
 <div class="page__controls">
     <a class="page__controlsLink editor__on">Редактировать</a>
     <a class="page__controlsLink editor__off">Завершить редактирование</a>
@@ -20,12 +20,12 @@
         <%= LH.modelNode(catalogCategoryModel, 'name') %>
     </span>
     <a class="editor__editLink catalog__editCategoryLink"></a>
-    <a lh-button class="button catalog__addSubcategoryLink editor__control">
+    <a lh-button class="button catalog__addSubCategoryLink editor__control">
         Добавить подкатегорию
     </a>
 </h1>
 <div class="page__tabs">
-    <a class="page__tabItem page__tabItem_active" rel="subcategoryList">
+    <a class="page__tabItem page__tabItem_active" rel="subCategoryList">
         Подкатегории
     </a>
     <% if(LH.isAllow('categories', 'PUT::{category}')) { %>
@@ -35,33 +35,33 @@
     <% } %>
 </div>
 <div class="page__tabsContent">
-    <div class="page__tabContentItem page__tabContentItem_active" rel="subcategoryList">
-        <div id="catalogCategory__subcategoryList">
-            <%= templates.catalogCategory__subcategoryList({
+    <div class="page__tabContentItem page__tabContentItem_active" rel="subCategoryList">
+        <div id="catalogCategory__subCategoryList">
+            <%= templates.catalogCategory__subCategoryList({
             templates: templates,
-            catalogSubcategoriesCollection: catalogSubcategoriesCollection
+            catalogSubCategoriesCollection: catalogSubCategoriesCollection
             }) %>
         </div>
 
         <div class="catalogCategory__productList">
             <h4>
                 <span class="catalogCategory__productListTitle">Список товаров</span>
-                <a lh-button style="margin-left: 15px;" href="/products/create?subcategory=<%- catalogSubcategoryId %>"
+                <a lh-button style="margin-left: 15px;" href="/products/create?subCategory=<%- catalogSubCategoryId %>"
                    class="button catalogCategory__addProductLink editor__control">
                     Добавить товар
                 </a>
             </h4>
             <div class="page__tabs">
-                <a href="/catalog/<%- catalogCategoryModel.get('group') + '/' + catalogCategoryModel.id + '/' + catalogSubcategoryId %>/products" class="page__tabItem <%- section === 'products' ? 'page__tabItem_active' : '' %>" rel="productList">
+                <a href="/catalog/<%- catalogCategoryModel.get('group') + '/' + catalogCategoryModel.id + '/' + catalogSubCategoryId %>/products" class="page__tabItem <%- section === 'products' ? 'page__tabItem_active' : '' %>" rel="productList">
                     Продукты
                 </a>
                 <% if(storeId){ %>
-                <a href="/catalog/<%- catalogCategoryModel.get('group') + '/' + catalogCategoryModel.id + '/' + catalogSubcategoryId %>/balance" class="page__tabItem <%- section === 'balance' ? 'page__tabItem_active' : '' %>" rel="balance">
+                <a href="/catalog/<%- catalogCategoryModel.get('group') + '/' + catalogCategoryModel.id + '/' + catalogSubCategoryId %>/balance" class="page__tabItem <%- section === 'balance' ? 'page__tabItem_active' : '' %>" rel="balance">
                     Остатки
                 </a>
                 <% } %>
-                <% if(LH.isAllow('subcategories', 'PUT::{subcategory}')) { %>
-                <a href="/catalog/<%- catalogCategoryModel.get('group') + '/' + catalogCategoryModel.id + '/' + catalogSubcategoryId %>/properties" class="page__tabItem <%- section === 'properties' ? 'page__tabItem_active' : '' %>" rel="subcategoryProperties">
+                <% if(LH.isAllow('subCategories', 'PUT::{subCategory}')) { %>
+                <a href="/catalog/<%- catalogCategoryModel.get('group') + '/' + catalogCategoryModel.id + '/' + catalogSubCategoryId %>/properties" class="page__tabItem <%- section === 'properties' ? 'page__tabItem_active' : '' %>" rel="subCategoryProperties">
                     Свойства
                 </a>
                 <% } %>
@@ -78,14 +78,14 @@
                     <div class="catalogCategory__productListNotification">
                         Нет продуктов
                     </div>
-                    <%= table_subcategoryBalance({
+                    <%= table_subCategoryBalance({
                         collection: storeProductsCollection
                     }) %>
                 </div>
                 <% } %>
-                <% if(LH.isAllow('subcategories', 'PUT::{subcategory}')) { %>
-                <div class="page__tabContentItem <%- section === 'properties' ? 'page__tabContentItem_active' : '' %>" rel="subcategoryProperties">
-                    <form id="form_catalogSubcategoryProperties" class="form"></form>
+                <% if(LH.isAllow('subCategories', 'PUT::{subCategory}')) { %>
+                <div class="page__tabContentItem <%- section === 'properties' ? 'page__tabContentItem_active' : '' %>" rel="subCategoryProperties">
+                    <form id="form_catalogSubCategoryProperties" class="form"></form>
                 </div>
                 <% } %>
             </div>

@@ -1,6 +1,6 @@
 <h2>Продажи по подкатегориям. Магазин №<%- models.store.get('number') %></h2>
 
-<% if (collections.grossSalesBySubcategories.length) { %>
+<% if (collections.grossSalesBySubCategories.length) { %>
 <table class="table">
     <thead>
     <tr>
@@ -11,19 +11,19 @@
     </tr>
     </thead>
     <tbody>
-    <% collections.grossSalesBySubcategories.forEach(function(subcategoryGrossSalesModel){ %>
-    <tr name="subcategoryGrossSales" href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- categoryId %>/subcategories/<%- subcategoryGrossSalesModel.get('subcategory.id') %>/grossSalesByProducts">
-        <td name="subcategory.name">
-            <%- subcategoryGrossSalesModel.get('subcategory.name') %>
+    <% collections.grossSalesBySubCategories.forEach(function(subCategoryGrossSalesModel){ %>
+    <tr name="subCategoryGrossSales" href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- categoryId %>/subCategories/<%- subCategoryGrossSalesModel.get('subCategory.id') %>/grossSalesByProducts">
+        <td name="subCategory.name">
+            <%- subCategoryGrossSalesModel.get('subCategory.name') %>
         </td>
         <td name="today.runningSum">
-            <%- LH.formatMoney(subcategoryGrossSalesModel.get('today.runningSum')) %> р.
+            <%- LH.formatMoney(subCategoryGrossSalesModel.get('today.runningSum')) %> р.
         </td>
         <td name="yesterday.runningSum">
-            <%- LH.formatMoney(subcategoryGrossSalesModel.get('yesterday.runningSum')) %> р.
+            <%- LH.formatMoney(subCategoryGrossSalesModel.get('yesterday.runningSum')) %> р.
         </td>
         <td name="weekAgo.runningSum">
-            <%- LH.formatMoney(subcategoryGrossSalesModel.get('weekAgo.runningSum')) %> р.
+            <%- LH.formatMoney(subCategoryGrossSalesModel.get('weekAgo.runningSum')) %> р.
         </td>
     </tr>
     <% }) %>

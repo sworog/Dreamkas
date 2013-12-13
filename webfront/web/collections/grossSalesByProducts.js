@@ -6,9 +6,9 @@ define(function(require, exports, module) {
         __name__: module.id,
         model: require('kit/core/model'),
         storeId: null,
-        subcategoryId: null,
+        subCategoryId: null,
         url: function(){
-            return LH.mockApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subcategoryId + '/reports/grossSalesByProducts';
+            return LH.mockApiUrl + '/stores/' + this.storeId + '/subCategories/' + this.subCategoryId + '/reports/grossSalesByProducts';
         }
     });
 });
