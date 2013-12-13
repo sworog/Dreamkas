@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.objects.web.grossSaleByTable;
 
 import net.thucydides.core.annotations.findby.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectLocatable;
@@ -18,8 +19,8 @@ public class GrossSaleByProductsObject extends AbstractObject implements ObjectL
     private String yesterdayValue;
     private String weekAgoValue;
 
-    public GrossSaleByProductsObject(WebElement element) {
-        super(element);
+    public GrossSaleByProductsObject(WebElement element, WebDriver webDriver) {
+        super(element, webDriver);
     }
 
     @Override

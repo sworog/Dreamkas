@@ -14,4 +14,9 @@ public class ThenGrossSaleByProductsSteps {
     public void thenTheUserChecksTheGrossSaleByProductsReportContainsEntry(ExamplesTable examplesTable) {
         grossSaleByProductsSteps.compareWithExampleTable(examplesTable);
     }
+
+    @Then("the user checks the gross sale by products report contains zero sales")
+    public void thenTheUserChecksTheGrossSaleByProductsReportContainsZeroSales() {
+        grossSaleByProductsSteps.compareIsZeroSales();
+    }
 }
