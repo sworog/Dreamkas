@@ -56,19 +56,55 @@ class DateTimestamp extends DateTime
         return $dateTime->getTimestamp() == $this->getTimestamp();
     }
 
+    /**
+     * @param int $hours
+     * @return DateTimestamp
+     */
     public function setHours($hours)
     {
         return $this->modify($hours . $this->format(":i:s"));
     }
 
+    /**
+     * @return int
+     */
+    public function getHours()
+    {
+        return (int) $this->format("G");
+    }
+
+    /**
+     * @param int $minutes
+     * @return DateTimestamp
+     */
     public function setMinutes($minutes)
     {
         return $this->modify($this->format("G:") . $minutes . $this->format(":s"));
     }
 
+    /**
+     * @return int
+     */
+    public function getMinutes()
+    {
+        return (int) $this->format("i");
+    }
+
+    /**
+     * @param int $seconds
+     * @return DateTimestamp
+     */
     public function setSeconds($seconds)
     {
         return $this->modify($this->format("G:i:") . $seconds);
+    }
+
+    /**
+     * @return int
+     */
+    public function getSeconds()
+    {
+        return (int) $this->format("s");
     }
 
     /**
