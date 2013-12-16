@@ -56,6 +56,21 @@ class DateTimestamp extends DateTime
         return $dateTime->getTimestamp() == $this->getTimestamp();
     }
 
+    public function setHours($hours)
+    {
+        return $this->modify($hours . $this->format(":i:s"));
+    }
+
+    public function setMinutes($minutes)
+    {
+        return $this->modify($this->format("G:") . $minutes . $this->format(":s"));
+    }
+
+    public function setSeconds($seconds)
+    {
+        return $this->modify($this->format("G:i:") . $seconds);
+    }
+
     /**
      * @return MongoTimestamp
      */

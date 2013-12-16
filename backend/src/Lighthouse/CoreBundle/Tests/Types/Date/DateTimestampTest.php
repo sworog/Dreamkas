@@ -19,4 +19,24 @@ class DateTimestampTest extends TestCase
         $timestamp2 = new DateTimestamp("-3 days");
         $this->assertNotEquals($timestamp->getMongoDate()->sec, $timestamp2->getMongoDate()->sec);
     }
+    
+    public function testSetHourSetMinuteSetSecond()
+    {
+        $dateTime = new DateTimestamp('16-12-2013 16:43:57');
+        $expectedDateTimeChangeHour = new DateTimestamp('16-12-2013 12:43:57');
+        $expectedDateTimeChangeMinute = new DateTimestamp('16-12-2013 16:25:57');
+        $expectedDateTimeChangeSecond = new DateTimestamp('16-12-2013 16:43:23');
+        
+        $changeHourDateTime = clone $dateTime;
+        $changeHourDateTime->setHours(12);
+        $this->assertTrue($expectedDateTimeChangeHour->equals($changeHourDateTime));
+
+        $changeMinuteDateTime = clone $dateTime;
+        $changeMinuteDateTime->setMinutes(25);
+        $this->assertTrue($expectedDateTimeChangeMinute->equals($changeMinuteDateTime));
+
+        $changeSecondDateTime = clone $dateTime;
+        $changeSecondDateTime->setSeconds(23);
+        $this->assertTrue($expectedDateTimeChangeSecond->equals($changeSecondDateTime));
+    }
 }
